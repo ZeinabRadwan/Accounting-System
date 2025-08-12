@@ -46,6 +46,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapCentralRoutes();
+
         //
     }
 
@@ -60,6 +62,18 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
 
+    }
+
+    /**
+     * Define the "central" routes for the application.
+     *
+     * These routes are for the central application (not tenant-specific).
+     */
+    protected function mapCentralRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/central.php'));
     }
 
     /**

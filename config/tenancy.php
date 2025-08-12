@@ -44,6 +44,7 @@ return [
         /**
          * Connection used as a "template" for the dynamically created tenant database connection.
          * Note: don't name your template connection tenant. That name is reserved by package.
+         * Set to null to not copy any existing structure - let migrations create tables from scratch.
          */
         'template_tenant_connection' => null,
 
@@ -193,7 +194,7 @@ return [
      * Parameters used by the tenants:seed command.
      */
     'seeder_parameters' => [
-        '--class' => 'DatabaseSeeder', // root seeder class
+        '--class' => 'Database\\Seeders\\Tenant\\TenantDatabaseSeeder', // tenant seeder class
         // '--force' => true,
     ],
 ];

@@ -17,4 +17,22 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 | Feel free to customize them however you want. Good luck!
 |
 */
+
+Route::middleware([
+    'web',
+    InitializeTenancyByPath::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    // Tenant dashboard
+    Route::get('/', function () {
+        return view('tenant.dashboard');
+    })->name('tenant.dashboard');
+
+    // Tenant users
+    Route::get('/users', function () {
+        return view('tenant.users.index');
+    })->name('tenant.users.index');
+
+    // Add more tenant-specific routes here
+});
  
