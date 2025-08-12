@@ -22,6 +22,7 @@ Route::middleware([
     'web',
     InitializeTenancyByPath::class,
     PreventAccessFromCentralDomains::class,
+    'tenant.auth',
 ])->group(function () {
     // Tenant dashboard
     Route::get('/', function () {
@@ -32,6 +33,17 @@ Route::middleware([
     Route::get('/users', function () {
         return view('tenant.users.index');
     })->name('tenant.users.index');
+
+    // Tenant logout
+    Route::post('/logout', function () {
+        auth()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        
+        // End tenancy and redirect to central
+        tenancy()->end();
+        return redirect()->route('central.dashboard');
+    })->name('tenant.logout');
 
     // Add more tenant-specific routes here
 });

@@ -8,7 +8,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 class Status extends BaseModel
 {
     protected $appends = ['translated_name'];
-    use TranslatedNameTrait,BelongsToTenant;
+    use TranslatedNameTrait; // BelongsToTenant not needed with multi-DB approach
     protected $fillable = ['name', 'type', 'class'];
 
     public static function findByNameAndType($name, $type = 'user')
