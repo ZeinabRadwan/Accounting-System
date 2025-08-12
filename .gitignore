@@ -38,7 +38,11 @@ coverage.xml
 _ide_helper_models.php
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 /public
+=======
+composer.lock
+>>>>>>> Stashed changes
 =======
 composer.lock
 >>>>>>> Stashed changes
