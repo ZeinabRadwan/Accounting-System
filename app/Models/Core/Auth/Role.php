@@ -10,7 +10,6 @@ use App\Models\Core\Auth\Traits\Rules\RoleRules;
 use App\Models\Core\BaseModel;
 use App\Models\Core\Traits\DescriptionGeneratorTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Role extends BaseModel
 {
@@ -23,7 +22,7 @@ class Role extends BaseModel
         'name', 'is_admin', 'createdBy.name', 'type.name'
     ];
 
-    use RoleMethod, RoleRelationship, Eventually, RoleRules, RoleBootTrait, DescriptionGeneratorTrait,BelongsToTenant;
+    use RoleMethod, RoleRelationship, Eventually, RoleRules, RoleBootTrait, DescriptionGeneratorTrait;
 
     protected $casts = [
         'is_admin' => 'boolean',

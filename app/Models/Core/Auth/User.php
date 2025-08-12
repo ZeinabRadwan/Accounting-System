@@ -17,11 +17,10 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+
 
 class User extends BaseUser implements HasLocalePreference
 {
-    use BelongsToTenant;
     protected static $logAttributes = [
         'first_name', 'last_name', 'email'
     ];

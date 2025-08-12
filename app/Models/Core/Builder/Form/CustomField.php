@@ -8,10 +8,10 @@ use App\Models\Core\Traits\BootTrait;
 use App\Models\Core\Traits\DescriptionGeneratorTrait;
 use Illuminate\Validation\Rule;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+
 class CustomField extends BaseModel
 {
-    use CustomFieldRelationship, BootTrait, DescriptionGeneratorTrait,BelongsToTenant;
+    use CustomFieldRelationship, BootTrait, DescriptionGeneratorTrait;
 
     protected $logAttributes = [
         'name', 'context', 'meta', 'customFieldType.name'

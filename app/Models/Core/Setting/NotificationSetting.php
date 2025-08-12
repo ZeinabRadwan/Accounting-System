@@ -8,15 +8,14 @@ use App\Models\Core\Setting\Traits\NotificationSettingMethodTrait as Notificatio
 use App\Models\Core\Setting\Traits\NotificationSettingRelationship;
 use App\Models\Core\Traits\BootTrait;
 use App\Models\Core\Traits\DescriptionGeneratorTrait;
-use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+
 
 class NotificationSetting extends BaseModel
 {
     use NotificationSettingRelationship,
         NotificationAttribute,
         NotificationMethod,
-        DescriptionGeneratorTrait,
-        BelongsToTenant;
+        DescriptionGeneratorTrait;
 
 
     protected $table = 'notification_settings';

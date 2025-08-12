@@ -6,10 +6,9 @@ use App\Models\Core\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+
 class Message extends Model
 {
-    use BelongsToTenant;
     protected $fillable = ['sender_id', 'receiver_id', 'message', 'type'];
 
     public static function boot()

@@ -3,10 +3,9 @@
 namespace App\Models\Core\Auth;
 
 use App\Models\Core\BaseModel;
-use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+
 class SocialAccount extends BaseModel
 {
-    use BelongsToTenant;
     /**
      * The database table used by the model.
      *

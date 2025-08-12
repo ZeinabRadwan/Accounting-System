@@ -4,10 +4,10 @@ namespace App\Models\App\SamplePage\KanbanView;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+
 class Stage extends Model
 {
-    use HasFactory,BelongsToTenant;
+    use HasFactory;
 
     protected $fillable = ['name'];
 
