@@ -59,3 +59,15 @@ Route::any('install-demo-data', [InstallDemoDataController::class, 'run'])
 
 Route::any('symlink', [SymlinkController::class, 'run'])
     ->name('storage.symlink');
+
+
+Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'core.'], function () {
+    /*
+         * (good if you want to allow more than one group in the core,
+         * then limit the core features by different roles or permissions)
+         *
+         * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
+         * These routes can not be hit if the password is expired
+         */
+    include_route_files(__DIR__ . '/core/');
+});
