@@ -8,7 +8,7 @@ return [
         ['name' => 'date_of_birth', 'value' => '', 'context' => 'user'],
     ],
     'app' => [
-        ['name' => 'company_name', 'value' => env('APP_NAME', 'Readykit'), 'context' => 'app', 'autoload' => 0, 'public' => 1],
+        ['name' => 'company_name', 'value' => env('APP_NAME', 'Binary Numbers'), 'context' => 'app', 'autoload' => 0, 'public' => 1],
         ['name' => 'company_logo', 'value' => '/images/logo.png', 'context' => 'app', 'autoload' => 0, 'public' => 1],
         ['name' => 'company_icon', 'value' => '/images/icon.png', 'context' => 'app', 'autoload' => 0, 'public' => 1],
         ['name' => 'company_banner', 'value' => '/images/readykit-banner.png', 'context' => 'app', 'autoload' => 0, 'public' => 1],
