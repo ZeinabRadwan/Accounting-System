@@ -37,4 +37,8 @@ coverage.xml
 .editorconfig
 _ide_helper_models.php
 
+<<<<<<< Updated upstream
 /public
+=======
+composer.lock
+>>>>>>> Stashed changes
