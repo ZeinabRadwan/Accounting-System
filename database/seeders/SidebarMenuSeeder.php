@@ -147,13 +147,13 @@ class SidebarMenuSeeder extends Seeder
             // ['icon' => 'columns', 'name' => 'custom.kanban_view', 'url' => '/kanban-view', 'permissions' => json_encode(['manage_kanban_view']), 'order' => 10],
             // ['icon' => 'credit-card', 'name' => 'custom.payment_method', 'url' => '/payment-view', 'permissions' => json_encode(['view_payment_method']), 'order' => 11],
             ['icon' => 'user-check', 'name' => 'custom.user_and_roles', 'url' => '/users-and-roles', 'permissions' => json_encode(['view_users', 'view_roles', 'invite_user', 'create_roles']), 'order' => 12],
-            // ['icon' => 'settings', 'name' => 'custom.settings', 'url' => '/app-setting', 'permissions' => json_encode([
-            //     'view_settings', 'update_settings', 'view_delivery_settings', 'update_delivery_settings',
-            //     'view_sms_settings', 'update_sms_settings', 'view_recaptcha_settings',
-            //     'view_payment_method', 'update_payment_method', 'delete_payment_method',
-            //     'view_notification_settings', 'update_notification_settings', 'update_notification_templates',
-            //     'view_notification_templates'
-            // ]), 'order' => 13],
+            ['icon' => 'settings', 'name' => 'custom.settings', 'url' => '/app-setting', 'permissions' => json_encode([
+                'view_settings', 'update_settings', 'view_delivery_settings', 'update_delivery_settings',
+                'view_sms_settings', 'update_sms_settings', 'view_recaptcha_settings',
+                'view_payment_method', 'update_payment_method', 'delete_payment_method',
+                'view_notification_settings', 'update_notification_settings', 'update_notification_templates',
+                'view_notification_templates'
+            ]), 'order' => 13],
             // ['icon' => 'book', 'name' => 'default.documentation', 'url' => '/documentation/index.html', 'permissions' => json_encode(['view_map']), 'order' => 14],
         ]);
 
