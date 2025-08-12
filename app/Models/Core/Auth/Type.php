@@ -4,9 +4,10 @@ namespace App\Models\Core\Auth;
 
 use App\Models\Core\BaseModel;
 use Spatie\Activitylog\Traits\LogsActivity;
-
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 class Type extends BaseModel
 {
+    use BelongsToTenant;
 //    use LogsActivity;
 
     protected $fillable = [

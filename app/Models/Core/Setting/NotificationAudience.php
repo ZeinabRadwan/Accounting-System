@@ -5,10 +5,12 @@ namespace App\Models\Core\Setting;
 use App\Models\Core\Auth\Role;
 use App\Models\Core\Auth\User;
 use App\Models\Core\BaseModel;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 
 class NotificationAudience extends BaseModel
 {
+    use BelongsToTenant;
     protected $fillable = [
         'notification_setting_id', 'audience_type', 'audiences'
     ];

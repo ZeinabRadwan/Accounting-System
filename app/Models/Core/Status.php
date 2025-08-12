@@ -3,11 +3,12 @@
 namespace App\Models\Core;
 
 use App\Models\Core\Traits\Translate\TranslatedNameTrait;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Status extends BaseModel
 {
     protected $appends = ['translated_name'];
-    use TranslatedNameTrait;
+    use TranslatedNameTrait,BelongsToTenant;
     protected $fillable = ['name', 'type', 'class'];
 
     public static function findByNameAndType($name, $type = 'user')

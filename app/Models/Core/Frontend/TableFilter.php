@@ -3,9 +3,10 @@
 namespace App\Models\Core\Frontend;
 
 use App\Models\Core\BaseModel;
-
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 class TableFilter extends BaseModel
 {
+    use BelongsToTenant;
     protected $fillable = ['table_id', 'filter_name', 'filter_value', 'user_id'];
 
     public static function boot() : void

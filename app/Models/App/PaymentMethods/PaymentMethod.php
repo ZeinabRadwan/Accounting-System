@@ -10,10 +10,11 @@ use App\Models\Core\Setting\Setting;
 
 use App\Models\Core\Traits\StatusRelationship;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class PaymentMethod extends AppModel
 {
-    use HasFactory, PaymentMethodRules, StatusRelationship;
+    use HasFactory, PaymentMethodRules, StatusRelationship,BelongsToTenant;
 
     protected $fillable = [
         'name', 'alias', 'status_id', 'is_default', 'created_by', 'rounded_to'

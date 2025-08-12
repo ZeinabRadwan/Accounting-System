@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
-
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 class CustomTable extends BaseModel
 {
-    use CreatedByRelationship, BootTrait;
+    use CreatedByRelationship, BootTrait,BelongsToTenant;
 
     protected $fillable = [
         'name', 'context', 'created_by',

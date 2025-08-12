@@ -7,10 +7,11 @@ use App\Models\Core\Setting\Traits\SettingBoot;
 use App\Models\Core\Setting\Traits\SettingRelationship;
 use App\Models\Core\Setting\Traits\SettingRules;
 use App\Models\Core\Traits\DescriptionGeneratorTrait;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Setting extends BaseModel
 {
-    use SettingRelationship, SettingRules, SettingBoot, DescriptionGeneratorTrait;
+    use SettingRelationship, SettingRules, SettingBoot, DescriptionGeneratorTrait,BelongsToTenant;
 
     protected $fillable = [
         'name', 'value', 'context', 'autoload', 'public', 'settingable_type', 'settingable_id'

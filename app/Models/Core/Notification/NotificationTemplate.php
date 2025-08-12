@@ -7,11 +7,12 @@ use App\Models\Core\Notification\Traits\NotificationTemplateRelationship;
 use App\Models\Core\Setting\Traits\NotificationTemplateRules;
 use App\Models\Core\Traits\DescriptionGeneratorTrait;
 use App\Notifications\Traits\Tag;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 
 class NotificationTemplate extends BaseModel
 {
-    use NotificationTemplateRules, NotificationTemplateRelationship, DescriptionGeneratorTrait, Tag;
+    use NotificationTemplateRules, NotificationTemplateRelationship, DescriptionGeneratorTrait, Tag,BelongsToTenant;
 
     protected $fillable = [
         'subject', 'custom_content', 'type'

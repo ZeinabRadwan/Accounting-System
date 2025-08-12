@@ -7,12 +7,14 @@ use App\Models\Core\Setting\Traits\NotificationEventRelationship;
 use App\Models\Core\Setting\Traits\NotificationEventRules;
 use App\Models\Core\Traits\Translate\TranslatedNameTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class NotificationEvent extends BaseModel
 {
+    use BelongsToTenant;
     protected $appends = ['translated_name'];
 
-    use NotificationEventRelationship, NotificationEventRules;
+    use NotificationEventRelationship, NotificationEventRules,BelongsToTenant;
 
     public function getTranslatedNameAttribute()
     {

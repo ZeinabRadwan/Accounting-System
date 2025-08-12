@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 class CustomTableRow extends Model
 {
-    use HasFactory;
+    use HasFactory,BelongsToTenant;
 
     protected $fillable = [
         'custom_table_id',
