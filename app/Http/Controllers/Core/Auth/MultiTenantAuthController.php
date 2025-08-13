@@ -228,6 +228,7 @@ class MultiTenantAuthController extends Controller
             DB::beginTransaction();
 
             // Create new tenant with system-generated UUID
+           return 'ss';
             try {
                 $tenant = Tenant::create([
                     'company_name' => $request->company_name
@@ -249,7 +250,6 @@ class MultiTenantAuthController extends Controller
             // Initialize tenancy for the new tenant and login the user
             //  try {
             $this->tenancy->initialize($tenant);
-dd('ss');
             // Run tenant database seeder
             $this->runTenantSeeder($tenant);
             // } catch (\Exception $e) {
