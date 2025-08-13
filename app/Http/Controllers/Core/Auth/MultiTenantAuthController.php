@@ -21,6 +21,7 @@ use App\Models\App\User\SocialLink;
 use App\Models\App\PaymentMethods\PaymentMethod;
 use App\Models\Core\Status;
 use App\Models\CentralUser;
+use App\Models\Core\Auth\Type;
 
 class MultiTenantAuthController extends Controller
 {
@@ -65,7 +66,7 @@ class MultiTenantAuthController extends Controller
             throw $e;
         }
 
-       
+
 
         $email = $request->email;
         $password = $request->password;
@@ -115,7 +116,7 @@ class MultiTenantAuthController extends Controller
         $this->tenancy->initialize($tenant);
 
 
-       
+
 
 
         // Find user in central database with matching tenant_id
@@ -298,6 +299,18 @@ class MultiTenantAuthController extends Controller
                 throw new GeneralException('Failed to create user: ' . $e->getMessage());
             }
 
+            $roles = [
+                [
+                    'name' => config('access.users.app_admin_role'),
+                    'is_admin' => 1,
+                    'type_id' => Type::findByAlias('app')->id,
+                    'created_by' => $user->id,
+                    'is_default' => 1
+                ]
+            ];
+
+            Role::query()->insert($roles);
+
             Role::insert([
                 [
                     'name' => 'Manager',
@@ -313,7 +326,7 @@ class MultiTenantAuthController extends Controller
             $permissions = Permission::pluck('id')->toArray();
             $socialLinks = SocialLink::pluck('id')->toArray();
 
-            Role::where('id', '!=', 1)->get()->each(function (Role $role) use ($permissions) {
+            Role::where('id', 1)->get()->each(function (Role $role) use ($permissions) {
                 $role->permissions()->attach($permissions);
             });
 
@@ -330,8 +343,8 @@ class MultiTenantAuthController extends Controller
                 ]
             ];
             PaymentMethod::query()->insert($methods);
- 
-            $user->assignRole('Manager');
+
+            $user->assignRole(config('access.users.app_admin_role'));
 
 
             DB::commit();
