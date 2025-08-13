@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 //auth()->loginUsingId(1);
 
 Route::get('/', function () {
-    // initialize tenancy
-    tenancy()->initialize(session('tenant_id'));
-    // Check if user is authenticated and has tenant context
-    if (auth()->check() && session('tenant_id')) {
-        // User is authenticated and has tenant context, redirect to tenant dashboard
-        return redirect()->route('tenant.dashboard', ['tenant' => session('tenant_id')]);
+    try {
+        // initialize tenancy
+        tenancy()->initialize(session('tenant_id'));
+        // Check if user is authenticated and has tenant context
+        if (auth()->check() && session('tenant_id')) {
+            // User is authenticated and has tenant context, redirect to tenant dashboard
+            return redirect()->route('tenant.dashboard', ['tenant' => session('tenant_id')]);
+        }
+    } catch (\Exception $e) {
+        // No tenant context or not authenticated, redirect to central dashboard
+        return redirect('admin/users/login');
     }
-    // No tenant context or not authenticated, redirect to central dashboard
-    return redirect('admin/users/login');
 });
 
 Route::get('/get-basic-setting-data', [SettingsApiController::class, 'getBasicSettingData']);
@@ -91,28 +94,28 @@ Route::group(['prefix' => '{tenant}', 'where' => ['tenant' => '[a-f0-9]{8}-[a-f0
     // Define tenant routes directly here instead of including tenant.php
 
 
-        Route::middleware(['tenant.auth'])->group(function () {
-            // Tenant dashboard
-            Route::get('/dashboard', function () {
-                return view('dashboard.default');
-            })->name('tenant.dashboard');
+    Route::middleware(['tenant.auth'])->group(function () {
+        // Tenant dashboard
+        Route::get('/dashboard', function () {
+            return view('dashboard.default');
+        })->name('tenant.dashboard');
 
-            // Tenant users
-            Route::get('/users', function () {
-                return view('tenant.users.index');
-            })->name('tenant.users.index');
+        // Tenant users
+        Route::get('/users', function () {
+            return view('tenant.users.index');
+        })->name('tenant.users.index');
 
-            // Tenant logout
-            Route::post('/logout', function () {
-                auth()->logout();
-                request()->session()->invalidate();
-                request()->session()->regenerateToken();
-                
-                // End tenancy and redirect to central
-                tenancy()->end();
-                return redirect()->route('central.dashboard');
-            })->name('tenant.logout');
-        });
+        // Tenant logout
+        Route::post('/logout', function () {
+            auth()->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+
+            // End tenancy and redirect to central
+            tenancy()->end();
+            return redirect()->route('central.dashboard');
+        })->name('tenant.logout');
+    });
 });
 
 // Central app routes (not tenant-specific) - only for authenticated users
