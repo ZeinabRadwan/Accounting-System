@@ -166,11 +166,31 @@
             },
             afterSuccess(res) {
                 this.$toastr.s(res.data.message);
-                setTimeout(()=>{
-                    window.location = urlGenerator('/');
-                }, 3000)
-                // window.location = urlGenerator('/admin/users/login');
+                
+                // Check if we have a redirect URL from the response
+                if (res.data.redirect_url) {
+                    // Redirect to the tenant dashboard
+                    window.location = urlGenerator(res.data.redirect_url);
+                } else {
+                    // Fallback redirect after 3 seconds
+                    setTimeout(()=>{
+                        window.location = urlGenerator('/');
+                    }, 3000);
+                }
             },
+            afterError(res) {
+                // Handle validation errors specifically
+                if (res.data.errors) {
+                    // Show validation errors
+                    Object.keys(res.data.errors).forEach(field => {
+                        const errorMessage = res.data.errors[field][0];
+                        this.$toastr.e(`${field}: ${errorMessage}`);
+                    });
+                } else {
+                    // Show general error message
+                    this.$toastr.e(res.data.message);
+                }
+            }
         }
 
     }

@@ -7,7 +7,6 @@ use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\InstallDemoDataController;
 use App\Http\Controllers\SymlinkController;
 use Illuminate\Support\Facades\Route;
-use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
 /**
  * This route is only for user dashboard
@@ -79,32 +78,30 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'core.'], fu
 // Tenant path-based routing - this must be BEFORE the general app routes to avoid conflicts
 Route::group(['prefix' => '{tenant}', 'where' => ['tenant' => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}']], function () {
     // Define tenant routes directly here instead of including tenant.php
-    Route::middleware([
-        'web',
-        \Stancl\Tenancy\Middleware\InitializeTenancyByPath::class,
-        \Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains::class,
-    ])->group(function () {
-        // Tenant dashboard
-        Route::get('/dashboard', function () {
-            return view('tenant.dashboard');
-        })->name('tenant.dashboard');
 
-        // Tenant users
-        Route::get('/users', function () {
-            return view('tenant.users.index');
-        })->name('tenant.users.index');
 
-        // Tenant logout
-        Route::post('/logout', function () {
-            auth()->logout();
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
-            
-            // End tenancy and redirect to central
-            tenancy()->end();
-            return redirect()->route('central.dashboard');
-        })->name('tenant.logout');
-    });
+        Route::middleware(['tenant.auth'])->group(function () {
+            // Tenant dashboard
+            Route::get('/dashboard', function () {
+                return view('dashboard.default');
+            })->name('tenant.dashboard');
+
+            // Tenant users
+            Route::get('/users', function () {
+                return view('tenant.users.index');
+            })->name('tenant.users.index');
+
+            // Tenant logout
+            Route::post('/logout', function () {
+                auth()->logout();
+                request()->session()->invalidate();
+                request()->session()->regenerateToken();
+                
+                // End tenancy and redirect to central
+                tenancy()->end();
+                return redirect()->route('central.dashboard');
+            })->name('tenant.logout');
+        });
 });
 
 // Central app routes (not tenant-specific) - only for authenticated users

@@ -36,11 +36,11 @@ class UserDemoSeeder extends Seeder
             $role->permissions()->attach($permissions);
         });
 
-        User::find(1)->assignSocialLinks($socialLinks);
+        // User::find(1)->assignSocialLinks($socialLinks);
 
-        User::factory(20)->create()->each(function (User $user) use ($socialLinks) {
-            $user->assignRole(Role::inRandomOrder()->first());
-            $user->assignSocialLinks($socialLinks);
-        });
+        // User::factory(20)->create()->each(function (User $user) use ($socialLinks) {
+        //     $user->assignRole(Role::inRandomOrder()->first());
+        //     $user->assignSocialLinks($socialLinks);
+        // });
     }
 }

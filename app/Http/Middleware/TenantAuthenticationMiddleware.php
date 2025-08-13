@@ -25,10 +25,11 @@ class TenantAuthenticationMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // Check if user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
+        // // Check if user is authenticated
+        // if (!Auth::check()) {
+        //     dd('ss');
+        //     return redirect()->route('login');
+        // }
 
         // Check if tenant is initialized
         if (!$this->tenancy->initialized) {
