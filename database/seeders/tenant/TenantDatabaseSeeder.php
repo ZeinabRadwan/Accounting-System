@@ -1,6 +1,6 @@
 <?php
 
-namespace database\seeders\Tenant;
+namespace Database\Seeders\Tenant;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\App\NotificationChannelTableSeeder;

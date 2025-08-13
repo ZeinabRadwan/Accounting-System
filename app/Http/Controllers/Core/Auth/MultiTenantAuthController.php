@@ -429,6 +429,13 @@ class MultiTenantAuthController extends Controller
             $this->tenancy->initialize($tenant);
 
             // Run the tenant seeder
+
+            Artisan::call('db:seed', [
+                '--force' => true
+            ]);
+
+            dd('ss');
+
             Artisan::call('db:seed', [
                 '--class' => 'database\\seeders\\Tenant\\TenantDatabaseSeeder',
                 '--force' => true
