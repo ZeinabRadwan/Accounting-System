@@ -14,7 +14,18 @@ use Illuminate\Support\Facades\Route;
  */
 //auth()->loginUsingId(1);
 
-Route::redirect('/', 'admin/users/login');
+Route::get('/', function () {
+    // initialize tenancy
+    tenancy()->initialize(session('tenant_id'));
+    // Check if user is authenticated and has tenant context
+    if (auth()->check() && session('tenant_id')) {
+        // User is authenticated and has tenant context, redirect to tenant dashboard
+        return redirect()->route('tenant.dashboard', ['tenant' => session('tenant_id')]);
+    }
+    // No tenant context or not authenticated, redirect to central dashboard
+    return redirect('admin/users/login');
+});
+
 Route::get('/get-basic-setting-data', [SettingsApiController::class, 'getBasicSettingData']);
 
 // Main auth routes for multi-tenant system
