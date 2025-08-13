@@ -8,7 +8,7 @@
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pl-md-0">
                 <div class="login-form d-flex align-items-center">
-                    <form class="sign-in-sign-up-form w-100" ref="form" data-url="/user/register" action="store">
+                    <form class="sign-in-sign-up-form w-100" ref="form" data-url="/register" action="store">
                         <div class="text-center mb-4">
                             <img
                                 :src="configData.company_logo ?
@@ -19,8 +19,23 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <h6 class="text-center mb-0">{{ $t('sign_up') }}</h6>
+                                <p class="text-center text-muted">{{ $t('create_new_tenant') || 'Create a new tenant organization' }}</p>
                             </div>
                         </div>
+                        
+                        <!-- Company Information -->
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="user_company_name">{{ $t('company_name') || 'Company Name' }}</label>
+                                <app-input type="text"
+                                           v-model="user.company_name"
+                                           :placeholder="$t('enter_company_name') || 'My Company Inc.'"
+                                           :required="true"
+                                />
+                                <small class="form-text text-muted">{{ $t('company_name_help') || 'Your organization\'s name. A unique tenant path will be generated automatically.' }}</small>
+                            </div>
+                        </div>
+                        
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="user_first_name">{{ $t('first_name') }}</label>
@@ -44,7 +59,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">
-                                <label for="user_last_name">{{ $t('email') }}</label>
+                                <label for="user_email">{{ $t('email') }}</label>
                                 <app-input type="email"
                                            v-model="user.email"
                                            :placeholder="$t('enter_email')"
@@ -95,7 +110,7 @@
                         </div>
                         <div
                             class="form-row form-row flex-column flex-md-row justify-content-center justify-content-md-between justify-content-lg-between">
-                            <a :href="urlGenerator('/admin/users/login')"
+                            <a :href="urlGenerator('/login')"
                                class="bluish-text d-flex align-items-center justify-content-center justify-content-lg-end">
                                 <app-icon name="log-in" class="pr-2"/> {{ $t('login') }}
                             </a>
@@ -133,7 +148,14 @@
         data() {
             return {
                 urlGenerator,
-                user: {},
+                user: {
+                    company_name: '',
+                    first_name: '',
+                    last_name: '',
+                    email: '',
+                    password: '',
+                    password_confirmation: ''
+                },
                 userData: {},
             }
         },

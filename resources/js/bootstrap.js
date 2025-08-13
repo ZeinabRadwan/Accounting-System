@@ -44,9 +44,17 @@ import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: true
-});
+// Only initialize Echo if Pusher keys are available
+if (process.env.MIX_PUSHER_APP_KEY && process.env.MIX_PUSHER_APP_CLUSTER) {
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: process.env.MIX_PUSHER_APP_KEY,
+        cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+        forceTLS: true
+    });
+} else {
+    // Fallback to null broadcaster if Pusher is not configured
+    window.Echo = new Echo({
+        broadcaster: 'null'
+    });
+}

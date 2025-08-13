@@ -17,9 +17,13 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
 Route::redirect('/', 'admin/users/login');
 Route::get('/get-basic-setting-data', [SettingsApiController::class, 'getBasicSettingData']);
-Route::group(['middleware' => ['auth', 'authorize']], function () {
-    include_route_files(__DIR__ . '/app/');
-});
+
+// Main auth routes for multi-tenant system
+Route::get('/login', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'login'])->name('login');
+Route::get('/register', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'register'])->name('register');
+Route::post('/logout', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'logout'])->name('logout');
 
 Route::get("doc/core/components", [DocumentationController::class, 'index']);
 Route::get("doc/core/components/{component_name}", [DocumentationController::class, 'show']);
@@ -70,4 +74,40 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'core.'], fu
          * These routes can not be hit if the password is expired
          */
     include_route_files(__DIR__ . '/core/');
+});
+
+// Tenant path-based routing - this must be BEFORE the general app routes to avoid conflicts
+Route::group(['prefix' => '{tenant}', 'where' => ['tenant' => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}']], function () {
+    // Define tenant routes directly here instead of including tenant.php
+    Route::middleware([
+        'web',
+        \Stancl\Tenancy\Middleware\InitializeTenancyByPath::class,
+        \Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains::class,
+    ])->group(function () {
+        // Tenant dashboard
+        Route::get('/dashboard', function () {
+            return view('tenant.dashboard');
+        })->name('tenant.dashboard');
+
+        // Tenant users
+        Route::get('/users', function () {
+            return view('tenant.users.index');
+        })->name('tenant.users.index');
+
+        // Tenant logout
+        Route::post('/logout', function () {
+            auth()->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+            
+            // End tenancy and redirect to central
+            tenancy()->end();
+            return redirect()->route('central.dashboard');
+        })->name('tenant.logout');
+    });
+});
+
+// Central app routes (not tenant-specific) - only for authenticated users
+Route::group(['middleware' => ['auth', 'authorize']], function () {
+    include_route_files(__DIR__ . '/app/');
 });

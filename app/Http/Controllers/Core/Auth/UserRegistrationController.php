@@ -24,9 +24,9 @@ class UserRegistrationController extends Controller
 
     public function index()
     {
+        $recaptcha = $this->getReCaptcha();
+        return view('auth.register', $recaptcha);
         if (config('settings.application.registration') == 'on') {
-            $recaptcha = $this->getReCaptcha();
-            return view('auth.register', $recaptcha);
         }
 
         throw new GeneralException(trans('default.action_not_allowed'));

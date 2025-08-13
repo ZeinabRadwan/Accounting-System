@@ -54,8 +54,8 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Domain</th>
+                                            <th>Company Name</th>
+                                            <th>Tenant Path</th>
                                             <th>Database</th>
                                             <th>Created</th>
                                             <th>Status</th>
@@ -66,16 +66,11 @@
                                         @foreach($tenants as $tenant)
                                             <tr>
                                                 <td>
-                                                    <strong>{{ $tenant->id }}</strong>
+                                                    <strong>{{ $tenant->company_name ?? 'N/A' }}</strong>
                                                 </td>
                                                 <td>
-                                                    @if($tenant->domains->count() > 0)
-                                                        @foreach($tenant->domains as $domain)
-                                                            <span class="badge bg-info me-1">{{ $domain->domain }}</span>
-                                                        @endforeach
-                                                    @else
-                                                        <span class="text-muted">No domains</span>
-                                                    @endif
+                                                    <code>/{{ $tenant->id }}</code>
+                                                    <small class="text-muted d-block">{{ $tenant->id }}</small>
                                                 </td>
                                                 <td>
                                                     <code>tenant{{ $tenant->id }}</code>
@@ -86,8 +81,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-                                                        <a href="#" class="btn btn-sm btn-outline-primary" title="View">
-                                                            <i class="fas fa-eye"></i>
+                                                        <a href="/{{ $tenant->id }}/dashboard" class="btn btn-sm btn-outline-primary" title="View Dashboard" target="_blank">
+                                                            <i class="fas fa-external-link-alt"></i>
                                                         </a>
                                                         <a href="#" class="btn btn-sm btn-outline-info" title="Edit">
                                                             <i class="fas fa-edit"></i>
@@ -114,54 +109,12 @@
                             <div class="text-center py-5">
                                 <i class="fas fa-building fa-3x text-muted mb-3"></i>
                                 <h5 class="text-muted">No Tenants Found</h5>
-                                <p class="text-muted">You haven't created any tenants yet. Get started by creating your first tenant.</p>
+                                <p class="text-muted">Get started by creating your first tenant organization.</p>
                                 <a href="{{ route('tenants.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus me-1"></i> Create Your First Tenant
+                                    <i class="fas fa-plus me-1"></i> Create First Tenant
                                 </a>
                             </div>
                         @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="fas fa-chart-pie me-2"></i>Tenant Statistics</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-6">
-                                <div class="border-end">
-                                    <h4 class="text-primary">{{ $tenants->count() }}</h4>
-                                    <small class="text-muted">Total Tenants</small>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <h4 class="text-success">{{ $tenants->whereHas('domains')->count() }}</h4>
-                                <small class="text-muted">Active Domains</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="fas fa-info-circle me-2"></i>Quick Actions</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-grid gap-2">
-                            <a href="{{ route('tenants.create') }}" class="btn btn-outline-primary">
-                                <i class="fas fa-plus me-1"></i> Create New Tenant
-                            </a>
-                            <a href="{{ route('central.dashboard') }}" class="btn btn-outline-secondary">
-                                <i class="fas fa-tachometer-alt me-1"></i> Central Dashboard
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

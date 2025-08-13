@@ -25,17 +25,17 @@
             
             <div class="navbar-nav ms-auto">
                 @guest
-                    <a class="nav-link" href="{{ route('multi-tenant.login') }}">
+                    <a class="nav-link" href="{{ route('login') }}">
                         <i class="fas fa-sign-in-alt me-1"></i> Login
                     </a>
-                    <a class="nav-link" href="{{ route('multi-tenant.register') }}">
+                    <a class="nav-link" href="{{ route('register') }}">
                         <i class="fas fa-user-plus me-1"></i> Register
                     </a>
                 @else
                     <span class="navbar-text me-3">
                         Welcome, {{ auth()->user()->first_name }}!
                     </span>
-                    <form method="POST" action="{{ route('multi-tenant.logout') }}" class="d-inline">
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-outline-light btn-sm">
                             <i class="fas fa-sign-out-alt me-1"></i> Logout
@@ -92,10 +92,10 @@
                     </div>
                     <div class="card-body">
                         <div class="d-grid gap-2">
-                            <a href="{{ route('multi-tenant.login') }}" class="btn btn-outline-primary">
+                            <a href="{{ route('login') }}" class="btn btn-outline-primary">
                                 <i class="fas fa-sign-in-alt me-1"></i> Tenant Login
                             </a>
-                            <a href="{{ route('multi-tenant.register') }}" class="btn btn-outline-success">
+                            <a href="{{ route('register') }}" class="btn btn-outline-success">
                                 <i class="fas fa-user-plus me-1"></i> Register New Tenant
                             </a>
                             <a href="{{ route('tenants.index') }}" class="btn btn-outline-info">

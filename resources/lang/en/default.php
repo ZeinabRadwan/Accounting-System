@@ -98,6 +98,18 @@ return array_merge([
     'name' => 'Name',
     'email' => 'Email',
     'mail' => 'Mail',
+    
+    // Multi-tenant fields
+    'tenant_id' => 'Tenant ID',
+    'domain' => 'Domain',
+    'company_name' => 'Company Name',
+    'optional' => 'Optional',
+    'enter_tenant_id' => 'Enter tenant ID',
+    'enter_domain' => 'Enter domain',
+    'enter_company_name' => 'Enter company name',
+    'tenant_id_help' => 'Unique identifier for your organization (letters, numbers, hyphens, underscores only)',
+    'domain_help' => 'Your organization\'s domain (e.g., mycompany.localhost)',
+    'create_new_tenant' => 'Create a new tenant organization',
     'value' => 'Value',
     'type' => 'Type',
     'database' => 'System',

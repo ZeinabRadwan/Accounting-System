@@ -31,7 +31,7 @@ class MultiTenantAuthController extends Controller
      */
     public function showLogin()
     {
-        return view('auth.multi-tenant-login');
+        return view('auth.login');
     }
 
     /**
@@ -43,42 +43,51 @@ class MultiTenantAuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
+            'tenant_path' => 'nullable|string',
             'remember_me' => 'boolean'
         ]);
 
         $email = $request->email;
         $password = $request->password;
+        $tenantPath = $request->tenant_path;
         $rememberMe = $request->boolean('remember_me');
 
-        // Get all tenants
-        $tenants = Tenant::all();
         $authenticatedUser = null;
         $authenticatedTenant = null;
 
-        foreach ($tenants as $tenant) {
+        // If tenant_path is provided, try to authenticate in that specific tenant first
+        if ($tenantPath) {
             try {
-                // Initialize tenancy for this tenant
-                $this->tenancy->initialize($tenant);
-
-                // Search for user in this tenant's database
-                $user = User::where('email', $email)->first();
-
-                if ($user && Hash::check($password, $user->password)) {
-                    // Check if user has roles
-                    if ($user->roles->count() > 0) {
-                        $authenticatedUser = $user;
-                        $authenticatedTenant = $tenant;
-                        break;
+                $tenant = Tenant::where('id', $tenantPath)->first();
+                if ($tenant) {
+                    // Find user in central database with matching tenant_id
+                    $user = User::where('email', $email)
+                        ->where('tenant_id', $tenant->id)
+                        ->first();
+                    
+                    if ($user && Hash::check($password, $user->password)) {
+                        if ($user->roles->count() > 0) {
+                            $authenticatedUser = $user;
+                            $authenticatedTenant = $tenant;
+                        }
                     }
                 }
-
-                // End tenancy for this tenant
-                $this->tenancy->end();
             } catch (\Exception $e) {
-                // Log error and continue to next tenant
-                Log::warning("Error checking tenant {$tenant->id}: " . $e->getMessage());
-                $this->tenancy->end();
-                continue;
+                Log::warning("Error checking specific tenant {$tenantPath}: " . $e->getMessage());
+            }
+        }
+
+        // If no specific tenant or authentication failed, search across all tenants
+        if (!$authenticatedUser) {
+            // Search for user in central database across all tenants
+            $user = User::where('email', $email)->first();
+            
+            if ($user && Hash::check($password, $user->password)) {
+                // Check if user has roles
+                if ($user->roles->count() > 0) {
+                    $authenticatedUser = $user;
+                    $authenticatedTenant = Tenant::find($user->tenant_id);
+                }
             }
         }
 
@@ -99,10 +108,10 @@ class MultiTenantAuthController extends Controller
 
         // Store tenant info in session
         session(['tenant_id' => $authenticatedTenant->id]);
-        session(['tenant_domain' => $authenticatedTenant->domains->first()->domain ?? null]);
+        session(['tenant_path' => $authenticatedTenant->id]);
 
-        // Redirect to tenant dashboard
-        return redirect()->route('tenant.dashboard');
+        // Redirect to tenant dashboard using path-based routing
+        return redirect('/' . $authenticatedTenant->id . '/dashboard');
     }
 
     /**
@@ -110,18 +119,16 @@ class MultiTenantAuthController extends Controller
      */
     public function showRegister()
     {
-        return view('auth.multi-tenant-register');
+        return view('auth.register');
     }
 
     /**
      * Handle multi-tenant registration
-     * Creates a new tenant and user
+     * Creates a new tenant and user with system-generated tenant ID
      */
     public function register(Request $request)
     {
         $request->validate([
-            'tenant_id' => 'required|string|unique:tenants,id|regex:/^[a-zA-Z0-9_-]+$/',
-            'domain' => 'required|string|unique:domains,domain',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -129,51 +136,59 @@ class MultiTenantAuthController extends Controller
             'company_name' => 'required|string|max:255',
         ]);
 
-        try {
+        // try {
             DB::beginTransaction();
 
-            // Create new tenant
-            $tenant = Tenant::create(['id' => $request->tenant_id]);
+            // Create new tenant with system-generated UUID
+            $tenant = Tenant::create([
+                'company_name' => $request->company_name
+            ]);
             
-            // Create domain for the tenant
-            $tenant->domains()->create(['domain' => $request->domain]);
+            // Get the active status ID from central database
+            $statusRepo = resolve(\App\Repositories\Core\Status\StatusRepository::class);
+            $statusId = $statusRepo->userActive();
 
-            // Initialize tenancy for the new tenant
-            $this->tenancy->initialize($tenant);
-
-            // Create user in the new tenant's database
+            // Create user in the central database with tenant_id
             $user = User::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'status_id' => resolve(\App\Repositories\Core\Status\StatusRepository::class)->userActive(),
+                'status_id' => $statusId,
+                'tenant_id' => $tenant->id,
             ]);
 
             // Assign default role (Moderator)
-            $user->assignRole('Moderator');
-
-            // End tenancy
-            $this->tenancy->end();
+            // try {
+                $user->assignRole('Moderator');
+            // } catch (\Exception $roleException) {
+                // Log::warning("Could not assign Moderator role to user: " . $roleException->getMessage());
+                // Continue without role assignment for now
+            // }
 
             DB::commit();
 
-            // Initialize tenancy again and login the user
+            // Initialize tenancy for the new tenant and login the user
             $this->tenancy->initialize($tenant);
             Auth::login($user);
 
             // Store tenant info in session
             session(['tenant_id' => $tenant->id]);
-            session(['tenant_domain' => $request->domain]);
+            session(['tenant_path' => $tenant->id]);
 
-            return redirect()->route('tenant.dashboard')->with('success', 'Tenant and user created successfully!');
+            return redirect('/' . $tenant->id . '/dashboard')->with('success', 'Tenant and user created successfully! Your tenant path is: /' . $tenant->id);
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $this->tenancy->end();
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     $this->tenancy->end();
             
-            throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
-        }
+        //     Log::error('Registration failed: ' . $e->getMessage(), [
+        //         'exception' => $e,
+        //         'request_data' => $request->all()
+        //     ]);
+            
+        //     throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
+        // }
     }
 
     /**

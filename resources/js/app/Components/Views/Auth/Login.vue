@@ -9,7 +9,7 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pl-md-0">
                 <div class="login-form d-flex align-items-center">
                     <form class="sign-in-sign-up-form w-100"
-                          ref="form" data-url="/admin/users/login" action="store">
+                          ref="form" data-url="/login" action="store">
 
                         <div class="text-center mb-4">
                             <img :src="urlGenerator(configData.company_logo)" alt=""
@@ -21,6 +21,19 @@
                                 <label class="text-center d-block">{{ $t('log_in_to_your_dashboard') }}</label>
                             </div>
                         </div>
+                        
+                        <!-- Tenant Path Field for Multi-Tenant (Optional) -->
+                        <div class="form-row">
+                            <div class="form-group col-12 px-0">
+                                <label for="login_tenant_path">{{ $t('tenant_path') || 'Tenant Path' }} ({{ $t('optional') || 'Optional' }})</label>
+                                <app-input type="text"
+                                           v-model="login.tenant_path"
+                                           :placeholder="$t('enter_tenant_path') || 'e.g., abc123-def456 (leave empty for auto-detect)'"
+                                           :required="false"/>
+                                <small class="form-text text-muted">{{ $t('tenant_path_help') || 'If you know your tenant path, enter it here. Otherwise, we\'ll search across all tenants.' }}</small>
+                            </div>
+                        </div>
+                        
                         <div class="form-row">
                             <div class="form-group col-12 px-0">
                                 <label for="login_email">{{ $t('email') }}</label>
@@ -60,7 +73,7 @@
                                class="bluish-text d-flex align-items-center justify-content-center justify-content-lg-end">
                                 <app-icon name="lock" class="pr-2"/> {{ $t('forgot_password') }}
                             </a>
-                            <a v-if="configData.registration === 'on'" :href="urlGenerator('/user/register')"
+                            <a v-if="configData.registration === 'on'" :href="urlGenerator('/register')"
                                class="bluish-text d-flex align-items-center justify-content-center justify-content-lg-end">
                                 <app-icon name="user" class="pr-2"/> {{ $t('register') }}
                             </a>
@@ -95,7 +108,11 @@
         data() {
             return {
                 urlGenerator,
-                login: {email: 'admin@demo.com', password: '123456'},
+                login: {
+                    email: 'admin@demo.com', 
+                    password: '123456',
+                    tenant_path: '' // Add tenant_path field for multi-tenant support
+                },
             };
         },
         methods: {

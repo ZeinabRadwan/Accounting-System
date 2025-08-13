@@ -97,6 +97,18 @@ return array_merge([
     'name' => 'الاسم',
     'email' => 'البريد الإلكتروني',
     'mail' => 'البريد',
+    
+    // Multi-tenant fields
+    'tenant_id' => 'معرف المستأجر',
+    'domain' => 'النطاق',
+    'company_name' => 'اسم الشركة',
+    'optional' => 'اختياري',
+    'enter_tenant_id' => 'أدخل معرف المستأجر',
+    'enter_domain' => 'أدخل النطاق',
+    'enter_company_name' => 'أدخل اسم الشركة',
+    'tenant_id_help' => 'معرف فريد لمنظمتك (أحرف وأرقام وشرطات وشرطات سفلية فقط)',
+    'domain_help' => 'نطاق منظمتك (مثل mycompany.localhost)',
+    'create_new_tenant' => 'إنشاء منظمة مستأجر جديدة',
     'value' => 'القيمة',
     'type' => 'النوع',
     'database' => 'النظام',

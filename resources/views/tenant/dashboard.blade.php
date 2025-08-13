@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} - {{ session('tenant_domain', 'Tenant') }} Dashboard</title>
+    <title>{{ config('app.name', 'Laravel') }} - {{ session('tenant_path', 'Tenant') }} Dashboard</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,7 +20,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('tenant.dashboard') }}">
                 <i class="fas fa-building me-2"></i>
-                {{ config('app.name', 'Laravel') }} - {{ session('tenant_domain', 'Tenant') }}
+                {{ config('app.name', 'Laravel') }} - {{ session('tenant_path', 'Tenant') }}
             </a>
             
             <div class="navbar-nav ms-auto">
@@ -59,7 +59,7 @@
                         <h4><i class="fas fa-tachometer-alt me-2"></i>Tenant Dashboard</h4>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Welcome to {{ session('tenant_domain', 'Your Tenant') }}</h5>
+                        <h5 class="card-title">Welcome to {{ session('tenant_path', 'Your Tenant') }}</h5>
                         <p class="card-text">
                             You are now logged into your tenant environment. This is your dedicated workspace where you can:
                         </p>
@@ -91,8 +91,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Tenant ID:</strong> {{ session('tenant_id') }}</p>
-                                <p><strong>Domain:</strong> {{ session('tenant_domain') }}</p>
+                                <p><strong>Tenant Path:</strong> /{{ session('tenant_path') }}</p>
+                                <p><strong>Company Name:</strong> {{ \App\Models\Tenant::find(session('tenant_id'))->company_name ?? 'N/A' }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Database:</strong> tenant{{ session('tenant_id') }}</p>
@@ -102,58 +102,43 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        <h5><i class="fas fa-user me-2"></i>Current User</h5>
+                        <h5><i class="fas fa-link me-2"></i>Quick Links</h5>
                     </div>
-                    <div class="card-body text-center">
-                        <div class="mb-3">
-                            <i class="fas fa-user-circle fa-4x text-primary"></i>
-                        </div>
-                        <h6>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h6>
-                        <p class="text-muted">{{ auth()->user()->email }}</p>
-                        <div class="mt-3">
-                            @foreach(auth()->user()->roles as $role)
-                                <span class="badge bg-primary me-1">{{ $role->name }}</span>
-                            @endforeach
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="{{ route('tenant.users.index') }}" class="btn btn-outline-primary">
+                                <i class="fas fa-users me-2"></i>Manage Users
+                            </a>
+                            <a href="#" class="btn btn-outline-info">
+                                <i class="fas fa-cogs me-2"></i>Settings
+                            </a>
+                            <a href="#" class="btn btn-outline-warning">
+                                <i class="fas fa-chart-bar me-2"></i>Reports
+                            </a>
+                            <a href="#" class="btn btn-outline-success">
+                                <i class="fas fa-database me-2"></i>Data Management
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="card mt-3">
                     <div class="card-header">
-                        <h5><i class="fas fa-clock me-2"></i>Recent Activity</h5>
+                        <h5><i class="fas fa-shield-alt me-2"></i>Security</h5>
                     </div>
                     <div class="card-body">
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <i class="fas fa-sign-in-alt text-success me-2"></i>
-                                    <small>Login successful</small>
-                                </div>
-                                <small class="text-muted">{{ now()->diffForHumans() }}</small>
-                            </div>
-                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <i class="fas fa-building text-info me-2"></i>
-                                    <small>Tenant initialized</small>
-                                </div>
-                                <small class="text-muted">{{ now()->diffForHumans() }}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5><i class="fas fa-arrow-left me-2"></i>Back to Central</h5>
-                    </div>
-                    <div class="card-body">
-                        <a href="{{ route('central.dashboard') }}" class="btn btn-outline-secondary w-100">
-                            <i class="fas fa-building me-1"></i> Central Dashboard
-                        </a>
+                        <p class="text-muted small">
+                            <i class="fas fa-lock me-1"></i>
+                            Your data is isolated in a separate database for maximum security and privacy.
+                        </p>
+                        <p class="text-muted small">
+                            <i class="fas fa-user-shield me-1"></i>
+                            Only authorized users can access this tenant environment.
+                        </p>
                     </div>
                 </div>
             </div>

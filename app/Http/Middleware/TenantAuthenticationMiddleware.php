@@ -27,7 +27,7 @@ class TenantAuthenticationMiddleware
     {
         // Check if user is authenticated
         if (!Auth::check()) {
-            return redirect()->route('multi-tenant.login');
+            return redirect()->route('login');
         }
 
         // Check if tenant is initialized
@@ -44,25 +44,26 @@ class TenantAuthenticationMiddleware
                         Auth::logout();
                         $request->session()->invalidate();
                         $request->session()->regenerateToken();
-                        return redirect()->route('multi-tenant.login')->with('error', 'Tenant not found.');
+                        return redirect()->route('login')->with('error', 'Tenant not found.');
                     }
                 } catch (\Exception $e) {
                     // Error initializing tenant, clear session and redirect
                     Auth::logout();
                     $request->session()->invalidate();
                     $request->session()->regenerateToken();
-                    return redirect()->route('multi-tenant.login')->with('error', 'Error initializing tenant.');
+                                            return redirect()->route('login')->with('error', 'Error initializing tenant.');
                 }
             } else {
                 // No tenant in session, redirect to login
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-                return redirect()->route('multi-tenant.login')->with('error', 'No tenant context found.');
+                return redirect()->route('login')->with('error', 'No tenant context found.');
             }
         }
 
         return $next($request);
     }
 }
+
 
