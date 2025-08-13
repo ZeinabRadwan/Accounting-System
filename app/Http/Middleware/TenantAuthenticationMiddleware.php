@@ -65,3 +65,4 @@ class TenantAuthenticationMiddleware
         return $next($request);
     }
 }
+

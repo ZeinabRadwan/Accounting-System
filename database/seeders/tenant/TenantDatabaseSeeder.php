@@ -3,9 +3,6 @@
 namespace Database\Seeders\Tenant;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Database\Seeders\App\CrudTableSeeder;
 use Database\Seeders\App\NotificationChannelTableSeeder;
 use Database\Seeders\App\NotificationEventTableSeeder;
 use Database\Seeders\App\NotificationSettingsSeeder;
@@ -14,7 +11,6 @@ use Database\Seeders\App\PaymentMethodTableSeeder;
 use Database\Seeders\App\PermissionChildAppSeeder;
 use Database\Seeders\App\SettingTableSeeder;
 use Database\Seeders\App\SocialLinkSeeder;
-use Database\Seeders\App\StageTableSeeder;
 use Database\Seeders\App\UserDemoSeeder;
 use Database\Seeders\Auth\PermissionRoleTableSeeder;
 use Database\Seeders\Auth\PermissionTableSeeder;
@@ -63,12 +59,5 @@ class TenantDatabaseSeeder extends Seeder
             UserDemoSeeder::class,
             PaymentMethodTableSeeder::class,
         ]);
-        
-        // Seed tenant-specific sample data using factories
-        \App\Models\App\SamplePage\Report::factory(4)->create();
-        \App\Models\App\SamplePage\KanbanView\Stage::factory(7)
-            ->has(\App\Models\App\SamplePage\KanbanView\Task::factory()->count(4))
-            ->create();
-        \App\Models\App\Crud\Crud::factory(50)->create();
     }
 }

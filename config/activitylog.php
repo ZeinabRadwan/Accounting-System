@@ -35,7 +35,7 @@ return [
      * It should be implements the Spatie\Activitylog\Contracts\Activity interface
      * and extend Illuminate\Database\Eloquent\Model.
      */
-    'activity_model' => \Spatie\Activitylog\Models\Activity::class,
+    'activity_model' => \App\Models\Core\Log\ActivityLog::class,
 
     /*
      * This is the name of the table that will be created by the migration and
@@ -48,5 +48,5 @@ return [
      * the Activity model shipped with this package. In case it's not set
      * Laravel database.default will be used instead.
      */
-    'database_connection' => env('ACTIVITY_LOGGER_DB_CONNECTION', 'mysql'),
+    'database_connection' => null,
 ];
