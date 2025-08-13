@@ -26,14 +26,20 @@ class TenantAuthenticationMiddleware
     public function handle(Request $request, Closure $next)
     {
 
+       
+        if (in_array($request->route()?->getName(), ['login', 'register'])) {
+            return $next($request);
+        }
+    
         try {
             if (!auth()->check()) {
                 // Skip DB switching for guest users
                 return $next($request);
             }
         } catch (\Throwable $th) {
-            //throw $th;
+            // Optional: log error
         }
+       
        
 
         // Check if tenant is initialized
