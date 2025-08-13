@@ -228,7 +228,6 @@ class MultiTenantAuthController extends Controller
             DB::beginTransaction();
 
             // Create new tenant with system-generated UUID
-           return 'ss';
             try {
                 $tenant = Tenant::create([
                     'company_name' => $request->company_name
@@ -247,11 +246,11 @@ class MultiTenantAuthController extends Controller
             }
 
 
+            $this->tenancy->initialize($tenant);
             // Initialize tenancy for the new tenant and login the user
             //  try {
-            $this->tenancy->initialize($tenant);
             // Run tenant database seeder
-            $this->runTenantSeeder($tenant);
+            // $this->runTenantSeeder($tenant);
             // } catch (\Exception $e) {
             //     DB::rollBack();
             //     $this->tenancy->end();
@@ -279,9 +278,6 @@ class MultiTenantAuthController extends Controller
                     'password' => Hash::make($request->password),
                     'status_id' => 1,
                 ]);
-
-                $user->assignRole(config('access.users.app_admin_role'));
-
 
                 CentralUser::on('central')->create([
                     'email' => $request->email,
@@ -334,15 +330,8 @@ class MultiTenantAuthController extends Controller
                 ]
             ];
             PaymentMethod::query()->insert($methods);
-
-            // Assign default role (Moderator)
-            try {
-                $user->assignRole('Moderator');
-            } catch (\Exception $roleException) {
-                Log::warning("Could not assign Moderator role to user: " . $roleException->getMessage());
-                // Continue without role assignment for now, but log the warning
-            }
-
+ 
+            $user->assignRole('Manager');
 
 
             DB::commit();
