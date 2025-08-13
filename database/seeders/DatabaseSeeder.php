@@ -5,6 +5,7 @@ use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Database\Seeders\App\SettingTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +34,11 @@ class DatabaseSeeder extends Seeder
         
         // If you need to create a default tenant, you can do it here
         // But most tenant creation should happen through the application logic
+
+        // SettingTableSeeder
+        $this->call([
+            SettingTableSeeder::class,
+        ]);
 
         $this->enableForeignKeys();
         Model::reguard();

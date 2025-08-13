@@ -280,7 +280,7 @@ class MultiTenantAuthController extends Controller
                     'status_id' => 1,
                 ]);
 
-
+                $user->assignRole(config('access.users.app_admin_role'));
 
 
                 CentralUser::on('central')->create([

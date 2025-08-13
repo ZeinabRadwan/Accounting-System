@@ -26,11 +26,12 @@ class TenantAuthenticationMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-       
-        if (in_array($request->route()?->getName(), ['login', 'register'])) {
+        if (in_array($request->route()?->getName(), ['users.login.index', 'users.register.index'])) {
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
             return $next($request);
         }
-    
+
         try {
             if (!auth()->check()) {
                 // Skip DB switching for guest users
@@ -39,8 +40,8 @@ class TenantAuthenticationMiddleware
         } catch (\Throwable $th) {
             // Optional: log error
         }
-       
-       
+
+
 
         // Check if tenant is initialized
         if (!$this->tenancy->initialized) {
@@ -59,11 +60,9 @@ class TenantAuthenticationMiddleware
                         return redirect()->route('login')->with('error', 'Tenant not found.');
                     }
                 } catch (\Exception $e) {
-                    // Error initializing tenant, clear session and redirect
-                    Auth::logout();
                     $request->session()->invalidate();
                     $request->session()->regenerateToken();
-            return redirect()->route('login')->with('error', 'Error initializing tenant.');
+                    return redirect()->route('login')->with('error', 'Error initializing tenant.');
                 }
             } else {
                 // No tenant in session, redirect to login
@@ -77,5 +76,3 @@ class TenantAuthenticationMiddleware
         return $next($request);
     }
 }
-
-
