@@ -249,7 +249,7 @@ class MultiTenantAuthController extends Controller
             // Initialize tenancy for the new tenant and login the user
             //  try {
             $this->tenancy->initialize($tenant);
-
+dd('ss');
             // Run tenant database seeder
             $this->runTenantSeeder($tenant);
             // } catch (\Exception $e) {
