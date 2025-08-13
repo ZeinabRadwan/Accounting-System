@@ -25,11 +25,16 @@ class TenantAuthenticationMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // // Check if user is authenticated
-        // if (!Auth::check()) {
-        //     dd('ss');
-        //     return redirect()->route('login');
-        // }
+
+        try {
+            if (!auth()->check()) {
+                // Skip DB switching for guest users
+                return $next($request);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+       
 
         // Check if tenant is initialized
         if (!$this->tenancy->initialized) {
@@ -52,7 +57,7 @@ class TenantAuthenticationMiddleware
                     Auth::logout();
                     $request->session()->invalidate();
                     $request->session()->regenerateToken();
-                                            return redirect()->route('login')->with('error', 'Error initializing tenant.');
+            return redirect()->route('login')->with('error', 'Error initializing tenant.');
                 }
             } else {
                 // No tenant in session, redirect to login

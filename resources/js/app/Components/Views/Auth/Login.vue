@@ -22,18 +22,8 @@
                             </div>
                         </div>
                         
-                        <!-- Tenant Path Field for Multi-Tenant (Optional) -->
-                        <div class="form-row">
-                            <div class="form-group col-12 px-0">
-                                <label for="login_tenant_path">{{ $t('tenant_path') || 'Tenant Path' }} ({{ $t('optional') || 'Optional' }})</label>
-                                <app-input type="text"
-                                           v-model="login.tenant_path"
-                                           :placeholder="$t('enter_tenant_path') || 'e.g., abc123-def456 (leave empty for auto-detect)'"
-                                           :required="false"/>
-                                <small class="form-text text-muted">{{ $t('tenant_path_help') || 'If you know your tenant path, enter it here. Otherwise, we\'ll search across all tenants.' }}</small>
-                            </div>
-                        </div>
-                        
+                      
+                      
                         <div class="form-row">
                             <div class="form-group col-12 px-0">
                                 <label for="login_email">{{ $t('email') }}</label>

@@ -20,6 +20,7 @@ use App\Models\Core\Auth\Permission;
 use App\Models\App\User\SocialLink;
 use App\Models\App\PaymentMethods\PaymentMethod;
 use App\Models\Core\Status;
+use App\Models\CentralUser;
 
 class MultiTenantAuthController extends Controller
 {
@@ -50,7 +51,7 @@ class MultiTenantAuthController extends Controller
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|string',
-                'tenant_path' => 'nullable|string',
+                // 'tenant_path' => 'nullable|string',
                 'remember_me' => 'boolean'
             ]);
         } catch (ValidationException $e) {
@@ -64,80 +65,91 @@ class MultiTenantAuthController extends Controller
             throw $e;
         }
 
+       
+
         $email = $request->email;
         $password = $request->password;
-        $tenantPath = $request->tenant_path;
-        $rememberMe = $request->boolean('remember_me');
 
-        $authenticatedUser = null;
-        $authenticatedTenant = null;
-
-        // If tenant_path is provided, try to authenticate in that specific tenant first
-        if ($tenantPath) {
-            try {
-                $tenant = Tenant::where('id', $tenantPath)->first();
-                if ($tenant) {
-                    // Find user in central database with matching tenant_id
-                    $user = User::where('email', $email)
-                        ->where('tenant_id', $tenant->id)
-                        ->first();
-                    
-                    if ($user && Hash::check($password, $user->password)) {
-                        if ($user->roles->count() > 0) {
-                            $authenticatedUser = $user;
-                            $authenticatedTenant = $tenant;
-                        }
-                    }
-                }
-            } catch (\Exception $e) {
-                Log::warning("Error checking specific tenant {$tenantPath}: " . $e->getMessage());
-            }
-        }
-
-        // If no specific tenant or authentication failed, search across all tenants
-        if (!$authenticatedUser) {
-            // Search for user in central database across all tenants
-            $user = User::where('email', $email)->first();
-            
-            if ($user && Hash::check($password, $user->password)) {
-                // Check if user has roles
-                if ($user->roles->count() > 0) {
-                    $authenticatedUser = $user;
-                    $authenticatedTenant = Tenant::find($user->tenant_id);
-                }
-            }
-        }
-
-        if (!$authenticatedUser) {
+        $centralUser = CentralUser::on('central')->where('email', $email)->first();
+        if (!$centralUser) {
             $errorMessage = trans('default.incorrect_user_password', [
                 'password' => trans('default.password'),
                 'email' => trans('default.email')
             ]);
-            
+
             if ($request->expectsJson() || $request->ajax()) {
                 return response()->json([
                     'success' => false,
                     'message' => $errorMessage
                 ], 422);
             }
-            
+
+            throw ValidationException::withMessages([
+                'email' => $errorMessage
+            ]);
+        }
+        $tenant = Tenant::find($centralUser->tenant_id);
+        if (!$tenant) {
+            $errorMessage = trans('default.incorrect_user_password', [
+                'password' => trans('default.password'),
+                'email' => trans('default.email')
+            ]);
+
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $errorMessage
+                ], 422);
+            }
+
             throw ValidationException::withMessages([
                 'email' => $errorMessage
             ]);
         }
 
-        // Initialize tenancy for the authenticated tenant
-        try {
-            $this->tenancy->initialize($authenticatedTenant);
-        } catch (\Exception $e) {
+        $rememberMe = $request->boolean('remember_me');
+        $authenticatedUser = null;
+        $authenticatedTenant = null;
+
+
+        $this->tenancy->initialize($tenant);
+
+
+       
+
+
+        // Find user in central database with matching tenant_id
+        $user = User::where('email', $email)
+            ->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            if ($user->roles->count() > 0) {
+                $authenticatedUser = $user;
+                $authenticatedTenant = $tenant;
+            }
+        } else {
+            $errorMessage = trans('default.incorrect_user_password', [
+                'password' => trans('default.password'),
+                'email' => trans('default.email')
+            ]);
+
             if ($request->expectsJson() || $request->ajax()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to initialize tenant: ' . $e->getMessage()
+                    'message' => $errorMessage
                 ], 422);
             }
-            throw new GeneralException('Failed to initialize tenant: ' . $e->getMessage());
+
+            throw ValidationException::withMessages([
+                'email' => $errorMessage
+            ]);
         }
+
+
+
+
+
+
 
         // Login the user
         try {
@@ -161,12 +173,12 @@ class MultiTenantAuthController extends Controller
         if ($request->expectsJson() || $request->ajax()) {
             return response()->json([
                 'success' => true,
-               'message' => 'Login successful!',
+                'message' => 'Login successful!',
                 'redirect_url' => '/' . $authenticatedTenant->id . '/dashboard',
                 'tenant_path' => $authenticatedTenant->id
             ]);
         }
-        
+
         // Redirect to tenant dashboard using path-based routing
         return redirect('/' . $authenticatedTenant->id . '/dashboard');
     }
@@ -185,26 +197,34 @@ class MultiTenantAuthController extends Controller
      */
     public function register(Request $request)
     {
-        try {
-            $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:users,email',
-                'password' => 'required|string|min:8|confirmed',
-                'company_name' => 'required|string|max:255',
-            ]);
-        } catch (ValidationException $e) {
-            if ($request->expectsJson() || $request->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Validation failed',
-                    'errors' => $e->errors()
-                ], 422);
-            }
-            throw $e;
-        }
 
-        // try {
+
+        try {
+
+
+            try {
+                $request->validate([
+                    'first_name' => 'required|string|max:255',
+                    'last_name' => 'required|string|max:255',
+                    'email' => 'required|email|max:255|unique:central_users,email',
+                    'password' => 'required|string|min:8|confirmed',
+                    'company_name' => 'required|string|max:255',
+                ]);
+            } catch (ValidationException $e) {
+                if ($request->expectsJson() || $request->ajax()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Validation failed',
+                        'errors' => $e->errors()
+                    ], 422);
+                }
+                throw $e;
+            }
+
+
+
+
+            //  try {
             DB::beginTransaction();
 
             // Create new tenant with system-generated UUID
@@ -214,37 +234,38 @@ class MultiTenantAuthController extends Controller
                 ]);
             } catch (\Exception $e) {
                 DB::rollBack();
-                
+
                 if ($request->expectsJson() || $request->ajax()) {
                     return response()->json([
                         'success' => false,
                         'message' => 'Failed to create tenant: ' . $e->getMessage()
                     ], 422);
                 }
-                
+
                 throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
             }
 
+
             // Initialize tenancy for the new tenant and login the user
-            try {
-                $this->tenancy->initialize($tenant);
-                
-                // Run tenant database seeder
-                $this->runTenantSeeder($tenant);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                $this->tenancy->end();
-                
-                if ($request->expectsJson() || $request->ajax()) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Failed to initialize tenant: ' . $e->getMessage()
-                    ], 422);
-                }
-                
-                throw new GeneralException('Failed to initialize tenant: ' . $e->getMessage());
-            }
-            
+            //  try {
+            $this->tenancy->initialize($tenant);
+
+            // Run tenant database seeder
+            $this->runTenantSeeder($tenant);
+            // } catch (\Exception $e) {
+            //     DB::rollBack();
+            //     $this->tenancy->end();
+
+            //     if ($request->expectsJson() || $request->ajax()) {
+            //         return response()->json([
+            //             'success' => false,
+            //             'message' => 'Failed to initialize tenant: ' . $e->getMessage()
+            //         ], 422);
+            //     }
+
+            //     throw new GeneralException('Failed to initialize tenant: ' . $e->getMessage());
+            // }
+
 
             // $statusRepo = resolve(\App\Repositories\Core\Status\StatusRepository::class);
             // $statusId = $statusRepo->userActive();
@@ -258,17 +279,26 @@ class MultiTenantAuthController extends Controller
                     'password' => Hash::make($request->password),
                     'status_id' => 1,
                 ]);
+
+
+
+
+                CentralUser::on('central')->create([
+                    'email' => $request->email,
+                    'is_active' => 1,
+                    'tenant_id' => $tenant->id,
+                ]);
             } catch (\Exception $e) {
                 DB::rollBack();
                 $this->tenancy->end();
-                
+
                 if ($request->expectsJson() || $request->ajax()) {
                     return response()->json([
                         'success' => false,
                         'message' => 'Failed to create user: ' . $e->getMessage()
                     ], 422);
                 }
-                
+
                 throw new GeneralException('Failed to create user: ' . $e->getMessage());
             }
 
@@ -286,7 +316,7 @@ class MultiTenantAuthController extends Controller
             ]);
             $permissions = Permission::pluck('id')->toArray();
             $socialLinks = SocialLink::pluck('id')->toArray();
-    
+
             Role::where('id', '!=', 1)->get()->each(function (Role $role) use ($permissions) {
                 $role->permissions()->attach($permissions);
             });
@@ -297,8 +327,8 @@ class MultiTenantAuthController extends Controller
                     'alias' => 'cash',
                     'is_default' => 1,
                     'status_id' => Status::query()
-                        ->where('type','payment_method')
-                        ->where('name','status_active')
+                        ->where('type', 'payment_method')
+                        ->where('name', 'status_active')
                         ->first()->id,
                     'created_by' => User::query()->first()->id
                 ]
@@ -313,11 +343,11 @@ class MultiTenantAuthController extends Controller
                 // Continue without role assignment for now, but log the warning
             }
 
-            
+
 
             DB::commit();
 
-            
+
             try {
                 Auth::login($user);
 
@@ -327,14 +357,14 @@ class MultiTenantAuthController extends Controller
             } catch (\Exception $e) {
                 DB::rollBack();
                 $this->tenancy->end();
-                
+
                 if ($request->expectsJson() || $request->ajax()) {
                     return response()->json([
                         'success' => false,
                         'message' => 'Failed to login user: ' . $e->getMessage()
                     ], 422);
                 }
-                
+
                 throw new GeneralException('Failed to login user: ' . $e->getMessage());
             }
 
@@ -347,21 +377,29 @@ class MultiTenantAuthController extends Controller
                     'tenant_path' => $tenant->id
                 ]);
             }
-            
+
             // Fallback for non-AJAX requests
             return redirect('/' . $tenant->id . '/dashboard')->with('success', 'Tenant and user created successfully! Your tenant path is: /' . $tenant->id);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            $this->tenancy->end();
 
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     $this->tenancy->end();
-            
-        //     Log::error('Registration failed: ' . $e->getMessage(), [
-        //         'exception' => $e,
-        //         'request_data' => $request->all()
-        //     ]);
-            
-        //     throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
-        // }
+            Log::error('Registration failed', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+
+            throw $e;
+        }
     }
 
     /**
@@ -385,22 +423,23 @@ class MultiTenantAuthController extends Controller
     private function runTenantSeeder($tenant)
     {
         try {
+
+
             // Ensure we're in the tenant context
             $this->tenancy->initialize($tenant);
-            
+
             // Run the tenant seeder
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Tenant\\TenantDatabaseSeeder',
                 '--force' => true
             ]);
-            
+
             // Log successful seeding
             Log::info("Tenant database seeded successfully for tenant: {$tenant->id}");
-            
         } catch (\Exception $e) {
             // Log the error but don't fail the registration
             Log::error("Failed to seed tenant database for tenant {$tenant->id}: " . $e->getMessage());
-            
+
             // Re-throw if it's a critical error that should stop registration
             if (config('app.debug')) {
                 throw $e;
