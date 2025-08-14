@@ -16,32 +16,57 @@ class SettingService extends BaseService
     public function update()
     {
         $settings = request()->except('allowed_resource');
-
-        return collect(array_keys($settings))->map(function ($key) use ($settings) {
-
+    
+        $results = collect(array_keys($settings))->map(function ($key) use ($settings) {
+    
             $setting = resolve(SettingRepository::class)
                 ->createSettingInstance($key, 'app');
-
+    
             if (request()->file($key)) {
                 $this->deleteImage(optional($setting)->value);
-                $settings[$key] = $this->uploadImage(request()->file($key), config('file.' . $key . '.folder'), config('file.' . $key . '.height'));
+                $settings[$key] = $this->uploadImage(
+                    request()->file($key),
+                    config('file.' . $key . '.folder'),
+                    config('file.' . $key . '.height')
+                );
             }
-
+    
             $this->setModel($setting);
-
+    
             if ($locale = request()->get('language')) {
                 session()->put('locale', $locale);
             }
-
+    
             return parent::save([
                 'name' => $key,
                 'value' => $settings[$key],
                 'context' => 'app'
             ]);
         });
-
+    
+        // Handle RTL/LTR layout setting based on locale
+        if ($locale = request()->get('language')) {
+            $layoutValue = $locale === 'ar' ? 'rtl' : 'ltr';
+    
+            $layoutSetting = resolve(SettingRepository::class)
+                ->createSettingInstance('layout', 'app');
+    
+            $this->setModel($layoutSetting);
+    
+            parent::save([
+                'name' => 'layout',
+                'value' => $layoutValue,
+                'context' => 'app',
+                'public' => 1,
+                'autoload' => 0,
+                'settingable_type' => null,
+                'settingable_id' => null
+            ]);
+        }
+    
+        return $results;
     }
-
+    
 
     public function getFormattedSettings($context = 'app')
     {
