@@ -97,8 +97,8 @@ public function callPleskApi(string $method, string $action, array $params = [])
     try {
         $pleskHost = config('tenancy.plesk.host', 'accounting.websoft.sa');
         $pleskPort = config('tenancy.plesk.port', 8443);
-        $pleskUsername = config('tenancy.plesk.username', 'accountwebsoft');
-        $pleskPassword = config('tenancy.plesk.password', 'HsB}{ezUScB$');
+        $pleskUsername = config('tenancy.plesk.username', 'root');
+        $pleskPassword = config('tenancy.plesk.password', 'Nk9SwV0o');
 
         if (!$pleskUsername || !$pleskPassword) {
             throw new GeneralException('Plesk credentials are not configured.');
