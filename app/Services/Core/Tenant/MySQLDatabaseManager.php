@@ -46,54 +46,51 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
 
     public function createDatabase(TenantWithDatabase $tenant): bool
-    {
-        $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
-    
-        try {
-            $domain = config('tenancy.plesk.domain', 'accounting.websoft.sa');
-    
-            // Step 1: Get webspace ID from Plesk
-            $webspaceInfo = $this->callPleskApi('webspace', 'get', [
-                'filter' => [
-                    'name' => $domain
-                ],
-                'dataset' => [
-                    'gen_info' => ''
-                ]
-            ]);
-    
-            $webspaceId = $webspaceInfo['webspace']['get']['result']['id'] ?? null;
-    
-            if (!$webspaceId || !is_numeric($webspaceId)) {
-                throw new GeneralException("Failed to fetch webspace ID for '{$domain}' from Plesk.");
-            }
-    
-            // Step 2: Create database
-            $result = $this->callPleskApi('database', 'add-db', [
-                'webspace-id' => (int) $webspaceId,
-                'name'        => $database,
-                'type'        => 'mysql',
-                'db-server-id' => 0 // Correct tag name
-            ]);
-    
-            if (isset($result['database']['add-db']['result']['status']) &&
-                $result['database']['add-db']['result']['status'] === 'ok') {
-                return true;
-            }
-    
-            throw new GeneralException(
-                "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
-            );
-    
-        } catch (\Exception $e) {
-            throw new GeneralException(
-                "Exception while creating database '{$database}': " . $e->getMessage(),
-                0,
-                $e
-            );
+{
+    $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
+
+    try {
+        // Step 1: Get webspace ID from domain name
+        $domain = config('tenancy.plesk.domain', 'accounting.websoft.sa');
+
+        $webspaceInfo = $this->callPleskApi('webspace', 'get', [
+            'name' => $domain
+        ]);
+
+        $webspaceId = 3;
+
+        // if (!$webspaceId) {
+        //     throw new GeneralException("Failed to fetch webspace ID for '{$domain}' from Plesk.");
+        // }
+
+        // Step 2: Create database linked to that webspace ID
+        $result = $this->callPleskApi('database', 'add-db', [
+            'webspace_id' => $webspaceId,
+            'name'        => $database,
+            'type'        => 'mysql',
+            'server_id'   => 0 // 0 = default MySQL server in Plesk
+        ]);
+
+        if (
+            isset($result['database']['add-db']['result']['status']) &&
+            $result['database']['add-db']['result']['status'] === 'ok'
+        ) {
+            return true;
         }
+
+        throw new GeneralException(
+            "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
+        );
+
+    } catch (\Exception $e) {
+        throw new GeneralException(
+            "Exception while creating database '{$database}': " . $e->getMessage(),
+            0,
+            $e
+        );
     }
-    
+}
+
    
 public function callPleskApi(string $method, string $action, array $params = []): array
 {
