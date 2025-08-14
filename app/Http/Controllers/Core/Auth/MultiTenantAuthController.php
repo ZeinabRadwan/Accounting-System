@@ -125,7 +125,7 @@ class MultiTenantAuthController extends Controller
             
             // Create central user
             $centralUser = $this->createCentralUser($request->email, $tenant->id);
-            DB::beginTransaction();
+            // DB::beginTransaction();
             // Initialize tenancy for the new tenant
             $this->tenancy->initialize($tenant);
             
@@ -141,7 +141,7 @@ class MultiTenantAuthController extends Controller
             // Assign admin role to user
             $user->assignRole(config('access.users.app_admin_role'));
             
-            DB::commit();
+            // DB::commit();
             
             // Login the user
             $this->performUserLogin($user, false, $request);
