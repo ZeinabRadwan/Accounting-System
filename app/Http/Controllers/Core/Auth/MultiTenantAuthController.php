@@ -271,7 +271,7 @@ class MultiTenantAuthController extends Controller
             // $statusId = $statusRepo->userActive();
 
             // Create user in the central database with tenant_id
-            // try {
+            try {
                 $user = User::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
@@ -280,24 +280,26 @@ class MultiTenantAuthController extends Controller
                     'status_id' => 1,
                 ]);
 
-                CentralUser::on('central')->create([
-                    'email' => $request->email,
-                    'is_active' => 1,
-                    'tenant_id' => $tenant->id,
-                ]);
-            // } catch (\Exception $e) {
-            //     DB::rollBack();
-            //     $this->tenancy->end();
+                DB::connection('central')->transaction(function () use ($tenant, $request) {
+                    CentralUser::create([
+                        'email' => $request->email,
+                        'is_active' => 1,
+                        'tenant_id' => $tenant->id,
+                    ]);
+                });
+            } catch (\Exception $e) {
+                DB::rollBack();
+                $this->tenancy->end();
 
-            //     if ($request->expectsJson() || $request->ajax()) {
-            //         return response()->json([
-            //             'success' => false,
-            //             'message' => 'Failed to create user: ' . $e->getMessage()
-            //         ], 422);
-            //     }
+                if ($request->expectsJson() || $request->ajax()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Failed to create user: ' . $e->getMessage()
+                    ], 422);
+                }
 
-            //     throw new GeneralException('Failed to create user: ' . $e->getMessage());
-            // }
+                throw new GeneralException('Failed to create user: ' . $e->getMessage());
+            }
 
             $roles = [
                 [
