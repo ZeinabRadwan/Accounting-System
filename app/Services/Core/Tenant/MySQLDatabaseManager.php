@@ -47,7 +47,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
     public function createDatabase(TenantWithDatabase $tenant): bool
 {
-    $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
+    $database = $tenant->database()->getName();
 
     try {
         // Step 1: Get webspace ID from domain name
