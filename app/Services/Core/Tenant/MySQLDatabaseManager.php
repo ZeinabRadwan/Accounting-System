@@ -68,7 +68,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             'webspace_id' => $webspaceId,
             'name'        => $database,
             'type'        => 'mysql',
-            'server_id'   => 0 // 0 = default MySQL server in Plesk
+            'server_id'   => 1 // 0 = default MySQL server in Plesk
         ]);
 
         if (
