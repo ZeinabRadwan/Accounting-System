@@ -257,7 +257,7 @@ class MultiTenantAuthController extends Controller
 
             DB::beginTransaction();
           
-          $c =  CentralUser::create([
+          $c =  CentralUser::on('central')->create([
                 'email' => $request->email,
                 'is_active' => 1,
                 'tenant_id' => $tenant->id,
