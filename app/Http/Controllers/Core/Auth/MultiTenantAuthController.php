@@ -254,6 +254,20 @@ class MultiTenantAuthController extends Controller
             Log::info($tenant);
 
 
+
+
+
+
+            CentralUser::create([
+                'email' => $request->email,
+                'is_active' => 1,
+                'tenant_id' => $tenant->id,
+            ]);
+
+
+
+
+
             $this->tenancy->initialize($tenant);
             // Initialize tenancy for the new tenant and login the user
             //  try {
@@ -287,11 +301,7 @@ class MultiTenantAuthController extends Controller
                     'status_id' => 1,
                 ]);
 
-                CentralUser::on('central')->create([
-                    'email' => $request->email,
-                    'is_active' => 1,
-                    'tenant_id' => $tenant->id,
-                ]);
+               
             } catch (\Exception $e) {
                 DB::rollBack();
                 $this->tenancy->end();
