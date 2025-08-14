@@ -79,6 +79,11 @@ return [
         ],
     ],
 
+    'exempt_from_tenancy' => [
+    'central',
+],
+
+
     /**
      * Cache tenancy config. Used by CacheTenancyBootstrapper.
      *
