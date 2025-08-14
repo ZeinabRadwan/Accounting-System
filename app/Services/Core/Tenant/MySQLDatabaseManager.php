@@ -59,6 +59,8 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             'server' => 'localhost'
         ]);
 
+
+        return $result;
         if ($result && isset($result['status']) && $result['status'] === 'ok') {
             return true; // success
         }
