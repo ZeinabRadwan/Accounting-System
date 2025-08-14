@@ -1,4 +1,4 @@
-<html dir="{{  (request()->get('language') == 'ar' ? 'rtl' : 'ltr') ?? 'ltr' }}" lang="<?php  app()->getLocale(); ?>">
+<html dir="{{ config('settings.application.layout') }}" lang="<?php  app()->getLocale(); ?>">
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport"

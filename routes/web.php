@@ -94,7 +94,7 @@ Route::group(['prefix' => '{tenant}', 'where' => ['tenant' => '[a-f0-9]{8}-[a-f0
     // Define tenant routes directly here instead of including tenant.php
 
 
-    Route::middleware(['web', 'tenant.auth'])->group(function () {
+    Route::middleware(['LocaleMiddleware', 'web', 'tenant.auth'])->group(function () {
         // Tenant dashboard
         Route::get('/dashboard', function () {
             return view('dashboard.default');
