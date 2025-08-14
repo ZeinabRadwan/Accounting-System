@@ -255,14 +255,16 @@ class MultiTenantAuthController extends Controller
 
 
 
-
-
+            DB::beginTransaction();
+          
           $c =  CentralUser::create([
                 'email' => $request->email,
                 'is_active' => 1,
                 'tenant_id' => $tenant->id,
             ]);
 
+  // ...
+  DB::commit();
 
 
             Log::info('central user');
