@@ -246,7 +246,8 @@ class MultiTenantAuthController extends Controller
                 throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
             }
 
-            Log::info('tenant'.$tenant);
+            Log::info('tenant');
+            Log::info($tenant);
 
 
             $this->tenancy->initialize($tenant);
