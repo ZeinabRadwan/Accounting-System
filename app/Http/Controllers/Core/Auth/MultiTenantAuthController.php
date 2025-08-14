@@ -205,7 +205,14 @@ class MultiTenantAuthController extends Controller
             'tenant_id' => 1,
         ]);
        
-         throw $c;
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create user: ' . $c
+            ], 422);
+        }
+
+        throw new GeneralException('Failed to create user: ' . $c);
 
         try {
 
