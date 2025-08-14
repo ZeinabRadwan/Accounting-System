@@ -205,7 +205,7 @@ class MultiTenantAuthController extends Controller
             'tenant_id' => 1,
         ]);
        
-        return $c;
+         throw $c;
 
         try {
 
