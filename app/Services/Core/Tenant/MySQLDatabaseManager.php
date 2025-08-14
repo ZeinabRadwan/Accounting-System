@@ -46,42 +46,38 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
 
     public function createDatabase(TenantWithDatabase $tenant): bool
-{
-    // Generate a valid database name
-    $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
-
-    try {
-        // Use Plesk XML-RPC API
-        $result = $this->callPleskApi('database', 'add-db', [
-            'domain' => $this->domain ?? config('tenancy.plesk.domain', 'accounting.websoft.sa'),
-            'name' => $database,
-            'type' => 'mysql',
-            'server' => 'localhost'
-        ]);
-
-
+    {
+        $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
     
-        if ($result && isset($result['status']) && $result['status'] === 'ok') {
-            return true; // success
+        try {
+            // You need the webspace name or ID (subscription)
+            $domain = config('tenancy.plesk.domain', 'accounting.websoft.sa');
+    
+            $result = $this->callPleskApi('database', 'add-db', [
+                'webspace_name' => $domain, // Use webspace-name instead of webspace-id if you don't have ID
+                'name'          => $database,
+                'type'          => 'mysql',
+                'server_id'     => 0 // 0 = default MySQL server in Plesk
+            ]);
+    
+            if (isset($result['database']['add-db']['result']['status']) &&
+                $result['database']['add-db']['result']['status'] === 'ok') {
+                return true;
+            }
+    
+            throw new GeneralException(
+                "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
+            );
+    
+        } catch (\Exception $e) {
+            throw new GeneralException(
+                "Exception while creating database '{$database}': " . $e->getMessage(),
+                0,
+                $e
+            );
         }
-
-        throw new GeneralException(
-            "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
-        );
-
-     
-        // If Plesk API returns error, throw exception
-        // throw new GeneralException("Failed to create database '{$database}' via Plesk API.", 0, null);
-
-    } catch (\Exception $e) {
-        // Wrap any other exception in your custom exception
-        throw new GeneralException(
-            "Exception while creating database '{$database}': " . $e->getMessage(),
-            0,
-            $e
-        );
     }
-}
+    
    
 public function callPleskApi(string $method, string $action, array $params = []): array
 {
@@ -136,29 +132,37 @@ public function callPleskApi(string $method, string $action, array $params = [])
 }
 
   
-    public function buildPleskXml(string $method, string $action, array $params = []): string
-    {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>';
-        $xml .= '<packet version="1.6.9.1">'; // Match the version from the error log
-        $xml .= "<{$method}>";
-        $xml .= "<{$action}>";
+public function buildPleskXml(string $method, string $action, array $params = []): string
+{
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    $xml .= '<packet version="1.6.9.1">';
+    $xml .= "<{$method}>";
+    $xml .= "<{$action}>";
 
-        // Add required parameters for database creation
-        $xml .= "<webspace><name>{$params['domain']}</name></webspace>";
-        $xml .= "<name>{$params['name']}</name>";
-        $xml .= "<type>{$params['type']}</type>";
-        if (isset($params['server'])) {
-            $xml .= "<server>{$params['server']}</server>";
-        }
-
-        $xml .= "</{$action}>";
-        $xml .= "</{$method}>";
-        $xml .= '</packet>';
-
-        return $xml;
+    if (isset($params['webspace_id'])) {
+        $xml .= "<webspace-id>{$params['webspace_id']}</webspace-id>";
+    } elseif (isset($params['webspace_name'])) {
+        $xml .= "<webspace-name>{$params['webspace_name']}</webspace-name>";
     }
 
-  
+    if (isset($params['name'])) {
+        $xml .= "<name>{$params['name']}</name>";
+    }
+    if (isset($params['type'])) {
+        $xml .= "<type>{$params['type']}</type>";
+    }
+    if (isset($params['server_id'])) {
+        $xml .= "<server-id>{$params['server_id']}</server-id>";
+    }
+
+    $xml .= "</{$action}>";
+    $xml .= "</{$method}>";
+    $xml .= '</packet>';
+
+    return $xml;
+}
+
+
     public function parsePleskResponse(string $response): array
     {
         try {
