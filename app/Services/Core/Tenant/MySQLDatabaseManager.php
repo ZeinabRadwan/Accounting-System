@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Stancl\Tenancy\Contracts\TenantDatabaseManager;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Exceptions\NoConnectionSetException;
+use App\Exceptions\GeneralException;
 
 class MySQLDatabaseManager implements TenantDatabaseManager
 {
@@ -45,39 +46,35 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
 
     public function createDatabase(TenantWithDatabase $tenant): bool
-    {
-        try {
-            // Generate a valid database name (replace hyphens with underscores and prefix)
-            $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
+{
+    // Generate a valid database name
+    $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
 
-            // Use Plesk XML-RPC API
-            $result = $this->callPleskApi('database', 'add-db', [
-                'domain' => $this->domain ?? config('tenancy.plesk.domain', 'accounting.websoft.sa'),
-                'name' => $database,
-                'type' => 'mysql',
-                'server' => 'localhost' // Match the CLI command's -server parameter
-            ]);
+    try {
+        // Use Plesk XML-RPC API
+        $result = $this->callPleskApi('database', 'add-db', [
+            'domain' => $this->domain ?? config('tenancy.plesk.domain', 'accounting.websoft.sa'),
+            'name' => $database,
+            'type' => 'mysql',
+            'server' => 'localhost'
+        ]);
 
-            if ($result && isset($result['status']) && $result['status'] === 'ok') {
-                // Log::info("Successfully created database: {$database}", ['result' => $result]);
-                return true;
-            }
-
-            // Log::error("Failed to create database via Plesk API", [
-            //     'database' => $database,
-            //     'result' => $result
-            // ]);
-            return false;
-
-        } catch (\Exception $e) {
-            // Log::error("Exception while creating database: {$e->getMessage()}", [
-            //     'database' => $database,
-            //     'trace' => $e->getTraceAsString()
-            // ]);
-            return false;
+        if ($result && isset($result['status']) && $result['status'] === 'ok') {
+            return true; // success
         }
-    }
 
+        // If Plesk API returns error, throw exception
+        throw new GeneralException("Failed to create database '{$database}' via Plesk API.", 0, null);
+
+    } catch (\Exception $e) {
+        // Wrap any other exception in your custom exception
+        throw new GeneralException(
+            "Exception while creating database '{$database}': " . $e->getMessage(),
+            0,
+            $e
+        );
+    }
+}
    
     public function callPleskApi(string $method, string $action, array $params = []): ?array
     {
