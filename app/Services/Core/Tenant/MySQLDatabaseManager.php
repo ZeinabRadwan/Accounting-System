@@ -59,21 +59,21 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             ]);
 
             if ($result && isset($result['status']) && $result['status'] === 'ok') {
-                Log::info("Successfully created database: {$database}", ['result' => $result]);
+                // Log::info("Successfully created database: {$database}", ['result' => $result]);
                 return true;
             }
 
-            Log::error("Failed to create database via Plesk API", [
-                'database' => $database,
-                'result' => $result
-            ]);
+            // Log::error("Failed to create database via Plesk API", [
+            //     'database' => $database,
+            //     'result' => $result
+            // ]);
             return false;
 
         } catch (\Exception $e) {
-            Log::error("Exception while creating database: {$e->getMessage()}", [
-                'database' => $database,
-                'trace' => $e->getTraceAsString()
-            ]);
+            // Log::error("Exception while creating database: {$e->getMessage()}", [
+            //     'database' => $database,
+            //     'trace' => $e->getTraceAsString()
+            // ]);
             return false;
         }
     }
@@ -88,7 +88,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             $pleskPassword = config('tenancy.plesk.password', 'HsB}{ezUScB$');
 
             if (!$pleskUsername || !$pleskPassword) {
-                Log::error('Plesk credentials not configured');
+                // Log::error('Plesk credentials not configured');
                 return null;
             }
 
@@ -114,24 +114,24 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
             if ($httpCode === 200 && $response) {
                 $result = $this->parsePleskResponse($response);
-                Log::debug("Plesk API response", ['method' => $method, 'action' => $action, 'result' => $result]);
+                // Log::debug("Plesk API response", ['method' => $method, 'action' => $action, 'result' => $result]);
                 return $result;
             }
 
-            Log::error("Plesk API call failed", [
-                'http_code' => $httpCode,
-                'response' => $response,
-                'method' => $method,
-                'action' => $action
-            ]);
+            // Log::error("Plesk API call failed", [
+            //     'http_code' => $httpCode,
+            //     'response' => $response,
+            //     'method' => $method,
+            //     'action' => $action
+            // ]);
             return null;
 
         } catch (\Exception $e) {
-            Log::error("Exception in Plesk API call: {$e->getMessage()}", [
-                'method' => $method,
-                'action' => $action,
-                'trace' => $e->getTraceAsString()
-            ]);
+            // Log::error("Exception in Plesk API call: {$e->getMessage()}", [
+            //     'method' => $method,
+            //     'action' => $action,
+            //     'trace' => $e->getTraceAsString()
+            // ]);
             return null;
         }
     }
@@ -177,7 +177,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         try {
             $xml = simplexml_load_string($response);
             if ($xml === false) {
-                Log::error("Failed to parse Plesk XML response", ['response' => $response]);
+                // Log::error("Failed to parse Plesk XML response", ['response' => $response]);
                 return null;
             }
 
@@ -186,10 +186,10 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             return json_decode($json, true);
 
         } catch (\Exception $e) {
-            Log::error("Failed to parse Plesk response: {$e->getMessage()}", [
-                'response' => $response,
-                'trace' => $e->getTraceAsString()
-            ]);
+            // Log::error("Failed to parse Plesk response: {$e->getMessage()}", [
+            //     'response' => $response,
+            //     'trace' => $e->getTraceAsString()
+            // ]);
             return null;
         }
     }
