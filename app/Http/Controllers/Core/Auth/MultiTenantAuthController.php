@@ -224,6 +224,7 @@ class MultiTenantAuthController extends Controller
 
 
 
+            \Log::info('Current DB Name: ' . DB::connection()->getDatabaseName());
 
             //  try {
             DB::beginTransaction();
