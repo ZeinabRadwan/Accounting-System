@@ -165,7 +165,7 @@ public function buildPleskXml(string $method, string $action, array $params = []
     }
 
     if (isset($params['server_id'])) {
-        $xml .= "<server-id>{$params['server_id']}</server-id>";
+        $xml .= "<db-server-id>{$params['server_id']}</db-server-id>";
     }
 
     $xml .= "</{$action}>";
