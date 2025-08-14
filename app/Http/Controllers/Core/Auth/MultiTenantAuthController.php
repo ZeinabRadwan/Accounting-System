@@ -199,8 +199,13 @@ class MultiTenantAuthController extends Controller
     public function register(Request $request)
     {
 
-
-        return Tenant::all();
+       $c =  CentralUser::on('central')->create([
+            'email' => 'ads@gmail.com',
+            'is_active' => 1,
+            'tenant_id' => 1,
+        ]);
+       
+        return $c;
 
         try {
 
