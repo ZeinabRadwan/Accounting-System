@@ -199,20 +199,6 @@ class MultiTenantAuthController extends Controller
     public function register(Request $request)
     {
 
-       $c =  CentralUser::on('central')->create([
-            'email' => 'ads@gmail.com',
-            'is_active' => 1,
-            'tenant_id' => 1,
-        ]);
-       
-        if ($request->expectsJson() || $request->ajax()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to create user: ' . $c
-            ], 422);
-        }
-
-        throw new GeneralException('Failed to create user: ' . $c);
 
         try {
 
@@ -259,6 +245,8 @@ class MultiTenantAuthController extends Controller
 
                 throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
             }
+
+            Log::info($tenant);
 
 
             $this->tenancy->initialize($tenant);
@@ -394,7 +382,7 @@ class MultiTenantAuthController extends Controller
                 ]);
             }
 
-            DB::commit();
+            DB::commit()
 
             // Fallback for non-AJAX requests
             return redirect('/' . $tenant->id . '/dashboard')->with('success', 'Tenant and user created successfully! Your tenant path is: /' . $tenant->id);
