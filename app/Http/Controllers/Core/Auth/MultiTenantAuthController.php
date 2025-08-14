@@ -234,7 +234,7 @@ class MultiTenantAuthController extends Controller
                     'company_name' => $request->company_name
                 ]);
             } catch (\Exception $e) {
-                DB::rollBack();
+                // DB::rollBack();
 
                 if ($request->expectsJson() || $request->ajax()) {
                     return response()->json([
@@ -286,7 +286,7 @@ class MultiTenantAuthController extends Controller
                     'tenant_id' => $tenant->id,
                 ]);
             } catch (\Exception $e) {
-                DB::rollBack();
+                // DB::rollBack();
                 $this->tenancy->end();
 
                 if ($request->expectsJson() || $request->ajax()) {
@@ -357,7 +357,7 @@ class MultiTenantAuthController extends Controller
                 session(['tenant_id' => $tenant->id]);
                 session(['tenant_path' => $tenant->id]);
             } catch (\Exception $e) {
-                DB::rollBack();
+                // DB::rollBack();
                 $this->tenancy->end();
 
                 if ($request->expectsJson() || $request->ajax()) {
@@ -383,7 +383,7 @@ class MultiTenantAuthController extends Controller
             // Fallback for non-AJAX requests
             return redirect('/' . $tenant->id . '/dashboard')->with('success', 'Tenant and user created successfully! Your tenant path is: /' . $tenant->id);
         } catch (\Throwable $e) {
-            DB::rollBack();
+            // DB::rollBack();
             $this->tenancy->end();
 
             Log::error('Registration failed', [
