@@ -43,20 +43,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     //     return $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
     // }
 
-    private function getWebspaceIdByDomain($domain)
-    {
-        $result = $this->callPleskApi('webspace', 'get', [
-            'filter' => [
-                'name' => $domain
-            ],
-            'dataset' => [
-                'gen_info' => ''
-            ]
-        ]);
-    
-        return $result['webspace']['get']['result']['id'] ?? null;
-    }
-    
+
 
     public function createDatabase(TenantWithDatabase $tenant): bool
 {
@@ -70,11 +57,11 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             'name' => $domain
         ]);
 
-        $webspaceId = $this->getWebspaceIdByDomain($domain);
+        $webspaceId = 'accounting.websoft.sa';
 
-        if (!$webspaceId) {
-            throw new GeneralException("Failed to fetch webspace ID for '{$domain}' from Plesk.");
-        }
+        // if (!$webspaceId) {
+        //     throw new GeneralException("Failed to fetch webspace ID for '{$domain}' from Plesk.");
+        // }
 
         // Step 2: Create database linked to that webspace ID
         $result = $this->callPleskApi('database', 'add-db', [
