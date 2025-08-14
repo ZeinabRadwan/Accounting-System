@@ -150,7 +150,7 @@ class MultiTenantAuthController extends Controller
             return $this->handleSuccessfulRegistration($tenant, $request);
 
         } catch (\Throwable $e) {
-            DB::rollBack();
+            // DB::rollBack();
             $this->tenancy->end();
 
             Log::error('Registration failed', [
