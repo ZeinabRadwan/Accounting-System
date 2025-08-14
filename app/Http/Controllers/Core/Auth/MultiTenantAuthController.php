@@ -227,7 +227,7 @@ class MultiTenantAuthController extends Controller
             \Log::info('Current DB Name: ' . DB::connection()->getDatabaseName());
 
             //  try {
-            DB::beginTransaction();
+         
 
             // Create new tenant with system-generated UUID
             try {
@@ -271,6 +271,9 @@ class MultiTenantAuthController extends Controller
             Log::info($c);
 
             $this->tenancy->initialize($tenant);
+
+
+            DB::beginTransaction();
             // Initialize tenancy for the new tenant and login the user
             //  try {
             // Run tenant database seeder
