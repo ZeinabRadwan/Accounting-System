@@ -1,4 +1,4 @@
-<html dir="{{ config('settings.application.layout') }}" lang="<?php  app()->getLocale(); ?>">
+<html dir="{{  request()->get('language') ?? 'ltr' }}" lang="<?php  app()->getLocale(); ?>">
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport"
