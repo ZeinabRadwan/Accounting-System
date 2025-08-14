@@ -1,0 +1,82 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('clients', function (Blueprint $table) {
+            $table->id();
+            
+            // User relationship
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            
+            // Customer identification
+            $table->string('name')->nullable();
+            $table->unsignedTinyInteger('type')->default(1)->comment('1: Individual, 2: Company');
+            
+            // Business information
+            $table->string('cr_number')->nullable()->comment('Commercial Registration Number');
+            $table->string('vat_number')->nullable()->comment('VAT Number');
+            
+            // Identity information
+            $table->foreignId('id_type_id')->nullable()->constrained('id_types')->nullOnDelete();
+            $table->string('id_no')->nullable()->comment('ID Number');
+            $table->date('id_date')->nullable();
+            
+            // Contact information
+            $table->string('phone_no')->nullable();
+            $table->date('dob')->nullable()->comment('Date of Birth');
+            
+            // Additional information
+            $table->foreignId('nationality_id')->nullable()->constrained('nationalities')->nullOnDelete();
+            $table->string('job')->nullable();
+            $table->string('job_place')->nullable();
+            
+            // Company
+            $table->foreignId('client_id')->nullable()->constrained('clients')->nullOnDelete();
+            
+            // Banking information
+            $table->foreignId('bank_id')->nullable()->constrained('banks')->nullOnDelete();
+            $table->string('iban')->nullable()->comment('International Bank Account Number');
+            $table->foreignId('currency_id')->nullable()->constrained('currencies')->nullOnDelete();
+            
+            // Media and status
+            $table->string('avatar', 255)->nullable()->default('');
+            $table->boolean('is_active')->default(true);
+            
+            // Metadata
+            $table->decimal('balance', 15, 2)->default(0.00)->comment('Account balance');
+            
+            // Laravel standard columns
+            $table->rememberToken();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            // Indexes for performance
+            $table->index(['type', 'is_active']);
+            $table->index(['client_id', 'is_active']);
+            $table->index(['phone_no']);
+            $table->index(['cr_number']);
+            $table->index(['vat_number']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('clients');
+    }
+};
