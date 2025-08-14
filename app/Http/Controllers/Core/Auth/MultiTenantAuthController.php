@@ -280,13 +280,7 @@ class MultiTenantAuthController extends Controller
                     'status_id' => 1,
                 ]);
 
-                DB::connection('central')->transaction(function () use ($tenant, $request) {
-                    CentralUser::create([
-                        'email' => $request->email,
-                        'is_active' => 1,
-                        'tenant_id' => $tenant->id,
-                    ]);
-                });
+               
             } catch (\Exception $e) {
                 DB::rollBack();
                 $this->tenancy->end();
@@ -381,6 +375,15 @@ class MultiTenantAuthController extends Controller
                     'tenant_path' => $tenant->id
                 ]);
             }
+
+            $this->tenancy->end();
+            // DB::connection('central')->transaction(function () use ($tenant, $request) {
+                CentralUser::create([
+                    'email' => $request->email,
+                    'is_active' => 1,
+                    'tenant_id' => $tenant->id,
+                ]);
+            // });
 
             // Fallback for non-AJAX requests
             return redirect('/' . $tenant->id . '/dashboard')->with('success', 'Tenant and user created successfully! Your tenant path is: /' . $tenant->id);
