@@ -60,7 +60,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         ]);
 
 
-        return $result;
+    
         if ($result && isset($result['status']) && $result['status'] === 'ok') {
             return true; // success
         }
@@ -78,71 +78,59 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     }
 }
    
-    public function callPleskApi(string $method, string $action, array $params = []): ?array
-    {
-        try {
-            $pleskHost = config('tenancy.plesk.host', 'accounting.websoft.sa');
-            $pleskPort = config('tenancy.plesk.port', 8443);
-            $pleskUsername = config('tenancy.plesk.username', 'accountwebsoft');
-            $pleskPassword = config('tenancy.plesk.password', 'HsB}{ezUScB$');
+public function callPleskApi(string $method, string $action, array $params = []): array
+{
+    try {
+        $pleskHost = config('tenancy.plesk.host', 'accounting.websoft.sa');
+        $pleskPort = config('tenancy.plesk.port', 8443);
+        $pleskUsername = config('tenancy.plesk.username', 'accountwebsoft');
+        $pleskPassword = config('tenancy.plesk.password', 'HsB}{ezUScB$');
 
-            if (!$pleskUsername || !$pleskPassword) {
-                // Log::error('Plesk credentials not configured');
-                return null;
-            }
-
-            $xml = $this->buildPleskXml($method, $action, $params);
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://{$pleskHost}:{$pleskPort}/enterprise/control/agent.php");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: text/xml',
-                'HTTP_AUTH_LOGIN: ' . $pleskUsername,
-                'HTTP_AUTH_PASSWD: ' . $pleskPassword
-            ]);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Consider enabling in production with proper SSL cert
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-
-            if ($httpCode === 200 && $response) {
-                $result = $this->parsePleskResponse($response);
-                // Log::debug("Plesk API response", ['method' => $method, 'action' => $action, 'result' => $result]);
-                return $result;
-            }
-
-            // Log::error("Plesk API call failed", [
-            //     'http_code' => $httpCode,
-            //     'response' => $response,
-            //     'method' => $method,
-            //     'action' => $action
-            // ]);
-            return null;
-
-        } catch (\Exception $e) {
-            // Log::error("Exception in Plesk API call: {$e->getMessage()}", [
-            //     'method' => $method,
-            //     'action' => $action,
-            //     'trace' => $e->getTraceAsString()
-            // ]);
-            return null;
+        if (!$pleskUsername || !$pleskPassword) {
+            throw new GeneralException('Plesk credentials are not configured.');
         }
-    }
 
-    /**
-     * Build Plesk XML request.
-     *
-     * @param string $method
-     * @param string $action
-     * @param array $params
-     * @return string
-     */
+        $xml = $this->buildPleskXml($method, $action, $params);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://{$pleskHost}:{$pleskPort}/enterprise/control/agent.php");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: text/xml',
+            'HTTP_AUTH_LOGIN: ' . $pleskUsername,
+            'HTTP_AUTH_PASSWD: ' . $pleskPassword
+        ]);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200 || !$response) {
+            throw new GeneralException("Plesk API call failed. HTTP code: {$httpCode}");
+        }
+
+        $result = $this->parsePleskResponse($response);
+        if (!$result) {
+            throw new GeneralException("Failed to parse Plesk API response.");
+        }
+
+        return $result;
+
+    } catch (\Exception $e) {
+        throw new GeneralException(
+            "Exception in Plesk API call '{$method}/{$action}': " . $e->getMessage(),
+            0,
+            $e
+        );
+    }
+}
+
+  
     public function buildPleskXml(string $method, string $action, array $params = []): string
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -165,31 +153,29 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         return $xml;
     }
 
-    /**
-     * Parse Plesk XML response.
-     *
-     * @param string $response
-     * @return array|null
-     */
-    public function parsePleskResponse(string $response): ?array
+  
+    public function parsePleskResponse(string $response): array
     {
         try {
             $xml = simplexml_load_string($response);
             if ($xml === false) {
-                // Log::error("Failed to parse Plesk XML response", ['response' => $response]);
-                return null;
+                throw new GeneralException("Failed to parse Plesk XML response.");
             }
-
-            // Convert XML to array
+    
             $json = json_encode($xml);
-            return json_decode($json, true);
-
+            $array = json_decode($json, true);
+            if (!is_array($array)) {
+                throw new GeneralException("Failed to convert Plesk XML to array.");
+            }
+    
+            return $array;
+    
         } catch (\Exception $e) {
-            // Log::error("Failed to parse Plesk response: {$e->getMessage()}", [
-            //     'response' => $response,
-            //     'trace' => $e->getTraceAsString()
-            // ]);
-            return null;
+            throw new GeneralException(
+                "Exception while parsing Plesk response: " . $e->getMessage(),
+                0,
+                $e
+            );
         }
     }
 
