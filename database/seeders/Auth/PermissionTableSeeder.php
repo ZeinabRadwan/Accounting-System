@@ -258,6 +258,56 @@ class PermissionTableSeeder extends Seeder
                 'type_id' => $appId,
                 'group_name' => 'users'
             ],
+
+
+            //clients
+            [
+                'name' => 'view_clients',
+                'type_id' => $appId,
+                'group_name' => 'clients'
+            ],
+            [
+                'name' => 'create_clients',
+                'type_id' => $appId,
+                'group_name' => 'clients'
+            ],
+            [
+                'name' => 'update_clients',
+                'type_id' => $appId,
+                'group_name' => 'clients'
+            ],
+            [
+                'name' => 'delete_clients',
+                'type_id' => $appId,
+                'group_name' => 'clients'
+            ],
+
+            //end of clients
+            //vendors
+            [
+                'name' => 'view_vendors',
+                'type_id' => $appId,
+                'group_name' => 'vendors'
+            ],
+            [
+                'name' => 'create_vendors',
+                'type_id' => $appId,
+                'group_name' => 'vendors'
+            ],
+            [
+                'name' => 'update_vendors',
+                'type_id' => $appId,
+                'group_name' => 'vendors'
+            ],
+            [
+                'name' => 'delete_vendors',
+                'type_id' => $appId,
+                'group_name' => 'vendors'
+            ],
+            //end of vendors
+
+
+
         ];
 
         $this->enableForeignKeys();
