@@ -33,15 +33,10 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
     public function createDatabase(TenantWithDatabase $tenant): bool
     {
-        // $database = $tenant->database()->getName();
-        // $charset = $this->database()->getConfig('charset');
-        // $collation = $this->database()->getConfig('collation');
-        // return $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
-    
         try {
-            $database = $tenant->database()->getName();
+            $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName()); // Ensure valid database name
             
-            // Use Plesk XML-RPC API instead of CLI commands
+            // Use Plesk XML-RPC API
             $result = $this->callPleskApi('database', 'add', [
                 'domain' => $this->domain ?? config('tenancy.plesk.domain', 'accounting.websoft.sa'),
                 'name' => $database,
@@ -49,17 +44,23 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             ]);
             
             if ($result && isset($result['status']) && $result['status'] === 'ok') {
-               
+                Log::info("Successfully created database: {$database}");
                 return true;
-            } else {
-               
-                return false;
             }
             
+            Log::error("Failed to create database via Plesk API", [
+                'database' => $database,
+                'result' => $result
+            ]);
+            return false;
+            
         } catch (\Exception $e) {
+            Log::error("Exception while creating database: {$e->getMessage()}", [
+                'database' => $database,
+                'trace' => $e->getTraceAsString()
+            ]);
             return false;
         }
-    
     }
 
      /**
