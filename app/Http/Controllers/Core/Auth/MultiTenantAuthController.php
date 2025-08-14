@@ -246,7 +246,7 @@ class MultiTenantAuthController extends Controller
                 throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
             }
 
-            Log::info($tenant);
+            Log::info('tenant'.$tenant);
 
 
             $this->tenancy->initialize($tenant);
@@ -382,7 +382,7 @@ class MultiTenantAuthController extends Controller
                 ]);
             }
 
-            DB::commit()
+            DB::commit();
 
             // Fallback for non-AJAX requests
             return redirect('/' . $tenant->id . '/dashboard')->with('success', 'Tenant and user created successfully! Your tenant path is: /' . $tenant->id);
