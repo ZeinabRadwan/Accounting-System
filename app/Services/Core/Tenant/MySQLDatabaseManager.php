@@ -46,38 +46,51 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
 
     public function createDatabase(TenantWithDatabase $tenant): bool
-    {
-        $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
-    
-        try {
-            // You need the webspace name or ID (subscription)
-            $domain = config('tenancy.plesk.domain', 'accounting.websoft.sa');
-    
-            $result = $this->callPleskApi('database', 'add-db', [
-                'webspace_name' => $domain, // Use webspace-name instead of webspace-id if you don't have ID
-                'name'          => $database,
-                'type'          => 'mysql',
-                'server_id'     => 0 // 0 = default MySQL server in Plesk
-            ]);
-    
-            if (isset($result['database']['add-db']['result']['status']) &&
-                $result['database']['add-db']['result']['status'] === 'ok') {
-                return true;
-            }
-    
-            throw new GeneralException(
-                "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
-            );
-    
-        } catch (\Exception $e) {
-            throw new GeneralException(
-                "Exception while creating database '{$database}': " . $e->getMessage(),
-                0,
-                $e
-            );
+{
+    $database = 'tenant_' . str_replace('-', '_', $tenant->database()->getName());
+
+    try {
+        // Step 1: Get webspace ID from domain name
+        $domain = config('tenancy.plesk.domain', 'accounting.websoft.sa');
+
+        $webspaceInfo = $this->callPleskApi('webspace', 'get', [
+            'name' => $domain
+        ]);
+
+        $webspaceId = $webspaceInfo['webspace']['get']['result']['id'] ?? null;
+
+        if (!$webspaceId) {
+            throw new GeneralException("Failed to fetch webspace ID for '{$domain}' from Plesk.");
         }
+
+        // Step 2: Create database linked to that webspace ID
+        $result = $this->callPleskApi('database', 'add-db', [
+            'webspace_id' => $webspaceId,
+            'name'        => $database,
+            'type'        => 'mysql',
+            'server_id'   => 0 // 0 = default MySQL server in Plesk
+        ]);
+
+        if (
+            isset($result['database']['add-db']['result']['status']) &&
+            $result['database']['add-db']['result']['status'] === 'ok'
+        ) {
+            return true;
+        }
+
+        throw new GeneralException(
+            "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
+        );
+
+    } catch (\Exception $e) {
+        throw new GeneralException(
+            "Exception while creating database '{$database}': " . $e->getMessage(),
+            0,
+            $e
+        );
     }
-    
+}
+
    
 public function callPleskApi(string $method, string $action, array $params = []): array
 {
@@ -141,16 +154,16 @@ public function buildPleskXml(string $method, string $action, array $params = []
 
     if (isset($params['webspace_id'])) {
         $xml .= "<webspace-id>{$params['webspace_id']}</webspace-id>";
-    } elseif (isset($params['webspace_name'])) {
-        $xml .= "<webspace-name>{$params['webspace_name']}</webspace-name>";
     }
 
     if (isset($params['name'])) {
         $xml .= "<name>{$params['name']}</name>";
     }
+
     if (isset($params['type'])) {
         $xml .= "<type>{$params['type']}</type>";
     }
+
     if (isset($params['server_id'])) {
         $xml .= "<server-id>{$params['server_id']}</server-id>";
     }
@@ -161,7 +174,6 @@ public function buildPleskXml(string $method, string $action, array $params = []
 
     return $xml;
 }
-
 
     public function parsePleskResponse(string $response): array
     {
