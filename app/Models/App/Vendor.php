@@ -3,11 +3,14 @@
 namespace App\Models\App;
 
 use App\Models\App\AppModel;
+use App\Models\App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vendor extends AppModel
 {
+    use HasTranslations;
+
     protected $fillable = [
         'name',
         'vat_number',
@@ -73,6 +76,14 @@ class Vendor extends AppModel
     // Accessors
     public function getFullNameAttribute(): string
     {
-        return $this->name ?? 'N/A';
+        return $this->getLocalizedNameAttribute();
+    }
+
+    /**
+     * Get the localized name with fallback
+     */
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->getLocalizedNameAttribute();
     }
 }

@@ -3,10 +3,13 @@
 namespace App\Models\App;
 
 use App\Models\App\AppModel;
+use App\Models\App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Currency extends AppModel
 {
+    use HasTranslations;
+
     protected $fillable = [
         'code',
         'name',
@@ -40,11 +43,19 @@ class Currency extends AppModel
     // Accessors
     public function getFullNameAttribute(): string
     {
-        return $this->name ?? 'N/A';
+        return $this->getLocalizedNameAttribute();
     }
 
     public function getFormattedSymbolAttribute(): string
     {
         return $this->symbol ?? $this->code ?? '';
+    }
+
+    /**
+     * Get the localized name with fallback
+     */
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->getLocalizedNameAttribute();
     }
 }
