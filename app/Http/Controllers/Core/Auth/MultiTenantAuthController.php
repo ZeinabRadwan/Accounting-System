@@ -234,6 +234,9 @@ class MultiTenantAuthController extends Controller
                 $tenant = Tenant::create([
                     'company_name' => $request->company_name
                 ]);
+
+
+                dd($tenant);
             } catch (\Exception $e) {
                 DB::rollBack();
 
@@ -246,6 +249,8 @@ class MultiTenantAuthController extends Controller
 
                 throw new GeneralException('Failed to create tenant: ' . $e->getMessage());
             }
+
+           
 
             Log::info('tenant');
             Log::info($tenant);
@@ -383,6 +388,9 @@ class MultiTenantAuthController extends Controller
                     'tenant_path' => $tenant->id
                 ]);
             }
+
+
+           
 
             DB::commit();
 
