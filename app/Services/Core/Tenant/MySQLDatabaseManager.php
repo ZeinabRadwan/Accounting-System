@@ -65,8 +65,13 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             return true; // success
         }
 
+        throw new GeneralException(
+            "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
+        );
+
+     
         // If Plesk API returns error, throw exception
-        throw new GeneralException("Failed to create database '{$database}' via Plesk API.", 0, null);
+        // throw new GeneralException("Failed to create database '{$database}' via Plesk API.", 0, null);
 
     } catch (\Exception $e) {
         // Wrap any other exception in your custom exception
