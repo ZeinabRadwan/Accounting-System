@@ -192,7 +192,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             return null;
         }
     }
-}
+
 
 
 
