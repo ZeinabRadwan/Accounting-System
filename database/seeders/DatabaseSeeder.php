@@ -40,6 +40,13 @@ class DatabaseSeeder extends Seeder
             SettingTableSeeder::class,
         ]);
 
+        $this->call([
+            SidebarMenuSeeder::class,
+        ]);
+        $this->call([
+            TenantPermissionSeeder::class,
+        ]);
+
         $this->enableForeignKeys();
         Model::reguard();
     }
