@@ -200,6 +200,8 @@ class MultiTenantAuthController extends Controller
     {
 
 
+        return Tenant::all();
+
         try {
 
 
