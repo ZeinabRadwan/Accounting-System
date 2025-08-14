@@ -118,14 +118,14 @@ class MultiTenantAuthController extends Controller
             
             Log::info('Current DB Name: ' . DB::connection()->getDatabaseName());
 
-            DB::beginTransaction();
+          
 
             // Create new tenant
             $tenant = $this->createTenant($request->company_name);
             
             // Create central user
             $centralUser = $this->createCentralUser($request->email, $tenant->id);
-            
+            DB::beginTransaction();
             // Initialize tenancy for the new tenant
             $this->tenancy->initialize($tenant);
             
