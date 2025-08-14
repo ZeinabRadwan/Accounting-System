@@ -235,8 +235,6 @@ class MultiTenantAuthController extends Controller
                     'company_name' => $request->company_name
                 ]);
 
-
-                dd($tenant);
             } catch (\Exception $e) {
                 DB::rollBack();
 
