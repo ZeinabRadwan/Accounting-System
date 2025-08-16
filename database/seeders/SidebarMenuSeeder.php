@@ -60,7 +60,7 @@ class SidebarMenuSeeder extends Seeder
             'permissions' => json_encode(['view_clients']),
             'order' => 2,
         ], [
-            ['name' => 'custom.clients', 'url' => '/clients', 'permissions' => json_encode(['view_clients'])],
+            ['name' => 'custom.clients', 'url' => '/clients/index?per_page=10&page=1', 'permissions' => json_encode(['view_clients'])],
             ['name' => 'custom.invoices', 'url' => '/invoices', 'permissions' => json_encode(['view_invoices'])],
             ['name' => 'custom.credit_notes', 'url' => '/credit-notes', 'permissions' => json_encode(['view_credit_notes'])],
           

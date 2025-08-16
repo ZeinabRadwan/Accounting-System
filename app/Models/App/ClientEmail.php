@@ -12,7 +12,7 @@ class ClientEmail extends AppModel
         'email',
         'is_primary',
         'is_verified',
-        'notes',
+        
         'is_active',
     ];
 

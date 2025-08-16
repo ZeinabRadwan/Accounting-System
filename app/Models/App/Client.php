@@ -44,6 +44,8 @@ class Client extends AppModel
         'balance' => 'decimal:2',
         'id_date' => 'date',
         'dob' => 'date',
+        'created_at' => 'datetime',  // Ensure created_at is properly cast
+        'updated_at' => 'datetime',  // Ensure updated_at is properly cast
     ];
 
     // Relationships

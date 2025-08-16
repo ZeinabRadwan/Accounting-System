@@ -19,32 +19,41 @@ class SidebarComposer
     }
 
     private function formatMenu($menu, $isSubMenu = false)
-{
-    $hasPermission = $this->checkPermissions($menu->permissions);
-
-    if (!$hasPermission) {
-        return null;
+    {
+        $hasPermission = $this->checkPermissions($menu->permissions);
+    
+        if (!$hasPermission) {
+            return null;
+        }
+    
+        $item = [
+            'id'         => $menu->menu_id,
+            'icon'       => $menu->icon,
+            'name'       => $isSubMenu ? trans($menu->name) : trans($menu->name),
+            'permission' => $hasPermission,
+        ];
+    
+        // Add tenant-aware URL
+        if ($menu->url) {
+            $tenantId = request()->route('tenant'); // grab tenant ID from route
+            if ($tenantId) {
+                $item['url'] = request()->root() . '/' . $tenantId . $menu->url;
+            } else {
+                // fallback for central routes
+                $item['url'] = request()->root() . $menu->url;
+            }
+        }
+    
+        // Handle submenus recursively
+        if ($menu->children->count()) {
+            $item['subMenu'] = $menu->children->map(function ($child) {
+                return $this->formatMenu($child, true); // mark as submenu
+            })->filter()->values()->toArray();
+        }
+    
+        return $item;
     }
-
-    $item = [
-        'id'         => $menu->menu_id,
-        'icon'       => $menu->icon,
-        'name'       => $isSubMenu ? trans($menu->name) : trans($menu->name),
-        'permission' => $hasPermission,
-    ];
-
-    if ($menu->url) {
-        $item['url'] = request()->root() . $menu->url;
-    }
-
-    if ($menu->children->count()) {
-        $item['subMenu'] = $menu->children->map(function ($child) {
-            return $this->formatMenu($child, true); // mark as submenu
-        })->filter()->values()->toArray();
-    }
-
-    return $item;
-}
+    
 
 
     private function checkPermissions($permissions)

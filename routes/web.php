@@ -7,6 +7,8 @@ use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\InstallDemoDataController;
 use App\Http\Controllers\SymlinkController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\App\Client\ClientDatatableController;
+use App\Http\Controllers\App\Client\ClientApiController; // Add this import
 
 /**
  * This route is only for user dashboard
@@ -93,7 +95,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'core.'], fu
 Route::group(['prefix' => '{tenant}', 'where' => ['tenant' => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}']], function () {
     // Define tenant routes directly here instead of including tenant.php
 
-
     Route::middleware(['web', 'tenant.auth'])->group(function () {
         // Tenant dashboard
         Route::get('/dashboard', function () {
@@ -104,6 +105,50 @@ Route::group(['prefix' => '{tenant}', 'where' => ['tenant' => '[a-f0-9]{8}-[a-f0
         Route::get('/users', function () {
             return view('tenant.users.index');
         })->name('tenant.users.index');
+
+        // Client Management - Complete routes with tenant prefix
+        Route::group(['prefix' => 'clients'], function () {
+            // View routes
+            Route::get('/', function () {
+                return view('client.index');
+            })->name('client.index');
+            
+            Route::get('/create', function () {
+                return view('client.create');
+            })->name('client.create');
+            
+            // Use the controller instead of closure
+            Route::get('/{client}/edit', [\App\Http\Controllers\App\Client\ClientController::class, 'edit'])->name('client.edit');
+            
+            // API routes
+            Route::get('/datatable', [ClientApiController::class, 'index']);
+            Route::post('/', [ClientApiController::class, 'store']);
+            Route::get('/{clientId}', [ClientApiController::class, 'show']);
+            Route::put('/{clientId}', [ClientApiController::class, 'update']);
+            Route::delete('/{clientId}', [ClientApiController::class, 'destroy']);
+            
+            // Email management routes
+            Route::get('/{clientId}/emails', [ClientApiController::class, 'getEmails']);
+            Route::post('/{clientId}/emails', [ClientApiController::class, 'storeEmail']);
+            Route::delete('/{clientId}/emails/{emailId}', [ClientApiController::class, 'deleteEmail']);
+            
+            // Mobile management routes
+            Route::get('/{clientId}/mobiles', [ClientApiController::class, 'getMobiles']);
+            Route::post('/{clientId}/mobiles', [ClientApiController::class, 'storeMobile']);
+            Route::delete('/{clientId}/mobiles/{mobileId}', [ClientApiController::class, 'deleteMobile']);
+            
+            // Translation routes
+            Route::get('/{clientId}/translations', [ClientApiController::class, 'getTranslations']);
+            Route::post('/{clientId}/translations', [ClientApiController::class, 'storeTranslation']);
+            Route::delete('/{clientId}/translations', [ClientApiController::class, 'deleteTranslation']);
+            
+            // Filter endpoints
+            Route::get('/filters/id-types', [ClientApiController::class, 'getIdTypes']);
+            Route::get('/filters/nationalities', [ClientApiController::class, 'getNationalities']);
+            Route::get('/filters/banks', [ClientApiController::class, 'getBanks']);
+            Route::get('/filters/currencies', [ClientApiController::class, 'getCurrencies']);
+            Route::get('/filters/parent-clients', [ClientApiController::class, 'getParentClients']);
+        });
 
         // Tenant logout
         Route::post('/logout', function () {

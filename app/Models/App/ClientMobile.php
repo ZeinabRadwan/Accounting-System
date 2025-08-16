@@ -13,7 +13,6 @@ class ClientMobile extends AppModel
         'country_code',
         'is_primary',
         'is_verified',
-        'notes',
         'is_active',
     ];
 

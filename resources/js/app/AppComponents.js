@@ -3,6 +3,10 @@ import Vue from 'vue';
 //helper app
 import './Components/Helpers/HelperComponent';
 
+// // Client
+Vue.component('client-datatable', require('./Components/Views/Client/Index').default);
+Vue.component('client-form', require('./Components/Views/Client/client-form').default);
+
 /**
  * all component of GUD
  */
@@ -49,4 +53,7 @@ Vue.component('app-custom-table-modal', require('./Components/Views/Settings/Cus
 
 // Dynamic table
 Vue.component('app-custom-table-dynamic', require('./Components/Views/Demo/CustomTable/DynamicPage').default)
+
+
+
 
