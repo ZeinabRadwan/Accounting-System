@@ -33,7 +33,6 @@ return new class extends Migration
             $table->date('id_date')->nullable();
             
             // Contact information
-            $table->string('phone_no')->nullable();
             $table->date('dob')->nullable()->comment('Date of Birth');
             
             // Additional information

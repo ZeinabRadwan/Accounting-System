@@ -82,6 +82,16 @@ class Client extends AppModel
         return $this->belongsTo(Currency::class);
     }
 
+    public function clientMobiles(): HasMany
+    {
+        return $this->hasMany(\App\Models\App\ClientMobile::class);
+    }
+
+    public function clientEmails(): HasMany
+    {
+        return $this->hasMany(\App\Models\App\ClientEmail::class);
+    }
+
     // Scopes
     public function scopeActive($query)
     {
