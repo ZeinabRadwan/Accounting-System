@@ -8,16 +8,19 @@ use App\Models\App\Currency;
 use App\Models\App\Quotation;
 use App\Models\App\InvoiceClientInfo;
 use App\Models\App\InvoiceFinancialDetail;
-use App\Models\Traits\HasCalculations;
+use App\Models\App\InvoiceItem;
+use App\Models\App\InvoiceCalculation;
+
 use App\Models\Core\Auth\User;
 use App\Models\Core\Traits\Uuid;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 
 class Invoice extends AppModel
 {
-    use Uuid, HasCalculations;
+    use Uuid;
 
     protected $fillable = [
         'invoice_number',
@@ -30,6 +33,8 @@ class Invoice extends AppModel
         'supply_date',
         'send_date',
         'tax_id',
+        'discount_type',
+        'discount',
         'status',
         'template',
         'category_id',
@@ -84,11 +89,99 @@ class Invoice extends AppModel
     }
 
     /**
+     * Get the tax associated with this invoice.
+     */
+    public function tax(): BelongsTo
+    {
+        return $this->belongsTo(Tax::class);
+    }
+
+    /**
      * Get the financial details associated with this invoice.
      */
     public function financialDetails(): HasOne
     {
         return $this->hasOne(InvoiceFinancialDetail::class);
+    }
+
+    /**
+     * Get the items associated with this invoice.
+     */
+    public function contents(): HasMany
+    {
+        return $this->hasMany(InvoiceItem::class);
+    }
+
+    /**
+     * Get the calculation record for this invoice.
+     */
+    public function calculation(): HasOne
+    {
+        return $this->hasOne(InvoiceCalculation::class, 'invoice_id');
+    }
+
+    /**
+     * Create or update the calculation record.
+     */
+    public function updateCalculation(array $data = []): InvoiceCalculation
+    {
+        if ($this->calculation) {
+            $this->calculation->update($data);
+            return $this->calculation;
+        }
+
+        return $this->calculation()->create($data);
+    }
+
+    // Calculation attribute methods
+    public function getTotalBeforeDiscountAttribute(): float
+    {
+        return $this->calculation?->total_before_discount ?? 0.00;
+    }
+
+    public function getDiscountTypeAttribute(): int
+    {
+        return $this->calculation?->discount_type ?? 0;
+    }
+
+    public function getDiscountAttribute(): float
+    {
+        return $this->calculation?->discount ?? 0.00;
+    }
+
+    public function getTotalDiscountAttribute(): float
+    {
+        return $this->calculation?->total_discount ?? 0.00;
+    }
+
+    public function getTotalAfterDiscountAttribute(): float
+    {
+        return $this->calculation?->total_after_discount ?? 0.00;
+    }
+
+    public function getVatAttribute(): float
+    {
+        return $this->calculation?->vat ?? 0.00;
+    }
+
+    public function getTotalAfterVatAttribute(): float
+    {
+        return $this->calculation?->total_after_vat ?? 0.00;
+    }
+
+    public function getTotalAttribute(): float
+    {
+        return $this->calculation?->total ?? 0.00;
+    }
+
+    public function hasDiscount(): bool
+    {
+        return $this->calculation?->hasDiscount() ?? false;
+    }
+
+    public function hasVAT(): bool
+    {
+        return $this->calculation?->hasVAT() ?? false;
     }
 
     /**

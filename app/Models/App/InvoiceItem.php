@@ -1,42 +1,52 @@
 <?php
 
-namespace App\Models\Core;
+namespace App\Models\App;
 
 use App\Models\Core\BaseModel;
-use App\Models\Core\Auth\User;
+use App\Models\App\Invoice;
+use App\Models\App\Tax;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Calculation extends BaseModel
+class InvoiceItem extends BaseModel
 {
-    protected $table = 'calculations';
+    protected $table = 'invoice_items';
 
     protected $fillable = [
-        'calculable_type',
-        'calculable_id',
-        'total_before_discount',
+        'invoice_id',
+        'item_name',
+        'item_name_ar',
+        'item_code',
+        'description',
+        'description_ar',
+        'unit',
+        'quantity',
+        'unit_price',
+        'total_price',
         'discount_type',
         'discount',
-        'total_discount',
-        'total_after_discount',
+        'discount_amount',
+        'price_after_discount',
         'tax_id',
-        'vat',
-        'total_after_vat',
-        'total',
-        'created_by',
-        'updated_by',
-        'uuid',
+        'tax_rate',
+        'tax_amount',
+        'final_price',
+        'custom_fields',
+        'sort_order',
     ];
 
     protected $casts = [
-        'total_before_discount' => 'decimal:2',
+        'quantity' => 'decimal:3',
+        'unit_price' => 'decimal:2',
+        'total_price' => 'decimal:2',
         'discount_type' => 'integer',
         'discount' => 'decimal:2',
-        'total_discount' => 'decimal:2',
-        'total_after_discount' => 'decimal:2',
-        'vat' => 'decimal:2',
-        'total_after_vat' => 'decimal:2',
-        'total' => 'decimal:2',
+        'discount_amount' => 'decimal:2',
+        'price_after_discount' => 'decimal:2',
+        'tax_rate' => 'decimal:2',
+        'tax_amount' => 'decimal:2',
+        'final_price' => 'decimal:2',
+        'custom_fields' => 'array',
+        'sort_order' => 'integer',
     ];
 
     // Discount type constants
@@ -45,32 +55,20 @@ class Calculation extends BaseModel
     const DISCOUNT_TYPE_FIXED = 2;
 
     /**
-     * Get the parent calculable model (quotation, invoice, etc.).
+     * Get the invoice that owns this item.
      */
-    public function calculable(): MorphTo
+    public function invoice(): BelongsTo
     {
-        return $this->morphTo();
-    }
-
-
-
-    /**
-     * Get the user who created this calculation.
-     */
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(Invoice::class);
     }
 
     /**
-     * Get the user who last updated this calculation.
+     * Get the tax associated with this item.
      */
-    public function updatedBy(): BelongsTo
+    public function tax(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'updated_by');
+        return $this->belongsTo(Tax::class);
     }
-
-
 
     /**
      * Get discount type label.
@@ -110,10 +108,10 @@ class Calculation extends BaseModel
     }
 
     /**
-     * Check if VAT is applied.
+     * Check if tax is applied.
      */
-    public function hasVAT(): bool
+    public function hasTax(): bool
     {
-        return $this->vat > 0;
+        return $this->tax_id && $this->tax_amount > 0;
     }
 }

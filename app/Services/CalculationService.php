@@ -4,14 +4,15 @@ namespace App\Services;
 
 use App\Models\App\Quotation;
 use App\Models\App\Invoice;
-use App\Models\Core\Calculation;
+use App\Models\App\InvoiceCalculation;
+use App\Models\App\QuotationCalculation;
 
 class CalculationService
 {
     /**
-     * Calculate totals for a quotation and store in calculations table.
+     * Calculate totals for a quotation and store in quotation_calculations table.
      */
-    public function calculateQuotationTotals(Quotation $quotation): Calculation
+    public function calculateQuotationTotals(Quotation $quotation): QuotationCalculation
     {
         // Get the subtotal from quotation contents
         $subtotal = $quotation->contents->sum('total_price');
@@ -46,14 +47,14 @@ class CalculationService
         $calculationData['total_after_vat'] = $calculationData['total_after_discount'] + $calculationData['vat'];
         $calculationData['total'] = $calculationData['total_after_vat'];
         
-        // Update or create calculation record
+        // Update or create quotation calculation record
         return $quotation->updateCalculation($calculationData);
     }
     
     /**
-     * Calculate totals for an invoice and store in calculations table.
+     * Calculate totals for an invoice and store in invoices_calculations table.
      */
-    public function calculateInvoiceTotals(Invoice $invoice): Calculation
+    public function calculateInvoiceTotals(Invoice $invoice): InvoiceCalculation
     {
         // Get the subtotal from invoice contents
         $subtotal = $invoice->contents->sum('total_price');
@@ -88,14 +89,14 @@ class CalculationService
         $calculationData['total_after_vat'] = $calculationData['total_after_discount'] + $calculationData['vat'];
         $calculationData['total'] = $calculationData['total_after_vat'];
         
-        // Update or create calculation record
+        // Update or create invoice calculation record
         return $invoice->updateCalculation($calculationData);
     }
     
     /**
      * Copy calculations from quotation to invoice.
      */
-    public function copyQuotationCalculationsToInvoice(Quotation $quotation, Invoice $invoice): Calculation
+    public function copyQuotationCalculationsToInvoice(Quotation $quotation, Invoice $invoice): InvoiceCalculation
     {
         if (!$quotation->calculation) {
             throw new \Exception('Quotation has no calculations to copy');

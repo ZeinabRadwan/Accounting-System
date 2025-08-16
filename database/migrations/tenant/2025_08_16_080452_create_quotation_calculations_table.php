@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('calculations', function (Blueprint $table) {
+        Schema::create('quotation_calculations', function (Blueprint $table) {
             $table->id();
             
-            // Polymorphic relationship - can be linked to quotations, invoices, or other documents
-            $table->morphs('calculable');
+            // Link to quotation
+            $table->foreignId('quotation_id')->constrained('quotations')->cascadeOnDelete();
             
             // Base calculations - common between quotations and invoices
             $table->decimal('total_before_discount', 15, 2)->default(0.00);
@@ -40,6 +40,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             
             // Indexes for performance
+            $table->index(['quotation_id']);
             $table->index(['tax_id']);
             $table->index(['discount_type']);
             $table->index(['total_before_discount']);
@@ -56,6 +57,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calculations');
+        Schema::dropIfExists('quotation_calculations');
     }
 };

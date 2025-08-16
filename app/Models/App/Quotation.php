@@ -6,15 +6,16 @@ use App\Models\App\AppModel;
 use App\Models\App\Traits\HasTranslations;
 use App\Models\Core\Auth\User;
 use App\Models\App\Client;
-use App\Models\Traits\HasCalculations;
+
 use App\Models\App\QuotationTranslation;
+use App\Models\App\QuotationCalculation;
 // use App\Models\App\Lead; // TODO: Create this model
 // use App\Models\App\QuotationCategory; // TODO: Create this model
-// use App\Models\App\Tax; // TODO: Create this model
+use App\Models\App\Tax;
 // use App\Models\App\Country; // TODO: Create this model
 // use App\Models\App\State; // TODO: Create this model
 // use App\Models\App\City; // TODO: Create this model
-// use App\Models\App\QuotationContent; // TODO: Create this model
+use App\Models\App\QuotationContent;
 // use App\Models\App\Invoice; // TODO: Create this model
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,7 +25,7 @@ use App\Models\Core\Traits\Uuid;
 
 class Quotation extends AppModel
 {
-    use HasTranslations, Uuid, HasCalculations;
+    use HasTranslations, Uuid;
 
     protected $fillable = [
         'quotation_number',
@@ -170,7 +171,27 @@ class Quotation extends AppModel
     {
         return $this->hasMany(Invoice::class);
     }
-    */
+
+    /**
+     * Get the calculation record for this quotation.
+     */
+    public function calculation(): HasOne
+    {
+        return $this->hasOne(QuotationCalculation::class, 'quotation_id');
+    }
+
+    /**
+     * Create or update the calculation record.
+     */
+    public function updateCalculation(array $data = []): QuotationCalculation
+    {
+        if ($this->calculation) {
+            $this->calculation->update($data);
+            return $this->calculation;
+        }
+
+        return $this->calculation()->create($data);
+    }
 
     public function createdBy(): BelongsTo
     {
@@ -372,6 +393,57 @@ class Quotation extends AppModel
             2 => 'Fixed',
             default => 'Unknown',
         };
+    }
+
+    // Calculation attribute methods
+    public function getTotalBeforeDiscountAttribute(): float
+    {
+        return $this->calculation?->total_before_discount ?? 0.00;
+    }
+
+    public function getDiscountTypeAttribute(): int
+    {
+        return $this->calculation?->discount_type ?? 0;
+    }
+
+    public function getDiscountAttribute(): float
+    {
+        return $this->calculation?->discount ?? 0.00;
+    }
+
+    public function getTotalDiscountAttribute(): float
+    {
+        return $this->calculation?->total_discount ?? 0.00;
+    }
+
+    public function getTotalAfterDiscountAttribute(): float
+    {
+        return $this->calculation?->total_after_discount ?? 0.00;
+    }
+
+    public function getVatAttribute(): float
+    {
+        return $this->calculation?->vat ?? 0.00;
+    }
+
+    public function getTotalAfterVatAttribute(): float
+    {
+        return $this->calculation?->total_after_vat ?? 0.00;
+    }
+
+    public function getTotalAttribute(): float
+    {
+        return $this->calculation?->total ?? 0.00;
+    }
+
+    public function hasDiscount(): bool
+    {
+        return $this->calculation?->hasDiscount() ?? false;
+    }
+
+    public function hasVAT(): bool
+    {
+        return $this->calculation?->hasVAT() ?? false;
     }
 
     // Methods
