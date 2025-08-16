@@ -20,9 +20,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            // Indexes for performance
-            $table->index([ 'sort_order']);
-            $table->index(['name']);
+            // Indexes for performance - Optimized for common query patterns
+            $table->index(['sort_order', 'name'], 'idx_banks_sort_name');
+            $table->index(['deleted_at'], 'idx_banks_deleted_at');
         });
     }
 

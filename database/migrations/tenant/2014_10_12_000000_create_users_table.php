@@ -29,6 +29,14 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
 
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            
+            // Indexes for performance - Optimized for common query patterns
+            $table->index(['email', 'status_id'], 'idx_users_email_status');
+            $table->index(['status_id'], 'idx_users_status');
+            $table->index(['last_login_at'], 'idx_users_last_login');
+            $table->index(['created_by'], 'idx_users_created_by');
+            $table->index(['invitation_token'], 'idx_users_invitation');
+            $table->index(['deleted_at'], 'idx_users_deleted_at');
         });
     }
 

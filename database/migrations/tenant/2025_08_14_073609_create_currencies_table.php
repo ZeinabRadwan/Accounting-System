@@ -23,10 +23,11 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            // Indexes for performance
-            $table->index(['sort_order']);
-            $table->index(['code']);
-            $table->index(['name']);
+            // Indexes for performance - Optimized for common query patterns
+            $table->index(['sort_order', 'code'], 'idx_currencies_sort_code');
+            $table->index(['code', 'name'], 'idx_currencies_code_name');
+            $table->index(['exchange_rate'], 'idx_currencies_exchange_rate');
+            $table->index(['deleted_at'], 'idx_currencies_deleted_at');
         });
     }
 

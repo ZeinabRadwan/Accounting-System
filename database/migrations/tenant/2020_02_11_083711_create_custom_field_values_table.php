@@ -28,6 +28,13 @@ class CreateCustomFieldValuesTable extends Migration
             $table->foreign('updated_by')
                 ->references('id')
                 ->on('users');
+                
+            // Indexes for performance - Optimized for common query patterns
+            $table->index(['contextable_type', 'contextable_id'], 'idx_custom_field_values_context');
+            $table->index(['custom_field_id', 'contextable_type'], 'idx_custom_field_values_field_context');
+            $table->index(['updated_by'], 'idx_custom_field_values_updated_by');
+            $table->index(['created_at'], 'idx_custom_field_values_created_at');
+            $table->index(['updated_at'], 'idx_custom_field_values_updated_at');
         });
     }
 

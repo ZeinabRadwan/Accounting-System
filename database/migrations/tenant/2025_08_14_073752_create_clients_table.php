@@ -61,12 +61,25 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            // Indexes for performance
-            $table->index(['type', 'is_active']);
-            $table->index(['client_id', 'is_active']);
-            $table->index(['phone_no']);
-            $table->index(['cr_number']);
-            $table->index(['vat_number']);
+            // Indexes for performance - Optimized for common query patterns
+            // Composite indexes for multi-column queries
+            $table->index(['type', 'is_active', 'user_id'], 'idx_clients_type_active_user');
+            $table->index(['client_id', 'is_active', 'type'], 'idx_clients_parent_active_type');
+            $table->index(['nationality_id', 'is_active'], 'idx_clients_nationality_active');
+            $table->index(['bank_id', 'currency_id'], 'idx_clients_bank_currency');
+            $table->index(['id_type_id', 'id_no'], 'idx_clients_id_type_number');
+            
+            // Single column indexes for unique lookups
+            $table->index(['phone_no'], 'idx_clients_phone');
+            $table->index(['cr_number'], 'idx_clients_cr');
+            $table->index(['vat_number'], 'idx_clients_vat');
+            $table->index(['iban'], 'idx_clients_iban');
+            $table->index(['dob'], 'idx_clients_dob');
+            $table->index(['id_date'], 'idx_clients_id_date');
+            $table->index(['balance'], 'idx_clients_balance');
+            
+            // User relationship queries
+            $table->index(['user_id', 'is_active'], 'idx_clients_user_active');
         });
     }
 
