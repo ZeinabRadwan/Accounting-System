@@ -410,7 +410,7 @@ class ClientApiController extends Controller
     /**
      * Delete a client
      */
-    public function destroy($id): JsonResponse
+    public function destroy($tenantId,$id): JsonResponse
     {
         // Resolve client from ID
         $clientModel = Client::findOrFail($id);
