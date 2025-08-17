@@ -104,10 +104,16 @@ export default {
         /**
          * axios Delete request
          * */
-        axiosDelete(url) {
-            url = this.getAppUrl(url);
-
-            return AxiosFunction.axiosDelete(url);
+        axiosDelete(url, data = null) {
+            if (typeof url === 'object' && url.url) {
+                // Handle options object like { url: '...', data: {...} }
+                url.url = this.getAppUrl(url.url);
+                return AxiosFunction.axiosDelete(url.url, url.data);
+            } else {
+                // Handle direct URL string
+                url = this.getAppUrl(url);
+                return AxiosFunction.axiosDelete(url, data);
+            }
         },
 
         /**

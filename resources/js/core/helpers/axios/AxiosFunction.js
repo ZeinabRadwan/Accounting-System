@@ -12,7 +12,10 @@ export default class AxiosFunction {
         return axios.put(options.url, options.data);
     }
 
-    static axiosDelete(url) {
+    static axiosDelete(url, data = null) {
+        if (data) {
+            return axios.delete(url, { data: data });
+        }
         return axios.delete(url);
     }
 

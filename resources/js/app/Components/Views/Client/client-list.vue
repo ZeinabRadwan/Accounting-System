@@ -863,18 +863,10 @@ export default {
           const currentPath = window.location.pathname;
           const tenantMatch = currentPath.match(/^\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/);
           
-          let deleteUrl;
-          if (tenantMatch) {
-            const tenantId = tenantMatch[1];
-            deleteUrl = `/${tenantId}/clients/${client.id}`;
-          } else {
-            deleteUrl = `/clients/${client.id}`;
-          }
-          
-          console.log('Deleting from URL:', deleteUrl);
+          console.log('Deleting client:', client.id);
           
           await this.axiosDelete({
-            url: deleteUrl,
+            url: this.getTenantUrl(`/clients/${client.id}`),
             data: { _method: 'DELETE' }
           });
           
