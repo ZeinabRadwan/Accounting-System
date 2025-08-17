@@ -32,7 +32,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>{{ $t('type') }} *</label>
-                  <select v-model="clientForm.type" class="form-control" required>
+                  <select v-model="clientForm.type" class="custom-select" required>
                     <option value="1">{{ $t('individual') }}</option>
                     <option value="2">{{ $t('company') }}</option>
                   </select>
@@ -75,7 +75,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>{{ $t('id_type') }}</label>
-                  <select v-model="clientForm.id_type_id" class="form-control">
+                  <select v-model="clientForm.id_type_id" class="custom-select">
                     <option value="">{{ $t('select_id_type') }}</option>
                     <option v-for="option in idTypeOptions" :key="option.id" :value="option.id" v-if="option && option.id">
                       {{ option.name || option.value }}
@@ -137,7 +137,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>{{ $t('nationality') }}</label>
-                  <select v-model="clientForm.nationality_id" class="form-control">
+                  <select v-model="clientForm.nationality_id" class="custom-select">
                     <option value="">{{ $t('select_nationality') }}</option>
                     <option v-for="option in nationalityOptions" :key="option.id" :value="option.id" v-if="option && option.id">
                       {{ option.name || option.value }}
@@ -174,7 +174,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>{{ $t('bank') }}</label>
-                  <select v-model="clientForm.bank_id" class="form-control">
+                  <select v-model="clientForm.bank_id" class="custom-select">
                     <option value="">{{ $t('select_bank') }}</option>
                     <option v-for="option in bankOptions" :key="option.id" :value="option.id" v-if="option && option.id">
                       {{ option.name || option.value }}
@@ -202,7 +202,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>{{ $t('parent_company') }}</label>
-                  <select v-model="clientForm.client_id" class="form-control">
+                  <select v-model="clientForm.client_id" class="custom-select">
                     <option value="">{{ $t('select_parent_company') }}</option>
                     <option v-for="option in parentClientOptions" :key="option.id" :value="option.id" v-if="option && option.id">
                       {{ option.name || option.value }}
@@ -216,7 +216,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>{{ $t('status') }}</label>
-                  <select v-model="clientForm.is_active" class="form-control">
+                  <select v-model="clientForm.is_active" class="custom-select">
                     <option :value="true">{{ $t('active') }}</option>
                     <option :value="false">{{ $t('inactive') }}</option>
                   </select>
