@@ -27,6 +27,9 @@ return new class extends Migration
             $table->string('cr_number')->nullable()->comment('Commercial Registration Number');
             $table->string('vat_number')->nullable()->comment('VAT Number');
             
+            // Phone number
+            $table->string('phone_no')->nullable()->comment('Phone Number');
+
             // Identity information
             $table->foreignId('id_type_id')->nullable()->constrained('id_types')->nullOnDelete();
             $table->string('id_no')->nullable()->comment('ID Number');
