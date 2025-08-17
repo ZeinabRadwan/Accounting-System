@@ -248,28 +248,17 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>{{ $t('primary_mobile') }}</label>
-                  <div class="input-group">
-                    <select v-model="clientForm.mobile_country_code" class="form-control" style="max-width: 120px;">
-                      <option value="+966">+966</option>
-                      <option value="+971">+971</option>
-                      <option value="+973">+973</option>
-                      <option value="+974">+974</option>
-                      <option value="+965">+965</option>
-                      <option value="+968">+968</option>
-                      <option value="+20">+20</option>
-                      <option value="+1">+1</option>
-                      <option value="+44">+44</option>
-                      <option value="+33">+33</option>
-                      <option value="+49">+49</option>
-                    </select>
-                    <input 
-                      v-model="clientForm.primary_mobile" 
-                      type="tel" 
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.primary_mobile }"
-                      @input="clearPrimaryMobileError"
-                    />
-                  </div>
+                  <tel-input
+                    :data="{
+                      id: 'primary_mobile',
+                      required: false,
+                      disabled: false,
+                      placeholder: $t('enter_mobile_number'),
+                      inputClass: 'form-control '
+                    }"
+                    v-model="clientForm.primary_mobile"
+                    @input="handlePrimaryMobileInput"
+                  />
                   <div class="invalid-feedback" v-if="errors.primary_mobile">
                     {{ errors.primary_mobile }}
                   </div>
@@ -436,10 +425,14 @@
 
 <script>
 import CoreLibrary from "../../../../core/helpers/CoreLibrary";
+import TelInput from "../../../../core/components/input/TelInput.vue";
 
 export default {
   name: "ClientForm",
   extends: CoreLibrary,
+  components: {
+    TelInput,
+  },
   props: {
     clientId: {
       type: [Number, String],
@@ -476,8 +469,7 @@ export default {
         is_active: true,
         // New email and mobile fields
         primary_email: '',
-        primary_mobile: '',
-        mobile_country_code: '+966',
+        primary_mobile: '', // This will now store the full international number
         additional_emails: [],
         additional_mobiles: []
       },
@@ -708,9 +700,11 @@ export default {
         
         // Add primary mobile if provided
         if (requestData.primary_mobile) {
+          // Extract country code and number from the full international number
+          const phoneData = this.parsePhoneNumber(requestData.primary_mobile);
           mobilesData.push({
-            mobile_number: requestData.primary_mobile,
-            country_code: requestData.mobile_country_code || '+966',
+            mobile_number: phoneData.number,
+            country_code: phoneData.countryCode,
             is_primary: true,
             is_verified: false,
             notes: 'Primary mobile'
@@ -882,7 +876,8 @@ export default {
         
         if (primaryMobile) {
           this.clientForm.primary_mobile = primaryMobile.mobile_number;
-          this.clientForm.mobile_country_code = primaryMobile.country_code;
+          // The TelInput component provides the full international number,
+          // so we don't need to set mobile_country_code here.
         }
         
         // Set additional emails and mobiles
@@ -931,6 +926,27 @@ export default {
       if (path.includes('/ar/')) return 'ar';
       if (path.includes('/en/')) return 'en';
       return 'en'; // Default
+    },
+
+    handlePrimaryMobileInput(value) {
+      // The TelInput component provides the full international number
+      this.clientForm.primary_mobile = value;
+      this.clearPrimaryMobileError();
+    },
+
+    parsePhoneNumber(fullNumber) {
+      // Simple parsing - you might want to use a library like libphonenumber-js
+      if (fullNumber.startsWith('+')) {
+        // Extract country code (first 1-4 digits after +)
+        const countryCodeMatch = fullNumber.match(/^\+(\d{1,4})/);
+        if (countryCodeMatch) {
+          const countryCode = '+' + countryCodeMatch[1];
+          const number = fullNumber.substring(countryCode.length);
+          return { countryCode, number };
+        }
+      }
+      // Fallback
+      return { countryCode: '+966', number: fullNumber };
     }
   }
 };

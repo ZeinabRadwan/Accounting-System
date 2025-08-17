@@ -390,24 +390,6 @@ export default {
             ],
           },
           {
-            title: this.$t("has_emails"),
-            type: "checkbox",
-            key: "has_emails",
-            option: [
-              { id: true, value: this.$t("with_emails") },
-              { id: false, value: this.$t("without_emails") },
-            ],
-          },
-          {
-            title: this.$t("has_mobiles"),
-            type: "checkbox",
-            key: "has_mobiles",
-            option: [
-              { id: true, value: this.$t("with_mobiles") },
-              { id: false, value: this.$t("without_mobiles") },
-            ],
-          },
-          {
             title: this.$t("date_range"),
             type: "range-picker",
             key: "date_range",
@@ -424,7 +406,7 @@ export default {
         responsive: true,
         rowLimit: 10,
         showAction: true,
-          actions: [
+        actions: [
           {
             title: this.$t('edit'),
             type: 'edit',
