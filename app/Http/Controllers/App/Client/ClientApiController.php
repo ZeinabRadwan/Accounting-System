@@ -248,7 +248,7 @@ class ClientApiController extends Controller
     /**
      * Show a specific client
      */
-    public function show($id): JsonResponse
+    public function show($tenantId,$id): JsonResponse
     {
         // Resolve client from ID
         $clientModel = Client::findOrFail($id);
