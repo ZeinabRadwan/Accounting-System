@@ -268,91 +268,97 @@
 
             <!-- Additional Emails -->
             <div class="form-group">
-              <label>{{ $t('additional_emails') }}</label>
-              <div v-for="(email, index) in clientForm.additional_emails" :key="'email-' + index" class="input-group mb-2">
-                <input 
-                  v-model="email.email" 
-                  type="email" 
-                  class="form-control"
-                  :class="{ 'is-invalid': errors[`additional_emails_${index}_email`] }"
-                  :placeholder="$t('additional_email_placeholder')"
-                  @input="clearEmailError(index)"
-                />
-                <div class="input-group-append">
-                  <button 
-                    type="button" 
-                    class="btn btn-outline-danger" 
-                    @click="removeEmail(index)"
-                    :title="$t('remove_email')"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button>
+              <label class="form-label">
+                {{ $t('additional_emails') }}
+                <button 
+                  type="button" 
+                  class="btn btn-sm btn-primary ml-2" 
+                  @click="addEmail"
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+              </label>
+              
+              <div v-if="clientForm.additional_emails.length === 0" class="empty-state">
+                <span class="text-muted">{{ $t('no_additional_emails') }}</span>
+              </div>
+              
+              <div v-else>
+                <div v-for="(email, index) in clientForm.additional_emails" :key="'email-' + index" class="item-row">
+                  <div class="input-group">
+                    <input 
+                      v-model="email.email" 
+                      type="email" 
+                      class="form-control"
+                      :class="{ 'is-invalid': errors[`additional_emails_${index}_email`] }"
+                      :placeholder="$t('additional_email_placeholder')"
+                      @input="clearEmailError(index)"
+                    />
+                    <div class="input-group-append">
+                      <button 
+                        type="button" 
+                        class="btn btn-outline-danger" 
+                        @click="removeEmail(index)"
+                        :title="$t('remove_email')"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div v-if="errors[`additional_emails_${index}_email`]" class="invalid-feedback d-block">
+                    {{ errors[`additional_emails_${index}_email`] }}
+                  </div>
                 </div>
               </div>
-              <div v-for="(email, index) in clientForm.additional_emails" :key="'email-error-' + index">
-                <div class="invalid-feedback d-block" v-if="errors[`additional_emails_${index}_email`]">
-                  {{ errors[`additional_emails_${index}_email`] }}
-                </div>
-              </div>
-              <button 
-                type="button" 
-                class="btn btn-outline-primary btn-sm" 
-                @click="addEmail"
-              >
-                <i class="fas fa-plus mr-1"></i>
-                {{ $t('add_email') }}
-              </button>
             </div>
 
             <!-- Additional Mobiles -->
             <div class="form-group">
-              <label>{{ $t('additional_mobiles') }}</label>
-              <div v-for="(mobile, index) in clientForm.additional_mobiles" :key="'mobile-' + index" class="input-group mb-2">
-                <select v-model="mobile.country_code" class="form-control" style="max-width: 120px;">
-                  <option value="+966">+966</option>
-                  <option value="+971">+971</option>
-                  <option value="+973">+973</option>
-                  <option value="+974">+974</option>
-                  <option value="+965">+965</option>
-                  <option value="+968">+968</option>
-                  <option value="+20">+20</option>
-                  <option value="+1">+1</option>
-                  <option value="+44">+44</option>
-                  <option value="+33">+33</option>
-                  <option value="+49">+49</option>
-                </select>
-                <input 
-                  v-model="mobile.mobile_number" 
-                  type="tel" 
-                  class="form-control"
-                  :class="{ 'is-invalid': errors[`additional_mobiles_${index}_mobile_number`] }"
-                  :placeholder="$t('mobile_number_placeholder')"
-                  @input="clearMobileError(index)"
-                />
-                <div class="input-group-append">
-                  <button 
-                    type="button" 
-                    class="btn btn-outline-danger" 
-                    @click="removeMobile(index)"
-                    :title="$t('remove_mobile')"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button>
+              <label class="form-label">
+                {{ $t('additional_mobiles') }}
+                <button 
+                  type="button" 
+                  class="btn btn-sm btn-primary ml-2" 
+                  @click="addMobile"
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+              </label>
+              
+              <div v-if="clientForm.additional_mobiles.length === 0" class="empty-state">
+                <span class="text-muted">{{ $t('no_additional_mobiles') }}</span>
+              </div>
+              
+              <div v-else>
+                <div v-for="(mobile, index) in clientForm.additional_mobiles" :key="'mobile-' + index" class="item-row">
+                  <div class="input-group">
+                    <tel-input
+                      :data="{
+                        id: `additional_mobile_${index}`,
+                        required: false,
+                        disabled: false,
+                        placeholder: $t('enter_mobile_number'),
+                        inputClass: 'form-control'
+                      }"
+                      v-model="mobile.mobile_number"
+                      @input="handleAdditionalMobileInput(index, $event)"
+                    />
+                    <div class="input-group-append">
+                      <button 
+                        type="button" 
+                        class="btn btn-outline-danger" 
+                        @click="removeMobile(index)"
+                        :title="$t('remove_mobile')"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div v-if="errors[`additional_mobiles_${index}_mobile_number`]" class="invalid-feedback d-block">
+                    {{ errors[`additional_mobiles_${index}_mobile_number`] }}
+                  </div>
                 </div>
               </div>
-              <div v-for="(mobile, index) in clientForm.additional_mobiles" :key="'mobile-error-' + index">
-                <div class="invalid-feedback d-block" v-if="errors[`additional_mobiles_${index}_mobile_number`]">
-                  {{ errors[`additional_mobiles_${index}_mobile_number`] }}
-                </div>
-              </div>
-              <button 
-                type="button" 
-                class="btn btn-outline-primary btn-sm" 
-                @click="addMobile"
-              >
-                <i class="fas fa-plus mr-1"></i>
-                {{ $t('add_mobile') }}
-              </button>
             </div>
           </div>
 
@@ -715,9 +721,11 @@ export default {
         if (requestData.additional_mobiles && requestData.additional_mobiles.length > 0) {
           requestData.additional_mobiles.forEach(mobile => {
             if (mobile.mobile_number && mobile.mobile_number.trim()) {
+              // Extract country code and number from the full international number
+              const phoneData = this.parsePhoneNumber(mobile.mobile_number);
               mobilesData.push({
-                mobile_number: mobile.mobile_number.trim(),
-                country_code: mobile.country_code || '+966',
+                mobile_number: phoneData.number,
+                country_code: phoneData.countryCode,
                 is_primary: false,
                 is_verified: false,
                 notes: 'Additional mobile'
@@ -829,8 +837,7 @@ export default {
 
     addMobile() {
       this.clientForm.additional_mobiles.push({
-        mobile_number: '',
-        country_code: '+966',
+        mobile_number: '', // This will store the full international number from TelInput
         is_primary: false
       });
     },
@@ -891,8 +898,7 @@ export default {
         this.clientForm.additional_mobiles = mobiles
           .filter(mobile => !mobile.is_primary)
           .map(mobile => ({
-            mobile_number: mobile.mobile_number,
-            country_code: mobile.country_code,
+            mobile_number: `${mobile.country_code} ${mobile.mobile_number}`, // Combine for TelInput
             is_primary: false
           }));
         
@@ -932,6 +938,12 @@ export default {
       // The TelInput component provides the full international number
       this.clientForm.primary_mobile = value;
       this.clearPrimaryMobileError();
+    },
+
+    handleAdditionalMobileInput(index, value) {
+      // Update the mobile number with the full international number from TelInput
+      this.clientForm.additional_mobiles[index].mobile_number = value;
+      this.clearMobileError(index);
     },
 
     parsePhoneNumber(fullNumber) {
@@ -1014,5 +1026,49 @@ export default {
   color: #dc3545;
   font-size: 0.875rem;
   margin-top: 5px;
+}
+
+/* Clean additional items styling */
+.form-label {
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.form-label .btn {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.empty-state {
+  padding: 15px;
+  text-align: center;
+  background: #f8f9fa;
+  border: 1px dashed #dee2e6;
+  border-radius: 4px;
+  color: #6c757d;
+}
+
+.item-row {
+  margin-bottom: 15px;
+}
+
+.item-row:last-child {
+  margin-bottom: 0;
+}
+
+.country-select {
+  max-width: 100px;
+}
+
+.input-group .btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.input-group .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
 }
 </style>
