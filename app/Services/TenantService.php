@@ -57,6 +57,23 @@ class TenantService
             $this->tenantData($request, $trialDayCount, $emailVerifiedAt),
         );
 
+        $domain = $tenant->createDomain([
+            'domain' => $request->domain,
+        ]);
+
+        $tenant->update([
+            'ready' => true,
+            'primary_domain_id' => $domain->id,
+            'fallback_domain_id' => $domain->id,
+        ]);
+
+        // get host name
+        $host = request()->getHttpHost();
+        $domainWithHost = request()->getScheme() . '://' . $request->domain . '.' . $host;
+        $token = tenancy()->impersonate(
+            $tenant, 1, $request->domain . '.' . $host
+        )->token;
+
         // tenant verification mail
         $tenant->notify(new TenantVerificationNotification());
         $host = env('CENTRAL_DOMAIN');
@@ -81,6 +98,9 @@ class TenantService
             $this->tenantData($request, $trialDayCount, now()),
         );
 
+
+        // demo
+
         $domain = $tenant->createDomain([
             'domain' => $request->domain,
         ]);
@@ -97,6 +117,8 @@ class TenantService
         $token = tenancy()->impersonate(
             $tenant, 1, $request->domain . '.' . $host
         )->token;
+
+        // demo
 
         // notify tenant
         $tenant->notify(
