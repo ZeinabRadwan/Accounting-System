@@ -2,42 +2,24 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\GeneralException;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
-class BaseRequest extends FormRequest
+abstract class BaseRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function failedValidation(Validator $validator)
     {
-        return true;
-    }
-
-
-    /**
-     * Get the validation rules that apply to the request.
-     * @param $model
-     * @return array
-     * @throws GeneralException
-     */
-    protected function initRules($model)
-    {
-        if (!is_object($model)) {
-            throw new GeneralException('This is not an object');
-        }
-
-        switch (strtolower($this->method())) {
-            case 'post':
-                return $model->createdRules();
-            case 'patch':
-            case 'put':
-                return $model->updatedRules();
-            default:
-                return [];
-        }
+        throw new HttpResponseException(
+            response()->json([
+                'version' => '1.0.0',
+                'isError' => true,
+                'statusCode' => Response::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors(),
+            ],
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+            ));
     }
 }

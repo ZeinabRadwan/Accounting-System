@@ -2,96 +2,124 @@
 
 namespace App\Providers;
 
-use App\Helpers\App\Traits\SetSettingsConfig;
-use App\Helpers\Config\SetStorageConfig;
-use App\Mail\App\Traits\SetMailConfig;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Blade;
+use App\Models\Currency;
+use App\Models\Permission;
+use App\Models\GeneralSetting;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Event;
+use Laravel\Dusk\DuskServiceProvider;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use Exception;
+use Stancl\Tenancy\Events\TenancyBootstrapped;
 
-/**
- * Class AppServiceProvider.
- */
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register()
+    private function generalSettingAndPermission()
     {
-        if (!$this->app->environment('production') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
-            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+        // if table is not empty then get setting items
+        if (DB::connection()->getDatabaseName()) {
+            if (Schema::hasTable('general_settings')) {
+                $allSettings = GeneralSetting::get();
+                // define global variables
+                if (count($allSettings) > 0) {
+                    config(['config.clientPrefix' => $allSettings->where('key', 'client_prefix')->first()?->value]);
+                    config(['config.employeePrefix' => $allSettings->where('key', 'employee_prefix')->first()?->value]);
+                    config(['config.supplierPrefix' => $allSettings->where('key', 'supplier_prefix')->first()?->value]);
+                    config(['config.expCatPrefix' => $allSettings->where('key', 'exp_cat_prefix')->first()?->value]);
+                    config(['config.expSubCatPrefix' => $allSettings->where('key', 'exp_sub_cat_prefix')->first()?->value]);
+                    config(['config.proCatPrefix' => $allSettings->where('key', 'product_cat_prefix')->first()?->value]);
+                    config(['config.proSubCatPrefix' => $allSettings->where('key', 'product_sub_cat_prefix')->first()?->value]);
+                    config(['config.productPrefix' => $allSettings->where('key', 'product_prefix')->first()?->value]);
+                    config(['config.purchasePrefix' => $allSettings->where('key', 'pur_prefix')->first()?->value]);
+                    config(['config.purchaseReturnPrefix' => $allSettings->where('key', 'pur_return_prefix')->first()?->value]);
+                    config(['config.quotationPrefix' => $allSettings->where('key', 'quotation_prefix')->first()?->value]);
+                    config(['config.invoicePrefix' => $allSettings->where('key', 'invoice_prefix')->first()?->value]);
+                    config(['config.invoiceReturnPrefix' => $allSettings->where('key', 'invoice_return_prefix')->first()?->value]);
+                    config(['config.adjustmentPrefix' => $allSettings->where('key', 'adjustment_prefix')->first()?->value]);
+                    config(['config.favicon' => $allSettings->where('key', 'favicon')->first()?->value]);
+                    config(['config.companyName' => $allSettings->where('key', 'company_name')->first()?->value]);
+                    config(['config.companyPhoneNumber' => $allSettings->where('key', 'phone_number')->first()?->value]);
+                    config(['config.companyEmail' => $allSettings->where('key', 'email_address')->first()?->value]);
+                    config(['config.logo' => $allSettings->where('key', 'logo')->first()?->value]);
+                    config(['config.logoBlack' => $allSettings->where('key', 'logo_black')->first()?->value]);
+                    config(['config.address' => $allSettings->where('key', 'address')->first()?->value]);
+                }
+            }
+
+            if (Schema::hasTable('currencies')) {
+                $currency = Currency::where('id', 1)->first();
+                config(['config.currencySymbol' => $currency?->symbol]);
+                config(['config.currencyPosition' => $currency?->position]);
+            }
+        }
+        // check permission for tenant
+        if (DB::connection()->getDatabaseName()) {
+            if (Schema::hasTable('permissions')) {
+                $permissions = Permission::all();
+                if (! empty($permissions)) {
+                    foreach ($permissions as $permission) {
+                        Gate::define($permission->slug, function ($user) use ($permission) {
+                            return $user->hasPermissionTo($permission->slug);
+                        });
+                    }
+                }
+            }
         }
     }
 
     /**
      * Bootstrap any application services.
+     *
+     * @return void
      */
     public function boot()
     {
-        /*
-         * Application locale defaults for various components
-         *
-         * These will be overridden by LocaleMiddleware if the session local is set
-         */
+        // define default string length
+        // Schema::defaultStringLength(191);
 
-        // setLocale for php. Enables ->formatLocalized() with localized values for dates
-        setlocale(LC_TIME, config('app.locale_php'));
-
-        // setLocale to use Carbon source locales. Enables diffForHumans() localized
-        Carbon::setLocale(config('app.locale'));
+        $this->generalSettingAndPermission();
 
         /*
-         * Set the session variable for whether or not the app is using RTL support
-         * For use in the blade directive in BladeServiceProvider
+         * tenant related configurations start
          */
-        if (! app()->runningInConsole()) {
-            if (config('locale.languages')[config('app.locale')][2]) {
-                session(['lang-rtl' => true]);
-            } else {
-                session()->forget('lang-rtl');
-            }
-        }
 
-        // Force SSL in production
-        /*if ($this->app->environment() === 'production') {
-            URL::forceScheme('https');
-        }*/
-
-        // Set the default template for Pagination to use the included Bootstrap 4 template
-        // Custom Blade Directives
-
-        /*
-         * The block of code inside this directive indicates
-         * the project is currently running in read only mode.
-         */
-        Blade::if('readonly', function () {
-            return config('app.read_only');
+        // after tenant bootstrapped do other checking stuff
+        Event::listen(TenancyBootstrapped::class, function (TenancyBootstrapped $event) {
+            $this->generalSettingAndPermission();
         });
 
         /*
-         * The block of code inside this directive indicates
-         * the chosen language requests RTL support.
+         * tenant related configurations end
          */
-        Blade::if('langrtl', function ($session_identifier = 'lang-rtl') {
-            return session()->has($session_identifier);
+
+        // Model::preventLazyLoading(
+        //     ! app()->isProduction()
+        // );
+
+        Model::preventSilentlyDiscardingAttributes(
+            ! app()->isProduction()
+        );
+
+        /*
+         * Custom Macros
+         */
+        Builder::macro('toRawSql', function() {
+            return vsprintf(str_replace(['?'], ['\'%s\''], $this->toSql()), $this->getBindings());
         });
+    }
 
-        try {
-            SetMailConfig::new(true)
-                ->clear()
-                ->set();
-
-            SetStorageConfig::new(true)
-                ->set();
-
-            SetSettingsConfig::new(true)
-                ->set();
-
-
-        } catch (Exception $exception){
-
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        if ($this->app->environment('local', 'testing') && class_exists(DuskServiceProvider::class)) {
+            $this->app->register(DuskServiceProvider::class);
         }
     }
 }

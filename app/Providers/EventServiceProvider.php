@@ -2,11 +2,27 @@
 
 namespace App\Providers;
 
+use App\Listeners\StripeEventListener;
+use App\Models\Expense;
+use App\Models\Invoice;
+use App\Models\InvoicePayment;
+use App\Models\InvoiceReturn;
+use App\Models\Purchase;
+use App\Models\PurchasePayment;
+use App\Models\PurchaseReturn;
+use App\Observers\ExpenseObserver;
+use App\Observers\InvoiceObserver;
+use App\Observers\InvoicePaymentObserver;
+use App\Observers\InvoiceReturnObserver;
+use App\Observers\PurchaseObserver;
+use App\Observers\PurchasePaymentObserver;
+use App\Observers\PurchaseReturnObserver;
+use DB;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Laravel\Cashier\Events\WebhookReceived;
 
-/**
- * Class EventServiceProvider.
- */
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -15,37 +31,30 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\ChatEvent' => [
-            'App\Listeners\ChatListener'
-        ]
-    ];
-
-    /**
-     * Class event subscribers.
-     *
-     * @var array
-     */
-    protected $subscribe = [
-
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+        ],
+        WebhookReceived::class => [
+            StripeEventListener::class,
+        ],
     ];
 
     /**
      * Register any events for your application.
+     *
+     * @return void
      */
     public function boot()
     {
-        parent::boot();
-
-        //
-    }
-
-    /**
-     * Determine if events and listeners should be automatically discovered.
-     *
-     * @return bool
-     */
-    public function shouldDiscoverEvents()
-    {
-        return false;
+        // regsiter observers
+        if (DB::connection()->getDatabaseName()) {
+            Expense::observe(ExpenseObserver::class);
+            Purchase::observe(PurchaseObserver::class);
+            PurchasePayment::observe(PurchasePaymentObserver::class);
+            PurchaseReturn::observe(PurchaseReturnObserver::class);
+            Invoice::observe(InvoiceObserver::class);
+            InvoicePayment::observe(InvoicePaymentObserver::class);
+            InvoiceReturn::observe(InvoiceReturnObserver::class);
+        }
     }
 }

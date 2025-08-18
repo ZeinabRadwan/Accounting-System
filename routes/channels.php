@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Broadcast;
+
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -11,12 +13,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Broadcast;
-
-//Broadcast::channel('App.User.{id}', function ($user, $id) {
-//    return (int) $user->id === (int) $id;
-//});
-
-Broadcast::channel('chat.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('new-tenant-registered', function ($user) {
+    return $user->account_role == 1;
 });

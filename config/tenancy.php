@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Str;
 use Stancl\Tenancy\Database\Models\Domain;
-use App\Models\Tenant;
 
 return [
-    'tenant_model' => Tenant::class,
+    'tenant_model' => \App\Models\Tenant::class,
     'id_generator' => Stancl\Tenancy\UUIDGenerator::class,
 
     'domain_model' => Domain::class,
@@ -17,10 +17,7 @@ return [
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
     'central_domains' => [
-        '127.0.0.1',
-        'localhost',
-        'localhost:8001',
-        '127.0.0.1:8001',
+        env('CENTRAL_DOMAIN', 'acculance-saas.test'),
     ],
 
     /**
@@ -31,7 +28,7 @@ return [
      */
     'bootstrappers' => [
         Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper::class,
-        // Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class, // Disabled due to cache tagging issues
+        Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\FilesystemTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\QueueTenancyBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\RedisTenancyBootstrapper::class, // Note: phpredis is needed
@@ -46,7 +43,6 @@ return [
         /**
          * Connection used as a "template" for the dynamically created tenant database connection.
          * Note: don't name your template connection tenant. That name is reserved by package.
-         * Set to null to not copy any existing structure - let migrations create tables from scratch.
          */
         'template_tenant_connection' => null,
 
@@ -54,7 +50,7 @@ return [
          * Tenant database names are created like this:
          * prefix + tenant_id + suffix.
          */
-        'prefix' => 'tenant',
+        'prefix' => env('TENANT_DB_PREFIX', Str::limit(env('DB_DATABASE', Str::slug('APP_NAME', '_')), 10, '_')),
         'suffix' => '',
 
         /**
@@ -62,7 +58,7 @@ return [
          */
         'managers' => [
             'sqlite' => Stancl\Tenancy\TenantDatabaseManagers\SQLiteDatabaseManager::class,
-            'mysql' => App\Services\Core\Tenant\MySQLDatabaseManager::class,
+            'mysql' => Stancl\Tenancy\TenantDatabaseManagers\MySQLDatabaseManager::class,
             'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLDatabaseManager::class,
 
         /**
@@ -78,8 +74,6 @@ return [
             // 'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLSchemaManager::class, // Separate by schema instead of database
         ],
     ],
-
-   
 
     /**
      * Cache tenancy config. Used by CacheTenancyBootstrapper.
@@ -117,7 +111,7 @@ return [
          * See https://tenancyforlaravel.com/docs/v3/tenancy-bootstrappers/#filesystem-tenancy-boostrapper
          */
         'root_override' => [
-            // Disks whose roots should be overridden after storage_path() is suffixed.
+            // Disks whose roots should be overriden after storage_path() is suffixed.
             'local' => '%storage_path%/app/',
             'public' => '%storage_path%/app/public/',
         ],
@@ -140,11 +134,11 @@ return [
          * disable asset() helper tenancy and explicitly use tenant_asset() calls in places
          * where you want to use tenant-specific assets (product images, avatars, etc).
          */
-        'asset_helper_tenancy' => false,
+        'asset_helper_tenancy' => true,
     ],
 
     /**
-     * Redis tenancy config. Used by RedisTenancyBootstrapper.
+     * Redis tenancy config. Used by RedisTenancyBoostrapper.
      *
      * Note: You need phpredis to use Redis tenancy.
      *
@@ -168,12 +162,11 @@ return [
      * understand which ones you want to enable.
      */
     'features' => [
-        // Stancl\Tenancy\Features\UserImpersonation::class,
+        Stancl\Tenancy\Features\UserImpersonation::class,
         // Stancl\Tenancy\Features\TelescopeTags::class,
-        Stancl\Tenancy\Features\UniversalRoutes::class,
-        // Stancl\Tenancy\Features\TenantConfig::class, // https://tenancyforlaravel.com/docs/v3/features/tenant-config
-        // Stancl\Tenancy\Features\CrossDomainRedirect::class, // https://tenancyforlaravel.com/docs/v3/features/cross-domain-redirect
-        // Stancl\Tenancy\Features\ViteBundler::class,
+        // Stancl\Tenancy\Features\UniversalRoutes::class,
+        Stancl\Tenancy\Features\TenantConfig::class, // https://tenancyforlaravel.com/docs/v3/features/tenant-config
+        Stancl\Tenancy\Features\CrossDomainRedirect::class, // https://tenancyforlaravel.com/docs/v3/features/cross-domain-redirect
     ],
 
     /**
@@ -198,7 +191,7 @@ return [
      * Parameters used by the tenants:seed command.
      */
     'seeder_parameters' => [
-        '--class' => 'Database\\Seeders\\Tenant\\TenantDatabaseSeeder', // tenant seeder class
-         '--force' => true,
+        '--class' => 'TenantDatabaseSeeder', // root seeder class
+        '--force' => true,
     ],
 ];

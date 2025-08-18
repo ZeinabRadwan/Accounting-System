@@ -1,169 +1,65 @@
 <?php
 
-use App\Http\Controllers\App\Settings\SettingsApiController;
-use App\Http\Controllers\Core\Auth\User\UserPasswordController;
-use App\Http\Controllers\Core\LanguageController;
-use App\Http\Controllers\DocumentationController;
-use App\Http\Controllers\InstallDemoDataController;
-use App\Http\Controllers\SymlinkController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\App\Client\ClientDatatableController;
-use App\Http\Controllers\App\Client\ClientApiController; // Add this import
-
-/**
- * This route is only for user dashboard
- * And for some additional route
- */
-//auth()->loginUsingId(1);
-
-Route::get('/', function () {
-    try {
-        // initialize tenancy
-        tenancy()->initialize(session('tenant_id'));
-        // Check if user is authenticated and has tenant context
-        if (auth()->check() && session('tenant_id')) {
-            // User is authenticated and has tenant context, redirect to tenant dashboard
-            return redirect()->route('tenant.dashboard', ['tenant' => session('tenant_id')]);
-        }
-    } catch (\Exception $e) {
-        // No tenant context or not authenticated, redirect to central dashboard
-        return redirect('admin/users/login');
-    }
-});
-
-Route::get('/get-basic-setting-data', [SettingsApiController::class, 'getBasicSettingData']);
-
-// Main auth routes for multi-tenant system
-Route::get('/login', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'login'])->name('login');
-Route::get('/register', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'register'])->name('register');
-Route::post('/logout', [App\Http\Controllers\Core\Auth\MultiTenantAuthController::class, 'logout'])->name('logout');
-
-Route::get("doc/core/components", [DocumentationController::class, 'index']);
-Route::get("doc/core/components/{component_name}", [DocumentationController::class, 'show']);
-
-Route::get('/forget-password', [UserPasswordController::class, 'passwordReset']);
-//Route::get('user/registration',[\App\Http\Controllers\Core\Auth\User\RegistrationController::class,'index']);
-
-// Switch between the included languages
-Route::get('lang/{lang}', [LanguageController::class, 'swap'])->name('language.change');
-
-// available languages
-Route::get('languages', [LanguageController::class, 'index'])->name('languages.index');
+use App\Http\Controllers\DebugController;
+use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\PaystackController;
+use App\Http\Controllers\RazorpayController;
+use App\Http\Controllers\CentralAppController;
+use App\Http\Controllers\Central\ExportController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\NewsletterSubscriptionController;
 
 /*
- * All login related route will be go there
- * Only guest user can access this route
- */
-
-Route::group(['middleware' => 'guest', 'prefix' => 'user'], function () {
-    include_route_files(__DIR__ . '/user/');
-});
-
-Route::group(['middleware' => 'guest', 'prefix' => 'admin/users'], function () {
-    include_route_files(__DIR__ . '/login/');
-});
-
-/**
- * This route is only for brand redirection
- * And for some additional route
- */
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'authorize']], function () {
-    include __DIR__ . '/additional.php';
-});
-
-Route::any('install-demo-data', [InstallDemoDataController::class, 'run'])
-    ->name('install-demo-data');
-
-Route::any('symlink', [SymlinkController::class, 'run'])
-    ->name('storage.symlink');
-
-
-Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'core.'], function () {
-    /*
-         * (good if you want to allow more than one group in the core,
-         * then limit the core features by different roles or permissions)
-         *
-         * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
-         * These routes can not be hit if the password is expired
-         */
-    include_route_files(__DIR__ . '/core/');
-});
-
-// Tenant path-based routing - this must be BEFORE the general app routes to avoid conflicts
-Route::group(['prefix' => '{tenant}', 'where' => ['tenant' => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}']], function () {
-    // Define tenant routes directly here instead of including tenant.php
-
-    Route::middleware(['web', 'tenant.auth'])->group(function () {
-        // Tenant dashboard
-        Route::get('/dashboard', function () {
-            return view('dashboard.default');
-        })->name('tenant.dashboard');
-
-        // Tenant users
-        Route::get('/users', function () {
-            return view('tenant.users.index');
-        })->name('tenant.users.index');
-
-        // Client Management - Complete routes with tenant prefix
-        Route::group(['prefix' => 'clients'], function () {
-            // View routes
-            Route::get('/', function () {
-                return view('client.index');
-            })->name('client.index');
-            
-            Route::get('/create', function () {
-                return view('client.create');
-            })->name('client.create');
-            
-            // Use the controller instead of closure
-            Route::get('/{client}/edit', [\App\Http\Controllers\App\Client\ClientController::class, 'edit'])->name('client.edit');
-            
-            // API routes
-            Route::get('/datatable', [ClientApiController::class, 'index']);
-            Route::post('/', [ClientApiController::class, 'store']);
-            Route::get('/{clientId}', [ClientApiController::class, 'show']);
-            Route::put('/{clientId}', [ClientApiController::class, 'update']);
-            Route::delete('/{clientId}', [ClientApiController::class, 'destroy']);
-            
-            // Email management routes
-            Route::get('/{clientId}/emails', [ClientApiController::class, 'getEmails']);
-            Route::post('/{clientId}/emails', [ClientApiController::class, 'storeEmail']);
-            Route::delete('/{clientId}/emails/{emailId}', [ClientApiController::class, 'deleteEmail']);
-            
-            // Mobile management routes
-            Route::get('/{clientId}/mobiles', [ClientApiController::class, 'getMobiles']);
-            Route::post('/{clientId}/mobiles', [ClientApiController::class, 'storeMobile']);
-            Route::delete('/{clientId}/mobiles/{mobileId}', [ClientApiController::class, 'deleteMobile']);
-            
-            // Translation routes
-            Route::get('/{clientId}/translations', [ClientApiController::class, 'getTranslations']);
-            Route::post('/{clientId}/translations', [ClientApiController::class, 'storeTranslation']);
-            Route::delete('/{clientId}/translations', [ClientApiController::class, 'deleteTranslation']);
-            
-            // Filter endpoints
-            Route::get('/filters/id-types', [ClientApiController::class, 'getIdTypes']);
-            Route::get('/filters/nationalities', [ClientApiController::class, 'getNationalities']);
-            Route::get('/filters/banks', [ClientApiController::class, 'getBanks']);
-            Route::get('/filters/currencies', [ClientApiController::class, 'getCurrencies']);
-            Route::get('/filters/parent-clients', [ClientApiController::class, 'getParentClients']);
-        });
-
-        // Tenant logout
-        Route::post('/logout', function () {
-            auth()->logout();
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
-
-            // End tenancy and redirect to central
-            tenancy()->end();
-            return redirect()->route('central.dashboard');
-        })->name('tenant.logout');
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+if (! app()->isProduction()) {
+    Route::group(['prefix' => '/debug'], function () {
+        Route::get('/version', [DebugController::class, 'version']);
     });
-});
+}
 
-// Central app routes (not tenant-specific) - only for authenticated users
-Route::group(['middleware' => ['auth', 'authorize']], function () {
-    include_route_files(__DIR__ . '/app/');
+// display system info
+Route::get('/system-info', function () {
+    return phpinfo();
+})->name('systemInfo');
+
+Route::get('stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
+Route::get('stripe/success', [StripeController::class, 'success'])->name('stripe.success');
+
+Route::get('paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
+Route::get('paypal/success', [PaypalController::class, 'success'])->name('paypal.success');
+
+Route::get('paystack/success', [PaystackController::class, 'success'])->name('paystack.callback');
+
+Route::get('razorpay/success', [RazorpayController::class, 'success'])->name('razorpay.callback');
+
+Route::get('/newsletter-confirm', [NewsletterSubscriptionController::class, 'confirm'])->name('newsletter-confirm');
+
+Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
+    Route::get('email/verify/{tenant}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::get('/tenants/pdf', [ExportController::class, 'tenantsPdf'])->name('tenants.pdf');
+    Route::get('/tenants/export/excel', [ExportController::class, 'tenantsExportExcel'])->name('tenants.export.excel');
+    Route::get('/domain-requests', CentralAppController::class)->name('domain-requests.index');
+
+    Route::get('/subscription-requests', CentralAppController::class)->name('subscription-requests.index');
+
+    // Central Routes
+    Route::group(['as' => 'central.'], function () {
+        Route::group(['middleware' => 'auth:sanctum'], function () {
+            // spa view
+            Route::get('/dashboard', CentralAppController::class)->name('dashboard.index');
+        });
+    });
+
+    // SPA Routes
+    Route::get('/{path}', CentralAppController::class)->where('path', '^(?!.*(?:api|storage)).*$');
 });

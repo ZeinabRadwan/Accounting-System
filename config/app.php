@@ -4,13 +4,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Is In Read Only Mode
+    | Application Version
     |--------------------------------------------------------------------------
     |
-    | This value is for whether the project is in read only mode or not.
+    | This value is the version of your application.
+    | This value is used for tracking versions.
     |
     */
-    'read_only' => env('APP_READ_ONLY', false),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -23,8 +24,10 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel '.app()->version().' Boilerplate'),
-
+    'name' => env('APP_NAME', 'Laravel'),
+    'is_demo_mode' => env('IS_DEMO_MODE', false),
+    'version' =>  env('VERSION', '4.0.1'),
+    'nextAppVersion' => '4.0.1',
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -49,18 +52,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Application Testing Mode
-    |--------------------------------------------------------------------------
-    |
-    | When your application is currently running tests
-    |
-    */
-
-    'testing' => env('APP_TESTING', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +80,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'timezone' => env('APP_TIMEZONE', 'Asia/Dhaka'),
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +93,28 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    'locale' => 'en',
+
+    'locales' => [
+        'en' => ['EN', 'English'],
+        'hi' => ['HI', 'Hindi'],
+        'bn' => ['BN', 'Bengali'],
+        'es' => ['ES', 'Spanish'],
+        'de' => ['DE', 'German'],
+        'fr' => ['FR', 'French'],
+        'ar' => ['AR', 'Arabic'],
+        'id' => ['ID', 'Indonesian'],
+        'nl' => ['NL', 'Dutch'],
+        'ms' => ['MS', 'Malay'],
+        'it' => ['IT', 'Italian'],
+        'ko' => ['KO', 'Korean'],
+        'ru' => ['RU', 'Russian'],
+        'th' => ['TH', 'Thai'],
+        'tr' => ['TR', 'Turkish'],
+        'vi' => ['VI', 'Vietnamese'],
+        'zh' => ['ZH', 'Chinese'],
+        'pt' => ['PT', 'Portuguese'],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -114,7 +127,7 @@ return [
     |
     */
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,22 +135,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | This locale will be used by the Faker PHP library when generating fake
-    | data for your database seeders. For example, this will be used to get
+    | data for your database seeds. For example, this will be used to get
     | localized telephone numbers, street address information and more.
     |
     */
-    'faker_locale' => 'en_US',
 
-    /*
-    |--------------------------------------------------------------------------
-    | PHP Locale Code
-    |--------------------------------------------------------------------------
-    |
-    | The PHP locale determines the default locale that will be used
-    | by the Carbon library when setting Carbon's localization.
-    |
-    */
-    'locale_php' => env('APP_LOCALE_PHP', 'en_US'),
+    'faker_locale' => 'en_US',
 
     /*
     |--------------------------------------------------------------------------
@@ -166,7 +169,10 @@ return [
     */
 
     'providers' => [
-        // Laravel Framework Service Providers...
+
+        /*
+         * Laravel Framework Service Providers...
+         */
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -189,19 +195,26 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Swap\Laravel\SwapServiceProvider::class,
 
-        // Package Service Providers that aren't auto-discover...
+        /*
+         * Package Service Providers...
+         */
 
-        // Application Service Providers...
+        /*
+         * Application Service Providers...
+         */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        App\Providers\HelperServiceProvider::class,
-       App\Providers\BroadcastServiceProvider::class,
-        App\Providers\ComposerServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\ObserverServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\TenancyServiceProvider::class, 
+        App\Providers\TelescopeServiceProvider::class,
+        App\Providers\TenancyServiceProvider::class,
+        App\Providers\CustomServiceProvider::class,
+        App\Providers\CurrencyDirectiveServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +246,7 @@ return [
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Http' => Illuminate\Support\Facades\Http::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
@@ -251,5 +265,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Swap' => Swap\Laravel\Facades\Swap::class,
     ],
+
+    'dump_path' => env('DUMP_PATH'),
+
 ];

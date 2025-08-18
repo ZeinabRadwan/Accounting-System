@@ -1,0 +1,89 @@
+# Version 1.0 published on 02 May 2022
+* Initial Release.
+
+# Version 2.0 published on 28th November 2022
+* Fixed - After the Trial Period, the Subscription Issue was Fixed.
+* Update - Edit page reset button removed.
+* Fixed - Installer issue fixed.
+* Fixed - Other issues.
+
+# Version 2.1 Published on 08th August 2022
+* Fixed - Stripe payment settings update.
+* Fixed - Tenant dashboard page invoice table.
+* Fixed - Tenant panel VAT Rate numeric number input.
+* Fixed - Installer issue fixed.
+* Fixed - Other issues.
+
+# Version 3 Published on 10th September 2023
+* Added - Sidebar Resource Menu on the central panel.
+* Added - Stripe based subscription dependency removed from central panel.
+* Added - Subscription request added on the central panel.
+* Added - All subscriptions added on the central panel.
+* Added - Team welcome notification added on the central panel.
+* Added - Mail settings added on the central panel.
+* Added - SMS settings added on the central panel.
+* Added - Payment settings added on the central panel.
+* Added - Manual subscription added for the tenant.
+* Added - Paypal subscription added for the tenant.
+* Added - Stripe subscription added for the tenant.
+* Added - Subscription request added for the tenant.
+* Added - Subscription payments and invoice added for the tenant.
+* Added - Default Client added in general settings on the tenant panel.
+* Added - Default Account in general settings on the tenant panel.
+* Added - Default Vat Rate in general settings on the tenant panel.
+* Added - Default settings updated in POS on the tenant panel.
+* Added - POS sale created by Enter button press on the tenant panel.
+* Added - POS product search issue fixed on the tenant panel.
+* Added - Import clients via CSV file on the tenant panel.
+* Added - Import suppliers via CSV file on the tenant panel.
+* Added - Import products via CSV file on the tenant panel.
+* Added - Add client from POS page on the tenant panel.
+* Added - Add product from POS page on the tenant panel.
+* Added - Add client from invoice create page on the tenant panel.
+* Added - Add product from invoice create page on the tenant panel.
+* Added - Add client from quotation create page on the tenant panel.
+* Added - Add product from quotation create page on the tenant panel.
+* Added - Add supplier from purchase create page on the tenant panel.
+* Added - Add product from purchase create page on the tenant panel.
+* Added - Product price added in barcode on the tenant panel.
+* Added - Client Ledger added on the tenant panel.
+* Added - Supplier Ledger added on the tenant panel.
+* Added - Account Ledger added on the tenant panel.
+* Added - Client Welcome Email & SMS Notification  on the tenant panel.
+* Added - Supplier Welcome Email & SMS Notification on the tenant panel.
+* Added - Invoice Email & SMS Notification on the tenant panel.
+* Added - Purchase Email & SMS Notification on the tenant panel.
+* Added - Quotation Email & SMS Notification on the tenant panel.
+* Added - Invoice Payment Email & SMS Notification on the tenant panel.
+* Added - Purchase Payment Email & SMS Notification on the tenant panel.
+* Added - Add Invoice Payment From Invoices Page on the tenant panel.
+* Added - Add Purchase Payment From Purchases Page on the tenant panel.
+* Added - Add Supplier From Purchase Create Page on the tenant panel.
+* Added - Add Product From Purchase Create Page on the tenant panel.
+* Update - UX/UI Design Update on the tenant panel.
+* Update - UX/UI Design Update on the central panel.
+* Update - Table Design update on the tenant panel.
+* Update - Table Design update on the central panel.
+* Update - Invoice Show Page design update on the tenant panel.
+* Update - Purchase Show Page design update on the tenant panel.
+* Update - Quotation Show Page design update on the tenant panel.
+* Update - Performance Update on the tenant panel.
+* Update - Performance Update on the central panel.
+* Update - Security Update on the central panel.
+* Update - Security Update on the tenant panel.
+* Fixed - Inventory Adjustment Issue on the tenant panel.
+* Fixed - Inventory PDF Export Issue on the tenant panel.
+* Fixed - Inventory Product Search Export Issue on the tenant panel.
+* Fixed - Purchase Payment Issue fixed on the tenant panel.
+* Fixed - Quotation create and edit input double number issue fixed on the tenant panel.
+* Fixed - POS page VAT select overflow issue fixed on the tenant panel.
+* Fixed - PDF issue fixed on the tenant panel.
+* Fixed - Reports issue fixed on the tenant panel.
+* Fixed - Paginate Issue in POS Search fixed on the tenant panel.
+* Fixed - Invoice edit issue fixed on the tenant panel.
+* Fixed - Invoice return issue fixed on the tenant panel.
+* Fixed - Inventory Adjustment issue fixed on the tenant panel.
+* Fixed - Landing page edit fixed on the central panel.
+* Update - Others page design update on the central panel.
+* Update - Others page design update on the tenant panel.
+* Fixed - Other issues.

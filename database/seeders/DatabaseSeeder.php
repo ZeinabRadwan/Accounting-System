@@ -1,53 +1,43 @@
 <?php
+
 namespace Database\Seeders;
 
-use Database\Seeders\Traits\DisableForeignKeys;
-use Database\Seeders\Traits\TruncateTable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Database\Seeders\App\SettingTableSeeder;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
-    use TruncateTable, DisableForeignKeys;
-
     /**
      * Seed the application's database.
-     * 
-     * This seeder is for the CENTRAL database only.
-     * It only seeds tenant management data.
-     * 
-     * For tenant-specific data, use: php artisan tenants:seed
+     *
+     * @return void
      */
     public function run()
     {
-        Model::unguard();
-        $this->disableForeignKeys();
-
-        // Only seed central database data here
-        // All tenant-specific data should be seeded via tenants:seed command
-        
-        // Note: The central database only contains:
-        // - tenants table
-        // - domains table  
-        // - cache, jobs, failed_jobs tables
-        
-        // If you need to create a default tenant, you can do it here
-        // But most tenant creation should happen through the application logic
-
-        // SettingTableSeeder
         $this->call([
-            SettingTableSeeder::class,
+            CentralCurrencySeeder::class,
+            CentralSettingSeeder::class,
+            SettingImageSeeder::class,
+            UserSeeder::class,
+            RoleSeeder::class,
+            CentralPermissionSeeder::class,
+            UserRoleSeeder::class,
+            UserPermissionSeeder::class,
+            RolePermissionSeeder::class,
         ]);
 
-        $this->call([
-            SidebarMenuSeeder::class,
-        ]);
-        $this->call([
-            TenantPermissionSeeder::class,
-        ]);
-
-        $this->enableForeignKeys();
-        Model::reguard();
+        // for testing purposes
+        // this will not run in production environment
+        if (App::environment('local') || App::environment('staging')) {
+            $this->call([
+                PlanSeeder::class,
+                FeatureSeeder::class,
+                FeaturePlanSeeder::class,
+                TenantSeeder::class,
+                NewsletterSubscriptionSeeder::class,
+                PageSeeder::class,
+                DomainRequestSeeder::class,
+            ]);
+        }
     }
 }

@@ -1,17 +1,23 @@
-import settings from './modules/settings/Settings';
-import user from './modules/user/User';
-import theme from './modules/theme/Theme';
-import support from './modules/Support';
-import userAndRoles from './modules/user/UserRoles';
-import notificationSettings from './modules/settings/NotificationSettings';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-export default{
-    modules: {
-        theme,
-        settings,
-        user,
-        userAndRoles,
-        notificationSettings,
-        support
+Vue.use(Vuex)
+
+// Load store modules dynamically.
+const requireContext = require.context('./modules', false, /.*\.js$/)
+
+const modules = requireContext.keys()
+  .map(file =>
+    [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)]
+  )
+  .reduce((modules, [name, module]) => {
+    if (module.namespaced === undefined) {
+      module.namespaced = true
     }
-}
+
+    return { ...modules, [name]: module }
+  }, {})
+
+export default new Vuex.Store({
+  modules
+})

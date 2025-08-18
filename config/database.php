@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'central'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,26 +34,6 @@ return [
     */
 
     'connections' => [
-
-        'central' => [
-            'driver' => 'mysql',
-            'url' => env('CENTRAL_DATABASE_URL'),
-            'host' => env('CENTRAL_DB_HOST', env('DB_HOST', '127.0.0.1')),
-            'port' => env('CENTRAL_DB_PORT', env('DB_PORT', '3306')),
-            'database' => env('CENTRAL_DB_DATABASE', env('DB_DATABASE', 'forge')),
-            'username' => env('CENTRAL_DB_USERNAME', env('DB_USERNAME', 'forge')),
-            'password' => env('CENTRAL_DB_PASSWORD', env('DB_PASSWORD', '')),
-            'unix_socket' => env('CENTRAL_DB_SOCKET', env('DB_SOCKET', '')),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
-        ],
 
         'sqlite' => [
             'driver' => 'sqlite',
@@ -76,7 +56,7 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -111,7 +91,13 @@ return [
             'prefix_indexes' => true,
         ],
 
-      
+        'dusk' => [
+            'driver' => 'sqlite',
+            'url' => env('DATABASE_URL'),
+            'database' => database_path('dusk.sqlite'),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
 
     ],
 

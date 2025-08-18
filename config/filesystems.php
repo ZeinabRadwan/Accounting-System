@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -12,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'public'),
+    'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,24 +37,15 @@ return [
     | may even configure multiple disks of the same driver. Defaults have
     | been setup for each driver as an example of the required options.
     |
-    | Supported Drivers: "local", "ftp", "sftp", "s3", "rackspace"
+    | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
     */
 
     'disks' => [
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-            'permissions' => [
-                'file' => [
-                    'public' => 0755,
-                    'private' => 0755,
-                ],
-                'dir' => [
-                    'public' => 0755,
-                    'private' => 0755,
-                ],
-            ],
         ],
 
         'public' => [
@@ -62,7 +54,12 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
-
+        'tenant-public' => [
+            'driver' => 'local',
+            'root' => storage_path('tenants'),
+            'url' => env('APP_URL') . '/storage/tenants',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -71,11 +68,24 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
-            'use_path_style_endpoint' => false,
-            'throw' => false,
         ],
+
     ],
-    'links' =>    [
-        public_path('storage') => storage_path('app/public')
+
+    /*
+    |--------------------------------------------------------------------------
+    | Symbolic Links
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the symbolic links that will be created when the
+    | `storage:link` Artisan command is executed. The array keys should be
+    | the locations of the links and the values should be their targets.
+    |
+    */
+
+    'links' => [
+        public_path('storage') => storage_path('app/public'),
+        public_path('storage/tenant') => storage_path('tenant/public'),
     ],
+
 ];

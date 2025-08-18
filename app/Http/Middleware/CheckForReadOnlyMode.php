@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class CheckForReadOnlyMode.
@@ -11,38 +12,38 @@ use Illuminate\Http\Response;
 class CheckForReadOnlyMode
 {
     /**
-     * @var array
-     */
-    protected $disallowed = [
-        'confirm',
-        'unconfirm',
-        'mark/0',
-        'mark/1',
-        'clear-session',
-    ];
-
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     *
+     * @param $request
+     * @param  Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (config('app.read_only')) {
-            // Block all login requests that are not login
-            if ($request->isMethod('post') || $request->isMethod('patch') || $request->isMethod('delete')) {
-                abort_if($request->path() !== 'login', Response::HTTP_UNAUTHORIZED);
+        if (config('lockout.enabled')) {
+            // Check to see if this method and route is whitelisted
+            foreach (config('lockout.whitelist') as $method => $routeNames) {
+                if ($request->isMethod($method) && in_array($request->route()->getName(), $routeNames)) {
+                    return $next($request);
+                }
+            }
+
+            foreach (config('lockout.locked_types', []) as $type) {
+                if ($request->isMethod('post') && config('lockout.allow_login')) {
+                    abort_if(
+                        $request->path() !== config('lockout.login_path') &&
+                        $request->path() !== config('lockout.logout_path'),
+                        499
+                    );
+                } elseif ($request->isMethod(strtolower($type))) {
+                    abort(499);
+                }
             }
 
             // Block any other specific get requests that may alter data
             if ($request->isMethod('get')) {
-                collect($this->disallowed)
+                collect(config('lockout.pages', []))
                     ->each(function ($item) use ($request) {
-                        if (strpos($request->path(), $item) !== false) {
-                            abort(Response::HTTP_UNAUTHORIZED);
+                        if ($request->path() === $item) {
+                            abort(499);
                         }
                     });
             }
