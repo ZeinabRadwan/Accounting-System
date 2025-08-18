@@ -12,6 +12,6 @@ class TenantRegisterController extends Controller
     */
     public function store(TenantRegisterRequest $request, TenantService $tenantService)
     {
-        return $tenantService->createTenantAndSendVerificationNotification($request);
+        return $tenantService->createTenantAndSendVerificationNotification($request, now());
     }
 }
