@@ -84,6 +84,10 @@
                     <strong>{{ $t("Company Name") }}</strong>
                     <span class="float-right">{{ allData.companyName }}</span>
                   </li>
+                  <li class="list-group-item">
+                    <strong>{{ $t("Type") }}</strong>
+                    <span class="float-right">{{ allData.type }}</span>
+                  </li>
                   <li
                     v-if="allData.taxRegistrationNumber"
                     class="list-group-item"

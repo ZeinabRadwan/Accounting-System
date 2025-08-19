@@ -42,7 +42,15 @@
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
-              <div class="col-6 col-xl-8 mb-2 text-right">
+              <!-- Type Dropdown -->
+              <div class="col-6 col-xl-2 mb-2">
+                <select v-model="selectedType" @change="onTypeChange" class="form-control">
+                  <option value="">{{ $t("All Types") }}</option>
+                  <option value="Company">{{ $t("Company") }}</option>
+                  <option value="Individual">{{ $t("Individual") }}</option>
+                </select>
+              </div>
+              <div class="col-6 col-xl-6 mb-2 text-right">
                 <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
                   :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
                   v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100">
@@ -51,6 +59,11 @@
                     {{ picker.endDate | endDate }}
                   </template>
                 </date-range-picker>
+              </div>
+              <div class="col-6 col-xl-2 mb-2 text-right">
+                <button @click="clearAllFilters" class="btn btn-secondary btn-sm" v-tooltip="$t('Clear All Filters')">
+                  <i class="fas fa-filter"></i> {{ $t("Clear") }}
+                </button>
               </div>
             </div>
             <table-loading v-show="loading" />
@@ -65,11 +78,12 @@
                     <th>{{ $t("Contact Number") }}</th>
                     <th>{{ $t("Email") }}</th>
                     <th>{{ $t("Company Name") }}</th>
+                    <th>{{ $t("Type") }}</th>
                     <th>{{ $t("Status") }}</th>
                     <th v-if="$can('supplier-view') ||
                       $can('supplier-edit') ||
                       $can('supplier-delete')
-                      " class="text-right no-print">
+                    " class="text-right no-print">
                       {{ $t("Action") }}
                     </th>
                   </tr>
@@ -106,6 +120,7 @@
                     <td>{{ data.phoneNumber }}</td>
                     <td>{{ data.email }}</td>
                     <td>{{ data.companyName }}</td>
+                    <td>{{ data.type }}</td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -115,9 +130,9 @@
                       }}</span>
                     </td>
                     <td v-if="$can('supplier-view') ||
-                        $can('supplier-edit') ||
-                        $can('supplier-delete')
-                        " class="text-right no-print">
+                      $can('supplier-edit') ||
+                      $can('supplier-delete')
+                    " class="text-right no-print">
                       <div class="btn-group">
                         <router-link v-if="$can('supplier-view')" v-tooltip="$t('View')" :to="{
                           name: 'suppliers.show',
@@ -139,7 +154,7 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="8">
+                    <td colspan="9">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -183,7 +198,8 @@
           <div class="row">
             <input :class="{ 'is-invalid': form.errors.has('file') }" type="file" id="file" @change="onFileChange"
               class="form-control" />
-            <small id="emailHelp" class="form-text text-muted"><a href="/demo-csv-file/demo.csv">{{ $t("download") }}</a>
+            <small id="emailHelp" class="form-text text-muted"><a href="/demo-csv-file/demo.csv">{{ $t("download")
+                }}</a>
               {{ $t("demo_file") }}</small>
             <span class="invalid-feedback" v-show="form.errors.has('file')">
               {{ form.errors.get("file") }}
@@ -236,6 +252,7 @@ export default {
       },
     ],
     query: "",
+    selectedType: "",
     perPage: 10,
     showModal: false,
     supplierPrefix: "",
@@ -270,18 +287,33 @@ export default {
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return `/suppliers/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      let url = `/suppliers/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      if (this.selectedType !== "") {
+        url += `&type=${this.selectedType}`;
+      }
+      return url;
     },
   },
   watch: {
     // watch search data
     query: function (newQ) {
       if (newQ === "") {
-        if (this.dateRange.startDate && this.dateRange.endDate) {
+        if (this.dateRange.startDate && this.dateRange.endDate || this.selectedType !== "") {
           this.searchData();
         } else {
           this.getData();
+        }
+      } else {
+        this.searchData();
+      }
+    },
+    // watch type changes
+    selectedType: function (newType) {
+      if (newType === "") {
+        if (this.query === "" && !this.dateRange.startDate && !this.dateRange.endDate) {
+          this.getData();
+        } else {
+          this.searchData();
         }
       } else {
         this.searchData();
@@ -351,10 +383,11 @@ export default {
     // refresh table
     refreshTable() {
       this.query = "";
+      this.selectedType = "";
       this.dateRange.startDate = null;
       this.dateRange.endDate = null;
 
-      this.query === "" ? this.getData() : this.searchData();
+      this.getData();
 
       setTimeout(
         function () {
@@ -364,10 +397,29 @@ export default {
         500
       );
     },
+
+    // clear all filters
+    clearAllFilters() {
+      this.query = "";
+      this.selectedType = "";
+      this.dateRange.startDate = null;
+      this.dateRange.endDate = null;
+      this.getData();
+    },
     // update per page count
     updatePerPager() {
       this.pagination.current_page = 1;
-      this.query === "" ? this.getData() : this.searchData();
+      if (this.query === "" && this.selectedType === "" && !this.dateRange.startDate && !this.dateRange.endDate) {
+        this.getData();
+      } else {
+        this.searchData();
+      }
+    },
+
+    // handle type change
+    onTypeChange() {
+      this.pagination.current_page = 1;
+      this.searchData();
     },
     // get data
     async getData() {
@@ -379,9 +431,15 @@ export default {
       });
     },
 
+
+
     // Pagination
     async paginate() {
-      this.query === "" ? this.getData() : this.searchData();
+      if (this.query === "" && this.selectedType === "" && !this.dateRange.startDate && !this.dateRange.endDate) {
+        this.getData();
+      } else {
+        this.searchData();
+      }
     },
 
     // Reset pagination
@@ -393,19 +451,33 @@ export default {
     async searchData() {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
-      await this.$store.dispatch("operations/searchData", {
-        path: "/api/suppliers/search",
-        term: this.query,
-        currentPage: currentPage + "&perPage=" + this.perPage,
-        startDate: this.dateRange.startDate,
-        endDate: this.dateRange.endDate,
-      });
+      
+      // If only type filter is applied (no search term, no date range), use the main endpoint
+      if (this.query === "" && !this.dateRange.startDate && !this.dateRange.endDate && this.selectedType !== "") {
+        await this.$store.dispatch("operations/fetchData", {
+          path: "/api/suppliers?page=",
+          currentPage: currentPage + "&perPage=" + this.perPage + "&type=" + this.selectedType,
+        });
+      } else {
+        // Use search endpoint for other cases
+        await this.$store.dispatch("operations/searchData", {
+          path: "/api/suppliers/search",
+          term: this.query,
+          currentPage: currentPage + "&perPage=" + this.perPage,
+          startDate: this.dateRange.startDate,
+          endDate: this.dateRange.endDate,
+          type: this.selectedType,
+        });
+      }
     },
 
     // Reload after search
     async reload() {
       this.query = "";
-      await this.searchData();
+      this.selectedType = "";
+      this.dateRange.startDate = null;
+      this.dateRange.endDate = null;
+      await this.getData();
     },
 
     // dispaly modal

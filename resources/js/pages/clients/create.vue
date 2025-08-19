@@ -84,6 +84,15 @@
                   </div>
                 </div>
                 <div class="form-group col-md-6">
+                  <label for="type">{{ $t("Type") }}</label>
+                  <select id="type" v-model="form.type" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('type') }">
+                    <option value="Company">{{ $t("Company") }}</option>
+                    <option value="Individual">{{ $t("Individual") }}</option>
+                  </select>
+                  <has-error :form="form" field="type" />
+                </div>
+                <div class="form-group col-md-6">
                   <label for="status">{{ $t("Status") }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -161,6 +170,7 @@ export default {
       taxRegistrationNumber: "",
       address: "",
       image: "",
+      type: "Company",
       status: 1,
       isSendEmail: false,
       isSendSMS: false,

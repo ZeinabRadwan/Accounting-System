@@ -21,8 +21,7 @@
                   <label for="name">{{ $t("Name") }}
                     <span class="required">*</span></label>
                   <input id="name" v-model="form.name" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter a name')" />
+                    :class="{ 'is-invalid': form.errors.has('name') }" name="name" :placeholder="$t('Enter a name')" />
                   <has-error :form="form" field="name" />
                 </div>
                 <div class="form-group col-md-6">
@@ -36,6 +35,16 @@
                 </div>
               </div>
               <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="type">{{ $t("Type") }} <span class="required">*</span></label>
+                  <select id="type" v-model="form.type" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('type') }">
+                    <option value="">{{ $t("Select Type") }}</option>
+                    <option value="Company">{{ $t("Company") }}</option>
+                    <option value="Individual">{{ $t("Individual") }}</option>
+                  </select>
+                  <has-error :form="form" field="type" />
+                </div>
                 <div class="form-group col-md-4">
                   <label for="phoneNumber">{{ $t("Contact Number") }}
                     <span class="required">*</span></label>
@@ -52,21 +61,24 @@
                     :placeholder="$t('Enter your email address')" />
                   <has-error :form="form" field="email" />
                 </div>
-                <div class="form-group col-md-4">
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-6">
                   <label for="taxRegistrationNumber">{{
                     $t("Tax Registration Number")
                   }}</label>
-                  <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="taxRegistrationNumber" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }" name="taxRegistrationNumber"
-                    :placeholder="$t('Enter a tax registration number')" />
+                  <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="taxRegistrationNumber"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }"
+                    name="taxRegistrationNumber" :placeholder="$t('Enter a tax registration number')" />
                   <has-error :form="form" field="taxRegistrationNumber" />
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="address">{{ $t("Address") }}</label>
-                <textarea id="address" v-model="form.address" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
-                <has-error :form="form" field="address" />
+                <div class="form-group col-md-6">
+                  <label for="address">{{ $t("Address") }}</label>
+                  <textarea id="address" v-model="form.address" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
+                  <has-error :form="form" field="address" />
+                </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
@@ -163,9 +175,11 @@ export default {
       address: "",
       image: "",
       status: 1,
+      type: "Company",
       isSendEmail: false,
       isSendSMS: false,
     }),
+
     loading: true,
     url: null,
   }),

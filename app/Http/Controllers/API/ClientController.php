@@ -29,6 +29,7 @@ use App\Http\Resources\InvoiceReturnListResource;
 use App\Http\Resources\NonInvoicePaymentListResource;
 use App\Http\Resources\ClientWithInvoicePaymentResource;
 use App\Http\Resources\ClientWithNonInvoicePaymentResource;
+use Illuminate\Support\Str;
 
 class ClientController extends Controller
 {
@@ -49,7 +50,13 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        return ClientListResource::collection(Client::orderBy('client_id', 'DESC')->paginate($request->perPage));
+        $query = Client::query();
+        
+        if ($request->type) {
+            $query = $query->where('type', $request->type);
+        }
+        
+        return ClientListResource::collection($query->orderBy('client_id', 'DESC')->paginate($request->perPage));
     }
 
     /**
@@ -89,6 +96,7 @@ class ClientController extends Controller
                 'address' => $request->address,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'type' => $request->type ?? 'Company',
             ]);
 
             //send welcome notification
@@ -184,6 +192,7 @@ class ClientController extends Controller
                 'address' => $request->address,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'type' => $request->type ?? 'Company',
             ]);
 
             // add activity log
@@ -263,6 +272,10 @@ class ClientController extends Controller
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('created_at', [$request->startDate, $request->endDate]);
+        }
+
+        if ($request->type) {
+            $query = $query->where('type', $request->type);
         }
 
         $query->where(function ($query) use ($term) {
@@ -578,14 +591,19 @@ class ClientController extends Controller
                 'email' => 'nullable|email|max:255|min:3|unique:clients,email',
                 'company_name' => 'nullable|string|max:100|min:2',
                 'address' => 'nullable|string|max:255',
+                'type' => 'nullable|string|in:Company,Individual',
             ];
 
             foreach ($data as $key => $item) {
                 $validator = Validator::make($item, $rules);
                 if ($validator->passes()) {
+                    $data = $validator->validated();
+                    $data['type'] = $data['type'] ?? 'Company';
+                    $data['slug'] = \Str::slug($data['name']);
+                    $data['status'] = 1;
+                    
                     Client::create(
-                        $this->incrementClientId() +
-                            $validator->validated()
+                        $this->incrementClientId() + $data
                     );
                 } else {
                     return response()->json([

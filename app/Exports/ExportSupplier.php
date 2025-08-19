@@ -15,12 +15,14 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     protected $startDate;
     protected $endDate;
     protected $term;
+    protected $type;
 
-    public function __construct($startDate, $endDate, $term)
+    public function __construct($startDate, $endDate, $term, $type = null)
     {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->term = $term;
+        $this->type = $type;
     }
 
     /**
@@ -33,6 +35,11 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 
         if ($this->startDate && $this->endDate) {
             $query = $query->whereBetween('created_at', [$this->startDate, $this->endDate]);
+        }
+
+        // Filter by type
+        if ($this->type && $this->type !== '') {
+            $query->where('type', $this->type);
         }
 
         $query->where(function ($query) use ($term) {
@@ -49,6 +56,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 $supplier->phone,
                 $supplier->email,
                 $supplier->company_name,
+                $supplier->type,
                 $supplier->status ? 'Active' : 'Inactive',
 
             ];
@@ -65,6 +73,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'Contact Number',
             'Email',
             'Company Name',
+            'Type',
             'Status'
         ];
     }
@@ -74,7 +83,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 // Style the header row (headings)
-                $event->getSheet()->getDelegate()->getStyle('A1:F1')->applyFromArray([
+                $event->getSheet()->getDelegate()->getStyle('A1:G1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'size' => 13,

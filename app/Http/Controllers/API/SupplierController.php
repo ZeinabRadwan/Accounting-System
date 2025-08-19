@@ -48,7 +48,14 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        return SupplierListResource::collection(Supplier::latest()->paginate($request->perPage));
+        $query = Supplier::query();
+
+        // Filter by type if provided
+        if ($request->has('type') && $request->type !== '') {
+            $query->where('type', $request->type);
+        }
+
+        return SupplierListResource::collection($query->latest()->paginate($request->perPage));
     }
 
     /**
@@ -88,7 +95,8 @@ class SupplierController extends Controller
                 'address' => $request->address,
                 'status' => $request->status,
                 'image_path' => $imageName,
-            ]);
+                'type' => $request->type, 
+            ]);            
 
             // add activity log
             activity()
@@ -121,6 +129,7 @@ class SupplierController extends Controller
             return $this->responseWithError($e->getMessage());
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -155,6 +164,7 @@ class SupplierController extends Controller
             'phoneNumber' => 'required|string|max:20|min:3',
             'email' => 'nullable|email|max:255|min:3|unique:users,email,' . $supplier->email,
             'companyName' => 'nullable|string|max:100|min:2',
+            'type' => 'required|in:Company,Individual',
             'address' => 'nullable|string|max:255',
         ]);
         try {
@@ -178,6 +188,7 @@ class SupplierController extends Controller
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'address' => $request->address,
+                'type' => $request->type,
                 'status' => $request->status,
                 'image_path' => $imageName,
             ]);
@@ -249,10 +260,17 @@ class SupplierController extends Controller
         $term = $request->term;
         $query = Supplier::query();
 
+        // Filter by date range
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('created_at', [$request->startDate, $request->endDate]);
         }
 
+        // ✅ Filter by type
+        if ($request->has('type') && $request->type !== '') {
+            $query->where('type', $request->type);
+        }
+
+        // Keyword search
         $query->where(function ($query) use ($term) {
             $query->where('name', 'Like', '%' . $term . '%')
                 ->orWhere('email', 'Like', '%' . $term . '%')
@@ -260,7 +278,9 @@ class SupplierController extends Controller
                 ->orWhere('company_name', 'Like', '%' . $term . '%');
         });
 
-        return SupplierResource::collection($query->latest()->paginate($request->perPage));
+        return SupplierResource::collection(
+            $query->latest()->paginate($request->perPage)
+        );
     }
 
     // return all suppliers

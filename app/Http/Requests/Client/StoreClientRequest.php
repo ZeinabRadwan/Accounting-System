@@ -29,6 +29,7 @@ class StoreClientRequest extends BaseRequest
             'email' => ['nullable', 'required_if:isSendEmail,true', 'email', 'max:255', 'min:3', 'unique:suppliers,email'],
             'companyName' => ['nullable', 'string', 'max:100', 'min:2'],
             'address' => ['nullable', 'string', 'max:255'],
+            'type' => ['nullable', 'string', 'in:Company,Individual'],
         ];
     }
 }

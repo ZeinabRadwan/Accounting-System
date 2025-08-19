@@ -81,6 +81,10 @@
                     <span class="float-right">{{ allData.phoneNumber }}</span>
                   </li>
                   <li class="list-group-item">
+                    <strong>{{ $t("Type") }}</strong>
+                    <span class="float-right">{{ allData.type }}</span>
+                  </li>
+                  <li class="list-group-item">
                     <strong>{{ $t("Company Name") }}</strong>
                     <span class="float-right">{{ allData.companyName }}</span>
                   </li>
@@ -96,6 +100,12 @@
                   <li class="list-group-item">
                     <strong>{{ $t("Address") }}</strong>
                     <span class="float-right">{{ allData.address }}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <strong>{{ $t("Type") }}</strong>
+                    <span class="float-right">
+                      <span class="badge bg-info">{{ allData.type || 'Company' }}</span>
+                    </span>
                   </li>
                 </ul>
                 <span

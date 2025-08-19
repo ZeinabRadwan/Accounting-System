@@ -23,6 +23,7 @@ class ClientListResource extends JsonResource
             'phoneNumber' => $this->phone,
             'companyName' => $this->company_name,
             'address' => $this->address,
+            'type' => $this->type ?? 'Company',
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('images/clients/'.$this->image_path) : '',
         ];
