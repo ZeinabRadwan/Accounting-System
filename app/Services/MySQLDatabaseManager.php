@@ -49,6 +49,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         $database = $tenant->database()->getName();
     
         if (app()->environment('local')) {
+            Log::info("Creating database in local environment: {$database}");
             $charset = $this->database()->getConfig('charset');
             $collation = $this->database()->getConfig('collation');
             return $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
