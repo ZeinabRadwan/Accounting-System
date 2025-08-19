@@ -28,6 +28,30 @@ if (! app()->isProduction()) {
     });
 }
 
+
+Route::get('/test-cpanel', function () {
+    $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
+    $apiToken = env('CPANEL_API_TOKEN', 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT');
+    $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
+    $cpanelPort = env('CPANEL_PORT', '2083');
+    
+    try {
+        $response = Http::withHeaders([
+            'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+        ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/version");
+        
+        return [
+            'status' => $response->status(),
+            'body' => $response->body(),
+            'success' => $response->successful()
+        ];
+    } catch (Exception $e) {
+        return ['error' => $e->getMessage()];
+    }
+});
+
+
+
 // display system info
 Route::get('/system-info', function () {
     return phpinfo();
