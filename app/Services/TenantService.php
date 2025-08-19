@@ -50,6 +50,7 @@ class TenantService
      */
     public function createTenantAndSendVerificationNotification(TenantRegisterRequest $request, Carbon $emailVerifiedAt = null): \Illuminate\Http\JsonResponse
     {
+        Log::info("Creating tenant and sending verification notification");
         $trialDayCount = GeneralSetting::where('key', 'trial_day_count')->first()?->value ?? 14;
 
         $tenant = Tenant::create(
