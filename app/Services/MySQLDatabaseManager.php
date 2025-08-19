@@ -12,6 +12,7 @@ use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Exceptions\NoConnectionSetException;
 use App\Exceptions\GeneralException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 
 class MySQLDatabaseManager implements TenantDatabaseManager
@@ -99,6 +100,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             ]);
 
             $data = $response->json();
+            Log::info($data);
 
             if (isset($data['status']) && $data['status'] === 1) {
                 return true;
