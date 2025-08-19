@@ -73,17 +73,17 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         // If direct MySQL fails, try cPanel API
         if (app()->environment('production') || app()->environment('staging')) {
             try {
-                Log::info("Attempting cPanel API database creation for: {$database}");
+                Log::info("Attempting cPanel UAPI database creation for: {$database}");
                 
                 // Get cPanel credentials from environment or use defaults
                 $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
                 $apiToken = env('CPANEL_API_TOKEN', 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT');
                 $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
-                $cpanelPort = env('CPANEL_PORT', '2083');
+                $cpanelPort = env('CPANEL_PORT', '2087'); // Use WHM port for UAPI
 
-                Log::info("Using cPanel: {$cpanelHost}:{$cpanelPort} with user: {$cpanelUser}");
+                Log::info("Using cPanel UAPI: {$cpanelHost}:{$cpanelPort} with user: {$cpanelUser}");
 
-                // Try the correct cPanel API format
+                // Use UAPI format (execute2) which is supported
                 $response = Http::withHeaders([
                     'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
                 ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
@@ -94,33 +94,37 @@ class MySQLDatabaseManager implements TenantDatabaseManager
                 ]);
 
                 $data = $response->json();
-                Log::info("cPanel API response for {$database}: " . json_encode($data));
+                Log::info("cPanel UAPI response for {$database}: " . json_encode($data));
 
                 if (isset($data['cpanelresult']['data'][0]['result']) && $data['cpanelresult']['data'][0]['result'] === 1) {
-                    Log::info("Successfully created database via cPanel API: {$database}");
+                    Log::info("Successfully created database via cPanel UAPI: {$database}");
                     return true;
                 }
 
-                // Try alternative endpoint if the first one fails
+                // Try alternative UAPI endpoint if the first one fails
                 $response2 = Http::withHeaders([
                     'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
-                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
-                    'name' => $database
+                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
+                    'cpanel_jsonapi_version' => '2',
+                    'cpanel_jsonapi_module' => 'Mysql',
+                    'cpanel_jsonapi_func' => 'create_database',
+                    'name' => $database,
+                    'user' => $cpanelUser // Add user parameter
                 ]);
 
                 $data2 = $response2->json();
-                Log::info("Alternative cPanel API response for {$database}: " . json_encode($data2));
+                Log::info("Alternative cPanel UAPI response for {$database}: " . json_encode($data2));
 
-                if (isset($data2['status']) && $data2['status'] === 1) {
-                    Log::info("Successfully created database via alternative cPanel API: {$database}");
+                if (isset($data2['cpanelresult']['data'][0]['result']) && $data2['cpanelresult']['data'][0]['result'] === 1) {
+                    Log::info("Successfully created database via alternative cPanel UAPI: {$database}");
                     return true;
                 }
 
                 throw new GeneralException(
-                    "Failed to create database '{$database}' via cPanel API. Response: " . $response->body()
+                    "Failed to create database '{$database}' via cPanel UAPI. Response: " . $response->body()
                 );
             } catch (\Exception $e) {
-                Log::error("cPanel API creation failed for {$database}: " . $e->getMessage());
+                Log::error("cPanel UAPI creation failed for {$database}: " . $e->getMessage());
                 
                 // Final fallback: try to create database user and grant permissions
                 try {
@@ -137,7 +141,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
                 }
                 
                 throw new GeneralException(
-                    "Exception while creating database '{$database}' (cPanel): " . $e->getMessage(),
+                    "Exception while creating database '{$database}' (cPanel UAPI): " . $e->getMessage(),
                     0,
                     $e
                 );

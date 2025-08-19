@@ -33,11 +33,11 @@ Route::get('/test-cpanel', function () {
     $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
     $apiToken = env('CPANEL_API_TOKEN', 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT');
     $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
-    $cpanelPort = env('CPANEL_PORT', '2083');
+    $cpanelPort = env('CPANEL_PORT', '2087'); // Use WHM port for UAPI
     
     $results = [];
     
-    // Test 1: Try the correct API format (execute2)
+    // Test 1: Try UAPI format (execute2) with port 2087
     try {
         $response1 = Http::withHeaders([
             'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
@@ -45,33 +45,37 @@ Route::get('/test-cpanel', function () {
             'cpanel_jsonapi_version' => '2',
             'cpanel_jsonapi_module' => 'Mysql',
             'cpanel_jsonapi_func' => 'create_database',
-            'name' => 'test_db_' . time()
+            'name' => 'accountw_test_' . time() // Use correct prefix
         ]);
         
-        $results['test1_execute2'] = [
+        $results['test1_uapi_2087'] = [
             'status' => $response1->status(),
             'body' => $response1->body(),
             'success' => $response1->successful()
         ];
     } catch (Exception $e) {
-        $results['test1_execute2'] = ['error' => $e->getMessage()];
+        $results['test1_uapi_2087'] = ['error' => $e->getMessage()];
     }
     
-    // Test 2: Try alternative endpoint
+    // Test 2: Try alternative UAPI endpoint
     try {
         $response2 = Http::withHeaders([
             'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
-        ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
-            'name' => 'test_db_alt_' . time()
+        ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
+            'cpanel_jsonapi_version' => '2',
+            'cpanel_jsonapi_module' => 'Mysql',
+            'cpanel_jsonapi_func' => 'create_database',
+            'name' => 'accountw_test_alt_' . time(), // Use correct prefix
+            'user' => $cpanelUser // Add user parameter
         ]);
         
-        $results['test2_execute'] = [
+        $results['test2_uapi_2087_alt'] = [
             'status' => $response2->status(),
             'body' => $response2->body(),
             'success' => $response2->successful()
         ];
     } catch (Exception $e) {
-        $results['test2_execute'] = ['error' => $e->getMessage()];
+        $results['test2_uapi_2087_alt'] = ['error' => $e->getMessage()];
     }
     
     return $results;
