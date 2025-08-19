@@ -22,7 +22,8 @@ phpunit.dusk.xml
 digitalocean-info.txt
 !storage/backup/
 /packages
-# /public/images/vendor
+/public/images/vendor
+/public/images
 # /public/js
 # /public/css
 # /public/*.css
