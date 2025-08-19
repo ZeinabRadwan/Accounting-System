@@ -121,56 +121,56 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     
 
 
-    public function callPleskApi(string $method, string $action, array $params = []): array
-    {
-        try {
-            $pleskHost = config('tenancy.plesk.host', 'accounting.websoft.sa');
-            $pleskPort = config('tenancy.plesk.port', 8443);
-            $pleskUsername = config('tenancy.plesk.username', 'root');
-            $pleskPassword = config('tenancy.plesk.password', 'Nk9SwV0o');
+    // public function callPleskApi(string $method, string $action, array $params = []): array
+    // {
+    //     try {
+    //         $pleskHost = config('tenancy.plesk.host', 'accounting.websoft.sa');
+    //         $pleskPort = config('tenancy.plesk.port', 8443);
+    //         $pleskUsername = config('tenancy.plesk.username', 'root');
+    //         $pleskPassword = config('tenancy.plesk.password', 'Nk9SwV0o');
 
-            if (!$pleskUsername || !$pleskPassword) {
-                throw new GeneralException('Plesk credentials are not configured.');
-            }
+    //         if (!$pleskUsername || !$pleskPassword) {
+    //             throw new GeneralException('Plesk credentials are not configured.');
+    //         }
 
-            $xml = $this->buildPleskXml($method, $action, $params);
+    //         $xml = $this->buildPleskXml($method, $action, $params);
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://{$pleskHost}:{$pleskPort}/enterprise/control/agent.php");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: text/xml',
-                'HTTP_AUTH_LOGIN: ' . $pleskUsername,
-                'HTTP_AUTH_PASSWD: ' . $pleskPassword
-            ]);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    //         $ch = curl_init();
+    //         curl_setopt($ch, CURLOPT_URL, "https://{$pleskHost}:{$pleskPort}/enterprise/control/agent.php");
+    //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //         curl_setopt($ch, CURLOPT_POST, true);
+    //         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+    //         curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    //             'Content-Type: text/xml',
+    //             'HTTP_AUTH_LOGIN: ' . $pleskUsername,
+    //             'HTTP_AUTH_PASSWD: ' . $pleskPassword
+    //         ]);
+    //         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    //         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
+    //         $response = curl_exec($ch);
+    //         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    //         curl_close($ch);
 
-            if ($httpCode !== 200 || !$response) {
-                throw new GeneralException("Plesk API call failed. HTTP code: {$httpCode}");
-            }
+    //         if ($httpCode !== 200 || !$response) {
+    //             throw new GeneralException("Plesk API call failed. HTTP code: {$httpCode}");
+    //         }
 
-            $result = $this->parsePleskResponse($response);
-            if (!$result) {
-                throw new GeneralException("Failed to parse Plesk API response.");
-            }
+    //         $result = $this->parsePleskResponse($response);
+    //         if (!$result) {
+    //             throw new GeneralException("Failed to parse Plesk API response.");
+    //         }
 
-            return $result;
-        } catch (\Exception $e) {
-            throw new GeneralException(
-                "Exception in Plesk API call '{$method}/{$action}': " . $e->getMessage(),
-                0,
-                $e
-            );
-        }
-    }
+    //         return $result;
+    //     } catch (\Exception $e) {
+    //         throw new GeneralException(
+    //             "Exception in Plesk API call '{$method}/{$action}': " . $e->getMessage(),
+    //             0,
+    //             $e
+    //         );
+    //     }
+    // }
 
 
     public function buildPleskXml(string $method, string $action, array $params = []): string
