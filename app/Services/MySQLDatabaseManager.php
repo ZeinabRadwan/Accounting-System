@@ -83,22 +83,8 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
                 Log::info("Using cPanel: {$cpanelHost}:{$cpanelPort} with user: {$cpanelUser}");
 
+                // Try the correct cPanel API format
                 $response = Http::withHeaders([
-                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
-                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
-                    'name' => $database
-                ]);
-
-                $data = $response->json();
-                Log::info("cPanel API response for {$database}: " . json_encode($data));
-
-                if (isset($data['status']) && $data['status'] === 1) {
-                    Log::info("Successfully created database via cPanel API: {$database}");
-                    return true;
-                }
-
-                // Try alternative cPanel API endpoint
-                $response2 = Http::withHeaders([
                     'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
                 ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
                     'cpanel_jsonapi_version' => '2',
@@ -107,10 +93,25 @@ class MySQLDatabaseManager implements TenantDatabaseManager
                     'name' => $database
                 ]);
 
+                $data = $response->json();
+                Log::info("cPanel API response for {$database}: " . json_encode($data));
+
+                if (isset($data['cpanelresult']['data'][0]['result']) && $data['cpanelresult']['data'][0]['result'] === 1) {
+                    Log::info("Successfully created database via cPanel API: {$database}");
+                    return true;
+                }
+
+                // Try alternative endpoint if the first one fails
+                $response2 = Http::withHeaders([
+                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
+                    'name' => $database
+                ]);
+
                 $data2 = $response2->json();
                 Log::info("Alternative cPanel API response for {$database}: " . json_encode($data2));
 
-                if (isset($data2['cpanelresult']['data'][0]['result']) && $data2['cpanelresult']['data'][0]['result'] === 1) {
+                if (isset($data2['status']) && $data2['status'] === 1) {
                     Log::info("Successfully created database via alternative cPanel API: {$database}");
                     return true;
                 }

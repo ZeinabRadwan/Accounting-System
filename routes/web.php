@@ -35,19 +35,46 @@ Route::get('/test-cpanel', function () {
     $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
     $cpanelPort = env('CPANEL_PORT', '2083');
     
+    $results = [];
+    
+    // Test 1: Try the correct API format (execute2)
     try {
-        $response = Http::withHeaders([
+        $response1 = Http::withHeaders([
             'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
-        ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/version");
+        ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
+            'cpanel_jsonapi_version' => '2',
+            'cpanel_jsonapi_module' => 'Mysql',
+            'cpanel_jsonapi_func' => 'create_database',
+            'name' => 'test_db_' . time()
+        ]);
         
-        return [
-            'status' => $response->status(),
-            'body' => $response->body(),
-            'success' => $response->successful()
+        $results['test1_execute2'] = [
+            'status' => $response1->status(),
+            'body' => $response1->body(),
+            'success' => $response1->successful()
         ];
     } catch (Exception $e) {
-        return ['error' => $e->getMessage()];
+        $results['test1_execute2'] = ['error' => $e->getMessage()];
     }
+    
+    // Test 2: Try alternative endpoint
+    try {
+        $response2 = Http::withHeaders([
+            'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+        ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
+            'name' => 'test_db_alt_' . time()
+        ]);
+        
+        $results['test2_execute'] = [
+            'status' => $response2->status(),
+            'body' => $response2->body(),
+            'success' => $response2->successful()
+        ];
+    } catch (Exception $e) {
+        $results['test2_execute'] = ['error' => $e->getMessage()];
+    }
+    
+    return $results;
 });
 
 
