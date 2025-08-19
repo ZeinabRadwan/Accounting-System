@@ -26,11 +26,8 @@ class TenancyServiceProvider extends ServiceProvider
 
     public function developmentOrProductionEvent()
     {
-        if (App::isLocal()) {
-            return Events\TenantCreated::class;
-        }
-
-        return TenantVerified::class;
+        // Always create database on tenant creation for immediate access
+        return Events\TenantCreated::class;
     }
 
     public function events()
