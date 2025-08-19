@@ -49,82 +49,140 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         $database = $tenant->database()->getName();
         Log::info("Creating database: {$database}");
 
+        // First, check if we have permissions to create databases
+        try {
+            $this->checkDatabasePermissions();
+        } catch (\Exception $e) {
+            Log::error("Database permission check failed: " . $e->getMessage());
+        }
 
-        
+        // Try direct MySQL first (most reliable)
+        try {
+            Log::info("Attempting direct MySQL database creation for: {$database}");
+            $charset = $this->database()->getConfig('charset');
+            $collation = $this->database()->getConfig('collation');
+            $result = $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
+            if ($result) {
+                Log::info("Successfully created database via direct MySQL: {$database}");
+                return true;
+            }
+        } catch (\Exception $e) {
+            Log::warning("Direct MySQL creation failed for {$database}: " . $e->getMessage());
+        }
+
+        // If direct MySQL fails, try cPanel API
+        if (app()->environment('production') || app()->environment('staging')) {
+            try {
+                Log::info("Attempting cPanel API database creation for: {$database}");
+                
+                // Get cPanel credentials from environment or use defaults
+                $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
+                $apiToken = env('CPANEL_API_TOKEN', 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT');
+                $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
+                $cpanelPort = env('CPANEL_PORT', '2083');
+
+                Log::info("Using cPanel: {$cpanelHost}:{$cpanelPort} with user: {$cpanelUser}");
+
+                $response = Http::withHeaders([
+                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
+                    'name' => $database
+                ]);
+
+                $data = $response->json();
+                Log::info("cPanel API response for {$database}: " . json_encode($data));
+
+                if (isset($data['status']) && $data['status'] === 1) {
+                    Log::info("Successfully created database via cPanel API: {$database}");
+                    return true;
+                }
+
+                // Try alternative cPanel API endpoint
+                $response2 = Http::withHeaders([
+                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
+                    'cpanel_jsonapi_version' => '2',
+                    'cpanel_jsonapi_module' => 'Mysql',
+                    'cpanel_jsonapi_func' => 'create_database',
+                    'name' => $database
+                ]);
+
+                $data2 = $response2->json();
+                Log::info("Alternative cPanel API response for {$database}: " . json_encode($data2));
+
+                if (isset($data2['cpanelresult']['data'][0]['result']) && $data2['cpanelresult']['data'][0]['result'] === 1) {
+                    Log::info("Successfully created database via alternative cPanel API: {$database}");
+                    return true;
+                }
+
+                throw new GeneralException(
+                    "Failed to create database '{$database}' via cPanel API. Response: " . $response->body()
+                );
+            } catch (\Exception $e) {
+                Log::error("cPanel API creation failed for {$database}: " . $e->getMessage());
+                
+                // Final fallback: try to create database user and grant permissions
+                try {
+                    Log::info("Attempting fallback database creation for: {$database}");
+                    
+                    // Try to create database with different approach
+                    $fallbackResult = $this->database()->statement("CREATE DATABASE IF NOT EXISTS `{$database}`");
+                    if ($fallbackResult) {
+                        Log::info("Successfully created database via fallback method: {$database}");
+                        return true;
+                    }
+                } catch (\Exception $fallbackException) {
+                    Log::error("Fallback database creation also failed for {$database}: " . $fallbackException->getMessage());
+                }
+                
+                throw new GeneralException(
+                    "Exception while creating database '{$database}' (cPanel): " . $e->getMessage(),
+                    0,
+                    $e
+                );
+            }
+        }
+
+        // For local environment, use direct MySQL
         if (app()->environment('local')) {
             Log::info("Creating database in local environment: {$database}");
             $charset = $this->database()->getConfig('charset');
             $collation = $this->database()->getConfig('collation');
             return $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
-        } 
-        
-        // elseif (app()->environment('plesk')) {
-        //     try {
-        //         $webspaceId = 13;
-    
-        //         $result = $this->callPleskApi('database', 'add-db', [
-        //             'webspace_id' => $webspaceId,
-        //             'name'        => $database,
-        //             'type'        => 'mysql',
-        //             'server_id'   => 1
-        //         ]);
-    
-        //         if (
-        //             isset($result['database']['add-db']['result']['status']) &&
-        //             $result['database']['add-db']['result']['status'] === 'ok'
-        //         ) {
-        //             return true;
-        //         }
-    
-        //         throw new GeneralException(
-        //             "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
-        //         );
-        //     } catch (\Exception $e) {
-        //         throw new GeneralException(
-        //             "Exception while creating database '{$database}' (Plesk): " . $e->getMessage(),
-        //             0,
-        //             $e
-        //         );
-        //     }
-        // }
-        
-        
-        else
-        {
-        try {
-
-            Log::info("Creating database: {$database}");
-            // Use direct values
-            $cpanelUser = 'accountwebsoft';
-            $apiToken   = 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT';
-            $cpanelHost = 'account.websoft.sa';
-
-            $response = Http::withHeaders([
-                'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
-            ])->get("https://{$cpanelHost}:2083/execute/Mysql/create_database", [
-                'name' => $database
-            ]);
-
-            $data = $response->json();
-            Log::info($data);
-
-            if (isset($data['status']) && $data['status'] === 1) {
-                return true;
-            }
-
-            throw new GeneralException(
-                "Failed to create database '{$database}' via cPanel API. Response: " . $response->body()
-            );
-        } catch (\Exception $e) {
-            throw new GeneralException(
-                "Exception while creating database '{$database}' (cPanel): " . $e->getMessage(),
-                0,
-                $e
-            );
         }
-        }
-    
+
         throw new GeneralException("Unknown environment: cannot create database for '{$database}'.");
+    }
+
+    /**
+     * Check if the current database user has permissions to create databases
+     */
+    protected function checkDatabasePermissions(): void
+    {
+        try {
+            // Check if we can create databases
+            $result = $this->database()->select("SHOW GRANTS FOR CURRENT_USER()");
+            Log::info("Current user grants: " . json_encode($result));
+            
+            // Check if we have CREATE privilege
+            $hasCreatePrivilege = false;
+            foreach ($result as $grant) {
+                $grantText = $grant->{'Grants for ' . env('DB_USERNAME', 'accountwebsoft') . '@' . env('DB_HOST', '127.0.0.1')};
+                if (strpos($grantText, 'ALL PRIVILEGES ON *.*') !== false || 
+                    strpos($grantText, 'CREATE ON *.*') !== false) {
+                    $hasCreatePrivilege = true;
+                    break;
+                }
+            }
+            
+            if (!$hasCreatePrivilege) {
+                Log::warning("Current database user does not have CREATE privilege on *.*");
+            } else {
+                Log::info("Current database user has CREATE privilege");
+            }
+        } catch (\Exception $e) {
+            Log::warning("Could not check database permissions: " . $e->getMessage());
+        }
     }
     
 
