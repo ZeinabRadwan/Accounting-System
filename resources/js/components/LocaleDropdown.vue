@@ -19,6 +19,7 @@
 import { mapGetters } from 'vuex'
 import { loadMessages } from '~/plugins/i18n'
 import LangFlag from 'vue-lang-code-flags'
+import axios from 'axios'
 
 export default {
   computed: mapGetters({
@@ -31,10 +32,23 @@ export default {
   },
 
   methods: {
-    setLocale(locale) {
+    async setLocale(locale) {
       if (this.$i18n.locale !== locale) {
-        loadMessages(locale)
-        this.$store.dispatch('lang/setLocale', { locale })
+        try {
+          debugger;
+          // Make an API call to Laravel
+          const response = await axios.post('/set-locale', { locale })
+
+          if (response.data.success) {
+            // Update client-side i18n and Vuex store
+            loadMessages(locale)
+            this.$store.dispatch('lang/setLocale', { locale })
+          } else {
+            console.error('Failed to set locale:', response.data.error)
+          }
+        } catch (error) {
+          console.error('Error setting locale:', error)
+        }
       }
     },
   },

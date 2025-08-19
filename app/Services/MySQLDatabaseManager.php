@@ -11,6 +11,8 @@ use Stancl\Tenancy\Contracts\TenantDatabaseManager;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Exceptions\NoConnectionSetException;
 use App\Exceptions\GeneralException;
+use Illuminate\Support\Facades\Http;
+
 
 class MySQLDatabaseManager implements TenantDatabaseManager
 {
@@ -43,68 +45,80 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
     public function createDatabase(TenantWithDatabase $tenant): bool
     {
-
-
-
-
-
-
-
+        $database = $tenant->database()->getName();
+    
         if (app()->environment('local')) {
-            $database = $tenant->database()->getName();
             $charset = $this->database()->getConfig('charset');
             $collation = $this->database()->getConfig('collation');
             return $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
-        } else {
-
-
-
-
-
-
-            $database = $tenant->database()->getName();
-
-            try {
-                // Step 1: Get webspace ID from domain name
-                $domain = config('tenancy.plesk.domain', 'accounting.websoft.sa');
-
-              
-
-                $webspaceId = 13;
-
-             
-
-                // Step 2: Create database linked to that webspace ID
-                $result = $this->callPleskApi('database', 'add-db', [
-                    'webspace_id' => $webspaceId,
-                    'name'        => $database,
-                    'type'        => 'mysql',
-                    'server_id'   => 1 // 0 = default MySQL server in Plesk
-                ]);
-
-                if (
-                    isset($result['database']['add-db']['result']['status']) &&
-                    $result['database']['add-db']['result']['status'] === 'ok'
-                ) {
-                    return true;
-                }
-
-                throw new GeneralException(
-                    "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
-                );
-            } catch (\Exception $e) {
-                throw new GeneralException(
-                    "Exception while creating database '{$database}': " . $e->getMessage(),
-                    0,
-                    $e
-                );
-            }
-        }
-            // Plesk environment logic
-        // } elseif (app()->environment('cpanel')) {
-        //     // cPanel environment logic
+        } 
+        
+        // elseif (app()->environment('plesk')) {
+        //     try {
+        //         $webspaceId = 13;
+    
+        //         $result = $this->callPleskApi('database', 'add-db', [
+        //             'webspace_id' => $webspaceId,
+        //             'name'        => $database,
+        //             'type'        => 'mysql',
+        //             'server_id'   => 1
+        //         ]);
+    
+        //         if (
+        //             isset($result['database']['add-db']['result']['status']) &&
+        //             $result['database']['add-db']['result']['status'] === 'ok'
+        //         ) {
+        //             return true;
+        //         }
+    
+        //         throw new GeneralException(
+        //             "Failed to create database '{$database}' via Plesk API. Response: " . json_encode($result)
+        //         );
+        //     } catch (\Exception $e) {
+        //         throw new GeneralException(
+        //             "Exception while creating database '{$database}' (Plesk): " . $e->getMessage(),
+        //             0,
+        //             $e
+        //         );
+        //     }
         // }
+        
+        
+        else
+        {
+        try {
+            // Use direct values
+            $cpanelUser = 'accountwebsoft';
+            $apiToken   = 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT';
+            $cpanelHost = 'account.websoft.sa';
+
+            $response = Http::withHeaders([
+                'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+            ])->get("https://{$cpanelHost}:2083/execute/Mysql/create_database", [
+                'name' => $database
+            ]);
+
+            $data = $response->json();
+
+            if (isset($data['status']) && $data['status'] === 1) {
+                return true;
+            }
+
+            throw new GeneralException(
+                "Failed to create database '{$database}' via cPanel API. Response: " . $response->body()
+            );
+        } catch (\Exception $e) {
+            throw new GeneralException(
+                "Exception while creating database '{$database}' (cPanel): " . $e->getMessage(),
+                0,
+                $e
+            );
+        }
+        }
+    
+        throw new GeneralException("Unknown environment: cannot create database for '{$database}'.");
     }
+    
 
 
     public function callPleskApi(string $method, string $action, array $params = []): array

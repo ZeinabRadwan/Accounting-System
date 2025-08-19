@@ -21,6 +21,7 @@ use App\Http\Controllers\NewsletterSubscriptionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 if (! app()->isProduction()) {
     Route::group(['prefix' => '/debug'], function () {
         Route::get('/version', [DebugController::class, 'version']);
@@ -57,6 +58,8 @@ Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
         Route::group(['middleware' => 'auth:sanctum'], function () {
             // spa view
             Route::get('/dashboard', CentralAppController::class)->name('dashboard.index');
+            // Use web.php if you want CSRF protection, or api.php for an API endpoint
+            Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
         });
     });
 

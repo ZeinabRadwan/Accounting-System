@@ -1,14 +1,14 @@
 @php
     $config = [
         'appName' => config('app.name'),
-        'locale' => ($locale = app()->getLocale()),
+        'locale' => ($locale = session('locale', config('app.fallback_locale', 'ar'))),
         'locales' => config('app.locales'),
         'githubAuth' => config('services.github.client_id'),
         'isDemoMode' => config('app.is_demo_mode'),
     ];
 @endphp
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ session('locale', config('app.fallback_locale', 'ar')) }}">
 
 <head>
     <meta charset="utf-8">
