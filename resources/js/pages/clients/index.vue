@@ -42,6 +42,14 @@
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
+              <!-- Type Dropdown -->
+              <div class="col-6 col-xl-2 mb-2">
+                <select v-model="selectedType" @change="onTypeChange" class="form-control">
+                  <option value="">{{ $t("All Types") }}</option>
+                  <option value="Company">{{ $t("Company") }}</option>
+                  <option value="Individual">{{ $t("Individual") }}</option>
+                </select>
+              </div>
               <div class="col-6 col-xl-8 mb-2 text-right">
                 <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
                   :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
@@ -65,6 +73,7 @@
                     <th>{{ $t("Contact Number") }}</th>
                     <th>{{ $t("Email") }}</th>
                     <th>{{ $t("Company Name") }}</th>
+                    <th>{{ $t("Type") }}</th>
                     <th>{{ $t("Status") }}</th>
                     <th v-if="$can('client-edit') ||
                       $can('client-view') ||
@@ -106,6 +115,9 @@
                     <td>{{ data.phoneNumber }}</td>
                     <td>{{ data.email }}</td>
                     <td>{{ data.companyName }}</td>
+                    <td>
+                      <span class="badge bg-info">{{ data.type || 'Company' }}</span>
+                    </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -243,6 +255,7 @@ export default {
       },
     ],
     query: "",
+    selectedType: "",
     perPage: 10,
     showModal: false,
     showUploadCsvModal: false,
@@ -279,7 +292,11 @@ export default {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
       // Create a dynamic export URL with query parameters
-      return `/clients/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      let url = `/clients/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      if (this.selectedType) {
+        url += `&type=${this.selectedType}`;
+      }
+      return url;
     },
   },
   watch: {
@@ -293,6 +310,15 @@ export default {
         }
       } else {
         this.searchData();
+      }
+    },
+    // watch type filter
+    selectedType: function () {
+      this.pagination.current_page = 1;
+      if (this.query || this.dateRange.startDate || this.dateRange.endDate) {
+        this.searchData();
+      } else {
+        this.getData();
       }
     },
   },
@@ -406,6 +432,7 @@ export default {
     // refresh table
     refreshTable() {
       this.query = "";
+      this.selectedType = "";
       this.dateRange.startDate = null;
       this.dateRange.endDate = null;
 
@@ -422,21 +449,35 @@ export default {
     // update per page count
     updatePerPager() {
       this.pagination.current_page = 1;
-      this.query === "" ? this.getData() : this.searchData();
+      if (this.query || this.dateRange.startDate || this.dateRange.endDate || this.selectedType) {
+        this.searchData();
+      } else {
+        this.getData();
+      }
     },
     // get data
     async getData() {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
+      let path = "/api/clients?page=" + currentPage + "&perPage=" + this.perPage;
+      
+      if (this.selectedType) {
+        path += "&type=" + this.selectedType;
+      }
+      
       await this.$store.dispatch("operations/fetchData", {
-        path: "/api/clients?page=",
-        currentPage: currentPage + "&perPage=" + this.perPage,
+        path: path,
+        currentPage: "",
       });
     },
 
     // Pagination
     async paginate() {
-      this.query === "" ? this.getData() : this.searchData();
+      if (this.query || this.dateRange.startDate || this.dateRange.endDate || this.selectedType) {
+        this.searchData();
+      } else {
+        this.getData();
+      }
     },
 
     // Reset pagination
@@ -454,13 +495,24 @@ export default {
         currentPage: currentPage + "&perPage=" + this.perPage,
         startDate: this.dateRange.startDate,
         endDate: this.dateRange.endDate,
+        type: this.selectedType,
       });
     },
 
     // reload after search
     async reload() {
       this.query = "";
-      await this.searchData();
+      this.selectedType = "";
+      if (this.dateRange.startDate || this.dateRange.endDate) {
+        await this.searchData();
+      } else {
+        await this.getData();
+      }
+    },
+
+    // handle type filter change
+    onTypeChange() {
+      // The watcher will handle the filtering automatically
     },
 
     // display modal

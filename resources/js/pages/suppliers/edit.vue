@@ -68,7 +68,18 @@
                 <has-error :form="form" field="address" />
               </div>
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                  <label for="type">{{ $t('Type') }}
+                    <span class="required">*</span></label>
+                  <select id="type" v-model="form.type" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('type') }" name="type">
+                    <option value="">{{ $t('Select Type') }}</option>
+                    <option value="Company">{{ $t('Company') }}</option>
+                    <option value="Individual">{{ $t('Individual') }}</option>
+                  </select>
+                  <has-error :form="form" field="type" />
+                </div>
+                <div class="form-group col-md-4">
                   <label for="image">{{ $t('Image') }}</label>
                   <div class="custom-file">
                     <input id="image" type="file" class="custom-file-input" name="image"
@@ -82,7 +93,7 @@
                     <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
                   </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -141,6 +152,7 @@ export default {
       companyName: '',
       taxRegistrationNumber: '',
       address: '',
+      type: '',
       image: '',
       status: 1,
     }),
@@ -162,6 +174,7 @@ export default {
       this.form.companyName = data.data.companyName
       this.form.taxRegistrationNumber = data.data.taxRegistrationNumber
       this.form.address = data.data.address
+      this.form.type = data.data.type
       this.form.status = data.data.status
       this.url = data.data.image
     },

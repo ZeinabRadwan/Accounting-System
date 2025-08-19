@@ -33,6 +33,7 @@ class UpdateSupplierRequest extends BaseRequest
             'phoneNumber' => 'required|string|max:20|min:3',
             'email' => 'nullable|email|max:255|min:3|unique:suppliers,email,'.$supplier->id,
             'companyName' => 'nullable|string|max:100|min:2',
+            'type' => 'required|string|in:Company,Individual',
             'address' => 'nullable|string|max:255'
         ];
     }

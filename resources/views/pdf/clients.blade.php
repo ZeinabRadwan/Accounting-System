@@ -12,6 +12,7 @@
                     <th>@lang('Phone')</th>
                     <th>@lang('Email')</th>
                     <th>@lang('Company Name')</th>
+                    <th>@lang('Type')</th>
                     <th>@lang('Status')</th>
                 </tr>
             </thead>
@@ -24,6 +25,7 @@
                         <td>{{ $client['phone'] }}</td>
                         <td>{{ $client['email'] }}</td>
                         <td>{{ $client['company_name'] }}</td>
+                        <td>{{ $client['type'] ?? 'Company' }}</td>
                         <td>
                             @if ($client['status'])
                                 @lang('Active')

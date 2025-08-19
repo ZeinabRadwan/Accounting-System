@@ -645,8 +645,9 @@ class TableExportController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $term = $request->input('term');
+        $type = $request->input('type');
 
-        return Excel::download(new ExportClient($startDate, $endDate, $term), 'Clients.xlsx');
+        return Excel::download(new ExportClient($startDate, $endDate, $term, $type), 'Clients.xlsx');
     }
 
     // return suppliers pdf
@@ -667,8 +668,9 @@ class TableExportController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $term = $request->input('term');
+        $type = $request->input('type');
 
-        return Excel::download(new ExportSupplier($startDate, $endDate, $term), 'Suppliers.xlsx');
+        return Excel::download(new ExportSupplier($startDate, $endDate, $term, $type), 'Suppliers.xlsx');
     }
 
     // return departments pdf

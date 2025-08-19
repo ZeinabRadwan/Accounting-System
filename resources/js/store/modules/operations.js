@@ -112,20 +112,15 @@ export const actions = {
   // Search Data
   async searchData(
     { commit },
-    { path, currentPage, term = '', startDate = '', endDate = '' }
+    { path, currentPage, term = '', startDate = '', endDate = '', type = '' }
   ) {
-    const { data } = await axios.get(
-      window.location.origin +
-      path +
-      '?term=' +
-      term +
-      '&page=' +
-      currentPage +
-      '&startDate=' +
-      startDate +
-      '&endDate=' +
-      endDate
-    )
+    let apiUrl = window.location.origin + path + '?term=' + term + '&page=' + currentPage + '&startDate=' + startDate + '&endDate=' + endDate;
+    
+    if (type) {
+      apiUrl += '&type=' + type;
+    }
+    
+    const { data } = await axios.get(apiUrl)
     commit(types.FETCH_DATA, { items: data })
   },
   // Get All Data

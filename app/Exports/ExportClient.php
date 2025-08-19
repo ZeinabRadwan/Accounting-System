@@ -15,12 +15,14 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
     protected $startDate;
     protected $endDate;
     protected $term;
+    protected $type;
 
-    public function __construct($startDate, $endDate, $term)
+    public function __construct($startDate, $endDate, $term, $type = null)
     {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->term = $term;
+        $this->type = $type;
     }
 
 
@@ -34,6 +36,10 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
 
         if ($this->startDate && $this->endDate) {
             $query = $query->whereBetween('created_at', [$this->startDate, $this->endDate]);
+        }
+
+        if ($this->type) {
+            $query = $query->where('type', $this->type);
         }
 
         $query->where(function ($query) use ($term) {
@@ -51,6 +57,7 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
                 $client->phone,
                 $client->email,
                 $client->company_name,
+                $client->type,
                 $client->status ? 'Active' : 'Inactive',
 
             ];
@@ -67,6 +74,7 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
             'Contact Number',
             'Email',
             'Company Name',
+            'Type',
             'Status'
         ];
     }
@@ -76,7 +84,7 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 // Style the header row (headings)
-                $event->getSheet()->getDelegate()->getStyle('A1:F1')->applyFromArray([
+                $event->getSheet()->getDelegate()->getStyle('A1:G1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'size' => 13,
