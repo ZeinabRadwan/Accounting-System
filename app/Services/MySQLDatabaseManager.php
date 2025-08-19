@@ -46,7 +46,6 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
     public function createDatabase(TenantWithDatabase $tenant): bool
     {
-        Log::info("Creating database");
         $database = $tenant->database()->getName();
     
         if (app()->environment('local')) {
