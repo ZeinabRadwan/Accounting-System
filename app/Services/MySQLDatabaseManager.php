@@ -88,6 +88,8 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         else
         {
         try {
+
+            Log::info("Creating database: {$database}");
             // Use direct values
             $cpanelUser = 'accountwebsoft';
             $apiToken   = 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT';
