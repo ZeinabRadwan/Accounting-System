@@ -86,38 +86,34 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         
         else
         {
-            try {
-                $cpanelUser = 'accountwebsoft';
-                $apiToken   = 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT';
-                $cpanelHost = 'account.websoft.sa';
-            
-                // Ensure DB name has the correct prefix
-                $database = "accountw_" . $database; 
-            
-                $response = Http::withHeaders([
-                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
-                ])->get("https://{$cpanelHost}:2083/execute/Mysql/create_database", [
-                    'name' => $database
-                ]);
-            
-                $data = $response->json();
-            
-                if (isset($data['status']) && $data['status'] == 1) {
-                    return true;
-                }
-            
-                throw new GeneralException(
-                    "Failed to create database '{$database}' via cPanel API. Response: " . $response->body()
-                );
-            
-            } catch (\Exception $e) {
-                throw new GeneralException(
-                    "Exception while creating database '{$database}' (cPanel): " . $e->getMessage(),
-                    0,
-                    $e
-                );
+        try {
+            // Use direct values
+            $cpanelUser = 'accountwebsoft';
+            $apiToken   = 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT';
+            $cpanelHost = 'account.websoft.sa';
+
+            $response = Http::withHeaders([
+                'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+            ])->get("https://{$cpanelHost}:2083/execute/Mysql/create_database", [
+                'name' => $database
+            ]);
+
+            $data = $response->json();
+
+            if (isset($data['status']) && $data['status'] === 1) {
+                return true;
             }
-            
+
+            throw new GeneralException(
+                "Failed to create database '{$database}' via cPanel API. Response: " . $response->body()
+            );
+        } catch (\Exception $e) {
+            throw new GeneralException(
+                "Exception while creating database '{$database}' (cPanel): " . $e->getMessage(),
+                0,
+                $e
+            );
+        }
         }
     
         throw new GeneralException("Unknown environment: cannot create database for '{$database}'.");
