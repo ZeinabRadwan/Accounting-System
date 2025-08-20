@@ -453,6 +453,40 @@ export default [
     meta: {permissions: ['invoice-return-edit']},
   },
 
+
+   // chart of accounts routes
+   {
+    path: '/chart-of-accounts',
+    name: 'chart-of-accounts.index',
+    component: page('chart-of-accounts/index.vue'),
+    meta: {permissions: ['chart-of-account-list']},
+  },
+   {
+    path: '/chart-of-accounts/tree',
+    name: 'chart-of-accounts.tree',
+    component: page('chart-of-accounts/tree.vue'),
+    meta: {permissions: ['chart-of-account-tree']},
+  },
+  {
+    path: '/chart-of-accounts/create',
+    name: 'chart-of-accounts.create',
+    component: page('chart-of-accounts/create.vue'),
+    meta: {permissions: ['chart-of-account-create']},
+  },
+  {
+    path: '/chart-of-accounts/:slug',
+    name: 'chart-of-accounts.show',
+    component: page('chart-of-accounts/show.vue'),
+    meta: {permissions: ['chart-of-account-view']},
+  },
+  {
+    path: '/chart-of-accounts/edit/:slug',
+    name: 'chart-of-accounts.edit',
+    component: page('chart-of-accounts/edit.vue'),
+    meta: {permissions: ['chart-of-account-edit']},
+  },
+
+
   // Account routes
   {
     path: '/cashbook/accounts',
