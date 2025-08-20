@@ -16,7 +16,7 @@ class AccountTransaction extends Model
      * @var array
      */
     protected $fillable = [
-        'account_id', 'reason', 'amount', 'type', 'transaction_date', 'cheque_no', 'receipt_no',  'created_by', 'note', 'status',
+        'account_id', 'reason', 'amount', 'type', 'transaction_date', 'cheque_no', 'receipt_no',  'created_by', 'note', 'status', 'journal_entry_id',
     ];
 
     /**
@@ -71,5 +71,13 @@ class AccountTransaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Get the journal entry this transaction is linked to
+     */
+    public function journalEntry()
+    {
+        return $this->belongsTo(JournalEntry::class);
     }
 }

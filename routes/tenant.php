@@ -68,6 +68,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\API\SubscriptionPaymentMethodController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 use App\Http\Controllers\API\ChartOfAccountController;
+use App\Http\Controllers\API\JournalEntryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -242,6 +243,15 @@ Route::middleware([
         Route::get('/chart-of-accounts/all', [ChartOfAccountController::class, 'getAll']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
+
+        // Journal Entry routes
+        Route::get('/journal-entries/search', [JournalEntryController::class, 'search']);
+        Route::get('/journal-entries/all', [JournalEntryController::class, 'getAll']);
+        Route::get('/journal-entries/chart-of-accounts', [JournalEntryController::class, 'getChartOfAccounts']);
+        Route::get('/journal-entries/trial-balance', [JournalEntryController::class, 'getTrialBalance']);
+        Route::post('/journal-entries/{id}/post', [JournalEntryController::class, 'post']);
+        Route::post('/journal-entries/{id}/void', [JournalEntryController::class, 'void']);
+        Route::apiResource('journal-entries', JournalEntryController::class);
 
         // Account routes
         Route::get('/accounts/search', [AccountController::class, 'search']);
