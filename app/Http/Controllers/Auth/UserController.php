@@ -89,6 +89,7 @@ class UserController extends Controller
             'password' => Hash::make($password),
             'account_role' => 1,
             'is_active' => 1,
+            'locale' => 'ar', // Set default locale
         ]);
 
         $user->email_verified_at = now();
