@@ -42,6 +42,14 @@ class ClientResource extends JsonResource
             'unitNo' => $this->unit_no,
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('images/clients/'.$this->image_path) : '',
+            'account' => $this->account ? [
+                'id' => $this->account->id,
+                'bankName' => $this->account->bank_name,
+                'branchName' => $this->account->branch_name,
+                'accountNumber' => $this->account->account_number,
+                'note' => $this->account->note,
+                'availableBalance' => $this->account->available_balance,
+            ] : null,
 
             'clientTotalPaid' => $this->clientTotalPaid(),
             'clientInvoiceTotal' => $this->clientInvoiceTotal(),

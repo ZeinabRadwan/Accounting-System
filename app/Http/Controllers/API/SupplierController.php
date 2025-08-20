@@ -28,6 +28,7 @@ use App\Http\Resources\PurchaseReturnListResource;
 use App\Http\Resources\NonPurchasePaymentListResource;
 use App\Http\Resources\SupplierForPurchasePaymentResource;
 use App\Http\Resources\SupplierWithNonPurchasePaymentResource;
+use App\Models\Account;
 
 class SupplierController extends Controller
 {
@@ -84,6 +85,24 @@ class SupplierController extends Controller
                 Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
             }
 
+            // Handle account creation or linking
+            $accountId = null;
+            if ($request->accountOption === 'new' && $request->bankName && $request->accountNumber) {
+                // Create new account
+                $account = Account::create([
+                    'bank_name' => $request->bankName,
+                    'branch_name' => $request->branchName,
+                    'account_number' => $request->accountNumber,
+                    'note' => $request->accountNote,
+                    'created_by' => Auth::id(),
+                    'status' => 1,
+                ]);
+                $accountId = $account->id;
+            } elseif ($request->accountOption === 'existing' && $request->existingAccount) {
+                // Link existing account
+                $accountId = $request->existingAccount['id'];
+            }
+
             // create supplier
             $userSchema = Supplier::create([
                 'name' => $request->name,
@@ -107,6 +126,7 @@ class SupplierController extends Controller
                 'zip_code' => $request->zipCode,
                 'additional_number' => $request->additionalNumber,
                 'unit_no' => $request->unitNo,
+                'account_id' => $accountId,
             ]);            
 
             // add activity log

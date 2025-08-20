@@ -209,6 +209,83 @@
                   :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
                 <has-error :form="form" field="address" />
               </div>
+
+              <!-- Account Management Section -->
+              <div class="form-group">
+                <label class="d-block">{{ $t("Account Management") }}</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="accountOption" id="selectExistingAccount" 
+                    value="existing" v-model="form.accountOption" @change="onAccountOptionChange">
+                  <label class="form-check-label" for="selectExistingAccount">
+                    {{ $t("Select Existing Account") }}
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="accountOption" id="createNewAccount" 
+                    value="new" v-model="form.accountOption" @change="onAccountOptionChange">
+                  <label class="form-check-label" for="createNewAccount">
+                    {{ $t("Create New Account") }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Existing Account Selection -->
+              <div v-if="form.accountOption === 'existing'" class="row">
+                <div class="form-group col-md-6">
+                  <label for="existingAccount">{{ $t("Select Account") }}</label>
+                  <v-select v-model="form.existingAccount" :options="accounts" label="label"
+                    :class="{ 'is-invalid': form.errors.has('existingAccount') }" name="existingAccount"
+                    :placeholder="$t('Select an account')" @input="onExistingAccountChange">
+                    <template slot="option" slot-scope="option">
+                      <img :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="existingAccount" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="availableBalance">{{ $t("Available Balance") }}</label>
+                  <input id="availableBalance" v-model="form.availableBalance" type="number" step="any"
+                    class="form-control" readonly />
+                </div>
+              </div>
+
+              <!-- New Account Creation Fields -->
+              <div v-if="form.accountOption === 'new'" class="row">
+                <div class="form-group col-md-6">
+                  <label for="bankName">{{ $t("Bank Name") }}
+                    <span class="required">*</span></label>
+                  <input id="bankName" v-model="form.bankName" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('bankName') }" name="bankName"
+                    :placeholder="$t('Enter bank name')" />
+                  <has-error :form="form" field="bankName" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="branchName">{{ $t("Branch Name") }}</label>
+                  <input id="branchName" v-model="form.branchName" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('branchName') }" name="branchName"
+                    :placeholder="$t('Enter branch name')" />
+                  <has-error :form="form" field="branchName" />
+                </div>
+              </div>
+              <div v-if="form.accountOption === 'new'" class="row">
+                <div class="form-group col-md-6">
+                  <label for="accountNumber">{{ $t("Account Number") }}
+                    <span class="required">*</span></label>
+                  <input id="accountNumber" v-model="form.accountNumber" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('accountNumber') }" name="accountNumber"
+                    :placeholder="$t('Enter account number')" />
+                  <has-error :form="form" field="accountNumber" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="accountNote">{{ $t("Note") }}</label>
+                  <input id="accountNote" v-model="form.accountNote" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('accountNote') }" name="accountNote"
+                    :placeholder="$t('Enter account note')" />
+                  <has-error :form="form" field="accountNote" />
+                </div>
+              </div>
+
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="image">{{ $t("Image") }}</label>
@@ -267,6 +344,7 @@
 import Form from "vform";
 import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
+import vSelect from "vue-select";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -276,6 +354,7 @@ export default {
   components: {
     VueTelInput,
     ToggleButton,
+    vSelect,
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -317,10 +396,18 @@ export default {
       unitNo: "",
       isSendEmail: false,
       isSendSMS: false,
+      accountOption: "existing",
+      existingAccount: null,
+      bankName: "",
+      branchName: "",
+      accountNumber: "",
+      accountNote: "",
     }),
     loading: true,
     url: null,
     nationalities: [],
+    accounts: [],
+    availableBalance: 0,
     
   }),
   methods: {
@@ -396,15 +483,47 @@ export default {
       this.form.emailAddresses.splice(index, 1);
     },
 
+    // Account management methods
+    async fetchAccounts() {
+      try {
+        const response = await this.$axios.get('/api/all-accounts');
+        if (response.data.success) {
+          this.accounts = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error fetching accounts:', error);
+      }
+    },
+
+    onAccountOptionChange() {
+      // Reset account-related fields when option changes
+      this.form.existingAccount = null;
+      this.form.bankName = "";
+      this.form.branchName = "";
+      this.form.accountNumber = "";
+      this.form.accountNote = "";
+      this.availableBalance = 0;
+    },
+
+    onExistingAccountChange(account) {
+      if (account) {
+        this.availableBalance = account.available_balance || 0;
+      } else {
+        this.availableBalance = 0;
+      }
+    },
+
 
   },
 
   async created() {
     await this.fetchNationalities();
+    await this.fetchAccounts();
   },
 };
 </script>
 <style src="vue-tel-input/dist/vue-tel-input.css"></style>
+<style src="vue-select/dist/vue-select.css"></style>
 <style scoped>
 .vue-tel-input {
   padding: 3px;

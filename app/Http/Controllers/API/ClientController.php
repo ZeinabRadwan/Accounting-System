@@ -30,6 +30,7 @@ use App\Http\Resources\NonInvoicePaymentListResource;
 use App\Http\Resources\ClientWithInvoicePaymentResource;
 use App\Http\Resources\ClientWithNonInvoicePaymentResource;
 use Illuminate\Support\Str;
+use App\Models\Account;
 
 class ClientController extends Controller
 {
@@ -85,6 +86,24 @@ class ClientController extends Controller
                 Image::make($request->image)->save(public_path('images/clients/') . $imageName);
             }
 
+            // Handle account creation or linking
+            $accountId = null;
+            if ($request->accountOption === 'new' && $request->bankName && $request->accountNumber) {
+                // Create new account
+                $account = Account::create([
+                    'bank_name' => $request->bankName,
+                    'branch_name' => $request->branchName,
+                    'account_number' => $request->accountNumber,
+                    'note' => $request->accountNote,
+                    'created_by' => Auth::id(),
+                    'status' => 1,
+                ]);
+                $accountId = $account->id;
+            } elseif ($request->accountOption === 'existing' && $request->existingAccount) {
+                // Link existing account
+                $accountId = $request->existingAccount['id'];
+            }
+
             // create client
             $userSchema = Client::create([
                 'name' => $request->name,
@@ -108,6 +127,7 @@ class ClientController extends Controller
                 'zip_code' => $request->zipCode,
                 'additional_number' => $request->additionalNumber,
                 'unit_no' => $request->unitNo,
+                'account_id' => $accountId,
             ]);
 
             //send welcome notification

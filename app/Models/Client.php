@@ -18,7 +18,7 @@ class Client extends Model
      */
     protected $fillable = [
         'name', 'slug', 'client_id', 'email', 'phone', 'phone_numbers', 'email_addresses', 'company_name', 'address', 'status', 'image_path','tax_registration_number', 'cr_number', 'type',
-                    'nationality_id', 'city_name', 'district', 'street_name', 'building_number', 'zip_code', 'additional_number', 'unit_no',
+                    'nationality_id', 'city_name', 'district', 'street_name', 'building_number', 'zip_code', 'additional_number', 'unit_no', 'account_id',
     ];
 
     /**
@@ -168,6 +168,14 @@ class Client extends Model
     public function nationality()
     {
         return $this->belongsTo(Nationality::class);
+    }
+
+    /**
+     * Get the account of the client
+     */
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
     }
 
     /**

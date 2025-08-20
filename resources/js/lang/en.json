@@ -1496,5 +1496,17 @@
   "Create a chart of account": "Create a chart of account",
   "Edit a chart of account": "Edit a chart of account",
   "View a chart of account": "View a chart of account",
-  "Delete a chart of account": "Delete a chart of account"
+  "Delete a chart of account": "Delete a chart of account",
+  "Account Management": "Account Management",
+  "Select Existing Account": "Select Existing Account",
+  "Create New Account": "Create New Account",
+  "Select Account": "Select Account",
+  "Available Balance": "Available Balance",
+  "Bank Name": "Bank Name",
+  "Branch Name": "Branch Name",
+  "Enter bank name": "Enter bank name",
+  "Enter branch name": "Enter branch name",
+  "Enter account number": "Enter account number",
+  "Enter account note": "Enter account note",
+  "CR Number": "CR Number"
 }

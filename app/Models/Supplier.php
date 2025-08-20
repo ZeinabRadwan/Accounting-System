@@ -39,6 +39,7 @@ class Supplier extends Model
         'zip_code',
         'additional_number',
         'unit_no',
+        'account_id',
     ];
 
     /**
@@ -192,6 +193,14 @@ class Supplier extends Model
     public function nationality()
     {
         return $this->belongsTo(Nationality::class);
+    }
+
+    /**
+     * Get the account of the supplier
+     */
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
     }
 
     /**
