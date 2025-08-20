@@ -177,7 +177,8 @@ class UpdateSettingCommand extends Command
     private function updateManifest() {
         // mix-manifest.json
         $work_folder = $this->working_folder;
-        $manifest_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json' . $work_folder . '/public_html/';
+        $manifest_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json/' . $work_folder . '/public_html/';
+
         exec($manifest_command, $output, $return_var);
         if ($return_var !== 0) {
             return $manifest_command;
