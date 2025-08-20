@@ -3,20 +3,20 @@
 namespace App\Console\Commands;
 
 use App\Composer;
-use App\Mail\UserEmail;
+use App\Notifications\UserEmailNotification;
 use App\Models\Utility;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+
 
 class UpdateSettingCommand extends Command
 {
     protected $signature = 'git:setting';
     protected $description = 'Command description';
     private $composerLog = [];
+    protected $working_folder = '/home2/accountwebsoft';
 
     public function handle()
     {
@@ -52,13 +52,25 @@ class UpdateSettingCommand extends Command
 
                 if ($cssUpdate) {
                     $result = $this->updateCss();
+                    $manifestResult = $this->updateManifest();
+                    $vendorResult = $this->updateVendor();
                     if (strpos($result, 'Error') !== false) {
                         $errors[] = $result;
                     } else {
                         $final_text .= ' <br> ' . $result;
                     }
+                    if (strpos($manifestResult, 'Error') !== false) {
+                        $errors[] = $manifestResult;
+                    } else {
+                        $final_text .= ' <br> ' . $manifestResult;
+                    }
+                    if (strpos($vendorResult, 'Error') !== false) {
+                        $errors[] = $vendorResult;
+                    } else {
+                        $final_text .= ' <br> ' . $vendorResult;
+                    }
                 }
-
+                
                 if ($jsUpdate) {
                     $result = $this->updateJs();
                     if (strpos($result, 'Error') !== false) {
@@ -132,7 +144,7 @@ class UpdateSettingCommand extends Command
                 if (!empty($errors)) {
                     $final_title = __('System Update - Errors ' . env('APP_URL') . ' - ' . date('Y-m-d H:i:s'));
                     $error_text = implode('<br>', $errors);
-                    Mail::to($email)->send(new UserEmail($error_text, $final_title));
+                    Notification::route('mail', $email)->notify(new UserEmailNotification($error_text, $final_title));
                 }
 
                 echo $final_text;
@@ -143,7 +155,7 @@ class UpdateSettingCommand extends Command
 
     private function updateUpdateFile()
     {
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
 
         // Ensure the work_folder path is correctly quoted
         $update_command = 'cp -R "' . $work_folder . '/repositories/Accounting-System/public/upg.php" "' . $work_folder . '/public_html/upg.php"';
@@ -162,9 +174,34 @@ class UpdateSettingCommand extends Command
     }
 
 
+    private function updateManifest() {
+        // mix-manifest.json
+        $work_folder = $this->working_folder;
+        $manifest_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json' . $work_folder . '/public_html/';
+        exec($manifest_command, $output, $return_var);
+        if ($return_var !== 0) {
+            return $manifest_command;
+        }
+
+        return 'Manifest Updated Successfully';
+    }
+
+    private function updateVendor() {
+        $work_folder = $this->working_folder;
+
+        $vendor_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/vendor/ ' . $work_folder . '/public_html/';
+        exec($vendor_command, $output, $return_var);
+        if ($return_var !== 0) {
+            return $vendor_command;
+            return 'Error updating vendor files: ' . implode("\n", $output);
+        }
+ 
+        return 'CSS files updated successfully';
+    }
+
     private function updateCss()
     {
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
 
         $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
         exec($css_command, $output, $return_var);
@@ -172,41 +209,16 @@ class UpdateSettingCommand extends Command
             return $css_command;
             return 'Error updating CSS files: ' . implode("\n", $output);
         }
-
-        $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/assets/ ' . $work_folder . '/public_html/assets/';
-        exec($css_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $css_command;
-            echo "Output: " . implode("\n", $output) . "\n";
-            return 'Error updating assets: ' . implode("\n", $output);
-        }
-
-        $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/assets/css/' . $work_folder . '/public_html/assets/css/';
-        exec($css_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $css_command;
-            return 'Error updating assets: ' . implode("\n", $output);
-        }
-
-        $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/hyperpay/ ' . $work_folder . '/public_html/hyperpay/';
-        exec($css_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $css_command;
-            return 'Error updating hyperpay files: ' . implode("\n", $output);
-        }
-
+ 
         return 'CSS files updated successfully';
     }
 
 
     private function updateJs()
     {
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
 
         $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
-        exec($js_command, $output, $return_var);
-
-        $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/datatables/ ' . $work_folder . '/public_html/';
         exec($js_command, $output, $return_var);
 
         if ($return_var === 0) {
@@ -289,8 +301,8 @@ class UpdateSettingCommand extends Command
     private function runComposer()
     {
         $composerPath = '/opt/cpanel/composer/bin/composer';
-        $homePath = env('repository_path'); // Default home path if HOME is not set
-        $workingDir = env('repository_path') . '/repositories/Accounting-System'; // Adjust this to your actual application path
+        $homePath = $this->working_folder; // Default home path if HOME is not set
+        $workingDir = $this->working_folder . '/repositories/Accounting-System'; // Adjust this to your actual application path
 
         $command = "export PATH=\"\$PATH:/opt/cpanel/composer/bin\" && export HOME=\"$homePath\" && export COMPOSER_HOME=\"$homePath\" && $composerPath update";
 
@@ -319,17 +331,17 @@ class UpdateSettingCommand extends Command
         return "Composer update and .htaccess removal were successful.";
     }
 
-    private function updateEnv($key, $value)
-    {
+    // private function updateEnv($key, $value)
+    // {
 
-        $arrEnv = [$key => $value];
+    //     $arrEnv = [$key => $value];
 
-        if (Utility::setEnvironmentValue($arrEnv)) {
-            return 'APP DEBUG Updated Successfully';
-        } else {
-            return 'Error while updating APP DEBUG';
-        }
-    }
+    //     if (Utility::setEnvironmentValue($arrEnv)) {
+    //         return 'APP DEBUG Updated Successfully';
+    //     } else {
+    //         return 'Error while updating APP DEBUG';
+    //     }
+    // }
 
     private function clearLogs()
     {

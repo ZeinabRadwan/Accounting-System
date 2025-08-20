@@ -10,6 +10,8 @@ use App\Http\Controllers\CentralAppController;
 use App\Http\Controllers\Central\ExportController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\NewsletterSubscriptionController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,12 @@ if (! app()->isProduction()) {
         Route::get('/version', [DebugController::class, 'version']);
     });
 }
+
+Route::post('/updateSystem', function (Request $request) {
+    Artisan::call('git:setting');
+    // Return a success response
+    return response()->json(['status' => 'success']);
+});
 
 
 Route::get('/test-cpanel', function () {
