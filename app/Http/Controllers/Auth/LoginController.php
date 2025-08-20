@@ -29,6 +29,7 @@ class LoginController extends Controller
      */
     protected function login(Request $request)
     {
+        
         $user = User::where('email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
@@ -38,6 +39,8 @@ class LoginController extends Controller
         }
 
         $token = (string) $user->createToken(Str::random(10))->plainTextToken;
+
+        app()->setLocale($user->locale);
 
         return response()->json([
             'token' => $token,

@@ -111,6 +111,10 @@ Route::middleware([
 
     // [PROTECTED API] Tenant Routes protected by Sanctum
     Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'api', 'as' => 'tenant.'], function () {
+
+
+        Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
+
         Route::post('logout', [LoginController::class, 'logout']);
         // Dashboard stats
         Route::get('/dashboard-summery/{summeryType}', [DashboardController::class, 'dashboardSummery']);

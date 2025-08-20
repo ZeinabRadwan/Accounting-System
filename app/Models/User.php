@@ -39,6 +39,11 @@ class User extends Authenticatable
         'password',
         'account_role',
         'is_active',
+        'locale',
+    ];
+
+    protected $attributes = [
+        'locale' => 'ar', // Set default locale
     ];
 
     /**

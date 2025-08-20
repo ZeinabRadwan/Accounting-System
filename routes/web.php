@@ -118,7 +118,7 @@ Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
             // spa view
             Route::get('/dashboard', CentralAppController::class)->name('dashboard.index');
             // Use web.php if you want CSRF protection, or api.php for an API endpoint
-            Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
+            Route::post('api/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
         });
     });
 
