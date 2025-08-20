@@ -1002,6 +1002,38 @@ class DemoPermissionsTableSeeder extends Seeder
                     'guard_name' => 'Domains',
                     'slug' => 'domain-management',
                 ],
+
+                // Journal Entry permissions
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-list',
+                ],
+                [
+                    'name' => 'Create',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-create',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-view',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-edit',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-delete',
+                ],
+                [
+                    'name' => 'Post',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-post',
+                ],
             ]);
         }
     }

@@ -19,7 +19,14 @@ class TenantChartOfAccountSeeder extends Seeder
     public function run()
     {
 
-        ChartOfAccount::truncate();
+        // Check if there are any journal entries that reference chart of accounts
+        if (DB::table('journal_entry_lines')->count() > 0) {
+            $this->command->info('Journal entries exist, using firstOrCreate approach for chart of accounts...');
+            $useFirstOrCreate = true;
+        } else {
+            $useFirstOrCreate = false;
+        }
+        
         // First, let's create some account types
         $accountTypes = [
             ['name' => 'Asset', 'order' => 1],
@@ -101,17 +108,40 @@ class TenantChartOfAccountSeeder extends Seeder
         // Insert root accounts and get their IDs
         $rootAccountIds = [];
         foreach ($accounts as $account) {
-            $id = DB::table('chart_of_accounts')->insertGetId([
-                'name' => $account['name'],
-                'code' => $account['code'],
-                'type_id' => $account['type_id'],
-                'parent_id' => $account['parent_id'],
-                'order' => $account['order'],
-                'is_active' => $account['is_active'],
-                'created_by' => $account['created_by'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            if ($useFirstOrCreate) {
+                // Use firstOrCreate to avoid duplicates when journal entries exist
+                $existingAccount = DB::table('chart_of_accounts')
+                    ->where('code', $account['code'])
+                    ->first();
+                
+                if ($existingAccount) {
+                    $id = $existingAccount->id;
+                } else {
+                    $id = DB::table('chart_of_accounts')->insertGetId([
+                        'name' => $account['name'],
+                        'code' => $account['code'],
+                        'type_id' => $account['type_id'],
+                        'parent_id' => $account['parent_id'],
+                        'order' => $account['order'],
+                        'is_active' => $account['is_active'],
+                        'created_by' => $account['created_by'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            } else {
+                $id = DB::table('chart_of_accounts')->insertGetId([
+                    'name' => $account['name'],
+                    'code' => $account['code'],
+                    'type_id' => $account['type_id'],
+                    'parent_id' => $account['parent_id'],
+                    'order' => $account['order'],
+                    'is_active' => $account['is_active'],
+                    'created_by' => $account['created_by'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
             $rootAccountIds[$account['name']] = $id;
         }
 
@@ -239,17 +269,40 @@ class TenantChartOfAccountSeeder extends Seeder
         // Insert sub-accounts and get their IDs
         $subAccountIds = [];
         foreach ($subAccounts as $account) {
-            $id = DB::table('chart_of_accounts')->insertGetId([
-                'name' => $account['name'],
-                'code' => $account['code'],
-                'type_id' => $account['type_id'],
-                'parent_id' => $account['parent_id'],
-                'order' => $account['order'],
-                'is_active' => $account['is_active'],
-                'created_by' => $account['created_by'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            if ($useFirstOrCreate) {
+                // Use firstOrCreate to avoid duplicates when journal entries exist
+                $existingAccount = DB::table('chart_of_accounts')
+                    ->where('code', $account['code'])
+                    ->first();
+                
+                if ($existingAccount) {
+                    $id = $existingAccount->id;
+                } else {
+                    $id = DB::table('chart_of_accounts')->insertGetId([
+                        'name' => $account['name'],
+                        'code' => $account['code'],
+                        'type_id' => $account['type_id'],
+                        'parent_id' => $account['parent_id'],
+                        'order' => $account['order'],
+                        'is_active' => $account['is_active'],
+                        'created_by' => $account['created_by'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            } else {
+                $id = DB::table('chart_of_accounts')->insertGetId([
+                    'name' => $account['name'],
+                    'code' => $account['code'],
+                    'type_id' => $account['type_id'],
+                    'parent_id' => $account['parent_id'],
+                    'order' => $account['order'],
+                    'is_active' => $account['is_active'],
+                    'created_by' => $account['created_by'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
             $subAccountIds[$account['name']] = $id;
         }
 
@@ -394,17 +447,38 @@ class TenantChartOfAccountSeeder extends Seeder
 
         // Insert detailed accounts
         foreach ($detailedAccounts as $account) {
-            DB::table('chart_of_accounts')->insert([
-                'name' => $account['name'],
-                'code' => $account['code'],
-                'type_id' => $account['type_id'],
-                'parent_id' => $account['parent_id'],
-                'order' => $account['order'],
-                'is_active' => $account['is_active'],
-                'created_by' => $account['created_by'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            if ($useFirstOrCreate) {
+                // Use firstOrCreate to avoid duplicates when journal entries exist
+                $existingAccount = DB::table('chart_of_accounts')
+                    ->where('code', $account['code'])
+                    ->first();
+                
+                if (!$existingAccount) {
+                    DB::table('chart_of_accounts')->insert([
+                        'name' => $account['name'],
+                        'code' => $account['code'],
+                        'type_id' => $account['type_id'],
+                        'parent_id' => $account['parent_id'],
+                        'order' => $account['order'],
+                        'is_active' => $account['is_active'],
+                        'created_by' => $account['created_by'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            } else {
+                DB::table('chart_of_accounts')->insert([
+                    'name' => $account['name'],
+                    'code' => $account['code'],
+                    'type_id' => $account['type_id'],
+                    'parent_id' => $account['parent_id'],
+                    'order' => $account['order'],
+                    'is_active' => $account['is_active'],
+                    'created_by' => $account['created_by'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
 
         $this->command->info('Chart of Accounts seeded successfully!');
