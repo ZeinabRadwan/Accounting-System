@@ -3,10 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Composer;
-use App\Mail\UserEmail;
+use App\Notifications\UserEmailNotification;
 use App\Models\Utility;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Artisan;
 
@@ -143,7 +143,7 @@ class UpdateSettingCommand extends Command
                 if (!empty($errors)) {
                     $final_title = __('System Update - Errors ' . env('APP_URL') . ' - ' . date('Y-m-d H:i:s'));
                     $error_text = implode('<br>', $errors);
-                    Mail::to($email)->send(new UserEmail($error_text, $final_title));
+                    Notification::route('mail', $email)->notify(new UserEmailNotification($error_text, $final_title));
                 }
 
                 echo $final_text;
