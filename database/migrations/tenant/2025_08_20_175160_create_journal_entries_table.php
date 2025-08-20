@@ -15,35 +15,37 @@ return new class extends Migration
     {
         Schema::create('journal_entries', function (Blueprint $table) {
             $table->id();
-            $table->string('entry_number')->unique(); // Auto-generated entry number
+            $table->string('reference')->unique(); // Unique reference number
             $table->date('entry_date'); // Date of the journal entry
-            $table->string('reference')->nullable(); // External reference (invoice #, purchase #, etc.)
-            $table->text('description'); // Description of the transaction
+            $table->text('description')->nullable(); // General description
             $table->decimal('total_debit', 15, 2)->default(0); // Total debit amount
             $table->decimal('total_credit', 15, 2)->default(0); // Total credit amount
             $table->enum('status', ['draft', 'posted', 'void'])->default('draft'); // Entry status
             $table->unsignedBigInteger('created_by'); // User who created the entry
             $table->unsignedBigInteger('posted_by')->nullable(); // User who posted the entry
             $table->timestamp('posted_at')->nullable(); // When the entry was posted
-            $table->string('source_type')->nullable(); // Source module (Invoice, Purchase, Expense, etc.)
-            $table->unsignedBigInteger('source_id')->nullable(); // Source record ID
+            $table->unsignedBigInteger('voided_by')->nullable(); // User who voided the entry
+            $table->timestamp('voided_at')->nullable(); // When the entry was voided
+            $table->text('void_reason')->nullable(); // Reason for voiding
             $table->timestamps();
-            $table->softDeletes();
 
             // Indexes for performance
-            $table->index('entry_number');
+            $table->index('reference');
             $table->index('entry_date');
             $table->index('status');
-            $table->index('source_type');
-            $table->index('source_id');
             $table->index('created_by');
             $table->index('posted_by');
-            $table->index(['source_type', 'source_id']);
-            $table->index('deleted_at');
+            $table->index('voided_by');
+            $table->index(['entry_date', 'status']);
+            $table->index(['status', 'created_by']);
 
             // Foreign key constraints
             $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('posted_by')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('voided_by')->references('id')->on('users')->onDelete('restrict');
+
+            // Note: Total debit and credit must be equal for a valid journal entry
+            // This will be enforced at the application level
         });
     }
 
