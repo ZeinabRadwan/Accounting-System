@@ -9,7 +9,7 @@
 
 <script>
 import Loading from './../Loading'
-
+import rtlService from '~/services/RTLService'
 
 // Load layout components dynamically.
 const requireContext = require.context('~/layouts', false, /.*\.vue$/)
@@ -46,9 +46,40 @@ export default {
   mounted() {
     this.$loading = this.$refs.loading
     this.getSettings()
+    
+    // Initialize RTL mode
+    this.initializeRTLMode()
   },
 
   methods: {
+    // Initialize RTL mode
+    initializeRTLMode() {
+      // Get current locale from store if available
+      let currentLocale = 'en'
+      
+      // Try to get locale from store, fallback to config
+      if (this.$store && this.$store.getters['lang/locale']) {
+        currentLocale = this.$store.getters['lang/locale']
+      } else if (window.config && window.config.locale) {
+        currentLocale = window.config.locale
+      }
+      
+      // Initialize RTL service with current locale
+      rtlService.setRTLMode(currentLocale)
+      
+      // Listen for locale changes from store if available
+      if (this.$store) {
+        this.$store.watch(
+          (state) => state.lang.locale,
+          (newLocale) => {
+            if (newLocale) {
+              rtlService.setRTLMode(newLocale)
+            }
+          }
+        )
+      }
+    },
+
     // get settings
     async getSettings() {
       await this.$store.dispatch('operations/fetchSettingData')

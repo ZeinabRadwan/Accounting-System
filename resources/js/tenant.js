@@ -8,6 +8,9 @@ import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
 import App from '~/components/App'
 
+// Import RTL styles
+import '~/assets/css/rtl.css'
+
 // vue page transition
 import '@toast-ui/editor/dist/toastui-editor.css'
 
