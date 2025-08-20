@@ -13,14 +13,18 @@ class UserEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $body;
+    public $title;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($body, $title = null)
     {
-        //
+        $this->body = $body;
+        $this->title = $title ?? 'User Email';
     }
 
     /**
@@ -31,7 +35,7 @@ class UserEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'User Email',
+            subject: $this->title,
         );
     }
 
