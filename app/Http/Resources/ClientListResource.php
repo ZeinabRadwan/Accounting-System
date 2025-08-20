@@ -22,6 +22,7 @@ class ClientListResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone,
             'companyName' => $this->company_name,
+            'crNumber' => $this->cr_number ?? 'N/A',
             'address' => $this->address,
             'type' => $this->type ?? 'Company',
             'status' => (int) $this->status,

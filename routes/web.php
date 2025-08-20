@@ -25,6 +25,7 @@ use App\Http\Controllers\NewsletterSubscriptionController;
 if (! app()->isProduction()) {
     Route::group(['prefix' => '/debug'], function () {
         Route::get('/version', [DebugController::class, 'version']);
+        Route::get('/check-database', [DebugController::class, 'checkDatabase']);
     });
 }
 

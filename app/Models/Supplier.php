@@ -27,6 +27,7 @@ class Supplier extends Model
         'status',
         'image_path',
         'tax_registration_number',
+        'cr_number',
         'type', 
     ];
 

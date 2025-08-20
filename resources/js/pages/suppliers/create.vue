@@ -64,7 +64,7 @@
               </div>
 
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="taxRegistrationNumber">{{
                     $t("Tax Registration Number")
                   }}</label>
@@ -73,7 +73,14 @@
                     name="taxRegistrationNumber" :placeholder="$t('Enter a tax registration number')" />
                   <has-error :form="form" field="taxRegistrationNumber" />
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                  <label for="crNumber">{{ $t("CR Number") }}</label>
+                  <input id="crNumber" v-model="form.crNumber" type="text"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('crNumber') }"
+                    name="crNumber" :placeholder="$t('Enter CR number')" />
+                  <has-error :form="form" field="crNumber" />
+                </div>
+                <div class="form-group col-md-4">
                   <label for="address">{{ $t("Address") }}</label>
                   <textarea id="address" v-model="form.address" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
@@ -172,6 +179,7 @@ export default {
       phoneNumber: "",
       companyName: "",
       taxRegistrationNumber: "",
+      crNumber: "",
       address: "",
       image: "",
       status: 1,

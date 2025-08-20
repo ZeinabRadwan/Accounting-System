@@ -12,6 +12,7 @@
                     <th>@lang('Phone')</th>
                     <th>@lang('Email')</th>
                     <th>@lang('Company')</th>
+                    <th>@lang('CR Number')</th>
                     <th>@lang('Status')</th>
                 </tr>
             </thead>
@@ -24,6 +25,7 @@
                         <td>{{ $supplier['phone'] }}</td>
                         <td>{{ $supplier['email'] }}</td>
                         <td>{{ $supplier['company_name'] }}</td>
+                        <td>{{ $supplier['cr_number'] ?? 'N/A' }}</td>
                         <td>
                             @if ($supplier['status'])
                                 @lang('Active')

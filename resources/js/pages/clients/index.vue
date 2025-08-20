@@ -73,6 +73,7 @@
                     <th>{{ $t("Contact Number") }}</th>
                     <th>{{ $t("Email") }}</th>
                     <th>{{ $t("Company Name") }}</th>
+                    <th>{{ $t("CR Number") }}</th>
                     <th>{{ $t("Type") }}</th>
                     <th>{{ $t("Status") }}</th>
                     <th v-if="$can('client-edit') ||
@@ -115,6 +116,7 @@
                     <td>{{ data.phoneNumber }}</td>
                     <td>{{ data.email }}</td>
                     <td>{{ data.companyName }}</td>
+                    <td>{{ data.crNumber || 'N/A' }}</td>
                     <td>
                       <span class="badge bg-info">{{ data.type || 'Company' }}</span>
                     </td>
@@ -153,7 +155,7 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="9">
+                    <td colspan="10">
                       <EmptyTable />
                     </td>
                   </tr>
