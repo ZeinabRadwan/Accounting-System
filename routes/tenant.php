@@ -67,6 +67,7 @@ use App\Http\Controllers\API\SubscriptionInvoiceController;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\API\SubscriptionPaymentMethodController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
+use App\Http\Controllers\API\ChartOfAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -234,6 +235,13 @@ Route::middleware([
         // Invoice return routes
         Route::get('/invoice-returns/search', [InvoiceReturnController::class, 'search']);
         Route::apiResource('invoice-returns', InvoiceReturnController::class);
+
+        // Chart of Accounts routes
+        Route::get('/chart-of-accounts/search', [ChartOfAccountController::class, 'search']);
+        Route::get('/chart-of-accounts/tree', [ChartOfAccountController::class, 'tree']);
+        Route::get('/chart-of-accounts/all', [ChartOfAccountController::class, 'getAll']);
+        Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
+        Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
 
         // Account routes
         Route::get('/accounts/search', [AccountController::class, 'search']);
@@ -483,8 +491,6 @@ Route::middleware([
 
 
         Route::post('/rich-editor-file-upload', [RichEditorController::class, 'handleUpload']);
-
-
     });
 
 

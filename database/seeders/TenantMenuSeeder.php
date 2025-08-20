@@ -87,6 +87,13 @@ class TenantMenuSeeder extends Seeder
                 'status' => true,
             ],
             [
+                'name' => 'Chart of Accounts',
+                'route' => 'chart-of-accounts.index',
+                'text' => 'Chart of Accounts',
+                'icon' => 'fas fa-chart-line nav-icon',
+                'status' => true,
+            ],
+            [
                 'name' => 'Accounts',
                 'route' => 'accounts.index',
                 'text' => 'Accounts',

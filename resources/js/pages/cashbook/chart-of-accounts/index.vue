@@ -4,17 +4,17 @@
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
     <div class="row">
-      <div class="col-lg-12" v-if="$can('account-list') ||
-        $can('account-create') ||
-        $can('account-view') ||
-        $can('account-edit') ||
-        $can('account-delete')
+      <div class="col-lg-12" v-if="$can('chart-of-account-list') ||
+        $can('chart-of-account-create') ||
+        $can('chart-of-account-view') ||
+        $can('chart-of-account-edit') ||
+        $can('chart-of-account-delete')
         ">
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
               <h3 class="card-title">
-                {{ $t("Accounts") }}
+                {{ $t("Chart of Accounts") }}
               </h3>
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
@@ -25,13 +25,13 @@
                 <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
                   <i class="fa fa-arrow-circle-down"></i>
                 </a>
-                <a href="/accounts/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
+                <a href="/chart-of-accounts/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
                   <i class="fas fa-file-export"></i>
                 </a>
                 <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
                   <i class="fas fa-print"></i>
                 </a>
-                <router-link v-if="$can('account-create')" :to="{ name: 'accounts.create' }" class="btn btn-primary">
+                <router-link v-if="$can('chart-of-account-create')" :to="{ name: 'chart-of-accounts.create' }" class="btn btn-primary">
                   {{ $t("Create") }}
                   <i class="fas fa-plus-circle d-none d-sm-inline-block" />
                 </router-link>
@@ -60,16 +60,15 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>{{ $t("#") }}</th>
-                    <th>{{ $t("Image") }}</th>
-                    <th>{{ $t("Bank Name") }}</th>
-                    <th>{{ $t("Branch Name") }}</th>
-                    <th>{{ $t("Account Number") }}</th>
-                    <th>{{ $t("Available Balance") }}</th>
+                    <th>{{ $t("Code") }}</th>
+                    <th>{{ $t("Name") }}</th>
+                    <th>{{ $t("Type") }}</th>
+                    <th>{{ $t("Parent Account") }}</th>
+                    <th>{{ $t("Order") }}</th>
                     <th>{{ $t("Status") }}</th>
-                    <th v-if="$can('account-view') ||
-                      $can('account-edit') ||
-                      $can('account-delete')
+                    <th v-if="$can('chart-of-account-view') ||
+                      $can('chart-of-account-edit') ||
+                      $can('chart-of-account-delete')
                       " class="text-right no-print">
                       {{ $t("Action") }}
                     </th>
@@ -78,79 +77,62 @@
                 <tbody>
                   <tr v-show="items.length" v-for="(data, i) in items" :key="i">
                     <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>
-                      <a
-                        v-if="data.image"
-                        href="#"
-                        id="show-modal"
-                        @click="previewModal(data.image)"
-                      >
-                        <img
-                          :src="data.image"
-                          class="rounded preview-sm"
-                          loading="lazy"
-                        />
-                      </a>
-                      <div v-else class="bg-secondary rounded no-preview-sm">
-                        <small>{{ $t("No Preview") }}</small>
-                      </div>
-                    </td>
-                    <td>
-                      <router-link v-if="$can('account-view')" :to="{
-                        name: 'accounts.show',
-                        params: { slug: data.slug },
+                      <router-link v-if="$can('chart-of-account-view')" :to="{
+                        name: 'chart-of-accounts.show',
+                        params: { slug: data.code },
                       }">
-                        {{ data.bankName }}
+                        {{ data.code }}
                       </router-link>
-                      <span v-else>{{ data.bankName }}</span>
+                      <span v-else>{{ data.code }}</span>
                     </td>
-                    <td>{{ data.branchName }}</td>
-                    <td>{{ data.accountNumber }}</td>
-                    <td>{{ data.availableBalance | withCurrency }}</td>
+                    <td>{{ data.name }}</td>
                     <td>
-                      <span v-if="data.status === 1" class="badge bg-success">{{
+                      <span v-if="data.types" class="badge bg-info">
+                        {{ data.types.name }}
+                      </span>
+                      <span v-else class="text-muted">-</span>
+                    </td>
+                    <td>
+                      <span v-if="data.parent" class="text-muted">
+                        {{ data.parent.name }}
+                      </span>
+                      <span v-else class="text-muted">-</span>
+                    </td>
+                    <td>{{ data.order || '-' }}</td>
+                    <td>
+                      <span v-if="data.is_active" class="badge bg-success">{{
                         $t("Active")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
                         $t("Inactive")
                       }}</span>
                     </td>
-                    <td v-if="$can('account-view') ||
-                        $can('account-edit') ||
-                        $can('account-delete')
+                    <td v-if="$can('chart-of-account-view') ||
+                        $can('chart-of-account-edit') ||
+                        $can('chart-of-account-delete')
                         " class="text-right no-print">
                       <div class="btn-group">
-                        <router-link v-if="$can('account-view')" v-tooltip="$t('Transactions')" :to="{
-                          name: 'accounts.show',
-                          params: { slug: data.slug },
+                        <router-link v-if="$can('chart-of-account-view')" v-tooltip="$t('View')" :to="{
+                          name: 'chart-of-accounts.show',
+                          params: { slug: data.code },
                         }" class="btn btn-primary btn-sm">
-                          <i class="fas fa-list-ol" />
+                          <i class="fas fa-eye" />
                         </router-link>
-                        <router-link v-if="$can('account-edit')" v-tooltip="$t('Edit')" :to="{
-                          name: 'accounts.edit',
-                          params: { slug: data.slug },
+                        <router-link v-if="$can('chart-of-account-edit')" v-tooltip="$t('Edit')" :to="{
+                          name: 'chart-of-accounts.edit',
+                          params: { slug: data.code },
                         }" class="btn btn-info btn-sm">
                           <i class="fas fa-edit" />
                         </router-link>
-                        <a v-if="$can('account-delete') &&
-                          appInfo.defaultAccountSlug != data.slug
-                          " v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
-                          @click="deleteData(data.slug)">
+                        <a v-if="$can('chart-of-account-delete')" v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
+                          @click="deleteData(data.code)">
                           <i class="fas fa-trash" />
                         </a>
                       </div>
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="8">
+                    <td colspan="7">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -183,9 +165,22 @@
     </div>
 
    <Modal v-if="showModal" @close="previewModal()">
-      <h5 slot="header">{{ $t("Attached Image Preview") }}</h5>
+      <h5 slot="header">{{ $t("Chart of Account Details") }}</h5>
       <div class="w-100" slot="body">
-        <img :src="imagePath" class="rounded img-fluid" loading="lazy" />
+        <div class="row">
+          <div class="col-md-6">
+            <strong>{{ $t("Code") }}:</strong> {{ selectedAccount.code }}
+          </div>
+          <div class="col-md-6">
+            <strong>{{ $t("Name") }}:</strong> {{ selectedAccount.name }}
+          </div>
+          <div class="col-md-6">
+            <strong>{{ $t("Type") }}:</strong> {{ selectedAccount.types ? selectedAccount.types.name : '-' }}
+          </div>
+          <div class="col-md-6">
+            <strong>{{ $t("Parent Account") }}:</strong> {{ selectedAccount.parent ? selectedAccount.parent.name : '-' }}
+          </div>
+        </div>
       </div>
     </Modal>
 
@@ -201,13 +196,13 @@ import DateRangePicker from "vue2-daterange-picker";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Accounts") };
+    return { title: this.$t("Chart of Accounts") };
   },
   components: {
     DateRangePicker,
   },
   data: () => ({
-    breadcrumbsCurrent: "Accounts",
+    breadcrumbsCurrent: "Chart of Accounts",
     breadcrumbs: [
       {
         name: "Dashboard",
@@ -218,13 +213,14 @@ export default {
         url: "",
       },
       {
-        name: "Accounts",
+        name: "Chart of Accounts",
         url: "",
       },
     ],
     query: "",
     perPage: 10,
     showModal: false,
+    selectedAccount: {},
     minDate: moment(new Date("01-01-2021")).format("YYYY-MM-DD"),
     maxDate: moment().add(1, "days").format("YYYY-MM-DD"),
     dateRange: {
@@ -257,7 +253,7 @@ export default {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
       // Create a dynamic export URL with query parameters
-      return `/accounts/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      return `/chart-of-accounts/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
     },
   },
   watch: {
@@ -315,7 +311,7 @@ export default {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
       await this.$store.dispatch("operations/fetchData", {
-        path: "/api/accounts?page=",
+        path: "/api/chart-of-accounts?page=",
         currentPage: currentPage + "&perPage=" + this.perPage,
       });
     },
@@ -335,7 +331,7 @@ export default {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
       await this.$store.dispatch("operations/searchData", {
-        path: "/api/accounts/search",
+        path: "/api/chart-of-accounts/search",
         term: this.query,
         currentPage: currentPage + "&perPage=" + this.perPage,
         startDate: this.dateRange.startDate,
@@ -354,8 +350,14 @@ export default {
       await this.$htmlToPaper("printMe");
     },
 
-    // delete data
-    async deleteData(slug) {
+
+
+
+
+
+
+     // delete data
+     async deleteData(slug) {
       Swal.fire({
         title: this.$t("Are you sure?"),
         text: this.$t("You will not be able to return to this!"),
@@ -367,7 +369,7 @@ export default {
         if (result.value) {
           this.$store
             .dispatch("operations/deleteData", {
-              path: "/api/accounts/",
+              path: "/api/chart-of-accounts/",
               slug: slug,
             })
             .then((response) => {
@@ -390,9 +392,11 @@ export default {
       });
     },
 
+
+
     // display modal
-    previewModal(image) {
-      this.imagePath = image;
+    previewModal(account) {
+      this.selectedAccount = account;
       if (this.showModal) {
         return (this.showModal = false);
       }

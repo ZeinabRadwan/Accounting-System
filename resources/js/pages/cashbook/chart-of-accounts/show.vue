@@ -12,7 +12,7 @@
           </a>
 
           <a href="#" @click="printWindow" class="btn btn-info"><i class="fas fa-print"></i> {{ $t("Print") }}</a>
-          <router-link :to="{ name: 'accounts.index' }" class="btn btn-dark float-right">
+          <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-dark float-right">
             <i class="fas fa-long-arrow-alt-left" />
             {{ $t("Back") }}
           </router-link>

@@ -36,6 +36,8 @@ class TenantDatabaseSeeder extends Seeder
                 TenantAccountSeeder::class,
                 TenantVatRateSeeder::class,
                 TenantMenuSeeder::class,
+                TenantChartOfAccountType::class,
+                TenantChartOfAccountSeeder::class,
             ]);
         }
     }

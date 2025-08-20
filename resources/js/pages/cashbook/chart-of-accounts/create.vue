@@ -19,69 +19,57 @@
           <form role="form" @submit.prevent="saveAccount" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
-                <div class="form-group col-md-12">
-                  <label for="bankName">{{ $t('Bank Name') }}
+                <div class="form-group col-md-6">
+                  <label for="name">{{ $t('Account Name') }}
                     <span class="required">*</span></label>
-                  <input id="bankName" v-model="form.bankName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('bankName') }" name="bankName"
-                    :placeholder="$t('Enter a bank name')" />
-                  <has-error :form="form" field="bankName" />
+                  <input id="name" v-model="form.name" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('name') }" name="name"
+                    :placeholder="$t('Enter account name')" />
+                  <has-error :form="form" field="name" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="code">{{ $t('Account Code') }}
+                    <span class="required">*</span></label>
+                  <input id="code" v-model="form.code" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('code') }" name="code"
+                    :placeholder="$t('Enter account code')" />
+                  <has-error :form="form" field="code" />
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="branchName">{{ $t('Branch Name') }}
-                  </label>
-                  <input id="branchName" v-model="form.branchName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('branchName') }" name="branchName"
-                    :placeholder="$t('Enter a branch name')" />
-                  <has-error :form="form" field="branchName" />
+                  <label for="type_id">{{ $t('Account Type') }}
+                    <span class="required">*</span></label>
+                  <v-select v-model="form.type_id" :options="accountTypes" label="name"
+                    :class="{ 'is-invalid': form.errors.has('type_id') }" name="type_id"
+                    :placeholder="$t('Select account type')" />
+                  <has-error :form="form" field="type_id" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="accountNumber">{{ $t('Account Number') }}
-                    <span class="required">*</span></label>
-                  <input id="accountNumber" v-model="form.accountNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('accountNumber') }" name="accountNumber" :placeholder="$t('Enter an account number')
-                      " />
-                  <has-error :form="form" field="accountNumber" />
+                  <label for="parent_id">{{ $t('Parent Account') }}</label>
+                  <v-select v-model="form.parent_id" :options="parentAccounts" label="name"
+                    :class="{ 'is-invalid': form.errors.has('parent_id') }" name="parent_id"
+                    :placeholder="$t('Select parent account (optional)')" />
+                  <has-error :form="form" field="parent_id" />
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="image">{{ $t("Image") }}</label>
-                  <div class="custom-file">
-                    <input id="image" type="file" class="custom-file-input" name="image"
-                      :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
-                    <label class="custom-file-label" for="image">{{
-                      $t("Choose file")
-                    }}</label>
-                  </div>
-                  <has-error :form="form" field="image" />
-                  <div class="bg-light mt-4 w-25">
-                    <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
-                  </div>
+                  <label for="order">{{ $t('Order') }}</label>
+                  <input id="order" v-model="form.order" type="number" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('order') }" name="order"
+                    :placeholder="$t('Enter display order')" />
+                  <has-error :form="form" field="order" />
                 </div>
-                <div class="form-group col-md-3">
-                  <label for="date">{{ $t('Date') }}</label>
-                  <input id="date" v-model="form.date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
-                  <has-error :form="form" field="date" />
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="status">{{ $t('Status') }}</label>
-                  <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
+                <div class="form-group col-md-6">
+                  <label for="is_active">{{ $t('Status') }}</label>
+                  <select id="is_active" v-model="form.is_active" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('is_active') }">
                     <option value="1">{{ $t('Active') }}</option>
                     <option value="0">{{ $t('Inactive') }}</option>
                   </select>
-                  <has-error :form="form" field="status" />
+                  <has-error :form="form" field="is_active" />
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="note">{{ $t('Note') }}</label>
-                <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
-                <has-error :form="form" field="note" />
               </div>
             </div>
             <!-- /.card-body -->
@@ -102,13 +90,14 @@
 
 <script>
 import Form from 'vform'
+
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: this.$t('Create Account') }
+    return { title: this.$t('Create Chart of Account') }
   },
   data: () => ({
-    breadcrumbsCurrent: 'Create Account',
+    breadcrumbsCurrent: 'Create Chart of Account',
     breadcrumbs: [
       {
         name: 'Dashboard',
@@ -119,8 +108,8 @@ export default {
         url: '',
       },
       {
-        name: 'Accounts',
-        url: 'accounts.index',
+        name: 'Chart of Accounts',
+        url: 'chart-of-accounts.index',
       },
       {
         name: 'Create',
@@ -128,57 +117,66 @@ export default {
       },
     ],
     form: new Form({
-      bankName: '',
-      branchName: '',
-      accountNumber: '',
-      date: new Date().toISOString().slice(0, 10),
-      image: '',
-      note: '',
-      status: 1,
+      name: '',
+      code: '',
+      type_id: null,
+      parent_id: null,
+      order: '',
+      is_active: 1,
     }),
-    url: null,
-    loading: true,
+    accountTypes: [],
+    parentAccounts: [],
   }),
 
+  async created() {
+    await this.loadAccountTypes();
+    await this.loadParentAccounts();
+  },
+
   methods: {
-    // save account
+    // load account types
+    async loadAccountTypes() {
+      try {
+        const response = await this.$axios.get('/api/chart-of-account-types');
+        this.accountTypes = response.data.data || [];
+        console.log('Account Types loaded:', this.accountTypes);
+      } catch (error) {
+        console.error('Error loading account types:', error);
+      }
+    },
+
+    // load parent accounts
+    async loadParentAccounts() {
+      try {
+        const response = await this.$axios.get('/api/chart-of-accounts/all');
+        this.parentAccounts = response.data.data || [];
+        console.log('Parent Accounts loaded:', this.parentAccounts);
+      } catch (error) {
+        console.error('Error loading parent accounts:', error);
+      }
+    },
+
+    // save chart of account
     async saveAccount() {
-      await this.form
-        .post(window.location.origin + '/api/accounts')
+      // Extract IDs from the selected objects before sending
+      const formData = {
+        ...this.form.data(),
+        type_id: this.form.type_id ? this.form.type_id.id : null,
+        parent_id: this.form.parent_id ? this.form.parent_id.id : null,
+      };
+
+      await this.$axios.post('/api/chart-of-accounts', formData)
         .then(() => {
           toast.fire({
             type: 'success',
-            title: this.$t('Account added successfully'),
+            title: this.$t('Chart of account added successfully'),
           })
-          this.$router.push({ name: 'accounts.index' })
+          this.$router.push({ name: 'chart-of-accounts.index' })
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error('Error saving:', error);
           toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
         })
-    },
-
-    // vue file upload
-    onFileChange(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      if (
-        file.size < 2111775 &&
-        (file.type === "image/jpeg" ||
-          file.type === "image/png" ||
-          file.type === "image/gif")
-      ) {
-        reader.onloadend = (file) => {
-          this.form.image = reader.result;
-        };
-        reader.readAsDataURL(file);
-        this.url = URL.createObjectURL(file);
-      } else {
-        Swal.fire(
-          this.$t("Error!"),
-          this.$t("Please select a valid thumbnail with size less than 2 MB"),
-          "error"
-        );
-      }
     },
   },
 }

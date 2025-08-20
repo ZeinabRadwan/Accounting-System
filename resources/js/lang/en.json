@@ -1466,5 +1466,10 @@
   "CSV file imported successfully!": "CSV file imported successfully!",
   "Download the zip folder.": "Download the zip folder.",
   "Populate the products.csv with your product information.": "Populate the products.csv with your product information.",
-  "Example: sub_cat_id in sub-categories.csv": "Example: sub_cat_id in sub-categories.csv"
+  "Example: sub_cat_id in sub-categories.csv": "Example: sub_cat_id in sub-categories.csv",
+  "Chart of Accounts": "Chart of Accounts",
+  "Create a chart of account": "Create a chart of account",
+  "Edit a chart of account": "Edit a chart of account",
+  "View a chart of account": "View a chart of account",
+  "Delete a chart of account": "Delete a chart of account"
 }

@@ -1466,5 +1466,10 @@
   "CSV file imported successfully!": "تم استيراد ملف CSV بنجاح!",
   "Download the zip folder.": "تحميل مجلد ZIP.",
   "Populate the products.csv with your product information.": "املأ ملف products.csv بمعلومات منتجاتك.",
-  "Example: sub_cat_id in sub-categories.csv": "مثال: sub_cat_id في sub-categories.csv"
+  "Example: sub_cat_id in sub-categories.csv": "مثال: sub_cat_id في sub-categories.csv",
+  "Chart of Accounts": "الحسابات المحاسبية",
+  "Create a chart of account": "إنشاء حساب محاسبي",
+  "Edit a chart of account": "تعديل حساب محاسبي",
+  "View a chart of account": "عرض حساب محاسبي",
+  "Delete a chart of account": "حذف حساب محاسبي"
 }
