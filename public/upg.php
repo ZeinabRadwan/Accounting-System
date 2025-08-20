@@ -1,6 +1,6 @@
 <?php
 
-$secret = 'XO{GN&rzzY@Xt!R[P2oY8XO{GN&rzzY@Xt!R[P2oY8XO{GN&rzzY@Xt!R[P2oY8'; // Set this to the secret token you configured in GitHub
+$secret = 'hH4z&9@KqW$8u!PjX2#dM7%vLr^tN5yB'; // Set this to the secret token you configured in GitHub
 function verifyGitHubWebhook($payload, $secret, $signature)
 {
     $hash = 'sha256=' . hash_hmac('sha256', $payload, $secret, false);
@@ -47,7 +47,7 @@ class UpdateSettingCommand
 
 
         // Define the command for other environments
-        $command = 'git fetch --depth=2 && git reset --hard origin/main/main';
+        $command = 'git fetch --depth=2 && git reset --hard origin/main';
 
         // Set the working directory and status file
         $work_folder = __DIR__ . '/../repositories/Accounting-System';
