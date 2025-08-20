@@ -56,6 +56,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 $supplier->phone,
                 $supplier->email,
                 $supplier->company_name,
+                $supplier->vatNumber ?? 'N/A',
                 $supplier->crNumber ?? 'N/A',
                 $supplier->type ?? 'Company',
                 $supplier->status ? 'Active' : 'Inactive',
@@ -74,6 +75,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'Contact Number',
             'Email',
             'Company Name',
+            'VAT Number',
             'CR Number',
             'Type',
             'Status'
@@ -85,7 +87,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 // Style the header row (headings)
-                $event->getSheet()->getDelegate()->getStyle('A1:H1')->applyFromArray([
+                $event->getSheet()->getDelegate()->getStyle('A1:I1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'size' => 13,

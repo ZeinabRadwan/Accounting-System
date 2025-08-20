@@ -66,11 +66,11 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="taxRegistrationNumber">{{
-                    $t("Tax Registration Number")
+                    $t("VAT Number")
                   }}</label>
-                  <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="taxRegistrationNumber"
+                  <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="text"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }"
-                    name="taxRegistrationNumber" :placeholder="$t('Enter a tax registration number')" />
+                    name="taxRegistrationNumber" :placeholder="$t('Enter VAT number')" />
                   <has-error :form="form" field="taxRegistrationNumber" />
                 </div>
                 <div class="form-group col-md-4">
@@ -178,7 +178,7 @@ export default {
       email: "",
       phoneNumber: "",
       companyName: "",
-      taxRegistrationNumber: "",
+              taxRegistrationNumber: "",
       crNumber: "",
       address: "",
       image: "",

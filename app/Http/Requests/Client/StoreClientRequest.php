@@ -28,6 +28,7 @@ class StoreClientRequest extends BaseRequest
             'phoneNumber' => ['required', 'string', 'max:20', 'min:3', 'phone'],
             'email' => ['nullable', 'required_if:isSendEmail,true', 'email', 'max:255', 'min:3', 'unique:suppliers,email'],
             'companyName' => ['nullable', 'string', 'max:100', 'min:2'],
+            'taxRegistrationNumber' => ['nullable', 'string', 'max:100'],
             'crNumber' => ['nullable', 'string', 'max:100'],
             'address' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'in:Company,Individual'],

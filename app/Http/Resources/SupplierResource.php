@@ -23,7 +23,7 @@ class SupplierResource extends JsonResource
             'phoneNumber' => $this->phone,
             'companyName' => $this->company_name,
             'type' => $this->type ?? 'Company',
-            'taxRegistrationNumber' => $this->tax_registration_number,
+            'vatNumber' => $this->tax_registration_number,
             'crNumber' => $this->cr_number ?? 'N/A',
             'address' => $this->address,
             'status' => (int) $this->status,

@@ -72,9 +72,9 @@
                     <th>{{ $t("Name") }}</th>
                     <th>{{ $t("Contact Number") }}</th>
                     <th>{{ $t("Email") }}</th>
-                    <th>{{ $t("Company Name") }}</th>
-                    <th>{{ $t("CR Number") }}</th>
-                    <th>{{ $t("Type") }}</th>
+                                         <th>{{ $t("Company Name") }}</th>
+                     <th>{{ $t("CR Number") }}</th>
+                     <th>{{ $t("Type") }}</th>
                     <th>{{ $t("Status") }}</th>
                     <th v-if="$can('client-edit') ||
                       $can('client-view') ||
@@ -115,11 +115,11 @@
                     </td>
                     <td>{{ data.phoneNumber }}</td>
                     <td>{{ data.email }}</td>
-                    <td>{{ data.companyName }}</td>
-                    <td>{{ data.crNumber || 'N/A' }}</td>
-                    <td>
-                      <span class="badge bg-info">{{ data.type || 'Company' }}</span>
-                    </td>
+                                         <td>{{ data.companyName }}</td>
+                     <td>{{ data.crNumber || 'N/A' }}</td>
+                     <td>
+                       <span class="badge bg-info">{{ data.type || 'Company' }}</span>
+                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -155,9 +155,9 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="10">
-                      <EmptyTable />
-                    </td>
+                                         <td colspan="10">
+                       <EmptyTable />
+                     </td>
                   </tr>
                 </tbody>
               </table>

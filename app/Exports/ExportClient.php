@@ -57,6 +57,7 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
                 $client->phone,
                 $client->email,
                 $client->company_name,
+                $client->vatNumber ?? 'N/A',
                 $client->crNumber ?? 'N/A',
                 $client->type ?? 'Company',
                 $client->status ? 'Active' : 'Inactive',
@@ -75,6 +76,7 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
             'Contact Number',
             'Email',
             'Company Name',
+            'VAT Number',
             'CR Number',
             'Type',
             'Status'
@@ -86,7 +88,7 @@ class ExportClient implements FromCollection,  WithHeadings, ShouldAutoSize, Wit
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 // Style the header row (headings)
-                $event->getSheet()->getDelegate()->getStyle('A1:H1')->applyFromArray([
+                $event->getSheet()->getDelegate()->getStyle('A1:I1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'size' => 13,
