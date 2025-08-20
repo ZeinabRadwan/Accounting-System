@@ -52,13 +52,25 @@ class UpdateSettingCommand extends Command
 
                 if ($cssUpdate) {
                     $result = $this->updateCss();
+                    $manifestResult = $this->updateManifest();
+                    $vendorResult = $this->updateVendor();
                     if (strpos($result, 'Error') !== false) {
                         $errors[] = $result;
                     } else {
                         $final_text .= ' <br> ' . $result;
                     }
+                    if (strpos($manifestResult, 'Error') !== false) {
+                        $errors[] = $manifestResult;
+                    } else {
+                        $final_text .= ' <br> ' . $manifestResult;
+                    }
+                    if (strpos($vendorResult, 'Error') !== false) {
+                        $errors[] = $vendorResult;
+                    } else {
+                        $final_text .= ' <br> ' . $vendorResult;
+                    }
                 }
-
+                
                 if ($jsUpdate) {
                     $result = $this->updateJs();
                     if (strpos($result, 'Error') !== false) {
@@ -162,6 +174,31 @@ class UpdateSettingCommand extends Command
     }
 
 
+    private function updateManifest() {
+        // mix-manifest.json
+        $work_folder = env('repository_path', '');
+        $manifest_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json' . $work_folder . '/public_html/';
+        exec($manifest_command, $output, $return_var);
+        if ($return_var !== 0) {
+            return $manifest_command;
+        }
+
+        return 'Manifest Updated Successfully';
+    }
+
+    private function updateVendor() {
+        $work_folder = env('repository_path', '');
+
+        $vendor_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/vendor/ ' . $work_folder . '/public_html/';
+        exec($vendor_command, $output, $return_var);
+        if ($return_var !== 0) {
+            return $vendor_command;
+            return 'Error updating vendor files: ' . implode("\n", $output);
+        }
+ 
+        return 'CSS files updated successfully';
+    }
+
     private function updateCss()
     {
         $work_folder = env('repository_path', '');
@@ -172,29 +209,7 @@ class UpdateSettingCommand extends Command
             return $css_command;
             return 'Error updating CSS files: ' . implode("\n", $output);
         }
-
-        $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/assets/ ' . $work_folder . '/public_html/assets/';
-        exec($css_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $css_command;
-            echo "Output: " . implode("\n", $output) . "\n";
-            return 'Error updating assets: ' . implode("\n", $output);
-        }
-
-        $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/assets/css/' . $work_folder . '/public_html/assets/css/';
-        exec($css_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $css_command;
-            return 'Error updating assets: ' . implode("\n", $output);
-        }
-
-        $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/hyperpay/ ' . $work_folder . '/public_html/hyperpay/';
-        exec($css_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $css_command;
-            return 'Error updating hyperpay files: ' . implode("\n", $output);
-        }
-
+ 
         return 'CSS files updated successfully';
     }
 
@@ -204,9 +219,6 @@ class UpdateSettingCommand extends Command
         $work_folder = env('repository_path', '');
 
         $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
-        exec($js_command, $output, $return_var);
-
-        $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/datatables/ ' . $work_folder . '/public_html/';
         exec($js_command, $output, $return_var);
 
         if ($return_var === 0) {
