@@ -14,7 +14,7 @@
     ],
     "run_composer": false,
     "clear_logs": true,
-    "APP_DEBUG": true,
     "run_migration_rollback": false,
+    "APP_DEBUG": true,
     "app_version": "1.0.18"
 }
