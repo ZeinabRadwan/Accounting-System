@@ -44,6 +44,51 @@
                     :placeholder="$t('Enter a contact number')" />
                   <has-error :form="form" field="phoneNumber" />
                 </div>
+              </div>
+
+              <!-- Multiple Phone Numbers -->
+              <div class="form-group">
+                <label>{{ $t("Additional Phone Numbers") }}</label>
+                <div v-for="(phone, index) in form.phoneNumbers" :key="index" class="row mb-2">
+                  <div class="col-md-10">
+                    <input type="text" v-model="form.phoneNumbers[index]" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('phoneNumbers.' + index) }"
+                      :placeholder="$t('Enter phone number')" />
+                    <has-error :form="form" field="'phoneNumbers.' + index" />
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" @click="removePhoneNumber(index)" class="btn btn-danger btn-sm">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <button type="button" @click="addPhoneNumber" class="btn btn-secondary btn-sm">
+                  <i class="fas fa-plus"></i> {{ $t("Add Phone Number") }}
+                </button>
+              </div>
+
+              <!-- Multiple Email Addresses -->
+              <div class="form-group">
+                <label>{{ $t("Additional Email Addresses") }}</label>
+                <div v-for="(email, index) in form.emailAddresses" :key="index" class="row mb-2">
+                  <div class="col-md-10">
+                    <input type="email" v-model="form.emailAddresses[index]" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('emailAddresses.' + index) }"
+                      :placeholder="$t('Enter email address')" />
+                    <has-error :form="form" field="'emailAddresses.' + index" />
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" @click="removeEmailAddress(index)" class="btn btn-danger btn-sm">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <button type="button" @click="addEmailAddress" class="btn btn-secondary btn-sm">
+                  <i class="fas fa-plus"></i> {{ $t("Add Email Address") }}
+                </button>
+              </div>
+
+              <div class="row">
                 <div class="form-group col-md-4">
                   <label for="email">{{ $t('Email') }}</label>
                   <input id="email" v-model="form.email" type="email" class="form-control"
@@ -73,6 +118,85 @@
                 <textarea id="address" v-model="form.address" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
                 <has-error :form="form" field="address" />
+              </div>
+              
+              <!-- New Address Fields -->
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="nationalityId">{{ $t("Nationality") }}</label>
+                  <select id="nationalityId" v-model="form.nationalityId" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('nationalityId') }" 
+                    :disabled="form.type !== 'Individual'">
+                    <option value="">{{ $t("Select Nationality") }}</option>
+                    <option v-for="nationality in nationalities" :key="nationality.id" :value="nationality.id">
+                      {{ nationality.name }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="nationalityId" />
+                  <small class="form-text text-muted" v-if="form.type !== 'Individual'">
+                    {{ $t("Nationality is only available for Individual type") }}
+                  </small>
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="cityName">{{ $t("City") }}</label>
+                  <input id="cityName" v-model="form.cityName" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('cityName') }" 
+                    :placeholder="$t('Enter city name')" />
+                  <has-error :form="form" field="cityName" />
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="district">{{ $t("District") }}</label>
+                  <input id="district" v-model="form.district" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('district') }" 
+                    :placeholder="$t('Enter district name')" />
+                  <has-error :form="form" field="district" />
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="streetName">{{ $t("Street Name") }}</label>
+                  <input id="streetName" v-model="form.streetName" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('streetName') }" 
+                    :placeholder="$t('Enter street name')" />
+                  <has-error :form="form" field="streetName" />
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="buildingNumber">{{ $t("Building Number") }}</label>
+                  <input id="buildingNumber" v-model="form.buildingNumber" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('buildingNumber') }" 
+                    :placeholder="$t('Enter building number')" />
+                  <has-error :form="form" field="buildingNumber" />
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="zipCode">{{ $t("Zip Code") }}</label>
+                  <input id="zipCode" v-model="form.zipCode" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('zipCode') }" 
+                    :placeholder="$t('Enter 5-digit zip code')" maxlength="5" />
+                  <has-error :form="form" field="zipCode" />
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="additionalNumber">{{ $t("Additional Number") }}</label>
+                  <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('additionalNumber') }" 
+                    :placeholder="$t('Enter additional reference number')" />
+                  <has-error :form="form" field="additionalNumber" />
+                </div>
+                
+                <div class="form-group col-md-6">
+                  <label for="unitNo">{{ $t("Unit No") }}</label>
+                  <input id="unitNo" v-model="form.unitNo" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('unitNo') }" 
+                    :placeholder="$t('Enter unit number')" />
+                  <has-error :form="form" field="unitNo" />
+                </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
@@ -156,6 +280,8 @@ export default {
       name: '',
       email: '',
       phoneNumber: '',
+      phoneNumbers: [],
+      emailAddresses: [],
       companyName: '',
       taxRegistrationNumber: '',
       crNumber: '',
@@ -163,12 +289,25 @@ export default {
       type: '',
       image: '',
       status: 1,
+      nationalityId: '',
+             cityName: '',
+      district: '',
+      streetName: '',
+      buildingNumber: '',
+      zipCode: '',
+      additionalNumber: '',
+      unitNo: '',
     }),
     url: null,
     loading: true,
+    nationalities: [],
+    
   }),
   mounted() {
     this.getSupplier()
+  },
+  async created() {
+    await this.fetchNationalities();
   },
   methods: {
     // get supplier
@@ -179,12 +318,22 @@ export default {
       this.form.name = data.data.name
       this.form.email = data.data.email
       this.form.phoneNumber = data.data.phoneNumber
+      this.form.phoneNumbers = data.data.phoneNumbers || []
+      this.form.emailAddresses = data.data.emailAddresses || []
       this.form.companyName = data.data.companyName
-              this.form.taxRegistrationNumber = data.data.vatNumber
+      this.form.taxRegistrationNumber = data.data.vatNumber
       this.form.crNumber = data.data.crNumber
       this.form.address = data.data.address
       this.form.type = data.data.type
       this.form.status = data.data.status
+      this.form.nationalityId = data.data.nationality?.id || ''
+             this.form.cityName = data.data.cityName || ''
+      this.form.district = data.data.district || ''
+      this.form.streetName = data.data.streetName || ''
+      this.form.buildingNumber = data.data.buildingNumber || ''
+      this.form.zipCode = data.data.zipCode || ''
+      this.form.additionalNumber = data.data.additionalNumber || ''
+      this.form.unitNo = data.data.unitNo || ''
       this.url = data.data.image
     },
 
@@ -232,6 +381,40 @@ export default {
           })
         })
     },
+
+    // fetch nationalities
+    async fetchNationalities() {
+      try {
+        const response = await axios.get('/api/nationalities');
+        if (response.data.success) {
+          this.nationalities = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error fetching nationalities:', error);
+      }
+    },
+
+    // Add phone number
+    addPhoneNumber() {
+      this.form.phoneNumbers.push('');
+    },
+
+    // Remove phone number
+    removePhoneNumber(index) {
+      this.form.phoneNumbers.splice(index, 1);
+    },
+
+    // Add email address
+    addEmailAddress() {
+      this.form.emailAddresses.push('');
+    },
+
+    // Remove email address
+    removeEmailAddress(index) {
+      this.form.emailAddresses.splice(index, 1);
+    },
+
+
   },
 }
 </script>

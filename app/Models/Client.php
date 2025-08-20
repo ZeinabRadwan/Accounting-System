@@ -17,7 +17,8 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'client_id', 'email', 'phone', 'company_name', 'address', 'status', 'image_path','tax_registration_number', 'cr_number', 'type',
+        'name', 'slug', 'client_id', 'email', 'phone', 'phone_numbers', 'email_addresses', 'company_name', 'address', 'status', 'image_path','tax_registration_number', 'cr_number', 'type',
+                    'nationality_id', 'city_name', 'district', 'street_name', 'building_number', 'zip_code', 'additional_number', 'unit_no',
     ];
 
     /**
@@ -160,4 +161,27 @@ class Client extends Model
     {
         return $this->phone;
     }
+
+    /**
+     * Get the nationality of the client
+     */
+    public function nationality()
+    {
+        return $this->belongsTo(Nationality::class);
+    }
+
+    /**
+     * Get the city of the client
+     */
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'phone_numbers' => 'array',
+        'email_addresses' => 'array',
+        'status' => 'boolean',
+    ];
 }

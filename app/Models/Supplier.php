@@ -22,13 +22,23 @@ class Supplier extends Model
         'supplier_id',
         'email',
         'phone',
+        'phone_numbers',
+        'email_addresses',
         'company_name',
         'address',
         'status',
         'image_path',
         'tax_registration_number',
         'cr_number',
-        'type', 
+        'type',
+        'nationality_id',
+                    'city_name',
+        'district',
+        'street_name',
+        'building_number',
+        'zip_code',
+        'additional_number',
+        'unit_no',
     ];
 
     /**
@@ -175,4 +185,27 @@ class Supplier extends Model
     {
         return $this->phone;
     }
+
+    /**
+     * Get the nationality of the supplier
+     */
+    public function nationality()
+    {
+        return $this->belongsTo(Nationality::class);
+    }
+
+    /**
+     * Get the city of the supplier
+     */
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'phone_numbers' => 'array',
+        'email_addresses' => 'array',
+        'status' => 'boolean',
+    ];
 }

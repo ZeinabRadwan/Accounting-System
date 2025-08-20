@@ -76,9 +76,25 @@
                     <strong>{{ $t("Email") }}</strong>
                     <span class="float-right">{{ allData.email }}</span>
                   </li>
+                  <li v-if="allData.emailAddresses && allData.emailAddresses.length" class="list-group-item">
+                    <strong>{{ $t("Additional Email Addresses") }}</strong>
+                    <div class="float-right">
+                      <div v-for="(email, index) in allData.emailAddresses" :key="index" class="mb-1">
+                        <span class="badge bg-warning">{{ email }}</span>
+                      </div>
+                    </div>
+                  </li>
                   <li class="list-group-item">
                     <strong>{{ $t("Contact Number") }}</strong>
                     <span class="float-right">{{ allData.phoneNumber }}</span>
+                  </li>
+                  <li v-if="allData.phoneNumbers && allData.phoneNumbers.length" class="list-group-item">
+                    <strong>{{ $t("Additional Phone Numbers") }}</strong>
+                    <div class="float-right">
+                      <div v-for="(phone, index) in allData.phoneNumbers" :key="index" class="mb-1">
+                        <span class="badge bg-info">{{ phone }}</span>
+                      </div>
+                    </div>
                   </li>
                   <li class="list-group-item">
                     <strong>{{ $t("Type") }}</strong>
@@ -97,9 +113,45 @@
                       allData.taxRegistrationNumber
                     }}</span>
                   </li>
+                  <li v-if="allData.crNumber" class="list-group-item">
+                    <strong>{{ $t("CR Number") }}</strong>
+                    <span class="float-right">{{ allData.crNumber }}</span>
+                  </li>
                   <li class="list-group-item">
                     <strong>{{ $t("Address") }}</strong>
                     <span class="float-right">{{ allData.address }}</span>
+                  </li>
+                  <li v-if="allData.nationality" class="list-group-item">
+                    <strong>{{ $t("Nationality") }}</strong>
+                    <span class="float-right">{{ allData.nationality.name }}</span>
+                  </li>
+                  <li v-if="allData.cityName" class="list-group-item">
+                    <strong>{{ $t("City") }}</strong>
+                    <span class="float-right">{{ allData.cityName }}</span>
+                  </li>
+                  <li v-if="allData.district" class="list-group-item">
+                    <strong>{{ $t("District") }}</strong>
+                    <span class="float-right">{{ allData.district }}</span>
+                  </li>
+                  <li v-if="allData.streetName" class="list-group-item">
+                    <strong>{{ $t("Street Name") }}</strong>
+                    <span class="float-right">{{ allData.streetName }}</span>
+                  </li>
+                  <li v-if="allData.buildingNumber" class="list-group-item">
+                    <strong>{{ $t("Building Number") }}</strong>
+                    <span class="float-right">{{ allData.buildingNumber }}</span>
+                  </li>
+                  <li v-if="allData.zipCode" class="list-group-item">
+                    <strong>{{ $t("Zip Code") }}</strong>
+                    <span class="float-right">{{ allData.zipCode }}</span>
+                  </li>
+                  <li v-if="allData.additionalNumber" class="list-group-item">
+                    <strong>{{ $t("Additional Number") }}</strong>
+                    <span class="float-right">{{ allData.additionalNumber }}</span>
+                  </li>
+                  <li v-if="allData.unitNo" class="list-group-item">
+                    <strong>{{ $t("Unit No") }}</strong>
+                    <span class="float-right">{{ allData.unitNo }}</span>
                   </li>
                   <li class="list-group-item">
                     <strong>{{ $t("Type") }}</strong>

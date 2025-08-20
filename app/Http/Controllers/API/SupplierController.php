@@ -90,13 +90,23 @@ class SupplierController extends Controller
                 'supplier_id' => $code,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
+                'phone_numbers' => $request->phoneNumbers,
+                'email_addresses' => $request->emailAddresses,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'cr_number' => $request->crNumber,
                 'address' => $request->address,
                 'status' => $request->status,
                 'image_path' => $imageName,
-                'type' => $request->type, 
+                            'type' => $request->type,
+            'nationality_id' => $request->nationalityId,
+            'city_name' => $request->cityName,
+            'district' => $request->district,
+                'street_name' => $request->streetName,
+                'building_number' => $request->buildingNumber,
+                'zip_code' => $request->zipCode,
+                'additional_number' => $request->additionalNumber,
+                'unit_no' => $request->unitNo,
             ]);            
 
             // add activity log
@@ -186,6 +196,8 @@ class SupplierController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
+                'phone_numbers' => $request->phoneNumbers,
+                'email_addresses' => $request->emailAddresses,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'cr_number' => $request->crNumber,
@@ -193,6 +205,14 @@ class SupplierController extends Controller
                 'type' => $request->type,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'nationality_id' => $request->nationalityId,
+                'city_name' => $request->cityName,
+                'district' => $request->district,
+                'street_name' => $request->streetName,
+                'building_number' => $request->buildingNumber,
+                'zip_code' => $request->zipCode,
+                'additional_number' => $request->additionalNumber,
+                'unit_no' => $request->unitNo,
             ]);
 
             // add activity log

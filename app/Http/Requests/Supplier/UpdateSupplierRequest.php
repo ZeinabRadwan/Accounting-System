@@ -31,12 +31,24 @@ class UpdateSupplierRequest extends BaseRequest
         return [
             'name' => 'required|string|max:255',
             'phoneNumber' => 'required|string|max:20|min:3',
+            'phoneNumbers' => 'nullable|array',
+            'phoneNumbers.*' => 'string|max:20|min:3',
             'email' => 'nullable|email|max:255|min:3|unique:suppliers,email,'.$supplier->id,
+            'emailAddresses' => 'nullable|array',
+            'emailAddresses.*' => 'email|max:255|min:3',
             'companyName' => 'nullable|string|max:100|min:2',
             'taxRegistrationNumber' => 'nullable|string|max:100',
             'crNumber' => 'nullable|string|max:100',
             'type' => 'required|string|in:Company,Individual',
-            'address' => 'nullable|string|max:255'
+            'address' => 'nullable|string|max:255',
+            'nationalityId' => 'nullable|exists:nationalities,id',
+            'cityName' => 'nullable|string|max:100',
+            'district' => 'nullable|string|max:100',
+            'streetName' => 'nullable|string|max:100',
+            'buildingNumber' => 'nullable|string|max:50',
+            'zipCode' => 'nullable|string|size:5|regex:/^[0-9]+$/',
+            'additionalNumber' => 'nullable|string|max:50',
+            'unitNo' => 'nullable|string|max:50'
         ];
     }
 }

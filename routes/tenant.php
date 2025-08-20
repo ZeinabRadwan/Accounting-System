@@ -32,6 +32,7 @@ use App\Http\Controllers\API\CurrencyController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\PurchaseController;
 use App\Http\Controllers\API\SupplierController;
+use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\PDFGeneratorController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\API\AssetTypeController;
@@ -346,6 +347,10 @@ Route::middleware([
         // Supplier non purchase transactions
         Route::get('/non-purchases/supplier/{slug}', [SupplierController::class, 'nonPurchaseTransForSupplier']);
         Route::get('/non-purchases/supplier/{slug}/search', [SupplierController::class, 'searchNonPurchaseTransForSupplier']);
+
+        // Address routes
+        Route::get('/nationalities', [AddressController::class, 'getNationalities']);
+        Route::get('/cities', [AddressController::class, 'getCities']);
 
         // Departments routes
         Route::get('/departments/search', [DepartmentController::class, 'search']);

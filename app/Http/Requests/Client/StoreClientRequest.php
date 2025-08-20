@@ -32,6 +32,14 @@ class StoreClientRequest extends BaseRequest
             'crNumber' => ['nullable', 'string', 'max:100'],
             'address' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'in:Company,Individual'],
+            'nationalityId' => ['nullable', 'exists:nationalities,id'],
+            'cityName' => ['nullable', 'string', 'max:100'],
+            'district' => ['nullable', 'string', 'max:100'],
+            'streetName' => ['nullable', 'string', 'max:100'],
+            'buildingNumber' => ['nullable', 'string', 'max:50'],
+            'zipCode' => ['nullable', 'string', 'size:5', 'regex:/^[0-9]+$/'],
+            'additionalNumber' => ['nullable', 'string', 'max:50'],
+            'unitNo' => ['nullable', 'string', 'max:50'],
         ];
     }
 }

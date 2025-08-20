@@ -91,6 +91,8 @@ class ClientController extends Controller
                 'client_id' => $code,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
+                'phone_numbers' => $request->phoneNumbers,
+                'email_addresses' => $request->emailAddresses,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'cr_number' => $request->crNumber,
@@ -98,6 +100,14 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
+                'nationality_id' => $request->nationalityId,
+                'city_name' => $request->cityName,
+                'district' => $request->district,
+                'street_name' => $request->streetName,
+                'building_number' => $request->buildingNumber,
+                'zip_code' => $request->zipCode,
+                'additional_number' => $request->additionalNumber,
+                'unit_no' => $request->unitNo,
             ]);
 
             //send welcome notification
@@ -188,6 +198,8 @@ class ClientController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
+                'phone_numbers' => $request->phoneNumbers,
+                'email_addresses' => $request->emailAddresses,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'cr_number' => $request->crNumber,
@@ -195,6 +207,14 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
+                'nationality_id' => $request->nationalityId,
+                'city_name' => $request->cityName,
+                'district' => $request->district,
+                'street_name' => $request->streetName,
+                'building_number' => $request->buildingNumber,
+                'zip_code' => $request->zipCode,
+                'additional_number' => $request->additionalNumber,
+                'unit_no' => $request->unitNo,
             ]);
 
             // add activity log
