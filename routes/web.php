@@ -28,6 +28,12 @@ if (! app()->isProduction()) {
     });
 }
 
+Route::post('/updateSystem', function (Request $request) {
+    Artisan::call('git:setting');
+    // Return a success response
+    return response()->json(['status' => 'success']);
+});
+
 
 Route::get('/test-cpanel', function () {
     $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
