@@ -16,6 +16,7 @@ class UpdateSettingCommand extends Command
     protected $signature = 'git:setting';
     protected $description = 'Command description';
     private $composerLog = [];
+    protected $working_folder = '/home2/accountwebsoft';
 
     public function handle()
     {
@@ -154,7 +155,7 @@ class UpdateSettingCommand extends Command
 
     private function updateUpdateFile()
     {
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
 
         // Ensure the work_folder path is correctly quoted
         $update_command = 'cp -R "' . $work_folder . '/repositories/Accounting-System/public/upg.php" "' . $work_folder . '/public_html/upg.php"';
@@ -175,7 +176,7 @@ class UpdateSettingCommand extends Command
 
     private function updateManifest() {
         // mix-manifest.json
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
         $manifest_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json' . $work_folder . '/public_html/';
         exec($manifest_command, $output, $return_var);
         if ($return_var !== 0) {
@@ -186,7 +187,7 @@ class UpdateSettingCommand extends Command
     }
 
     private function updateVendor() {
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
 
         $vendor_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/vendor/ ' . $work_folder . '/public_html/';
         exec($vendor_command, $output, $return_var);
@@ -200,7 +201,7 @@ class UpdateSettingCommand extends Command
 
     private function updateCss()
     {
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
 
         $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
         exec($css_command, $output, $return_var);
@@ -215,7 +216,7 @@ class UpdateSettingCommand extends Command
 
     private function updateJs()
     {
-        $work_folder = env('repository_path', '');
+        $work_folder = $this->working_folder;
 
         $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
         exec($js_command, $output, $return_var);
@@ -300,8 +301,8 @@ class UpdateSettingCommand extends Command
     private function runComposer()
     {
         $composerPath = '/opt/cpanel/composer/bin/composer';
-        $homePath = env('repository_path'); // Default home path if HOME is not set
-        $workingDir = env('repository_path') . '/repositories/Accounting-System'; // Adjust this to your actual application path
+        $homePath = $this->working_folder; // Default home path if HOME is not set
+        $workingDir = $this->working_folder . '/repositories/Accounting-System'; // Adjust this to your actual application path
 
         $command = "export PATH=\"\$PATH:/opt/cpanel/composer/bin\" && export HOME=\"$homePath\" && export COMPOSER_HOME=\"$homePath\" && $composerPath update";
 
@@ -330,17 +331,17 @@ class UpdateSettingCommand extends Command
         return "Composer update and .htaccess removal were successful.";
     }
 
-    private function updateEnv($key, $value)
-    {
+    // private function updateEnv($key, $value)
+    // {
 
-        $arrEnv = [$key => $value];
+    //     $arrEnv = [$key => $value];
 
-        if (Utility::setEnvironmentValue($arrEnv)) {
-            return 'APP DEBUG Updated Successfully';
-        } else {
-            return 'Error while updating APP DEBUG';
-        }
-    }
+    //     if (Utility::setEnvironmentValue($arrEnv)) {
+    //         return 'APP DEBUG Updated Successfully';
+    //     } else {
+    //         return 'Error while updating APP DEBUG';
+    //     }
+    // }
 
     private function clearLogs()
     {
