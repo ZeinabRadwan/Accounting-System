@@ -1,8 +1,8 @@
 {
     "TechnicianEmail": "update@websoft.sa",
     "upg_update": false,
-    "css_update": true,
-    "js_update": true,
+    "css_update": false,
+    "js_update": false,
     "run_migration": false,
     "run_seeder": [
         false,
