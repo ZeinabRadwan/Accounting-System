@@ -49,10 +49,32 @@ export const actions = {
     commit(types.SAVE_TOKEN, payload)
   },
 
-  async fetchUser ({ commit }) {
+  async fetchUser ({ commit, dispatch }) {
     try {
       const { data } = await axios.get('/api/user')
-      commit(types.FETCH_USER_SUCCESS, { user: data.data })
+      const user = data.data
+      
+      commit(types.FETCH_USER_SUCCESS, { user })
+      
+      // Automatically set language based on user's locale
+      if (user.locale && user.locale !== 'en') {
+        try {
+          // Import dynamically to avoid circular dependency
+          const { loadMessages } = await import('~/plugins/i18n')
+          const i18n = await import('~/plugins/i18n').then(m => m.default)
+          
+          // Load messages for the user's locale
+          await loadMessages(user.locale)
+          
+          // Update the Vuex store locale
+          dispatch('lang/setLocale', { locale: user.locale }, { root: true })
+          
+          // Set the i18n locale
+          i18n.locale = user.locale
+        } catch (error) {
+          console.warn('Failed to set user locale:', error)
+        }
+      }
     } catch (e) {
       commit(types.FETCH_USER_FAILURE)
     }

@@ -9,7 +9,7 @@ Vue.use(Meta);
 Vue.use(Router);
 
 // The middleware for every page of the application.
-const globalMiddleware = ["locale", "check-auth", "is-subscribed"];
+const globalMiddleware = ["check-auth", "locale", "is-subscribed"];
 
 // Load middleware modules dynamically.
 const routeMiddleware = resolveMiddleware(

@@ -17,21 +17,37 @@ class LanguageController extends Controller
 
         // Validate the locale
         if (!in_array($locale, array_keys(config('app.locales', [])))) {
-            return response()->json(['error' => 'Invalid locale'], 400);
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid locale'
+            ], 400);
         }
 
-        // Store the locale in the session
-        Session::put('locale', $locale);
+        try {
+            // Store the locale in the session
+            Session::put('locale', $locale);
 
+            // Update user's locale if authenticated
+            if (Auth::check()) {
+                $user = Auth::user();
+                $user->locale = $locale;
+                $user->save();
+            }
 
-        $user = \Auth::user();
-        $user->locale = $locale;
-        $user->save();
+            // Set the application locale
+            app()->setLocale($locale);
 
-        // Optionally, update the application locale
-        app()->setLocale($locale);
-
-        return response()->json(['success' => true, 'locale' => $locale]);
+            return response()->json([
+                'success' => true, 
+                'locale' => $locale,
+                'message' => 'Locale updated successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to update locale'
+            ], 500);
+        }
     }
 
 

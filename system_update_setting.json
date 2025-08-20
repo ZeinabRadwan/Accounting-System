@@ -1,0 +1,20 @@
+{
+    "TechnicianEmail": "update@websoft.sa",
+    "upg_update": false,
+    "css_update": true,
+    "js_update": true,
+    "run_migration": false,
+    "run_seeder": [
+        false,
+        ""
+    ],
+    "run_command": [
+        false,
+        "jwt:secret"
+    ],
+    "run_composer": false,
+    "clear_logs": true,
+    "APP_DEBUG": true,
+    "run_migration_rollback": false,
+    "app_version": "1.0.18"
+}

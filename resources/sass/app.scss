@@ -1397,3 +1397,471 @@ img.circle-img.circle-img--small {
   z-index: 50;
 }
 
+/* ========================================
+   RTL (Right-to-Left) Support Styles
+   ======================================== */
+
+/* Base RTL styles */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* CRITICAL: Override AdminLTE margin rules for RTL */
+@media (min-width: 768px) {
+  [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+  [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+  [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    transition: margin-right 0.3s ease-in-out !important;
+    margin-left: 0 !important;
+    margin-right: 250px !important;
+  }
+}
+
+/* Override sidebar-mini states */
+@media (min-width: 768px) {
+  [dir="rtl"] .sidebar-mini-md .content-wrapper,
+  [dir="rtl"] .sidebar-mini-md .main-footer,
+  [dir="rtl"] .sidebar-mini-md .main-header {
+    transition: margin-right 0.3s ease-in-out !important;
+    margin-left: 0 !important;
+    margin-right: 250px !important;
+  }
+  
+  [dir="rtl"] .sidebar-mini-xs .content-wrapper,
+  [dir="rtl"] .sidebar-mini-xs .main-footer,
+  [dir="rtl"] .sidebar-mini-xs .main-header {
+    transition: margin-right 0.3s ease-in-out !important;
+    margin-left: 0 !important;
+    margin-right: 250px !important;
+  }
+}
+
+/* Override collapsed sidebar states */
+@media (min-width: 768px) {
+  [dir="rtl"] .sidebar-collapse body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+  [dir="rtl"] .sidebar-collapse body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+  [dir="rtl"] .sidebar-collapse body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  [dir="rtl"] .sidebar-collapse .sidebar-mini-md .content-wrapper,
+  [dir="rtl"] .sidebar-collapse .sidebar-mini-md .main-footer,
+  [dir="rtl"] .sidebar-collapse .sidebar-mini-md .main-header {
+    margin-left: 0 !important;
+    margin-right: 4.6rem !important;
+  }
+  
+  [dir="rtl"] .sidebar-collapse .sidebar-mini-xs .content-wrapper,
+  [dir="rtl"] .sidebar-collapse .sidebar-mini-xs .main-footer,
+  [dir="rtl"] .sidebar-collapse .sidebar-mini-xs .main-header {
+    margin-left: 0 !important;
+    margin-right: 4.6rem !important;
+  }
+}
+
+/* Responsive RTL adjustments */
+@media (max-width: 991.98px) {
+  [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+  [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+  [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  [dir="rtl"] .sidebar-mini-md .content-wrapper,
+  [dir="rtl"] .sidebar-mini-md .main-footer,
+  [dir="rtl"] .sidebar-mini-md .main-header {
+    margin-left: 0 !important;
+    margin-right: 4.6rem !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  [dir="rtl"] .sidebar-mini-md .content-wrapper,
+  [dir="rtl"] .sidebar-mini-md .main-footer,
+  [dir="rtl"] .sidebar-mini-md .main-header {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  [dir="rtl"] .main-sidebar {
+    transform: translate3d(100%, 0, 0);
+  }
+  
+  [dir="rtl"] .sidebar-open .main-sidebar {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Sidebar RTL positioning - Minimal changes to match EN version exactly */
+[dir="rtl"] .main-sidebar {
+  right: 0;
+  left: auto;
+  border-right: none;
+  border-left: 1px solid #dee2e6;
+}
+
+[dir="rtl"] .layout-navbar-fixed .brand-link,
+[dir="rtl"] .main-sidebar {
+  border-right: none;
+  border-left: 1px solid #dee2e6;
+}
+
+/* Brand link RTL adjustments */
+[dir="rtl"] .brand-link .sm-logo {
+  margin-left: 0;
+  margin-right: 15px;
+}
+
+/* Navigation icons RTL positioning - match LTR spacing exactly */
+[dir="rtl"] .nav-sidebar > .nav-item .nav-icon {
+  // margin-right: 0px !important;
+  // margin-left: 0px !important;
+  float: right;
+  width: 1.6rem;
+  text-align: center;
+}
+
+[dir="rtl"] .nav-sidebar > .nav-item .nav-link {
+  padding: 0.75rem 1rem 0.75rem 1rem;
+}
+
+[dir="rtl"] .nav-sidebar > .nav-item .nav-link p {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+/* Fix arrow icon spacing in RTL - match LTR spacing */
+[dir="rtl"] .nav-sidebar .nav-item .nav-link .right {
+  float: left !important;
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+[dir="rtl"] .nav-sidebar .nav-item .nav-link i.right {
+  float: left !important;
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+/* Fix main menu icon spacing - match LTR exactly */
+[dir="rtl"] .nav-sidebar > .nav-item .nav-link .nav-icon {
+  margin-right: 0.5rem;
+  margin-left: 0;
+  width: 1.6rem;
+  text-align: center;
+}
+
+/* CRITICAL FIX: Remove default padding from nav-sidebar that causes spacing issues */
+[dir="rtl"] .nav-sidebar {
+  padding: 0 !important;
+}
+
+/* Fix arrow icon positioning in RTL */
+[dir="rtl"] .nav-sidebar .nav-link > .right,
+[dir="rtl"] .nav-sidebar .nav-link > p > .right {
+  position: absolute;
+  right: auto;
+  left: 1rem;
+  top: 0.7rem;
+}
+
+/* Fix submenu icon spacing */
+[dir="rtl"] .nav-sidebar .nav-treeview .nav-item .nav-link .nav-icon {
+  margin-right: 0;
+  margin-left: 0.5rem;
+  width: 1.6rem;
+  text-align: center;
+}
+
+/* Submenu RTL adjustments - match LTR indentation exactly */
+[dir="rtl"] .nav-sidebar .nav-treeview {
+  padding-right: 1rem;
+  padding-left: 0;
+}
+
+[dir="rtl"] .nav-sidebar .nav-treeview .nav-link {
+  padding: 0.5rem 1rem 0.5rem 3rem;
+}
+
+/* Fix submenu icon spacing */
+[dir="rtl"] .nav-sidebar .nav-treeview .nav-item .nav-link .nav-icon {
+  margin-right: 0;
+  margin-left: 0.5rem;
+  width: auto;
+}
+
+/* Active state borders - keep same visual effect but on right side */
+[dir="rtl"] .nav-flat.nav-sidebar > .nav-item .nav-treeview .nav-item > .nav-link,
+[dir="rtl"] .nav-flat.nav-sidebar > .nav-item > .nav-treeview .nav-item > .nav-link {
+  border-left: 0;
+  border-right: 0.2rem solid #6366f1;
+}
+
+/* Table RTL fixes */
+[dir="rtl"] .table th,
+[dir="rtl"] .table td {
+  text-align: right !important;
+}
+
+[dir="rtl"] .table .text-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .table .text-right {
+  text-align: left !important;
+}
+
+/* Form elements RTL adjustments */
+[dir="rtl"] .form-group label {
+  text-align: right;
+}
+
+[dir="rtl"] .form-control {
+  text-align: right;
+}
+
+/* Card RTL adjustments */
+[dir="rtl"] .card-header {
+  text-align: right;
+}
+
+[dir="rtl"] .card-title {
+  text-align: right;
+}
+
+[dir="rtl"] .card-body {
+  text-align: right;
+}
+
+/* Dropdown RTL adjustments */
+[dir="rtl"] .dropdown-menu {
+  text-align: right;
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] .dropdown-item {
+  text-align: right;
+}
+
+/* Alert RTL adjustments */
+[dir="rtl"] .alert {
+  text-align: right;
+}
+
+[dir="rtl"] .alert-dismissible .close {
+  right: auto;
+  left: 0;
+}
+
+/* ========================================
+   Bootstrap Directional Classes RTL Overrides
+   ======================================== */
+
+/* Text alignment RTL overrides */
+[dir="rtl"] .text-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-start {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-end {
+  text-align: left !important;
+}
+
+/* Responsive text alignment RTL overrides */
+[dir="rtl"] .text-sm-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-sm-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-md-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-md-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-lg-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-lg-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-xl-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-xl-right {
+  text-align: left !important;
+}
+
+/* Float direction RTL overrides */
+[dir="rtl"] .float-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-start {
+  float: right !important;
+}
+
+[dir="rtl"] .float-end {
+  float: left !important;
+}
+
+/* Responsive float direction RTL overrides */
+[dir="rtl"] .float-sm-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-sm-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-md-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-md-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-lg-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-lg-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-xl-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-xl-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-xxl-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-xxl-right {
+  float: left !important;
+}
+
+/* Margin direction RTL overrides */
+[dir="rtl"] .ml-auto {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+[dir="rtl"] .mr-auto {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+[dir="rtl"] .ms-auto {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+[dir="rtl"] .me-auto {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+/* Padding direction RTL overrides */
+[dir="rtl"] .pl-0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+[dir="rtl"] .pr-0 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+[dir="rtl"] .ps-0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+[dir="rtl"] .pe-0 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Border direction RTL overrides */
+[dir="rtl"] .border-left {
+  border-left: none !important;
+  border-right: 1px solid !important;
+}
+
+[dir="rtl"] .border-right {
+  border-right: none !important;
+  border-left: 1px solid !important;
+}
+
+[dir="rtl"] .border-start {
+  border-left: none !important;
+  border-right: 1px solid !important;
+}
+
+[dir="rtl"] .border-end {
+  border-right: none !important;
+  border-left: 1px solid !important;
+}
+
+/* Position direction RTL overrides */
+[dir="rtl"] .position-absolute {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .position-relative {
+  right: auto;
+  left: 0;
+}
+
+/* Flexbox direction RTL overrides */
+[dir="rtl"] .justify-content-start {
+  justify-content: flex-end !important;
+}
+
+[dir="rtl"] .justify-content-end {
+  justify-content: flex-start !important;
+}
+
+[dir="rtl"] .align-items-start {
+  align-items: flex-end !important;
+}
+
+[dir="rtl"] .align-items-end {
+  align-items: flex-start !important;
+}
+

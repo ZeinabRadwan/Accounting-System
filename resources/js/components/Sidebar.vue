@@ -239,6 +239,11 @@
             $can('account-view') ||
             $can('account-edit') ||
             $can('account-delete') ||
+            $can('chart-of-account-list') ||
+            $can('chart-of-account-create') ||
+            $can('chart-of-account-edit') ||
+            $can('chart-of-account-view') ||
+            $can('chart-of-account-delete') ||
             $can('account-balance-list') ||
             $can('account-balance-create') ||
             $can('account-balance-edit') ||
@@ -265,6 +270,18 @@
               ? 'display: block'
               : 'display: none'
               ">
+
+              <li v-if="$can('chart-of-account-list') ||
+                $can('chart-of-account-create') ||
+                $can('chart-of-account-edit') ||
+                $can('chart-of-account-view') ||
+                $can('chart-of-account-delete')
+                " class="nav-item">
+                <router-link :to="{ name: 'chart-of-accounts.index' }" class="nav-link">
+                  <i class="fas fa-chart-line nav-icon" />
+                  <p>{{ $t('Chart of Accounts') }}</p>
+                </router-link>
+              </li>
               <li v-if="$can('account-list') ||
                 $can('account-create') ||
                 $can('account-view') ||

@@ -30,7 +30,12 @@ class CreateTenantAdmin implements ShouldQueue
     public function handle()
     {
         $this->tenant->run(function ($tenant) {
-            User::create($tenant->only(['name', 'email', 'password']));
+            User::create([
+                'name' => $tenant->name,
+                'email' => $tenant->email,
+                'password' => $tenant->password,
+                'locale' => 'ar', // Set default locale for new users
+            ]);
         });
     }
 }
