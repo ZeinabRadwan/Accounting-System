@@ -6,11 +6,10 @@ use App\Composer;
 use App\Mail\UserEmail;
 use App\Models\Utility;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+
 
 class UpdateSettingCommand extends Command
 {
