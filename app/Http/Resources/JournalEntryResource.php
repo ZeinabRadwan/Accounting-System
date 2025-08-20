@@ -60,19 +60,15 @@ class JournalEntryResource extends JsonResource
                         'reference' => $line->reference,
                         'line_number' => $line->line_number,
                         'account_info' => $line->account_info,
-                        'chart_of_account' => $line->whenLoaded('chartOfAccount', function() use ($line) {
-                            return [
-                                'id' => $line->chartOfAccount->id,
-                                'code' => $line->chartOfAccount->code,
-                                'name' => $line->chartOfAccount->name,
-                                'type' => $line->chartOfAccount->whenLoaded('types', function() use ($line) {
-                                    return [
-                                        'id' => $line->chartOfAccount->types->id,
-                                        'name' => $line->chartOfAccount->types->name,
-                                    ];
-                                }),
-                            ];
-                        }),
+                        'chart_of_account' => $line->chartOfAccount ? [
+                            'id' => $line->chartOfAccount->id,
+                            'code' => $line->chartOfAccount->code,
+                            'name' => $line->chartOfAccount->name,
+                            'type' => $line->chartOfAccount->type ? [
+                                'id' => $line->chartOfAccount->type->id,
+                                'name' => $line->chartOfAccount->type->name,
+                            ] : null,
+                        ] : null,
                     ];
                 });
             }),

@@ -36,7 +36,7 @@ class JournalEntryController extends Controller
     {
         $perPage = $request->perPage ?? 10;
         
-        $journalEntries = JournalEntry::with(['lines.chartOfAccount', 'creator', 'poster'])
+        $journalEntries = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster'])
             ->latest()
             ->paginate($perPage);
             
@@ -49,7 +49,7 @@ class JournalEntryController extends Controller
     public function getAll()
     {
         try {
-            $journalEntries = JournalEntry::with(['lines.chartOfAccount', 'creator', 'poster'])
+            $journalEntries = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster'])
                 ->orderBy('entry_date', 'desc')
                 ->orderBy('created_at', 'desc')
                 ->get();
@@ -109,7 +109,7 @@ class JournalEntryController extends Controller
     {
         try {
             $journalEntry = JournalEntry::with([
-                'lines.chartOfAccount', 
+                'lines.chartOfAccount.type', 
                 'creator', 
                 'poster',
                 'accountTransactions'
@@ -185,7 +185,7 @@ class JournalEntryController extends Controller
                 }
             });
 
-            $journalEntry->load(['lines.chartOfAccount', 'creator', 'poster']);
+            $journalEntry->load(['lines.chartOfAccount.type', 'creator', 'poster']);
 
             return response()->json([
                 'message' => 'Journal entry updated successfully',
@@ -208,6 +208,8 @@ class JournalEntryController extends Controller
         try {
             $journalEntry = JournalEntry::findOrFail($id);
             $journalEntry->post();
+            
+            $journalEntry->load(['lines.chartOfAccount.type', 'creator', 'poster']);
 
             return response()->json([
                 'message' => 'Journal entry posted successfully',
@@ -230,6 +232,8 @@ class JournalEntryController extends Controller
         try {
             $journalEntry = JournalEntry::findOrFail($id);
             $journalEntry->void();
+            
+            $journalEntry->load(['lines.chartOfAccount.type', 'creator', 'poster']);
 
             return response()->json([
                 'message' => 'Journal entry voided successfully',
@@ -280,7 +284,7 @@ class JournalEntryController extends Controller
     {
         try {
             $term = $request->term;
-            $query = JournalEntry::with(['lines.chartOfAccount', 'creator', 'poster']);
+            $query = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster']);
 
             if ($request->startDate && $request->endDate) {
                 $query->whereBetween('entry_date', [$request->startDate, $request->endDate]);

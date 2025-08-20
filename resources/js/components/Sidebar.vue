@@ -108,6 +108,43 @@
               </li>
             </ul>
           </li>
+
+          <!-- Journal Entries -->
+          <li v-if="$can('journal-entry-list') ||
+            $can('journal-entry-create') ||
+            $can('journal-entry-view') ||
+            $can('journal-entry-edit')
+            " class="nav-item has-treeview"
+            :class="menuOpen('journal-entries')
+              ? 'menu-is-opening menu-open'
+              : ''
+              ">
+            <a href="#" class="nav-link">
+              <i class="fas fa-book nav-icon" />
+              <p>
+                {{ $t('Journal Entries') }}
+                <i class="fas fa-angle-left right" />
+              </p>
+            </a>
+            <ul class="nav nav-treeview" :style="menuOpen('journal-entries')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="$can('journal-entry-list')" class="nav-item">
+                <router-link :to="{ name: 'journal-entries.index' }" class="nav-link">
+                  <i class="fas fa-list nav-icon" />
+                  <p>{{ $t('All Entries') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('journal-entry-create')" class="nav-item">
+                <router-link :to="{ name: 'journal-entries.create' }" class="nav-link">
+                  <i class="fas fa-plus nav-icon" />
+                  <p>{{ $t('New Entry') }}</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+
           <li v-if="$can('purchase-list') ||
             $can('purchase-create') ||
             $can('purchase-edit') ||

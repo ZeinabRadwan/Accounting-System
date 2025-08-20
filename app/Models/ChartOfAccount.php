@@ -33,7 +33,7 @@ class ChartOfAccount extends Model
     /**
      * Get the account type
      */
-    public function types()
+    public function type()
     {
         return $this->belongsTo(ChartOfAccountType::class, 'type_id');
     }
