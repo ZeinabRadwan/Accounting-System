@@ -23,6 +23,7 @@ import { mapGetters } from 'vuex'
 import { loadMessages } from '~/plugins/i18n'
 import LangFlag from 'vue-lang-code-flags'
 import axios from 'axios'
+import rtlService from '~/services/RTLService'
 
 export default {
   computed: mapGetters({
@@ -69,6 +70,9 @@ export default {
           // Update client-side i18n and Vuex store
           await loadMessages(locale)
           this.$store.dispatch('lang/setLocale', { locale })
+          
+          // Set RTL mode based on the selected locale
+          rtlService.setRTLMode(locale)
           
           // Show success message
           if (this.$toast) {

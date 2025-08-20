@@ -8,6 +8,9 @@ import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
 import App from '~/components/central/CentralApp'
 
+// Import RTL styles
+import '~/assets/css/rtl.css'
+
 import VueScrollactive from 'vue-scrollactive';
 
 Vue.use(VueScrollactive);

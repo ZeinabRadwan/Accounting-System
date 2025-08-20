@@ -4,5 +4,6 @@ import './ToggleButton'
 import './sweetalert'
 import './filter'
 import './VueInputTag'
+import './rtl'
 
 
