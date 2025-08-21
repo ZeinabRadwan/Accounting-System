@@ -194,30 +194,52 @@ export default {
 
     // update chart of account
     async updateAccount() {
-      // Extract IDs from the selected objects before sending
-      const formData = {
-        ...this.form.data(),
-        type_id: this.form.type_id ? this.form.type_id.id : null,
-        parent_id: this.form.parent_id ? this.form.parent_id.id : null,
-      };
+      try {
+        // Extract IDs from the selected objects before sending
+        const formData = {
+          ...this.form.data(),
+          type_id: this.form.type_id ? this.form.type_id.id : null,
+          parent_id: this.form.parent_id ? this.form.parent_id.id : null,
+        };
 
-      console.log('Sending update data:', formData); // Debug log
+        console.log('Sending update data:', formData);
 
-      await this.$axios.put(`/api/chart-of-accounts/${this.$route.params.slug}`, formData)
-        .then(() => {
+        const response = await this.$axios.put(`/api/chart-of-accounts/${this.$route.params.slug}`, formData);
+        
+        // Check if the response indicates success
+        if (response.status === 200 || response.status === 201) {
+          // Show success message
           toast.fire({
-            type: 'success',
+            icon: 'success',
             title: this.$t('Chart of account updated successfully'),
-          })
-          this.$router.push({ name: 'chart-of-accounts.index' })
-        })
-        .catch((error) => {
-          console.error('Error updating:', error);
-          toast.fire({
-            type: 'error',
-            title: this.$t('Opps...something went wrong'),
-          })
-        })
+            showConfirmButton: false,
+            timer: 2000
+          });
+          
+          // Wait a moment for the toast to show, then redirect
+          setTimeout(() => {
+            this.$router.push({ name: 'chart-of-accounts.index' });
+          }, 1000);
+        } else {
+          throw new Error('Update failed');
+        }
+        
+      } catch (error) {
+        console.error('Error updating:', error);
+        
+        // Handle validation errors from the response
+        if (error.response && error.response.data && error.response.data.errors) {
+          this.form.errors.set(error.response.data.errors);
+        }
+        
+        // Show error message
+        toast.fire({
+          icon: 'error',
+          title: error.response?.data?.message || this.$t('Opps...something went wrong'),
+          showConfirmButton: false,
+          timer: 3000
+        });
+      }
     },
   },
 }
