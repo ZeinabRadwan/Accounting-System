@@ -48,6 +48,18 @@
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
+                  <label for="chartOfAccountId">{{ $t('Chart of Account') }}
+                    <span class="required">*</span></label>
+                  <select id="chartOfAccountId" v-model="form.chartOfAccountId" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }" name="chartOfAccountId">
+                    <option value="">{{ $t('Select a Chart of Account') }}</option>
+                    <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
+                      {{ account.name }} ({{ account.code }}) - {{ account.type }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="chartOfAccountId" />
+                </div>
+                <div class="form-group col-md-6">
                   <label for="image">{{ $t("Image") }}</label>
                   <div class="custom-file">
                     <input id="image" type="file" class="custom-file-input" name="image"
@@ -61,13 +73,15 @@
                     <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
                   </div>
                 </div>
-                <div class="form-group col-md-3">
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
                   <label for="date">{{ $t('Date') }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -135,12 +149,27 @@ export default {
       image: '',
       note: '',
       status: 1,
+      chartOfAccountId: '',
     }),
     url: null,
     loading: true,
+    chartOfAccounts: [],
   }),
 
+  mounted() {
+    this.loadChartOfAccounts()
+  },
+
   methods: {
+    // load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await this.$axios.get('/api/accounts/chart-of-accounts')
+        this.chartOfAccounts = response.data.data || []
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error)
+      }
+    },
     // save account
     async saveAccount() {
       await this.form

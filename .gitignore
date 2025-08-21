@@ -35,3 +35,4 @@ digitalocean-info.txt
 /storage/installed
 # /storage/verified
 # /public/js/*
+package-lock.json

@@ -63,7 +63,7 @@ export default {
         console.log('CSRF token:', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'))
         
         // Make an API call to Laravel
-        const response = await axios.post('api/set-locale', { locale })
+        const response = await axios.post('/api/set-locale', { locale })
 
         // Check if response exists and has data
         if (response && response.data && response.data.success) {

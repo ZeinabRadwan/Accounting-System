@@ -113,4 +113,23 @@ class Account extends Model
         
         return $defaultBankAccount ? $defaultBankAccount->id : null;
     }
+
+    /**
+     * Check if this account is properly connected to a chart of account
+     */
+    public function isChartOfAccountConnected(): bool
+    {
+        return $this->chart_of_account_id !== null;
+    }
+
+    /**
+     * Get validation error message if chart of account is not connected
+     */
+    public function getChartOfAccountValidationMessage(): string
+    {
+        if (!$this->isChartOfAccountConnected()) {
+            return "Cashbook account '{$this->bank_name} [{$this->account_number}]' is not connected to any Chart of Account. Please link it to a Chart of Account before using it in transactions.";
+        }
+        return '';
+    }
 }

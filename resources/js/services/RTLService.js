@@ -47,6 +47,11 @@ class RTLService {
     window.dispatchEvent(new CustomEvent('rtl-changed', {
       detail: { isRTL: this.isRTL, locale: locale }
     }));
+    
+    // Refresh iziToast configuration if available
+    if (window.toast && window.toast.refreshRTL) {
+      window.toast.refreshRTL()
+    }
 
     // Store RTL preference in localStorage
     localStorage.setItem('rtl-mode', this.isRTL);

@@ -198,6 +198,28 @@
                 </div>
 
 
+                <div class="form-group col-md-6">
+                  <label for="salesAccountId">{{ $t('Sales Account') }}</label>
+                  <select id="salesAccountId" v-model="form.salesAccountId" class="form-control select2"
+                    :class="{ 'is-invalid': form.errors.has('salesAccountId') }" name="salesAccountId">
+                    <option value="">{{ $t('Select a sales account') }}</option>
+                    <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
+                      {{ account.name }} ({{ account.code }})
+                    </option>
+                  </select>
+                  <has-error :form="form" field="salesAccountId" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="purchaseAccountId">{{ $t('Purchase Account') }}</label>
+                  <select id="purchaseAccountId" v-model="form.purchaseAccountId" class="form-control select2"
+                    :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }" name="purchaseAccountId">
+                    <option value="">{{ $t('Select a purchase account') }}</option>
+                    <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
+                      {{ account.name }} ({{ account.code }})
+                    </option>
+                  </select>
+                  <has-error :form="form" field="purchaseAccountId" />
+                </div>
                 <div class="form-group col-md-12">
                   <label for="note">{{ $t('Note') }}</label>
                   <textarea id="note" v-model="form.note" type="text" class="form-control"
@@ -309,12 +331,15 @@ export default {
       alertQuantity: 1,
       status: 1,
       image: '',
+      salesAccountId: '',
+      purchaseAccountId: '',
     }),
     options: [],
     prefix: '',
     units: [],
     brands: [],
     taxes: [],
+    chartOfAccounts: [],
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -325,7 +350,14 @@ export default {
     this.getProduct()
     this.getBrands()
     this.getTaxes()
+    this.loadChartOfAccounts()
     this.prefix = this.appInfo.productPrefix
+  },
+  mounted() {
+    // Wait a bit longer to ensure jQuery and select2 are loaded
+    setTimeout(() => {
+      this.initializeSelect2()
+    }, 500)
   },
   methods: {
     // get all product categories
@@ -359,6 +391,76 @@ export default {
       this.taxes = data.data
     },
 
+    // load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await this.$axios.get('/api/products/chart-of-accounts')
+        this.chartOfAccounts = response.data || []
+        // Wait a bit for the DOM to update, then initialize select2
+        setTimeout(() => {
+          this.initializeSelect2()
+        }, 100)
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error)
+      }
+    },
+
+    // initialize select2 for chart of accounts
+    initializeSelect2() {
+      console.log('Initializing select2...')
+      console.log('jQuery available:', typeof $ !== 'undefined')
+      console.log('select2 available:', typeof $ !== 'undefined' && $.fn.select2)
+      
+      // Wait for jQuery and select2 to be available
+      if (typeof $ !== 'undefined' && $.fn.select2) {
+        try {
+          console.log('Found elements:', $('#salesAccountId').length, $('#purchaseAccountId').length)
+          
+          // Destroy existing select2 instances if they exist
+          if ($('#salesAccountId').hasClass('select2-hidden-accessible')) {
+            $('#salesAccountId').select2('destroy')
+          }
+          if ($('#purchaseAccountId').hasClass('select2-hidden-accessible')) {
+            $('#purchaseAccountId').select2('destroy')
+          }
+          
+          // Initialize select2 for sales account
+          $('#salesAccountId').select2({
+            placeholder: this.$t('Select a sales account'),
+            allowClear: true,
+            width: '100%',
+            search: true
+          }).on('change', (e) => {
+            this.form.salesAccountId = e.target.value
+          })
+          
+          // Initialize select2 for purchase account
+          $('#purchaseAccountId').select2({
+            placeholder: this.$t('Select a purchase account'),
+            allowClear: true,
+            width: '100%',
+            search: true
+          }).on('change', (e) => {
+            this.form.purchaseAccountId = e.target.value
+          })
+          
+          console.log('Select2 initialized successfully')
+        } catch (error) {
+          console.error('Error initializing select2:', error)
+        }
+      } else {
+        console.warn('jQuery or select2 not available')
+      }
+    },
+
+    // update select2 values
+    updateSelect2Values() {
+      if (typeof $ !== 'undefined' && $.fn.select2) {
+        $('#salesAccountId').val(this.form.salesAccountId).trigger('change')
+        $('#purchaseAccountId').val(this.form.purchaseAccountId).trigger('change')
+      }
+    },
+
     // get product
     async getProduct() {
       const { data } = await axios.get(
@@ -384,7 +486,14 @@ export default {
       this.form.note = data.data.note
       this.form.status = data.data.status
       this.form.alertQuantity = data.data.alertQty
+      this.form.salesAccountId = data.data.salesAccount ? data.data.salesAccount.id : ''
+      this.form.purchaseAccountId = data.data.purchaseAccount ? data.data.purchaseAccount.id : ''
       this.url = data.data.image
+      
+      // Update select2 values after form data is populated
+      this.$nextTick(() => {
+        this.updateSelect2Values()
+      })
     },
 
     // calculate selling price

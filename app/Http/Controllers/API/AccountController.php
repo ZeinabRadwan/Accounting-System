@@ -51,6 +51,11 @@ class AccountController extends Controller
     public function store(StoreAccountRequest $request)
     {
         try {
+            // Validate that chart of account is selected
+            if (!$request->chartOfAccountId) {
+                return $this->responseWithError('Chart of Account is required. Please select a Chart of Account for this cashbook account.');
+            }
+            
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
@@ -124,6 +129,11 @@ class AccountController extends Controller
         $account = Account::where('slug', $slug)->first();
 
         try {
+            // Validate that chart of account is selected
+            if (!$request->chartOfAccountId) {
+                return $this->responseWithError('Chart of Account is required. Please select a Chart of Account for this cashbook account.');
+            }
+            
             // upload thumbnail and set the name
             $imageName = $account->image_path;
             if ($request->image) {
@@ -235,6 +245,43 @@ class AccountController extends Controller
                 });
 
             return $this->responseWithSuccess('Chart of accounts retrieved successfully', $chartOfAccounts);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Check if accounts are properly connected to chart of accounts
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkAccountsConnection()
+    {
+        try {
+            $unconnectedAccounts = Account::where('status', 1)
+                ->whereNull('chart_of_account_id')
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'bankName' => $account->bank_name,
+                        'accountNumber' => $account->account_number,
+                        'message' => $account->getChartOfAccountValidationMessage()
+                    ];
+                });
+
+            $connectedAccounts = Account::where('status', 1)
+                ->whereNotNull('chart_of_account_id')
+                ->count();
+
+            $totalAccounts = Account::where('status', 1)->count();
+
+            return $this->responseWithSuccess('Account connection status retrieved successfully', [
+                'unconnectedAccounts' => $unconnectedAccounts,
+                'connectedAccounts' => $connectedAccounts,
+                'totalAccounts' => $totalAccounts,
+                'connectionPercentage' => $totalAccounts > 0 ? round(($connectedAccounts / $totalAccounts) * 100, 2) : 0
+            ]);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }

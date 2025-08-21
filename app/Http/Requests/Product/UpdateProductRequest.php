@@ -42,7 +42,9 @@ class UpdateProductRequest extends BaseRequest
             'regularPrice' => 'required|numeric|min:0',
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
-            'alertQuantity' => 'nullable|numeric|min:1|max:1000'
+            'alertQuantity' => 'nullable|numeric|min:1|max:1000',
+            'salesAccountId' => 'nullable|exists:chart_of_accounts,id',
+            'purchaseAccountId' => 'nullable|exists:chart_of_accounts,id'
         ];
     }
 }
