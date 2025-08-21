@@ -10,6 +10,7 @@ use App\Models\PurchaseReturn;
 use App\Models\PurchasePayment;
 use App\Models\NonPurchasePayment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use JetBrains\PhpStorm\ArrayShape;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -150,9 +151,11 @@ class SupplierController extends Controller
         try {
             $supplier = Supplier::where('slug', $slug)->first();
             
-            if ($supplier) {
-                $supplier->ensureChartOfAccountLoaded();
+            if (!$supplier) {
+                return $this->responseWithError('Supplier not found', 404);
             }
+            
+            $supplier->ensureChartOfAccountLoaded();
             
             return new SupplierResource($supplier);
         } catch (Exception $e) {
@@ -322,6 +325,11 @@ class SupplierController extends Controller
     {
         try {
             $supplier = Supplier::where('slug', $slug)->with('purchases')->first();
+            
+            if (!$supplier) {
+                return $this->responseWithError('Supplier not found', 404);
+            }
+            
             return PurchaseListResource::collection(Purchase::where('supplier_id', $supplier->id)->get());
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -336,6 +344,11 @@ class SupplierController extends Controller
     public function filterSupplierPurchases(Request $request)
     {
         $supplier = Supplier::where('slug', $request->supplierSlug)->first();
+        
+        if (!$supplier) {
+            return $this->responseWithError('Supplier not found', 404);
+        }
+        
         $products = [];
         $purchases = Purchase::with(
             'purchaseProducts.product.proSubCategory.category',
@@ -368,6 +381,11 @@ class SupplierController extends Controller
     public function specificSupplierPurchases($slug)
     {
         $supplier = Supplier::where('slug', $slug)->first();
+        
+        if (!$supplier) {
+            return $this->responseWithError('Supplier not found', 404);
+        }
+        
         $purchases = Purchase::with('supplier', 'purchasePayments', 'purchaseTax')->where(
             'supplier_id',
             $supplier->id
@@ -729,8 +747,9 @@ ORDER BY `date`");
     public function getChartOfAccounts()
     {
         try {
-            // Get all active chart of accounts without eager loading first
-            $accounts = \App\Models\ChartOfAccount::where('is_active', true)
+            // Get all active chart of accounts with eager loading of type relationship
+            $accounts = \App\Models\ChartOfAccount::with('type')
+                ->where('is_active', true)
                 ->orderBy('name')
                 ->get();
             
@@ -743,18 +762,10 @@ ORDER BY `date`");
                         continue;
                     }
                     
-                    // Get type name safely
+                    // Get type name safely - check if type relationship exists and is not null
                     $typeName = 'No Type';
-                    try {
-                        if ($account->type_id) {
-                            $type = $account->type;
-                            if ($type && $type->name) {
-                                $typeName = $type->name;
-                            }
-                        }
-                    } catch (\Exception $typeError) {
-                        // Type loading failed, use default
-                        $typeName = 'No Type';
+                    if ($account->type_id && $account->type && $account->type->name) {
+                        $typeName = $account->type->name;
                     }
                     
                     $chartOfAccounts->push([
@@ -765,7 +776,11 @@ ORDER BY `date`");
                     ]);
                     
                 } catch (\Exception $accountError) {
-                    // Skip this account if there's any error
+                    // Log the error for debugging but continue processing other accounts
+                    Log::warning('getChartOfAccounts: Error processing account ' . ($account->id ?? 'unknown'), [
+                        'error' => $accountError->getMessage(),
+                        'account_id' => $account->id ?? 'unknown'
+                    ]);
                     continue;
                 }
             }
@@ -773,7 +788,7 @@ ORDER BY `date`");
             return response()->json($chartOfAccounts->values()->toArray());
             
         } catch (\Exception $e) {
-            \Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
+            Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString()

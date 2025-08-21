@@ -91,8 +91,8 @@ class SupplierResource extends JsonResource
                     
                 } catch (\Exception $e) {
                     return null;
-                    }
-                },
+                }
+            },
             'purchaseCount' => $this->purchases->count(),
             'purchaseTotal' => $this->purchaseTotal(),
             'purchaseReturnTotal' => $this->purchaseReturnTotal(),

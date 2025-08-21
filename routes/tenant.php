@@ -353,6 +353,7 @@ Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAc
 
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
+        Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
         Route::get('/all-suppliers', [SupplierController::class, 'allSuppliers']);
         Route::get('/supplier/purchases/{slug}', [SupplierController::class, 'supplierPurchases']);
         Route::apiResource('suppliers', SupplierController::class);
@@ -374,7 +375,6 @@ Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAc
         // Supplier non purchase transactions
         Route::get('/non-purchases/supplier/{slug}', [SupplierController::class, 'nonPurchaseTransForSupplier']);
         Route::get('/non-purchases/supplier/{slug}/search', [SupplierController::class, 'searchNonPurchaseTransForSupplier']);
-Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
 
         // Departments routes
         Route::get('/departments/search', [DepartmentController::class, 'search']);
