@@ -11,6 +11,7 @@ use App\Models\Expense;
 use App\Models\InvoicePayment;
 use App\Models\PurchasePayment;
 use App\Models\LoanPayment;
+use App\Models\NonInvoicePayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -270,6 +271,57 @@ class BusinessTransactionJournalService
                 'expense_id' => $expense->id,
                 'journal_entry_id' => $journalEntry->id,
             ]);
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Create journal entry for non-invoice payment
+     */
+    public function createNonInvoicePaymentJournal(NonInvoicePayment $nonInvoicePayment, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Get default accounts
+            $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
+            $otherIncomeAccount = $this->getDefaultAccount('Other Revenue', 'Revenue');
+            
+            if (!$bankAccount || !$otherIncomeAccount) {
+                throw new Exception('Required chart of accounts not found.');
+            }
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => $nonInvoicePayment->date,
+                'reference' => 'NIP-' . $nonInvoicePayment->id . '-PAY-' . time(),
+                'description' => "Non-Invoice Payment: {$nonInvoicePayment->note}",
+                'total_debit' => $nonInvoicePayment->amount,
+                'total_credit' => $nonInvoicePayment->amount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => NonInvoicePayment::class,
+                'source_id' => $nonInvoicePayment->id,
+            ]);
+
+            // Create journal entry lines
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, "Cash/Bank receipt for non-invoice payment");
+            $this->createJournalEntryLine($journalEntry, $otherIncomeAccount->id, 0, $nonInvoicePayment->amount, 2, "Other Revenue from non-invoice payment");
+
+            // Create bridge table record (you'll need to create this model and migration)
+            // \App\Models\NonInvoicePaymentJournal::create([
+            //     'non_invoice_payment_id' => $nonInvoicePayment->id,
+            //     'journal_entry_id' => $journalEntry->id,
+            // ]);
 
             DB::commit();
             return $journalEntry;

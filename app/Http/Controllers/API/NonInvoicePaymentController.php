@@ -13,6 +13,8 @@ use App\Http\Resources\NonInvoicePaymentResource;
 use App\Http\Resources\NonInvoicePaymentListResource;
 use App\Http\Requests\NonInvoicePayment\StoreNonInvoicePaymentRequest;
 use App\Http\Requests\NonInvoicePayment\UpdateNonInvoicePaymentRequest;
+use App\Services\BusinessTransactionJournalService;
+use Illuminate\Support\Facades\Log;
 
 class NonInvoicePaymentController extends Controller
 {
@@ -73,6 +75,15 @@ class NonInvoicePaymentController extends Controller
                 'created_by' => $userId,
             ]);
 
+            // Create journal entry for non-invoice payment
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $paymentJournalEntry = $journalService->createNonInvoicePaymentJournal($nonInvoicePayment, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the payment creation
+                Log::error('Failed to create payment journal entry for non-invoice payment: ' . $e->getMessage());
+            }
+
             // add activity log
             activity()
                 ->causedBy(Auth::user())
@@ -123,6 +134,7 @@ class NonInvoicePaymentController extends Controller
     public function update(UpdateNonInvoicePaymentRequest $request, $slug)
     {
         $payment = NonInvoicePayment::where('slug', $slug)->first();
+        $userId = auth()->user()->id;
 
         try {
             DB::beginTransaction();
@@ -145,6 +157,21 @@ class NonInvoicePaymentController extends Controller
                     'transaction_date' => $request->paymentDate,
                     'status' => $request->status,
                 ]);
+            }
+
+            // If amount changed, create a new journal entry for the adjustment
+            if ($payment->amount != $request->paidAmount) {
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $adjustmentAmount = $request->paidAmount - $payment->amount;
+                    if ($adjustmentAmount > 0) {
+                        // Create journal entry for the additional amount
+                        $paymentJournalEntry = $journalService->createNonInvoicePaymentJournal($payment, $userId);
+                    }
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the update
+                    Log::error('Failed to create adjustment journal entry for non-invoice payment: ' . $e->getMessage());
+                }
             }
 
             // add activity log
