@@ -4,17 +4,17 @@
     <div class="page-header">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="page-title">Journal Entries</h3>
+          <h3 class="page-title">{{ $t('Journal Entries') }}</h3>
           <ul class="breadcrumb">
             <li class="breadcrumb-item">
-              <router-link to="/home">Dashboard</router-link>
+              <router-link to="/home">{{ $t('Dashboard') }}</router-link>
             </li>
-            <li class="breadcrumb-item active">Journal Entries</li>
+            <li class="breadcrumb-item active">{{ $t('Journal Entries') }}</li>
           </ul>
         </div>
         <div class="col-auto float-right ml-auto">
           <router-link to="/journal-entries/create" class="btn btn-primary">
-            <i class="fa fa-plus"></i> New Journal Entry
+            <i class="fa fa-plus"></i> {{ $t('New Journal Entry') }}
           </router-link>
         </div>
       </div>
@@ -28,30 +28,30 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Search</label>
+                  <label>{{ $t('Search') }}</label>
                   <input
                     v-model="searchQuery"
                     type="text"
                     class="form-control"
-                    placeholder="Search entries..."
+                    :placeholder="$t('Search entries...')"
                     @input="debounceSearch"
                   />
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Status</label>
+                  <label>{{ $t('Status') }}</label>
                   <select v-model="filters.status" class="form-control" @change="loadJournalEntries">
-                    <option value="">All Status</option>
-                    <option value="draft">Draft</option>
-                    <option value="posted">Posted</option>
-                    <option value="void">Void</option>
+                    <option value="">{{ $t('All Status') }}</option>
+                    <option value="draft">{{ $t('Draft') }}</option>
+                    <option value="posted">{{ $t('Posted') }}</option>
+                    <option value="void">{{ $t('Void') }}</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>From Date</label>
+                  <label>{{ $t('From Date') }}</label>
                   <input
                     v-model="filters.from_date"
                     type="date"
@@ -62,7 +62,7 @@
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>To Date</label>
+                  <label>{{ $t('To Date') }}</label>
                   <input
                     v-model="filters.to_date"
                     type="date"
@@ -76,10 +76,10 @@
                   <label>&nbsp;</label>
                   <div>
                     <button @click="loadJournalEntries" class="btn btn-primary">
-                      <i class="fa fa-search"></i> Search
+                      <i class="fa fa-search"></i> {{ $t('Search') }}
                     </button>
                     <button @click="clearFilters" class="btn btn-secondary ml-2">
-                      <i class="fa fa-times"></i> Clear
+                      <i class="fa fa-times"></i> {{ $t('Clear') }}
                     </button>
                   </div>
                 </div>
@@ -99,15 +99,15 @@
               <table class="table table-striped custom-table">
                 <thead>
                   <tr>
-                    <th>Entry #</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Reference</th>
-                    <th>Total Debit</th>
-                    <th>Total Credit</th>
-                    <th>Status</th>
-                    <th>Created By</th>
-                    <th>Actions</th>
+                    <th>{{ $t('Entry #') }}</th>
+                    <th>{{ $t('Date') }}</th>
+                    <th>{{ $t('Description') }}</th>
+                    <th>{{ $t('Reference') }}</th>
+                    <th>{{ $t('Total Debit') }}</th>
+                    <th>{{ $t('Total Credit') }}</th>
+                    <th>{{ $t('Status') }}</th>
+                    <th>{{ $t('Created By') }}</th>
+                    <th>{{ $t('Actions') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,14 +140,14 @@
                             :to="`/journal-entries/${entry.id}`"
                             class="dropdown-item"
                           >
-                            <i class="fa fa-eye"></i> View
+                            <i class="fa fa-eye"></i> {{ $t('View') }}
                           </router-link>
                           <router-link
                             v-if="entry.status === 'draft'"
                             :to="`/journal-entries/${entry.id}/edit`"
                             class="dropdown-item"
                           >
-                            <i class="fa fa-edit"></i> Edit
+                            <i class="fa fa-edit"></i> {{ $t('Edit') }}
                           </router-link>
                           <a
                             v-if="entry.status === 'draft'"
@@ -155,7 +155,7 @@
                             @click.prevent="postEntry(entry.id)"
                             class="dropdown-item"
                           >
-                            <i class="fa fa-check"></i> Post
+                            <i class="fa fa-check"></i> {{ $t('Post') }}
                           </a>
                           <a
                             v-if="entry.status === 'posted'"
@@ -163,7 +163,7 @@
                             @click.prevent="voidEntry(entry.id)"
                             class="dropdown-item text-danger"
                           >
-                            <i class="fa fa-ban"></i> Void
+                            <i class="fa fa-ban"></i> {{ $t('Void') }}
                           </a>
                           <a
                             v-if="entry.status === 'draft'"
@@ -171,14 +171,14 @@
                             @click.prevent="deleteEntry(entry.id)"
                             class="dropdown-item text-danger"
                           >
-                            <i class="fa fa-trash"></i> Delete
+                            <i class="fa fa-trash"></i> {{ $t('Delete') }}
                           </a>
                         </div>
                       </div>
                     </td>
                   </tr>
                   <tr v-if="journalEntries.length === 0">
-                    <td colspan="9" class="text-center">No journal entries found</td>
+                    <td colspan="9" class="text-center">{{ $t('No journal entries found') }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -220,7 +220,7 @@ export default {
   name: 'JournalEntriesIndex',
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: 'Journal Entries' }
+    return { title: this.$t('Journal Entries') }
   },
   data() {
     return {
