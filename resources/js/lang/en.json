@@ -1508,5 +1508,13 @@
   "Enter branch name": "Enter branch name",
   "Enter account number": "Enter account number",
   "Enter account note": "Enter account note",
-  "CR Number": "CR Number"
+  "CR Number": "CR Number",
+  "Sales Account": "Sales Account",
+  "Purchase Account": "Purchase Account",
+  "Select sales account": "Select sales account",
+  "Select purchase account": "Select purchase account",
+  "Select the account for recording sales revenue": "Select the account for recording sales revenue",
+  "Select the account for recording purchase costs": "Select the account for recording purchase costs",
+  "Please select a sales account": "Please select a sales account",
+  "Please select a purchase account": "Please select a purchase account"
 }

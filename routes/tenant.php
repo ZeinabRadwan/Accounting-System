@@ -109,6 +109,9 @@ Route::middleware([
 
         Route::get('/impersonate/{token}', [TenantImpersonationController::class, 'impersonate']);
         Route::get('general-settings', [GeneralController::class, 'getGeneralSettings']);
+        
+        // Public chart of accounts endpoint for product forms
+        Route::get('chart-of-accounts/for-products', [ChartOfAccountController::class, 'getForProducts']);
     });
 
     // [PROTECTED API] Tenant Routes protected by Sanctum

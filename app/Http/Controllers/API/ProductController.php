@@ -73,6 +73,8 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
             'alertQuantity' => 'nullable|numeric|min:1',
+            'salesAccount' => 'required|array',
+            'purchaseAccount' => 'required|array',
         ]);
         try {
             DB::beginTransaction();
@@ -139,6 +141,8 @@ class ProductController extends Controller
                 'alert_qty' => $request->alertQuantity,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'sales_account_id' => $request->salesAccount['id'],
+                'purchase_account_id' => $request->purchaseAccount['id'],
             ]);
 
             // add activity log
@@ -173,7 +177,7 @@ class ProductController extends Controller
     public function show($slug)
     {
         try {
-            $product = Product::where('slug', $slug)->with('proSubCategory.category')->first();
+            $product = Product::where('slug', $slug)->with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->first();
 
             return new ProductResource($product);
         } catch (Exception $e) {
@@ -211,6 +215,8 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
             'alertQuantity' => 'nullable|numeric|min:1|max:1000',
+            'salesAccount' => 'required|array',
+            'purchaseAccount' => 'required|array',
         ]);
         try {
             DB::beginTransaction();
@@ -283,6 +289,8 @@ class ProductController extends Controller
                 'alert_qty' => $request->alertQuantity,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'sales_account_id' => $request->salesAccount['id'],
+                'purchase_account_id' => $request->purchaseAccount['id'],
             ]);
 
             // add activity log
@@ -359,7 +367,7 @@ class ProductController extends Controller
     {
         $term = $request->term;
 
-        $query = Product::with('proSubCategory.category')->where('name', 'LIKE', '%'.$term.'%')
+        $query = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->where('name', 'LIKE', '%'.$term.'%')
             ->orWhere('slug', 'LIKE', '%'.$term.'%')
             ->orWhere('model', 'LIKE', '%'.$term.'%')
             ->orWhere('code', 'LIKE', '%'.$term.'%')
@@ -384,7 +392,7 @@ class ProductController extends Controller
     public function searchFromPos(Request $request)
     {
         $term = $request->term;
-        $query = Product::with('proSubCategory.category');
+        $query = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount');
         if (isset($request->catSlug) && isset($request->subCatSlug)) {
             $subCategory = ProductSubCategory::where('slug', $request->subCatSlug)->first();
             $query = $query->where('sub_cat_id', $subCategory->id);
@@ -487,7 +495,7 @@ class ProductController extends Controller
             $products = Product::latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
             $category = ProductCategory::where('slug', $catSlug)->first();
-            $products = Product::with('proSubCategory.category')->whereHas('proSubCategory',
+            $products = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->whereHas('proSubCategory',
                 function ($newQuery) use ($category) {
                     $newQuery->whereHas('category', function ($newQuery) use ($category) {
                         $newQuery->where('id', $category->id);
@@ -508,7 +516,7 @@ class ProductController extends Controller
             $products = Product::latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
             $category = ProductCategory::where('slug', $catSlug)->first();
-            $products = Product::with('proSubCategory.category')->whereHas('proSubCategory',
+            $products = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->whereHas('proSubCategory',
                 function ($newQuery) use ($category) {
                     $newQuery->whereHas('category', function ($newQuery) use ($category) {
                         $newQuery->where('id', $category->id);

@@ -83,6 +83,29 @@ class ChartOfAccountController extends Controller
     }
 
     /**
+     * Get chart of accounts for product forms (public access)
+     */
+    public function getForProducts()
+    {
+        try {
+            $accounts = ChartOfAccount::select('id', 'name', 'code', 'type_id')
+                ->where('is_active', 1)
+                ->orderBy('order', 'asc')
+                ->orderBy('name', 'asc')
+                ->get();
+                
+            return response()->json([
+                'data' => $accounts
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error loading chart of accounts',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreChartOfAccountRequest $request)

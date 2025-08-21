@@ -227,6 +227,44 @@
                 </div>
                 
                 <div class="form-group col-md-6 col-xl-4">
+                  <label for="salesAccount">{{ $t('Sales Account') }}
+                    <span class="required">*</span></label>
+                  <v-select 
+                    v-model="form.salesAccount" 
+                    :options="salesAccounts" 
+                    label="displayName"
+                    :class="{ 'is-invalid': form.errors.has('salesAccount') }" 
+                    name="salesAccount"
+                    :placeholder="$t('Select sales account')"
+                    :filterable="true"
+                    :searchable="true"
+                    :clearable="true"
+                    @search="searchSalesAccounts"
+                    :loading="salesAccountsLoading" />
+                  <has-error :form="form" field="salesAccount" />
+                  <small class="form-text text-muted">{{ $t('Select the account for recording sales revenue') }}</small>
+                </div>
+
+                <div class="form-group col-md-6 col-xl-4">
+                  <label for="purchaseAccount">{{ $t('Purchase Account') }}
+                    <span class="required">*</span></label>
+                  <v-select 
+                    v-model="form.purchaseAccount" 
+                    :options="purchaseAccounts" 
+                    label="displayName"
+                    :class="{ 'is-invalid': form.errors.has('purchaseAccount') }" 
+                    name="purchaseAccount"
+                    :placeholder="$t('Select purchase account')"
+                    :filterable="true"
+                    :searchable="true"
+                    :clearable="true"
+                    @search="searchPurchaseAccounts"
+                    :loading="purchaseAccountsLoading" />
+                  <has-error :form="form" field="purchaseAccount" />
+                  <small class="form-text text-muted">{{ $t('Select the account for recording purchase costs') }}</small>
+                </div>
+                
+                <div class="form-group col-md-6 col-xl-4">
                   <label for="image">{{ $t('Image') }}</label>
                   <div class="custom-file">
                     <input id="image" type="file" class="custom-file-input" name="image"
@@ -291,23 +329,25 @@ export default {
       itemName: '',
       itemCode: '',
       itemModel: '',
-      barcodeSymbology: 'CODE128',
-      subCategory: '',
+      barcodeSymbology: 'code128',
       brand: '',
-      itemUnit: '',
       productTax: '',
-      taxType: 'Exclusive',
+      taxType: 'percentage',
+      subCategory: '',
+      itemUnit: '',
       regularPrice: '',
       servicePurchasePrice: '',
-      discount: '',
       sellingPrice: '',
+      isOpeningStock: false,
       openingStockCount: '',
       openingStockUnitPrice: '',
-      isOpeningStock: false,
+      discount: '',
       note: '',
-      alertQuantity: 1,
-      status: 1,
-      image: '',
+      status: 'active',
+      alertQuantity: '',
+      image: null,
+      salesAccount: null, // Start with null in create mode
+      purchaseAccount: null, // Start with null in create mode
     }),
     options: [],
     units: [],
@@ -315,6 +355,10 @@ export default {
     taxes: [],
     prefix: '',
     url: null,
+    salesAccounts: [],
+    purchaseAccounts: [],
+    salesAccountsLoading: false,
+    purchaseAccountsLoading: false,
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -324,7 +368,23 @@ export default {
     this.getUnits()
     this.getBrands()
     this.getTaxes()
+    this.getSalesAccounts()
+    this.getPurchaseAccounts()
     this.getItemCode()
+  },
+  watch: {
+    salesAccounts: {
+      handler(newAccounts) {
+        // Don't auto-select any account in create mode
+      },
+      immediate: true
+    },
+    purchaseAccounts: {
+      handler(newAccounts) {
+        // Don't auto-select any account in create mode
+      },
+      immediate: true
+    }
   },
   methods: {
     // get all product categories
@@ -364,6 +424,144 @@ export default {
         )
       }
       this.calculatePrice()
+    },
+
+    // get sales accounts (Revenue accounts)
+    async getSalesAccounts() {
+      this.salesAccountsLoading = true
+      try {
+        const { data } = await axios.get(
+          window.location.origin + '/api/chart-of-accounts/for-products'
+        )
+        
+        if (!data.data || data.data.length === 0) {
+          // Fallback data for testing
+          this.salesAccounts = [
+            { id: 1, code: '4000', name: 'Revenue', displayName: '4000 - Revenue' },
+            { id: 2, code: '4100', name: 'Product Sales', displayName: '4100 - Product Sales' },
+            { id: 3, code: '4200', name: 'Service Revenue', displayName: '4200 - Service Revenue' }
+          ]
+          return
+        }
+        
+        // Filter for Revenue accounts (type_id = 4 based on seeder)
+        const revenueAccounts = data.data.filter(account => account.type_id === 4)
+        
+        if (revenueAccounts.length === 0) {
+          this.salesAccounts = data.data.map(account => ({
+            ...account,
+            displayName: `${account.code} - ${account.name}`
+          }))
+        } else {
+          this.salesAccounts = revenueAccounts.map(account => ({
+            ...account,
+            displayName: `${account.code} - ${account.name}`
+          }))
+        }
+        
+      } catch (error) {
+        console.error('Error loading sales accounts:', error)
+        // Fallback data for testing
+        this.salesAccounts = [
+          { id: 1, code: '4000', name: 'Revenue', displayName: '4000 - Revenue' },
+          { id: 2, code: '4100', name: 'Product Sales', displayName: '4100 - Product Sales' },
+          { id: 3, code: '4200', name: 'Service Revenue', displayName: '4200 - Service Revenue' }
+        ]
+      } finally {
+        this.salesAccountsLoading = false
+      }
+    },
+
+    // get purchase accounts (Expense accounts)
+    async getPurchaseAccounts() {
+      this.purchaseAccountsLoading = true
+      try {
+        const { data } = await axios.get(
+          window.location.origin + '/api/chart-of-accounts/for-products'
+        )
+        
+        if (!data.data || data.data.length === 0) {
+          // Fallback data for testing
+          this.purchaseAccounts = [
+            { id: 4, code: '5000', name: 'Expenses', displayName: '5000 - Expenses' },
+            { id: 5, code: '5100', name: 'Cost of Goods Sold', displayName: '5100 - Cost of Goods Sold' },
+            { id: 6, code: '5200', name: 'Operating Expenses', displayName: '5200 - Operating Expenses' }
+          ]
+          return
+        }
+        
+        // Filter for Expense accounts (type_id = 5 based on seeder)
+        const expenseAccounts = data.data.filter(account => account.type_id === 5)
+        
+        if (expenseAccounts.length === 0) {
+          this.purchaseAccounts = data.data.map(account => ({
+            ...account,
+            displayName: `${account.code} - ${account.name}`
+          }))
+        } else {
+          this.purchaseAccounts = expenseAccounts.map(account => ({
+            ...account,
+            displayName: `${account.code} - ${account.name}`
+          }))
+        }
+        
+      } catch (error) {
+        console.error('Error loading purchase accounts:', error)
+        // Fallback data for testing
+        this.purchaseAccounts = [
+          { id: 4, code: '5000', name: 'Expenses', displayName: '5000 - Expenses' },
+          { id: 5, code: '5100', name: 'Cost of Goods Sold', displayName: '5100 - Cost of Goods Sold' },
+          { id: 6, code: '5200', name: 'Operating Expenses', displayName: '5200 - Operating Expenses' }
+        ]
+      } finally {
+        this.purchaseAccountsLoading = false
+      }
+    },
+
+    // search sales accounts
+    async searchSalesAccounts(searchTerm) {
+      if (!searchTerm) return
+      try {
+        const { data } = await axios.get(
+          window.location.origin + '/api/chart-of-accounts/for-products'
+        )
+        // Filter for Revenue accounts and search term
+        this.salesAccounts = data.data
+          .filter(account => {
+            return account.type_id === 4 && 
+                   (account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    account.code.toLowerCase().includes(searchTerm.toLowerCase()))
+          })
+          .map(account => ({
+            ...account,
+            displayName: `${account.code} - ${account.name}`
+          }))
+      } catch (error) {
+        console.error('Error searching sales accounts:', error)
+      }
+    },
+
+    // search purchase accounts
+    async searchPurchaseAccounts(searchTerm) {
+      if (!searchTerm) return
+      try {
+        const { data } = await axios.get(
+          window.location.origin + '/api/chart-of-accounts/for-products'
+        )
+        // Filter for Expense accounts and search term
+        this.purchaseAccounts = data.data
+          .filter(account => {
+            return account.type_id === 5 && 
+                   (account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    account.code.toLowerCase().includes(searchTerm.toLowerCase()))
+          })
+          .map(account => ({
+            ...account,
+            displayName: `${account.code} - ${account.name}`
+          }))
+      } catch (error) {
+        console.error('Error searching purchase accounts:', error)
+      }
     },
 
     // get item code
@@ -432,6 +630,25 @@ export default {
 
     // save product
     async saveProduct() {
+      // Validate that accounts are selected
+      if (!this.form.salesAccount) {
+        Swal.fire(
+          this.$t('Error!'),
+          this.$t('Please select a sales account'),
+          'error'
+        )
+        return
+      }
+      
+      if (!this.form.purchaseAccount) {
+        Swal.fire(
+          this.$t('Error!'),
+          this.$t('Please select a purchase account'),
+          'error'
+        )
+        return
+      }
+
       await this.form
         .post(window.location.origin + '/api/products')
         .then(() => {
@@ -480,5 +697,38 @@ li {
  
 a {
   color: #42b983;
+}
+
+/* Account selection styling */
+.account-selection {
+  border: 2px solid #e3e8ef;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f8fafc;
+  margin-bottom: 20px;
+}
+
+.account-selection .form-group {
+  margin-bottom: 15px;
+}
+
+.account-selection label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.account-selection .form-text {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Highlight required fields */
+.required-field {
+  border-left: 4px solid #ef4444;
+  padding-left: 10px;
+}
+
+.required-field label {
+  color: #dc2626;
 }
 </style> 

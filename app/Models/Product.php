@@ -20,7 +20,7 @@ class Product extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'is_service', 'name', 'slug', 'code', 'model', 'barcode_symbology', 'sub_cat_id', 'brand_id', 'unit_id', 'tax_id', 'tax_type', 'purchase_price', 'regular_price', 'discount', 'inventory_count', 'opening_stock_count', 'opening_stock_unit_price', 'alert_qty', 'note', 'status', 'image_path',
+        'is_service', 'name', 'slug', 'code', 'model', 'barcode_symbology', 'sub_cat_id', 'brand_id', 'unit_id', 'tax_id', 'tax_type', 'purchase_price', 'regular_price', 'discount', 'inventory_count', 'opening_stock_count', 'opening_stock_unit_price', 'alert_qty', 'note', 'status', 'image_path', 'sales_account_id', 'purchase_account_id',
     ];
 
     /**
@@ -196,5 +196,21 @@ class Product extends Model implements HasMedia
     public function productTax()
     {
         return $this->belongsTo(VatRate::class, 'tax_id');
+    }
+
+    /**
+     * Get the sales account.
+     */
+    public function salesAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'sales_account_id');
+    }
+
+    /**
+     * Get the purchase account.
+     */
+    public function purchaseAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'purchase_account_id');
     }
 }

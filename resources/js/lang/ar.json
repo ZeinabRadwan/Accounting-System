@@ -1473,5 +1473,14 @@
   "Create a chart of account": "إنشاء حساب محاسبي",
   "Edit a chart of account": "تعديل حساب محاسبي",
   "View a chart of account": "عرض حساب محاسبي",
-  "Delete a chart of account": "حذف حساب محاسبي"
+  "Delete a chart of account": "حذف حساب محاسبي",
+  "Sales Account": "حساب المبيعات",
+  "Purchase Account": "حساب المشتريات",
+  "Select sales account": "اختر حساب المبيعات",
+  "Select purchase account": "اختر حساب المشتريات",
+  "Select the account for recording sales revenue": "اختر الحساب لتسجيل إيرادات المبيعات",
+  "Select the account for recording purchase costs": "اختر الحساب لتسجيل تكاليف المشتريات",
+  "Please select a sales account": "يرجى اختيار حساب المبيعات",
+  "Please select a purchase account": "يرجى اختيار حساب المشتريات",
+  "Account Management": "إدارة الحسابات"
 }

@@ -43,6 +43,20 @@ class ProductResource extends JsonResource
             'note' => $this->note,
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('images/products/'.$this->image_path) : '',
+            'salesAccount' => $this->whenLoaded('salesAccount', function() {
+                return [
+                    'id' => $this->salesAccount->id,
+                    'name' => $this->salesAccount->name,
+                    'code' => $this->salesAccount->code,
+                ];
+            }),
+            'purchaseAccount' => $this->whenLoaded('purchaseAccount', function() {
+                return [
+                    'id' => $this->purchaseAccount->id,
+                    'name' => $this->purchaseAccount->name,
+                    'code' => $this->purchaseAccount->code,
+                ];
+            }),
         ];
     }
 }
