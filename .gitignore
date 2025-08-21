@@ -36,3 +36,4 @@ digitalocean-info.txt
 # /storage/verified
 # /public/js/*
 package-lock.json
+public/hot
