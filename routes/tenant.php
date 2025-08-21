@@ -349,6 +349,7 @@ Route::apiResource('accounts', AccountController::class);
         // Client non invoice payment routes
         Route::get('/client/{slug}/non-invoice-payments', [ClientController::class, 'clientNonInvoicePayments']);
         Route::get('/client/{slug}/non-invoice-payments/search', [ClientController::class, 'searchClientNonInvoicePayments']);
+Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
 
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
@@ -373,6 +374,7 @@ Route::apiResource('accounts', AccountController::class);
         // Supplier non purchase transactions
         Route::get('/non-purchases/supplier/{slug}', [SupplierController::class, 'nonPurchaseTransForSupplier']);
         Route::get('/non-purchases/supplier/{slug}/search', [SupplierController::class, 'searchNonPurchaseTransForSupplier']);
+Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
 
         // Departments routes
         Route::get('/departments/search', [DepartmentController::class, 'search']);

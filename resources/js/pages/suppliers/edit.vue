@@ -102,6 +102,30 @@
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
+                <div class="form-group col-md-4">
+                  <label for="chartOfAccountId">{{ $t("Chart of Account") }}</label>
+                  <select id="chartOfAccountId" v-model="form.chartOfAccountId" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }">
+                    <option value="">{{ $t("Select a Chart of Account") }}</option>
+                    <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
+                      {{ account.name }} ({{ account.code }}) - {{ account.type }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="chartOfAccountId" />
+                </div>
+              </div>
+
+              <div class="form-group col-12 d-flex flex-wrap">
+                <div class="pr-5">
+                  <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
+                  {{ $t("Send Welcome Email") }}
+                </div>
+              </div>
+              <div class="form-group col-12 d-flex flex-wrap">
+                <div class="pr-5">
+                  <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
+                  {{ $t("Send Welcome SMS") }}
+                </div>
               </div>
             </div>
             <!-- /.card-body -->
@@ -123,11 +147,15 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
+import { ToggleButton } from "vue-js-toggle-button";
 
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Edit Supplier') }
+  },
+  components: {
+    ToggleButton,
   },
   data: () => ({
     breadcrumbsCurrent: 'Edit Supplier',
@@ -155,10 +183,18 @@ export default {
       type: '',
       image: '',
       status: 1,
+      chartOfAccountId: '',
+      isSendEmail: false,
+      isSendSMS: false,
     }),
     url: null,
     loading: true,
+    chartOfAccounts: [],
+    isDemoMode: window.config.isDemoMode,
   }),
+  created() {
+    this.loadChartOfAccounts();
+  },
   mounted() {
     this.getSupplier()
   },
@@ -176,6 +212,9 @@ export default {
       this.form.address = data.data.address
       this.form.type = data.data.type
       this.form.status = data.data.status
+      this.form.chartOfAccountId = data.data.chart_of_account_id || ''
+      this.form.isSendEmail = data.data.isSendEmail || false
+      this.form.isSendSMS = data.data.isSendSMS || false
       this.url = data.data.image
     },
 
@@ -222,6 +261,17 @@ export default {
             title: this.$t('Opps...something went wrong'),
           })
         })
+    },
+
+    // load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await this.$http.get('/api/suppliers/chart-of-accounts');
+        this.chartOfAccounts = response.data || [];
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        this.chartOfAccounts = [];
+      }
     },
   },
 }

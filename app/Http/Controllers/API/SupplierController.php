@@ -28,6 +28,7 @@ use App\Http\Resources\PurchaseReturnListResource;
 use App\Http\Resources\NonPurchasePaymentListResource;
 use App\Http\Resources\SupplierForPurchasePaymentResource;
 use App\Http\Resources\SupplierWithNonPurchasePaymentResource;
+use App\Models\ChartOfAccount;
 
 class SupplierController extends Controller
 {
@@ -84,8 +85,8 @@ class SupplierController extends Controller
                 Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
             }
 
-            // create supplier
-            $userSchema = Supplier::create([
+            // Prepare supplier data
+            $supplierData = [
                 'name' => $request->name,
                 'supplier_id' => $code,
                 'email' => $request->email,
@@ -95,8 +96,15 @@ class SupplierController extends Controller
                 'address' => $request->address,
                 'status' => $request->status,
                 'image_path' => $imageName,
-                'type' => $request->type, 
-            ]);            
+                'type' => $request->type,
+                'chart_of_account_id' => $request->chartOfAccountId,
+            ];
+
+            // Auto-assign Chart of Account if not provided
+            $supplierData = Supplier::assignDefaultChartOfAccount($supplierData);
+
+            // create supplier
+            $userSchema = Supplier::create($supplierData);            
 
             // add activity log
             activity()
@@ -141,7 +149,11 @@ class SupplierController extends Controller
     {
         try {
             $supplier = Supplier::where('slug', $slug)->first();
-
+            
+            if ($supplier) {
+                $supplier->ensureChartOfAccountLoaded();
+            }
+            
             return new SupplierResource($supplier);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -166,6 +178,7 @@ class SupplierController extends Controller
             'companyName' => 'nullable|string|max:100|min:2',
             'type' => 'required|in:Company,Individual',
             'address' => 'nullable|string|max:255',
+            'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
         ]);
         try {
             // upload thumbnail and set the name
@@ -191,6 +204,7 @@ class SupplierController extends Controller
                 'type' => $request->type,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'chart_of_account_id' => $request->chartOfAccountId,
             ]);
 
             // add activity log
@@ -704,8 +718,71 @@ ORDER BY `date`");
             'totalDiscount' => $totalDiscount,
             'totalDebit' => $totalDebit,
             'totalCredit' => $totalCredit,
-            'finalBalance' => $finalBalance,
+            'finalBalance' => $totalDebit - $totalCredit,
         ];
 
+    }
+
+    /**
+     * Get chart of accounts for supplier selection.
+     */
+    public function getChartOfAccounts()
+    {
+        try {
+            // Get all active chart of accounts without eager loading first
+            $accounts = \App\Models\ChartOfAccount::where('is_active', true)
+                ->orderBy('name')
+                ->get();
+            
+            $chartOfAccounts = collect();
+            
+            foreach ($accounts as $account) {
+                try {
+                    // Skip if account is null or missing essential data
+                    if (!$account || !$account->id || !$account->name) {
+                        continue;
+                    }
+                    
+                    // Get type name safely
+                    $typeName = 'No Type';
+                    try {
+                        if ($account->type_id) {
+                            $type = $account->type;
+                            if ($type && $type->name) {
+                                $typeName = $type->name;
+                            }
+                        }
+                    } catch (\Exception $typeError) {
+                        // Type loading failed, use default
+                        $typeName = 'No Type';
+                    }
+                    
+                    $chartOfAccounts->push([
+                        'id' => (int) $account->id,
+                        'name' => (string) ($account->name ?? 'Unknown'),
+                        'code' => (string) ($account->code ?? ''),
+                        'type' => $typeName
+                    ]);
+                    
+                } catch (\Exception $accountError) {
+                    // Skip this account if there's any error
+                    continue;
+                }
+            }
+            
+            return response()->json($chartOfAccounts->values()->toArray());
+            
+        } catch (\Exception $e) {
+            \Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'message' => 'Failed to retrieve chart of accounts.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -30,6 +30,7 @@ class StoreClientRequest extends BaseRequest
             'companyName' => ['nullable', 'string', 'max:100', 'min:2'],
             'address' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'in:Company,Individual'],
+            'chartOfAccountId' => ['nullable', 'integer', 'exists:chart_of_accounts,id'],
         ];
     }
 }

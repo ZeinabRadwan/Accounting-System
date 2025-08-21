@@ -101,6 +101,18 @@
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
+                        <div class="form-group col-md-6">
+          <label for="chartOfAccountId">{{ $t("Chart of Account") }} <small class="text-muted">({{ $t("Optional - Auto-assigned if not selected") }})</small></label>
+          <select id="chartOfAccountId" v-model="form.chartOfAccountId" class="form-control"
+            :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }">
+            <option value="">{{ $t("Auto-assign based on type") }}</option>
+            <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
+              {{ account.name }} ({{ account.code }}) - {{ account.type }}
+            </option>
+          </select>
+          <small class="form-text text-muted">{{ $t("Leave empty to automatically assign appropriate Chart of Account") }}</small>
+          <has-error :form="form" field="chartOfAccountId" />
+        </div>
                 <div class="form-group col-12 d-flex flex-wrap">
                   <div class="pr-5">
                     <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
@@ -174,11 +186,27 @@ export default {
       status: 1,
       isSendEmail: false,
       isSendSMS: false,
+      chartOfAccountId: "",
     }),
     loading: true,
     url: null,
+    chartOfAccounts: [],
   }),
+  created() {
+    this.loadChartOfAccounts();
+  },
   methods: {
+    // Load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await this.$http.get('/api/clients/chart-of-accounts');
+        this.chartOfAccounts = response.data || [];
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        this.chartOfAccounts = [];
+      }
+    },
+
     // vue file upload
     onFileChange(e) {
       const file = e.target.files[0];

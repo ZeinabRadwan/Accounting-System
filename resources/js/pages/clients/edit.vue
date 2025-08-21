@@ -100,6 +100,17 @@
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
+                <div class="form-group col-md-6">
+                  <label for="chartOfAccountId">{{ $t("Chart of Account") }}</label>
+                  <select id="chartOfAccountId" v-model="form.chartOfAccountId" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }">
+                    <option value="">{{ $t("Select a Chart of Account") }}</option>
+                    <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
+                      {{ account.name }} ({{ account.code }}) - {{ account.type }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="chartOfAccountId" />
+                </div>
               </div>
             </div>
             <!-- /.card-body -->
@@ -153,29 +164,81 @@ export default {
       image: '',
       type: 'Company',
       status: 1,
+      chartOfAccountId: '',
     }),
     loading: true,
     url: null,
+    chartOfAccounts: [],
   }),
-  mounted() {
-    this.getClient()
+  created() {
+    // Don't load chart accounts here - wait for authentication
+  },
+  async mounted() {
+    // Load chart accounts first, then get client data
+    console.log('Component mounted, loading chart accounts...');
+    await this.loadChartOfAccounts();
+    this.getClient();
   },
   methods: {
+    // Load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        console.log('Loading chart of accounts...');
+        console.log('Current URL:', window.location.origin);
+        console.log('API endpoint:', '/api/clients/chart-of-accounts');
+        
+        const response = await this.$http.get('/api/clients/chart-of-accounts');
+        console.log('Chart of accounts response:', response);
+        this.chartOfAccounts = response.data || [];
+        console.log('Chart of accounts loaded:', this.chartOfAccounts);
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        console.error('Error response:', error.response);
+        console.error('Error status:', error.response?.status);
+        console.error('Error data:', error.response?.data);
+        
+        // Fallback: try to load chart accounts after a delay (in case of timing issues)
+        console.log('Retrying chart accounts load after delay...');
+        setTimeout(async () => {
+          try {
+            const retryResponse = await this.$http.get('/api/clients/chart-of-accounts');
+            this.chartOfAccounts = retryResponse.data || [];
+            console.log('Chart of accounts loaded on retry:', this.chartOfAccounts);
+          } catch (retryError) {
+            console.error('Retry also failed:', retryError);
+            this.chartOfAccounts = [];
+          }
+        }, 2000);
+      }
+    },
+
     // get client
     async getClient() {
-      const { data } = await axios.get(
-        window.location.origin + '/api/clients/' + this.$route.params.slug
-      )
-      this.form.name = data.data.name
-      this.form.clientID = data.data.clientID
-      this.form.email = data.data.email
-      this.form.phoneNumber = data.data.phoneNumber
-      this.form.companyName = data.data.companyName
-      this.form.taxRegistrationNumber = data.data.taxRegistrationNumber
-      this.form.address = data.data.address
-      this.form.type = data.data.type || 'Company'
-      this.form.status = data.data.status
-      this.url = data.data.image
+      try {
+        console.log('Getting client data...');
+        const { data } = await axios.get(
+          window.location.origin + '/api/clients/' + this.$route.params.slug
+        )
+        console.log('Client data received:', data);
+        
+        this.form.name = data.data.name
+        this.form.clientID = data.data.clientID
+        this.form.email = data.data.email
+        this.form.phoneNumber = data.data.phoneNumber
+        this.form.companyName = data.data.companyName
+        this.form.taxRegistrationNumber = data.data.taxRegistrationNumber
+        this.form.address = data.data.address
+        this.form.type = data.data.type || 'Company'
+        this.form.status = data.data.status
+        this.form.chartOfAccountId = data.data.chart_of_account_id || ''
+        
+        console.log('Chart of Account ID set to:', this.form.chartOfAccountId);
+        console.log('Available chart accounts:', this.chartOfAccounts);
+        
+        this.url = data.data.image
+      } catch (error) {
+        console.error('Error getting client:', error);
+      }
     },
 
     // vue file upload

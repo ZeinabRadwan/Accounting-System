@@ -30,6 +30,12 @@ class BusinessTransactionJournalService
             $accountsReceivableAccount = $this->getDefaultAccount('Accounts Receivable', 'Asset');
             $salesRevenueAccount = $this->getDefaultAccount('Sales Revenue', 'Revenue');
             
+            // Try to get client-specific accounts receivable account
+            $clientAccountsReceivableAccount = null;
+            if ($invoice->client && $invoice->client->isChartOfAccountConnected()) {
+                $clientAccountsReceivableAccount = $invoice->client->chartOfAccount;
+            }
+            
             if (!$accountsReceivableAccount || !$salesRevenueAccount) {
                 throw new Exception('Required chart of accounts not found. Please set up default accounts.');
             }
@@ -53,7 +59,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, $totalAmount, 0, 1, "Accounts Receivable for Invoice {$invoice->invoice_no}");
+            $accountsReceivableAccountId = $clientAccountsReceivableAccount ? $clientAccountsReceivableAccount->id : $accountsReceivableAccount->id;
+            $this->createJournalEntryLine($journalEntry, $accountsReceivableAccountId, $totalAmount, 0, 1, "Accounts Receivable for Invoice {$invoice->invoice_no}");
             
             // Use product-specific sales accounts if available, otherwise use default
             $salesAccountId = $salesRevenueAccount->id;
@@ -111,6 +118,12 @@ class BusinessTransactionJournalService
             // Get default accounts
             $accountsReceivableAccount = $this->getDefaultAccount('Accounts Receivable', 'Asset');
             
+            // Try to get client-specific accounts receivable account
+            $clientAccountsReceivableAccount = null;
+            if ($invoice->client && $invoice->client->isChartOfAccountConnected()) {
+                $clientAccountsReceivableAccount = $invoice->client->chartOfAccount;
+            }
+            
             // Try to get the bank account from the invoice payment transaction
             $bankAccount = null;
             $cashbookAccount = null;
@@ -155,7 +168,8 @@ class BusinessTransactionJournalService
 
             // Create journal entry lines
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, "Cash/Bank receipt for Invoice {$invoice->invoice_no}");
-            $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, 0, $amount, 2, "Reduction in Accounts Receivable for Invoice {$invoice->invoice_no}");
+            $accountsReceivableAccountId = $clientAccountsReceivableAccount ? $clientAccountsReceivableAccount->id : $accountsReceivableAccount->id;
+            $this->createJournalEntryLine($journalEntry, $accountsReceivableAccountId, 0, $amount, 2, "Reduction in Accounts Receivable for Invoice {$invoice->invoice_no}");
 
             // Create bridge table record
             \App\Models\InvoiceJournal::create([
@@ -185,6 +199,12 @@ class BusinessTransactionJournalService
             $purchaseExpenseAccount = $this->getDefaultAccount('Purchase Expense', 'Expense');
             $accountsPayableAccount = $this->getDefaultAccount('Accounts Payable', 'Liability');
             
+            // Try to get supplier-specific accounts payable account
+            $supplierAccountsPayableAccount = null;
+            if ($purchase->supplier && $purchase->supplier->isChartOfAccountConnected()) {
+                $supplierAccountsPayableAccount = $purchase->supplier->chartOfAccount;
+            }
+            
             if (!$purchaseExpenseAccount || !$accountsPayableAccount) {
                 throw new Exception('Required chart of accounts not found. Please set up default accounts.');
             }
@@ -208,7 +228,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, 0, $totalAmount, 2, "Accounts Payable for PO {$purchase->purchase_no}");
+            $accountsPayableAccountId = $supplierAccountsPayableAccount ? $supplierAccountsPayableAccount->id : $accountsPayableAccount->id;
+            $this->createJournalEntryLine($journalEntry, $accountsPayableAccountId, 0, $totalAmount, 2, "Accounts Payable for PO {$purchase->purchase_no}");
             
             // Use product-specific purchase accounts if available, otherwise use default
             $purchaseAccountId = $purchaseExpenseAccount->id;
@@ -266,6 +287,12 @@ class BusinessTransactionJournalService
             // Get default accounts
             $accountsPayableAccount = $this->getDefaultAccount('Accounts Payable', 'Liability');
             
+            // Try to get supplier-specific accounts payable account
+            $supplierAccountsPayableAccount = null;
+            if ($purchase->supplier && $purchase->supplier->isChartOfAccountConnected()) {
+                $supplierAccountsPayableAccount = $purchase->supplier->chartOfAccount;
+            }
+            
             // Try to get the bank account from the purchase payment transaction
             $bankAccount = null;
             $cashbookAccount = null;
@@ -309,7 +336,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, $amount, 0, 1, "Reduction in Accounts Payable for PO {$purchase->purchase_no}");
+            $accountsPayableAccountId = $supplierAccountsPayableAccount ? $supplierAccountsPayableAccount->id : $accountsPayableAccount->id;
+            $this->createJournalEntryLine($journalEntry, $accountsPayableAccountId, $amount, 0, 1, "Reduction in Accounts Payable for PO {$purchase->purchase_no}");
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $amount, 2, "Cash/Bank payment for PO {$purchase->purchase_no}");
 
             // Create bridge table record

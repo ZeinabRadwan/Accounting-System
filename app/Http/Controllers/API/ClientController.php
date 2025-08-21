@@ -29,6 +29,7 @@ use App\Http\Resources\InvoiceReturnListResource;
 use App\Http\Resources\NonInvoicePaymentListResource;
 use App\Http\Resources\ClientWithInvoicePaymentResource;
 use App\Http\Resources\ClientWithNonInvoicePaymentResource;
+use App\Models\ChartOfAccount;
 use Illuminate\Support\Str;
 
 class ClientController extends Controller
@@ -85,8 +86,8 @@ class ClientController extends Controller
                 Image::make($request->image)->save(public_path('images/clients/') . $imageName);
             }
 
-            // create client
-            $userSchema = Client::create([
+            // Prepare client data
+            $clientData = [
                 'name' => $request->name,
                 'client_id' => $code,
                 'email' => $request->email,
@@ -97,7 +98,14 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
-            ]);
+                'chart_of_account_id' => $request->chartOfAccountId,
+            ];
+
+            // Auto-assign Chart of Account if not provided
+            $clientData = Client::assignDefaultChartOfAccount($clientData);
+
+            // create client
+            $userSchema = Client::create($clientData);
 
             //send welcome notification
             try {
@@ -142,6 +150,11 @@ class ClientController extends Controller
     {
         try {
             $client = Client::where('slug', $slug)->first();
+            
+            if ($client) {
+                $client->ensureChartOfAccountLoaded();
+            }
+            
             return new ClientResource($client);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -193,6 +206,7 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
+                'chart_of_account_id' => $request->chartOfAccountId,
             ]);
 
             // add activity log
@@ -286,7 +300,7 @@ class ClientController extends Controller
                 ->orWhere('company_name', 'Like', '%' . $term . '%');
         });
 
-        return ClientResource::collection($query->latest()->paginate($request->perPage));
+        return ClientResource::collection($query->with('chartOfAccount')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -714,5 +728,93 @@ ORDER BY `date`");
             'totalCredit' => $totalCredit,
             'finalBalance' => $finalBalance,
         ];
+    }
+
+    /**
+     * Get chart of accounts for client selection.
+     */
+    public function getChartOfAccounts()
+    {
+        try {
+            \Log::info('getChartOfAccounts: Starting to fetch chart of accounts');
+            
+            // Get all active chart of accounts without eager loading first
+            $accounts = \App\Models\ChartOfAccount::where('is_active', true)
+                ->orderBy('name')
+                ->get();
+            
+            \Log::info('getChartOfAccounts: Found ' . $accounts->count() . ' active accounts');
+            
+            $chartOfAccounts = collect();
+            $processedCount = 0;
+            $skippedCount = 0;
+            
+            foreach ($accounts as $account) {
+                try {
+                    // Skip if account is null or missing essential data
+                    if (!$account || !$account->id || !$account->name) {
+                        \Log::warning('getChartOfAccounts: Skipping account with missing data', [
+                            'account_id' => $account->id ?? 'null',
+                            'account_name' => $account->name ?? 'null'
+                        ]);
+                        $skippedCount++;
+                        continue;
+                    }
+                    
+                    // Get type name safely
+                    $typeName = 'No Type';
+                    try {
+                        if ($account->type_id) {
+                            $type = $account->type;
+                            if ($type && $type->name) {
+                                $typeName = $type->name;
+                            }
+                        }
+                    } catch (\Exception $typeError) {
+                        \Log::warning('getChartOfAccounts: Type loading failed for account ' . $account->id, [
+                            'error' => $typeError->getMessage()
+                        ]);
+                        $typeName = 'No Type';
+                    }
+                    
+                    $chartOfAccounts->push([
+                        'id' => (int) $account->id,
+                        'name' => (string) ($account->name ?? 'Unknown'),
+                        'code' => (string) ($account->code ?? ''),
+                        'type' => $typeName
+                    ]);
+                    
+                    $processedCount++;
+                    
+                } catch (\Exception $accountError) {
+                    \Log::warning('getChartOfAccounts: Error processing account ' . ($account->id ?? 'unknown'), [
+                        'error' => $accountError->getMessage()
+                    ]);
+                    $skippedCount++;
+                    continue;
+                }
+            }
+            
+            \Log::info('getChartOfAccounts: Processing complete', [
+                'total_accounts' => $accounts->count(),
+                'processed_count' => $processedCount,
+                'skipped_count' => $skippedCount,
+                'final_count' => $chartOfAccounts->count()
+            ]);
+            
+            return response()->json($chartOfAccounts->values()->toArray());
+            
+        } catch (\Exception $e) {
+            \Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'message' => 'Failed to retrieve chart of accounts.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

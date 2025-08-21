@@ -34,7 +34,8 @@ class UpdateSupplierRequest extends BaseRequest
             'email' => 'nullable|email|max:255|min:3|unique:suppliers,email,'.$supplier->id,
             'companyName' => 'nullable|string|max:100|min:2',
             'type' => 'required|string|in:Company,Individual',
-            'address' => 'nullable|string|max:255'
+            'address' => 'nullable|string|max:255',
+            'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
         ];
     }
 }
