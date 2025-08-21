@@ -255,15 +255,12 @@ Route::middleware([
 
         // Account routes
         Route::get('/accounts/search', [AccountController::class, 'search']);
-Route::get('/all-accounts', [AccountController::class, 'allAccounts']);
-Route::get('/accounts/chart-of-accounts', [AccountController::class, 'getChartOfAccounts']);
-Route::get('/accounts/check-connection', [AccountController::class, 'checkAccountsConnection']);
-
-// Product chart of accounts
-Route::get('/products/chart-of-accounts', [ProductController::class, 'getChartOfAccounts']);
-Route::get('/accounts/transactions/{slug}', [AccountController::class, 'accountTransactions']);
-Route::get('/accounts/transactions/{slug}/search', [AccountController::class, 'searchTransactions']);
-Route::apiResource('accounts', AccountController::class);
+        Route::get('/all-accounts', [AccountController::class, 'allAccounts']);
+        Route::get('/accounts/chart-of-accounts', [AccountController::class, 'getChartOfAccounts']);
+        Route::get('/accounts/check-connection', [AccountController::class, 'checkAccountsConnection']);
+        Route::get('/accounts/transactions/{slug}', [AccountController::class, 'accountTransactions']);
+        Route::get('/accounts/transactions/{slug}/search', [AccountController::class, 'searchTransactions']);
+        Route::apiResource('accounts', AccountController::class);
 
         // Balance routes
         Route::get('/balances/search', [BalanceController::class, 'search']);
@@ -329,6 +326,7 @@ Route::apiResource('accounts', AccountController::class);
         Route::get('/clients/search', [ClientController::class, 'search']);
         Route::get('/all-clients', [ClientController::class, 'allClients']);
         Route::get('/clients-for-noninvoice-payments', [ClientController::class, 'clientsForNonInvoicePayments']);
+        Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
         Route::get('/client/invoices/{slug}', [ClientController::class, 'clientInvoices']);
         Route::post('/client/filter-invoices', [ClientController::class, 'filterClientInvoices']);
         Route::get('/client/{slug}/invoices', [ClientController::class, 'specificClientInvoices']);
@@ -349,7 +347,6 @@ Route::apiResource('accounts', AccountController::class);
         // Client non invoice payment routes
         Route::get('/client/{slug}/non-invoice-payments', [ClientController::class, 'clientNonInvoicePayments']);
         Route::get('/client/{slug}/non-invoice-payments/search', [ClientController::class, 'searchClientNonInvoicePayments']);
-Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
 
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
@@ -415,6 +412,7 @@ Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAc
         // Product routes
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
+        Route::get('/products/chart-of-accounts', [ProductController::class, 'getChartOfAccounts']);
         Route::get('/all-products-not-service', [ProductController::class, 'allProductsNotService']);
         Route::get('/all-products', [ProductController::class, 'allProducts']);
         Route::get('/all-products-paginated', [ProductController::class, 'allProductsPaginated']);
