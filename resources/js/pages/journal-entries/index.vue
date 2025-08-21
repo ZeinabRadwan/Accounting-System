@@ -270,10 +270,7 @@ export default {
         }
       } catch (error) {
         console.error('Error loading journal entries:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error loading journal entries'
-        })
+        window.toast.error('Error loading journal entries')
       } finally {
         this.loading = false
       }
@@ -298,17 +295,11 @@ export default {
 
       try {
         await this.$axios.post(`/api/journal-entries/${id}/post`)
-        window.toast.fire({
-          icon: 'success',
-          title: 'Journal entry posted successfully!'
-        })
+        window.toast.success('Journal entry posted successfully!')
         await this.loadJournalEntries()
       } catch (error) {
         console.error('Error posting journal entry:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error posting journal entry'
-        })
+        window.toast.error('Error posting journal entry')
       }
     },
 
@@ -317,17 +308,11 @@ export default {
 
       try {
         await this.$axios.post(`/api/journal-entries/${id}/void`)
-        window.toast.fire({
-          icon: 'success',
-          title: 'Journal entry voided successfully!'
-        })
+        window.toast.success('Journal entry voided successfully!')
         await this.loadJournalEntries()
       } catch (error) {
         console.error('Error voiding journal entry:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error voiding journal entry'
-        })
+        window.toast.error('Error voiding journal entry')
       }
     },
 
@@ -336,17 +321,11 @@ export default {
 
       try {
         await this.$axios.delete(`/api/journal-entries/${id}`)
-        window.toast.fire({
-          icon: 'success',
-          title: 'Journal entry deleted successfully!'
-        })
+        window.toast.success('Journal entry deleted successfully!')
         await this.loadJournalEntries()
       } catch (error) {
         console.error('Error deleting journal entry:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error deleting journal entry'
-        })
+        window.toast.error('Error deleting journal entry')
       }
     },
 

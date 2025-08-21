@@ -357,10 +357,7 @@ export default {
         }
       } catch (error) {
         console.error('Error loading journal entry:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error loading journal entry'
-        })
+        window.toast.error('Error loading journal entry')
       } finally {
         this.loading = false
       }
@@ -372,10 +369,7 @@ export default {
         this.chartOfAccounts = response.data.data || []
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error loading chart of accounts'
-        })
+        window.toast.error('Error loading chart of accounts')
       }
     },
 
@@ -424,10 +418,7 @@ export default {
 
         // Validate balance
         if (this.balanceDifference !== 0) {
-          window.toast.fire({
-          icon: 'warning',
-          title: 'Journal entry must be balanced'
-        })
+          window.toast.warning('Journal entry must be balanced')
           return
         }
 
@@ -443,20 +434,14 @@ export default {
 
         await this.$axios.put(`/api/journal-entries/${this.journalEntry.id}`, data)
         
-        window.toast.fire({
-          icon: 'success',
-          title: 'Journal entry updated successfully!'
-        })
+        window.toast.success('Journal entry updated successfully!')
         this.$router.push(`/journal-entries/${this.journalEntry.id}`)
       } catch (error) {
         console.error('Error updating journal entry:', error)
         if (error.response && error.response.data && error.response.data.errors) {
           this.errors = error.response.data.errors
         } else {
-          window.toast.fire({
-          icon: 'error',
-          title: 'Error updating journal entry'
-        })
+          window.toast.error('Error updating journal entry')
         }
       } finally {
         this.saving = false

@@ -324,10 +324,7 @@ export default {
         this.chartOfAccounts = response.data.data || []
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error loading chart of accounts'
-        })
+        window.toast.error('Error loading chart of accounts')
       }
     },
 
@@ -376,10 +373,7 @@ export default {
 
         // Validate balance
         if (this.balanceDifference !== 0) {
-          window.toast.fire({
-            icon: 'warning',
-            title: 'Journal entry must be balanced'
-          })
+          window.toast.warning('Journal entry must be balanced')
           return
         }
 
@@ -396,10 +390,7 @@ export default {
         const response = await this.$axios.post('/api/journal-entries', data)
         
         // Show success message
-        window.toast.fire({
-          icon: 'success',
-          title: 'Journal entry created successfully!'
-        })
+        window.toast.success('Journal entry created successfully!')
         
         // Redirect to journal entries list
         this.$router.push('/journal-entries')
@@ -408,10 +399,7 @@ export default {
         if (error.response && error.response.data && error.response.data.errors) {
           this.errors = error.response.data.errors
         } else {
-          window.toast.fire({
-            icon: 'error',
-            title: 'Error creating journal entry'
-          })
+          window.toast.error('Error creating journal entry')
         }
       } finally {
         this.loading = false
