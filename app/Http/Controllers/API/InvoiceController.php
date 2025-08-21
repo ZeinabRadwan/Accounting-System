@@ -181,7 +181,7 @@ class InvoiceController extends Controller
                 // Create journal entry for invoice payment
                 try {
                     $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $request->paidAmount, $request->account['id'], $userId);
+                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $request->paidAmount, $userId);
                 } catch (\Exception $e) {
                     // Log the error but don't fail the payment creation
                     Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
@@ -263,6 +263,15 @@ class InvoiceController extends Controller
                 'created_by' => $userId,
                 'status' => $request->status,
             ]);
+
+            // Create journal entry for invoice payment
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $request->paidAmount, $request->account['id'], $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the payment creation
+                Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+            }
 
             $isPaid = 0;
             if ($request->netTotal == $request->paidAmount) {

@@ -74,14 +74,14 @@ class BusinessTransactionJournalService
     /**
      * Create journal entry for invoice payment
      */
-    public function createInvoicePaymentJournal(Invoice $invoice, float $amount, int $accountId, int $userId): JournalEntry
+    public function createInvoicePaymentJournal(Invoice $invoice, float $amount, int $userId): JournalEntry
     {
         DB::beginTransaction();
         
         try {
             // Get default accounts
             $accountsReceivableAccount = $this->getDefaultAccount('Accounts Receivable', 'Asset');
-            $bankAccount = ChartOfAccount::find($accountId);
+            $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
             
             if (!$accountsReceivableAccount || !$bankAccount) {
                 throw new Exception('Required chart of accounts not found.');
@@ -91,7 +91,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => now()->toDateString(),
-                'reference' => $invoice->invoice_no,
+                'reference' => $invoice->invoice_no . '-PAY-' . time(),
                 'description' => "Payment received for Invoice {$invoice->invoice_no}",
                 'total_debit' => $amount,
                 'total_credit' => $amount,
@@ -197,7 +197,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => now()->toDateString(),
-                'reference' => $purchase->purchase_no,
+                'reference' => $purchase->purchase_no . '-PAY-' . time(),
                 'description' => "Payment made for Purchase Order {$purchase->purchase_no}",
                 'total_debit' => $amount,
                 'total_credit' => $amount,
@@ -351,7 +351,7 @@ class BusinessTransactionJournalService
      */
     private function getDefaultAccount(string $accountName, string $typeName): ?ChartOfAccount
     {
-        return ChartOfAccount::whereHas('types', function($query) use ($typeName) {
+        return ChartOfAccount::whereHas('type', function($query) use ($typeName) {
             $query->where('name', $typeName);
         })->where('name', 'like', "%{$accountName}%")
         ->where('is_active', true)
