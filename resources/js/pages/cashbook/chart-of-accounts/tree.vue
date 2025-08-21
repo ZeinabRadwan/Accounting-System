@@ -368,84 +368,125 @@ export default {
 
 <style scoped>
 .tree-view {
-  font-family: 'Courier New', monospace;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .tree-item {
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .tree-row {
   border: 1px solid #e3e6f0;
-  border-radius: 4px;
-  background-color: #fff;
-  transition: all 0.2s ease;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .tree-row:hover {
-  background-color: #f8f9fc;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0,123,255,0.15);
+  transform: translateY(-1px);
 }
 
 .tree-content {
   display: flex;
   align-items: center;
-  padding: 12px 15px;
-  min-height: 50px;
+  padding: 16px 20px;
+  min-height: 60px;
 }
 
 .tree-toggle {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #6c757d;
-  margin-right: 10px;
+  color: #007bff;
+  margin-right: 12px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  background: rgba(0,123,255,0.1);
 }
 
 .tree-toggle:hover {
-  color: #495057;
+  background: rgba(0,123,255,0.2);
+  color: #0056b3;
+  transform: scale(1.1);
 }
 
 .tree-toggle-placeholder {
-  width: 20px;
-  margin-right: 10px;
+  width: 24px;
+  margin-right: 12px;
 }
 
 .tree-info {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
 }
 
 .account-code {
-  min-width: 100px;
-  font-weight: bold;
+  min-width: 120px;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .account-name {
   flex: 1;
-  min-width: 200px;
+  min-width: 250px;
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
 }
 
 .account-type {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .account-status {
-  min-width: 60px;
+  min-width: 80px;
 }
 
 .tree-actions {
-  margin-left: 15px;
+  margin-left: 20px;
 }
 
 .badge-sm {
   font-size: 0.75em;
-  padding: 0.25em 0.5em;
+  padding: 0.4em 0.8em;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.bg-info {
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+  border: none;
+}
+
+.bg-success {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important;
+  border: none;
+}
+
+.bg-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+  border: none;
+}
+
+/* Tree level indicators */
+.tree-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #007bff 0%, #0056b3 100%);
+  border-radius: 0 2px 2px 0;
 }
 
 /* Responsive adjustments */
@@ -453,12 +494,30 @@ export default {
   .tree-info {
     flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
+    gap: 8px;
   }
   
   .tree-actions {
     margin-left: 0;
-    margin-top: 10px;
+    margin-top: 12px;
+  }
+  
+  .tree-content {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .tree-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .account-code,
+  .account-name {
+    min-width: auto;
+    width: 100%;
   }
 }
 </style>

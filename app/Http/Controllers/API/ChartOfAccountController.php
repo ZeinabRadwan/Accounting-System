@@ -32,7 +32,7 @@ class ChartOfAccountController extends Controller
     {
         $perPage = $request->perPage ?? 10;
         
-        $accounts = ChartOfAccount::with(['types', 'parent'])
+        $accounts = ChartOfAccount::with(['type', 'parent'])
             ->latest()
             ->paginate($perPage);
             
@@ -45,7 +45,7 @@ class ChartOfAccountController extends Controller
     public function getAll()
     {
         try {
-            $accounts = ChartOfAccount::with(['types', 'parent'])
+            $accounts = ChartOfAccount::with(['type', 'parent'])
                 ->orderBy('order', 'asc')
                 ->orderBy('name', 'asc')
                 ->get();
@@ -56,6 +56,28 @@ class ChartOfAccountController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error loading chart of accounts',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get chart of accounts in tree structure
+     */
+    public function tree()
+    {
+        try {
+            $accounts = ChartOfAccount::with(['type', 'parent'])
+                ->orderBy('order', 'asc')
+                ->orderBy('name', 'asc')
+                ->get();
+                
+            return response()->json([
+                'data' => $accounts
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error loading chart of accounts tree',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -116,7 +138,7 @@ class ChartOfAccountController extends Controller
     public function show($slug)
     {
         try {
-            $chartOfAccount = ChartOfAccount::with(['types', 'parent'])
+            $chartOfAccount = ChartOfAccount::with(['type', 'parent'])
                 ->where('code', $slug)
                 ->firstOrFail();
             return new ChartOfAccountResource($chartOfAccount);
@@ -171,7 +193,7 @@ class ChartOfAccountController extends Controller
         try {
             $perPage = $request->perPage ?? 10;
             
-            $query = ChartOfAccount::with(['types', 'parent']);
+            $query = ChartOfAccount::with(['type', 'parent']);
             
             if ($request->term) {
                 $query->where('name', 'like', '%' . $request->term . '%')

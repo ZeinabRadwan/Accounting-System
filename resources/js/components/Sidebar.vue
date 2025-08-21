@@ -296,7 +296,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book" />
               <p>
-                {{ $t('Cash Book') }}
+                {{ $t('Cashbook & Accounts') }}
                 <i class="right fas fa-angle-left" />
               </p>
             </a>
@@ -326,8 +326,8 @@
                 $can('account-delete')
                 " class="nav-item">
                 <router-link :to="{ name: 'accounts.index' }" class="nav-link">
-                  <i class="fas fa-grip-horizontal nav-icon" />
-                  <p>{{ $t('Accounts') }}</p>
+                  <i class="fas fa-university nav-icon" />
+                  <p>{{ $t('Bank Accounts') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('account-balance-list') ||
@@ -872,6 +872,9 @@
               <p>{{ $t("Collection By User Report") }}</p>
             </router-link>
           </li>
+
+
+
           <li class="nav-header text-bold">{{ $t('Others') }}</li>
           <li v-if="$can('role-permissions') ||
             $can('units') ||

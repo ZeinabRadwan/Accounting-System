@@ -17,6 +17,45 @@ class JournalPermissionsSeeder extends Seeder
     public function run()
     {
         // Create journal entry permissions
+        //create permission for chart of accounts
+        $chartOfAccountsPermissions = [
+            [
+                'name' => 'List',
+                'guard_name' => 'Chart of Accounts Management',
+                'slug' => 'chart-of-account-list',
+            ],
+            [
+                'name' => 'Create',
+                'guard_name' => 'Chart of Accounts Management',
+                'slug' => 'chart-of-account-create',
+            ],
+            [
+                'name' => 'View',
+                'guard_name' => 'Chart of Accounts Management',
+                'slug' => 'chart-of-account-view',
+            ],
+            [
+                'name' => 'Edit',
+                'guard_name' => 'Chart of Accounts Management',
+                'slug' => 'chart-of-account-edit',
+            ],
+            [
+                'name' => 'Delete',
+                'guard_name' => 'Chart of Accounts Management',
+                'slug' => 'chart-of-account-delete',
+            ],
+        ];
+
+        foreach ($chartOfAccountsPermissions as $permission) {
+            Permission::firstOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'],
+                    'guard_name' => $permission['guard_name'],
+                ]
+            );
+
+        }
         $permissions = [
             [
                 'name' => 'List',
@@ -70,7 +109,12 @@ class JournalPermissionsSeeder extends Seeder
             'journal-entry-view',
             'journal-entry-edit',
             'journal-entry-delete',
-            'journal-entry-post'
+            'journal-entry-post',
+            'chart-of-account-list',
+            'chart-of-account-create',
+            'chart-of-account-view',
+            'chart-of-account-edit',
+            'chart-of-account-delete'
         );
 
         // If you have a super admin role, give it permissions too
@@ -81,8 +125,32 @@ class JournalPermissionsSeeder extends Seeder
             'journal-entry-view',
             'journal-entry-edit',
             'journal-entry-delete',
-            'journal-entry-post'
+            'journal-entry-post',
+            'chart-of-account-list',
+            'chart-of-account-create',
+            'chart-of-account-view',
+            'chart-of-account-edit',
+            'chart-of-account-delete'
         );
+
+        $roles = DB::table('roles')->get();
+        $permissions = DB::table('permissions')->get();
+        foreach ($roles as $role) {
+            foreach ($permissions as $permission) {
+                $exists = DB::table('role_permission')
+                    ->where('role_id', $role->id)
+                    ->where('permission_id', $permission->id)
+                    ->exists();
+        
+                if (!$exists) {
+                    DB::table('role_permission')->insert([
+                        'role_id' => $role->id,
+                        'permission_id' => $permission->id,
+                    ]);
+                }
+            }
+        }
+    
 
         $this->command->info('Journal entry permissions created and assigned to admin roles!');
     }
