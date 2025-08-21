@@ -280,10 +280,7 @@ export default {
         this.journalEntry = response.data.data
       } catch (error) {
         console.error('Error loading journal entry:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error loading journal entry'
-        })
+        window.toast.error('Error loading journal entry')
       } finally {
         this.loading = false
       }
@@ -294,17 +291,11 @@ export default {
 
       try {
         await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/post`)
-        window.toast.fire({
-          icon: 'success',
-          title: 'Journal entry posted successfully!'
-        })
+        window.toast.success('Journal entry posted successfully!')
         await this.loadJournalEntry()
       } catch (error) {
         console.error('Error posting journal entry:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error posting journal entry'
-        })
+        window.toast.error('Error posting journal entry')
       }
     },
 
@@ -313,17 +304,11 @@ export default {
 
       try {
         await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/void`)
-        window.toast.fire({
-          icon: 'success',
-          title: 'Journal entry voided successfully!'
-        })
+        window.toast.success('Journal entry voided successfully!')
         await this.loadJournalEntry()
       } catch (error) {
         console.error('Error voiding journal entry:', error)
-        window.toast.fire({
-          icon: 'error',
-          title: 'Error voiding journal entry'
-        })
+        window.toast.error('Error voiding journal entry')
       }
     },
 
