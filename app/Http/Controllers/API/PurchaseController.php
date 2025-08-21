@@ -172,7 +172,7 @@ class PurchaseController extends Controller
                 // Create journal entry for purchase payment
                 try {
                     $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->totalPaid, $request->account['id'], $userId);
+                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->totalPaid, $userId);
                 } catch (\Exception $e) {
                     // Log the error but don't fail the payment creation
                     Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());

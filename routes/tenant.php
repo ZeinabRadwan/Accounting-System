@@ -255,10 +255,11 @@ Route::middleware([
 
         // Account routes
         Route::get('/accounts/search', [AccountController::class, 'search']);
-        Route::get('/all-accounts', [AccountController::class, 'allAccounts']);
-        Route::get('/accounts/transactions/{slug}', [AccountController::class, 'accountTransactions']);
-        Route::get('/accounts/transactions/{slug}/search', [AccountController::class, 'searchTransactions']);
-        Route::apiResource('accounts', AccountController::class);
+Route::get('/all-accounts', [AccountController::class, 'allAccounts']);
+Route::get('/accounts/chart-of-accounts', [AccountController::class, 'getChartOfAccounts']);
+Route::get('/accounts/transactions/{slug}', [AccountController::class, 'accountTransactions']);
+Route::get('/accounts/transactions/{slug}/search', [AccountController::class, 'searchTransactions']);
+Route::apiResource('accounts', AccountController::class);
 
         // Balance routes
         Route::get('/balances/search', [BalanceController::class, 'search']);

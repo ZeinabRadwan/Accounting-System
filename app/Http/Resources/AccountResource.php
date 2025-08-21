@@ -26,6 +26,15 @@ class AccountResource extends JsonResource
             'totalDebits' => round($this->totalDebits(), 2),
             'date' => $this->date,
             'image' => $this->image_path ? global_asset('/images/accounts/'.$this->image_path) : '',
+            'chartOfAccountId' => $this->chart_of_account_id,
+            'chartOfAccount' => $this->whenLoaded('chartOfAccount', function() {
+                return [
+                    'id' => $this->chartOfAccount->id,
+                    'name' => $this->chartOfAccount->name,
+                    'code' => $this->chartOfAccount->code,
+                    'type' => $this->chartOfAccount->type ? $this->chartOfAccount->type->name : null
+                ];
+            }),
             'note' => $this->note,
             'status' => (int) $this->status,
         ];

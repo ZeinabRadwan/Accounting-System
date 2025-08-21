@@ -15,6 +15,7 @@ use Intervention\Image\Facades\Image as Image;
 use App\Http\Requests\Account\StoreAccountRequest;
 use App\Http\Resources\AccountTransactionResource;
 use App\Http\Requests\Account\UpdateAccountRequest;
+use App\Models\ChartOfAccount;
 
 class AccountController extends Controller
 {
@@ -38,7 +39,7 @@ class AccountController extends Controller
      */
     public function index(Request $request)
     {
-        return AccountResource::collection(Account::latest()->paginate($request->perPage));
+        return AccountResource::collection(Account::with('chartOfAccount.type')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -71,6 +72,7 @@ class AccountController extends Controller
                 'date' => $request->date,
                 'image_path' => $imageName,
                 'created_by' => auth()->user()->id,
+                'chart_of_account_id' => $request->chartOfAccountId,
                 'note' => clean($request->note),
                 'status' => $request->status,
             ]);
@@ -102,7 +104,7 @@ class AccountController extends Controller
     public function show($slug)
     {
         try {
-            $account = Account::where('slug', $slug)->with('balanceTransactions.user', 'user')->first();
+            $account = Account::where('slug', $slug)->with('balanceTransactions.user', 'user', 'chartOfAccount.type')->first();
 
             return new AccountResource($account);
         } catch (Exception $e) {
@@ -149,6 +151,7 @@ class AccountController extends Controller
                 'account_number' => $request->accountNumber,
                 'date' => $request->date,
                 'image_path' => $imageName,
+                'chart_of_account_id' => $request->chartOfAccountId,
                 'note' => clean($request->note),
                 'status' => $request->status,
             ]);
@@ -211,6 +214,33 @@ class AccountController extends Controller
     }
 
     /**
+     * Get chart of accounts for dropdown selection
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getChartOfAccounts()
+    {
+        try {
+            $chartOfAccounts = ChartOfAccount::where('is_active', true)
+                ->with('type')
+                ->orderBy('name')
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'name' => $account->name,
+                        'code' => $account->code,
+                        'type' => $account->type ? $account->type->name : 'Unknown'
+                    ];
+                });
+
+            return $this->responseWithSuccess('Chart of accounts retrieved successfully', $chartOfAccounts);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
      * search resource from storage.
      *
      * @param  int  $id
@@ -241,7 +271,7 @@ class AccountController extends Controller
      */
     public function allAccounts()
     {
-        $accounts = Account::where('status', 1)->latest()->get();
+        $accounts = Account::where('status', 1)->with('chartOfAccount.type')->latest()->get();
 
         return AccountResource::collection($accounts);
     }

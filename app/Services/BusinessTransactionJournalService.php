@@ -82,7 +82,21 @@ class BusinessTransactionJournalService
         try {
             // Get default accounts
             $accountsReceivableAccount = $this->getDefaultAccount('Accounts Receivable', 'Asset');
-            $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
+            
+            // Try to get the bank account from the invoice payment transaction
+            $bankAccount = null;
+            $invoicePayment = $invoice->invoicePayments()->latest()->first();
+            if ($invoicePayment && $invoicePayment->transaction_id) {
+                $transaction = \App\Models\AccountTransaction::find($invoicePayment->transaction_id);
+                if ($transaction && $transaction->account) {
+                    $bankAccount = $transaction->account->chartOfAccount;
+                }
+            }
+            
+            // Fall back to default bank account if no specific one found
+            if (!$bankAccount) {
+                $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
+            }
             
             if (!$accountsReceivableAccount || !$bankAccount) {
                 throw new Exception('Required chart of accounts not found.');
@@ -181,14 +195,28 @@ class BusinessTransactionJournalService
     /**
      * Create journal entry for purchase payment
      */
-    public function createPurchasePaymentJournal(Purchase $purchase, float $amount, int $accountId, int $userId): JournalEntry
+    public function createPurchasePaymentJournal(Purchase $purchase, float $amount, int $userId): JournalEntry
     {
         DB::beginTransaction();
         
         try {
             // Get default accounts
             $accountsPayableAccount = $this->getDefaultAccount('Accounts Payable', 'Liability');
-            $bankAccount = ChartOfAccount::find($accountId);
+            
+            // Try to get the bank account from the purchase payment transaction
+            $bankAccount = null;
+            $purchasePayment = $purchase->purchasePayments()->latest()->first();
+            if ($purchasePayment && $purchasePayment->account_id) {
+                $account = \App\Models\Account::find($purchasePayment->account_id);
+                if ($account && $account->chartOfAccount) {
+                    $bankAccount = $account->chartOfAccount;
+                }
+            }
+            
+            // Fall back to default bank account if no specific one found
+            if (!$bankAccount) {
+                $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
+            }
             
             if (!$accountsPayableAccount || !$bankAccount) {
                 throw new Exception('Required chart of accounts not found.');
@@ -240,7 +268,20 @@ class BusinessTransactionJournalService
         try {
             // Get default accounts
             $expenseAccount = $this->getDefaultAccount('Operating Expenses', 'Expense');
-            $bankAccount = ChartOfAccount::find($expense->account_id);
+            
+            // Try to get the bank account from the expense's linked account
+            $bankAccount = null;
+            if ($expense->account_id) {
+                $account = \App\Models\Account::find($expense->account_id);
+                if ($account && $account->chartOfAccount) {
+                    $bankAccount = $account->chartOfAccount;
+                }
+            }
+            
+            // Fall back to default bank account if no specific one found
+            if (!$bankAccount) {
+                $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
+            }
             
             if (!$expenseAccount || !$bankAccount) {
                 throw new Exception('Required chart of accounts not found.');
@@ -290,8 +331,21 @@ class BusinessTransactionJournalService
         
         try {
             // Get default accounts
-            $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
             $otherIncomeAccount = $this->getDefaultAccount('Other Revenue', 'Revenue');
+            
+            // Try to get the bank account from the non-invoice payment transaction
+            $bankAccount = null;
+            if ($nonInvoicePayment->transaction_id) {
+                $transaction = \App\Models\AccountTransaction::find($nonInvoicePayment->transaction_id);
+                if ($transaction && $transaction->account) {
+                    $bankAccount = $transaction->account->chartOfAccount;
+                }
+            }
+            
+            // Fall back to default bank account if no specific one found
+            if (!$bankAccount) {
+                $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
+            }
             
             if (!$bankAccount || !$otherIncomeAccount) {
                 throw new Exception('Required chart of accounts not found.');
@@ -342,7 +396,20 @@ class BusinessTransactionJournalService
         try {
             // Get default accounts
             $loanAccount = $this->getDefaultAccount('Loans Payable', 'Liability');
-            $bankAccount = ChartOfAccount::find($loanPayment->account_id);
+            
+            // Try to get the bank account from the loan payment's linked account
+            $bankAccount = null;
+            if ($loanPayment->account_id) {
+                $account = \App\Models\Account::find($loanPayment->account_id);
+                if ($account && $account->chartOfAccount) {
+                    $bankAccount = $account->chartOfAccount;
+                }
+            }
+            
+            // Fall back to default bank account if no specific one found
+            if (!$bankAccount) {
+                $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
+            }
             
             if (!$loanAccount || !$bankAccount) {
                 throw new Exception('Required chart of accounts not found.');
