@@ -11,6 +11,8 @@ use App\Models\InvoicePayment;
 use App\Models\InvoiceProduct;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\AccountTransaction;
+use App\Models\InvoiceJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +22,7 @@ use App\Notifications\InvoiceNotification;
 use App\Http\Resources\InvoiceListResource;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\InvoicePaymentNotification;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceController extends Controller
 {
@@ -118,6 +121,15 @@ class InvoiceController extends Controller
                 'created_by' => $userId,
             ]);
 
+            // Create journal entry for invoice sale
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the invoice creation
+                Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
+            }
+
             // store invoice products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
@@ -165,6 +177,15 @@ class InvoiceController extends Controller
                     'created_by' => $userId,
                     'status' => $request->status,
                 ]);
+
+                // Create journal entry for invoice payment
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $request->paidAmount, $request->account['id'], $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                }
             }
 
             //send notification

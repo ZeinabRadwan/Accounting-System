@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Exception;
 use App\Models\Purchase;
 use App\Models\Supplier;
+use App\Models\PurchaseJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Http\Request;
 use App\Models\PurchasePayment;
 use App\Models\AccountTransaction;
@@ -13,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PurchasePaymentResource;
 use App\Notifications\SupplierPurchasePaymentNotification;
+use Illuminate\Support\Facades\Log;
 
 class PurchasePaymentController extends Controller
 {
@@ -94,6 +97,15 @@ class PurchasePaymentController extends Controller
                     'created_by' => $userId,
                     'status' => $request->status,
                 ]);
+
+                // Create journal entry for purchase payment
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $selectedPurchase['paidAmount'], $request->account['id'], $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                }
 
                 // update purchase
                 $purchase->update([

@@ -6,6 +6,8 @@ use Exception;
 use App\Models\Client;
 use App\Rules\MinItem;
 use App\Models\Invoice;
+use App\Models\InvoiceJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Http\Request;
 use App\Models\InvoicePayment;
 use App\Models\AccountTransaction;
@@ -14,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\InvoicePaymentResource;
 use App\Notifications\ClientInvoicePaymentNotification;
+use Illuminate\Support\Facades\Log;
 
 class InvoicePaymentController extends Controller
 {
@@ -97,6 +100,15 @@ class InvoicePaymentController extends Controller
                     'note' => clean($request->note),
                     'status' => $request->status,
                 ]);
+
+                // Create journal entry for invoice payment
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $selectedInvoice['paidAmount'], $request->account['id'], $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                }
 
                 // update invoice
                 $invoice->update([

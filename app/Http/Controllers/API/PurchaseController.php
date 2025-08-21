@@ -11,6 +11,8 @@ use App\Models\PurchasePayment;
 use App\Models\PurchaseProduct;
 use App\Rules\PurchaseTotalPaid;
 use App\Models\AccountTransaction;
+use App\Models\PurchaseJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,7 @@ use App\Notifications\PurchaseNotification;
 use App\Http\Resources\PurchaseListResource;
 use App\Http\Resources\PurchaseProductsResource;
 use App\Notifications\PurchasePaymentNotification;
+use Illuminate\Support\Facades\Log;
 
 class PurchaseController extends Controller
 {
@@ -101,6 +104,15 @@ class PurchaseController extends Controller
                 'created_by' => $userId,
             ]);
 
+            // Create journal entry for purchase
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the purchase creation
+                Log::error('Failed to create journal entry for purchase: ' . $e->getMessage());
+            }
+
             // store purchase products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
@@ -156,6 +168,15 @@ class PurchaseController extends Controller
                     'created_by' => $userId,
                     'status' => $request->status,
                 ]);
+
+                // Create journal entry for purchase payment
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->totalPaid, $request->account['id'], $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                }
             }
             // update purchase
             if ($purchase->totalDue() == 0) {

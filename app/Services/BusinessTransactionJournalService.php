@@ -55,6 +55,13 @@ class BusinessTransactionJournalService
             $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, $totalAmount, 0, 1, "Accounts Receivable for Invoice {$invoice->invoice_no}");
             $this->createJournalEntryLine($journalEntry, $salesRevenueAccount->id, 0, $totalAmount, 2, "Sales Revenue for Invoice {$invoice->invoice_no}");
 
+            // Create bridge table record
+            \App\Models\InvoiceJournal::create([
+                'invoice_id' => $invoice->id,
+                'journal_entry_id' => $journalEntry->id,
+                'type' => 'sale'
+            ]);
+
             DB::commit();
             return $journalEntry;
             
@@ -99,6 +106,13 @@ class BusinessTransactionJournalService
             // Create journal entry lines
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, "Cash/Bank receipt for Invoice {$invoice->invoice_no}");
             $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, 0, $amount, 2, "Reduction in Accounts Receivable for Invoice {$invoice->invoice_no}");
+
+            // Create bridge table record
+            \App\Models\InvoiceJournal::create([
+                'invoice_id' => $invoice->id,
+                'journal_entry_id' => $journalEntry->id,
+                'type' => 'payment'
+            ]);
 
             DB::commit();
             return $journalEntry;
@@ -147,6 +161,13 @@ class BusinessTransactionJournalService
             $this->createJournalEntryLine($journalEntry, $purchaseExpenseAccount->id, $totalAmount, 0, 1, "Purchase Expense for PO {$purchase->purchase_no}");
             $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, 0, $totalAmount, 2, "Accounts Payable for PO {$purchase->purchase_no}");
 
+            // Create bridge table record
+            \App\Models\PurchaseJournal::create([
+                'purchase_id' => $purchase->id,
+                'journal_entry_id' => $journalEntry->id,
+                'type' => 'purchase'
+            ]);
+
             DB::commit();
             return $journalEntry;
             
@@ -191,6 +212,13 @@ class BusinessTransactionJournalService
             // Create journal entry lines
             $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, $amount, 0, 1, "Reduction in Accounts Payable for PO {$purchase->purchase_no}");
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $amount, 2, "Cash/Bank payment for PO {$purchase->purchase_no}");
+
+            // Create bridge table record
+            \App\Models\PurchaseJournal::create([
+                'purchase_id' => $purchase->id,
+                'journal_entry_id' => $journalEntry->id,
+                'type' => 'payment'
+            ]);
 
             DB::commit();
             return $journalEntry;
@@ -237,6 +265,12 @@ class BusinessTransactionJournalService
             $this->createJournalEntryLine($journalEntry, $expenseAccount->id, $expense->amount, 0, 1, "Expense: {$expense->reason}");
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $expense->amount, 2, "Cash/Bank payment for expense");
 
+            // Create bridge table record
+            \App\Models\ExpenseJournal::create([
+                'expense_id' => $expense->id,
+                'journal_entry_id' => $journalEntry->id,
+            ]);
+
             DB::commit();
             return $journalEntry;
             
@@ -281,6 +315,12 @@ class BusinessTransactionJournalService
             // Create journal entry lines
             $this->createJournalEntryLine($journalEntry, $loanAccount->id, $loanPayment->amount, 0, 1, "Reduction in Loans Payable");
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $loanPayment->amount, 2, "Cash/Bank payment for loan");
+
+            // Create bridge table record
+            \App\Models\LoanJournal::create([
+                'loan_payment_id' => $loanPayment->id,
+                'journal_entry_id' => $journalEntry->id,
+            ]);
 
             DB::commit();
             return $journalEntry;
