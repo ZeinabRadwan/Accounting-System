@@ -28,6 +28,22 @@ class ProductResource extends JsonResource
             'itemUnit' => new UnitResource($this->productUnit),
             'itemBrand' => new BrandResource($this->productBrand),
             'itemTax' => new VatRateResource($this->productTax),
+            'salesAccount' => $this->whenLoaded('salesAccount', function () {
+                return [
+                    'id' => $this->salesAccount->id,
+                    'name' => $this->salesAccount->name,
+                    'code' => $this->salesAccount->code,
+                    'type' => $this->salesAccount->type ? $this->salesAccount->type->name : 'Unknown'
+                ];
+            }),
+            'purchaseAccount' => $this->whenLoaded('purchaseAccount', function () {
+                return [
+                    'id' => $this->purchaseAccount->id,
+                    'name' => $this->purchaseAccount->name,
+                    'code' => $this->purchaseAccount->code,
+                    'type' => $this->purchaseAccount->type ? $this->purchaseAccount->type->name : 'Unknown'
+                ];
+            }),
             'taxType' => $this->tax_type,
             'taxAmount' => $this->taxAmount(),
             'avgPurchasePrice' => $this->purchase_price,

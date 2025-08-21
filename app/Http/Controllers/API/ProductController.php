@@ -8,6 +8,7 @@ use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\VatRate;
+use App\Models\ChartOfAccount;
 use Illuminate\Http\Request;
 use App\Models\GeneralSetting;
 use App\Models\ProductCategory;
@@ -43,7 +44,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         return ProductListingResource::collection(Product::with('proSubCategory.category', 'productUnit', 'productTax',
-            'productBrand')->latest()->paginate($request->perPage));
+            'productBrand', 'salesAccount.type', 'purchaseAccount.type')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -128,6 +129,8 @@ class ProductController extends Controller
                 'brand_id' => $brand,
                 'unit_id' => $request->itemUnit['id'],
                 'tax_id' => $tax,
+                'sales_account_id' => $request->salesAccountId,
+                'purchase_account_id' => $request->purchaseAccountId,
                 'tax_type' => $request->taxType,
                 'regular_price' => $request->regularPrice,
                 'inventory_count' => $openingStockCount,
@@ -165,6 +168,30 @@ class ProductController extends Controller
     }
 
     /**
+     * Get chart of accounts for dropdown
+     */
+    public function getChartOfAccounts()
+    {
+        try {
+            $chartOfAccounts = ChartOfAccount::where('is_active', true)
+                ->with('type')
+                ->orderBy('name')
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'name' => $account->name,
+                        'code' => $account->code,
+                        'type' => $account->type ? $account->type->name : 'Unknown'
+                    ];
+                });
+            return response()->json($chartOfAccounts);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve chart of accounts.'], 500);
+        }
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -173,7 +200,7 @@ class ProductController extends Controller
     public function show($slug)
     {
         try {
-            $product = Product::where('slug', $slug)->with('proSubCategory.category')->first();
+            $product = Product::where('slug', $slug)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
 
             return new ProductResource($product);
         } catch (Exception $e) {
@@ -272,6 +299,8 @@ class ProductController extends Controller
                 'brand_id' => $brand,
                 'unit_id' => $request->itemUnit['id'],
                 'tax_id' => $tax,
+                'sales_account_id' => $request->salesAccountId,
+                'purchase_account_id' => $request->purchaseAccountId,
                 'tax_type' => $request->taxType,
                 'regular_price' => $request->regularPrice,
                 'purchase_price' => $request->itemType == 'product' ? $purchasePrice : $request->servicePurchasePrice,

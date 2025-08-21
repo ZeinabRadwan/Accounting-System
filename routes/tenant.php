@@ -257,6 +257,10 @@ Route::middleware([
         Route::get('/accounts/search', [AccountController::class, 'search']);
 Route::get('/all-accounts', [AccountController::class, 'allAccounts']);
 Route::get('/accounts/chart-of-accounts', [AccountController::class, 'getChartOfAccounts']);
+Route::get('/accounts/check-connection', [AccountController::class, 'checkAccountsConnection']);
+
+// Product chart of accounts
+Route::get('/products/chart-of-accounts', [ProductController::class, 'getChartOfAccounts']);
 Route::get('/accounts/transactions/{slug}', [AccountController::class, 'accountTransactions']);
 Route::get('/accounts/transactions/{slug}/search', [AccountController::class, 'searchTransactions']);
 Route::apiResource('accounts', AccountController::class);

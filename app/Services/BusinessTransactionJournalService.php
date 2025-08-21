@@ -54,7 +54,35 @@ class BusinessTransactionJournalService
 
             // Create journal entry lines
             $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, $totalAmount, 0, 1, "Accounts Receivable for Invoice {$invoice->invoice_no}");
-            $this->createJournalEntryLine($journalEntry, $salesRevenueAccount->id, 0, $totalAmount, 2, "Sales Revenue for Invoice {$invoice->invoice_no}");
+            
+            // Use product-specific sales accounts if available, otherwise use default
+            $salesAccountId = $salesRevenueAccount->id;
+            $salesDescription = "Sales Revenue for Invoice {$invoice->invoice_no}";
+            
+            // Check if we have product-specific sales accounts
+            $invoiceProducts = $invoice->invoiceProducts;
+            if ($invoiceProducts && $invoiceProducts->count() > 0) {
+                // Group by sales account to handle multiple products with different accounts
+                $salesByAccount = [];
+                foreach ($invoiceProducts as $invoiceProduct) {
+                    $product = $invoiceProduct->product;
+                    $accountId = $product && $product->sales_account_id ? $product->sales_account_id : $salesRevenueAccount->id;
+                    $amount = $invoiceProduct->quantity * $invoiceProduct->price;
+                    
+                    if (!isset($salesByAccount[$accountId])) {
+                        $salesByAccount[$accountId] = 0;
+                    }
+                    $salesByAccount[$accountId] += $amount;
+                }
+                
+                // Create separate journal entry lines for each sales account
+                foreach ($salesByAccount as $accountId => $amount) {
+                    $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, 2, "Sales Revenue for Invoice {$invoice->invoice_no}");
+                }
+            } else {
+                // Fallback to default sales account
+                $this->createJournalEntryLine($journalEntry, $salesAccountId, 0, $totalAmount, 2, $salesDescription);
+            }
 
             // Create bridge table record
             \App\Models\InvoiceJournal::create([
@@ -85,11 +113,18 @@ class BusinessTransactionJournalService
             
             // Try to get the bank account from the invoice payment transaction
             $bankAccount = null;
+            $cashbookAccount = null;
             $invoicePayment = $invoice->invoicePayments()->latest()->first();
             if ($invoicePayment && $invoicePayment->transaction_id) {
                 $transaction = \App\Models\AccountTransaction::find($invoicePayment->transaction_id);
                 if ($transaction && $transaction->account) {
+                    $cashbookAccount = $transaction->account;
                     $bankAccount = $transaction->account->chartOfAccount;
+                    
+                    // Validate that the cashbook account is connected to a chart of account
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
+                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+                    }
                 }
             }
             
@@ -173,8 +208,36 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $purchaseExpenseAccount->id, $totalAmount, 0, 1, "Purchase Expense for PO {$purchase->purchase_no}");
             $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, 0, $totalAmount, 2, "Accounts Payable for PO {$purchase->purchase_no}");
+            
+            // Use product-specific purchase accounts if available, otherwise use default
+            $purchaseAccountId = $purchaseExpenseAccount->id;
+            $purchaseDescription = "Purchase Expense for PO {$purchase->purchase_no}";
+            
+            // Check if we have product-specific purchase accounts
+            $purchaseProducts = $purchase->purchaseProducts;
+            if ($purchaseProducts && $purchaseProducts->count() > 0) {
+                // Group by purchase account to handle multiple products with different accounts
+                $purchasesByAccount = [];
+                foreach ($purchaseProducts as $purchaseProduct) {
+                    $product = $purchaseProduct->product;
+                    $accountId = $product && $product->purchase_account_id ? $product->purchase_account_id : $purchaseExpenseAccount->id;
+                    $amount = $purchaseProduct->quantity * $purchaseProduct->unit_cost;
+                    
+                    if (!isset($purchasesByAccount[$accountId])) {
+                        $purchasesByAccount[$accountId] = 0;
+                    }
+                    $purchasesByAccount[$accountId] += $amount;
+                }
+                
+                // Create separate journal entry lines for each purchase account
+                foreach ($purchasesByAccount as $accountId => $amount) {
+                    $this->createJournalEntryLine($journalEntry, $accountId, $amount, 0, 1, "Purchase Expense for PO {$purchase->purchase_no}");
+                }
+            } else {
+                // Fallback to default purchase account
+                $this->createJournalEntryLine($journalEntry, $purchaseAccountId, $totalAmount, 0, 1, $purchaseDescription);
+            }
 
             // Create bridge table record
             \App\Models\PurchaseJournal::create([
@@ -205,11 +268,18 @@ class BusinessTransactionJournalService
             
             // Try to get the bank account from the purchase payment transaction
             $bankAccount = null;
+            $cashbookAccount = null;
             $purchasePayment = $purchase->purchasePayments()->latest()->first();
             if ($purchasePayment && $purchasePayment->account_id) {
                 $account = \App\Models\Account::find($purchasePayment->account_id);
                 if ($account && $account->chartOfAccount) {
+                    $cashbookAccount = $account;
                     $bankAccount = $account->chartOfAccount;
+                    
+                    // Validate that the cashbook account is connected to a chart of account
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
+                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+                    }
                 }
             }
             
@@ -271,10 +341,17 @@ class BusinessTransactionJournalService
             
             // Try to get the bank account from the expense's linked account
             $bankAccount = null;
+            $cashbookAccount = null;
             if ($expense->account_id) {
                 $account = \App\Models\Account::find($expense->account_id);
                 if ($account && $account->chartOfAccount) {
+                    $cashbookAccount = $account;
                     $bankAccount = $account->chartOfAccount;
+                    
+                    // Validate that the cashbook account is connected to a chart of account
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
+                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+                    }
                 }
             }
             
@@ -335,10 +412,17 @@ class BusinessTransactionJournalService
             
             // Try to get the bank account from the non-invoice payment transaction
             $bankAccount = null;
+            $cashbookAccount = null;
             if ($nonInvoicePayment->transaction_id) {
                 $transaction = \App\Models\AccountTransaction::find($nonInvoicePayment->transaction_id);
                 if ($transaction && $transaction->account) {
+                    $cashbookAccount = $transaction->account;
                     $bankAccount = $transaction->account->chartOfAccount;
+                    
+                    // Validate that the cashbook account is connected to a chart of account
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
+                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+                    }
                 }
             }
             
@@ -399,10 +483,17 @@ class BusinessTransactionJournalService
             
             // Try to get the bank account from the loan payment's linked account
             $bankAccount = null;
+            $cashbookAccount = null;
             if ($loanPayment->account_id) {
                 $account = \App\Models\Account::find($loanPayment->account_id);
                 if ($account && $account->chartOfAccount) {
+                    $cashbookAccount = $account;
                     $bankAccount = $account->chartOfAccount;
+                    
+                    // Validate that the cashbook account is connected to a chart of account
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
+                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+                    }
                 }
             }
             
