@@ -472,9 +472,6 @@ const toast = {
 // Make toast available globally
 if (typeof window !== 'undefined') {
   window.toast = toast
-  console.log('Simple iziToast plugin loaded successfully!')
-  console.log('Toast methods available:', Object.keys(window.toast))
-  console.log('Toast will appear at top with RTL support (top-right for LTR, top-left for RTL)')
 }
 
 // Create Vue plugin

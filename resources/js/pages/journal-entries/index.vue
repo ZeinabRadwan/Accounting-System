@@ -33,7 +33,7 @@
                     v-model="searchQuery"
                     type="text"
                     class="form-control"
-                    :placeholder="$t('Search entries...')"
+                    :placeholder="$t('Search entries')"
                     @input="debounceSearch"
                   />
                 </div>
