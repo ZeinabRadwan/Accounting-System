@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_service')->default(0);
             $table->string('name');
             $table->string('slug');
             $table->string('code');
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->double('regular_price', 12, 2)->nullable();
             $table->double('discount', 5, 2)->nullable();
             $table->double('inventory_count', 12, 2)->nullable();
+            $table->double('opening_stock_count', 12, 2)->nullable();
+            $table->double('opening_stock_unit_price', 12, 2)->nullable();
             $table->unsignedTinyInteger('alert_qty')->nullable();
             $table->string('note')->nullable();
             $table->boolean('status')->nullable()->default(1);
@@ -34,11 +37,15 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->unsignedBigInteger('tax_id')->nullable();
+            $table->unsignedBigInteger('sales_account_id')->nullable();
+            $table->unsignedBigInteger('purchase_account_id')->nullable();
 
             $table->foreign('sub_cat_id')->references('id')->on('product_sub_categories')->onDelete('cascade')->onUpdate('no action');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null')->onUpdate('no action');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null')->onUpdate('no action');
             $table->foreign('tax_id')->references('id')->on('vat_rates')->onDelete('set null')->onUpdate('no action');
+            $table->foreign('sales_account_id')->references('id')->on('chart_of_accounts')->onDelete('set null');
+            $table->foreign('purchase_account_id')->references('id')->on('chart_of_accounts')->onDelete('set null');
         });
     }
 
