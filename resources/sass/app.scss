@@ -611,6 +611,98 @@ label:not(.form-check-label):not(.custom-file-label) {
   text-transform: capitalize;
 }
 
+/* ========================================
+   Breadcrumb RTL Support Styles
+   ======================================== */
+
+/* RTL Breadcrumb Layout Adjustments */
+[dir="rtl"] .breadcrumbs-style .row {
+  direction: rtl;
+}
+
+[dir="rtl"] .breadcrumbs-style h3 {
+  text-align: right;
+}
+
+[dir="rtl"] .breadcrumbs-style .col-sm-6:last-child {
+  text-align: left;
+}
+
+[dir="rtl"] .breadcrumbs-style .col-sm-6:first-child {
+  text-align: right;
+}
+
+/* RTL Breadcrumb Navigation */
+[dir="rtl"] .breadcrumb {
+  direction: rtl;
+  text-align: right;
+  float: right !important;
+}
+
+[dir="rtl"] .breadcrumb-item {
+  float: right;
+}
+
+[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
+  content: '<';
+  float: right;
+  padding-left: 0.5rem;
+  padding-right: 0;
+}
+
+[dir="rtl"] .breadcrumb-item:first-child {
+  padding-right: 0;
+}
+
+[dir="rtl"] .breadcrumb-item:last-child {
+  padding-left: 0;
+}
+
+/* RTL Breadcrumb Responsive Adjustments */
+@media (max-width: 575.98px) {
+  [dir="rtl"] .breadcrumbs-style .col-sm-6:last-child {
+    text-align: center;
+  }
+  
+  [dir="rtl"] .breadcrumbs-style .col-sm-6:first-child {
+    text-align: center;
+  }
+  
+  [dir="rtl"] .breadcrumb {
+    float: none !important;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  [dir="rtl"] .breadcrumb-item {
+    float: none;
+    display: inline-block;
+  }
+}
+
+/* Ensure proper spacing in both LTR and RTL */
+.breadcrumb {
+  margin-bottom: 0;
+}
+
+.breadcrumb-item {
+  display: inline-block;
+}
+
+.breadcrumb-item a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: #4f46e5;
+  text-decoration: underline;
+}
+
+.breadcrumb-item span {
+  color: #6c757d;
+}
+
 .table th,
 .table td {
   white-space: nowrap;
@@ -1865,3 +1957,83 @@ img.circle-img.circle-img--small {
   align-items: flex-start !important;
 }
 
+/* ========================================
+   Additional RTL Utility Classes for Breadcrumbs
+   ======================================== */
+
+/* Breadcrumb specific RTL utilities */
+[dir="rtl"] .breadcrumb-rtl {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+[dir="rtl"] .breadcrumb-ltr {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Float utilities for breadcrumbs */
+[dir="rtl"] .float-sm-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-sm-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-md-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-md-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-lg-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-lg-left {
+  float: right !important;
+}
+
+[dir="rtl"] .float-xl-right {
+  float: left !important;
+}
+
+[dir="rtl"] .float-xl-left {
+  float: right !important;
+}
+
+/* Text alignment utilities for breadcrumbs */
+[dir="rtl"] .text-sm-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-sm-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-md-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-md-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-lg-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-lg-left {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-xl-right {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-xl-left {
+  text-align: right !important;
+}

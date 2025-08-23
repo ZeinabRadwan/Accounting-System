@@ -124,7 +124,7 @@
 }
 
 [dir="rtl"] .card-title {
-  text-align: right;
+  float: right;
 }
 
 [dir="rtl"] .card-body {
@@ -175,14 +175,73 @@
 }
 
 /* Breadcrumb RTL adjustments */
+[dir="rtl"] .breadcrumb {
+  direction: rtl;
+  text-align: right;
+  float: right !important;
+}
+
+[dir="rtl"] .breadcrumb-item {
+  float: right;
+}
+
 [dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
-  padding-left: 0;
-  padding-right: 0.5rem;
+  content: '<';
+  float: right;
+  padding-left: 0.5rem;
+  padding-right: 0;
 }
 
 [dir="rtl"] .breadcrumb-item + .breadcrumb-item {
   padding-right: 0.5rem;
   padding-left: 0;
+}
+
+[dir="rtl"] .breadcrumb-item:first-child {
+  padding-right: 0;
+}
+
+[dir="rtl"] .breadcrumb-item:last-child {
+  padding-left: 0;
+}
+
+/* Breadcrumb layout RTL adjustments */
+[dir="rtl"] .breadcrumbs-style .row {
+  direction: rtl;
+}
+
+[dir="rtl"] .breadcrumbs-style h3 {
+  text-align: right;
+}
+
+[dir="rtl"] .breadcrumbs-style .col-sm-6:last-child {
+  text-align: left;
+}
+
+[dir="rtl"] .breadcrumbs-style .col-sm-6:first-child {
+  text-align: right;
+}
+
+/* Responsive breadcrumb RTL adjustments */
+@media (max-width: 575.98px) {
+  [dir="rtl"] .breadcrumbs-style .col-sm-6:last-child {
+    text-align: center;
+  }
+  
+  [dir="rtl"] .breadcrumbs-style .col-sm-6:first-child {
+    text-align: center;
+  }
+  
+  [dir="rtl"] .breadcrumb {
+    float: none !important;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  [dir="rtl"] .breadcrumb-item {
+    float: none;
+    display: inline-block;
+  }
 }
 
 /* List group RTL adjustments */
