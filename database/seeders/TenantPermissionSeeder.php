@@ -920,6 +920,11 @@ class TenantPermissionSeeder extends Seeder
                     'guard_name' => 'Report View',
                     'slug' => 'inventory-report',
                 ],
+                [
+                    'name' => 'VAT Report',
+                    'guard_name' => 'Report View',
+                    'slug' => 'vat-report',
+                ],
 
                 // setup permissions
                 [

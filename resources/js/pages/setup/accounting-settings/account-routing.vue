@@ -7,7 +7,15 @@
       </p>
     </div>
 
-    <div class="settings-container">
+    <!-- Loading State -->
+    <div v-if="isLoading" class="loading-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p class="loading-text">{{ $t('Loading Chart of Accounts...') }}</p>
+    </div>
+
+    <div v-else class="settings-container">
       <!-- Sales Module -->
       <div class="module-section">
         <div class="module-header">
@@ -25,7 +33,7 @@
               <span class="required" v-if="setting.is_required">*</span>
             </label>
             <p class="setting-description">{{ setting.description }}</p>
-            <v-select
+            <VSelect
               v-model="setting.parent_account_id"
               :options="getAccountsForType(setting.account_type)"
               :reduce="option => option.id"
@@ -48,7 +56,7 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-            </v-select>
+            </VSelect>
           </div>
         </div>
       </div>
@@ -70,7 +78,7 @@
               <span class="required" v-if="setting.is_required">*</span>
             </label>
             <p class="setting-description">{{ setting.description }}</p>
-            <v-select
+            <VSelect
               v-model="setting.parent_account_id"
               :options="getAccountsForType(setting.account_type)"
               :reduce="option => option.id"
@@ -93,7 +101,7 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-            </v-select>
+            </VSelect>
           </div>
         </div>
       </div>
@@ -115,7 +123,7 @@
               <span class="required" v-if="setting.is_required">*</span>
             </label>
             <p class="setting-description">{{ setting.description }}</p>
-            <v-select
+            <VSelect
               v-model="setting.parent_account_id"
               :options="getAccountsForType(setting.account_type)"
               :reduce="option => option.id"
@@ -138,7 +146,7 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-            </v-select>
+            </VSelect>
           </div>
         </div>
       </div>
@@ -160,7 +168,7 @@
               <span class="required" v-if="setting.is_required">*</span>
             </label>
             <p class="setting-description">{{ setting.description }}</p>
-            <v-select
+            <VSelect
               v-model="setting.parent_account_id"
               :options="getAccountsForType(setting.account_type)"
               :reduce="option => option.id"
@@ -183,7 +191,7 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-            </v-select>
+            </VSelect>
           </div>
         </div>
       </div>
@@ -205,7 +213,7 @@
               <span class="required" v-if="setting.is_required">*</span>
             </label>
             <p class="setting-description">{{ setting.description }}</p>
-            <v-select
+            <VSelect
               v-model="setting.parent_account_id"
               :options="getAccountsForType(setting.account_type)"
               :reduce="option => option.id"
@@ -228,7 +236,7 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-            </v-select>
+            </VSelect>
           </div>
         </div>
       </div>
@@ -250,7 +258,7 @@
               <span class="required" v-if="setting.is_required">*</span>
             </label>
             <p class="setting-description">{{ setting.description }}</p>
-            <v-select
+            <VSelect
               v-model="setting.parent_account_id"
               :options="getAccountsForType(setting.account_type)"
               :reduce="option => option.id"
@@ -273,7 +281,7 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-            </v-select>
+            </VSelect>
           </div>
         </div>
       </div>
@@ -295,11 +303,22 @@
     <div v-if="message" class="alert" :class="messageType">
       {{ message }}
     </div>
+
+    <!-- Debug Information (remove in production) -->
+    <div v-if="false" class="debug-panel">
+      <h4>Debug Info:</h4>
+      <p>Settings Count: {{ settings.length }}</p>
+      <p>Chart of Accounts Count: {{ getChartOfAccounts ? getChartOfAccounts.length : 0 }}</p>
+      <p>Loading: {{ isLoading }}</p>
+      <p>Sales Settings: {{ salesSettings.length }}</p>
+      <p>Purchase Settings: {{ purchaseSettings.length }}</p>
+      <p>VAT Settings: {{ vatSettings.length }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'AccountRoutingSettings',
@@ -308,11 +327,12 @@ export default {
       settings: [],
       saving: false,
       message: '',
-      messageType: 'alert-info'
+      messageType: 'alert-info',
+      chartOfAccounts: []
     }
   },
   computed: {
-    ...mapGetters('chartOfAccounts', ['getChartOfAccounts']),
+    ...mapGetters('chartOfAccounts', ['getChartOfAccounts', 'isLoading']),
     
     salesSettings() {
       return this.settings.filter(s => s.module === 'sales')
@@ -345,6 +365,8 @@ export default {
   },
   
   methods: {
+    ...mapActions('chartOfAccounts', ['fetchChartOfAccounts']),
+    
     async loadSettings() {
       try {
         const response = await this.$http.get('/api/account-routing-settings')
@@ -355,17 +377,27 @@ export default {
       }
     },
     
-         async loadChartOfAccounts() {
-       try {
-         await this.$store.dispatch('chartOfAccounts/fetchChartOfAccounts')
-       } catch (error) {
-         console.error('Error loading chart of accounts:', error)
-       }
-     },
+    async loadChartOfAccounts() {
+      try {
+        await this.fetchChartOfAccounts()
+        this.chartOfAccounts = this.getChartOfAccounts
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error)
+      }
+    },
     
     getAccountsForType(accountType) {
       const accounts = this.getChartOfAccounts
-      return accounts.filter(account => account.type === accountType)
+      if (!accounts || accounts.length === 0) {
+        return []
+      }
+      // Filter by account type name (account.type.name) or by account type if it's a string
+      return accounts.filter(account => {
+        if (account.type && typeof account.type === 'object' && account.type.name) {
+          return account.type.name === accountType
+        }
+        return account.type === accountType
+      })
     },
     
     async updateSetting(setting) {
@@ -560,6 +592,22 @@ export default {
   background-color: #d1ecf1;
   color: #0c5460;
   border: 1px solid #bee5eb;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 3rem;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }
 
 /* Responsive Design */

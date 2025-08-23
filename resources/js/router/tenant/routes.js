@@ -1135,6 +1135,12 @@ export default [
     meta: {permissions: ['inventory-report']},
   },
   {
+    path: '/reports/vat-report',
+    name: 'reports.vatReport',
+    component: page('reports/vat-report.vue'),
+    meta: {permissions: ['vat-report']},
+  },
+  {
     path: "/activity-log",
     name: "activity.log",
     component: page("activity-log.vue"),
