@@ -1,14 +1,14 @@
 /.zip
-
 # Dependencies
 /node_modules
 /vendor
-
 # Build files
 /public/js
 /public/css
 /public/mix-manifest.json
 /public/hot
+/public/images/vendor/*
+/public/fonts/vendor/*
 
 # Laravel specific
 /bootstrap/cache/*
