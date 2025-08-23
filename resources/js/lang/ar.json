@@ -1518,8 +1518,8 @@
   "View a chart of account": "عرض حساب محاسبي",
   "Delete a chart of account": "حذف حساب محاسبي",
   
-  "Journal Entries": "القيود اليومية",
-  "Journal Entry": "القيود اليومية",
+  "Journal Entries": "القيود",
+  "Journal Entry": "القيود",
   "Create Journal Entry": "إنشاء قيد يومي",
   "Edit Journal Entry": "تعديل القيد اليومي",
   "Journal Entry Details": "تفاصيل القيد اليومي",
