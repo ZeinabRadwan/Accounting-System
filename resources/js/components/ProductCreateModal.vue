@@ -1,11 +1,31 @@
 <template>
   <div>
-    <VModal v-model="showProductCreateModal" @close="showProductCreateModal = false">
-      <template v-slot:title>{{ $t("Create Product") }}</template>
-      <div class="w-100">
+         <VModal v-model="showProductCreateModal" @close="showProductCreateModal = false">
+       <template v-slot:title>{{ $t("Create Product") }}</template>
+       <div class="w-100">
         <!-- form start -->
         <form role="form" @keydown="form.onKeydown($event)">
           <div class="row">
+            <!-- Item Type Selection -->
+            <div class="form-group col-md-12">
+              <label>{{ $t("Item Type") }} <span class="required">*</span></label>
+              <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                <label 
+                  class="btn btn-outline-custom"
+                  :class="{ 'btn-custom-active': form.itemType === 'product' }">
+                  <input type="radio" id="product" name="itemType" v-model="form.itemType" value="product" autocomplete="off">
+                  {{ $t("Product") }}
+                </label>
+                <label 
+                  class="btn btn-outline-custom"
+                  :class="{ 'btn-custom-active': form.itemType === 'service' }">
+                  <input type="radio" id="service" name="itemType" v-model="form.itemType" value="service" autocomplete="off">
+                  {{ $t("Service") }}
+                </label>
+              </div>
+              <has-error :form="form" field="itemType" />
+            </div>
+
             <div class="form-group col-6">
               <label for="itemName">{{ $t("Item Name") }}
                 <span class="required">*</span></label>
@@ -14,7 +34,7 @@
                 :placeholder="$t('Enter a name')" />
               <has-error :form="form" field="itemName" />
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-12">
               <label for="itemModel">{{ $t("Item Model") }}</label>
               <input id="itemModel" v-model="form.itemModel" type="text" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('itemModel') }" name="itemModel"
@@ -101,6 +121,33 @@
                   " @change="calculatePrice" @keyup="calculatePrice" />
               <has-error :form="form" field="regularPrice" />
             </div>
+
+            <!-- Service Purchase Price (only for services) -->
+            <div v-if="form.itemType === 'service'" class="form-group col-6">
+              <label for="servicePurchasePrice">{{ $t("Service Purchase Price") }}
+                <span class="required">*</span></label>
+              <input id="servicePurchasePrice" v-model="form.servicePurchasePrice" type="number" step="any" min="0" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('servicePurchasePrice') }" name="servicePurchasePrice" 
+                :placeholder="$t('Enter service purchase price')" />
+              <has-error :form="form" field="servicePurchasePrice" />
+            </div>
+
+            <!-- Opening Stock Fields (only for products) -->
+            <div v-if="form.itemType === 'product'" class="form-group col-6">
+              <label for="openingStockCount">{{ $t("Opening Stock Count") }}</label>
+              <input id="openingStockCount" v-model="form.openingStockCount" type="number" step="any" min="0" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('openingStockCount') }" name="openingStockCount" 
+                :placeholder="$t('Enter opening stock count')" />
+              <has-error :form="form" field="openingStockCount" />
+            </div>
+            <div v-if="form.itemType === 'product'" class="form-group col-6">
+              <label for="openingStockUnitPrice">{{ $t("Opening Stock Unit Price") }}</label>
+              <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
+                :placeholder="$t('Enter opening stock unit price')" />
+              <has-error :form="form" field="openingStockUnitPrice" />
+            </div>
+
             <div class="form-group col-6">
               <div class="input-group">
                 <label for="discount" class="col-md-12">{{
@@ -125,6 +172,85 @@
                     " />
               <has-error :form="form" field="sellingPrice" />
             </div>
+
+            <!-- Chart of Account Fields -->
+            <div class="form-group col-6">
+              <label for="salesAccountId">{{ $t("Sales Account") }}</label>
+              <div class="d-flex align-items-center">
+                <v-select
+                  v-model="form.salesAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                  name="salesAccountId"
+                  :placeholder="$t('Select a sales account')"
+                  class="flex-grow-1 mr-2"
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <button 
+                  type="button" 
+                  @click="autoAssignSalesAccount" 
+                  :disabled="isAutoAssigningSales || form.salesAccountId"
+                  class="btn btn-outline-success btn-sm auto-assign-btn"
+                  :title="$t('Auto-assign sales account')"
+                >
+                  <i v-if="isAutoAssigningSales" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-magic"></i>
+                  {{ $t("Auto") }}
+                </button>
+              </div>
+              <has-error :form="form" field="salesAccountId" />
+              <small class="form-text text-muted">
+                {{ $t("Select a sales account or use auto-assign to automatically assign one") }}
+              </small>
+            </div>
+            <div class="form-group col-6">
+              <label for="purchaseAccountId">{{ $t("Purchase Account") }}</label>
+              <div class="d-flex align-items-center">
+                <v-select
+                  v-model="form.purchaseAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                  name="purchaseAccountId"
+                  :placeholder="$t('Select a purchase account')"
+                  class="flex-grow-1 mr-2"
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <button 
+                  type="button" 
+                  @click="autoAssignPurchaseAccount" 
+                  :disabled="isAutoAssigningPurchase || form.purchaseAccountId"
+                  class="btn btn-outline-info btn-sm auto-assign-btn"
+                  :title="$t('Auto-assign purchase account')"
+                >
+                  <i v-if="isAutoAssigningPurchase" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-magic"></i>
+                  {{ $t("Auto") }}
+                </button>
+              </div>
+              <has-error :form="form" field="purchaseAccountId" />
+              <small class="form-text text-muted">
+                {{ $t("Select a purchase account or use auto-assign to automatically assign one") }}
+              </small>
+            </div>
+
             <div class="form-group col-12">
               <label for="note">{{ $t("Note") }}</label>
               <textarea id="note" v-model="form.note" type="text" class="form-control"
@@ -195,6 +321,7 @@ export default {
   data: () => ({
     showProductCreateModal: false,
     form: new Form({
+      itemType: "product",
       itemName: "",
       itemCode: "",
       itemModel: "",
@@ -205,20 +332,28 @@ export default {
       productTax: "",
       taxType: "Exclusive",
       regularPrice: "",
+      servicePurchasePrice: "",
+      openingStockCount: "",
+      openingStockUnitPrice: "",
       discount: "",
       sellingPrice: "",
       note: "",
       alertQuantity: 1,
       status: 1,
       image: "",
+      salesAccountId: "",
+      purchaseAccountId: "",
     }),
     categories: [],
     options: [],
     units: [],
     brands: [],
     taxes: [],
+    chartOfAccounts: [],
     prefix: "",
     url: null,
+    isAutoAssigningSales: false,
+    isAutoAssigningPurchase: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -229,6 +364,7 @@ export default {
     this.getBrands();
     this.getTaxes();
     this.getItemCode();
+    this.loadChartOfAccounts();
   },
   methods: {
 
@@ -241,6 +377,16 @@ export default {
       this.saveProduct();
     },
 
+    // Load chart of accounts for sales and purchase account selection
+    async loadChartOfAccounts() {
+      try {
+        const { data } = await axios.get(window.location.origin + "/api/products/chart-of-accounts");
+        this.chartOfAccounts = data || [];
+      } catch (error) {
+        console.error("Error loading chart of accounts:", error);
+        this.chartOfAccounts = [];
+      }
+    },
 
     // get all product categories
     async getSubCategories() {
@@ -278,7 +424,7 @@ export default {
     },
     // calculate selling price
     calculatePrice() {
-      if (this.form.sellingPrice && this.form.productTax && this.form.taxType) {
+      if (this.form.regularPrice && this.form.productTax && this.form.taxType) {
         let discount = 0;
         if (this.form.discount && this.form.discount > 0) {
           discount = (this.form.discount / 100) * this.form.regularPrice;
@@ -304,7 +450,7 @@ export default {
         }
         return;
       }
-      return (this.form.sellingPrice = this.form.regularPrice);
+      this.form.sellingPrice = this.form.regularPrice;
     },
     // vue file upload
     onFileChange(e) {
@@ -326,6 +472,18 @@ export default {
     },
     // save product
     async saveProduct() {
+      // Validate required fields based on item type
+      if (this.form.itemType === 'service' && !this.form.servicePurchasePrice) {
+        toast.fire({ 
+          type: "error", 
+          title: this.$t("Service Purchase Price is required for services") 
+        });
+        return;
+      }
+
+      // Debug: Log form data being sent
+      console.log("Form data being sent:", this.form.data());
+
       await this.form
         .post(window.location.origin + "/api/products")
         .then(() => {
@@ -334,12 +492,67 @@ export default {
             title: this.$t("Product added successfully"),
           });
           this.form.reset();
+          this.form.itemType = "product"; // Reset to default
           this.showProductCreateModal = false;
           this.$emit('reloadProducts');
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        .catch((error) => {
+          console.error("Error creating product:", error);
+          const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+          toast.fire({ type: "error", title: errorMessage });
         });
+    },
+
+    // Auto-assign sales account
+    async autoAssignSalesAccount() {
+      if (this.isAutoAssigningSales) {
+        return;
+      }
+      this.isAutoAssigningSales = true;
+      try {
+        const response = await axios.post(window.location.origin + '/api/products/auto-assign-sales-account', {
+          itemType: this.form.itemType,
+        });
+        this.form.salesAccountId = response.data.salesAccountId;
+        toast.fire({
+          type: "success",
+          title: this.$t("Sales Account auto-assigned successfully"),
+        });
+      } catch (error) {
+        console.error("Error auto-assigning sales account:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to auto-assign sales account"),
+        });
+      } finally {
+        this.isAutoAssigningSales = false;
+      }
+    },
+
+    // Auto-assign purchase account
+    async autoAssignPurchaseAccount() {
+      if (this.isAutoAssigningPurchase) {
+        return;
+      }
+      this.isAutoAssigningPurchase = true;
+      try {
+        const response = await axios.post(window.location.origin + '/api/products/auto-assign-purchase-account', {
+          itemType: this.form.itemType,
+        });
+        this.form.purchaseAccountId = response.data.purchaseAccountId;
+        toast.fire({
+          type: "success",
+          title: this.$t("Purchase Account auto-assigned successfully"),
+        });
+      } catch (error) {
+        console.error("Error auto-assigning purchase account:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to auto-assign purchase account"),
+        });
+      } finally {
+        this.isAutoAssigningPurchase = false;
+      }
     },
   },
 }
@@ -348,5 +561,40 @@ export default {
 .create-button {
   text-decoration: none;
   cursor: pointer;
+}
+
+.btn-outline-custom {
+  border: 1px solid #ddd;
+  color: #666;
+  background-color: #fff;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus {
+  background-color: #f8f9fa;
+  border-color: #ddd;
+  color: #666;
+}
+
+.btn-custom-active {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #fff !important;
+}
+
+.auto-assign-btn {
+  min-width: 60px;
+  white-space: nowrap;
+}
+
+.auto-assign-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 5px;
 }
 </style>

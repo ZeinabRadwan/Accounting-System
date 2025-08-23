@@ -38,6 +38,56 @@
               <has-error :form="form" field="companyName" />
             </div>
           </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="type">{{ $t("Type") }}</label>
+              <select id="type" v-model="form.type" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('type') }">
+                <option value="Company">{{ $t("Company") }}</option>
+                <option value="Individual">{{ $t("Individual") }}</option>
+              </select>
+              <has-error :form="form" field="type" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="chartOfAccountId">{{ $t("Chart of Account") }} <span class="required">*</span></label>
+              <div class="d-flex align-items-center gap-2">
+                <v-select
+                  v-model="form.chartOfAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                  name="chartOfAccountId"
+                  :placeholder="$t('Select a chart of account')"
+                  class="flex-grow-1"
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <button 
+                  type="button" 
+                  @click="autoAssignChartOfAccount" 
+                  :disabled="isAutoAssigning || form.chartOfAccountId"
+                  class="btn btn-outline-primary btn-sm auto-assign-btn"
+                  :title="$t('Auto-assign chart of account')"
+                  style="flex-shrink: 0;"
+                >
+                  <i v-if="isAutoAssigning" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-magic"></i>
+                  {{ $t("Auto") }}
+                </button>
+              </div>
+              <has-error :form="form" field="chartOfAccountId" />
+              <small class="form-text text-muted">
+                {{ $t("Select a chart of account or use auto-assign to automatically assign one based on client type") }}
+              </small>
+            </div>
+          </div>
           <div class="form-group">
             <label for="address">{{ $t("Address") }}</label>
             <textarea id="address" v-model="form.address" class="form-control"
@@ -99,6 +149,7 @@
 import Form from "vform";
 import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
+import axios from 'axios';
 
 export default {
   name: "ClientCreateModal",
@@ -116,15 +167,33 @@ export default {
       companyName: "",
       address: "",
       image: "",
+      type: "Company",
       status: 1,
       isSendEmail: false,
       isSendSMS: false,
+      chartOfAccountId: "",
     }),
     isDemoMode: window.config.isDemoMode,
     loading: true,
     url: null,
+    chartOfAccounts: [],
+    isAutoAssigning: false,
   }),
+  created() {
+    this.loadChartOfAccounts();
+  },
   methods: {
+    // Load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const { data } = await axios.get(window.location.origin + '/api/clients/chart-of-accounts');
+        this.chartOfAccounts = data || [];
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        this.chartOfAccounts = [];
+      }
+    },
+
     // vue file upload
     onFileChange(e) {
       const file = e.target.files[0];
@@ -151,6 +220,15 @@ export default {
 
     // save client
     async saveClient() {
+      // Validate that Chart of Account is selected
+      if (!this.form.chartOfAccountId) {
+        toast.fire({
+          type: "error",
+          title: this.$t("Chart of Account is required"),
+        });
+        return;
+      }
+
       await this.form
         .post(window.location.origin + "/api/clients")
         .then(() => {
@@ -160,10 +238,14 @@ export default {
           });
           this.$emit("reloadClients");
           this.form.reset();
+          this.form.type = "Company"; // Reset to default
+          this.form.status = 1; // Reset to default
           this.showClientCreateModal = false;
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        .catch((error) => {
+          console.error("Error creating client:", error);
+          const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+          toast.fire({ type: "error", title: errorMessage });
         });
     },
 
@@ -174,6 +256,31 @@ export default {
     submitItem(evt) {
       evt.preventDefault();
       this.saveClient();
+    },
+
+    async autoAssignChartOfAccount() {
+      if (this.isAutoAssigning) {
+        return;
+      }
+      this.isAutoAssigning = true;
+      try {
+        const response = await axios.post(window.location.origin + '/api/clients/auto-assign-chart-of-account', {
+          type: this.form.type,
+        });
+        this.form.chartOfAccountId = response.data.chartOfAccountId;
+        toast.fire({
+          type: "success",
+          title: this.$t("Chart of Account auto-assigned successfully"),
+        });
+      } catch (error) {
+        console.error("Error auto-assigning chart of account:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to auto-assign chart of account"),
+        });
+      } finally {
+        this.isAutoAssigning = false;
+      }
     },
   },
 };
@@ -191,5 +298,27 @@ export default {
 
 .ti__dropdown-list {
   z-index: 2;
+}
+
+.auto-assign-btn {
+  min-width: 60px;
+  white-space: nowrap;
+}
+
+.auto-assign-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Make modal wider */
+.modal-content {
+  max-width: 1000px;
+  margin: 1.75rem auto;
 }
 </style>
