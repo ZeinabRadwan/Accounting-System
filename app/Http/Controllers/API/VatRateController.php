@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Exception;
 use App\Models\VatRate;
+use App\Models\ChartOfAccount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class VatRateController extends Controller
      */
     public function index(Request $request)
     {
-        return VatRateResource::collection(VatRate::latest()->paginate($request->perPage));
+        return VatRateResource::collection(VatRate::with(['salesVatAccount', 'purchaseVatAccount'])->latest()->paginate($request->perPage));
     }
 
     /**
@@ -51,6 +52,8 @@ class VatRateController extends Controller
                 'status' => $request->status,
                 'is_group_tax' => true,
                 'group_tax_ids' => $groupTaxIds,
+                'sales_vat_account_id' => $request->sales_vat_account_id,
+                'purchase_vat_account_id' => $request->purchase_vat_account_id,
             ]);
         } else {
             // Create a normal VAT rate
@@ -62,6 +65,8 @@ class VatRateController extends Controller
                 'status' => $request->status,
                 'is_group_tax' => false,
                 'group_tax_ids' => null,
+                'sales_vat_account_id' => $request->sales_vat_account_id,
+                'purchase_vat_account_id' => $request->purchase_vat_account_id,
             ]);
         }
 
@@ -89,7 +94,7 @@ class VatRateController extends Controller
     public function show($slug)
     {
         try {
-            $vatRate = VatRate::where('slug', $slug)->first();
+            $vatRate = VatRate::with(['salesVatAccount', 'purchaseVatAccount'])->where('slug', $slug)->first();
 
             return new VatRateResource($vatRate);
         } catch (Exception $e) {
@@ -121,8 +126,8 @@ class VatRateController extends Controller
                     'rate' => $totalRate,
                     'note' => $request->note,
                     'status' => $request->status,
-                    'is_group_tax' => true,
-                    'group_tax_ids' => $groupTaxIds,
+                    'sales_vat_account_id' => $request->sales_vat_account_id,
+                    'purchase_vat_account_id' => $request->purchase_vat_account_id,
                 ]);
             } else {
                 // Create a normal VAT rate
@@ -132,6 +137,8 @@ class VatRateController extends Controller
                     'rate' => $request->rate,
                     'note' => $request->note,
                     'status' => $request->status,
+                    'sales_vat_account_id' => $request->sales_vat_account_id,
+                    'purchase_vat_account_id' => $request->purchase_vat_account_id,
                 ]);
             }
 
@@ -176,7 +183,6 @@ class VatRateController extends Controller
                 ->useLog('VAT Rate Deleted')
                 ->log('VAT Rate Deleted');
 
-
             $vatRate->delete();
 
             return $this->responseWithSuccess('VAT rate deleted successfully');
@@ -195,7 +201,8 @@ class VatRateController extends Controller
     {
         $term = $request->term;
 
-        $query = VatRate::where('name', 'LIKE', '%'.$term.'%')
+        $query = VatRate::with(['salesVatAccount', 'purchaseVatAccount'])
+            ->where('name', 'LIKE', '%'.$term.'%')
             ->orWhere('code', 'LIKE', '%'.$term.'%')
             ->orWhere('rate', 'LIKE', '%'.$term.'%')
             ->latest()->paginate($request->perPage);
@@ -210,8 +217,143 @@ class VatRateController extends Controller
      */
     public function allVatRates()
     {
-        $vatRates = VatRate::where('status', 1)->latest()->get();
+        $vatRates = VatRate::with(['salesVatAccount', 'purchaseVatAccount'])->where('status', 1)->latest()->get();
 
         return VatRateResource::collection($vatRates);
+    }
+
+    /**
+     * Get VAT chart of accounts for dropdown selection
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getVatChartOfAccounts()
+    {
+        try {
+            // Get Sales VAT Payable accounts (Liability type)
+            $salesVatAccounts = ChartOfAccount::where('is_active', true)
+                ->where(function($query) {
+                    $query->where('name', 'like', '%Sales VAT Payable%')
+                          ->orWhere('name', 'like', '%VAT Payable%')
+                          ->orWhere('name', 'like', '%Tax Payable%');
+                })
+                ->with('type')
+                ->orderBy('name')
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'name' => $account->name,
+                        'code' => $account->code,
+                        'type' => $account->type ? $account->type->name : 'Unknown'
+                    ];
+                });
+
+            // Get Purchase VAT Receivable accounts (Asset type)
+            $purchaseVatAccounts = ChartOfAccount::where('is_active', true)
+                ->where(function($query) {
+                    $query->where('name', 'like', '%Purchase VAT Receivable%')
+                          ->orWhere('name', 'like', '%VAT Receivable%')
+                          ->orWhere('name', 'like', '%Tax Receivable%');
+                })
+                ->with('type')
+                ->orderBy('name')
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'name' => $account->name,
+                        'code' => $account->code,
+                        'type' => $account->type ? $account->type->name : 'Unknown'
+                    ];
+                });
+
+            // If no specific VAT accounts found, try to get accounts by type
+            if ($salesVatAccounts->isEmpty()) {
+                $salesVatAccounts = ChartOfAccount::where('is_active', true)
+                    ->whereHas('type', function($query) {
+                        $query->where('name', 'Liability');
+                    })
+                    ->where('name', 'like', '%Tax%')
+                    ->with('type')
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($account) {
+                        return [
+                            'id' => $account->id,
+                            'name' => $account->name,
+                            'code' => $account->code,
+                            'type' => $account->type ? $account->type->name : 'Unknown'
+                        ];
+                    });
+            }
+
+            if ($purchaseVatAccounts->isEmpty()) {
+                $purchaseVatAccounts = ChartOfAccount::where('is_active', true)
+                    ->whereHas('type', function($query) {
+                        $query->where('name', 'Asset');
+                    })
+                    ->where('name', 'like', '%Tax%')
+                    ->with('type')
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($account) {
+                        return [
+                            'id' => $account->id,
+                            'name' => $account->name,
+                            'code' => $account->code,
+                            'type' => $account->type ? $account->type->name : 'Unknown'
+                        ];
+                    });
+            }
+
+            return $this->responseWithSuccess('VAT chart of accounts retrieved successfully', [
+                'sales_vat_accounts' => $salesVatAccounts,
+                'purchase_vat_accounts' => $purchaseVatAccounts
+            ]);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Check if VAT rates are properly connected to chart of accounts
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkVatChartOfAccountConnections()
+    {
+        try {
+            $unconnectedVatRates = VatRate::where('status', 1)
+                ->where(function($query) {
+                    $query->whereNull('sales_vat_account_id')
+                          ->orWhereNull('purchase_vat_account_id');
+                })
+                ->get()
+                ->map(function ($vatRate) {
+                    return [
+                        'id' => $vatRate->id,
+                        'name' => $vatRate->name,
+                        'code' => $vatRate->code,
+                        'message' => $vatRate->getChartOfAccountValidationMessage()
+                    ];
+                });
+
+            $connectedVatRates = VatRate::where('status', 1)
+                ->whereNotNull('sales_vat_account_id')
+                ->whereNotNull('purchase_vat_account_id')
+                ->count();
+
+            $totalVatRates = VatRate::where('status', 1)->count();
+
+            return $this->responseWithSuccess('VAT chart of account connections checked successfully', [
+                'unconnected_vat_rates' => $unconnectedVatRates,
+                'connected_vat_rates' => $connectedVatRates,
+                'total_vat_rates' => $totalVatRates,
+                'connection_percentage' => $totalVatRates > 0 ? round(($connectedVatRates / $totalVatRates) * 100, 2) : 0
+            ]);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
     }
 }

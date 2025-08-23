@@ -648,4 +648,114 @@ class BusinessTransactionJournalService
             throw $e;
         }
     }
+
+    /**
+     * Create VAT journal entry for sales
+     */
+    public function createSalesVatJournal(float $vatAmount, string $reference, string $description, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Get VAT accounts
+            $salesVatAccount = $this->getDefaultAccount('Sales VAT Payable', 'Liability');
+            $accountsReceivableAccount = $this->getDefaultAccount('Accounts Receivable', 'Asset');
+            
+            if (!$salesVatAccount || !$accountsReceivableAccount) {
+                throw new Exception('Required VAT chart of accounts not found. Please ensure Sales VAT Payable and Accounts Receivable accounts exist.');
+            }
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => now(),
+                'reference' => $reference,
+                'description' => $description,
+                'total_debit' => $vatAmount,
+                'total_credit' => $vatAmount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => 'VAT',
+                'source_id' => null,
+            ]);
+
+            // Create journal entry lines
+            $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, $vatAmount, 0, 1, "VAT Receivable - {$description}");
+            $this->createJournalEntryLine($journalEntry, $salesVatAccount->id, 0, $vatAmount, 2, "VAT Payable - {$description}");
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Create VAT journal entry for purchases
+     */
+    public function createPurchaseVatJournal(float $vatAmount, string $reference, string $description, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Get VAT accounts
+            $purchaseVatAccount = $this->getDefaultAccount('Purchase VAT Receivable', 'Asset');
+            $accountsPayableAccount = $this->getDefaultAccount('Accounts Payable', 'Liability');
+            
+            if (!$purchaseVatAccount || !$accountsPayableAccount) {
+                throw new Exception('Required VAT chart of accounts not found. Please ensure Purchase VAT Receivable and Accounts Payable accounts exist.');
+            }
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => now(),
+                'reference' => $reference,
+                'description' => $description,
+                'total_debit' => $vatAmount,
+                'total_credit' => $vatAmount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => 'VAT',
+                'source_id' => null,
+            ]);
+
+            // Create journal entry lines
+            $this->createJournalEntryLine($journalEntry, $purchaseVatAccount->id, $vatAmount, 0, 1, "VAT Receivable - {$description}");
+            $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, 0, $vatAmount, 2, "VAT Payable - {$description}");
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Get VAT account by VAT rate
+     */
+    public function getVatAccountByRate(\App\Models\VatRate $vatRate, string $type = 'sales'): ?ChartOfAccount
+    {
+        if ($type === 'sales') {
+            return $vatRate->getSalesVatAccount();
+        } else {
+            return $vatRate->getPurchaseVatAccount();
+        }
+    }
+
+    /**
+     * Validate VAT rate chart of account connections
+     */
+    public function validateVatRateConnections(\App\Models\VatRate $vatRate): bool
+    {
+        return $vatRate->hasChartOfAccountConnections();
+    }
 }

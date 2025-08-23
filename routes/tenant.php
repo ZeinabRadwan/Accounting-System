@@ -180,6 +180,8 @@ Route::middleware([
         // VAT-RATE routes
         Route::get('/vat-rates/search', [VatRateController::class, 'search']);
         Route::get('/all-vat-rates', [VatRateController::class, 'allVatRates']);
+        Route::get('/vat-rates/chart-of-accounts', [VatRateController::class, 'getVatChartOfAccounts']);
+        Route::get('/vat-rates/check-connections', [VatRateController::class, 'checkVatChartOfAccountConnections']);
         Route::get('/smtp-info', [GeneralController::class, 'getSMTPforTenant']);
         Route::apiResource('vat-rates', VatRateController::class);
 

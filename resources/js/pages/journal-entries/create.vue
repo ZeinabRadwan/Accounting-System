@@ -104,21 +104,22 @@
                         <div class="col-md-3">
                           <div class="form-group">
                             <label>{{ $t('Chart of Account') }} <span class="text-danger">*</span></label>
-                            <select
+                            <v-select
                               v-model="line.chart_of_account_id"
-                              class="form-control"
+                              :options="chartOfAccounts"
+                              label="name"
                               :class="{ 'is-invalid': errors[`lines.${index}.chart_of_account_id`] }"
+                              :placeholder="$t('Select a Chart of Account')"
                               required
                             >
-                              <option value="">{{ $t('Select a Chart of Account') }}</option>
-                              <option
-                                v-for="account in chartOfAccounts"
-                                :key="account.id"
-                                :value="account.id"
-                              >
-                                {{ account.name }} ({{ account.code }})
-                              </option>
-                            </select>
+                              <template #option="{ name, code, type }">
+                                <div>
+                                  <strong>{{ name }}</strong>
+                                  <br>
+                                  <small class="text-muted">{{ code }} - {{ type }}</small>
+                                </div>
+                              </template>
+                            </v-select>
                             <div v-if="errors[`lines.${index}.chart_of_account_id`]" class="invalid-feedback">
                               {{ errors[`lines.${index}.chart_of_account_id`][0] }}
                             </div>

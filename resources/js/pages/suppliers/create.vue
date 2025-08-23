@@ -106,13 +106,23 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="chartOfAccountId">{{ $t("Chart of Account") }} <small class="text-muted">({{ $t("Optional - Auto-assigned if not selected") }})</small></label>
-                  <select id="chartOfAccountId" v-model="form.chartOfAccountId" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }">
-                    <option value="">{{ $t("Auto-assign based on type") }}</option>
-                    <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
-                      {{ account.name }} ({{ account.code }}) - {{ account.type }}
-                    </option>
-                  </select>
+                  <v-select
+                    v-model="form.chartOfAccountId"
+                    :options="chartOfAccounts"
+                    label="name"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                    name="chartOfAccountId"
+                    :placeholder="$t('Auto-assign based on type')"
+                    clearable
+                  >
+                    <template #option="{ name, code, type }">
+                      <div>
+                        <strong>{{ name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ code }} - {{ type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
                   <small class="form-text text-muted">{{ $t("Leave empty to automatically assign appropriate Chart of Account") }}</small>
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>

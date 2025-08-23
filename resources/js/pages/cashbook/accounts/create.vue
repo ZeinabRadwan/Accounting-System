@@ -50,13 +50,22 @@
                 <div class="form-group col-md-6">
                   <label for="chartOfAccountId">{{ $t('Chart of Account') }}
                     <span class="required">*</span></label>
-                  <select id="chartOfAccountId" v-model="form.chartOfAccountId" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }" name="chartOfAccountId">
-                    <option value="">{{ $t('Select a Chart of Account') }}</option>
-                    <option v-for="account in chartOfAccounts" :key="account.id" :value="account.id">
-                      {{ account.name }} ({{ account.code }}) - {{ account.type }}
-                    </option>
-                  </select>
+                  <v-select
+                    v-model="form.chartOfAccountId"
+                    :options="chartOfAccounts"
+                    label="name"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                    name="chartOfAccountId"
+                    :placeholder="$t('Select a Chart of Account')"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div>
+                        <strong>{{ name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ code }} - {{ type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>
                 <div class="form-group col-md-6">

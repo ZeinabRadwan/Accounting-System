@@ -31,6 +31,20 @@
             </div>
           </div>
           <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="alert alert-info" role="alert">
+                  <i class="fas fa-info-circle"></i>
+                  <strong>{{ $t("VAT Chart of Accounts") }}:</strong>
+                  {{ $t("Connect VAT rates to chart of accounts for proper journal entries") }}
+                </div>
+              </div>
+              <div class="col-md-6 text-right">
+                <button @click="checkConnections" class="btn btn-warning btn-sm">
+                  <i class="fas fa-check-circle"></i> {{ $t("Check Connections") }}
+                </button>
+              </div>
+            </div>
             <search class="col-md-12" v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
             <div class="col-md-12">
               <table-loading v-show="loading" />
@@ -42,6 +56,7 @@
                       <th>{{ $t("Name") }}</th>
                       <th>{{ $t("Short Code") }}</th>
                       <th>{{ $t("Rate") }}</th>
+                      <th>{{ $t("Chart of Accounts") }}</th>
                       <th>{{ $t("Status") }}</th>
                       <th class="text-right no-print">
                         {{ $t("Action") }}
@@ -63,6 +78,19 @@
                       <td>{{ data.name }}</td>
                       <td>{{ data.code }}</td>
                       <td>{{ data.rate }}%</td>
+                      <td>
+                        <div v-if="data.salesVatAccount || data.purchaseVatAccount" class="small">
+                          <div v-if="data.salesVatAccount" class="text-success">
+                            <i class="fas fa-arrow-up"></i> {{ data.salesVatAccount.name }}
+                          </div>
+                          <div v-if="data.purchaseVatAccount" class="text-info">
+                            <i class="fas fa-arrow-down"></i> {{ data.purchaseVatAccount.name }}
+                          </div>
+                        </div>
+                        <span v-else class="text-muted">
+                          <i class="fas fa-exclamation-triangle"></i> {{ $t("Not Connected") }}
+                        </span>
+                      </td>
                       <td>
                         <span v-if="data.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                         <span v-else class="badge bg-danger">{{
@@ -121,6 +149,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -243,6 +272,53 @@ export default {
             });
         }
       });
+    },
+
+    // check VAT chart of account connections
+    async checkConnections() {
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/vat-rates/check-connections"
+        );
+        
+        const connectionData = data.data;
+        const percentage = connectionData.connection_percentage;
+        const connected = connectionData.connected_vat_rates;
+        const total = connectionData.total_vat_rates;
+        const unconnected = connectionData.unconnected_vat_rates;
+        
+        let message = `<div class="text-left">`;
+        message += `<p><strong>Connection Status:</strong> ${percentage}% (${connected}/${total})</p>`;
+        
+        if (unconnected.length > 0) {
+          message += `<p><strong>Unconnected VAT Rates:</strong></p><ul>`;
+          unconnected.forEach(vatRate => {
+            message += `<li>${vatRate.name} (${vatRate.code})</li>`;
+          });
+          message += `</ul>`;
+        }
+        
+        message += `</div>`;
+        
+        Swal.fire({
+          title: this.$t("VAT Chart of Account Connections"),
+          html: message,
+          icon: percentage === 100 ? 'success' : percentage > 50 ? 'warning' : 'error',
+          confirmButtonText: this.$t("OK"),
+        });
+        
+        // Refresh data to show updated connections
+        this.getData();
+        
+      } catch (error) {
+        console.error('Error checking connections:', error);
+        Swal.fire({
+          title: this.$t("Error"),
+          text: this.$t("Failed to check VAT connections"),
+          icon: 'error',
+          confirmButtonText: this.$t("OK"),
+        });
+      }
     },
   },
 };
