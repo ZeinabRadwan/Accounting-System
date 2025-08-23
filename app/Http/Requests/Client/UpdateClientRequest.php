@@ -28,12 +28,12 @@ class UpdateClientRequest extends BaseRequest
         $client = Client::where('slug', $slug)->first();
         return [
             'name' => 'required|string|max:255',
-            'phoneNumber' => 'required|string|max:20|min:3|phone',
+            'phoneNumber' => 'required|string|max:20|min:3',
             'email' => 'nullable|email|max:255|min:3|unique:clients,email,'.$client->id,
             'companyName' => 'nullable|string|max:100|min:2',
             'address' => 'nullable|string|max:255',
             'type' => 'nullable|string|in:Company,Individual',
-            'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
+            'chartOfAccountId' => 'nullable|exists:chart_of_accounts,id',
         ];
     }
 }

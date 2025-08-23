@@ -800,4 +800,48 @@ ORDER BY `date`");
             ], 500);
         }
     }
+
+    /**
+     * Auto-assign Chart of Account to supplier
+     */
+    public function autoAssignChartOfAccount($slug)
+    {
+        try {
+            $supplier = Supplier::where('slug', $slug)->first();
+            
+            if (!$supplier) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Supplier not found'
+                ], 404);
+            }
+
+            // Auto-assign Chart of Account
+            $supplierData = [
+                'type' => $supplier->type ?? 'Company'
+            ];
+            $supplierData = Supplier::assignDefaultChartOfAccount($supplierData);
+            
+            if (isset($supplierData['chart_of_account_id'])) {
+                $supplier->update(['chart_of_account_id' => $supplierData['chart_of_account_id']]);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Chart of Account assigned successfully',
+                    'chart_of_account_id' => $supplierData['chart_of_account_id']
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No suitable Chart of Account found for automatic assignment'
+                ], 400);
+            }
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

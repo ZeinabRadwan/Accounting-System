@@ -31,6 +31,7 @@ use App\Http\Resources\ClientWithInvoicePaymentResource;
 use App\Http\Resources\ClientWithNonInvoicePaymentResource;
 use App\Models\ChartOfAccount;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
@@ -98,7 +99,7 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
-                'chart_of_account_id' => $request->chartOfAccountId,
+                'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
             ];
 
             // Auto-assign Chart of Account if not provided
@@ -206,7 +207,7 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
-                'chart_of_account_id' => $request->chartOfAccountId,
+                'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
             ]);
 
             // add activity log
@@ -613,7 +614,7 @@ class ClientController extends Controller
                 if ($validator->passes()) {
                     $data = $validator->validated();
                     $data['type'] = $data['type'] ?? 'Company';
-                    $data['slug'] = \Str::slug($data['name']);
+                    $data['slug'] = Str::slug($data['name']);
                     $data['status'] = 1;
                     
                     Client::create(
@@ -736,14 +737,14 @@ ORDER BY `date`");
     public function getChartOfAccounts()
     {
         try {
-            \Log::info('getChartOfAccounts: Starting to fetch chart of accounts');
+            Log::info('getChartOfAccounts: Starting to fetch chart of accounts');
             
             // Get all active chart of accounts without eager loading first
             $accounts = \App\Models\ChartOfAccount::where('is_active', true)
                 ->orderBy('name')
                 ->get();
             
-            \Log::info('getChartOfAccounts: Found ' . $accounts->count() . ' active accounts');
+            Log::info('getChartOfAccounts: Found ' . $accounts->count() . ' active accounts');
             
             $chartOfAccounts = collect();
             $processedCount = 0;
@@ -753,7 +754,7 @@ ORDER BY `date`");
                 try {
                     // Skip if account is null or missing essential data
                     if (!$account || !$account->id || !$account->name) {
-                        \Log::warning('getChartOfAccounts: Skipping account with missing data', [
+                        Log::warning('getChartOfAccounts: Skipping account with missing data', [
                             'account_id' => $account->id ?? 'null',
                             'account_name' => $account->name ?? 'null'
                         ]);
@@ -814,6 +815,50 @@ ORDER BY `date`");
             return response()->json([
                 'message' => 'Failed to retrieve chart of accounts.',
                 'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Auto-assign Chart of Account to client
+     */
+    public function autoAssignChartOfAccount($slug)
+    {
+        try {
+            $client = Client::where('slug', $slug)->first();
+            
+            if (!$client) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Client not found'
+                ], 404);
+            }
+
+            // Auto-assign Chart of Account
+            $clientData = [
+                'type' => $client->type ?? 'Company'
+            ];
+            $clientData = Client::assignDefaultChartOfAccount($clientData);
+            
+            if (isset($clientData['chart_of_account_id'])) {
+                $client->update(['chart_of_account_id' => $clientData['chart_of_account_id']]);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Chart of Account assigned successfully',
+                    'chart_of_account_id' => $clientData['chart_of_account_id']
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No suitable Chart of Account found for automatic assignment'
+                ], 400);
+            }
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
             ], 500);
         }
     }

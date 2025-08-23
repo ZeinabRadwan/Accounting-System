@@ -107,6 +107,7 @@
                     v-model="form.chartOfAccountId"
                     :options="chartOfAccounts"
                     label="name"
+                    :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
                     name="chartOfAccountId"
                     :placeholder="$t('Auto-assign based on type')"

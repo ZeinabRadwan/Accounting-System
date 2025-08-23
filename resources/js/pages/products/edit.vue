@@ -85,14 +85,14 @@
                 <div v-if="items" class="form-group col-md-6 col-xl-4">
                   <label for="subCategory">{{ $t('Sub Category') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.subCategory" :options="items" label="name"
+                  <v-select v-model="form.subCategory" :options="items" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
                     :placeholder="$t('Select a category')" />
                   <has-error :form="form" field="subCategory" />
                 </div>
                 <div v-if="brands" class="form-group col-md-6 col-xl-4">
                   <label for="brand">{{ $t('Brand') }}</label>
-                  <v-select v-model="form.brand" :options="brands" label="name"
+                  <v-select v-model="form.brand" :options="brands" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('brand') }" name="brand"
                     :placeholder="$t('Select a brand')" />
                   <has-error :form="form" field="brand" />
@@ -100,7 +100,7 @@
                 <div v-if="units" class="form-group col-md-6 col-xl-4">
                   <label for="itemUnit">{{ $t('Unit') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.itemUnit" :options="units" label="name"
+                  <v-select v-model="form.itemUnit" :options="units" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('itemUnit') }" name="itemUnit"
                     :placeholder="$t('Select a unit')" />
                   <has-error :form="form" field="itemUnit" />
@@ -108,7 +108,7 @@
                 <div v-if="taxes" class="form-group col-md-6 col-xl-4">
                   <label for="productTax">{{ $t('Product Tax') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.productTax" :options="taxes" label="name"
+                  <v-select v-model="form.productTax" :options="taxes" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('productTax') }" name="productTax"
                     :placeholder="$t('Select a tax')" @input="calculatePrice" />
                   <has-error :form="form" field="productTax" />
@@ -204,6 +204,7 @@
                     v-model="form.salesAccountId"
                     :options="chartOfAccounts"
                     label="name"
+                    :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
                     name="salesAccountId"
                     :placeholder="$t('Select a sales account')"
@@ -224,6 +225,7 @@
                     v-model="form.purchaseAccountId"
                     :options="chartOfAccounts"
                     label="name"
+                    :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
                     name="purchaseAccountId"
                     :placeholder="$t('Select a purchase account')"
@@ -460,9 +462,13 @@ export default {
 
         let taxAmount = 0
         let totalTax = 0
-        if (this.form.productTax.rate > 0) {
-          taxAmount = this.form.productTax.rate / 100
+        
+        // Find the selected tax object to get the rate
+        let selectedTax = this.taxes.find(tax => tax.id === this.form.productTax)
+        if (selectedTax && selectedTax.rate > 0) {
+          taxAmount = selectedTax.rate / 100
         }
+        
         if (this.form.taxType == 'Exclusive') {
           totalTax = currentPrice * taxAmount
         } else {

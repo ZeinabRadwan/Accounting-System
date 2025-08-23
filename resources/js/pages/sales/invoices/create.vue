@@ -18,6 +18,13 @@
           <!-- form start -->
           <form role="form" @submit.prevent="saveInvoice" @keydown="form.onKeydown($event)">
             <div class="card-body">
+              <!-- Chart of Account Validation -->
+              <ChartOfAccountValidation
+                :client="form.client"
+                :products="form.selectedProducts"
+                type="invoice"
+                @chart-of-account-assigned="handleChartOfAccountAssigned"
+              />
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
@@ -404,6 +411,7 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
+import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 import { ToWords } from 'to-words';
 
 export default {
@@ -414,7 +422,8 @@ export default {
   components: {
     ToggleButton,
     ClientCreateModal,
-    ProductCreateModal
+    ProductCreateModal,
+    ChartOfAccountValidation
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -803,6 +812,17 @@ export default {
         .catch(() => {
           toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
         });
+    },
+
+    // Handle chart of account assignment
+    handleChartOfAccountAssigned(data) {
+      if (data.entity === 'client') {
+        // Refresh client data
+        this.getClients();
+      } else if (data.entity === 'product') {
+        // Refresh product data
+        this.getProducts();
+      }
     },
   },
 };

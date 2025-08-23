@@ -102,10 +102,10 @@ class ProductController extends Controller
 
             $brand = $tax = $discount = null;
             if (isset($request->brand)) {
-                $brand = $request->brand['id'];
+                $brand = is_array($request->brand) ? $request->brand['id'] : $request->brand;
             }
             if (isset($request->productTax)) {
-                $tax = $request->productTax['id'];
+                $tax = is_array($request->productTax) ? $request->productTax['id'] : $request->productTax;
             }
             if ($request->discount) {
                 $discount = $request->discount;
@@ -118,6 +118,22 @@ class ProductController extends Controller
                 $openingStockUnitPrice = $request->openingStockUnitPrice;
             }
 
+            // Safely extract account IDs
+            $salesAccountId = null;
+            $purchaseAccountId = null;
+            
+            if ($request->salesAccountId) {
+                $salesAccountId = is_array($request->salesAccountId) || is_object($request->salesAccountId) 
+                    ? (is_array($request->salesAccountId) ? $request->salesAccountId['id'] : $request->salesAccountId->id)
+                    : $request->salesAccountId;
+            }
+            
+            if ($request->purchaseAccountId) {
+                $purchaseAccountId = is_array($request->purchaseAccountId) || is_object($request->purchaseAccountId)
+                    ? (is_array($request->purchaseAccountId) ? $request->purchaseAccountId['id'] : $request->purchaseAccountId->id)
+                    : $request->purchaseAccountId;
+            }
+
             // create product
             $product = Product::create([
                 'is_service' => $request->itemType == 'service'? true : false,
@@ -125,12 +141,12 @@ class ProductController extends Controller
                 'code' => $code,
                 'model' => $request->itemModel,
                 'barcode_symbology' => $request->barcodeSymbology,
-                'sub_cat_id' => $request->subCategory['id'],
+                'sub_cat_id' => is_array($request->subCategory) ? $request->subCategory['id'] : $request->subCategory,
                 'brand_id' => $brand,
-                'unit_id' => $request->itemUnit['id'],
+                'unit_id' => is_array($request->itemUnit) ? $request->itemUnit['id'] : $request->itemUnit,
                 'tax_id' => $tax,
-                'sales_account_id' => $request->salesAccountId,
-                'purchase_account_id' => $request->purchaseAccountId,
+                'sales_account_id' => $salesAccountId,
+                'purchase_account_id' => $purchaseAccountId,
                 'tax_type' => $request->taxType,
                 'regular_price' => $request->regularPrice,
                 'inventory_count' => $openingStockCount,
@@ -242,6 +258,8 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
 
+
+
             // upload thumbnail and set the name
             $imageName = $product->image_path;
             if ($request->image) {
@@ -257,11 +275,11 @@ class ProductController extends Controller
 
             $brand = $product->brand_id;
             if (isset($request->brand)) {
-                $brand = $request->brand['id'];
+                $brand = is_array($request->brand) ? $request->brand['id'] : $request->brand;
             }
             $tax = $product->tax_id;
             if (isset($request->productTax)) {
-                $tax = $request->productTax['id'];
+                $tax = is_array($request->productTax) ? $request->productTax['id'] : $request->productTax;
             }
             $discount = $product->discount;
             if ($request->discount) {
@@ -288,6 +306,22 @@ class ProductController extends Controller
                 $purchasePrice = $totalStockValue / $totalStockCount;
             }
 
+            // Safely extract account IDs
+            $salesAccountId = null;
+            $purchaseAccountId = null;
+            
+            if ($request->salesAccountId) {
+                $salesAccountId = is_array($request->salesAccountId) || is_object($request->salesAccountId) 
+                    ? (is_array($request->salesAccountId) ? $request->salesAccountId['id'] : $request->salesAccountId->id)
+                    : $request->salesAccountId;
+            }
+            
+            if ($request->purchaseAccountId) {
+                $purchaseAccountId = is_array($request->purchaseAccountId) || is_object($request->purchaseAccountId)
+                    ? (is_array($request->purchaseAccountId) ? $request->purchaseAccountId['id'] : $request->purchaseAccountId->id)
+                    : $request->purchaseAccountId;
+            }
+
             // update product
             $product->update([
                 'is_service' => $request->itemType == 'service'? true : false,
@@ -295,12 +329,12 @@ class ProductController extends Controller
                 'code' => $request->itemCode,
                 'model' => $request->itemModel,
                 'barcode_symbology' => $request->barcodeSymbology,
-                'sub_cat_id' => $request->subCategory['id'],
+                'sub_cat_id' => is_array($request->subCategory) ? $request->subCategory['id'] : $request->subCategory,
                 'brand_id' => $brand,
-                'unit_id' => $request->itemUnit['id'],
+                'unit_id' => is_array($request->itemUnit) ? $request->itemUnit['id'] : $request->itemUnit,
                 'tax_id' => $tax,
-                'sales_account_id' => $request->salesAccountId,
-                'purchase_account_id' => $request->purchaseAccountId,
+                'sales_account_id' => $salesAccountId,
+                'purchase_account_id' => $purchaseAccountId,
                 'tax_type' => $request->taxType,
                 'regular_price' => $request->regularPrice,
                 'purchase_price' => $request->itemType == 'product' ? $purchasePrice : $request->servicePurchasePrice,
@@ -681,4 +715,56 @@ class ProductController extends Controller
         fclose($handle);
     }
 
+    /**
+     * Auto-assign Chart of Account to product
+     */
+    public function autoAssignChartOfAccount($slug)
+    {
+        try {
+            $product = Product::where('slug', $slug)->first();
+            
+            if (!$product) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found'
+                ], 404);
+            }
+
+            // Auto-assign Chart of Account
+            $productData = [
+                'type' => $product->is_service ? 'Service' : 'Product'
+            ];
+            $productData = Product::assignDefaultChartOfAccount($productData);
+            
+            $updateData = [];
+            if (isset($productData['sales_account_id'])) {
+                $updateData['sales_account_id'] = $productData['sales_account_id'];
+            }
+            if (isset($productData['purchase_account_id'])) {
+                $updateData['purchase_account_id'] = $productData['purchase_account_id'];
+            }
+            
+            if (!empty($updateData)) {
+                $product->update($updateData);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Chart of Account assigned successfully',
+                    'sales_account_id' => $productData['sales_account_id'] ?? null,
+                    'purchase_account_id' => $productData['purchase_account_id'] ?? null
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No suitable Chart of Account found for automatic assignment'
+                ], 400);
+            }
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

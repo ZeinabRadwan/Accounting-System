@@ -106,6 +106,7 @@
                     v-model="form.chartOfAccountId"
                     :options="chartOfAccounts"
                     label="name"
+                    :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
                     name="chartOfAccountId"
                     :placeholder="$t('Select a Chart of Account')"
@@ -240,7 +241,17 @@ export default {
         this.form.address = data.data.address
         this.form.type = data.data.type || 'Company'
         this.form.status = data.data.status
-        this.form.chartOfAccountId = data.data.chart_of_account_id || ''
+        // Handle chart of account ID - ensure it's just the ID, not an object
+        if (data.data.chart_of_account_id) {
+          // If it's an object with id property, extract the id
+          if (typeof data.data.chart_of_account_id === 'object' && data.data.chart_of_account_id.id) {
+            this.form.chartOfAccountId = data.data.chart_of_account_id.id;
+          } else {
+            this.form.chartOfAccountId = data.data.chart_of_account_id;
+          }
+        } else {
+          this.form.chartOfAccountId = '';
+        }
         
         console.log('Chart of Account ID set to:', this.form.chartOfAccountId);
         console.log('Available chart accounts:', this.chartOfAccounts);

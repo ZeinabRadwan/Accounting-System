@@ -18,6 +18,13 @@
           <!-- form start -->
           <form role="form" @submit.prevent="createInvoice" @keydown="form.onKeydown($event)">
             <div class="card-body">
+              <!-- Chart of Account Validation -->
+              <ChartOfAccountValidation
+                :client="form.client"
+                :products="form.selectedProducts"
+                type="invoice"
+                @chart-of-account-assigned="handleChartOfAccountAssigned"
+              />
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t('Client') }}
@@ -322,11 +329,15 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Quotation To Invoice') }
+  },
+  components: {
+    ChartOfAccountValidation
   },
   data: () => ({
     breadcrumbsCurrent: 'Quotation To Invoice',
@@ -622,6 +633,17 @@ export default {
             title: this.$t('Opps...something went wrong'),
           })
         })
+    },
+
+    // Handle chart of account assignment
+    handleChartOfAccountAssigned(data) {
+      if (data.entity === 'client') {
+        // Refresh client data
+        this.getClients();
+      } else if (data.entity === 'product') {
+        // Refresh product data
+        this.getProducts();
+      }
     },
   },
 }

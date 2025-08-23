@@ -18,6 +18,13 @@
           <!-- form start -->
           <form role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
             <div class="card-body">
+              <!-- Chart of Account Validation -->
+              <ChartOfAccountValidation
+                :supplier="form.supplier"
+                :products="form.selectedProducts"
+                type="purchase"
+                @chart-of-account-assigned="handleChartOfAccountAssigned"
+              />
               <div class="row" v-if="items && products">
                 <div class="form-group col-md-12 col-xl-6">
                   <label for="supplier">{{ $t("Supplier") }}
@@ -382,6 +389,7 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ProductCreateModal from '~/components/ProductCreateModal'
 import SupplierCreateModal from '~/components/SupplierCreateModal'
+import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -391,7 +399,8 @@ export default {
   components: {
     ToggleButton,
     ProductCreateModal,
-    SupplierCreateModal
+    SupplierCreateModal,
+    ChartOfAccountValidation
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -663,6 +672,17 @@ export default {
         .catch(() => {
           toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
         });
+    },
+
+    // Handle chart of account assignment
+    handleChartOfAccountAssigned(data) {
+      if (data.entity === 'supplier') {
+        // Refresh supplier data
+        this.getSuppliers();
+      } else if (data.entity === 'product') {
+        // Refresh product data
+        this.getProducts();
+      }
     },
   },
 };

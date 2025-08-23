@@ -344,6 +344,7 @@ Route::middleware([
         Route::get('/all-clients', [ClientController::class, 'allClients']);
         Route::get('/clients-for-noninvoice-payments', [ClientController::class, 'clientsForNonInvoicePayments']);
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
+        Route::post('/clients/{slug}/auto-assign-chart-of-account', [ClientController::class, 'autoAssignChartOfAccount']);
         Route::get('/client/invoices/{slug}', [ClientController::class, 'clientInvoices']);
         Route::post('/client/filter-invoices', [ClientController::class, 'filterClientInvoices']);
         Route::get('/client/{slug}/invoices', [ClientController::class, 'specificClientInvoices']);
@@ -368,6 +369,7 @@ Route::middleware([
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
         Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
+        Route::post('/suppliers/{slug}/auto-assign-chart-of-account', [SupplierController::class, 'autoAssignChartOfAccount']);
         Route::get('/all-suppliers', [SupplierController::class, 'allSuppliers']);
         Route::get('/supplier/purchases/{slug}', [SupplierController::class, 'supplierPurchases']);
         Route::apiResource('suppliers', SupplierController::class);
@@ -430,6 +432,7 @@ Route::middleware([
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
         Route::get('/products/chart-of-accounts', [ProductController::class, 'getChartOfAccounts']);
+        Route::post('/products/{slug}/auto-assign-chart-of-account', [ProductController::class, 'autoAssignChartOfAccount']);
         Route::get('/all-products-not-service', [ProductController::class, 'allProductsNotService']);
         Route::get('/all-products', [ProductController::class, 'allProducts']);
         Route::get('/all-products-paginated', [ProductController::class, 'allProductsPaginated']);
