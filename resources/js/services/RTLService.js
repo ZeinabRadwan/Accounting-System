@@ -77,8 +77,8 @@ class RTLService {
       this.applyRTLMode()
       this.updateCSSVariables()
       
-      // Refresh iziToast configuration
-      this.refreshIziToast()
+      // Refresh custom toast configuration
+      this.refreshCustomToast()
       
       // Notify listeners
       this.notifyListeners()
@@ -151,23 +151,14 @@ class RTLService {
   }
 
   /**
-   * Refresh iziToast configuration
+   * Refresh custom toast configuration
    */
-  refreshIziToast() {
+  refreshCustomToast() {
     try {
       // Try to refresh through window.toast if available
       if (window.toast && typeof window.toast.refreshRTL === 'function') {
         window.toast.refreshRTL()
-        console.log('iziToast refreshed through window.toast.refreshRTL')
-      }
-
-      // Also try to refresh any existing iziToast instances
-      if (window.iziToast && typeof window.iziToast.settings === 'function') {
-        window.iziToast.settings({
-          position: this.isRTL ? 'top-left' : 'top-right',
-          rtl: this.isRTL
-        })
-        console.log('iziToast settings updated directly')
+        console.log('Custom toast refreshed through window.toast.refreshRTL')
       }
 
       // Force reposition existing toasts
@@ -177,7 +168,7 @@ class RTLService {
       this.forceContainerPositioning()
       
     } catch (error) {
-      console.warn('Error refreshing iziToast:', error)
+      console.warn('Error refreshing custom toast:', error)
     }
   }
 
@@ -187,18 +178,18 @@ class RTLService {
   repositionExistingToasts() {
     setTimeout(() => {
       try {
-        const containers = document.querySelectorAll('.iziToast-container, .iziToast-capsule')
+        const containers = document.querySelectorAll('.custom-toast-container')
         containers.forEach(container => {
           if (this.isRTL) {
             container.style.left = '20px'
             container.style.right = 'auto'
-            container.classList.remove('iziToast-topRight')
-            container.classList.add('iziToast-topLeft')
+            container.classList.add('rtl')
+            container.classList.remove('ltr')
           } else {
             container.style.right = '20px'
             container.style.left = 'auto'
-            container.classList.remove('iziToast-topLeft')
-            container.classList.add('iziToast-topRight')
+            container.classList.remove('rtl')
+            container.classList.add('ltr')
           }
         })
         
@@ -215,7 +206,7 @@ class RTLService {
   forceContainerPositioning() {
     setTimeout(() => {
       try {
-        const containers = document.querySelectorAll('.iziToast-container')
+        const containers = document.querySelectorAll('.custom-toast-container')
         containers.forEach(container => {
           // Force positioning styles
           container.style.position = 'fixed'
