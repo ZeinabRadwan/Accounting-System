@@ -68,13 +68,49 @@ export default {
       autoAssigning: {}
     }
   },
+  mounted() {
+    console.log('ChartOfAccountValidation component mounted')
+    console.log('Initial props:', {
+      client: this.client,
+      products: this.products,
+      type: this.type
+    })
+  },
+  watch: {
+    client: {
+      handler(newVal, oldVal) {
+        console.log('Client changed:', { new: newVal, old: oldVal })
+      },
+      deep: true
+    },
+    products: {
+      handler(newVal, oldVal) {
+        console.log('Products changed:', { new: newVal, old: oldVal })
+      },
+      deep: true
+    }
+  },
   computed: {
     validationErrors() {
+      console.log('Computing validation errors:', {
+        client: this.client,
+        products: this.products,
+        type: this.type
+      })
+      
       const errors = []
       
+      // Check if we have data to validate
+      if (!this.client && !this.products) {
+        console.log('No data to validate yet')
+        return errors
+      }
+      
       // Validate client (for invoices)
-      if (this.type === 'invoice' && this.client) {
+      if (this.type === 'invoice' && this.client && typeof this.client === 'object') {
+        console.log('Validating client:', this.client)
         if (!this.client.chart_of_account_id) {
+          console.log('Client missing chart of account')
           errors.push({
             message: this.$t('Client must have a Chart of Account assigned for journal entries'),
             field: 'client',
@@ -85,11 +121,13 @@ export default {
             autoAssignUrl: `/api/clients/${this.client.slug}/auto-assign-chart-of-account`,
             context: `Client: ${this.client.name}`
           })
+        } else {
+          console.log('Client has chart of account:', this.client.chart_of_account_id)
         }
       }
       
       // Validate supplier (for purchases)
-      if (this.type === 'purchase' && this.supplier) {
+      if (this.type === 'purchase' && this.supplier && typeof this.supplier === 'object') {
         if (!this.supplier.chart_of_account_id) {
           errors.push({
             message: this.$t('Supplier must have a Chart of Account assigned for journal entries'),
@@ -105,36 +143,43 @@ export default {
       }
       
       // Validate products
-      if (this.products && this.products.length > 0) {
+      if (this.products && Array.isArray(this.products) && this.products.length > 0) {
         this.products.forEach((product, index) => {
-          if (this.type === 'invoice' && !product.sales_account_id) {
-            errors.push({
-              message: this.$t('Product must have a Sales Account assigned for journal entries'),
-              field: 'sales_account_id',
-              entity: 'product',
-              entityId: product.id,
-              entitySlug: product.slug,
-              editUrl: `/products/${product.slug}/edit`,
-              autoAssignUrl: `/api/products/${product.slug}/auto-assign-chart-of-account`,
-              context: `Product ${index + 1}: ${product.name || 'Unknown'}`
-            })
-          }
-          
-          if (this.type === 'purchase' && !product.purchase_account_id) {
-            errors.push({
-              message: this.$t('Product must have a Purchase Account assigned for journal entries'),
-              field: 'purchase_account_id',
-              entity: 'product',
-              entityId: product.id,
-              entitySlug: product.slug,
-              editUrl: `/products/${product.slug}/edit`,
-              autoAssignUrl: `/api/products/${product.slug}/auto-assign-chart-of-account`,
-              context: `Product ${index + 1}: ${product.name || 'Unknown'}`
-            })
+          if (product && typeof product === 'object') {
+            console.log(`Validating product ${index + 1}:`, product)
+            if (this.type === 'invoice' && !product.sales_account_id) {
+              console.log(`Product ${index + 1} missing sales account`)
+              errors.push({
+                message: this.$t('Product must have a Sales Account assigned for journal entries'),
+                field: 'sales_account_id',
+                entity: 'product',
+                entityId: product.id,
+                entitySlug: product.slug,
+                editUrl: `/products/${product.slug}/edit`,
+                autoAssignUrl: `/api/products/${product.slug}/auto-assign-chart-of-account`,
+                context: `Product ${index + 1}: ${product.name || 'Unknown'}`
+              })
+            } else if (this.type === 'invoice') {
+              console.log(`Product ${index + 1} has sales account:`, product.sales_account_id)
+            }
+            
+            if (this.type === 'purchase' && !product.purchase_account_id) {
+              errors.push({
+                message: this.$t('Product must have a Purchase Account assigned for journal entries'),
+                field: 'purchase_account_id',
+                entity: 'product',
+                entityId: product.id,
+                entitySlug: product.slug,
+                editUrl: `/products/${product.slug}/edit`,
+                autoAssignUrl: `/api/products/${product.slug}/auto-assign-chart-of-account`,
+                context: `Product ${index + 1}: ${product.name || 'Unknown'}`
+              })
+            }
           }
         })
       }
       
+      console.log('Validation errors found:', errors.length)
       return errors
     }
   },
@@ -142,14 +187,25 @@ export default {
     async autoAssignChartOfAccount(error) {
       if (!error.autoAssignUrl) return
       
+      console.log('Starting auto-assignment for:', error)
       this.$set(error, 'isAutoAssigning', true)
       
       try {
         const response = await this.$http.post(error.autoAssignUrl)
+        console.log('Auto-assignment response:', response.data)
         
         if (response.data.success) {
           // Show success message
-          this.$toast.success(this.$t('Chart of Account assigned successfully'))
+          window.toast.fire({
+            icon: 'success',
+            title: this.$t('Chart of Account assigned successfully')
+          })
+          
+          console.log('Emitting chart-of-account-assigned event:', {
+            entity: error.entity,
+            entityId: error.entityId,
+            chartOfAccountId: response.data.chart_of_account_id
+          })
           
           // Emit event to refresh data
           this.$emit('chart-of-account-assigned', {
@@ -158,17 +214,26 @@ export default {
             chartOfAccountId: response.data.chart_of_account_id
           })
           
-          // Remove this error from the list
-          const index = this.validationErrors.findIndex(e => e === error)
-          if (index > -1) {
-            this.validationErrors.splice(index, 1)
+          // Remove this error from the list safely
+          try {
+            const index = this.validationErrors.findIndex(e => e === error)
+            if (index > -1) {
+              this.validationErrors.splice(index, 1)
+              console.log('Removed validation error from list')
+            }
+          } catch (removeError) {
+            console.error('Error removing validation error:', removeError)
           }
         }
       } catch (error) {
         console.error('Failed to auto-assign chart of account:', error)
-        this.$toast.error(this.$t('Failed to assign Chart of Account automatically'))
+        window.toast.fire({
+          icon: 'error',
+          title: this.$t('Failed to assign Chart of Account automatically')
+        })
       } finally {
         this.$set(error, 'isAutoAssigning', false)
+        console.log('Auto-assignment completed')
       }
     }
   }

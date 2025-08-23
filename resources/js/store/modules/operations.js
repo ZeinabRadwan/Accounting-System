@@ -125,8 +125,15 @@ export const actions = {
   },
   // Get All Data
   async allData({ commit }, { path }) {
-    const { data } = await axios.get(window.location.origin + path)
-    commit(types.FETCH_DATA, { items: data })
+    try {
+      const { data } = await axios.get(window.location.origin + path)
+      commit(types.FETCH_DATA, { items: data })
+    } catch (error) {
+      console.error('Error in allData action:', error)
+      // Don't throw error, just log it
+      // Return empty data to prevent crashes
+      commit(types.FETCH_DATA, { items: { data: [] } })
+    }
   },
   // Delete Data
   async deleteData({ commit }, { path, slug }) {

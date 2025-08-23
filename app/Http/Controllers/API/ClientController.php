@@ -311,7 +311,7 @@ class ClientController extends Controller
      */
     public function allClients()
     {
-        $clients = Client::where('status', 1)->latest()->get();
+        $clients = Client::with('chartOfAccount')->where('status', 1)->latest()->get();
 
         return ClientListResource::collection($clients);
     }

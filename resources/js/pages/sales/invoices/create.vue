@@ -472,6 +472,7 @@ export default {
     accounts: "",
     taxes: "",
     prefix: "",
+    isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -487,18 +488,23 @@ export default {
   methods: {
     // get all clients
     async getClients(selectedClient = 'default') {
-      await this.$store.dispatch("operations/allData", {
-        path: "/api/all-clients",
-      });
-      // assign default client
-      if (this.items && this.items.length > 0) {
-        let defaultClientSlug = this.appInfo.defaultClientSlug;
-        this.form.client = this.items.find(
-          (item) => item.slug === defaultClientSlug
-        );
-      }
-      if (selectedClient == 'latest') {
-        this.form.client = this.items[0];
+      try {
+        await this.$store.dispatch("operations/allData", {
+          path: "/api/all-clients",
+        });
+        // assign default client
+        if (this.items && this.items.length > 0) {
+          let defaultClientSlug = this.appInfo.defaultClientSlug;
+          this.form.client = this.items.find(
+            (item) => item.slug === defaultClientSlug
+          );
+        }
+        if (selectedClient == 'latest') {
+          this.form.client = this.items[0];
+        }
+      } catch (error) {
+        console.error('Error getting clients:', error)
+        // Don't show error toast here, just log for debugging
       }
     },
 
@@ -778,6 +784,16 @@ export default {
 
     // save invoice
     async saveInvoice() {
+      console.log('saveInvoice called - isUpdatingChartOfAccount:', this.isUpdatingChartOfAccount)
+      
+      // Prevent form submission during chart of account updates
+      if (this.isUpdatingChartOfAccount) {
+        console.log('Preventing form submission during chart of account update')
+        return
+      }
+      
+      console.log('Proceeding with invoice save...')
+      
       await this.form
         .post(window.location.origin + "/api/invoices")
         .then(({ data }) => {
@@ -815,13 +831,74 @@ export default {
     },
 
     // Handle chart of account assignment
-    handleChartOfAccountAssigned(data) {
-      if (data.entity === 'client') {
-        // Refresh client data
-        this.getClients();
-      } else if (data.entity === 'product') {
-        // Refresh product data
-        this.getProducts();
+    async handleChartOfAccountAssigned(data) {
+      console.log('Chart of account assigned:', data)
+      
+      // Set flag to prevent form submission during updates
+      this.isUpdatingChartOfAccount = true
+      
+      try {
+        if (data.entity === 'client') {
+          // Store current client selection
+          const currentClientSlug = this.form.client ? this.form.client.slug : null
+          
+          // Refresh client data
+          await this.getClients()
+          
+          // Restore client selection if it was set
+          if (currentClientSlug && this.items) {
+            this.form.client = this.items.find(client => client.slug === currentClientSlug)
+            console.log('Restored client selection:', this.form.client)
+          }
+        } else if (data.entity === 'product') {
+          // Store current product selections and their data
+          const currentProductSelections = this.form.selectedProducts.map(p => ({
+            id: p.id,
+            qty: p.qty,
+            unitPrice: p.unitPrice,
+            discount: p.discount,
+            discountType: p.discountType
+          }))
+          
+          // Refresh product data
+          await this.getProducts()
+          
+          // Restore product selections and update with new data
+          if (currentProductSelections.length > 0 && this.products) {
+            this.form.selectedProducts = currentProductSelections.map(selection => {
+              const updatedProduct = this.products.find(p => p.id === selection.id)
+              if (updatedProduct) {
+                // Preserve the user's selections (quantity, price, discount) while updating chart of account info
+                return {
+                  ...updatedProduct,
+                  qty: selection.qty,
+                  unitPrice: selection.unitPrice,
+                  discount: selection.discount,
+                  discountType: selection.discountType,
+                  // Recalculate totals based on preserved values
+                  totalPrice: selection.unitPrice * selection.qty,
+                  totalTax: (updatedProduct.taxType == "Exclusive" 
+                    ? selection.unitPrice * (updatedProduct.taxRate / 100)
+                    : selection.unitPrice - selection.unitPrice / (1 + updatedProduct.taxRate / 100)) * selection.qty
+                }
+              }
+              return null
+            }).filter(Boolean) // Remove any null entries
+            
+            console.log('Restored product selections:', this.form.selectedProducts)
+            
+            // Recalculate totals after updating products
+            this.calculateSum()
+          }
+        }
+      } catch (error) {
+        console.error('Error in handleChartOfAccountAssigned:', error)
+        // Don't show error toast here since the auto-assignment was successful
+        // Just log the error for debugging
+      } finally {
+        // Clear the flag after updates are complete
+        this.isUpdatingChartOfAccount = false
+        console.log('Chart of account update completed')
       }
     },
   },

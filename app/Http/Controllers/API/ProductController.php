@@ -473,7 +473,7 @@ class ProductController extends Controller
     public function allProducts()
     {
         $products = Product::with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->get();
+            'productTax', 'salesAccount', 'purchaseAccount')->where('status', 1)->latest()->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -486,7 +486,7 @@ class ProductController extends Controller
     public function allProductsNotService()
     {
         $products = Product::where('is_service', false)->with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->get();
+            'productTax', 'salesAccount', 'purchaseAccount')->where('status', 1)->latest()->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -497,7 +497,7 @@ class ProductController extends Controller
     public function allProductsPaginated()
     {
         $products = Product::with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->paginate(24);
+            'productTax', 'salesAccount', 'purchaseAccount')->where('status', 1)->latest()->paginate(24);
 
         return ProductSelectResource::collection($products);
     }
@@ -510,7 +510,7 @@ class ProductController extends Controller
     public function allProductsForSelect()
     {
         $products = Product::with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->get();
+            'productTax', 'salesAccount', 'purchaseAccount')->where('status', 1)->latest()->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -750,6 +750,7 @@ class ProductController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Chart of Account assigned successfully',
+                    'chart_of_account_id' => $productData['sales_account_id'] ?? $productData['purchase_account_id'],
                     'sales_account_id' => $productData['sales_account_id'] ?? null,
                     'purchase_account_id' => $productData['purchase_account_id'] ?? null
                 ]);

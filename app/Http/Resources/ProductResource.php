@@ -59,6 +59,9 @@ class ProductResource extends JsonResource
             'note' => $this->note,
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('images/products/'.$this->image_path) : '',
+            // Add chart of account IDs for validation
+            'sales_account_id' => $this->sales_account_id,
+            'purchase_account_id' => $this->purchase_account_id,
         ];
     }
 }
