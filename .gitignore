@@ -38,14 +38,59 @@
 ehthumbs.db
 Thumbs.db
 
-# Compiled assets
+# Compiled assets and build outputs
 /public/build
 /public/dist
 /public/assets
+/public/mix-manifest.json
+/public/hot
+/public/js
+/public/css
 
-# Flag icons (if these are auto-generated)
-/public/images/vendor/flag-icons/flags/
+# Node.js build artifacts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
 
-# Temporary files
+# Laravel Mix and Vite
+/mix-manifest.json
+/vite-manifest.json
+/public/build/
+/public/dist/
+
+# Composer
+composer.phar
+composer.lock
+
+# Package managers
+package-lock.json
+yarn.lock
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cache and temporary files
+*.cache
+*.log
 *.tmp
 *.temp
+*.bak
+*.backup
+
+# Flag icons and vendor assets (comprehensive)
+/public/images/vendor/
+/public/fonts/vendor/
+/public/js/vendor/
+/public/css/vendor/
+
+# Additional build artifacts
+*.min.js
+*.min.css
+*.map
+*.gz
+*.br
