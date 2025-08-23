@@ -14,6 +14,7 @@ use App\Models\GeneralSetting;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ProductResource;
@@ -721,31 +722,60 @@ class ProductController extends Controller
     public function autoAssignChartOfAccount($slug)
     {
         try {
+            Log::info('Product auto-assign started for slug: ' . $slug);
+            
             $product = Product::where('slug', $slug)->first();
             
             if (!$product) {
+                Log::error('Product not found for slug: ' . $slug);
                 return response()->json([
                     'success' => false,
                     'message' => 'Product not found'
                 ], 404);
             }
 
+            Log::info('Product found:', [
+                'id' => $product->id,
+                'name' => $product->name,
+                'is_service' => $product->is_service,
+                'current_sales_account_id' => $product->sales_account_id,
+                'current_purchase_account_id' => $product->purchase_account_id
+            ]);
+
             // Auto-assign Chart of Account
             $productData = [
                 'type' => $product->is_service ? 'Service' : 'Product'
             ];
+            
+            Log::info('Product data before assignment:', $productData);
+            
             $productData = Product::assignDefaultChartOfAccount($productData);
+            
+            Log::info('Product data after assignment:', $productData);
             
             $updateData = [];
             if (isset($productData['sales_account_id'])) {
                 $updateData['sales_account_id'] = $productData['sales_account_id'];
+                Log::info('Will update sales_account_id to: ' . $productData['sales_account_id']);
             }
             if (isset($productData['purchase_account_id'])) {
                 $updateData['purchase_account_id'] = $productData['purchase_account_id'];
+                Log::info('Will update purchase_account_id to: ' . $productData['purchase_account_id']);
             }
             
+            Log::info('Update data to be applied:', $updateData);
+            
             if (!empty($updateData)) {
-                $product->update($updateData);
+                $result = $product->update($updateData);
+                Log::info('Product update result:', ['success' => $result]);
+                
+                // Refresh the product to get updated values
+                $product->refresh();
+                
+                Log::info('Product after update:', [
+                    'sales_account_id' => $product->sales_account_id,
+                    'purchase_account_id' => $product->purchase_account_id
+                ]);
                 
                 return response()->json([
                     'success' => true,
@@ -755,6 +785,7 @@ class ProductController extends Controller
                     'purchase_account_id' => $productData['purchase_account_id'] ?? null
                 ]);
             } else {
+                Log::warning('No update data available for product: ' . $product->id);
                 return response()->json([
                     'success' => false,
                     'message' => 'No suitable Chart of Account found for automatic assignment'
@@ -762,6 +793,11 @@ class ProductController extends Controller
             }
             
         } catch (Exception $e) {
+            Log::error('Product auto-assign failed: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()

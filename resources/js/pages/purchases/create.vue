@@ -15,8 +15,6 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <!-- Chart of Account Validation -->
               <ChartOfAccountValidation
@@ -25,6 +23,8 @@
                 type="purchase"
                 @chart-of-account-assigned="handleChartOfAccountAssigned"
               />
+              <!-- form start -->
+              <form role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items && products">
                 <div class="form-group col-md-12 col-xl-6">
                   <label for="supplier">{{ $t("Supplier") }}
@@ -365,7 +365,7 @@
                   {{ $t("Send To SMS") }}
                 </div>
               </div>
-            </div>
+            </form>
             <!-- /.card-body -->
             <div class="card-footer">
               <v-button :loading="form.busy" class="btn btn-primary">
@@ -375,10 +375,10 @@
                 <i class="fas fa-power-off" /> {{ $t("Reset") }}
               </button>
             </div>
-          </form>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 

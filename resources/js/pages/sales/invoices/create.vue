@@ -15,16 +15,18 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="saveInvoice" @keydown="form.onKeydown($event)">
             <div class="card-body">
-              <!-- Chart of Account Validation -->
-              <ChartOfAccountValidation
-                :client="form.client"
-                :products="form.selectedProducts"
-                type="invoice"
-                @chart-of-account-assigned="handleChartOfAccountAssigned"
-              />
+                                 <!-- Chart of Account Validation -->
+                   <ChartOfAccountValidation
+                     :key="validationKey"
+                     :client="form.client"
+                     :products="form.selectedProducts"
+                     :allProducts="products"
+                     type="invoice"
+                     @chart-of-account-assigned="handleChartOfAccountAssigned"
+                   />
+              <!-- form start -->
+              <form role="form" @submit.prevent="saveInvoice" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
@@ -387,7 +389,7 @@
                   {{ $t("Send To SMS") }}
                 </div>
               </div>
-            </div>
+            </form>
             <!-- /.card-body -->
             <div class="card-footer">
               <v-button :loading="form.busy" class="btn btn-primary">
@@ -397,10 +399,10 @@
                 <i class="fas fa-power-off" /> {{ $t("Reset") }}
               </button>
             </div>
-          </form>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -473,6 +475,7 @@ export default {
     taxes: "",
     prefix: "",
     isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
+    validationKey: 0, // Force re-render of validation component
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -863,43 +866,61 @@ export default {
           // Refresh product data
           await this.getProducts()
           
-          // Restore product selections and update with new data
-          if (currentProductSelections.length > 0 && this.products) {
-            this.form.selectedProducts = currentProductSelections.map(selection => {
-              const updatedProduct = this.products.find(p => p.id === selection.id)
-              if (updatedProduct) {
-                // Preserve the user's selections (quantity, price, discount) while updating chart of account info
-                return {
-                  ...updatedProduct,
-                  qty: selection.qty,
-                  unitPrice: selection.unitPrice,
-                  discount: selection.discount,
-                  discountType: selection.discountType,
-                  // Recalculate totals based on preserved values
-                  totalPrice: selection.unitPrice * selection.qty,
-                  totalTax: (updatedProduct.taxType == "Exclusive" 
-                    ? selection.unitPrice * (updatedProduct.taxRate / 100)
-                    : selection.unitPrice - selection.unitPrice / (1 + updatedProduct.taxRate / 100)) * selection.qty
-                }
-              }
-              return null
-            }).filter(Boolean) // Remove any null entries
-            
-            console.log('Restored product selections:', this.form.selectedProducts)
-            
-            // Recalculate totals after updating products
-            this.calculateSum()
-          }
+                     // Restore product selections and update with new data
+           if (currentProductSelections.length > 0 && this.products) {
+             this.form.selectedProducts = currentProductSelections.map(selection => {
+               const updatedProduct = this.products.find(p => p.id === selection.id)
+               if (updatedProduct) {
+                 // Preserve the user's selections (quantity, price, discount) while updating chart of account info
+                 const restoredProduct = {
+                   ...updatedProduct,
+                   qty: selection.qty,
+                   unitPrice: selection.unitPrice,
+                   discount: selection.discount,
+                   discountType: selection.discountType,
+                   // Recalculate totals based on preserved values
+                   totalPrice: selection.unitPrice * selection.qty,
+                   totalTax: (updatedProduct.taxType == "Exclusive" 
+                     ? selection.unitPrice * (updatedProduct.taxRate / 100)
+                     : selection.unitPrice - selection.unitPrice / (1 + updatedProduct.taxRate / 100)) * selection.qty
+                 }
+                 
+                 console.log(`Restored product ${restoredProduct.name}:`, {
+                   id: restoredProduct.id,
+                   sales_account_id: restoredProduct.sales_account_id,
+                   purchase_account_id: restoredProduct.purchase_account_id
+                 })
+                 
+                 return restoredProduct
+               }
+               return null
+             }).filter(Boolean) // Remove any null entries
+             
+             console.log('Restored product selections:', this.form.selectedProducts)
+             
+             // Recalculate totals after updating products
+             this.calculateSum()
+           }
         }
       } catch (error) {
         console.error('Error in handleChartOfAccountAssigned:', error)
         // Don't show error toast here since the auto-assignment was successful
         // Just log the error for debugging
-      } finally {
-        // Clear the flag after updates are complete
-        this.isUpdatingChartOfAccount = false
-        console.log('Chart of account update completed')
-      }
+              } finally {
+          // Clear the flag after updates are complete
+          this.isUpdatingChartOfAccount = false
+          
+          // Force validation component to re-render with updated data
+          this.validationKey++
+          
+          // Wait for next tick to ensure validation component updates
+          await this.$nextTick()
+          
+          // Add a small delay to ensure data propagation
+          await new Promise(resolve => setTimeout(resolve, 100))
+          
+          console.log('Chart of account update completed, validation key updated to:', this.validationKey)
+        }
     },
   },
 };

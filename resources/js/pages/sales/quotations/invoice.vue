@@ -15,8 +15,6 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="createInvoice" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <!-- Chart of Account Validation -->
               <ChartOfAccountValidation
@@ -25,6 +23,8 @@
                 type="invoice"
                 @chart-of-account-assigned="handleChartOfAccountAssigned"
               />
+              <!-- form start -->
+              <form role="form" @submit.prevent="createInvoice" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t('Client') }}
@@ -308,7 +308,7 @@
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
-            </div>
+            </form>
             <!-- /.card-body -->
             <div class="card-footer">
               <v-button :loading="form.busy" class="btn btn-primary">
@@ -318,10 +318,10 @@
                 <i class="fas fa-power-off" /> {{ $t('Reset') }}
               </button>
             </div>
-          </form>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 

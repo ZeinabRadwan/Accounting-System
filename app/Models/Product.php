@@ -258,8 +258,12 @@ class Product extends Model implements HasMedia
      */
     public static function assignDefaultChartOfAccount($productData)
     {
-        // If accounts are already provided, use them
-        if (isset($productData['sales_account_id']) && $productData['sales_account_id']) {
+        // Check if both accounts are already assigned
+        $hasSalesAccount = isset($productData['sales_account_id']) && $productData['sales_account_id'];
+        $hasPurchaseAccount = isset($productData['purchase_account_id']) && $productData['purchase_account_id'];
+        
+        // If both accounts are already provided, use them
+        if ($hasSalesAccount && $hasPurchaseAccount) {
             return $productData;
         }
 
@@ -307,11 +311,13 @@ class Product extends Model implements HasMedia
                 ->first();
         }
 
-        if ($defaultSalesAccount) {
+        // Only assign sales account if not already set
+        if ($defaultSalesAccount && !$hasSalesAccount) {
             $productData['sales_account_id'] = $defaultSalesAccount->id;
         }
 
-        if ($defaultPurchaseAccount) {
+        // Only assign purchase account if not already set
+        if ($defaultPurchaseAccount && !$hasPurchaseAccount) {
             $productData['purchase_account_id'] = $defaultPurchaseAccount->id;
         }
 

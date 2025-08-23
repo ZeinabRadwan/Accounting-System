@@ -18,12 +18,14 @@
               :to="error.editUrl" 
               class="btn btn-sm btn-outline-primary mr-2"
               target="_blank"
+              type="button"
             >
               <i class="fas fa-edit mr-1"></i>
               {{ $t('Edit') }}
             </router-link>
             <button 
               v-if="error.autoAssignUrl" 
+              type="button"
               @click="autoAssignChartOfAccount(error)"
               class="btn btn-sm btn-outline-success"
               :disabled="error.isAutoAssigning"
@@ -42,27 +44,33 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'ChartOfAccountValidation',
-  props: {
-    client: {
-      type: Object,
-      default: null
-    },
-    products: {
-      type: Array,
-      default: () => []
-    },
-    supplier: {
-      type: Object,
-      default: null
-    },
-    type: {
-      type: String,
-      default: 'invoice', // 'invoice', 'purchase'
-      validator: value => ['invoice', 'purchase'].includes(value)
-    }
-  },
+     props: {
+     client: {
+       type: Object,
+       default: null
+     },
+     products: {
+       type: Array,
+       default: () => []
+     },
+     allProducts: {
+       type: Array,
+       default: () => []
+     },
+     supplier: {
+       type: Object,
+       default: null
+     },
+     type: {
+       type: String,
+       default: 'invoice', // 'invoice', 'purchase'
+       validator: value => ['invoice', 'purchase'].includes(value)
+     }
+   },
   data() {
     return {
       autoAssigning: {}
@@ -76,20 +84,28 @@ export default {
       type: this.type
     })
   },
-  watch: {
-    client: {
-      handler(newVal, oldVal) {
-        console.log('Client changed:', { new: newVal, old: oldVal })
-      },
-      deep: true
-    },
-    products: {
-      handler(newVal, oldVal) {
-        console.log('Products changed:', { new: newVal, old: oldVal })
-      },
-      deep: true
-    }
-  },
+     watch: {
+     client: {
+       handler(newVal, oldVal) {
+         console.log('Client changed:', { new: newVal, old: oldVal })
+       },
+       deep: true
+     },
+     products: {
+       handler(newVal, oldVal) {
+         console.log('Products changed:', { new: newVal, old: oldVal })
+       },
+       deep: true
+     },
+     allProducts: {
+       handler(newVal, oldVal) {
+         console.log('AllProducts changed:', { new: newVal?.length, old: oldVal?.length })
+         // Force re-computation of validation errors when allProducts changes
+         this.$forceUpdate()
+       },
+       deep: true
+     }
+   },
   computed: {
     validationErrors() {
       console.log('Computing validation errors:', {
@@ -144,10 +160,19 @@ export default {
       
       // Validate products
       if (this.products && Array.isArray(this.products) && this.products.length > 0) {
+        console.log('Validating products array:', this.products)
         this.products.forEach((product, index) => {
           if (product && typeof product === 'object') {
+            // Get the latest product data from allProducts to check chart of accounts
+            const latestProduct = this.allProducts.find(p => p.id === product.id)
+            const salesAccountId = latestProduct ? latestProduct.sales_account_id : product.sales_account_id
+            const purchaseAccountId = latestProduct ? latestProduct.purchase_account_id : product.purchase_account_id
+            
             console.log(`Validating product ${index + 1}:`, product)
-            if (this.type === 'invoice' && !product.sales_account_id) {
+            console.log(`Product ${index + 1} latest sales_account_id:`, salesAccountId)
+            console.log(`Product ${index + 1} latest purchase_account_id:`, purchaseAccountId)
+            
+            if (this.type === 'invoice' && !salesAccountId) {
               console.log(`Product ${index + 1} missing sales account`)
               errors.push({
                 message: this.$t('Product must have a Sales Account assigned for journal entries'),
@@ -160,10 +185,10 @@ export default {
                 context: `Product ${index + 1}: ${product.name || 'Unknown'}`
               })
             } else if (this.type === 'invoice') {
-              console.log(`Product ${index + 1} has sales account:`, product.sales_account_id)
+              console.log(`Product ${index + 1} has sales account:`, salesAccountId)
             }
             
-            if (this.type === 'purchase' && !product.purchase_account_id) {
+            if (this.type === 'purchase' && !purchaseAccountId) {
               errors.push({
                 message: this.$t('Product must have a Purchase Account assigned for journal entries'),
                 field: 'purchase_account_id',
@@ -191,7 +216,7 @@ export default {
       this.$set(error, 'isAutoAssigning', true)
       
       try {
-        const response = await this.$http.post(error.autoAssignUrl)
+        const response = await axios.post(error.autoAssignUrl)
         console.log('Auto-assignment response:', response.data)
         
         if (response.data.success) {
@@ -225,8 +250,8 @@ export default {
             console.error('Error removing validation error:', removeError)
           }
         }
-      } catch (error) {
-        console.error('Failed to auto-assign chart of account:', error)
+      } catch (apiError) {
+        console.error('Failed to auto-assign chart of account:', apiError)
         this.$toast.fire({
           icon: 'error',
           title: this.$t('Failed to assign Chart of Account automatically')
