@@ -34,6 +34,7 @@ class TenantDatabaseSeeder extends Seeder
                 TenantMenuSeeder::class,
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
+                AccountRoutingSettingsSeeder::class, // Add account routing settings
             ]);
         }
         // for production
@@ -52,6 +53,7 @@ class TenantDatabaseSeeder extends Seeder
                 TenantMenuSeeder::class,
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
+                AccountRoutingSettingsSeeder::class, // Add account routing settings
             ]);
         }
     }

@@ -20,8 +20,7 @@ class AccountRoutingController extends Controller
             $settings = AccountRoutingSetting::with('parentAccount.type')
                 ->orderBy('module')
                 ->orderBy('setting_key')
-                ->get()
-                ->groupBy('module');
+                ->get();
 
             return $this->responseWithSuccess('Account routing settings retrieved successfully', $settings);
         } catch (Exception $e) {
