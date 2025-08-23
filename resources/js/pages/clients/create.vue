@@ -3,6 +3,14 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
+    
+    <!-- Chart of Account Validation Component -->
+    <ChartOfAccountValidation 
+      :client="clientData" 
+      :type="'invoice'"
+      @chart-of-account-assigned="onChartOfAccountAssigned"
+    />
+    
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
@@ -101,27 +109,40 @@
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="chartOfAccountId">{{ $t("Chart of Account") }} <small class="text-muted">({{ $t("Optional - Auto-assigned if not selected") }})</small></label>
-                  <v-select
-                    v-model="form.chartOfAccountId"
-                    :options="chartOfAccounts"
-                    label="name"
-                    :reduce="option => option.id"
-                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                    name="chartOfAccountId"
-                    :placeholder="$t('Auto-assign based on type')"
-                    clearable
-                  >
-                    <template #option="{ name, code, type }">
-                      <div>
-                        <strong>{{ name }}</strong>
-                        <br>
-                        <small class="text-muted">{{ code }} - {{ type }}</small>
-                      </div>
-                    </template>
-                  </v-select>
-                  <small class="form-text text-muted">{{ $t("Leave empty to automatically assign appropriate Chart of Account") }}</small>
+                <div class="form-group col-md-6 chart-of-account-field">
+                  <label for="chartOfAccountId">{{ $t("Chart of Account") }}
+                    <span class="required">*</span></label>
+                  <div class="d-flex align-items-center">
+                    <v-select
+                      v-model="form.chartOfAccountId"
+                      :options="chartOfAccounts"
+                      label="name"
+                      :reduce="option => option.id"
+                      :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                      name="chartOfAccountId"
+                      :placeholder="$t('Select a Chart of Account')"
+                      class="flex-grow-1 mr-2"
+                    >
+                      <template #option="{ name, code, type }">
+                        <div>
+                          <strong>{{ name }}</strong>
+                          <br>
+                          <small class="text-muted">{{ code }} - {{ type }}</small>
+                        </div>
+                      </template>
+                    </v-select>
+                    <button 
+                      type="button"
+                      @click="autoAssignChartOfAccount"
+                      class="btn btn-outline-success auto-assign-btn"
+                      :disabled="isAutoAssigning"
+                      title="Auto-assign Chart of Account"
+                    >
+                      <i :class="isAutoAssigning ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                      {{ isAutoAssigning ? $t('Assigning...') : $t('Auto-Assign') }}
+                    </button>
+                  </div>
+                  <small class="form-text text-muted">{{ $t("Chart of Account is required for journal entries. Use Auto-Assign to automatically assign a suitable account.") }}</small>
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>
                 <div class="form-group col-12 d-flex flex-wrap">
@@ -158,6 +179,7 @@
 import Form from "vform";
 import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
+import ChartOfAccountValidation from "../../components/ChartOfAccountValidation.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -167,6 +189,7 @@ export default {
   components: {
     VueTelInput,
     ToggleButton,
+    ChartOfAccountValidation,
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -202,6 +225,8 @@ export default {
     loading: true,
     url: null,
     chartOfAccounts: [],
+    isAutoAssigning: false,
+    clientData: {}, // Added for ChartOfAccountValidation component
   }),
   created() {
     this.loadChartOfAccounts();
@@ -244,6 +269,15 @@ export default {
 
     // save client
     async saveClient() {
+      // Validate that Chart of Account is selected
+      if (!this.form.chartOfAccountId) {
+        toast.fire({
+          type: "error",
+          title: this.$t("Chart of Account is required"),
+        });
+        return;
+      }
+      
       await this.form
         .post(window.location.origin + "/api/clients")
         .then(() => {
@@ -257,6 +291,86 @@ export default {
           toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
         });
     },
+
+    async autoAssignChartOfAccount() {
+      if (this.isAutoAssigning) {
+        return;
+      }
+      this.isAutoAssigning = true;
+      
+      try {
+        // For new clients, we need to simulate the auto-assignment logic
+        // since the client doesn't exist in the database yet
+        const clientData = {
+          type: this.form.type || 'Company',
+          name: this.form.name,
+          email: this.form.email,
+          phoneNumber: this.form.phoneNumber,
+          companyName: this.form.companyName,
+          taxRegistrationNumber: this.form.taxRegistrationNumber,
+          address: this.form.address,
+        };
+        
+        // Use the same logic as the backend but on the frontend
+        let defaultAccount = null;
+        
+        if (clientData.type === 'Company') {
+          // Look for "Accounts Receivable - Companies" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('accounts receivable') && 
+            account.name.toLowerCase().includes('company')
+          );
+        } else if (clientData.type === 'Individual') {
+          // Look for "Accounts Receivable - Individuals" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('accounts receivable') && 
+            account.name.toLowerCase().includes('individual')
+          );
+        }
+        
+        // Fallback to any Accounts Receivable account
+        if (!defaultAccount) {
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('accounts receivable')
+          );
+        }
+        
+        // Final fallback to any active account
+        if (!defaultAccount && this.chartOfAccounts.length > 0) {
+          defaultAccount = this.chartOfAccounts[0];
+        }
+        
+        if (defaultAccount) {
+          this.form.chartOfAccountId = defaultAccount.id;
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account auto-assigned successfully"),
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("No suitable Chart of Account found for automatic assignment"),
+          });
+        }
+      } catch (error) {
+        console.error('Error auto-assigning chart of account:', error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to auto-assign Chart of Account"),
+        });
+      } finally {
+        this.isAutoAssigning = false;
+      }
+    },
+
+    // Callback from ChartOfAccountValidation component
+    onChartOfAccountAssigned(chartOfAccount) {
+      this.form.chartOfAccountId = chartOfAccount.id;
+      toast.fire({
+        type: "success",
+        title: this.$t("Chart of Account auto-assigned successfully"),
+      });
+    },
   },
 };
 </script>
@@ -264,5 +378,39 @@ export default {
 <style scoped>
 .vue-tel-input {
   padding: 3px;
+}
+
+.chart-of-account-field {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  margin-bottom: 20px;
+}
+
+.chart-of-account-field label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.chart-of-account-field .required {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.auto-assign-btn {
+  min-width: 120px;
+}
+
+.auto-assign-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 5px;
 }
 </style>

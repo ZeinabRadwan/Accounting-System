@@ -3,6 +3,14 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
+    
+    <!-- Chart of Account Validation Component -->
+    <ChartOfAccountValidation 
+      :client="clientData" 
+      :type="'invoice'"
+      @chart-of-account-assigned="onChartOfAccountAssigned"
+    />
+    
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
@@ -100,27 +108,43 @@
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="chartOfAccountId">{{ $t("Chart of Account") }}</label>
-                  <v-select
-                    v-model="form.chartOfAccountId"
-                    :options="chartOfAccounts"
-                    label="name"
-                    :reduce="option => option.id"
-                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                    name="chartOfAccountId"
-                    :placeholder="$t('Select a Chart of Account')"
-                    clearable
-                  >
-                    <template #option="{ name, code, type }">
-                      <div>
-                        <strong>{{ name }}</strong>
-                        <br>
-                        <small class="text-muted">{{ code }} - {{ type }}</small>
-                      </div>
-                    </template>
-                  </v-select>
+                <div class="form-group col-md-6 chart-of-account-field">
+                  <label for="chartOfAccountId">{{ $t("Chart of Account") }}
+                    <span class="required">*</span></label>
+                  <div class="d-flex align-items-center">
+                    <v-select
+                      v-model="form.chartOfAccountId"
+                      :options="chartOfAccounts"
+                      label="name"
+                      :reduce="option => option.id"
+                      :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                      name="chartOfAccountId"
+                      :placeholder="$t('Select a Chart of Account')"
+                      class="flex-grow-1 mr-2"
+                    >
+                      <template #option="{ name, code, type }">
+                        <div>
+                          <strong>{{ name }}</strong>
+                          <br>
+                          <small class="text-muted">{{ code }} - {{ type }}</small>
+                        </div>
+                      </template>
+                    </v-select>
+                    <button 
+                      type="button"
+                      @click="autoAssignChartOfAccount"
+                      class="btn btn-outline-success auto-assign-btn"
+                      :disabled="isAutoAssigning"
+                      title="Auto-assign Chart of Account"
+                    >
+                      <i :class="isAutoAssigning ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                      {{ isAutoAssigning ? $t('Assigning...') : $t('Auto-Assign') }}
+                    </button>
+                  </div>
                   <has-error :form="form" field="chartOfAccountId" />
+                  <small class="form-text text-muted">
+                    {{ $t('Chart of Account is required for journal entries. Use Auto-Assign to automatically assign a suitable account.') }}
+                  </small>
                 </div>
               </div>
             </div>
@@ -143,8 +167,12 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
+import ChartOfAccountValidation from '../../components/ChartOfAccountValidation.vue'
 
 export default {
+  components: {
+    ChartOfAccountValidation
+  },
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Edit Client') }
@@ -180,6 +208,8 @@ export default {
     loading: true,
     url: null,
     chartOfAccounts: [],
+    clientData: null,
+    isAutoAssigning: false,
   }),
   created() {
     // Don't load chart accounts here - wait for authentication
@@ -231,6 +261,9 @@ export default {
           window.location.origin + '/api/clients/' + this.$route.params.slug
         )
         console.log('Client data received:', data);
+        
+        // Set clientData for validation component
+        this.clientData = data.data;
         
         this.form.name = data.data.name
         this.form.clientID = data.data.clientID
@@ -288,6 +321,15 @@ export default {
 
     // update client
     async saveClient() {
+      // Validate that Chart of Account is selected
+      if (!this.form.chartOfAccountId) {
+        this.$toast.fire({
+          icon: 'error',
+          title: this.$t('Chart of Account is required')
+        });
+        return;
+      }
+      
       await this.form
         .patch(
           window.location.origin + '/api/clients/' + this.$route.params.slug
@@ -306,6 +348,101 @@ export default {
           })
         })
     },
+
+    // Auto-assign Chart of Account
+    async autoAssignChartOfAccount() {
+      if (!this.$route.params.slug) return
+      
+      this.isAutoAssigning = true
+      
+      try {
+        const response = await this.$http.post(`/api/clients/${this.$route.params.slug}/auto-assign-chart-of-account`)
+        
+        if (response.data.success) {
+          // Update the form with the assigned chart of account
+          this.form.chartOfAccountId = response.data.chart_of_account_id
+          
+          // Refresh chart of accounts to show the assigned one
+          await this.loadChartOfAccounts()
+          
+          // Show success message
+          this.$toast.fire({
+            icon: 'success',
+            title: this.$t('Chart of Account assigned successfully')
+          })
+          
+          // Update clientData for validation component
+          if (this.clientData) {
+            this.clientData.chart_of_account_id = response.data.chart_of_account_id
+          }
+        } else {
+          this.$toast.fire({
+            icon: 'error',
+            title: response.data.message || this.$t('Failed to assign Chart of Account')
+          })
+        }
+      } catch (error) {
+        console.error('Failed to auto-assign chart of account:', error)
+        this.$toast.fire({
+          icon: 'error',
+          title: this.$t('Failed to assign Chart of Account automatically')
+        })
+      } finally {
+        this.isAutoAssigning = false
+      }
+    },
+
+    // Handle chart of account assignment from validation component
+    onChartOfAccountAssigned(data) {
+      if (data.entity === 'client' && data.entityId === this.clientData?.id) {
+        // Update the form with the assigned chart of account
+        this.form.chartOfAccountId = data.chartOfAccountId
+        
+        // Refresh chart of accounts
+        this.loadChartOfAccounts()
+        
+        // Update clientData
+        if (this.clientData) {
+          this.clientData.chart_of_account_id = data.chartOfAccountId
+        }
+      }
+    },
   },
 }
 </script>
+
+<style scoped>
+.chart-of-account-field {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  margin-bottom: 20px;
+}
+
+.chart-of-account-field label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.chart-of-account-field .required {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.auto-assign-btn {
+  min-width: 120px;
+}
+
+.auto-assign-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+</style>

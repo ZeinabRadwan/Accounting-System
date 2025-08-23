@@ -117,7 +117,7 @@ export default {
             entity: 'client',
             entityId: this.client.id,
             entitySlug: this.client.slug,
-            editUrl: `/clients/${this.client.slug}/edit`,
+            editUrl: { name: 'clients.edit', params: { slug: this.client.slug } },
             autoAssignUrl: `/api/clients/${this.client.slug}/auto-assign-chart-of-account`,
             context: `Client: ${this.client.name}`
           })
@@ -135,7 +135,7 @@ export default {
             entity: 'supplier',
             entityId: this.supplier.id,
             entitySlug: this.supplier.slug,
-            editUrl: `/suppliers/${this.supplier.slug}/edit`,
+            editUrl: { name: 'suppliers.edit', params: { slug: this.supplier.slug } },
             autoAssignUrl: `/api/suppliers/${this.supplier.slug}/auto-assign-chart-of-account`,
             context: `Supplier: ${this.supplier.name}`
           })
@@ -155,7 +155,7 @@ export default {
                 entity: 'product',
                 entityId: product.id,
                 entitySlug: product.slug,
-                editUrl: `/products/${product.slug}/edit`,
+                editUrl: { name: 'products.edit', params: { slug: product.slug } },
                 autoAssignUrl: `/api/products/${product.slug}/auto-assign-chart-of-account`,
                 context: `Product ${index + 1}: ${product.name || 'Unknown'}`
               })
@@ -170,7 +170,7 @@ export default {
                 entity: 'product',
                 entityId: product.id,
                 entitySlug: product.slug,
-                editUrl: `/products/${product.slug}/edit`,
+                editUrl: { name: 'products.edit', params: { slug: product.slug } },
                 autoAssignUrl: `/api/products/${product.slug}/auto-assign-chart-of-account`,
                 context: `Product ${index + 1}: ${product.name || 'Unknown'}`
               })
@@ -196,7 +196,7 @@ export default {
         
         if (response.data.success) {
           // Show success message
-          window.toast.fire({
+          this.$toast.fire({
             icon: 'success',
             title: this.$t('Chart of Account assigned successfully')
           })
@@ -227,7 +227,7 @@ export default {
         }
       } catch (error) {
         console.error('Failed to auto-assign chart of account:', error)
-        window.toast.fire({
+        this.$toast.fire({
           icon: 'error',
           title: this.$t('Failed to assign Chart of Account automatically')
         })
