@@ -86,7 +86,7 @@ class CentralGeneralController extends Controller
 
             'currency' => new CentralCurrencyResource(CentralCurrency::where(
                 'id',
-                (int) $query->where('key', 'default_currency')->first()->value
+                (int) ($query->where('key', 'default_currency')->first()?->value ?? 1)
             )->first()),
 
             'facebook_link' => $query->where('key', 'facebook_link')->first()?->value,

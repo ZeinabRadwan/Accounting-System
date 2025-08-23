@@ -92,7 +92,7 @@ function getGeneralSettingsInfo()
         'adjustmentPrefix' => $query->where('key', 'adjustment_prefix')->first()->value,
         'currency' => new CurrencyResource(Currency::where(
             'id',
-            (int) $query->where('key', 'default_currency')->first()->value
+            (int) ($query->where('key', 'default_currency')->first()?->value ?? 1)
         )->first()),
         'language' => $query->where('key', 'default_language')->first()->value,
         'logo' => asset('images/' . $query->where('key', 'logo')->first()->value),

@@ -61,7 +61,7 @@ class GeneralController extends Controller
             'invoicePrefix' => $query->where('key', 'invoice_prefix')->first()->value,
             'invoiceReturnPrefix' => $query->where('key', 'invoice_return_prefix')->first()->value,
             'adjustmentPrefix' => $query->where('key', 'adjustment_prefix')->first()->value,
-            'currency' => new CurrencyResource(Currency::where('id', (int) $query->where('key', 'default_currency')->first()->value)->first()),
+            'currency' => new CurrencyResource(Currency::where('id', (int) ($query->where('key', 'default_currency')->first()?->value ?? 1))->first()),
             'centralAdminCurrency' => $centralActiveCurrency,
             'language' => $query->where('key', 'default_language')->first()->value,
 
