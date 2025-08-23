@@ -198,7 +198,7 @@
                 <button 
                   type="button" 
                   @click="autoAssignSalesAccount" 
-                  :disabled="isAutoAssigningSales || form.salesAccountId"
+                  :disabled="isAutoAssigningSales"
                   class="btn btn-outline-success btn-sm auto-assign-btn"
                   :title="$t('Auto-assign sales account')"
                 >
@@ -236,7 +236,7 @@
                 <button 
                   type="button" 
                   @click="autoAssignPurchaseAccount" 
-                  :disabled="isAutoAssigningPurchase || form.purchaseAccountId"
+                  :disabled="isAutoAssigningPurchase"
                   class="btn btn-outline-info btn-sm auto-assign-btn"
                   :title="$t('Auto-assign purchase account')"
                 >
@@ -509,20 +509,55 @@ export default {
         return;
       }
       this.isAutoAssigningSales = true;
+      
       try {
-        const response = await axios.post(window.location.origin + '/api/products/auto-assign-sales-account', {
-          itemType: this.form.itemType,
-        });
-        this.form.salesAccountId = response.data.salesAccountId;
-        toast.fire({
-          type: "success",
-          title: this.$t("Sales Account auto-assigned successfully"),
-        });
+        // For new products, we need to simulate the auto-assignment logic
+        // since the product doesn't exist in the database yet
+        let defaultAccount = null;
+        
+        if (this.form.itemType === 'product') {
+          // Look for "Sales of Goods" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('sales') && 
+            (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'))
+          );
+        } else if (this.form.itemType === 'service') {
+          // Look for "Sales of Services" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('sales') && 
+            account.name.toLowerCase().includes('service')
+          );
+        }
+        
+        // Fallback to any Sales account
+        if (!defaultAccount) {
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('sales')
+          );
+        }
+        
+        // Final fallback to any active account
+        if (!defaultAccount && this.chartOfAccounts.length > 0) {
+          defaultAccount = this.chartOfAccounts[0];
+        }
+        
+        if (defaultAccount) {
+          this.form.salesAccountId = defaultAccount.id;
+          toast.fire({
+            type: "success",
+            title: this.$t("Sales Account auto-assigned successfully"),
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("No suitable Sales Account found for automatic assignment"),
+          });
+        }
       } catch (error) {
         console.error("Error auto-assigning sales account:", error);
         toast.fire({
           type: "error",
-          title: this.$t("Failed to auto-assign sales account"),
+          title: this.$t("Failed to auto-assign Sales Account"),
         });
       } finally {
         this.isAutoAssigningSales = false;
@@ -535,20 +570,55 @@ export default {
         return;
       }
       this.isAutoAssigningPurchase = true;
+      
       try {
-        const response = await axios.post(window.location.origin + '/api/products/auto-assign-purchase-account', {
-          itemType: this.form.itemType,
-        });
-        this.form.purchaseAccountId = response.data.purchaseAccountId;
-        toast.fire({
-          type: "success",
-          title: this.$t("Purchase Account auto-assigned successfully"),
-        });
+        // For new products, we need to simulate the auto-assignment logic
+        // since the product doesn't exist in the database yet
+        let defaultAccount = null;
+        
+        if (this.form.itemType === 'product') {
+          // Look for "Cost of Goods Sold" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('cost') && 
+            (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'))
+          );
+        } else if (this.form.itemType === 'service') {
+          // Look for "Cost of Services" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('cost') && 
+            account.name.toLowerCase().includes('service')
+          );
+        }
+        
+        // Fallback to any Cost account
+        if (!defaultAccount) {
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('cost')
+          );
+        }
+        
+        // Final fallback to any active account
+        if (!defaultAccount && this.chartOfAccounts.length > 0) {
+          defaultAccount = this.chartOfAccounts[0];
+        }
+        
+        if (defaultAccount) {
+          this.form.purchaseAccountId = defaultAccount.id;
+          toast.fire({
+            type: "success",
+            title: this.$t("Purchase Account auto-assigned successfully"),
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("No suitable Purchase Account found for automatic assignment"),
+          });
+        }
       } catch (error) {
         console.error("Error auto-assigning purchase account:", error);
         toast.fire({
           type: "error",
-          title: this.$t("Failed to auto-assign purchase account"),
+          title: this.$t("Failed to auto-assign Purchase Account"),
         });
       } finally {
         this.isAutoAssigningPurchase = false;

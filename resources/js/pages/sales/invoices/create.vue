@@ -26,7 +26,7 @@
                      @chart-of-account-assigned="handleChartOfAccountAssigned"
                    />
               <!-- form start -->
-              <form role="form" @submit.prevent="saveInvoice" @keydown="form.onKeydown($event)">
+              <form role="form" @submit.prevent="saveInvoice" @keydown="form.onKeydown($event)" ref="invoiceForm">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
@@ -215,30 +215,61 @@
                           </button>
                         </td>
                       </tr>
-                      <tr>
-                        <td colspan="7" class="text-right">
-                          <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
-                        </td>
-                        <td>
-                          <strong>{{
-                            form.productTotalTax | withCurrency
-                          }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{ form.subTotal | withCurrency }}</strong>
-                        </td>
-                        <td></td>
-                      </tr>
+                                             <tr>
+                         <td colspan="5" class="text-right">
+                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
+                         </td>
+                         <td>
+                           <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                         </td>
+                         <td>
+                           <strong>{{ form.productTotalTax | withCurrency }}</strong>
+                         </td>
+                         <td>
+                           <strong>{{ form.totalDiscount | withCurrency }}</strong>
+                         </td>
+                         <td>
+                           <strong>{{ form.subTotal | withCurrency }}</strong>
+                         </td>
+                         <td></td>
+                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
+              <!-- Discount and Tax Section -->
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                  <label for="discountType">{{ $t("Discount Type") }}</label>
+                  <select id="discountType" v-model="form.discountType" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
+                    @change="calculateSum" @keyup="calculateSum">
+                    <option value="0">{{ $t("Fixed") }}</option>
+                    <option value="1">{{ $t("Percentage") }}(%)</option>
+                  </select>
+                  <has-error :form="form" field="discountType" />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="discount">{{ $t("Discount") }}
+                    <span v-if="form.discountType == 1">(%)</span></label>
+                  <div class="input-group">
+                    <input id="discount" v-model="form.discount" type="number" step="any" min="0"
+                      :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
+                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
+                    <div v-if="form.discountType == 1" class="input-group-append">
+                      <span class="input-group-text">{{
+                        form.totalDiscount | withCurrency
+                      }}</span>
+                    </div>
+                  </div>
+                  <has-error :form="form" field="discount" />
+                </div>
+                <div class="form-group col-md-4">
                   <label for="transportCost">{{
                     $t("Transport Cost")
                   }}</label>
-                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
+                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
                     :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
                   <has-error :form="form" field="transportCost" />
@@ -246,7 +277,7 @@
               </div>
 
               <div class="row">
-                <div v-if="taxes" class="form-group col-md-4">
+                <div v-if="taxes" class="form-group col-md-2">
                   <label for="orderTax">{{ $t("Invoice Tax") }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
@@ -254,13 +285,23 @@
                     @input="calculateSum" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes" class="form-group col-md-4">
+                <div class="form-group col-md-2">
+                  <label for="totalDiscount">{{ $t("Product Discounts") }}</label>
+                  <input id="totalDiscount" v-model="form.totalDiscount" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
+                  <has-error :form="form" field="totalDiscount" />
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="globalDiscount">{{ $t("Global Discount") }}</label>
+                  <input id="globalDiscount" v-model="globalDiscountDisplay" type="text" class="form-control" readonly />
+                </div>
+                <div v-if="taxes" class="form-group col-md-3">
                   <label for="totalTax">{{ $t("Total Tax") }}</label>
                   <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                   <label for="netTotal">{{ $t("Net Total") }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
@@ -370,6 +411,45 @@
                 </div>
               </div>
 
+              <!-- Discount and Tax Section -->
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="discountType">{{ $t("Discount Type") }}</label>
+                  <select id="discountType" v-model="form.discountType" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
+                    @change="calculateSum" @keyup="calculateSum">
+                    <option value="0">{{ $t("Fixed") }}</option>
+                    <option value="1">{{ $t("Percentage") }}(%)</option>
+                  </select>
+                  <has-error :form="form" field="discountType" />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="discount">{{ $t("Discount") }}
+                    <span v-if="form.discountType == 1">(%)</span></label>
+                  <div class="input-group">
+                    <input id="discount" v-model="form.discount" type="number" step="any" min="0"
+                      :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
+                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
+                    <div v-if="form.discountType == 1" class="input-group-append">
+                      <span class="input-group-text">{{
+                        form.totalDiscount | withCurrency
+                      }}</span>
+                    </div>
+                  </div>
+                  <has-error :form="form" field="discount" />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="transportCost">{{
+                    $t("Transport Cost")
+                  }}</label>
+                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
+                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                  <has-error :form="form" field="transportCost" />
+                </div>
+              </div>
+
               <div class="form-group">
                 <label for="note">{{ $t("Note") }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
@@ -389,16 +469,20 @@
                   {{ $t("Send To SMS") }}
                 </div>
               </div>
+              
+              <!-- Form Actions -->
+              <div class="card-footer">
+                <button :disabled="form.busy" class="btn btn-primary" type="submit">
+                  <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-save"></i>
+                  {{ form.busy ? $t("Saving...") : $t("Save") }}
+                </button>
+                <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
+                  <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                </button>
+              </div>
             </form>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t("Save") }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t("Reset") }}
-              </button>
-            </div>
         </div>
       </div>
     </div>
@@ -469,6 +553,9 @@ export default {
       status: 1,
       isSendEmail: false,
       isSendSMS: false,
+      discountType: 0, // 0 for fixed, 1 for percentage
+      discount: 0,
+      totalDiscount: 0,
     }),
     products: "",
     accounts: "",
@@ -479,6 +566,28 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+    
+    // Display the calculated global discount amount
+    globalDiscountDisplay() {
+      if (this.form.discount > 0) {
+        if (this.form.discountType == 1) { // Percentage
+          return ((this.form.discount / 100) * this.form.subTotal).toFixed(2);
+        } else { // Fixed
+          return this.form.discount.toFixed(2);
+        }
+      }
+      return '0.00';
+    },
+    
+    // Calculate total unit price (sum of all unit prices)
+    totalUnitPrice() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.unitPrice * item.qty);
+      }, 0);
+    }
   },
   created() {
     this.getClients();
@@ -562,17 +671,20 @@ export default {
       this.calculateSum();
     },
 
-    // ensure all products have discount properties
-    ensureDiscountProperties() {
-      this.form.selectedProducts.forEach(item => {
-        if (typeof item.discount === 'undefined') {
-          item.discount = 0;
-        }
-        if (typeof item.discountType === 'undefined') {
-          item.discountType = 'fixed';
-        }
-      });
-    },
+         // ensure all products have discount properties
+     ensureDiscountProperties() {
+       this.form.selectedProducts.forEach(item => {
+         if (typeof item.discount === 'undefined') {
+           item.discount = 0;
+         }
+         if (typeof item.discountType === 'undefined') {
+           item.discountType = 'fixed';
+         }
+         if (typeof item.discountAmount === 'undefined') {
+           item.discountAmount = 0;
+         }
+       });
+     },
 
     // store item in array
     storeProduct(product) {
@@ -588,41 +700,49 @@ export default {
             product.priceWithDiscount / (1 + product.taxRate / 100);
         let totalTax = productTax * quantity;
 
-        this.form.selectedProducts.unshift({
-          id: product.id,
-          slug: product.slug,
-          itemType: product.itemType,
-          name: product.name,
-          code: product.code,
-          taxType: product.taxType,
-          taxRate: product.taxRate,
-          qty: quantity,
-          inventoryCount: product.inventoryCount,
-          avgPurchasePrice: product.avgPurchasePrice,
-          unitPrice: product.priceWithDiscount,
-          unitCost:
-            product.taxType == "Exclusive"
-              ? product.priceWithDiscount + productTax
-              : product.priceWithDiscount,
-          totalPrice:
-            product.taxType == "Exclusive"
-              ? 1 * (product.priceWithDiscount + totalTax)
-              : 1 * product.priceWithDiscount,
-          productTax: product.productTax > 0 ? product.productTax : 0,
-          totalTax: totalTax,
-          discount: 0,
-          discountType: 'fixed',
-        });
+                 this.form.selectedProducts.unshift({
+           id: product.id,
+           slug: product.slug,
+           itemType: product.itemType,
+           name: product.name,
+           code: product.code,
+           taxType: product.taxType,
+           taxRate: product.taxRate,
+           qty: quantity,
+           inventoryCount: product.inventoryCount,
+           avgPurchasePrice: product.avgPurchasePrice,
+           unitPrice: product.priceWithDiscount,
+           unitCost:
+             product.taxType == "Exclusive"
+               ? product.priceWithDiscount + productTax
+               : product.priceWithDiscount,
+           totalPrice:
+             product.taxType == "Exclusive"
+               ? 1 * (product.priceWithDiscount + totalTax)
+               : 1 * product.priceWithDiscount,
+           productTax: product.productTax > 0 ? product.productTax : 0,
+           totalTax: totalTax,
+           discount: 0,
+           discountType: 'fixed',
+           discountAmount: 0,
+         });
       } else {
-        // Ensure existing product has discount properties
-        if (typeof this.form.selectedProducts[index].discount === 'undefined') {
-          this.form.selectedProducts[index].discount = 0;
-        }
-        if (typeof this.form.selectedProducts[index].discountType === 'undefined') {
-          this.form.selectedProducts[index].discountType = 'fixed';
-        }
+                 // Ensure existing product has discount properties
+         if (typeof this.form.selectedProducts[index].discount === 'undefined') {
+           this.form.selectedProducts[index].discount = 0;
+         }
+         if (typeof this.form.selectedProducts[index].discountType === 'undefined') {
+           this.form.selectedProducts[index].discountType = 'fixed';
+         }
+         if (typeof this.form.selectedProducts[index].discountAmount === 'undefined') {
+           this.form.selectedProducts[index].discountAmount = 0;
+         }
       }
       this.generateItemTotal(quantity, "qty", index, "");
+      // Ensure initial discount calculation
+      if (index >= 0) {
+        this.calculateProductDiscount(index);
+      }
       return;
     },
 
@@ -673,39 +793,42 @@ export default {
       return;
     },
 
-    // calculate product discount
-    calculateProductDiscount(index) {
-      let item = this.form.selectedProducts[index];
-      if (item) {
-        let discountAmount = 0;
-        
-        if (item.discount > 0) {
-          if (item.discountType == 'percentage') { // Percentage
-            discountAmount = (item.unitPrice * item.qty * item.discount) / 100;
-          } else { // Fixed
-            discountAmount = Number(item.discount);
-          }
-        }
-        
-        // Calculate price after discount
-        let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount;
-        
-        // Recalculate tax based on discounted price
-        if (item.taxType == "Exclusive") {
-          item.productTax = priceAfterDiscount * (item.taxRate / 100);
-          item.totalTax = item.productTax;
-          item.totalPrice = priceAfterDiscount + item.totalTax;
-        } else {
-          item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + item.taxRate / 100));
-          item.totalTax = item.productTax;
-          item.totalPrice = priceAfterDiscount;
-        }
-        
-        this.form.selectedProducts[index] = item;
-        this.calculateSum();
-      }
-      return;
-    },
+         // calculate product discount
+     calculateProductDiscount(index) {
+       let item = this.form.selectedProducts[index];
+       if (item) {
+         let discountAmount = 0;
+         
+         if (item.discount > 0) {
+           if (item.discountType == 'percentage') { // Percentage
+             discountAmount = (item.unitPrice * item.qty * item.discount) / 100;
+           } else { // Fixed
+             discountAmount = Number(item.discount);
+           }
+         }
+         
+         // Store the calculated discount amount for this item
+         item.discountAmount = discountAmount;
+         
+         // Calculate price after discount
+         let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount;
+         
+         // Recalculate tax based on discounted price
+         if (item.taxType == "Exclusive") {
+           item.productTax = priceAfterDiscount * (item.taxRate / 100);
+           item.totalTax = item.productTax;
+           item.totalPrice = priceAfterDiscount + item.totalTax;
+         } else {
+           item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + item.taxRate / 100));
+           item.totalTax = item.productTax;
+           item.totalPrice = priceAfterDiscount;
+         }
+         
+         this.form.selectedProducts[index] = item;
+         this.calculateSum();
+       }
+       return;
+     },
 
     // remove item from array
     removeItem(item) {
@@ -737,20 +860,38 @@ export default {
       },
         0);
 
-      this.form.netTotal = this.form.subTotal;
+             // calculate total product discount
+       this.form.totalDiscount = this.form.selectedProducts.reduce(function (
+         prev,
+         cur
+       ) {
+         return Number((prev + (cur.discountAmount || 0)).toFixed(2));
+       },
+         0);
 
-      // calculate quotation tax
+      // calculate global discount
+      let globalDiscount = 0;
+      if (this.form.discount > 0) {
+        if (this.form.discountType == 1) { // Percentage
+          globalDiscount = (this.form.discount / 100) * this.form.subTotal;
+        } else { // Fixed
+          globalDiscount = Number(this.form.discount);
+        }
+      }
+
+      // calculate invoice tax on amount AFTER global discount
       this.form.totalTax = 0;
       if (this.form.orderTax) {
         this.form.totalTax =
-          (this.form.orderTax.rate / 100) * this.form.subTotal;
+          (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount);
       }
 
-      // calculate total
+      // calculate final total
       this.form.netTotal =
-        this.form.subTotal +
-        Number(this.form.transportCost || 0) +
-        this.form.totalTax;
+        this.form.subTotal -
+        globalDiscount +
+        this.form.totalTax +
+        Number(this.form.transportCost || 0);
       return;
     },
 
@@ -787,31 +928,48 @@ export default {
 
     // save invoice
     async saveInvoice() {
-      console.log('saveInvoice called - isUpdatingChartOfAccount:', this.isUpdatingChartOfAccount)
-      
       // Prevent form submission during chart of account updates
       if (this.isUpdatingChartOfAccount) {
-        console.log('Preventing form submission during chart of account update')
         return
       }
       
-      console.log('Proceeding with invoice save...')
+      // Validate required fields
+      if (!this.form.client) {
+        toast.fire({ type: "error", title: this.$t("Please select a client") });
+        return;
+      }
       
-      await this.form
-        .post(window.location.origin + "/api/invoices")
-        .then(({ data }) => {
-          toast.fire({
-            type: "success",
-            title: this.$t("Invoice added successfully"),
-          });
-          this.$router.push({
-            name: "invoices.show",
-            params: { slug: data.data.slug },
-          });
-        })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        toast.fire({ type: "error", title: this.$t("Please select at least one product") });
+        return;
+      }
+      
+      if (!this.form.orderTax) {
+        toast.fire({ type: "error", title: this.$t("Please select a tax type") });
+        return;
+      }
+      
+      try {
+        const response = await this.form.post(window.location.origin + "/api/invoices")
+        
+        toast.fire({
+          type: "success",
+          title: this.$t("Invoice added successfully"),
         });
+        
+        this.$router.push({
+          name: "invoices.show",
+          params: { slug: response.data.data.slug },
+        });
+      } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors) {
+          // Handle validation errors
+          const errorMessages = Object.values(error.response.data.errors).flat().join(', ');
+          toast.fire({ type: "error", title: errorMessages });
+        } else {
+          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        }
+      }
     },
 
     // save client

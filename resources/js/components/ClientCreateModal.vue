@@ -72,7 +72,7 @@
                 <button 
                   type="button" 
                   @click="autoAssignChartOfAccount" 
-                  :disabled="isAutoAssigning || form.chartOfAccountId"
+                  :disabled="isAutoAssigning"
                   class="btn btn-outline-primary btn-sm auto-assign-btn"
                   :title="$t('Auto-assign chart of account')"
                   style="flex-shrink: 0;"
@@ -263,20 +263,65 @@ export default {
         return;
       }
       this.isAutoAssigning = true;
+      
       try {
-        const response = await axios.post(window.location.origin + '/api/clients/auto-assign-chart-of-account', {
-          type: this.form.type,
-        });
-        this.form.chartOfAccountId = response.data.chartOfAccountId;
-        toast.fire({
-          type: "success",
-          title: this.$t("Chart of Account auto-assigned successfully"),
-        });
+        // For new clients, we need to simulate the auto-assignment logic
+        // since the client doesn't exist in the database yet
+        const clientData = {
+          type: this.form.type || 'Company',
+          name: this.form.name,
+          email: this.form.email,
+          phoneNumber: this.form.phoneNumber,
+          companyName: this.form.companyName,
+          address: this.form.address,
+        };
+        
+        // Use the same logic as the backend but on the frontend
+        let defaultAccount = null;
+        
+        if (clientData.type === 'Company') {
+          // Look for "Accounts Receivable - Companies" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('accounts receivable') && 
+            account.name.toLowerCase().includes('company')
+          );
+        } else if (clientData.type === 'Individual') {
+          // Look for "Accounts Receivable - Individuals" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('accounts receivable') && 
+            account.name.toLowerCase().includes('individual')
+          );
+        }
+        
+        // Fallback to any Accounts Receivable account
+        if (!defaultAccount) {
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('accounts receivable')
+          );
+        }
+        
+        // Final fallback to any active account
+        if (!defaultAccount && this.chartOfAccounts.length > 0) {
+          defaultAccount = this.chartOfAccounts[0];
+        }
+        
+        if (defaultAccount) {
+          this.form.chartOfAccountId = defaultAccount.id;
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account auto-assigned successfully"),
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("No suitable Chart of Account found for automatic assignment"),
+          });
+        }
       } catch (error) {
-        console.error("Error auto-assigning chart of account:", error);
+        console.error('Error auto-assigning chart of account:', error);
         toast.fire({
           type: "error",
-          title: this.$t("Failed to auto-assign chart of account"),
+          title: this.$t("Failed to auto-assign Chart of Account"),
         });
       } finally {
         this.isAutoAssigning = false;
