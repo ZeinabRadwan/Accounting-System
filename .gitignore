@@ -1,37 +1,52 @@
 /.zip
+
+# Dependencies
 /node_modules
-# /public/hot
-# /public/storage
-/storage/*.key
 /vendor
+
+# Build files
+/public/js
+/public/css
+/public/mix-manifest.json
+/public/hot
+
+# Laravel specific
+/bootstrap/cache/*
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/app/public/*
 .env
 .env.backup
-.env.dusk.local
 .phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-phpunit.dusk.xml
-# /public/dist
-# /public/build
-# /public/mix-manifest.json
-/.idea
-/.vscode
-.zip
-digitalocean-info.txt
-!storage/backup/
-/packages
-/public/images/vendor
-/public/images
-# /public/js
-# /public/css
-# /public/*.css
-# /public/*.wav
-/.blueprint
-# /public/css/app.css
-# /public/js/central.js
-# /public/js/tenant.js
-/storage/installed
-# /storage/verified
-# /public/js/*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Compiled assets
+/public/build
+/public/dist
+/public/assets
+
+# Flag icons (if these are auto-generated)
+/public/images/vendor/flag-icons/flags/
+
+# Temporary files
+*.tmp
+*.temp
+
