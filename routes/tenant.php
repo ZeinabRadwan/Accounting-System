@@ -70,6 +70,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 use App\Http\Controllers\API\ChartOfAccountController;
 use App\Http\Controllers\API\JournalEntryController;
 use App\Http\Controllers\API\AccountRoutingController;
+use App\Http\Controllers\API\VatReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,12 +187,18 @@ Route::middleware([
         Route::get('/smtp-info', [GeneralController::class, 'getSMTPforTenant']);
         Route::apiResource('vat-rates', VatRateController::class);
 
-        // Account Routing Settings routes
+                // Account Routing Settings routes
         Route::get('/account-routing-settings', [AccountRoutingController::class, 'index']);
         Route::put('/account-routing-settings', [AccountRoutingController::class, 'update']);
+        Route::put('/account-routing-settings/{id}', [AccountRoutingController::class, 'updateSetting']);
+        Route::put('/account-routing-settings/bulk', [AccountRoutingController::class, 'bulkUpdate']);
         Route::get('/account-routing-settings/{settingKey}/accounts', [AccountRoutingController::class, 'getAccountsForSetting']);
         Route::get('/account-routing-settings/available-parent-accounts', [AccountRoutingController::class, 'getAvailableParentAccounts']);
         Route::get('/account-routing-settings/check-configuration', [AccountRoutingController::class, 'checkConfiguration']);
+
+        // VAT Report routes
+        Route::get('/vat-report', [VatReportController::class, 'generateReport']);
+        Route::get('/vat-report/summary', [VatReportController::class, 'getVatSummary']);
 
         // Brand routes
         Route::get('/brands/search', [BrandController::class, 'search']);

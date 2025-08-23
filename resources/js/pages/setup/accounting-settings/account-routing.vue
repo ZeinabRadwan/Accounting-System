@@ -1,416 +1,583 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-    
-    <div class="row">
-      <div class="col-12 col-xl-3">
-        <SettingsSidebar />
-      </div>
-      <div class="col-12 col-xl-9">
-        <div class="card">
-          <div class="card-header setings-header">
-            <div class="col-xl-4 col-4">
-              <h3 class="card-title">
-                {{ $t("Account Routing Settings") }}
-              </h3>
-            </div>
-            <div class="col-xl-8 col-8 float-right text-right">
-              <button @click="saveSettings" :disabled="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t("Save Changes") }}
-              </button>
-              <button @click="resetSettings" class="btn btn-secondary ml-2">
-                <i class="fas fa-undo" /> {{ $t("Reset") }}
-              </button>
-            </div>
-          </div>
-          
-          <div class="card-body">
-            <!-- Configuration Status -->
-            <div class="alert alert-info">
-              <i class="fas fa-info-circle"></i>
-              <strong>{{ $t("Configuration Status") }}:</strong>
-              {{ configurationStatus.configured }}/{{ configurationStatus.total_required }} {{ $t("required settings configured") }}
-              <span v-if="configurationStatus.unconfigured > 0" class="text-warning">
-                ({{ configurationStatus.unconfigured }} {{ $t("unconfigured") }})
-              </span>
-            </div>
+  <div class="account-routing-settings">
+    <div class="page-header">
+      <h1 class="page-title">{{ $t('Account Routing Settings') }}</h1>
+      <p class="page-description">
+        {{ $t('Configure parent accounts for different accounting modules to ensure proper journal entry routing') }}
+      </p>
+    </div>
 
-            <!-- Sales Module -->
-            <div class="module-section mb-4">
-              <h4 class="text-primary">
-                <i class="fas fa-shopping-cart"></i> {{ $t("Sales Module") }}
-              </h4>
-              <div class="row">
-                <div class="col-md-6" v-for="setting in getSettingsByModule('sales')" :key="setting.id">
-                  <div class="form-group">
-                    <label :for="setting.setting_key">
-                      {{ setting.setting_name }}
-                      <span v-if="setting.is_required" class="required">*</span>
-                    </label>
-                    <v-select
-                      :id="setting.setting_key"
-                      v-model="setting.parent_account_id"
-                      :options="availableParentAccounts"
-                      label="name"
-                      :class="{ 'is-invalid': !setting.isConfigured() && setting.is_required }"
-                      :placeholder="$t('Select Parent Account')"
-                      :reduce="option => option.id"
-                      clearable
-                    >
-                      <template #option="{ name, code, type }">
-                        <div>
-                          <strong>{{ name }}</strong>
-                          <br>
-                          <small class="text-muted">{{ code }} - {{ type }}</small>
-                        </div>
-                      </template>
-                    </v-select>
-                    <small class="form-text text-muted">{{ setting.description }}</small>
-                    <div v-if="!setting.isConfigured() && setting.is_required" class="invalid-feedback d-block">
-                      {{ $t("This setting is required") }}
-                    </div>
-                  </div>
+    <div class="settings-container">
+      <!-- Sales Module -->
+      <div class="module-section">
+        <div class="module-header">
+          <h3 class="module-title">
+            <i class="fas fa-shopping-cart text-primary"></i>
+            {{ $t('Sales Module') }}
+          </h3>
+          <p class="module-description">{{ $t('Configure accounts for sales-related transactions') }}</p>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="setting-item" v-for="setting in salesSettings" :key="setting.setting_key">
+            <label class="setting-label">
+              {{ setting.setting_name }}
+              <span class="required" v-if="setting.is_required">*</span>
+            </label>
+            <p class="setting-description">{{ setting.description }}</p>
+            <v-select
+              v-model="setting.parent_account_id"
+              :options="getAccountsForType(setting.account_type)"
+              :reduce="option => option.id"
+              :placeholder="$t('Select account')"
+              :searchable="true"
+              :clearable="true"
+              @input="updateSetting(setting)"
+            >
+              <template #option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- Purchase Module -->
-            <div class="module-section mb-4">
-              <h4 class="text-success">
-                <i class="fas fa-truck"></i> {{ $t("Purchase Module") }}
-              </h4>
-              <div class="row">
-                <div class="col-md-6" v-for="setting in getSettingsByModule('purchase')" :key="setting.id">
-                  <div class="form-group">
-                    <label :for="setting.setting_key">
-                      {{ setting.setting_name }}
-                      <span v-if="setting.is_required" class="required">*</span>
-                    </label>
-                    <v-select
-                      :id="setting.setting_key"
-                      v-model="setting.parent_account_id"
-                      :options="availableParentAccounts"
-                      label="name"
-                      :class="{ 'is-invalid': !setting.isConfigured() && setting.is_required }"
-                      :placeholder="$t('Select Parent Account')"
-                      :reduce="option => option.id"
-                      clearable
-                    >
-                      <template #option="{ name, code, type }">
-                        <div>
-                          <strong>{{ name }}</strong>
-                          <br>
-                          <small class="text-muted">{{ code }} - {{ type }}</small>
-                        </div>
-                      </template>
-                    </v-select>
-                    <small class="form-text text-muted">{{ setting.description }}</small>
-                    <div v-if="!setting.isConfigured() && setting.is_required" class="invalid-feedback d-block">
-                      {{ $t("This setting is required") }}
-                    </div>
-                  </div>
+              </template>
+              <template #selected-option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- VAT/Tax Module -->
-            <div class="module-section mb-4">
-              <h4 class="text-warning">
-                <i class="fas fa-percentage"></i> {{ $t("VAT/Tax Module") }}
-              </h4>
-              <div class="row">
-                <div class="col-md-6" v-for="setting in getSettingsByModule('vat')" :key="setting.id">
-                  <div class="form-group">
-                    <label :for="setting.setting_key">
-                      {{ setting.setting_name }}
-                      <span v-if="setting.is_required" class="required">*</span>
-                    </label>
-                    <v-select
-                      :id="setting.setting_key"
-                      v-model="setting.parent_account_id"
-                      :options="availableParentAccounts"
-                      label="name"
-                      :class="{ 'is-invalid': !setting.isConfigured() && setting.is_required }"
-                      :placeholder="$t('Select Parent Account')"
-                      :reduce="option => option.id"
-                      clearable
-                    >
-                      <template #option="{ name, code, type }">
-                        <div>
-                          <strong>{{ name }}</strong>
-                          <br>
-                          <small class="text-muted">{{ code }} - {{ type }}</small>
-                        </div>
-                      </template>
-                    </v-select>
-                    <small class="form-text text-muted">{{ setting.description }}</small>
-                    <div v-if="!setting.isConfigured() && setting.is_required" class="invalid-feedback d-block">
-                      {{ $t("This setting is required") }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Expenses Module -->
-            <div class="module-section mb-4">
-              <h4 class="text-danger">
-                <i class="fas fa-receipt"></i> {{ $t("Expenses Module") }}
-              </h4>
-              <div class="row">
-                <div class="col-md-6" v-for="setting in getSettingsByModule('expenses')" :key="setting.id">
-                  <div class="form-group">
-                    <label :for="setting.setting_key">
-                      {{ setting.setting_name }}
-                      <span v-if="setting.is_required" class="required">*</span>
-                    </label>
-                    <v-select
-                      :id="setting.setting_key"
-                      v-model="setting.parent_account_id"
-                      :options="availableParentAccounts"
-                      label="name"
-                      :class="{ 'is-invalid': !setting.isConfigured() && setting.is_required }"
-                      :placeholder="$t('Select Parent Account')"
-                      :placeholder="$t('Select Parent Account')"
-                      :reduce="option => option.id"
-                      clearable
-                    >
-                      <template #option="{ name, code, type }">
-                        <div>
-                          <strong>{{ name }}</strong>
-                          <br>
-                          <small class="text-muted">{{ code }} - {{ type }}</small>
-                        </div>
-                      </template>
-                    </v-select>
-                    <small class="form-text text-muted">{{ setting.description }}</small>
-                    <div v-if="!setting.isConfigured() && setting.is_required" class="invalid-feedback d-block">
-                      {{ $t("This setting is required") }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Inventory Module -->
-            <div class="module-section mb-4">
-              <h4 class="text-info">
-                <i class="fas fa-boxes"></i> {{ $t("Inventory Module") }}
-              </h4>
-              <div class="row">
-                <div class="col-md-6" v-for="setting in getSettingsByModule('inventory')" :key="setting.id">
-                  <div class="form-group">
-                    <label :for="setting.setting_key">
-                      {{ setting.setting_name }}
-                      <span v-if="setting.is_required" class="required">*</span>
-                    </label>
-                    <v-select
-                      :id="setting.setting_key"
-                      v-model="setting.parent_account_id"
-                      :options="availableParentAccounts"
-                      label="name"
-                      :class="{ 'is-invalid': !setting.isConfigured() && setting.is_required }"
-                      :placeholder="$t('Select Parent Account')"
-                      :reduce="option => option.id"
-                      clearable
-                    >
-                      <template #option="{ name, code, type }">
-                        <div>
-                          <strong>{{ name }}</strong>
-                          <br>
-                          <small class="text-muted">{{ code }} - {{ type }}</small>
-                        </div>
-                      </template>
-                    </v-select>
-                    <small class="form-text text-muted">{{ setting.description }}</small>
-                    <div v-if="!setting.isConfigured() && setting.is_required" class="invalid-feedback d-block">
-                      {{ $t("This setting is required") }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Treasury Module -->
-            <div class="module-section mb-4">
-              <h4 class="text-secondary">
-                <i class="fas fa-university"></i> {{ $t("Treasury Module") }}
-              </h4>
-              <div class="row">
-                <div class="col-md-6" v-for="setting in getSettingsByModule('treasury')" :key="setting.id">
-                  <div class="form-group">
-                    <label :for="setting.setting_key">
-                      {{ setting.setting_name }}
-                      <span v-if="setting.is_required" class="required">*</span>
-                    </label>
-                    <v-select
-                      :id="setting.setting_key"
-                      v-model="setting.parent_account_id"
-                      :options="availableParentAccounts"
-                      label="name"
-                      :class="{ 'is-invalid': !setting.isConfigured() && setting.is_required }"
-                      :placeholder="$t('Select Parent Account')"
-                      :reduce="option => option.id"
-                      clearable
-                    >
-                      <template #option="{ name, code, type }">
-                        <div>
-                          <strong>{{ name }}</strong>
-                          <br>
-                          <small class="text-muted">{{ code }} - {{ type }}</small>
-                        </div>
-                      </template>
-                    </v-select>
-                    <small class="form-text text-muted">{{ setting.description }}</small>
-                    <div v-if="!setting.isConfigured() && setting.is_required" class="invalid-feedback d-block">
-                      {{ $t("This setting is required") }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </template>
+            </v-select>
           </div>
         </div>
       </div>
+
+      <!-- Purchase Module -->
+      <div class="module-section">
+        <div class="module-header">
+          <h3 class="module-title">
+            <i class="fas fa-truck text-success"></i>
+            {{ $t('Purchase Module') }}
+          </h3>
+          <p class="module-description">{{ $t('Configure accounts for purchase-related transactions') }}</p>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="setting-item" v-for="setting in purchaseSettings" :key="setting.setting_key">
+            <label class="setting-label">
+              {{ setting.setting_name }}
+              <span class="required" v-if="setting.is_required">*</span>
+            </label>
+            <p class="setting-description">{{ setting.description }}</p>
+            <v-select
+              v-model="setting.parent_account_id"
+              :options="getAccountsForType(setting.account_type)"
+              :reduce="option => option.id"
+              :placeholder="$t('Select account')"
+              :searchable="true"
+              :clearable="true"
+              @input="updateSetting(setting)"
+            >
+              <template #option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+              <template #selected-option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+            </v-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- VAT/Tax Module -->
+      <div class="module-section">
+        <div class="module-header">
+          <h3 class="module-title">
+            <i class="fas fa-percentage text-warning"></i>
+            {{ $t('VAT/Tax Module') }}
+          </h3>
+          <p class="module-description">{{ $t('Configure accounts for VAT and tax transactions') }}</p>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="setting-item" v-for="setting in vatSettings" :key="setting.setting_key">
+            <label class="setting-label">
+              {{ setting.setting_name }}
+              <span class="required" v-if="setting.is_required">*</span>
+            </label>
+            <p class="setting-description">{{ setting.description }}</p>
+            <v-select
+              v-model="setting.parent_account_id"
+              :options="getAccountsForType(setting.account_type)"
+              :reduce="option => option.id"
+              :placeholder="$t('Select account')"
+              :searchable="true"
+              :clearable="true"
+              @input="updateSetting(setting)"
+            >
+              <template #option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+              <template #selected-option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+            </v-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expenses Module -->
+      <div class="module-section">
+        <div class="module-header">
+          <h3 class="module-title">
+            <i class="fas fa-receipt text-danger"></i>
+            {{ $t('Expenses Module') }}
+          </h3>
+          <p class="module-description">{{ $t('Configure accounts for expense transactions') }}</p>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="setting-item" v-for="setting in expenseSettings" :key="setting.setting_key">
+            <label class="setting-label">
+              {{ setting.setting_name }}
+              <span class="required" v-if="setting.is_required">*</span>
+            </label>
+            <p class="setting-description">{{ setting.description }}</p>
+            <v-select
+              v-model="setting.parent_account_id"
+              :options="getAccountsForType(setting.account_type)"
+              :reduce="option => option.id"
+              :placeholder="$t('Select account')"
+              :searchable="true"
+              :clearable="true"
+              @input="updateSetting(setting)"
+            >
+              <template #option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+              <template #selected-option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+            </v-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory Module -->
+      <div class="module-section">
+        <div class="module-header">
+          <h3 class="module-title">
+            <i class="fas fa-boxes text-info"></i>
+            {{ $t('Inventory Module') }}
+          </h3>
+          <p class="module-description">{{ $t('Configure accounts for inventory transactions') }}</p>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="setting-item" v-for="setting in inventorySettings" :key="setting.setting_key">
+            <label class="setting-label">
+              {{ setting.setting_name }}
+              <span class="required" v-if="setting.is_required">*</span>
+            </label>
+            <p class="setting-description">{{ setting.description }}</p>
+            <v-select
+              v-model="setting.parent_account_id"
+              :options="getAccountsForType(setting.account_type)"
+              :reduce="option => option.id"
+              :placeholder="$t('Select account')"
+              :searchable="true"
+              :clearable="true"
+              @input="updateSetting(setting)"
+            >
+              <template #option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+              <template #selected-option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+            </v-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Treasury Module -->
+      <div class="module-section">
+        <div class="module-header">
+          <h3 class="module-title">
+            <i class="fas fa-university text-secondary"></i>
+            {{ $t('Treasury Module') }}
+          </h3>
+          <p class="module-description">{{ $t('Configure accounts for treasury transactions') }}</p>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="setting-item" v-for="setting in treasurySettings" :key="setting.setting_key">
+            <label class="setting-label">
+              {{ setting.setting_name }}
+              <span class="required" v-if="setting.is_required">*</span>
+            </label>
+            <p class="setting-description">{{ setting.description }}</p>
+            <v-select
+              v-model="setting.parent_account_id"
+              :options="getAccountsForType(setting.account_type)"
+              :reduce="option => option.id"
+              :placeholder="$t('Select account')"
+              :searchable="true"
+              :clearable="true"
+              @input="updateSetting(setting)"
+            >
+              <template #option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+              <template #selected-option="{ name, code, type }">
+                <div class="account-option">
+                  <span class="account-name">{{ name }}</span>
+                  <span class="account-code">{{ code }}</span>
+                  <span class="account-type">{{ type }}</span>
+                </div>
+              </template>
+            </v-select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save Button -->
+    <div class="actions-container">
+      <button 
+        @click="saveAllSettings" 
+        :disabled="saving"
+        class="btn btn-primary btn-lg"
+      >
+        <i class="fas fa-save mr-2"></i>
+        {{ saving ? $t('Saving...') : $t('Save All Settings') }}
+      </button>
+    </div>
+
+    <!-- Status Messages -->
+    <div v-if="message" class="alert" :class="messageType">
+      {{ message }}
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { mapGetters } from 'vuex'
 
 export default {
-  middleware: ["auth", "check-permissions"],
-  metaInfo() {
-    return { title: this.$t("Account Routing Settings") };
-  },
-
-  data: () => ({
-    breadcrumbsCurrent: "Account Routing Settings",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Setup",
-        url: "setup.index",
-      },
-      {
-        name: "Accounting Settings",
-        url: "",
-      },
-    ],
-    settings: [],
-    availableParentAccounts: [],
-    configurationStatus: {
-      total_required: 0,
-      configured: 0,
-      unconfigured: 0,
-      unconfigured_settings: []
-    },
-    loading: true,
-  }),
-
-  async created() {
-    await this.loadSettings();
-    await this.loadParentAccounts();
-    await this.checkConfiguration();
-  },
-
-  methods: {
-    // Load account routing settings
-    async loadSettings() {
-      try {
-        const { data } = await axios.get('/api/account-routing-settings');
-        this.settings = Object.values(data.data).flat();
-        console.log('Settings loaded:', this.settings);
-      } catch (error) {
-        console.error('Error loading settings:', error);
-        this.$toast.error(this.$t('Failed to load settings'));
-      }
-    },
-
-    // Load available parent accounts
-    async loadParentAccounts() {
-      try {
-        const { data } = await axios.get('/api/account-routing-settings/available-parent-accounts');
-        this.availableParentAccounts = data.data || [];
-        console.log('Parent accounts loaded:', this.availableParentAccounts);
-      } catch (error) {
-        console.error('Error loading parent accounts:', error);
-        this.$toast.error(this.$t('Failed to load parent accounts'));
-      }
-    },
-
-    // Check configuration status
-    async checkConfiguration() {
-      try {
-        const { data } = await axios.get('/api/account-routing-settings/check-configuration');
-        this.configurationStatus = data.data;
-        console.log('Configuration status:', this.configurationStatus);
-      } catch (error) {
-        console.error('Error checking configuration:', error);
-      }
-    },
-
-    // Get settings by module
-    getSettingsByModule(module) {
-      return this.settings.filter(setting => setting.module === module);
-    },
-
-    // Save settings
-    async saveSettings() {
-      try {
-        const settingsToUpdate = this.settings.map(setting => ({
-          id: setting.id,
-          parent_account_id: setting.parent_account_id
-        }));
-
-        await axios.put('/api/account-routing-settings', {
-          settings: settingsToUpdate
-        });
-
-        this.$toast.success(this.$t('Settings saved successfully'));
-        await this.checkConfiguration();
-      } catch (error) {
-        console.error('Error saving settings:', error);
-        this.$toast.error(this.$t('Failed to save settings'));
-      }
-    },
-
-    // Reset settings to original values
-    async resetSettings() {
-      if (confirm(this.$t('Are you sure you want to reset all settings?'))) {
-        await this.loadSettings();
-        this.$toast.info(this.$t('Settings reset to original values'));
-      }
+  name: 'AccountRoutingSettings',
+  data() {
+    return {
+      settings: [],
+      saving: false,
+      message: '',
+      messageType: 'alert-info'
     }
   },
-};
+  computed: {
+    ...mapGetters('chartOfAccounts', ['getChartOfAccounts']),
+    
+    salesSettings() {
+      return this.settings.filter(s => s.module === 'sales')
+    },
+    
+    purchaseSettings() {
+      return this.settings.filter(s => s.module === 'purchase')
+    },
+    
+    vatSettings() {
+      return this.settings.filter(s => s.module === 'vat')
+    },
+    
+    expenseSettings() {
+      return this.settings.filter(s => s.module === 'expenses')
+    },
+    
+    inventorySettings() {
+      return this.settings.filter(s => s.module === 'inventory')
+    },
+    
+    treasurySettings() {
+      return this.settings.filter(s => s.module === 'treasury')
+    }
+  },
+  
+  async mounted() {
+    await this.loadSettings()
+    await this.loadChartOfAccounts()
+  },
+  
+  methods: {
+    async loadSettings() {
+      try {
+        const response = await this.$http.get('/api/account-routing-settings')
+        this.settings = response.data.data || []
+      } catch (error) {
+        console.error('Error loading settings:', error)
+        this.showMessage('Error loading settings', 'alert-danger')
+      }
+    },
+    
+         async loadChartOfAccounts() {
+       try {
+         await this.$store.dispatch('chartOfAccounts/fetchChartOfAccounts')
+       } catch (error) {
+         console.error('Error loading chart of accounts:', error)
+       }
+     },
+    
+    getAccountsForType(accountType) {
+      const accounts = this.getChartOfAccounts
+      return accounts.filter(account => account.type === accountType)
+    },
+    
+    async updateSetting(setting) {
+      try {
+        const response = await this.$http.put(`/api/account-routing-settings/${setting.id}`, {
+          parent_account_id: setting.parent_account_id
+        })
+        
+        if (response.data.success) {
+          this.showMessage('Setting updated successfully', 'alert-success')
+        }
+      } catch (error) {
+        console.error('Error updating setting:', error)
+        this.showMessage('Error updating setting', 'alert-danger')
+      }
+    },
+    
+    async saveAllSettings() {
+      this.saving = true
+      
+      try {
+        const updates = this.settings.map(setting => ({
+          id: setting.id,
+          parent_account_id: setting.parent_account_id
+        }))
+        
+        const response = await this.$http.put('/api/account-routing-settings/bulk', { updates })
+        
+        if (response.data.success) {
+          this.showMessage('All settings saved successfully', 'alert-success')
+        }
+      } catch (error) {
+        console.error('Error saving settings:', error)
+        this.showMessage('Error saving settings', 'alert-danger')
+      } finally {
+        this.saving = false
+      }
+    },
+    
+    showMessage(message, type = 'alert-info') {
+      this.message = message
+      this.messageType = type
+      
+      setTimeout(() => {
+        this.message = ''
+      }, 5000)
+    }
+  }
+}
 </script>
 
 <style scoped>
-.module-section {
-  border: 1px solid #e3e6f0;
-  border-radius: 0.35rem;
-  padding: 1.5rem;
-  background-color: #f8f9fc;
+.account-routing-settings {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.module-section h4 {
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid currentColor;
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.page-description {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.module-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.module-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.module-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.module-description {
+  color: #7f8c8d;
+  font-size: 1rem;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.setting-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
 }
 
 .required {
-  color: #e74a3b;
+  color: #e74c3c;
+  margin-left: 0.25rem;
 }
 
-.invalid-feedback {
-  display: block;
+.setting-description {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.account-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.account-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.account-code {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-family: monospace;
+}
+
+.account-type {
+  font-size: 0.8rem;
+  color: #3498db;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.actions-container {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .account-routing-settings {
+    padding: 1rem;
+  }
+  
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .module-section {
+    padding: 1.5rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
 }
 </style>

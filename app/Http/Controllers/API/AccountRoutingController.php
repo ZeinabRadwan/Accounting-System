@@ -58,6 +58,55 @@ class AccountRoutingController extends Controller
     }
 
     /**
+     * Update a single account routing setting
+     */
+    public function updateSetting($id, Request $request)
+    {
+        try {
+            $request->validate([
+                'parent_account_id' => 'nullable|exists:chart_of_accounts,id'
+            ]);
+
+            $setting = AccountRoutingSetting::findOrFail($id);
+            $setting->update([
+                'parent_account_id' => $request->parent_account_id
+            ]);
+
+            return $this->responseWithSuccess('Setting updated successfully', $setting);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Bulk update account routing settings
+     */
+    public function bulkUpdate(Request $request)
+    {
+        try {
+            $request->validate([
+                'updates' => 'required|array',
+                'updates.*.id' => 'required|exists:account_routing_settings,id',
+                'updates.*.parent_account_id' => 'nullable|exists:chart_of_accounts,id'
+            ]);
+
+            foreach ($request->updates as $updateData) {
+                $setting = AccountRoutingSetting::find($updateData['id']);
+                
+                if ($setting) {
+                    $setting->update([
+                        'parent_account_id' => $updateData['parent_account_id'] ?? null
+                    ]);
+                }
+            }
+
+            return $this->responseWithSuccess('All settings updated successfully');
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
      * Get accounts for a specific setting
      */
     public function getAccountsForSetting($settingKey)
