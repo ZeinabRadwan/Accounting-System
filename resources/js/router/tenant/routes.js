@@ -206,6 +206,14 @@ export default [
     meta: {permissions: ['vat-rate-management']},
   },
 
+  // Account Routing Settings routes
+  {
+    path: '/setup/accounting-settings/account-routing',
+    name: 'accountRouting.index',
+    component: page('setup/accounting-settings/account-routing.vue'),
+    meta: {permissions: ['general-settings']},
+  },
+
   // Brand routes
   {
     path: '/setup/brands',

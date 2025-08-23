@@ -69,6 +69,7 @@ use App\Http\Controllers\API\SubscriptionPaymentMethodController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 use App\Http\Controllers\API\ChartOfAccountController;
 use App\Http\Controllers\API\JournalEntryController;
+use App\Http\Controllers\API\AccountRoutingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -184,6 +185,13 @@ Route::middleware([
         Route::get('/vat-rates/check-connections', [VatRateController::class, 'checkVatChartOfAccountConnections']);
         Route::get('/smtp-info', [GeneralController::class, 'getSMTPforTenant']);
         Route::apiResource('vat-rates', VatRateController::class);
+
+        // Account Routing Settings routes
+        Route::get('/account-routing-settings', [AccountRoutingController::class, 'index']);
+        Route::put('/account-routing-settings', [AccountRoutingController::class, 'update']);
+        Route::get('/account-routing-settings/{settingKey}/accounts', [AccountRoutingController::class, 'getAccountsForSetting']);
+        Route::get('/account-routing-settings/available-parent-accounts', [AccountRoutingController::class, 'getAvailableParentAccounts']);
+        Route::get('/account-routing-settings/check-configuration', [AccountRoutingController::class, 'checkConfiguration']);
 
         // Brand routes
         Route::get('/brands/search', [BrandController::class, 'search']);
