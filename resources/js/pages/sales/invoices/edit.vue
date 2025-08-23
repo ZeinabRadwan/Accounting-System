@@ -62,6 +62,7 @@
                         <th>{{ $t('Price') }}</th>
                         <th>{{ $t('Unit Price') }}</th>
                         <th>{{ $t('Tax') }}</th>
+                        <th>{{ $t('Discount') }}</th>
                         <th>{{ $t('Subtotal') }}</th>
                         <th class="text-right">{{ $t('Action') }}</th>
                       </tr>
@@ -113,6 +114,29 @@
                         </td>
                         <td>{{ item.unitCost | withCurrency }}</td>
                         <td>{{ item.totalTax | withCurrency }}</td>
+                        <td>
+                          <div class="input-group">
+                            <select 
+                              v-model="item.discountType" 
+                              class="form-control form-control-sm" 
+                              style="width: 60px;"
+                              @change="calculateProductDiscount(i - 1)">
+                              <option value="fixed">{{ $t("Fixed") }}</option>
+                              <option value="percentage">{{ $t("%") }}</option>
+                            </select>
+                            <input 
+                              type="number" 
+                              v-model="item.discount" 
+                              class="form-control form-control-sm" 
+                              style="width: 80px;"
+                              step="any" 
+                              min="0" 
+                              :max="item.discountType == 'percentage' ? 100 : item.totalPrice"
+                              placeholder="0"
+                              @change="calculateProductDiscount(i - 1)"
+                              @keyup="calculateProductDiscount(i - 1)" />
+                          </div>
+                        </td>
                         <td>{{ item.totalPrice | withCurrency }}</td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
@@ -121,7 +145,7 @@
                         </td>
                       </tr>
                       <tr v-if="form.subTotal">
-                        <td :colspan="form.totalInvoiceReturn > 0 ? 7 : 6" class="text-right">
+                        <td :colspan="form.totalInvoiceReturn > 0 ? 8 : 7" class="text-right">
                           <strong>{{ $t('Subtotal') }}</strong>
                         </td>
                         <td>
@@ -139,36 +163,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="discountType">{{
-                    $t('Discount Type')
-                  }}</label>
-                  <select id="discountType" v-model="form.discountType" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum"
-                    @keyup="calculateSum">
-                    <option value="0">{{ $t('Fixed') }}</option>
-                    <option value="1">{{ $t('Percentage') }}(%)</option>
-                  </select>
-                  <has-error :form="form" field="discountType" />
-                </div>
-                <div class="form-group" :class="form.discountType == 1 ? 'col-md-2' : 'col-md-4'">
-                  <label for="discount">{{ $t('Discount') }}
-                    <span v-if="form.discountType == 1">(%)</span></label>
-                  <input id="discount" v-model="form.discount" type="number" step="any" min="1"
-                    :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                    :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
-                  <has-error :form="form" field="discount" />
-                </div>
-                <div v-if="form.discountType == 1" class="form-group col-md-2">
-                  <label for="totalDiscount">{{
-                    $t('Total discount')
-                  }}</label>
-                  <input id="totalDiscount" v-model="form.totalDiscount" type="number" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
-                  <has-error :form="form" field="totalDiscount" />
-                </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label for="transportCost">{{
                     $t('Transport Cost')
                   }}</label>
@@ -346,6 +341,12 @@ export default {
     this.getInvoice()
     this.prefix = this.appInfo.productPrefix
   },
+  mounted() {
+    // Ensure discount properties after data is loaded
+    this.$nextTick(() => {
+      this.ensureDiscountProperties()
+    })
+  },
   methods: {
     // get all clients
     async getClients() {
@@ -397,13 +398,6 @@ export default {
       this.form.note = data.data.note
       this.form.status = data.data.status
       this.form.transportCost = data.data.transport
-      this.form.totalDiscount = data.data.discount
-      this.form.discount =
-        data.data.discountType == 0
-          ? data.data.discount
-          : data.data.discountPercentage
-      this.form.discountPercentage = data.data.discountPercentage
-      this.form.discountType = data.data.discountType
       this.form.totalTax = data.data.tax
       this.form.orderTax = data.data.taxRate
       this.form.netTotal = Number(data.data.invoiceTotal)
@@ -454,10 +448,24 @@ export default {
           productTax: product.productTax > 0 ? product.productTax : 0,
           totalTax: totalTax,
           minQty: 1,
+          discount: 0,
+          discountType: 'fixed',
         })
       }
       this.generateItemTotal(qunatity, 'qty', index, '')
       return
+    },
+
+    // ensure all products have discount properties
+    ensureDiscountProperties() {
+      this.form.selectedProducts.forEach(item => {
+        if (typeof item.discount === 'undefined') {
+          item.discount = 0
+        }
+        if (typeof item.discountType === 'undefined') {
+          item.discountType = 'fixed'
+        }
+      })
     },
 
     // update array
@@ -499,8 +507,45 @@ export default {
             ? Number(item.unitPrice) + Number(item.productTax)
             : item.unitPrice
         this.form.selectedProducts[index] = item
+        
+        // Recalculate discount after price/quantity changes
+        this.calculateProductDiscount(index)
       }
       this.calculateSum()
+      return
+    },
+
+    // calculate product discount
+    calculateProductDiscount(index) {
+      let item = this.form.selectedProducts[index]
+      if (item) {
+        let discountAmount = 0
+        
+        if (item.discount > 0) {
+          if (item.discountType == 'percentage') { // Percentage
+            discountAmount = (item.unitPrice * item.qty * item.discount) / 100
+          } else { // Fixed
+            discountAmount = Number(item.discount)
+          }
+        }
+        
+        // Calculate price after discount
+        let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount
+        
+        // Recalculate tax based on discounted price
+        if (item.taxType == 'Exclusive') {
+          item.productTax = priceAfterDiscount * (item.taxRate / 100)
+          item.totalTax = item.productTax
+          item.totalPrice = priceAfterDiscount + item.totalTax
+        } else {
+          item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + item.taxRate / 100))
+          item.totalTax = item.productTax
+          item.totalPrice = priceAfterDiscount
+        }
+        
+        this.form.selectedProducts[index] = item
+        this.calculateSum()
+      }
       return
     },
 
@@ -543,21 +588,11 @@ export default {
           (this.form.orderTax.rate / 100) * this.form.subTotal
       }
 
-      // calculate discount and total
-      if (this.form.subTotal > 0) {
-        let discount = Number(this.form.discount)
-        if (this.form.discountType == 1) {
-          discount = (discount / 100) * this.form.subTotal
-          this.form.totalDiscount = Number(discount.toFixed(2))
-        } else {
-          discount = Number(this.form.discount)
-        }
-        this.form.netTotal =
-          this.form.subTotal +
-          Number(this.form.transportCost) -
-          discount +
-          this.form.totalTax
-      }
+      // calculate total
+      this.form.netTotal =
+        this.form.subTotal +
+        Number(this.form.transportCost || 0) +
+        this.form.totalTax
 
       // calculate due
       let paid = Number(this.form.totalPaid)
@@ -595,6 +630,8 @@ export default {
           productTax: invoiceItem.unitTax,
           totalTax: invoiceItem.taxTotal,
           minQty: invoiceItem.returnQty,
+          discount: invoiceItem.discount || 0,
+          discountType: invoiceItem.discountType || 'fixed',
         })
       }
       this.calculateSum()

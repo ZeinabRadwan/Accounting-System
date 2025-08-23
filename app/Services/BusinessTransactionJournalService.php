@@ -12,6 +12,7 @@ use App\Models\InvoicePayment;
 use App\Models\PurchasePayment;
 use App\Models\LoanPayment;
 use App\Models\NonInvoicePayment;
+use App\Models\AccountRoutingSetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -71,20 +72,40 @@ class BusinessTransactionJournalService
             
             // Group by sales account to handle multiple products with different accounts
             $salesByAccount = [];
+            $totalDiscountAmount = 0;
+            
             foreach ($invoiceProducts as $invoiceProduct) {
                 $product = $invoiceProduct->product;
                 $accountId = $product->sales_account_id;
-                $amount = $invoiceProduct->getFinalTotalAttribute(); // Use amount after discount
                 
+                // Calculate original amount (before discount)
+                $originalAmount = $invoiceProduct->sale_price * $invoiceProduct->quantity;
+                
+                // Add to sales account
                 if (!isset($salesByAccount[$accountId])) {
                     $salesByAccount[$accountId] = 0;
                 }
-                $salesByAccount[$accountId] += $amount;
+                $salesByAccount[$accountId] += $originalAmount;
+                
+                // Track discount amount
+                if ($invoiceProduct->discount_amount > 0) {
+                    $totalDiscountAmount += $invoiceProduct->discount_amount;
+                }
             }
             
-            // Create separate journal entry lines for each sales account
+            // Create separate journal entry lines for each sales account (full amount before discount)
             foreach ($salesByAccount as $accountId => $amount) {
                 $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, 2, "Sales Revenue for Invoice {$invoice->invoice_no}");
+            }
+            
+            // Create discount journal entry if there are any discounts
+            if ($totalDiscountAmount > 0) {
+                $discountAccount = $this->getDiscountAllowedAccount();
+                if ($discountAccount) {
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, 3, "Sales Discount for Invoice {$invoice->invoice_no}");
+                } else {
+                    throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
+                }
             }
 
             // Create VAT journal entry if applicable
@@ -787,5 +808,21 @@ class BusinessTransactionJournalService
     public function validateVatRateConnections(\App\Models\VatRate $vatRate): bool
     {
         return $vatRate->hasChartOfAccountConnections();
+    }
+
+    /**
+     * Get discount allowed account from routing settings
+     */
+    private function getDiscountAllowedAccount(): ?ChartOfAccount
+    {
+        $setting = AccountRoutingSetting::where('module', 'sales')
+            ->where('setting_key', 'discount_allowed_account')
+            ->first();
+
+        if (!$setting || !$setting->parent_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::find($setting->parent_account_id);
     }
 }

@@ -83,7 +83,7 @@ class Invoice extends Model
     {
         $costOfProductReturn = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
 
-        return $this->sub_total + $this->transport + $this->taxAmount() - $this->discount - $costOfProductReturn;
+        return $this->sub_total + $this->transport + $this->taxAmount() - $costOfProductReturn;
         // return $this->sub_total + $this->transport - $this->discount + $this->taxAmount();
     }
 

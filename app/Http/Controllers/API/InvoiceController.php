@@ -60,7 +60,6 @@ class InvoiceController extends Controller
             'reference' => 'nullable|string|max:255',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:' . $request->subTotal,
             'transportCost' => 'nullable|numeric|min:1',
             'orderTax' => 'required',
             'netTotal' => 'required|numeric|min:1',
@@ -94,11 +93,7 @@ class InvoiceController extends Controller
                 $isPaid = 1;
             }
 
-            // calculate discount
-            $discount = $request->discount;
-            if ($request->discountType == 1) {
-                $discount = $request->totalDiscount;
-            }
+
 
             // create invoice
             $invoice = Invoice::create([
@@ -107,8 +102,6 @@ class InvoiceController extends Controller
                 'slug' => uniqid(),
                 'client_id' => $request->client['id'],
                 'transport' => $request->transportCost,
-                'discount_type' => $request->discountType,
-                'discount' => $discount,
                 'sub_total' => $request->subTotal,
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
@@ -363,7 +356,6 @@ class InvoiceController extends Controller
             'reference' => 'nullable|string|max:255',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:' . $request->subTotal,
             'transportCost' => 'nullable|numeric|min:1',
             'netTotal' => ['required', 'numeric', new MinTotal($minAmount, $request->netTotal)],
             'poReference' => 'nullable|string|max:255',
@@ -382,19 +374,13 @@ class InvoiceController extends Controller
                 $isPaid = 1;
             }
 
-            // calculate discount
-            $discount = $request->discount;
-            if ($request->discountType == 1) {
-                $discount = $request->totalDiscount;
-            }
+
 
             // update invoice
             $invoice->update([
                 'reference' => $request->reference,
                 'client_id' => $request->client['id'],
                 'transport' => $request->transportCost,
-                'discount_type' => $request->discountType,
-                'discount' => $discount,
                 'sub_total' => $request->subTotal,
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
@@ -416,6 +402,16 @@ class InvoiceController extends Controller
                     'inventory_count' => $totalQty,
                 ]);
 
+                // Calculate discount amount
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
                     'product_id' => $selectedProduct['id'],
@@ -424,6 +420,9 @@ class InvoiceController extends Controller
                     'sale_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
                     'tax_amount' => $selectedProduct['productTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
                 ]);
             }
 
