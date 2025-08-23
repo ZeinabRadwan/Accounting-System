@@ -133,10 +133,26 @@ class InvoiceController extends Controller
             // store invoice products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
+                
+                // Validate product has sales account
+                if (!$product->hasSalesAccount()) {
+                    throw new Exception('Product ' . $product->name . ' must have a Sales Account assigned.');
+                }
+                
                 // update product stock
                 $product->update([
                     'inventory_count' => $product->inventory_count - $selectedProduct['qty'],
                 ]);
+
+                // Calculate discount amount
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
 
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
@@ -146,6 +162,9 @@ class InvoiceController extends Controller
                     'sale_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
                     'tax_amount' => $selectedProduct['productTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
                 ]);
             }
 

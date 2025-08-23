@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('subscription_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('tenant_id')->constrained()->cascadeOnDelete();
+            $table->string('tenant_id');
+            $table->foreign('tenant_id')->references('id')->on('tenants')->cascadeOnDelete();
             $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
             $table->foreignId('status_updated_by_id')->nullable()->comment('user_id')->constrained('users')->nullOnDelete();
             $table->unsignedInteger('quantity');

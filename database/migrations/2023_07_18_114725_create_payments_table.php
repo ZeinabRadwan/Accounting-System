@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('tenant_id')->constrained()->cascadeOnDelete();
+            $table->string('tenant_id');
+            $table->foreign('tenant_id')->references('id')->on('tenants')->cascadeOnDelete();
             $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
             $table->foreignId('subscription_id')->nullable()->constrained()->nullOnDelete();
             $table->unsignedInteger('quantity');

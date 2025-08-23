@@ -2,222 +2,161 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
 use App\Models\ChartOfAccount;
 use App\Models\ChartOfAccountType;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DefaultChartOfAccountsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        // First, ensure we have the basic account types
+        // Create account types if they don't exist
         $this->createAccountTypes();
         
-        // Then create the default chart of accounts
+        // Create default chart of accounts
         $this->createDefaultAccounts();
     }
 
     /**
-     * Create basic account types
+     * Create account types
      */
-    private function createAccountTypes()
+    private function createAccountTypes(): void
     {
         $types = [
-            ['name' => 'Asset', 'order' => 1],
-            ['name' => 'Liability', 'order' => 2],
-            ['name' => 'Equity', 'order' => 3],
-            ['name' => 'Revenue', 'order' => 4],
-            ['name' => 'Expense', 'order' => 5],
+            'Asset',
+            'Liability',
+            'Equity',
+            'Revenue',
+            'Expense'
         ];
 
-        foreach ($types as $type) {
-            ChartOfAccountType::firstOrCreate(
-                ['name' => $type['name']],
-                ['order' => $type['order']]
-            );
+        foreach ($types as $typeName) {
+            ChartOfAccountType::firstOrCreate(['name' => $typeName]);
         }
     }
 
     /**
      * Create default chart of accounts
      */
-    private function createDefaultAccounts()
+    private function createDefaultAccounts(): void
     {
-        $userId = DB::table('users')->first()->id ?? 1;
+        $this->createAssetAccounts();
+        $this->createLiabilityAccounts();
+        $this->createRevenueAccounts();
+        $this->createExpenseAccounts();
+    }
+
+    /**
+     * Create asset accounts
+     */
+    private function createAssetAccounts(): void
+    {
+        $assetType = ChartOfAccountType::where('name', 'Asset')->first();
         
-        // Get account type IDs
-        $assetTypeId = ChartOfAccountType::where('name', 'Asset')->first()->id;
-        $liabilityTypeId = ChartOfAccountType::where('name', 'Liability')->first()->id;
-        $equityTypeId = ChartOfAccountType::where('name', 'Equity')->first()->id;
-        $revenueTypeId = ChartOfAccountType::where('name', 'Revenue')->first()->id;
-        $expenseTypeId = ChartOfAccountType::where('name', 'Expense')->first()->id;
-
         $accounts = [
-            // Assets
-            [
-                'name' => 'Cash',
-                'code' => '1000',
-                'type_id' => $assetTypeId,
-                'parent_id' => null,
-                'order' => 1,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Bank Accounts',
-                'code' => '1100',
-                'type_id' => $assetTypeId,
-                'parent_id' => null,
-                'order' => 2,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Accounts Receivable',
-                'code' => '1200',
-                'type_id' => $assetTypeId,
-                'parent_id' => null,
-                'order' => 3,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Inventory',
-                'code' => '1300',
-                'type_id' => $assetTypeId,
-                'parent_id' => null,
-                'order' => 4,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Fixed Assets',
-                'code' => '1400',
-                'type_id' => $assetTypeId,
-                'parent_id' => null,
-                'order' => 5,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-
-            // Liabilities
-            [
-                'name' => 'Accounts Payable',
-                'code' => '2000',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => null,
-                'order' => 6,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Loans Payable',
-                'code' => '2100',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => null,
-                'order' => 7,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Tax Payable',
-                'code' => '2200',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => null,
-                'order' => 8,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-
-            // Equity
-            [
-                'name' => 'Owner\'s Equity',
-                'code' => '3000',
-                'type_id' => $equityTypeId,
-                'parent_id' => null,
-                'order' => 9,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Retained Earnings',
-                'code' => '3100',
-                'type_id' => $equityTypeId,
-                'parent_id' => null,
-                'order' => 10,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-
-            // Revenue
-            [
-                'name' => 'Sales Revenue',
-                'code' => '4000',
-                'type_id' => $revenueTypeId,
-                'parent_id' => null,
-                'order' => 11,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Other Revenue',
-                'code' => '4100',
-                'type_id' => $revenueTypeId,
-                'parent_id' => null,
-                'order' => 12,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-
-            // Expenses
-            [
-                'name' => 'Cost of Goods Sold',
-                'code' => '5000',
-                'type_id' => $expenseTypeId,
-                'parent_id' => null,
-                'order' => 13,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Purchase Expense',
-                'code' => '5100',
-                'type_id' => $expenseTypeId,
-                'parent_id' => null,
-                'order' => 14,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Operating Expenses',
-                'code' => '5200',
-                'type_id' => $expenseTypeId,
-                'parent_id' => null,
-                'order' => 15,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'Financial Expenses',
-                'code' => '5300',
-                'type_id' => $expenseTypeId,
-                'parent_id' => null,
-                'order' => 16,
-                'is_active' => true,
-                'created_by' => $userId,
-            ],
+            ['name' => 'Bank Accounts', 'code' => '1000'],
+            ['name' => 'Cash', 'code' => '1001'],
+            ['name' => 'Accounts Receivable', 'code' => '1100'],
+            ['name' => 'VAT Receivable', 'code' => '1200'],
+            ['name' => 'Purchase VAT Receivable', 'code' => '1201'],
+            ['name' => 'Inventory', 'code' => '1300'],
+            ['name' => 'Fixed Assets', 'code' => '1400'],
         ];
 
         foreach ($accounts as $account) {
             ChartOfAccount::firstOrCreate(
                 ['code' => $account['code']],
-                $account
+                [
+                    'name' => $account['name'],
+                    'type_id' => $assetType->id,
+                    'is_active' => true,
+                    'created_by' => 1, // Assuming admin user ID is 1
+                ]
+            );
+        }
+    }
+
+    /**
+     * Create liability accounts
+     */
+    private function createLiabilityAccounts(): void
+    {
+        $liabilityType = ChartOfAccountType::where('name', 'Liability')->first();
+        
+        $accounts = [
+            ['name' => 'Accounts Payable', 'code' => '2000'],
+            ['name' => 'Sales VAT Payable', 'code' => '2100'],
+            ['name' => 'Loans Payable', 'code' => '2200'],
+            ['name' => 'Accrued Expenses', 'code' => '2300'],
+        ];
+
+        foreach ($accounts as $account) {
+            ChartOfAccount::firstOrCreate(
+                ['code' => $account['code']],
+                [
+                    'name' => $account['name'],
+                    'type_id' => $liabilityType->id,
+                    'is_active' => true,
+                    'created_by' => 1,
+                ]
+            );
+        }
+    }
+
+    /**
+     * Create revenue accounts
+     */
+    private function createRevenueAccounts(): void
+    {
+        $revenueType = ChartOfAccountType::where('name', 'Revenue')->first();
+        
+        $accounts = [
+            ['name' => 'Sales Revenue', 'code' => '4000'],
+            ['name' => 'Service Revenue', 'code' => '4001'],
+            ['name' => 'Other Revenue', 'code' => '4002'],
+            ['name' => 'Discount Allowed', 'code' => '4100'],
+        ];
+
+        foreach ($accounts as $account) {
+            ChartOfAccount::firstOrCreate(
+                ['code' => $account['code']],
+                [
+                    'name' => $account['name'],
+                    'type_id' => $revenueType->id,
+                    'is_active' => true,
+                    'created_by' => 1,
+                ]
+            );
+        }
+    }
+
+    /**
+     * Create expense accounts
+     */
+    private function createExpenseAccounts(): void
+    {
+        $expenseType = ChartOfAccountType::where('name', 'Expense')->first();
+        
+        $accounts = [
+            ['name' => 'Purchase Expense', 'code' => '5000'],
+            ['name' => 'Cost of Goods Sold', 'code' => '5001'],
+            ['name' => 'Operating Expenses', 'code' => '5100'],
+            ['name' => 'Discount Received', 'code' => '5200'],
+            ['name' => 'Transportation Expense', 'code' => '5300'],
+        ];
+
+        foreach ($accounts as $account) {
+            ChartOfAccount::firstOrCreate(
+                ['code' => $account['code']],
+                [
+                    'name' => $account['name'],
+                    'type_id' => $expenseType->id,
+                    'is_active' => true,
+                    'created_by' => 1,
+                ]
             );
         }
     }

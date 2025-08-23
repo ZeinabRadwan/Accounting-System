@@ -117,6 +117,11 @@ class PurchaseController extends Controller
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
 
+                // Validate product has purchase account
+                if (!$product->hasPurchaseAccount()) {
+                    throw new Exception('Product ' . $product->name . ' must have a Purchase Account assigned.');
+                }
+
                 // calculate new purchase price
                 $currentStockPrice = $product->inventory_count * $product->purchase_price;
                 $newStockPrice = $selectedProduct['qty'] * $selectedProduct['unitCost'];
@@ -130,6 +135,16 @@ class PurchaseController extends Controller
                     'inventory_count' => $product->inventory_count + $selectedProduct['qty'],
                 ]);
 
+                // Calculate discount amount
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+
                 PurchaseProduct::create([
                     'purchase_id' => $purchase->id,
                     'product_id' => $product->id,
@@ -137,6 +152,9 @@ class PurchaseController extends Controller
                     'purchase_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
                     'tax_amount' => $selectedProduct['productTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
                 ]);
             }
 

@@ -246,7 +246,7 @@ class VatJournalService
                 $query->whereHas('chartOfAccount', function ($q) {
                     $q->whereHas('type', function ($t) {
                         $t->where('name', 'Liability');
-                    }));
+                    });
                 });
             })
             ->whereBetween('date', [$startDate, $endDate])
@@ -258,7 +258,7 @@ class VatJournalService
                 $query->whereHas('chartOfAccount', function ($q) {
                     $q->whereHas('type', function ($t) {
                         $t->where('name', 'Asset');
-                    }));
+                    });
                 });
             })
             ->whereBetween('date', [$startDate, $endDate])
