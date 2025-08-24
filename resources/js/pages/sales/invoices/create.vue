@@ -349,9 +349,9 @@
                 <div v-if="taxes" class="form-group col-md-2">
                   <label for="orderTax">{{ $t("Invoice Tax") }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.orderTax" :options="taxes" label="code"
-                    :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" placeholder="Select a tax type"
-                    @input="calculateSum; clearFieldError('orderTax')" />
+                                     <v-select v-model="form.orderTax" :options="taxes" label="code"
+                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" placeholder="Select a tax type"
+                     @input="calculateSum(); clearFieldError('orderTax')" />
                   <has-error :form="form" field="orderTax" />
                 </div>
                 <div class="form-group col-md-2">
@@ -577,35 +577,36 @@ export default {
           url: "",
         },
       ],
-      form: new Form({
-        invoiceNo: "",
-        client: "",
-        reference: "",
-        selectedProducts: [],
-        subTotal: 0,
-        netTotal: 0,
-        transportCost: "",
-        orderTax: "",
-        totalTax: 0,
-        productTotalTax: 0,
-        account: "",
-        totalPaid: "",
-        dueAmount: "",
-        poReference: "",
-        paymentTerms: "",
-        deliveryPlace: "",
-        addPayment: "",
-        chequeNo: "",
-        receiptNo: "",
-        date: new Date().toISOString().slice(0, 10),
-        note: "",
-        status: 1,
-        isSendEmail: false,
-        isSendSMS: false,
-        discountType: 0, // 0 for fixed, 1 for percentage
-        discount: 0,
-        totalDiscount: 0,
-      }),
+             form: new Form({
+         invoiceNo: "",
+         client: "",
+         reference: "",
+         selectedProducts: [],
+         subTotal: 0,
+         netTotal: 0,
+         transportCost: "",
+         orderTax: "",
+         totalTax: 0,
+         productTotalTax: 0,
+         invoiceTax: 0, // Add this field for Invoice Tax calculation
+         account: "",
+         totalPaid: "",
+         dueAmount: "",
+         poReference: "",
+         paymentTerms: "",
+         deliveryPlace: "",
+         addPayment: "",
+         chequeNo: "",
+         receiptNo: "",
+         date: new Date().toISOString().slice(0, 10),
+         note: "",
+         status: 1,
+         isSendEmail: false,
+         isSendSMS: false,
+         discountType: 0, // 0 for fixed, 1 for percentage
+         discount: 0,
+         totalDiscount: 0,
+       }),
       products: "",
       accounts: "",
       taxes: "",
@@ -1061,63 +1062,69 @@ export default {
       return;
     },
 
-    // calculate sum
-    calculateSum() {
-      // calculate subtotal with proper decimal precision
-      this.form.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return prev + cur.totalPrice;
-      }, 0));
+         // calculate sum
+     calculateSum() {
+       // calculate subtotal with proper decimal precision
+       this.form.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
+         prev,
+         cur
+       ) {
+         return prev + cur.totalPrice;
+       }, 0));
 
-      // calculate product tax with proper decimal precision
-      this.form.productTotalTax = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return prev + cur.totalTax;
-      }, 0));
-      
-
-
-      // calculate total product discount with proper decimal precision
-      this.form.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return prev + (cur.discountAmount || 0);
-      }, 0));
-      
+       // calculate product tax with proper decimal precision
+       this.form.productTotalTax = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
+         prev,
+         cur
+       ) {
+         return prev + cur.totalTax;
+       }, 0));
+       
 
 
-      // calculate global discount with proper decimal precision
-      let globalDiscount = 0;
-      if (this.form.discount > 0) {
-        if (this.form.discountType == 1) { // Percentage
-          globalDiscount = this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal);
-        } else { // Fixed
-          globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
-        }
-      }
+       // calculate total product discount with proper decimal precision
+       this.form.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
+         prev,
+         cur
+       ) {
+         return prev + (cur.discountAmount || 0);
+       }, 0));
+       
 
-      // calculate invoice tax on amount AFTER global discount with proper decimal precision
-      this.form.totalTax = 0;
-      if (this.form.orderTax) {
-        this.form.totalTax = this.roundToTwoDecimals(
-          (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount)
+
+       // calculate global discount with proper decimal precision
+       let globalDiscount = 0;
+       if (this.form.discount > 0) {
+         if (this.form.discountType == 1) { // Percentage
+           globalDiscount = this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal);
+         } else { // Fixed
+           globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
+         }
+       }
+
+       // Calculate Invoice Tax based on selected tax rate
+       this.form.invoiceTax = 0;
+       if (this.form.orderTax && this.form.orderTax.rate) {
+         // Calculate invoice tax on the subtotal after global discount
+         this.form.invoiceTax = this.roundToTwoDecimals(
+           (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount)
+         );
+       }
+
+       // Total tax is the sum of individual product VATs PLUS invoice tax
+       this.form.totalTax = this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax);
+
+               // calculate final total with proper decimal precision
+        // Net Total should be: SubTotal - Global Discount + Invoice Tax + Transport Cost
+        // (Individual product VATs are already included in SubTotal)
+        this.form.netTotal = this.roundToTwoDecimals(
+          this.form.subTotal -
+          globalDiscount +
+          this.form.invoiceTax +
+          Number(this.form.transportCost || 0)
         );
-      }
-
-      // calculate final total with proper decimal precision
-      this.form.netTotal = this.roundToTwoDecimals(
-        this.form.subTotal -
-        globalDiscount +
-        this.form.totalTax +
-        Number(this.form.transportCost || 0)
-      );
-      return;
-    },
+       return;
+     },
 
     // return number to word
     toWord(){
@@ -1376,29 +1383,30 @@ export default {
       }
     },
 
-    // Format all form values to ensure proper decimal precision
-    formatFormValues() {
-      // Format selected products
-      this.form.selectedProducts.forEach(item => {
-        item.unitPrice = this.roundToTwoDecimals(Number(item.unitPrice));
-        item.qty = Number(item.qty);
-        item.productTax = this.roundToTwoDecimals(Number(item.productTax));
-        item.totalTax = this.roundToTwoDecimals(Number(item.totalTax));
-        item.totalPrice = this.roundToTwoDecimals(Number(item.totalPrice));
-        item.unitCost = this.roundToTwoDecimals(Number(item.unitCost));
-        item.discount = this.roundToTwoDecimals(Number(item.discount || 0));
-        item.discountAmount = this.roundToTwoDecimals(Number(item.discountAmount || 0));
-      });
+         // Format all form values to ensure proper decimal precision
+     formatFormValues() {
+       // Format selected products
+       this.form.selectedProducts.forEach(item => {
+         item.unitPrice = this.roundToTwoDecimals(Number(item.unitPrice));
+         item.qty = Number(item.qty);
+         item.productTax = this.roundToTwoDecimals(Number(item.productTax));
+         item.totalTax = this.roundToTwoDecimals(Number(item.totalTax));
+         item.totalPrice = this.roundToTwoDecimals(Number(item.totalPrice));
+         item.unitCost = this.roundToTwoDecimals(Number(item.unitCost));
+         item.discount = this.roundToTwoDecimals(Number(item.discount || 0));
+         item.discountAmount = this.roundToTwoDecimals(Number(item.discountAmount || 0));
+       });
 
-      // Format form totals
-      this.form.subTotal = this.roundToTwoDecimals(Number(this.form.subTotal));
-      this.form.productTotalTax = this.roundToTwoDecimals(Number(this.form.productTotalTax));
-      this.form.totalDiscount = this.roundToTwoDecimals(Number(this.form.totalDiscount));
-      this.form.totalTax = this.roundToTwoDecimals(Number(this.form.totalTax));
-      this.form.netTotal = this.roundToTwoDecimals(Number(this.form.netTotal));
-      this.form.transportCost = this.roundToTwoDecimals(Number(this.form.transportCost || 0));
-      this.form.discount = this.roundToTwoDecimals(Number(this.form.discount || 0));
-    },
+       // Format form totals
+       this.form.subTotal = this.roundToTwoDecimals(Number(this.form.subTotal));
+       this.form.productTotalTax = this.roundToTwoDecimals(Number(this.form.productTotalTax));
+       this.form.invoiceTax = this.roundToTwoDecimals(Number(this.form.invoiceTax || 0));
+       this.form.totalDiscount = this.roundToTwoDecimals(Number(this.form.totalDiscount));
+       this.form.totalTax = this.roundToTwoDecimals(Number(this.form.totalTax));
+       this.form.netTotal = this.roundToTwoDecimals(Number(this.form.netTotal));
+       this.form.transportCost = this.roundToTwoDecimals(Number(this.form.transportCost || 0));
+       this.form.discount = this.roundToTwoDecimals(Number(this.form.discount || 0));
+     },
 
     // Validate that all calculations are mathematically correct
     validateCalculations() {
@@ -1433,21 +1441,31 @@ export default {
           return false;
         }
 
-        // Validate net total
-        const globalDiscount = this.form.discount > 0 
-          ? (this.form.discountType == 1 
-              ? this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal)
-              : this.roundToTwoDecimals(Number(this.form.discount)))
-          : 0;
-        
-        const calculatedNetTotal = this.roundToTwoDecimals(
-          this.form.subTotal - globalDiscount + this.form.totalTax + Number(this.form.transportCost || 0)
-        );
-        
-        if (Math.abs(calculatedNetTotal - this.form.netTotal) > 0.01) {
-          console.error('Net total validation failed:', calculatedNetTotal, 'vs', this.form.netTotal);
-          return false;
-        }
+                 // Validate invoice tax
+         const calculatedInvoiceTax = this.form.orderTax && this.form.orderTax.rate 
+           ? this.roundToTwoDecimals((this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount))
+           : 0;
+         
+         if (Math.abs(calculatedInvoiceTax - this.form.invoiceTax) > 0.01) {
+           console.error('Invoice tax validation failed:', calculatedInvoiceTax, 'vs', this.form.invoiceTax);
+           return false;
+         }
+
+                   // Validate net total
+          const globalDiscount = this.form.discount > 0 
+            ? (this.form.discountType == 1 
+                ? this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal)
+                : this.roundToTwoDecimals(Number(this.form.discount)))
+            : 0;
+          
+          const calculatedNetTotal = this.roundToTwoDecimals(
+            this.form.subTotal - globalDiscount + this.form.invoiceTax + Number(this.form.transportCost || 0)
+          );
+         
+         if (Math.abs(calculatedNetTotal - this.form.netTotal) > 0.01) {
+           console.error('Net total validation failed:', calculatedNetTotal, 'vs', this.form.netTotal);
+           return false;
+         }
 
         return true;
       } catch (error) {
@@ -1704,36 +1722,37 @@ export default {
       return false;
     },
 
-    // Reset form
-    resetForm() {
-      this.form.reset();
-      this.form.errors.clear();
-      this.form.selectedProducts = [];
-      this.form.subTotal = 0;
-      this.form.netTotal = 0;
-      this.form.totalTax = 0;
-      this.form.productTotalTax = 0;
-      this.form.totalDiscount = 0;
-      this.form.discount = 0;
-      this.form.transportCost = "";
-      this.form.orderTax = "";
-      this.form.account = "";
-      this.form.totalPaid = "";
-      this.form.dueAmount = "";
-      this.form.poReference = "";
-      this.form.paymentTerms = "";
-      this.form.deliveryPlace = "";
-      this.form.addPayment = "";
-      this.form.chequeNo = "";
-      this.form.receiptNo = "";
-      this.form.date = new Date().toISOString().slice(0, 10);
-      this.form.note = "";
-      this.form.status = 1;
-      this.form.isSendEmail = false;
-      this.form.isSendSMS = false;
-      this.form.discountType = 0;
-      this.form.reference = "";
-    },
+         // Reset form
+     resetForm() {
+       this.form.reset();
+       this.form.errors.clear();
+       this.form.selectedProducts = [];
+       this.form.subTotal = 0;
+       this.form.netTotal = 0;
+       this.form.totalTax = 0;
+       this.form.productTotalTax = 0;
+       this.form.invoiceTax = 0;
+       this.form.totalDiscount = 0;
+       this.form.discount = 0;
+       this.form.transportCost = "";
+       this.form.orderTax = "";
+       this.form.account = "";
+       this.form.totalPaid = "";
+       this.form.dueAmount = "";
+       this.form.poReference = "";
+       this.form.paymentTerms = "";
+       this.form.deliveryPlace = "";
+       this.form.addPayment = "";
+       this.form.chequeNo = "";
+       this.form.receiptNo = "";
+       this.form.date = new Date().toISOString().slice(0, 10);
+       this.form.note = "";
+       this.form.status = 1;
+       this.form.isSendEmail = false;
+       this.form.isSendSMS = false;
+       this.form.discountType = 0;
+       this.form.reference = "";
+     },
 
     // Clear validation errors for a specific field
     clearFieldError(field) {
