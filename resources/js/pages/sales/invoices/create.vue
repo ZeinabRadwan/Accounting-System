@@ -126,7 +126,7 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-95 m-auto">
+                <div class="table-responsive table-custom w-100 m-auto">
                   <table class="table table-hover table-sm text-center">
                     <thead>
                       <tr>
@@ -138,6 +138,7 @@
                         <th>{{ $t("Total") }}</th>
                         <th>{{ $t("Discount") }}</th>
                         <th>{{ $t("Total After Discount") }}</th>
+                        <th>{{ $t("VAT Type") }}</th>
                         <th>{{ $t("VAT") }}</th>
                         <th>{{ $t("Total with VAT") }}</th>
                         <th class="text-right">{{ $t("Action") }}</th>
@@ -270,11 +271,30 @@
                         </td>
                         <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
                         <td>
+                          <select 
+                            v-model="item.selectedVatRate" 
+                            class="form-control form-control-sm"
+                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.selectedVatRate`) }"
+                            @change="calculateProductVat(i - 1)"
+                            style="min-width: 120px;">
+                            <option value="">{{ $t('Select VAT') }}</option>
+                            <option 
+                              v-for="tax in taxes" 
+                              :key="tax.id" 
+                              :value="tax">
+                              {{ tax.code }} ({{ tax.rate }}%)
+                            </option>
+                          </select>
+                          <div v-if="form.errors.has(`selectedProducts.${i-1}.selectedVatRate`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${i-1}.selectedVatRate`) }}
+                          </div>
+                        </td>
+                        <td>
                           <span class="form-control-plaintext form-control-sm text-center">
                             {{ item.productTax | withCurrency }}
                           </span>
                         </td>
-                                                 <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ item.totalPrice | withCurrency }}</td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -294,6 +314,9 @@
                         </td>
                         <td>
                           <strong>{{ (totalUnitPrice - form.totalDiscount) | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong></strong>
                         </td>
                         <td>
                           <strong>{{ form.productTotalTax | withCurrency }}</strong>
@@ -903,7 +926,7 @@ export default {
       }
     },
 
-         // ensure all products have discount properties
+         // ensure all products have discount and VAT properties
      ensureDiscountProperties() {
        this.form.selectedProducts.forEach(item => {
          if (typeof item.discount === 'undefined') {
@@ -914,6 +937,9 @@ export default {
          }
          if (typeof item.discountAmount === 'undefined') {
            item.discountAmount = 0;
+         }
+         if (typeof item.selectedVatRate === 'undefined') {
+           item.selectedVatRate = this.form.orderTax;
          }
        });
      },
@@ -945,6 +971,7 @@ export default {
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
+          selectedVatRate: this.form.orderTax, // Default to invoice VAT rate
           // Add chart of account information for validation
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,
@@ -1017,33 +1044,51 @@ export default {
       }
     },
 
+    // calculate product VAT
+    calculateProductVat(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        // Clear VAT validation errors when values change
+        this.clearProductErrors(index);
+        
+        // Recalculate totals with new VAT rate
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+      }
+    },
+
 
 
     // generate item total price
     generateItemTotalPrice(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
-
         
         // Calculate price after discount
         let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
         
+        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
+        let vatRate = 0;
+        if (item.selectedVatRate && item.selectedVatRate.rate) {
+          vatRate = item.selectedVatRate.rate;
+        } else if (item.taxRate) {
+          vatRate = item.taxRate;
+        }
+        
         // Calculate tax based on discounted price
         if (item.taxType == "Exclusive") {
-          item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (item.taxRate / 100));
+          item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
           item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
           item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
         } else {
           // For inclusive tax, recalculate based on discounted unit price
           let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
           item.unitPrice = discountedUnitPrice;
-          item.unitCost = this.roundToTwoDecimals(discountedUnitPrice + (discountedUnitPrice * (item.taxRate / 100)));
+          item.unitCost = this.roundToTwoDecimals(discountedUnitPrice + (discountedUnitPrice * (vatRate / 100)));
           item.productTax = this.roundToTwoDecimals(item.unitCost - item.unitPrice);
           item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
           item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
         }
-        
-
         
         this.form.selectedProducts[index] = item;
       }

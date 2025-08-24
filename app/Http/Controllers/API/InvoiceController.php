@@ -194,6 +194,7 @@ class InvoiceController extends Controller
                     'discount' => $selectedProduct['discount'] ?? 0,
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
                     'discount_amount' => $discountAmount,
+                    'vat_rate_id' => $selectedProduct['selectedVatRate']['id'] ?? null,
                 ]);
             }
 
@@ -479,6 +480,7 @@ class InvoiceController extends Controller
                     'discount' => $selectedProduct['discount'] ?? 0,
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
                     'discount_amount' => $discountAmount,
+                    'vat_rate_id' => $selectedProduct['selectedVatRate']['id'] ?? null,
                 ]);
             }
 

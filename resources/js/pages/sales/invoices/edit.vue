@@ -64,6 +64,7 @@
                         <th>{{ $t('Tax') }}</th>
                         <th>{{ $t('Discount') }}</th>
                         <th>{{ $t('Subtotal') }}</th>
+                        <th>{{ $t('VAT Type') }}</th>
                         <th class="text-right">{{ $t('Action') }}</th>
                       </tr>
                     </thead>
@@ -138,6 +139,21 @@
                           </div>
                         </td>
                         <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>
+                          <select 
+                            v-model="item.selectedVatRate" 
+                            class="form-control form-control-sm"
+                            @change="calculateProductVat(i - 1)"
+                            style="min-width: 120px;">
+                            <option value="">{{ $t('Select VAT') }}</option>
+                            <option 
+                              v-for="tax in taxes" 
+                              :key="tax.id" 
+                              :value="tax">
+                              {{ tax.code }} ({{ tax.rate }}%)
+                            </option>
+                          </select>
+                        </td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -145,7 +161,7 @@
                         </td>
                       </tr>
                       <tr v-if="form.subTotal">
-                        <td :colspan="form.totalInvoiceReturn > 0 ? 8 : 7" class="text-right">
+                        <td :colspan="form.totalInvoiceReturn > 0 ? 10 : 9" class="text-right">
                           <strong>{{ $t('Subtotal') }}</strong>
                         </td>
                         <td>
@@ -155,6 +171,9 @@
                         </td>
                         <td>
                           <strong>{{ form.subTotal | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong></strong>
                         </td>
                         <td></td>
                       </tr>
@@ -549,6 +568,46 @@ export default {
       return
     },
 
+    // calculate product VAT
+    calculateProductVat(index) {
+      let item = this.form.selectedProducts[index]
+      if (item) {
+        // Recalculate tax based on selected VAT rate
+        let vatRate = 0
+        if (item.selectedVatRate && item.selectedVatRate.rate) {
+          vatRate = item.selectedVatRate.rate
+        } else if (item.taxRate) {
+          vatRate = item.taxRate
+        }
+        
+        // Calculate price after discount
+        let discountAmount = 0
+        if (item.discount > 0) {
+          if (item.discountType == 'percentage') {
+            discountAmount = (item.unitPrice * item.qty * item.discount) / 100
+          } else {
+            discountAmount = Number(item.discount)
+          }
+        }
+        let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount
+        
+        // Recalculate tax based on new VAT rate
+        if (item.taxType == 'Exclusive') {
+          item.productTax = priceAfterDiscount * (vatRate / 100)
+          item.totalTax = item.productTax
+          item.totalPrice = priceAfterDiscount + item.totalTax
+        } else {
+          item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + vatRate / 100))
+          item.totalTax = item.productTax
+          item.totalPrice = priceAfterDiscount
+        }
+        
+        this.form.selectedProducts[index] = item
+        this.calculateSum()
+      }
+      return
+    },
+
     // remove item from array
     removeItem(item) {
       let index = this.form.selectedProducts.indexOf(item)
@@ -632,6 +691,7 @@ export default {
           minQty: invoiceItem.returnQty,
           discount: invoiceItem.discount || 0,
           discountType: invoiceItem.discountType || 'fixed',
+          selectedVatRate: invoiceItem.vat_rate_id ? this.taxes.find(tax => tax.id === invoiceItem.vat_rate_id) : this.form.orderTax,
         })
       }
       this.calculateSum()
