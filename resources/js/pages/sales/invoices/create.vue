@@ -3,6 +3,7 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
+    
     <div class="row">
       <div class="col-lg-12 col-xl-12">
         <div class="card">
@@ -14,40 +15,62 @@
               <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
             </router-link>
           </div>
-          <!-- /.card-header -->
-            <div class="card-body">
-                                 <!-- Chart of Account Validation -->
-                   <ChartOfAccountValidation
-                     :key="validationKey"
-                     :client="form.client"
-                     :products="form.selectedProducts"
-                     :allProducts="products"
-                     type="invoice"
-                     @chart-of-account-assigned="handleChartOfAccountAssigned"
-                   />
-              <!-- form start -->
-              <form role="form" @submit.prevent="saveInvoice" @keydown="form.onKeydown($event)" ref="invoiceForm">
-              <div class="row" v-if="items">
-                <div class="form-group col-md-6">
-                  <label for="client">{{ $t("Client") }}
-                    <span class="required">*</span></label>
-                  <div class="row">
-                    <div class="col">
-                      <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.client" :options="items" label="name"
-                          :class="{ 'is-invalid': form.errors.has('client') }" name="client"
-                          :placeholder="$t('Select a client')" />
-                        <ClientCreateModal @reloadClients="getClients('latest')">
-                          <div class="input-group-text create-btn">
-                            <i class="fas fa-solid fa-plus-circle"></i>
-                          </div>
-                        </ClientCreateModal>
-                      </div>
-                      <has-error :form="form" field="client" />
+          
+          <div class="card-body">
+            <!-- Remove ChartOfAccountValidation component from here -->
+            
+            <!-- Client Selection with Auto-Assign -->
+            <div class="row" v-if="items">
+              <div class="form-group col-md-6">
+                <label for="client">{{ $t("Client") }}
+                  <span class="required">*</span></label>
+                <div class="row">
+                  <div class="col">
+                    <div class="d-flex w-100">
+                      <v-select 
+                        class="flex-grow-1" 
+                        v-model="form.client" 
+                        :options="items" 
+                        label="name"
+                        :class="{ 'is-invalid': form.errors.has('client') }" 
+                        name="client"
+                        :placeholder="$t('Select a client')"
+                        @input="onClientChange"
+                      />
+                      <ClientCreateModal @reloadClients="getClients('latest')">
+                        <div class="input-group-text create-btn">
+                          <i class="fas fa-solid fa-plus-circle"></i>
+                        </div>
+                      </ClientCreateModal>
                     </div>
+                    
+                    <!-- Client Chart of Account Status - Keep this validation -->
+                    <div class="client-status mt-2" v-if="form.client">
+                      <div v-if="!form.client.chart_of_account_id" class="client-warning">
+                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                        <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                        <button 
+                          type="button" 
+                          class="btn btn-sm btn-outline-warning ml-2"
+                          @click="autoAssignClientChartOfAccount"
+                          :disabled="isAutoAssigningClient"
+                        >
+                          <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                          {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
+                        </button>
+                      </div>
+                      <div v-else class="client-success">
+                        <i class="fas fa-check-circle text-success"></i>
+                        <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
+                      </div>
+                    </div>
+                    
+                    <has-error :form="form" field="client" />
                   </div>
                 </div>
-                <div class="form-group col-md-6">
+              </div>
+              
+              <div class="form-group col-md-6">
                   <label for="reference">
                     {{ $t("Reference") }}
                   </label>
@@ -497,7 +520,6 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
-import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 import { ToWords } from 'to-words';
 
 export default {
@@ -509,61 +531,63 @@ export default {
     ToggleButton,
     ClientCreateModal,
     ProductCreateModal,
-    ChartOfAccountValidation
   },
-  data: () => ({
-    isDemoMode: window.config.isDemoMode,
-    breadcrumbsCurrent: "Create Invoice",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Invoices",
-        url: "invoices.index",
-      },
-      {
-        name: "Create",
-        url: "",
-      },
-    ],
-    form: new Form({
-      invoiceNo: "",
-      client: "",
-      reference: "",
-      selectedProducts: [],
-      subTotal: 0,
-      netTotal: 0,
-      transportCost: "",
-      orderTax: "",
-      totalTax: 0,
-      productTotalTax: 0,
-      account: "",
-      totalPaid: "",
-      dueAmount: "",
-      poReference: "",
-      paymentTerms: "",
-      deliveryPlace: "",
-      addPayment: "",
-      chequeNo: "",
-      receiptNo: "",
-      date: new Date().toISOString().slice(0, 10),
-      note: "",
-      status: 1,
-      isSendEmail: false,
-      isSendSMS: false,
-      discountType: 0, // 0 for fixed, 1 for percentage
-      discount: 0,
-      totalDiscount: 0,
-    }),
-    products: "",
-    accounts: "",
-    taxes: "",
-    prefix: "",
-    isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
-    validationKey: 0, // Force re-render of validation component
-  }),
+  data() {
+    return {
+      isDemoMode: window.config.isDemoMode,
+      breadcrumbsCurrent: "Create Invoice",
+      breadcrumbs: [
+        {
+          name: "Dashboard",
+          url: "home",
+        },
+        {
+          name: "Invoices",
+          url: "invoices.index",
+        },
+        {
+          name: "Create",
+          url: "",
+        },
+      ],
+      form: new Form({
+        invoiceNo: "",
+        client: "",
+        reference: "",
+        selectedProducts: [],
+        subTotal: 0,
+        netTotal: 0,
+        transportCost: "",
+        orderTax: "",
+        totalTax: 0,
+        productTotalTax: 0,
+        account: "",
+        totalPaid: "",
+        dueAmount: "",
+        poReference: "",
+        paymentTerms: "",
+        deliveryPlace: "",
+        addPayment: "",
+        chequeNo: "",
+        receiptNo: "",
+        date: new Date().toISOString().slice(0, 10),
+        note: "",
+        status: 1,
+        isSendEmail: false,
+        isSendSMS: false,
+        discountType: 0, // 0 for fixed, 1 for percentage
+        discount: 0,
+        totalDiscount: 0,
+      }),
+      products: "",
+      accounts: "",
+      taxes: "",
+      prefix: "",
+      isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
+      validationKey: 0, // Force re-render of validation component
+      isAutoAssigningClient: false, // Add this back for the auto-assign button
+    }
+  },
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
     
@@ -587,6 +611,11 @@ export default {
       return this.form.selectedProducts.reduce((total, item) => {
         return total + (item.unitPrice * item.qty);
       }, 0);
+    },
+
+    // Add computed property to check if chart of account is assigned
+    hasChartOfAccount() {
+      return !!this.form.client && !!this.form.client.chart_of_account_id;
     }
   },
   created() {
@@ -991,94 +1020,68 @@ export default {
         });
     },
 
-    // Handle chart of account assignment
-    async handleChartOfAccountAssigned(data) {
-      console.log('Chart of account assigned:', data)
+    // Handle client change - Remove ONLY the automatic assignment
+    onClientChange(client) {
+      // Remove the automatic assignment logic
+      // The auto-assign button will still work when clicked manually
+    },
+
+    // Add back the autoAssignClientChartOfAccount method
+    async autoAssignClientChartOfAccount() {
+      if (!this.form.client || this.isAutoAssigningClient) {
+        return;
+      }
       
-      // Set flag to prevent form submission during updates
-      this.isUpdatingChartOfAccount = true
+      this.isAutoAssigningClient = true;
       
       try {
-        if (data.entity === 'client') {
-          // Store current client selection
-          const currentClientSlug = this.form.client ? this.form.client.slug : null
+        // Store the current client slug before making the API call
+        const currentClientSlug = this.form.client.slug;
+        
+        const response = await this.$http.post(`/api/clients/${this.form.client.slug}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          // Update the client data with new chart of account
+          this.form.client.chart_of_account_id = response.data.chart_of_account_id;
           
-          // Refresh client data
-          await this.getClients()
+          // Refresh clients list to get updated data
+          await this.getClients('default'); // Use 'default' instead of 'latest'
           
-          // Restore client selection if it was set
-          if (currentClientSlug && this.items) {
-            this.form.client = this.items.find(client => client.slug === currentClientSlug)
-            console.log('Restored client selection:', this.form.client)
+          // Restore the EXACT same client selection
+          if (this.items) {
+            const updatedClient = this.items.find(c => c.slug === currentClientSlug);
+            if (updatedClient) {
+              this.form.client = updatedClient;
+            }
           }
-        } else if (data.entity === 'product') {
-          // Store current product selections and their data
-          const currentProductSelections = this.form.selectedProducts.map(p => ({
-            id: p.id,
-            qty: p.qty,
-            unitPrice: p.unitPrice,
-            discount: p.discount,
-            discountType: p.discountType
-          }))
           
-          // Refresh product data
-          await this.getProducts()
+          // Show success message
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
           
-                     // Restore product selections and update with new data
-           if (currentProductSelections.length > 0 && this.products) {
-             this.form.selectedProducts = currentProductSelections.map(selection => {
-               const updatedProduct = this.products.find(p => p.id === selection.id)
-               if (updatedProduct) {
-                 // Preserve the user's selections (quantity, price, discount) while updating chart of account info
-                 const restoredProduct = {
-                   ...updatedProduct,
-                   qty: selection.qty,
-                   unitPrice: selection.unitPrice,
-                   discount: selection.discount,
-                   discountType: selection.discountType,
-                   // Recalculate totals based on preserved values
-                   totalPrice: selection.unitPrice * selection.qty,
-                   totalTax: (updatedProduct.taxType == "Exclusive" 
-                     ? selection.unitPrice * (updatedProduct.taxRate / 100)
-                     : selection.unitPrice - selection.unitPrice / (1 + updatedProduct.taxRate / 100)) * selection.qty
-                 }
-                 
-                 console.log(`Restored product ${restoredProduct.name}:`, {
-                   id: restoredProduct.id,
-                   sales_account_id: restoredProduct.sales_account_id,
-                   purchase_account_id: restoredProduct.purchase_account_id
-                 })
-                 
-                 return restoredProduct
-               }
-               return null
-             }).filter(Boolean) // Remove any null entries
-             
-             console.log('Restored product selections:', this.form.selectedProducts)
-             
-             // Recalculate totals after updating products
-             this.calculateSum()
-           }
+          // Force validation component to re-render
+          this.validationKey++;
+          
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
         }
+        
       } catch (error) {
-        console.error('Error in handleChartOfAccountAssigned:', error)
-        // Don't show error toast here since the auto-assignment was successful
-        // Just log the error for debugging
-              } finally {
-          // Clear the flag after updates are complete
-          this.isUpdatingChartOfAccount = false
-          
-          // Force validation component to re-render with updated data
-          this.validationKey++
-          
-          // Wait for next tick to ensure validation component updates
-          await this.$nextTick()
-          
-          // Add a small delay to ensure data propagation
-          await new Promise(resolve => setTimeout(resolve, 100))
-          
-          console.log('Chart of account update completed, validation key updated to:', this.validationKey)
-        }
+        console.error('Error auto-assigning chart of account:', error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to assign Chart of Account"),
+          text: this.$t("Please try again or assign manually")
+        });
+      } finally {
+        this.isAutoAssigningClient = false;
+      }
     },
   },
 };
@@ -1087,5 +1090,170 @@ export default {
 <style scoped>
 .create-btn {
   padding: 11px;
+}
+
+/* Improved warning and success styles */
+.chart-account-warning,
+.chart-account-success {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart-account-warning {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #ffc107;
+}
+
+.chart-account-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border: 1px solid #28a745;
+}
+
+.warning-content,
+.success-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.warning-icon,
+.success-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.warning-icon {
+  color: #856404;
+}
+
+.success-icon {
+  color: #155724;
+}
+
+.warning-text,
+.success-text {
+  flex-grow: 1;
+}
+
+.warning-title,
+.success-title {
+  margin: 0 0 4px 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.warning-title {
+  color: #856404;
+}
+
+.success-title {
+  color: #155724;
+}
+
+.warning-description,
+.success-description {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.warning-description {
+  color: #856404;
+}
+
+.success-description {
+  color: #155724;
+}
+
+.warning-action {
+  flex-shrink: 0;
+}
+
+.btn-primary {
+  background: #007bff;
+  border-color: #007bff;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .warning-content,
+  .success-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .warning-action {
+    width: 100%;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* Client status styles */
+.client-status {
+  font-size: 13px;
+}
+
+.client-warning,
+.client-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.client-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.client-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.btn-outline-warning {
+  border-color: #ffc107;
+  color: #856404;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-outline-warning:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 </style>

@@ -171,33 +171,73 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, $slug)
     {
-        // get client
-        $client = Client::where('slug', $slug)->first();
-
-        // validate request
-        // $this->validate($request, [
-        //     'name' => 'required|string|max:255',
-        //     'phoneNumber' => 'required|string|max:20|min:3',
-        //     'email' => 'nullable|email|max:255|min:3|unique:clients,email,' . $client->id,
-        //     'companyName' => 'nullable|string|max:100|min:2',
-        //     'address' => 'nullable|string|max:255',
-        // ]);
         try {
+            // get client
+            $client = Client::where('slug', $slug)->first();
+
+            \Log::info('UPDATE DEBUG - Starting update for client:', ['slug' => $slug, 'client_id' => $client ? $client->id : null]);
+
             // upload thumbnail and set the name
             $imageName = $client->image_path;
             if ($request->image) {
+                \Log::info('UPDATE DEBUG - Processing image');
                 if ($imageName) {
                     @unlink(public_path('images/clients/' . $imageName));
                 }
-                $imageName = time() . '.' . explode(
-                    '/',
-                    explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
-                )[1];
-                Image::make($request->image)->save(public_path('images/clients/') . $imageName);
+                
+                // This is likely where the error is happening
+                \Log::info('UPDATE DEBUG - Image data:', ['image_length' => strlen($request->image)]);
+                
+                try {
+                    // SAFE IMAGE PROCESSING - Handle different image formats
+                    if (strpos($request->image, 'data:image/') === 0) {
+                        // Base64 image data
+                        $imageData = explode(',', $request->image);
+                        if (count($imageData) > 1) {
+                            $imageInfo = explode(';', $imageData[0]);
+                            if (count($imageInfo) > 0) {
+                                $mimeType = explode(':', $imageInfo[0]);
+                                if (count($mimeType) > 1) {
+                                    $extension = explode('/', $mimeType[1]);
+                                    if (count($extension) > 1) {
+                                        $fileExtension = $extension[1];
+                                    } else {
+                                        $fileExtension = 'png'; // fallback
+                                    }
+                                } else {
+                                    $fileExtension = 'png'; // fallback
+                                }
+                            } else {
+                                $fileExtension = 'png'; // fallback
+                            }
+                        } else {
+                            $fileExtension = 'png'; // fallback
+                        }
+                    } else {
+                        // Direct file upload or other format
+                        $fileExtension = 'png'; // fallback
+                    }
+                    
+                    $imageName = time() . '.' . $fileExtension;
+                    \Log::info('UPDATE DEBUG - Generated image name:', ['imageName' => $imageName]);
+                    
+                } catch (\Exception $imgError) {
+                    \Log::error('UPDATE DEBUG - Image processing error:', ['error' => $imgError->getMessage()]);
+                    // Use a safe fallback instead of throwing an error
+                    $imageName = time() . '.png';
+                    \Log::info('UPDATE DEBUG - Using fallback image name:', ['imageName' => $imageName]);
+                }
+                
+                // Only try to save if we have valid image data
+                if (strpos($request->image, 'data:image/') === 0) {
+                    Image::make($request->image)->save(public_path('images/clients/') . $imageName);
+                }
             }
 
+            \Log::info('UPDATE DEBUG - About to update client');
+
             // update client
-            $client->update([
+            $updateData = [
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
@@ -207,25 +247,45 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
-                'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
-            ]);
+                'chart_of_account_id' => $request->chartOfAccountId,
+            ];
+
+            \Log::info('UPDATE DEBUG - Update data:', $updateData);
+
+            $client->update($updateData);
+
+            \Log::info('UPDATE DEBUG - Client updated successfully');
 
             // add activity log
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($client)
-                ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->name . ']',
-                    'event' => 'Update',
-                    'slug' => $client->slug,
-                    'routeName' => 'clients.show'
-                ])
-                ->useLog('Client Updated')
-                ->log('Client Updated');
+            try {
+                activity()
+                    ->causedBy(Auth::user())
+                    ->performedOn($client)
+                    ->withProperties([
+                        'name' => "",
+                        'code' => '[' . $request->name . ']',
+                        'event' => 'Update',
+                        'slug' => $client->slug,
+                        'routeName' => 'clients.show'
+                    ])
+                    ->useLog('Client Updated')
+                    ->log('Client Updated');
+                
+                \Log::info('UPDATE DEBUG - Activity log created');
+            } catch (\Exception $activityError) {
+                \Log::error('UPDATE DEBUG - Activity log error:', ['error' => $activityError->getMessage()]);
+                // Don't fail the update if activity logging fails
+            }
 
             return $this->responseWithSuccess('Client updated successfully');
+            
         } catch (Exception $e) {
+            \Log::error('UPDATE ERROR - Full error details:', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -732,81 +792,38 @@ ORDER BY `date`");
     }
 
     /**
-     * Get chart of accounts for client selection.
+     * Get chart of accounts for client selection based on routing setup.
      */
     public function getChartOfAccounts()
     {
         try {
-            Log::info('getChartOfAccounts: Starting to fetch chart of accounts');
+            Log::info('getChartOfAccounts: Starting to fetch chart of accounts from routing setup');
             
-            // Get all active chart of accounts without eager loading first
-            $accounts = \App\Models\ChartOfAccount::where('is_active', true)
-                ->orderBy('name')
-                ->get();
+            // Get the clients account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
             
-            Log::info('getChartOfAccounts: Found ' . $accounts->count() . ' active accounts');
-            
-            $chartOfAccounts = collect();
-            $processedCount = 0;
-            $skippedCount = 0;
-            
-            foreach ($accounts as $account) {
-                try {
-                    // Skip if account is null or missing essential data
-                    if (!$account || !$account->id || !$account->name) {
-                        Log::warning('getChartOfAccounts: Skipping account with missing data', [
-                            'account_id' => $account->id ?? 'null',
-                            'account_name' => $account->name ?? 'null'
-                        ]);
-                        $skippedCount++;
-                        continue;
-                    }
+            if (!$routingSetting || !$routingSetting->parent_account_id) {
+                Log::warning('getChartOfAccounts: No routing setting found for clients_account');
+                
+                // Fallback to all active accounts if routing is not configured
+                $accounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->orderBy('name')
+                    ->get();
                     
-                    // Get type name safely
-                    $typeName = 'No Type';
-                    try {
-                        if ($account->type_id) {
-                            $type = $account->type;
-                            if ($type && $type->name) {
-                                $typeName = $type->name;
-                            }
-                        }
-                    } catch (\Exception $typeError) {
-                        \Log::warning('getChartOfAccounts: Type loading failed for account ' . $account->id, [
-                            'error' => $typeError->getMessage()
-                        ]);
-                        $typeName = 'No Type';
-                    }
-                    
-                    $chartOfAccounts->push([
-                        'id' => (int) $account->id,
-                        'name' => (string) ($account->name ?? 'Unknown'),
-                        'code' => (string) ($account->code ?? ''),
-                        'type' => $typeName
-                    ]);
-                    
-                    $processedCount++;
-                    
-                } catch (\Exception $accountError) {
-                    \Log::warning('getChartOfAccounts: Error processing account ' . ($account->id ?? 'unknown'), [
-                        'error' => $accountError->getMessage()
-                    ]);
-                    $skippedCount++;
-                    continue;
-                }
+                return $this->formatChartOfAccounts($accounts, 'Fallback to all accounts');
             }
             
-            \Log::info('getChartOfAccounts: Processing complete', [
-                'total_accounts' => $accounts->count(),
-                'processed_count' => $processedCount,
-                'skipped_count' => $skippedCount,
-                'final_count' => $chartOfAccounts->count()
-            ]);
+            // Get accounts from the routing setup (parent + children)
+            $accounts = $routingSetting->getAllAccounts();
             
-            return response()->json($chartOfAccounts->values()->toArray());
+            Log::info('getChartOfAccounts: Found ' . $accounts->count() . ' accounts from routing setup');
+            
+            return $this->formatChartOfAccounts($accounts, 'From routing setup');
             
         } catch (\Exception $e) {
-            \Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
+            Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString()
@@ -817,6 +834,72 @@ ORDER BY `date`");
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    /**
+     * Format chart of accounts for response
+     */
+    private function formatChartOfAccounts($accounts, $source = 'Unknown')
+    {
+        $chartOfAccounts = collect();
+        $processedCount = 0;
+        $skippedCount = 0;
+        
+        foreach ($accounts as $account) {
+            try {
+                // Skip if account is null or missing essential data
+                if (!$account || !$account->id || !$account->name) {
+                    Log::warning('formatChartOfAccounts: Skipping account with missing data', [
+                        'account_id' => $account->id ?? 'null',
+                        'account_name' => $account->name ?? 'null'
+                    ]);
+                    $skippedCount++;
+                    continue;
+                }
+                
+                // Get type name safely
+                $typeName = 'No Type';
+                try {
+                    if ($account->type_id) {
+                        $type = $account->type;
+                        if ($type && $type->name) {
+                            $typeName = $type->name;
+                        }
+                    }
+                } catch (\Exception $typeError) {
+                    Log::warning('formatChartOfAccounts: Type loading failed for account ' . $account->id, [
+                        'error' => $typeError->getMessage()
+                    ]);
+                    $typeName = 'No Type';
+                }
+                
+                $chartOfAccounts->push([
+                    'id' => (int) $account->id,
+                    'name' => (string) ($account->name ?? 'Unknown'),
+                    'code' => (string) ($account->code ?? ''),
+                    'type' => $typeName
+                ]);
+                
+                $processedCount++;
+                
+            } catch (\Exception $accountError) {
+                Log::warning('formatChartOfAccounts: Error processing account ' . ($account->id ?? 'unknown'), [
+                    'error' => $accountError->getMessage()
+                ]);
+                $skippedCount++;
+                continue;
+            }
+        }
+        
+        Log::info('formatChartOfAccounts: Processing complete', [
+            'source' => $source,
+            'total_accounts' => $accounts->count(),
+            'processed_count' => $processedCount,
+            'skipped_count' => $skippedCount,
+            'final_count' => $chartOfAccounts->count()
+        ]);
+        
+        return response()->json($chartOfAccounts->values()->toArray());
     }
 
     /**
@@ -859,6 +942,71 @@ ORDER BY `date`");
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get chart of accounts specifically for client routing setup
+     */
+    public function getClientRoutingAccounts()
+    {
+        try {
+            Log::info('getClientRoutingAccounts: Starting to fetch client routing accounts');
+            
+            // Get the clients account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Client account routing is not configured',
+                    'accounts' => []
+                ], 404);
+            }
+            
+            if (!$routingSetting->parent_account_id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Client account routing is not properly configured. Please set a parent account.',
+                    'accounts' => []
+                ], 400);
+            }
+            
+            // Get accounts from the routing setup (parent + children)
+            $accounts = $routingSetting->getAccountsForDropdown();
+            
+            Log::info('getClientRoutingAccounts: Found ' . count($accounts) . ' accounts from routing setup');
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Client routing accounts retrieved successfully',
+                'accounts' => $accounts,
+                'routing_setting' => [
+                    'id' => $routingSetting->id,
+                    'setting_name' => $routingSetting->setting_name,
+                    'description' => $routingSetting->description,
+                    'parent_account' => $routingSetting->parentAccount ? [
+                        'id' => $routingSetting->parentAccount->id,
+                        'name' => $routingSetting->parentAccount->name,
+                        'code' => $routingSetting->parentAccount->code
+                    ] : null
+                ]
+            ]);
+            
+        } catch (\Exception $e) {
+            Log::error('getClientRoutingAccounts error: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve client routing accounts.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

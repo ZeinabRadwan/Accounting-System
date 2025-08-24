@@ -187,11 +187,11 @@ Route::middleware([
         Route::get('/smtp-info', [GeneralController::class, 'getSMTPforTenant']);
         Route::apiResource('vat-rates', VatRateController::class);
 
-                // Account Routing Settings routes
+        // Account Routing Settings routes - REORDER THESE
         Route::get('/account-routing-settings', [AccountRoutingController::class, 'index']);
+        Route::put('/account-routing-settings/bulk', [AccountRoutingController::class, 'bulkUpdate']); // Move this BEFORE the {id} route
         Route::put('/account-routing-settings', [AccountRoutingController::class, 'update']);
         Route::put('/account-routing-settings/{id}', [AccountRoutingController::class, 'updateSetting']);
-        Route::put('/account-routing-settings/bulk', [AccountRoutingController::class, 'bulkUpdate']);
         Route::get('/account-routing-settings/{settingKey}/accounts', [AccountRoutingController::class, 'getAccountsForSetting']);
         Route::get('/account-routing-settings/available-parent-accounts', [AccountRoutingController::class, 'getAvailableParentAccounts']);
         Route::get('/account-routing-settings/check-configuration', [AccountRoutingController::class, 'checkConfiguration']);
@@ -260,6 +260,9 @@ Route::middleware([
         Route::get('/chart-of-accounts/all', [ChartOfAccountController::class, 'getAll']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
+
+        Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
+        Route::get('/clients/routing-accounts', [ClientController::class, 'getClientRoutingAccounts']);
 
         // Journal Entry routes
         Route::get('/journal-entries/search', [JournalEntryController::class, 'search']);

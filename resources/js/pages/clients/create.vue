@@ -4,12 +4,18 @@
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
     
-    <!-- Chart of Account Validation Component -->
-    <ChartOfAccountValidation 
-      :client="clientData" 
-      :type="'invoice'"
-      @chart-of-account-assigned="onChartOfAccountAssigned"
-    />
+    <!-- Chart of Account Warning Alert - Same as edit form -->
+    <div class="chart-account-warning" v-if="!form.chartOfAccountId">
+      <div class="warning-content">
+        <div class="warning-icon">
+          <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="warning-text">
+          <h6 class="warning-title">{{ $t('Chart of Account Required') }}</h6>
+          <p class="warning-description">{{ $t('Client must have a Chart of Account assigned for journal entries') }}</p>
+        </div>
+      </div>
+    </div>
     
     <div class="row">
       <div class="col-lg-12">
@@ -179,7 +185,6 @@
 import Form from "vform";
 import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
-import ChartOfAccountValidation from "../../components/ChartOfAccountValidation.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -189,7 +194,6 @@ export default {
   components: {
     VueTelInput,
     ToggleButton,
-    ChartOfAccountValidation,
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -226,20 +230,36 @@ export default {
     url: null,
     chartOfAccounts: [],
     isAutoAssigning: false,
-    clientData: {}, // Added for ChartOfAccountValidation component
   }),
   created() {
     this.loadChartOfAccounts();
   },
   methods: {
-    // Load chart of accounts
+    // Load chart of accounts from routing setup
     async loadChartOfAccounts() {
       try {
-        const response = await this.$http.get('/api/clients/chart-of-accounts');
-        this.chartOfAccounts = response.data || [];
+        // First try to get accounts from routing setup
+        const routingResponse = await this.$http.get('/api/clients/routing-accounts');
+        
+        if (routingResponse.data.success && routingResponse.data.accounts.length > 0) {
+          this.chartOfAccounts = routingResponse.data.accounts;
+          console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
+        } else {
+          // Fallback to the old method if routing is not configured
+          const response = await this.$http.get('/api/clients/chart-of-accounts');
+          this.chartOfAccounts = response.data || [];
+          console.log('Loaded accounts from fallback method:', this.chartOfAccounts.length);
+        }
       } catch (error) {
         console.error('Error loading chart of accounts:', error);
-        this.chartOfAccounts = [];
+        // Try fallback method
+        try {
+          const response = await this.$http.get('/api/clients/chart-of-accounts');
+          this.chartOfAccounts = response.data || [];
+        } catch (fallbackError) {
+          console.error('Fallback method also failed:', fallbackError);
+          this.chartOfAccounts = [];
+        }
       }
     },
 
@@ -299,58 +319,66 @@ export default {
       this.isAutoAssigning = true;
       
       try {
-        // For new clients, we need to simulate the auto-assignment logic
-        // since the client doesn't exist in the database yet
-        const clientData = {
-          type: this.form.type || 'Company',
-          name: this.form.name,
-          email: this.form.email,
-          phoneNumber: this.form.phoneNumber,
-          companyName: this.form.companyName,
-          taxRegistrationNumber: this.form.taxRegistrationNumber,
-          address: this.form.address,
-        };
+        // Try to get accounts from routing setup first
+        const routingResponse = await this.$http.get('/api/clients/routing-accounts');
         
-        // Use the same logic as the backend but on the frontend
-        let defaultAccount = null;
-        
-        if (clientData.type === 'Company') {
-          // Look for "Accounts Receivable - Companies" or similar
-          defaultAccount = this.chartOfAccounts.find(account => 
-            account.name.toLowerCase().includes('accounts receivable') && 
-            account.name.toLowerCase().includes('company')
-          );
-        } else if (clientData.type === 'Individual') {
-          // Look for "Accounts Receivable - Individuals" or similar
-          defaultAccount = this.chartOfAccounts.find(account => 
-            account.name.toLowerCase().includes('accounts receivable') && 
-            account.name.toLowerCase().includes('individual')
-          );
-        }
-        
-        // Fallback to any Accounts Receivable account
-        if (!defaultAccount) {
-          defaultAccount = this.chartOfAccounts.find(account => 
-            account.name.toLowerCase().includes('accounts receivable')
-          );
-        }
-        
-        // Final fallback to any active account
-        if (!defaultAccount && this.chartOfAccounts.length > 0) {
-          defaultAccount = this.chartOfAccounts[0];
-        }
-        
-        if (defaultAccount) {
+        if (routingResponse.data.success && routingResponse.data.accounts.length > 0) {
+          // Use the first account from routing setup (usually the parent account)
+          const defaultAccount = routingResponse.data.accounts[0];
           this.form.chartOfAccountId = defaultAccount.id;
+          
           toast.fire({
             type: "success",
-            title: this.$t("Chart of Account auto-assigned successfully"),
+            title: this.$t("Chart of Account auto-assigned from routing setup"),
           });
         } else {
-          toast.fire({
-            type: "error",
-            title: this.$t("No suitable Chart of Account found for automatic assignment"),
-          });
+          // Fallback to the old logic
+          const clientData = {
+            type: this.form.type || 'Company',
+            name: this.form.name,
+            email: this.form.email,
+            phoneNumber: this.form.phoneNumber,
+            companyName: this.form.companyName,
+            taxRegistrationNumber: this.form.taxRegistrationNumber,
+            address: this.form.address,
+          };
+          
+          let defaultAccount = null;
+          
+          if (clientData.type === 'Company') {
+            defaultAccount = this.chartOfAccounts.find(account => 
+              account.name.toLowerCase().includes('accounts receivable') && 
+              account.name.toLowerCase().includes('company')
+            );
+          } else if (clientData.type === 'Individual') {
+            defaultAccount = this.chartOfAccounts.find(account => 
+              account.name.toLowerCase().includes('accounts receivable') && 
+              account.name.toLowerCase().includes('individual')
+            );
+          }
+          
+          if (!defaultAccount) {
+            defaultAccount = this.chartOfAccounts.find(account => 
+              account.name.toLowerCase().includes('accounts receivable')
+            );
+          }
+          
+          if (!defaultAccount && this.chartOfAccounts.length > 0) {
+            defaultAccount = this.chartOfAccounts[0];
+          }
+          
+          if (defaultAccount) {
+            this.form.chartOfAccountId = defaultAccount.id;
+            toast.fire({
+              type: "success",
+              title: this.$t("Chart of Account auto-assigned successfully"),
+            });
+          } else {
+            toast.fire({
+              type: "error",
+              title: this.$t("No suitable Chart of Account found for automatic assignment"),
+            });
+          }
         }
       } catch (error) {
         console.error('Error auto-assigning chart of account:', error);
@@ -361,15 +389,6 @@ export default {
       } finally {
         this.isAutoAssigning = false;
       }
-    },
-
-    // Callback from ChartOfAccountValidation component
-    onChartOfAccountAssigned(chartOfAccount) {
-      this.form.chartOfAccountId = chartOfAccount.id;
-      toast.fire({
-        type: "success",
-        title: this.$t("Chart of Account auto-assigned successfully"),
-      });
     },
   },
 };
@@ -412,5 +431,54 @@ export default {
   font-size: 0.875rem;
   color: #6c757d;
   margin-top: 5px;
+}
+
+/* Chart of Account Warning Alert Styles - Same as edit form */
+.chart-account-warning {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #ffc107;
+}
+
+.warning-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.warning-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  color: #856404;
+}
+
+.warning-text {
+  flex-grow: 1;
+}
+
+.warning-title {
+  margin: 0 0 4px 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #856404;
+}
+
+.warning-description {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+  color: #856404;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .warning-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
 }
 </style>

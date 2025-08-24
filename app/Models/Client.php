@@ -230,7 +230,22 @@ class Client extends Model
             return $clientData;
         }
 
-        // Auto-assign based on client type or other criteria
+        // Get the clients account routing setting
+        $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+            ->where('is_active', true)
+            ->first();
+        
+        if ($routingSetting && $routingSetting->parent_account_id) {
+            // Use the parent account from routing setup
+            $defaultAccount = $routingSetting->parentAccount;
+            
+            if ($defaultAccount && $defaultAccount->is_active) {
+                $clientData['chart_of_account_id'] = $defaultAccount->id;
+                return $clientData;
+            }
+        }
+        
+        // Fallback to the old logic if routing is not configured
         $defaultAccount = null;
         
         if (isset($clientData['type'])) {

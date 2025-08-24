@@ -27,15 +27,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'setting_key' => 'sales_account',
                 'setting_name' => 'Sales Account',
                 'account_type' => 'Revenue',
-                'description' => 'Parent account for all sales revenue',
-                'is_required' => true,
-            ],
-            [
-                'module' => 'sales',
-                'setting_key' => 'returns_account',
-                'setting_name' => 'Returns Account',
-                'account_type' => 'Revenue',
-                'description' => 'Parent account for sales returns and credit notes',
+                'description' => 'Parent account for all sales revenue (including returns as negative entries)',
                 'is_required' => true,
             ],
             [
@@ -61,15 +53,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'setting_key' => 'purchase_account',
                 'setting_name' => 'Purchase Account',
                 'account_type' => 'Expense',
-                'description' => 'Parent account for all purchase expenses',
-                'is_required' => true,
-            ],
-            [
-                'module' => 'purchase',
-                'setting_key' => 'purchase_returns_account',
-                'setting_name' => 'Purchase Returns Account',
-                'account_type' => 'Expense',
-                'description' => 'Parent account for purchase returns and debit notes',
+                'description' => 'Parent account for all purchase expenses (including returns as negative entries)',
                 'is_required' => true,
             ],
             [
@@ -106,34 +90,6 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'setting_name' => 'Expenses Account',
                 'account_type' => 'Expense',
                 'description' => 'Parent account for all general expenses',
-                'is_required' => true,
-            ],
-
-            // Inventory Module
-            [
-                'module' => 'inventory',
-                'setting_key' => 'inventory_account',
-                'setting_name' => 'Inventory Account',
-                'account_type' => 'Asset',
-                'description' => 'Parent account for inventory assets',
-                'is_required' => true,
-            ],
-            [
-                'module' => 'inventory',
-                'setting_key' => 'cogs_account',
-                'setting_name' => 'Cost of Goods Sold Account',
-                'account_type' => 'Expense',
-                'description' => 'Parent account for cost of goods sold',
-                'is_required' => true,
-            ],
-
-            // Treasury Module
-            [
-                'module' => 'treasury',
-                'setting_key' => 'cash_account',
-                'setting_name' => 'Cash Account',
-                'account_type' => 'Asset',
-                'description' => 'Parent account for cash and bank accounts',
                 'is_required' => true,
             ],
         ];

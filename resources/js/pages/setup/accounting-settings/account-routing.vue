@@ -49,12 +49,8 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-              <template #selected-option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
+              <template #selected-option="{ name }">
+                <span class="selected-account-name">{{ name }}</span>
               </template>
             </VSelect>
           </div>
@@ -94,12 +90,8 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-              <template #selected-option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
+              <template #selected-option="{ name }">
+                <span class="selected-account-name">{{ name }}</span>
               </template>
             </VSelect>
           </div>
@@ -139,12 +131,8 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-              <template #selected-option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
+              <template #selected-option="{ name }">
+                <span class="selected-account-name">{{ name }}</span>
               </template>
             </VSelect>
           </div>
@@ -184,102 +172,8 @@
                   <span class="account-type">{{ type }}</span>
                 </div>
               </template>
-              <template #selected-option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
-              </template>
-            </VSelect>
-          </div>
-        </div>
-      </div>
-
-      <!-- Inventory Module -->
-      <div class="module-section" v-if="inventorySettings.length > 0">
-        <div class="module-header">
-          <h3 class="module-title">
-            <i class="fas fa-boxes text-info"></i>
-            {{ $t('Inventory Module') }}
-          </h3>
-          <p class="module-description">{{ $t('Configure accounts for inventory transactions') }}</p>
-        </div>
-        
-        <div class="settings-grid">
-          <div class="setting-item" v-for="setting in inventorySettings" :key="setting.setting_key">
-            <label class="setting-label">
-              {{ setting.setting_name }}
-              <span class="required" v-if="setting.is_required">*</span>
-            </label>
-            <p class="setting-description">{{ setting.description }}</p>
-            <VSelect
-              v-model="setting.parent_account_id"
-              :options="getAccountsForType(setting.account_type)"
-              :reduce="option => option.id"
-              :placeholder="$t('Select account')"
-              :searchable="true"
-              :clearable="true"
-              @input="updateSetting(setting)"
-            >
-              <template #option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
-              </template>
-              <template #selected-option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
-              </template>
-            </VSelect>
-          </div>
-        </div>
-      </div>
-
-      <!-- Treasury Module -->
-      <div class="module-section" v-if="treasurySettings.length > 0">
-        <div class="module-header">
-          <h3 class="module-title">
-            <i class="fas fa-university text-secondary"></i>
-            {{ $t('Treasury Module') }}
-          </h3>
-          <p class="module-description">{{ $t('Configure accounts for treasury transactions') }}</p>
-        </div>
-        
-        <div class="settings-grid">
-          <div class="setting-item" v-for="setting in treasurySettings" :key="setting.setting_key">
-            <label class="setting-label">
-              {{ setting.setting_name }}
-              <span class="required" v-if="setting.is_required">*</span>
-            </label>
-            <p class="setting-description">{{ setting.description }}</p>
-            <VSelect
-              v-model="setting.parent_account_id"
-              :options="getAccountsForType(setting.account_type)"
-              :reduce="option => option.id"
-              :placeholder="$t('Select account')"
-              :searchable="true"
-              :clearable="true"
-              @input="updateSetting(setting)"
-            >
-              <template #option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
-              </template>
-              <template #selected-option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
+              <template #selected-option="{ name }">
+                <span class="selected-account-name">{{ name }}</span>
               </template>
             </VSelect>
           </div>
@@ -359,16 +253,16 @@ export default {
       messageType: 'alert-info',
       chartOfAccounts: [],
       isLoading: false,
-      debugMode: false // Added debugMode data property
+      debugMode: false
     }
   },
   computed: {
     salesSettings() {
-      return this.settings.filter(s => s.module === 'sales')
+      return this.settings.filter(s => s.module === 'sales' && s.setting_key !== 'returns_account')
     },
     
     purchaseSettings() {
-      return this.settings.filter(s => s.module === 'purchase')
+      return this.settings.filter(s => s.module === 'purchase' && s.setting_key !== 'purchase_returns_account')
     },
     
     vatSettings() {
@@ -377,14 +271,6 @@ export default {
     
     expenseSettings() {
       return this.settings.filter(s => s.module === 'expenses')
-    },
-    
-    inventorySettings() {
-      return this.settings.filter(s => s.module === 'inventory')
-    },
-    
-    treasurySettings() {
-      return this.settings.filter(s => s.module === 'treasury')
     }
   },
   
@@ -642,6 +528,11 @@ export default {
   color: #3498db;
   text-transform: uppercase;
   font-weight: 500;
+}
+
+.selected-account-name {
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 .actions-container {
