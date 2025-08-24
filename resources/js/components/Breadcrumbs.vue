@@ -61,8 +61,9 @@ export default {
 .breadcrumb-rtl .breadcrumb-item+.breadcrumb-item::before {
   content: '<';
   float: right;
-  padding-left: 0;
-  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0;
+  direction: ltr;
 }
 
 .breadcrumb-rtl .breadcrumb-item {

@@ -21,6 +21,9 @@ import { vfmPlugin } from "vue-final-modal"
 // Import RTL styles
 import '~/assets/css/rtl.css'
 
+// Import RTL DateRangePicker Plugin
+import rtlDaterangepickerPlugin from '~/plugins/rtlDaterangepickerPlugin'
+
 // vue page transition
 import '@toast-ui/editor/dist/toastui-editor.css'
 
@@ -31,6 +34,9 @@ Vue.use(DateRangePicker)
 Vue.use(VueMoment)
 Vue.use(vfmPlugin)
 Vue.use(VTooltip)
+
+// Use RTL DateRangePicker Plugin
+Vue.use(rtlDaterangepickerPlugin)
 
 window.Vue = import('vue').default
 

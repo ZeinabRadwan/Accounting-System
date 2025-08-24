@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('plans', function (Blueprint $table) {
-            $table->dropColumn(['api_id', 'product_id']);
+        Schema::create('chart_of_account_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('order')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,11 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('plans', function (Blueprint $table) {
-            $table->after('id', function () use ($table) {
-                $table->string('api_id');
-                $table->string('product_id');
-            });
-        });
+        Schema::dropIfExists('chart_of_account_types');
     }
 };

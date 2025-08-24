@@ -12,6 +12,9 @@ import Swal from 'sweetalert2'
 // Import RTL styles
 import '~/assets/css/rtl.css'
 
+// Import RTL DateRangePicker Plugin
+import rtlDaterangepickerPlugin from '~/plugins/rtlDaterangepickerPlugin'
+
 import VueScrollactive from 'vue-scrollactive';
 
 Vue.use(VueScrollactive);
@@ -53,6 +56,9 @@ const options = {
 Vue.use(VueHtmlToPaper, options)
 
 Vue.use(DateRangePicker)
+
+// Use RTL DateRangePicker Plugin
+Vue.use(rtlDaterangepickerPlugin)
 
 Vue.component('VSelect', vSelect)
 
