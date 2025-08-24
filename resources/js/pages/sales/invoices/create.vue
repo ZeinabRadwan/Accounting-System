@@ -139,7 +139,7 @@
                         <th>{{ $t("Discount") }}</th>
                         <th>{{ $t("Total After Discount") }}</th>
                         <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total After VAT") }}</th>
+                        <th>{{ $t("Total with VAT") }}</th>
                         <th class="text-right">{{ $t("Action") }}</th>
                       </tr>
                     </thead>
@@ -274,8 +274,7 @@
                             {{ item.productTax | withCurrency }}
                           </span>
                         </td>
-                        <td>{{ item.totalTax | withCurrency }}</td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                                                 <td>{{ item.totalPrice | withCurrency }}</td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -1079,6 +1078,8 @@ export default {
       ) {
         return prev + cur.totalTax;
       }, 0));
+      
+
 
       // calculate total product discount with proper decimal precision
       this.form.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
@@ -1087,6 +1088,8 @@ export default {
       ) {
         return prev + (cur.discountAmount || 0);
       }, 0));
+      
+
 
       // calculate global discount with proper decimal precision
       let globalDiscount = 0;
