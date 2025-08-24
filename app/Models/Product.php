@@ -63,7 +63,7 @@ class Product extends Model implements HasMedia
         $totalTax = $tax = 0;
         $currentPrice = $this->regular_price - $this->discountAmount();
         $productTax = $this->productTax;
-        if ($productTax->rate > 0) {
+        if ($productTax && $productTax->rate > 0) {
             $tax = ($productTax->rate / 100);
         }
 
@@ -89,7 +89,8 @@ class Product extends Model implements HasMedia
         if ($this->tax_type == 'Exclusive') {
             $price = $this->regular_price - $this->discountAmount() + $this->taxAmount();
         } else {
-            $price = (($this->regular_price - $this->discountAmount()) / (1 + $this->productTax->rate / 100)) + $this->taxAmount();
+            $taxRate = $this->productTax ? $this->productTax->rate : 0;
+            $price = (($this->regular_price - $this->discountAmount()) / (1 + $taxRate / 100)) + $this->taxAmount();
         }
 
         return round($price, 2);

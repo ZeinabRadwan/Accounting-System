@@ -270,18 +270,9 @@
                         </td>
                         <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
                         <td>
-                          <input 
-                            type="number" 
-                            v-model="item.productTax" 
-                            class="form-control form-control-sm" 
-                            step="any" 
-                            min="0" 
-                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.productTax`) }"
-                            @change="calculateProductTax(i - 1)"
-                            @keyup="calculateProductTax(i - 1)" />
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.productTax`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${i-1}.productTax`) }}
-                          </div>
+                          <span class="form-control-plaintext form-control-sm text-center">
+                            {{ item.productTax | withCurrency }}
+                          </span>
                         </td>
                         <td>{{ item.totalTax | withCurrency }}</td>
                         <td>{{ item.totalPrice | withCurrency }}</td>
@@ -933,6 +924,8 @@ export default {
         // Clear selectedProducts validation errors when adding a product
         this.clearFieldError('selectedProducts');
         
+
+        
         this.form.selectedProducts.unshift({
           id: product.id,
           slug: product.slug,
@@ -946,8 +939,8 @@ export default {
           unitPrice: product.regularPrice,
           unitCost: product.regularPrice,
           totalPrice: product.regularPrice,
-          productTax: product.productTax ? product.productTax.rate : 0,
-          totalTax: 0,
+          productTax: 0, // Will be calculated below
+          totalTax: 0, // Will be calculated below
           itemType: product.itemType,
           discount: 0,
           discountType: "fixed",
@@ -956,10 +949,13 @@ export default {
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,
         });
+        
+        // Calculate initial VAT and totals for the newly added product
+        const index = 0; // Since we're adding to the beginning of the array
+        this.generateItemTotalPrice(index);
+        
         this.form.product = "";
         this.calculateSum();
-        
-
       }
     },
 
@@ -1021,33 +1017,21 @@ export default {
       }
     },
 
-    // calculate product tax
-    calculateProductTax(index) {
-      let item = this.form.selectedProducts[index];
-      if (item) {
-        if (item.taxType == "Exclusive") {
-          item.productTax = this.roundToTwoDecimals(item.unitPrice * (item.taxRate / 100));
-        } else {
-          item.productTax = this.roundToTwoDecimals(item.unitCost - item.unitPrice);
-        }
-        item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
-        item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
-        this.form.selectedProducts[index] = item;
-        this.calculateSum();
-      }
-    },
+
 
     // generate item total price
     generateItemTotalPrice(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
+
+        
         // Calculate price after discount
         let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
         
         // Calculate tax based on discounted price
         if (item.taxType == "Exclusive") {
           item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (item.taxRate / 100));
-          item.totalTax = this.roundToTwoDecimals(item.productTax);
+          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
           item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
         } else {
           // For inclusive tax, recalculate based on discounted unit price
@@ -1058,6 +1042,8 @@ export default {
           item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
           item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
         }
+        
+
         
         this.form.selectedProducts[index] = item;
       }
