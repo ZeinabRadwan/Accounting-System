@@ -311,15 +311,14 @@
                   </div>
                   <has-error :form="form" field="discount" />
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="transportCost">{{
-                    $t("Transport Cost")
-                  }}</label>
-                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
-                  <has-error :form="form" field="transportCost" />
-                </div>
+                                 <div class="form-group col-md-4">
+                   <label for="transportCost">{{
+                     $t("Transport Cost")
+                   }}</label>
+                   <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
+                     class="form-control" name="transportCost"
+                     :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                 </div>
               </div>
 
               <div class="row">
