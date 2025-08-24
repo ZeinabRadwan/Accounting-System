@@ -19,67 +19,69 @@
           <div class="card-body">
             <!-- Remove ChartOfAccountValidation component from here -->
             
-            <!-- Client Selection with Auto-Assign -->
-            <div class="row" v-if="items">
-              <div class="form-group col-md-6">
-                <label for="client">{{ $t("Client") }}
-                  <span class="required">*</span></label>
-                <div class="row">
-                  <div class="col">
-                    <div class="d-flex w-100">
-                      <v-select 
-                        class="flex-grow-1" 
-                        v-model="form.client" 
-                        :options="items" 
-                        label="name"
-                        :class="{ 'is-invalid': form.errors.has('client') }" 
-                        name="client"
-                        :placeholder="$t('Select a client')"
-                        @input="onClientChange"
-                      />
-                      <ClientCreateModal @reloadClients="getClients('latest')">
-                        <div class="input-group-text create-btn">
-                          <i class="fas fa-solid fa-plus-circle"></i>
+            <!-- Add the missing form element with submit handler -->
+            <form @submit.prevent="saveInvoice">
+              <!-- Client Selection with Auto-Assign -->
+              <div class="row" v-if="items">
+                <div class="form-group col-md-6">
+                  <label for="client">{{ $t("Client") }}
+                    <span class="required">*</span></label>
+                  <div class="row">
+                    <div class="col">
+                      <div class="d-flex w-100">
+                        <v-select 
+                          class="flex-grow-1" 
+                          v-model="form.client" 
+                          :options="items" 
+                          label="name"
+                          :class="{ 'is-invalid': form.errors.has('client') }" 
+                          name="client"
+                          :placeholder="$t('Select a client')"
+                          @input="onClientChange"
+                        />
+                        <ClientCreateModal @reloadClients="getClients('latest')">
+                          <div class="input-group-text create-btn">
+                            <i class="fas fa-solid fa-plus-circle"></i>
+                          </div>
+                        </ClientCreateModal>
+                      </div>
+                      
+                      <!-- Client Chart of Account Status - Keep this validation -->
+                      <div class="client-status mt-2" v-if="form.client">
+                        <div v-if="!form.client.chart_of_account_id" class="client-warning">
+                          <i class="fas fa-exclamation-triangle text-warning"></i>
+                          <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                          <button 
+                            type="button" 
+                            class="btn btn-sm btn-outline-warning ml-2"
+                            @click="autoAssignClientChartOfAccount"
+                            :disabled="isAutoAssigningClient"
+                          >
+                            <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                            {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
+                          </button>
                         </div>
-                      </ClientCreateModal>
-                    </div>
-                    
-                    <!-- Client Chart of Account Status - Keep this validation -->
-                    <div class="client-status mt-2" v-if="form.client">
-                      <div v-if="!form.client.chart_of_account_id" class="client-warning">
-                        <i class="fas fa-exclamation-triangle text-warning"></i>
-                        <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
-                        <button 
-                          type="button" 
-                          class="btn btn-sm btn-outline-warning ml-2"
-                          @click="autoAssignClientChartOfAccount"
-                          :disabled="isAutoAssigningClient"
-                        >
-                          <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                          {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
-                        </button>
+                        <div v-else class="client-success">
+                          <i class="fas fa-check-circle text-success"></i>
+                          <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
+                        </div>
                       </div>
-                      <div v-else class="client-success">
-                        <i class="fas fa-check-circle text-success"></i>
-                        <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
-                      </div>
+                      
+                      <has-error :form="form" field="client" />
                     </div>
-                    
-                    <has-error :form="form" field="client" />
                   </div>
                 </div>
-              </div>
-              
-              <div class="form-group col-md-6">
-                  <label for="reference">
-                    {{ $t("Reference") }}
-                  </label>
-                  <input id="reference" v-model="form.reference" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
-                    :placeholder="$t('Enter reference')" />
-                  <has-error :form="form" field="reference" />
+                
+                <div class="form-group col-md-6">
+                    <label for="reference">
+                      {{ $t("Reference") }}
+                    </label>
+                    <input id="reference" v-model="form.reference" type="text" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
+                      :placeholder="$t('Enter reference')" />
+                    <has-error :form="form" field="reference" />
+                  </div>
                 </div>
-              </div>
 
               <div class="row" v-if="products">
                 <div class="form-group col-md-12">
@@ -717,6 +719,29 @@ export default {
 
     // store item in array
     storeProduct(product) {
+      // Check if product has sales account before adding
+      if (!product.sales_account_id) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Sales Account Required"),
+          text: this.$t('Item "{{name}}" doesn\'t have a sales account. Please add a sales account to this item first.', { name: product.name }),
+          confirmButtonText: this.$t("Edit Item"),
+          showCancelButton: true,
+          cancelButtonText: this.$t("Cancel"),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Redirect to edit the product
+            this.$router.push({ 
+              name: 'products.edit', 
+              params: { slug: product.slug } 
+            });
+          }
+        });
+        // Clear the product selection
+        this.form.product = null;
+        return;
+      }
+
       var index = this.form.selectedProducts.findIndex(
         (x) => x.id == product.id
       );

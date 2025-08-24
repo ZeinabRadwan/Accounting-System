@@ -23,6 +23,9 @@ use App\Http\Resources\InvoiceListResource;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\InvoicePaymentNotification;
 use Illuminate\Support\Facades\Log;
+use App\Models\Client;
+use App\Models\ChartOfAccount;
+use App\Models\AccountRoutingSetting;
 
 class InvoiceController extends Controller
 {
@@ -44,6 +47,19 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments')->latest()->paginate($request->perPage));
+    }
+
+    private function getDiscountAllowedAccount(): ? ChartOfAccount
+    {
+        $setting = AccountRoutingSetting::where('module', 'sales')
+            ->where('setting_key', 'discount_allowed_account')
+            ->first();
+
+        if (!$setting || !$setting->parent_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::find($setting->parent_account_id);
     }
 
     /**
@@ -75,7 +91,73 @@ class InvoiceController extends Controller
         ]);
 
         try {
+
+
+
+            $client = Client::findOrFail($request->client['id']);
+            $chartOfAccount = $client?->chartOfAccount;
+
+            // Validate client has chart of account
+            if (!$client || !$chartOfAccount) {
+                return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.');
+            }
+
+            $totalDiscountAmount = 0;
+
+         
+
+                foreach ($request->selectedProducts as $key => $selectedProduct) {
+                    $product = Product::where('slug', $selectedProduct['slug'])->first();
+                    if (!$product || !$product->hasSalesAccount()) {
+                        return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.');
+                    }
+                    if(!$product || !$product->productTax || !$product->productTax->salesVatAccount){
+                        return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.');
+                    }
+                    
+
+                    // Validate VAT account from product's tax rate
+                    // if ($product && $product->productTax && $product->productTax->salesVatAccount) {
+                    //     $vatAccount = $product->productTax->salesVatAccount;
+                    //     if (!$vatAccount) {
+                    //         return $this->responseWithError('Product "' . $product->name . '" must have a Sales VAT Account assigned for journal entries.');
+                    //     }
+                    //     if (!$vatAccount->id) {
+                    //         return $this->responseWithError('Product "' . $product->name . '" must have a Sales VAT Account assigned for journal entries.');
+                    //     }
+
+                       
+                    // }
+
+
+                    if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                        $totalDiscountAmount += $selectedProduct['discount'];
+                    }
+                }
+            
+
+
+
+            if ($totalDiscountAmount > 0) {
+                $discountAccount = $this->getDiscountAllowedAccount();
+                if (!$discountAccount) {
+                    throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
             DB::beginTransaction();
+
 
             // generate code
             $code = 1;
@@ -116,24 +198,17 @@ class InvoiceController extends Controller
                 'created_by' => $userId,
             ]);
 
-            // Create journal entry for invoice sale
-            try {
-                $journalService = new BusinessTransactionJournalService();
-                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
-            } catch (\Exception $e) {
-                // Log the error but don't fail the invoice creation
-                Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
-            }
+
 
             // store invoice products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
-                
+
                 // Validate product has sales account
                 if (!$product->hasSalesAccount()) {
                     throw new Exception('Product ' . $product->name . ' must have a Sales Account assigned.');
                 }
-                
+
                 // update product stock
                 $product->update([
                     'inventory_count' => $product->inventory_count - $selectedProduct['qty'],
@@ -162,6 +237,25 @@ class InvoiceController extends Controller
                     'discount_amount' => $discountAmount,
                 ]);
             }
+
+
+
+
+            // Create journal entry for invoice sale
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the invoice creation
+                Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
+            }
+
+
+
+
+
+
+
 
             // store transaction
             if ($request->addPayment == true) {
@@ -316,7 +410,6 @@ class InvoiceController extends Controller
             return $this->responseWithSuccess('Invoice payment added successfully!', [
                 'invoice_id' => $invoice->id,
             ]);
-
         } catch (Exception $e) {
             DB::rollback();
             return $this->responseWithError($e->getMessage());
@@ -547,7 +640,8 @@ class InvoiceController extends Controller
     }
 
     // notify customer
-    public function notifyCustomer($slug, Request $request){
+    public function notifyCustomer($slug, Request $request)
+    {
         $invoice = Invoice::where('slug', $slug)->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 'invoiceTax', 'user')->first();
         // send notification
         $invoice->client->notify(new InvoiceNotification($invoice, [

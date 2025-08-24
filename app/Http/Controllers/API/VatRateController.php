@@ -230,47 +230,102 @@ class VatRateController extends Controller
     public function getVatChartOfAccounts()
     {
         try {
-            // Get Sales VAT Payable accounts (Liability type)
-            $salesVatAccounts = ChartOfAccount::where('is_active', true)
-                ->where(function($query) {
-                    $query->where('name', 'like', '%Sales VAT Payable%')
-                          ->orWhere('name', 'like', '%VAT Payable%')
-                          ->orWhere('name', 'like', '%Tax Payable%');
-                })
-                ->with('type')
-                ->orderBy('name')
-                ->get()
-                ->map(function ($account) {
-                    return [
-                        'id' => $account->id,
-                        'name' => $account->name,
-                        'code' => $account->code,
-                        'type' => $account->type ? $account->type->name : 'Unknown'
-                    ];
-                });
+            // First try to get accounts from account routing settings
+            $salesVatRoutingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'sales_vat_account')
+                ->where('is_active', true)
+                ->first();
+                
+            $purchaseVatRoutingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'purchase_vat_account')
+                ->where('is_active', true)
+                ->first();
 
-            // Get Purchase VAT Receivable accounts (Asset type)
-            $purchaseVatAccounts = ChartOfAccount::where('is_active', true)
-                ->where(function($query) {
-                    $query->where('name', 'like', '%Purchase VAT Receivable%')
-                          ->orWhere('name', 'like', '%VAT Receivable%')
-                          ->orWhere('name', 'like', '%Tax Receivable%');
-                })
-                ->with('type')
-                ->orderBy('name')
-                ->get()
-                ->map(function ($account) {
-                    return [
-                        'id' => $account->id,
-                        'name' => $account->name,
-                        'code' => $account->code,
-                        'type' => $account->type ? $account->type->name : 'Unknown'
-                    ];
-                });
+            $salesVatAccounts = collect();
+            $purchaseVatAccounts = collect();
 
-            // If no specific VAT accounts found, try to get accounts by type
+            // Get Sales VAT accounts from routing settings
+            if ($salesVatRoutingSetting && $salesVatRoutingSetting->parent_account_id) {
+                $salesVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->where(function($query) use ($salesVatRoutingSetting) {
+                        $query->where('id', $salesVatRoutingSetting->parent_account_id)
+                              ->orWhere('parent_id', $salesVatRoutingSetting->parent_account_id);
+                    })
+                    ->with('type')
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($account) {
+                        return [
+                            'id' => $account->id,
+                            'name' => $account->name,
+                            'code' => $account->code,
+                            'type' => $account->type ? $account->type->name : 'Unknown'
+                        ];
+                    });
+            }
+
+            // Get Purchase VAT accounts from routing settings
+            if ($purchaseVatRoutingSetting && $purchaseVatRoutingSetting->parent_account_id) {
+                $purchaseVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->where(function($query) use ($purchaseVatRoutingSetting) {
+                        $query->where('id', $purchaseVatRoutingSetting->parent_account_id)
+                              ->orWhere('parent_id', $purchaseVatRoutingSetting->parent_account_id);
+                    })
+                    ->with('type')
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($account) {
+                        return [
+                            'id' => $account->id,
+                            'name' => $account->name,
+                            'code' => $account->code,
+                            'type' => $account->type ? $account->type->name : 'Unknown'
+                        ];
+                    });
+            }
+
+            // Fallback: If no routing settings found, use the old logic
             if ($salesVatAccounts->isEmpty()) {
-                $salesVatAccounts = ChartOfAccount::where('is_active', true)
+                $salesVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->where(function($query) {
+                        $query->where('name', 'like', '%Sales VAT Payable%')
+                              ->orWhere('name', 'like', '%VAT Payable%')
+                              ->orWhere('name', 'like', '%Tax Payable%');
+                    })
+                    ->with('type')
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($account) {
+                        return [
+                            'id' => $account->id,
+                            'name' => $account->name,
+                            'code' => $account->code,
+                            'type' => $account->type ? $account->type->name : 'Unknown'
+                        ];
+                    });
+            }
+
+            if ($purchaseVatAccounts->isEmpty()) {
+                $purchaseVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->where(function($query) {
+                        $query->where('name', 'like', '%Purchase VAT Receivable%')
+                              ->orWhere('name', 'like', '%VAT Receivable%')
+                              ->orWhere('name', 'like', '%Tax Receivable%');
+                    })
+                    ->with('type')
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($account) {
+                        return [
+                            'id' => $account->id,
+                            'name' => $account->name,
+                            'code' => $account->code,
+                            'type' => $account->type ? $account->type->name : 'Unknown'
+                        ];
+                    });
+            }
+
+            // Final fallback: If still no accounts found, try to get accounts by type
+            if ($salesVatAccounts->isEmpty()) {
+                $salesVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
                     ->whereHas('type', function($query) {
                         $query->where('name', 'Liability');
                     })
@@ -289,7 +344,7 @@ class VatRateController extends Controller
             }
 
             if ($purchaseVatAccounts->isEmpty()) {
-                $purchaseVatAccounts = ChartOfAccount::where('is_active', true)
+                $purchaseVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
                     ->whereHas('type', function($query) {
                         $query->where('name', 'Asset');
                     })

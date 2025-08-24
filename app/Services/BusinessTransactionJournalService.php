@@ -32,13 +32,38 @@ class BusinessTransactionJournalService
                 throw new Exception('Client must have a Chart of Account assigned for journal entries.');
             }
 
-            // Validate all products have sales accounts
+            $totalDiscountAmount = 0;
+         
+            // Validate all products have sales accounts and VAT accounts
             $invoiceProducts = $invoice->invoiceProducts;
+            $vatAccountsByProduct = []; // Store VAT accounts for each product
+            
             if ($invoiceProducts && $invoiceProducts->count() > 0) {
                 foreach ($invoiceProducts as $invoiceProduct) {
                     if (!$invoiceProduct->product || !$invoiceProduct->product->hasSalesAccount()) {
                         throw new Exception('Product ' . ($invoiceProduct->product->name ?? 'Unknown') . ' must have a Sales Account assigned.');
                     }
+                    
+                    // Validate VAT account from product's tax rate
+                    if($invoiceProduct->product && $invoiceProduct->product->productTax && $invoiceProduct->product->productTax->salesVatAccount){
+                        $vatAccount = $invoiceProduct->product->productTax->salesVatAccount;
+                        if (!$vatAccount) {
+                            throw new Exception('Product "' . $invoiceProduct->product->name . '" must have a Sales VAT Account assigned for journal entries.');
+                        }
+                        if (!$vatAccount->id) {
+                            throw new Exception('Product "' . $invoiceProduct->product->name . '" must have a Sales VAT Account assigned for journal entries.');
+                        }
+                        
+                        // Store VAT account for this product
+                        $vatAccountsByProduct[$invoiceProduct->product_id] = $vatAccount;
+                    }
+
+
+                    if ($invoiceProduct->discount_amount > 0) {
+                        $totalDiscountAmount += $invoiceProduct->discount_amount;
+                    }
+
+
                 }
             }
 
@@ -48,6 +73,17 @@ class BusinessTransactionJournalService
             if (!$clientAccountsReceivableAccount) {
                 throw new Exception('Client Chart of Account not found.');
             }
+
+
+            if ($totalDiscountAmount > 0) {
+                $discountAccount = $this->getDiscountAllowedAccount();
+                if (!$discountAccount) {
+                    throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
+                }
+            }
+
+
+
 
             $totalAmount = $invoice->invoiceTotal();
             
@@ -67,8 +103,32 @@ class BusinessTransactionJournalService
                 'source_id' => $invoice->id,
             ]);
 
-            // Create journal entry lines
+            // Line 1: Debit to Client's Accounts Receivable
             $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalAmount, 0, 1, "Accounts Receivable for Invoice {$invoice->invoice_no}");
+            
+            // Group by VAT account to handle multiple products with different VAT accounts
+            $vatByAccount = [];
+            $lineNumber = 2;
+            
+            foreach ($invoiceProducts as $invoiceProduct) {
+                if (isset($vatAccountsByProduct[$invoiceProduct->product_id])) {
+                    $vatAccountId = $vatAccountsByProduct[$invoiceProduct->product_id]->id;
+                    $productVatAmount = $invoiceProduct->tax_amount; // Use the tax amount from invoice product
+                    
+                    if ($productVatAmount > 0) {
+                        if (!isset($vatByAccount[$vatAccountId])) {
+                            $vatByAccount[$vatAccountId] = 0;
+                        }
+                        $vatByAccount[$vatAccountId] += $productVatAmount;
+                    }
+                }
+            }
+            
+            // Create VAT journal entries (grouped by account)
+            foreach ($vatByAccount as $vatAccountId => $totalVatAmount) {
+                $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, "VAT Payable for Invoice {$invoice->invoice_no}");
+                $lineNumber++;
+            }
             
             // Group by sales account to handle multiple products with different accounts
             $salesByAccount = [];
@@ -95,24 +155,18 @@ class BusinessTransactionJournalService
             
             // Create separate journal entry lines for each sales account (full amount before discount)
             foreach ($salesByAccount as $accountId => $amount) {
-                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, 2, "Sales Revenue for Invoice {$invoice->invoice_no}");
+                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "Sales Revenue for Invoice {$invoice->invoice_no}");
+                $lineNumber++;
             }
             
             // Create discount journal entry if there are any discounts
             if ($totalDiscountAmount > 0) {
                 $discountAccount = $this->getDiscountAllowedAccount();
                 if ($discountAccount) {
-                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, 3, "Sales Discount for Invoice {$invoice->invoice_no}");
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, $lineNumber, "Sales Discount for Invoice {$invoice->invoice_no}");
+                    $lineNumber++;
                 } else {
                     throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
-                }
-            }
-
-            // Create VAT journal entry if applicable
-            if ($invoice->tax_id) {
-                $vatAmount = $invoice->taxAmount();
-                if ($vatAmount > 0) {
-                    $this->createVatJournalEntry($journalEntry, $invoice, $vatAmount, $userId, 'sales');
                 }
             }
 

@@ -368,11 +368,11 @@ export default {
     },
 
     getBalanceStatusClass() {
-      return journalEntry.is_balanced ? 'text-success' : 'text-danger'
+      return this.journalEntry.is_balanced ? 'text-success' : 'text-danger'
     },
 
     getBalanceStatusText() {
-      return journalEntry.is_balanced ? 'Balanced' : 'Unbalanced'
+      return this.journalEntry.is_balanced ? 'Balanced' : 'Unbalanced'
     }
   }
 }
