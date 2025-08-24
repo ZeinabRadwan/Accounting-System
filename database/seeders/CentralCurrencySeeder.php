@@ -19,6 +19,16 @@ class CentralCurrencySeeder extends Seeder
           if (DB::table('central_currencies')->count() == 0) {
             DB::table('central_currencies')->insert([
                 [
+                    'name' => 'Saudi Riyal',
+                    'slug' => 'saudi-riyal',
+                    'code' => 'SAR',
+                    'rate' =>  3.75,
+                    'symbol' => 'ر.س',
+                    'position' => 'left',
+                    'note' => 'This is default currency for Saudi Arabia',
+                    'status' => 1,
+                ],
+                [
                     'name' => 'United States Dollar',
                     'slug' => 'united-states-dollar',
                     'code' => 'usd',

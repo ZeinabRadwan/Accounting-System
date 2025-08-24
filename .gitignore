@@ -95,3 +95,4 @@ yarn.lock
 *.gz
 *.br
 composer.lock
+webpack.mix.js
