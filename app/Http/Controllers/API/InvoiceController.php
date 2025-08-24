@@ -70,13 +70,15 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->selectedProducts);
         // validate request
         $this->validate($request, [
             'client' => 'required',
             'reference' => 'nullable|string|max:255',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'transportCost' => 'nullable|numeric|min:1',
+            // 'transportCost' => 'nullable|numeric|min:1',
             'orderTax' => 'required',
             'netTotal' => 'required|numeric|min:1',
             'poReference' => 'nullable|string|max:255',
@@ -115,7 +117,7 @@ class InvoiceController extends Controller
                         return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.');
                     }
                     
-
+                   
                     // Validate VAT account from product's tax rate
                     // if ($product && $product->productTax && $product->productTax->salesVatAccount) {
                     //     $vatAccount = $product->productTax->salesVatAccount;
@@ -175,7 +177,7 @@ class InvoiceController extends Controller
                 $isPaid = 1;
             }
 
-
+// dd($request->selectedProducts);
 
             // create invoice
             $invoice = Invoice::create([
@@ -231,7 +233,8 @@ class InvoiceController extends Controller
                     'purchase_price' => $selectedProduct['avgPurchasePrice'],
                     'sale_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
-                    'tax_amount' => $selectedProduct['productTax'],
+                    'tax_amount' => $selectedProduct['totalTax'],
+                    // 'tax_amount' => $selectedProduct['productTax'],
                     'discount' => $selectedProduct['discount'] ?? 0,
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
                     'discount_amount' => $discountAmount,

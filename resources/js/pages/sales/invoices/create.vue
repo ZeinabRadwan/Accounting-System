@@ -106,6 +106,21 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
+                <!-- Information about columns -->
+                <div class="col-12 mb-2">
+                  <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>{{ $t("Column Information") }}:</strong>
+                    <ul class="mb-0 mt-1">
+                      <li><strong>{{ $t("Price") }}:</strong> {{ $t("Base price per unit (without tax) - this is what you edit") }}</li>
+                      <li><strong>{{ $t("Total") }}:</strong> {{ $t("Price × Quantity (before discount and tax)") }}</li>
+                      <li><strong>{{ $t("Total After Discount") }}:</strong> {{ $t("Total amount after applying item discount") }}</li>
+                      <li><strong>{{ $t("VAT") }}:</strong> {{ $t("Tax amount calculated on discounted total") }}</li>
+                      <li><strong>{{ $t("Total After VAT") }}:</strong> {{ $t("Final amount including tax (this is the subtotal)") }}</li>
+                    </ul>
+                  </div>
+                </div>
+                
                 <div class="table-responsive table-custom w-95 m-auto">
                   <table class="table table-hover table-sm text-center">
                     <thead>
@@ -113,12 +128,13 @@
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Quantity") }}</th>
+                        <th>{{ $t("Qty") }}</th>
                         <th>{{ $t("Price") }}</th>
-                        <th>{{ $t("Unit Price") }}</th>
-                        <th>{{ $t("Tax") }}</th>
+                        <th>{{ $t("Total") }}</th>
                         <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Subtotal") }}</th>
+                        <th>{{ $t("Total After Discount") }}</th>
+                        <th>{{ $t("VAT") }}</th>
+                        <th>{{ $t("Total After VAT") }}</th>
                         <th class="text-right">{{ $t("Action") }}</th>
                       </tr>
                     </thead>
@@ -208,8 +224,7 @@
                                 " />
                           </div>
                         </td>
-                        <td>{{ item.unitCost | withCurrency }}</td>
-                        <td>{{ item.totalTax | withCurrency }}</td>
+                        <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -227,12 +242,14 @@
                               style="width: 80px;"
                               step="any" 
                               min="0" 
-                              :max="item.discountType == 'percentage' ? 100 : item.totalPrice"
+                              :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
                               placeholder="0"
                               @change="calculateProductDiscount(i - 1)"
                               @keyup="calculateProductDiscount(i - 1)" />
                           </div>
                         </td>
+                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>{{ item.totalTax | withCurrency }}</td>
                         <td>{{ item.totalPrice | withCurrency }}</td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
@@ -240,24 +257,28 @@
                           </button>
                         </td>
                       </tr>
-                                             <tr>
-                         <td colspan="5" class="text-right">
-                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
-                         </td>
-                         <td>
-                           <strong>{{ totalUnitPrice | withCurrency }}</strong>
-                         </td>
-                         <td>
-                           <strong>{{ form.productTotalTax | withCurrency }}</strong>
-                         </td>
-                         <td>
-                           <strong>{{ form.totalDiscount | withCurrency }}</strong>
-                         </td>
-                         <td>
-                           <strong>{{ form.subTotal | withCurrency }}</strong>
-                         </td>
-                         <td></td>
-                       </tr>
+                      <!-- Totals Row -->
+                      <tr>
+                        <td colspan="5" class="text-right">
+                          <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
+                        </td>
+                        <td>
+                          <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ form.totalDiscount | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ (totalUnitPrice - form.totalDiscount) | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ form.productTotalTax | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ form.subTotal | withCurrency }}</strong>
+                        </td>
+                        <td></td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -433,45 +454,6 @@
                     <option value="0">{{ $t("Inactive") }}</option>
                   </select>
                   <has-error :form="form" field="status" />
-                </div>
-              </div>
-
-              <!-- Discount and Tax Section -->
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="discountType">{{ $t("Discount Type") }}</label>
-                  <select id="discountType" v-model="form.discountType" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
-                    @change="calculateSum" @keyup="calculateSum">
-                    <option value="0">{{ $t("Fixed") }}</option>
-                    <option value="1">{{ $t("Percentage") }}(%)</option>
-                  </select>
-                  <has-error :form="form" field="discountType" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="discount">{{ $t("Discount") }}
-                    <span v-if="form.discountType == 1">(%)</span></label>
-                  <div class="input-group">
-                    <input id="discount" v-model="form.discount" type="number" step="any" min="0"
-                      :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
-                    <div v-if="form.discountType == 1" class="input-group-append">
-                      <span class="input-group-text">{{
-                        form.totalDiscount | withCurrency
-                      }}</span>
-                    </div>
-                  </div>
-                  <has-error :form="form" field="discount" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="transportCost">{{
-                    $t("Transport Cost")
-                  }}</label>
-                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
-                  <has-error :form="form" field="transportCost" />
                 </div>
               </div>
 
@@ -747,39 +729,46 @@ export default {
       );
       let quantity = 1;
       if (index === -1) {
+        // Calculate tax amount
         let productTax =
           product.taxType == "Exclusive"
-            ? product.priceWithDiscount * (product.taxRate / 100)
-            : product.priceWithDiscount -
-            product.priceWithDiscount / (1 + product.taxRate / 100);
-        let totalTax = productTax * quantity;
+            ? this.roundToTwoDecimals(product.priceWithDiscount * (product.taxRate / 100))
+            : this.roundToTwoDecimals(product.priceWithDiscount - (product.priceWithDiscount / (1 + product.taxRate / 100)));
+        let totalTax = this.roundToTwoDecimals(productTax * quantity);
 
-                 this.form.selectedProducts.unshift({
-           id: product.id,
-           slug: product.slug,
-           itemType: product.itemType,
-           name: product.name,
-           code: product.code,
-           taxType: product.taxType,
-           taxRate: product.taxRate,
-           qty: quantity,
-           inventoryCount: product.inventoryCount,
-           avgPurchasePrice: product.avgPurchasePrice,
-           unitPrice: product.priceWithDiscount,
-           unitCost:
-             product.taxType == "Exclusive"
-               ? product.priceWithDiscount + productTax
-               : product.priceWithDiscount,
-           totalPrice:
-             product.taxType == "Exclusive"
-               ? 1 * (product.priceWithDiscount + totalTax)
-               : 1 * product.priceWithDiscount,
-           productTax: product.productTax > 0 ? product.productTax : 0,
-           totalTax: totalTax,
-           discount: 0,
-           discountType: 'fixed',
-           discountAmount: 0,
-         });
+        // unitPrice should be WITHOUT tax (base price)
+        // unitCost should be WITH tax (for display purposes)
+        let unitPrice = product.taxType == "Exclusive" 
+          ? this.roundToTwoDecimals(product.priceWithDiscount)  // Exclusive: base price
+          : this.roundToTwoDecimals(product.priceWithDiscount - productTax); // Inclusive: base price
+
+        let unitCost = product.taxType == "Exclusive"
+          ? this.roundToTwoDecimals(unitPrice + productTax)  // Exclusive: base + tax
+          : this.roundToTwoDecimals(product.priceWithDiscount); // Inclusive: already includes tax
+
+        this.form.selectedProducts.unshift({
+          id: product.id,
+          slug: product.slug,
+          itemType: product.itemType,
+          name: product.name,
+          code: product.code,
+          taxType: product.taxType,
+          taxRate: product.taxRate,
+          qty: quantity,
+          inventoryCount: product.inventoryCount,
+          avgPurchasePrice: product.avgPurchasePrice,
+          unitPrice: unitPrice,  // Price WITHOUT tax
+          unitCost: unitCost,    // Price WITH tax (for display)
+          totalPrice:
+            product.taxType == "Exclusive"
+              ? this.roundToTwoDecimals(quantity * (unitPrice + totalTax))
+              : this.roundToTwoDecimals(quantity * unitCost),
+          productTax: product.productTax > 0 ? this.roundToTwoDecimals(product.productTax) : 0,
+          totalTax: totalTax,
+          discount: 0,
+          discountType: 'fixed',
+          discountAmount: 0,
+        });
       } else {
                  // Ensure existing product has discount properties
          if (typeof this.form.selectedProducts[index].discount === 'undefined') {
@@ -814,7 +803,8 @@ export default {
             }
           }
         } else {
-          item.unitPrice = value;
+          // Price change - update unitPrice (price WITHOUT tax)
+          item.unitPrice = Number(value);
           if (action == "increment") {
             item.unitPrice = Number(item.unitPrice) + 1;
           } else if (action == "decrement") {
@@ -822,22 +812,39 @@ export default {
               item.unitPrice = Number(item.unitPrice) - 1;
             }
           }
+          
+          // Recalculate unitCost (price WITH tax) based on new unitPrice
+          if (item.taxType == "Exclusive") {
+            item.unitCost = this.roundToTwoDecimals(item.unitPrice + (item.unitPrice * (item.taxRate / 100)));
+          } else {
+            // For inclusive tax, unitCost = unitPrice + tax
+            item.unitCost = this.roundToTwoDecimals(item.unitPrice + (item.unitPrice * (item.taxRate / 100)));
+          }
         }
-        item.productTax =
-          item.taxType == "Exclusive"
-            ? item.unitPrice * (item.taxRate / 100)
-            : item.unitPrice - item.unitPrice / (1 + item.taxRate / 100);
+        
+        // Calculate tax with proper decimal precision
+        if (item.taxType == "Exclusive") {
+          item.productTax = this.roundToTwoDecimals(item.unitPrice * (item.taxRate / 100));
+        } else {
+          item.productTax = this.roundToTwoDecimals(item.unitCost - item.unitPrice);
+        }
 
-        item.totalTax = item.productTax * item.qty;
+        item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
 
-        item.totalPrice =
-          item.taxType == "Exclusive"
-            ? item.qty * item.unitPrice + item.totalTax
-            : item.qty * item.unitPrice;
-        item.unitCost =
-          item.taxType == "Exclusive"
-            ? Number(item.unitPrice) + Number(item.productTax)
-            : item.unitPrice;
+        // Calculate total price with proper decimal precision
+        if (item.taxType == "Exclusive") {
+          item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitPrice + item.totalTax);
+        } else {
+          item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
+        }
+        
+        // Calculate unit cost with proper decimal precision
+        if (item.taxType == "Exclusive") {
+          item.unitCost = this.roundToTwoDecimals(Number(item.unitPrice) + Number(item.productTax));
+        } else {
+          item.unitCost = this.roundToTwoDecimals(item.unitPrice);
+        }
+        
         this.form.selectedProducts[index] = item;
         
         // Recalculate discount after price/quantity changes
@@ -847,42 +854,51 @@ export default {
       return;
     },
 
-         // calculate product discount
-     calculateProductDiscount(index) {
-       let item = this.form.selectedProducts[index];
-       if (item) {
-         let discountAmount = 0;
-         
-         if (item.discount > 0) {
-           if (item.discountType == 'percentage') { // Percentage
-             discountAmount = (item.unitPrice * item.qty * item.discount) / 100;
-           } else { // Fixed
-             discountAmount = Number(item.discount);
-           }
-         }
-         
-         // Store the calculated discount amount for this item
-         item.discountAmount = discountAmount;
-         
-         // Calculate price after discount
-         let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount;
-         
-         // Recalculate tax based on discounted price
-         if (item.taxType == "Exclusive") {
-           item.productTax = priceAfterDiscount * (item.taxRate / 100);
-           item.totalTax = item.productTax;
-           item.totalPrice = priceAfterDiscount + item.totalTax;
-         } else {
-           item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + item.taxRate / 100));
-           item.totalTax = item.productTax;
-           item.totalPrice = priceAfterDiscount;
-         }
-         
-         this.form.selectedProducts[index] = item;
-         this.calculateSum();
-       }
-       return;
-     },
+    // Helper method to round to 2 decimal places
+    roundToTwoDecimals(value) {
+      return Math.round((value + Number.EPSILON) * 100) / 100;
+    },
+
+    // calculate product discount
+    calculateProductDiscount(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        let discountAmount = 0;
+        
+        if (item.discount > 0) {
+          if (item.discountType == 'percentage') { // Percentage
+            discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
+          } else { // Fixed
+            discountAmount = this.roundToTwoDecimals(Number(item.discount));
+          }
+        }
+        
+        // Store the calculated discount amount for this item
+        item.discountAmount = discountAmount;
+        
+        // Calculate price after discount
+        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - discountAmount);
+        
+        // Recalculate tax based on discounted price
+        if (item.taxType == "Exclusive") {
+          item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (item.taxRate / 100));
+          item.totalTax = this.roundToTwoDecimals(item.productTax);
+          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
+        } else {
+          // For inclusive tax, recalculate based on discounted unit price
+          let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
+          item.unitPrice = discountedUnitPrice;
+          item.unitCost = this.roundToTwoDecimals(discountedUnitPrice + (discountedUnitPrice * (item.taxRate / 100)));
+          item.productTax = this.roundToTwoDecimals(item.unitCost - item.unitPrice);
+          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
+          item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
+        }
+        
+        this.form.selectedProducts[index] = item;
+        this.calculateSum();
+      }
+      return;
+    },
 
     // remove item from array
     removeItem(item) {
@@ -896,56 +912,55 @@ export default {
 
     // calculate sum
     calculateSum() {
-      // calculate subtotal
-      this.form.subTotal = this.form.selectedProducts.reduce(function (
+      // calculate subtotal with proper decimal precision
+      this.form.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
         prev,
         cur
       ) {
-        return Number((prev + cur.totalPrice).toFixed(2));
-      },
-        0);
+        return prev + cur.totalPrice;
+      }, 0));
 
-      // calculate product tax
-      this.form.productTotalTax = this.form.selectedProducts.reduce(function (
+      // calculate product tax with proper decimal precision
+      this.form.productTotalTax = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
         prev,
         cur
       ) {
-        return Number((prev + cur.totalTax).toFixed(2));
-      },
-        0);
+        return prev + cur.totalTax;
+      }, 0));
 
-             // calculate total product discount
-       this.form.totalDiscount = this.form.selectedProducts.reduce(function (
-         prev,
-         cur
-       ) {
-         return Number((prev + (cur.discountAmount || 0)).toFixed(2));
-       },
-         0);
+      // calculate total product discount with proper decimal precision
+      this.form.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
+        prev,
+        cur
+      ) {
+        return prev + (cur.discountAmount || 0);
+      }, 0));
 
-      // calculate global discount
+      // calculate global discount with proper decimal precision
       let globalDiscount = 0;
       if (this.form.discount > 0) {
         if (this.form.discountType == 1) { // Percentage
-          globalDiscount = (this.form.discount / 100) * this.form.subTotal;
+          globalDiscount = this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal);
         } else { // Fixed
-          globalDiscount = Number(this.form.discount);
+          globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
         }
       }
 
-      // calculate invoice tax on amount AFTER global discount
+      // calculate invoice tax on amount AFTER global discount with proper decimal precision
       this.form.totalTax = 0;
       if (this.form.orderTax) {
-        this.form.totalTax =
-          (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount);
+        this.form.totalTax = this.roundToTwoDecimals(
+          (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount)
+        );
       }
 
-      // calculate final total
-      this.form.netTotal =
+      // calculate final total with proper decimal precision
+      this.form.netTotal = this.roundToTwoDecimals(
         this.form.subTotal -
         globalDiscount +
         this.form.totalTax +
-        Number(this.form.transportCost || 0);
+        Number(this.form.transportCost || 0)
+      );
       return;
     },
 
@@ -982,47 +997,153 @@ export default {
 
     // save invoice
     async saveInvoice() {
-      // Prevent form submission during chart of account updates
-      if (this.isUpdatingChartOfAccount) {
-        return
-      }
-      
-      // Validate required fields
-      if (!this.form.client) {
-        toast.fire({ type: "error", title: this.$t("Please select a client") });
-        return;
-      }
-      
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        toast.fire({ type: "error", title: this.$t("Please select at least one product") });
-        return;
-      }
-      
-      if (!this.form.orderTax) {
-        toast.fire({ type: "error", title: this.$t("Please select a tax type") });
-        return;
-      }
-      
       try {
-        const response = await this.form.post(window.location.origin + "/api/invoices")
+        // Ensure all monetary values are properly formatted to 2 decimal places before submission
+        this.formatFormValues();
         
-        toast.fire({
-          type: "success",
-          title: this.$t("Invoice added successfully"),
-        });
-        
-        this.$router.push({
-          name: "invoices.show",
-          params: { slug: response.data.data.slug },
-        });
-      } catch (error) {
-        if (error.response && error.response.data && error.response.data.errors) {
-          // Handle validation errors
-          const errorMessages = Object.values(error.response.data.errors).flat().join(', ');
-          toast.fire({ type: "error", title: errorMessages });
-        } else {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        if (!this.form.client || !this.form.client.chart_of_account_id) {
+          toast.fire({
+            type: "warning",
+            title: this.$t("Chart of Account Required"),
+            text: this.$t("Client must have a Chart of Account assigned before creating an invoice."),
+          });
+          return;
         }
+
+        if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+          toast.fire({
+            type: "warning",
+            title: this.$t("No Products Selected"),
+            text: this.$t("Please select at least one product to create an invoice."),
+          });
+          return;
+        }
+
+        // Validate that all calculations are correct
+        if (!this.validateCalculations()) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Calculation Error"),
+            text: this.$t("There was an error in the calculations. Please refresh the page and try again."),
+          });
+          return;
+        }
+
+        this.loading = true;
+        const { data } = await this.form.post(
+          window.location.origin + "/api/invoices"
+        );
+        this.loading = false;
+
+        if (data.success) {
+          toast.fire({
+            type: "success",
+            title: this.$t("Success"),
+            text: this.$t("Invoice created successfully"),
+          });
+          this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: data.message,
+          });
+        }
+      } catch (error) {
+        this.loading = false;
+        if (error.response?.data?.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: error.response.data.message,
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: this.$t("Something went wrong. Please try again."),
+          });
+        }
+      }
+    },
+
+    // Format all form values to ensure proper decimal precision
+    formatFormValues() {
+      // Format selected products
+      this.form.selectedProducts.forEach(item => {
+        item.unitPrice = this.roundToTwoDecimals(Number(item.unitPrice));
+        item.qty = Number(item.qty);
+        item.productTax = this.roundToTwoDecimals(Number(item.productTax));
+        item.totalTax = this.roundToTwoDecimals(Number(item.totalTax));
+        item.totalPrice = this.roundToTwoDecimals(Number(item.totalPrice));
+        item.unitCost = this.roundToTwoDecimals(Number(item.unitCost));
+        item.discount = this.roundToTwoDecimals(Number(item.discount || 0));
+        item.discountAmount = this.roundToTwoDecimals(Number(item.discountAmount || 0));
+      });
+
+      // Format form totals
+      this.form.subTotal = this.roundToTwoDecimals(Number(this.form.subTotal));
+      this.form.productTotalTax = this.roundToTwoDecimals(Number(this.form.productTotalTax));
+      this.form.totalDiscount = this.roundToTwoDecimals(Number(this.form.totalDiscount));
+      this.form.totalTax = this.roundToTwoDecimals(Number(this.form.totalTax));
+      this.form.netTotal = this.roundToTwoDecimals(Number(this.form.netTotal));
+      this.form.transportCost = this.roundToTwoDecimals(Number(this.form.transportCost || 0));
+      this.form.discount = this.roundToTwoDecimals(Number(this.form.discount || 0));
+    },
+
+    // Validate that all calculations are mathematically correct
+    validateCalculations() {
+      try {
+        // Validate subtotal
+        const calculatedSubTotal = this.form.selectedProducts.reduce((total, item) => {
+          return total + Number(item.totalPrice);
+        }, 0);
+        
+        if (Math.abs(calculatedSubTotal - this.form.subTotal) > 0.01) {
+          console.error('Subtotal validation failed:', calculatedSubTotal, 'vs', this.form.subTotal);
+          return false;
+        }
+
+        // Validate product tax total
+        const calculatedProductTax = this.form.selectedProducts.reduce((total, item) => {
+          return total + Number(item.totalTax);
+        }, 0);
+        
+        if (Math.abs(calculatedProductTax - this.form.productTotalTax) > 0.01) {
+          console.error('Product tax validation failed:', calculatedProductTax, 'vs', this.form.productTotalTax);
+          return false;
+        }
+
+        // Validate total discount
+        const calculatedTotalDiscount = this.form.selectedProducts.reduce((total, item) => {
+          return total + Number(item.discountAmount || 0);
+        }, 0);
+        
+        if (Math.abs(calculatedTotalDiscount - this.form.totalDiscount) > 0.01) {
+          console.error('Total discount validation failed:', calculatedTotalDiscount, 'vs', this.form.totalDiscount);
+          return false;
+        }
+
+        // Validate net total
+        const globalDiscount = this.form.discount > 0 
+          ? (this.form.discountType == 1 
+              ? this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal)
+              : this.roundToTwoDecimals(Number(this.form.discount)))
+          : 0;
+        
+        const calculatedNetTotal = this.roundToTwoDecimals(
+          this.form.subTotal - globalDiscount + this.form.totalTax + Number(this.form.transportCost || 0)
+        );
+        
+        if (Math.abs(calculatedNetTotal - this.form.netTotal) > 0.01) {
+          console.error('Net total validation failed:', calculatedNetTotal, 'vs', this.form.netTotal);
+          return false;
+        }
+
+        return true;
+      } catch (error) {
+        console.error('Validation error:', error);
+        return false;
       }
     },
 

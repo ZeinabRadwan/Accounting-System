@@ -104,31 +104,24 @@ class BusinessTransactionJournalService
             ]);
 
             // Line 1: Debit to Client's Accounts Receivable
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalAmount, 0, 1, "Accounts Receivable for Invoice {$invoice->invoice_no}");
-            
-            // Group by VAT account to handle multiple products with different VAT accounts
-            $vatByAccount = [];
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalAmount, 0, 1, " ");
+           
+          
             $lineNumber = 2;
-            
-            foreach ($invoiceProducts as $invoiceProduct) {
-                if (isset($vatAccountsByProduct[$invoiceProduct->product_id])) {
-                    $vatAccountId = $vatAccountsByProduct[$invoiceProduct->product_id]->id;
-                    $productVatAmount = $invoiceProduct->tax_amount; // Use the tax amount from invoice product
-                    
-                    if ($productVatAmount > 0) {
-                        if (!isset($vatByAccount[$vatAccountId])) {
-                            $vatByAccount[$vatAccountId] = 0;
-                        }
-                        $vatByAccount[$vatAccountId] += $productVatAmount;
-                    }
+
+
+
+            if ($totalDiscountAmount > 0) {
+                $discountAccount = $this->getDiscountAllowedAccount();
+                if ($discountAccount) {
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, $lineNumber, " ");
+                    $lineNumber++;
+                } else {
+                    throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
                 }
             }
-            
-            // Create VAT journal entries (grouped by account)
-            foreach ($vatByAccount as $vatAccountId => $totalVatAmount) {
-                $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, "VAT Payable for Invoice {$invoice->invoice_no}");
-                $lineNumber++;
-            }
+
+
             
             // Group by sales account to handle multiple products with different accounts
             $salesByAccount = [];
@@ -145,7 +138,7 @@ class BusinessTransactionJournalService
                 if (!isset($salesByAccount[$accountId])) {
                     $salesByAccount[$accountId] = 0;
                 }
-                $salesByAccount[$accountId] += $originalAmount;
+                $salesByAccount[$accountId] += $originalAmount ;
                 
                 // Track discount amount
                 if ($invoiceProduct->discount_amount > 0) {
@@ -159,17 +152,42 @@ class BusinessTransactionJournalService
                 $lineNumber++;
             }
             
-            // Create discount journal entry if there are any discounts
-            if ($totalDiscountAmount > 0) {
-                $discountAccount = $this->getDiscountAllowedAccount();
-                if ($discountAccount) {
-                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, $lineNumber, "Sales Discount for Invoice {$invoice->invoice_no}");
-                    $lineNumber++;
-                } else {
-                    throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
+
+
+ 
+            // Group by VAT account to handle multiple products with different VAT accounts
+
+            $vatByAccount = [];
+           
+            
+            foreach ($invoiceProducts as $invoiceProduct) {
+                if (isset($vatAccountsByProduct[$invoiceProduct->product_id])) {
+                    $vatAccountId = $vatAccountsByProduct[$invoiceProduct->product_id]->id;
+                    $productVatAmount = $invoiceProduct->tax_amount; // Use the tax amount from invoice product
+                   
+                    if ($productVatAmount > 0) {
+                        if (!isset($vatByAccount[$vatAccountId])) {
+                            $vatByAccount[$vatAccountId] = 0;
+                        }
+                        $vatByAccount[$vatAccountId] += $productVatAmount;
+                    }
                 }
             }
+            
+            // Create VAT journal entries (grouped by account)
+            foreach ($vatByAccount as $vatAccountId => $totalVatAmount) {
+              
+                $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, "VAT Payable for Invoice {$invoice->invoice_no}");
+                $lineNumber++;
+            }
 
+
+
+
+
+
+            // Create discount journal entry if there are any discounts
+         
             // Create bridge table record
             \App\Models\InvoiceJournal::create([
                 'invoice_id' => $invoice->id,
