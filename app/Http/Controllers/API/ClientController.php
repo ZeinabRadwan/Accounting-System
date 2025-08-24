@@ -89,17 +89,45 @@ class ClientController extends Controller
 
             // Prepare client data
             $clientData = [
-                'name' => $request->name,
+                // Legacy fields for backward compatibility
+                'name' => $request->name ?? $request->commercialName,
                 'client_id' => $code,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
-                'company_name' => $request->companyName,
-                'tax_registration_number' => $request->taxRegistrationNumber,
-                'address' => $request->address,
+                'company_name' => $request->companyName ?? $request->commercialName,
+                'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
+                'address' => $request->address ?? $request->streetAddress1,
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
                 'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
+                
+                // New fields for enhanced client form
+                'code_number' => $request->codeNumber,
+                'billing_method' => $request->billingMethod,
+                'currency' => $request->currency,
+                'classification' => $request->classification,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                
+                // Enhanced client details
+                'commercial_name' => $request->commercialName,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_secondary' => $request->phone,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'area' => $request->area,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                'add_secondary_address' => $request->addSecondaryAddress,
+                
+                // Additional fields
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
             ];
 
             // Auto-assign Chart of Account if not provided
@@ -238,16 +266,44 @@ class ClientController extends Controller
 
             // update client
             $updateData = [
-                'name' => $request->name,
+                // Legacy fields for backward compatibility
+                'name' => $request->name ?? $request->commercialName,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
-                'company_name' => $request->companyName,
-                'tax_registration_number' => $request->taxRegistrationNumber,
-                'address' => $request->address,
+                'company_name' => $request->companyName ?? $request->commercialName,
+                'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
+                'address' => $request->address ?? $request->streetAddress1,
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
                 'chart_of_account_id' => $request->chartOfAccountId,
+                
+                // New fields for enhanced client form
+                'code_number' => $request->codeNumber,
+                'billing_method' => $request->billingMethod,
+                'currency' => $request->currency,
+                'classification' => $request->classification,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                
+                // Enhanced client details
+                'commercial_name' => $request->commercialName,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_secondary' => $request->phone,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'area' => $request->area,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                'add_secondary_address' => $request->addSecondaryAddress,
+                
+                // Additional fields
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
             ];
 
             \Log::info('UPDATE DEBUG - Update data:', $updateData);

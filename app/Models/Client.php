@@ -17,7 +17,12 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'client_id', 'email', 'phone', 'company_name', 'address', 'status', 'image_path','tax_registration_number', 'type', 'chart_of_account_id',
+        'name', 'slug', 'client_id', 'email', 'phone', 'status', 'image_path', 'type', 'chart_of_account_id',
+        // New fields for enhanced client form
+        'code_number', 'billing_method', 'currency', 'classification', 'notes', 'display_language',
+        'commercial_name', 'first_name', 'last_name', 'phone_secondary', 'street_address1', 'street_address2',
+        'city', 'area', 'postal_code', 'country', 'commercial_register', 'tax_card', 'add_secondary_address',
+        'is_send_email', 'is_send_sms'
     ];
 
     /**

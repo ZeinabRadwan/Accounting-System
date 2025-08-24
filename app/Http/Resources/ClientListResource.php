@@ -27,6 +27,15 @@ class ClientListResource extends JsonResource
             'image' => $this->image_path ? global_asset('images/clients/'.$this->image_path) : '',
             // Add chart of account ID for validation
             'chart_of_account_id' => $this->chart_of_account_id,
+            
+            // Key new fields for enhanced client form
+            'codeNumber' => $this->code_number,
+            'billingMethod' => $this->billing_method,
+            'currency' => $this->currency,
+            'classification' => $this->classification,
+            'commercialName' => $this->commercial_name,
+            'city' => $this->city,
+            'country' => $this->country,
         ];
     }
 }

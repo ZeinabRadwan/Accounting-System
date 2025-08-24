@@ -28,6 +28,34 @@ class ClientResource extends JsonResource
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('images/clients/'.$this->image_path) : '',
             'chart_of_account_id' => $this->chart_of_account_id,
+            
+            // New fields for enhanced client form
+            'codeNumber' => $this->code_number,
+            'billingMethod' => $this->billing_method,
+            'currency' => $this->currency,
+            'classification' => $this->classification,
+            'notes' => $this->notes,
+            'displayLanguage' => $this->display_language,
+            
+            // Enhanced client details
+            'commercialName' => $this->commercial_name,
+            'firstName' => $this->first_name,
+            'lastName' => $this->last_name,
+            'phone' => $this->phone_secondary,
+            'streetAddress1' => $this->street_address1,
+            'streetAddress2' => $this->street_address2,
+            'city' => $this->city,
+            'area' => $this->area,
+            'postalCode' => $this->postal_code,
+            'country' => $this->country,
+            'commercialRegister' => $this->commercial_register,
+            'taxCard' => $this->tax_card,
+            'addSecondaryAddress' => (bool) $this->add_secondary_address,
+            
+            // Additional fields
+            'isSendEmail' => (bool) $this->is_send_email,
+            'isSendSMS' => (bool) $this->is_send_sms,
+            
             'chartOfAccount' => function () {
                 try {
                     // Check if the relationship is loaded and exists
