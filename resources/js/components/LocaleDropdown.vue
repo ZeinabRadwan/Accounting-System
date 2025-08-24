@@ -72,7 +72,7 @@ export default {
           this.$store.dispatch('lang/setLocale', { locale })
           
           // Set RTL mode based on the selected locale
-          rtlService.setRTLMode(locale)
+          rtlService.setRTLModeByLocale(locale)
           
           // Show success message
           if (this.$toast) {

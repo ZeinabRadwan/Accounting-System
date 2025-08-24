@@ -65,7 +65,7 @@ export default {
       }
       
       // Initialize RTL service with current locale
-      rtlService.setRTLMode(currentLocale)
+      rtlService.setRTLModeByLocale(currentLocale)
       
       // Listen for locale changes from store if available
       if (this.$store) {
@@ -73,7 +73,7 @@ export default {
           (state) => state.lang.locale,
           (newLocale) => {
             if (newLocale) {
-              rtlService.setRTLMode(newLocale)
+              rtlService.setRTLModeByLocale(newLocale)
             }
           }
         )

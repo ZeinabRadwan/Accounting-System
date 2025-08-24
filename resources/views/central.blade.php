@@ -8,7 +8,7 @@
     ];
 @endphp
 <!DOCTYPE html>
-<html lang="{{ session('locale', config('app.fallback_locale', 'ar')) }}">
+<html lang="{{ session('locale', config('app.fallback_locale', 'ar')) }}" dir="{{ session('locale', config('app.fallback_locale', 'ar')) === 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="utf-8">
@@ -30,7 +30,7 @@
     </style>
 </head>
 
-<body class="hold-transition layout-footer-fixed">
+<body class="hold-transition layout-footer-fixed" dir="{{ session('locale', config('app.fallback_locale', 'ar')) === 'ar' ? 'rtl' : 'ltr' }}">
     <div id="app"></div>
 
     {{-- Global configuration object --}}

@@ -349,11 +349,11 @@ const show = (options) => {
 }
 
 // Test function
-const test = () => {
-  console.log('Testing custom toast...')
-  success('Test', 'This is a test toast from custom system!')
-  return true
-}
+// const test = () => {
+//   console.log('Testing custom toast...')
+//   success('Test', 'This is a test toast from custom system!')
+//   return true
+// }
 
 // RTL refresh function
 const refreshRTL = () => {
@@ -394,7 +394,7 @@ const toast = {
   custom,
   fire,
   show,
-  test,
+  // test,
   refreshRTL
 }
 
@@ -412,10 +412,10 @@ if (typeof window !== 'undefined') {
 }
 
 // Test toast immediately
-setTimeout(() => {
-  console.log('Testing toast after 1 second...')
-  test()
-}, 1000)
+// setTimeout(() => {
+//   console.log('Testing toast after 1 second...')
+//   test()
+// }, 1000)
 
 // Create Vue plugin
 const customToastPlugin = {

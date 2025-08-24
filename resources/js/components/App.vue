@@ -67,14 +67,14 @@ export default {
       const currentLocale = store.getters['lang/locale']
       
       // Initialize RTL service with current locale
-      rtlService.setRTLMode(currentLocale)
+      rtlService.setRTLModeByLocale(currentLocale)
       
       // Listen for locale changes from store
       this.$store.watch(
         (state) => state.lang.locale,
         (newLocale) => {
           if (newLocale) {
-            rtlService.setRTLMode(newLocale)
+            rtlService.setRTLModeByLocale(newLocale)
           }
         }
       )

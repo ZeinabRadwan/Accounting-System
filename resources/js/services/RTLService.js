@@ -1,6 +1,7 @@
 class RTLService {
   constructor() {
     this.isRTL = false
+    this.currentLocale = 'en'
     this.listeners = []
     this.initializeRTLMode()
   }
@@ -10,23 +11,33 @@ class RTLService {
    */
   initializeRTLMode() {
     try {
+      console.log('Initializing RTL service...')
+      
       // Check if RTL preference is stored
       const storedRTL = localStorage.getItem('rtl_mode')
+      const storedLocale = localStorage.getItem('current_locale')
       
-      if (storedRTL !== null) {
+      console.log('Stored RTL:', storedRTL, 'Stored Locale:', storedLocale)
+      
+      if (storedRTL !== null && storedLocale) {
         this.isRTL = storedRTL === 'true'
+        this.currentLocale = storedLocale
+        console.log('Using stored preferences - RTL:', this.isRTL, 'Locale:', this.currentLocale)
       } else {
         // Check document direction if no stored preference
         this.isRTL = this.validateDocumentDirection()
+        this.currentLocale = document.documentElement.getAttribute('lang') || 'en'
+        console.log('Using document attributes - RTL:', this.isRTL, 'Locale:', this.currentLocale)
       }
       
       this.applyRTLMode()
       this.updateCSSVariables()
       
-      console.log('RTL Service initialized with RTL:', this.isRTL)
+      console.log('RTL Service initialized with RTL:', this.isRTL, 'Locale:', this.currentLocale)
     } catch (error) {
       console.error('Error initializing RTL service:', error)
       this.isRTL = false
+      this.currentLocale = 'en'
     }
   }
 
@@ -36,6 +47,8 @@ class RTLService {
   validateDocumentDirection() {
     const docDir = document.documentElement.getAttribute('dir')
     const htmlLang = document.documentElement.getAttribute('lang')
+    
+    console.log('Document direction validation - dir:', docDir, 'lang:', htmlLang)
     
     // Check if document direction matches language
     if (htmlLang && htmlLang.startsWith('ar')) {
@@ -52,6 +65,7 @@ class RTLService {
       return false
     }
     
+    console.log('No specific language detected, using document direction:', docDir)
     // Default to document direction if language is not specified
     return docDir === 'rtl'
   }
@@ -64,7 +78,14 @@ class RTLService {
   }
 
   /**
-   * Set RTL mode
+   * Get current locale
+   */
+  getCurrentLocale() {
+    return this.currentLocale
+  }
+
+  /**
+   * Set RTL mode by boolean value
    */
   setRTLMode(isRTL) {
     try {
@@ -93,6 +114,38 @@ class RTLService {
   }
 
   /**
+   * Set RTL mode based on locale
+   */
+  setRTLModeByLocale(locale) {
+    try {
+      console.log('Setting RTL mode for locale:', locale)
+      
+      if (!locale) {
+        console.warn('No locale provided, using current locale')
+        locale = this.currentLocale || 'en'
+      }
+      
+      this.currentLocale = locale
+      const shouldBeRTL = this.getLanguageRTLStatus(locale)
+      
+      console.log('Locale:', locale, 'Should be RTL:', shouldBeRTL)
+      
+      // Store locale preference
+      localStorage.setItem('current_locale', locale)
+      
+      // Set RTL mode
+      this.setRTLMode(shouldBeRTL)
+      
+      console.log('RTL mode set for locale:', locale, 'RTL:', shouldBeRTL)
+      
+      return true
+    } catch (error) {
+      console.error('Error setting RTL mode by locale:', error)
+      return false
+    }
+  }
+
+  /**
    * Toggle RTL mode
    */
   toggleRTLMode() {
@@ -106,20 +159,25 @@ class RTLService {
     try {
       if (this.isRTL) {
         document.documentElement.setAttribute('dir', 'rtl')
+        document.documentElement.setAttribute('lang', this.currentLocale)
         document.body.classList.add('rtl')
         document.body.classList.remove('ltr')
       } else {
         document.documentElement.setAttribute('dir', 'ltr')
+        document.documentElement.setAttribute('lang', this.currentLocale)
         document.body.classList.add('ltr')
         document.body.classList.remove('rtl')
       }
       
       // Dispatch custom event for other components
       window.dispatchEvent(new CustomEvent('rtl-changed', {
-        detail: { isRTL: this.isRTL }
+        detail: { 
+          isRTL: this.isRTL,
+          locale: this.currentLocale
+        }
       }))
       
-      console.log('RTL mode applied to document:', this.isRTL ? 'RTL' : 'LTR')
+      console.log('RTL mode applied to document:', this.isRTL ? 'RTL' : 'LTR', 'Locale:', this.currentLocale)
     } catch (error) {
       console.error('Error applying RTL mode:', error)
     }
@@ -273,11 +331,10 @@ class RTLService {
   }
 
   /**
-   * Set RTL mode based on language
+   * Check if a locale is RTL (alias for getLanguageRTLStatus for compatibility)
    */
-  setRTLModeByLanguage(language) {
-    const shouldBeRTL = this.getLanguageRTLStatus(language)
-    return this.setRTLMode(shouldBeRTL)
+  isRTLLocale(language) {
+    return this.getLanguageRTLStatus(language)
   }
 
   /**
@@ -292,10 +349,12 @@ class RTLService {
    * Auto-correct RTL mode based on language
    */
   autoCorrectRTLMode() {
-    const shouldBeRTL = this.shouldBeRTL()
-    if (this.isRTL !== shouldBeRTL) {
-      console.log('Auto-correcting RTL mode from', this.isRTL, 'to', shouldBeRTL)
-      return this.setRTLMode(shouldBeRTL)
+    const currentLang = document.documentElement.getAttribute('lang') || 'en'
+    const shouldBeRTL = this.getLanguageRTLStatus(currentLang)
+    
+    if (this.isRTL !== shouldBeRTL || this.currentLocale !== currentLang) {
+      console.log('Auto-correcting RTL mode from', this.isRTL, 'to', shouldBeRTL, 'Locale:', currentLang)
+      return this.setRTLModeByLocale(currentLang)
     }
     return false
   }
