@@ -80,9 +80,9 @@ export default {
           }
           
           // Refresh the page to ensure all components update properly
-          setTimeout(() => {
-            window.location.reload()
-          }, 500)
+          // setTimeout(() => {
+          //   window.location.reload()
+          // }, 500)
         } else {
           console.error('Failed to set locale:', response?.data?.error || 'Unknown error')
           if (this.$toast) {
