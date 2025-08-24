@@ -17,8 +17,6 @@
           </div>
           
           <div class="card-body">
-            <!-- Remove ChartOfAccountValidation component from here -->
-            
             <!-- Add the missing form element with submit handler -->
             <form @submit.prevent="saveInvoice">
               <!-- Client Selection with Auto-Assign -->
@@ -78,7 +76,7 @@
                     </label>
                     <input id="reference" v-model="form.reference" type="text" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
-                      :placeholder="$t('Enter reference')" />
+                      :placeholder="$t('Enter reference')" @input="clearFieldError('reference')" />
                     <has-error :form="form" field="reference" />
                   </div>
                 </div>
@@ -100,27 +98,34 @@
                           </div>
                         </ProductCreateModal>
                       </div>
+                      
+                      <!-- Product Chart of Account Status - Similar to client validation -->
+                      <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                        <div v-if="!form.selectedProducts[0].sales_account_id" class="product-warning">
+                          <i class="fas fa-exclamation-triangle text-warning"></i>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs Sales Account') }}</span>
+                          <button 
+                            type="button" 
+                            class="btn btn-sm btn-outline-warning ml-2"
+                            @click="autoAssignProductChartOfAccount(form.selectedProducts[0])"
+                            :disabled="isAutoAssigningProduct === form.selectedProducts[0].id"
+                          >
+                            <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                            {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
+                          </button>
+                        </div>
+                        <div v-else class="product-success">
+                          <i class="fas fa-check-circle text-success"></i>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
+                        </div>
+                      </div>
+                      
                       <has-error :form="form" field="selectedProducts" />
                     </div>
                   </div>
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <!-- Information about columns -->
-                <div class="col-12 mb-2">
-                  <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <strong>{{ $t("Column Information") }}:</strong>
-                    <ul class="mb-0 mt-1">
-                      <li><strong>{{ $t("Price") }}:</strong> {{ $t("Base price per unit (without tax) - this is what you edit") }}</li>
-                      <li><strong>{{ $t("Total") }}:</strong> {{ $t("Price × Quantity (before discount and tax)") }}</li>
-                      <li><strong>{{ $t("Total After Discount") }}:</strong> {{ $t("Total amount after applying item discount") }}</li>
-                      <li><strong>{{ $t("VAT") }}:</strong> {{ $t("Tax amount calculated on discounted total") }}</li>
-                      <li><strong>{{ $t("Total After VAT") }}:</strong> {{ $t("Final amount including tax (this is the subtotal)") }}</li>
-                    </ul>
-                  </div>
-                </div>
-                
                 <div class="table-responsive table-custom w-95 m-auto">
                   <table class="table table-hover table-sm text-center">
                     <thead>
@@ -171,6 +176,7 @@
 
                             <input type="number" step="any" :id="`Qty-${i}`" :value="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`) }"
                               @change="
                                 generateItemTotal(
                                   $event.target.value,
@@ -191,6 +197,9 @@
                                 )
                                 " />
                           </div>
+                          <div v-if="form.errors.has(`selectedProducts.${i-1}.qty`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${i-1}.qty`) }}
+                          </div>
                         </td>
                         <td>
                           <div class="input-group custom-qty-input">
@@ -204,7 +213,9 @@
                                 )
                                 " />
                             <input type="unitPrice" step="any" :id="`unitPrice-${i}`" :value="item.unitPrice"
-                              name="unitPrice" class="quantity-field border-0 incrementor" required min="0" @change="
+                              name="unitPrice" class="quantity-field border-0 incrementor" required min="0" 
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.unitPrice`) }"
+                              @change="
                                 generateItemTotal(
                                   $event.target.value,
                                   'price',
@@ -223,6 +234,9 @@
                                 )
                                 " />
                           </div>
+                          <div v-if="form.errors.has(`selectedProducts.${i-1}.unitPrice`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
+                          </div>
                         </td>
                         <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
                         <td>
@@ -231,6 +245,7 @@
                               v-model="item.discountType" 
                               class="form-control form-control-sm" 
                               style="width: 60px;"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discountType`) }"
                               @change="calculateProductDiscount(i - 1)">
                               <option value="fixed">{{ $t("Fixed") }}</option>
                               <option value="percentage">{{ $t("%") }}</option>
@@ -243,12 +258,31 @@
                               step="any" 
                               min="0" 
                               :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discount`) }"
                               placeholder="0"
                               @change="calculateProductDiscount(i - 1)"
                               @keyup="calculateProductDiscount(i - 1)" />
                           </div>
+                          <div v-if="form.errors.has(`selectedProducts.${i-1}.discount`) || form.errors.has(`selectedProducts.${i-1}.discountType`)" class="invalid-feedback d-block">
+                            <span v-if="form.errors.has(`selectedProducts.${i-1}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discount`) }}</span>
+                            <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
+                          </div>
                         </td>
                         <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>
+                          <input 
+                            type="number" 
+                            v-model="item.productTax" 
+                            class="form-control form-control-sm" 
+                            step="any" 
+                            min="0" 
+                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.productTax`) }"
+                            @change="calculateProductTax(i - 1)"
+                            @keyup="calculateProductTax(i - 1)" />
+                          <div v-if="form.errors.has(`selectedProducts.${i-1}.productTax`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${i-1}.productTax`) }}
+                          </div>
+                        </td>
                         <td>{{ item.totalTax | withCurrency }}</td>
                         <td>{{ item.totalPrice | withCurrency }}</td>
                         <td class="text-right">
@@ -289,7 +323,7 @@
                   <label for="discountType">{{ $t("Discount Type") }}</label>
                   <select id="discountType" v-model="form.discountType" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
-                    @change="calculateSum" @keyup="calculateSum">
+                    @change="calculateSum; clearFieldError('discountType')" @keyup="calculateSum">
                     <option value="0">{{ $t("Fixed") }}</option>
                     <option value="1">{{ $t("Percentage") }}(%)</option>
                   </select>
@@ -302,7 +336,7 @@
                     <input id="discount" v-model="form.discount" type="number" step="any" min="0"
                       :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
+                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount')" />
                     <div v-if="form.discountType == 1" class="input-group-append">
                       <span class="input-group-text">{{
                         form.totalDiscount | withCurrency
@@ -317,7 +351,7 @@
                    }}</label>
                    <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
                      class="form-control" name="transportCost"
-                     :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                     :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('transportCost')" />
                  </div>
               </div>
 
@@ -327,7 +361,7 @@
                     <span class="required">*</span></label>
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" placeholder="Select a tax type"
-                    @input="calculateSum" />
+                    @input="calculateSum; clearFieldError('orderTax')" />
                   <has-error :form="form" field="orderTax" />
                 </div>
                 <div class="form-group col-md-2">
@@ -361,7 +395,7 @@
                   }}</label>
                   <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference"
-                    :placeholder="$t('Enter PO reference')" />
+                    :placeholder="$t('Enter PO reference')" @input="clearFieldError('poReference')" />
                   <has-error :form="form" field="poReference" />
                 </div>
                 <div class="form-group col-md-4">
@@ -370,13 +404,13 @@
                   }}</label>
                   <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms"
-                    :placeholder="$t('Enter payment terms')" />
+                    :placeholder="$t('Enter payment terms')" @input="clearFieldError('paymentTerms')" />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
                 <div class="form-group col-md-4">
                   <label for="addPayment">{{ $t("Add Payment?") }}</label>
                   <select id="addPayment" v-model="form.addPayment" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('addPayment') }" name="addPayment">
+                    :class="{ 'is-invalid': form.errors.has('addPayment') }" name="addPayment" @change="clearFieldError('addPayment')">
                     <option value="" selected disabled>
                       {{ $t("Select an option") }}
                     </option>
@@ -398,7 +432,7 @@
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')">
+                    :placeholder="$t('Select an account')" @input="clearFieldError('account')">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
@@ -411,21 +445,21 @@
                   }}<span class="required">*</span></label>
                   <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
-                    :max="form.netTotal" :placeholder="$t('Enter an amount')" />
+                    :max="form.netTotal" :placeholder="$t('Enter an amount')" @input="clearFieldError('paidAmount')" />
                   <has-error :form="form" field="paidAmount" />
                 </div>
                 <div class="form-group col-md-3">
                   <label for="chequeNo">{{ $t("Cheque No") }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
-                    :placeholder="$t('Enter a cheque number')" />
+                    :placeholder="$t('Enter a cheque number')" @input="clearFieldError('chequeNo')" />
                   <has-error :form="form" field="chequeNo" />
                 </div>
                 <div class="form-group col-md-3">
                   <label for="receiptNo">{{ $t("Receipt No") }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
-                    :placeholder="$t('Enter a receipt no')" />
+                    :placeholder="$t('Enter a receipt no')" @input="clearFieldError('receiptNo')" />
                   <has-error :form="form" field="receiptNo" />
                 </div>
               </div>
@@ -436,19 +470,19 @@
                   }}</label>
                   <input id="deliveryPlace" v-model="form.deliveryPlace" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('deliveryPlace') }" name="deliveryPlace"
-                    :placeholder="$t('Enter a delivery place')" />
+                    :placeholder="$t('Enter a delivery place')" @input="clearFieldError('deliveryPlace')" />
                   <has-error :form="form" field="deliveryPlace" />
                 </div>
                 <div class="form-group col-md-4">
                   <label for="date">{{ $t("Date") }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
+                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" @change="clearFieldError('date')" />
                   <has-error :form="form" field="date" />
                 </div>
                 <div class="form-group col-md-4">
                   <label for="status">{{ $t("Status") }}</label>
                   <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
+                    :class="{ 'is-invalid': form.errors.has('status') }" @change="clearFieldError('status')">
                     <option value="1">{{ $t("Active") }}</option>
                     <option value="0">{{ $t("Inactive") }}</option>
                   </select>
@@ -459,7 +493,7 @@
               <div class="form-group">
                 <label for="note">{{ $t("Note") }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" @input="clearFieldError('note')" />
                 <has-error :form="form" field="note" />
               </div>
 
@@ -478,14 +512,33 @@
               
               <!-- Form Actions -->
               <div class="card-footer">
-                <button :disabled="form.busy" class="btn btn-primary" type="submit">
+                <button :disabled="form.busy || !isFormReady" class="btn btn-primary" type="submit">
                   <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
                   <i v-else class="fas fa-save"></i>
                   {{ form.busy ? $t("Saving...") : $t("Save") }}
                 </button>
-                <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
+                <button type="button" class="btn btn-secondary float-right" @click="resetForm">
                   <i class="fas fa-power-off" /> {{ $t("Reset") }}
                 </button>
+                
+                <!-- Form readiness indicator -->
+                <div v-if="!isFormReady" class="mt-3">
+                  <div class="alert alert-warning mb-0">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>{{ $t("Form Not Ready") }}:</strong>
+                    <ul class="mb-0 mt-2">
+                      <li v-if="!hasChartOfAccount">
+                        {{ $t("Client must have a Chart of Account assigned") }}
+                      </li>
+                      <li v-if="!allProductsHaveSalesAccounts">
+                        {{ $t("All products must have Sales Accounts assigned") }}
+                      </li>
+                      <li v-if="!form.selectedProducts || form.selectedProducts.length === 0">
+                        {{ $t("At least one product must be selected") }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </form>
             <!-- /.card-body -->
@@ -503,6 +556,7 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
+
 import { ToWords } from 'to-words';
 
 export default {
@@ -567,8 +621,9 @@ export default {
       taxes: "",
       prefix: "",
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
-      validationKey: 0, // Force re-render of validation component
+
       isAutoAssigningClient: false, // Add this back for the auto-assign button
+      isAutoAssigningProduct: null, // Track which product is being auto-assigned
     }
   },
   computed: {
@@ -599,6 +654,19 @@ export default {
     // Add computed property to check if chart of account is assigned
     hasChartOfAccount() {
       return !!this.form.client && !!this.form.client.chart_of_account_id;
+    },
+
+    // Check if all products have sales accounts assigned
+    allProductsHaveSalesAccounts() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return true; // No products selected, so no validation needed
+      }
+      return this.form.selectedProducts.every(product => product.sales_account_id);
+    },
+
+    // Check if form is ready for submission
+    isFormReady() {
+      return this.hasChartOfAccount && this.allProductsHaveSalesAccounts && this.form.selectedProducts && this.form.selectedProducts.length > 0;
     }
   },
   created() {
@@ -608,6 +676,14 @@ export default {
     this.getTaxes();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
+  },
+  mounted() {
+    // Set up global error handling
+    this.setupGlobalErrorHandling();
+  },
+  beforeDestroy() {
+    // Clean up global error handlers
+    this.cleanupGlobalErrorHandling();
   },
   methods: {
     // get all clients
@@ -627,18 +703,93 @@ export default {
           this.form.client = this.items[0];
         }
       } catch (error) {
-        console.error('Error getting clients:', error)
-        // Don't show error toast here, just log for debugging
+        console.error('Error getting clients:', error);
+        
+        // Show error toast for client loading failures
+        if (error.response?.status === 401) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to view clients. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 403) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to view clients."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status >= 500) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: this.$t("Unable to load clients. Please try again later."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Client Loading Error"),
+            text: error.message,
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
       }
     },
 
     // get products
     async getProducts() {
-      const { data } = await axios.get(
-        window.location.origin + "/api/all-products"
-      );
-      this.products = data.data;
-      this.products.sort(this.sortProducts);
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/all-products"
+        );
+        this.products = data.data;
+        this.products.sort(this.sortProducts);
+        
+
+      } catch (error) {
+        console.error('Error getting products:', error);
+        
+        // Show error toast for product loading failures
+        if (error.response?.status === 401) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to view products. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 403) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to view products."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status >= 500) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: this.$t("Unable to load products. Please try again later."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Product Loading Error"),
+            text: error.message,
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
+      }
     },
 
     // sort products
@@ -654,33 +805,111 @@ export default {
 
     // get accounts
     async getAccounts() {
-      const { data } = await axios.get(
-        window.location.origin + "/api/all-accounts"
-      );
-      this.accounts = data.data;
-      // assign default account
-      if (this.accounts && this.accounts.length > 0) {
-        let defaultAccountSlug = this.appInfo.defaultAccountSlug;
-        this.form.account = this.accounts.find(
-          (item) => item.slug === defaultAccountSlug
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/all-accounts"
         );
+        this.accounts = data.data;
+        // assign default account
+        if (this.accounts && this.accounts.length > 0) {
+          let defaultAccountSlug = this.appInfo.defaultAccountSlug;
+          this.form.account = this.accounts.find(
+            (item) => item.slug === defaultAccountSlug
+          );
+        }
+      } catch (error) {
+        console.error('Error getting accounts:', error);
+        
+        // Show error toast for account loading failures
+        if (error.response?.status === 401) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to view accounts. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 403) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to view accounts."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status >= 500) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: this.$t("Unable to load accounts. Please try again later."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Account Loading Error"),
+            text: error.message,
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
       }
     },
 
     // get taxes
     async getTaxes() {
-      const { data } = await axios.get(
-        window.location.origin + "/api/all-vat-rates"
-      );
-      this.taxes = data.data;
-      // assign default vat rate
-      if (this.taxes && this.taxes.length > 0) {
-        let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;
-        this.form.orderTax = this.taxes.find(
-          (tax) => tax.slug === defaultVatRateSlug
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/all-vat-rates"
         );
+        this.taxes = data.data;
+        // assign default vat rate
+        if (this.taxes && this.taxes.length > 0) {
+          let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;
+          this.form.orderTax = this.taxes.find(
+            (tax) => tax.slug === defaultVatRateSlug
+          );
+        }
+        this.calculateSum();
+      } catch (error) {
+        console.error('Error getting taxes:', error);
+        
+        // Show error toast for tax loading failures
+        if (error.response?.status === 401) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to view tax rates. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 403) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to view tax rates."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status >= 500) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: this.$t("Unable to load tax rates. Please try again later."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Tax Loading Error"),
+            text: error.message,
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
       }
-      this.calculateSum();
     },
 
          // ensure all products have discount properties
@@ -698,159 +927,74 @@ export default {
        });
      },
 
-    // store item in array
+    // store product
     storeProduct(product) {
-      // Check if product has sales account before adding
-      if (!product.sales_account_id) {
-        toast.fire({
-          type: "warning",
-          title: this.$t("Sales Account Required"),
-          text: this.$t('Item "{{name}}" doesn\'t have a sales account. Please add a sales account to this item first.', { name: product.name }),
-          confirmButtonText: this.$t("Edit Item"),
-          showCancelButton: true,
-          cancelButtonText: this.$t("Cancel"),
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Redirect to edit the product
-            this.$router.push({ 
-              name: 'products.edit', 
-              params: { slug: product.slug } 
-            });
-          }
-        });
-        // Clear the product selection
-        this.form.product = null;
-        return;
-      }
-
-      var index = this.form.selectedProducts.findIndex(
-        (x) => x.id == product.id
-      );
-      let quantity = 1;
-      if (index === -1) {
-        // Calculate tax amount
-        let productTax =
-          product.taxType == "Exclusive"
-            ? this.roundToTwoDecimals(product.priceWithDiscount * (product.taxRate / 100))
-            : this.roundToTwoDecimals(product.priceWithDiscount - (product.priceWithDiscount / (1 + product.taxRate / 100)));
-        let totalTax = this.roundToTwoDecimals(productTax * quantity);
-
-        // unitPrice should be WITHOUT tax (base price)
-        // unitCost should be WITH tax (for display purposes)
-        let unitPrice = product.taxType == "Exclusive" 
-          ? this.roundToTwoDecimals(product.priceWithDiscount)  // Exclusive: base price
-          : this.roundToTwoDecimals(product.priceWithDiscount - productTax); // Inclusive: base price
-
-        let unitCost = product.taxType == "Exclusive"
-          ? this.roundToTwoDecimals(unitPrice + productTax)  // Exclusive: base + tax
-          : this.roundToTwoDecimals(product.priceWithDiscount); // Inclusive: already includes tax
-
+      if (product) {
+        // Clear selectedProducts validation errors when adding a product
+        this.clearFieldError('selectedProducts');
+        
         this.form.selectedProducts.unshift({
           id: product.id,
           slug: product.slug,
-          itemType: product.itemType,
           name: product.name,
           code: product.code,
           taxType: product.taxType,
           taxRate: product.taxRate,
-          qty: quantity,
+          qty: 1,
           inventoryCount: product.inventoryCount,
           avgPurchasePrice: product.avgPurchasePrice,
-          unitPrice: unitPrice,  // Price WITHOUT tax
-          unitCost: unitCost,    // Price WITH tax (for display)
-          totalPrice:
-            product.taxType == "Exclusive"
-              ? this.roundToTwoDecimals(quantity * (unitPrice + totalTax))
-              : this.roundToTwoDecimals(quantity * unitCost),
-          productTax: product.productTax > 0 ? this.roundToTwoDecimals(product.productTax) : 0,
-          totalTax: totalTax,
+          unitPrice: product.regularPrice,
+          unitCost: product.regularPrice,
+          totalPrice: product.regularPrice,
+          productTax: product.productTax ? product.productTax.rate : 0,
+          totalTax: 0,
+          itemType: product.itemType,
           discount: 0,
-          discountType: 'fixed',
+          discountType: "fixed",
           discountAmount: 0,
+          // Add chart of account information for validation
+          sales_account_id: product.sales_account_id,
+          purchase_account_id: product.purchase_account_id,
         });
-      } else {
-                 // Ensure existing product has discount properties
-         if (typeof this.form.selectedProducts[index].discount === 'undefined') {
-           this.form.selectedProducts[index].discount = 0;
-         }
-         if (typeof this.form.selectedProducts[index].discountType === 'undefined') {
-           this.form.selectedProducts[index].discountType = 'fixed';
-         }
-         if (typeof this.form.selectedProducts[index].discountAmount === 'undefined') {
-           this.form.selectedProducts[index].discountAmount = 0;
-         }
+        this.form.product = "";
+        this.calculateSum();
+        
+
       }
-      this.generateItemTotal(quantity, "qty", index, "");
-      // Ensure initial discount calculation
-      if (index >= 0) {
-        this.calculateProductDiscount(index);
-      }
-      return;
     },
 
     // update array
-    generateItemTotal(value, type, index, action) {
+    generateItemTotal(value, field, index, type) {
       let item = this.form.selectedProducts[index];
       if (item) {
-        if (type == "qty") {
-          item.qty = value;
-          if (action == "increment") {
-            item.qty = Number(item.qty) + 1;
-          } else if (action == "decrement") {
-            if (item.qty > 0) {
-              item.qty = Number(item.qty) - 1;
-            }
+        if (type === "increment") {
+          if (field === "qty") {
+            item.qty = item.qty + 1;
+          } else if (field === "price") {
+            item.unitPrice = this.roundToTwoDecimals(item.unitPrice + 1);
+          }
+        } else if (type === "decrement") {
+          if (field === "qty" && item.qty > 1) {
+            item.qty = item.qty - 1;
+          } else if (field === "price" && item.unitPrice > 0) {
+            item.unitPrice = this.roundToTwoDecimals(item.unitPrice - 1);
           }
         } else {
-          // Price change - update unitPrice (price WITHOUT tax)
-          item.unitPrice = Number(value);
-          if (action == "increment") {
-            item.unitPrice = Number(item.unitPrice) + 1;
-          } else if (action == "decrement") {
-            if (item.unitPrice > 0) {
-              item.unitPrice = Number(item.unitPrice) - 1;
-            }
-          }
-          
-          // Recalculate unitCost (price WITH tax) based on new unitPrice
-          if (item.taxType == "Exclusive") {
-            item.unitCost = this.roundToTwoDecimals(item.unitPrice + (item.unitPrice * (item.taxRate / 100)));
-          } else {
-            // For inclusive tax, unitCost = unitPrice + tax
-            item.unitCost = this.roundToTwoDecimals(item.unitPrice + (item.unitPrice * (item.taxRate / 100)));
+          if (field === "qty") {
+            item.qty = Number(value);
+            // Clear quantity validation error when value changes
+            this.clearProductErrors(index);
+          } else if (field === "price") {
+            item.unitPrice = this.roundToTwoDecimals(Number(value));
+            // Clear unit price validation error when value changes
+            this.clearProductErrors(index);
           }
         }
         
-        // Calculate tax with proper decimal precision
-        if (item.taxType == "Exclusive") {
-          item.productTax = this.roundToTwoDecimals(item.unitPrice * (item.taxRate / 100));
-        } else {
-          item.productTax = this.roundToTwoDecimals(item.unitCost - item.unitPrice);
-        }
-
-        item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
-
-        // Calculate total price with proper decimal precision
-        if (item.taxType == "Exclusive") {
-          item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitPrice + item.totalTax);
-        } else {
-          item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
-        }
-        
-        // Calculate unit cost with proper decimal precision
-        if (item.taxType == "Exclusive") {
-          item.unitCost = this.roundToTwoDecimals(Number(item.unitPrice) + Number(item.productTax));
-        } else {
-          item.unitCost = this.roundToTwoDecimals(item.unitPrice);
-        }
-        
-        this.form.selectedProducts[index] = item;
-        
-        // Recalculate discount after price/quantity changes
-        this.calculateProductDiscount(index);
+        // Recalculate totals
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
       }
-      this.calculateSum();
-      return;
     },
 
     // Helper method to round to 2 decimal places
@@ -862,23 +1006,45 @@ export default {
     calculateProductDiscount(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
-        let discountAmount = 0;
+        // Clear discount validation errors when values change
+        this.clearProductErrors(index);
         
-        if (item.discount > 0) {
-          if (item.discountType == 'percentage') { // Percentage
-            discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
-          } else { // Fixed
-            discountAmount = this.roundToTwoDecimals(Number(item.discount));
-          }
+        if (item.discountType === "percentage") {
+          item.discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
+        } else {
+          item.discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
         }
         
-        // Store the calculated discount amount for this item
-        item.discountAmount = discountAmount;
-        
+        // Recalculate totals
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+      }
+    },
+
+    // calculate product tax
+    calculateProductTax(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        if (item.taxType == "Exclusive") {
+          item.productTax = this.roundToTwoDecimals(item.unitPrice * (item.taxRate / 100));
+        } else {
+          item.productTax = this.roundToTwoDecimals(item.unitCost - item.unitPrice);
+        }
+        item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
+        item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
+        this.form.selectedProducts[index] = item;
+        this.calculateSum();
+      }
+    },
+
+    // generate item total price
+    generateItemTotalPrice(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
         // Calculate price after discount
-        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - discountAmount);
+        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
         
-        // Recalculate tax based on discounted price
+        // Calculate tax based on discounted price
         if (item.taxType == "Exclusive") {
           item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (item.taxRate / 100));
           item.totalTax = this.roundToTwoDecimals(item.productTax);
@@ -894,9 +1060,7 @@ export default {
         }
         
         this.form.selectedProducts[index] = item;
-        this.calculateSum();
       }
-      return;
     },
 
     // remove item from array
@@ -906,6 +1070,9 @@ export default {
         this.form.selectedProducts.splice(index, 1);
       }
       this.calculateSum();
+      
+      
+      
       return;
     },
 
@@ -1018,6 +1185,20 @@ export default {
           return;
         }
 
+        // Validate that all products have sales accounts assigned
+        const productsWithoutSalesAccount = this.form.selectedProducts.filter(product => !product.sales_account_id);
+        if (productsWithoutSalesAccount.length > 0) {
+          const productNames = productsWithoutSalesAccount.map(p => p.name || 'Unknown').join(', ');
+          toast.fire({
+            type: "warning",
+            title: this.$t("Product Chart of Account Required"),
+            text: this.$t("The following products must have Sales Accounts assigned: ") + productNames,
+            timer: 8000,
+            timerProgressBar: true,
+          });
+          return;
+        }
+
         // Validate that all calculations are correct
         if (!this.validateCalculations()) {
           toast.fire({
@@ -1050,19 +1231,159 @@ export default {
         }
       } catch (error) {
         this.loading = false;
-        if (error.response?.data?.message) {
-          toast.fire({
-            type: "error",
-            title: this.$t("Error"),
-            text: error.response.data.message,
+        
+        console.error('Invoice creation error:', error);
+        
+        // Handle validation errors specifically
+        if (error.response?.status === 422 && error.response?.data?.errors) {
+          const validationErrors = error.response.data.errors;
+          
+          // Show validation errors in toast
+          Object.keys(validationErrors).forEach(field => {
+            const fieldErrors = validationErrors[field];
+            if (Array.isArray(fieldErrors) && fieldErrors.length > 0) {
+              // Show first error for each field
+              toast.fire({
+                type: "error",
+                title: this.$t("Validation Error"),
+                text: `${this.getFieldLabel(field)}: ${fieldErrors[0]}`,
+                timer: 5000,
+                timerProgressBar: true,
+              });
+            }
           });
-        } else {
+          
+          // Also set form errors for inline validation display
+          this.form.errors.set(validationErrors);
+          
+        } else if (error.response?.status === 400) {
+          // Handle bad request errors (business logic errors)
+          const errorMessage = error.response.data.message || error.response.data.error || this.$t("Bad Request Error");
+          
+          // Try to handle as business logic error first
+          if (!this.handleBusinessLogicError(error.response.data)) {
+            // If not handled by business logic handler, show generic bad request error
+            toast.fire({
+              type: "error",
+              title: this.$t("Business Logic Error"),
+              text: errorMessage,
+              timer: 6000,
+              timerProgressBar: true,
+            });
+          }
+          
+        } else if (error.response?.status === 401) {
+          // Handle unauthorized errors
           toast.fire({
             type: "error",
-            title: this.$t("Error"),
-            text: this.$t("Something went wrong. Please try again."),
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to perform this action. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.response?.status === 403) {
+          // Handle forbidden errors
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to perform this action."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.response?.status === 404) {
+          // Handle not found errors
+          toast.fire({
+            type: "error",
+            title: this.$t("Resource Not Found"),
+            text: this.$t("The requested resource was not found. Please check your data and try again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.response?.status === 409) {
+          // Handle conflict errors
+          const errorMessage = error.response.data.message || this.$t("Data Conflict Error");
+          toast.fire({
+            type: "error",
+            title: this.$t("Data Conflict"),
+            text: errorMessage,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.response?.status === 422) {
+          // Handle other unprocessable entity errors
+          const errorMessage = error.response.data.message || this.$t("Data Processing Error");
+          toast.fire({
+            type: "error",
+            title: this.$t("Data Error"),
+            text: errorMessage,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.response?.status >= 500) {
+          // Handle server errors
+          const errorMessage = error.response.data.message || this.$t("Server Error");
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: `${errorMessage} (${this.$t("Please try again later or contact support")})`,
+            timer: 8000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.response?.data?.message) {
+          // Handle other API error messages
+          toast.fire({
+            type: "error",
+            title: this.$t("API Error"),
+            text: error.response.data.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.message) {
+          // Handle JavaScript errors
+          toast.fire({
+            type: "error",
+            title: this.$t("JavaScript Error"),
+            text: error.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+          
+        } else if (error.code === 'NETWORK_ERROR' || error.code === 'ECONNABORTED') {
+          // Handle network errors
+          toast.fire({
+            type: "error",
+            title: this.$t("Network Error"),
+            text: this.$t("Unable to connect to the server. Please check your internet connection and try again."),
+            timer: 8000,
+            timerProgressBar: true,
+          });
+          
+        } else {
+          // Generic error fallback
+          toast.fire({
+            type: "error",
+            title: this.$t("Unexpected Error"),
+            text: this.$t("Something went wrong. Please try again or contact support if the problem persists."),
+            timer: 6000,
+            timerProgressBar: true,
           });
         }
+        
+        // Log detailed error information for debugging
+        console.group('Detailed Error Information');
+        console.error('Error object:', error);
+        console.error('Response status:', error.response?.status);
+        console.error('Response data:', error.response?.data);
+        console.error('Error message:', error.message);
+        console.error('Error code:', error.code);
+        console.groupEnd();
       }
     },
 
@@ -1165,10 +1486,19 @@ export default {
         });
     },
 
-    // Handle client change - Remove ONLY the automatic assignment
-    onClientChange(client) {
-      // Remove the automatic assignment logic
-      // The auto-assign button will still work when clicked manually
+    // on client change
+    onClientChange() {
+      // Clear client validation errors when client changes
+      this.clearFieldError('client');
+      
+      if (this.form.client) {
+        this.form.client = this.items.find(
+          (item) => item.id === this.form.client.id
+        );
+        if (this.form.client && !this.form.client.chart_of_account_id) {
+          this.form.client = this.items[0];
+        }
+      }
     },
 
     // Add back the autoAssignClientChartOfAccount method
@@ -1206,9 +1536,6 @@ export default {
             title: this.$t("Chart of Account assigned successfully"),
           });
           
-          // Force validation component to re-render
-          this.validationKey++;
-          
         } else {
           toast.fire({
             type: "error",
@@ -1219,13 +1546,372 @@ export default {
         
       } catch (error) {
         console.error('Error auto-assigning chart of account:', error);
-        toast.fire({
-          type: "error",
-          title: this.$t("Failed to assign Chart of Account"),
-          text: this.$t("Please try again or assign manually")
-        });
+        
+        // Handle different types of errors
+        if (error.response?.status === 400) {
+          const errorMessage = error.response.data.message || this.$t("Bad request error");
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: errorMessage,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 401) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to perform this action. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 403) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to assign Chart of Accounts."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 404) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Client Not Found"),
+            text: this.$t("The client was not found. Please refresh the page and try again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status >= 500) {
+          const errorMessage = error.response.data.message || this.$t("Server error");
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: `${errorMessage} (${this.$t("Please try again later")})`,
+            timer: 8000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.data?.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.response.data.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else if (error.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: this.$t("Please try again or assign manually"),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
       } finally {
         this.isAutoAssigningClient = false;
+      }
+    },
+
+
+
+    // Helper method to get human-readable field labels
+    getFieldLabel(field) {
+      const fieldLabels = {
+        'client': this.$t('Client'),
+        'selectedProducts': this.$t('Products'),
+        'orderTax': this.$t('Order Tax'),
+        'netTotal': this.$t('Net Total'),
+        'poReference': this.$t('PO Reference'),
+        'paymentTerms': this.$t('Payment Terms'),
+        'deliveryPlace': this.$t('Delivery Place'),
+        'account': this.$t('Account'),
+        'paidAmount': this.$t('Paid Amount'),
+        'chequeNo': this.$t('Cheque Number'),
+        'receiptNo': this.$t('Receipt Number'),
+        'date': this.$t('Date'),
+        'note': this.$t('Note'),
+        'status': this.$t('Status'),
+        'addPayment': this.$t('Add Payment'),
+        'isSendEmail': this.$t('Send Email'),
+        'isSendSMS': this.$t('Send SMS'),
+        'discountType': this.$t('Discount Type'),
+        'discount': this.$t('Discount'),
+        'transportCost': this.$t('Transport Cost'),
+        'reference': this.$t('Reference'),
+      };
+      
+      return fieldLabels[field] || this.$t(field.charAt(0).toUpperCase() + field.slice(1));
+    },
+
+    // Helper method to handle specific business logic errors
+    handleBusinessLogicError(errorData) {
+      const { message, errors, details } = errorData;
+      
+      // Handle specific error types
+      if (message && message.includes('Chart of Account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Chart of Account Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true,
+        });
+        return true;
+      }
+      
+      if (message && message.includes('Sales Account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Sales Account Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true,
+        });
+        return true;
+      }
+      
+      if (message && message.includes('VAT Account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("VAT Account Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true,
+        });
+        return true;
+      }
+      
+      if (message && message.includes('Discount Allowed account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Account Configuration Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true,
+        });
+        return true;
+      }
+      
+      // Handle other business logic errors
+      if (message) {
+        toast.fire({
+          type: "error",
+          title: this.$t("Business Rule Violation"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true,
+        });
+        return true;
+      }
+      
+      return false;
+    },
+
+    // Reset form
+    resetForm() {
+      this.form.reset();
+      this.form.errors.clear();
+      this.form.selectedProducts = [];
+      this.form.subTotal = 0;
+      this.form.netTotal = 0;
+      this.form.totalTax = 0;
+      this.form.productTotalTax = 0;
+      this.form.totalDiscount = 0;
+      this.form.discount = 0;
+      this.form.transportCost = "";
+      this.form.orderTax = "";
+      this.form.account = "";
+      this.form.totalPaid = "";
+      this.form.dueAmount = "";
+      this.form.poReference = "";
+      this.form.paymentTerms = "";
+      this.form.deliveryPlace = "";
+      this.form.addPayment = "";
+      this.form.chequeNo = "";
+      this.form.receiptNo = "";
+      this.form.date = new Date().toISOString().slice(0, 10);
+      this.form.note = "";
+      this.form.status = 1;
+      this.form.isSendEmail = false;
+      this.form.isSendSMS = false;
+      this.form.discountType = 0;
+      this.form.reference = "";
+    },
+
+    // Clear validation errors for a specific field
+    clearFieldError(field) {
+      if (this.form.errors.has(field)) {
+        this.form.errors.clear(field);
+      }
+    },
+
+    // Clear validation errors for product fields
+    clearProductErrors(index) {
+      const fields = ['qty', 'unitPrice', 'discount', 'discountType', 'productTax'];
+      fields.forEach(field => {
+        const errorKey = `selectedProducts.${index}.${field}`;
+        if (this.form.errors.has(errorKey)) {
+          this.form.errors.clear(errorKey);
+        }
+      });
+    },
+
+    // Global error handler for any unhandled errors
+    handleGlobalError(error, context = 'Unknown operation') {
+      console.error(`Global error in ${context}:`, error);
+      
+      // Show a generic error toast
+      toast.fire({
+        type: "error",
+        title: this.$t("Unexpected Error"),
+        text: this.$t("An unexpected error occurred. Please try again or contact support."),
+        timer: 6000,
+        timerProgressBar: true,
+      });
+    },
+
+    // Set up global error handling
+    setupGlobalErrorHandling() {
+      // Handle unhandled promise rejections
+      this.unhandledRejectionHandler = (event) => {
+        console.error('Unhandled promise rejection:', event.reason);
+        this.handleGlobalError(event.reason, 'Promise rejection');
+      };
+      
+      // Handle unhandled errors
+      this.unhandledErrorHandler = (event) => {
+        console.error('Unhandled error:', event.error);
+        this.handleGlobalError(event.error, 'JavaScript error');
+      };
+      
+      // Add event listeners
+      window.addEventListener('unhandledrejection', this.unhandledRejectionHandler);
+      window.addEventListener('error', this.unhandledErrorHandler);
+    },
+
+    // Clean up global error handlers
+    cleanupGlobalErrorHandling() {
+      if (this.unhandledRejectionHandler) {
+        window.removeEventListener('unhandledrejection', this.unhandledRejectionHandler);
+      }
+      if (this.unhandledErrorHandler) {
+        window.removeEventListener('error', this.unhandledErrorHandler);
+      }
+    },
+
+    // Auto-assign Chart of Account for a specific product
+    async autoAssignProductChartOfAccount(product) {
+      if (!product || this.isAutoAssigningProduct === product.id) {
+        return;
+      }
+      
+      this.isAutoAssigningProduct = product.id;
+      
+      try {
+        const response = await this.$http.post(`/api/products/${product.slug}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          // Update the product data with new chart of account
+          product.sales_account_id = response.data.sales_account_id;
+          
+          // Refresh products list to get updated data
+          await this.getProducts();
+          
+          // Show success message
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
+          
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error auto-assigning chart of account for product:', error);
+        
+        // Handle different types of errors
+        if (error.response?.status === 400) {
+          const errorMessage = error.response.data.message || this.$t("Bad request error");
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: errorMessage,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 401) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Authentication Error"),
+            text: this.$t("You are not authorized to perform this action. Please log in again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 403) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Permission Error"),
+            text: this.$t("You don't have permission to assign Chart of Accounts."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status === 404) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Product Not Found"),
+            text: this.$t("The product was not found. Please refresh the page and try again."),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.status >= 500) {
+          const errorMessage = error.response.data.message || this.$t("Server error");
+          toast.fire({
+            type: "error",
+            title: this.$t("Server Error"),
+            text: `${errorMessage} (${this.$t("Please try again later")})`,
+            timer: 8000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.data?.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.response.data.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else if (error.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: this.$t("Please try again or assign manually"),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
+      } finally {
+        this.isAutoAssigningProduct = null;
       }
     },
   },
@@ -1401,4 +2087,31 @@ export default {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* Product status styles */
+.product-status {
+  font-size: 13px;
+}
+
+.product-warning,
+.product-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.product-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.product-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
 </style>
+

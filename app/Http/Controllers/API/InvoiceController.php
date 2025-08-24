@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Client;
 use App\Models\ChartOfAccount;
 use App\Models\AccountRoutingSetting;
+use App\Http\Requests\Invoice\StoreInvoiceRequest;
 
 class InvoiceController extends Controller
 {
@@ -68,34 +69,9 @@ class InvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreInvoiceRequest $request)
     {
-
-        // dd($request->selectedProducts);
-        // validate request
-        $this->validate($request, [
-            'client' => 'required',
-            'reference' => 'nullable|string|max:255',
-            'selectedProducts' => 'required|array|min:1',
-            'selectedProducts.*' => 'required|distinct',
-            // 'transportCost' => 'nullable|numeric|min:1',
-            'orderTax' => 'required',
-            'netTotal' => 'required|numeric|min:1',
-            'poReference' => 'nullable|string|max:255',
-            'paymentTerms' => 'nullable|string|max:255',
-            'deliveryPlace' => 'nullable|string|max:255',
-            'account' => $request->addPayment == true ? 'required' : 'nullable',
-            'paidAmount' => $request->addPayment == true ? 'required|min:1|max:' . $request->netTotal : 'nullable',
-            'chequeNo' => 'nullable|string|max:255',
-            'receiptNo' => 'nullable|string|max:255',
-            'date' => 'nullable|date_format:Y-m-d',
-            'note' => 'nullable|string|max:255',
-        ]);
-
         try {
-
-
-
             $client = Client::findOrFail($request->client['id']);
             $chartOfAccount = $client?->chartOfAccount;
 
@@ -106,39 +82,19 @@ class InvoiceController extends Controller
 
             $totalDiscountAmount = 0;
 
-         
-
-                foreach ($request->selectedProducts as $key => $selectedProduct) {
-                    $product = Product::where('slug', $selectedProduct['slug'])->first();
-                    if (!$product || !$product->hasSalesAccount()) {
-                        return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.');
-                    }
-                    if(!$product || !$product->productTax || !$product->productTax->salesVatAccount){
-                        return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.');
-                    }
-                    
-                   
-                    // Validate VAT account from product's tax rate
-                    // if ($product && $product->productTax && $product->productTax->salesVatAccount) {
-                    //     $vatAccount = $product->productTax->salesVatAccount;
-                    //     if (!$vatAccount) {
-                    //         return $this->responseWithError('Product "' . $product->name . '" must have a Sales VAT Account assigned for journal entries.');
-                    //     }
-                    //     if (!$vatAccount->id) {
-                    //         return $this->responseWithError('Product "' . $product->name . '" must have a Sales VAT Account assigned for journal entries.');
-                    //     }
-
-                       
-                    // }
-
-
-                    if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
-                        $totalDiscountAmount += $selectedProduct['discount'];
-                    }
+            foreach ($request->selectedProducts as $key => $selectedProduct) {
+                $product = Product::where('slug', $selectedProduct['slug'])->first();
+                if (!$product || !$product->hasSalesAccount()) {
+                    return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.');
                 }
-            
-
-
+                if(!$product || !$product->productTax || !$product->productTax->salesVatAccount){
+                    return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.');
+                }
+                
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    $totalDiscountAmount += $selectedProduct['discount'];
+                }
+            }
 
             if ($totalDiscountAmount > 0) {
                 $discountAccount = $this->getDiscountAllowedAccount();
