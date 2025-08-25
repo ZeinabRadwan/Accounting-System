@@ -18,14 +18,16 @@ return new class extends Migration
             //
         });
 
-        // Add the country setting to the general_settings table
-        DB::table('general_settings')->insert([
-            'key' => 'country',
-            'display_name' => 'Country',
-            'value' => 'SA',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // Add the country setting to the general_settings table only if it doesn't exist
+        if (!DB::table('general_settings')->where('key', 'country')->exists()) {
+            DB::table('general_settings')->insert([
+                'key' => 'country',
+                'display_name' => 'Country',
+                'value' => 'SA',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 
     /**
