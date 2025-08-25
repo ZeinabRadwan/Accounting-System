@@ -293,6 +293,126 @@
         </div>
       </div>
 
+      <!-- Chart of Account Section -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h5 class="section-title">{{ $t("Chart of Account") }}</h5>
+          
+
+          
+          <!-- Routing Type Info -->
+          <div v-if="routingSetting" class="alert alert-info">
+            <i class="fas fa-info-circle mr-2"></i>
+            <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
+            <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
+          </div>
+
+          <!-- Automatic Account Routing - No dropdown needed -->
+          <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
+            <i class="fas fa-check-circle mr-2"></i>
+            {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
+          </div>
+
+                                                                    <!-- Specify Per Each - Show dropdown and create button -->
+              <div v-if="routingSetting && routingSetting.routing_type === 'per_each'" class="chart-of-account-field">
+                <div class="form-group">
+                  <label for="chartOfAccountId">
+                    {{ $t("Select Chart of Account") }} <span class="required">*</span>
+                  </label>
+                  <VSelect 
+                    v-model="form.chartOfAccountId" 
+                    :options="chartOfAccounts" 
+                    :reduce="option => option.id"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                    :placeholder="$t('Select an account')"
+                    :searchable="true"
+                    :clearable="true"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div class="account-option">
+                        <span class="account-name">{{ name }}</span>
+                        <span class="account-code">{{ code }}</span>
+                        <span class="account-type">{{ type }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ name }">
+                      <span class="selected-account-name">{{ name }}</span>
+                    </template>
+                  </VSelect>
+                  <has-error :form="form" field="chartOfAccountId" />
+                  <small class="form-text text-muted">
+                    {{ $t("Select a chart of account for this client. The account will be created without any parent.") }}
+                  </small>
+                  
+                  <!-- Create New Account Button - Positioned below the select -->
+                  <div class="mt-3" v-if="!isNewClient">
+                    <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
+                      <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
+                      <i v-else class="fas fa-plus mr-2"></i>
+                      {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+                                           <!-- Specify Main Account Per Each - Show dropdown and create button -->
+            <div v-if="routingSetting && routingSetting.routing_type === 'main_account_per_each'" class="chart-of-account-field">
+              <div class="form-group">
+                <label for="chartOfAccountId">
+                  {{ $t("Select Chart of Account") }} <span class="required">*</span>
+                </label>
+                <VSelect 
+                  v-model="form.chartOfAccountId" 
+                  :options="chartOfAccounts" 
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                  :placeholder="$t('Select an account')"
+                  :searchable="true"
+                  :clearable="true"
+                >
+                  <template #option="{ name, code, type }">
+                    <div class="account-option">
+                      <span class="account-name">{{ name }}</span>
+                      <span class="account-code">{{ code }}</span>
+                      <span class="account-type">{{ type }}</span>
+                    </div>
+                  </template>
+                  <template #selected-option="{ name }">
+                    <span class="selected-account-name">{{ name }}</span>
+                  </template>
+                </VSelect>
+                <has-error :form="form" field="chartOfAccountId" />
+                <small class="form-text text-muted">
+                  {{ $t("Select a chart of account for this client. The account will be created under the main client account.") }}
+                </small>
+                
+                <!-- Create New Account Button - Positioned below the select -->
+                <div class="mt-3" v-if="!isNewClient">
+                  <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
+                    <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
+                    <i v-else class="fas fa-plus mr-2"></i>
+                    {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          <!-- Loading state -->
+          <div v-if="loadingChartOfAccounts" class="text-center py-3">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">{{ $t("Loading...") }}</span>
+            </div>
+            <p class="mt-2">{{ $t("Loading chart of accounts...") }}</p>
+          </div>
+
+          <!-- Error state -->
+          <div v-if="chartOfAccountsError" class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            {{ chartOfAccountsError }}
+          </div>
+        </div>
+      </div>
+
       <!-- Toggle Buttons Section -->
       <div class="row mt-4">
         <div class="col-md-12">
@@ -323,6 +443,7 @@ import Form from "vform";
 import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
+
 import axios from 'axios';
 
 export default {
@@ -390,13 +511,34 @@ export default {
         // Representatives
         representatives: [],
         
+        // Chart of Account
+        chartOfAccountId: null,
+        
         ...this.initialData
       }),
+      
+      // Chart of Account related data
+      chartOfAccounts: [],
+      routingSetting: null,
+      loadingChartOfAccounts: false,
+      isCreatingAccount: false,
+      chartOfAccountsError: null,
+      pendingAccountData: null, // For new clients, store account data temporarily
     };
+  },
+  computed: {
+    // Check if this is a new client
+    isNewClient() {
+      return !this.initialData || Object.keys(this.initialData).length === 0 || 
+             (this.initialData.slug && this.initialData.slug === 'new');
+    }
   },
   mounted() {
     // Load representatives if editing existing client
     this.loadRepresentatives();
+    
+    // Load chart of accounts and routing settings
+    this.loadChartOfAccounts();
   },
   
   watch: {
@@ -420,8 +562,6 @@ export default {
             this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
           }
           
-          console.log('Form initialized with data:', newData);
-          
           // Load representatives if this is an existing client
           if (newData.slug && newData.slug !== 'new') {
             this.loadRepresentatives();
@@ -433,11 +573,7 @@ export default {
     }
   },
   created() {
-    console.log('ClientForm component created');
     this.loadNextCodeNumber();
-  },
-  mounted() {
-    console.log('ClientForm component mounted, form:', this.form);
   },
   methods: {
     // Load the next available code number for new clients
@@ -566,6 +702,7 @@ export default {
       this.form.taxCard = "";
       this.form.attachments = []; // Clear attachments
       this.form.image = null; // Clear image
+      this.form.chartOfAccountId = null; // Clear chart of account
       
       // Clear image preview
       this.url = null;
@@ -607,6 +744,21 @@ export default {
         return false;
       }
 
+      // Validate chart of account based on routing type
+      if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
+        if (!this.form.chartOfAccountId) {
+          const message = this.routingSetting.routing_type === 'per_each' 
+            ? this.$t("Please select a chart of account for this client")
+            : this.$t("Please select a chart of account under the main client account");
+          
+          toast.fire({
+            type: "error",
+            title: message,
+          });
+          return false;
+        }
+      }
+
       return true;
     },
 
@@ -614,21 +766,16 @@ export default {
     async loadRepresentatives() {
       // Try to get slug from route params first, then from initialData
       const slug = this.$route.params.slug || (this.initialData && this.initialData.slug);
-      console.log('Loading representatives for client:', slug);
       
       if (slug && slug !== 'new') {
         try {
           const response = await this.$http.get(`/api/clients/${slug}/representatives`);
-          console.log('Representatives API response:', response.data);
           if (response.data.success) {
             this.form.representatives = response.data.data;
-            console.log('Representatives loaded:', this.form.representatives);
           }
         } catch (error) {
           console.error('Error loading representatives:', error);
         }
-      } else {
-        console.log('No slug or new client, skipping representatives load');
       }
     },
 
@@ -637,11 +784,299 @@ export default {
       this.form.representatives = representatives;
     },
 
+    // Load chart of accounts and routing settings
+    async loadChartOfAccounts() {
+      this.loadingChartOfAccounts = true;
+      this.chartOfAccountsError = null;
+      
+      try {
+        // Load routing settings first
+        await this.loadRoutingSettings();
+        
+        // Load chart of accounts based on routing type
+        if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
+          await this.loadAccountsForRouting();
+        }
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        this.chartOfAccountsError = this.$t('Failed to load chart of accounts. Please try again.');
+      } finally {
+        this.loadingChartOfAccounts = false;
+      }
+    },
+
+    // Load routing settings for client account
+    async loadRoutingSettings() {
+      try {
+        const response = await this.$http.get('/api/account-routing-settings/clients_account/accounts');
+        
+        if (response.data.success) {
+          this.routingSetting = response.data.data.setting;
+          
+          // Add display name for routing type
+          this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
+        } else {
+          throw new Error(response.data.message || 'Failed to load routing settings');
+        }
+      } catch (error) {
+        console.error('Error loading routing settings:', error);
+        // Set default routing setting
+        this.routingSetting = {
+          routing_type: 'automatic',
+          routing_type_display: 'Automatic Account Routing',
+          description: 'System automatically routes to the selected parent account'
+        };
+      }
+    },
+
+    // Load accounts for routing
+    async loadAccountsForRouting() {
+      try {
+        let response;
+        
+        if (this.routingSetting.routing_type === 'per_each') {
+          // For per_each, get all available accounts
+          response = await this.$http.get('/api/chart-of-accounts/all');
+          const accounts = response.data.data || [];
+          this.chartOfAccounts = accounts.map(account => ({
+            ...account,
+            type: account.type?.name || account.type || 'Asset',
+            display_name: `${account.code} - ${account.name} (${account.type?.name || account.type || 'Asset'})`
+          }));
+        } else if (this.routingSetting.routing_type === 'main_account_per_each') {
+          // For main_account_per_each, get accounts under the main account
+          response = await this.$http.get('/api/account-routing-settings/clients_account/accounts');
+          if (response.data.success) {
+            const accounts = response.data.data.accounts || [];
+            this.chartOfAccounts = accounts.map(account => ({
+              ...account,
+              type: account.type?.name || account.type || 'Asset',
+              display_name: `${account.code} - ${account.name} (${account.type?.name || account.type || 'Asset'})`
+            }));
+          }
+        }
+      } catch (error) {
+        console.error('Error loading accounts for routing:', error);
+        this.chartOfAccountsError = this.$t('Failed to load accounts. Please try again.');
+      }
+    },
+
+    // Get routing type display name
+    getRoutingTypeDisplayName(routingType) {
+      const displayNames = {
+        'automatic': 'Automatic Account Routing',
+        'per_each': 'Specify Per Each',
+        'main_account_per_each': 'Specify Main Account Per Each',
+        'cancel': 'Cancel Account Routing'
+      };
+      return displayNames[routingType] || routingType;
+    },
+
+         // Create new chart of account for client
+     async createNewAccount() {
+       if (this.isCreatingAccount) return;
+       
+       this.isCreatingAccount = true;
+       
+       try {
+                             // Check if this is a new client or existing client
+          const isNewClient = this.isNewClient;
+          
+          if (isNewClient) {
+            // For new clients, create a temporary account that will be properly linked when saved
+            const tempAccount = {
+              id: `temp_${Date.now()}`, // Temporary ID
+              name: this.getClientDisplayName(),
+              code: await this.generateAccountCode(),
+              type: 'Asset',
+              display_name: `${await this.generateAccountCode()} - ${this.getClientDisplayName()} (Asset)`,
+              isTemporary: true
+            };
+            
+            // Add the temporary account to the list
+            this.chartOfAccounts.push(tempAccount);
+            
+            // Set the temporary account as selected
+            this.form.chartOfAccountId = tempAccount.id;
+            
+            // Store the account data for later creation when client is saved
+            this.pendingAccountData = {
+              name: tempAccount.name,
+              routing_type: this.routingSetting.routing_type,
+              isTemporary: true
+            };
+            
+            // Show success message
+            if (window.toast && typeof window.toast.fire === 'function') {
+              window.toast.fire({
+                type: 'success',
+                title: this.$t('Temporary account created. It will be properly created when you save the client.')
+              });
+            }
+            
+            return;
+          }
+          
+          // For existing clients, get the slug and create real account
+          const clientSlug = this.$route?.params?.slug || this.initialData?.slug;
+
+         const accountData = {
+           name: this.getClientDisplayName(),
+           routing_type: this.routingSetting.routing_type
+         };
+
+         const response = await this.$http.post(`/api/clients/${clientSlug}/create-chart-of-account`, accountData);
+         
+         if (response.data.success) {
+           const newAccount = response.data.data.account;
+           
+           // Add the new account to the list
+           this.chartOfAccounts.push({
+             id: newAccount.id,
+             name: newAccount.name,
+             code: newAccount.code,
+             type: newAccount.type?.name || newAccount.type || 'Asset',
+             display_name: `${newAccount.code} - ${newAccount.name} (${newAccount.type?.name || newAccount.type || 'Asset'})`
+           });
+           
+           // Set the new account as selected
+           this.form.chartOfAccountId = newAccount.id;
+           
+           // Show success message
+           if (window.toast && typeof window.toast.fire === 'function') {
+             window.toast.fire({
+               type: 'success',
+               title: this.$t('New account created successfully')
+             });
+           }
+         }
+       } catch (error) {
+         console.error('Error creating new account:', error);
+         const errorMessage = error.response?.data?.message || error.message || this.$t('Failed to create new account');
+         
+         if (window.toast && typeof window.toast.fire === 'function') {
+           window.toast.fire({
+             type: 'error',
+             title: errorMessage
+           });
+         } else {
+           alert(errorMessage);
+         }
+       } finally {
+         this.isCreatingAccount = false;
+       }
+     },
+
+    // Get client display name for account creation
+    getClientDisplayName() {
+      if (this.form.type === 'Individual') {
+        return this.form.fullName || this.form.name || 'Individual Client';
+      } else {
+        return this.form.businessName || this.form.companyName || 'Business Client';
+      }
+    },
+
+    // Generate unique account code
+    async generateAccountCode() {
+      try {
+        // Get the next available code from the routing setting
+        if (this.routingSetting && this.routingSetting.main_account_id) {
+          const mainAccount = this.chartOfAccounts.find(acc => acc.id === this.routingSetting.main_account_id);
+          if (mainAccount) {
+            // Generate code based on main account code
+            const baseCode = mainAccount.code;
+            const existingCodes = this.chartOfAccounts
+              .filter(acc => acc.code.startsWith(baseCode))
+              .map(acc => acc.code);
+            
+            let counter = 1;
+            let newCode = `${baseCode}-${counter.toString().padStart(3, '0')}`;
+            
+            while (existingCodes.includes(newCode)) {
+              counter++;
+              newCode = `${baseCode}-${counter.toString().padStart(3, '0')}`;
+            }
+            
+            return newCode;
+          }
+        }
+        
+        // Fallback: generate based on client type
+        const prefix = this.form.type === 'Individual' ? 'IND' : 'BUS';
+        const timestamp = Date.now().toString().slice(-6);
+        return `${prefix}-${timestamp}`;
+      } catch (error) {
+        console.error('Error generating account code:', error);
+        // Fallback code
+        const timestamp = Date.now().toString().slice(-6);
+        return `CLI-${timestamp}`;
+      }
+    },
+
+    // Get Asset account type ID
+    async getAssetAccountTypeId() {
+      try {
+        const response = await this.$http.get('/api/chart-of-account-types');
+        const assetType = response.data.data.find(type => type.name === 'Asset');
+        return assetType ? assetType.id : 1; // Default to first type if Asset not found
+      } catch (error) {
+        console.error('Error getting Asset account type:', error);
+        return 1; // Default fallback
+      }
+    },
+
+    // Handle chart of account creation for new clients
+    async handleChartOfAccountForNewClient() {
+      // Only proceed if this is a new client and routing type requires account selection
+      if (!this.isNewClient || !this.routingSetting || this.routingSetting.routing_type === 'automatic') {
+        return;
+      }
+
+      // If no chart of account is selected, create one automatically
+      if (!this.form.chartOfAccountId) {
+        try {
+          // Create account data
+          const accountData = {
+            name: this.getClientDisplayName(),
+            routing_type: this.routingSetting.routing_type
+          };
+
+          // For new clients, we'll create the account after the client is saved
+          // Store the account data temporarily
+          this.pendingAccountData = accountData;
+        } catch (error) {
+          console.error('Error preparing account data for new client:', error);
+        }
+      }
+    },
+
+         // Get pending account data (for new clients)
+     getPendingAccountData() {
+       // If we have a temporary account selected, return its data
+       if (this.form.chartOfAccountId && typeof this.form.chartOfAccountId === 'string' && this.form.chartOfAccountId.startsWith('temp_')) {
+         const tempAccount = this.chartOfAccounts.find(acc => acc.id === this.form.chartOfAccountId);
+         if (tempAccount && tempAccount.isTemporary) {
+           return {
+             name: tempAccount.name,
+             routing_type: this.routingSetting.routing_type,
+             isTemporary: true
+           };
+         }
+       }
+       return this.pendingAccountData || null;
+     },
+
+    // Clear pending account data
+    clearPendingAccountData() {
+      this.pendingAccountData = null;
+    },
+
   },
 };
 </script>
 
 <style src="vue-tel-input/dist/vue-tel-input.css"></style>
+<style src="vue-select/dist/vue-select.css"></style>
 <style scoped>
 .vue-tel-input {
   padding: 3px;
@@ -721,6 +1156,13 @@ export default {
 .auto-assign-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.auto-assign-btn:disabled:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 
 .form-text {
@@ -980,6 +1422,79 @@ export default {
   .file-upload-content i {
     font-size: 2em;
   }
+}
+
+/* Account Option Styling (from account routing page) */
+.account-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.account-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.account-code {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-family: monospace;
+}
+
+.account-type {
+  font-size: 0.8rem;
+  color: #3498db;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.selected-account-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Create Account Button Styling */
+.create-account-btn {
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 2px solid #007bff;
+  background-color: transparent;
+  color: #007bff;
+}
+
+.create-account-btn:hover {
+  background-color: #007bff;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.create-account-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
+}
+
+.create-account-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+.create-account-btn:disabled:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+  transform: none;
+  box-shadow: none;
 }
 
 /* Responsive adjustments */

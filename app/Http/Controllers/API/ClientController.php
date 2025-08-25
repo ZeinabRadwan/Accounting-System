@@ -132,7 +132,7 @@ class ClientController extends Controller
             ];
 
             // Auto-assign Chart of Account if not provided
-            $clientData = Client::assignDefaultChartOfAccount($clientData);
+            $clientData = $this->autoAssignChartOfAccountForClient($clientData);
 
             // create client
             $userSchema = Client::create($clientData);
@@ -309,7 +309,7 @@ class ClientController extends Controller
             ];
 
             // Auto-assign Chart of Account if not provided
-            $updateData = Client::assignDefaultChartOfAccount($updateData);
+            $updateData = $this->autoAssignChartOfAccountForClient($updateData);
 
             $client->update($updateData);
 
@@ -1074,6 +1074,168 @@ ORDER BY `date`");
                 'success' => false,
                 'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+    /**
+     * Auto-assign chart of account based on routing configuration
+     */
+    private function autoAssignChartOfAccountForClient($clientData)
+    {
+        try {
+            // Get the clients account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                // If no routing setting, use default behavior
+                return $clientData;
+            }
+            
+            // If routing type is automatic and no chart of account is provided
+            if ($routingSetting->routing_type === 'automatic' && 
+                empty($clientData['chart_of_account_id']) && 
+                $routingSetting->main_account_id) {
+                
+                // Create a new account under the main account
+                $newAccount = \App\Models\ChartOfAccount::create([
+                    'name' => $this->getClientDisplayName($clientData),
+                    'code' => $this->generateAccountCode($routingSetting->main_account_id),
+                    'type_id' => $this->getAssetAccountTypeId(),
+                    'parent_id' => $routingSetting->main_account_id,
+                    'is_active' => true,
+                    'created_by' => Auth::id(),
+                ]);
+                
+                $clientData['chart_of_account_id'] = $newAccount->id;
+                
+                \Illuminate\Support\Facades\Log::info("Auto-assigned chart of account {$newAccount->id} for client", [
+                    'client_data' => $clientData,
+                    'routing_setting' => $routingSetting->toArray()
+                ]);
+            }
+            
+            return $clientData;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error auto-assigning chart of account: " . $e->getMessage());
+            return $clientData;
+        }
+    }
+    
+    /**
+     * Get client display name for account creation
+     */
+    private function getClientDisplayName($clientData)
+    {
+        if (isset($clientData['type']) && $clientData['type'] === 'Individual') {
+            return $clientData['full_name'] ?? $clientData['name'] ?? 'Individual Client';
+        } else {
+            return $clientData['business_name'] ?? $clientData['company_name'] ?? 'Business Client';
+        }
+    }
+    
+    /**
+     * Generate unique account code
+     */
+    private function generateAccountCode($mainAccountId)
+    {
+        try {
+            $mainAccount = \App\Models\ChartOfAccount::find($mainAccountId);
+            if (!$mainAccount) {
+                throw new \Exception("Main account not found");
+            }
+            
+            $baseCode = $mainAccount->code;
+            $existingCodes = \App\Models\ChartOfAccount::where('code', 'like', $baseCode . '-%')
+                ->pluck('code')
+                ->toArray();
+            
+            $counter = 1;
+            $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            
+            while (in_array($newCode, $existingCodes)) {
+                $counter++;
+                $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            }
+            
+            return $newCode;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error generating account code: " . $e->getMessage());
+            // Fallback code
+            $timestamp = time() % 1000000;
+            return 'CLI-' . $timestamp;
+        }
+    }
+    
+    /**
+     * Get Asset account type ID
+     */
+    private function getAssetAccountTypeId()
+    {
+        try {
+            $assetType = \App\Models\ChartOfAccountType::where('name', 'Asset')->first();
+            return $assetType ? $assetType->id : 1; // Default to first type if Asset not found
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error getting Asset account type: " . $e->getMessage());
+            return 1; // Default fallback
+        }
+    }
+
+    /**
+     * Create a new chart of account for a client
+     */
+    public function createClientChartOfAccount(Request $request, $slug)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:150',
+                'routing_type' => 'required|in:per_each,main_account_per_each'
+            ]);
+
+            // Get the client
+            $client = Client::where('slug', $slug)->first();
+            if (!$client) {
+                return $this->responseWithError('Client not found');
+            }
+
+            // Get the routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+
+            if (!$routingSetting) {
+                return $this->responseWithError('Client account routing is not configured');
+            }
+
+            // Prepare account data
+            $accountData = [
+                'name' => $request->name,
+                'code' => $this->generateAccountCode($routingSetting->main_account_id ?? null),
+                'type_id' => $this->getAssetAccountTypeId(),
+                'is_active' => true,
+                'created_by' => Auth::id(),
+            ];
+
+            // Set parent_id based on routing type
+            if ($routingSetting->routing_type === 'main_account_per_each' && $routingSetting->main_account_id) {
+                $accountData['parent_id'] = $routingSetting->main_account_id;
+            }
+            // For 'per_each', no parent_id (null)
+
+            // Create the account
+            $newAccount = \App\Models\ChartOfAccount::create($accountData);
+
+            // Update the client with the new account
+            $client->update(['chart_of_account_id' => $newAccount->id]);
+
+            return $this->responseWithSuccess('Chart of account created successfully', [
+                'account' => $newAccount,
+                'client' => $client->fresh()
+            ]);
+
+        } catch (\Exception $e) {
+            return $this->responseWithError('Failed to create chart of account: ' . $e->getMessage());
         }
     }
 }

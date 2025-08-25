@@ -351,6 +351,7 @@ Route::middleware([
         Route::get('/clients-for-noninvoice-payments', [ClientController::class, 'clientsForNonInvoicePayments']);
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
         Route::post('/clients/{slug}/auto-assign-chart-of-account', [ClientController::class, 'autoAssignChartOfAccount']);
+Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class, 'createClientChartOfAccount']);
         Route::get('/client/invoices/{slug}', [ClientController::class, 'clientInvoices']);
         Route::post('/client/filter-invoices', [ClientController::class, 'filterClientInvoices']);
         Route::get('/client/{slug}/invoices', [ClientController::class, 'specificClientInvoices']);
