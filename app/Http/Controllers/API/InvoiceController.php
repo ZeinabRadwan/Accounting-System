@@ -107,7 +107,7 @@ class InvoiceController extends Controller
                 }
             }
 
-            if ($request->addPayment == true) {
+            if ($request->addPayment == 1) {
                 $account = Account::findOrFail($request->account['id']);
                 if (!$account) {
                     $validationErrors[] = 'Bank Account not found.';
@@ -233,7 +233,7 @@ class InvoiceController extends Controller
 
 
             // store transaction
-            if ($request->addPayment == true) {
+            if ($request->addPayment == 1) {
                 $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $request->account['accountNumber'] . ']';
 
                 // create transaction

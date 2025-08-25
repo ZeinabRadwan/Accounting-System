@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Invoice;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
 class StoreInvoiceRequest extends BaseRequest
 {
@@ -44,8 +45,15 @@ class StoreInvoiceRequest extends BaseRequest
             'note' => 'nullable|string|max:1000',
             'status' => 'required|in:1,0',
             'addPayment' => 'nullable|boolean',
-            'paidAmount' => 'required_if:addPayment,true|numeric|min:0.01|max:' . ($this->input('netTotal', 0) + 0.01),
-            'account' => 'required_if:addPayment,true',
+            'paidAmount' => [
+            'nullable',
+            'required_if:addPayment,1',
+            Rule::when($this->input('addPayment') == 1, ['numeric', 'min:0.01', 'max:' . ($this->input('netTotal', 0) + 0.01)]),
+        ],
+            'account' => [
+                'nullable',
+                'required_if:addPayment,1',
+            ],
             'chequeNo' => 'nullable|string|max:255',
             'receiptNo' => 'nullable|string|max:255',
             'isSendEmail' => 'nullable|boolean',
@@ -148,8 +156,8 @@ class StoreInvoiceRequest extends BaseRequest
                 }
             }
 
-            // Validate payment amount
-            if ($this->addPayment && $this->paidAmount > $this->netTotal) {
+            // Validate payment amount only when addPayment is true (1)
+            if ($this->addPayment == 1 && $this->paidAmount > $this->netTotal) {
                 $validator->errors()->add(
                     'paidAmount',
                     'Paid amount cannot exceed net total'

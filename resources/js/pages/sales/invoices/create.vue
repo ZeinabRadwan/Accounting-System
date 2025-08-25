@@ -426,7 +426,6 @@
                      <div class="form-check">
                        <input class="form-check-input" type="radio" name="addPayment" id="addPaymentYes" 
                               value="1" v-model="form.addPayment" 
-                              :disabled="!form.selectedProducts"
                               @change="onAddPaymentChange"
                               :class="{ 'is-invalid': form.errors.has('addPayment') }">
                        <label class="form-check-label" for="addPaymentYes">
@@ -442,15 +441,17 @@
                          {{ $t("No") }}
                        </label>
                      </div>
-                                       </div>
-                    <has-error :form="form" field="addPayment" />
+                   </div>
+                   <!-- Debug info - remove this after testing -->
+                   <small class="text-muted">
+                     Debug: addPayment={{ form.addPayment }}, 
+                     accounts={{ accounts.length }}, 
+                     selectedProducts={{ form.selectedProducts.length }}
+                   </small>
+                   <has-error :form="form" field="addPayment" />
                  </div>
               </div>
-              <div class="row" v-if="form.addPayment == 1 &&
-                accounts &&
-                form.selectedProducts &&
-                form.selectedProducts.length > 0
-                ">
+              <div class="row" v-if="paymentFieldsVisible">
                 <div class="form-group col-md-4">
                   <label for="account">{{ $t("Account") }}
                     <span class="required">*</span></label>
@@ -659,7 +660,7 @@ export default {
          poReference: "",
          paymentTerms: "",
          deliveryPlace: "",
-         addPayment: "",
+         addPayment: 0, // Initialize to 0 (No) by default
          chequeNo: "",
          receiptNo: "",
          date: new Date().toISOString().slice(0, 10),
@@ -671,9 +672,9 @@ export default {
          discount: 0,
          totalDiscount: 0,
        }),
-      products: "",
-      accounts: "",
-      taxes: "",
+      products: [],
+      accounts: [],
+      taxes: [],
       prefix: "",
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
@@ -747,6 +748,21 @@ export default {
              this.hasBankAccountChartOfAccount &&
              this.form.selectedProducts && 
              this.form.selectedProducts.length > 0;
+    },
+
+    // Debug computed property to check payment fields visibility conditions
+    paymentFieldsVisible() {
+      const conditions = {
+        addPayment: this.form.addPayment == 1,
+        accounts: this.accounts && this.accounts.length > 0,
+        selectedProducts: this.form.selectedProducts && this.form.selectedProducts.length > 0,
+        allConditions: this.form.addPayment == 1 && 
+                      this.accounts && 
+                      this.form.selectedProducts && 
+                      this.form.selectedProducts.length > 0
+      };
+      console.log('Payment fields visibility conditions:', conditions); // Debug log
+      return conditions.allConditions;
     },
     
     
@@ -853,6 +869,7 @@ export default {
 
   },
   created() {
+    console.log('Component created, initializing data...'); // Debug log
     this.getClients();
     this.getProducts();
     this.getAccounts();
@@ -861,11 +878,13 @@ export default {
     this.ensureDiscountProperties();
   },
   mounted() {
+    console.log('Component mounted, setting up error handling...'); // Debug log
     // Set up global error handling
     this.setupGlobalErrorHandling();
     
     // Ensure VAT calculations are up to date after component is mounted
     this.$nextTick(() => {
+      console.log('Component nextTick, checking selectedProducts...'); // Debug log
       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
         this.form.selectedProducts.forEach((item, index) => {
           this.generateItemTotalPrice(index);
@@ -1003,6 +1022,7 @@ export default {
           window.location.origin + "/api/all-accounts"
         );
         this.accounts = data.data;
+        console.log('Accounts loaded:', this.accounts); // Debug log
         // assign default account
         if (this.accounts && this.accounts.length > 0) {
           let defaultAccountSlug = this.appInfo.defaultAccountSlug;
@@ -1158,16 +1178,11 @@ export default {
     // store product
     storeProduct(product) {
       if (product) {
+        console.log('Adding product:', product.name); // Debug log
         // Clear selectedProducts validation errors when adding a product
         this.clearFieldError('selectedProducts');
         
-        // Reset payment fields when products change
-        this.form.addPayment = "";
-        this.form.account = "";
-        this.form.paidAmount = "";
-        this.form.chequeNo = "";
-        this.form.receiptNo = "";
-        this.clearFieldError('addPayment');
+        // Clear payment field errors when products change (but don't reset addPayment selection)
         this.clearFieldError('account');
         this.clearFieldError('paidAmount');
         this.clearFieldError('chequeNo');
@@ -1342,7 +1357,7 @@ export default {
       
       // Reset payment fields when products are removed
       if (this.form.selectedProducts.length === 0) {
-        this.form.addPayment = "";
+        this.form.addPayment = 0; // Reset to 0 (No) by default
         this.form.account = "";
         this.form.paidAmount = "";
         this.form.chequeNo = "";
@@ -1468,6 +1483,14 @@ export default {
         // Ensure all monetary values are properly formatted to 2 decimal places before submission
         this.formatFormValues();
         
+        // Clear payment-related fields if addPayment is "No" (0)
+        if (this.form.addPayment != 1) {
+          this.form.paidAmount = "";
+          this.form.account = "";
+          this.form.chequeNo = "";
+          this.form.receiptNo = "";
+        }
+        
         // Collect all validation errors before submission
         const validationErrors = [];
         
@@ -1504,7 +1527,7 @@ export default {
         }
 
         // Validate bank account if payment is being added
-        if (this.form.addPayment && this.form.account) {
+        if (this.form.addPayment == 1 && this.form.account) {
           if (!this.form.account.chartOfAccountId) {
             validationErrors.push({
               type: "warning",
@@ -1741,6 +1764,20 @@ export default {
        this.form.netTotal = this.roundToTwoDecimals(Number(this.form.netTotal));
        this.form.transportCost = this.roundToTwoDecimals(Number(this.form.transportCost || 0));
        this.form.discount = this.roundToTwoDecimals(Number(this.form.discount || 0));
+       
+       // Only format payment-related fields if addPayment is 1
+       if (this.form.addPayment == 1) {
+         this.form.paidAmount = this.roundToTwoDecimals(Number(this.form.paidAmount || 0));
+         this.form.account = this.form.account || "";
+         this.form.chequeNo = this.form.chequeNo || "";
+         this.form.receiptNo = this.form.receiptNo || "";
+       } else {
+         // Clear payment fields when addPayment is 0
+         this.form.paidAmount = "";
+         this.form.account = "";
+         this.form.chequeNo = "";
+         this.form.receiptNo = "";
+       }
      },
 
     // Validate that all calculations are mathematically correct
@@ -1848,7 +1885,7 @@ export default {
       }
       
       // Reset payment fields when client changes
-      this.form.addPayment = "";
+      this.form.addPayment = 0; // Reset to 0 (No) by default
       this.form.account = "";
       this.form.paidAmount = "";
       this.form.chequeNo = "";
@@ -2114,7 +2151,7 @@ export default {
        this.form.poReference = "";
        this.form.paymentTerms = "";
        this.form.deliveryPlace = "";
-       this.form.addPayment = "";
+       this.form.addPayment = 0; // Reset to 0 (No) by default
        this.form.chequeNo = "";
        this.form.receiptNo = "";
        this.form.date = new Date().toISOString().slice(0, 10);
@@ -2125,16 +2162,9 @@ export default {
        this.form.discountType = 0;
        this.form.reference = "";
        
-                // Ensure calculations are reset
-         this.calculateSum();
-         
-         // Reset payment-related fields
-         this.form.addPayment = "";
-         this.form.account = "";
-         this.form.paidAmount = "";
-         this.form.chequeNo = "";
-         this.form.receiptNo = "";
-       },
+       // Ensure calculations are reset
+       this.calculateSum();
+     },
 
     // Clear validation errors for a specific field
     clearFieldError(field) {
@@ -2504,10 +2534,21 @@ export default {
 
     // Handle add payment radio button change
     onAddPaymentChange() {
+      console.log('Add Payment changed to:', this.form.addPayment); // Debug log
       this.clearFieldError('addPayment');
       
       if (this.form.addPayment != 1) {
-        // Payment was disabled, clear related field errors
+        // Payment was disabled, clear related field errors and reset payment fields
+        this.form.paidAmount = "";
+        this.form.account = "";
+        this.form.chequeNo = "";
+        this.form.receiptNo = "";
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+      } else {
+        // Payment was enabled, clear any previous payment field errors
         this.clearFieldError('account');
         this.clearFieldError('paidAmount');
         this.clearFieldError('chequeNo');

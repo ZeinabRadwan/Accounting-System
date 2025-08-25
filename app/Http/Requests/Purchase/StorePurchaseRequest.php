@@ -4,6 +4,7 @@ namespace App\Http\Requests\Purchase;
 
 use App\Http\Requests\BaseRequest;
 use App\Rules\PurchaseTotalPaid;
+use Illuminate\Validation\Rule;
 
 class StorePurchaseRequest extends BaseRequest
 {
@@ -44,8 +45,15 @@ class StorePurchaseRequest extends BaseRequest
             'note' => 'nullable|string|max:255',
             'status' => 'required|in:1,0',
             'addPayment' => 'nullable|boolean',
-            'totalPaid' => 'required_if:addPayment,true|numeric|min:0',
-            'account' => 'required_if:addPayment,true',
+            'totalPaid' => [
+                'nullable',
+                'required_if:addPayment,1',
+                Rule::when($this->input('addPayment') == 1, ['numeric', 'min:0']),
+            ],
+            'account' => [
+                'nullable',
+                'required_if:addPayment,1',
+            ],
             'chequeNo' => 'nullable|string|max:255',
             'receiptNo' => 'nullable|string|max:255',
             'isSendEmail' => 'nullable|boolean',
@@ -84,8 +92,8 @@ class StorePurchaseRequest extends BaseRequest
                 }
             }
 
-            // Validate payment amount
-            if ($this->addPayment && $this->totalPaid > $this->netTotal) {
+            // Validate payment amount only when addPayment is true (1)
+            if ($this->addPayment == 1 && $this->totalPaid > $this->netTotal) {
                 $validator->errors()->add(
                     'totalPaid',
                     'Paid amount cannot exceed net total'
