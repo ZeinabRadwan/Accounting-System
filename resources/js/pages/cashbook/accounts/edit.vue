@@ -51,12 +51,15 @@
                   <label for="chartOfAccountId">{{ $t('Chart of Account') }}
                     <span class="required">*</span></label>
                   <v-select
-                    v-model="form.chartOfAccountId"
+                    v-model="formattedChartOfAccountId"
                     :options="chartOfAccounts"
                     label="name"
+                    :reduce="option => option.id"
+                    track-by="id"
                     :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
                     name="chartOfAccountId"
                     :placeholder="$t('Select a Chart of Account')"
+                    :key="chartOfAccounts.length"
                   >
                     <template #option="{ name, code, type }">
                       <div>
@@ -66,6 +69,13 @@
                       </div>
                     </template>
                   </v-select>
+                  <!-- Debug information -->
+                  <div v-if="selectedChartOfAccount" class="mt-2 text-muted small">
+                    Selected: {{ selectedChartOfAccount.name }} (ID: {{ selectedChartOfAccount.id }})
+                  </div>
+                  <div v-else class="mt-2 text-muted small">
+                    No chart of account selected. Current value: {{ formattedChartOfAccountId }}
+                  </div>
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>
                 <div class="form-group col-md-6">
@@ -178,14 +188,53 @@ export default {
 
   mounted() {
     this.loadChartOfAccounts()
-    this.getAccount()
   },
+
+  watch: {
+    'formattedChartOfAccountId': {
+      handler(newVal, oldVal) {
+        console.log('formattedChartOfAccountId changed from', oldVal, 'to', newVal)
+      },
+      deep: true
+    },
+    'chartOfAccounts': {
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          // Load account data after chart of accounts are available
+          this.getAccount()
+        }
+      },
+      immediate: true
+    }
+  },
+
+  computed: {
+    selectedChartOfAccount() {
+      if (!this.form.chartOfAccountId || !this.chartOfAccounts.length) return null
+      return this.chartOfAccounts.find(coa => coa.id === this.form.chartOfAccountId)
+    },
+    
+    // Ensure the chartOfAccountId is properly formatted
+    formattedChartOfAccountId: {
+      get() {
+        return this.form.chartOfAccountId
+      },
+      set(value) {
+        this.form.chartOfAccountId = value
+      }
+    }
+  },
+
   methods: {
     // load chart of accounts
     async loadChartOfAccounts() {
       try {
         const response = await this.$axios.get('/api/accounts/chart-of-accounts')
+        console.log('Full API response:', response)
+        console.log('Response data:', response.data)
         this.chartOfAccounts = response.data.data || []
+        console.log('Loaded chart of accounts:', this.chartOfAccounts)
+        console.log('First chart of account structure:', this.chartOfAccounts[0])
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
       }
@@ -195,6 +244,7 @@ export default {
       const { data } = await axios.get(
         window.location.origin + '/api/accounts/' + this.$route.params.slug
       )
+      console.log('Loaded account data:', data.data)
       this.form.accountLabel = data.data.accountLabel
       this.form.bankName = data.data.bankName
       this.form.branchName = data.data.branchName
@@ -203,7 +253,19 @@ export default {
       this.url = data.data.image
       this.form.note = data.data.note
       this.form.status = data.data.status
-      this.form.chartOfAccountId = data.data.chartOfAccount ? data.data.chartOfAccount.id : ''
+      
+      // Fix: Set the chartOfAccountId to the ID value for proper v-select handling
+      if (data.data.chartOfAccount && data.data.chartOfAccount.id) {
+        this.form.chartOfAccountId = data.data.chartOfAccount.id
+      } else {
+        this.form.chartOfAccountId = null
+      }
+      console.log('Set chartOfAccountId to:', this.form.chartOfAccountId)
+      
+      // Ensure the v-select is properly updated
+      this.$nextTick(() => {
+        console.log('After nextTick - chartOfAccountId:', this.form.chartOfAccountId)
+      })
     },
     // update account
     async updateAccount() {
