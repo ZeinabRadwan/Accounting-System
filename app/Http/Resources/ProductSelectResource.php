@@ -29,6 +29,14 @@ class ProductSelectResource extends JsonResource
             'taxAmount' => $this->taxAmount(),
             'taxType' => $this->tax_type,
             'taxRate' => $this->productTax ? $this->productTax->rate : 0,
+            'productTax' => $this->productTax ? [
+                'id' => $this->productTax->id,
+                'name' => $this->productTax->name,
+                'slug' => $this->productTax->slug,
+                'code' => $this->productTax->code,
+                'rate' => $this->productTax->rate,
+                'status' => $this->productTax->status,
+            ] : null,
             'inventoryCount' => $this->inventory_count > 0 ? $this->inventory_count : 0,
             'image' => $this->image_path ? global_asset('images/products/'.$this->image_path) : '',
             // Add chart of account IDs for validation

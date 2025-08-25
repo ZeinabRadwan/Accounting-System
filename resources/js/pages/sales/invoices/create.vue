@@ -688,21 +688,7 @@ export default {
       return this.hasChartOfAccount && this.allProductsHaveSalesAccounts && this.form.selectedProducts && this.form.selectedProducts.length > 0;
     },
     
-    // Debug VAT calculations
-    debugVatCalculations() {
-      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
-        console.log('VAT Debug Info:');
-        this.form.selectedProducts.forEach((item, index) => {
-          console.log(`Product ${index + 1} (${item.name}):`, {
-            selectedVatRate: item.selectedVatRate,
-            vatRate: item.selectedVatRate?.rate,
-            productTax: item.productTax,
-            totalTax: item.totalTax,
-            totalPrice: item.totalPrice
-          });
-        });
-      }
-    }
+    
   },
   watch: {
     // Watch for changes in orderTax to update VAT calculations
@@ -939,7 +925,15 @@ export default {
           if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
             this.form.selectedProducts.forEach((item, index) => {
               if (!item.selectedVatRate) {
-                item.selectedVatRate = this.form.orderTax;
+                // First try to use the product's default VAT rate, then fall back to invoice default
+                if (item.productTax) {
+                  item.selectedVatRate = this.findMatchingVatRate(item.productTax);
+                }
+                
+                // If no match found or no productTax, fall back to invoice default
+                if (!item.selectedVatRate) {
+                  item.selectedVatRate = this.form.orderTax;
+                }
                 this.generateItemTotalPrice(index);
               }
             });
@@ -1000,7 +994,19 @@ export default {
            item.discountAmount = 0;
          }
          if (typeof item.selectedVatRate === 'undefined') {
-           item.selectedVatRate = this.form.orderTax;
+           // First try to use the product's default VAT rate, then fall back to invoice default
+           if (item.productTax) {
+             item.selectedVatRate = this.findMatchingVatRate(item.productTax);
+           }
+           
+           // If no match found or no productTax, fall back to invoice default
+           if (!item.selectedVatRate) {
+             if (this.form.orderTax) {
+               item.selectedVatRate = this.form.orderTax;
+             } else if (this.taxes && this.taxes.length > 0) {
+               item.selectedVatRate = this.taxes[0];
+             }
+           }
          }
        });
      },
@@ -1024,13 +1030,13 @@ export default {
           unitPrice: product.regularPrice,
           unitCost: product.regularPrice,
           totalPrice: product.regularPrice,
-          productTax: 0, // Will be calculated below
+          productTax: product.productTax, // Store the product's default VAT rate object
           totalTax: 0, // Will be calculated below
           itemType: product.itemType,
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
-          selectedVatRate: this.form.orderTax || this.taxes?.[0], // Default to invoice VAT rate or first available tax
+          selectedVatRate: this.findMatchingVatRate(product.productTax) || this.form.orderTax || this.taxes?.[0], // Use product's default VAT rate, fallback to invoice VAT rate or first available tax
           // Add chart of account information for validation
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,
@@ -1111,8 +1117,16 @@ export default {
         this.clearProductErrors(index);
         
         // Ensure the selectedVatRate is properly set
-        if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
-          item.selectedVatRate = this.taxes[0];
+        if (!item.selectedVatRate) {
+          // First try to use the product's default VAT rate, then fall back to available taxes
+          if (item.productTax) {
+            item.selectedVatRate = this.findMatchingVatRate(item.productTax);
+          }
+          
+          // If no match found or no productTax, fall back to available taxes
+          if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
+            item.selectedVatRate = this.taxes[0];
+          }
         }
         
         // Recalculate totals with new VAT rate
@@ -2054,25 +2068,73 @@ export default {
 
     // Update all products with default VAT rate if they don't have one selected
     updateProductsWithDefaultVatRate() {
-      if (this.form.selectedProducts && this.form.selectedProducts.length > 0 && this.form.orderTax) {
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
         this.form.selectedProducts.forEach((item, index) => {
           if (!item.selectedVatRate) {
-            item.selectedVatRate = this.form.orderTax;
+            // First try to use the product's default VAT rate, then fall back to invoice default
+            if (item.productTax) {
+              item.selectedVatRate = item.productTax;
+            } else if (this.form.orderTax) {
+              item.selectedVatRate = this.form.orderTax;
+            } else if (this.taxes && this.taxes.length > 0) {
+              item.selectedVatRate = this.taxes[0];
+            }
             this.generateItemTotalPrice(index);
           }
         });
       }
     },
     
-    // Recalculate all VAT amounts for all products
-    recalculateAllVatAmounts() {
-      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
-        this.form.selectedProducts.forEach((item, index) => {
-          this.generateItemTotalPrice(index);
-        });
-        this.calculateSum();
-      }
-    },
+         // Recalculate all VAT amounts for all products
+     recalculateAllVatAmounts() {
+       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+         this.form.selectedProducts.forEach((item, index) => {
+           this.generateItemTotalPrice(index);
+         });
+         this.calculateSum();
+       }
+     },
+
+           // Find matching VAT rate from taxes array
+      findMatchingVatRate(productTax) {
+        if (!productTax || !this.taxes || this.taxes.length === 0) {
+          return null;
+        }
+       
+               // Try to find by ID first (most reliable)
+        if (productTax.id) {
+          const matchById = this.taxes.find(tax => tax.id === productTax.id);
+          if (matchById) {
+            return matchById;
+          }
+        }
+       
+       // Try to find by slug
+       if (productTax.slug) {
+         const matchBySlug = this.taxes.find(tax => tax.slug === productTax.slug);
+         if (matchBySlug) {
+           return matchBySlug;
+         }
+       }
+       
+       // Try to find by code
+       if (productTax.code) {
+         const matchByCode = this.taxes.find(tax => tax.code === productTax.code);
+         if (matchByCode) {
+           return matchByCode;
+         }
+       }
+       
+       // Try to find by rate (least reliable but fallback)
+       if (productTax.rate !== undefined) {
+         const matchByRate = this.taxes.find(tax => tax.rate === productTax.rate);
+         if (matchByRate) {
+           return matchByRate;
+         }
+               }
+        
+        return null;
+     },
   },
 };
 </script>
