@@ -1632,5 +1632,18 @@
   "Phone number is required": "Phone number is required",
   "Quick Edit": "Quick Edit",
   "Edit Supplier": "Edit Supplier",
-  "Supplier updated successfully": "Supplier updated successfully"
+  "Supplier updated successfully": "Supplier updated successfully",
+  
+  "Multiple Validation Errors": "Multiple Validation Errors",
+  "Found {count} validation errors. Please fix them before proceeding.": "Found {count} validation errors. Please fix them before proceeding.",
+  "Show Details": "Show Details",
+  "Close": "Close",
+  "Validation Error": "Validation Error",
+  "Bank Account Chart of Account Required": "Bank Account Chart of Account Required",
+  "Bank Account must have a Chart of Account assigned for journal entries.": "Bank Account must have a Chart of Account assigned for journal entries.",
+  "The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.": "The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.",
+  "Go to Bank Accounts": "Go to Bank Accounts",
+  "Validation Summary": "Validation Summary",
+  "Please fix the following issues:": "Please fix the following issues:",
+  "Got it": "Got it"
 }

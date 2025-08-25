@@ -1309,45 +1309,68 @@ export default {
         // Ensure all monetary values are properly formatted to 2 decimal places before submission
         this.formatFormValues();
         
+        // Collect all validation errors before submission
+        const validationErrors = [];
+        
         if (!this.form.client || !this.form.client.chart_of_account_id) {
-          toast.fire({
+          validationErrors.push({
             type: "warning",
             title: this.$t("Chart of Account Required"),
-            text: this.$t("Client must have a Chart of Account assigned before creating an invoice."),
+            message: this.$t("Client must have a Chart of Account assigned before creating an invoice."),
+            field: "client"
           });
-          return;
         }
 
         if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-          toast.fire({
+          validationErrors.push({
             type: "warning",
             title: this.$t("No Products Selected"),
-            text: this.$t("Please select at least one product to create an invoice."),
+            message: this.$t("Please select at least one product to create an invoice."),
+            field: "selectedProducts"
           });
-          return;
         }
 
         // Validate that all products have sales accounts assigned
         const productsWithoutSalesAccount = this.form.selectedProducts.filter(product => !product.sales_account_id);
         if (productsWithoutSalesAccount.length > 0) {
           const productNames = productsWithoutSalesAccount.map(p => p.name || 'Unknown').join(', ');
-          toast.fire({
+          validationErrors.push({
             type: "warning",
             title: this.$t("Product Chart of Account Required"),
-            text: this.$t("The following products must have Sales Accounts assigned: ") + productNames,
+            message: this.$t("The following products must have Sales Accounts assigned: ") + productNames,
+            field: "products",
             timer: 8000,
-            timerProgressBar: true,
+            timerProgressBar: true
           });
-          return;
+        }
+
+        // Validate bank account if payment is being added
+        if (this.form.addPayment && this.form.account) {
+          if (!this.form.account.chart_of_account_id) {
+            validationErrors.push({
+              type: "warning",
+              title: this.$t("Bank Account Chart of Account Required"),
+              message: this.$t("Bank Account must have a Chart of Account assigned for journal entries."),
+              field: "account",
+              timer: 8000,
+              timerProgressBar: true
+            });
+          }
         }
 
         // Validate that all calculations are correct
         if (!this.validateCalculations()) {
-          toast.fire({
+          validationErrors.push({
             type: "error",
             title: this.$t("Calculation Error"),
-            text: this.$t("There was an error in the calculations. Please refresh the page and try again."),
+            message: this.$t("There was an error in the calculations. Please refresh the page and try again."),
+            field: "calculations"
           });
+        }
+
+        // If there are validation errors, show them all and return
+        if (validationErrors.length > 0) {
+          this.showMultipleValidationErrors(validationErrors);
           return;
         }
 
@@ -1401,6 +1424,14 @@ export default {
         } else if (error.response?.status === 400) {
           // Handle bad request errors (business logic errors)
           const errorMessage = error.response.data.message || error.response.data.error || this.$t("Bad Request Error");
+          const validationErrors = error.response.data.validation_errors;
+          const errorCount = error.response.data.error_count;
+          
+          // If we have multiple validation errors from the backend, show them all
+          if (validationErrors && Array.isArray(validationErrors) && validationErrors.length > 0) {
+            this.showBackendValidationErrors(validationErrors, errorMessage);
+            return;
+          }
           
           // Try to handle as business logic error first
           if (!this.handleBusinessLogicError(error.response.data)) {
@@ -1521,10 +1552,9 @@ export default {
         // Log detailed error information for debugging
         console.group('Detailed Error Information');
         console.error('Error object:', error);
-        console.error('Response status:', error.response?.status);
-        console.error('Response data:', error.response?.data);
+        console.error('Error response:', error.response);
         console.error('Error message:', error.message);
-        console.error('Error code:', error.code);
+        console.error('Error stack:', error.stack);
         console.groupEnd();
       }
     },
@@ -1813,7 +1843,27 @@ export default {
     handleBusinessLogicError(errorData) {
       const { message, errors, details } = errorData;
       
-      // Handle specific error types
+      // Handle specific error types with more detailed matching
+      if (message && message.includes('Bank Account must have a Chart of Account assigned for journal entries')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Bank Account Chart of Account Required"),
+          text: this.$t("The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account."),
+          timer: 10000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: this.$t("Go to Bank Accounts"),
+          showCancelButton: true,
+          cancelButtonText: this.$t("Close"),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Navigate to bank accounts page
+            this.$router.push({ name: 'accounts.index' });
+          }
+        });
+        return true;
+      }
+      
       if (message && message.includes('Chart of Account')) {
         toast.fire({
           type: "warning",
@@ -2146,6 +2196,117 @@ export default {
         
         return null;
      },
+
+    // Show multiple validation errors in a comprehensive way
+    showMultipleValidationErrors(validationErrors) {
+      if (validationErrors.length === 0) return;
+      
+      // If there's only one error, show it normally
+      if (validationErrors.length === 1) {
+        const error = validationErrors[0];
+        toast.fire({
+          type: error.type,
+          title: error.title,
+          text: error.message,
+          timer: error.timer || 6000,
+          timerProgressBar: error.timerProgressBar || false,
+        });
+        return;
+      }
+      
+      // For multiple errors, show the comprehensive summary
+      this.showValidationSummary(validationErrors.map(error => error.message));
+    },
+
+    // Show detailed validation errors one by one
+    showDetailedValidationErrors(validationErrors) {
+      validationErrors.forEach((error, index) => {
+        setTimeout(() => {
+          toast.fire({
+            type: error.type,
+            title: error.title,
+            text: error.message,
+            timer: error.timer || 6000,
+            timerProgressBar: error.timerProgressBar || false,
+          });
+        }, index * 1000); // Show each error with 1 second delay
+      });
+    },
+
+    // Show backend validation errors
+    showBackendValidationErrors(validationErrors, mainMessage) {
+      if (validationErrors.length === 0) return;
+      
+      // If there's only one error, show it normally
+      if (validationErrors.length === 1) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Validation Error"),
+          text: validationErrors[0],
+          timer: 8000,
+          timerProgressBar: true,
+        });
+        return;
+      }
+      
+      // For multiple errors, show the comprehensive summary
+      this.showValidationSummary(validationErrors);
+    },
+
+    // Show comprehensive validation summary
+    showValidationSummary(validationErrors) {
+      if (validationErrors.length === 0) return;
+      
+      // Create a formatted error list
+      const errorList = validationErrors.map((error, index) => `${index + 1}. ${error}`).join('\n');
+      
+      // Show a comprehensive error message
+      toast.fire({
+        type: "warning",
+        title: this.$t("Validation Summary"),
+        html: `
+          <div style="text-align: left;">
+            <p><strong>${this.$t("Please fix the following issues:")}</strong></p>
+            <div style="max-height: 200px; overflow-y: auto; background: #f8f9fa; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-line;">
+              ${errorList}
+            </div>
+          </div>
+        `,
+        timer: 15000,
+        timerProgressBar: true,
+        showConfirmButton: true,
+        confirmButtonText: this.$t("Got it"),
+        showCancelButton: false,
+        width: '500px',
+      });
+    },
+
+    // on account change
+    onAccountChange() {
+      if (this.form.account && this.form.addPayment) {
+        // Validate that the selected bank account has a chart of account assigned
+        if (!this.form.account.chart_of_account_id) {
+          toast.fire({
+            type: "warning",
+            title: this.$t("Bank Account Chart of Account Required"),
+            text: this.$t("The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account."),
+            timer: 8000,
+            timerProgressBar: true,
+            showConfirmButton: true,
+            confirmButtonText: this.$t("Go to Bank Accounts"),
+            showCancelButton: true,
+            cancelButtonText: this.$t("Close"),
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Navigate to bank accounts page
+              this.$router.push({ name: 'accounts.index' });
+            }
+          });
+        }
+      }
+      
+      this.calculateSum();
+    },
   },
 };
 </script>

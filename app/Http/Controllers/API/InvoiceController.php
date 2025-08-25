@@ -76,22 +76,23 @@ class InvoiceController extends Controller
             $client = Client::findOrFail($request->client['id']);
             $chartOfAccount = $client?->chartOfAccount;
 
+            // Collect all validation errors
+            $validationErrors = [];
+
             // Validate client has chart of account
             if (!$client || !$chartOfAccount) {
-                return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.');
+                $validationErrors[] = 'Client must have a Chart of Account assigned for journal entries.';
             }
-
-
 
             $totalDiscountAmount = 0;
 
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
                 if (!$product || !$product->hasSalesAccount()) {
-                    return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.');
+                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.';
                 }
                 if (!$product || !$product->productTax || !$product->productTax->salesVatAccount) {
-                    return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.');
+                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.';
                 }
 
                 if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
@@ -102,30 +103,32 @@ class InvoiceController extends Controller
             if ($totalDiscountAmount > 0) {
                 $discountAccount = $this->getDiscountAllowedAccount();
                 if (!$discountAccount) {
-                    throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
+                    $validationErrors[] = 'Discount Allowed account must be configured in account routing settings to process discounts.';
                 }
             }
-
-
-
-
 
             if ($request->addPayment == true) {
                 $account = Account::findOrFail($request->account['id']);
                 if (!$account) {
-                    return $this->responseWithError('Bank Account not found.');
+                    $validationErrors[] = 'Bank Account not found.';
                 }
 
-                if (!$account->chartOfAccount ) {
-                    return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.');
-                  
+                if (!$account->chartOfAccount) {
+                    $validationErrors[] = 'Bank Account must have a Chart of Account assigned for journal entries.';
                 }
             }
 
-
-
-
-
+            // If there are validation errors, return them all at once
+            if (!empty($validationErrors)) {
+                $errorMessage = count($validationErrors) === 1 
+                    ? $validationErrors[0] 
+                    : 'Multiple validation errors found: ' . implode('; ', $validationErrors);
+                
+                return $this->responseWithError($errorMessage, [
+                    'validation_errors' => $validationErrors,
+                    'error_count' => count($validationErrors)
+                ]);
+            }
 
             DB::beginTransaction();
 
