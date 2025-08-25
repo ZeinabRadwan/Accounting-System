@@ -13,141 +13,10 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="updateSupplier" @keydown="form.onKeydown($event)">
-            <div class="card-body">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">{{ $t('Name') }}
-                    <span class="required">*</span></label>
-                  <input id="name" v-model="form.name" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter a name')" />
-                  <has-error :form="form" field="name" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="companyName">{{
-                    $t('Company Name')
-                  }}</label>
-                  <input id="companyName" v-model="form.companyName" type="companyName" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('companyName') }" name="companyName"
-                    :placeholder="$t('Enter a company name')" />
-                  <has-error :form="form" field="companyName" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="phoneNumber">{{ $t('Contact Number') }}
-                    <span class="required">*</span></label>
-                  <input id="phoneNumber" v-model="form.phoneNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('phoneNumber') }" name="phoneNumber"
-                    :placeholder="$t('Enter a contact number')" />
-                  <has-error :form="form" field="phoneNumber" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="email">{{ $t('Email') }}</label>
-                  <input id="email" v-model="form.email" type="email" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('email') }" name="email"
-                    :placeholder="$t('Enter your email address')" />
-                  <has-error :form="form" field="email" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="taxRegistrationNumber">{{
-                    $t("Tax Registration Number")
-                  }}</label>
-                  <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="taxRegistrationNumber" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }" name="taxRegistrationNumber"
-                    :placeholder="$t('Enter a tax registration number')" />
-                  <has-error :form="form" field="taxRegistrationNumber" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="address">{{ $t('Address') }}</label>
-                <textarea id="address" v-model="form.address" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
-                <has-error :form="form" field="address" />
-              </div>
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="type">{{ $t('Type') }}
-                    <span class="required">*</span></label>
-                  <select id="type" v-model="form.type" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('type') }" name="type">
-                    <option value="">{{ $t('Select Type') }}</option>
-                    <option value="Company">{{ $t('Company') }}</option>
-                    <option value="Individual">{{ $t('Individual') }}</option>
-                  </select>
-                  <has-error :form="form" field="type" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="image">{{ $t('Image') }}</label>
-                  <div class="custom-file">
-                    <input id="image" type="file" class="custom-file-input" name="image"
-                      :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
-                    <label class="custom-file-label" for="image">{{
-                      $t('Choose file')
-                    }}</label>
-                  </div>
-                  <has-error :form="form" field="image" />
-                  <div class="bg-light mt-4 w-25">
-                    <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
-                  </div>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="status">{{ $t('Status') }}</label>
-                  <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
-                  </select>
-                  <has-error :form="form" field="status" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="chartOfAccountId">{{ $t("Chart of Account") }}</label>
-                  <v-select
-                    v-model="form.chartOfAccountId"
-                    :options="chartOfAccounts"
-                    label="name"
-                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                    name="chartOfAccountId"
-                    :placeholder="$t('Select a Chart of Account')"
-                    clearable
-                  >
-                    <template #option="{ name, code, type }">
-                      <div>
-                        <strong>{{ name }}</strong>
-                        <br>
-                        <small class="text-muted">{{ code }} - {{ type }}</small>
-                      </div>
-                    </template>
-                  </v-select>
-                  <has-error :form="form" field="chartOfAccountId" />
-                </div>
-              </div>
-
-              <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
-                  {{ $t("Send Welcome Email") }}
-                </div>
-              </div>
-              <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
-                  {{ $t("Send Welcome SMS") }}
-                </div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-edit" /> {{ $t('Save changes') }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t('Reset') }}
-              </button>
-            </div>
-          </form>
+          <div class="card-body">
+            <SupplierForm :initialData="supplierData" @submit="updateSupplier" />
+          </div>
+          <!-- /.card-body -->
         </div>
       </div>
     </div>
@@ -155,134 +24,113 @@
 </template>
 
 <script>
-import Form from 'vform'
-import axios from 'axios'
-import { ToggleButton } from "vue-js-toggle-button";
+import SupplierForm from "../../components/SupplierForm.vue";
 
 export default {
-  middleware: ['auth', 'check-permissions'],
+  middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t('Edit Supplier') }
+    return { title: this.$t("Edit Supplier") };
   },
   components: {
-    ToggleButton,
+    SupplierForm,
   },
   data: () => ({
-    breadcrumbsCurrent: 'Edit Supplier',
+    breadcrumbsCurrent: "Edit Supplier",
     breadcrumbs: [
       {
-        name: 'Dashboard',
-        url: 'home',
+        name: "Dashboard",
+        url: "home",
       },
       {
-        name: 'Suppliers',
-        url: 'suppliers.index',
+        name: "Suppliers",
+        url: "suppliers.index",
       },
       {
-        name: 'Edit',
-        url: '',
+        name: "Edit",
+        url: "",
       },
     ],
-    form: new Form({
-      name: '',
-      email: '',
-      phoneNumber: '',
-      companyName: '',
-      taxRegistrationNumber: '',
-      address: '',
-      type: '',
-      image: '',
-      status: 1,
-      chartOfAccountId: '',
-      isSendEmail: false,
-      isSendSMS: false,
-    }),
-    url: null,
-    loading: true,
-    chartOfAccounts: [],
-    isDemoMode: window.config.isDemoMode,
+    supplierData: {},
   }),
   created() {
-    this.loadChartOfAccounts();
-  },
-  mounted() {
-    this.getSupplier()
+    this.getSupplier();
   },
   methods: {
     // get supplier
     async getSupplier() {
-      const { data } = await axios.get(
-        window.location.origin + '/api/suppliers/' + this.$route.params.slug
-      )
-      this.form.name = data.data.name
-      this.form.email = data.data.email
-      this.form.phoneNumber = data.data.phoneNumber
-      this.form.companyName = data.data.companyName
-      this.form.taxRegistrationNumber = data.data.taxRegistrationNumber
-      this.form.address = data.data.address
-      this.form.type = data.data.type
-      this.form.status = data.data.status
-      this.form.chartOfAccountId = data.data.chart_of_account_id || ''
-      this.form.isSendEmail = data.data.isSendEmail || false
-      this.form.isSendSMS = data.data.isSendSMS || false
-      this.url = data.data.image
-    },
-
-    // vue file upload
-    onFileChange(e) {
-      const file = e.target.files[0]
-      const reader = new FileReader()
-      if (
-        file.size < 2111775 &&
-        (file.type === 'image/jpeg' ||
-          file.type === 'image/png' ||
-          file.type === 'image/gif')
-      ) {
-        reader.onloadend = () => {
-          this.form.image = reader.result
+      try {
+        const response = await this.$http.get(`/api/suppliers/${this.$route.params.slug}`);
+        if (response.data.success) {
+          const supplier = response.data.data;
+          this.supplierData = {
+            // Account Details
+            codeNumber: supplier.supplier_id ? supplier.supplier_id.toString().padStart(6, '0') : "000001",
+            billingMethod: supplier.billing_method || "print",
+            currency: supplier.currency || "EGP",
+            classification: supplier.classification || "",
+            notes: supplier.notes || "",
+            displayLanguage: supplier.display_language || "",
+            
+            // Supplier Details
+            type: supplier.type || "Company",
+            fullName: supplier.full_name || "",
+            businessName: supplier.business_name || "",
+            firstName: supplier.first_name || "",
+            lastName: supplier.last_name || "",
+            phone: supplier.phone || "",
+            phoneNumber: supplier.phone || "",
+            email: supplier.email || "",
+            streetAddress1: supplier.street_address1 || "",
+            streetAddress2: supplier.street_address2 || "",
+            city: supplier.city || "",
+            state: supplier.state || "",
+            postalCode: supplier.postal_code || "",
+            country: supplier.country || "EG",
+            commercialRegister: supplier.commercial_register || "",
+            taxCard: supplier.tax_card || "",
+            addSecondaryAddress: supplier.add_secondary_address || false,
+            
+            // Additional Fields
+            image: supplier.image || "",
+            attachments: supplier.attachments ? JSON.parse(supplier.attachments) : [],
+            status: supplier.status !== undefined ? supplier.status : 1,
+            isSendEmail: supplier.is_send_email || false,
+            isSendSMS: supplier.is_send_sms || false,
+            
+            // Legacy fields for backward compatibility
+            name: supplier.name || "",
+            companyName: supplier.company_name || "",
+            taxRegistrationNumber: supplier.tax_registration_number || "",
+          };
         }
-        reader.readAsDataURL(file)
-        this.url = URL.createObjectURL(file)
-      } else {
-        Swal.fire(
-          this.$t('Error!'),
-          this.$t('Please select a valid thumbnail with size less than 2 MB'),
-          'error'
-        )
+      } catch (error) {
+        console.error("Error getting supplier:", error);
       }
     },
 
     // update supplier
-    async updateSupplier() {
-      await this.form
-        .patch(
-          window.location.origin + '/api/suppliers/' + this.$route.params.slug
-        )
-        .then(() => {
-          toast.fire({
-            type: 'success',
-            title: this.$t('Supplier updated successfully'),
-          })
-          this.$router.push({ name: 'suppliers.index' })
-        })
-        .catch(() => {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Opps...something went wrong'),
-          })
-        })
-    },
-
-    // load chart of accounts
-    async loadChartOfAccounts() {
+    async updateSupplier(formData) {
       try {
-        const response = await this.$http.get('/api/suppliers/chart-of-accounts');
-        this.chartOfAccounts = response.data || [];
+        // Make API call to update supplier
+        const response = await this.$http.put(`/api/suppliers/${this.$route.params.slug}`, formData);
+        
+        if (response.data.success) {
+          toast.fire({
+            type: "success",
+            title: this.$t("Supplier updated successfully"),
+          });
+          this.$router.push({ name: "suppliers.index" });
+        } else {
+          throw new Error(response.data.message || "Failed to update supplier");
+        }
       } catch (error) {
-        console.error('Error loading chart of accounts:', error);
-        this.chartOfAccounts = [];
+        console.error("Error updating supplier:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Opps...something went wrong"),
+        });
       }
     },
   },
-}
+};
 </script>

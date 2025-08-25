@@ -94,11 +94,35 @@ class SupplierController extends Controller
                 'phone' => $request->phoneNumber,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
-                'address' => $request->address,
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type,
                 'chart_of_account_id' => $request->chartOfAccountId,
+                
+                // New fields
+                'code_number' => $request->codeNumber,
+                'billing_method' => $request->billingMethod,
+                'currency' => $request->currency,
+                'classification' => $request->classification,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                'full_name' => $request->fullName,
+                'business_name' => $request->businessName,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_number' => $request->phoneNumber,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                'add_secondary_address' => $request->addSecondaryAddress,
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
             ];
 
             // Auto-assign Chart of Account if not provided
@@ -180,7 +204,6 @@ class SupplierController extends Controller
             'email' => 'nullable|email|max:255|min:3|unique:users,email,' . $supplier->email,
             'companyName' => 'nullable|string|max:100|min:2',
             'type' => 'required|in:Company,Individual',
-            'address' => 'nullable|string|max:255',
             'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
         ]);
         try {
@@ -196,19 +219,49 @@ class SupplierController extends Controller
                 )[1];
                 Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
             }
-            // update supplier
-            $supplier->update([
+            // Prepare update data
+            $updateData = [
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
-                'address' => $request->address,
                 'type' => $request->type,
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'chart_of_account_id' => $request->chartOfAccountId,
-            ]);
+                
+                // New fields
+                'code_number' => $request->codeNumber,
+                'billing_method' => $request->billingMethod,
+                'currency' => $request->currency,
+                'classification' => $request->classification,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                'full_name' => $request->fullName,
+                'business_name' => $request->businessName,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_number' => $request->phoneNumber,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                'add_secondary_address' => $request->addSecondaryAddress,
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
+            ];
+
+            // Auto-assign Chart of Account if not provided
+            $updateData = Supplier::assignDefaultChartOfAccount($updateData);
+
+            // update supplier
+            $supplier->update($updateData);
 
             // add activity log
             activity()
@@ -604,7 +657,6 @@ class SupplierController extends Controller
                 'phone' => 'required|string|max:20|min:3',
                 'email' => 'nullable|email|max:255|min:3|unique:suppliers,email',
                 'company_name' => 'nullable|string|max:100|min:2',
-                'address' => 'nullable|string|max:255',
             ];
 
             foreach ($data as $key => $item) {
@@ -841,6 +893,39 @@ ORDER BY `date`");
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get the next available code number for a new supplier
+     */
+    public function getNextCodeNumber()
+    {
+        try {
+            // Get the last supplier to determine the next code number
+            $lastSupplier = Supplier::latest()->first();
+            
+            if ($lastSupplier) {
+                $nextCode = $lastSupplier->supplier_id + 1;
+            } else {
+                $nextCode = 1;
+            }
+            
+            // Format the code number with leading zeros (6 digits)
+            $formattedCode = str_pad($nextCode, 6, '0', STR_PAD_LEFT);
+            
+            return response()->json([
+                'success' => true,
+                'next_code' => $nextCode,
+                'formatted_code' => $formattedCode,
+                'message' => 'Next code number retrieved successfully'
+            ]);
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
             ], 500);
         }
     }

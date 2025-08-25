@@ -25,9 +25,8 @@ class StoreClientRequest extends BaseRequest
     {
         return [
             // Required fields
-            'commercialName' => ['required', 'string', 'max:255'],
             'phoneNumber' => ['required', 'string', 'max:20', 'min:3'],
-            'chartOfAccountId' => ['required', 'exists:chart_of_accounts,id'],
+            'chartOfAccountId' => ['nullable', 'exists:chart_of_accounts,id'],
             
             // Account Details
             'codeNumber' => ['nullable', 'string', 'max:50'],
@@ -39,6 +38,8 @@ class StoreClientRequest extends BaseRequest
             
             // Client Details
             'type' => ['nullable', 'string', 'in:Company,Individual'],
+            'fullName' => ['nullable', 'string', 'max:255'],
+            'businessName' => ['nullable', 'string', 'max:255'],
             'firstName' => ['nullable', 'string', 'max:100'],
             'lastName' => ['nullable', 'string', 'max:100'],
             'phone' => ['nullable', 'string', 'max:20'],
@@ -46,7 +47,7 @@ class StoreClientRequest extends BaseRequest
             'streetAddress1' => ['nullable', 'string', 'max:255'],
             'streetAddress2' => ['nullable', 'string', 'max:255'],
             'city' => ['nullable', 'string', 'max:100'],
-            'area' => ['nullable', 'string', 'max:100'],
+            'state' => ['nullable', 'string', 'max:100'],
             'postalCode' => ['nullable', 'string', 'max:20'],
             'country' => ['nullable', 'string', 'size:2'],
             'commercialRegister' => ['nullable', 'string', 'max:100'],
@@ -55,6 +56,8 @@ class StoreClientRequest extends BaseRequest
             
             // Additional Fields
             'image' => ['nullable', 'string'],
+            'attachments' => ['nullable', 'array'],
+            'attachments.*' => ['nullable', 'file', 'mimes:jpeg,png,gif', 'max:2048'],
             'status' => ['nullable', 'boolean'],
             'isSendEmail' => ['nullable', 'boolean'],
             'isSendSMS' => ['nullable', 'boolean'],
@@ -64,6 +67,23 @@ class StoreClientRequest extends BaseRequest
             'companyName' => ['nullable', 'string', 'max:100'],
             'taxRegistrationNumber' => ['nullable', 'string', 'max:100'],
             'address' => ['nullable', 'string', 'max:255'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'phoneNumber.required' => 'Mobile number is required.',
+            'chartOfAccountId.exists' => 'Selected Chart of Account is invalid.',
+            'email.unique' => 'This email address is already taken.',
+            'attachments.*.file' => 'Invalid file format.',
+            'attachments.*.mimes' => 'Only JPEG, PNG, and GIF files are allowed.',
+            'attachments.*.max' => 'File size must be less than 2MB.',
         ];
     }
 }

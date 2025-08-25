@@ -21,15 +21,16 @@ class ClientResource extends JsonResource
             'slug' => $this->slug,
             'email' => $this->email,
             'phoneNumber' => $this->phone,
-            'companyName' => $this->company_name,
-            'taxRegistrationNumber' => $this->tax_registration_number,
+            'phoneSecondary' => $this->phone_secondary,
+            'companyName' => $this->business_name ?: $this->commercial_name ?: $this->company_name,
+            'taxRegistrationNumber' => $this->tax_card ?: $this->tax_registration_number,
             'address' => $this->address,
             'type' => $this->type ?? 'Company',
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('images/clients/'.$this->image_path) : '',
             'chart_of_account_id' => $this->chart_of_account_id,
             
-            // New fields for enhanced client form
+            // Account and billing details
             'codeNumber' => $this->code_number,
             'billingMethod' => $this->billing_method,
             'currency' => $this->currency,
@@ -37,25 +38,32 @@ class ClientResource extends JsonResource
             'notes' => $this->notes,
             'displayLanguage' => $this->display_language,
             
-            // Enhanced client details
-            'commercialName' => $this->commercial_name,
+            // Name fields (conditional based on type)
+            'fullName' => $this->full_name,
+            'businessName' => $this->business_name ?: $this->commercial_name,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
-            'phone' => $this->phone_secondary,
+            
+            // Address information
             'streetAddress1' => $this->street_address1,
             'streetAddress2' => $this->street_address2,
             'city' => $this->city,
-            'area' => $this->area,
+            'state' => $this->state,
             'postalCode' => $this->postal_code,
             'country' => $this->country,
+            
+            // Business-specific fields
             'commercialRegister' => $this->commercial_register,
-            'taxCard' => $this->tax_card,
+            'taxCard' => $this->tax_card ?: $this->tax_registration_number,
             'addSecondaryAddress' => (bool) $this->add_secondary_address,
             
-            // Additional fields
+            // Settings and preferences
             'isSendEmail' => (bool) $this->is_send_email,
             'isSendSMS' => (bool) $this->is_send_sms,
             
+            // Media and attachments
+            'attachments' => $this->attachments,
+
             'chartOfAccount' => function () {
                 try {
                     // Check if the relationship is loaded and exists

@@ -17,13 +17,85 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'client_id', 'email', 'phone', 'status', 'image_path', 'type', 'chart_of_account_id',
-        // New fields for enhanced client form
+        'name', 'slug', 'client_id', 'email', 'phone', 'phone_secondary', 'status', 'image_path', 'type', 'chart_of_account_id',
+        // Account and billing details
         'code_number', 'billing_method', 'currency', 'classification', 'notes', 'display_language',
-        'commercial_name', 'first_name', 'last_name', 'phone_secondary', 'street_address1', 'street_address2',
-        'city', 'area', 'postal_code', 'country', 'commercial_register', 'tax_card', 'add_secondary_address',
-        'is_send_email', 'is_send_sms'
+        // Name fields (conditional based on type)
+        'full_name', 'business_name', 'first_name', 'last_name', 'company_name',
+        // Address information (handle both legacy and new fields)
+        'address', 'street_address1', 'street_address2', 'city', 'state', 'postal_code', 'country',
+        // Business-specific fields (handle both naming conventions)
+        'commercial_register', 'tax_card', 'tax_registration_number',
+        // Settings and preferences
+        'add_secondary_address', 'is_send_email', 'is_send_sms',
+        // Media and attachments
+        'attachments', 'phone_number'
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'attachments' => 'array',
+        'add_secondary_address' => 'boolean',
+        'is_send_email' => 'boolean',
+        'is_send_sms' => 'boolean',
+        'status' => 'boolean',
+    ];
+
+    /**
+     * Get the display name based on client type
+     */
+    public function getDisplayNameAttribute()
+    {
+        if ($this->type === 'Individual') {
+            return $this->full_name ?: $this->name;
+        } else {
+            return $this->business_name ?: $this->name;
+        }
+    }
+
+    /**
+     * Get the primary contact name
+     */
+    public function getPrimaryContactNameAttribute()
+    {
+        if ($this->type === 'Individual') {
+            return $this->full_name ?: $this->name;
+        } else {
+            if ($this->first_name && $this->last_name) {
+                return $this->first_name . ' ' . $this->last_name;
+            }
+            return $this->first_name ?: $this->last_name ?: $this->name;
+        }
+    }
+
+    /**
+     * Get the primary phone number
+     */
+    public function getPrimaryPhoneAttribute()
+    {
+        return $this->phone_number ?: $this->phone;
+    }
+
+    /**
+     * Get the complete address
+     */
+    public function getCompleteAddressAttribute()
+    {
+        $addressParts = [];
+        
+        if ($this->street_address1) $addressParts[] = $this->street_address1;
+        if ($this->street_address2) $addressParts[] = $this->street_address2;
+        if ($this->city) $addressParts[] = $this->city;
+        if ($this->state) $addressParts[] = $this->state;
+        if ($this->postal_code) $addressParts[] = $this->postal_code;
+        if ($this->country) $addressParts[] = $this->country;
+        
+        return implode(', ', $addressParts);
+    }
 
     /**
      * Return the sluggable configuration array for this model.

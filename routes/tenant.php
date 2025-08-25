@@ -263,6 +263,7 @@ Route::middleware([
 
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
         Route::get('/clients/routing-accounts', [ClientController::class, 'getClientRoutingAccounts']);
+        Route::get('/clients/next-code', [ClientController::class, 'getNextCodeNumber']);
 
         // Journal Entry routes
         Route::get('/journal-entries/search', [JournalEntryController::class, 'search']);
@@ -372,6 +373,7 @@ Route::middleware([
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
         Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
+        Route::get('/suppliers/next-code', [SupplierController::class, 'getNextCodeNumber']);
         Route::post('/suppliers/{slug}/auto-assign-chart-of-account', [SupplierController::class, 'autoAssignChartOfAccount']);
         Route::get('/all-suppliers', [SupplierController::class, 'allSuppliers']);
         Route::get('/supplier/purchases/{slug}', [SupplierController::class, 'supplierPurchases']);

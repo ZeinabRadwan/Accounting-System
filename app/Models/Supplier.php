@@ -23,12 +23,37 @@ class Supplier extends Model
         'email',
         'phone',
         'company_name',
-        'address',
+        
         'status',
         'image_path',
         'tax_registration_number',
         'type',
         'chart_of_account_id',
+        
+        // New fields
+        'code_number',
+        'billing_method',
+        'currency',
+        'classification',
+        'notes',
+        'display_language',
+        'full_name',
+        'business_name',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'street_address1',
+        'street_address2',
+        'city',
+        'state',
+        'postal_code',
+        'country',
+        'commercial_register',
+        'tax_card',
+        'add_secondary_address',
+        'attachments',
+        'is_send_email',
+        'is_send_sms',
     ];
 
     /**

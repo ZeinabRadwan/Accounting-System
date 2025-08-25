@@ -90,11 +90,11 @@ class ClientController extends Controller
             // Prepare client data
             $clientData = [
                 // Legacy fields for backward compatibility
-                'name' => $request->name ?? $request->commercialName,
+                'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'client_id' => $code,
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
-                'company_name' => $request->companyName ?? $request->commercialName,
+                'company_name' => $request->companyName ?? $request->businessName,
                 'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
                 'address' => $request->address ?? $request->streetAddress1,
                 'status' => $request->status,
@@ -110,15 +110,16 @@ class ClientController extends Controller
                 'notes' => $request->notes,
                 'display_language' => $request->displayLanguage,
                 
-                // Enhanced client details
-                'commercial_name' => $request->commercialName,
+                // Enhanced client details based on type
+                'full_name' => $request->type === 'Individual' ? $request->fullName : null,
+                'business_name' => $request->type === 'Company' ? $request->businessName : null,
                 'first_name' => $request->firstName,
                 'last_name' => $request->lastName,
-                'phone_secondary' => $request->phone,
+                'phone_number' => $request->phoneNumber,
                 'street_address1' => $request->streetAddress1,
                 'street_address2' => $request->streetAddress2,
                 'city' => $request->city,
-                'area' => $request->area,
+                'state' => $request->state,
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
                 'commercial_register' => $request->commercialRegister,
@@ -128,6 +129,9 @@ class ClientController extends Controller
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,
                 'is_send_sms' => $request->isSendSMS,
+                
+                // Handle attachments if provided
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
             ];
 
             // Auto-assign Chart of Account if not provided
@@ -203,35 +207,25 @@ class ClientController extends Controller
             // get client
             $client = Client::where('slug', $slug)->first();
 
-            \Log::info('UPDATE DEBUG - Starting update for client:', ['slug' => $slug, 'client_id' => $client ? $client->id : null]);
-
             // upload thumbnail and set the name
             $imageName = $client->image_path;
             if ($request->image) {
-                \Log::info('UPDATE DEBUG - Processing image');
                 if ($imageName) {
                     @unlink(public_path('images/clients/' . $imageName));
                 }
                 
-                // This is likely where the error is happening
-                \Log::info('UPDATE DEBUG - Image data:', ['image_length' => strlen($request->image)]);
-                
-                try {
-                    // SAFE IMAGE PROCESSING - Handle different image formats
-                    if (strpos($request->image, 'data:image/') === 0) {
-                        // Base64 image data
-                        $imageData = explode(',', $request->image);
-                        if (count($imageData) > 1) {
-                            $imageInfo = explode(';', $imageData[0]);
-                            if (count($imageInfo) > 0) {
-                                $mimeType = explode(':', $imageInfo[0]);
-                                if (count($mimeType) > 1) {
-                                    $extension = explode('/', $mimeType[1]);
-                                    if (count($extension) > 1) {
-                                        $fileExtension = $extension[1];
-                                    } else {
-                                        $fileExtension = 'png'; // fallback
-                                    }
+                // SAFE IMAGE PROCESSING - Handle different image formats
+                if (strpos($request->image, 'data:image/') === 0) {
+                    // Base64 image data
+                    $imageData = explode(',', $request->image);
+                    if (count($imageData) > 1) {
+                        $imageInfo = explode(';', $imageData[0]);
+                        if (count($imageInfo) > 0) {
+                            $mimeType = explode(':', $imageInfo[0]);
+                            if (count($mimeType) > 1) {
+                                $extension = explode('/', $mimeType[1]);
+                                if (count($extension) > 1) {
+                                    $fileExtension = $extension[1];
                                 } else {
                                     $fileExtension = 'png'; // fallback
                                 }
@@ -242,41 +236,30 @@ class ClientController extends Controller
                             $fileExtension = 'png'; // fallback
                         }
                     } else {
-                        // Direct file upload or other format
                         $fileExtension = 'png'; // fallback
                     }
-                    
-                    $imageName = time() . '.' . $fileExtension;
-                    \Log::info('UPDATE DEBUG - Generated image name:', ['imageName' => $imageName]);
-                    
-                } catch (\Exception $imgError) {
-                    \Log::error('UPDATE DEBUG - Image processing error:', ['error' => $imgError->getMessage()]);
-                    // Use a safe fallback instead of throwing an error
-                    $imageName = time() . '.png';
-                    \Log::info('UPDATE DEBUG - Using fallback image name:', ['imageName' => $imageName]);
+                } else {
+                    // Direct file upload or other format
+                    $fileExtension = 'png'; // fallback
                 }
                 
-                // Only try to save if we have valid image data
-                if (strpos($request->image, 'data:image/') === 0) {
-                    Image::make($request->image)->save(public_path('images/clients/') . $imageName);
-                }
+                $imageName = time() . '.' . $fileExtension;
+                
             }
-
-            \Log::info('UPDATE DEBUG - About to update client');
 
             // update client
             $updateData = [
                 // Legacy fields for backward compatibility
-                'name' => $request->name ?? $request->commercialName,
+                'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
-                'company_name' => $request->companyName ?? $request->commercialName,
+                'company_name' => $request->companyName ?? $request->businessName,
                 'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
                 'address' => $request->address ?? $request->streetAddress1,
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
-                'chart_of_account_id' => $request->chartOfAccountId,
+                'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
                 
                 // New fields for enhanced client form
                 'code_number' => $request->codeNumber,
@@ -286,15 +269,16 @@ class ClientController extends Controller
                 'notes' => $request->notes,
                 'display_language' => $request->displayLanguage,
                 
-                // Enhanced client details
-                'commercial_name' => $request->commercialName,
+                // Enhanced client details based on type
+                'full_name' => $request->type === 'Individual' ? $request->fullName : null,
+                'business_name' => $request->type === 'Company' ? $request->businessName : null,
                 'first_name' => $request->firstName,
                 'last_name' => $request->lastName,
-                'phone_secondary' => $request->phone,
+                'phone_number' => $request->phoneNumber,
                 'street_address1' => $request->streetAddress1,
                 'street_address2' => $request->streetAddress2,
                 'city' => $request->city,
-                'area' => $request->area,
+                'state' => $request->state,
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
                 'commercial_register' => $request->commercialRegister,
@@ -304,13 +288,15 @@ class ClientController extends Controller
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,
                 'is_send_sms' => $request->isSendSMS,
+                
+                // Handle attachments if provided
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
             ];
 
-            \Log::info('UPDATE DEBUG - Update data:', $updateData);
+            // Auto-assign Chart of Account if not provided
+            $updateData = Client::assignDefaultChartOfAccount($updateData);
 
             $client->update($updateData);
-
-            \Log::info('UPDATE DEBUG - Client updated successfully');
 
             // add activity log
             try {
@@ -327,21 +313,13 @@ class ClientController extends Controller
                     ->useLog('Client Updated')
                     ->log('Client Updated');
                 
-                \Log::info('UPDATE DEBUG - Activity log created');
             } catch (\Exception $activityError) {
-                \Log::error('UPDATE DEBUG - Activity log error:', ['error' => $activityError->getMessage()]);
                 // Don't fail the update if activity logging fails
             }
 
             return $this->responseWithSuccess('Client updated successfully');
             
         } catch (Exception $e) {
-            \Log::error('UPDATE ERROR - Full error details:', [
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
-            ]);
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -853,16 +831,12 @@ ORDER BY `date`");
     public function getChartOfAccounts()
     {
         try {
-            Log::info('getChartOfAccounts: Starting to fetch chart of accounts from routing setup');
-            
             // Get the clients account routing setting
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
                 ->where('is_active', true)
                 ->first();
             
             if (!$routingSetting || !$routingSetting->parent_account_id) {
-                Log::warning('getChartOfAccounts: No routing setting found for clients_account');
-                
                 // Fallback to all active accounts if routing is not configured
                 $accounts = \App\Models\ChartOfAccount::where('is_active', true)
                     ->orderBy('name')
@@ -874,17 +848,9 @@ ORDER BY `date`");
             // Get accounts from the routing setup (parent + children)
             $accounts = $routingSetting->getAllAccounts();
             
-            Log::info('getChartOfAccounts: Found ' . $accounts->count() . ' accounts from routing setup');
-            
             return $this->formatChartOfAccounts($accounts, 'From routing setup');
             
         } catch (\Exception $e) {
-            Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            
             return response()->json([
                 'message' => 'Failed to retrieve chart of accounts.',
                 'error' => $e->getMessage()
@@ -905,11 +871,6 @@ ORDER BY `date`");
             try {
                 // Skip if account is null or missing essential data
                 if (!$account || !$account->id || !$account->name) {
-                    Log::warning('formatChartOfAccounts: Skipping account with missing data', [
-                        'account_id' => $account->id ?? 'null',
-                        'account_name' => $account->name ?? 'null'
-                    ]);
-                    $skippedCount++;
                     continue;
                 }
                 
@@ -923,10 +884,7 @@ ORDER BY `date`");
                         }
                     }
                 } catch (\Exception $typeError) {
-                    Log::warning('formatChartOfAccounts: Type loading failed for account ' . $account->id, [
-                        'error' => $typeError->getMessage()
-                    ]);
-                    $typeName = 'No Type';
+                    continue;
                 }
                 
                 $chartOfAccounts->push([
@@ -939,21 +897,10 @@ ORDER BY `date`");
                 $processedCount++;
                 
             } catch (\Exception $accountError) {
-                Log::warning('formatChartOfAccounts: Error processing account ' . ($account->id ?? 'unknown'), [
-                    'error' => $accountError->getMessage()
-                ]);
                 $skippedCount++;
                 continue;
             }
         }
-        
-        Log::info('formatChartOfAccounts: Processing complete', [
-            'source' => $source,
-            'total_accounts' => $accounts->count(),
-            'processed_count' => $processedCount,
-            'skipped_count' => $skippedCount,
-            'final_count' => $chartOfAccounts->count()
-        ]);
         
         return response()->json($chartOfAccounts->values()->toArray());
     }
@@ -1008,8 +955,6 @@ ORDER BY `date`");
     public function getClientRoutingAccounts()
     {
         try {
-            Log::info('getClientRoutingAccounts: Starting to fetch client routing accounts');
-            
             // Get the clients account routing setting
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
                 ->where('is_active', true)
@@ -1034,8 +979,6 @@ ORDER BY `date`");
             // Get accounts from the routing setup (parent + children)
             $accounts = $routingSetting->getAccountsForDropdown();
             
-            Log::info('getClientRoutingAccounts: Found ' . count($accounts) . ' accounts from routing setup');
-            
             return response()->json([
                 'success' => true,
                 'message' => 'Client routing accounts retrieved successfully',
@@ -1053,16 +996,43 @@ ORDER BY `date`");
             ]);
             
         } catch (\Exception $e) {
-            Log::error('getClientRoutingAccounts error: ' . $e->getMessage(), [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to retrieve client routing accounts.',
                 'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get the next available code number for a new client
+     */
+    public function getNextCodeNumber()
+    {
+        try {
+            // Get the last client to determine the next code number
+            $lastClient = Client::latest()->first();
+            
+            if ($lastClient) {
+                $nextCode = $lastClient->client_id + 1;
+            } else {
+                $nextCode = 1;
+            }
+            
+            // Format the code number with leading zeros (6 digits)
+            $formattedCode = str_pad($nextCode, 6, '0', STR_PAD_LEFT);
+            
+            return response()->json([
+                'success' => true,
+                'next_code' => $nextCode,
+                'formatted_code' => $formattedCode,
+                'message' => 'Next code number retrieved successfully'
+            ]);
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
             ], 500);
         }
     }
