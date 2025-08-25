@@ -427,7 +427,7 @@
                        <input class="form-check-input" type="radio" name="addPayment" id="addPaymentYes" 
                               value="1" v-model="form.addPayment" 
                               :disabled="!form.selectedProducts"
-                              @change="clearFieldError('addPayment')"
+                              @change="onAddPaymentChange"
                               :class="{ 'is-invalid': form.errors.has('addPayment') }">
                        <label class="form-check-label" for="addPaymentYes">
                          {{ $t("Yes") }}
@@ -436,7 +436,7 @@
                      <div class="form-check">
                        <input class="form-check-input" type="radio" name="addPayment" id="addPaymentNo" 
                               value="0" v-model="form.addPayment" 
-                              @change="clearFieldError('addPayment')"
+                              @change="onAddPaymentChange"
                               :class="{ 'is-invalid': form.errors.has('addPayment') }">
                        <label class="form-check-label" for="addPaymentNo">
                          {{ $t("No") }}
@@ -456,21 +456,48 @@
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')" @input="clearFieldError('account')">
+                    :placeholder="$t('Select an account')" @input="onAccountChange">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
                     </template>
                   </v-select>
                   <has-error :form="form" field="account" />
+                  
+                  <!-- Bank Account Chart of Account Status -->
+                  <div class="account-status mt-2" v-if="form.account">
+                    <div v-if="!form.account.chartOfAccountId" class="account-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="goToBankAccounts"
+                      >
+                        <i class="fas fa-external-link-alt"></i>
+                        {{ $t('Go to Bank Accounts') }}
+                      </button>
+                    </div>
+                    <div v-else class="account-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group col-md-2">
                   <label for="paidAmount">{{ $t("Paid Amount")
                   }}<span class="required">*</span></label>
                   <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
-                    :max="form.netTotal" :placeholder="$t('Enter an amount')" @input="clearFieldError('paidAmount')" />
+                    :max="form.netTotal" :placeholder="$t('Enter an amount')" @input="onPaidAmountChange" />
                   <has-error :form="form" field="paidAmount" />
+                  
+                  <!-- Due Amount Display -->
+                  <div class="mt-2" v-if="form.addPayment == 1 && form.paidAmount">
+                    <small class="text-muted">
+                      {{ $t("Due Amount") }}: <strong>{{ dueAmount | withCurrency }}</strong>
+                    </small>
+                  </div>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="chequeNo">{{ $t("Cheque No") }}</label>
@@ -559,6 +586,9 @@
                       </li>
                       <li v-if="!form.selectedProducts || form.selectedProducts.length === 0">
                         {{ $t("At least one product must be selected") }}
+                      </li>
+                      <li v-if="!hasBankAccountChartOfAccount">
+                        {{ $t("Bank Account must have a Chart of Account assigned for journal entries") }}
                       </li>
                     </ul>
                   </div>
@@ -694,18 +724,80 @@ export default {
       return this.form.selectedProducts.every(product => product.sales_account_id);
     },
 
+    // Check if bank account has chart of account assigned (when payment is being added)
+    hasBankAccountChartOfAccount() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment being added, so no validation needed
+      }
+      return this.form.account && this.form.account.chartOfAccountId;
+    },
+
+    // Calculate due amount when payment is being added
+    dueAmount() {
+      if (this.form.addPayment != 1 || !this.form.paidAmount) {
+        return this.form.netTotal;
+      }
+      return Math.max(0, this.form.netTotal - Number(this.form.paidAmount));
+    },
+
     // Check if form is ready for submission
     isFormReady() {
-      return this.hasChartOfAccount && this.allProductsHaveSalesAccounts && this.form.selectedProducts && this.form.selectedProducts.length > 0;
+      return this.hasChartOfAccount && 
+             this.allProductsHaveSalesAccounts && 
+             this.hasBankAccountChartOfAccount &&
+             this.form.selectedProducts && 
+             this.form.selectedProducts.length > 0;
     },
     
     
   },
   watch: {
-    // Watch for changes in orderTax to update VAT calculations
+
+    // Watch for changes in addPayment to reset account when payment is disabled
+    'form.addPayment': {
+      handler(newVal, oldVal) {
+        if (newVal != 1 && oldVal == 1) {
+          // Payment was disabled, reset account selection
+          this.form.account = "";
+          this.clearFieldError('account');
+          this.clearFieldError('paidAmount');
+          this.clearFieldError('chequeNo');
+          this.clearFieldError('receiptNo');
+        }
+      }
+    },
+
+    // Watch for changes in discount to reset payment fields when discount changes
+    'form.discount': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1) {
+          // Reset payment fields when discount changes
+          this.form.paidAmount = "";
+          this.clearFieldError('paidAmount');
+        }
+      }
+    },
+
+    // Watch for changes in transport cost to reset payment fields when transport cost changes
+    'form.transportCost': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1) {
+          // Reset payment fields when transport cost changes
+          this.form.paidAmount = "";
+          this.clearFieldError('paidAmount');
+        }
+      }
+    },
+
+    // Watch for changes in order tax to reset payment fields when order tax changes
     'form.orderTax': {
       handler(newVal, oldVal) {
-        if (newVal !== oldVal && this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        if (newVal !== oldVal && this.form.addPayment == 1) {
+          // Reset payment fields when order tax changes
+          this.form.paidAmount = "";
+          this.clearFieldError('paidAmount');
+        }
+        else if (newVal !== oldVal && this.form.selectedProducts && this.form.selectedProducts.length > 0) {
           // Update all products that don't have a specific VAT rate selected
           this.form.selectedProducts.forEach((item, index) => {
             if (!item.selectedVatRate || item.selectedVatRate.id === oldVal?.id) {
@@ -717,7 +809,48 @@ export default {
         }
       },
       deep: true
-    }
+    },
+
+    // Watch for changes in discount type to reset payment fields when discount type changes
+    'form.discountType': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1) {
+          // Reset payment fields when discount type changes
+          this.form.paidAmount = "";
+          this.clearFieldError('paidAmount');
+        }
+      }
+    },
+
+    // Watch for changes in selectedProducts to reset payment fields when products change
+    'form.selectedProducts': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1) {
+          // Reset payment fields when products change
+          this.form.paidAmount = "";
+          this.clearFieldError('paidAmount');
+        }
+      },
+      deep: true
+    },
+
+    // Watch for changes in client to reset payment fields when client changes
+    'form.client': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1) {
+          // Reset payment fields when client changes
+          this.form.paidAmount = "";
+          this.clearFieldError('paidAmount');
+        }
+      },
+      deep: true
+    },
+
+
+
+
+
+
   },
   created() {
     this.getClients();
@@ -1028,6 +1161,18 @@ export default {
         // Clear selectedProducts validation errors when adding a product
         this.clearFieldError('selectedProducts');
         
+        // Reset payment fields when products change
+        this.form.addPayment = "";
+        this.form.account = "";
+        this.form.paidAmount = "";
+        this.form.chequeNo = "";
+        this.form.receiptNo = "";
+        this.clearFieldError('addPayment');
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+        
         this.form.selectedProducts.unshift({
           id: product.id,
           slug: product.slug,
@@ -1195,6 +1340,20 @@ export default {
         this.form.selectedProducts.splice(index, 1);
       }
       
+      // Reset payment fields when products are removed
+      if (this.form.selectedProducts.length === 0) {
+        this.form.addPayment = "";
+        this.form.account = "";
+        this.form.paidAmount = "";
+        this.form.chequeNo = "";
+        this.form.receiptNo = "";
+        this.clearFieldError('addPayment');
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+      }
+      
       // Recalculate totals after removing item
       this.calculateSum();
       
@@ -1346,7 +1505,7 @@ export default {
 
         // Validate bank account if payment is being added
         if (this.form.addPayment && this.form.account) {
-          if (!this.form.account.chart_of_account_id) {
+          if (!this.form.account.chartOfAccountId) {
             validationErrors.push({
               type: "warning",
               title: this.$t("Bank Account Chart of Account Required"),
@@ -1687,6 +1846,18 @@ export default {
           this.form.client = this.items[0];
         }
       }
+      
+      // Reset payment fields when client changes
+      this.form.addPayment = "";
+      this.form.account = "";
+      this.form.paidAmount = "";
+      this.form.chequeNo = "";
+      this.form.receiptNo = "";
+      this.clearFieldError('addPayment');
+      this.clearFieldError('account');
+      this.clearFieldError('paidAmount');
+      this.clearFieldError('chequeNo');
+      this.clearFieldError('receiptNo');
     },
 
     // Add back the autoAssignClientChartOfAccount method
@@ -1954,9 +2125,16 @@ export default {
        this.form.discountType = 0;
        this.form.reference = "";
        
-       // Ensure calculations are reset
-       this.calculateSum();
-     },
+                // Ensure calculations are reset
+         this.calculateSum();
+         
+         // Reset payment-related fields
+         this.form.addPayment = "";
+         this.form.account = "";
+         this.form.paidAmount = "";
+         this.form.chequeNo = "";
+         this.form.receiptNo = "";
+       },
 
     // Clear validation errors for a specific field
     clearFieldError(field) {
@@ -2283,9 +2461,20 @@ export default {
 
     // on account change
     onAccountChange() {
+      // Clear any previous validation errors
+      this.clearFieldError('account');
+      
+      // Reset payment fields when account changes
+      this.form.paidAmount = "";
+      this.form.chequeNo = "";
+      this.form.receiptNo = "";
+      this.clearFieldError('paidAmount');
+      this.clearFieldError('chequeNo');
+      this.clearFieldError('receiptNo');
+      
       if (this.form.account && this.form.addPayment) {
         // Validate that the selected bank account has a chart of account assigned
-        if (!this.form.account.chart_of_account_id) {
+        if (!this.form.account.chartOfAccountId) {
           toast.fire({
             type: "warning",
             title: this.$t("Bank Account Chart of Account Required"),
@@ -2306,6 +2495,34 @@ export default {
       }
       
       this.calculateSum();
+    },
+
+    // Navigate to bank accounts page
+    goToBankAccounts() {
+      this.$router.push({ name: 'accounts.index' });
+    },
+
+    // Handle add payment radio button change
+    onAddPaymentChange() {
+      this.clearFieldError('addPayment');
+      
+      if (this.form.addPayment != 1) {
+        // Payment was disabled, clear related field errors
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+      }
+    },
+
+    // Handle paid amount change
+    onPaidAmountChange() {
+      this.clearFieldError('paidAmount');
+      
+      // Validate that paid amount doesn't exceed net total
+      if (this.form.paidAmount && Number(this.form.paidAmount) > Number(this.form.netTotal)) {
+        this.form.errors.set('paidAmount', this.$t('Paid amount cannot exceed the net total'));
+      }
     },
   },
 };
@@ -2502,6 +2719,32 @@ export default {
 }
 
 .product-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Account status styles */
+.account-status {
+  font-size: 13px;
+}
+
+.account-warning,
+.account-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.account-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.account-success {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
