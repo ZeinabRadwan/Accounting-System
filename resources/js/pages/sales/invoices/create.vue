@@ -18,7 +18,7 @@
           
           <div class="card-body">
             <!-- Add the missing form element with submit handler -->
-            <form @submit.prevent="saveInvoice">
+            <form @submit.prevent="handleFormSubmit">
               <!-- Client Selection with Auto-Assign -->
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
@@ -442,12 +442,7 @@
                        </label>
                      </div>
                    </div>
-                   <!-- Debug info - remove this after testing -->
-                   <small class="text-muted">
-                     Debug: addPayment={{ form.addPayment }}, 
-                     accounts={{ accounts.length }}, 
-                     selectedProducts={{ form.selectedProducts.length }}
-                   </small>
+
                    <has-error :form="form" field="addPayment" />
                  </div>
               </div>
@@ -464,6 +459,11 @@
                     </template>
                   </v-select>
                   <has-error :form="form" field="account" />
+                  
+                  <!-- Payment validation hint -->
+                  <div v-if="form.addPayment == 1 && !form.account" class="text-warning mt-1">
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Please choose a bank account") }}</small>
+                  </div>
                   
                   <!-- Bank Account Chart of Account Status -->
                   <div class="account-status mt-2" v-if="form.account">
@@ -492,6 +492,11 @@
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
                     :max="form.netTotal" :placeholder="$t('Enter an amount')" @input="onPaidAmountChange" />
                   <has-error :form="form" field="paidAmount" />
+                  
+                  <!-- Payment validation hint -->
+                  <div v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)" class="text-warning mt-1">
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Paid amount must be greater than 0") }}</small>
+                  </div>
                   
                   <!-- Due Amount Display -->
                   <div class="mt-2" v-if="form.addPayment == 1 && form.paidAmount">
@@ -591,9 +596,17 @@
                       <li v-if="!hasBankAccountChartOfAccount">
                         {{ $t("Bank Account must have a Chart of Account assigned for journal entries") }}
                       </li>
+                      <li v-if="form.addPayment == 1 && !form.account">
+                        {{ $t("Please choose a bank account for the payment") }}
+                      </li>
+                      <li v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)">
+                        {{ $t("Paid amount must be greater than 0") }}
+                      </li>
                     </ul>
                   </div>
                 </div>
+                
+
               </div>
             </form>
             <!-- /.card-body -->
@@ -628,6 +641,7 @@ export default {
     return {
       isDemoMode: window.config.isDemoMode,
       breadcrumbsCurrent: "Create Invoice",
+      isSubmitting: false, // Flag to track form submission state
       breadcrumbs: [
         {
           name: "Dashboard",
@@ -743,26 +757,54 @@ export default {
 
     // Check if form is ready for submission
     isFormReady() {
-      return this.hasChartOfAccount && 
-             this.allProductsHaveSalesAccounts && 
-             this.hasBankAccountChartOfAccount &&
-             this.form.selectedProducts && 
-             this.form.selectedProducts.length > 0;
+      const basicRequirements = this.hasChartOfAccount && 
+                               this.allProductsHaveSalesAccounts && 
+                               this.hasBankAccountChartOfAccount &&
+                               this.form.selectedProducts && 
+                               this.form.selectedProducts.length > 0;
+      
+      // If basic requirements are not met, form is not ready
+      if (!basicRequirements) {
+        return false;
+      }
+      
+      // If payment is enabled, check payment fields
+      if (this.form.addPayment == 1) {
+        return this.isPaymentValid;
+      }
+      
+      // If no payment required, form is ready
+      return true;
     },
 
-    // Debug computed property to check payment fields visibility conditions
+    // Check if payment fields are valid when payment is enabled
+    isPaymentValid() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment required
+      }
+      
+      // Check if both fields have values and paid amount is greater than 0
+      return this.form.account && 
+             this.form.paidAmount && 
+             Number(this.form.paidAmount) > 0;
+    },
+
+    // Check if payment fields are filled (for warning hints)
+    arePaymentFieldsFilled() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment required
+      }
+      
+      // Only check if fields have values, not their validity
+      return this.form.account && this.form.paidAmount;
+    },
+
+    // Check payment fields visibility conditions
     paymentFieldsVisible() {
-      const conditions = {
-        addPayment: this.form.addPayment == 1,
-        accounts: this.accounts && this.accounts.length > 0,
-        selectedProducts: this.form.selectedProducts && this.form.selectedProducts.length > 0,
-        allConditions: this.form.addPayment == 1 && 
-                      this.accounts && 
-                      this.form.selectedProducts && 
-                      this.form.selectedProducts.length > 0
-      };
-      console.log('Payment fields visibility conditions:', conditions); // Debug log
-      return conditions.allConditions;
+      return this.form.addPayment == 1 && 
+             this.accounts && 
+             this.form.selectedProducts && 
+             this.form.selectedProducts.length > 0;
     },
     
     
@@ -786,9 +828,8 @@ export default {
     // Watch for changes in discount to reset payment fields when discount changes
     'form.discount': {
       handler(newVal, oldVal) {
-        if (newVal !== oldVal && this.form.addPayment == 1) {
-          // Reset payment fields when discount changes
-          this.form.paidAmount = "";
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
         }
       }
@@ -797,9 +838,8 @@ export default {
     // Watch for changes in transport cost to reset payment fields when transport cost changes
     'form.transportCost': {
       handler(newVal, oldVal) {
-        if (newVal !== oldVal && this.form.addPayment == 1) {
-          // Reset payment fields when transport cost changes
-          this.form.paidAmount = "";
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
         }
       }
@@ -808,9 +848,8 @@ export default {
     // Watch for changes in order tax to reset payment fields when order tax changes
     'form.orderTax': {
       handler(newVal, oldVal) {
-        if (newVal !== oldVal && this.form.addPayment == 1) {
-          // Reset payment fields when order tax changes
-          this.form.paidAmount = "";
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
         }
         else if (newVal !== oldVal && this.form.selectedProducts && this.form.selectedProducts.length > 0) {
@@ -830,9 +869,8 @@ export default {
     // Watch for changes in discount type to reset payment fields when discount type changes
     'form.discountType': {
       handler(newVal, oldVal) {
-        if (newVal !== oldVal && this.form.addPayment == 1) {
-          // Reset payment fields when discount type changes
-          this.form.paidAmount = "";
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
         }
       }
@@ -841,9 +879,8 @@ export default {
     // Watch for changes in selectedProducts to reset payment fields when products change
     'form.selectedProducts': {
       handler(newVal, oldVal) {
-        if (newVal !== oldVal && this.form.addPayment == 1) {
-          // Reset payment fields when products change
-          this.form.paidAmount = "";
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
         }
       },
@@ -853,13 +890,29 @@ export default {
     // Watch for changes in client to reset payment fields when client changes
     'form.client': {
       handler(newVal, oldVal) {
-        if (newVal !== oldVal && this.form.addPayment == 1) {
-          // Reset payment fields when client changes
-          this.form.paidAmount = "";
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
         }
       },
       deep: true
+    },
+
+    // Watch for changes in payment fields to clear errors when they become valid
+    'form.account': {
+      handler(newVal, oldVal) {
+        if (newVal && this.form.addPayment == 1) {
+          this.clearFieldError('account');
+        }
+      }
+    },
+
+    'form.paidAmount': {
+      handler(newVal, oldVal) {
+        if (newVal && Number(newVal) > 0 && this.form.addPayment == 1) {
+          this.clearFieldError('paidAmount');
+        }
+      }
     },
 
 
@@ -869,7 +922,6 @@ export default {
 
   },
   created() {
-    console.log('Component created, initializing data...'); // Debug log
     this.getClients();
     this.getProducts();
     this.getAccounts();
@@ -878,13 +930,11 @@ export default {
     this.ensureDiscountProperties();
   },
   mounted() {
-    console.log('Component mounted, setting up error handling...'); // Debug log
     // Set up global error handling
     this.setupGlobalErrorHandling();
     
     // Ensure VAT calculations are up to date after component is mounted
     this.$nextTick(() => {
-      console.log('Component nextTick, checking selectedProducts...'); // Debug log
       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
         this.form.selectedProducts.forEach((item, index) => {
           this.generateItemTotalPrice(index);
@@ -1022,7 +1072,6 @@ export default {
           window.location.origin + "/api/all-accounts"
         );
         this.accounts = data.data;
-        console.log('Accounts loaded:', this.accounts); // Debug log
         // assign default account
         if (this.accounts && this.accounts.length > 0) {
           let defaultAccountSlug = this.appInfo.defaultAccountSlug;
@@ -1178,7 +1227,6 @@ export default {
     // store product
     storeProduct(product) {
       if (product) {
-        console.log('Adding product:', product.name); // Debug log
         // Clear selectedProducts validation errors when adding a product
         this.clearFieldError('selectedProducts');
         
@@ -1483,13 +1531,8 @@ export default {
         // Ensure all monetary values are properly formatted to 2 decimal places before submission
         this.formatFormValues();
         
-        // Clear payment-related fields if addPayment is "No" (0)
-        if (this.form.addPayment != 1) {
-          this.form.paidAmount = "";
-          this.form.account = "";
-          this.form.chequeNo = "";
-          this.form.receiptNo = "";
-        }
+        // Don't clear payment fields here - let the backend handle validation
+        // The backend will ignore payment fields if addPayment is 0
         
         // Collect all validation errors before submission
         const validationErrors = [];
@@ -1526,18 +1569,10 @@ export default {
           });
         }
 
-        // Validate bank account if payment is being added
-        if (this.form.addPayment == 1 && this.form.account) {
-          if (!this.form.account.chartOfAccountId) {
-            validationErrors.push({
-              type: "warning",
-              title: this.$t("Bank Account Chart of Account Required"),
-              message: this.$t("Bank Account must have a Chart of Account assigned for journal entries."),
-              field: "account",
-              timer: 8000,
-              timerProgressBar: true
-            });
-          }
+        // Validate payment fields when "Add Payment" is set to "Yes"
+        const paymentValidation = this.validatePaymentFields();
+        if (!paymentValidation.isValid) {
+          validationErrors.push(...paymentValidation.errors);
         }
 
         // Validate that all calculations are correct
@@ -1771,13 +1806,8 @@ export default {
          this.form.account = this.form.account || "";
          this.form.chequeNo = this.form.chequeNo || "";
          this.form.receiptNo = this.form.receiptNo || "";
-       } else {
-         // Clear payment fields when addPayment is 0
-         this.form.paidAmount = "";
-         this.form.account = "";
-         this.form.chequeNo = "";
-         this.form.receiptNo = "";
        }
+       // Don't clear payment fields here - let the backend handle validation
      },
 
     // Validate that all calculations are mathematically correct
@@ -1851,6 +1881,52 @@ export default {
       }
     },
 
+    // Validate payment fields when "Add Payment" is set to "Yes"
+    validatePaymentFields() {
+      if (this.form.addPayment != 1) {
+        return { isValid: true, errors: [] };
+      }
+      
+      const errors = [];
+      
+      // Check if bank account is selected
+      if (!this.form.account) {
+        errors.push({
+          type: "warning",
+          title: this.$t("Bank Account Required"),
+          message: this.$t("Please choose a bank account for the payment."),
+          field: "account"
+        });
+      }
+      
+      // Check if paid amount is entered and greater than 0
+      if (!this.form.paidAmount || Number(this.form.paidAmount) <= 0) {
+        errors.push({
+          type: "warning",
+          title: this.$t("Paid Amount Required"),
+          message: this.$t("Paid amount must be greater than 0."),
+          field: "paidAmount"
+        });
+      }
+      
+      // Validate bank account chart of account if account is selected
+      if (this.form.account && !this.form.account.chartOfAccountId) {
+        errors.push({
+          type: "warning",
+          title: this.$t("Bank Account Chart of Account Required"),
+          message: this.$t("Bank Account must have a Chart of Account assigned for journal entries."),
+          field: "account",
+          timer: 8000,
+          timerProgressBar: true
+        });
+      }
+      
+      return {
+        isValid: errors.length === 0,
+        errors: errors
+      };
+    },
+
     // save client
     async saveClient() {
       await this.formClient
@@ -1872,6 +1948,11 @@ export default {
 
     // on client change
     onClientChange() {
+      // Don't process client changes during form submission
+      if (this.isSubmitting) {
+        return;
+      }
+      
       // Clear client validation errors when client changes
       this.clearFieldError('client');
       
@@ -2171,6 +2252,14 @@ export default {
       if (this.form.errors.has(field)) {
         this.form.errors.clear(field);
       }
+    },
+
+    // Clear all payment-related validation errors
+    clearPaymentErrors() {
+      this.clearFieldError('account');
+      this.clearFieldError('paidAmount');
+      this.clearFieldError('chequeNo');
+      this.clearFieldError('receiptNo');
     },
 
     // Clear validation errors for product fields
@@ -2489,20 +2578,104 @@ export default {
       });
     },
 
+    // Show payment-specific validation errors
+    showPaymentValidationErrors() {
+      if (this.form.addPayment != 1) {
+        return;
+      }
+      
+      const errors = [];
+      
+      if (!this.form.account) {
+        errors.push(this.$t("Please choose a bank account for the payment."));
+      }
+      
+      if (!this.form.paidAmount || Number(this.form.paidAmount) <= 0) {
+        errors.push(this.$t("Paid amount must be greater than 0."));
+      }
+      
+      if (errors.length > 0) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Payment Information Required"),
+          html: `
+            <div style="text-align: left;">
+              <p><strong>${this.$t("Please provide the following payment information:")}</strong></p>
+              <ul style="margin: 10px 0; padding-left: 20px;">
+                ${errors.map(error => `<li>${error}</li>`).join('')}
+              </ul>
+            </div>
+          `,
+          timer: 8000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: this.$t("Got it"),
+          showCancelButton: false,
+          width: '450px',
+        });
+      }
+    },
+
+    // Validate form before submission to show payment errors in toast
+    validateFormBeforeSubmit(event) {
+      // If payment is enabled, validate payment fields first
+      if (this.form.addPayment == 1) {
+        const paymentValidation = this.validatePaymentFields();
+        if (!paymentValidation.isValid) {
+          event.preventDefault();
+          this.showPaymentValidationErrors();
+          return false;
+        }
+      }
+      
+      // If all validations pass, allow form submission
+      return true;
+    },
+
+    // Handle form submission with payment validation
+    async handleFormSubmit(event) {
+      // Set submitting flag to prevent field resets
+      this.isSubmitting = true;
+      
+      try {
+        // Validate payment fields first if payment is enabled
+        if (this.form.addPayment == 1) {
+          const paymentValidation = this.validatePaymentFields();
+          if (!paymentValidation.isValid) {
+            event.preventDefault();
+            this.showPaymentValidationErrors();
+            return;
+          }
+        }
+        
+        // If payment validation passes, proceed with invoice creation
+        await this.saveInvoice();
+      } finally {
+        // Reset submitting flag
+        this.isSubmitting = false;
+      }
+    },
+
+
+
     // on account change
     onAccountChange() {
+      // Don't process account changes during form submission
+      if (this.isSubmitting) {
+        return;
+      }
+      
       // Clear any previous validation errors
       this.clearFieldError('account');
       
-      // Reset payment fields when account changes
-      this.form.paidAmount = "";
-      this.form.chequeNo = "";
-      this.form.receiptNo = "";
-      this.clearFieldError('paidAmount');
-      this.clearFieldError('chequeNo');
-      this.clearFieldError('receiptNo');
+      // If an account is selected, clear any existing errors
+      if (this.form.account) {
+        this.form.errors.clear('account');
+      }
       
-      if (this.form.account && this.form.addPayment) {
+      // Only reset payment fields if this is a genuine account change (not during form submission)
+      // Check if the account actually changed to a different one
+      if (this.form.account && this.form.addPayment == 1) {
         // Validate that the selected bank account has a chart of account assigned
         if (!this.form.account.chartOfAccountId) {
           toast.fire({
@@ -2534,7 +2707,6 @@ export default {
 
     // Handle add payment radio button change
     onAddPaymentChange() {
-      console.log('Add Payment changed to:', this.form.addPayment); // Debug log
       this.clearFieldError('addPayment');
       
       if (this.form.addPayment != 1) {
@@ -2553,12 +2725,34 @@ export default {
         this.clearFieldError('paidAmount');
         this.clearFieldError('chequeNo');
         this.clearFieldError('receiptNo');
+        
+        // Show helpful message about required payment fields
+        toast.fire({
+          type: "info",
+          title: this.$t("Payment Information Required"),
+          text: this.$t("Please select a bank account and enter the paid amount."),
+          timer: 4000,
+          timerProgressBar: true,
+        });
       }
     },
 
     // Handle paid amount change
     onPaidAmountChange() {
+      // Clear any previous validation errors immediately
       this.clearFieldError('paidAmount');
+      
+      // If user is typing and the amount is valid, clear any errors
+      if (this.form.paidAmount && Number(this.form.paidAmount) > 0) {
+        // Clear any existing errors since the field is now valid
+        this.form.errors.clear('paidAmount');
+      }
+      
+      // Validate that paid amount is greater than 0
+      if (this.form.paidAmount && Number(this.form.paidAmount) <= 0) {
+        this.form.errors.set('paidAmount', this.$t('Paid amount must be greater than 0'));
+        return;
+      }
       
       // Validate that paid amount doesn't exceed net total
       if (this.form.paidAmount && Number(this.form.paidAmount) > Number(this.form.netTotal)) {
@@ -2812,6 +3006,20 @@ export default {
 .radio-group-horizontal .form-check-label {
   margin-bottom: 0;
   cursor: pointer;
+}
+
+/* Payment validation warning styles */
+.text-warning {
+  color: #856404 !important;
+}
+
+.text-warning small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.text-warning i {
+  margin-right: 4px;
 }
 </style>
 
