@@ -420,20 +420,31 @@
                     :placeholder="$t('Enter payment terms')" @input="clearFieldError('paymentTerms')" />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="addPayment">{{ $t("Add Payment?") }}</label>
-                  <select id="addPayment" v-model="form.addPayment" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('addPayment') }" name="addPayment" @change="clearFieldError('addPayment')">
-                    <option value="" selected disabled>
-                      {{ $t("Select an option") }}
-                    </option>
-                    <option :disabled="!form.selectedProducts" value="1">
-                      {{ $t("Yes") }}
-                    </option>
-                    <option value="0">{{ $t("No") }}</option>
-                  </select>
-                  <has-error :form="form" field="addPayment" />
-                </div>
+                                 <div class="form-group col-md-4">
+                   <label for="addPayment">{{ $t("Add Payment?") }}</label>
+                   <div class="radio-group-horizontal">
+                     <div class="form-check">
+                       <input class="form-check-input" type="radio" name="addPayment" id="addPaymentYes" 
+                              value="1" v-model="form.addPayment" 
+                              :disabled="!form.selectedProducts"
+                              @change="clearFieldError('addPayment')"
+                              :class="{ 'is-invalid': form.errors.has('addPayment') }">
+                       <label class="form-check-label" for="addPaymentYes">
+                         {{ $t("Yes") }}
+                       </label>
+                     </div>
+                     <div class="form-check">
+                       <input class="form-check-input" type="radio" name="addPayment" id="addPaymentNo" 
+                              value="0" v-model="form.addPayment" 
+                              @change="clearFieldError('addPayment')"
+                              :class="{ 'is-invalid': form.errors.has('addPayment') }">
+                       <label class="form-check-label" for="addPaymentNo">
+                         {{ $t("No") }}
+                       </label>
+                     </div>
+                                       </div>
+                    <has-error :form="form" field="addPayment" />
+                 </div>
               </div>
               <div class="row" v-if="form.addPayment == 1 &&
                 accounts &&
@@ -2333,6 +2344,29 @@ export default {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
+}
+
+/* Horizontal radio button group */
+.radio-group-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check-input {
+  margin-right: 8px;
+}
+
+.radio-group-horizontal .form-check-label {
+  margin-bottom: 0;
+  cursor: pointer;
 }
 </style>
 
