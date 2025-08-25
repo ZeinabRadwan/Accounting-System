@@ -223,7 +223,7 @@ class BusinessTransactionJournalService
             $bankAccount = $transaction->account->chartOfAccount;
             
             // Get the bank account from the invoice payment transaction
-            $bankAccount = null;
+            // $bankAccount = null;
             // $cashbookAccount = null;
             // $invoicePayment = $invoice->invoicePayments()->latest()->first();
             // if ($invoicePayment && $invoicePayment->transaction_id) {
@@ -279,6 +279,7 @@ class BusinessTransactionJournalService
             return $journalEntry;
             
         } catch (Exception $e) {
+            dd($e);
             DB::rollBack();
             throw $e;
         }
