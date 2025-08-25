@@ -300,12 +300,19 @@
           
 
           
-          <!-- Routing Type Info -->
-          <div v-if="routingSetting" class="alert alert-info">
-            <i class="fas fa-info-circle mr-2"></i>
-            <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
-            <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
-          </div>
+                     <!-- Routing Type Info -->
+           <div v-if="routingSetting" class="alert alert-info">
+             <i class="fas fa-info-circle mr-2"></i>
+             <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
+             <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
+           </div>
+
+           <!-- Auto-creation note for new clients -->
+           <div v-if="isNewClient && routingSetting && routingSetting.routing_type !== 'automatic'" class="alert alert-warning">
+             <i class="fas fa-lightbulb mr-2"></i>
+             <strong>{{ $t("Note for New Clients") }}:</strong> 
+             {{ $t("If you don't select a chart of account, one will be automatically created with the client name when you save the client.") }}
+           </div>
 
           <!-- Automatic Account Routing - No dropdown needed -->
           <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
@@ -716,51 +723,69 @@ export default {
       return this.form;
     },
 
-    // Validate form
-    validateForm() {
-      // Check if mobile number is provided
-      if (!this.form.phoneNumber) {
-        toast.fire({
-          type: "error",
-          title: this.$t("Mobile number is required"),
-        });
-        return false;
-      }
+         // Validate form
+     async validateForm() {
+       // Check if mobile number is provided
+       if (!this.form.phoneNumber) {
+         toast.fire({
+           type: "error",
+           title: this.$t("Mobile number is required"),
+         });
+         return false;
+       }
 
-      // Check if name is provided based on type
-      if (this.form.type === 'Company' && !this.form.businessName) {
-        toast.fire({
-          type: "error",
-          title: this.$t("Business name is required for company clients"),
-        });
-        return false;
-      }
+       // Check if name is provided based on type
+       if (this.form.type === 'Company' && !this.form.businessName) {
+         toast.fire({
+           type: "error",
+           title: this.$t("Business name is required for company clients"),
+         });
+         return false;
+       }
 
-      if (this.form.type === 'Individual' && !this.form.fullName) {
-        toast.fire({
-          type: "error",
-          title: this.$t("Full name is required for individual clients"),
-        });
-        return false;
-      }
+       if (this.form.type === 'Individual' && !this.form.fullName) {
+         toast.fire({
+           type: "error",
+           title: this.$t("Full name is required for individual clients"),
+         });
+         return false;
+       }
 
-      // Validate chart of account based on routing type
-      if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
-        if (!this.form.chartOfAccountId) {
-          const message = this.routingSetting.routing_type === 'per_each' 
-            ? this.$t("Please select a chart of account for this client")
-            : this.$t("Please select a chart of account under the main client account");
-          
-          toast.fire({
-            type: "error",
-            title: message,
-          });
-          return false;
-        }
-      }
+       // For new clients, automatically create chart of account if none selected
+       if (this.isNewClient && this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
+         if (!this.form.chartOfAccountId) {
+           // Auto-create chart of account for new client
+           const autoCreatedAccount = await this.autoCreateChartOfAccountForNewClient();
+           if (autoCreatedAccount) {
+             // Show info message about auto-creation
+             if (window.toast && typeof window.toast.fire === 'function') {
+               window.toast.fire({
+                 type: 'info',
+                 title: this.$t('Chart of account automatically created for new client'),
+                 text: this.$t('Account will be properly created when you save the client.')
+               });
+             }
+           }
+         }
+       }
 
-      return true;
-    },
+       // Validate chart of account based on routing type
+       if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
+         if (!this.form.chartOfAccountId) {
+           const message = this.routingSetting.routing_type === 'per_each' 
+             ? this.$t("Please select a chart of account for this client")
+             : this.$t("Please select a chart of account under the main client account");
+           
+           toast.fire({
+             type: "error",
+             title: message,
+           });
+           return false;
+         }
+       }
+
+       return true;
+     },
 
     // Load representatives for existing client
     async loadRepresentatives() {
@@ -872,14 +897,14 @@ export default {
       return displayNames[routingType] || routingType;
     },
 
-         // Create new chart of account for client
-     async createNewAccount() {
-       if (this.isCreatingAccount) return;
-       
-       this.isCreatingAccount = true;
-       
-       try {
-                             // Check if this is a new client or existing client
+                   // Create new chart of account for client
+      async createNewAccount() {
+        if (this.isCreatingAccount) return;
+        
+        this.isCreatingAccount = true;
+        
+        try {
+          // Check if this is a new client or existing client
           const isNewClient = this.isNewClient;
           
           if (isNewClient) {
@@ -920,52 +945,52 @@ export default {
           // For existing clients, get the slug and create real account
           const clientSlug = this.$route?.params?.slug || this.initialData?.slug;
 
-         const accountData = {
-           name: this.getClientDisplayName(),
-           routing_type: this.routingSetting.routing_type
-         };
+          const accountData = {
+            name: this.getClientDisplayName(),
+            routing_type: this.routingSetting.routing_type
+          };
 
-         const response = await this.$http.post(`/api/clients/${clientSlug}/create-chart-of-account`, accountData);
-         
-         if (response.data.success) {
-           const newAccount = response.data.data.account;
-           
-           // Add the new account to the list
-           this.chartOfAccounts.push({
-             id: newAccount.id,
-             name: newAccount.name,
-             code: newAccount.code,
-             type: newAccount.type?.name || newAccount.type || 'Asset',
-             display_name: `${newAccount.code} - ${newAccount.name} (${newAccount.type?.name || newAccount.type || 'Asset'})`
-           });
-           
-           // Set the new account as selected
-           this.form.chartOfAccountId = newAccount.id;
-           
-           // Show success message
-           if (window.toast && typeof window.toast.fire === 'function') {
-             window.toast.fire({
-               type: 'success',
-               title: this.$t('New account created successfully')
-             });
-           }
-         }
-       } catch (error) {
-         console.error('Error creating new account:', error);
-         const errorMessage = error.response?.data?.message || error.message || this.$t('Failed to create new account');
-         
-         if (window.toast && typeof window.toast.fire === 'function') {
-           window.toast.fire({
-             type: 'error',
-             title: errorMessage
-           });
-         } else {
-           alert(errorMessage);
-         }
-       } finally {
-         this.isCreatingAccount = false;
-       }
-     },
+          const response = await this.$http.post(`/api/clients/${clientSlug}/create-chart-of-account`, accountData);
+          
+          if (response.data.success) {
+            const newAccount = response.data.data.account;
+            
+            // Add the new account to the list
+            this.chartOfAccounts.push({
+              id: newAccount.id,
+              name: newAccount.name,
+              code: newAccount.code,
+              type: newAccount.type?.name || newAccount.type || 'Asset',
+              display_name: `${newAccount.code} - ${newAccount.name} (${newAccount.type?.name || newAccount.type || 'Asset'})`
+            });
+            
+            // Set the new account as selected
+            this.form.chartOfAccountId = newAccount.id;
+            
+            // Show success message
+            if (window.toast && typeof window.toast.fire === 'function') {
+              window.toast.fire({
+                type: 'success',
+                title: this.$t('New account created successfully')
+              });
+            }
+          }
+        } catch (error) {
+          console.error('Error creating new account:', error);
+          const errorMessage = error.response?.data?.message || error.message || this.$t('Failed to create new account');
+          
+          if (window.toast && typeof window.toast.fire === 'function') {
+            window.toast.fire({
+              type: 'error',
+              title: errorMessage
+            });
+          } else {
+            alert(errorMessage);
+          }
+        } finally {
+          this.isCreatingAccount = false;
+        }
+      },
 
     // Get client display name for account creation
     getClientDisplayName() {
@@ -1066,10 +1091,54 @@ export default {
        return this.pendingAccountData || null;
      },
 
-    // Clear pending account data
-    clearPendingAccountData() {
-      this.pendingAccountData = null;
-    },
+         // Clear pending account data
+     clearPendingAccountData() {
+       this.pendingAccountData = null;
+     },
+
+     // Automatically create chart of account for new clients if none selected
+     async autoCreateChartOfAccountForNewClient() {
+       // Only proceed if this is a new client and routing type requires account selection
+       if (!this.isNewClient || !this.routingSetting || this.routingSetting.routing_type === 'automatic') {
+         return null;
+       }
+
+       // If no chart of account is selected, create one automatically
+       if (!this.form.chartOfAccountId) {
+         try {
+           // Create account data
+           const accountData = {
+             name: this.getClientDisplayName(),
+             routing_type: this.routingSetting.routing_type
+           };
+
+           // For new clients, we'll create the account after the client is saved
+           // Store the account data temporarily
+           this.pendingAccountData = accountData;
+           
+           // Generate a temporary account for display
+           const tempAccount = {
+             id: `temp_${Date.now()}`,
+             name: accountData.name,
+             code: await this.generateAccountCode(),
+             type: 'Asset',
+             display_name: `${await this.generateAccountCode()} - ${accountData.name} (Asset)`,
+             isTemporary: true
+           };
+           
+           // Add to the list and select it
+           this.chartOfAccounts.push(tempAccount);
+           this.form.chartOfAccountId = tempAccount.id;
+           
+           return tempAccount;
+         } catch (error) {
+           console.error('Error preparing account data for new client:', error);
+           return null;
+         }
+       }
+       
+       return null;
+     },
 
   },
 };
