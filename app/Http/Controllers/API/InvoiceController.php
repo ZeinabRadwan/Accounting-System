@@ -27,6 +27,7 @@ use App\Models\Client;
 use App\Models\ChartOfAccount;
 use App\Models\AccountRoutingSetting;
 use App\Http\Requests\Invoice\StoreInvoiceRequest;
+use App\Models\Account;
 
 class InvoiceController extends Controller
 {
@@ -50,7 +51,7 @@ class InvoiceController extends Controller
         return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments')->latest()->paginate($request->perPage));
     }
 
-    private function getDiscountAllowedAccount(): ? ChartOfAccount
+    private function getDiscountAllowedAccount(): ?ChartOfAccount
     {
         $setting = AccountRoutingSetting::where('module', 'sales')
             ->where('setting_key', 'discount_allowed_account')
@@ -80,6 +81,8 @@ class InvoiceController extends Controller
                 return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.');
             }
 
+
+
             $totalDiscountAmount = 0;
 
             foreach ($request->selectedProducts as $key => $selectedProduct) {
@@ -87,10 +90,10 @@ class InvoiceController extends Controller
                 if (!$product || !$product->hasSalesAccount()) {
                     return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.');
                 }
-                if(!$product || !$product->productTax || !$product->productTax->salesVatAccount){
+                if (!$product || !$product->productTax || !$product->productTax->salesVatAccount) {
                     return $this->responseWithError('Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.');
                 }
-                
+
                 if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
                     $totalDiscountAmount += $selectedProduct['discount'];
                 }
@@ -107,7 +110,17 @@ class InvoiceController extends Controller
 
 
 
+            if ($request->addPayment == true) {
+                $account = Account::findOrFail($request->account['id']);
+                if (!$account) {
+                    return $this->responseWithError('Bank Account not found.');
+                }
 
+                if (!$account->chartOfAccount ) {
+                    return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.');
+                  
+                }
+            }
 
 
 
@@ -133,7 +146,7 @@ class InvoiceController extends Controller
                 $isPaid = 1;
             }
 
-// dd($request->selectedProducts);
+            // dd($request->selectedProducts);
 
             // create invoice
             $invoice = Invoice::create([
@@ -216,7 +229,6 @@ class InvoiceController extends Controller
 
 
 
-
             // store transaction
             if ($request->addPayment == true) {
                 $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $request->account['accountNumber'] . ']';
@@ -246,14 +258,18 @@ class InvoiceController extends Controller
                     'status' => $request->status,
                 ]);
 
-                // Create journal entry for invoice payment
+
                 try {
                     $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $request->paidAmount, $userId);
+                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $request->paidAmount, $userId);
                 } catch (\Exception $e) {
                     // Log the error but don't fail the payment creation
                     Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
                 }
+
+
+                // Create journal entry for invoice payment
+
             }
 
             //send notification

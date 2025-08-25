@@ -73,6 +73,12 @@ class AccountTransaction extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function account()
+    {
+        return $this->belongsTo(Account::class, 'account_id');
+    }
+
+
     /**
      * Get the journal entry this transaction is linked to
      */

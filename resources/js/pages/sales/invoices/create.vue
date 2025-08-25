@@ -332,7 +332,7 @@
               </div>
               <!-- Discount and Tax Section -->
               <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="discountType">{{ $t("Discount Type") }}</label>
                   <select id="discountType" v-model="form.discountType" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
@@ -342,7 +342,7 @@
                   </select>
                   <has-error :form="form" field="discountType" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="discount">{{ $t("Discount") }}
                     <span v-if="form.discountType == 1">(%)</span></label>
                   <div class="input-group">
@@ -358,7 +358,7 @@
                   </div>
                   <has-error :form="form" field="discount" />
                 </div>
-                                 <div class="form-group col-md-4">
+                                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
                    <label for="transportCost">{{
                      $t("Transport Cost")
                    }}</label>
@@ -369,7 +369,7 @@
               </div>
 
               <div class="row">
-                <div v-if="taxes" class="form-group col-md-2">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-2">
                   <label for="orderTax">{{ $t("Invoice Tax") }}
                     <span class="required">*</span></label>
                                      <v-select v-model="form.orderTax" :options="taxes" label="code"
@@ -377,17 +377,17 @@
                      @input="calculateSum(); clearFieldError('orderTax')" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-2" v-if="!isSaudiArabia">
                   <label for="totalDiscount">{{ $t("Product Discounts") }}</label>
                   <input id="totalDiscount" v-model="form.totalDiscount" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
                   <has-error :form="form" field="totalDiscount" />
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-2" v-if="!isSaudiArabia">
                   <label for="globalDiscount">{{ $t("Global Discount") }}</label>
                   <input id="globalDiscount" v-model="globalDiscountDisplay" type="text" class="form-control" readonly />
                 </div>
-                <div v-if="taxes" class="form-group col-md-3">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-3">
                   <label for="totalTax">{{ $t("Total Tax") }}</label>
                   <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
@@ -643,6 +643,11 @@ export default {
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
     
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
+    
     // Display the calculated global discount amount
     globalDiscountDisplay() {
       if (this.form.discount > 0) {
@@ -681,6 +686,40 @@ export default {
     // Check if form is ready for submission
     isFormReady() {
       return this.hasChartOfAccount && this.allProductsHaveSalesAccounts && this.form.selectedProducts && this.form.selectedProducts.length > 0;
+    },
+    
+    // Debug VAT calculations
+    debugVatCalculations() {
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        console.log('VAT Debug Info:');
+        this.form.selectedProducts.forEach((item, index) => {
+          console.log(`Product ${index + 1} (${item.name}):`, {
+            selectedVatRate: item.selectedVatRate,
+            vatRate: item.selectedVatRate?.rate,
+            productTax: item.productTax,
+            totalTax: item.totalTax,
+            totalPrice: item.totalPrice
+          });
+        });
+      }
+    }
+  },
+  watch: {
+    // Watch for changes in orderTax to update VAT calculations
+    'form.orderTax': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+          // Update all products that don't have a specific VAT rate selected
+          this.form.selectedProducts.forEach((item, index) => {
+            if (!item.selectedVatRate || item.selectedVatRate.id === oldVal?.id) {
+              item.selectedVatRate = newVal;
+              this.generateItemTotalPrice(index);
+            }
+          });
+          this.calculateSum();
+        }
+      },
+      deep: true
     }
   },
   created() {
@@ -694,6 +733,16 @@ export default {
   mounted() {
     // Set up global error handling
     this.setupGlobalErrorHandling();
+    
+    // Ensure VAT calculations are up to date after component is mounted
+    this.$nextTick(() => {
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach((item, index) => {
+          this.generateItemTotalPrice(index);
+        });
+        this.calculateSum();
+      }
+    });
   },
   beforeDestroy() {
     // Clean up global error handlers
@@ -878,13 +927,25 @@ export default {
           window.location.origin + "/api/all-vat-rates"
         );
         this.taxes = data.data;
+        
         // assign default vat rate
         if (this.taxes && this.taxes.length > 0) {
           let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;
           this.form.orderTax = this.taxes.find(
             (tax) => tax.slug === defaultVatRateSlug
-          );
+          ) || this.taxes[0]; // Fallback to first available tax if default not found
+          
+          // Update any existing products with the default VAT rate if they don't have one
+          if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+            this.form.selectedProducts.forEach((item, index) => {
+              if (!item.selectedVatRate) {
+                item.selectedVatRate = this.form.orderTax;
+                this.generateItemTotalPrice(index);
+              }
+            });
+          }
         }
+        
         this.calculateSum();
       } catch (error) {
         console.error('Error getting taxes:', error);
@@ -950,8 +1011,6 @@ export default {
         // Clear selectedProducts validation errors when adding a product
         this.clearFieldError('selectedProducts');
         
-
-        
         this.form.selectedProducts.unshift({
           id: product.id,
           slug: product.slug,
@@ -971,7 +1030,7 @@ export default {
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
-          selectedVatRate: this.form.orderTax, // Default to invoice VAT rate
+          selectedVatRate: this.form.orderTax || this.taxes?.[0], // Default to invoice VAT rate or first available tax
           // Add chart of account information for validation
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,
@@ -1051,6 +1110,11 @@ export default {
         // Clear VAT validation errors when values change
         this.clearProductErrors(index);
         
+        // Ensure the selectedVatRate is properly set
+        if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
+          item.selectedVatRate = this.taxes[0];
+        }
+        
         // Recalculate totals with new VAT rate
         this.generateItemTotalPrice(index);
         this.calculateSum();
@@ -1069,10 +1133,15 @@ export default {
         
         // Use selected VAT rate if available, otherwise fall back to product's default tax rate
         let vatRate = 0;
-        if (item.selectedVatRate && item.selectedVatRate.rate) {
-          vatRate = item.selectedVatRate.rate;
-        } else if (item.taxRate) {
-          vatRate = item.taxRate;
+        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+          vatRate = Number(item.selectedVatRate.rate);
+        } else if (item.taxRate !== undefined && item.taxRate !== null) {
+          vatRate = Number(item.taxRate);
+        }
+        
+        // Ensure vatRate is a valid number
+        if (isNaN(vatRate) || vatRate < 0) {
+          vatRate = 0;
         }
         
         // Calculate tax based on discounted price
@@ -1100,15 +1169,18 @@ export default {
       if (index > -1) {
         this.form.selectedProducts.splice(index, 1);
       }
+      
+      // Recalculate totals after removing item
       this.calculateSum();
-      
-      
       
       return;
     },
 
          // calculate sum
      calculateSum() {
+       // Update products with default VAT rate if needed
+       this.updateProductsWithDefaultVatRate();
+       
        // calculate subtotal with proper decimal precision
        this.form.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
          prev,
@@ -1139,7 +1211,7 @@ export default {
 
        // calculate global discount with proper decimal precision
        let globalDiscount = 0;
-       if (this.form.discount > 0) {
+       if (!this.isSaudiArabia && this.form.discount > 0) {
          if (this.form.discountType == 1) { // Percentage
            globalDiscount = this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal);
          } else { // Fixed
@@ -1147,9 +1219,9 @@ export default {
          }
        }
 
-       // Calculate Invoice Tax based on selected tax rate
+       // Calculate Invoice Tax based on selected tax rate (skip for Saudi Arabia)
        this.form.invoiceTax = 0;
-       if (this.form.orderTax && this.form.orderTax.rate) {
+       if (!this.isSaudiArabia && this.form.orderTax && this.form.orderTax.rate) {
          // Calculate invoice tax on the subtotal after global discount
          this.form.invoiceTax = this.roundToTwoDecimals(
            (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount)
@@ -1159,15 +1231,19 @@ export default {
        // Total tax is the sum of individual product VATs PLUS invoice tax
        this.form.totalTax = this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax);
 
-               // calculate final total with proper decimal precision
-        // Net Total should be: SubTotal - Global Discount + Invoice Tax + Transport Cost
-        // (Individual product VATs are already included in SubTotal)
-        this.form.netTotal = this.roundToTwoDecimals(
-          this.form.subTotal -
-          globalDiscount +
-          this.form.invoiceTax +
-          Number(this.form.transportCost || 0)
-        );
+       // calculate final total with proper decimal precision
+       // For Saudi Arabia: Net Total = SubTotal (no global discount, no invoice tax, no transport cost)
+       // For other countries: Net Total = SubTotal - Global Discount + Invoice Tax + Transport Cost
+       if (this.isSaudiArabia) {
+         this.form.netTotal = this.roundToTwoDecimals(this.form.subTotal);
+       } else {
+         this.form.netTotal = this.roundToTwoDecimals(
+           this.form.subTotal -
+           globalDiscount +
+           this.form.invoiceTax +
+           Number(this.form.transportCost || 0)
+         );
+       }
        return;
      },
 
@@ -1486,31 +1562,36 @@ export default {
           return false;
         }
 
-                 // Validate invoice tax
-         const calculatedInvoiceTax = this.form.orderTax && this.form.orderTax.rate 
-           ? this.roundToTwoDecimals((this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount))
-           : 0;
-         
-         if (Math.abs(calculatedInvoiceTax - this.form.invoiceTax) > 0.01) {
-           console.error('Invoice tax validation failed:', calculatedInvoiceTax, 'vs', this.form.invoiceTax);
-           return false;
-         }
-
-                   // Validate net total
-          const globalDiscount = this.form.discount > 0 
-            ? (this.form.discountType == 1 
-                ? this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal)
-                : this.roundToTwoDecimals(Number(this.form.discount)))
+        // Validate invoice tax (skip for Saudi Arabia)
+        if (!this.isSaudiArabia) {
+          const calculatedInvoiceTax = this.form.orderTax && this.form.orderTax.rate 
+            ? this.roundToTwoDecimals((this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount))
             : 0;
           
-          const calculatedNetTotal = this.roundToTwoDecimals(
-            this.form.subTotal - globalDiscount + this.form.invoiceTax + Number(this.form.transportCost || 0)
-          );
-         
-         if (Math.abs(calculatedNetTotal - this.form.netTotal) > 0.01) {
-           console.error('Net total validation failed:', calculatedNetTotal, 'vs', this.form.netTotal);
-           return false;
-         }
+          if (Math.abs(calculatedInvoiceTax - this.form.invoiceTax) > 0.01) {
+            console.error('Invoice tax validation failed:', calculatedInvoiceTax, 'vs', this.form.invoiceTax);
+            return false;
+          }
+        }
+
+        // Validate net total
+        const globalDiscount = this.form.discount > 0 
+          ? (this.form.discountType == 1 
+              ? this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal)
+              : this.roundToTwoDecimals(Number(this.form.discount)))
+          : 0;
+        
+        // For Saudi Arabia, skip global discount and invoice tax in net total calculation
+        const calculatedNetTotal = this.isSaudiArabia 
+          ? this.roundToTwoDecimals(this.form.subTotal)
+          : this.roundToTwoDecimals(
+              this.form.subTotal - globalDiscount + this.form.invoiceTax + Number(this.form.transportCost || 0)
+            );
+        
+        if (Math.abs(calculatedNetTotal - this.form.netTotal) > 0.01) {
+          console.error('Net total validation failed:', calculatedNetTotal, 'vs', this.form.netTotal);
+          return false;
+        }
 
         return true;
       } catch (error) {
@@ -1797,6 +1878,9 @@ export default {
        this.form.isSendSMS = false;
        this.form.discountType = 0;
        this.form.reference = "";
+       
+       // Ensure calculations are reset
+       this.calculateSum();
      },
 
     // Clear validation errors for a specific field
@@ -1965,6 +2049,28 @@ export default {
         }
       } finally {
         this.isAutoAssigningProduct = null;
+      }
+    },
+
+    // Update all products with default VAT rate if they don't have one selected
+    updateProductsWithDefaultVatRate() {
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0 && this.form.orderTax) {
+        this.form.selectedProducts.forEach((item, index) => {
+          if (!item.selectedVatRate) {
+            item.selectedVatRate = this.form.orderTax;
+            this.generateItemTotalPrice(index);
+          }
+        });
+      }
+    },
+    
+    // Recalculate all VAT amounts for all products
+    recalculateAllVatAmounts() {
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach((item, index) => {
+          this.generateItemTotalPrice(index);
+        });
+        this.calculateSum();
       }
     },
   },

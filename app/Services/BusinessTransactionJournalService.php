@@ -16,6 +16,7 @@ use App\Models\AccountRoutingSetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use App\Models\AccountTransaction;
 
 class BusinessTransactionJournalService
 {
@@ -207,7 +208,7 @@ class BusinessTransactionJournalService
     /**
      * Create journal entry for invoice payment
      */
-    public function createInvoicePaymentJournal(Invoice $invoice, float $amount, int $userId): JournalEntry
+    public function createInvoicePaymentJournal(AccountTransaction $transaction,Invoice $invoice, float $amount, int $userId): JournalEntry
     {
         DB::beginTransaction();
         
@@ -219,23 +220,24 @@ class BusinessTransactionJournalService
 
             // Get client-specific accounts receivable account
             $clientAccountsReceivableAccount = $invoice->client->chartOfAccount;
+            $bankAccount = $transaction->account->chartOfAccount;
             
             // Get the bank account from the invoice payment transaction
             $bankAccount = null;
-            $cashbookAccount = null;
-            $invoicePayment = $invoice->invoicePayments()->latest()->first();
-            if ($invoicePayment && $invoicePayment->transaction_id) {
-                $transaction = \App\Models\AccountTransaction::find($invoicePayment->transaction_id);
-                if ($transaction && $transaction->account) {
-                    $cashbookAccount = $transaction->account;
-                    $bankAccount = $transaction->account->chartOfAccount;
+            // $cashbookAccount = null;
+            // $invoicePayment = $invoice->invoicePayments()->latest()->first();
+            // if ($invoicePayment && $invoicePayment->transaction_id) {
+            //     $transaction = \App\Models\AccountTransaction::find($invoicePayment->transaction_id);
+            //     if ($transaction && $transaction->account) {
+                    // $cashbookAccount = $transaction->account;
+                   
                     
-                    // Validate that the cashbook account is connected to a chart of account
-                    if (!$cashbookAccount->isChartOfAccountConnected()) {
-                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
-                    }
-                }
-            }
+            //         // Validate that the cashbook account is connected to a chart of account
+            //         if (!$cashbookAccount->isChartOfAccountConnected()) {
+            //             throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+            //         }
+            //     }
+            // }
             
             // If no specific bank account found, throw error - we need a specific account
             if (!$bankAccount) {
