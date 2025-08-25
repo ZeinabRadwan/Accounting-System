@@ -21,46 +21,6 @@
           </div>
 
           <div class="form-group">
-            <label for="billingMethod">
-              {{ $t("Invoicing Method") }}
-              <i class="fas fa-question-circle text-muted ml-1" :title="$t('How invoices will be sent to this client')"></i>
-            </label>
-            <select id="billingMethod" v-model="form.billingMethod" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('billingMethod') }">
-              <option value="print">{{ $t("Print (Offline)") }}</option>
-              <option value="email">{{ $t("Email") }}</option>
-              <option value="both">{{ $t("Both") }}</option>
-            </select>
-            <has-error :form="form" field="billingMethod" />
-          </div>
-
-          <div class="form-group">
-            <label for="currency">
-              {{ $t("Currency") }}
-              <i class="fas fa-question-circle text-muted ml-1" :title="$t('Default currency for this client')"></i>
-            </label>
-            <select id="currency" v-model="form.currency" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('currency') }">
-              <option value="EGP">{{ $t("EGP Egyptian Pound") }}</option>
-              <option value="USD">{{ $t("USD US Dollar") }}</option>
-              <option value="EUR">{{ $t("EUR Euro") }}</option>
-            </select>
-            <has-error :form="form" field="currency" />
-          </div>
-
-          <div class="form-group">
-            <label for="classification">{{ $t("Category") }}</label>
-            <select id="classification" v-model="form.classification" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('classification') }">
-              <option value="">{{ $t("Select Category") }}</option>
-              <option value="vip">{{ $t("VIP") }}</option>
-              <option value="regular">{{ $t("Regular") }}</option>
-              <option value="wholesale">{{ $t("Wholesale") }}</option>
-            </select>
-            <has-error :form="form" field="classification" />
-          </div>
-
-          <div class="form-group">
             <label for="displayLanguage">{{ $t("Display Language") }}</label>
             <select id="displayLanguage" v-model="form.displayLanguage" class="form-control"
               :class="{ 'is-invalid': form.errors.has('displayLanguage') }">
@@ -171,6 +131,16 @@
               :placeholder="$t('Enter your email address')" />
             <has-error :form="form" field="email" />
           </div>
+
+          <!-- Representatives Section - Only for Company type -->
+          <div v-if="form.type === 'Company'" class="mt-4">
+            <h6 class="section-subtitle">{{ $t("Representatives") }}</h6>
+            
+            <RepresentativesList 
+              :representatives="form.representatives || []"
+              @representatives-changed="handleRepresentativesChanged"
+            />
+          </div>
         </div>
       </div>
 
@@ -179,6 +149,42 @@
         <div class="col-md-12">
           <h5 class="section-title">{{ $t("Address Information") }}</h5>
           
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label for="country">{{ $t("Country") }}</label>
+              <select id="country" v-model="form.country" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('country') }">
+                <option value="">{{ $t("Select Country") }}</option>
+                <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
+                <option value="EG">{{ $t("Egypt (EG)") }}</option>
+                <option value="US">{{ $t("United States (US)") }}</option>
+                <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
+              </select>
+              <has-error :form="form" field="country" />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="state">{{ $t("State") }}</label>
+              <input id="state" v-model="form.state" type="text" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('state') }" name="state"
+                :placeholder="$t('Enter state')" />
+              <has-error :form="form" field="state" />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="city">{{ $t("City") }}</label>
+              <input id="city" v-model="form.city" type="text" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('city') }" name="city"
+                :placeholder="$t('Enter city')" />
+              <has-error :form="form" field="city" />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+              <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
+                :placeholder="$t('Enter neighbourhood')" />
+              <has-error :form="form" field="neighbourhood" />
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
             <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
@@ -196,44 +202,19 @@
           </div>
 
           <div class="row">
-            <div class="form-group col-md-3">
-              <label for="city">{{ $t("City") }}</label>
-              <input id="city" v-model="form.city" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('city') }" name="city"
-                :placeholder="$t('Enter city')" />
-              <has-error :form="form" field="city" />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="state">{{ $t("State") }}</label>
-              <input id="state" v-model="form.state" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('state') }" name="state"
-                :placeholder="$t('Enter state')" />
-              <has-error :form="form" field="state" />
-            </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <label for="postalCode">{{ $t("Postal Code") }}</label>
               <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
                 :placeholder="$t('Enter postal code')" />
               <has-error :form="form" field="postalCode" />
             </div>
-            <div class="form-group col-md-3">
-              <label for="country">{{ $t("Country") }}</label>
-              <select id="country" v-model="form.country" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('country') }">
-                <option value="">{{ $t("Select Country") }}</option>
-                <option value="EG">{{ $t("Egypt (EG)") }}</option>
-                <option value="US">{{ $t("United States (US)") }}</option>
-                <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
-              </select>
-              <has-error :form="form" field="country" />
-            </div>
           </div>
 
           <!-- Business-specific fields -->
           <div v-if="form.type === 'Company'" class="row">
             <div class="form-group col-md-6">
-              <label for="commercialRegister">{{ $t("C.R (Optional)") }}</label>
+                <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
               <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
                 :placeholder="$t('Enter commercial register number')" />
@@ -248,12 +229,6 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="checkbox-inline">
-              <input type="checkbox" v-model="form.addSecondaryAddress" />
-              {{ $t("Add Secondary Address") }}
-            </label>
-          </div>
         </div>
       </div>
 
@@ -338,6 +313,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </form>
 </template>
@@ -346,6 +322,7 @@
 import Form from "vform";
 import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
+import RepresentativesList from "./RepresentativesList.vue";
 import axios from 'axios';
 
 export default {
@@ -353,6 +330,7 @@ export default {
   components: {
     VueTelInput,
     ToggleButton,
+    RepresentativesList,
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -374,9 +352,6 @@ export default {
       form: new Form({
         // Account Details
         codeNumber: "000001",
-        billingMethod: "print",
-        currency: "EGP",
-        classification: "",
         notes: "",
         displayLanguage: "",
         
@@ -394,10 +369,10 @@ export default {
         city: "",
         state: "",
         postalCode: "",
-        country: "EG",
+        country: "SA",
+        neighbourhood: "",
         commercialRegister: "",
         taxCard: "",
-        addSecondaryAddress: false,
         
         // Additional Fields
         image: "",
@@ -412,10 +387,18 @@ export default {
         taxRegistrationNumber: "",
         address: "",
         
+        // Representatives
+        representatives: [],
+        
         ...this.initialData
       }),
     };
   },
+  mounted() {
+    // Load representatives if editing existing client
+    this.loadRepresentatives();
+  },
+  
   watch: {
     // Watch for changes in initialData prop
     initialData: {
@@ -438,6 +421,11 @@ export default {
           }
           
           console.log('Form initialized with data:', newData);
+          
+          // Load representatives if this is an existing client
+          if (newData.slug && newData.slug !== 'new') {
+            this.loadRepresentatives();
+          }
         }
       },
       immediate: true,
@@ -551,10 +539,7 @@ export default {
       // Reset to default values for specific fields
       this.form.type = "Company";
       this.form.status = 1;
-      this.form.billingMethod = "print";
-      this.form.currency = "EGP";
-      this.form.country = "EG";
-      this.form.addSecondaryAddress = false;
+      this.form.country = "SA";
       this.form.isSendEmail = false;
       this.form.isSendSMS = false;
       
@@ -562,7 +547,6 @@ export default {
       this.loadNextCodeNumber();
       
       // Clear all other fields
-      this.form.classification = "";
       this.form.notes = "";
       this.form.displayLanguage = "";
       this.form.fullName = "";
@@ -577,6 +561,7 @@ export default {
       this.form.city = "";
       this.form.state = "";
       this.form.postalCode = "";
+      this.form.neighbourhood = "";
       this.form.commercialRegister = "";
       this.form.taxCard = "";
       this.form.attachments = []; // Clear attachments
@@ -625,6 +610,32 @@ export default {
       return true;
     },
 
+    // Load representatives for existing client
+    async loadRepresentatives() {
+      // Try to get slug from route params first, then from initialData
+      const slug = this.$route.params.slug || (this.initialData && this.initialData.slug);
+      console.log('Loading representatives for client:', slug);
+      
+      if (slug && slug !== 'new') {
+        try {
+          const response = await this.$http.get(`/api/clients/${slug}/representatives`);
+          console.log('Representatives API response:', response.data);
+          if (response.data.success) {
+            this.form.representatives = response.data.data;
+            console.log('Representatives loaded:', this.form.representatives);
+          }
+        } catch (error) {
+          console.error('Error loading representatives:', error);
+        }
+      } else {
+        console.log('No slug or new client, skipping representatives load');
+      }
+    },
+
+    // Handle when representatives are changed (added, edited, deleted)
+    handleRepresentativesChanged(representatives) {
+      this.form.representatives = representatives;
+    },
 
   },
 };
@@ -646,6 +657,14 @@ export default {
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 2px solid #e9ecef;
+}
+
+.section-subtitle {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .radio-group {

@@ -65,9 +65,6 @@ export default {
           this.supplierData = {
             // Account Details
             codeNumber: supplier.supplier_id ? supplier.supplier_id.toString().padStart(6, '0') : "000001",
-            billingMethod: supplier.billing_method || "print",
-            currency: supplier.currency || "EGP",
-            classification: supplier.classification || "",
             notes: supplier.notes || "",
             displayLanguage: supplier.display_language || "",
             
@@ -85,10 +82,10 @@ export default {
             city: supplier.city || "",
             state: supplier.state || "",
             postalCode: supplier.postal_code || "",
-            country: supplier.country || "EG",
+            country: supplier.country || "SA",
+            neighbourhood: supplier.neighbourhood || "",
             commercialRegister: supplier.commercial_register || "",
             taxCard: supplier.tax_card || "",
-            addSecondaryAddress: supplier.add_secondary_address || false,
             
             // Additional Fields
             image: supplier.image || "",

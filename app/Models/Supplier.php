@@ -32,9 +32,6 @@ class Supplier extends Model
         
         // New fields
         'code_number',
-        'billing_method',
-        'currency',
-        'classification',
         'notes',
         'display_language',
         'full_name',
@@ -48,13 +45,31 @@ class Supplier extends Model
         'state',
         'postal_code',
         'country',
+        'neighbourhood',
         'commercial_register',
         'tax_card',
-        'add_secondary_address',
         'attachments',
         'is_send_email',
         'is_send_sms',
     ];
+
+    /**
+     * Get the complete address
+     */
+    public function getCompleteAddressAttribute()
+    {
+        $addressParts = [];
+        
+        if ($this->street_address1) $addressParts[] = $this->street_address1;
+        if ($this->street_address2) $addressParts[] = $this->street_address2;
+        if ($this->country) $addressParts[] = $this->country;
+        if ($this->state) $addressParts[] = $this->state;
+        if ($this->city) $addressParts[] = $this->city;
+        if ($this->neighbourhood) $addressParts[] = $this->neighbourhood;
+        if ($this->postal_code) $addressParts[] = $this->postal_code;
+        
+        return implode(', ', $addressParts);
+    }
 
     /**
      * Return the sluggable configuration array for this model.
@@ -199,6 +214,22 @@ class Supplier extends Model
     public function routeNotificationForTwilio()
     {
         return $this->phone;
+    }
+
+    /**
+     * Get the representatives for the supplier.
+     */
+    public function representatives()
+    {
+        return $this->hasMany(SupplierRepresentative::class);
+    }
+
+    /**
+     * Get the primary representative for the supplier.
+     */
+    public function primaryRepresentative()
+    {
+        return $this->hasOne(SupplierRepresentative::class)->where('is_primary', true);
     }
 
     /**

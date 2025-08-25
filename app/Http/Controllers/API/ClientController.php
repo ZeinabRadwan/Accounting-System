@@ -104,9 +104,6 @@ class ClientController extends Controller
                 
                 // New fields for enhanced client form
                 'code_number' => $request->codeNumber,
-                'billing_method' => $request->billingMethod,
-                'currency' => $request->currency,
-                'classification' => $request->classification,
                 'notes' => $request->notes,
                 'display_language' => $request->displayLanguage,
                 
@@ -122,9 +119,9 @@ class ClientController extends Controller
                 'state' => $request->state,
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
+                'neighbourhood' => $request->neighbourhood,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
-                'add_secondary_address' => $request->addSecondaryAddress,
                 
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,
@@ -151,6 +148,27 @@ class ClientController extends Controller
             } catch (Exception $e) {
                 //handle email error here if necessary
                 throw new Exception($e);
+            }
+
+            // Handle representatives if provided
+            if ($request->has('representatives') && is_array($request->representatives)) {
+                foreach ($request->representatives as $repData) {
+                    if (!empty($repData['name'])) {
+                        // If this is a primary representative, unset others
+                        if (isset($repData['is_primary']) && $repData['is_primary']) {
+                            $userSchema->representatives()->update(['is_primary' => false]);
+                        }
+                        
+                        $userSchema->representatives()->create([
+                            'name' => $repData['name'],
+                            'email' => $repData['email'] ?? null,
+                            'phone' => $repData['phone'] ?? null,
+                            'position' => $repData['position'] ?? null,
+                            'is_primary' => $repData['is_primary'] ?? false,
+                            'notes' => $repData['notes'] ?? null,
+                        ]);
+                    }
+                }
             }
 
             // add activity log
@@ -263,9 +281,6 @@ class ClientController extends Controller
                 
                 // New fields for enhanced client form
                 'code_number' => $request->codeNumber,
-                'billing_method' => $request->billingMethod,
-                'currency' => $request->currency,
-                'classification' => $request->classification,
                 'notes' => $request->notes,
                 'display_language' => $request->displayLanguage,
                 
@@ -281,9 +296,9 @@ class ClientController extends Controller
                 'state' => $request->state,
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
+                'neighbourhood' => $request->neighbourhood,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
-                'add_secondary_address' => $request->addSecondaryAddress,
                 
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,
@@ -297,6 +312,31 @@ class ClientController extends Controller
             $updateData = Client::assignDefaultChartOfAccount($updateData);
 
             $client->update($updateData);
+
+            // Handle representatives if provided
+            if ($request->has('representatives') && is_array($request->representatives)) {
+                // Clear existing representatives
+                $client->representatives()->delete();
+                
+                // Add new representatives
+                foreach ($request->representatives as $repData) {
+                    if (!empty($repData['name'])) {
+                        // If this is a primary representative, unset others
+                        if (isset($repData['is_primary']) && $repData['is_primary']) {
+                            $client->representatives()->update(['is_primary' => false]);
+                        }
+                        
+                        $client->representatives()->create([
+                            'name' => $repData['name'],
+                            'email' => $repData['email'] ?? null,
+                            'phone' => $repData['phone'] ?? null,
+                            'position' => $repData['position'] ?? null,
+                            'is_primary' => $repData['is_primary'] ?? false,
+                            'notes' => $repData['notes'] ?? null,
+                        ]);
+                    }
+                }
+            }
 
             // add activity log
             try {

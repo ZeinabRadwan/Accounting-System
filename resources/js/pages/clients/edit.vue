@@ -103,9 +103,6 @@ export default {
         this.clientData = {
           // Account Details
           codeNumber: clientData.codeNumber || clientData.clientID || '000001',
-          billingMethod: clientData.billingMethod || 'print',
-          currency: clientData.currency || 'EGP',
-          classification: clientData.classification || '',
           notes: clientData.notes || '',
           displayLanguage: clientData.displayLanguage || '',
           
@@ -123,10 +120,10 @@ export default {
           city: clientData.city || '',
           state: clientData.state || '',
           postalCode: clientData.postalCode || '',
-          country: clientData.country || 'EG',
+          country: clientData.country || 'SA',
+          neighbourhood: clientData.neighbourhood || '',
           commercialRegister: clientData.commercialRegister || clientData.taxRegistrationNumber || '',
           taxCard: clientData.taxCard || '',
-          addSecondaryAddress: clientData.addSecondaryAddress || false,
           
           // Additional Fields
           image: clientData.image || '',

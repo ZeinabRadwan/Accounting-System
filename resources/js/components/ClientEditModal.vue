@@ -86,7 +86,7 @@ export default {
         city: clientData.city || '',
         state: clientData.state || '',
         postalCode: clientData.postalCode || '',
-        country: clientData.country || 'EG',
+        country: clientData.country || 'SA',
         commercialRegister: clientData.commercialRegister || clientData.taxRegistrationNumber || '',
         taxCard: clientData.taxCard || '',
         addSecondaryAddress: clientData.addSecondaryAddress || false,

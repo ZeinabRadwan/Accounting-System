@@ -19,15 +19,15 @@ class Client extends Model
     protected $fillable = [
         'name', 'slug', 'client_id', 'email', 'phone', 'phone_secondary', 'status', 'image_path', 'type', 'chart_of_account_id',
         // Account and billing details
-        'code_number', 'billing_method', 'currency', 'classification', 'notes', 'display_language',
+        'code_number', 'notes', 'display_language',
         // Name fields (conditional based on type)
         'full_name', 'business_name', 'first_name', 'last_name', 'company_name',
         // Address information (handle both legacy and new fields)
-        'address', 'street_address1', 'street_address2', 'city', 'state', 'postal_code', 'country',
+        'address', 'street_address1', 'street_address2', 'city', 'state', 'postal_code', 'country', 'neighbourhood',
         // Business-specific fields (handle both naming conventions)
         'commercial_register', 'tax_card', 'tax_registration_number',
         // Settings and preferences
-        'add_secondary_address', 'is_send_email', 'is_send_sms',
+        'is_send_email', 'is_send_sms',
         // Media and attachments
         'attachments', 'phone_number'
     ];
@@ -89,10 +89,11 @@ class Client extends Model
         
         if ($this->street_address1) $addressParts[] = $this->street_address1;
         if ($this->street_address2) $addressParts[] = $this->street_address2;
-        if ($this->city) $addressParts[] = $this->city;
-        if ($this->state) $addressParts[] = $this->state;
-        if ($this->postal_code) $addressParts[] = $this->postal_code;
         if ($this->country) $addressParts[] = $this->country;
+        if ($this->state) $addressParts[] = $this->state;
+        if ($this->city) $addressParts[] = $this->city;
+        if ($this->neighbourhood) $addressParts[] = $this->neighbourhood;
+        if ($this->postal_code) $addressParts[] = $this->postal_code;
         
         return implode(', ', $addressParts);
     }
@@ -268,6 +269,22 @@ class Client extends Model
         }
         
         return $this;
+    }
+
+    /**
+     * Get the representatives for the client.
+     */
+    public function representatives()
+    {
+        return $this->hasMany(ClientRepresentative::class);
+    }
+
+    /**
+     * Get the primary representative for the client.
+     */
+    public function primaryRepresentative()
+    {
+        return $this->hasOne(ClientRepresentative::class)->where('is_primary', true);
     }
 
     /**

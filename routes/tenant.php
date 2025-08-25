@@ -71,6 +71,8 @@ use App\Http\Controllers\API\ChartOfAccountController;
 use App\Http\Controllers\API\JournalEntryController;
 use App\Http\Controllers\API\AccountRoutingController;
 use App\Http\Controllers\API\VatReportController;
+use App\Http\Controllers\API\ClientRepresentativeController;
+use App\Http\Controllers\API\SupplierRepresentativeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -370,6 +372,12 @@ Route::middleware([
         Route::get('/client/{slug}/non-invoice-payments', [ClientController::class, 'clientNonInvoicePayments']);
         Route::get('/client/{slug}/non-invoice-payments/search', [ClientController::class, 'searchClientNonInvoicePayments']);
 
+        // Client representative routes
+        Route::get('/client/{slug}/representatives', [ClientRepresentativeController::class, 'index']);
+        Route::post('/client/{slug}/representatives', [ClientRepresentativeController::class, 'store']);
+        Route::put('/client/{slug}/representatives/{id}', [ClientRepresentativeController::class, 'update']);
+        Route::delete('/client/{slug}/representatives/{id}', [ClientRepresentativeController::class, 'destroy']);
+
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
         Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
@@ -396,6 +404,12 @@ Route::middleware([
         // Supplier non purchase transactions
         Route::get('/non-purchases/supplier/{slug}', [SupplierController::class, 'nonPurchaseTransForSupplier']);
         Route::get('/non-purchases/supplier/{slug}/search', [SupplierController::class, 'searchNonPurchaseTransForSupplier']);
+
+        // Supplier representative routes
+        Route::get('/supplier/{slug}/representatives', [SupplierRepresentativeController::class, 'index']);
+        Route::post('/supplier/{slug}/representatives', [SupplierRepresentativeController::class, 'store']);
+        Route::put('/supplier/{slug}/representatives/{id}', [SupplierRepresentativeController::class, 'update']);
+        Route::delete('/supplier/{slug}/representatives/{id}', [SupplierRepresentativeController::class, 'destroy']);
 
         // Departments routes
         Route::get('/departments/search', [DepartmentController::class, 'search']);

@@ -33,9 +33,6 @@ class UpdateClientRequest extends BaseRequest
             
             // Account Details
             'codeNumber' => 'nullable|string|max:50',
-            'billingMethod' => 'nullable|string|in:print,email,both',
-            'currency' => 'nullable|string|size:3',
-            'classification' => 'nullable|string|in:vip,regular,wholesale',
             'notes' => 'nullable|string|max:1000',
             'displayLanguage' => 'nullable|string|in:en,ar',
             
@@ -53,9 +50,9 @@ class UpdateClientRequest extends BaseRequest
             'state' => 'nullable|string|max:100',
             'postalCode' => 'nullable|string|max:20',
             'country' => 'nullable|string|size:2',
+            'neighbourhood' => 'nullable|string|max:100',
             'commercialRegister' => 'nullable|string|max:100',
             'taxCard' => 'nullable|string|max:100',
-            'addSecondaryAddress' => 'nullable|boolean',
             
             // Additional Fields
             'image' => 'nullable|string',
