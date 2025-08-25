@@ -17,7 +17,7 @@ class AccountRoutingController extends Controller
     public function index()
     {
         try {
-            $settings = AccountRoutingSetting::with('parentAccount.type')
+            $settings = AccountRoutingSetting::with(['mainAccount.type'])
                 ->orderBy('module')
                 ->orderBy('setting_key')
                 ->get();
@@ -63,13 +63,18 @@ class AccountRoutingController extends Controller
     {
         try {
             $request->validate([
-                'parent_account_id' => 'nullable|exists:chart_of_accounts,id'
+                'routing_type' => 'required|in:automatic,per_each,main_account_per_each,cancel',
+                'main_account_id' => 'nullable|exists:chart_of_accounts,id'
             ]);
 
             $setting = AccountRoutingSetting::findOrFail($id);
-            $setting->update([
-                'parent_account_id' => $request->parent_account_id
-            ]);
+            
+            $updateData = [
+                'routing_type' => $request->routing_type,
+                'main_account_id' => $request->main_account_id
+            ];
+            
+            $setting->update($updateData);
 
             return $this->responseWithSuccess('Setting updated successfully', $setting);
         } catch (Exception $e) {
@@ -86,7 +91,8 @@ class AccountRoutingController extends Controller
             $request->validate([
                 'updates' => 'required|array',
                 'updates.*.id' => 'required|exists:account_routing_settings,id',
-                'updates.*.parent_account_id' => 'nullable|exists:chart_of_accounts,id'
+                'updates.*.routing_type' => 'required|in:automatic,per_each,main_account_per_each,cancel',
+                'updates.*.main_account_id' => 'nullable|exists:chart_of_accounts,id'
             ]);
 
             foreach ($request->updates as $updateData) {
@@ -94,7 +100,8 @@ class AccountRoutingController extends Controller
                 
                 if ($setting) {
                     $setting->update([
-                        'parent_account_id' => $updateData['parent_account_id'] ?? null
+                        'routing_type' => $updateData['routing_type'],
+                        'main_account_id' => $updateData['main_account_id']
                     ]);
                 }
             }
@@ -112,7 +119,7 @@ class AccountRoutingController extends Controller
     {
         try {
             $setting = AccountRoutingSetting::where('setting_key', $settingKey)
-                ->with('parentAccount.type')
+                ->with('mainAccount.type')
                 ->first();
 
             if (!$setting) {
@@ -131,9 +138,9 @@ class AccountRoutingController extends Controller
     }
 
     /**
-     * Get all available parent accounts for selection
+     * Get all available main accounts for selection
      */
-    public function getAvailableParentAccounts()
+    public function getAvailableMainAccounts()
     {
         try {
             $accounts = ChartOfAccount::where('is_active', true)
@@ -150,7 +157,7 @@ class AccountRoutingController extends Controller
                     ];
                 });
 
-            return $this->responseWithSuccess('Parent accounts retrieved successfully', $accounts);
+            return $this->responseWithSuccess('Main accounts retrieved successfully', $accounts);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }

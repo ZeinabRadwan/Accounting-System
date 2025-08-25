@@ -16,185 +16,378 @@
     </div>
 
     <div v-else class="settings-container">
-      <!-- Sales Module -->
-      <div class="module-section" v-if="salesSettings.length > 0">
-        <div class="module-header">
-          <h3 class="module-title">
-            <i class="fas fa-shopping-cart text-primary"></i>
-            {{ $t('Sales Module') }}
-          </h3>
-          <p class="module-description">{{ $t('Configure accounts for sales-related transactions') }}</p>
-        </div>
-        
-        <div class="settings-grid">
-          <div class="setting-item" v-for="setting in salesSettings" :key="setting.setting_key">
-            <label class="setting-label">
-              {{ setting.setting_name }}
-              <span class="required" v-if="setting.is_required">*</span>
-            </label>
-            <p class="setting-description">{{ setting.description }}</p>
-            <VSelect
-              v-model="setting.parent_account_id"
-              :options="getAccountsForType(setting.account_type)"
-              :reduce="option => option.id"
-              :placeholder="$t('Select account')"
-              :searchable="true"
-              :clearable="true"
-              @input="updateSetting(setting)"
-            >
-              <template #option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
-                </div>
-              </template>
-              <template #selected-option="{ name }">
-                <span class="selected-account-name">{{ name }}</span>
-              </template>
-            </VSelect>
-          </div>
-        </div>
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <button 
+          v-for="tab in tabs" 
+          :key="tab.id"
+          @click="activeTab = tab.id"
+          :class="['tab-button', { 'active': activeTab === tab.id }]"
+        >
+          <i :class="tab.icon"></i>
+          <span>{{ tab.label }}</span>
+          <span class="tab-count" v-if="tab.count > 0">{{ tab.count }}</span>
+        </button>
       </div>
 
-      <!-- Purchase Module -->
-      <div class="module-section" v-if="purchaseSettings.length > 0">
-        <div class="module-header">
-          <h3 class="module-title">
-            <i class="fas fa-truck text-success"></i>
-            {{ $t('Purchase Module') }}
-          </h3>
-          <p class="module-description">{{ $t('Configure accounts for purchase-related transactions') }}</p>
-        </div>
-        
-        <div class="settings-grid">
-          <div class="setting-item" v-for="setting in purchaseSettings" :key="setting.setting_key">
-            <label class="setting-label">
-              {{ setting.setting_name }}
-              <span class="required" v-if="setting.is_required">*</span>
-            </label>
-            <p class="setting-description">{{ setting.description }}</p>
-            <VSelect
-              v-model="setting.parent_account_id"
-              :options="getAccountsForType(setting.account_type)"
-              :reduce="option => option.id"
-              :placeholder="$t('Select account')"
-              :searchable="true"
-              :clearable="true"
-              @input="updateSetting(setting)"
-            >
-              <template #option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
+      <!-- Tab Content -->
+      <div class="tab-content">
+        <!-- Sales Module Tab -->
+        <div v-if="activeTab === 'sales'" class="tab-panel">
+          <div class="module-header">
+            <h3 class="module-title">
+              <i class="fas fa-shopping-cart text-primary"></i>
+              {{ $t('Sales Module') }}
+            </h3>
+            <p class="module-description">{{ $t('Configure accounts for sales-related transactions') }}</p>
+          </div>
+          
+          <div class="settings-grid">
+            <div class="setting-card" v-for="setting in salesSettings" :key="setting.setting_key">
+              <div class="setting-header">
+                <h4 class="setting-name">
+                  {{ setting.setting_name }}
+                  <span class="required" v-if="setting.is_required">*</span>
+                </h4>
+                <div class="setting-status">
+                  <span v-if="isSettingConfigured(setting)" class="status-badge status-success">
+                    <i class="fas fa-check-circle"></i> {{ $t('Configured') }}
+                  </span>
+                  <span v-else class="status-badge status-warning">
+                    <i class="fas fa-exclamation-triangle"></i> {{ $t('Not Configured') }}
+                  </span>
                 </div>
-              </template>
-              <template #selected-option="{ name }">
-                <span class="selected-account-name">{{ name }}</span>
-              </template>
-            </VSelect>
+              </div>
+              
+              <p class="setting-description">{{ setting.description }}</p>
+              
+              <div class="setting-controls">
+                <!-- Routing Type Dropdown -->
+                <div class="form-group">
+                  <label class="form-label">{{ $t('Routing Type') }}</label>
+                  <VSelect
+                    v-model="setting.routing_type"
+                    :options="getRoutingTypeOptions(setting)"
+                    :reduce="option => option.value"
+                    :placeholder="$t('Select routing type')"
+                    :searchable="false"
+                    :clearable="false"
+                    @input="onRoutingTypeChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ label, description }">
+                      <div class="routing-option">
+                        <span class="routing-label">{{ label }}</span>
+                        <span class="routing-description">{{ description }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ label }">
+                      <span class="selected-routing-label">{{ label }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+
+                <!-- Main Account Dropdown (Conditional) -->
+                <div v-if="shouldShowMainAccount(setting)" class="form-group">
+                  <label class="form-label">{{ $t('Main Account') }}</label>
+                  <VSelect
+                    v-model="setting.main_account_id"
+                    :options="getAccountsForType(setting.account_type)"
+                    :reduce="option => option.id"
+                    :placeholder="$t('Select account')"
+                    :searchable="true"
+                    :clearable="true"
+                    @input="onMainAccountChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div class="account-option">
+                        <span class="account-name">{{ name }}</span>
+                        <span class="account-code">{{ code }}</span>
+                        <span class="account-type">{{ type }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ name }">
+                      <span class="selected-account-name">{{ name }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- VAT/Tax Module -->
-      <div class="module-section" v-if="vatSettings.length > 0">
-        <div class="module-header">
-          <h3 class="module-title">
-            <i class="fas fa-percentage text-warning"></i>
-            {{ $t('VAT/Tax Module') }}
-          </h3>
-          <p class="module-description">{{ $t('Configure accounts for VAT and tax transactions') }}</p>
-        </div>
-        
-        <div class="settings-grid">
-          <div class="setting-item" v-for="setting in vatSettings" :key="setting.setting_key">
-            <label class="setting-label">
-              {{ setting.setting_name }}
-              <span class="required" v-if="setting.is_required">*</span>
-            </label>
-            <p class="setting-description">{{ setting.description }}</p>
-            <VSelect
-              v-model="setting.parent_account_id"
-              :options="getAccountsForType(setting.account_type)"
-              :reduce="option => option.id"
-              :placeholder="$t('Select account')"
-              :searchable="true"
-              :clearable="true"
-              @input="updateSetting(setting)"
-            >
-              <template #option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
+        <!-- Purchase Module Tab -->
+        <div v-if="activeTab === 'purchase'" class="tab-panel">
+          <div class="module-header">
+            <h3 class="module-title">
+              <i class="fas fa-truck text-success"></i>
+              {{ $t('Purchase Module') }}
+            </h3>
+            <p class="module-description">{{ $t('Configure accounts for purchase-related transactions') }}</p>
+          </div>
+          
+          <div class="settings-grid">
+            <div class="setting-card" v-for="setting in purchaseSettings" :key="setting.setting_key">
+              <div class="setting-header">
+                <h4 class="setting-name">
+                  {{ setting.setting_name }}
+                  <span class="required" v-if="setting.is_required">*</span>
+                </h4>
+                <div class="setting-status">
+                  <span v-if="isSettingConfigured(setting)" class="status-badge status-success">
+                    <i class="fas fa-check-circle"></i> {{ $t('Configured') }}
+                  </span>
+                  <span v-else class="status-badge status-warning">
+                    <i class="fas fa-exclamation-triangle"></i> {{ $t('Not Configured') }}
+                  </span>
                 </div>
-              </template>
-              <template #selected-option="{ name }">
-                <span class="selected-account-name">{{ name }}</span>
-              </template>
-            </VSelect>
+              </div>
+              
+              <p class="setting-description">{{ setting.description }}</p>
+              
+              <div class="setting-controls">
+                <!-- Routing Type Dropdown -->
+                <div class="form-group">
+                  <label class="form-label">{{ $t('Routing Type') }}</label>
+                  <VSelect
+                    v-model="setting.routing_type"
+                    :options="getRoutingTypeOptions(setting)"
+                    :reduce="option => option.value"
+                    :placeholder="$t('Select routing type')"
+                    :searchable="false"
+                    :clearable="false"
+                    @input="onRoutingTypeChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ label, description }">
+                      <div class="routing-option">
+                        <span class="routing-label">{{ label }}</span>
+                        <span class="routing-description">{{ description }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ label }">
+                      <span class="selected-routing-label">{{ label }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+
+                <!-- Main Account Dropdown (Conditional) -->
+                <div v-if="shouldShowMainAccount(setting)" class="form-group">
+                  <label class="form-label">{{ $t('Main Account') }}</label>
+                  <VSelect
+                    v-model="setting.main_account_id"
+                    :options="getAccountsForType(setting.account_type)"
+                    :reduce="option => option.id"
+                    :placeholder="$t('Select account')"
+                    :searchable="true"
+                    :clearable="true"
+                    @input="onMainAccountChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div class="account-option">
+                        <span class="account-name">{{ name }}</span>
+                        <span class="account-code">{{ code }}</span>
+                        <span class="account-type">{{ type }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ name }">
+                      <span class="selected-account-name">{{ name }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Expenses Module -->
-      <div class="module-section" v-if="expenseSettings.length > 0">
-        <div class="module-header">
-          <h3 class="module-title">
-            <i class="fas fa-receipt text-danger"></i>
-            {{ $t('Expenses Module') }}
-          </h3>
-          <p class="module-description">{{ $t('Configure accounts for expense transactions') }}</p>
-        </div>
-        
-        <div class="settings-grid">
-          <div class="setting-item" v-for="setting in expenseSettings" :key="setting.setting_key">
-            <label class="setting-label">
-              {{ setting.setting_name }}
-              <span class="required" v-if="setting.is_required">*</span>
-            </label>
-            <p class="setting-description">{{ setting.description }}</p>
-            <VSelect
-              v-model="setting.parent_account_id"
-              :options="getAccountsForType(setting.account_type)"
-              :reduce="option => option.id"
-              :placeholder="$t('Select account')"
-              :searchable="true"
-              :clearable="true"
-              @input="updateSetting(setting)"
-            >
-              <template #option="{ name, code, type }">
-                <div class="account-option">
-                  <span class="account-name">{{ name }}</span>
-                  <span class="account-code">{{ code }}</span>
-                  <span class="account-type">{{ type }}</span>
+        <!-- VAT/Tax Module Tab -->
+        <div v-if="activeTab === 'vat'" class="tab-panel">
+          <div class="module-header">
+            <h3 class="module-title">
+              <i class="fas fa-percentage text-warning"></i>
+              {{ $t('VAT/Tax Module') }}
+            </h3>
+            <p class="module-description">{{ $t('Configure accounts for VAT and tax transactions') }}</p>
+          </div>
+          
+          <div class="settings-grid">
+            <div class="setting-card" v-for="setting in vatSettings" :key="setting.setting_key">
+              <div class="setting-header">
+                <h4 class="setting-name">
+                  {{ setting.setting_name }}
+                  <span class="required" v-if="setting.is_required">*</span>
+                </h4>
+                <div class="setting-status">
+                  <span v-if="isSettingConfigured(setting)" class="status-badge status-success">
+                    <i class="fas fa-check-circle"></i> {{ $t('Configured') }}
+                  </span>
+                  <span v-else class="status-badge status-warning">
+                    <i class="fas fa-exclamation-triangle"></i> {{ $t('Not Configured') }}
+                  </span>
                 </div>
-              </template>
-              <template #selected-option="{ name }">
-                <span class="selected-account-name">{{ name }}</span>
-              </template>
-            </VSelect>
+              </div>
+              
+              <p class="setting-description">{{ setting.description }}</p>
+              
+              <div class="setting-controls">
+                <!-- Routing Type Dropdown -->
+                <div class="form-group">
+                  <label class="form-label">{{ $t('Routing Type') }}</label>
+                  <VSelect
+                    v-model="setting.routing_type"
+                    :options="getRoutingTypeOptions(setting)"
+                    :reduce="option => option.value"
+                    :placeholder="$t('Select routing type')"
+                    :searchable="false"
+                    :clearable="false"
+                    @input="onRoutingTypeChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ label, description }">
+                      <div class="routing-option">
+                        <span class="routing-label">{{ label }}</span>
+                        <span class="routing-description">{{ description }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ label }">
+                      <span class="selected-routing-label">{{ label }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+
+                <!-- Main Account Dropdown (Conditional) -->
+                <div v-if="shouldShowMainAccount(setting)" class="form-group">
+                  <label class="form-label">{{ $t('Main Account') }}</label>
+                  <VSelect
+                    v-model="setting.main_account_id"
+                    :options="getAccountsForType(setting.account_type)"
+                    :reduce="option => option.id"
+                    :placeholder="$t('Select account')"
+                    :searchable="true"
+                    :clearable="true"
+                    @input="onMainAccountChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div class="account-option">
+                        <span class="account-name">{{ name }}</span>
+                        <span class="account-code">{{ code }}</span>
+                        <span class="account-type">{{ type }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ name }">
+                      <span class="selected-account-name">{{ name }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- No Settings Message -->
-      <div v-if="settings.length === 0" class="no-settings-message">
-        <div class="text-center py-5">
-          <i class="fas fa-cog text-muted" style="font-size: 48px; margin-bottom: 16px;"></i>
-          <h4 class="text-muted">{{ $t('No Account Routing Settings Found') }}</h4>
-          <p class="text-muted">{{ $t('The account routing settings have not been initialized yet.') }}</p>
-          <div class="mt-3">
-            <button @click="loadSettings" class="btn btn-primary mr-2">
-              <i class="fas fa-refresh mr-2"></i>
-              {{ $t('Refresh Settings') }}
-            </button>
-            <button @click="showSeederInstructions" class="btn btn-info">
-              <i class="fas fa-info-circle mr-2"></i>
-              {{ $t('How to Fix') }}
-            </button>
+        <!-- Expenses Module Tab -->
+        <div v-if="activeTab === 'expenses'" class="tab-panel">
+          <div class="module-header">
+            <h3 class="module-title">
+              <i class="fas fa-receipt text-danger"></i>
+              {{ $t('Expenses Module') }}
+            </h3>
+            <p class="module-description">{{ $t('Configure accounts for expense transactions') }}</p>
+          </div>
+          
+          <div class="settings-grid">
+            <div class="setting-card" v-for="setting in expenseSettings" :key="setting.setting_key">
+              <div class="setting-header">
+                <h4 class="setting-name">
+                  {{ setting.setting_name }}
+                  <span class="required" v-if="setting.is_required">*</span>
+                </h4>
+                <div class="setting-status">
+                  <span v-if="isSettingConfigured(setting)" class="status-badge status-success">
+                    <i class="fas fa-check-circle"></i> {{ $t('Configured') }}
+                  </span>
+                  <span v-else class="status-badge status-warning">
+                    <i class="fas fa-exclamation-triangle"></i> {{ $t('Not Configured') }}
+                  </span>
+                </div>
+              </div>
+              
+              <p class="setting-description">{{ setting.description }}</p>
+              
+              <div class="setting-controls">
+                <!-- Routing Type Dropdown -->
+                <div class="form-group">
+                  <label class="form-label">{{ $t('Routing Type') }}</label>
+                  <VSelect
+                    v-model="setting.routing_type"
+                    :options="getRoutingTypeOptions(setting)"
+                    :reduce="option => option.value"
+                    :placeholder="$t('Select routing type')"
+                    :searchable="false"
+                    :clearable="false"
+                    @input="onRoutingTypeChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ label, description }">
+                      <div class="routing-option">
+                        <span class="routing-label">{{ label }}</span>
+                        <span class="routing-description">{{ description }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ label }">
+                      <span class="selected-routing-label">{{ label }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+
+                <!-- Main Account Dropdown (Conditional) -->
+                <div v-if="shouldShowMainAccount(setting)" class="form-group">
+                  <label class="form-label">{{ $t('Main Account') }}</label>
+                  <VSelect
+                    v-model="setting.main_account_id"
+                    :options="getAccountsForType(setting.account_type)"
+                    :reduce="option => option.id"
+                    :placeholder="$t('Select account')"
+                    :searchable="true"
+                    :clearable="true"
+                    @input="onMainAccountChange(setting)"
+                    class="form-select"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div class="account-option">
+                        <span class="account-name">{{ name }}</span>
+                        <span class="account-code">{{ code }}</span>
+                        <span class="account-type">{{ type }}</span>
+                      </div>
+                    </template>
+                    <template #selected-option="{ name }">
+                      <span class="selected-account-name">{{ name }}</span>
+                    </template>
+                  </VSelect>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Settings Message -->
+        <div v-if="settings.length === 0" class="no-settings-message">
+          <div class="text-center py-5">
+            <i class="fas fa-cog text-muted" style="font-size: 48px; margin-bottom: 16px;"></i>
+            <h4 class="text-muted">{{ $t('No Account Routing Settings Found') }}</h4>
+            <p class="text-muted">{{ $t('The account routing settings have not been initialized yet.') }}</p>
+            <div class="mt-3">
+              <button @click="loadSettings" class="btn btn-primary mr-2">
+                <i class="fas fa-refresh mr-2"></i>
+                {{ $t('Refresh Settings') }}
+              </button>
+              <button @click="showSeederInstructions" class="btn btn-info">
+                <i class="fas fa-info-circle mr-2"></i>
+                {{ $t('How to Fix') }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -253,10 +446,58 @@ export default {
       messageType: 'alert-info',
       chartOfAccounts: [],
       isLoading: false,
-      debugMode: false
+      debugMode: false,
+      activeTab: 'sales',
+      // Default routing type options for most settings
+      defaultRoutingTypeOptions: [
+        { 
+          label: 'Automatic Account Routing', 
+          description: 'System automatically routes to the selected parent account', 
+          value: 'automatic' 
+        },
+        { 
+          label: 'Specify Per Each', 
+          description: 'You will specify accounts individually for each item', 
+          value: 'per_each' 
+        },
+        { 
+          label: 'Specify Main Account Per Each', 
+          description: 'You will specify a main account and then individual accounts', 
+          value: 'main_account_per_each' 
+        }
+      ]
     }
   },
   computed: {
+    tabs() {
+      return [
+        {
+          id: 'sales',
+          label: 'Sales',
+          icon: 'fas fa-shopping-cart',
+          count: this.salesSettings.length
+        },
+        {
+          id: 'purchase',
+          label: 'Purchase',
+          icon: 'fas fa-truck',
+          count: this.purchaseSettings.length
+        },
+        {
+          id: 'vat',
+          label: 'VAT/Tax',
+          icon: 'fas fa-percentage',
+          count: this.vatSettings.length
+        },
+        {
+          id: 'expenses',
+          label: 'Expenses',
+          icon: 'fas fa-receipt',
+          count: this.expenseSettings.length
+        }
+      ]
+    },
+    
     salesSettings() {
       return this.settings.filter(s => s.module === 'sales' && s.setting_key !== 'returns_account')
     },
@@ -271,6 +512,18 @@ export default {
     
     expenseSettings() {
       return this.settings.filter(s => s.module === 'expenses')
+    },
+
+    // Get routing type options for a specific setting
+    getRoutingTypeOptions() {
+      return (setting) => {
+        // If a custom routing_type_options array is provided, use it.
+        if (setting.routing_type_options && Array.isArray(setting.routing_type_options)) {
+          return setting.routing_type_options
+        }
+        // Otherwise, use the default options.
+        return this.defaultRoutingTypeOptions
+      }
     }
   },
   
@@ -349,9 +602,12 @@ export default {
     
     async updateSetting(setting) {
       try {
-        const response = await this.$http.put(`/api/account-routing-settings/${setting.id}`, {
-          parent_account_id: setting.parent_account_id
-        })
+        const updateData = {
+          routing_type: setting.routing_type,
+          main_account_id: setting.main_account_id
+        }
+        
+        const response = await this.$http.put(`/api/account-routing-settings/${setting.id}`, updateData)
         
         if (response.data.success) {
           this.showMessage('Setting updated successfully', 'alert-success')
@@ -368,7 +624,8 @@ export default {
       try {
         const updates = this.settings.map(setting => ({
           id: setting.id,
-          parent_account_id: setting.parent_account_id
+          routing_type: setting.routing_type,
+          main_account_id: setting.main_account_id
         }))
         
         const response = await this.$http.put('/api/account-routing-settings/bulk', { updates })
@@ -411,6 +668,48 @@ export default {
         console.error('Error checking settings:', error)
         return false
       }
+    },
+
+    // Handle routing type change
+    onRoutingTypeChange(setting) {
+      console.log('Routing type changed for', setting.setting_name, 'to', setting.routing_type)
+      
+      // Clear main account when switching to per_each or cancel routing
+      if (setting.routing_type === 'per_each' || setting.routing_type === 'cancel') {
+        setting.main_account_id = null
+      }
+      
+      // Update the setting
+      this.updateSetting(setting)
+    },
+
+    // Handle main account change
+    onMainAccountChange(setting) {
+      console.log('Main account changed for', setting.setting_name, 'to', setting.main_account_id)
+      
+      // Update the setting
+      this.updateSetting(setting)
+    },
+
+    // Check if main account dropdown should be shown
+    shouldShowMainAccount(setting) {
+      return ['automatic', 'main_account_per_each'].includes(setting.routing_type)
+    },
+
+    // Check if setting is configured based on routing type
+    isSettingConfigured(setting) {
+      switch (setting.routing_type) {
+        case 'automatic':
+          return setting.main_account_id !== null
+        case 'per_each':
+          return true // No account needed for per each routing
+        case 'main_account_per_each':
+          return setting.main_account_id !== null
+        case 'cancel':
+          return true // No account needed for cancel routing
+        default:
+          return false
+      }
     }
   }
 }
@@ -419,13 +718,19 @@ export default {
 <style scoped>
 .account-routing-settings {
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
 .page-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .page-title {
@@ -443,56 +748,138 @@ export default {
 }
 
 .settings-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.module-section {
-  background: #fff;
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  overflow-x: auto;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #6c757d;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.tab-button:hover {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.tab-button.active {
+  background: white;
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+.tab-button i {
+  font-size: 1.1rem;
+}
+
+.tab-count {
+  background: #6c757d;
+  color: white;
   border-radius: 12px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.tab-button.active .tab-count {
+  background: #007bff;
+}
+
+/* Tab Content */
+.tab-content {
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e9ecef;
+}
+
+.tab-panel {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .module-header {
   margin-bottom: 2rem;
   text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
 }
 
 .module-title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: #2c3e50;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .module-description {
   color: #7f8c8d;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
 .settings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1.5rem;
 }
 
-.setting-item {
+.setting-card {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.setting-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.setting-header {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
-.setting-label {
+.setting-name {
+  font-size: 1.2rem;
   font-weight: 600;
   color: #2c3e50;
-  font-size: 1rem;
+  margin: 0;
+  flex: 1;
 }
 
 .required {
@@ -502,43 +889,68 @@ export default {
 
 .setting-description {
   color: #7f8c8d;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
 }
 
-.account-option {
+.setting-controls {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 1rem;
 }
 
-.account-name {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
   font-weight: 600;
   color: #2c3e50;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
-.account-code {
+.form-select {
+  width: 100%;
+}
+
+.setting-status {
+  margin-left: 1rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
   font-size: 0.8rem;
-  color: #7f8c8d;
-  font-family: monospace;
-}
-
-.account-type {
-  font-size: 0.8rem;
-  color: #3498db;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.selected-account-name {
   font-weight: 600;
-  color: #2c3e50;
+  white-space: nowrap;
+}
+
+.status-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
 }
 
 .actions-container {
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .alert {
@@ -575,6 +987,9 @@ export default {
 .loading-container {
   text-align: center;
   padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .loading-text {
@@ -633,6 +1048,42 @@ export default {
   word-break: break-all;
 }
 
+/* Form Elements */
+.routing-option,
+.account-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.routing-label,
+.account-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.routing-description,
+.account-code {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-family: monospace;
+}
+
+.routing-option .account-type,
+.account-option .account-type {
+  font-size: 0.8rem;
+  color: #3498db;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.selected-routing-label,
+.selected-account-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .account-routing-settings {
@@ -643,12 +1094,45 @@ export default {
     grid-template-columns: 1fr;
   }
   
-  .module-section {
-    padding: 1.5rem;
+  .tab-navigation {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    min-width: 100px;
+    padding: 0.75rem 1rem;
   }
   
   .page-title {
     font-size: 2rem;
+  }
+  
+  .setting-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .setting-status {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-content {
+    padding: 1rem;
+  }
+  
+  .setting-card {
+    padding: 1rem;
+  }
+  
+  .module-header {
+    text-align: left;
+  }
+  
+  .module-title {
+    justify-content: flex-start;
   }
 }
 </style>

@@ -21,6 +21,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Asset',
                 'description' => 'Parent account for all customer receivables',
                 'is_required' => true,
+                'routing_type' => 'automatic',
             ],
             [
                 'module' => 'sales',
@@ -29,6 +30,28 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Revenue',
                 'description' => 'Parent account for all sales revenue (including returns as negative entries)',
                 'is_required' => true,
+                'routing_type' => 'automatic',
+            ],
+            [
+                'module' => 'sales',
+                'setting_key' => 'product_sales_account',
+                'setting_name' => 'Product Sales Account',
+                'account_type' => 'Revenue',
+                'description' => 'Parent account for product sales revenue',
+                'is_required' => true,
+                'routing_type' => 'automatic',
+                'routing_type_options' => json_encode([
+                    [
+                        'label' => 'Automatic Account Routing',
+                        'description' => 'System automatically routes to the selected parent account',
+                        'value' => 'automatic'
+                    ],
+                    [
+                        'label' => 'Specify Per Each',
+                        'description' => 'You will specify accounts individually for each item',
+                        'value' => 'per_each'
+                    ]
+                ])
             ],
             [
                 'module' => 'sales',
@@ -37,6 +60,19 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Revenue',
                 'description' => 'Parent account for sales discounts given to customers',
                 'is_required' => true,
+                'routing_type' => 'cancel',
+                'routing_type_options' => json_encode([
+                    [
+                        'label' => 'Automatic Account Routing',
+                        'description' => 'System automatically routes to the selected parent account',
+                        'value' => 'automatic'
+                    ],
+                    [
+                        'label' => 'Cancel Account Routing',
+                        'description' => 'No account routing - discounts are not posted to accounts',
+                        'value' => 'cancel'
+                    ]
+                ])
             ],
 
             // Purchase Module
@@ -47,6 +83,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Liability',
                 'description' => 'Parent account for all supplier payables',
                 'is_required' => true,
+                'routing_type' => 'automatic',
             ],
             [
                 'module' => 'purchase',
@@ -55,6 +92,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Expense',
                 'description' => 'Parent account for all purchase expenses (including returns as negative entries)',
                 'is_required' => true,
+                'routing_type' => 'automatic',
             ],
             [
                 'module' => 'purchase',
@@ -63,6 +101,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Expense',
                 'description' => 'Parent account for discounts received from suppliers',
                 'is_required' => true,
+                'routing_type' => 'automatic',
             ],
 
             // VAT/Tax Module
@@ -73,6 +112,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Liability',
                 'description' => 'Parent account for VAT collected on sales',
                 'is_required' => true,
+                'routing_type' => 'automatic',
             ],
             [
                 'module' => 'vat',
@@ -81,6 +121,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Asset',
                 'description' => 'Parent account for VAT paid on purchases',
                 'is_required' => true,
+                'routing_type' => 'automatic',
             ],
 
             // Expenses Module
@@ -91,6 +132,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Expense',
                 'description' => 'Parent account for all general expenses',
                 'is_required' => true,
+                'routing_type' => 'automatic',
             ],
         ];
 
@@ -102,6 +144,8 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => $setting['account_type'],
                 'description' => $setting['description'],
                 'is_required' => $setting['is_required'],
+                'routing_type' => $setting['routing_type'],
+                'routing_type_options' => $setting['routing_type_options'] ?? null,
                 'is_active' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
