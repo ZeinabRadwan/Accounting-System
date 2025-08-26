@@ -1,375 +1,387 @@
 <template>
-  <form role="form" @submit.prevent="submitForm" @keydown="form.onKeydown($event)">
-    <div :class="{ 'card-body': showCardBody }">
-      <!-- Account Details Section -->
-      <div class="row">
-        <div class="col-md-6">
-          <h5 class="section-title">{{ $t("Account Details") }}</h5>
-          
-          <div class="form-group">
-            <label for="codeNumber">
-              {{ $t("Code Number") }}
-              <i class="fas fa-question-circle text-muted ml-1" :title="$t('Auto-generated unique identifier for the client')"></i>
-            </label>
-            <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control" 
-              :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
-              :placeholder="$t('Loading...')" disabled />
-            <small class="form-text text-muted">
-              {{ $t("This code number is automatically generated and cannot be changed") }}
-            </small>
-            <has-error :form="form" field="codeNumber" />
+  <div :class="{ 'card-body': showCardBody }">
+    <!-- Client Details Section - Now First -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-user-circle mr-2"></i>
+              {{ $t("Client Details") }}
+            </h5>
           </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="codeNumber">
+                {{ $t("Code Number") }}
+                <i class="fas fa-question-circle text-muted ml-1" :title="$t('Auto-generated unique identifier for the client')"></i>
+              </label>
+              <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control" 
+                :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
+                :placeholder="$t('Loading...')" disabled />
+              <small class="form-text text-muted">
+                {{ $t("This code number is automatically generated and cannot be changed") }}
+              </small>
+              <has-error :form="form" field="codeNumber" />
+            </div>
 
-          <div class="form-group">
-            <label for="displayLanguage">{{ $t("Display Language") }}</label>
-            <select id="displayLanguage" v-model="form.displayLanguage" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('displayLanguage') }">
-              <option value="">{{ $t("Select Language") }}</option>
-              <option value="en">{{ $t("English") }}</option>
-              <option value="ar">{{ $t("Arabic") }}</option>
-            </select>
-            <has-error :form="form" field="displayLanguage" />
+            <div class="form-group">
+              <label>{{ $t("Client Type") }}</label>
+              <div class="radio-group">
+                <label class="radio-inline">
+                  <input type="radio" v-model="form.type" value="Individual" />
+                  {{ $t("Individual") }}
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" v-model="form.type" value="Company" />
+                  {{ $t("Business") }}
+                </label>
+              </div>
+              <has-error :form="form" field="type" />
+            </div>
+
+            <!-- Individual Client Fields -->
+            <div v-if="form.type === 'Individual'">
+              <div class="form-group">
+                <label for="fullName">
+                  {{ $t("Full Name") }} <span class="required">*</span>
+                </label>
+                <input id="fullName" v-model="form.fullName" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('fullName') }" name="fullName"
+                  :placeholder="$t('Enter full name')" />
+                <has-error :form="form" field="fullName" />
+              </div>
+            </div>
+
+            <!-- Business Client Fields -->
+            <div v-if="form.type === 'Company'">
+              <div class="form-group">
+                <label for="businessName">
+                  {{ $t("Business Name") }} <span class="required">*</span>
+                </label>
+                <input id="businessName" v-model="form.businessName" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
+                  :placeholder="$t('Enter business name')" />
+                <has-error :form="form" field="businessName" />
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="firstName">{{ $t("First Name") }}</label>
+                  <input id="firstName" v-model="form.firstName" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('firstName') }" name="firstName"
+                    :placeholder="$t('Enter first name')" />
+                  <has-error :form="form" field="firstName" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lastName">{{ $t("Last Name") }}</label>
+                  <input id="lastName" v-model="form.lastName" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('lastName') }" name="lastName"
+                    :placeholder="$t('Enter last name')" />
+                  <has-error :form="form" field="lastName" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="phone">{{ $t("Telephone") }}</label>
+                <input id="phone" v-model="form.phone" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('phone') }" name="phone"
+                  :placeholder="$t('Enter telephone number')" />
+                <has-error :form="form" field="phone" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="phoneNumber" class="required-field">
+                  {{ $t("Mobile") }} <span class="required">*</span>
+                </label>
+                <input 
+                  id="phoneNumber"
+                  v-model="form.phoneNumber"
+                  type="tel"
+                  class="form-control required-input"
+                  :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
+                  name="phoneNumber"
+                  :placeholder="$t('Enter mobile number (required)')" />
+                <has-error :form="form" field="phoneNumber" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">{{ $t("Email") }}</label>
+              <input id="email" v-model="form.email" type="email" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('email') }" name="email"
+                :placeholder="$t('Enter your email address')" />
+              <has-error :form="form" field="email" />
+            </div>
           </div>
+        </div>
+      </div>
 
-          <div class="form-group">
-            <label for="status">{{ $t("Status") }}</label>
-            <select id="status" v-model="form.status" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('status') }">
-              <option value="1">{{ $t("Active") }}</option>
-              <option value="0">{{ $t("Inactive") }}</option>
-            </select>
-            <has-error :form="form" field="status" />
+      <!-- Account Details Section - Now Second -->
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-cog mr-2"></i>
+              {{ $t("Account Details") }}
+            </h5>
           </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="displayLanguage">{{ $t("Display Language") }}</label>
+              <select id="displayLanguage" v-model="form.displayLanguage" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('displayLanguage') }">
+                <option value="">{{ $t("Select Language") }}</option>
+                <option value="en">{{ $t("English") }}</option>
+                <option value="ar">{{ $t("Arabic") }}</option>
+              </select>
+              <has-error :form="form" field="displayLanguage" />
+            </div>
 
+            <div class="form-group">
+              <label for="status">{{ $t("Status") }}</label>
+              <select id="status" v-model="form.status" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('status') }">
+                <option value="1">{{ $t("Active") }}</option>
+                <option value="0">{{ $t("Inactive") }}</option>
+              </select>
+              <has-error :form="form" field="status" />
+            </div>
 
-           <!-- Representatives Section - Only for Company type -->
-           <div v-if="form.type === 'Company'" class="mt-4">
-            <h6 class="section-subtitle">{{ $t("Representatives") }}</h6> 
+            <div class="form-group">
+              <label for="image">{{ $t("Profile Image") }}</label>
+              <div class="custom-file">
+                <input id="image" type="file" class="custom-file-input" name="image"
+                  :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" accept="image/*" />
+                <label class="custom-file-label" for="image">
+                  <i class="fas fa-image mr-2"></i>
+                  {{ $t("Choose file") }}
+                </label>
+              </div>
+              <has-error :form="form" field="image" />
+              <div class="image-preview mt-2" v-if="url">
+                <img :src="url" class="img-fluid rounded" :alt="$t('Profile Image')" style="max-height: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Representative Info Section -->
+    <div class="row mt-4" v-if="form.type === 'Company'">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-users mr-2"></i>
+              {{ $t("Client Representative Info") }}
+            </h5>
+          </div>
+          <div class="card-body">
             <RepresentativesList 
               :representatives="form.representatives || []"
               @representatives-changed="handleRepresentativesChanged"
             />
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Client Details Section -->
-        <div class="col-md-6">
-          <h5 class="section-title">{{ $t("Client Details") }}</h5>
-          
-          <div class="form-group">
-            <label>{{ $t("Client Type") }}</label>
-            <div class="radio-group">
-              <label class="radio-inline">
-                <input type="radio" v-model="form.type" value="Individual" />
-                {{ $t("Individual") }}
-              </label>
-              <label class="radio-inline">
-                <input type="radio" v-model="form.type" value="Company" />
-                {{ $t("Business") }}
-              </label>
-            </div>
-            <has-error :form="form" field="type" />
+    <!-- Address Section -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              {{ $t("Address Information") }}
+            </h5>
           </div>
+          <div class="card-body">
+        
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="country">{{ $t("Country") }}</label>
+            <select id="country" v-model="form.country" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('country') }">
+              <option value="">{{ $t("Select Country") }}</option>
+              <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
+              <option value="EG">{{ $t("Egypt (EG)") }}</option>
+              <option value="US">{{ $t("United States (US)") }}</option>
+              <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
+            </select>
+            <has-error :form="form" field="country" />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="state">{{ $t("State") }}</label>
+            <input id="state" v-model="form.state" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('state') }" name="state"
+              :placeholder="$t('Enter state')" />
+            <has-error :form="form" field="state" />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="city">{{ $t("City") }}</label>
+            <input id="city" v-model="form.city" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('city') }" name="city"
+              :placeholder="$t('Enter city')" />
+            <has-error :form="form" field="city" />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+            <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
+              :placeholder="$t('Enter neighbourhood')" />
+            <has-error :form="form" field="neighbourhood" />
+          </div>
+        </div>
 
-          <!-- Individual Client Fields -->
-          <div v-if="form.type === 'Individual'">
+        <div class="form-group">
+          <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
+          <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
+            :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
+            :placeholder="$t('Enter street address')" />
+          <has-error :form="form" field="streetAddress1" />
+        </div>
+
+        <div class="form-group">
+          <label for="streetAddress2">{{ $t("Street Address 2") }}</label>
+          <input id="streetAddress2" v-model="form.streetAddress2" type="text" class="form-control"
+            :class="{ 'is-invalid': form.errors.has('streetAddress2') }" name="streetAddress2"
+            :placeholder="$t('Enter additional address info')" />
+          <has-error :form="form" field="streetAddress2" />
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="postalCode">{{ $t("Postal Code") }}</label>
+            <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
+              :placeholder="$t('Enter postal code')" />
+            <has-error :form="form" field="postalCode" />
+          </div>
+        </div>
+
+        <!-- Business-specific fields -->
+        <div v-if="form.type === 'Company'" class="row">
+          <div class="form-group col-md-6">
+              <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
+            <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
+              :placeholder="$t('Enter commercial register number')" />
+            <has-error :form="form" field="commercialRegister" />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
+            <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
+              :placeholder="$t('Enter tax ID number')" />
+            <has-error :form="form" field="taxCard" />
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Fields Section -->
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-info-circle mr-2"></i>
+              {{ $t("Additional Information") }}
+            </h5>
+          </div>
+          <div class="card-body">
             <div class="form-group">
-              <label for="fullName">
-                {{ $t("Full Name") }} <span class="required">*</span>
-              </label>
-              <input id="fullName" v-model="form.fullName" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('fullName') }" name="fullName"
-                :placeholder="$t('Enter full name')" />
-              <has-error :form="form" field="fullName" />
+              <label for="notes">{{ $t("Notes") }}</label>
+              <textarea id="notes" v-model="form.notes" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('notes') }" rows="3"
+                :placeholder="$t('Enter additional notes')" />
+              <has-error :form="form" field="notes" />
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Business Client Fields -->
-          <div v-if="form.type === 'Company'">
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-file-alt mr-2"></i>
+              {{ $t("Documents & Settings") }}
+            </h5>
+          </div>
+          <div class="card-body">
             <div class="form-group">
-              <label for="businessName">
-                {{ $t("Business Name") }} <span class="required">*</span>
-              </label>
-              <input id="businessName" v-model="form.businessName" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
-                :placeholder="$t('Enter business name')" />
-              <has-error :form="form" field="businessName" />
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="firstName">{{ $t("First Name") }}</label>
-                <input id="firstName" v-model="form.firstName" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('firstName') }" name="firstName"
-                  :placeholder="$t('Enter first name')" />
-                <has-error :form="form" field="firstName" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="lastName">{{ $t("Last Name") }}</label>
-                <input id="lastName" v-model="form.lastName" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('lastName') }" name="lastName"
-                  :placeholder="$t('Enter last name')" />
-                <has-error :form="form" field="lastName" />
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label for="phone">{{ $t("Telephone") }}</label>
-              <input id="phone" v-model="form.phone" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('phone') }" name="phone"
-                :placeholder="$t('Enter telephone number')" />
-              <has-error :form="form" field="phone" />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="phoneNumber" class="required-field">
-                {{ $t("Mobile") }} <span class="required">*</span>
-              </label>
-              <input 
-                id="phoneNumber"
-                v-model="form.phoneNumber"
-                type="tel"
-                class="form-control required-input"
-                :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
-                name="phoneNumber"
-                :placeholder="$t('Enter mobile number (required)')" />
-              <has-error :form="form" field="phoneNumber" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">{{ $t("Email") }}</label>
-            <input id="email" v-model="form.email" type="email" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('email') }" name="email"
-              :placeholder="$t('Enter your email address')" />
-            <has-error :form="form" field="email" />
-          </div>
-
-         
-        </div>
-      </div>
-
-      <!-- Address Section -->
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <h5 class="section-title">{{ $t("Address Information") }}</h5>
-          
-          <div class="row">
-            <div class="form-group col-md-3">
-              <label for="country">{{ $t("Country") }}</label>
-              <select id="country" v-model="form.country" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('country') }">
-                <option value="">{{ $t("Select Country") }}</option>
-                <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
-                <option value="EG">{{ $t("Egypt (EG)") }}</option>
-                <option value="US">{{ $t("United States (US)") }}</option>
-                <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
-              </select>
-              <has-error :form="form" field="country" />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="state">{{ $t("State") }}</label>
-              <input id="state" v-model="form.state" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('state') }" name="state"
-                :placeholder="$t('Enter state')" />
-              <has-error :form="form" field="state" />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="city">{{ $t("City") }}</label>
-              <input id="city" v-model="form.city" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('city') }" name="city"
-                :placeholder="$t('Enter city')" />
-              <has-error :form="form" field="city" />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
-              <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
-                :placeholder="$t('Enter neighbourhood')" />
-              <has-error :form="form" field="neighbourhood" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
-            <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
-              :placeholder="$t('Enter street address')" />
-            <has-error :form="form" field="streetAddress1" />
-          </div>
-
-          <div class="form-group">
-            <label for="streetAddress2">{{ $t("Street Address 2") }}</label>
-            <input id="streetAddress2" v-model="form.streetAddress2" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('streetAddress2') }" name="streetAddress2"
-              :placeholder="$t('Enter additional address info')" />
-            <has-error :form="form" field="streetAddress2" />
-          </div>
-
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label for="postalCode">{{ $t("Postal Code") }}</label>
-              <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
-                :placeholder="$t('Enter postal code')" />
-              <has-error :form="form" field="postalCode" />
-            </div>
-          </div>
-
-          <!-- Business-specific fields -->
-          <div v-if="form.type === 'Company'" class="row">
-            <div class="form-group col-md-6">
-                <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
-              <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
-                :placeholder="$t('Enter commercial register number')" />
-              <has-error :form="form" field="commercialRegister" />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
-              <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
-                :placeholder="$t('Enter tax ID number')" />
-              <has-error :form="form" field="taxCard" />
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Additional Fields Section -->
-      <div class="row mt-4">
-        <div class="col-md-6">
-          <h5 class="section-title">{{ $t("Additional Information") }}</h5>
-          
-          <div class="form-group">
-            <label for="notes">{{ $t("Notes") }}</label>
-            <textarea id="notes" v-model="form.notes" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('notes') }" rows="3"
-              :placeholder="$t('Enter additional notes')" />
-            <has-error :form="form" field="notes" />
-          </div>
-
-          <div class="form-group">
-            <label for="image">{{ $t("Profile Image") }}</label>
-            <div class="custom-file">
-              <input id="image" type="file" class="custom-file-input" name="image"
-                :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" accept="image/*" />
-              <label class="custom-file-label" for="image">
-                <i class="fas fa-image mr-2"></i>
-                {{ $t("Choose file") }}
-              </label>
-            </div>
-            <has-error :form="form" field="image" />
-            <div class="image-preview mt-2" v-if="url">
-              <img :src="url" class="img-fluid rounded" :alt="$t('Profile Image')" style="max-height: 100px;" />
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <h5 class="section-title">{{ $t("Documents & Settings") }}</h5>
-          
-          <div class="form-group">
-            <label for="attachments">{{ $t("Attachments") }}</label>
-            <div class="file-upload-area">
-              <input id="attachments" type="file" class="file-input" name="attachments"
-                :class="{ 'is-invalid': form.errors.has('attachments') }" @change="onFileChange" multiple 
-                accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif" />
-              <div class="file-upload-content">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>{{ $t("Drop files here or click to browse") }}</p>
-                <small class="text-muted">{{ $t("Supported formats: PDF, DOC, XLS, TXT, Images") }}</small>
-              </div>
-            </div>
-            <has-error :form="form" field="attachments" />
-            
-            <!-- Show selected files -->
-            <div class="selected-files mt-2" v-if="form.attachments && form.attachments.length > 0">
-              <div class="selected-file-item" v-for="(file, index) in form.attachments" :key="index">
-                <i class="fas fa-file mr-2"></i>
-                <span>{{ file.name }}</span>
-                <button type="button" @click="removeFile(index)" class="btn btn-sm btn-outline-danger ml-2">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chart of Account Section -->
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <h5 class="section-title">{{ $t("Chart of Account") }}</h5>
-          
-
-          
-                     <!-- Routing Type Info -->
-           <div v-if="routingSetting" class="alert alert-info">
-             <i class="fas fa-info-circle mr-2"></i>
-             <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
-             <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
-           </div>
-
-           <!-- Auto-creation note for new clients -->
-           <div v-if="isNewClient && routingSetting && routingSetting.routing_type !== 'automatic'" class="alert alert-warning">
-             <i class="fas fa-lightbulb mr-2"></i>
-             <strong>{{ $t("Note for New Clients") }}:</strong> 
-             {{ $t("If you don't select a chart of account, one will be automatically created with the client name when you save the client.") }}
-           </div>
-
-          <!-- Automatic Account Routing - No dropdown needed -->
-          <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
-            <i class="fas fa-check-circle mr-2"></i>
-            {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
-          </div>
-
-                                                                    <!-- Specify Per Each - Show dropdown and create button -->
-              <div v-if="routingSetting && routingSetting.routing_type === 'per_each'" class="chart-of-account-field">
-                <div class="form-group">
-                  <label for="chartOfAccountId">
-                    {{ $t("Select Chart of Account") }} <span class="required">*</span>
-                  </label>
-                  <VSelect 
-                    v-model="form.chartOfAccountId" 
-                    :options="chartOfAccounts" 
-                    :reduce="option => option.id"
-                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                    :placeholder="$t('Select an account')"
-                    :searchable="true"
-                    :clearable="true"
-                  >
-                    <template #option="{ name, code, type }">
-                      <div class="account-option">
-                        <span class="account-name">{{ name }}</span>
-                        <span class="account-code">{{ code }}</span>
-                        <span class="account-type">{{ type }}</span>
-                      </div>
-                    </template>
-                    <template #selected-option="{ name }">
-                      <span class="selected-account-name">{{ name }}</span>
-                    </template>
-                  </VSelect>
-                  <has-error :form="form" field="chartOfAccountId" />
-                  <small class="form-text text-muted">
-                    {{ $t("Select a chart of account for this client. The account will be created without any parent.") }}
-                  </small>
-                  
-                  <!-- Create New Account Button - Positioned below the select -->
-                  <div class="mt-3" v-if="!isNewClient">
-                    <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
-                      <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
-                      <i v-else class="fas fa-plus mr-2"></i>
-                      {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
-                    </button>
-                  </div>
+              <label for="attachments">{{ $t("Attachments") }}</label>
+              <div class="file-upload-area">
+                <input id="attachments" type="file" class="file-input" name="attachments"
+                  :class="{ 'is-invalid': form.errors.has('attachments') }" @change="onFileChange" multiple 
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif" />
+                <div class="file-upload-content">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>{{ $t("Drop files here or click to browse") }}</p>
+                  <small class="text-muted">{{ $t("Supported formats: PDF, DOC, XLS, TXT, Images") }}</small>
                 </div>
               </div>
+              <has-error :form="form" field="attachments" />
+              
+              <!-- Show selected files -->
+              <div class="selected-files mt-2" v-if="form.attachments && form.attachments.length > 0">
+                <div class="selected-file-item" v-for="(file, index) in form.attachments" :key="index">
+                  <i class="fas fa-file mr-2"></i>
+                  <span>{{ file.name }}</span>
+                  <button type="button" @click="removeFile(index)" class="btn btn-sm btn-outline-danger ml-2">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                                           <!-- Specify Main Account Per Each - Show dropdown and create button -->
-            <div v-if="routingSetting && routingSetting.routing_type === 'main_account_per_each'" class="chart-of-account-field">
+    <!-- Chart of Account Section -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-chart-line mr-2"></i>
+              {{ $t("Chart of Account") }}
+            </h5>
+          </div>
+          <div class="card-body">
+        
+
+        
+                     <!-- Routing Type Info -->
+         <div v-if="routingSetting" class="alert alert-info">
+           <i class="fas fa-info-circle mr-2"></i>
+           <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
+           <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
+         </div>
+
+         <!-- Auto-creation note for new clients -->
+         <div v-if="isNewClient && routingSetting && routingSetting.routing_type !== 'automatic'" class="alert alert-warning">
+           <i class="fas fa-lightbulb mr-2"></i>
+           <strong>{{ $t("Note for New Clients") }}:</strong> 
+           {{ $t("If you don't select a chart of account, one will be automatically created with the client name when you save the client.") }}
+         </div>
+
+        <!-- Automatic Account Routing - No dropdown needed -->
+        <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
+          <i class="fas fa-check-circle mr-2"></i>
+          {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
+        </div>
+
+                                                                        <!-- Specify Per Each - Show dropdown and create button -->
+            <div v-if="routingSetting && routingSetting.routing_type === 'per_each'" class="chart-of-account-field">
               <div class="form-group">
                 <label for="chartOfAccountId">
                   {{ $t("Select Chart of Account") }} <span class="required">*</span>
@@ -396,7 +408,7 @@
                 </VSelect>
                 <has-error :form="form" field="chartOfAccountId" />
                 <small class="form-text text-muted">
-                  {{ $t("Select a chart of account for this client. The account will be created under the main client account.") }}
+                  {{ $t("Select a chart of account for this client. The account will be created without any parent.") }}
                 </small>
                 
                 <!-- Create New Account Button - Positioned below the select -->
@@ -410,45 +422,96 @@
               </div>
             </div>
 
-          <!-- Loading state -->
-          <div v-if="loadingChartOfAccounts" class="text-center py-3">
-            <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">{{ $t("Loading...") }}</span>
+                                           <!-- Specify Main Account Per Each - Show dropdown and create button -->
+          <div v-if="routingSetting && routingSetting.routing_type === 'main_account_per_each'" class="chart-of-account-field">
+            <div class="form-group">
+              <label for="chartOfAccountId">
+                {{ $t("Select Chart of Account") }} <span class="required">*</span>
+              </label>
+              <VSelect 
+                v-model="form.chartOfAccountId" 
+                :options="chartOfAccounts" 
+                :reduce="option => option.id"
+                :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                :placeholder="$t('Select an account')"
+                :searchable="true"
+                :clearable="true"
+              >
+                <template #option="{ name, code, type }">
+                  <div class="account-option">
+                    <span class="account-name">{{ name }}</span>
+                    <span class="account-code">{{ code }}</span>
+                    <span class="account-type">{{ type }}</span>
+                  </div>
+                </template>
+                <template #selected-option="{ name }">
+                  <span class="selected-account-name">{{ name }}</span>
+                </template>
+              </VSelect>
+              <has-error :form="form" field="chartOfAccountId" />
+              <small class="form-text text-muted">
+                {{ $t("Select a chart of account for this client. The account will be created under the main client account.") }}
+              </small>
+              
+              <!-- Create New Account Button - Positioned below the select -->
+              <div class="mt-3" v-if="!isNewClient">
+                <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
+                  <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
+                  <i v-else class="fas fa-plus mr-2"></i>
+                  {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
+                </button>
+              </div>
             </div>
-            <p class="mt-2">{{ $t("Loading chart of accounts...") }}</p>
           </div>
 
-          <!-- Error state -->
-          <div v-if="chartOfAccountsError" class="alert alert-danger">
-            <i class="fas fa-exclamation-triangle mr-2"></i>
-            {{ chartOfAccountsError }}
+        <!-- Loading state -->
+        <div v-if="loadingChartOfAccounts" class="text-center py-3">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">{{ $t("Loading...") }}</span>
+          </div>
+          <p class="mt-2">{{ $t("Loading chart of accounts...") }}</p>
+        </div>
+
+        <!-- Error state -->
+        <div v-if="chartOfAccountsError" class="alert alert-danger">
+          <i class="fas fa-exclamation-triangle mr-2"></i>
+          {{ chartOfAccountsError }}
+        </div>
           </div>
         </div>
       </div>
-
-      <!-- Toggle Buttons Section -->
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <h5 class="section-title">{{ $t("Communication Preferences") }}</h5>
-          <div class="row">
-            <div class="form-group col-md-6">
-              <div class="d-flex align-items-center">
-                <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
-                <span class="ml-3">{{ $t("Send Welcome Email") }}</span>
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <div class="d-flex align-items-center">
-                <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
-                <span class="ml-3">{{ $t("Send Welcome SMS") }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </form>
+
+    <!-- Toggle Buttons Section -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-bell mr-2"></i>
+              {{ $t("Communication Preferences") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+          <div class="form-group col-md-6">
+            <div class="d-flex align-items-center">
+              <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
+              <span class="ml-3">{{ $t("Send Welcome Email") }}</span>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <div class="d-flex align-items-center">
+              <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
+              <span class="ml-3">{{ $t("Send Welcome SMS") }}</span>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -456,6 +519,7 @@ import Form from "vform";
 import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
+import VSelect from "vue-select";
 
 import axios from 'axios';
 
@@ -465,6 +529,7 @@ export default {
     VueTelInput,
     ToggleButton,
     RepresentativesList,
+    VSelect,
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -782,13 +847,6 @@ export default {
     // Validate form
     async validateForm() {
       console.log('=== VALIDATING FORM ===');
-      console.log('Phone number in validation:', this.form.phoneNumber);
-      console.log('Phone number length:', this.form.phoneNumber ? this.form.phoneNumber.length : 'undefined');
-      console.log('Form type:', this.form.type);
-      console.log('Business name:', this.form.businessName);
-      console.log('Full name:', this.form.fullName);
-      console.log('Routing setting:', this.routingSetting);
-      console.log('Chart of account ID:', this.form.chartOfAccountId);
       
       // Basic validation - check if form exists
       if (!this.form) {
@@ -875,6 +933,10 @@ export default {
          }
        } else {
          console.log('Skipping chart of account validation - routing type is automatic or not loaded');
+         // If routing settings are not loaded yet, skip validation to avoid blocking form submission
+         if (!this.routingSetting) {
+           console.log('Routing settings not loaded yet, skipping chart of account validation');
+         }
        }
 
        console.log('=== FORM VALIDATION PASSED ===');
@@ -894,7 +956,7 @@ export default {
       
       if (slug && slug !== 'new') {
         try {
-          const apiUrl = `/client/${slug}/representatives`;
+          const apiUrl = `/api/client/${slug}/representatives`;
           console.log('Making API call to:', apiUrl);
           
           const response = await this.$http.get(apiUrl);
@@ -977,6 +1039,120 @@ export default {
       }
     },
 
+    // Submit form
+    async submitForm() {
+      console.log('=== CLIENTFORM SUBMITFORM CALLED ===');
+      console.log('Form object:', this.form);
+      console.log('Form type:', typeof this.form);
+      console.log('Form data method:', this.form ? typeof this.form.data : 'No form');
+      
+      if (!this.form) {
+        console.error('Form is not initialized!');
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Form is not ready"),
+            text: this.$t("Please wait a moment and try again.")
+          });
+        } else {
+          alert(this.$t("Form is not ready. Please wait a moment and try again."));
+        }
+        return;
+      }
+      
+      // Check if form has the required methods
+      if (!this.form.data || typeof this.form.data !== 'function') {
+        console.error('Form data method is not available!');
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Form is not properly initialized"),
+            text: this.$t("Please refresh the page and try again.")
+          });
+        } else {
+          alert(this.$t("Form is not properly initialized. Please refresh the page and try again."));
+        }
+        return;
+      }
+      
+      try {
+        console.log('Validating form...');
+        const isValid = await this.validateForm();
+        console.log('Validation result:', isValid);
+        
+        if (!isValid) {
+          console.log('Form validation failed');
+          return;
+        }
+        
+        console.log('Form validation passed, preparing submit data...');
+        
+        // Map form data to API format
+        const submitData = {
+          // Explicitly include all form fields to ensure they are sent
+          codeNumber: this.form.codeNumber,
+          notes: this.form.notes,
+          displayLanguage: this.form.displayLanguage,
+          status: this.form.status,
+          
+          // Client Details
+          type: this.form.type,
+          fullName: this.form.fullName,
+          businessName: this.form.businessName,
+          firstName: this.form.firstName,
+          lastName: this.form.lastName,
+          phone: this.form.phone,
+          phoneNumber: this.form.phoneNumber, // Explicitly include phone number
+          email: this.form.email,
+          streetAddress1: this.form.streetAddress1,
+          streetAddress2: this.form.streetAddress2,
+          city: this.form.city,
+          state: this.form.state,
+          postalCode: this.form.postalCode,
+          country: this.form.country,
+          neighbourhood: this.form.neighbourhood,
+          commercialRegister: this.form.commercialRegister,
+          taxCard: this.form.taxCard,
+          
+          // Additional Fields
+          image: this.form.image,
+          attachments: this.form.attachments,
+          isSendEmail: this.form.isSendEmail,
+          isSendSMS: this.form.isSendSMS,
+          
+          // Map legacy fields for backward compatibility
+          name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
+          companyName: this.form.businessName,
+          taxRegistrationNumber: this.form.taxCard,
+          address: this.form.streetAddress1,
+          
+          // Include representatives data
+          representatives: this.form.representatives || [],
+          
+          // Chart of Account
+          chartOfAccountId: this.form.chartOfAccountId,
+        };
+        
+        console.log('Emitting submit event with data...');
+        
+        // Emit submit event with form data
+        this.$emit('submit', submitData);
+        
+        console.log('Submit event emitted successfully');
+      } catch (error) {
+        console.error('Error in submitForm:', error);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Error submitting form"),
+            text: error.message || 'Unknown error occurred'
+          });
+        } else {
+          alert(`Error submitting form: ${error.message || 'Unknown error occurred'}`);
+        }
+      }
+    },
+
     // Create new chart of account
     async createNewAccount() {
       try {
@@ -1005,74 +1181,57 @@ export default {
       }
     },
 
-    // Submit form
-    async submitForm() {
-      console.log('SubmitForm called, form data:', this.form.data());
-      console.log('Phone number value:', this.form.phoneNumber);
-      console.log('Phone number type:', typeof this.form.phoneNumber);
-      
-      if (!this.validateForm()) {
-        console.log('Form validation failed');
-        return;
-      }
-      
-      // Map form data to API format
-      const submitData = {
-        // Explicitly include all form fields to ensure they are sent
-        codeNumber: this.form.codeNumber,
-        notes: this.form.notes,
-        displayLanguage: this.form.displayLanguage,
-        status: this.form.status,
-        
-        // Client Details
-        type: this.form.type,
-        fullName: this.form.fullName,
-        businessName: this.form.businessName,
-        firstName: this.form.firstName,
-        lastName: this.form.lastName,
-        phone: this.form.phone,
-        phoneNumber: this.form.phoneNumber, // Explicitly include phone number
-        email: this.form.email,
-        streetAddress1: this.form.streetAddress1,
-        streetAddress2: this.form.streetAddress2,
-        city: this.form.city,
-        state: this.form.state,
-        postalCode: this.form.postalCode,
-        country: this.form.country,
-        neighbourhood: this.form.neighbourhood,
-        commercialRegister: this.form.commercialRegister,
-        taxCard: this.form.taxCard,
-        
-        // Additional Fields
-        image: this.form.image,
-        attachments: this.form.attachments,
-        isSendEmail: this.form.isSendEmail,
-        isSendSMS: this.form.isSendSMS,
-        
-        // Map legacy fields for backward compatibility
-        name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
-        companyName: this.form.businessName,
-        taxRegistrationNumber: this.form.taxCard,
-        address: this.form.streetAddress1,
-        
-        // Include representatives data
-        representatives: this.form.representatives || [],
-      };
-      
-      console.log('Final submit data:', submitData);
-      
-      // Emit submit event with form data
-      this.$emit('submit', submitData);
-    },
-
   },
 };
 </script>
 
 
 <style scoped>
+/* Form Card Styling */
+.form-card {
+  background: #ffffff;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
 
+.form-card:hover {
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.25);
+  transform: translateY(-2px);
+}
 
+.form-card .card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  border-bottom: none;
+}
+
+.form-card .card-header .section-title {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  padding: 0;
+}
+
+.form-card .card-header .section-title::after {
+  display: none;
+}
+
+.form-card .card-header .section-title i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.form-card .card-body {
+  padding: 1.5rem;
+}
+
+/* Enhanced Section Title Styling */
 .section-title {
   color: #495057;
   font-weight: 600;

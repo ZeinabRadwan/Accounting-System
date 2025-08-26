@@ -1,25 +1,16 @@
 <template>
-  <div>
-    <!-- Debug section -->
-    <div v-if="form" class="alert alert-info mb-3">
-      <strong>Debug Info:</strong><br>
-      Form initialized: {{ !!form }}<br>
-      Code Number: {{ form.codeNumber }}<br>
-      Type: {{ form.type }}<br>
-      Email: {{ form.email }}<br>
-      Full Name: {{ form.fullName }}<br>
-      Business Name: {{ form.businessName }}<br>
-      Phone: {{ form.phoneNumber }}
-    </div>
-    
-    <!-- Card Body Wrapper (for create page) -->
-    <div v-if="showCardBody" class="card-body">
-      <form role="form" @submit.prevent="submitForm" @keydown="form.onKeydown($event)">
-        <div class="row">
-          <!-- Account Details Section -->
-          <div class="col-md-6">
-            <h5 class="section-title">{{ $t("Account Details") }}</h5>
-            
+  <div :class="{ 'card-body': showCardBody }">
+    <!-- Supplier Details Section - Now First -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-user-circle mr-2"></i>
+              {{ $t("Supplier Details") }}
+            </h5>
+          </div>
+          <div class="card-body">
             <div class="form-group">
               <label for="codeNumber">
                 {{ $t("Code Number") }}
@@ -34,39 +25,6 @@
               <has-error :form="form" field="codeNumber" />
             </div>
 
-            <div class="form-group">
-              <label for="notes">{{ $t("Notes") }}</label>
-              <textarea id="notes" v-model="form.notes" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('notes') }" :placeholder="$t('Enter additional notes')" rows="3" />
-              <has-error :form="form" field="notes" />
-            </div>
-
-            <div class="form-group">
-              <label for="displayLanguage">{{ $t("Display Language") }}</label>
-              <select id="displayLanguage" v-model="form.displayLanguage" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('displayLanguage') }">
-                <option value="">{{ $t("Choose Language") }}</option>
-                <option value="en">{{ $t("English") }}</option>
-                <option value="ar">{{ $t("Arabic") }}</option>
-              </select>
-              <has-error :form="form" field="displayLanguage" />
-            </div>
-
-            <div class="form-group">
-              <label for="status">{{ $t("Status") }}</label>
-              <select id="status" v-model="form.status" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('status') }">
-                <option value="1">{{ $t("Active") }}</option>
-                <option value="0">{{ $t("Inactive") }}</option>
-              </select>
-              <has-error :form="form" field="status" />
-            </div>
-          </div>
-
-          <!-- Supplier Details Section -->
-          <div class="col-md-6">
-            <h5 class="section-title">{{ $t("Supplier Details") }}</h5>
-            
             <div class="form-group">
               <label>{{ $t("Supplier Type") }}</label>
               <div class="radio-group">
@@ -93,6 +51,19 @@
                   :placeholder="$t('Enter full name')" />
                 <has-error :form="form" field="fullName" />
               </div>
+            </div>
+
+            <!-- Business Supplier Fields -->
+            <div v-if="form.type === 'Company'">
+              <div class="form-group">
+                <label for="businessName">
+                  {{ $t("Business Name") }} <span class="required">*</span>
+                </label>
+                <input id="businessName" v-model="form.businessName" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
+                  :placeholder="$t('Enter business name')" />
+                <has-error :form="form" field="businessName" />
+              </div>
 
               <div class="row">
                 <div class="form-group col-md-6">
@@ -112,284 +83,297 @@
               </div>
             </div>
 
-            <!-- Company Supplier Fields -->
-            <div v-if="form.type === 'Company'">
-              <div class="form-group">
-                <label for="businessName">
-                  {{ $t("Business Name") }} <span class="required">*</span>
-                </label>
-                <input id="businessName" v-model="form.businessName" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
-                  :placeholder="$t('Enter business name')" />
-                <has-error :form="form" field="businessName" />
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="phone">{{ $t("Telephone") }}</label>
+                <input id="phone" v-model="form.phone" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('phone') }" name="phone"
+                  :placeholder="$t('Enter telephone number')" />
+                <has-error :form="form" field="phone" />
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="phoneNumber">
-                {{ $t("Phone") }} <span class="required">*</span>
-              </label>
-              <input 
-                id="phoneNumber"
-                v-model="form.phoneNumber"
-                type="tel"
-                class="form-control"
-                :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
-                name="phoneNumber"
-                :placeholder="$t('Enter phone number')" />
-              <has-error :form="form" field="phoneNumber" />
+              <div class="form-group col-md-6">
+                <label for="phoneNumber" class="required-field">
+                  {{ $t("Mobile") }} <span class="required">*</span>
+                </label>
+                <input 
+                  id="phoneNumber"
+                  v-model="form.phoneNumber"
+                  type="tel"
+                  class="form-control required-input"
+                  :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
+                  name="phoneNumber"
+                  :placeholder="$t('Enter mobile number (required)')" />
+                <has-error :form="form" field="phoneNumber" />
+              </div>
             </div>
 
             <div class="form-group">
               <label for="email">{{ $t("Email") }}</label>
               <input id="email" v-model="form.email" type="email" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('email') }" name="email"
-                :placeholder="$t('Enter email address')" />
+                :placeholder="$t('Enter your email address')" />
               <has-error :form="form" field="email" />
             </div>
-
-            <!-- Representatives Section - Only for Company type -->
-            <div v-if="form.type === 'Company'" class="mt-4">
-              <h6 class="section-subtitle">{{ $t("Representatives") }}</h6>
-              
-              <RepresentativesList 
-                :representatives="form.representatives && Array.isArray(form.representatives) ? form.representatives : []"
-                @representatives-changed="handleRepresentativesChanged"
-              />
-            </div>
           </div>
         </div>
+      </div>
 
-        <!-- Address Information Section -->
-        <div class="row">
-          <div class="col-12">
-            <h5 class="section-title">{{ $t("Address Information") }}</h5>
-            
-            <div class="row">
-              
-
-            <div class="row">
-              <div class="form-group col-md-3">
-                <label for="country">{{ $t("Country") }}</label>
-                <select id="country" v-model="form.country" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('country') }">
-                  <option value="">{{ $t("Select Country") }}</option>
-                  <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
-                  <option value="EG">{{ $t("Egypt (EG)") }}</option>
-                  <option value="US">{{ $t("United States (US)") }}</option>
-                  <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
-                </select>
-                <has-error :form="form" field="country" />
-              </div>
-              <div class="form-group col-md-3">
-                <label for="state">{{ $t("State") }}</label>
-                <input id="state" v-model="form.state" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('state') }" name="state"
-                  :placeholder="$t('Enter state')" />
-                <has-error :form="form" field="state" />
-              </div>
-              <div class="form-group col-md-3">
-                <label for="city">{{ $t("City") }}</label>
-                <input id="city" v-model="form.city" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('city') }" name="city"
-                  :placeholder="$t('Enter city')" />
-                <has-error :form="form" field="city" />
-              </div>
-              <div class="form-group col-md-3">
-                <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
-                <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
-                  :placeholder="$t('Enter neighbourhood')" />
-                <has-error :form="form" field="neighbourhood" />
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
-                <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
-                  :placeholder="$t('Enter street address')" />
-                <has-error :form="form" field="streetAddress1" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="streetAddress2">{{ $t("Street Address 2") }}</label>
-                <input id="streetAddress2" v-model="form.streetAddress2" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('streetAddress2') }" name="streetAddress2"
-                  :placeholder="$t('Enter additional address info')" />
-                <has-error :form="form" field="streetAddress2" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="postalCode">{{ $t("Postal Code") }}</label>
-                <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
-                  :placeholder="$t('Enter postal code')" />
-                <has-error :form="form" field="postalCode" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
-                <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
-                  :placeholder="$t('Enter commercial register number')" />
-                <has-error :form="form" field="commercialRegister" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
-                <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
-                  :placeholder="$t('Enter tax ID number')" />
-                <has-error :form="form" field="taxCard" />
-              </div>
-            </div>
+      <!-- Account Details Section - Now Second -->
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-cog mr-2"></i>
+              {{ $t("Account Details") }}
+            </h5>
           </div>
-        </div>
-
-        <!-- Additional Information Section -->
-        <div class="row">
-          <div class="col-12">
-            <h5 class="section-title">{{ $t("Additional Information") }}</h5>
-          </div>
-        </div>
-
-        <!-- Documents & Settings Section -->
-        <div class="row">
-          <div class="col-12">
-            <h5 class="section-title">{{ $t("Documents & Settings") }}</h5>
-            
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="image">{{ $t("Profile Image") }}</label>
-                <div class="custom-file">
-                  <input id="image" type="file" class="custom-file-input" name="image"
-                    :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
-                  <label class="custom-file-label" for="image">{{ $t("Choose file") }}</label>
-                </div>
-                <has-error :form="form" field="image" />
-                <div v-if="url" class="image-preview mt-2">
-                  <img :src="url" class="img-fluid rounded" :alt="$t('Attached Image')" />
-                </div>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="attachments">{{ $t("Attachments") }}</label>
-                <div class="file-upload-area" @click="$refs.attachmentInput.click()">
-                  <div class="upload-content">
-                    <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
-                    <p class="mb-1">{{ $t("Drop files here or click to browse") }}</p>
-                    <small class="text-muted">{{ $t("Supported formats: PDF, DOC, XLS, TXT, Images") }}</small>
-                  </div>
-                  <input
-                    ref="attachmentInput"
-                    type="file"
-                    multiple
-                    @change="onAttachmentChange"
-                    style="display: none"
-                    accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif"
-                  />
-                </div>
-                <has-error :form="form" field="attachments" />
-                
-                <!-- Selected Files Display -->
-                <div v-if="form.attachments && form.attachments.length > 0" class="selected-files mt-2">
-                  <div v-for="(file, index) in form.attachments" :key="index" class="selected-file-item">
-                    <span class="file-name">{{ file.name || file }}</span>
-                    <button type="button" @click="removeFile(index)" class="btn btn-sm btn-danger ml-2">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Communication Preferences Section -->
-        <div class="row">
-          <div class="col-12">
-            <h5 class="section-title">{{ $t("Communication Preferences") }}</h5>
-            
+          <div class="card-body">
             <div class="form-group">
-              <div class="d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
-                  {{ $t("Send Welcome Email") }}
-                </div>
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
-                  {{ $t("Send Welcome SMS") }}
-                </div>
+              <label for="displayLanguage">{{ $t("Display Language") }}</label>
+              <select id="displayLanguage" v-model="form.displayLanguage" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('displayLanguage') }">
+                <option value="">{{ $t("Select Language") }}</option>
+                <option value="en">{{ $t("English") }}</option>
+                <option value="ar">{{ $t("Arabic") }}</option>
+              </select>
+              <has-error :form="form" field="displayLanguage" />
+            </div>
+
+            <div class="form-group">
+              <label for="status">{{ $t("Status") }}</label>
+              <select id="status" v-model="form.status" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('status') }">
+                <option value="1">{{ $t("Active") }}</option>
+                <option value="0">{{ $t("Inactive") }}</option>
+              </select>
+              <has-error :form="form" field="status" />
+            </div>
+
+            <div class="form-group">
+              <label for="image">{{ $t("Profile Image") }}</label>
+              <div class="custom-file">
+                <input id="image" type="file" class="custom-file-input" name="image"
+                  :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" accept="image/*" />
+                <label class="custom-file-label" for="image">
+                  <i class="fas fa-image mr-2"></i>
+                  {{ $t("Choose file") }}
+                </label>
+              </div>
+              <has-error :form="form" field="image" />
+              <div class="image-preview mt-2" v-if="url">
+                <img :src="url" class="img-fluid rounded" :alt="$t('Profile Image')" style="max-height: 100px;" />
               </div>
             </div>
           </div>
         </div>
-
-                <!-- Form Actions - Only show when not in edit mode -->
-        <div v-if="showCardBody && !isEditMode" class="card-footer">
-          <button :disabled="form.busy" class="btn btn-primary" @click="submitForm">
-            <i class="fas fa-save" /> {{ $t("Save") }}
-          </button>
-          <button type="reset" class="btn btn-secondary float-right" @click="resetForm">
-            <i class="fas fa-power-off" /> {{ $t("Reset") }}
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
 
-    <!-- Modal Form (for modals) -->
-    <div v-else>
-      <form role="form" @submit.prevent="submitForm" @keydown="form.onKeydown($event)">
-        <div class="row">
-          <!-- Simplified form for modals -->
-          <div class="form-group col-md-6">
-            <label for="modalName">{{ $t("Name") }} <span class="required">*</span></label>
-            <input id="modalName" v-model="form.name" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-              :placeholder="$t('Enter name')" />
-            <has-error :form="form" field="name" />
+    <!-- Supplier Representative Info Section -->
+    <div class="row mt-4" v-if="form.type === 'Company'">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-users mr-2"></i>
+              {{ $t("Supplier Representative Info") }}
+            </h5>
           </div>
-          <div class="form-group col-md-6">
-            <label for="modalType">{{ $t("Type") }} <span class="required">*</span></label>
-            <select id="modalType" v-model="form.type" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('type') }">
-              <option value="">{{ $t("Select Type") }}</option>
-              <option value="Company">{{ $t("Company") }}</option>
-              <option value="Individual">{{ $t("Individual") }}</option>
-            </select>
-            <has-error :form="form" field="type" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="modalPhone">{{ $t("Phone") }} <span class="required">*</span></label>
-            <input 
-              id="modalPhone"
-              v-model="form.phoneNumber"
-              type="tel"
-              class="form-control"
-              :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
-              name="phoneNumber"
-              :placeholder="$t('Enter phone number')" />
-            <has-error :form="form" field="phoneNumber" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="modalEmail">{{ $t("Email") }}</label>
-            <input id="modalEmail" v-model="form.email" type="email" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('email') }" name="email"
-              :placeholder="$t('Enter email address')" />
-            <has-error :form="form" field="email" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="modalStatus">{{ $t("Status") }}</label>
-            <select id="modalStatus" v-model="form.status" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('status') }">
-              <option value="1">{{ $t("Active") }}</option>
-              <option value="0">{{ $t("Inactive") }}</option>
-            </select>
-            <has-error :form="form" field="status" />
+          <div class="card-body">
+            <RepresentativesList 
+              :representatives="form.representatives || []"
+              @representatives-changed="handleRepresentativesChanged"
+            />
           </div>
         </div>
-      </form>
+      </div>
+    </div>
+
+    <!-- Address Section -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              {{ $t("Address Information") }}
+            </h5>
+          </div>
+          <div class="card-body">
+        
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="country">{{ $t("Country") }}</label>
+            <select id="country" v-model="form.country" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('country') }">
+              <option value="">{{ $t("Select Country") }}</option>
+              <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
+              <option value="EG">{{ $t("Egypt (EG)") }}</option>
+              <option value="US">{{ $t("United States (US)") }}</option>
+              <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
+            </select>
+            <has-error :form="form" field="country" />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="state">{{ $t("State") }}</label>
+            <input id="state" v-model="form.state" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('state') }" name="state"
+              :placeholder="$t('Enter state')" />
+            <has-error :form="form" field="state" />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="city">{{ $t("City") }}</label>
+            <input id="city" v-model="form.city" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('city') }" name="city"
+              :placeholder="$t('Enter city')" />
+            <has-error :form="form" field="city" />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+            <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
+              :placeholder="$t('Enter neighbourhood')" />
+            <has-error :form="form" field="neighbourhood" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
+          <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
+            :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
+            :placeholder="$t('Enter street address')" />
+          <has-error :form="form" field="streetAddress1" />
+        </div>
+
+        <div class="form-group">
+          <label for="streetAddress2">{{ $t("Street Address 2") }}</label>
+          <input id="streetAddress2" v-model="form.streetAddress2" type="text" class="form-control"
+            :class="{ 'is-invalid': form.errors.has('streetAddress2') }" name="streetAddress2"
+            :placeholder="$t('Enter additional address info')" />
+          <has-error :form="form" field="streetAddress2" />
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="postalCode">{{ $t("Postal Code") }}</label>
+            <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
+              :placeholder="$t('Enter postal code')" />
+            <has-error :form="form" field="postalCode" />
+          </div>
+        </div>
+
+        <!-- Business-specific fields -->
+        <div v-if="form.type === 'Company'" class="row">
+          <div class="form-group col-md-6">
+              <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
+            <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
+              :placeholder="$t('Enter commercial register number')" />
+            <has-error :form="form" field="commercialRegister" />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
+            <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
+              :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
+              :placeholder="$t('Enter tax ID number')" />
+            <has-error :form="form" field="taxCard" />
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Fields Section -->
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-info-circle mr-2"></i>
+              {{ $t("Additional Information") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="notes">{{ $t("Notes") }}</label>
+              <textarea id="notes" v-model="form.notes" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('notes') }" rows="3"
+                :placeholder="$t('Enter additional notes')" />
+              <has-error :form="form" field="notes" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-file-alt mr-2"></i>
+              {{ $t("Documents & Settings") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="attachments">{{ $t("Attachments") }}</label>
+              <div class="file-upload-area">
+                <input id="attachments" type="file" class="file-input" name="attachments"
+                  :class="{ 'is-invalid': form.errors.has('attachments') }" @change="onFileChange" multiple 
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif" />
+                <div class="file-upload-content">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>{{ $t("Drop files here or click to browse") }}</p>
+                  <small class="text-muted">{{ $t("Supported formats: PDF, DOC, XLS, TXT, Images") }}</small>
+                </div>
+              </div>
+              <has-error :form="form" field="attachments" />
+              
+              <!-- Show selected files -->
+              <div class="selected-files mt-2" v-if="form.attachments && form.attachments.length > 0">
+                <div class="selected-file-item" v-for="(file, index) in form.attachments" :key="index">
+                  <i class="fas fa-file mr-2"></i>
+                  <span>{{ file.name }}</span>
+                  <button type="button" @click="removeFile(index)" class="btn btn-sm btn-outline-danger ml-2">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggle Buttons Section -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-bell mr-2"></i>
+              {{ $t("Communication Preferences") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+          <div class="form-group col-md-6">
+            <div class="d-flex align-items-center">
+              <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
+              <span class="ml-3">{{ $t("Send Welcome Email") }}</span>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <div class="d-flex align-items-center">
+              <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
+              <span class="ml-3">{{ $t("Send Welcome SMS") }}</span>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -511,6 +495,7 @@ export default {
         businessName: "",
         firstName: "",
         lastName: "",
+        phone: "",
         phoneNumber: "",
         email: "",
         streetAddress1: "",
@@ -534,6 +519,7 @@ export default {
         name: "",
         companyName: "",
         taxRegistrationNumber: "",
+        address: "",
         
         // Representatives
         representatives: [],
@@ -571,25 +557,66 @@ export default {
 
     // vue file upload
     onFileChange(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      if (
-        file.size < 2111775 &&
-        (file.type === "image/jpeg" ||
-          file.type === "image/png" ||
-          file.type === "image/gif")
-      ) {
-        reader.onloadend = () => {
-          this.form.image = reader.result;
-        };
-        reader.readAsDataURL(file);
-        this.url = URL.createObjectURL(file);
-      } else {
-        Swal.fire(
-          this.$t("Error!"),
-          this.$t("Please select a valid image file"),
-          "error"
-        );
+      const files = Array.from(e.target.files);
+      const validFiles = [];
+      
+      files.forEach(file => {
+        // Check file size (2MB limit)
+        if (file.size < 2111775) {
+          // For image, only allow image files
+          if (e.target.id === 'image') {
+            if (file.type.startsWith('image/')) {
+              validFiles.push(file);
+            } else {
+              Swal.fire(
+                this.$t("Error!"),
+                this.$t("Please select a valid image file"),
+                "error"
+              );
+            }
+          } else {
+            // For attachments, allow various document types
+            const allowedTypes = [
+              'application/pdf',
+              'application/msword',
+              'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+              'application/vnd.ms-excel',
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+              'text/plain',
+              'image/jpeg',
+              'image/png',
+              'image/gif'
+            ];
+            
+            if (allowedTypes.includes(file.type)) {
+              validFiles.push(file);
+            } else {
+              Swal.fire(
+                this.$t("Error!"),
+                this.$t("Please select a valid file type"),
+                "error"
+              );
+            }
+          }
+        } else {
+          Swal.fire(
+            this.$t("Error!"),
+            this.$t("Please select a file with size less than 2 MB"),
+            "error"
+          );
+        }
+      });
+
+      if (validFiles.length > 0) {
+        // Check if this is for image or attachments
+        if (e.target.id === 'image') {
+          // Single image file
+          this.form.image = validFiles[0];
+          this.url = URL.createObjectURL(validFiles[0]);
+        } else {
+          // Multiple attachment files
+          this.form.attachments = [...this.form.attachments, ...validFiles];
+        }
       }
     },
 
@@ -659,6 +686,7 @@ export default {
       
       console.log('Form data for validation:', {
         phoneNumber: this.form.phoneNumber,
+        phone: this.form.phone,
         type: this.form.type,
         fullName: this.form.fullName,
         businessName: this.form.businessName
@@ -667,7 +695,7 @@ export default {
       // Required field validations
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
         console.log('Phone number validation failed');
-        this.form.errors.set('phoneNumber', this.$t('Phone number is required'));
+        this.form.errors.set('phoneNumber', this.$t('Mobile number is required'));
         isValid = false;
       }
       
@@ -703,6 +731,9 @@ export default {
         address: this.form.streetAddress1,
         // Include representatives data
         representatives: this.form.representatives && Array.isArray(this.form.representatives) ? this.form.representatives : [],
+        // Ensure phone field is included
+        phone: this.form.phone,
+        phoneNumber: this.form.phoneNumber,
       };
       
       // Emit submit event with form data
@@ -736,6 +767,7 @@ export default {
       this.form.businessName = "";
       this.form.firstName = "";
       this.form.lastName = "";
+      this.form.phone = "";
       this.form.phoneNumber = "";
       this.form.email = "";
       this.form.streetAddress1 = "";
@@ -783,13 +815,56 @@ export default {
 
 
 <style scoped>
+/* Form Card Styling */
+.form-card {
+  background: #ffffff;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
 
+.form-card:hover {
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.25);
+  transform: translateY(-2px);
+}
 
+.form-card .card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  border-bottom: none;
+}
+
+.form-card .card-header .section-title {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  padding: 0;
+}
+
+.form-card .card-header .section-title::after {
+  display: none;
+}
+
+.form-card .card-header .section-title i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.form-card .card-body {
+  padding: 1.5rem;
+}
+
+/* Enhanced Section Title Styling */
 .section-title {
   color: #495057;
   font-weight: 600;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 2px solid #e9ecef;
 }
 
@@ -803,13 +878,13 @@ export default {
 
 .radio-group {
   display: flex;
-  gap: 1rem;
+  gap: 20px;
 }
 
 .radio-inline {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   cursor: pointer;
 }
 
@@ -820,7 +895,7 @@ export default {
 .checkbox-inline {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   cursor: pointer;
 }
 
@@ -828,25 +903,114 @@ export default {
   margin: 0;
 }
 
-.file-upload-area {
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.required {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.required-field {
+  font-weight: 600;
+  color: #495057;
+}
+
+.required-input {
+  border-left: 3px solid #dc3545;
+}
+
+/* Question mark icon styling */
+.fa-question-circle {
+  cursor: help;
+  opacity: 0.7;
+}
+
+.fa-question-circle:hover {
+  opacity: 1;
+}
+
+/* File upload area styling */
+.custom-file-label {
   border: 2px dashed #dee2e6;
-  border-radius: 0.375rem;
-  padding: 2rem;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.custom-file-label:hover {
+  border-color: #007bff;
+  background-color: #e3f2fd;
+}
+
+.custom-file-label .text-primary {
+  text-decoration: underline;
+}
+
+.custom-file-label .fa-cloud-upload-alt {
+  font-size: 1.2em;
+  color: #6c757d;
+}
+
+/* Improved file upload area */
+.file-upload-area {
+  position: relative;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  padding: 30px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  background-color: #f8f9fa;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .file-upload-area:hover {
   border-color: #007bff;
-  background-color: #e7f3ff;
+  background-color: #e3f2fd;
 }
 
-.upload-content {
+.file-upload-area .file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-upload-content {
+  pointer-events: none;
+}
+
+.file-upload-content i {
+  font-size: 2.5em;
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.file-upload-content p {
+  margin: 10px 0 5px 0;
+  font-weight: 500;
+  color: #495057;
+}
+
+.file-upload-content small {
   color: #6c757d;
 }
 
+/* Selected files styling */
 .selected-files {
   max-height: 200px;
   overflow-y: auto;
@@ -854,28 +1018,61 @@ export default {
 
 .selected-file-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
-  margin: 0.25rem 0;
+  padding: 8px 12px;
   background-color: #f8f9fa;
-  border-radius: 0.25rem;
   border: 1px solid #dee2e6;
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
 
-.file-name {
-  flex: 1;
-  margin-right: 0.5rem;
-  word-break: break-all;
+.selected-file-item i {
+  color: #6c757d;
+  margin-right: 8px;
 }
 
+.selected-file-item span {
+  flex-grow: 1;
+  font-size: 0.9em;
+}
+
+/* Image preview styling */
 .image-preview {
-  max-width: 200px;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
-  overflow: hidden;
+  text-align: center;
 }
 
+.image-preview img {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Improved form layout */
+.section-title {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #007bff;
+}
+
+/* Better spacing between sections */
+.row.mt-4 {
+  margin-top: 2rem !important;
+}
+
+/* Improved form groups */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -886,8 +1083,47 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-.required {
-  color: #dc3545;
+/* Better radio and checkbox styling */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 0.5rem;
+}
+
+.radio-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.radio-inline:hover {
+  background-color: #f8f9fa;
+}
+
+.radio-inline input[type="radio"] {
+  margin: 0;
+}
+
+.checkbox-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.checkbox-inline:hover {
+  background-color: #f8f9fa;
+}
+
+.checkbox-inline input[type="checkbox"] {
+  margin: 0;
 }
 
 .is-invalid {
@@ -938,6 +1174,18 @@ export default {
   font-size: 0.875rem;
 }
 
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+  background-color: transparent;
+}
+
+.btn-outline-danger:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
 .custom-file-label {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -952,7 +1200,21 @@ export default {
 @media (max-width: 768px) {
   .radio-group {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 10px;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .file-upload-area {
+    padding: 20px;
+    min-height: 100px;
+  }
+  
+  .file-upload-content i {
+    font-size: 2em;
   }
   
   .col-md-3 {

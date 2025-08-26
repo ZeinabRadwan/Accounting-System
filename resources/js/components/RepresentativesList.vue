@@ -95,14 +95,14 @@
     <div v-else-if="!showAddForm" class="text-center py-4 text-muted">
       <i class="fas fa-users fa-3x mb-3"></i>
       <p>{{ $t("No representatives added yet") }}</p>
-      <button 
+      <!-- <button 
         type="button" 
         class="btn btn-primary" 
         @click="showAddForm = true"
       >
         <i class="fas fa-plus mr-1"></i>
         {{ $t("Add First Representative") }}
-      </button>
+      </button> -->
     </div>
 
     <!-- Notes for representatives -->

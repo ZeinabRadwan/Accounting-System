@@ -20,11 +20,12 @@
             ref="clientForm"
             :showCardBody="true"
             :initialData="clientData"
+            @submit="saveClient"
           />
           
           <!-- Card footer with action buttons -->
           <div class="card-footer">
-            <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="saveClient">
+            <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="submitForm">
               <i class="fas fa-save" /> {{ $t("Save") }}
             </v-button>
             <button type="button" class="btn btn-secondary float-right" @click="resetForm">
@@ -73,9 +74,7 @@ export default {
   computed: {
     // Check if form is ready
     isFormReady() {
-      return this.$refs.clientForm && 
-             this.$refs.clientForm.getFormData && 
-             this.$refs.clientForm.getFormData().data;
+      return !this.loading && this.clientData && Object.keys(this.clientData).length > 0;
     }
   },
   watch: {
@@ -160,6 +159,12 @@ export default {
           isSendEmail: clientData.isSendEmail || false,
           isSendSMS: clientData.isSendSMS || false,
           
+          // Chart of Account
+          chartOfAccountId: clientData.chartOfAccountId || null,
+          
+          // Representatives
+          representatives: clientData.representatives || [],
+          
           // Legacy fields for backward compatibility
           name: clientData.name || '',
           companyName: clientData.companyName || '',
@@ -203,120 +208,40 @@ export default {
       }
     },
 
-    // save client
-    async saveClient() {
-      console.log('=== SAVE CLIENT STARTED ===');
+    // Submit form by calling ClientForm's submitForm method
+    submitForm() {
+      console.log('=== SUBMIT FORM CALLED ===');
+      console.log('ClientForm ref:', this.$refs.clientForm);
+      console.log('ClientForm methods:', this.$refs.clientForm ? Object.getOwnPropertyNames(this.$refs.clientForm) : 'No ref');
       
-      // Check if form is ready
-      if (!this.isFormReady) {
-        console.error('Form is not ready yet');
-        if (window.toast && typeof window.toast.fire === 'function') {
-          window.toast.fire({
-            type: "error",
-            title: this.$t("Form is not ready yet"),
-            text: this.$t("Please wait a moment and try again.")
-          });
-        } else {
-          alert(this.$t("Form is not ready yet. Please wait a moment and try again."));
-        }
+      if (this.$refs.clientForm) {
+        console.log('Calling ClientForm submitForm method...');
+        this.$refs.clientForm.submitForm();
+      } else {
+        console.error('ClientForm ref is not available');
+      }
+    },
+
+    // Save client
+    async saveClient(formData) {
+      console.log('=== SAVE CLIENT CALLED ===');
+      console.log('Form data received:', formData);
+      console.log('Is submitting:', this.isSubmitting);
+      console.log('Loading:', this.loading);
+      
+      if (this.isSubmitting || this.loading) {
+        console.log('Already submitting or loading, returning');
         return;
       }
       
-      if (this.isSubmitting) {
-        console.log('Already submitting, returning');
-        return;
-      }
-      
+      console.log('Save client called with form data:', formData);
       this.isSubmitting = true;
-      console.log('Set isSubmitting to true');
       
       try {
-        // Get the form from the ClientForm component
-        console.log('Getting form from ClientForm component...');
-        const form = this.$refs.clientForm.getFormData();
-        console.log('Form data retrieved:', form);
+        // Use the form data directly from the submit event
+        console.log('Sending update request with data:', formData);
         
-        // Check if form is ready
-        if (!form || !form.data) {
-          console.error('Form is not ready yet');
-          if (window.toast && typeof window.toast.fire === 'function') {
-            window.toast.fire({
-              type: "error",
-              title: this.$t("Form is not ready yet"),
-              text: this.$t("Please wait a moment and try again.")
-            });
-          } else {
-            alert(this.$t("Form is not ready yet. Please wait a moment and try again."));
-          }
-          this.isSubmitting = false;
-          return;
-        }
-        
-        // Validate the form
-        console.log('Validating form...');
-        const isValid = await this.$refs.clientForm.validateForm();
-        console.log('Form validation result:', isValid);
-        
-        if (!isValid) {
-          console.log('Form validation failed, returning');
-          this.isSubmitting = false;
-          return;
-        }
-
-        console.log('Form validation passed, preparing update data...');
-        
-        // Get the actual form data using .data() method
-        const formData = form.data();
-        console.log('Form data using .data() method:', formData);
-        
-        // Prepare the data for update
-        const updateData = {
-          // Account Details
-          codeNumber: formData.codeNumber,
-          notes: formData.notes,
-          displayLanguage: formData.displayLanguage,
-          status: formData.status,
-          
-          // Client Details
-          type: formData.type,
-          fullName: formData.fullName,
-          businessName: formData.businessName,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          phone: formData.phone,
-          phoneNumber: formData.phoneNumber,
-          email: formData.email,
-          streetAddress1: formData.streetAddress1,
-          streetAddress2: formData.streetAddress2,
-          city: formData.city,
-          state: formData.state,
-          postalCode: formData.postalCode,
-          country: formData.country,
-          neighbourhood: formData.neighbourhood,
-          commercialRegister: formData.commercialRegister,
-          taxCard: formData.taxCard,
-          
-          // Additional Fields
-          image: formData.image,
-          attachments: formData.attachments,
-          isSendEmail: formData.isSendEmail,
-          isSendSMS: formData.isSendSMS,
-          
-          // Representatives
-          representatives: formData.representatives || [],
-          
-          // Legacy fields for backward compatibility
-          name: formData.type === 'Individual' ? formData.fullName : formData.businessName,
-          companyName: formData.businessName,
-          taxRegistrationNumber: formData.taxCard,
-          address: formData.streetAddress1,
-        };
-
-        console.log('Update data prepared:', updateData);
-        console.log('Making API call to update client...');
-
-        // Update the client using direct HTTP call
-        const response = await this.$http.put(`/api/clients/${this.$route.params.slug}`, updateData);
+        const response = await this.$http.put(`/api/clients/${this.clientData.slug}`, formData);
         
         console.log('API response received:', response);
         
