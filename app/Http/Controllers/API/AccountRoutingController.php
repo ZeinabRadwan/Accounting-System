@@ -8,9 +8,11 @@ use App\Models\ChartOfAccount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\ApiResponse;
 
 class AccountRoutingController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of account routing settings
      */
@@ -190,6 +192,39 @@ class AccountRoutingController extends Controller
             ];
 
             return $this->responseWithSuccess('Configuration status checked successfully', $configurationStatus);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Get product account routing settings
+     */
+    public function getProductAccountRouting()
+    {
+        try {
+            $salesSetting = AccountRoutingSetting::where('module', 'sales')
+                ->where('setting_key', 'product_sales_account')
+                ->first();
+
+            $purchaseSetting = AccountRoutingSetting::where('module', 'purchase')
+                ->where('setting_key', 'product_purchase_account')
+                ->first();
+
+            $settings = [
+                'sales' => $salesSetting ? [
+                    'routing_type' => $salesSetting->routing_type,
+                    'parent_account_id' => $salesSetting->parent_account_id,
+                    'routing_type_options' => $salesSetting->routing_type_options
+                ] : null,
+                'purchase' => $purchaseSetting ? [
+                    'routing_type' => $purchaseSetting->routing_type,
+                    'parent_account_id' => $purchaseSetting->parent_account_id,
+                    'routing_type_options' => $purchaseSetting->routing_type_options
+                ] : null
+            ];
+
+            return $this->responseWithSuccess('Product account routing settings retrieved successfully', $settings);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }

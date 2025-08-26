@@ -96,6 +96,27 @@ class AccountRoutingSettingsSeeder extends Seeder
             ],
             [
                 'module' => 'purchase',
+                'setting_key' => 'product_purchase_account',
+                'setting_name' => 'Product Purchase Account',
+                'account_type' => 'Expense',
+                'description' => 'Parent account for product purchase expenses',
+                'is_required' => true,
+                'routing_type' => 'automatic',
+                'routing_type_options' => json_encode([
+                    [
+                        'label' => 'Automatic Account Routing',
+                        'description' => 'System automatically routes to the selected parent account',
+                        'value' => 'automatic'
+                    ],
+                    [
+                        'label' => 'Specify Per Each',
+                        'description' => 'You will specify accounts individually for each item',
+                        'value' => 'per_each'
+                    ]
+                ])
+            ],
+            [
+                'module' => 'purchase',
                 'setting_key' => 'discount_received_account',
                 'setting_name' => 'Discount Received Account',
                 'account_type' => 'Expense',

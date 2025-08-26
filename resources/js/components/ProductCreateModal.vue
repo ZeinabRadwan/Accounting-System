@@ -99,20 +99,7 @@
                 :placeholder="$t('Select a tax')" @input="calculatePrice" />
               <has-error :form="form" field="productTax" />
             </div>
-            <div class="form-group col-6">
-              <label for="taxType">{{ $t("Tax Type") }}
-                <span class="required">*</span></label>
-              <select id="taxType" v-model="form.taxType" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('taxType') }" @change="calculatePrice">
-                <option value="Exclusive">
-                  {{ $t("Exclusive") }}
-                </option>
-                <option value="Inclusive">
-                  {{ $t("Inclusive") }}
-                </option>
-              </select>
-              <has-error :form="form" field="taxType" />
-            </div>
+            <!-- Tax Type field hidden - always Exclusive -->
             <div class="form-group col-6">
               <label for="regularPrice">{{ $t("Regular Price") }}
                 <span class="required">*</span></label>
@@ -174,7 +161,7 @@
             </div>
 
             <!-- Chart of Account Fields -->
-            <div class="form-group col-6">
+            <div v-if="!isSalesAccountAutomatic" class="form-group col-6">
               <label for="salesAccountId">{{ $t("Sales Account") }}</label>
               <div class="d-flex align-items-center">
                 <v-select
@@ -212,7 +199,13 @@
                 {{ $t("Select a sales account or use auto-assign to automatically assign one") }}
               </small>
             </div>
-            <div class="form-group col-6">
+            <div v-if="isSalesAccountAutomatic" class="form-group col-6">
+              <label>{{ $t("Sales Account") }}</label>
+              <div class="form-control-plaintext text-muted">
+                <i class="fas fa-info-circle"></i> {{ $t("Automatically assigned from account routing settings") }}
+              </div>
+            </div>
+            <div v-if="!isPurchaseAccountAutomatic" class="form-group col-6">
               <label for="purchaseAccountId">{{ $t("Purchase Account") }}</label>
               <div class="d-flex align-items-center">
                 <v-select
@@ -249,6 +242,12 @@
               <small class="form-text text-muted">
                 {{ $t("Select a purchase account or use auto-assign to automatically assign one") }}
               </small>
+            </div>
+            <div v-if="isPurchaseAccountAutomatic" class="form-group col-6">
+              <label>{{ $t("Purchase Account") }}</label>
+              <div class="form-control-plaintext text-muted">
+                <i class="fas fa-info-circle"></i> {{ $t("Automatically assigned from account routing settings") }}
+              </div>
             </div>
 
             <div class="form-group col-12">
@@ -354,6 +353,9 @@ export default {
     url: null,
     isAutoAssigningSales: false,
     isAutoAssigningPurchase: false,
+    accountRoutingSettings: null,
+    isSalesAccountAutomatic: false,
+    isPurchaseAccountAutomatic: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -365,6 +367,7 @@ export default {
     this.getTaxes();
     this.getItemCode();
     this.loadChartOfAccounts();
+    this.loadAccountRoutingSettings();
   },
   methods: {
 
@@ -385,6 +388,32 @@ export default {
       } catch (error) {
         console.error("Error loading chart of accounts:", error);
         this.chartOfAccounts = [];
+      }
+    },
+
+    // Load account routing settings
+    async loadAccountRoutingSettings() {
+      try {
+        const response = await axios.get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+        this.accountRoutingSettings = response.data.data || {};
+        
+        // Set flags for automatic routing
+        this.isSalesAccountAutomatic = this.accountRoutingSettings.sales && 
+          this.accountRoutingSettings.sales.routing_type === 'automatic';
+        
+        this.isPurchaseAccountAutomatic = this.accountRoutingSettings.purchase && 
+          this.accountRoutingSettings.purchase.routing_type === 'automatic';
+        
+        // If automatic routing is enabled, set the account IDs from routing settings
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.parent_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.parent_account_id;
+        }
+        
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.parent_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.parent_account_id;
+        }
+      } catch (error) {
+        console.error("Error loading account routing settings:", error);
       }
     },
 

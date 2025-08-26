@@ -117,9 +117,9 @@ class PurchaseController extends Controller
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
 
-                // Validate product has purchase account
-                if (!$product->hasPurchaseAccount()) {
-                    throw new Exception('Product ' . $product->name . ' must have a Purchase Account assigned.');
+                // Validate product has purchase account (including fallback)
+                if (!$product->hasPurchaseAccountWithFallback()) {
+                    throw new Exception('Product ' . $product->name . ' must have a Purchase Account assigned or a default Product Purchase Account configured in routing settings.');
                 }
 
                 // calculate new purchase price

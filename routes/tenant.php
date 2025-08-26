@@ -197,6 +197,7 @@ Route::middleware([
         Route::get('/account-routing-settings/{settingKey}/accounts', [AccountRoutingController::class, 'getAccountsForSetting']);
         Route::get('/account-routing-settings/available-parent-accounts', [AccountRoutingController::class, 'getAvailableParentAccounts']);
         Route::get('/account-routing-settings/check-configuration', [AccountRoutingController::class, 'checkConfiguration']);
+Route::get('/account-routing-settings/product-account-routing', [AccountRoutingController::class, 'getProductAccountRouting']);
 
         // VAT Report routes
         Route::get('/vat-report', [VatReportController::class, 'generateReport']);

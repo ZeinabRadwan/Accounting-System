@@ -30,6 +30,11 @@ class InvoiceProductResource extends JsonResource
             'quantity' => $this->quantity,
             'unitCost' => $this->unit_cost,
             'unitTax' => $this->tax_amount,
+            'productTax' => $this->tax_amount,
+            'productDiscount' => $this->discount_amount,
+            'discountType' => $this->discount_type,
+            'discountPercentage' => $this->discount,
+            'vatRateId' => $this->vat_rate_id,
             'total' => $this->quantity * $this->sale_price,
             'returnQty' => $returnQty > 0 ? $returnQty : 0,
             'purchasePricetotal' => $this->quantity * $this->purchase_price,
@@ -46,6 +51,12 @@ class InvoiceProductResource extends JsonResource
             'productUnit' => $this->product->productUnit->code,
             'taxType' => $this->product->tax_type,
             'taxRate' => $this->product->productTax->rate,
+            'vatRate' => $this->vatRate ? [
+                'id' => $this->vatRate->id,
+                'rate' => $this->vatRate->rate,
+                'name' => $this->vatRate->name,
+                'code' => $this->vatRate->code
+            ] : null,
         ];
     }
 }

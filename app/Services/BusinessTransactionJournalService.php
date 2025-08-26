@@ -298,12 +298,12 @@ class BusinessTransactionJournalService
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
             }
 
-            // Validate all products have purchase accounts
+            // Validate all products have purchase accounts (including fallback)
             $purchaseProducts = $purchase->purchaseProducts;
             if ($purchaseProducts && $purchaseProducts->count() > 0) {
                 foreach ($purchaseProducts as $purchaseProduct) {
-                    if (!$purchaseProduct->product || !$purchaseProduct->product->hasPurchaseAccount()) {
-                        throw new Exception('Product ' . ($purchaseProduct->product->name ?? 'Unknown') . ' must have a Purchase Account assigned.');
+                    if (!$purchaseProduct->product || !$purchaseProduct->product->hasPurchaseAccountWithFallback()) {
+                        throw new Exception('Product ' . ($purchaseProduct->product->name ?? 'Unknown') . ' must have a Purchase Account assigned or a default Product Purchase Account configured in routing settings.');
                     }
                 }
             }
@@ -337,7 +337,8 @@ class BusinessTransactionJournalService
             $purchaseByAccount = [];
             foreach ($purchaseProducts as $purchaseProduct) {
                 $product = $purchaseProduct->product;
-                $accountId = $product->purchase_account_id;
+                $purchaseAccount = $product->getPurchaseAccountWithFallback();
+                $accountId = $purchaseAccount->id;
                 $amount = $purchaseProduct->getFinalTotalAttribute(); // Use amount after discount
                 
                 if (!isset($purchaseByAccount[$accountId])) {
