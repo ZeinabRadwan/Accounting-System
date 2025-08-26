@@ -108,6 +108,31 @@ class Invoice extends Model
     public function invoiceTotal()
     {
         $costOfProductReturn = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
+
+
+
+
+
+
+        $invoiceProducts = $this->invoiceProducts;
+        $totalProductVat = 0;
+        $totalProductDiscount = 0;
+        $totalProductSubTotal = 0;
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $totalProductVat += $invoiceProduct->tax_amount;
+        }
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $totalProductDiscount += $invoiceProduct->discount_amount;
+        }
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $totalProductSubTotal += $invoiceProduct->sale_price * $invoiceProduct->quantity;
+        }
+
+
+        return $totalProductSubTotal - $totalProductDiscount + $totalProductVat  - $costOfProductReturn;
+
+
+
         
         // Calculate global discount
         $globalDiscount = 0;
