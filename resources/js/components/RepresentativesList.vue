@@ -1,14 +1,5 @@
 <template>
   <div class="representatives-list">
-    <!-- Debug info -->
-    <div class="alert alert-info small mb-2">
-      <strong>Debug RepresentativesList:</strong><br>
-      Representatives prop: {{ representatives }}<br>
-      Representatives length: {{ representatives.length }}<br>
-      Representatives type: {{ typeof representatives }}<br>
-      Is array: {{ Array.isArray(representatives) }}
-    </div>
-    
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h6 class="mb-0">
         <i class="fas fa-users mr-2"></i>

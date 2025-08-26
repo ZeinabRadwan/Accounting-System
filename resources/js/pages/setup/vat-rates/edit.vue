@@ -125,7 +125,6 @@
                 <small class="form-text text-muted">
                   {{ $t("This account will be credited when VAT is collected on sales") }}
                 </small>
-                <small class="form-text text-info">Debug: {{ salesVatAccounts.length }} options loaded</small>
               </div>
 
               <div class="form-group">
@@ -151,7 +150,6 @@
                 <small class="form-text text-muted">
                   {{ $t("This account will be debited when VAT is paid on purchases") }}
                 </small>
-                <small class="form-text text-info">Debug: {{ purchaseVatAccounts.length }} options loaded</small>
               </div>
             </div>
             <div class="card-footer">

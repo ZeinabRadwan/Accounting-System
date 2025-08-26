@@ -40,6 +40,16 @@
             </select>
             <has-error :form="form" field="status" />
           </div>
+
+
+           <!-- Representatives Section - Only for Company type -->
+           <div v-if="form.type === 'Company'" class="mt-4">
+            <h6 class="section-subtitle">{{ $t("Representatives") }}</h6> 
+            <RepresentativesList 
+              :representatives="form.representatives || []"
+              @representatives-changed="handleRepresentativesChanged"
+            />
+          </div>
         </div>
 
         <!-- Client Details Section -->
@@ -136,24 +146,7 @@
             <has-error :form="form" field="email" />
           </div>
 
-          <!-- Representatives Section - Only for Company type -->
-          <div v-if="form.type === 'Company'" class="mt-4">
-            <h6 class="section-subtitle">{{ $t("Representatives") }}</h6>
-            <p class="text-muted small">Debug: Client type is "{{ form.type }}"</p>
-            <p class="text-muted small">Debug: Representatives count: {{ (form.representatives || []).length }}</p>
-            <p class="text-muted small">Debug: Representatives data: {{ JSON.stringify(form.representatives) }}</p>
-            
-            <RepresentativesList 
-              :representatives="form.representatives || []"
-              @representatives-changed="handleRepresentativesChanged"
-            />
-          </div>
-          
-          <!-- Debug info for non-Company types -->
-          <div v-else class="mt-4">
-            <p class="text-muted small">Debug: Representatives section hidden because client type is "{{ form.type }}" (not "Company")</p>
-            <p class="text-muted small">Debug: Representatives count: {{ (form.representatives || []).length }}</p>
-          </div>
+         
         </div>
       </div>
 
