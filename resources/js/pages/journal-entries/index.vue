@@ -13,9 +13,14 @@
           </ul>
         </div>
         <div class="col-auto float-right ml-auto">
-          <router-link to="/journal-entries/create" class="btn btn-primary">
-            <i class="fa fa-plus"></i> {{ $t('New Journal Entry') }}
-          </router-link>
+          <div class="btn-group">
+            <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success">
+              <i class="fas fa-sync"></i>
+            </a>
+            <router-link to="/journal-entries/create" class="btn btn-primary">
+              <i class="fa fa-plus"></i> {{ $t('New Journal Entry') }}
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -30,18 +35,17 @@
                 <div class="form-group">
                   <label>{{ $t('Search') }}</label>
                   <input
-                    v-model="searchQuery"
+                    v-model="query"
                     type="text"
                     class="form-control"
                     :placeholder="$t('Search entries')"
-                    @input="debounceSearch"
                   />
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>{{ $t('Status') }}</label>
-                  <select v-model="filters.status" class="form-control" @change="loadJournalEntries">
+                  <select v-model="filters.status" class="form-control">
                     <option value="">{{ $t('All Status') }}</option>
                     <option value="draft">{{ $t('Draft') }}</option>
                     <option value="posted">{{ $t('Posted') }}</option>
@@ -56,7 +60,6 @@
                     v-model="filters.from_date"
                     type="date"
                     class="form-control"
-                    @change="loadJournalEntries"
                   />
                 </div>
               </div>
@@ -67,7 +70,6 @@
                     v-model="filters.to_date"
                     type="date"
                     class="form-control"
-                    @change="loadJournalEntries"
                   />
                 </div>
               </div>
@@ -75,7 +77,7 @@
                 <div class="form-group">
                   <label>&nbsp;</label>
                   <div>
-                    <button @click="loadJournalEntries" class="btn btn-primary">
+                    <button @click="searchData" class="btn btn-primary">
                       <i class="fa fa-search"></i> {{ $t('Search') }}
                     </button>
                     <button @click="clearFilters" class="btn btn-secondary ml-2">
@@ -95,6 +97,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
+            <table-loading v-show="loading" />
             <div class="table-responsive">
               <table class="table table-striped custom-table">
                 <thead>
@@ -103,25 +106,25 @@
                     <th>{{ $t('Date') }}</th>
                     <th>{{ $t('Description') }}</th>
                     <th>{{ $t('Reference') }}</th>
-                    <th>{{ $t('Total Debit') }}</th>
-                    <th>{{ $t('Total Credit') }}</th>
+                    <th class="text-center">{{ $t('Total Debit') }}</th>
+                    <th class="text-center">{{ $t('Total Credit') }}</th>
                     <th>{{ $t('Status') }}</th>
                     <th>{{ $t('Created By') }}</th>
                     <th>{{ $t('Actions') }}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="entry in journalEntries" :key="entry.id">
+                  <tr v-show="items.length" v-for="(entry, i) in items" :key="entry.id">
                     <td>
                       <strong>{{ entry.formatted_entry_number }}</strong>
                     </td>
                     <td>{{ formatDate(entry.entry_date) }}</td>
                     <td>{{ entry.description }}</td>
                     <td>{{ entry.reference || '-' }}</td>
-                    <td class="text-right">
+                    <td class="text-center">
                       <span class="text-success">{{ formatCurrency(entry.total_debit) }}</span>
                     </td>
-                    <td class="text-right">
+                    <td class="text-center">
                       <span class="text-danger">{{ formatCurrency(entry.total_credit) }}</span>
                     </td>
                     <td>
@@ -135,16 +138,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                           <i class="fa fa-ellipsis-v"></i>
                         </a>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu dropdown-menu-right">
                           <router-link
-                            :to="`/journal-entries/${entry.id}`"
+                            :to="{ name: 'journal-entries.show', params: { id: entry.id } }"
                             class="dropdown-item"
                           >
                             <i class="fa fa-eye"></i> {{ $t('View') }}
                           </router-link>
                           <router-link
                             v-if="entry.status === 'draft'"
-                            :to="`/journal-entries/${entry.id}/edit`"
+                            :to="{ name: 'journal-entries.edit', params: { id: entry.id } }"
                             class="dropdown-item"
                           >
                             <i class="fa fa-edit"></i> {{ $t('Edit') }}
@@ -153,7 +156,7 @@
                             v-if="entry.status === 'draft'"
                             href="#"
                             @click.prevent="postEntry(entry.id)"
-                            class="dropdown-item"
+                            class="dropdown-item text-success"
                           >
                             <i class="fa fa-check"></i> {{ $t('Post') }}
                           </a>
@@ -161,7 +164,7 @@
                             v-if="entry.status === 'posted'"
                             href="#"
                             @click.prevent="voidEntry(entry.id)"
-                            class="dropdown-item text-danger"
+                            class="dropdown-item text-warning"
                           >
                             <i class="fa fa-ban"></i> {{ $t('Void') }}
                           </a>
@@ -177,34 +180,31 @@
                       </div>
                     </td>
                   </tr>
-                  <tr v-if="journalEntries.length === 0">
+                  <tr v-show="!loading && !items.length">
                     <td colspan="9" class="text-center">{{ $t('No journal entries found') }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
-            <!-- Pagination -->
-            <div v-if="pagination.last_page > 1" class="row">
-              <div class="col-md-12">
-                <nav>
-                  <ul class="pagination justify-content-center">
-                    <li
-                      v-for="page in pagination.last_page"
-                      :key="page"
-                      :class="['page-item', { active: page === pagination.current_page }]"
-                    >
-                      <a
-                        href="#"
-                        class="page-link"
-                        @click.prevent="loadJournalEntries(page)"
-                      >
-                        {{ page }}
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <div class="dtable-footer">
+              <div class="form-group row display-per-page">
+                <label>{{ $t('per_page') }} </label>
+                <div>
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
               </div>
+              <!-- pagination-start -->
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
+              <!-- pagination-end -->
             </div>
           </div>
         </div>
@@ -214,7 +214,7 @@
 </template>
 
 <script>
-import { debounce } from 'lodash'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'JournalEntriesIndex',
@@ -222,63 +222,149 @@ export default {
   metaInfo() {
     return { title: this.$t('Journal Entries') }
   },
+  components: {
+    Pagination: () => import('~/components/Pagination'),
+    TableLoading: () => import('~/components/TableLoading'),
+  },
   data() {
     return {
-      journalEntries: [],
-      searchQuery: '',
+      query: '',
       filters: {
         status: '',
         from_date: '',
         to_date: ''
       },
-      pagination: {
-        current_page: 1,
-        last_page: 1,
-        per_page: 10,
-        total: 0
-      },
-      loading: false
+      perPage: 10
     }
   },
-  async created() {
-    await this.loadJournalEntries()
+  // Map Getters
+  computed: {
+    ...mapGetters('operations', ['items', 'loading', 'pagination']),
   },
-  methods: {
-    async loadJournalEntries(page = 1) {
-      try {
-        this.loading = true
-        const params = {
-          page,
-          perPage: this.pagination.per_page,
-          ...this.filters
+  watch: {
+    // watch search data
+    query: function (newQ) {
+      if (newQ === '') {
+        if (this.filters.status || this.filters.from_date || this.filters.to_date) {
+          this.searchData();
+        } else {
+          this.getData();
         }
-
-        if (this.searchQuery) {
-          params.search = this.searchQuery
-        }
-
-        const response = await this.$axios.get('/api/journal-entries', { params })
-        
-        if (response.data.data) {
-          this.journalEntries = response.data.data
-          this.pagination = {
-            current_page: response.data.current_page || 1,
-            last_page: response.data.last_page || 1,
-            per_page: response.data.per_page || 10,
-            total: response.data.total || 0
+      } else {
+        this.searchData();
+      }
+    },
+    // watch filters
+    filters: {
+      handler(newVal, oldVal) {
+        // Only trigger search if filters actually changed and we're not in the initial load
+        if (oldVal && (oldVal.status !== newVal.status || oldVal.from_date !== newVal.from_date || oldVal.to_date !== newVal.to_date)) {
+          this.pagination.current_page = 1;
+          if (this.query || this.filters.status || this.filters.from_date || this.filters.to_date) {
+            this.searchData();
+          } else {
+            this.getData();
           }
         }
-      } catch (error) {
-        console.error('Error loading journal entries:', error)
-        window.toast.error('Error loading journal entries')
-      } finally {
-        this.loading = false
+      },
+      deep: true
+    }
+  },
+  created() {
+    this.getData();
+  },
+  methods: {
+    // update per page count
+    updatePerPager() {
+      this.pagination.current_page = 1;
+      if (this.query || this.filters.status || this.filters.from_date || this.filters.to_date) {
+        this.searchData();
+      } else {
+        this.getData();
+      }
+    },
+    // get data
+    async getData() {
+      this.$store.state.operations.loading = true;
+      let currentPage = this.pagination ? this.pagination.current_page : 1;
+      await this.$store.dispatch("operations/fetchData", {
+        path: "/api/journal-entries?page=",
+        currentPage: currentPage + "&perPage=" + this.perPage,
+      });
+    },
+
+    // Pagination
+    async paginate() {
+      if (this.query || this.filters.status || this.filters.from_date || this.filters.to_date) {
+        this.searchData();
+      } else {
+        this.getData();
       }
     },
 
-    debounceSearch: debounce(function() {
-      this.loadJournalEntries()
-    }, 500),
+    // Reset pagination
+    async resetPagination() {
+      this.pagination.current_page = 1;
+    },
+
+    // search data
+    async searchData() {
+      try {
+        this.$store.state.operations.loading = true;
+        let currentPage = this.pagination ? this.pagination.current_page : 1;
+        
+        const params = {
+          page: currentPage,
+          perPage: this.perPage
+        };
+        
+        if (this.query) {
+          params.term = this.query;
+        }
+        
+        if (this.filters.from_date) {
+          params.startDate = this.filters.from_date;
+        }
+        
+        if (this.filters.to_date) {
+          params.endDate = this.filters.to_date;
+        }
+        
+        if (this.filters.status) {
+          params.status = this.filters.status;
+        }
+        
+        const response = await this.$axios.get('/api/journal-entries/search', { params });
+        
+        if (response.data.data) {
+          this.$store.commit('operations/FETCH_DATA', { 
+            items: response.data, 
+            loading: false 
+          });
+        }
+      } catch (error) {
+        console.error('Error searching journal entries:', error);
+        window.toast.error('Error searching journal entries');
+        this.$store.state.operations.loading = false;
+      }
+    },
+
+    // Reload after search
+    async reload() {
+      this.query = "";
+      this.filters.status = "";
+      this.filters.from_date = "";
+      this.filters.to_date = "";
+    },
+
+    // refresh table
+    refreshTable() {
+      this.query = "";
+      this.filters.status = "";
+      this.filters.from_date = "";
+      this.filters.to_date = "";
+      this.query === "" ? this.getData() : this.searchData();
+    },
 
     clearFilters() {
       this.filters = {
@@ -286,17 +372,21 @@ export default {
         from_date: '',
         to_date: ''
       }
-      this.searchQuery = ''
-      this.loadJournalEntries()
+      this.query = ''
+      this.getData()
     },
 
     async postEntry(id) {
       if (!confirm('Are you sure you want to post this journal entry?')) return
-
+      
       try {
-        await this.$axios.post(`/api/journal-entries/${id}/post`)
-        window.toast.success('Journal entry posted successfully!')
-        await this.loadJournalEntries()
+        const response = await this.$axios.post(`/api/journal-entries/${id}/post`)
+        if (response.data.success) {
+          window.toast.success('Journal entry posted successfully')
+          this.getData()
+        } else {
+          window.toast.error(response.data.message || 'Error posting journal entry')
+        }
       } catch (error) {
         console.error('Error posting journal entry:', error)
         window.toast.error('Error posting journal entry')
@@ -305,11 +395,15 @@ export default {
 
     async voidEntry(id) {
       if (!confirm('Are you sure you want to void this journal entry?')) return
-
+      
       try {
-        await this.$axios.post(`/api/journal-entries/${id}/void`)
-        window.toast.success('Journal entry voided successfully!')
-        await this.loadJournalEntries()
+        const response = await this.$axios.post(`/api/journal-entries/${id}/void`)
+        if (response.data.success) {
+          window.toast.success('Journal entry voided successfully')
+          this.getData()
+        } else {
+          window.toast.error(response.data.message || 'Error voiding journal entry')
+        }
       } catch (error) {
         console.error('Error voiding journal entry:', error)
         window.toast.error('Error voiding journal entry')
@@ -318,11 +412,15 @@ export default {
 
     async deleteEntry(id) {
       if (!confirm('Are you sure you want to delete this journal entry?')) return
-
+      
       try {
-        await this.$axios.delete(`/api/journal-entries/${id}`)
-        window.toast.success('Journal entry deleted successfully!')
-        await this.loadJournalEntries()
+        const response = await this.$axios.delete(`/api/journal-entries/${id}`)
+        if (response.data.success) {
+          window.toast.success('Journal entry deleted successfully')
+          this.getData()
+        } else {
+          window.toast.error(response.data.message || 'Error deleting journal entry')
+        }
       } catch (error) {
         console.error('Error deleting journal entry:', error)
         window.toast.error('Error deleting journal entry')
@@ -330,21 +428,20 @@ export default {
     },
 
     formatDate(date) {
+      if (!date) return '-'
       return new Date(date).toLocaleDateString()
     },
 
     formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(amount)
+      if (!amount) return '0.00'
+      return parseFloat(amount).toFixed(2)
     },
 
     getStatusBadgeClass(status) {
       const classes = {
-        draft: 'badge badge-warning',
-        posted: 'badge badge-success',
-        void: 'badge badge-danger'
+        'draft': 'badge badge-warning',
+        'posted': 'badge badge-success',
+        'void': 'badge badge-danger'
       }
       return classes[status] || 'badge badge-secondary'
     }

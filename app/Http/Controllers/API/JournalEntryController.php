@@ -87,6 +87,11 @@ class JournalEntryController extends Controller
             $data = $request->all();
             $data['status'] = $data['status'] ?? 'draft';
             
+            // Handle empty reference string - convert to null if empty
+            if (isset($data['reference']) && $data['reference'] === '') {
+                $data['reference'] = null;
+            }
+            
             $journalEntry = $this->journalService->createCustomJournalEntry($data, Auth::id());
 
             return response()->json([
@@ -156,10 +161,13 @@ class JournalEntryController extends Controller
                 // Delete existing lines
                 $journalEntry->lines()->delete();
 
+                // Handle empty reference string - convert to null if empty
+                $reference = $request->reference === '' ? null : $request->reference;
+
                 // Update journal entry
                 $journalEntry->update([
                     'entry_date' => $request->entry_date,
-                    'reference' => $request->reference,
+                    'reference' => $reference,
                     'description' => $request->description,
                 ]);
 
@@ -325,9 +333,18 @@ class JournalEntryController extends Controller
     public function getChartOfAccounts()
     {
         try {
-            $accounts = ChartOfAccount::where('is_active', true)
+            $accounts = ChartOfAccount::with('type')
+                ->where('is_active', true)
                 ->orderBy('code')
-                ->get(['id', 'code', 'name', 'type_id']);
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'code' => $account->code,
+                        'name' => $account->name,
+                        'type' => $account->type ? $account->type->name : 'Unknown'
+                    ];
+                });
 
             return response()->json([
                 'data' => $accounts
