@@ -121,9 +121,11 @@
                               v-model="line.chart_of_account_id"
                               :options="chartOfAccounts"
                               label="name"
+                              :reduce="option => option.id"
                               :class="{ 'is-invalid': errors[`lines.${index}.chart_of_account_id`] }"
                               :placeholder="$t('Select a Chart of Account')"
                               required
+                              @input="(value) => onChartOfAccountChange(index, value)"
                             >
                               <template #option="{ name, code, type }">
                                 <div>
@@ -333,10 +335,17 @@ export default {
       try {
         const response = await this.$axios.get('/api/journal-entries/chart-of-accounts')
         this.chartOfAccounts = response.data.data || []
+        console.log('Loaded chart of accounts:', this.chartOfAccounts)
+        console.log('First account structure:', this.chartOfAccounts[0])
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
         window.toast.error('Error loading chart of accounts')
       }
+    },
+
+    onChartOfAccountChange(index, value) {
+      console.log(`Chart of account changed for line ${index}:`, value)
+      console.log(`Line ${index} data:`, this.form.lines[index])
     },
 
     addLine() {

@@ -44,17 +44,18 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>{{ $t('Reference') }}</label>
-                    <input
-                      v-model="form.reference"
-                      type="text"
-                      class="form-control"
-                      :placeholder="$t('Optional reference number')"
-                    />
-                  </div>
-                </div>
+                                 <div class="col-md-4">
+                   <div class="form-group">
+                     <label>{{ $t('Reference') }}</label>
+                     <input
+                       v-model="form.reference"
+                       type="text"
+                       class="form-control"
+                       :placeholder="$t('Optional reference number')"
+                     />
+                     <small class="form-text text-muted">{{ $t('Leave blank if no reference is needed') }}</small>
+                   </div>
+                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>{{ $t('Status') }}</label>
@@ -108,9 +109,11 @@
                               v-model="line.chart_of_account_id"
                               :options="chartOfAccounts"
                               label="name"
+                              :reduce="option => option.id"
                               :class="{ 'is-invalid': errors[`lines.${index}.chart_of_account_id`] }"
                               :placeholder="$t('Select a Chart of Account')"
                               required
+                              @input="(value) => onChartOfAccountChange(index, value)"
                             >
                               <template #option="{ name, code, type }">
                                 <div>
@@ -288,10 +291,17 @@ export default {
       try {
         const response = await this.$axios.get('/api/journal-entries/chart-of-accounts')
         this.chartOfAccounts = response.data.data || []
+        console.log('Loaded chart of accounts:', this.chartOfAccounts)
+        console.log('First account structure:', this.chartOfAccounts[0])
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
         window.toast.error('Error loading chart of accounts')
       }
+    },
+
+    onChartOfAccountChange(index, value) {
+      console.log(`Chart of account changed for line ${index}:`, value)
+      console.log(`Line ${index} data:`, this.form.lines[index])
     },
 
     addLine() {
@@ -351,6 +361,13 @@ export default {
           return
         }
 
+        // Validate chart of account selections
+        const invalidLines = this.form.lines.filter(line => !line.chart_of_account_id)
+        if (invalidLines.length > 0) {
+          window.toast.error('Please select chart of accounts for all lines')
+          return
+        }
+
         // Prepare data
         const data = {
           ...this.form,
@@ -360,6 +377,14 @@ export default {
             credit_amount: parseFloat(line.credit_amount) || 0
           }))
         }
+
+        // Debug: Log the data being sent
+        console.log('Form data being sent:', data)
+        console.log('Reference value:', data.reference)
+        console.log('Reference type:', typeof data.reference)
+        console.log('Chart of account IDs:', data.lines.map(line => line.chart_of_account_id))
+        console.log('Original form lines:', this.form.lines)
+        console.log('Chart of accounts array:', this.chartOfAccounts)
 
         const response = await this.$axios.post('/api/journal-entries', data)
         
