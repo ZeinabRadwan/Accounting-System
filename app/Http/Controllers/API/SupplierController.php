@@ -122,7 +122,7 @@ class SupplierController extends Controller
             ];
 
             // Auto-assign Chart of Account if not provided
-            $supplierData = Supplier::assignDefaultChartOfAccount($supplierData);
+            $supplierData = $this->autoAssignChartOfAccountForSupplier($supplierData);
 
             // create supplier
             $userSchema = Supplier::create($supplierData);            
@@ -271,7 +271,7 @@ class SupplierController extends Controller
             ];
 
             // Auto-assign Chart of Account if not provided
-            $updateData = Supplier::assignDefaultChartOfAccount($updateData);
+            $updateData = $this->autoAssignChartOfAccountForSupplier($updateData);
 
             // update supplier
             $supplier->update($updateData);
@@ -965,6 +965,189 @@ ORDER BY `date`");
                 'success' => false,
                 'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+    /**
+     * Auto-assign chart of account based on routing configuration
+     */
+    private function autoAssignChartOfAccountForSupplier($supplierData)
+    {
+        try {
+            // Get the suppliers account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                // If no routing setting, use default behavior from Supplier model
+                return Supplier::assignDefaultChartOfAccount($supplierData);
+            }
+            
+            \Illuminate\Support\Facades\Log::info("Processing supplier chart of account with routing type: " . $routingSetting->routing_type, [
+                'routing_setting' => $routingSetting->toArray(),
+                'supplier_data' => $supplierData
+            ]);
+            
+            switch ($routingSetting->routing_type) {
+                case 'automatic':
+                    // For automatic routing, always create/assign account if none provided
+                    if (empty($supplierData['chart_of_account_id']) && $routingSetting->main_account_id) {
+                        $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
+                        $supplierData['chart_of_account_id'] = $newAccount->id;
+                        
+                        \Illuminate\Support\Facades\Log::info("Auto-created chart of account {$newAccount->id} for supplier with automatic routing", [
+                            'supplier_data' => $supplierData,
+                            'routing_setting' => $routingSetting->toArray()
+                        ]);
+                    }
+                    break;
+                    
+                case 'per_each':
+                    // For per each routing, validate that account is provided
+                    if (empty($supplierData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
+                            $supplierData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for supplier with per_each routing", [
+                                'supplier_data' => $supplierData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'main_account_per_each':
+                    // For main account per each, validate that account is provided
+                    if (empty($supplierData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
+                            $supplierData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for supplier with main_account_per_each routing", [
+                                'supplier_data' => $supplierData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'cancel':
+                    // For cancel routing, no chart of account needed
+                    $supplierData['chart_of_account_id'] = null;
+                    \Illuminate\Support\Facades\Log::info("No chart of account assigned for supplier with cancel routing", [
+                        'supplier_data' => $supplierData,
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
+                    
+                default:
+                    // Unknown routing type, use default behavior
+                    \Illuminate\Support\Facades\Log::warning("Unknown routing type: " . $routingSetting->routing_type, [
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
+            }
+            
+            return $supplierData;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error auto-assigning chart of account: " . $e->getMessage(), [
+                'supplier_data' => $supplierData,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return $supplierData;
+        }
+    }
+    
+    /**
+     * Create chart of account for supplier
+     */
+    private function createChartOfAccountForSupplier($supplierData, $routingSetting)
+    {
+        try {
+            $newAccount = \App\Models\ChartOfAccount::create([
+                'name' => $this->getSupplierDisplayName($supplierData),
+                'code' => $this->generateSupplierAccountCode($routingSetting->main_account_id),
+                'type_id' => $this->getLiabilityAccountTypeId(),
+                'parent_id' => $routingSetting->main_account_id,
+                'is_active' => true,
+                'created_by' => Auth::id(),
+            ]);
+            
+            \Illuminate\Support\Facades\Log::info("Created new chart of account for supplier", [
+                'account_id' => $newAccount->id,
+                'account_name' => $newAccount->name,
+                'account_code' => $newAccount->code,
+                'parent_account_id' => $routingSetting->main_account_id
+            ]);
+            
+            return $newAccount;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error creating chart of account for supplier: " . $e->getMessage());
+            throw $e;
+        }
+    }
+    
+    /**
+     * Get supplier display name for account creation
+     */
+    private function getSupplierDisplayName($supplierData)
+    {
+        if (isset($supplierData['type']) && $supplierData['type'] === 'Individual') {
+            return $supplierData['full_name'] ?? $supplierData['name'] ?? 'Individual Supplier';
+        } else {
+            return $supplierData['business_name'] ?? $supplierData['company_name'] ?? 'Business Supplier';
+        }
+    }
+    
+    /**
+     * Generate unique account code for supplier
+     */
+    private function generateSupplierAccountCode($mainAccountId)
+    {
+        try {
+            $mainAccount = \App\Models\ChartOfAccount::find($mainAccountId);
+            if (!$mainAccount) {
+                throw new \Exception("Main account not found");
+            }
+            
+            $baseCode = $mainAccount->code;
+            $existingCodes = \App\Models\ChartOfAccount::where('code', 'like', $baseCode . '-%')
+                ->pluck('code')
+                ->toArray();
+            
+            $counter = 1;
+            $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            
+            while (in_array($newCode, $existingCodes)) {
+                $counter++;
+                $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            }
+            
+            return $newCode;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error generating supplier account code: " . $e->getMessage());
+            // Fallback code
+            $timestamp = time() % 1000000;
+            return 'SUP-' . $timestamp;
+        }
+    }
+    
+    /**
+     * Get Liability account type ID
+     */
+    private function getLiabilityAccountTypeId()
+    {
+        try {
+            $liabilityType = \App\Models\ChartOfAccountType::where('name', 'Liability')->first();
+            return $liabilityType ? $liabilityType->id : 2; // Default to second type if Liability not found
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error getting liability account type ID: " . $e->getMessage());
+            return 2; // Default fallback
         }
     }
 }

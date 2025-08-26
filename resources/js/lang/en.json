@@ -1666,5 +1666,16 @@
   "Note for New Clients": "Note for New Clients",
   "If you don't select a chart of account, one will be automatically created with the client name when you save the client.": "If you don't select a chart of account, one will be automatically created with the client name when you save the client.",
   "Chart of account will be automatically assigned based on your accounting configuration.": "Chart of account will be automatically assigned based on your accounting configuration.",
-  "Select Chart of Account": "Select Chart of Account"
+  "Select Chart of Account": "Select Chart of Account",
+  "Search for an account...": "Search for an account...",
+  "No accounts found. Try typing to search...": "No accounts found. Try typing to search...",
+  "Searching accounts...": "Searching accounts...",
+  "Note for New Suppliers": "Note for New Suppliers",
+  "If you don't select a chart of account, one will be automatically created with the supplier name when you save the supplier.": "If you don't select a chart of account, one will be automatically created with the supplier name when you save the supplier.",
+  "Select a chart of account for this supplier. The account will be created without any parent.": "Select a chart of account for this supplier. The account will be created without any parent.",
+  "Select a chart of account for this supplier. The account will be properly created under the main supplier account.": "Select a chart of account for this supplier. The account will be properly created under the main supplier account.",
+  "Success!": "Success!",
+  "New chart of account created successfully.": "New chart of account created successfully.",
+  "Error!": "Error!",
+  "Failed to create new chart of account.": "Failed to create new chart of account."
 }

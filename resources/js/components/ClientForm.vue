@@ -347,7 +347,7 @@
     </div>
 
     <!-- Chart of Account Section -->
-    <div class="row mt-4">
+    <div v-if="routingSetting && routingSetting.routing_type !== 'automatic'" class="row mt-4">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -391,9 +391,15 @@
                   :options="chartOfAccounts" 
                   :reduce="option => option.id"
                   :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                  :placeholder="$t('Select an account')"
+                  :placeholder="$t('Search for an account...')"
                   :searchable="true"
                   :clearable="true"
+                  :filterable="false"
+                  :loading="loadingChartOfAccounts"
+                  :minimum-input-length="2"
+                  :delay="300"
+                  :async="true"
+                  :async-search="searchChartOfAccounts"
                 >
                   <template #option="{ name, code, type }">
                     <div class="account-option">
@@ -404,6 +410,17 @@
                   </template>
                   <template #selected-option="{ name }">
                     <span class="selected-account-name">{{ name }}</span>
+                  </template>
+                  <template #no-options>
+                    <div class="text-muted p-2">
+                      {{ $t("No accounts found. Try typing to search...") }}
+                    </div>
+                  </template>
+                  <template #loading>
+                    <div class="text-muted p-2">
+                      <i class="fas fa-spinner fa-spin mr-2"></i>
+                      {{ $t("Searching accounts...") }}
+                    </div>
                   </template>
                 </VSelect>
                 <has-error :form="form" field="chartOfAccountId" />
@@ -433,9 +450,15 @@
                 :options="chartOfAccounts" 
                 :reduce="option => option.id"
                 :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                :placeholder="$t('Select an account')"
+                :placeholder="$t('Search for an account...')"
                 :searchable="true"
                 :clearable="true"
+                :filterable="false"
+                :loading="loadingChartOfAccounts"
+                :minimum-input-length="2"
+                :delay="300"
+                :async="true"
+                :async-search="searchChartOfAccounts"
               >
                 <template #option="{ name, code, type }">
                   <div class="account-option">
@@ -447,10 +470,21 @@
                 <template #selected-option="{ name }">
                   <span class="selected-account-name">{{ name }}</span>
                 </template>
+                <template #no-options>
+                  <div class="text-muted p-2">
+                    {{ $t("No accounts found. Try typing to search...") }}
+                  </div>
+                </template>
+                <template #loading>
+                  <div class="text-muted p-2">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                    {{ $t("Searching accounts...") }}
+                  </div>
+                </template>
               </VSelect>
               <has-error :form="form" field="chartOfAccountId" />
               <small class="form-text text-muted">
-                {{ $t("Select a chart of account for this client. The account will be created under the main client account.") }}
+                {{ $t("Select a chart of account for this client. The account will be properly created under the main client account.") }}
               </small>
               
               <!-- Create New Account Button - Positioned below the select -->
@@ -477,6 +511,26 @@
           <i class="fas fa-exclamation-triangle mr-2"></i>
           {{ chartOfAccountsError }}
         </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Automatic Routing Info Section -->
+    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-chart-line mr-2"></i>
+              {{ $t("Chart of Account") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle mr-2"></i>
+              {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
+            </div>
           </div>
         </div>
       </div>
@@ -626,6 +680,17 @@ export default {
         console.log('New representatives length:', newValue ? newValue.length : 'undefined');
       },
       immediate: true
+    },
+
+    // Watch for routing settings changes
+    routingSetting: {
+      handler(newValue, oldValue) {
+        if (newValue && newValue.routing_type !== oldValue?.routing_type) {
+          console.log('Routing type changed, reloading chart of accounts');
+          this.loadChartOfAccounts();
+        }
+      },
+      deep: true
     }
   },
   computed: {
@@ -644,9 +709,10 @@ export default {
     console.log('Initial data in mounted:', this.initialData);
     // Don't call loadRepresentatives here - let the watcher handle it
     
-    // Load routing settings and chart of accounts
-    this.loadRoutingSettings();
-    this.loadChartOfAccounts();
+    // Load routing settings first, then chart of accounts
+    this.loadRoutingSettings().then(() => {
+      this.loadChartOfAccounts();
+    });
   },
   methods: {
     // Initialize the form
@@ -997,20 +1063,152 @@ export default {
       this.form.representatives = representatives;
     },
 
-    // Load chart of accounts
+    // Load routing settings
+    async loadRoutingSettings() {
+      try {
+        console.log('Loading routing settings...');
+        // Get the specific clients_account routing setting
+        const response = await this.$http.get('/api/account-routing-settings');
+        console.log('Routing settings response:', response);
+        
+        if (response.data && response.data.success) {
+          console.log('Routing settings data:', response.data.data);
+          // Find the clients_account setting
+          this.routingSetting = response.data.data.find(setting => setting.setting_key === 'clients_account');
+          console.log('Found clients_account setting:', this.routingSetting);
+          
+          if (this.routingSetting) {
+            // Add routing type display name
+            this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
+            console.log('Routing setting with display name:', this.routingSetting);
+          } else {
+            console.log('No clients_account setting found in:', response.data.data);
+          }
+        } else {
+          console.log('Routing settings response not successful:', response.data);
+        }
+      } catch (error) {
+        console.error('Error loading routing settings:', error);
+        this.routingSetting = null;
+      }
+    },
+
+    // Get routing type display name
+    getRoutingTypeDisplayName(routingType) {
+      switch (routingType) {
+        case 'automatic':
+          return 'Automatic Account Routing';
+        case 'per_each':
+          return 'Specify Per Each';
+        case 'main_account_per_each':
+          return 'Specify Main Account Per Each';
+        case 'cancel':
+          return 'Cancel Account Routing';
+        default:
+          return 'Unknown';
+      }
+    },
+
+    // Load chart of accounts with search functionality
     async loadChartOfAccounts() {
       try {
+        console.log('Loading chart of accounts...');
+        console.log('Current routing setting:', this.routingSetting);
+        
         this.loadingChartOfAccounts = true;
         this.chartOfAccountsError = null;
         
-        const response = await this.$http.get('/chart-of-accounts');
-        this.chartOfAccounts = response.data || [];
+        // If routing is automatic, we don't need to load all accounts
+        if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
+          console.log('Routing type is automatic, not loading chart of accounts');
+          this.chartOfAccounts = [];
+          return;
+        }
+        
+        // For other routing types, load accounts based on routing setting
+        if (this.routingSetting && this.routingSetting.main_account_id) {
+          console.log('Loading accounts from routing setup...');
+          // Load accounts from the routing setup
+          const response = await this.$http.get(`/api/account-routing-settings/${this.routingSetting.setting_key}/accounts`);
+          console.log('Routing accounts response:', response);
+          
+          if (response.data && response.data.success) {
+            this.chartOfAccounts = response.data.accounts || [];
+            console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
+          } else {
+            console.log('Routing accounts response not successful, falling back to all accounts');
+            // Fallback to all accounts
+            const fallbackResponse = await this.$http.get('/api/chart-of-accounts/all');
+            this.chartOfAccounts = fallbackResponse.data.data || [];
+            console.log('Loaded fallback accounts:', this.chartOfAccounts.length);
+          }
+        } else {
+          console.log('No main account ID, loading all accounts as fallback');
+          // Load all active accounts as fallback
+          const response = await this.$http.get('/api/chart-of-accounts/all');
+          this.chartOfAccounts = response.data.data || [];
+          console.log('Loaded all accounts as fallback:', this.chartOfAccounts.length);
+        }
       } catch (error) {
         console.error('Error loading chart of accounts:', error);
         this.chartOfAccountsError = error.message || 'Failed to load chart of accounts';
       } finally {
         this.loadingChartOfAccounts = false;
       }
+    },
+
+    // Search chart of accounts (for v-select search)
+    searchChartOfAccounts(search, loading) {
+      console.log('Searching for:', search);
+      
+      if (!search || search.length < 2) {
+        console.log('Search too short, returning first 50 accounts');
+        return Promise.resolve(this.chartOfAccounts.slice(0, 50)); // Return first 50 for initial display
+      }
+      
+      return new Promise(async (resolve) => {
+        try {
+          // Filter locally first for better performance
+          const filtered = this.chartOfAccounts.filter(account => 
+            account.name.toLowerCase().includes(search.toLowerCase()) ||
+            account.code.toLowerCase().includes(search.toLowerCase())
+          );
+          
+          console.log('Local filtered results:', filtered.length);
+          
+          // If we have enough results locally, return them
+          if (filtered.length >= 10) {
+            console.log('Enough local results, returning filtered');
+            resolve(filtered.slice(0, 50));
+            return;
+          }
+          
+          // Otherwise, search from API
+          console.log('Searching from API...');
+          const response = await this.$http.get('/api/chart-of-accounts/search', {
+            params: { term: search }
+          });
+          
+          console.log('API search response:', response);
+          
+          if (response.data && response.data.data) {
+            console.log('API returned data, returning results');
+            resolve(response.data.data.slice(0, 50));
+          } else {
+            console.log('No API data, returning local filtered');
+            resolve(filtered);
+          }
+        } catch (error) {
+          console.error('Error searching chart of accounts:', error);
+          // Fallback to local filtering
+          const fallbackFiltered = this.chartOfAccounts.filter(account => 
+            account.name.toLowerCase().includes(search.toLowerCase()) ||
+            account.code.toLowerCase().includes(search.toLowerCase())
+          );
+          console.log('Fallback filtered results:', fallbackFiltered.length);
+          resolve(fallbackFiltered.slice(0, 50));
+        }
+      });
     },
 
     // Auto-create chart of account for new client
@@ -1023,19 +1221,6 @@ export default {
       } catch (error) {
         console.error('Error auto-creating chart of account:', error);
         return null;
-      }
-    },
-
-    // Load routing settings
-    async loadRoutingSettings() {
-      try {
-        const response = await this.$http.get('/account-routing-settings');
-        if (response.data && response.data.success) {
-          this.routingSetting = response.data.data;
-        }
-      } catch (error) {
-        console.error('Error loading routing settings:', error);
-        this.routingSetting = null;
       }
     },
 
@@ -1482,7 +1667,7 @@ export default {
 
 /* Improved form groups */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .form-group label {
@@ -1532,51 +1717,6 @@ export default {
 
 .checkbox-inline input[type="checkbox"] {
   margin: 0;
-}
-
-
-
-.form-text {
-  font-size: 0.875rem;
-  color: #6c757d;
-  margin-top: 5px;
-}
-
-.required {
-  color: #dc3545;
-  font-weight: bold;
-}
-
-/* Question mark icon styling */
-.fa-question-circle {
-  cursor: help;
-  opacity: 0.7;
-}
-
-.fa-question-circle:hover {
-  opacity: 1;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .radio-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .section-title {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-  }
-  
-  .file-upload-area {
-    padding: 20px;
-    min-height: 100px;
-  }
-  
-  .file-upload-content i {
-    font-size: 2em;
-  }
 }
 
 /* Account Option Styling (from account routing page) */
@@ -1662,6 +1802,15 @@ export default {
   .section-title {
     font-size: 1.1rem;
     margin-bottom: 15px;
+  }
+  
+  .file-upload-area {
+    padding: 20px;
+    min-height: 100px;
+  }
+  
+  .file-upload-content i {
+    font-size: 2em;
   }
 }
 </style>

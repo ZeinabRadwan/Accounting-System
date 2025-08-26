@@ -1093,33 +1093,111 @@ ORDER BY `date`");
                 return $clientData;
             }
             
-            // If routing type is automatic and no chart of account is provided
-            if ($routingSetting->routing_type === 'automatic' && 
-                empty($clientData['chart_of_account_id']) && 
-                $routingSetting->main_account_id) {
-                
-                // Create a new account under the main account
-                $newAccount = \App\Models\ChartOfAccount::create([
-                    'name' => $this->getClientDisplayName($clientData),
-                    'code' => $this->generateAccountCode($routingSetting->main_account_id),
-                    'type_id' => $this->getAssetAccountTypeId(),
-                    'parent_id' => $routingSetting->main_account_id,
-                    'is_active' => true,
-                    'created_by' => Auth::id(),
-                ]);
-                
-                $clientData['chart_of_account_id'] = $newAccount->id;
-                
-                \Illuminate\Support\Facades\Log::info("Auto-assigned chart of account {$newAccount->id} for client", [
-                    'client_data' => $clientData,
-                    'routing_setting' => $routingSetting->toArray()
-                ]);
+            \Illuminate\Support\Facades\Log::info("Processing client chart of account with routing type: " . $routingSetting->routing_type, [
+                'routing_setting' => $routingSetting->toArray(),
+                'client_data' => $clientData
+            ]);
+            
+            switch ($routingSetting->routing_type) {
+                case 'automatic':
+                    // For automatic routing, always create/assign account if none provided
+                    if (empty($clientData['chart_of_account_id']) && $routingSetting->main_account_id) {
+                        $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
+                        $clientData['chart_of_account_id'] = $newAccount->id;
+                        
+                        \Illuminate\Support\Facades\Log::info("Auto-created chart of account {$newAccount->id} for client with automatic routing", [
+                            'client_data' => $clientData,
+                            'routing_setting' => $routingSetting->toArray()
+                        ]);
+                    }
+                    break;
+                    
+                case 'per_each':
+                    // For per each routing, validate that account is provided
+                    if (empty($clientData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
+                            $clientData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for client with per_each routing", [
+                                'client_data' => $clientData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'main_account_per_each':
+                    // For main account per each, validate that account is provided
+                    if (empty($clientData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
+                            $clientData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for client with main_account_per_each routing", [
+                                'client_data' => $clientData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'cancel':
+                    // For cancel routing, no chart of account needed
+                    $clientData['chart_of_account_id'] = null;
+                    \Illuminate\Support\Facades\Log::info("No chart of account assigned for client with cancel routing", [
+                        'client_data' => $clientData,
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
+                    
+                default:
+                    // Unknown routing type, use default behavior
+                    \Illuminate\Support\Facades\Log::warning("Unknown routing type: " . $routingSetting->routing_type, [
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
             }
             
             return $clientData;
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Error auto-assigning chart of account: " . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error("Error auto-assigning chart of account: " . $e->getMessage(), [
+                'client_data' => $clientData,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return $clientData;
+        }
+    }
+    
+    /**
+     * Create chart of account for client
+     */
+    private function createChartOfAccountForClient($clientData, $routingSetting)
+    {
+        try {
+            $newAccount = \App\Models\ChartOfAccount::create([
+                'name' => $this->getClientDisplayName($clientData),
+                'code' => $this->generateAccountCode($routingSetting->main_account_id),
+                'type_id' => $this->getAssetAccountTypeId(),
+                'parent_id' => $routingSetting->main_account_id,
+                'is_active' => true,
+                'created_by' => Auth::id(),
+            ]);
+            
+            \Illuminate\Support\Facades\Log::info("Created new chart of account for client", [
+                'account_id' => $newAccount->id,
+                'account_name' => $newAccount->name,
+                'account_code' => $newAccount->code,
+                'parent_account_id' => $routingSetting->main_account_id
+            ]);
+            
+            return $newAccount;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error creating chart of account for client: " . $e->getMessage());
+            throw $e;
         }
     }
     

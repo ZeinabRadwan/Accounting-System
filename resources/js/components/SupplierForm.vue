@@ -346,6 +346,194 @@
       </div>
     </div>
 
+    <!-- Chart of Account Section -->
+    <div v-if="routingSetting && routingSetting.routing_type !== 'automatic'" class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-chart-line mr-2"></i>
+              {{ $t("Chart of Account") }}
+            </h5>
+          </div>
+          <div class="card-body">
+        
+                     <!-- Routing Type Info -->
+         <div v-if="routingSetting" class="alert alert-info">
+           <i class="fas fa-info-circle mr-2"></i>
+           <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
+           <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
+         </div>
+
+         <!-- Auto-creation note for new suppliers -->
+         <div v-if="!isEditMode && routingSetting && routingSetting.routing_type !== 'automatic'" class="alert alert-warning">
+           <i class="fas fa-lightbulb mr-2"></i>
+           <strong>{{ $t("Note for New Suppliers") }}:</strong> 
+           {{ $t("If you don't select a chart of account, one will be automatically created with the supplier name when you save the supplier.") }}
+         </div>
+
+        <!-- Automatic Account Routing - No dropdown needed -->
+        <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
+          <i class="fas fa-check-circle mr-2"></i>
+          {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
+        </div>
+
+                                                                        <!-- Specify Per Each - Show dropdown and create button -->
+            <div v-if="routingSetting && routingSetting.routing_type === 'per_each'" class="chart-of-account-field">
+              <div class="form-group">
+                <label for="chartOfAccountId">
+                  {{ $t("Select Chart of Account") }} <span class="required">*</span>
+                </label>
+                <VSelect 
+                  v-model="form.chartOfAccountId" 
+                  :options="chartOfAccounts" 
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                  :placeholder="$t('Search for an account...')"
+                  :searchable="true"
+                  :clearable="true"
+                  :filterable="false"
+                  :loading="loadingChartOfAccounts"
+                  :minimum-input-length="2"
+                  :delay="300"
+                  :async="true"
+                  :async-search="searchChartOfAccounts"
+                >
+                  <template #option="{ name, code, type }">
+                    <div class="account-option">
+                      <span class="account-name">{{ name }}</span>
+                      <span class="account-code">{{ code }}</span>
+                      <span class="account-type">{{ type }}</span>
+                    </div>
+                  </template>
+                  <template #selected-option="{ name }">
+                    <span class="selected-account-name">{{ name }}</span>
+                  </template>
+                  <template #no-options>
+                    <div class="text-muted p-2">
+                      {{ $t("No accounts found. Try typing to search...") }}
+                    </div>
+                  </template>
+                  <template #loading>
+                    <div class="text-muted p-2">
+                      <i class="fas fa-spinner fa-spin mr-2"></i>
+                      {{ $t("Searching accounts...") }}
+                    </div>
+                  </template>
+                </VSelect>
+                <has-error :form="form" field="chartOfAccountId" />
+                <small class="form-text text-muted">
+                  {{ $t("Select a chart of account for this supplier. The account will be created without any parent.") }}
+                </small>
+                
+                <!-- Create New Account Button - Positioned below the select -->
+                <div class="mt-3" v-if="isEditMode">
+                  <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
+                    <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
+                    <i v-else class="fas fa-plus mr-2"></i>
+                    {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+                                           <!-- Specify Main Account Per Each - Show dropdown and create button -->
+          <div v-if="routingSetting && routingSetting.routing_type === 'main_account_per_each'" class="chart-of-account-field">
+            <div class="form-group">
+              <label for="chartOfAccountId">
+                {{ $t("Select Chart of Account") }} <span class="required">*</span>
+              </label>
+              <VSelect 
+                v-model="form.chartOfAccountId" 
+                :options="chartOfAccounts" 
+                :reduce="option => option.id"
+                :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                :placeholder="$t('Search for an account...')"
+                :searchable="true"
+                :clearable="true"
+                :filterable="false"
+                :loading="loadingChartOfAccounts"
+                :minimum-input-length="2"
+                :delay="300"
+                :async="true"
+                :async-search="searchChartOfAccounts"
+              >
+                <template #option="{ name, code, type }">
+                  <div class="account-option">
+                    <span class="account-name">{{ name }}</span>
+                    <span class="account-code">{{ code }}</span>
+                    <span class="account-type">{{ type }}</span>
+                  </div>
+                </template>
+                <template #selected-option="{ name }">
+                  <span class="selected-account-name">{{ name }}</span>
+                </template>
+                <template #no-options>
+                  <div class="text-muted p-2">
+                    {{ $t("No accounts found. Try typing to search...") }}
+                  </div>
+                </template>
+                <template #loading>
+                  <div class="text-muted p-2">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                    {{ $t("Searching accounts...") }}
+                  </div>
+                </template>
+              </VSelect>
+              <has-error :form="form" field="chartOfAccountId" />
+              <small class="form-text text-muted">
+                {{ $t("Select a chart of account for this supplier. The account will be properly created under the main supplier account.") }}
+              </small>
+              
+              <!-- Create New Account Button - Positioned below the select -->
+              <div class="mt-3" v-if="isEditMode">
+                <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
+                  <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
+                  <i v-else class="fas fa-plus mr-2"></i>
+                  {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <!-- Loading state -->
+        <div v-if="loadingChartOfAccounts" class="text-center py-3">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">{{ $t("Loading...") }}</span>
+          </div>
+          <p class="mt-2">{{ $t("Loading chart of accounts...") }}</p>
+        </div>
+
+        <!-- Error state -->
+        <div v-if="chartOfAccountsError" class="alert alert-danger">
+          <i class="fas fa-exclamation-triangle mr-2"></i>
+          {{ chartOfAccountsError }}
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Automatic Routing Info Section -->
+    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-chart-line mr-2"></i>
+              {{ $t("Chart of Account") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle mr-2"></i>
+              {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Toggle Buttons Section -->
     <div class="row mt-4">
       <div class="col-md-12">
@@ -380,6 +568,7 @@
 
 <script>
 import Form from "vform";
+import VSelect from "vue-select";
 
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
@@ -390,6 +579,7 @@ export default {
   components: {
     ToggleButton,
     RepresentativesList,
+    VSelect,
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -409,6 +599,13 @@ export default {
       loading: true,
       url: null,
       form: null, // Will be initialized in created()
+      
+      // Add missing properties for chart of accounts
+      routingSetting: null,
+      loadingChartOfAccounts: false,
+      chartOfAccountsError: null,
+      chartOfAccounts: [],
+      isCreatingAccount: false,
     };
   },
   computed: {
@@ -478,7 +675,10 @@ export default {
       console.log('Form email:', this.form.email);
     }
     
-    // Don't call loadRepresentatives here - let the watcher handle it
+    // Load routing settings first, then chart of accounts
+    this.loadRoutingSettings().then(() => {
+      this.loadChartOfAccounts();
+    });
   },
   methods: {
     // Initialize the form
@@ -523,6 +723,9 @@ export default {
         
         // Representatives
         representatives: [],
+        
+        // Chart of Account
+        chartOfAccountId: null,
         
         // Spread initial data if available
         ...(this.initialData || {})
@@ -809,6 +1012,103 @@ export default {
     handleRepresentativesChanged(representatives) {
       this.form.representatives = representatives;
     },
+
+    // Load routing settings
+    async loadRoutingSettings() {
+      try {
+        const response = await axios.get('/api/routing-settings/supplier');
+        if (response.data.success) {
+          this.routingSetting = response.data.data;
+          console.log('Routing settings loaded:', this.routingSetting);
+        } else {
+          console.error('Failed to load routing settings:', response.data.message);
+          this.routingSetting = null; // Ensure it's null on error
+        }
+      } catch (error) {
+        console.error('Error loading routing settings:', error);
+        this.routingSetting = null; // Ensure it's null on error
+      }
+    },
+
+    // Load chart of accounts
+    async loadChartOfAccounts() {
+      this.loadingChartOfAccounts = true;
+      this.chartOfAccounts = [];
+      this.chartOfAccountsError = null;
+
+      try {
+        const response = await axios.get('/api/chart-of-accounts/supplier');
+        if (response.data.success) {
+          this.chartOfAccounts = response.data.data;
+          console.log('Chart of accounts loaded:', this.chartOfAccounts);
+        } else {
+          this.chartOfAccountsError = response.data.message || 'Failed to load chart of accounts';
+          console.error('Failed to load chart of accounts:', this.chartOfAccountsError);
+        }
+      } catch (error) {
+        this.chartOfAccountsError = error.message || 'Failed to load chart of accounts';
+        console.error('Error loading chart of accounts:', this.chartOfAccountsError);
+      } finally {
+        this.loadingChartOfAccounts = false;
+      }
+    },
+
+    // Search for chart of accounts
+    async searchChartOfAccounts(search, loading) {
+      loading(true);
+      try {
+        const response = await axios.get(`/api/chart-of-accounts/search?q=${search}`);
+        if (response.data.success) {
+          this.chartOfAccounts = response.data.data;
+        } else {
+          this.chartOfAccounts = [];
+        }
+      } catch (error) {
+        this.chartOfAccounts = [];
+      } finally {
+        loading(false);
+      }
+    },
+
+    // Create new chart of account
+    async createNewAccount() {
+      if (this.isCreatingAccount) {
+        return;
+      }
+      this.isCreatingAccount = true;
+
+      try {
+        const response = await axios.post('/api/chart-of-accounts/create', {
+          name: this.form.fullName, // Use supplier name for new account
+          type: 'Supplier',
+          parent_id: null // No parent for new accounts
+        });
+
+        if (response.data.success) {
+          this.chartOfAccounts.push(response.data.data);
+          this.form.chartOfAccountId = response.data.data.id;
+          Swal.fire(
+            this.$t("Success!"),
+            this.$t("New chart of account created successfully."),
+            "success"
+          );
+        } else {
+          Swal.fire(
+            this.$t("Error!"),
+            response.data.message || this.$t("Failed to create new chart of account."),
+            "error"
+          );
+        }
+      } catch (error) {
+        Swal.fire(
+          this.$t("Error!"),
+          error.message || this.$t("Failed to create new chart of account."),
+          "error"
+        );
+      } finally {
+        this.isCreatingAccount = false;
+      }
+    }
   },
 };
 </script>
