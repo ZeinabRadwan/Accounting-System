@@ -1,5 +1,5 @@
 <template>
-  <form role="form" @keydown="form.onKeydown($event)">
+  <form role="form" @submit.prevent="submitForm" @keydown="form.onKeydown($event)">
     <div :class="{ 'card-body': showCardBody }">
       <!-- Account Details Section -->
       <div class="row">
@@ -113,13 +113,17 @@
               <has-error :form="form" field="phone" />
             </div>
             <div class="form-group col-md-6">
-              <label for="phoneNumber">
+              <label for="phoneNumber" class="required-field">
                 {{ $t("Mobile") }} <span class="required">*</span>
               </label>
-              <vue-tel-input :class="{ 'is-invalid': form.errors.has('phoneNumber') }" v-model="form.phoneNumber"
-                :inputOptions="{
-                  showDialCode: true,
-                }"></vue-tel-input>
+              <input 
+                id="phoneNumber"
+                v-model="form.phoneNumber"
+                type="tel"
+                class="form-control required-input"
+                :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
+                name="phoneNumber"
+                :placeholder="$t('Enter mobile number (required)')" />
               <has-error :form="form" field="phoneNumber" />
             </div>
           </div>
@@ -135,11 +139,20 @@
           <!-- Representatives Section - Only for Company type -->
           <div v-if="form.type === 'Company'" class="mt-4">
             <h6 class="section-subtitle">{{ $t("Representatives") }}</h6>
+            <p class="text-muted small">Debug: Client type is "{{ form.type }}"</p>
+            <p class="text-muted small">Debug: Representatives count: {{ (form.representatives || []).length }}</p>
+            <p class="text-muted small">Debug: Representatives data: {{ JSON.stringify(form.representatives) }}</p>
             
             <RepresentativesList 
               :representatives="form.representatives || []"
               @representatives-changed="handleRepresentativesChanged"
             />
+          </div>
+          
+          <!-- Debug info for non-Company types -->
+          <div v-else class="mt-4">
+            <p class="text-muted small">Debug: Representatives section hidden because client type is "{{ form.type }}" (not "Company")</p>
+            <p class="text-muted small">Debug: Representatives count: {{ (form.representatives || []).length }}</p>
           </div>
         </div>
       </div>
@@ -477,7 +490,110 @@ export default {
       isDemoMode: window.config.isDemoMode,
       loading: true,
       url: null,
-      form: new Form({
+      form: null, // Will be initialized in created()
+      
+      // Add missing properties
+      routingSetting: null,
+      loadingChartOfAccounts: false,
+      chartOfAccountsError: null,
+      chartOfAccounts: [],
+      isCreatingAccount: false,
+    };
+  },
+  watch: {
+    // Watch for changes in initialData prop
+    initialData: {
+      handler(newData) {
+        if (newData && Object.keys(newData).length > 0) {
+          // Set form values from initial data
+          Object.keys(newData).forEach(key => {
+            if (this.form.hasOwnProperty(key)) {
+              this.form[key] = newData[key];
+            }
+          });
+          
+          // Handle special cases
+          if (newData.image_path) {
+            this.url = newData.image_path;
+          }
+          
+          if (newData.attachments) {
+            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
+          }
+          
+          console.log('Form initialized with data:', newData);
+          
+          // Load representatives if this is an existing client
+          if (newData.slug && newData.slug !== 'new') {
+            console.log('=== WILL LOAD REPRESENTATIVES ===');
+            console.log('Will load representatives for slug:', newData.slug);
+            console.log('Slug type:', typeof newData.slug);
+            console.log('Slug value:', newData.slug);
+            console.log('Full newData:', newData);
+            // Add a small delay to ensure form is fully initialized
+            setTimeout(() => {
+              console.log('Calling loadRepresentatives after timeout');
+              this.loadRepresentatives();
+            }, 100);
+          } else {
+            console.log('=== NOT LOADING REPRESENTATIVES ===');
+            console.log('NOT loading representatives because:');
+            console.log('- newData.slug exists:', !!newData.slug);
+            console.log('- newData.slug value:', newData.slug);
+            console.log('- newData.slug !== new:', newData.slug !== 'new');
+            console.log('Full newData:', newData);
+            
+            // Load next code number only for new clients
+            console.log('Loading next code number for new client');
+            this.loadNextCodeNumber();
+          }
+        }
+      },
+      immediate: true,
+      deep: true
+    },
+    
+    // Watch for changes in phoneNumber field
+    'form.phoneNumber': {
+      handler(newValue, oldValue) {
+        console.log('Phone number changed:', { old: oldValue, new: newValue });
+      },
+      immediate: true
+    },
+    
+    // Watch for changes in representatives field
+    'form.representatives': {
+      handler(newValue, oldValue) {
+        console.log('Representatives changed:', { old: oldValue, new: newValue });
+        console.log('New representatives length:', newValue ? newValue.length : 'undefined');
+      },
+      immediate: true
+    }
+  },
+  computed: {
+    // Check if this is a new client
+    isNewClient() {
+      return !this.initialData || Object.keys(this.initialData).length === 0 || 
+             (this.initialData.slug && this.initialData.slug === 'new');
+    }
+  },
+  created() {
+    console.log('ClientForm component created');
+    this.initializeForm();
+  },
+  mounted() {
+    console.log('ClientForm component mounted, form:', this.form);
+    console.log('Initial data in mounted:', this.initialData);
+    // Don't call loadRepresentatives here - let the watcher handle it
+    
+    // Load routing settings and chart of accounts
+    this.loadRoutingSettings();
+    this.loadChartOfAccounts();
+  },
+  methods: {
+    // Initialize the form
+    initializeForm() {
+      this.form = new Form({
         // Account Details
         codeNumber: "000001",
         notes: "",
@@ -521,74 +637,21 @@ export default {
         // Chart of Account
         chartOfAccountId: null,
         
-        ...this.initialData
-      }),
+        // Spread initial data if available
+        ...(this.initialData || {})
+      });
       
-      // Chart of Account related data
-      chartOfAccounts: [],
-      routingSetting: null,
-      loadingChartOfAccounts: false,
-      isCreatingAccount: false,
-      chartOfAccountsError: null,
-      pendingAccountData: null, // For new clients, store account data temporarily
-    };
-  },
-  computed: {
-    // Check if this is a new client
-    isNewClient() {
-      return !this.initialData || Object.keys(this.initialData).length === 0 || 
-             (this.initialData.slug && this.initialData.slug === 'new');
-    }
-  },
-  mounted() {
-    // Load representatives if editing existing client
-    this.loadRepresentatives();
+      console.log('Form initialized:', this.form);
+      console.log('Form type:', typeof this.form);
+      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
+    },
     
-    // Load chart of accounts and routing settings
-    this.loadChartOfAccounts();
-  },
-  
-  watch: {
-    // Watch for changes in initialData prop
-    initialData: {
-      handler(newData) {
-        if (newData && Object.keys(newData).length > 0) {
-          // Set form values from initial data
-          Object.keys(newData).forEach(key => {
-            if (this.form.hasOwnProperty(key)) {
-              this.form[key] = newData[key];
-            }
-          });
-          
-          // Handle special cases
-          if (newData.image_path) {
-            this.url = newData.image_path;
-          }
-          
-          if (newData.attachments) {
-            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
-          }
-          
-          // Load representatives if this is an existing client
-          if (newData.slug && newData.slug !== 'new') {
-            this.loadRepresentatives();
-          }
-        }
-      },
-      immediate: true,
-      deep: true
-    }
-  },
-  created() {
-    this.loadNextCodeNumber();
-  },
-  methods: {
     // Load the next available code number for new clients
     async loadNextCodeNumber() {
       try {
         // Only load next code number if this is a new client (no initial data)
         if (!this.initialData || Object.keys(this.initialData).length === 0) {
-          const response = await axios.get('/api/clients/next-code');
+          const response = await axios.get('/clients/next-code');
           
           if (response.data.success) {
             this.form.codeNumber = response.data.formatted_code;
@@ -723,31 +786,61 @@ export default {
       return this.form;
     },
 
-         // Validate form
-     async validateForm() {
-       // Check if mobile number is provided
-       if (!this.form.phoneNumber) {
-         toast.fire({
-           type: "error",
-           title: this.$t("Mobile number is required"),
-         });
-         return false;
-       }
+    // Validate form
+    async validateForm() {
+      console.log('=== VALIDATING FORM ===');
+      console.log('Phone number in validation:', this.form.phoneNumber);
+      console.log('Phone number length:', this.form.phoneNumber ? this.form.phoneNumber.length : 'undefined');
+      console.log('Form type:', this.form.type);
+      console.log('Business name:', this.form.businessName);
+      console.log('Full name:', this.form.fullName);
+      console.log('Routing setting:', this.routingSetting);
+      console.log('Chart of account ID:', this.form.chartOfAccountId);
+      
+      // Basic validation - check if form exists
+      if (!this.form) {
+        console.error('Form is not initialized');
+        return false;
+      }
+      
+      // Check if mobile number is provided
+      if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
+        console.log('Phone number validation failed');
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Mobile number is required"),
+          });
+        } else {
+          alert(this.$t("Mobile number is required"));
+        }
+        return false;
+      }
 
        // Check if name is provided based on type
-       if (this.form.type === 'Company' && !this.form.businessName) {
-         toast.fire({
-           type: "error",
-           title: this.$t("Business name is required for company clients"),
-         });
+       if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
+         console.log('Business name validation failed');
+         if (window.toast && typeof window.toast.fire === 'function') {
+           window.toast.fire({
+             type: "error",
+             title: this.$t("Business name is required for company clients"),
+           });
+         } else {
+           alert(this.$t("Business name is required for company clients"));
+         }
          return false;
        }
 
-       if (this.form.type === 'Individual' && !this.form.fullName) {
-         toast.fire({
-           type: "error",
-           title: this.$t("Full name is required for individual clients"),
-         });
+       if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
+         console.log('Full name validation failed');
+         if (window.toast && typeof window.toast.fire === 'function') {
+           window.toast.fire({
+             type: "error",
+             title: this.$t("Full name is required for individual clients"),
+           });
+         } else {
+           alert(this.$t("Full name is required for individual clients"));
+         }
          return false;
        }
 
@@ -770,20 +863,28 @@ export default {
        }
 
        // Validate chart of account based on routing type
+       // Only validate if routing settings are loaded and not automatic
        if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
          if (!this.form.chartOfAccountId) {
            const message = this.routingSetting.routing_type === 'per_each' 
              ? this.$t("Please select a chart of account for this client")
              : this.$t("Please select a chart of account under the main client account");
-           
-           toast.fire({
-             type: "error",
-             title: message,
-           });
+           console.log('Chart of account validation failed:', message);
+           if (window.toast && typeof window.toast.fire === 'function') {
+             window.toast.fire({
+               type: "error",
+               title: message,
+             });
+           } else {
+             alert(message);
+           }
            return false;
          }
+       } else {
+         console.log('Skipping chart of account validation - routing type is automatic or not loaded');
        }
 
+       console.log('=== FORM VALIDATION PASSED ===');
        return true;
      },
 
@@ -791,17 +892,49 @@ export default {
     async loadRepresentatives() {
       // Try to get slug from route params first, then from initialData
       const slug = this.$route.params.slug || (this.initialData && this.initialData.slug);
+      console.log('=== LOADING REPRESENTATIVES ===');
+      console.log('Loading representatives for client:', slug);
+      console.log('Route params:', this.$route.params);
+      console.log('Initial data:', this.initialData);
+      console.log('Form type:', this.form.type);
+      console.log('Form representatives before load:', this.form.representatives);
       
       if (slug && slug !== 'new') {
         try {
-          const response = await this.$http.get(`/api/clients/${slug}/representatives`);
+          const apiUrl = `/client/${slug}/representatives`;
+          console.log('Making API call to:', apiUrl);
+          
+          const response = await this.$http.get(apiUrl);
+          console.log('Representatives API response received');
+          console.log('Response status:', response.status);
+          console.log('Response data:', response.data);
+          console.log('Response success:', response.data.success);
+          console.log('Response data.data:', response.data.data);
+          
           if (response.data.success) {
             this.form.representatives = response.data.data;
+            console.log('Representatives loaded into form:', this.form.representatives);
+            console.log('Form representatives after load:', this.form.representatives);
+            console.log('Representatives count after load:', this.form.representatives.length);
+          } else {
+            console.log('API response indicates failure:', response.data);
           }
         } catch (error) {
-          console.error('Error loading representatives:', error);
+          console.error('=== ERROR LOADING REPRESENTATIVES ===');
+          console.error('Error:', error);
+          console.error('Error message:', error.message);
+          console.error('Error response:', error.response);
+          if (error.response) {
+            console.error('Error status:', error.response.status);
+            console.error('Error data:', error.response.data);
+          }
         }
+      } else {
+        console.log('No slug or new client, skipping representatives load');
+        console.log('Slug value:', slug);
+        console.log('Is new client:', slug === 'new');
       }
+      console.log('=== END LOADING REPRESENTATIVES ===');
     },
 
     // Handle when representatives are changed (added, edited, deleted)
@@ -809,351 +942,143 @@ export default {
       this.form.representatives = representatives;
     },
 
-    // Load chart of accounts and routing settings
+    // Load chart of accounts
     async loadChartOfAccounts() {
-      this.loadingChartOfAccounts = true;
-      this.chartOfAccountsError = null;
-      
       try {
-        // Load routing settings first
-        await this.loadRoutingSettings();
+        this.loadingChartOfAccounts = true;
+        this.chartOfAccountsError = null;
         
-        // Load chart of accounts based on routing type
-        if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
-          await this.loadAccountsForRouting();
-        }
+        const response = await this.$http.get('/chart-of-accounts');
+        this.chartOfAccounts = response.data || [];
       } catch (error) {
         console.error('Error loading chart of accounts:', error);
-        this.chartOfAccountsError = this.$t('Failed to load chart of accounts. Please try again.');
+        this.chartOfAccountsError = error.message || 'Failed to load chart of accounts';
       } finally {
         this.loadingChartOfAccounts = false;
       }
     },
 
-    // Load routing settings for client account
+    // Auto-create chart of account for new client
+    async autoCreateChartOfAccountForNewClient() {
+      try {
+        // This method would implement the logic to automatically create a chart of account
+        // For now, we'll return null to indicate no auto-creation
+        console.log('Auto-create chart of account method called');
+        return null;
+      } catch (error) {
+        console.error('Error auto-creating chart of account:', error);
+        return null;
+      }
+    },
+
+    // Load routing settings
     async loadRoutingSettings() {
       try {
-        const response = await this.$http.get('/api/account-routing-settings/clients_account/accounts');
-        
-        if (response.data.success) {
-          this.routingSetting = response.data.data.setting;
-          
-          // Add display name for routing type
-          this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
-        } else {
-          throw new Error(response.data.message || 'Failed to load routing settings');
+        const response = await this.$http.get('/account-routing-settings');
+        if (response.data && response.data.success) {
+          this.routingSetting = response.data.data;
         }
       } catch (error) {
         console.error('Error loading routing settings:', error);
-        // Set default routing setting
-        this.routingSetting = {
-          routing_type: 'automatic',
-          routing_type_display: 'Automatic Account Routing',
-          description: 'System automatically routes to the selected parent account'
-        };
+        this.routingSetting = null;
       }
     },
 
-    // Load accounts for routing
-    async loadAccountsForRouting() {
+    // Create new chart of account
+    async createNewAccount() {
       try {
-        let response;
-        
-        if (this.routingSetting.routing_type === 'per_each') {
-          // For per_each, get all available accounts
-          response = await this.$http.get('/api/chart-of-accounts/all');
-          const accounts = response.data.data || [];
-          this.chartOfAccounts = accounts.map(account => ({
-            ...account,
-            type: account.type?.name || account.type || 'Asset',
-            display_name: `${account.code} - ${account.name} (${account.type?.name || account.type || 'Asset'})`
-          }));
-        } else if (this.routingSetting.routing_type === 'main_account_per_each') {
-          // For main_account_per_each, get accounts under the main account
-          response = await this.$http.get('/api/account-routing-settings/clients_account/accounts');
-          if (response.data.success) {
-            const accounts = response.data.data.accounts || [];
-            this.chartOfAccounts = accounts.map(account => ({
-              ...account,
-              type: account.type?.name || account.type || 'Asset',
-              display_name: `${account.code} - ${account.name} (${account.type?.name || account.type || 'Asset'})`
-            }));
-          }
-        }
-      } catch (error) {
-        console.error('Error loading accounts for routing:', error);
-        this.chartOfAccountsError = this.$t('Failed to load accounts. Please try again.');
-      }
-    },
-
-    // Get routing type display name
-    getRoutingTypeDisplayName(routingType) {
-      const displayNames = {
-        'automatic': 'Automatic Account Routing',
-        'per_each': 'Specify Per Each',
-        'main_account_per_each': 'Specify Main Account Per Each',
-        'cancel': 'Cancel Account Routing'
-      };
-      return displayNames[routingType] || routingType;
-    },
-
-                   // Create new chart of account for client
-      async createNewAccount() {
-        if (this.isCreatingAccount) return;
-        
         this.isCreatingAccount = true;
         
-        try {
-          // Check if this is a new client or existing client
-          const isNewClient = this.isNewClient;
-          
-          if (isNewClient) {
-            // For new clients, create a temporary account that will be properly linked when saved
-            const tempAccount = {
-              id: `temp_${Date.now()}`, // Temporary ID
-              name: this.getClientDisplayName(),
-              code: await this.generateAccountCode(),
-              type: 'Asset',
-              display_name: `${await this.generateAccountCode()} - ${this.getClientDisplayName()} (Asset)`,
-              isTemporary: true
-            };
-            
-            // Add the temporary account to the list
-            this.chartOfAccounts.push(tempAccount);
-            
-            // Set the temporary account as selected
-            this.form.chartOfAccountId = tempAccount.id;
-            
-            // Store the account data for later creation when client is saved
-            this.pendingAccountData = {
-              name: tempAccount.name,
-              routing_type: this.routingSetting.routing_type,
-              isTemporary: true
-            };
-            
-            // Show success message
-            if (window.toast && typeof window.toast.fire === 'function') {
-              window.toast.fire({
-                type: 'success',
-                title: this.$t('Temporary account created. It will be properly created when you save the client.')
-              });
-            }
-            
-            return;
-          }
-          
-          // For existing clients, get the slug and create real account
-          const clientSlug = this.$route?.params?.slug || this.initialData?.slug;
-
-          const accountData = {
-            name: this.getClientDisplayName(),
-            routing_type: this.routingSetting.routing_type
-          };
-
-          const response = await this.$http.post(`/api/clients/${clientSlug}/create-chart-of-account`, accountData);
-          
-          if (response.data.success) {
-            const newAccount = response.data.data.account;
-            
-            // Add the new account to the list
-            this.chartOfAccounts.push({
-              id: newAccount.id,
-              name: newAccount.name,
-              code: newAccount.code,
-              type: newAccount.type?.name || newAccount.type || 'Asset',
-              display_name: `${newAccount.code} - ${newAccount.name} (${newAccount.type?.name || newAccount.type || 'Asset'})`
-            });
-            
-            // Set the new account as selected
-            this.form.chartOfAccountId = newAccount.id;
-            
-            // Show success message
-            if (window.toast && typeof window.toast.fire === 'function') {
-              window.toast.fire({
-                type: 'success',
-                title: this.$t('New account created successfully')
-              });
-            }
-          }
-        } catch (error) {
-          console.error('Error creating new account:', error);
-          const errorMessage = error.response?.data?.message || error.message || this.$t('Failed to create new account');
-          
-          if (window.toast && typeof window.toast.fire === 'function') {
-            window.toast.fire({
-              type: 'error',
-              title: errorMessage
-            });
-          } else {
-            alert(errorMessage);
-          }
-        } finally {
-          this.isCreatingAccount = false;
+        // This method would implement the logic to create a new chart of account
+        // For now, we'll just show a message
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: 'info',
+            title: this.$t('Create New Account'),
+            text: this.$t('This feature is not yet implemented.')
+          });
         }
-      },
-
-    // Get client display name for account creation
-    getClientDisplayName() {
-      if (this.form.type === 'Individual') {
-        return this.form.fullName || this.form.name || 'Individual Client';
-      } else {
-        return this.form.businessName || this.form.companyName || 'Business Client';
-      }
-    },
-
-    // Generate unique account code
-    async generateAccountCode() {
-      try {
-        // Get the next available code from the routing setting
-        if (this.routingSetting && this.routingSetting.main_account_id) {
-          const mainAccount = this.chartOfAccounts.find(acc => acc.id === this.routingSetting.main_account_id);
-          if (mainAccount) {
-            // Generate code based on main account code
-            const baseCode = mainAccount.code;
-            const existingCodes = this.chartOfAccounts
-              .filter(acc => acc.code.startsWith(baseCode))
-              .map(acc => acc.code);
-            
-            let counter = 1;
-            let newCode = `${baseCode}-${counter.toString().padStart(3, '0')}`;
-            
-            while (existingCodes.includes(newCode)) {
-              counter++;
-              newCode = `${baseCode}-${counter.toString().padStart(3, '0')}`;
-            }
-            
-            return newCode;
-          }
+      } catch (error) {
+        console.error('Error creating new account:', error);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: 'error',
+            title: this.$t('Error'),
+            text: this.$t('Failed to create new account')
+          });
         }
-        
-        // Fallback: generate based on client type
-        const prefix = this.form.type === 'Individual' ? 'IND' : 'BUS';
-        const timestamp = Date.now().toString().slice(-6);
-        return `${prefix}-${timestamp}`;
-      } catch (error) {
-        console.error('Error generating account code:', error);
-        // Fallback code
-        const timestamp = Date.now().toString().slice(-6);
-        return `CLI-${timestamp}`;
+      } finally {
+        this.isCreatingAccount = false;
       }
     },
 
-    // Get Asset account type ID
-    async getAssetAccountTypeId() {
-      try {
-        const response = await this.$http.get('/api/chart-of-account-types');
-        const assetType = response.data.data.find(type => type.name === 'Asset');
-        return assetType ? assetType.id : 1; // Default to first type if Asset not found
-      } catch (error) {
-        console.error('Error getting Asset account type:', error);
-        return 1; // Default fallback
-      }
-    },
-
-    // Handle chart of account creation for new clients
-    async handleChartOfAccountForNewClient() {
-      // Only proceed if this is a new client and routing type requires account selection
-      if (!this.isNewClient || !this.routingSetting || this.routingSetting.routing_type === 'automatic') {
+    // Submit form
+    async submitForm() {
+      console.log('SubmitForm called, form data:', this.form.data());
+      console.log('Phone number value:', this.form.phoneNumber);
+      console.log('Phone number type:', typeof this.form.phoneNumber);
+      
+      if (!this.validateForm()) {
+        console.log('Form validation failed');
         return;
       }
-
-      // If no chart of account is selected, create one automatically
-      if (!this.form.chartOfAccountId) {
-        try {
-          // Create account data
-          const accountData = {
-            name: this.getClientDisplayName(),
-            routing_type: this.routingSetting.routing_type
-          };
-
-          // For new clients, we'll create the account after the client is saved
-          // Store the account data temporarily
-          this.pendingAccountData = accountData;
-        } catch (error) {
-          console.error('Error preparing account data for new client:', error);
-        }
-      }
+      
+      // Map form data to API format
+      const submitData = {
+        // Explicitly include all form fields to ensure they are sent
+        codeNumber: this.form.codeNumber,
+        notes: this.form.notes,
+        displayLanguage: this.form.displayLanguage,
+        status: this.form.status,
+        
+        // Client Details
+        type: this.form.type,
+        fullName: this.form.fullName,
+        businessName: this.form.businessName,
+        firstName: this.form.firstName,
+        lastName: this.form.lastName,
+        phone: this.form.phone,
+        phoneNumber: this.form.phoneNumber, // Explicitly include phone number
+        email: this.form.email,
+        streetAddress1: this.form.streetAddress1,
+        streetAddress2: this.form.streetAddress2,
+        city: this.form.city,
+        state: this.form.state,
+        postalCode: this.form.postalCode,
+        country: this.form.country,
+        neighbourhood: this.form.neighbourhood,
+        commercialRegister: this.form.commercialRegister,
+        taxCard: this.form.taxCard,
+        
+        // Additional Fields
+        image: this.form.image,
+        attachments: this.form.attachments,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        
+        // Map legacy fields for backward compatibility
+        name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
+        companyName: this.form.businessName,
+        taxRegistrationNumber: this.form.taxCard,
+        address: this.form.streetAddress1,
+        
+        // Include representatives data
+        representatives: this.form.representatives || [],
+      };
+      
+      console.log('Final submit data:', submitData);
+      
+      // Emit submit event with form data
+      this.$emit('submit', submitData);
     },
-
-         // Get pending account data (for new clients)
-     getPendingAccountData() {
-       // If we have a temporary account selected, return its data
-       if (this.form.chartOfAccountId && typeof this.form.chartOfAccountId === 'string' && this.form.chartOfAccountId.startsWith('temp_')) {
-         const tempAccount = this.chartOfAccounts.find(acc => acc.id === this.form.chartOfAccountId);
-         if (tempAccount && tempAccount.isTemporary) {
-           return {
-             name: tempAccount.name,
-             routing_type: this.routingSetting.routing_type,
-             isTemporary: true
-           };
-         }
-       }
-       return this.pendingAccountData || null;
-     },
-
-         // Clear pending account data
-     clearPendingAccountData() {
-       this.pendingAccountData = null;
-     },
-
-     // Automatically create chart of account for new clients if none selected
-     async autoCreateChartOfAccountForNewClient() {
-       // Only proceed if this is a new client and routing type requires account selection
-       if (!this.isNewClient || !this.routingSetting || this.routingSetting.routing_type === 'automatic') {
-         return null;
-       }
-
-       // If no chart of account is selected, create one automatically
-       if (!this.form.chartOfAccountId) {
-         try {
-           // Create account data
-           const accountData = {
-             name: this.getClientDisplayName(),
-             routing_type: this.routingSetting.routing_type
-           };
-
-           // For new clients, we'll create the account after the client is saved
-           // Store the account data temporarily
-           this.pendingAccountData = accountData;
-           
-           // Generate a temporary account for display
-           const tempAccount = {
-             id: `temp_${Date.now()}`,
-             name: accountData.name,
-             code: await this.generateAccountCode(),
-             type: 'Asset',
-             display_name: `${await this.generateAccountCode()} - ${accountData.name} (Asset)`,
-             isTemporary: true
-           };
-           
-           // Add to the list and select it
-           this.chartOfAccounts.push(tempAccount);
-           this.form.chartOfAccountId = tempAccount.id;
-           
-           return tempAccount;
-         } catch (error) {
-           console.error('Error preparing account data for new client:', error);
-           return null;
-         }
-       }
-       
-       return null;
-     },
 
   },
 };
 </script>
 
-<style src="vue-tel-input/dist/vue-tel-input.css"></style>
-<style src="vue-select/dist/vue-select.css"></style>
-<style scoped>
-.vue-tel-input {
-  padding: 3px;
-}
 
-.ti__dropdown-list {
-  z-index: 2;
-}
+<style scoped>
+
 
 .section-title {
   color: #495057;
@@ -1247,6 +1172,15 @@ export default {
 .required {
   color: #dc3545;
   font-weight: bold;
+}
+
+.required-field {
+  font-weight: 600;
+  color: #495057;
+}
+
+.required-input {
+  border-left: 3px solid #dc3545;
 }
 
 /* Question mark icon styling */

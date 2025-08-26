@@ -13,12 +13,8 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="saveSupplier" @keydown="form.onKeydown($event)">
-            <div class="card-body">
-              <SupplierForm @submit="saveSupplier" />
-            </div>
-          </form>
+          <!-- Use SupplierForm directly without outer form wrapper -->
+          <SupplierForm @submit="saveSupplier" :showCardBody="true" />
         </div>
       </div>
     </div>

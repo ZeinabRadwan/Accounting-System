@@ -1,5 +1,17 @@
 <template>
   <div>
+    <!-- Debug section -->
+    <div v-if="form" class="alert alert-info mb-3">
+      <strong>Debug Info:</strong><br>
+      Form initialized: {{ !!form }}<br>
+      Code Number: {{ form.codeNumber }}<br>
+      Type: {{ form.type }}<br>
+      Email: {{ form.email }}<br>
+      Full Name: {{ form.fullName }}<br>
+      Business Name: {{ form.businessName }}<br>
+      Phone: {{ form.phoneNumber }}
+    </div>
+    
     <!-- Card Body Wrapper (for create page) -->
     <div v-if="showCardBody" class="card-body">
       <form role="form" @submit.prevent="submitForm" @keydown="form.onKeydown($event)">
@@ -117,15 +129,14 @@
               <label for="phoneNumber">
                 {{ $t("Phone") }} <span class="required">*</span>
               </label>
-              <vue-tel-input
+              <input 
+                id="phoneNumber"
                 v-model="form.phoneNumber"
+                type="tel"
+                class="form-control"
                 :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
-                :inputOptions="{
-                  showDialCode: true,
-                  placeholder: $t('Enter phone number')
-                }"
                 name="phoneNumber"
-              />
+                :placeholder="$t('Enter phone number')" />
               <has-error :form="form" field="phoneNumber" />
             </div>
 
@@ -142,7 +153,7 @@
               <h6 class="section-subtitle">{{ $t("Representatives") }}</h6>
               
               <RepresentativesList 
-                :representatives="form.representatives || []"
+                :representatives="form.representatives && Array.isArray(form.representatives) ? form.representatives : []"
                 @representatives-changed="handleRepresentativesChanged"
               />
             </div>
@@ -282,7 +293,7 @@
                 <has-error :form="form" field="attachments" />
                 
                 <!-- Selected Files Display -->
-                <div v-if="form.attachments.length > 0" class="selected-files mt-2">
+                <div v-if="form.attachments && form.attachments.length > 0" class="selected-files mt-2">
                   <div v-for="(file, index) in form.attachments" :key="index" class="selected-file-item">
                     <span class="file-name">{{ file.name || file }}</span>
                     <button type="button" @click="removeFile(index)" class="btn btn-sm btn-danger ml-2">
@@ -315,9 +326,9 @@
           </div>
         </div>
 
-                <!-- Form Actions -->
-        <div v-if="showCardBody" class="card-footer">
-          <button :disabled="form.busy" class="btn btn-primary">
+                <!-- Form Actions - Only show when not in edit mode -->
+        <div v-if="showCardBody && !isEditMode" class="card-footer">
+          <button :disabled="form.busy" class="btn btn-primary" @click="submitForm">
             <i class="fas fa-save" /> {{ $t("Save") }}
           </button>
           <button type="reset" class="btn btn-secondary float-right" @click="resetForm">
@@ -351,15 +362,14 @@
           </div>
           <div class="form-group col-md-6">
             <label for="modalPhone">{{ $t("Phone") }} <span class="required">*</span></label>
-            <vue-tel-input
+            <input 
+              id="modalPhone"
               v-model="form.phoneNumber"
+              type="tel"
+              class="form-control"
               :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
-              :inputOptions="{
-                showDialCode: true,
-                placeholder: $t('Enter phone number')
-              }"
               name="phoneNumber"
-            />
+              :placeholder="$t('Enter phone number')" />
             <has-error :form="form" field="phoneNumber" />
           </div>
           <div class="form-group col-md-6">
@@ -386,7 +396,7 @@
 
 <script>
 import Form from "vform";
-import { VueTelInput } from "vue-tel-input";
+
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
 import axios from 'axios';
@@ -394,7 +404,6 @@ import axios from 'axios';
 export default {
   name: "SupplierForm",
   components: {
-    VueTelInput,
     ToggleButton,
     RepresentativesList,
   },
@@ -415,7 +424,82 @@ export default {
       isDemoMode: window.config.isDemoMode,
       loading: true,
       url: null,
-      form: new Form({
+      form: null, // Will be initialized in created()
+    };
+  },
+  computed: {
+    // Check if this is edit mode (has initial data with slug)
+    isEditMode() {
+      return this.initialData && this.initialData.slug && this.initialData.slug !== 'new';
+    }
+  },
+  watch: {
+    // Watch for changes in initialData prop
+    initialData: {
+      handler(newData) {
+        console.log('InitialData watcher triggered:', newData);
+        if (newData && Object.keys(newData).length > 0) {
+          console.log('Form before setting values:', this.form);
+          
+          // Set form values from initial data
+          Object.keys(newData).forEach(key => {
+            if (this.form && this.form.hasOwnProperty(key)) {
+              console.log(`Setting form.${key} =`, newData[key]);
+              this.form[key] = newData[key];
+            } else {
+              console.log(`Form field ${key} not found or form not initialized`);
+            }
+          });
+          
+          // Handle special cases
+          if (newData.image_path) {
+            this.url = newData.image_path;
+          }
+          
+          if (newData.attachments !== undefined) {
+            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
+          } else {
+            // Ensure attachments is always an array
+            this.form.attachments = [];
+          }
+          
+          console.log('Form after setting values:', this.form);
+          
+          // Load representatives if this is an existing supplier
+          if (newData.slug && newData.slug !== 'new') {
+            this.loadRepresentatives();
+          } else {
+            // Load next code number only for new suppliers
+            console.log('Loading next code number for new supplier');
+            this.loadNextCodeNumber();
+          }
+        }
+      },
+      immediate: true,
+      deep: true
+    }
+  },
+  created() {
+    console.log('SupplierForm component created');
+    this.initializeForm();
+  },
+  mounted() {
+    console.log('SupplierForm component mounted, form:', this.form);
+    console.log('Form data in mounted:', this.form ? Object.keys(this.form) : 'No form');
+    
+    // Test if form is working
+    if (this.form) {
+      console.log('Form codeNumber:', this.form.codeNumber);
+      console.log('Form type:', this.form.type);
+      console.log('Form email:', this.form.email);
+    }
+    
+    // Don't call loadRepresentatives here - let the watcher handle it
+  },
+  methods: {
+    // Initialize the form
+    initializeForm() {
+      this.form = new Form({
         // Account Details
         codeNumber: "000001",
         notes: "",
@@ -427,7 +511,6 @@ export default {
         businessName: "",
         firstName: "",
         lastName: "",
-        phone: "",
         phoneNumber: "",
         email: "",
         streetAddress1: "",
@@ -455,53 +538,15 @@ export default {
         // Representatives
         representatives: [],
         
-        ...this.initialData
-      }),
-    };
-  },
-  watch: {
-    // Watch for changes in initialData prop
-    initialData: {
-      handler(newData) {
-        if (newData && Object.keys(newData).length > 0) {
-          // Set form values from initial data
-          Object.keys(newData).forEach(key => {
-            if (this.form.hasOwnProperty(key)) {
-              this.form[key] = newData[key];
-            }
-          });
-          
-          // Handle special cases
-          if (newData.image_path) {
-            this.url = newData.image_path;
-          }
-          
-          if (newData.attachments) {
-            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
-          }
-          
-          console.log('Form initialized with data:', newData);
-          
-          // Load representatives if this is an existing supplier
-          if (newData.slug && newData.slug !== 'new') {
-            this.loadRepresentatives();
-          }
-        }
-      },
-      immediate: true,
-      deep: true
-    }
-  },
-  created() {
-    console.log('SupplierForm component created');
-    this.loadNextCodeNumber();
-  },
-  mounted() {
-    console.log('SupplierForm component mounted, form:', this.form);
-    // Load representatives if editing existing supplier
-    this.loadRepresentatives();
-  },
-  methods: {
+        // Spread initial data if available
+        ...(this.initialData || {})
+      });
+      
+      console.log('Form initialized:', this.form);
+      console.log('Form type:', typeof this.form);
+      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
+    },
+    
     // Load the next available code number for new suppliers
     async loadNextCodeNumber() {
       try {
@@ -588,37 +633,57 @@ export default {
       });
       
       // Add valid files to attachments
-      this.form.attachments = [...this.form.attachments, ...validFiles];
+      this.form.attachments = [...(this.form.attachments || []), ...validFiles];
     },
 
     // Remove attachment file
     removeFile(index) {
-      this.form.attachments.splice(index, 1);
+      if (this.form.attachments && Array.isArray(this.form.attachments)) {
+        this.form.attachments.splice(index, 1);
+      }
     },
 
     // Validate form before submission
     validateForm() {
+      console.log('=== VALIDATING SUPPLIER FORM ===');
       let isValid = true;
       
+      // Basic validation - check if form exists
+      if (!this.form) {
+        console.error('Form is not initialized');
+        return false;
+      }
+      
       // Clear previous errors
-      this.form.clearErrors();
+      this.form.errors.clear();
+      
+      console.log('Form data for validation:', {
+        phoneNumber: this.form.phoneNumber,
+        type: this.form.type,
+        fullName: this.form.fullName,
+        businessName: this.form.businessName
+      });
       
       // Required field validations
-      if (!this.form.phoneNumber) {
+      if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
+        console.log('Phone number validation failed');
         this.form.errors.set('phoneNumber', this.$t('Phone number is required'));
         isValid = false;
       }
       
-      if (this.form.type === 'Individual' && !this.form.fullName) {
+      if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
+        console.log('Full name validation failed for individual');
         this.form.errors.set('fullName', this.$t('Full name is required for individual suppliers'));
         isValid = false;
       }
       
-      if (this.form.type === 'Company' && !this.form.businessName) {
+      if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
+        console.log('Business name validation failed for company');
         this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
         isValid = false;
       }
       
+      console.log('=== SUPPLIER FORM VALIDATION RESULT:', isValid, '===');
       return isValid;
     },
 
@@ -636,10 +701,17 @@ export default {
         companyName: this.form.businessName,
         taxRegistrationNumber: this.form.taxCard,
         address: this.form.streetAddress1,
+        // Include representatives data
+        representatives: this.form.representatives && Array.isArray(this.form.representatives) ? this.form.representatives : [],
       };
       
       // Emit submit event with form data
       this.$emit('submit', submitData);
+    },
+
+    // Get form data for parent component
+    getFormData() {
+      return this.form;
     },
 
     // Reset form to default values
@@ -664,7 +736,6 @@ export default {
       this.form.businessName = "";
       this.form.firstName = "";
       this.form.lastName = "";
-      this.form.phone = "";
       this.form.phoneNumber = "";
       this.form.email = "";
       this.form.streetAddress1 = "";
@@ -688,7 +759,7 @@ export default {
       
       if (slug && slug !== 'new') {
         try {
-          const response = await this.$http.get(`/api/suppliers/${slug}/representatives`);
+          const response = await axios.get(`/api/supplier/${slug}/representatives`);
           console.log('Representatives API response:', response.data);
           if (response.data.success) {
             this.form.representatives = response.data.data;
@@ -710,11 +781,9 @@ export default {
 };
 </script>
 
-<style src="vue-tel-input/dist/vue-tel-input.css"></style>
+
 <style scoped>
-.vue-tel-input {
-  padding: 3px;
-}
+
 
 .section-title {
   color: #495057;

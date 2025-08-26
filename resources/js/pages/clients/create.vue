@@ -36,7 +36,7 @@
           
           <!-- /.card-body -->
           <div class="card-footer">
-            <button @click="saveClient" :disabled="isSubmitting" class="btn btn-primary">
+            <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
               <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
               <i v-else class="fas fa-save"></i> 
               {{ isSubmitting ? $t("Saving...") : $t("Save") }}
@@ -91,40 +91,41 @@ export default {
     console.log('ClientForm ref:', this.$refs.clientForm);
   },
   methods: {
+    // Submit form by calling ClientForm's submitForm method
+    submitForm() {
+      if (this.$refs.clientForm) {
+        this.$refs.clientForm.submitForm();
+      }
+    },
+    
     // save client
-    async saveClient() {
+    async saveClient(formData) {
       if (this.isSubmitting) return;
       
-      // Get the form from the ClientForm component
-      if (!this.$refs.clientForm) {
-        console.error('ClientForm reference not found');
-        toast.fire({ type: "error", title: this.$t("Form not ready") });
-        return;
-      }
-      
-      this.form = this.$refs.clientForm.getFormData();
-      
-      // Validate the form
-      if (!this.$refs.clientForm.validateForm()) {
-        return;
-      }
-      
       this.isSubmitting = true;
-      await this.form
-        .post(window.location.origin + "/api/clients")
-        .then(() => {
+      
+      try {
+        // Use the submitted form data directly
+        const response = await this.$http.post("/api/clients", formData);
+        
+        if (response.data.success) {
           toast.fire({
             type: "success",
             title: this.$t("Client added successfully"),
           });
           this.$router.push({ name: "clients.index" });
-        })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
-        })
-        .finally(() => {
-          this.isSubmitting = false;
+        } else {
+          throw new Error(response.data.message || 'Failed to create client');
+        }
+      } catch (error) {
+        console.error("Error creating client:", error);
+        toast.fire({ 
+          type: "error", 
+          title: this.$t("Opps...something went wrong") 
         });
+      } finally {
+        this.isSubmitting = false;
+      }
     },
 
     // Reset form

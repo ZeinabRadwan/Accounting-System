@@ -53,7 +53,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             return [
                 config('config.supplierPrefix') . ' - ' . $supplier->supplier_id,
                 $supplier->name,
-                $supplier->phone,
+                $supplier->phone_number,
                 $supplier->email,
                 $supplier->company_name,
                 $supplier->type,

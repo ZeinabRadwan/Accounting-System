@@ -20,7 +20,7 @@ class SupplierForPurchasePaymentResource extends JsonResource
             'supplierID' => $this->supplier_id,
             'slug' => $this->slug,
             'email' => $this->email,
-            'phoneNumber' => $this->phone,
+            'phoneNumber' => $this->phone_number ?: $this->phone_legacy,
             'companyName' => $this->company_name,
             'address' => $this->address,
             'status' => (int) $this->status,

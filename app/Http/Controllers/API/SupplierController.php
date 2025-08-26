@@ -91,7 +91,6 @@ class SupplierController extends Controller
                 'name' => $request->name,
                 'supplier_id' => $code,
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'status' => $request->status,
@@ -241,7 +240,6 @@ class SupplierController extends Controller
             $updateData = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'type' => $request->type,
@@ -694,7 +692,7 @@ class SupplierController extends Controller
 
             $rules = [
                 'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:20|min:3',
+                'phone_number' => 'required|string|max:20|min:3',
                 'email' => 'nullable|email|max:255|min:3|unique:suppliers,email',
                 'company_name' => 'nullable|string|max:100|min:2',
             ];

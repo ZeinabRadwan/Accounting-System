@@ -21,7 +21,7 @@
                         <td> {{ ++$key }} </td>
                         <td>{{ $supplier['name'] }}</td>
                         <td>{{ config('config.supplierPrefix') . '-' . $supplier['supplier_id'] }}</td>
-                        <td>{{ $supplier['phone'] }}</td>
+                        <td>{{ $supplier['phone_number'] }}</td>
                         <td>{{ $supplier['email'] }}</td>
                         <td>{{ $supplier['company_name'] }}</td>
                         <td>

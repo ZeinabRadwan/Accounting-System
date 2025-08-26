@@ -1645,5 +1645,26 @@
   "Go to Bank Accounts": "Go to Bank Accounts",
   "Validation Summary": "Validation Summary",
   "Please fix the following issues:": "Please fix the following issues:",
-  "Got it": "Got it"
+  "Got it": "Got it",
+  
+  "Enter mobile number (required)": "Enter mobile number (required)",
+  "Loading chart of accounts...": "Loading chart of accounts...",
+  "Create New Account": "Create New Account",
+  "Creating...": "Creating...",
+  "This feature is not yet implemented.": "This feature is not yet implemented.",
+  "Error": "Error",
+  "Failed to create new account": "Failed to create new account",
+  "Chart of account automatically created for new client": "Chart of account automatically created for new client",
+  "Account will be properly created when you save the client.": "Account will be properly created when you save the client.",
+  "Please select a chart of account for this client": "Please select a chart of account for this client",
+  "Please select a chart of account under the main client account": "Please select a chart of account under the main client account",
+  "Select a chart of account for this client. The account will be created without any parent.": "Select a chart of account for this client. The account will be created without any parent.",
+  "Select a chart of account for this client. The account will be created under the main client account.": "Select a chart of account for this client. The account will be created under the main client account.",
+  "Select an account": "Select an account",
+  "Chart of Account": "Chart of Account",
+  "Current Routing Type": "Current Routing Type",
+  "Note for New Clients": "Note for New Clients",
+  "If you don't select a chart of account, one will be automatically created with the client name when you save the client.": "If you don't select a chart of account, one will be automatically created with the client name when you save the client.",
+  "Chart of account will be automatically assigned based on your accounting configuration.": "Chart of account will be automatically assigned based on your accounting configuration.",
+  "Select Chart of Account": "Select Chart of Account"
 }

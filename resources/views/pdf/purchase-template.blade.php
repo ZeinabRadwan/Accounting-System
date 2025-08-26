@@ -11,7 +11,7 @@
     @if ($purchase['supplier']['company_name'])
         <p><strong>@lang('Company'):</strong> {{ $purchase['supplier']['company_name'] }} </p>
     @endif
-    <p><strong>@lang('Phone'):</strong> {{ $purchase['supplier']['phone'] }}</p>
+    <p><strong>@lang('Phone'):</strong> {{ $purchase['supplier']['phone_number'] }}</p>
     <p><strong>@lang('Email'):</strong> {{ $purchase['supplier']['email'] }}</p>
     @if ($purchase['supplier']['address'])
         <p><strong>@lang('Address'):</strong> {{ $purchase['supplier']['address'] }}</p>

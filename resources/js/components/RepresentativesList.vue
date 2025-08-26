@@ -1,5 +1,14 @@
 <template>
   <div class="representatives-list">
+    <!-- Debug info -->
+    <div class="alert alert-info small mb-2">
+      <strong>Debug RepresentativesList:</strong><br>
+      Representatives prop: {{ representatives }}<br>
+      Representatives length: {{ representatives.length }}<br>
+      Representatives type: {{ typeof representatives }}<br>
+      Is array: {{ Array.isArray(representatives) }}
+    </div>
+    
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h6 class="mb-0">
         <i class="fas fa-users mr-2"></i>
@@ -133,7 +142,13 @@ export default {
   watch: {
     representatives: {
       handler(newRepresentatives) {
-        console.log('RepresentativesList: representatives prop changed:', newRepresentatives);
+        console.log('=== REPRESENTATIVESLIST WATCHER ===');
+        console.log('RepresentativesList: representatives prop changed');
+        console.log('New representatives:', newRepresentatives);
+        console.log('New representatives length:', newRepresentatives ? newRepresentatives.length : 'undefined');
+        console.log('New representatives type:', typeof newRepresentatives);
+        console.log('Is array:', Array.isArray(newRepresentatives));
+        console.log('=== END REPRESENTATIVESLIST WATCHER ===');
       },
       immediate: true,
       deep: true

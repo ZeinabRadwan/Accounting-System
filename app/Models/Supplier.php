@@ -21,7 +21,6 @@ class Supplier extends Model
         'slug',
         'supplier_id',
         'email',
-        'phone',
         'company_name',
         
         'status',
@@ -213,7 +212,7 @@ class Supplier extends Model
 
     public function routeNotificationForTwilio()
     {
-        return $this->phone;
+        return $this->phone_number;
     }
 
     /**
