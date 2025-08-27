@@ -22,7 +22,6 @@ class ClientWithInvoicePaymentResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone,
             'companyName' => $this->company_name,
-            'vatNumber' => $this->tax_registration_number ?? 'N/A',
             'address' => $this->address,
             'clientTotalPaid' => $this->clientTotalPaid(),
             'clientInvoiceTotal' => $this->clientInvoiceTotal(),

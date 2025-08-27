@@ -24,7 +24,7 @@ class SubscriptionController extends Controller
 
     public function centralActiveCurrencyRate()
     {
-        $activeCurrencyID = tenancy()->central(fn () => GeneralSetting::where('key', 'default_currency')->first()->value);
+        $activeCurrencyID = tenancy()->central(fn () => GeneralSetting::where('key', 'default_currency')->first()?->value ?? 1);
         $currency = tenancy()->central(fn () => CentralCurrency::where('id', $activeCurrencyID)->first());
         return $currency;
     }
@@ -58,7 +58,7 @@ class SubscriptionController extends Controller
 
     public function centralActiveCurrency()
     {
-        $activeCurrencyID = tenancy()->central(fn () => GeneralSetting::where('key', 'default_currency')->first()->value);
+        $activeCurrencyID = tenancy()->central(fn () => GeneralSetting::where('key', 'default_currency')->first()?->value ?? 1);
 
         $currency = tenancy()->central(fn () => CentralCurrency::where('id', $activeCurrencyID)->first());
 

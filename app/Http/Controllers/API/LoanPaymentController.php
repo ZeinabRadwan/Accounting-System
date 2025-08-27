@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Exception;
 use App\Models\Loan;
 use App\Models\LoanPayment;
+use App\Models\LoanJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Http\Request;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +16,7 @@ use App\Interfaces\ITransactionService;
 use App\Http\Resources\LoanPaymentResource;
 use App\Http\Requests\Loan\StoreLoanPaymentRequest;
 use App\Http\Requests\Loan\UpdateLoanPaymentRequest;
+use Illuminate\Support\Facades\Log;
 
 class LoanPaymentController extends Controller
 {
@@ -83,6 +86,15 @@ class LoanPaymentController extends Controller
                 'image_path' => $imageName,
                 'status' => $request->status,
             ]);
+
+            // Create journal entry for loan payment
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createLoanPaymentJournal($loanPayment, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the loan payment creation
+                Log::error('Failed to create journal entry for loan payment: ' . $e->getMessage());
+            }
 
             // update loan
             if ($loan->totalDue() == 0 && $loanPayment->status == 1) {

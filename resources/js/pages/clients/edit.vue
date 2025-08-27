@@ -3,6 +3,7 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
+    
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
@@ -13,236 +14,24 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="saveClient" @keydown="form.onKeydown($event)">
-            <div class="card-body">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">{{ $t('Name') }}
-                    <span class="required">*</span></label>
-                  <input id="name" v-model="form.name" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter a name')" />
-                  <has-error :form="form" field="name" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="email">{{ $t('Email') }}</label>
-                  <input id="email" v-model="form.email" type="email" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('email') }" name="email"
-                    :placeholder="$t('Enter your email address')" />
-                  <has-error :form="form" field="email" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="phoneNumber">{{ $t('Contact Number') }}
-                    <span class="required">*</span></label>
-                  <input id="phoneNumber" v-model="form.phoneNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('phoneNumber') }" name="phoneNumber"
-                    :placeholder="$t('Enter a contact number')" />
-                  <has-error :form="form" field="phoneNumber" />
-                </div>
-              </div>
-
-              <!-- Multiple Phone Numbers -->
-              <div class="form-group">
-                <label>{{ $t("Additional Phone Numbers") }}</label>
-                <div v-for="(phone, index) in form.phoneNumbers" :key="index" class="row mb-2">
-                  <div class="col-md-10">
-                    <input type="text" v-model="form.phoneNumbers[index]" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('phoneNumbers.' + index) }"
-                      :placeholder="$t('Enter phone number')" />
-                    <has-error :form="form" field="'phoneNumbers.' + index" />
-                  </div>
-                  <div class="col-md-2">
-                    <button type="button" @click="removePhoneNumber(index)" class="btn btn-danger btn-sm">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                <button type="button" @click="addPhoneNumber" class="btn btn-secondary btn-sm">
-                  <i class="fas fa-plus"></i> {{ $t("Add Phone Number") }}
-                </button>
-              </div>
-
-              <!-- Multiple Email Addresses -->
-              <div class="form-group">
-                <label>{{ $t("Additional Email Addresses") }}</label>
-                <div v-for="(email, index) in form.emailAddresses" :key="index" class="row mb-2">
-                  <div class="col-md-10">
-                    <input type="email" v-model="form.emailAddresses[index]" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('emailAddresses.' + index) }"
-                      :placeholder="$t('Enter email address')" />
-                    <has-error :form="form" field="'emailAddresses.' + index" />
-                  </div>
-                  <div class="col-md-2">
-                    <button type="button" @click="removeEmailAddress(index)" class="btn btn-danger btn-sm">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                <button type="button" @click="addEmailAddress" class="btn btn-secondary btn-sm">
-                  <i class="fas fa-plus"></i> {{ $t("Add Email Address") }}
-                </button>
-              </div>
-
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="companyName">{{
-                    $t('Company Name')
-                  }}</label>
-                  <input id="companyName" v-model="form.companyName" type="companyName" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('companyName') }" name="companyName"
-                    :placeholder="$t('Enter a company name')" />
-                  <has-error :form="form" field="companyName" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="taxRegistrationNumber">{{
-                    $t("VAT Number")
-                  }}</label>
-                  <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }" name="taxRegistrationNumber"
-                    :placeholder="$t('Enter VAT number')" />
-                  <has-error :form="form" field="taxRegistrationNumber" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="crNumber">{{ $t("CR Number") }}</label>
-                  <input id="crNumber" v-model="form.crNumber" type="text"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('crNumber') }"
-                    name="crNumber" :placeholder="$t('Enter CR number')" />
-                  <has-error :form="form" field="crNumber" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="address">{{ $t('Address') }}</label>
-                <textarea id="address" v-model="form.address" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
-                <has-error :form="form" field="address" />
-              </div>
-              
-              <!-- New Address Fields -->
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="nationalityId">{{ $t("Nationality") }}</label>
-                  <select id="nationalityId" v-model="form.nationalityId" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('nationalityId') }" 
-                    :disabled="form.type !== 'Individual'">
-                    <option value="">{{ $t("Select Nationality") }}</option>
-                    <option v-for="nationality in nationalities" :key="nationality.id" :value="nationality.id">
-                      {{ nationality.name }}
-                    </option>
-                  </select>
-                  <has-error :form="form" field="nationalityId" />
-                  <small class="form-text text-muted" v-if="form.type !== 'Individual'">
-                    {{ $t("Nationality is only available for Individual type") }}
-                  </small>
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="cityName">{{ $t("City") }}</label>
-                  <input id="cityName" v-model="form.cityName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('cityName') }" 
-                    :placeholder="$t('Enter city name')" />
-                  <has-error :form="form" field="cityName" />
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="district">{{ $t("District") }}</label>
-                  <input id="district" v-model="form.district" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('district') }" 
-                    :placeholder="$t('Enter district name')" />
-                  <has-error :form="form" field="district" />
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="streetName">{{ $t("Street Name") }}</label>
-                  <input id="streetName" v-model="form.streetName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('streetName') }" 
-                    :placeholder="$t('Enter street name')" />
-                  <has-error :form="form" field="streetName" />
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="buildingNumber">{{ $t("Building Number") }}</label>
-                  <input id="buildingNumber" v-model="form.buildingNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('buildingNumber') }" 
-                    :placeholder="$t('Enter building number')" />
-                  <has-error :form="form" field="buildingNumber" />
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="zipCode">{{ $t("Zip Code") }}</label>
-                  <input id="zipCode" v-model="form.zipCode" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('zipCode') }" 
-                    :placeholder="$t('Enter 5-digit zip code')" maxlength="5" />
-                  <has-error :form="form" field="zipCode" />
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="additionalNumber">{{ $t("Additional Number") }}</label>
-                  <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('additionalNumber') }" 
-                    :placeholder="$t('Enter additional reference number')" />
-                  <has-error :form="form" field="additionalNumber" />
-                </div>
-                
-                <div class="form-group col-md-6">
-                  <label for="unitNo">{{ $t("Unit No") }}</label>
-                  <input id="unitNo" v-model="form.unitNo" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('unitNo') }" 
-                    :placeholder="$t('Enter unit number')" />
-                  <has-error :form="form" field="unitNo" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="image">{{ $t('Image') }}</label>
-                  <div class="custom-file">
-                    <input id="image" type="file" class="custom-file-input" name="image"
-                      :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
-                    <label class="custom-file-label" for="image">{{
-                      $t('Choose file')
-                    }}</label>
-                  </div>
-                  <has-error :form="form" field="image" />
-                  <div class="bg-light mt-4 w-25">
-                    <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
-                  </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="type">{{ $t('Type') }}</label>
-                  <select id="type" v-model="form.type" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('type') }">
-                    <option value="Company">{{ $t('Company') }}</option>
-                    <option value="Individual">{{ $t('Individual') }}</option>
-                  </select>
-                  <has-error :form="form" field="type" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="status">{{ $t('Status') }}</label>
-                  <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
-                  </select>
-                  <has-error :form="form" field="status" />
-                </div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-edit" /> {{ $t('Save changes') }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t('Reset') }}
-              </button>
-            </div>
-          </form>
+          
+          <!-- Use the new ClientForm component -->
+          <ClientForm 
+            ref="clientForm"
+            :showCardBody="true"
+            :initialData="clientData"
+            @submit="saveClient"
+          />
+          
+          <!-- Card footer with action buttons -->
+          <div class="card-footer">
+            <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="submitForm">
+              <i class="fas fa-save" /> {{ $t("Save") }}
+            </v-button>
+            <button type="button" class="btn btn-secondary float-right" @click="resetForm">
+              <i class="fas fa-power-off" /> {{ $t("Reset") }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -250,170 +39,254 @@
 </template>
 
 <script>
-import Form from 'vform'
-import axios from 'axios'
+import ClientForm from "../../components/ClientForm.vue";
+import VButton from "../../components/Button.vue";
 
 export default {
-  middleware: ['auth', 'check-permissions'],
+  middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t('Edit Client') }
+    return { title: this.$t("Edit Client") };
+  },
+  components: {
+    ClientForm,
+    VButton,
   },
   data: () => ({
-    breadcrumbsCurrent: 'Edit Client',
+    breadcrumbsCurrent: "Edit Client",
     breadcrumbs: [
       {
-        name: 'Dashboard',
-        url: 'home',
+        name: "Dashboard",
+        url: "home",
       },
       {
-        name: 'Clients',
-        url: 'clients.index',
+        name: "Clients",
+        url: "clients.index",
       },
       {
-        name: 'Edit',
-        url: '',
+        name: "Edit",
+        url: "",
       },
     ],
-    form: new Form({
-      name: '',
-      email: '',
-      phoneNumber: '',
-      phoneNumbers: [],
-      emailAddresses: [],
-      companyName: '',
-      taxRegistrationNumber: '',
-      crNumber: '',
-      address: '',
-      image: '',
-      type: 'Company',
-      status: 1,
-      nationalityId: '',
-             cityName: '',
-      district: '',
-      streetName: '',
-      buildingNumber: '',
-      zipCode: '',
-      additionalNumber: '',
-      unitNo: '',
-    }),
     loading: true,
-    url: null,
-    nationalities: [],
-    
+    isSubmitting: false,
+    clientData: {},
   }),
-  mounted() {
-    this.getClient()
+  computed: {
+    // Check if form is ready
+    isFormReady() {
+      return !this.loading && this.clientData && Object.keys(this.clientData).length > 0;
+    }
+  },
+  watch: {
+    // Watch for form readiness
+    '$refs.clientForm': {
+      handler(newVal) {
+        if (newVal && newVal.getFormData && newVal.getFormData().data) {
+          console.log('Form is now ready');
+          this.loading = false;
+        }
+      },
+      immediate: true
+    }
   },
   async created() {
-    await this.fetchNationalities();
+    try {
+      await this.getClient();
+    } catch (error) {
+      console.error("Error in created lifecycle:", error);
+    }
   },
   methods: {
-    // get client
+    // Get client data
     async getClient() {
-      const { data } = await axios.get(
-        window.location.origin + '/api/clients/' + this.$route.params.slug
-      )
-      this.form.name = data.data.name
-      this.form.clientID = data.data.clientID
-      this.form.email = data.data.email
-      this.form.phoneNumber = data.data.phoneNumber
-      this.form.phoneNumbers = data.data.phoneNumbers || []
-      this.form.emailAddresses = data.data.emailAddresses || []
-      this.form.companyName = data.data.companyName
-      this.form.taxRegistrationNumber = data.data.vatNumber
-      this.form.crNumber = data.data.crNumber
-      this.form.address = data.data.address
-      this.form.type = data.data.type || 'Company'
-      this.form.status = data.data.status
-      this.form.nationalityId = data.data.nationality?.id || ''
-             this.form.cityName = data.data.cityName || ''
-      this.form.district = data.data.district || ''
-      this.form.streetName = data.data.streetName || ''
-      this.form.buildingNumber = data.data.buildingNumber || ''
-      this.form.zipCode = data.data.zipCode || ''
-      this.form.additionalNumber = data.data.additionalNumber || ''
-      this.form.unitNo = data.data.unitNo || ''
-      this.url = data.data.image
-    },
-
-    // vue file upload
-    onFileChange(e) {
-      const file = e.target.files[0]
-      const reader = new FileReader()
-      if (
-        file.size < 2111775 &&
-        (file.type === 'image/jpeg' ||
-          file.type === 'image/png' ||
-          file.type === 'image/gif')
-      ) {
-        reader.onloadend = () => {
-          this.form.image = reader.result
+      try {
+        // Check if we have a valid slug
+        if (!this.$route.params.slug) {
+          throw new Error("No client slug provided");
         }
-        reader.readAsDataURL(file)
-        this.url = URL.createObjectURL(file)
-      } else {
-        Swal.fire(
-          this.$t('Error!'),
-          this.$t('Please select a valid thumbnail with size less than 2 MB'),
-          'error'
-        )
+
+        console.log("Fetching client with slug:", this.$route.params.slug);
+        
+        const response = await this.$http.get(
+          `/api/clients/${this.$route.params.slug}`
+        );
+        
+        if (!response.data) {
+          throw new Error("No data received from API");
+        }
+        
+        console.log("Raw API response data:", response.data);
+        
+        // The API response is wrapped in a 'data' object
+        const clientData = response.data.data || response.data;
+        
+        console.log("Client data slug:", clientData.slug);
+        console.log("Route params slug:", this.$route.params.slug);
+        
+        // Map the API response fields to the new form structure
+        this.clientData = {
+          // Include the actual slug from the client data for representatives loading
+          slug: clientData.slug || this.$route.params.slug,
+          
+          // Account Details
+          codeNumber: clientData.codeNumber || clientData.clientID || '000001',
+          notes: clientData.notes || '',
+          displayLanguage: clientData.displayLanguage || '',
+          
+          // Client Details
+          type: clientData.type || 'Company',
+          fullName: clientData.type === 'Individual' ? clientData.name : '',
+          businessName: clientData.type === 'Company' ? clientData.companyName : '',
+          firstName: clientData.firstName || '',
+          lastName: clientData.lastName || '',
+          phone: clientData.phone || '',
+          phoneNumber: clientData.phoneNumber || '',
+          email: clientData.email || '',
+          streetAddress1: clientData.streetAddress1 || clientData.address || '',
+          streetAddress2: clientData.streetAddress2 || '',
+          city: clientData.city || '',
+          state: clientData.state || '',
+          postalCode: clientData.postalCode || '',
+          country: clientData.country || 'SA',
+          neighbourhood: clientData.neighbourhood || '',
+          commercialRegister: clientData.commercialRegister || clientData.taxRegistrationNumber || '',
+          taxCard: clientData.taxCard || '',
+          
+          // Additional Fields
+          image: clientData.image || '',
+          attachments: clientData.attachments || [],
+          status: clientData.status || 1,
+          isSendEmail: clientData.isSendEmail || false,
+          isSendSMS: clientData.isSendSMS || false,
+          
+          // Chart of Account
+          chartOfAccountId: clientData.chartOfAccountId || null,
+          
+          // Representatives
+          representatives: clientData.representatives || [],
+          
+          // Legacy fields for backward compatibility
+          name: clientData.name || '',
+          companyName: clientData.companyName || '',
+          taxRegistrationNumber: clientData.taxRegistrationNumber || '',
+          address: clientData.address || '',
+        };
+        
+        this.loading = false;
+        
+        console.log("Client data loaded successfully:", clientData);
+        console.log("Client data slug:", clientData.slug);
+        console.log("Route params slug:", this.$route.params.slug);
+        console.log("Final slug used:", clientData.slug || this.$route.params.slug);
+        console.log("Mapped client data:", this.clientData);
+        
+      } catch (error) {
+        console.error("Error fetching client:", error);
+        
+        // Show error message if toast is available
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Failed to load client data"),
+            text: error.message || "Please check the client slug and try again."
+          });
+        } else {
+          // Fallback to console and alert if toast is not available
+          console.error("Toast not available, showing alert");
+          alert(this.$t("Failed to load client data: ") + (error.message || "Unknown error"));
+        }
+        
+        // Don't redirect immediately, let user see the error
+        this.loading = false;
+        
+        // Only redirect if it's a critical error (like invalid slug)
+        if (error.response && error.response.status === 404) {
+          setTimeout(() => {
+            this.$router.push({ name: "clients.index" });
+          }, 3000);
+        }
       }
     },
 
-    // update client
-    async saveClient() {
-      await this.form
-        .patch(
-          window.location.origin + '/api/clients/' + this.$route.params.slug
-        )
-        .then(() => {
-          toast.fire({
-            type: 'success',
-            title: this.$t('Client updated successfully'),
-          })
-          this.$router.push({ name: 'clients.index' })
-        })
-        .catch(() => {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Opps...something went wrong'),
-          })
-        })
+    // Submit form by calling ClientForm's submitForm method
+    submitForm() {
+      console.log('=== SUBMIT FORM CALLED ===');
+      console.log('ClientForm ref:', this.$refs.clientForm);
+      console.log('ClientForm methods:', this.$refs.clientForm ? Object.getOwnPropertyNames(this.$refs.clientForm) : 'No ref');
+      
+      if (this.$refs.clientForm) {
+        console.log('Calling ClientForm submitForm method...');
+        this.$refs.clientForm.submitForm();
+      } else {
+        console.error('ClientForm ref is not available');
+      }
     },
 
-    // fetch nationalities
-    async fetchNationalities() {
+    // Save client
+    async saveClient(formData) {
+      console.log('=== SAVE CLIENT CALLED ===');
+      console.log('Form data received:', formData);
+      console.log('Is submitting:', this.isSubmitting);
+      console.log('Loading:', this.loading);
+      
+      if (this.isSubmitting || this.loading) {
+        console.log('Already submitting or loading, returning');
+        return;
+      }
+      
+      console.log('Save client called with form data:', formData);
+      this.isSubmitting = true;
+      
       try {
-        const response = await axios.get('/api/nationalities');
+        // Use the form data directly from the submit event
+        console.log('Sending update request with data:', formData);
+        
+        const response = await this.$http.put(`/api/clients/${this.clientData.slug}`, formData);
+        
+        console.log('API response received:', response);
+        
         if (response.data.success) {
-          this.nationalities = response.data.data;
+          console.log('Client updated successfully');
+          if (window.toast && typeof window.toast.fire === 'function') {
+            window.toast.fire({
+              type: "success",
+              title: this.$t("Client updated successfully"),
+            });
+          } else {
+            alert(this.$t("Client updated successfully"));
+          }
+          
+          this.$router.push({ name: "clients.index" });
+        } else {
+          throw new Error(response.data.message || 'Update failed');
         }
       } catch (error) {
-        console.error('Error fetching nationalities:', error);
+        console.error("Error saving client:", error);
+        
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({ 
+            type: "error", 
+            title: this.$t("Opps...something went wrong") 
+          });
+        } else {
+          alert(this.$t("Opps...something went wrong"));
+        }
+      } finally {
+        console.log('Setting isSubmitting to false');
+        this.isSubmitting = false;
       }
     },
 
-    // Add phone number
-    addPhoneNumber() {
-      this.form.phoneNumbers.push('');
+    // Reset form
+    resetForm() {
+      if (this.$refs.clientForm) {
+        this.$refs.clientForm.resetForm();
+      }
     },
-
-    // Remove phone number
-    removePhoneNumber(index) {
-      this.form.phoneNumbers.splice(index, 1);
-    },
-
-    // Add email address
-    addEmailAddress() {
-      this.form.emailAddresses.push('');
-    },
-
-    // Remove email address
-    removeEmailAddress(index) {
-      this.form.emailAddresses.splice(index, 1);
-    },
-
-
   },
-}
+};
 </script>
+
+<style scoped>
+/* No additional styles needed as ClientForm handles its own styling */
+</style>

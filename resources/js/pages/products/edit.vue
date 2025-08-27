@@ -85,14 +85,14 @@
                 <div v-if="items" class="form-group col-md-6 col-xl-4">
                   <label for="subCategory">{{ $t('Sub Category') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.subCategory" :options="items" label="name"
+                  <v-select v-model="form.subCategory" :options="items" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
                     :placeholder="$t('Select a category')" />
                   <has-error :form="form" field="subCategory" />
                 </div>
                 <div v-if="brands" class="form-group col-md-6 col-xl-4">
                   <label for="brand">{{ $t('Brand') }}</label>
-                  <v-select v-model="form.brand" :options="brands" label="name"
+                  <v-select v-model="form.brand" :options="brands" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('brand') }" name="brand"
                     :placeholder="$t('Select a brand')" />
                   <has-error :form="form" field="brand" />
@@ -100,7 +100,7 @@
                 <div v-if="units" class="form-group col-md-6 col-xl-4">
                   <label for="itemUnit">{{ $t('Unit') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.itemUnit" :options="units" label="name"
+                  <v-select v-model="form.itemUnit" :options="units" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('itemUnit') }" name="itemUnit"
                     :placeholder="$t('Select a unit')" />
                   <has-error :form="form" field="itemUnit" />
@@ -108,25 +108,12 @@
                 <div v-if="taxes" class="form-group col-md-6 col-xl-4">
                   <label for="productTax">{{ $t('Product Tax') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.productTax" :options="taxes" label="name"
+                  <v-select v-model="form.productTax" :options="taxes" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('productTax') }" name="productTax"
                     :placeholder="$t('Select a tax')" @input="calculatePrice" />
                   <has-error :form="form" field="productTax" />
                 </div>
-                <div class="form-group col-md-6 col-xl-4">
-                  <label for="taxType">{{ $t('Tax Type') }}
-                    <span class="required">*</span></label>
-                  <select id="taxType" v-model="form.taxType" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('taxType') }" @change="calculatePrice">
-                    <option value="Exclusive">
-                      {{ $t('Exclusive') }}
-                    </option>
-                    <option value="Inclusive">
-                      {{ $t('Inclusive') }}
-                    </option>
-                  </select>
-                  <has-error :form="form" field="taxType" />
-                </div>
+                <!-- Tax Type field hidden - always Exclusive -->
                 <div class="form-group col-md-6" :class="form.itemType === 'service' ? 'col-xl-3' : 'col-xl-4'">
                   <label for="regularPrice">{{ $t('Regular Price') }}
                     <span class="required">*</span></label>
@@ -198,6 +185,78 @@
                 </div>
 
 
+                <div v-if="!isSalesAccountAutomatic" class="form-group col-md-6">
+                  <label for="salesAccountId">{{ $t('Sales Account') }}
+                    <span class="required">*</span></label>
+                  <v-select
+                    v-model="form.salesAccountId"
+                    :options="chartOfAccounts"
+                    label="name"
+                    :reduce="option => option.id"
+                    :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                    name="salesAccountId"
+                    :placeholder="$t('Select a sales account')"
+                    required
+                  >
+                    <template #option="{ name, code, type }">
+                      <div>
+                        <strong>{{ name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ code }} - {{ type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="salesAccountId" />
+                  <small class="form-text text-muted">
+                    {{ $t('Select a sales account for this item. This account will be used for sales transactions.') }}
+                  </small>
+                </div>
+                <div v-if="isSalesAccountAutomatic" class="form-group col-md-6">
+                  <label>{{ $t('Sales Account') }}</label>
+                  <div class="form-control-plaintext text-muted">
+                    <i class="fas fa-info-circle"></i> {{ $t('Automatically assigned from account routing settings') }}
+                    <br>
+                    <small v-if="accountRoutingSettings.sales && accountRoutingSettings.sales.parent_account_id">
+                      {{ $t('Account ID') }}: {{ accountRoutingSettings.sales.parent_account_id }}
+                    </small>
+                  </div>
+                </div>
+                <div v-if="!isPurchaseAccountAutomatic" class="form-group col-md-6">
+                  <label for="purchaseAccountId">{{ $t('Purchase Account') }}
+                    <span class="required">*</span></label>
+                  <v-select
+                    v-model="form.purchaseAccountId"
+                    :options="chartOfAccounts"
+                    label="name"
+                    :reduce="option => option.id"
+                    :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                    name="purchaseAccountId"
+                    :placeholder="$t('Select a purchase account')"
+                    required
+                  >
+                    <template #option="{ name, code, type }">
+                      <div>
+                        <strong>{{ name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ code }} - {{ type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="purchaseAccountId" />
+                  <small class="form-text text-muted">
+                    {{ $t('Select a purchase account for this item. This account will be used for purchase transactions.') }}
+                  </small>
+                </div>
+                <div v-if="isPurchaseAccountAutomatic" class="form-group col-md-6">
+                  <label>{{ $t('Purchase Account') }}</label>
+                  <div class="form-control-plaintext text-muted">
+                    <i class="fas fa-info-circle"></i> {{ $t('Automatically assigned from account routing settings') }}
+                    <br>
+                    <small v-if="accountRoutingSettings.purchase && accountRoutingSettings.purchase.parent_account_id">
+                      {{ $t('Account ID') }}: {{ accountRoutingSettings.purchase.parent_account_id }}
+                    </small>
+                  </div>
+                </div>
                 <div class="form-group col-md-12">
                   <label for="note">{{ $t('Note') }}</label>
                   <textarea id="note" v-model="form.note" type="text" class="form-control"
@@ -229,45 +288,6 @@
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
-                
-                <div class="form-group col-md-6 col-xl-4">
-                  <label for="salesAccount">{{ $t('Sales Account') }}
-                    <span class="required">*</span></label>
-                  <v-select 
-                    v-model="form.salesAccount" 
-                    :options="salesAccounts" 
-                    label="displayName"
-                    :class="{ 'is-invalid': form.errors.has('salesAccount') }" 
-                    name="salesAccount"
-                    :placeholder="$t('Select sales account')"
-                    :filterable="true"
-                    :searchable="true"
-                    :clearable="true"
-                    @search="searchSalesAccounts"
-                    :loading="salesAccountsLoading" />
-                  <has-error :form="form" field="salesAccount" />
-                  <small class="form-text text-muted">{{ $t('Select the account for recording sales revenue') }}</small>
-                </div>
-
-                <div class="form-group col-md-6 col-xl-4">
-                  <label for="purchaseAccount">{{ $t('Purchase Account') }}
-                    <span class="required">*</span></label>
-                  <v-select 
-                    v-model="form.purchaseAccount" 
-                    :options="purchaseAccounts" 
-                    label="displayName"
-                    :class="{ 'is-invalid': form.errors.has('purchaseAccount') }" 
-                    name="purchaseAccount"
-                    :placeholder="$t('Select purchase account')"
-                    :filterable="true"
-                    :searchable="true"
-                    :clearable="true"
-                    @search="searchPurchaseAccounts"
-                    :loading="purchaseAccountsLoading" />
-                  <has-error :form="form" field="purchaseAccount" />
-                  <small class="form-text text-muted">{{ $t('Select the account for recording purchase costs') }}</small>
-                </div>
-                
                 <div class="form-group col-md-4">
                   <label for="image">{{ $t('Image') }}</label>
                   <div class="custom-file">
@@ -331,35 +351,35 @@ export default {
       itemName: '',
       itemCode: '',
       itemModel: '',
-      barcodeSymbology: 'code128',
-      brand: '',
-      productTax: '',
-      taxType: 'percentage',
+      barcodeSymbology: 'CODE128',
       subCategory: '',
+      brand: '',
       itemUnit: '',
+      productTax: '',
+      taxType: 'Exclusive',
       regularPrice: '',
       servicePurchasePrice: '',
+      discount: '',
       sellingPrice: '',
-      isOpeningStock: false,
       openingStockCount: '',
       openingStockUnitPrice: '',
-      discount: '',
+      isOpeningStock: false,
       note: '',
-      status: 'active',
-      alertQuantity: '',
-      image: null,
-      salesAccount: null, // Will be populated from database in edit mode
-      purchaseAccount: null, // Will be populated from database in edit mode
+      alertQuantity: 1,
+      status: 1,
+      image: '',
+      salesAccountId: '',
+      purchaseAccountId: '',
     }),
     options: [],
     prefix: '',
     units: [],
     brands: [],
     taxes: [],
-    salesAccounts: [],
-    purchaseAccounts: [],
-    salesAccountsLoading: false,
-    purchaseAccountsLoading: false,
+    chartOfAccounts: [],
+    accountRoutingSettings: null,
+    isSalesAccountAutomatic: false,
+    isPurchaseAccountAutomatic: false,
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -370,35 +390,12 @@ export default {
     this.getProduct()
     this.getBrands()
     this.getTaxes()
-    this.getSalesAccounts()
-    this.getPurchaseAccounts()
+    this.loadChartOfAccounts()
+    this.loadAccountRoutingSettings()
     this.prefix = this.appInfo.productPrefix
   },
-  watch: {
-    salesAccounts: {
-      handler(newAccounts) {
-        // If we have a selected sales account from DB, make sure it's properly set
-        if (this.form.salesAccount && newAccounts.length > 0) {
-          const foundAccount = newAccounts.find(acc => acc.id === this.form.salesAccount.id)
-          if (foundAccount) {
-            this.form.salesAccount = foundAccount
-          }
-        }
-      },
-      immediate: true
-    },
-    purchaseAccounts: {
-      handler(newAccounts) {
-        // If we have a selected purchase account from DB, make sure it's properly set
-        if (this.form.purchaseAccount && newAccounts.length > 0) {
-          const foundAccount = newAccounts.find(acc => acc.id === this.form.purchaseAccount.id)
-          if (foundAccount) {
-            this.form.purchaseAccount = foundAccount
-          }
-        }
-      },
-      immediate: true
-    }
+  mounted() {
+    // No longer needed with v-select
   },
   methods: {
     // get all product categories
@@ -432,166 +429,80 @@ export default {
       this.taxes = data.data
     },
 
-    // get sales accounts (Revenue accounts)
-    async getSalesAccounts() {
-      this.salesAccountsLoading = true
+    // load chart of accounts
+    async loadChartOfAccounts() {
       try {
-        const { data } = await axios.get(
-          window.location.origin + '/api/chart-of-accounts/for-products'
-        )
-        
-        if (!data.data || data.data.length === 0) {
-          // Fallback data for testing
-          this.salesAccounts = [
-            { id: 1, code: '4000', name: 'Revenue', displayName: '4000 - Revenue' },
-            { id: 2, code: '4100', name: 'Product Sales', displayName: '4100 - Product Sales' },
-            { id: 3, code: '4200', name: 'Service Revenue', displayName: '4200 - Service Revenue' }
-          ]
-          return
-        }
-        
-        // Filter for Revenue accounts (type_id = 4 based on seeder)
-        const revenueAccounts = data.data.filter(account => account.type_id === 4)
-        
-        if (revenueAccounts.length === 0) {
-          this.salesAccounts = data.data.map(account => ({
-            ...account,
-            displayName: `${account.code} - ${account.name}`
-          }))
-        } else {
-          this.salesAccounts = revenueAccounts.map(account => ({
-            ...account,
-            displayName: `${account.code} - ${account.name}`
-          }))
-        }
-        
+        const response = await this.$axios.get('/api/products/chart-of-accounts')
+        this.chartOfAccounts = response.data || []
+        // No longer needed with v-select
       } catch (error) {
-        console.error('Error loading sales accounts:', error)
-        // Fallback data for testing
-        this.salesAccounts = [
-          { id: 1, code: '4000', name: 'Revenue', displayName: '4000 - Revenue' },
-          { id: 2, code: '4100', name: 'Product Sales', displayName: '4100 - Product Sales' },
-          { id: 3, code: '4200', name: 'Service Revenue', displayName: '4200 - Service Revenue' }
-        ]
-      } finally {
-        this.salesAccountsLoading = false
+        console.error('Error loading chart of accounts:', error)
       }
     },
 
-    // get purchase accounts (Expense accounts)
-    async getPurchaseAccounts() {
-      this.purchaseAccountsLoading = true
+    // load account routing settings
+    async loadAccountRoutingSettings() {
       try {
-        const { data } = await axios.get(
-          window.location.origin + '/api/chart-of-accounts/for-products'
-        )
+        const response = await this.$axios.get('/api/account-routing-settings/product-account-routing')
+        this.accountRoutingSettings = response.data.data || {}
         
-        if (!data.data || data.data.length === 0) {
-          // Fallback data for testing
-          this.purchaseAccounts = [
-            { id: 4, code: '5000', name: 'Expenses', displayName: '5000 - Expenses' },
-            { id: 5, code: '5100', name: 'Cost of Goods Sold', displayName: '5100 - Cost of Goods Sold' },
-            { id: 6, code: '5200', name: 'Operating Expenses', displayName: '5200 - Operating Expenses' }
-          ]
-          return
+        // Set flags for automatic routing
+        this.isSalesAccountAutomatic = this.accountRoutingSettings.sales && 
+          this.accountRoutingSettings.sales.routing_type === 'automatic'
+        
+        this.isPurchaseAccountAutomatic = this.accountRoutingSettings.purchase && 
+          this.accountRoutingSettings.purchase.routing_type === 'automatic'
+        
+        // If automatic routing is enabled, set the account IDs from routing settings
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.parent_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.parent_account_id
         }
         
-        // Filter for Expense accounts (type_id = 5 based on seeder)
-        const expenseAccounts = data.data.filter(account => account.type_id === 5)
-        
-        if (expenseAccounts.length === 0) {
-          this.purchaseAccounts = data.data.map(account => ({
-            ...account,
-            displayName: `${account.code} - ${account.name}`
-          }))
-        } else {
-          this.purchaseAccounts = expenseAccounts.map(account => ({
-            ...account,
-            displayName: `${account.code} - ${account.name}`
-          }))
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.parent_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.parent_account_id
         }
-        
+
+        console.log('Account routing settings loaded:', this.accountRoutingSettings)
+        console.log('Sales automatic:', this.isSalesAccountAutomatic)
+        console.log('Purchase automatic:', this.isPurchaseAccountAutomatic)
       } catch (error) {
-        console.error('Error loading purchase accounts:', error)
-        // Fallback data for testing
-        this.purchaseAccounts = [
-          { id: 4, code: '5000', name: 'Expenses', displayName: '5000 - Expenses' },
-          { id: 5, code: '5100', name: 'Cost of Goods Sold', displayName: '5100 - Cost of Goods Sold' },
-          { id: 6, code: '5200', name: 'Operating Expenses', displayName: '5200 - Operating Expenses' }
-        ]
-      } finally {
-        this.purchaseAccountsLoading = false
+        console.error('Error loading account routing settings:', error)
+        // Set defaults if API fails
+        this.isSalesAccountAutomatic = false
+        this.isPurchaseAccountAutomatic = false
       }
     },
 
-    // search sales accounts
-    async searchSalesAccounts(searchTerm) {
-      if (!searchTerm) return
-      try {
-        const { data } = await axios.get(
-          window.location.origin + '/api/chart-of-accounts/for-products'
-        )
-        // Filter for Revenue accounts and search term
-        this.salesAccounts = data.data
-          .filter(account => {
-            return account.type_id === 4 && 
-                   (account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    account.code.toLowerCase().includes(searchTerm.toLowerCase()))
-          })
-          .map(account => ({
-            ...account,
-            displayName: `${account.code} - ${account.name}`
-          }))
-      } catch (error) {
-        console.error('Error searching sales accounts:', error)
-      }
-    },
-
-    // search purchase accounts
-    async searchPurchaseAccounts(searchTerm) {
-      if (!searchTerm) return
-      try {
-        const { data } = await axios.get(
-          window.location.origin + '/api/chart-of-accounts/for-products'
-        )
-        // Filter for Expense accounts and search term
-        this.purchaseAccounts = data.data
-          .filter(account => {
-            return account.type_id === 5 && 
-                   (account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    account.code.toLowerCase().includes(searchTerm.toLowerCase()))
-          })
-          .map(account => ({
-            ...account,
-            displayName: `${account.code} - ${account.name}`
-          }))
-      } catch (error) {
-        console.error('Error searching purchase accounts:', error)
-      }
-    },
-
-    // get product by slug
+    // get product
     async getProduct() {
-      try {
-        const { data } = await axios.get(
-          window.location.origin + '/api/products/' + this.$route.params.slug
-        )
-        
-        this.form.fill(data.data)
-        
-        // Set the selected accounts from the database
-        if (data.data.salesAccount) {
-          this.form.salesAccount = data.data.salesAccount
-        }
-        
-        if (data.data.purchaseAccount) {
-          this.form.purchaseAccount = data.data.purchaseAccount
-        }
-        
-      } catch (error) {
-        console.error('Error loading product:', error)
-        this.$toastr.e('Error loading product')
-      }
+      const { data } = await axios.get(
+        window.location.origin + '/api/products/' + this.$route.params.slug
+      )
+      this.form.itemType = data.data.itemType
+      this.form.itemName = data.data.name
+      this.form.itemCode = data.data.code
+      this.form.itemModel = data.data.itemModel
+      this.form.barcodeSymbology = data.data.symbology
+      this.form.brand = data.data.itemBrand
+      this.form.productTax = data.data.itemTax
+      this.form.taxType = data.data.taxType
+      this.form.subCategory = data.data.subCategory
+      this.form.itemUnit = data.data.itemUnit
+      this.form.regularPrice = data.data.regularPrice
+      this.form.servicePurchasePrice = data.data.servicePurchasePrice
+      this.form.sellingPrice = data.data.sellingPrice
+      this.form.isOpeningStock = data.data.openingStockCount ? true : false,
+      this.form.openingStockCount = data.data.openingStockCount
+      this.form.openingStockUnitPrice = data.data.openingStockUnitPrice
+      this.form.discount = data.data.discount
+      this.form.note = data.data.note
+      this.form.status = data.data.status
+      this.form.alertQuantity = data.data.alertQty
+      this.form.salesAccountId = data.data.salesAccount ? data.data.salesAccount.id : ''
+      this.form.purchaseAccountId = data.data.purchaseAccount ? data.data.purchaseAccount.id : ''
+      this.url = data.data.image
+      
+      // No longer needed with v-select
     },
 
     // calculate selling price
@@ -605,9 +516,13 @@ export default {
 
         let taxAmount = 0
         let totalTax = 0
-        if (this.form.productTax.rate > 0) {
-          taxAmount = this.form.productTax.rate / 100
+        
+        // Find the selected tax object to get the rate
+        let selectedTax = this.taxes.find(tax => tax.id === this.form.productTax)
+        if (selectedTax && selectedTax.rate > 0) {
+          taxAmount = selectedTax.rate / 100
         }
+        
         if (this.form.taxType == 'Exclusive') {
           totalTax = currentPrice * taxAmount
         } else {
@@ -651,23 +566,22 @@ export default {
 
     // update product
     async updateProduct() {
-      // Validate that accounts are selected
-      if (!this.form.salesAccount) {
-        Swal.fire(
-          this.$t('Error!'),
-          this.$t('Please select a sales account'),
-          'error'
-        )
-        return
+      // Validate sales account if not automatic
+      if (!this.isSalesAccountAutomatic && !this.form.salesAccountId) {
+        toast.fire({ 
+          type: 'error', 
+          title: this.$t('Sales Account is required') 
+        });
+        return;
       }
-      
-      if (!this.form.purchaseAccount) {
-        Swal.fire(
-          this.$t('Error!'),
-          this.$t('Please select a purchase account'),
-          'error'
-        )
-        return
+
+      // Validate purchase account if not automatic
+      if (!this.isPurchaseAccountAutomatic && !this.form.purchaseAccountId) {
+        toast.fire({ 
+          type: 'error', 
+          title: this.$t('Purchase Account is required') 
+        });
+        return;
       }
 
       await this.form
@@ -722,38 +636,5 @@ li {
  
 a {
   color: #42b983;
-}
-
-/* Account selection styling */
-.account-selection {
-  border: 2px solid #e3e8ef;
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #f8fafc;
-  margin-bottom: 20px;
-}
-
-.account-selection .form-group {
-  margin-bottom: 15px;
-}
-
-.account-selection label {
-  font-weight: 600;
-  color: #374151;
-}
-
-.account-selection .form-text {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-/* Highlight required fields */
-.required-field {
-  border-left: 4px solid #ef4444;
-  padding-left: 10px;
-}
-
-.required-field label {
-  color: #dc2626;
 }
 </style> 

@@ -36,7 +36,9 @@ class StoreProductRequest extends BaseRequest
             'regularPrice' => 'required|numeric|min:0',
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
-            'alertQuantity' => 'nullable|numeric|min:1|max:127'
+            'alertQuantity' => 'nullable|numeric|min:1|max:127',
+            'salesAccountId' => 'nullable|exists:chart_of_accounts,id',
+            'purchaseAccountId' => 'nullable|exists:chart_of_accounts,id'
         ];
     }
 }

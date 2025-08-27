@@ -32,6 +32,7 @@ class UpdateAccountRequest extends BaseRequest
             'branchName' => 'required|string|max:100',
             'accountNumber' => 'required|string|max:100|unique:accounts,account_number,'.$account->id,
             'date' => 'nullable|date_format:Y-m-d',
+            'chartOfAccountId' => ['required', 'exists:chart_of_accounts,id'],
             'note' => 'nullable|string|max:255',
         ];
     }

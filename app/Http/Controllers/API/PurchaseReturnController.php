@@ -88,6 +88,15 @@ class PurchaseReturnController extends Controller
                 'status' => $request->status,
             ]);
 
+            // Create journal entry for purchase return
+            try {
+                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalEntry = $journalService->createPurchaseReturnJournal($purchaseReturn, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the return creation
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for purchase return: ' . $e->getMessage());
+            }
+
             // store return products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $returnQty = (int) $selectedProduct['returnQty'];
@@ -363,7 +372,8 @@ class PurchaseReturnController extends Controller
                         ->orWhere('po_reference', 'LIKE', '%'.$term.'%')
                         ->orWhereHas('supplier', function ($anotherQuery) use ($term) {
                             $anotherQuery->where('name', 'LIKE', '%'.$term.'%')
-                                ->orWhere('phone', 'LIKE', '%'.$term.'%');
+                                ->orWhere('phone_number', 'LIKE', '%'.$term.'%')
+                        ->orWhere('phone_legacy', 'LIKE', '%'.$term.'%');
                         });
                 });
         });

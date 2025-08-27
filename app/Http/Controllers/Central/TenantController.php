@@ -144,15 +144,35 @@ class TenantController extends Controller
      */
     public function destroy(Tenant $tenant)
     {
-        $tenant->domains()->delete();
-
         try {
-            $tenant->delete();
-        } catch (\Exception $e) {
-            Log::info($e->getMessage());
-        }
+            // Log the deletion attempt
+            Log::info("Attempting to delete tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'tenant_data' => $tenant->data,
+                'user_id' => auth()->id()
+            ]);
 
-        return $this->responseWithSuccess('Tenant deleted successfully');
+            // Delete domains first
+            $domainCount = $tenant->domains()->count();
+            $tenant->domains()->delete();
+            Log::info("Deleted {$domainCount} domains for tenant: {$tenant->id}");
+
+            // Delete the tenant
+            $tenant->delete();
+            Log::info("Successfully deleted tenant: {$tenant->id}");
+
+            return $this->responseWithSuccess('Tenant deleted successfully');
+            
+        } catch (\Exception $e) {
+            Log::error("Failed to delete tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id()
+            ]);
+
+            return $this->responseWithError('Failed to delete tenant: ' . $e->getMessage());
+        }
     }
 
     /**

@@ -21,8 +21,6 @@ class ClientWithNonInvoicePaymentResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone,
             'companyName' => $this->company_name,
-            'vatNumber' => $this->tax_registration_number ?? 'N/A',
-            'crNumber' => $this->cr_number ?? 'N/A',
             'address' => $this->address,
             'status' => (int) $this->status,
             'nonInvoiceDue' => $this->nonInvoiceTotalDue(),

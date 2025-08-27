@@ -1,11 +1,31 @@
 <template>
   <div>
-    <VModal v-model="showProductCreateModal" @close="showProductCreateModal = false">
-      <template v-slot:title>{{ $t("Create Product") }}</template>
-      <div class="w-100">
+         <VModal v-model="showProductCreateModal" @close="showProductCreateModal = false">
+       <template v-slot:title>{{ $t("Create Product") }}</template>
+       <div class="w-100">
         <!-- form start -->
         <form role="form" @keydown="form.onKeydown($event)">
           <div class="row">
+            <!-- Item Type Selection -->
+            <div class="form-group col-md-12">
+              <label>{{ $t("Item Type") }} <span class="required">*</span></label>
+              <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                <label 
+                  class="btn btn-outline-custom"
+                  :class="{ 'btn-custom-active': form.itemType === 'product' }">
+                  <input type="radio" id="product" name="itemType" v-model="form.itemType" value="product" autocomplete="off">
+                  {{ $t("Product") }}
+                </label>
+                <label 
+                  class="btn btn-outline-custom"
+                  :class="{ 'btn-custom-active': form.itemType === 'service' }">
+                  <input type="radio" id="service" name="itemType" v-model="form.itemType" value="service" autocomplete="off">
+                  {{ $t("Service") }}
+                </label>
+              </div>
+              <has-error :form="form" field="itemType" />
+            </div>
+
             <div class="form-group col-6">
               <label for="itemName">{{ $t("Item Name") }}
                 <span class="required">*</span></label>
@@ -14,7 +34,7 @@
                 :placeholder="$t('Enter a name')" />
               <has-error :form="form" field="itemName" />
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-12">
               <label for="itemModel">{{ $t("Item Model") }}</label>
               <input id="itemModel" v-model="form.itemModel" type="text" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('itemModel') }" name="itemModel"
@@ -79,20 +99,7 @@
                 :placeholder="$t('Select a tax')" @input="calculatePrice" />
               <has-error :form="form" field="productTax" />
             </div>
-            <div class="form-group col-6">
-              <label for="taxType">{{ $t("Tax Type") }}
-                <span class="required">*</span></label>
-              <select id="taxType" v-model="form.taxType" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('taxType') }" @change="calculatePrice">
-                <option value="Exclusive">
-                  {{ $t("Exclusive") }}
-                </option>
-                <option value="Inclusive">
-                  {{ $t("Inclusive") }}
-                </option>
-              </select>
-              <has-error :form="form" field="taxType" />
-            </div>
+            <!-- Tax Type field hidden - always Exclusive -->
             <div class="form-group col-6">
               <label for="regularPrice">{{ $t("Regular Price") }}
                 <span class="required">*</span></label>
@@ -101,6 +108,33 @@
                   " @change="calculatePrice" @keyup="calculatePrice" />
               <has-error :form="form" field="regularPrice" />
             </div>
+
+            <!-- Service Purchase Price (only for services) -->
+            <div v-if="form.itemType === 'service'" class="form-group col-6">
+              <label for="servicePurchasePrice">{{ $t("Service Purchase Price") }}
+                <span class="required">*</span></label>
+              <input id="servicePurchasePrice" v-model="form.servicePurchasePrice" type="number" step="any" min="0" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('servicePurchasePrice') }" name="servicePurchasePrice" 
+                :placeholder="$t('Enter service purchase price')" />
+              <has-error :form="form" field="servicePurchasePrice" />
+            </div>
+
+            <!-- Opening Stock Fields (only for products) -->
+            <div v-if="form.itemType === 'product'" class="form-group col-6">
+              <label for="openingStockCount">{{ $t("Opening Stock Count") }}</label>
+              <input id="openingStockCount" v-model="form.openingStockCount" type="number" step="any" min="0" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('openingStockCount') }" name="openingStockCount" 
+                :placeholder="$t('Enter opening stock count')" />
+              <has-error :form="form" field="openingStockCount" />
+            </div>
+            <div v-if="form.itemType === 'product'" class="form-group col-6">
+              <label for="openingStockUnitPrice">{{ $t("Opening Stock Unit Price") }}</label>
+              <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
+                :placeholder="$t('Enter opening stock unit price')" />
+              <has-error :form="form" field="openingStockUnitPrice" />
+            </div>
+
             <div class="form-group col-6">
               <div class="input-group">
                 <label for="discount" class="col-md-12">{{
@@ -125,6 +159,109 @@
                     " />
               <has-error :form="form" field="sellingPrice" />
             </div>
+
+            <!-- Chart of Account Fields -->
+            <div v-if="!isSalesAccountAutomatic" class="form-group col-6">
+              <label for="salesAccountId">{{ $t("Sales Account") }}
+                <span class="required">*</span></label>
+              <div class="d-flex align-items-center">
+                <v-select
+                  v-model="form.salesAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                  name="salesAccountId"
+                  :placeholder="$t('Select a sales account')"
+                  class="flex-grow-1 mr-2"
+                  required
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <button 
+                  type="button" 
+                  @click="autoAssignSalesAccount" 
+                  :disabled="isAutoAssigningSales"
+                  class="btn btn-outline-success btn-sm auto-assign-btn"
+                  :title="$t('Auto-assign sales account')"
+                >
+                  <i v-if="isAutoAssigningSales" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-magic"></i>
+                  {{ $t("Auto") }}
+                </button>
+              </div>
+              <has-error :form="form" field="salesAccountId" />
+              <small class="form-text text-muted">
+                {{ $t("Select a sales account for this item. This account will be used for sales transactions.") }}
+              </small>
+            </div>
+            <div v-if="isSalesAccountAutomatic" class="form-group col-6">
+              <label>{{ $t("Sales Account") }}</label>
+              <div class="form-control-plaintext text-muted">
+                <i class="fas fa-info-circle"></i> {{ $t("Automatically assigned from account routing settings") }}
+                <br>
+                <small v-if="accountRoutingSettings.sales && accountRoutingSettings.sales.parent_account_id">
+                  {{ $t("Account ID") }}: {{ accountRoutingSettings.sales.parent_account_id }}
+                </small>
+              </div>
+            </div>
+            <div v-if="!isPurchaseAccountAutomatic" class="form-group col-6">
+              <label for="purchaseAccountId">{{ $t("Purchase Account") }}
+                <span class="required">*</span></label>
+              <div class="d-flex align-items-center">
+                <v-select
+                  v-model="form.purchaseAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                  name="purchaseAccountId"
+                  :placeholder="$t('Select a purchase account')"
+                  class="flex-grow-1 mr-2"
+                  required
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <button 
+                  type="button" 
+                  @click="autoAssignPurchaseAccount" 
+                  :disabled="isAutoAssigningPurchase"
+                  class="btn btn-outline-info btn-sm auto-assign-btn"
+                  :title="$t('Auto-assign purchase account')"
+                >
+                  <i v-if="isAutoAssigningPurchase" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-magic"></i>
+                  {{ $t("Auto") }}
+                </button>
+              </div>
+              <has-error :form="form" field="purchaseAccountId" />
+              <small class="form-text text-muted">
+                {{ $t("Select a purchase account for this item. This account will be used for purchase transactions.") }}
+              </small>
+            </div>
+            <div v-if="isPurchaseAccountAutomatic" class="form-group col-6">
+              <label>{{ $t("Purchase Account") }}</label>
+              <div class="form-control-plaintext text-muted">
+                <i class="fas fa-info-circle"></i> {{ $t("Automatically assigned from account routing settings") }}
+                <br>
+                <small v-if="accountRoutingSettings.purchase && accountRoutingSettings.purchase.parent_account_id">
+                  {{ $t("Account ID") }}: {{ accountRoutingSettings.purchase.parent_account_id }}
+                </small>
+              </div>
+            </div>
+
             <div class="form-group col-12">
               <label for="note">{{ $t("Note") }}</label>
               <textarea id="note" v-model="form.note" type="text" class="form-control"
@@ -195,6 +332,7 @@ export default {
   data: () => ({
     showProductCreateModal: false,
     form: new Form({
+      itemType: "product",
       itemName: "",
       itemCode: "",
       itemModel: "",
@@ -205,20 +343,31 @@ export default {
       productTax: "",
       taxType: "Exclusive",
       regularPrice: "",
+      servicePurchasePrice: "",
+      openingStockCount: "",
+      openingStockUnitPrice: "",
       discount: "",
       sellingPrice: "",
       note: "",
       alertQuantity: 1,
       status: 1,
       image: "",
+      salesAccountId: "",
+      purchaseAccountId: "",
     }),
     categories: [],
     options: [],
     units: [],
     brands: [],
     taxes: [],
+    chartOfAccounts: [],
     prefix: "",
     url: null,
+    isAutoAssigningSales: false,
+    isAutoAssigningPurchase: false,
+    accountRoutingSettings: null,
+    isSalesAccountAutomatic: false,
+    isPurchaseAccountAutomatic: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -229,6 +378,8 @@ export default {
     this.getBrands();
     this.getTaxes();
     this.getItemCode();
+    this.loadChartOfAccounts();
+    this.loadAccountRoutingSettings();
   },
   methods: {
 
@@ -241,6 +392,49 @@ export default {
       this.saveProduct();
     },
 
+    // Load chart of accounts for sales and purchase account selection
+    async loadChartOfAccounts() {
+      try {
+        const { data } = await axios.get(window.location.origin + "/api/products/chart-of-accounts");
+        this.chartOfAccounts = data || [];
+      } catch (error) {
+        console.error("Error loading chart of accounts:", error);
+        this.chartOfAccounts = [];
+      }
+    },
+
+    // Load account routing settings
+    async loadAccountRoutingSettings() {
+      try {
+        const response = await axios.get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+        this.accountRoutingSettings = response.data.data || {};
+        
+        // Set flags for automatic routing
+        this.isSalesAccountAutomatic = this.accountRoutingSettings.sales && 
+          this.accountRoutingSettings.sales.routing_type === 'automatic';
+        
+        this.isPurchaseAccountAutomatic = this.accountRoutingSettings.purchase && 
+          this.accountRoutingSettings.purchase.routing_type === 'automatic';
+        
+        // If automatic routing is enabled, set the account IDs from routing settings
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.parent_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.parent_account_id;
+        }
+        
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.parent_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.parent_account_id;
+        }
+
+        console.log('Account routing settings loaded:', this.accountRoutingSettings);
+        console.log('Sales automatic:', this.isSalesAccountAutomatic);
+        console.log('Purchase automatic:', this.isPurchaseAccountAutomatic);
+      } catch (error) {
+        console.error("Error loading account routing settings:", error);
+        // Set defaults if API fails
+        this.isSalesAccountAutomatic = false;
+        this.isPurchaseAccountAutomatic = false;
+      }
+    },
 
     // get all product categories
     async getSubCategories() {
@@ -278,7 +472,7 @@ export default {
     },
     // calculate selling price
     calculatePrice() {
-      if (this.form.sellingPrice && this.form.productTax && this.form.taxType) {
+      if (this.form.regularPrice && this.form.productTax && this.form.taxType) {
         let discount = 0;
         if (this.form.discount && this.form.discount > 0) {
           discount = (this.form.discount / 100) * this.form.regularPrice;
@@ -304,7 +498,7 @@ export default {
         }
         return;
       }
-      return (this.form.sellingPrice = this.form.regularPrice);
+      this.form.sellingPrice = this.form.regularPrice;
     },
     // vue file upload
     onFileChange(e) {
@@ -326,6 +520,36 @@ export default {
     },
     // save product
     async saveProduct() {
+      // Validate required fields based on item type
+      if (this.form.itemType === 'service' && !this.form.servicePurchasePrice) {
+        toast.fire({ 
+          type: "error", 
+          title: this.$t("Service Purchase Price is required for services") 
+        });
+        return;
+      }
+
+      // Validate sales account if not automatic
+      if (!this.isSalesAccountAutomatic && !this.form.salesAccountId) {
+        toast.fire({ 
+          type: "error", 
+          title: this.$t("Sales Account is required") 
+        });
+        return;
+      }
+
+      // Validate purchase account if not automatic
+      if (!this.isPurchaseAccountAutomatic && !this.form.purchaseAccountId) {
+        toast.fire({ 
+          type: "error", 
+          title: this.$t("Purchase Account is required") 
+        });
+        return;
+      }
+
+      // Debug: Log form data being sent
+      console.log("Form data being sent:", this.form.data());
+
       await this.form
         .post(window.location.origin + "/api/products")
         .then(() => {
@@ -334,12 +558,137 @@ export default {
             title: this.$t("Product added successfully"),
           });
           this.form.reset();
+          this.form.itemType = "product"; // Reset to default
           this.showProductCreateModal = false;
           this.$emit('reloadProducts');
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        .catch((error) => {
+          console.error("Error creating product:", error);
+          const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+          toast.fire({ type: "error", title: errorMessage });
         });
+    },
+
+    // Auto-assign sales account
+    async autoAssignSalesAccount() {
+      if (this.isAutoAssigningSales) {
+        return;
+      }
+      this.isAutoAssigningSales = true;
+      
+      try {
+        // For new products, we need to simulate the auto-assignment logic
+        // since the product doesn't exist in the database yet
+        let defaultAccount = null;
+        
+        if (this.form.itemType === 'product') {
+          // Look for "Sales of Goods" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('sales') && 
+            (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'))
+          );
+        } else if (this.form.itemType === 'service') {
+          // Look for "Sales of Services" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('sales') && 
+            account.name.toLowerCase().includes('service')
+          );
+        }
+        
+        // Fallback to any Sales account
+        if (!defaultAccount) {
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('sales')
+          );
+        }
+        
+        // Final fallback to any active account
+        if (!defaultAccount && this.chartOfAccounts.length > 0) {
+          defaultAccount = this.chartOfAccounts[0];
+        }
+        
+        if (defaultAccount) {
+          this.form.salesAccountId = defaultAccount.id;
+          toast.fire({
+            type: "success",
+            title: this.$t("Sales Account auto-assigned successfully"),
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("No suitable Sales Account found for automatic assignment"),
+          });
+        }
+      } catch (error) {
+        console.error("Error auto-assigning sales account:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to auto-assign Sales Account"),
+        });
+      } finally {
+        this.isAutoAssigningSales = false;
+      }
+    },
+
+    // Auto-assign purchase account
+    async autoAssignPurchaseAccount() {
+      if (this.isAutoAssigningPurchase) {
+        return;
+      }
+      this.isAutoAssigningPurchase = true;
+      
+      try {
+        // For new products, we need to simulate the auto-assignment logic
+        // since the product doesn't exist in the database yet
+        let defaultAccount = null;
+        
+        if (this.form.itemType === 'product') {
+          // Look for "Cost of Goods Sold" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('cost') && 
+            (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'))
+          );
+        } else if (this.form.itemType === 'service') {
+          // Look for "Cost of Services" or similar
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('cost') && 
+            account.name.toLowerCase().includes('service')
+          );
+        }
+        
+        // Fallback to any Cost account
+        if (!defaultAccount) {
+          defaultAccount = this.chartOfAccounts.find(account => 
+            account.name.toLowerCase().includes('cost')
+          );
+        }
+        
+        // Final fallback to any active account
+        if (!defaultAccount && this.chartOfAccounts.length > 0) {
+          defaultAccount = this.chartOfAccounts[0];
+        }
+        
+        if (defaultAccount) {
+          this.form.purchaseAccountId = defaultAccount.id;
+          toast.fire({
+            type: "success",
+            title: this.$t("Purchase Account auto-assigned successfully"),
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("No suitable Purchase Account found for automatic assignment"),
+          });
+        }
+      } catch (error) {
+        console.error("Error auto-assigning purchase account:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to auto-assign Purchase Account"),
+        });
+      } finally {
+        this.isAutoAssigningPurchase = false;
+      }
     },
   },
 }
@@ -348,5 +697,40 @@ export default {
 .create-button {
   text-decoration: none;
   cursor: pointer;
+}
+
+.btn-outline-custom {
+  border: 1px solid #ddd;
+  color: #666;
+  background-color: #fff;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus {
+  background-color: #f8f9fa;
+  border-color: #ddd;
+  color: #666;
+}
+
+.btn-custom-active {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #fff !important;
+}
+
+.auto-assign-btn {
+  min-width: 60px;
+  white-space: nowrap;
+}
+
+.auto-assign-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 5px;
 }
 </style>

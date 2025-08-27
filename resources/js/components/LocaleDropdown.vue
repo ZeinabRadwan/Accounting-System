@@ -63,7 +63,7 @@ export default {
         console.log('CSRF token:', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'))
         
         // Make an API call to Laravel
-        const response = await axios.post('api/set-locale', { locale })
+        const response = await axios.post('/api/set-locale', { locale })
 
         // Check if response exists and has data
         if (response && response.data && response.data.success) {
@@ -72,7 +72,7 @@ export default {
           this.$store.dispatch('lang/setLocale', { locale })
           
           // Set RTL mode based on the selected locale
-          rtlService.setRTLMode(locale)
+          rtlService.setRTLModeByLocale(locale)
           
           // Show success message
           if (this.$toast) {
@@ -80,9 +80,9 @@ export default {
           }
           
           // Refresh the page to ensure all components update properly
-          setTimeout(() => {
-            window.location.reload()
-          }, 500)
+          // setTimeout(() => {
+          //   window.location.reload()
+          // }, 500)
         } else {
           console.error('Failed to set locale:', response?.data?.error || 'Unknown error')
           if (this.$toast) {

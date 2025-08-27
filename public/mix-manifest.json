@@ -1,5 +1,5 @@
 {
-    "/js/central.js": "/js/central.js?id=b669b4d67fb6936fd8c386f2394d8295",
-    "/js/tenant.js": "/js/tenant.js?id=faecbc75d27596c012a14b680a614574",
-    "/css/app.css": "/css/app.css?id=91588af734a6d7982e31f98bb325baa2"
+    "/js/central.js": "/js/central.js",
+    "/js/tenant.js": "/js/tenant.js",
+    "/css/app.css": "/css/app.css"
 }

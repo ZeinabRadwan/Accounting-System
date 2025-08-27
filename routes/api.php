@@ -32,6 +32,8 @@ use App\Http\Controllers\Central\CentralSettingImageController;
 use App\Http\Controllers\Central\SubscriptionRequestController;
 use App\Http\Controllers\Central\ApplicationManagementController;
 use App\Http\Controllers\Central\CentralSubscriptionInvoiceController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /*
  * API Routes for central part of the application.
@@ -254,4 +256,92 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
     // application update
     Route::get('/get-updated-version', [ApplicationManagementController::class, 'getUpdateVersion']);
     Route::post('/update-application', [ApplicationManagementController::class, 'updateApplication']);
+
+    // Test endpoint for client creation (for testing environment)
+    Route::post('/test/clients', function (Request $request) {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'phoneNumber' => 'required|string|max:20',
+                'email' => 'nullable|email|max:255',
+                'companyName' => 'nullable|string|max:255',
+                'taxRegistrationNumber' => 'nullable|string|max:255',
+                'address' => 'nullable|string|max:500',
+                'type' => 'required|in:Company,Individual',
+                'status' => 'required|boolean',
+                'chartOfAccountId' => 'nullable|exists:chart_of_accounts,id',
+                'isSendEmail' => 'boolean',
+                'isSendSMS' => 'boolean',
+            ]);
+
+            // Custom validation rules
+            $validator->after(function ($validator) use ($request) {
+                // Email is required when email notification is enabled
+                if ($request->isSendEmail && !$request->email) {
+                    $validator->errors()->add('email', 'Email is required when email notification is enabled.');
+                }
+            });
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Create client
+            $client = new \App\Models\Client();
+            $client->name = $request->name;
+            $client->client_id = \App\Models\Client::max('client_id') + 1;
+            $client->slug = \Illuminate\Support\Str::slug($request->name);
+            $client->email = $request->email;
+            $client->phone = $request->phoneNumber;
+            $client->company_name = $request->companyName;
+            $client->tax_registration_number = $request->taxRegistrationNumber;
+            $client->address = $request->address;
+            $client->type = $request->type;
+            $client->status = $request->status;
+            
+            // Auto-assign chart of account if not provided
+            if ($request->chartOfAccountId) {
+                $client->chart_of_account_id = $request->chartOfAccountId;
+            } else {
+                // Find the first active accounts receivable account
+                $accountsReceivable = \App\Models\ChartOfAccount::where('name', 'Accounts Receivable')
+                    ->where('is_active', true)
+                    ->first();
+                if ($accountsReceivable) {
+                    $client->chart_of_account_id = $accountsReceivable->id;
+                }
+            }
+            
+            $client->save();
+
+            return response()->json([
+                'message' => 'Client created successfully',
+                'data' => [
+                    'id' => $client->id,
+                    'name' => $client->name,
+                    'clientID' => $client->client_id,
+                    'slug' => $client->slug,
+                    'email' => $client->email,
+                    'phoneNumber' => $client->phone,
+                    'companyName' => $client->company_name,
+                    'taxRegistrationNumber' => $client->tax_registration_number,
+                    'address' => $client->address,
+                    'type' => $client->type,
+                    'status' => $client->status,
+                    'image' => $client->image_path,
+                    'chart_of_account_id' => $client->chart_of_account_id,
+                    'chartOfAccount' => $client->chart_of_account_id ? \App\Models\ChartOfAccount::find($client->chart_of_account_id) : null,
+                ]
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error creating client',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    });
 });

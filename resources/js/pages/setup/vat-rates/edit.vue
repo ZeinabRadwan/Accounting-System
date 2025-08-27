@@ -100,6 +100,57 @@
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
+
+              <!-- Chart of Account Connections -->
+              <div class="form-group">
+                <label for="sales_vat_account_id">{{ $t("Sales VAT Account") }}</label>
+                <v-select
+                  v-model="form.sales_vat_account_id"
+                  :options="salesVatAccounts"
+                  label="name"
+                  :class="{ 'is-invalid': form.errors.has('sales_vat_account_id') }"
+                  name="sales_vat_account_id"
+                  :placeholder="$t('Select Sales VAT Account')"
+                  :reduce="option => option.id"
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <has-error :form="form" field="sales_vat_account_id" />
+                <small class="form-text text-muted">
+                  {{ $t("This account will be credited when VAT is collected on sales") }}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="purchase_vat_account_id">{{ $t("Purchase VAT Account") }}</label>
+                <v-select
+                  v-model="form.purchase_vat_account_id"
+                  :options="purchaseVatAccounts"
+                  label="name"
+                  :class="{ 'is-invalid': form.errors.has('purchase_vat_account_id') }"
+                  name="purchase_vat_account_id"
+                  :placeholder="$t('Select Purchase VAT Account')"
+                  :reduce="option => option.id"
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <has-error :form="form" field="purchase_vat_account_id" />
+                <small class="form-text text-muted">
+                  {{ $t("This account will be debited when VAT is paid on purchases") }}
+                </small>
+              </div>
             </div>
             <div class="card-footer">
               <v-button :loading="form.busy" class="btn btn-primary">
@@ -174,14 +225,19 @@ export default {
       code: "",
       rate: "",
       status: 1,
+      sales_vat_account_id: "",
+      purchase_vat_account_id: "",
     }),
     taxes: [],
+    salesVatAccounts: [],
+    purchaseVatAccounts: [],
     initialLoad: true,
     loading: true,
   }),
 
-  mounted() {
-    this.getTaxes();
+  async mounted() {
+    await this.getVatAccounts();
+    await this.getTaxes();
   },
   methods: {
     // get category
@@ -189,12 +245,17 @@ export default {
       const { data } = await axios.get(
         window.location.origin + "/api/vat-rates/" + this.$route.params.slug
       );
+      console.log('VAT Rate data:', data.data);
       this.form.name = data.data.name;
       this.form.code = data.data.code;
       this.form.rate = data.data.rate;
       this.form.note = data.data.note;
       this.form.isGroupTax = data.data.isGroupTax;
       this.form.status = data.data.status;
+      this.form.sales_vat_account_id = data.data.sales_vat_account_id || "";
+      this.form.purchase_vat_account_id = data.data.purchase_vat_account_id || "";
+      console.log('Form sales_vat_account_id:', this.form.sales_vat_account_id);
+      console.log('Form purchase_vat_account_id:', this.form.purchase_vat_account_id);
 
       if (data.data.isGroupTax && data.data.groupTaxIds) {
           this.form.groupTaxItem = data.data.groupTaxIds.map(id => {
@@ -210,6 +271,29 @@ export default {
       );
       this.taxes = data.data;
       this.getVATRate();
+    },
+
+    // get VAT chart of accounts
+    async getVatAccounts() {
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/vat-rates/chart-of-accounts"
+        );
+        console.log('VAT accounts API response:', data);
+        this.salesVatAccounts = data.data.sales_vat_accounts || [];
+        this.purchaseVatAccounts = data.data.purchase_vat_accounts || [];
+        console.log('Sales VAT accounts:', this.salesVatAccounts);
+        console.log('Purchase VAT accounts:', this.purchaseVatAccounts);
+      } catch (error) {
+        console.error('Error loading VAT chart of accounts:', error);
+        // Fallback to default accounts if API fails
+        this.salesVatAccounts = [
+          { id: null, name: 'Sales VAT Payable', code: '2210', type: 'Liability' }
+        ];
+        this.purchaseVatAccounts = [
+          { id: null, name: 'Purchase VAT Receivable', code: '1210', type: 'Asset' }
+        ];
+      }
     },
 
     calculateGroupTaxRate() {

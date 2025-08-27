@@ -21,7 +21,14 @@ return new class extends Migration
             $table->double('rate', 4, 2);
             $table->string('note')->nullable();
             $table->boolean('status')->nullable()->default(1);
+            $table->boolean('is_group_tax')->default(false);
+            $table->json('group_tax_ids')->nullable();
+            $table->unsignedBigInteger('sales_vat_account_id')->nullable();
+            $table->unsignedBigInteger('purchase_vat_account_id')->nullable();
             $table->timestamps();
+            
+            $table->foreign('sales_vat_account_id')->references('id')->on('chart_of_accounts')->onDelete('set null');
+            $table->foreign('purchase_vat_account_id')->references('id')->on('chart_of_accounts')->onDelete('set null');
         });
     }
 

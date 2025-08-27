@@ -11,6 +11,8 @@ use App\Models\PurchasePayment;
 use App\Models\PurchaseProduct;
 use App\Rules\PurchaseTotalPaid;
 use App\Models\AccountTransaction;
+use App\Models\PurchaseJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,7 @@ use App\Notifications\PurchaseNotification;
 use App\Http\Resources\PurchaseListResource;
 use App\Http\Resources\PurchaseProductsResource;
 use App\Notifications\PurchasePaymentNotification;
+use Illuminate\Support\Facades\Log;
 
 class PurchaseController extends Controller
 {
@@ -101,9 +104,23 @@ class PurchaseController extends Controller
                 'created_by' => $userId,
             ]);
 
+            // Create journal entry for purchase
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the purchase creation
+                Log::error('Failed to create journal entry for purchase: ' . $e->getMessage());
+            }
+
             // store purchase products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
+
+                // Validate product has purchase account (including fallback)
+                if (!$product->hasPurchaseAccountWithFallback()) {
+                    throw new Exception('Product ' . $product->name . ' must have a Purchase Account assigned or a default Product Purchase Account configured in routing settings.');
+                }
 
                 // calculate new purchase price
                 $currentStockPrice = $product->inventory_count * $product->purchase_price;
@@ -118,6 +135,16 @@ class PurchaseController extends Controller
                     'inventory_count' => $product->inventory_count + $selectedProduct['qty'],
                 ]);
 
+                // Calculate discount amount
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+
                 PurchaseProduct::create([
                     'purchase_id' => $purchase->id,
                     'product_id' => $product->id,
@@ -125,6 +152,9 @@ class PurchaseController extends Controller
                     'purchase_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
                     'tax_amount' => $selectedProduct['productTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
                 ]);
             }
 
@@ -156,6 +186,15 @@ class PurchaseController extends Controller
                     'created_by' => $userId,
                     'status' => $request->status,
                 ]);
+
+                // Create journal entry for purchase payment
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->totalPaid, $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                }
             }
             // update purchase
             if ($purchase->totalDue() == 0) {
@@ -394,7 +433,8 @@ class PurchaseController extends Controller
                 ->orWhereHas('supplier', function ($newQuery) use ($term) {
                     $newQuery->where('name', 'LIKE', '%'.$term.'%')
                         ->orWhere('company_name', 'LIKE', '%'.$term.'%')
-                        ->orWhere('phone', 'LIKE', '%'.$term.'%');
+                        ->orWhere('phone_number', 'LIKE', '%'.$term.'%')
+                        ->orWhere('phone_legacy', 'LIKE', '%'.$term.'%');
                 });
         });
 

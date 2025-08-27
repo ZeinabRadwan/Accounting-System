@@ -203,13 +203,11 @@
                           {{ $t("Returned Qty") }}
                         </th>
                         <th>{{ $t("Unit Price") }}</th>
-                        <th>{{ $t("Unit Tax") }}</th>
-                        <th>{{ $t("Unit Cost") }}</th>
-                        <th
-                          :class="!allData.purchaseReturn ? 'text-right' : ''"
-                        >
-                          {{ $t("Total") }}
-                        </th>
+                        <th>{{ $t("Total") }}</th>
+                        <th>{{ $t("Discount") }}</th>
+                        <th>{{ $t("Total After Discount") }}</th>
+                        <th>{{ $t("VAT") }}</th>
+                        <th>{{ $t("Total with VAT") }}</th>
                         <th
                           v-if="allData.purchaseReturn"
                           :class="allData.purchaseReturn ? 'text-right' : ''"
@@ -231,13 +229,11 @@
                           {{ data.productUnit }}
                         </td>
                         <td>{{ data.purchasePrice | withCurrency }}</td>
+                        <td>{{ (data.purchasePrice * data.quantity) | withCurrency }}</td>
+                        <td>{{ (data.discountAmount || 0) | withCurrency }}</td>
+                        <td>{{ ((data.purchasePrice * data.quantity) - (data.discountAmount || 0)) | withCurrency }}</td>
                         <td>{{ data.taxAmount | withCurrency }}</td>
-                        <td>{{ data.unitCost | withCurrency }}</td>
-                        <td
-                          :class="!allData.purchaseReturn ? 'text-right' : ''"
-                        >
-                          {{ (data.unitCost * data.quantity) | withCurrency }}
-                        </td>
+                        <td>{{ (data.unitCost * data.quantity) | withCurrency }}</td>
                         <td
                           v-if="allData.purchaseReturn"
                           :class="allData.purchaseReturn ? 'text-right' : ''"
@@ -248,15 +244,9 @@
                       <tr>
                         <td
                           class="text-right"
-                          :colspan="allData.purchaseReturn ? 8 : 7"
+                          :colspan="allData.purchaseReturn ? 11 : 10"
                         >
                           <strong>{{ $t("Subtotal") }}</strong>
-                        </td>
-                        <td
-                          v-if="purchaseProducts"
-                          :class="!allData.purchaseReturn ? 'text-right' : ''"
-                        >
-                          <strong>{{ allData.subTotal | withCurrency }}</strong>
                         </td>
                         <td
                           v-if="allData.purchaseReturn"

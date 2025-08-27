@@ -7,9 +7,13 @@ import router from '~/router/central'
 import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
 import App from '~/components/central/CentralApp'
+import Swal from 'sweetalert2'
 
 // Import RTL styles
 import '~/assets/css/rtl.css'
+
+// Import RTL DateRangePicker Plugin
+import rtlDaterangepickerPlugin from '~/plugins/rtlDaterangepickerPlugin'
 
 import VueScrollactive from 'vue-scrollactive';
 
@@ -53,6 +57,9 @@ Vue.use(VueHtmlToPaper, options)
 
 Vue.use(DateRangePicker)
 
+// Use RTL DateRangePicker Plugin
+Vue.use(rtlDaterangepickerPlugin)
+
 Vue.component('VSelect', vSelect)
 
 import VueMoment from 'vue-moment'
@@ -67,6 +74,10 @@ VTooltip.options.defaultInnerSelector = '.tooltip-vue-inner, .tooltip-vue__inner
 Vue.config.productionTip = false
 Vue.prototype.$can = can
 Vue.prototype.$axios = axios
+Vue.prototype.$swal = Swal
+
+// Make Swal globally available
+window.Swal = Swal
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,0 +1,214 @@
+/* ========================================
+   DateRangePicker RTL CSS Overrides
+   ======================================== */
+
+/* Force RTL direction when document is in RTL mode */
+[dir="rtl"] .daterangepicker {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* Override any conflicting LTR styles */
+[dir="rtl"] .daterangepicker.ltr {
+  direction: rtl !important;
+}
+
+/* Ensure proper calendar positioning in RTL */
+[dir="rtl"] .daterangepicker .calendars-container {
+  flex-direction: row-reverse !important;
+}
+
+/* Fix calendar borders in RTL */
+[dir="rtl"] .daterangepicker.show-ranges .drp-calendar.left {
+  border-left: 1px solid #ddd !important;
+  border-right: none !important;
+}
+
+[dir="rtl"] .daterangepicker.show-ranges .ranges {
+  border-right: 1px solid #ddd !important;
+  border-left: none !important;
+}
+
+/* Fix calendar table alignment */
+[dir="rtl"] .daterangepicker .calendar-table {
+  direction: rtl !important;
+}
+
+[dir="rtl"] .daterangepicker .calendar-table th,
+[dir="rtl"] .daterangepicker .calendar-table td {
+  text-align: center !important;
+}
+
+/* Fix navigation arrows positioning */
+[dir="rtl"] .daterangepicker .calendar-table .prev {
+  float: right !important;
+}
+
+[dir="rtl"] .daterangepicker .calendar-table .next {
+  float: left !important;
+}
+
+/* Fix month/year select alignment */
+[dir="rtl"] .daterangepicker .monthselect,
+[dir="rtl"] .daterangepicker .yearselect {
+  text-align: center !important;
+}
+
+/* Fix ranges section alignment */
+[dir="rtl"] .daterangepicker .ranges {
+  text-align: right !important;
+}
+
+[dir="rtl"] .daterangepicker .ranges ul {
+  text-align: right !important;
+}
+
+[dir="rtl"] .daterangepicker .ranges li {
+  text-align: right !important;
+}
+
+/* Fix buttons section alignment */
+[dir="rtl"] .daterangepicker .drp-buttons {
+  text-align: left !important;
+}
+
+/* Fix selected date display */
+[dir="rtl"] .daterangepicker .drp-selected {
+  text-align: right !important;
+}
+
+/* Fix calendar time section */
+[dir="rtl"] .daterangepicker .calendar-time {
+  text-align: center !important;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 564px) {
+  [dir="rtl"] .daterangepicker .calendars-container {
+    flex-direction: column !important;
+  }
+  
+  [dir="rtl"] .daterangepicker .drp-calendar.left {
+    border-left: none !important;
+    border-bottom: 1px solid #ddd !important;
+  }
+  
+  [dir="rtl"] .daterangepicker .drp-calendar.right {
+    border-right: none !important;
+    border-top: none !important;
+  }
+  
+  [dir="rtl"] .daterangepicker .ranges {
+    border-left: none !important;
+    border-top: 1px solid #ddd !important;
+  }
+}
+
+/* Force RTL classes on daterangepicker */
+[dir="rtl"] .daterangepicker.rtl {
+  direction: rtl !important;
+}
+
+/* Override any Bootstrap or AdminLTE conflicts */
+[dir="rtl"] .daterangepicker * {
+  direction: inherit;
+}
+
+/* Ensure proper z-index */
+[dir="rtl"] .daterangepicker {
+  z-index: 3001 !important;
+}
+
+/* Fix dropdown positioning in RTL */
+[dir="rtl"] .daterangepicker.dropdown-menu {
+  right: auto !important;
+  left: 0 !important;
+}
+
+/* Fix tooltip positioning in RTL */
+[dir="rtl"] .daterangepicker[data-toggle="tooltip"] {
+  direction: rtl !important;
+}
+
+/* ========================================
+   Override Vue Component Scoped Styles
+   ======================================== */
+
+/* Override opensleft positioning for RTL */
+[dir="rtl"] .daterangepicker.opensleft[data-v-1ebd09d2] {
+  right: auto !important;
+  left: 10px !important;
+}
+
+/* Override opensright positioning for RTL */
+[dir="rtl"] .daterangepicker.opensright[data-v-1ebd09d2] {
+  left: auto !important;
+  right: 10px !important;
+}
+
+/* Override openscenter positioning for RTL */
+[dir="rtl"] .daterangepicker.openscenter[data-v-1ebd09d2] {
+  right: auto !important;
+  left: 50% !important;
+  transform: translate(-50%) !important;
+}
+
+/* Override any other Vue scoped styles that might interfere */
+[dir="rtl"] .daterangepicker[data-v-1ebd09d2] {
+  direction: rtl !important;
+}
+
+/* Force override of positioning attributes */
+[dir="rtl"] .daterangepicker.opensleft {
+  right: auto !important;
+  left: 10px !important;
+}
+
+[dir="rtl"] .daterangepicker.opensright {
+  left: auto !important;
+  right: 10px !important;
+}
+
+[dir="rtl"] .daterangepicker.openscenter {
+  right: auto !important;
+  left: 50% !important;
+  transform: translate(-50%) !important;
+}
+
+/* ========================================
+   Maximum Specificity Overrides
+   ======================================== */
+
+/* Use body selector for maximum specificity */
+body[dir="rtl"] .daterangepicker.opensleft[data-v-1ebd09d2] {
+  right: auto !important;
+  left: 10px !important;
+}
+
+body[dir="rtl"] .daterangepicker.opensright[data-v-1ebd09d2] {
+  left: auto !important;
+  right: 10px !important;
+}
+
+body[dir="rtl"] .daterangepicker.openscenter[data-v-1ebd09d2] {
+  right: auto !important;
+  left: 50% !important;
+  transform: translate(-50%) !important;
+}
+
+/* Additional specificity with html selector */
+html[dir="rtl"] body .daterangepicker.opensleft[data-v-1ebd09d2] {
+  right: auto !important;
+  left: 10px !important;
+}
+
+html[dir="rtl"] body .daterangepicker.opensright[data-v-1ebd09d2] {
+  left: auto !important;
+  right: 10px !important;
+}
+
+html[dir="rtl"] body .daterangepicker.openscenter[data-v-1ebd09d2] {
+  right: auto !important;
+  left: 50% !important;
+  transform: translate(-50%) !important;
+}

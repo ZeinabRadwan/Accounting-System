@@ -9,6 +9,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\ChartOfAccount;
 
 class Product extends Model implements HasMedia
 {
@@ -20,7 +21,7 @@ class Product extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'is_service', 'name', 'slug', 'code', 'model', 'barcode_symbology', 'sub_cat_id', 'brand_id', 'unit_id', 'tax_id', 'tax_type', 'purchase_price', 'regular_price', 'discount', 'inventory_count', 'opening_stock_count', 'opening_stock_unit_price', 'alert_qty', 'note', 'status', 'image_path', 'sales_account_id', 'purchase_account_id',
+        'is_service', 'name', 'slug', 'code', 'model', 'barcode_symbology', 'sub_cat_id', 'brand_id', 'unit_id', 'tax_id', 'sales_account_id', 'purchase_account_id', 'tax_type', 'purchase_price', 'regular_price', 'discount', 'inventory_count', 'opening_stock_count', 'opening_stock_unit_price', 'alert_qty', 'note', 'status', 'image_path',
     ];
 
     /**
@@ -62,7 +63,7 @@ class Product extends Model implements HasMedia
         $totalTax = $tax = 0;
         $currentPrice = $this->regular_price - $this->discountAmount();
         $productTax = $this->productTax;
-        if ($productTax->rate > 0) {
+        if ($productTax && $productTax->rate > 0) {
             $tax = ($productTax->rate / 100);
         }
 
@@ -88,7 +89,8 @@ class Product extends Model implements HasMedia
         if ($this->tax_type == 'Exclusive') {
             $price = $this->regular_price - $this->discountAmount() + $this->taxAmount();
         } else {
-            $price = (($this->regular_price - $this->discountAmount()) / (1 + $this->productTax->rate / 100)) + $this->taxAmount();
+            $taxRate = $this->productTax ? $this->productTax->rate : 0;
+            $price = (($this->regular_price - $this->discountAmount()) / (1 + $taxRate / 100)) + $this->taxAmount();
         }
 
         return round($price, 2);
@@ -212,5 +214,123 @@ class Product extends Model implements HasMedia
     public function purchaseAccount()
     {
         return $this->belongsTo(ChartOfAccount::class, 'purchase_account_id');
+    }
+
+    /**
+     * Check if the product has a sales account assigned
+     */
+    public function hasSalesAccount()
+    {
+        return !is_null($this->sales_account_id);
+    }
+
+    /**
+     * Check if the product has a purchase account assigned
+     */
+    public function hasPurchaseAccount()
+    {
+        return !is_null($this->purchase_account_id);
+    }
+
+    /**
+     * Get the purchase account with fallback to routing settings
+     */
+    public function getPurchaseAccountWithFallback()
+    {
+        // First try to get the individual product purchase account
+        if ($this->purchase_account_id) {
+            return $this->purchaseAccount;
+        }
+
+        // Fallback to the product purchase account from routing settings
+        $routingSetting = \App\Models\AccountRoutingSetting::where('module', 'purchase')
+            ->where('setting_key', 'product_purchase_account')
+            ->first();
+
+        if ($routingSetting && $routingSetting->parent_account_id) {
+            return \App\Models\ChartOfAccount::find($routingSetting->parent_account_id);
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if the product has a purchase account assigned (including fallback)
+     */
+    public function hasPurchaseAccountWithFallback()
+    {
+        return $this->getPurchaseAccountWithFallback() !== null;
+    }
+
+    /**
+     * Get validation message for sales account
+     */
+    public function getSalesAccountValidationMessage()
+    {
+        if (!$this->hasSalesAccount()) {
+            return 'Product must have a Sales Account assigned for journal entries.';
+        }
+        return null;
+    }
+
+    /**
+     * Get validation message for purchase account
+     */
+    public function getPurchaseAccountValidationMessage()
+    {
+        if (!$this->hasPurchaseAccountWithFallback()) {
+            return 'Product must have a Purchase Account assigned for journal entries or a default Product Purchase Account configured in routing settings.';
+        }
+        return null;
+    }
+
+    /**
+     * Automatically assign default Chart of Account if none is set
+     */
+    public static function assignDefaultChartOfAccount($productData)
+    {
+        // Check if both accounts are already assigned
+        $hasSalesAccount = isset($productData['sales_account_id']) && $productData['sales_account_id'];
+        $hasPurchaseAccount = isset($productData['purchase_account_id']) && $productData['purchase_account_id'];
+        
+        // If both accounts are already provided, use them
+        if ($hasSalesAccount && $hasPurchaseAccount) {
+            return $productData;
+        }
+
+        // Auto-assign based on product category or other criteria
+        $defaultSalesAccount = null;
+        $defaultPurchaseAccount = null;
+        
+        // First try to get accounts from routing settings
+        $salesRoutingSetting = \App\Models\AccountRoutingSetting::where('module', 'sales')
+            ->where('setting_key', 'product_sales_account')
+            ->first();
+        
+        $purchaseRoutingSetting = \App\Models\AccountRoutingSetting::where('module', 'purchase')
+            ->where('setting_key', 'product_purchase_account')
+            ->first();
+
+        if ($salesRoutingSetting && $salesRoutingSetting->routing_type == 'automatic' && $salesRoutingSetting->main_account_id) {
+            $defaultSalesAccount = \App\Models\ChartOfAccount::find($salesRoutingSetting->main_account_id);
+        }
+
+        if ($purchaseRoutingSetting && $purchaseRoutingSetting->routing_type == 'automatic' && $purchaseRoutingSetting->main_account_id) {
+            $defaultPurchaseAccount = \App\Models\ChartOfAccount::find($purchaseRoutingSetting->main_account_id);
+        }
+        
+  
+
+        // Only assign sales account if not already set
+        if ($defaultSalesAccount && !$hasSalesAccount) {
+            $productData['sales_account_id'] = $defaultSalesAccount->id;
+        }
+
+        // Only assign purchase account if not already set
+        if ($defaultPurchaseAccount && !$hasPurchaseAccount) {
+            $productData['purchase_account_id'] = $defaultPurchaseAccount->id;
+        }
+
+        return $productData;
     }
 }

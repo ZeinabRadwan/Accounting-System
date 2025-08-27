@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('account_role')->default(1);
             $table->tinyInteger('is_active')->nullable()->default(1);
             $table->string('slug');
+            $table->string('locale', 5)->default('ar')->nullable();
             $table->timestamps();
         });
     }

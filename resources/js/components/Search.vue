@@ -7,7 +7,7 @@
       </svg>
     </div>
     <input ref="autoFocusInput" type="text" :value="query" class="search-input form-control"
-      :placeholder="$t('Search...')" @input="$emit('reset-pagination', $event.target.value)" />
+      :placeholder="$t('Search')" @input="$emit('reset-pagination', $event.target.value)" />
     <label class="search-btn" :class="[query !== '' ? 'd-inline-block' : 'd-none']" @click="$emit('reload')">
       <i class="fas fa-times" />
     </label>

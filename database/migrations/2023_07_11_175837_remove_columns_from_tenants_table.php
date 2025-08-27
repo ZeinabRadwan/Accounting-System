@@ -14,9 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->dropColumn('stripe_id');
-            $table->dropColumn('pm_type');
-            $table->dropColumn('pm_last_four');
+            $table->dropColumn(['stripe_id', 'pm_type', 'pm_last_four']);
         });
     }
 

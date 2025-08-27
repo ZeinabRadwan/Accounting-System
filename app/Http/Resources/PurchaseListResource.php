@@ -20,7 +20,7 @@ class PurchaseListResource extends JsonResource
             'purchaseNo' => config('config.purchasePrefix').'-'.$this->purchase_no,
             'slug' => $this->slug,
             'supplierName' => $this->supplier->name,
-            'supplierPhone' => $this->supplier->phone,
+            'supplierPhone' => $this->supplier->phone_number,
             'transport' => $this->transport > 0 ? $this->transport : 0,
             'tax' => round($this->taxAmount(), 2),
             'taxRate' => $this->purchaseTax->rate,

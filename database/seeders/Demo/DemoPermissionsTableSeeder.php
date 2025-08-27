@@ -1002,6 +1002,72 @@ class DemoPermissionsTableSeeder extends Seeder
                     'guard_name' => 'Domains',
                     'slug' => 'domain-management',
                 ],
+
+                // Journal Entry permissions
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-list',
+                ],
+                [
+                    'name' => 'Create',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-create',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-view',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-edit',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-delete',
+                ],
+                [
+                    'name' => 'Post',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-post',
+                ],
+
+                //add 
+
+                  // chart of accounts permission
+                  [
+                    'name' => 'Create',
+                    'guard_name' => 'Chart of Account Management',
+                    'slug' => 'chart-of-account-create',
+                ],
+                [
+                    'name' => 'Tree',
+                    'guard_name' => 'Chart of Account Management',
+                    'slug' => 'chart-of-account-tree',
+                ],
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Chart of Account Management',
+                    'slug' => 'chart-of-account-list',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Chart of Account Management',
+                    'slug' => 'chart-of-account-edit',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Chart of Account Management',
+                    'slug' => 'chart-of-account-view',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Chart of Account Management',
+                    'slug' => 'chart-of-account-delete',
+                ],
             ]);
         }
     }

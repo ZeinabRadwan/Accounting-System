@@ -45,6 +45,7 @@ class StoreGeneralSettingRequest extends BaseRequest
             'adjustmentPrefix' => 'required|string|min:2|max:10',
             'currency' => 'required',
             'language' => 'required|string|min:2|max:10',
+            'country' => 'required|string|size:2',
             'copyrightText' => 'required|string|max:100',
             'invoiceThankYouMessage' => 'required|string|max:100',
             'defaultClient' => 'required',

@@ -31,6 +31,9 @@
                 <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
                   <i class="fas fa-print"></i>
                 </a>
+                <router-link v-if="$can('chart-of-account-tree')" :to="{ name: 'chart-of-accounts.tree' }" class="btn btn-secondary">
+                  <i class="fas fa-tree d-none d-sm-inline-block" />
+                </router-link>
                 <router-link v-if="$can('chart-of-account-create')" :to="{ name: 'chart-of-accounts.create' }" class="btn btn-primary">
                   {{ $t("Create") }}
                   <i class="fas fa-plus-circle d-none d-sm-inline-block" />

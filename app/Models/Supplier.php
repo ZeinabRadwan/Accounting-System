@@ -21,26 +21,54 @@ class Supplier extends Model
         'slug',
         'supplier_id',
         'email',
-        'phone',
-        'phone_numbers',
-        'email_addresses',
         'company_name',
-        'address',
+        
         'status',
         'image_path',
         'tax_registration_number',
-        'cr_number',
         'type',
-        'nationality_id',
-                    'city_name',
-        'district',
-        'street_name',
-        'building_number',
-        'zip_code',
-        'additional_number',
-        'unit_no',
-        'account_id',
+        'chart_of_account_id',
+        
+        // New fields
+        'code_number',
+        'notes',
+        'display_language',
+        'full_name',
+        'business_name',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'street_address1',
+        'street_address2',
+        'city',
+        'state',
+        'postal_code',
+        'country',
+        'neighbourhood',
+        'commercial_register',
+        'tax_card',
+        'attachments',
+        'is_send_email',
+        'is_send_sms',
     ];
+
+    /**
+     * Get the complete address
+     */
+    public function getCompleteAddressAttribute()
+    {
+        $addressParts = [];
+        
+        if ($this->street_address1) $addressParts[] = $this->street_address1;
+        if ($this->street_address2) $addressParts[] = $this->street_address2;
+        if ($this->country) $addressParts[] = $this->country;
+        if ($this->state) $addressParts[] = $this->state;
+        if ($this->city) $addressParts[] = $this->city;
+        if ($this->neighbourhood) $addressParts[] = $this->neighbourhood;
+        if ($this->postal_code) $addressParts[] = $this->postal_code;
+        
+        return implode(', ', $addressParts);
+    }
 
     /**
      * Return the sluggable configuration array for this model.
@@ -184,37 +212,132 @@ class Supplier extends Model
 
     public function routeNotificationForTwilio()
     {
-        return $this->phone;
+        return $this->phone_number;
     }
 
     /**
-     * Get the nationality of the supplier
+     * Get the representatives for the supplier.
      */
-    public function nationality()
+    public function representatives()
     {
-        return $this->belongsTo(Nationality::class);
+        return $this->hasMany(SupplierRepresentative::class);
     }
 
     /**
-     * Get the account of the supplier
+     * Get the primary representative for the supplier.
      */
-    public function account()
+    public function primaryRepresentative()
     {
-        return $this->belongsTo(Account::class);
+        return $this->hasOne(SupplierRepresentative::class)->where('is_primary', true);
     }
 
     /**
-     * Get the city of the supplier
+     * Get the chart of account for the supplier.
      */
+    public function chartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'chart_of_account_id');
+    }
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * Ensure supplier has a chart of account assigned and load the relationship.
      */
-    protected $casts = [
-        'phone_numbers' => 'array',
-        'email_addresses' => 'array',
-        'status' => 'boolean',
-    ];
+    public function ensureChartOfAccountLoaded()
+    {
+        // If no chart of account is assigned, assign one
+        if (!$this->chart_of_account_id) {
+            $supplierData = [
+                'type' => $this->type ?? 'Company'
+            ];
+            $supplierData = self::assignDefaultChartOfAccount($supplierData);
+            if (isset($supplierData['chart_of_account_id'])) {
+                $this->update(['chart_of_account_id' => $supplierData['chart_of_account_id']]);
+            }
+        }
+        
+        // Load the relationship if not already loaded
+        if (!$this->relationLoaded('chartOfAccount')) {
+            $this->load('chartOfAccount');
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Get the chart of account ID for journal entries.
+     */
+    public function getChartOfAccountIdForJournal()
+    {
+        return $this->chart_of_account_id;
+    }
+
+    /**
+     * Check if the supplier is connected to a chart of account.
+     */
+    public function isChartOfAccountConnected()
+    {
+        return !is_null($this->chart_of_account_id);
+    }
+
+    /**
+     * Get validation message for chart of account connection.
+     */
+    public function getChartOfAccountValidationMessage()
+    {
+        if (!$this->isChartOfAccountConnected()) {
+            return 'Supplier must be connected to a Chart of Account for journal entries.';
+        }
+        return null;
+    }
+
+    /**
+     * Automatically assign default Chart of Account if none is set
+     */
+    public static function assignDefaultChartOfAccount($supplierData)
+    {
+        // If chart_of_account_id is already provided, use it
+        if (isset($supplierData['chart_of_account_id']) && $supplierData['chart_of_account_id']) {
+            return $supplierData;
+        }
+
+        // Auto-assign based on supplier type or other criteria
+        $defaultAccount = null;
+        
+        if (isset($supplierData['type'])) {
+            switch ($supplierData['type']) {
+                case 'Company':
+                    // Look for "Accounts Payable - Companies" or similar
+                    $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
+                        ->where('name', 'like', '%Accounts Payable%')
+                        ->where('name', 'like', '%Company%')
+                        ->first();
+                    break;
+                case 'Individual':
+                    // Look for "Accounts Payable - Individuals" or similar
+                    $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
+                        ->where('name', 'like', '%Accounts Payable%')
+                        ->where('name', 'like', '%Individual%')
+                        ->first();
+                    break;
+            }
+        }
+
+        // Fallback to any Accounts Payable account
+        if (!$defaultAccount) {
+            $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
+                ->where('name', 'like', '%Accounts Payable%')
+                ->first();
+        }
+
+        // Final fallback to any active account
+        if (!$defaultAccount) {
+            $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)->first();
+        }
+
+        if ($defaultAccount) {
+            $supplierData['chart_of_account_id'] = $defaultAccount->id;
+        }
+
+        return $supplierData;
+    }
 }

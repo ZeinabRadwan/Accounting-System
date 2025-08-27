@@ -42,7 +42,7 @@ class ExportSupplierPayableReport implements FromCollection,  WithHeadings, Shou
                 config('config.supplierPrefix') . ' - ' . $supplierPayableReport->supplier_id,
                 $supplierPayableReport->status ? 'Active' : 'Inactive',
                 $supplierPayableReport->name,
-                $supplierPayableReport->phone,
+                $supplierPayableReport->phone_number,
                 $supplierPayableReport->email,
                 $supplierPayableReport->company_name,
                 $currencySymbol . strval($supplierPayableReport->purchaseTotalDue() ?: '0'),

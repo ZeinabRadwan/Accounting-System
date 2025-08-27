@@ -24,28 +24,63 @@ class StoreClientRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'phoneNumber' => ['required', 'string', 'max:20', 'min:3', 'phone'],
-            'email' => ['nullable', 'required_if:isSendEmail,true', 'email', 'max:255', 'min:3', 'unique:suppliers,email'],
-            'companyName' => ['nullable', 'string', 'max:100', 'min:2'],
-            'taxRegistrationNumber' => ['nullable', 'string', 'max:100'],
-            'crNumber' => ['nullable', 'string', 'max:100'],
-            'address' => ['nullable', 'string', 'max:255'],
+            // Required fields
+            'phoneNumber' => ['required', 'string', 'max:20', 'min:3'],
+            'chartOfAccountId' => ['nullable', 'exists:chart_of_accounts,id'],
+            
+            // Account Details
+            'codeNumber' => ['nullable', 'string', 'max:50'],
+            'notes' => ['nullable', 'string', 'max:1000'],
+            'displayLanguage' => ['nullable', 'string', 'in:en,ar'],
+            
+            // Client Details
             'type' => ['nullable', 'string', 'in:Company,Individual'],
-            'nationalityId' => ['nullable', 'exists:nationalities,id'],
-            'cityName' => ['nullable', 'string', 'max:100'],
-            'district' => ['nullable', 'string', 'max:100'],
-            'streetName' => ['nullable', 'string', 'max:100'],
-            'buildingNumber' => ['nullable', 'string', 'max:50'],
-            'zipCode' => ['nullable', 'string', 'size:5', 'regex:/^[0-9]+$/'],
-            'additionalNumber' => ['nullable', 'string', 'max:50'],
-            'unitNo' => ['nullable', 'string', 'max:50'],
-            'accountOption' => ['required', 'string', 'in:existing,new'],
-            'existingAccount' => ['nullable', 'required_if:accountOption,existing'],
-            'bankName' => ['nullable', 'required_if:accountOption,new', 'string', 'max:100'],
-            'branchName' => ['nullable', 'string', 'max:100'],
-            'accountNumber' => ['nullable', 'required_if:accountOption,new', 'string', 'max:100', 'unique:accounts,account_number'],
-            'accountNote' => ['nullable', 'string', 'max:255'],
+            'fullName' => ['nullable', 'string', 'max:255'],
+            'businessName' => ['nullable', 'string', 'max:255'],
+            'firstName' => ['nullable', 'string', 'max:100'],
+            'lastName' => ['nullable', 'string', 'max:100'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'email' => ['nullable', 'email', 'max:255', 'unique:clients,email'],
+            'streetAddress1' => ['nullable', 'string', 'max:255'],
+            'streetAddress2' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:100'],
+            'state' => ['nullable', 'string', 'max:100'],
+            'postalCode' => ['nullable', 'string', 'max:20'],
+            'country' => ['nullable', 'string', 'size:2'],
+            'neighbourhood' => ['nullable', 'string', 'max:100'],
+            'commercialRegister' => ['nullable', 'string', 'max:100'],
+            'taxCard' => ['nullable', 'string', 'max:100'],
+            
+            // Additional Fields
+            'image' => ['nullable', 'string'],
+            'attachments' => ['nullable', 'array'],
+            'attachments.*' => ['nullable', 'file', 'mimes:jpeg,png,gif', 'max:2048'],
+            'status' => ['nullable', 'boolean'],
+            'isSendEmail' => ['nullable', 'boolean'],
+            'isSendSMS' => ['nullable', 'boolean'],
+            
+            // Legacy fields for backward compatibility
+            'name' => ['nullable', 'string', 'max:255'],
+            'companyName' => ['nullable', 'string', 'max:100'],
+            'taxRegistrationNumber' => ['nullable', 'string', 'max:100'],
+            'address' => ['nullable', 'string', 'max:255'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'phoneNumber.required' => 'Mobile number is required.',
+            'chartOfAccountId.exists' => 'Selected Chart of Account is invalid.',
+            'email.unique' => 'This email address is already taken.',
+            'attachments.*.file' => 'Invalid file format.',
+            'attachments.*.mimes' => 'Only JPEG, PNG, and GIF files are allowed.',
+            'attachments.*.max' => 'File size must be less than 2MB.',
         ];
     }
 }

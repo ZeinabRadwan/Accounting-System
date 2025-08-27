@@ -10,6 +10,7 @@ use App\Models\PurchaseReturn;
 use App\Models\PurchasePayment;
 use App\Models\NonPurchasePayment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use JetBrains\PhpStorm\ArrayShape;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ use App\Http\Resources\PurchaseReturnListResource;
 use App\Http\Resources\NonPurchasePaymentListResource;
 use App\Http\Resources\SupplierForPurchasePaymentResource;
 use App\Http\Resources\SupplierWithNonPurchasePaymentResource;
-use App\Models\Account;
+use App\Models\ChartOfAccount;
 
 class SupplierController extends Controller
 {
@@ -85,49 +86,46 @@ class SupplierController extends Controller
                 Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
             }
 
-            // Handle account creation or linking
-            $accountId = null;
-            if ($request->accountOption === 'new' && $request->bankName && $request->accountNumber) {
-                // Create new account
-                $account = Account::create([
-                    'bank_name' => $request->bankName,
-                    'branch_name' => $request->branchName,
-                    'account_number' => $request->accountNumber,
-                    'note' => $request->accountNote,
-                    'created_by' => Auth::id(),
-                    'status' => 1,
-                ]);
-                $accountId = $account->id;
-            } elseif ($request->accountOption === 'existing' && $request->existingAccount) {
-                // Link existing account
-                $accountId = $request->existingAccount['id'];
-            }
-
-            // create supplier
-            $userSchema = Supplier::create([
+            // Prepare supplier data
+            $supplierData = [
                 'name' => $request->name,
                 'supplier_id' => $code,
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
-                'phone_numbers' => $request->phoneNumbers,
-                'email_addresses' => $request->emailAddresses,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
-                'cr_number' => $request->crNumber,
-                'address' => $request->address,
                 'status' => $request->status,
                 'image_path' => $imageName,
-                            'type' => $request->type,
-            'nationality_id' => $request->nationalityId,
-            'city_name' => $request->cityName,
-            'district' => $request->district,
-                'street_name' => $request->streetName,
-                'building_number' => $request->buildingNumber,
-                'zip_code' => $request->zipCode,
-                'additional_number' => $request->additionalNumber,
-                'unit_no' => $request->unitNo,
-                'account_id' => $accountId,
-            ]);            
+                'type' => $request->type,
+                'chart_of_account_id' => $request->chartOfAccountId,
+                
+                // New fields
+                'code_number' => $request->codeNumber,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                'full_name' => $request->fullName,
+                'business_name' => $request->businessName,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_number' => $request->phoneNumber,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'neighbourhood' => $request->neighbourhood,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
+            ];
+
+            // Auto-assign Chart of Account if not provided
+            $supplierData = $this->autoAssignChartOfAccountForSupplier($supplierData);
+
+            // create supplier
+            $userSchema = Supplier::create($supplierData);            
 
             // add activity log
             activity()
@@ -142,6 +140,27 @@ class SupplierController extends Controller
                 ])
                 ->useLog('Supplier Created')
                 ->log('Supplier Created');
+
+            // Handle representatives if provided
+            if ($request->has('representatives') && is_array($request->representatives)) {
+                foreach ($request->representatives as $repData) {
+                    if (!empty($repData['name'])) {
+                        // If this is a primary representative, unset others
+                        if (isset($repData['is_primary']) && $repData['is_primary']) {
+                            $userSchema->representatives()->update(['is_primary' => false]);
+                        }
+                        
+                        $userSchema->representatives()->create([
+                            'name' => $repData['name'],
+                            'email' => $repData['email'] ?? null,
+                            'phone' => $repData['phone'] ?? null,
+                            'position' => $repData['position'] ?? null,
+                            'is_primary' => $repData['is_primary'] ?? false,
+                            'notes' => $repData['notes'] ?? null,
+                        ]);
+                    }
+                }
+            }
 
             //send welcome notification
             try {
@@ -172,7 +191,13 @@ class SupplierController extends Controller
     {
         try {
             $supplier = Supplier::where('slug', $slug)->first();
-
+            
+            if (!$supplier) {
+                return $this->responseWithError('Supplier not found', 404);
+            }
+            
+            $supplier->ensureChartOfAccountLoaded();
+            
             return new SupplierResource($supplier);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -196,7 +221,7 @@ class SupplierController extends Controller
             'email' => 'nullable|email|max:255|min:3|unique:users,email,' . $supplier->email,
             'companyName' => 'nullable|string|max:100|min:2',
             'type' => 'required|in:Company,Individual',
-            'address' => 'nullable|string|max:255',
+            'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
         ]);
         try {
             // upload thumbnail and set the name
@@ -211,29 +236,70 @@ class SupplierController extends Controller
                 )[1];
                 Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
             }
-            // update supplier
-            $supplier->update([
+            // Prepare update data
+            $updateData = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
-                'phone_numbers' => $request->phoneNumbers,
-                'email_addresses' => $request->emailAddresses,
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
-                'cr_number' => $request->crNumber,
-                'address' => $request->address,
                 'type' => $request->type,
                 'status' => $request->status,
                 'image_path' => $imageName,
-                'nationality_id' => $request->nationalityId,
-                'city_name' => $request->cityName,
-                'district' => $request->district,
-                'street_name' => $request->streetName,
-                'building_number' => $request->buildingNumber,
-                'zip_code' => $request->zipCode,
-                'additional_number' => $request->additionalNumber,
-                'unit_no' => $request->unitNo,
-            ]);
+                'chart_of_account_id' => $request->chartOfAccountId,
+                
+                // New fields
+                'code_number' => $request->codeNumber,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                'full_name' => $request->fullName,
+                'business_name' => $request->businessName,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_number' => $request->phoneNumber,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'neighbourhood' => $request->neighbourhood,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
+            ];
+
+            // Auto-assign Chart of Account if not provided
+            $updateData = $this->autoAssignChartOfAccountForSupplier($updateData);
+
+            // update supplier
+            $supplier->update($updateData);
+
+            // Handle representatives if provided
+            if ($request->has('representatives') && is_array($request->representatives)) {
+                // Clear existing representatives
+                $supplier->representatives()->delete();
+                
+                // Add new representatives
+                foreach ($request->representatives as $repData) {
+                    if (!empty($repData['name'])) {
+                        // If this is a primary representative, unset others
+                        if (isset($repData['is_primary']) && $repData['is_primary']) {
+                            $supplier->representatives()->update(['is_primary' => false]);
+                        }
+                        
+                        $supplier->representatives()->create([
+                            'name' => $repData['name'],
+                            'email' => $repData['email'] ?? null,
+                            'phone' => $repData['phone'] ?? null,
+                            'position' => $repData['position'] ?? null,
+                            'is_primary' => $repData['is_primary'] ?? false,
+                            'notes' => $repData['notes'] ?? null,
+                        ]);
+                    }
+                }
+            }
 
             // add activity log
             activity()
@@ -316,7 +382,8 @@ class SupplierController extends Controller
         $query->where(function ($query) use ($term) {
             $query->where('name', 'Like', '%' . $term . '%')
                 ->orWhere('email', 'Like', '%' . $term . '%')
-                ->orWhere('phone', 'Like', '%' . $term . '%')
+                ->orWhere('phone_number', 'Like', '%' . $term . '%')
+                ->orWhere('phone_legacy', 'Like', '%' . $term . '%')
                 ->orWhere('company_name', 'Like', '%' . $term . '%');
         });
 
@@ -350,6 +417,11 @@ class SupplierController extends Controller
     {
         try {
             $supplier = Supplier::where('slug', $slug)->with('purchases')->first();
+            
+            if (!$supplier) {
+                return $this->responseWithError('Supplier not found', 404);
+            }
+            
             return PurchaseListResource::collection(Purchase::where('supplier_id', $supplier->id)->get());
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -364,6 +436,11 @@ class SupplierController extends Controller
     public function filterSupplierPurchases(Request $request)
     {
         $supplier = Supplier::where('slug', $request->supplierSlug)->first();
+        
+        if (!$supplier) {
+            return $this->responseWithError('Supplier not found', 404);
+        }
+        
         $products = [];
         $purchases = Purchase::with(
             'purchaseProducts.product.proSubCategory.category',
@@ -396,6 +473,11 @@ class SupplierController extends Controller
     public function specificSupplierPurchases($slug)
     {
         $supplier = Supplier::where('slug', $slug)->first();
+        
+        if (!$supplier) {
+            return $this->responseWithError('Supplier not found', 404);
+        }
+        
         $purchases = Purchase::with('supplier', 'purchasePayments', 'purchaseTax')->where(
             'supplier_id',
             $supplier->id
@@ -485,7 +567,8 @@ class SupplierController extends Controller
                             ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
                             ->orWhereHas('supplier', function ($anotherQuery) use ($term) {
                                 $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone', 'LIKE', '%' . $term . '%');
+                                    ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
+                                    ->orWhere('phone_legacy', 'LIKE', '%' . $term . '%');
                             });
                     });
             });
@@ -611,10 +694,9 @@ class SupplierController extends Controller
 
             $rules = [
                 'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:20|min:3',
+                'phone_number' => 'required|string|max:20|min:3',
                 'email' => 'nullable|email|max:255|min:3|unique:suppliers,email',
                 'company_name' => 'nullable|string|max:100|min:2',
-                'address' => 'nullable|string|max:255',
             ];
 
             foreach ($data as $key => $item) {
@@ -746,8 +828,485 @@ ORDER BY `date`");
             'totalDiscount' => $totalDiscount,
             'totalDebit' => $totalDebit,
             'totalCredit' => $totalCredit,
-            'finalBalance' => $finalBalance,
+            'finalBalance' => $totalDebit - $totalCredit,
         ];
 
+    }
+
+    /**
+     * Get chart of accounts for supplier selection.
+     */
+    public function getChartOfAccounts()
+    {
+        try {
+            // Get all active chart of accounts with eager loading of type relationship
+            $accounts = \App\Models\ChartOfAccount::with('type')
+                ->where('is_active', true)
+                ->orderBy('name')
+                ->get();
+            
+            $chartOfAccounts = collect();
+            
+            foreach ($accounts as $account) {
+                try {
+                    // Skip if account is null or missing essential data
+                    if (!$account || !$account->id || !$account->name) {
+                        continue;
+                    }
+                    
+                    // Get type name safely - check if type relationship exists and is not null
+                    $typeName = 'No Type';
+                    if ($account->type_id && $account->type && $account->type->name) {
+                        $typeName = $account->type->name;
+                    }
+                    
+                    $chartOfAccounts->push([
+                        'id' => (int) $account->id,
+                        'name' => (string) ($account->name ?? 'Unknown'),
+                        'code' => (string) ($account->code ?? ''),
+                        'type' => $typeName
+                    ]);
+                    
+                } catch (\Exception $accountError) {
+                    // Log the error for debugging but continue processing other accounts
+                    Log::warning('getChartOfAccounts: Error processing account ' . ($account->id ?? 'unknown'), [
+                        'error' => $accountError->getMessage(),
+                        'account_id' => $account->id ?? 'unknown'
+                    ]);
+                    continue;
+                }
+            }
+            
+            return response()->json($chartOfAccounts->values()->toArray());
+            
+        } catch (\Exception $e) {
+            Log::error('getChartOfAccounts error: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'message' => 'Failed to retrieve chart of accounts.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get chart of accounts for supplier selection based on routing setup.
+     */
+    public function getChartOfAccountsWithRouting(Request $request)
+    {
+        try {
+            $search = $request->get('search', '');
+            
+            // Get the suppliers account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting || !$routingSetting->main_account_id) {
+                // Fallback to all active accounts if routing is not configured
+                $query = \App\Models\ChartOfAccount::where('is_active', true);
+                
+                if ($search) {
+                    $query->where(function($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                          ->orWhere('code', 'like', "%{$search}%");
+                    });
+                }
+                
+                $accounts = $query->orderBy('name')->get();
+                return $this->formatChartOfAccounts($accounts, 'Fallback to all accounts');
+            }
+            
+            // Get accounts from the routing setup (parent + children)
+            $accounts = $routingSetting->getAllAccounts();
+            
+            // Apply search filter if provided
+            if ($search) {
+                $accounts = $accounts->filter(function($account) use ($search) {
+                    return stripos($account->name ?? '', $search) !== false || 
+                           stripos($account->code ?? '', $search) !== false;
+                });
+            }
+            
+            return $this->formatChartOfAccounts($accounts, 'From routing setup');
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve chart of accounts.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get supplier routing settings
+     */
+    public function getSupplierRoutingSettings()
+    {
+        try {
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Supplier account routing is not configured'
+                ], 404);
+            }
+            
+            $routingSetting->routing_type_display = $this->getRoutingTypeDisplay($routingSetting->routing_type);
+            $routingSetting->description = $this->getRoutingTypeDescription($routingSetting->routing_type);
+            
+            return response()->json([
+                'success' => true,
+                'data' => $routingSetting
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve supplier routing settings',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get routing type display name
+     */
+    private function getRoutingTypeDisplay($routingType)
+    {
+        $displays = [
+            'automatic' => 'Automatic',
+            'per_each' => 'Per Each',
+            'main_account_per_each' => 'Main Account Per Each',
+            'cancel' => 'Cancel'
+        ];
+        return $displays[$routingType] ?? $routingType;
+    }
+
+    /**
+     * Get routing type description
+     */
+    private function getRoutingTypeDescription($routingType)
+    {
+        $descriptions = [
+            'automatic' => 'Chart of account will be automatically assigned based on your accounting configuration.',
+            'per_each' => 'Each supplier will have their own chart of account without any parent.',
+            'main_account_per_each' => 'Each supplier will have their own chart of account under the main supplier account.',
+            'cancel' => 'No chart of account will be assigned to suppliers.'
+        ];
+        return $descriptions[$routingType] ?? '';
+    }
+
+    /**
+     * Format chart of accounts for response
+     */
+    private function formatChartOfAccounts($accounts, $source = 'Unknown')
+    {
+        $chartOfAccounts = collect();
+        $processedCount = 0;
+        $skippedCount = 0;
+        
+        foreach ($accounts as $account) {
+            try {
+                // Skip if account is null or missing essential data
+                if (!$account || !$account->id || !$account->name) {
+                    continue;
+                }
+                
+                // Get type name safely
+                $typeName = 'No Type';
+                try {
+                    if ($account->type_id) {
+                        $type = $account->type;
+                        if ($type && $type->name) {
+                            $typeName = $type->name;
+                        }
+                    }
+                } catch (\Exception $typeError) {
+                    continue;
+                }
+                
+                $chartOfAccounts->push([
+                    'id' => (int) $account->id,
+                    'name' => (string) ($account->name ?? 'Unknown'),
+                    'code' => (string) ($account->code ?? ''),
+                    'type' => $typeName
+                ]);
+                
+                $processedCount++;
+                
+            } catch (\Exception $accountError) {
+                $skippedCount++;
+                continue;
+            }
+        }
+        
+        return response()->json($chartOfAccounts->values()->toArray());
+    }
+
+    /**
+     * Auto-assign Chart of Account to supplier
+     */
+    public function autoAssignChartOfAccount($slug)
+    {
+        try {
+            $supplier = Supplier::where('slug', $slug)->first();
+            
+            if (!$supplier) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Supplier not found'
+                ], 404);
+            }
+
+            // Auto-assign Chart of Account
+            $supplierData = [
+                'type' => $supplier->type ?? 'Company'
+            ];
+            $supplierData = Supplier::assignDefaultChartOfAccount($supplierData);
+            
+            if (isset($supplierData['chart_of_account_id'])) {
+                $supplier->update(['chart_of_account_id' => $supplierData['chart_of_account_id']]);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Chart of Account assigned successfully',
+                    'chart_of_account_id' => $supplierData['chart_of_account_id']
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No suitable Chart of Account found for automatic assignment'
+                ], 400);
+            }
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get the next available code number for a new supplier
+     */
+    public function getNextCodeNumber()
+    {
+        try {
+            // Get the last supplier to determine the next code number
+            $lastSupplier = Supplier::latest()->first();
+            
+            if ($lastSupplier) {
+                $nextCode = $lastSupplier->supplier_id + 1;
+            } else {
+                $nextCode = 1;
+            }
+            
+            // Format the code number with leading zeros (6 digits)
+            $formattedCode = str_pad($nextCode, 6, '0', STR_PAD_LEFT);
+            
+            return response()->json([
+                'success' => true,
+                'next_code' => $nextCode,
+                'formatted_code' => $formattedCode,
+                'message' => 'Next code number retrieved successfully'
+            ]);
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Auto-assign chart of account based on routing configuration
+     */
+    private function autoAssignChartOfAccountForSupplier($supplierData)
+    {
+        try {
+            // Get the suppliers account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                // If no routing setting, use default behavior from Supplier model
+                return Supplier::assignDefaultChartOfAccount($supplierData);
+            }
+            
+            \Illuminate\Support\Facades\Log::info("Processing supplier chart of account with routing type: " . $routingSetting->routing_type, [
+                'routing_setting' => $routingSetting->toArray(),
+                'supplier_data' => $supplierData
+            ]);
+            
+            switch ($routingSetting->routing_type) {
+                case 'automatic':
+                    // For automatic routing, always create/assign account if none provided
+                    if (empty($supplierData['chart_of_account_id']) && $routingSetting->main_account_id) {
+                        $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
+                        $supplierData['chart_of_account_id'] = $newAccount->id;
+                        
+                        \Illuminate\Support\Facades\Log::info("Auto-created chart of account {$newAccount->id} for supplier with automatic routing", [
+                            'supplier_data' => $supplierData,
+                            'routing_setting' => $routingSetting->toArray()
+                        ]);
+                    }
+                    break;
+                    
+                case 'per_each':
+                    // For per each routing, validate that account is provided
+                    if (empty($supplierData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
+                            $supplierData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for supplier with per_each routing", [
+                                'supplier_data' => $supplierData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'main_account_per_each':
+                    // For main account per each, validate that account is provided
+                    if (empty($supplierData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
+                            $supplierData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for supplier with main_account_per_each routing", [
+                                'supplier_data' => $supplierData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'cancel':
+                    // For cancel routing, no chart of account needed
+                    $supplierData['chart_of_account_id'] = null;
+                    \Illuminate\Support\Facades\Log::info("No chart of account assigned for supplier with cancel routing", [
+                        'supplier_data' => $supplierData,
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
+                    
+                default:
+                    // Unknown routing type, use default behavior
+                    \Illuminate\Support\Facades\Log::warning("Unknown routing type: " . $routingSetting->routing_type, [
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
+            }
+            
+            return $supplierData;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error auto-assigning chart of account: " . $e->getMessage(), [
+                'supplier_data' => $supplierData,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return $supplierData;
+        }
+    }
+    
+    /**
+     * Create chart of account for supplier
+     */
+    private function createChartOfAccountForSupplier($supplierData, $routingSetting)
+    {
+        try {
+            $newAccount = \App\Models\ChartOfAccount::create([
+                'name' => $this->getSupplierDisplayName($supplierData),
+                'code' => $this->generateSupplierAccountCode($routingSetting->main_account_id),
+                'type_id' => $this->getLiabilityAccountTypeId(),
+                'parent_id' => $routingSetting->main_account_id,
+                'is_active' => true,
+                'created_by' => Auth::id(),
+            ]);
+            
+            \Illuminate\Support\Facades\Log::info("Created new chart of account for supplier", [
+                'account_id' => $newAccount->id,
+                'account_name' => $newAccount->name,
+                'account_code' => $newAccount->code,
+                'parent_account_id' => $routingSetting->main_account_id
+            ]);
+            
+            return $newAccount;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error creating chart of account for supplier: " . $e->getMessage());
+            throw $e;
+        }
+    }
+    
+    /**
+     * Get supplier display name for account creation
+     */
+    private function getSupplierDisplayName($supplierData)
+    {
+        if (isset($supplierData['type']) && $supplierData['type'] === 'Individual') {
+            return $supplierData['full_name'] ?? $supplierData['name'] ?? 'Individual Supplier';
+        } else {
+            return $supplierData['business_name'] ?? $supplierData['company_name'] ?? 'Business Supplier';
+        }
+    }
+    
+    /**
+     * Generate unique account code for supplier
+     */
+    private function generateSupplierAccountCode($mainAccountId)
+    {
+        try {
+            $mainAccount = \App\Models\ChartOfAccount::find($mainAccountId);
+            if (!$mainAccount) {
+                throw new \Exception("Main account not found");
+            }
+            
+            $baseCode = $mainAccount->code;
+            $existingCodes = \App\Models\ChartOfAccount::where('code', 'like', $baseCode . '-%')
+                ->pluck('code')
+                ->toArray();
+            
+            $counter = 1;
+            $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            
+            while (in_array($newCode, $existingCodes)) {
+                $counter++;
+                $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            }
+            
+            return $newCode;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error generating supplier account code: " . $e->getMessage());
+            // Fallback code
+            $timestamp = time() % 1000000;
+            return 'SUP-' . $timestamp;
+        }
+    }
+    
+    /**
+     * Get Liability account type ID
+     */
+    private function getLiabilityAccountTypeId()
+    {
+        try {
+            $liabilityType = \App\Models\ChartOfAccountType::where('name', 'Liability')->first();
+            return $liabilityType ? $liabilityType->id : 2; // Default to second type if Liability not found
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error getting liability account type ID: " . $e->getMessage());
+            return 2; // Default fallback
+        }
     }
 }

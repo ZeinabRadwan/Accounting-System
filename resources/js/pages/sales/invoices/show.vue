@@ -199,27 +199,29 @@
                 >
                 <div class="table-responsive table-custom">
                   <table class="table table-sm text-center">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Invoice Qty") }}</th>
-                        <th v-if="allData.totalInvoiceReturn">
-                          {{ $t("Return Qty") }}
-                        </th>
-                        <th>{{ $t("Unit Price") }}</th>
-                        <th>{{ $t("Unit Tax") }}</th>
-                        <th>{{ $t("Unit Cost") }}</th>
-                        <th class="text-right">{{ $t("Total") }}</th>
-                        <th
-                          v-if="allData.totalInvoiceReturn"
-                          class="text-right"
-                        >
-                          {{ $t("Total Return") }}
-                        </th>
-                      </tr>
-                    </thead>
+                                         <thead>
+                       <tr>
+                         <th>{{ $t("#") }}</th>
+                         <th>{{ $t("Code") }}</th>
+                         <th>{{ $t("Item Name") }}</th>
+                         <th>{{ $t("Qty") }}</th>
+                         <th v-if="allData.totalInvoiceReturn">
+                           {{ $t("Return Qty") }}
+                         </th>
+                         <th>{{ $t("Price") }}</th>
+                         <th>{{ $t("Total") }}</th>
+                         <th>{{ $t("Discount") }}</th>
+                         <th>{{ $t("Total After Discount") }}</th>
+                         <th>{{ $t("VAT") }}</th>
+                         <th>{{ $t("Total with VAT") }}</th>
+                         <!-- <th
+                           v-if="allData.totalInvoiceReturn"
+                           class="text-right"
+                         >
+                           {{ $t("Total Return") }}
+                         </th> -->
+                       </tr>
+                     </thead>
                     <tbody v-if="invoiceProducts">
                       <tr v-for="(data, i) in invoiceProducts" :key="i">
                         <td>{{ ++i }}</td>
@@ -232,11 +234,32 @@
                           {{ data.returnQty }} {{ data.productUnit }}
                         </td>
                         <td>{{ data.salePrice | withCurrency }}</td>
-                        <td>{{ data.unitTax | withCurrency }}</td>
-                        <td>{{ data.unitCost | withCurrency }}</td>
-                        <td class="text-right">
-                          {{ (data.unitCost * data.quantity) | withCurrency }}
+                        <td>{{ (data.salePrice * data.quantity) | withCurrency }}</td>
+                        <td>
+                          <span v-if="data.discountType === 'percentage'">
+                            {{ data.discountPercentage }}% ({{ calculateProductDiscountAmount(data) | withCurrency }})
+                          </span>
+                          <span v-else-if="data.productDiscount > 0">
+                            {{ calculateProductDiscountAmount(data) | withCurrency }}
+                          </span>
+                          <span v-else class="text-muted">
+                            {{ $t('No Discount') }}
+                          </span>
                         </td>
+                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data)) | withCurrency }}</td>
+                        <td>
+                          <span v-if="data.productTax > 0">
+                            {{ data.productTax | withCurrency }}
+                            <small v-if="data.vatRate" class="text-muted d-block">
+                              ({{ data.vatRate.rate }}%)
+                            </small>
+                          </span>
+                          <span v-else class="text-muted">
+                            {{ $t('No VAT') }}
+                          </span>
+                        </td>
+                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.productTax || 0)) | withCurrency }}</td>
+                        <!-- <td>{{ data.unitCost | withCurrency }}</td>
                         <td
                           v-if="allData.totalInvoiceReturn"
                           class="text-right"
@@ -246,7 +269,7 @@
                       </tr>
                       <tr>
                         <td
-                          :colspan="allData.totalInvoiceReturn ? 8 : 7"
+                          :colspan="allData.totalInvoiceReturn ? 12 : 11"
                           class="text-right"
                         >
                           <strong>{{ $t("Subtotal") }} </strong>
@@ -255,14 +278,27 @@
                           <strong>
                             {{ allData.subTotal | withCurrency }}
                           </strong>
-                        </td>
-                        <td
+                        </td> -->
+                        <!-- <td
                           v-if="allData.totalInvoiceReturn"
                           class="text-right"
                         >
                           <strong>{{
                             allData.totalInvoiceReturn | withCurrency
                           }}</strong>
+                        </td> -->
+                      </tr>
+                      <tr>
+                        <td
+                          :colspan="allData.totalInvoiceReturn ? 10 : 9"
+                          class="text-right"
+                        >
+                          <strong>{{ $t("Subtotal") }} </strong>
+                        </td>
+                        <td class="text-center">
+                          <strong>
+                            {{ allData.subTotal | withCurrency }}
+                          </strong>
                         </td>
                       </tr>
                     </tbody>
@@ -271,6 +307,61 @@
               </div>
             </div>
 
+                         <!-- Product-level VAT and Discount Notice -->
+             <!-- <div class="row mt-3">
+               <div class="col-12">
+                 <div class="alert alert-info">
+                   <i class="fas fa-info-circle"></i>
+                   <strong>{{ $t('Note') }}:</strong> 
+                   {{ $t('Product-level VAT and discount are shown in the table above. The table displays the calculation flow: Price → Total → Discount → Total After Discount → VAT → Total with VAT.') }}
+                 </div>
+               </div>
+             </div> -->
+             
+                           <!-- Product Summary -->
+              <div class="row mt-3">
+               <div class="col-12">
+                 <div class="table-responsive table-custom">
+                   <table class="table table-sm">
+                     <tbody>
+                       <tr class="bg-light">
+                         <th>{{ $t('Total Product VAT') }}:</th>
+                         <td>{{ totalProductVat | withCurrency }}</td>
+                         <th>{{ $t('Total Product Discount') }}:</th>
+                         <td>{{ totalProductDiscount | withCurrency }}</td>
+                       </tr>
+                       <tr class="bg-light">
+                         <th>{{ $t('Products with VAT') }}:</th>
+                         <td>{{ productsWithVat }}</td>
+                         <th>{{ $t('Products with Discount') }}:</th>
+                         <td>{{ productsWithDiscount }}</td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+               </div>
+             </div>
+            
+                         <!-- Debug Information (remove in production) -->
+             <div class="row mt-3" v-if="false">
+               <div class="col-12">
+                 <div class="alert alert-warning">
+                   <strong>Debug Info:</strong><br>
+                   Country: {{ appInfo?.country || 'Not set' }}<br>
+                   Is Saudi Arabia: {{ isSaudiArabia }}<br>
+                   Subtotal: {{ allData?.subTotal }}<br>
+                   Discount: {{ allData?.discount }} (Type: {{ allData?.discountType }})<br>
+                   Transport: {{ allData?.transport }}<br>
+                   Tax: {{ allData?.tax }}<br>
+                   Calculated Total: {{ calculatedTotal }}<br>
+                   Total Product VAT: {{ totalProductVat }}<br>
+                   Total Product Discount: {{ totalProductDiscount }}<br>
+                   Products with VAT: {{ productsWithVat }}<br>
+                   Products with Discount: {{ productsWithDiscount }}
+                 </div>
+               </div>
+             </div>
+            
             <!-- /.row -->
             <div class="row mt-4" id="page-break">
               <div class="col-lg-12 col-xl-8">
@@ -353,36 +444,54 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.subTotal | withCurrency }}</td>
+                        <td>{{ (allData.subTotal - totalProductVat) | withCurrency }}</td>
                       </tr>
-                      <tr v-if="allData.totalInvoiceReturn">
+                      <tr>
+                        <th>{{ $t("Discount") }}:</th>
+                        <td>{{ (totalProductDiscount) | withCurrency }}</td>
+                      </tr>
+
+                      <tr class="bg-green-light text-bold">
+                        <th>{{ $t("Total After Discount") }}:</th>
+                        <td>{{ (allData.subTotal - totalProductVat - totalProductDiscount) | withCurrency }}</td>
+                      </tr>
+
+                      <tr >
+                        <th>{{ $t("VAT") }}:</th>
+                        <td>{{ (totalProductVat) | withCurrency }}</td>
+                      </tr>
+
+
+
+
+                      <!-- <tr v-if="allData.totalInvoiceReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
                           {{ allData.totalInvoiceReturn | withCurrency }}
                         </td>
-                      </tr>
-                      <tr>
+                      </tr> -->
+                      <tr v-if="!isSaudiArabia && allData.discount > 0">
                         <th>
                           {{ $t("Discount") }}
                           <span v-if="allData.discountType == 1"
-                            >({{ allData.discountPercentage }}%)</span
+                            >({{ allData.discount }}%)</span
                           >
                           :
                         </th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.discount | withCurrency }}
+                          {{ globalDiscountAmount | withCurrency }}
                         </td>
                       </tr>
-                      <tr>
+                      <tr v-if="!isSaudiArabia && allData.transport > 0">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
                           {{ allData.transport | withCurrency }}
                         </td>
                       </tr>
-                      <tr>
+                      <tr v-if="!isSaudiArabia && allData.tax > 0">
                         <th>
                           {{ $t("Tax") }}
                           <span v-if="allData.taxRate"
@@ -395,11 +504,11 @@
                               allData.taxRate.group_tax_details.length
                             "
                           >
-                            (<span
-                              v-for="(tax, index) in allData.taxRate
-                                .group_tax_details"
-                              :key="tax.id"
-                            >
+                            (                              <span
+                                v-for="(tax, index) in allData.taxRate
+                                  .group_tax_details"
+                                :key="tax.id"
+                              >
                               {{ tax.rate }}%<span
                                 v-if="
                                   index <
@@ -417,17 +526,10 @@
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
-                        <th>{{ $t("Total") }}:</th>
+                        <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{
-                            (allData.subTotal -
-                              allData.totalInvoiceReturn -
-                              allData.discount +
-                              allData.transport +
-                              allData.tax)
-                              | withCurrency
-                          }}
+                          {{ calculatedTotal | withCurrency }}
                         </td>
                       </tr>
                       <tr v-if="allData.invoicePayments">
@@ -624,6 +726,80 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+    
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
+    
+         // Calculate correct total based on Saudi Arabia rules
+     calculatedTotal() {
+       if (!this.allData) return 0;
+       
+       if (this.isSaudiArabia) {
+         return this.allData.subTotal - (this.allData.totalInvoiceReturn || 0);
+       } else {
+         return this.allData.subTotal - 
+                (this.allData.totalInvoiceReturn || 0) - 
+                this.globalDiscountAmount + 
+                (this.allData.transport || 0) + 
+                (this.allData.tax || 0);
+       }
+     },
+     
+     // Calculate total product VAT
+     totalProductVat() {
+       if (!this.invoiceProducts) return 0;
+       return this.invoiceProducts.reduce((total, product) => {
+         return total + (product.productTax || 0);
+       }, 0);
+     },
+     
+     // Calculate total product discount
+     totalProductDiscount() {
+       if (!this.invoiceProducts) return 0;
+       return this.invoiceProducts.reduce((total, product) => {
+         return total + this.calculateProductDiscountAmount(product);
+       }, 0);
+     },
+     
+     // Count products with VAT
+     productsWithVat() {
+       if (!this.invoiceProducts) return 0;
+       return this.invoiceProducts.filter(product => product.productTax && product.productTax > 0).length;
+     },
+     
+     // Count products with discount
+     productsWithDiscount() {
+       if (!this.invoiceProducts) return 0;
+       return this.invoiceProducts.filter(product => product.productDiscount && product.productDiscount > 0).length;
+     },
+     
+     // Calculate actual discount amount for a product (handles both percentage and fixed)
+     calculateProductDiscountAmount() {
+       return (product) => {
+         if (!product.productDiscount || product.productDiscount <= 0) return 0;
+         
+         // Product discounts use string values: 'percentage' or 'fixed'
+         if (product.discountType === 'percentage') {
+           return (product.salePrice * product.quantity * product.productDiscount) / 100;
+         } else {
+           return product.productDiscount;
+         }
+       };
+     },
+     
+     // Calculate global discount amount (handles both percentage and fixed)
+     globalDiscountAmount() {
+       if (!this.allData || !this.allData.discount || this.allData.discount <= 0) return 0;
+       
+       // Global invoice discounts use numeric values: 1 for percentage, 0 for fixed
+       if (this.allData.discountType == 1) { // Percentage
+         return (this.allData.subTotal * this.allData.discount) / 100;
+       } else { // Fixed
+         return this.allData.discount;
+       }
+     },
   },
 
   watch: {

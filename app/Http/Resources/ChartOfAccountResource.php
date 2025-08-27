@@ -20,10 +20,10 @@ class ChartOfAccountResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             // Include relationships
-            'types' => $this->whenLoaded('types', function() {
+            'types' => $this->whenLoaded('type', function() {
                 return [
-                    'id' => $this->types->id,
-                    'name' => $this->types->name,
+                    'id' => $this->type->id,
+                    'name' => $this->type->name,
                 ];
             }),
             'parent' => $this->whenLoaded('parent', function() {

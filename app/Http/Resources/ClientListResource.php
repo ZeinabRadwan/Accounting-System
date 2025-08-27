@@ -7,9 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ClientListResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
+     * Determine if the user is authorized to make this request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -22,12 +21,21 @@ class ClientListResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone,
             'companyName' => $this->company_name,
-            'vatNumber' => $this->vat_number ?? 'N/A',
-            'crNumber' => $this->cr_number ?? 'N/A',
             'address' => $this->address,
             'type' => $this->type ?? 'Company',
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('images/clients/'.$this->image_path) : '',
+            // Add chart of account ID for validation
+            'chart_of_account_id' => $this->chart_of_account_id,
+            
+            // Key new fields for enhanced client form
+            'codeNumber' => $this->code_number,
+            'billingMethod' => $this->billing_method,
+            'currency' => $this->currency,
+            'classification' => $this->classification,
+            'commercialName' => $this->commercial_name,
+            'city' => $this->city,
+            'country' => $this->country,
         ];
     }
 }

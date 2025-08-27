@@ -56,11 +56,24 @@ class Invoice extends Model
         $taxRate = $this->invoiceTax;
         $totalTax = 0;
         $subTotal = $this->sub_total;
+        
+        // Calculate global discount
+        $globalDiscount = 0;
+        if ($this->discount > 0) {
+            if ($this->discount_type == 1) { // Percentage
+                $globalDiscount = ($this->discount / 100) * $this->sub_total;
+            } else { // Fixed
+                $globalDiscount = $this->discount;
+            }
+        }
+        
         if (isset($taxRate) && $taxRate->rate > 0) {
             if (isset($this->invoiceReturn)) {
                 $subTotal = $this->sub_total - $this->invoiceReturn->total_return;
             }
-            $totalTax = ($taxRate->rate / 100) * $subTotal;
+            // Calculate tax on amount AFTER global discount
+            $taxableAmount = $subTotal - $globalDiscount;
+            $totalTax = ($taxRate->rate / 100) * $taxableAmount;
         }
 
         return $totalTax;
@@ -78,13 +91,70 @@ class Invoice extends Model
         return (int) $percentage;
     }
 
+    // Calculate the actual discount amount
+    public function getDiscountAmountAttribute()
+    {
+        if ($this->discount > 0) {
+            if ($this->discount_type == 1) { // Percentage
+                return ($this->discount / 100) * $this->sub_total;
+            } else { // Fixed
+                return $this->discount;
+            }
+        }
+        return 0;
+    }
+
     // invoice total
     public function invoiceTotal()
     {
         $costOfProductReturn = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
 
-        return $this->sub_total + $this->transport + +$this->taxAmount() - $this->discount - $costOfProductReturn;
-        // return $this->sub_total + $this->transport - $this->discount + $this->taxAmount();
+
+
+
+
+
+        $invoiceProducts = $this->invoiceProducts;
+        $totalProductVat = 0;
+        $totalProductDiscount = 0;
+        $totalProductSubTotal = 0;
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $totalProductVat += $invoiceProduct->tax_amount;
+        }
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $totalProductDiscount += $invoiceProduct->discount_amount;
+        }
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $totalProductSubTotal += $invoiceProduct->sale_price * $invoiceProduct->quantity;
+        }
+
+
+        return $totalProductSubTotal - $totalProductDiscount + $totalProductVat  - $costOfProductReturn;
+
+
+
+        
+        // Calculate global discount
+        $globalDiscount = 0;
+        if ($this->discount > 0) {
+            if ($this->discount_type == 1) { // Percentage
+                $globalDiscount = ($this->discount / 100) * $this->sub_total;
+            } else { // Fixed
+                $globalDiscount = $this->discount;
+            }
+        }
+
+        // Calculate tax on amount AFTER global discount
+        $taxAmount = 0;
+        if (isset($this->invoiceTax) && $this->invoiceTax->rate > 0) {
+            $taxableAmount = $this->sub_total - $globalDiscount;
+            if (isset($this->invoiceReturn)) {
+                $taxableAmount = $taxableAmount - $this->invoiceReturn->total_return;
+            }
+            $taxAmount = ($this->invoiceTax->rate / 100) * $taxableAmount;
+        }
+
+        return $this->sub_total - $globalDiscount + $taxAmount + $this->transport - $costOfProductReturn;
     }
 
     // purchase total paid

@@ -22,7 +22,7 @@ class PurchaseReturnListResource extends JsonResource
             'purReturnNo' => $this->code,
             'purchaseNo' => $this->purchase->purchase_no,
             'supplierName' => $this->purchase->supplier->name,
-            'supplierPhone' => $this->purchase->supplier->phone,
+            'supplierPhone' => $this->purchase->supplier->phone_number,
             'returnDate' => $this->date,
             'note' => $this->note,
             'status' => (int) $this->status,

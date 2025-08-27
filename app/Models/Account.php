@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ChartOfAccount;
 
 class Account extends Model
 {
@@ -16,7 +17,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'bank_name', 'branch_name', 'account_number', 'date', 'image_path', 'created_by', 'note', 'status',
+        'bank_name', 'branch_name', 'account_number', 'date', 'image_path', 'created_by', 'chart_of_account_id', 'note', 'status',
     ];
 
     protected $appends = ['available_balance'];
@@ -83,5 +84,52 @@ class Account extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Get the chart of account this cashbook account is linked to
+     */
+    public function chartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'chart_of_account_id');
+    }
+
+    /**
+     * Get the chart of account ID for journal entries
+     */
+    public function getChartOfAccountIdForJournal()
+    {
+        // If this account has a linked chart of account, use it
+        if ($this->chart_of_account_id) {
+            return $this->chart_of_account_id;
+        }
+        
+        // Otherwise, fall back to the default "Bank Accounts" chart of account
+        $defaultBankAccount = ChartOfAccount::whereHas('type', function($query) {
+            $query->where('name', 'Asset');
+        })->where('name', 'like', '%Bank Accounts%')
+        ->where('is_active', true)
+        ->first();
+        
+        return $defaultBankAccount ? $defaultBankAccount->id : null;
+    }
+
+    /**
+     * Check if this account is properly connected to a chart of account
+     */
+    public function isChartOfAccountConnected(): bool
+    {
+        return $this->chart_of_account_id !== null;
+    }
+
+    /**
+     * Get validation error message if chart of account is not connected
+     */
+    public function getChartOfAccountValidationMessage(): string
+    {
+        if (!$this->isChartOfAccountConnected()) {
+            return "Cashbook account '{$this->bank_name} [{$this->account_number}]' is not connected to any Chart of Account. Please link it to a Chart of Account before using it in transactions.";
+        }
+        return '';
     }
 }
