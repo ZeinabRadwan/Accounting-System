@@ -2,13 +2,13 @@
 # Dependencies
 /node_modules
 /vendor
-# Build files
-/public/js
-/public/css
-/public/mix-manifest.json
-/public/hot
-/public/images/vendor/*
-/public/fonts/vendor/*
+# Build files (excluded from git but needed for deployment)
+# /public/js
+# /public/css
+# /public/mix-manifest.json
+# /public/hot
+# /public/images/vendor/*
+# /public/fonts/vendor/*
 
 # Laravel specific
 /bootstrap/cache/*
@@ -38,14 +38,14 @@
 ehthumbs.db
 Thumbs.db
 
-# Compiled assets and build outputs
-/public/build
-/public/dist
-/public/assets
-/public/mix-manifest.json
-/public/hot
-/public/js
-/public/css
+# Compiled assets and build outputs (excluded from git but needed for deployment)
+# /public/build
+# /public/dist
+# /public/assets
+# /public/mix-manifest.json
+# /public/hot
+# /public/js
+# /public/css
 
 # Node.js build artifacts
 npm-debug.log*
@@ -54,15 +54,15 @@ yarn-error.log*
 .npm
 .yarn-integrity
 
-# Laravel Mix and Vite
-/mix-manifest.json
-/vite-manifest.json
-/public/build/
-/public/dist/
+# Laravel Mix and Vite (excluded from git but needed for deployment)
+# /mix-manifest.json
+# /vite-manifest.json
+# /public/build/
+# /public/dist/
 
 # Composer
 composer.phar
-composer.lock
+# composer.lock (keep this for deployment)
 
 # Package managers
 package-lock.json
@@ -82,17 +82,17 @@ yarn.lock
 *.bak
 *.backup
 
-# Flag icons and vendor assets (comprehensive)
-/public/images/vendor/
-/public/fonts/vendor/
-/public/js/vendor/
-/public/css/vendor/
+# Flag icons and vendor assets (comprehensive) (excluded from git but needed for deployment)
+# /public/images/vendor/
+# /public/fonts/vendor/
+# /public/js/vendor/
+# /public/css/vendor/
 
-# Additional build artifacts
-*.min.js
-*.min.css
-*.map
-*.gz
-*.br
-composer.lock
+# Additional build artifacts (excluded from git but needed for deployment)
+# *.min.js
+# *.min.css
+# *.map
+# *.gz
+# *.br
+# composer.lock
 webpack.mix.js
