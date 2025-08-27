@@ -82,7 +82,7 @@
                 </div>
 
               <div class="row" v-if="products">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                   <label for="product">{{ $t("Select Items") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -97,6 +97,9 @@
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
                         </ProductCreateModal>
+                        <div class="input-group-text create-btn" @click="editProduct">
+                          <i class="fas fa-solid fa-edit"></i>
+                        </div>
                       </div>
                       
                       <!-- Product Chart of Account Status - Similar to client validation -->
@@ -107,7 +110,7 @@
                           <button 
                             type="button" 
                             class="btn btn-sm btn-outline-warning ml-2"
-                            @click="autoAssignProductChartOfAccount(form.selectedProducts[0])"
+                            @click="autoAssignProductChartOfAccount(form.selectedProducts[0], 'sales')"
                             :disabled="isAutoAssigningProduct === form.selectedProducts[0].id"
                           >
                             <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
@@ -614,6 +617,11 @@
       </div>
     </div>
   </div>
+    <!-- Product Edit Modal -->
+    <ProductEditModal 
+      ref="productEditModal"
+      @reloadProducts="getProducts"
+    />
   </div>
 </template>
 
@@ -624,6 +632,7 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
+import ProductEditModal from '~/components/ProductEditModal'
 
 import { ToWords } from 'to-words';
 
@@ -636,6 +645,7 @@ export default {
     ToggleButton,
     ClientCreateModal,
     ProductCreateModal,
+    ProductEditModal,
   },
   data() {
     return {
@@ -1052,6 +1062,34 @@ export default {
           });
         }
       }
+    },
+
+    // edit product
+    editProduct() {
+      // Check if any product is selected
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        // Show message that no product is selected
+        toast.fire({
+          type: "warning",
+          title: this.$t("No Product Selected"),
+          text: this.$t("Please select a product first to edit"),
+        });
+        return;
+      }
+      
+      // Check if the modal component is available
+      if (!this.$refs.productEditModal) {
+        console.error('ProductEditModal component not found');
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("Edit modal not available. Please refresh the page."),
+        });
+        return;
+      }
+      
+      // Open the product edit modal with the first selected product
+      this.$refs.productEditModal.openModal(this.form.selectedProducts[0]);
     },
 
     // sort products
@@ -2317,7 +2355,7 @@ export default {
     },
 
     // Auto-assign Chart of Account for a specific product
-    async autoAssignProductChartOfAccount(product) {
+    async autoAssignProductChartOfAccount(product, type = 'sales') {
       if (!product || this.isAutoAssigningProduct === product.id) {
         return;
       }
@@ -2325,7 +2363,7 @@ export default {
       this.isAutoAssigningProduct = product.id;
       
       try {
-        const response = await this.$http.post(`/api/products/${product.slug}/auto-assign-chart-of-account`);
+        const response = await this.$http.post(`/api/products/${product.slug}/${type}/auto-assign-chart-of-account`);
         
         if (response.data.success) {
           // Update the product data with new chart of account
@@ -2397,7 +2435,7 @@ export default {
         } else if (error.response?.data?.message) {
           toast.fire({
             type: "error",
-            title: this.$t("Assignment Failed"),
+            title: this.$t("Please try again or assign manually"),
             text: error.response.data.message,
             timer: 6000,
             timerProgressBar: true,
@@ -2405,7 +2443,7 @@ export default {
         } else if (error.message) {
           toast.fire({
             type: "error",
-            title: this.$t("Assignment Failed"),
+            title: this.$t("Please try again or assign manually"),
             text: error.message,
             timer: 6000,
             timerProgressBar: true,

@@ -186,7 +186,8 @@
 
 
                 <div v-if="!isSalesAccountAutomatic" class="form-group col-md-6">
-                  <label for="salesAccountId">{{ $t('Sales Account') }}</label>
+                  <label for="salesAccountId">{{ $t('Sales Account') }}
+                    <span class="required">*</span></label>
                   <v-select
                     v-model="form.salesAccountId"
                     :options="chartOfAccounts"
@@ -195,6 +196,7 @@
                     :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
                     name="salesAccountId"
                     :placeholder="$t('Select a sales account')"
+                    required
                   >
                     <template #option="{ name, code, type }">
                       <div>
@@ -205,15 +207,23 @@
                     </template>
                   </v-select>
                   <has-error :form="form" field="salesAccountId" />
+                  <small class="form-text text-muted">
+                    {{ $t('Select a sales account for this item. This account will be used for sales transactions.') }}
+                  </small>
                 </div>
                 <div v-if="isSalesAccountAutomatic" class="form-group col-md-6">
                   <label>{{ $t('Sales Account') }}</label>
                   <div class="form-control-plaintext text-muted">
                     <i class="fas fa-info-circle"></i> {{ $t('Automatically assigned from account routing settings') }}
+                    <br>
+                    <small v-if="accountRoutingSettings.sales && accountRoutingSettings.sales.parent_account_id">
+                      {{ $t('Account ID') }}: {{ accountRoutingSettings.sales.parent_account_id }}
+                    </small>
                   </div>
                 </div>
                 <div v-if="!isPurchaseAccountAutomatic" class="form-group col-md-6">
-                  <label for="purchaseAccountId">{{ $t('Purchase Account') }}</label>
+                  <label for="purchaseAccountId">{{ $t('Purchase Account') }}
+                    <span class="required">*</span></label>
                   <v-select
                     v-model="form.purchaseAccountId"
                     :options="chartOfAccounts"
@@ -222,6 +232,7 @@
                     :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
                     name="purchaseAccountId"
                     :placeholder="$t('Select a purchase account')"
+                    required
                   >
                     <template #option="{ name, code, type }">
                       <div>
@@ -232,11 +243,18 @@
                     </template>
                   </v-select>
                   <has-error :form="form" field="purchaseAccountId" />
+                  <small class="form-text text-muted">
+                    {{ $t('Select a purchase account for this item. This account will be used for purchase transactions.') }}
+                  </small>
                 </div>
                 <div v-if="isPurchaseAccountAutomatic" class="form-group col-md-6">
                   <label>{{ $t('Purchase Account') }}</label>
-                  <div class="form-text text-muted">
+                  <div class="form-control-plaintext text-muted">
                     <i class="fas fa-info-circle"></i> {{ $t('Automatically assigned from account routing settings') }}
+                    <br>
+                    <small v-if="accountRoutingSettings.purchase && accountRoutingSettings.purchase.parent_account_id">
+                      {{ $t('Account ID') }}: {{ accountRoutingSettings.purchase.parent_account_id }}
+                    </small>
                   </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -443,8 +461,15 @@ export default {
         if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.parent_account_id) {
           this.form.purchaseAccountId = this.accountRoutingSettings.purchase.parent_account_id
         }
+
+        console.log('Account routing settings loaded:', this.accountRoutingSettings)
+        console.log('Sales automatic:', this.isSalesAccountAutomatic)
+        console.log('Purchase automatic:', this.isPurchaseAccountAutomatic)
       } catch (error) {
         console.error('Error loading account routing settings:', error)
+        // Set defaults if API fails
+        this.isSalesAccountAutomatic = false
+        this.isPurchaseAccountAutomatic = false
       }
     },
 
@@ -541,6 +566,24 @@ export default {
 
     // update product
     async updateProduct() {
+      // Validate sales account if not automatic
+      if (!this.isSalesAccountAutomatic && !this.form.salesAccountId) {
+        toast.fire({ 
+          type: 'error', 
+          title: this.$t('Sales Account is required') 
+        });
+        return;
+      }
+
+      // Validate purchase account if not automatic
+      if (!this.isPurchaseAccountAutomatic && !this.form.purchaseAccountId) {
+        toast.fire({ 
+          type: 'error', 
+          title: this.$t('Purchase Account is required') 
+        });
+        return;
+      }
+
       await this.form
         .patch(
           window.location.origin + '/api/products/' + this.$route.params.slug

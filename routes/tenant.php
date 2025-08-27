@@ -455,7 +455,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
         Route::get('/products/chart-of-accounts', [ProductController::class, 'getChartOfAccounts']);
-        Route::post('/products/{slug}/auto-assign-chart-of-account', [ProductController::class, 'autoAssignChartOfAccount']);
+        Route::post('/products/{slug}/{optionalParam?}/auto-assign-chart-of-account', [ProductController::class, 'autoAssignChartOfAccount']);
         Route::get('/all-products-not-service', [ProductController::class, 'allProductsNotService']);
         Route::get('/all-products', [ProductController::class, 'allProducts']);
         Route::get('/all-products-paginated', [ProductController::class, 'allProductsPaginated']);

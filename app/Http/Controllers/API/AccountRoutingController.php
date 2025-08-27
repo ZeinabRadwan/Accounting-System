@@ -214,12 +214,14 @@ class AccountRoutingController extends Controller
             $settings = [
                 'sales' => $salesSetting ? [
                     'routing_type' => $salesSetting->routing_type,
-                    'parent_account_id' => $salesSetting->parent_account_id,
+                   'parent_account_id' => $salesSetting->main_account_id, // Use main_account_id for consistency
+                    'main_account_id' => $salesSetting->main_account_id, // Add both for backward compatibility
                     'routing_type_options' => $salesSetting->routing_type_options
                 ] : null,
                 'purchase' => $purchaseSetting ? [
                     'routing_type' => $purchaseSetting->routing_type,
-                    'parent_account_id' => $purchaseSetting->parent_account_id,
+                    'parent_account_id' => $purchaseSetting->main_account_id, // Use main_account_id for consistency
+                    'main_account_id' => $purchaseSetting->main_account_id, // Add both for backward compatibility
                     'routing_type_options' => $purchaseSetting->routing_type_options
                 ] : null
             ];

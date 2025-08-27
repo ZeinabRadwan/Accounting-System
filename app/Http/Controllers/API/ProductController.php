@@ -810,7 +810,7 @@ class ProductController extends Controller
     /**
      * Auto-assign Chart of Account to product
      */
-    public function autoAssignChartOfAccount($slug)
+    public function autoAssignChartOfAccount($slug, $type = 'purchase')
     {
         try {
             Log::info('Product auto-assign started for slug: ' . $slug);
@@ -845,6 +845,24 @@ class ProductController extends Controller
             Log::info('Product data after assignment:', $productData);
 
             $updateData = [];
+
+
+            if(!isset($productData['sales_account_id']) && $type == 'sales'){
+
+                return response()->json([
+                    'error' => true,
+                    'message' => 'No suitable Sales Account found for automatic assignment',
+                ], 400);
+
+            }
+            if(!isset($productData['purchase_account_id']) && $type == 'purchase'){
+                return response()->json([
+                    'error' => true,
+                    'message' => 'No suitable Purchase Account found for automatic assignment',
+                ], 400);
+            }
+            
+
             if (isset($productData['sales_account_id'])) {
                 $updateData['sales_account_id'] = $productData['sales_account_id'];
                 Log::info('Will update sales_account_id to: ' . $productData['sales_account_id']);
@@ -889,7 +907,7 @@ class ProductController extends Controller
                 'trace' => $e->getTraceAsString()
             ]);
             return response()->json([
-                'success' => false,
+                'error' => true,
                 'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
             ], 500);
         }

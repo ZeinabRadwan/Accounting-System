@@ -311,63 +311,15 @@ class Product extends Model implements HasMedia
             ->where('setting_key', 'product_purchase_account')
             ->first();
 
-        if ($salesRoutingSetting && $salesRoutingSetting->parent_account_id) {
-            $defaultSalesAccount = \App\Models\ChartOfAccount::find($salesRoutingSetting->parent_account_id);
+        if ($salesRoutingSetting && $salesRoutingSetting->routing_type == 'automatic' && $salesRoutingSetting->main_account_id) {
+            $defaultSalesAccount = \App\Models\ChartOfAccount::find($salesRoutingSetting->main_account_id);
         }
 
-        if ($purchaseRoutingSetting && $purchaseRoutingSetting->parent_account_id) {
-            $defaultPurchaseAccount = \App\Models\ChartOfAccount::find($purchaseRoutingSetting->parent_account_id);
+        if ($purchaseRoutingSetting && $purchaseRoutingSetting->routing_type == 'automatic' && $purchaseRoutingSetting->main_account_id) {
+            $defaultPurchaseAccount = \App\Models\ChartOfAccount::find($purchaseRoutingSetting->main_account_id);
         }
         
-        // If routing settings don't have accounts, fallback to name-based search
-        if (!$defaultSalesAccount || !$defaultPurchaseAccount) {
-            if (isset($productData['type'])) {
-                switch ($productData['type']) {
-                    case 'Service':
-                        if (!$defaultSalesAccount) {
-                            $defaultSalesAccount = \App\Models\ChartOfAccount::where('is_active', true)
-                                ->where('name', 'like', '%Service Revenue%')
-                                ->first();
-                        }
-                        if (!$defaultPurchaseAccount) {
-                            $defaultPurchaseAccount = \App\Models\ChartOfAccount::where('is_active', true)
-                                ->where('name', 'like', '%Service Expense%')
-                                ->first();
-                        }
-                        break;
-                    case 'Product':
-                    default:
-                        if (!$defaultSalesAccount) {
-                            $defaultSalesAccount = \App\Models\ChartOfAccount::where('is_active', true)
-                                ->where('name', 'like', '%Sales Revenue%')
-                                ->first();
-                        }
-                        if (!$defaultPurchaseAccount) {
-                            $defaultPurchaseAccount = \App\Models\ChartOfAccount::where('is_active', true)
-                                ->where('name', 'like', '%Purchase Expense%')
-                                ->first();
-                        }
-                        break;
-                }
-            }
-        }
-
-        // Fallback to any available accounts
-        if (!$defaultSalesAccount) {
-            $defaultSalesAccount = \App\Models\ChartOfAccount::where('is_active', true)
-                ->whereHas('type', function($query) {
-                    $query->where('name', 'Revenue');
-                })
-                ->first();
-        }
-
-        if (!$defaultPurchaseAccount) {
-            $defaultPurchaseAccount = \App\Models\ChartOfAccount::where('is_active', true)
-                ->whereHas('type', function($query) {
-                    $query->where('name', 'Expense');
-                })
-                ->first();
-        }
+  
 
         // Only assign sales account if not already set
         if ($defaultSalesAccount && !$hasSalesAccount) {
