@@ -4,6 +4,7 @@
     "dev": "mix watch --hot",
     "watch": "mix watch",
     "build": "mix --production",
+    "prod": "mix --production",
     "eslint": "eslint --fix --ext .js,.vue resources/js"
   },
   "dependencies": {

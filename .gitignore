@@ -3,9 +3,9 @@
 /node_modules
 /vendor
 # Build files
-/public/js
-/public/css
-/public/mix-manifest.json
+# /public/js
+# /public/css
+# /public/mix-manifest.json
 /public/hot
 /public/images/vendor/*
 /public/fonts/vendor/*
@@ -39,9 +39,9 @@ ehthumbs.db
 Thumbs.db
 
 # Compiled assets
-/public/build
-/public/dist
-/public/assets
+# /public/build
+# /public/dist
+# /public/assets
 
 # Flag icons (if these are auto-generated)
 /public/images/vendor/flag-icons/flags/
