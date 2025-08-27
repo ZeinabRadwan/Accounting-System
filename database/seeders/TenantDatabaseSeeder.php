@@ -19,15 +19,18 @@ class TenantDatabaseSeeder extends Seeder
         // this will not run in production environment
         // if (App::environment('local')) {
             // First create chart of accounts to avoid foreign key constraint issues
+           
+            // Then run demo seeders
+            $this->call([
+                DemoDatabaseSeeder::class,
+            ]);
+
             $this->call([
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
             ]);
             
-            // Then run demo seeders
-            $this->call([
-                DemoDatabaseSeeder::class,
-            ]);
+
         // }
         // // for production
         // else {
