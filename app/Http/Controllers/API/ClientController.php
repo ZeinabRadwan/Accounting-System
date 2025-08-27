@@ -93,7 +93,7 @@ class ClientController extends Controller
                 'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'client_id' => $code,
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
+                'phone_legacy' => $request->phoneNumber,
                 'company_name' => $request->companyName ?? $request->businessName,
                 'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
                 'address' => $request->address ?? $request->streetAddress1,
@@ -270,7 +270,7 @@ class ClientController extends Controller
                 // Legacy fields for backward compatibility
                 'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
+                'phone_legacy' => $request->phoneNumber,
                 'company_name' => $request->companyName ?? $request->businessName,
                 'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
                 'address' => $request->address ?? $request->streetAddress1,
@@ -431,7 +431,8 @@ class ClientController extends Controller
             $query->where('name', 'Like', '%' . $term . '%')
                 ->orWhere('client_id', 'Like', '%' . $term . '%')
                 ->orWhere('email', 'Like', '%' . $term . '%')
-                ->orWhere('phone', 'Like', '%' . $term . '%')
+                ->orWhere('phone_number', 'Like', '%' . $term . '%')
+                ->orWhere('phone_legacy', 'Like', '%' . $term . '%')
                 ->orWhere('company_name', 'Like', '%' . $term . '%');
         });
 
@@ -661,7 +662,8 @@ class ClientController extends Controller
                             ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
                             ->orWhereHas('client', function ($anotherQuery) use ($term) {
                                 $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone', 'LIKE', '%' . $term . '%');
+                                    ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
+                                    ->orWhere('phone_legacy', 'LIKE', '%' . $term . '%');
                             });
                     })
                     ->orWhereHas('invoicePaymentTransaction', function ($newQuery) use ($term) {
@@ -736,7 +738,7 @@ class ClientController extends Controller
 
             $rules = [
                 'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:20|min:3',
+                'phone_number' => 'required|string|max:20|min:3',
                 'email' => 'nullable|email|max:255|min:3|unique:clients,email',
                 'company_name' => 'nullable|string|max:100|min:2',
                 'address' => 'nullable|string|max:255',

@@ -382,7 +382,8 @@ class SupplierController extends Controller
         $query->where(function ($query) use ($term) {
             $query->where('name', 'Like', '%' . $term . '%')
                 ->orWhere('email', 'Like', '%' . $term . '%')
-                ->orWhere('phone', 'Like', '%' . $term . '%')
+                ->orWhere('phone_number', 'Like', '%' . $term . '%')
+                ->orWhere('phone_legacy', 'Like', '%' . $term . '%')
                 ->orWhere('company_name', 'Like', '%' . $term . '%');
         });
 
@@ -566,7 +567,8 @@ class SupplierController extends Controller
                             ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
                             ->orWhereHas('supplier', function ($anotherQuery) use ($term) {
                                 $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone', 'LIKE', '%' . $term . '%');
+                                    ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
+                                    ->orWhere('phone_legacy', 'LIKE', '%' . $term . '%');
                             });
                     });
             });
@@ -889,6 +891,163 @@ ORDER BY `date`");
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    /**
+     * Get chart of accounts for supplier selection based on routing setup.
+     */
+    public function getChartOfAccountsWithRouting(Request $request)
+    {
+        try {
+            $search = $request->get('search', '');
+            
+            // Get the suppliers account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting || !$routingSetting->main_account_id) {
+                // Fallback to all active accounts if routing is not configured
+                $query = \App\Models\ChartOfAccount::where('is_active', true);
+                
+                if ($search) {
+                    $query->where(function($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                          ->orWhere('code', 'like', "%{$search}%");
+                    });
+                }
+                
+                $accounts = $query->orderBy('name')->get();
+                return $this->formatChartOfAccounts($accounts, 'Fallback to all accounts');
+            }
+            
+            // Get accounts from the routing setup (parent + children)
+            $accounts = $routingSetting->getAllAccounts();
+            
+            // Apply search filter if provided
+            if ($search) {
+                $accounts = $accounts->filter(function($account) use ($search) {
+                    return stripos($account->name ?? '', $search) !== false || 
+                           stripos($account->code ?? '', $search) !== false;
+                });
+            }
+            
+            return $this->formatChartOfAccounts($accounts, 'From routing setup');
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve chart of accounts.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get supplier routing settings
+     */
+    public function getSupplierRoutingSettings()
+    {
+        try {
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Supplier account routing is not configured'
+                ], 404);
+            }
+            
+            $routingSetting->routing_type_display = $this->getRoutingTypeDisplay($routingSetting->routing_type);
+            $routingSetting->description = $this->getRoutingTypeDescription($routingSetting->routing_type);
+            
+            return response()->json([
+                'success' => true,
+                'data' => $routingSetting
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve supplier routing settings',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get routing type display name
+     */
+    private function getRoutingTypeDisplay($routingType)
+    {
+        $displays = [
+            'automatic' => 'Automatic',
+            'per_each' => 'Per Each',
+            'main_account_per_each' => 'Main Account Per Each',
+            'cancel' => 'Cancel'
+        ];
+        return $displays[$routingType] ?? $routingType;
+    }
+
+    /**
+     * Get routing type description
+     */
+    private function getRoutingTypeDescription($routingType)
+    {
+        $descriptions = [
+            'automatic' => 'Chart of account will be automatically assigned based on your accounting configuration.',
+            'per_each' => 'Each supplier will have their own chart of account without any parent.',
+            'main_account_per_each' => 'Each supplier will have their own chart of account under the main supplier account.',
+            'cancel' => 'No chart of account will be assigned to suppliers.'
+        ];
+        return $descriptions[$routingType] ?? '';
+    }
+
+    /**
+     * Format chart of accounts for response
+     */
+    private function formatChartOfAccounts($accounts, $source = 'Unknown')
+    {
+        $chartOfAccounts = collect();
+        $processedCount = 0;
+        $skippedCount = 0;
+        
+        foreach ($accounts as $account) {
+            try {
+                // Skip if account is null or missing essential data
+                if (!$account || !$account->id || !$account->name) {
+                    continue;
+                }
+                
+                // Get type name safely
+                $typeName = 'No Type';
+                try {
+                    if ($account->type_id) {
+                        $type = $account->type;
+                        if ($type && $type->name) {
+                            $typeName = $type->name;
+                        }
+                    }
+                } catch (\Exception $typeError) {
+                    continue;
+                }
+                
+                $chartOfAccounts->push([
+                    'id' => (int) $account->id,
+                    'name' => (string) ($account->name ?? 'Unknown'),
+                    'code' => (string) ($account->code ?? ''),
+                    'type' => $typeName
+                ]);
+                
+                $processedCount++;
+                
+            } catch (\Exception $accountError) {
+                $skippedCount++;
+                continue;
+            }
+        }
+        
+        return response()->json($chartOfAccounts->values()->toArray());
     }
 
     /**

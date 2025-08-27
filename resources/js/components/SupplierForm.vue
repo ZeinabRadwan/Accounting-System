@@ -573,6 +573,7 @@ import VSelect from "vue-select";
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   name: "SupplierForm",
@@ -770,13 +771,13 @@ export default {
           if (e.target.id === 'image') {
             if (file.type.startsWith('image/')) {
               validFiles.push(file);
-            } else {
-              Swal.fire(
-                this.$t("Error!"),
-                this.$t("Please select a valid image file"),
-                "error"
-              );
-            }
+                          } else {
+                Swal.fire(
+                  "Error!",
+                  "Please select a valid image file",
+                  "error"
+                );
+              }
           } else {
             // For attachments, allow various document types
             const allowedTypes = [
@@ -795,16 +796,16 @@ export default {
               validFiles.push(file);
             } else {
               Swal.fire(
-                this.$t("Error!"),
-                this.$t("Please select a valid file type"),
+                "Error!",
+                "Please select a valid file type",
                 "error"
               );
             }
           }
         } else {
           Swal.fire(
-            this.$t("Error!"),
-            this.$t("Please select a file with size less than 2 MB"),
+            "Error!",
+            "Please select a file with size less than 2 MB",
             "error"
           );
         }
@@ -898,20 +899,36 @@ export default {
       // Required field validations
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
         console.log('Phone number validation failed');
-        this.form.errors.set('phoneNumber', this.$t('Mobile number is required'));
+        this.form.errors.set('phoneNumber', 'Mobile number is required');
         isValid = false;
       }
       
       if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
         console.log('Full name validation failed for individual');
-        this.form.errors.set('fullName', this.$t('Full name is required for individual suppliers'));
+        this.form.errors.set('fullName', 'Full name is required for individual suppliers');
         isValid = false;
       }
       
       if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
         console.log('Business name validation failed for company');
-        this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
+        this.form.errors.set('businessName', 'Business name is required for company suppliers');
         isValid = false;
+      }
+      
+      // Validate chart of account based on routing type
+      // Only validate if routing settings are loaded and not automatic
+      if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
+        if (!this.form.chartOfAccountId) {
+          const message = this.routingSetting.routing_type === 'per_each' 
+            ? "Please select a chart of account for this supplier"
+            : "Please select a chart of account under the main supplier account";
+          console.log('Chart of account validation failed:', message);
+          this.form.errors.set('chartOfAccountId', message);
+          isValid = false;
+        }
+      } else if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
+        // For automatic routing, no validation needed
+        console.log('Automatic routing - no chart of account validation needed');
       }
       
       console.log('=== SUPPLIER FORM VALIDATION RESULT:', isValid, '===');
@@ -989,7 +1006,7 @@ export default {
     // Load representatives for existing supplier
     async loadRepresentatives() {
       // Try to get slug from route params first, then from initialData
-      const slug = this.$route.params.slug || (this.initialData && this.initialData.slug);
+      const slug = (this.$route && this.$route.params && this.$route.params.slug) || (this.initialData && this.initialData.slug);
       console.log('Loading representatives for supplier:', slug);
       
       if (slug && slug !== 'new') {
@@ -1032,22 +1049,48 @@ export default {
 
     // Load chart of accounts
     async loadChartOfAccounts() {
-      this.loadingChartOfAccounts = true;
-      this.chartOfAccounts = [];
-      this.chartOfAccountsError = null;
-
       try {
-        const response = await axios.get('/api/chart-of-accounts/supplier');
-        if (response.data.success) {
-          this.chartOfAccounts = response.data.data;
-          console.log('Chart of accounts loaded:', this.chartOfAccounts);
+        console.log('Loading chart of accounts...');
+        console.log('Current routing setting:', this.routingSetting);
+        
+        this.loadingChartOfAccounts = true;
+        this.chartOfAccountsError = null;
+        
+        // If routing is automatic, we don't need to load all accounts
+        if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
+          console.log('Routing type is automatic, not loading chart of accounts');
+          this.chartOfAccounts = [];
+          return;
+        }
+        
+        // For other routing types, load accounts based on routing setting
+        if (this.routingSetting && this.routingSetting.main_account_id) {
+          console.log('Loading accounts from routing setup...');
+          // Load accounts from the routing setup
+          const response = await axios.get(`/api/suppliers/chart-of-accounts/routing`);
+          console.log('Routing accounts response:', response);
+          
+          if (response.data && Array.isArray(response.data)) {
+            this.chartOfAccounts = response.data;
+            console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
+          } else {
+            console.log('Routing accounts response not successful, falling back to all accounts');
+            // Fallback to all accounts
+            const fallbackResponse = await axios.get('/api/suppliers/chart-of-accounts');
+            this.chartOfAccounts = fallbackResponse.data || [];
+            console.log('Loaded fallback accounts:', this.chartOfAccounts.length);
+          }
         } else {
-          this.chartOfAccountsError = response.data.message || 'Failed to load chart of accounts';
-          console.error('Failed to load chart of accounts:', this.chartOfAccountsError);
+          console.log('No main account ID, loading all accounts as fallback');
+          // Load all accounts as fallback
+          const response = await axios.get('/api/suppliers/chart-of-accounts');
+          this.chartOfAccounts = response.data || [];
+          console.log('Loaded all accounts as fallback:', this.chartOfAccounts.length);
         }
       } catch (error) {
+        console.error('Error loading chart of accounts:', error);
         this.chartOfAccountsError = error.message || 'Failed to load chart of accounts';
-        console.error('Error loading chart of accounts:', this.chartOfAccountsError);
+        this.chartOfAccounts = [];
       } finally {
         this.loadingChartOfAccounts = false;
       }
@@ -1057,9 +1100,17 @@ export default {
     async searchChartOfAccounts(search, loading) {
       loading(true);
       try {
-        const response = await axios.get(`/api/chart-of-accounts/search?q=${search}`);
-        if (response.data.success) {
-          this.chartOfAccounts = response.data.data;
+        // Use routing-aware endpoint if available
+        let endpoint = '/api/chart-of-accounts/search';
+        if (this.routingSetting && this.routingSetting.main_account_id) {
+          endpoint = `/api/suppliers/chart-of-accounts/routing?search=${search}`;
+        } else {
+          endpoint = `/api/chart-of-accounts/search?q=${search}`;
+        }
+        
+        const response = await axios.get(endpoint);
+        if (response.data.success || Array.isArray(response.data)) {
+          this.chartOfAccounts = response.data.data || response.data;
         } else {
           this.chartOfAccounts = [];
         }
@@ -1078,31 +1129,37 @@ export default {
       this.isCreatingAccount = true;
 
       try {
+        // Determine parent_id based on routing settings
+        let parentId = null;
+        if (this.routingSetting && this.routingSetting.routing_type === 'main_account_per_each' && this.routingSetting.main_account_id) {
+          parentId = this.routingSetting.main_account_id;
+        }
+
         const response = await axios.post('/api/chart-of-accounts/create', {
-          name: this.form.fullName, // Use supplier name for new account
+          name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
           type: 'Supplier',
-          parent_id: null // No parent for new accounts
+          parent_id: parentId
         });
 
         if (response.data.success) {
           this.chartOfAccounts.push(response.data.data);
           this.form.chartOfAccountId = response.data.data.id;
           Swal.fire(
-            this.$t("Success!"),
-            this.$t("New chart of account created successfully."),
+            "Success!",
+            "New chart of account created successfully.",
             "success"
           );
         } else {
           Swal.fire(
-            this.$t("Error!"),
-            response.data.message || this.$t("Failed to create new chart of account."),
+            "Error!",
+            response.data.message || "Failed to create new chart of account.",
             "error"
           );
         }
       } catch (error) {
         Swal.fire(
-          this.$t("Error!"),
-          error.message || this.$t("Failed to create new chart of account."),
+          "Error!",
+          error.message || "Failed to create new chart of account.",
           "error"
         );
       } finally {

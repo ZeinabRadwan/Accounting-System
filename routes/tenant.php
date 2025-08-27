@@ -383,8 +383,10 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
         Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
+        Route::get('/suppliers/chart-of-accounts/routing', [SupplierController::class, 'getChartOfAccountsWithRouting']);
         Route::get('/suppliers/next-code', [SupplierController::class, 'getNextCodeNumber']);
         Route::post('/suppliers/{slug}/auto-assign-chart-of-account', [SupplierController::class, 'autoAssignChartOfAccount']);
+        Route::get('/routing-settings/supplier', [SupplierController::class, 'getSupplierRoutingSettings']);
         Route::get('/all-suppliers', [SupplierController::class, 'allSuppliers']);
         Route::get('/supplier/purchases/{slug}', [SupplierController::class, 'supplierPurchases']);
         Route::apiResource('suppliers', SupplierController::class);

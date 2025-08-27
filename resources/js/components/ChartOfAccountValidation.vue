@@ -239,16 +239,10 @@ export default {
             chartOfAccountId: response.data.chart_of_account_id
           })
           
-          // Remove this error from the list safely
-          try {
-            const index = this.validationErrors.findIndex(e => e === error)
-            if (index > -1) {
-              this.validationErrors.splice(index, 1)
-              console.log('Removed validation error from list')
-            }
-          } catch (removeError) {
-            console.error('Error removing validation error:', removeError)
-          }
+          // Force re-computation of validation errors
+          this.$nextTick(() => {
+            this.$forceUpdate()
+          })
         }
       } catch (apiError) {
         console.error('Failed to auto-assign chart of account:', apiError)
@@ -260,6 +254,11 @@ export default {
         this.$set(error, 'isAutoAssigning', false)
         console.log('Auto-assignment completed')
       }
+    },
+    
+    // Method to refresh validation state
+    refreshValidation() {
+      this.$forceUpdate()
     }
   }
 }

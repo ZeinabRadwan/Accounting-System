@@ -24,7 +24,34 @@
                     <span class="required">*</span></label>
                   <v-select v-model="form.supplier" :options="items" label="name"
                     :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier"
-                    :placeholder="$t('Select a supplier')" />
+                    :placeholder="$t('Select a supplier')" @input="onSupplierChange" />
+                  
+                  <!-- Supplier Chart of Account Status -->
+                  <div class="supplier-status mt-2" v-if="form.supplier">
+                    <div v-if="!form.supplier.chart_of_account_id" class="supplier-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Supplier needs Chart of Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignSupplierChartOfAccount"
+                        :disabled="isAutoAssigningSupplier"
+                      >
+                        <i :class="isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
+                          </button>
+                    </div>
+                    <div v-else class="supplier-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('Supplier Chart of Account ready') }}</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Debug info (remove in production) -->
+                  <div v-if="form.supplier" class="mt-1 text-muted small">
+                    Debug: chart_of_account_id = {{ form.supplier.chart_of_account_id || 'null' }}
+                  </div>
+                  
                   <has-error :form="form" field="supplier" />
                 </div>
                 <div class="form-group col-md-12 col-xl-3">
@@ -43,12 +70,34 @@
                     'is-invalid': form.errors.has('selectedProducts'),
                   }" name="product" :placeholder="$t('Search products')"
                     @input="storeProduct(form.product)" />
+                  
+                  <!-- Product Chart of Account Status -->
+                  <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                    <div v-if="!form.selectedProducts[0].purchase_account_id" class="product-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs Purchase Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignProductChartOfAccount(form.selectedProducts[0])"
+                        :disabled="isAutoAssigningProduct === form.selectedProducts[0].id"
+                      >
+                        <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
+                      </button>
+                    </div>
+                    <div v-else class="product-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Purchase Account ready') }}</span>
+                    </div>
+                  </div>
+                  
                   <has-error :form="form" field="selectedProducts" />
                 </div>
               </div>
 
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-95 m-auto">
+                <div class="table-responsive table-custom w-100 m-auto">
                   <table class="table table-hover table-sm text-center">
                     <thead>
                       <tr>
@@ -60,9 +109,12 @@
                           {{ $t('Returned Qty') }}
                         </th>
                         <th>{{ $t('Purchase Price') }}</th>
-                        <th>{{ $t('Unit Cost') }}</th>
-                        <th>{{ $t('Tax') }}</th>
-                        <th>{{ $t('Total Price') }}</th>
+                        <th>{{ $t('Total') }}</th>
+                        <th>{{ $t('Discount') }}</th>
+                        <th>{{ $t('Total After Discount') }}</th>
+                        <th>{{ $t('VAT Type') }}</th>
+                        <th>{{ $t('VAT') }}</th>
+                        <th>{{ $t('Total with VAT') }}</th>
                         <th v-if="form.purchaseReturnData">
                           {{ $t('Total Return') }}
                         </th>
@@ -102,7 +154,7 @@
                         <td>
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity"
+                              data-field="unitPrice"
                               @click="generateItemTotal(item.unitPrice, 'price', i - 1, 'decrement')" />
 
                             <input type="number" step="any" :id="`unitPrice-${i}`" :value="item.unitPrice"
@@ -111,12 +163,55 @@
                               @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity"
+                              data-field="unitPrice"
                               @click="generateItemTotal(item.unitPrice, 'price', i - 1, 'increment')" />
                           </div>
                         </td>
-                        <td>{{ item.unitCost | withCurrency }}</td>
-                        <td>{{ item.totalTax | withCurrency }}</td>
+                        <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
+                        <td>
+                          <div class="input-group">
+                            <select 
+                              v-model="item.discountType" 
+                              class="form-control form-control-sm" 
+                              style="width: 60px;"
+                              @change="calculateProductDiscount(i - 1)">
+                              <option value="fixed">{{ $t("Fixed") }}</option>
+                              <option value="percentage">{{ $t("%") }}</option>
+                            </select>
+                            <input 
+                              type="number" 
+                              v-model="item.discount" 
+                              class="form-control form-control-sm" 
+                              style="width: 80px;"
+                              step="any" 
+                              min="0" 
+                              :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
+                              placeholder="0"
+                              @change="calculateProductDiscount(i - 1)"
+                              @keyup="calculateProductDiscount(i - 1)" />
+                          </div>
+                        </td>
+                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>
+                          <select 
+                            v-model="item.selectedVatRate" 
+                            class="form-control form-control-sm"
+                            @change="calculateProductVat(i - 1)"
+                            style="min-width: 120px;">
+                            <option value="">{{ $t('Select VAT') }}</option>
+                            <option 
+                              v-for="tax in taxes" 
+                              :key="tax.id" 
+                              :value="tax">
+                              {{ tax.code }} ({{ tax.rate }}%)
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <span class="form-control-plaintext form-control-sm text-center">
+                            {{ item.productTax | withCurrency }}
+                          </span>
+                        </td>
                         <td>{{ item.totalPrice | withCurrency }}</td>
                         <td v-if="form.purchaseReturnData">
                           {{ item.totalReturn | withCurrency }}
@@ -127,14 +222,25 @@
                           </button>
                         </td>
                       </tr>
-                      <tr v-if="form.subTotal">
-                        <td :colspan="form.purchaseReturnData ? 7 : 6" class="text-right">
-                          <strong>{{ $t('Subtotal') }}:</strong>
+                      <!-- Totals Row -->
+                      <tr>
+                        <td :colspan="form.purchaseReturnData ? 8 : 7" class="text-right">
+                          <strong>{{ $t('Total') }}:</strong>
                         </td>
                         <td>
-                          <strong>{{
-                            form.totalProductTax | withCurrency
-                          }}</strong>
+                          <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ form.totalDiscount | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ (totalUnitPrice - form.totalDiscount) | withCurrency }}</strong>
+                        </td>
+                        <td>
+                          <strong></strong>
+                        </td>
+                        <td>
+                          <strong>{{ form.totalProductTax | withCurrency }}</strong>
                         </td>
                         <td>
                           <strong>{{ form.subTotal | withCurrency }}</strong>
@@ -280,11 +386,13 @@ import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 
+
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Edit Purchase') }
   },
+
   data: () => ({
     breadcrumbsCurrent: 'Edit Purchase',
     breadcrumbs: [
@@ -321,15 +429,28 @@ export default {
       purchaseReturn: 0,
       note: '',
       status: 1,
+      totalDiscount: 0,
     }),
     products: '',
     accounts: '',
     taxes: '',
     prefix: '',
     purchasePrefix: '',
+    isAutoAssigningSupplier: false,
+    isAutoAssigningProduct: null,
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
+    
+    // Calculate total unit price (sum of all unit prices)
+    totalUnitPrice() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.unitPrice * item.qty);
+      }, 0);
+    },
   },
   created() {
     this.getPurchase()
@@ -373,10 +494,24 @@ export default {
 
     // get products
     async getProducts() {
+      // Store the current selected products IDs
+      const currentProductIds = this.form.selectedProducts ? this.form.selectedProducts.map(p => p.id) : [];
+      
       const { data } = await axios.get(
         window.location.origin + '/api/all-products-not-service'
       )
       this.products = data.data
+      
+      // Update selected products with fresh data if they exist
+      if (currentProductIds.length > 0 && this.form.selectedProducts) {
+        this.form.selectedProducts.forEach(selectedProduct => {
+          const freshProduct = this.products.find(p => p.id === selectedProduct.id);
+          if (freshProduct) {
+            // Update the product with fresh data while preserving user input
+            Object.assign(selectedProduct, freshProduct);
+          }
+        });
+      }
     },
 
     // get taxes
@@ -484,6 +619,53 @@ export default {
       this.updateTax()
       return
     },
+    
+    // calculate product discount
+    calculateProductDiscount(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        if (item.discountType === "percentage") {
+          item.discountAmount = Number(((item.unitPrice * item.qty * item.discount) / 100).toFixed(2));
+        } else {
+          item.discountAmount = Number(item.discount || 0);
+        }
+        
+        // Recalculate totals
+        this.generateItemTotal(index, "qty", index, "");
+        this.calculateSum();
+      }
+    },
+
+    // calculate product VAT
+    calculateProductVat(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        // Ensure the selectedVatRate is properly set
+        if (!item.selectedVatRate) {
+          // First try to use the product's default VAT rate, then fall back to available taxes
+          if (item.productTax) {
+            item.selectedVatRate = this.findMatchingVatRate(item.productTax);
+          }
+          
+          // If no match found or no productTax, fall back to available taxes
+          if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
+            item.selectedVatRate = this.taxes[0];
+          }
+        }
+        
+        // Recalculate totals with new VAT rate
+        this.generateItemTotal(index, "qty", index, "");
+        this.calculateSum();
+      }
+    },
+
+    // Helper method to find matching VAT rate
+    findMatchingVatRate(productTax) {
+      if (!this.taxes || !productTax) return null;
+      return this.taxes.find(tax => tax.rate === productTax);
+    },
+    
+    // update tax
 
     // update tax
     updateTax() {
@@ -510,12 +692,14 @@ export default {
       this.form.subTotal =
         this.form.totalProductTax =
         this.form.purchaseReturn =
+        this.form.totalDiscount =
         0
       for (let i = 0; i < length; i++) {
         let looProduct = this.form.selectedProducts[i]
         this.form.subTotal += Number(looProduct.totalPrice.toFixed(2))
         this.form.totalProductTax += Number(looProduct.totalTax.toFixed(2))
         this.form.purchaseReturn += Number(looProduct.totalReturn.toFixed(2))
+        this.form.totalDiscount += Number((looProduct.discountAmount || 0).toFixed(2))
       }
       if (this.form.subTotal > 0) {
         this.form.netTotal =
@@ -557,11 +741,184 @@ export default {
                 ? minQty + 1
                 : purchaseProduct.stockQty,
           oldQty: purchaseProduct.quantity,
+          discount: 0,
+          discountType: "fixed",
+          discountAmount: 0,
+          selectedVatRate: null,
         })
       }
       this.calculateSum()
       this.updateTax()
       return this.form.selectedProducts
+    },
+
+    // Handle chart of account assignment
+    async handleChartOfAccountAssigned(data) {
+      if (data.entity === 'supplier') {
+        // Refresh supplier data
+        await this.getSuppliers();
+        
+        // If we have a selected supplier, update it with the new data
+        if (this.form.supplier && this.items && this.items.length > 0) {
+          const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
+          if (updatedSupplier) {
+            this.form.supplier = updatedSupplier;
+          }
+        }
+      } else if (data.entity === 'product') {
+        // Refresh product data
+        await this.getProducts();
+        
+        // Update selected products with new chart of account data
+        if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+          this.form.selectedProducts.forEach(selectedProduct => {
+            const updatedProduct = this.products.find(p => p.id === selectedProduct.id);
+            if (updatedProduct) {
+              // Update the chart of account fields
+              selectedProduct.sales_account_id = updatedProduct.sales_account_id;
+              selectedProduct.purchase_account_id = updatedProduct.purchase_account_id;
+            }
+          });
+        }
+      }
+      
+      // Force re-render of the validation component
+      this.$nextTick(() => {
+        this.$forceUpdate();
+      });
+    },
+
+    // Auto-assign Chart of Account for supplier
+    async autoAssignSupplierChartOfAccount() {
+      if (!this.form.supplier || this.isAutoAssigningSupplier) {
+        return;
+      }
+      
+      this.isAutoAssigningSupplier = true;
+      
+      try {
+        const response = await axios.post(`/api/suppliers/${this.form.supplier.slug}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          console.log('Auto-assign response:', response.data);
+          console.log('Current supplier before update:', this.form.supplier);
+          
+          // Update the supplier data with new chart of account
+          this.form.supplier.chart_of_account_id = response.data.chart_of_account_id;
+          
+          console.log('Supplier after updating chart_of_account_id:', this.form.supplier);
+          
+          // Add a small delay to ensure the backend has processed the update
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          // Refresh suppliers list to get updated data
+          await this.getSuppliers();
+          
+          // Find and update the current supplier with the refreshed data
+          if (this.items && this.items.length > 0) {
+            const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
+            if (updatedSupplier) {
+              console.log('Found updated supplier in items:', updatedSupplier);
+              // Update the form supplier with all the latest data
+              this.form.supplier = { ...updatedSupplier };
+              console.log('Form supplier after refresh:', this.form.supplier);
+            }
+          }
+          
+          // Force Vue to re-render the component
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
+          
+          // Show success message
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
+          
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error auto-assigning chart of account:', error);
+        toast.fire({
+          type: "error",
+          title: this.$t("An error occurred while assigning Chart of Account"),
+        });
+      } finally {
+        this.isAutoAssigningSupplier = false;
+      }
+    },
+
+    // Auto-assign Chart of Account for a specific product
+    async autoAssignProductChartOfAccount(product) {
+      if (!product || this.isAutoAssigningProduct === product.id) {
+        return;
+      }
+      
+      this.isAutoAssigningProduct = product.id;
+      
+      try {
+        const response = await axios.post(`/api/products/${product.slug}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          // Update the product data with new chart of account
+          product.purchase_account_id = response.data.purchase_account_id;
+          
+          // Add a small delay to ensure the backend has processed the update
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          // Refresh products list to get updated data
+          await this.getProducts();
+          
+          // Find and update the current product with the refreshed data
+          if (this.products && this.products.length > 0) {
+            const updatedProduct = this.products.find(p => p.id === product.id);
+            if (updatedProduct) {
+              // Update the product with all the latest data
+              Object.assign(product, updatedProduct);
+            }
+          }
+          
+          // Force Vue to re-render the component
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
+          
+          // Show success message
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
+          
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error auto-assigning chart of account:', error);
+        toast.fire({
+          type: "error",
+          title: this.$t("An error occurred while assigning Chart of Account"),
+        });
+      } finally {
+        this.isAutoAssigningProduct = false;
+      }
+    },
+
+    // Handle supplier change
+    onSupplierChange() {
+      // Clear any previous errors
+      this.form.errors.clear('supplier');
     },
 
     // update purchase
@@ -587,3 +944,79 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.create-btn {
+  padding: 11px;
+}
+
+/* Supplier status styles */
+.supplier-status {
+  font-size: 13px;
+}
+
+.supplier-warning,
+.supplier-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.supplier-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.supplier-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Product status styles */
+.product-status {
+  font-size: 13px;
+}
+
+.product-warning,
+.product-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.product-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.product-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.btn-outline-warning {
+  border-color: #ffc107;
+  color: #856404;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-outline-warning:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+</style>
