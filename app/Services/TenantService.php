@@ -70,11 +70,9 @@ class TenantService
         // get host name
         $host = request()->getHttpHost();
         $domainWithHost = request()->getScheme() . '://' . $request->domain . '.' . $host;
-        
-        // Remove impersonation call - tenant database doesn't exist yet
-        // $token = tenancy()->impersonate(
-        //     $tenant, 1, $request->domain . '.' . $host
-        // )->token;
+        $token = tenancy()->impersonate(
+            $tenant, 1, $request->domain . '.' . $host
+        )->token;
 
         // tenant verification mail
         $tenant->notify(new TenantVerificationNotification());
