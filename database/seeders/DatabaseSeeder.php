@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         // for testing purposes
         // this will not run in production environment
-        if (App::environment('local') || App::environment('staging')) {
+        // if (App::environment('local') || App::environment('staging')) {
             $this->call([
                 PlanSeeder::class,
                 FeatureSeeder::class,
@@ -38,6 +38,6 @@ class DatabaseSeeder extends Seeder
                 PageSeeder::class,
                 DomainRequestSeeder::class,
             ]);
-        }
+        // }
     }
 }
