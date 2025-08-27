@@ -18,23 +18,15 @@ class TenantDatabaseSeeder extends Seeder
         // for testing purposes
         // this will not run in production environment
         if (App::environment('local')) {
+            // First create chart of accounts to avoid foreign key constraint issues
             $this->call([
-                DemoDatabaseSeeder::class,
-                // Essential seeders that were missing in local environment
-                TenantRoleSeeder::class,
-                TenantSettingSeeder::class,
-                CurrencySeeder::class,
-                TenantPermissionSeeder::class, // Permissions first
-                UserRoleSeeder::class, // Then roles
-                UserPermissionSeeder::class, // Then user permissions
-                RolePermissionSeeder::class, // Then role permissions
-                TenantClientSeeder::class,
-                TenantAccountSeeder::class,
-                TenantVatRateSeeder::class,
-                TenantMenuSeeder::class,
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
-                AccountRoutingSettingsSeeder::class, // Add account routing settings
+            ]);
+            
+            // Then run demo seeders
+            $this->call([
+                DemoDatabaseSeeder::class,
             ]);
         }
         // for production
@@ -53,7 +45,6 @@ class TenantDatabaseSeeder extends Seeder
                 TenantMenuSeeder::class,
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
-                AccountRoutingSettingsSeeder::class, // Add account routing settings
             ]);
         }
     }
