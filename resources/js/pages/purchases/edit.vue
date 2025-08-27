@@ -560,7 +560,20 @@ export default {
           totalReturn: 0,
           minQty: 1,
           oldQty: 0,
+          // Include chart of account IDs for validation
+          sales_account_id: product.sales_account_id,
+          purchase_account_id: product.purchase_account_id,
         })
+      } else {
+        // Product already exists, update it with fresh data while preserving user input
+        let existingProduct = this.form.selectedProducts[index];
+        let updatedProduct = {
+          ...existingProduct,
+          // Update chart of account IDs with fresh data
+          sales_account_id: product.sales_account_id,
+          purchase_account_id: product.purchase_account_id,
+        };
+        this.form.selectedProducts[index] = updatedProduct;
       }
       this.generateItemTotal(qunatity, 'qty', index, '')
       this.updateTax()
