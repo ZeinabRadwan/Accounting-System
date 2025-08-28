@@ -15,7 +15,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.9",
     "@johmun/vue-tags-input": "^2.1.0",
     "@toast-ui/vue-editor": "^3.1.8",
-    "admin-lte": "^4.0.0-rc3",
+    "admin-lte": "^3.2.0",
     "axios": "^0.21.3",
     "bootstrap": "^4.6.2",
     "echarts": "^5.4.1",

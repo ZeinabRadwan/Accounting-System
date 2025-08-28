@@ -5,6 +5,6 @@ try {
     require('admin-lte');
     require('bootstrap');
     
-    // AdminLTE 4.x uses data attributes and CSS for treeview functionality
-    // No need for separate jQuery plugin
+    // AdminLTE 3.2.0 includes Treeview functionality by default
+    // The Treeview plugin is built into AdminLTE 3.x
 } catch (e) {}
