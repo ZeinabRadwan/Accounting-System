@@ -97,9 +97,6 @@
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
                         </ProductCreateModal>
-                        <div class="input-group-text create-btn" @click="editProduct">
-                          <i class="fas fa-solid fa-edit"></i>
-                        </div>
                       </div>
                       
                       <!-- Product Chart of Account Status - Similar to client validation -->
