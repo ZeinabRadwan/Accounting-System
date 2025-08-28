@@ -2921,6 +2921,11 @@ export default {
   transition: all 0.2s ease;
 }
 
+/* Remove padding for button-plus icon-shape icon-sm btn-primary elements */
+.button-plus.icon-shape.icon-sm.btn-primary {
+  padding: 0;
+}
+
 .btn-primary:hover {
   background: #0056b3;
   border-color: #0056b3;
