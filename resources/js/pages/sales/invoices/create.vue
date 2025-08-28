@@ -154,17 +154,29 @@
                           {{ item.code | withPrefix(prefix) }}
                         </td>
                         <td>
-                          <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
-                            " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2">
-                            <i class="fas fa-exclamation"></i>
-                          </span>
-                          <router-link v-if="$can('product-view')" :to="{
-                            name: 'products.show',
-                            params: { slug: item.slug },
-                          }">
-                            {{ item.name }}
-                          </router-link>
-                          <span v-else>{{ item.name }}</span>
+                          <div class="d-flex align-items-center">
+                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
+                              " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2 mr-2">
+                              <i class="fas fa-exclamation"></i>
+                            </span>
+                            <div class="flex-grow-1">
+                              <router-link v-if="$can('product-view')" :to="{
+                                name: 'products.show',
+                                params: { slug: item.slug },
+                              }">
+                                {{ item.name }}
+                              </router-link>
+                              <span v-else>{{ item.name }}</span>
+                            </div>
+                            <button 
+                              type="button" 
+                              class="btn btn-sm btn-outline-primary ml-2" 
+                              @click="editProductFromTable(item)"
+                              v-tooltip="$t('Edit Product')"
+                            >
+                              <i class="fas fa-edit"></i>
+                            </button>
+                          </div>
                         </td>
                         <td>
                           <div class="input-group custom-qty-input">
@@ -1090,6 +1102,23 @@ export default {
       
       // Open the product edit modal with the first selected product
       this.$refs.productEditModal.openModal(this.form.selectedProducts[0]);
+    },
+
+    // edit product from table row
+    editProductFromTable(product) {
+      // Check if the modal component is available
+      if (!this.$refs.productEditModal) {
+        console.error('ProductEditModal component not found');
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("Edit modal not available. Please refresh the page."),
+        });
+        return;
+      }
+      
+      // Open the product edit modal with the specific product from the table
+      this.$refs.productEditModal.openModal(product);
     },
 
     // sort products
