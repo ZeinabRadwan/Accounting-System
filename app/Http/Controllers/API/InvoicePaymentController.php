@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\InvoicePaymentResource;
 use App\Notifications\ClientInvoicePaymentNotification;
 use Illuminate\Support\Facades\Log;
+use App\Models\Account;
 
 class InvoicePaymentController extends Controller
 {
@@ -66,6 +67,23 @@ class InvoicePaymentController extends Controller
             $userId = auth()->user()->id;
             $invoices = array();
             $client = Client::where('slug', $request['client']['slug'])->first();
+            $chartOfAccount = $client?->chartOfAccount;
+
+            if(!$client || !$chartOfAccount){
+                return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.'); 
+            }
+
+
+            $account = Account::findOrFail($request->account['id']);
+            if (!$account) {
+                return $this->responseWithError('Bank Account not found.'); 
+            }
+
+            if (!$account->chartOfAccount) {
+                return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.'); 
+            }
+
+
 
             foreach ($request->selectedInvoices as $key => $selectedInvoice) {
                 // get invoice
@@ -104,7 +122,7 @@ class InvoicePaymentController extends Controller
                 // Create journal entry for invoice payment
                 try {
                     $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $selectedInvoice['paidAmount'], $userId);
+                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $selectedInvoice['paidAmount'], $userId);
                 } catch (\Exception $e) {
                     // Log the error but don't fail the payment creation
                     Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());

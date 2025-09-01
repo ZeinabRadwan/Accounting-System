@@ -15,6 +15,8 @@ use App\Http\Requests\NonInvoicePayment\StoreNonInvoicePaymentRequest;
 use App\Http\Requests\NonInvoicePayment\UpdateNonInvoicePaymentRequest;
 use App\Services\BusinessTransactionJournalService;
 use Illuminate\Support\Facades\Log;
+use App\Models\Account;
+use App\Models\Client;
 
 class NonInvoicePaymentController extends Controller
 {
@@ -57,10 +59,38 @@ class NonInvoicePaymentController extends Controller
 
             $userId = auth()->user()->id;
 
+
+
+            $client = Client::findOrFail($request->client['id']);
+           
+
+            $chartOfAccount = $client?->chartOfAccount;
+
+            if(!$client || !$chartOfAccount){
+                return $this->responseWithError('Client must have a Chart of Account assigned for journal entries.'); 
+            }
+
+
+            $account = Account::findOrFail($request->account['id']);
+            if (!$account) {
+                return $this->responseWithError('Bank Account not found.'); 
+            }
+
+            if (!$account->chartOfAccount) {
+                return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.'); 
+            }
+
+
+
+
+
             if ($request->type == 1) {
 
                 $transaction = $this->transactionService->createTransactionFromNonInvoicePayment($request, $userId);
             }
+
+
+            
 
             // store payment
           $nonInvoicePayment =  NonInvoicePayment::create([
@@ -74,6 +104,9 @@ class NonInvoicePaymentController extends Controller
                 'status' => $request->status,
                 'created_by' => $userId,
             ]);
+
+            // Load the client relationship with chart of account for journal entry creation
+            $nonInvoicePayment->load(['client.chartOfAccount']);
 
             // Create journal entry for non-invoice payment
             try {
@@ -162,6 +195,9 @@ class NonInvoicePaymentController extends Controller
             // If amount changed, create a new journal entry for the adjustment
             if ($payment->amount != $request->paidAmount) {
                 try {
+                    // Load the client relationship with chart of account for journal entry creation
+                    $payment->load(['client.chartOfAccount']);
+                    
                     $journalService = new BusinessTransactionJournalService();
                     $adjustmentAmount = $request->paidAmount - $payment->amount;
                     if ($adjustmentAmount > 0) {

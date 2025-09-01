@@ -32,9 +32,6 @@
                     <span class="required">*</span></label>
                   <select id="type" v-model="form.type" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('type') }" @change="updateMax">
-                    <option value="0">
-                      {{ $t('Add Due') }}
-                    </option>
                     <option value="1">
                       {{ $t('Add Payment') }}
                     </option>
@@ -189,7 +186,7 @@ export default {
     ],
     form: new Form({
       supplier: '',
-      type: 0,
+      type: 1,
       account: '',
       amount: '',
       chequeNo: '',
@@ -262,14 +259,6 @@ export default {
         this.form.nonPurchaseDue =
           Number(this.form.supplier.nonPurchaseCurrentDue) - amount
       }
-
-      if (this.form.supplier && this.form.type == 0) {
-        this.form.nonPurchaseTotal =
-          Number(this.form.supplier.nonPurchaseTotalDue) + amount
-        this.form.nonPurchasePaid = Number(this.form.supplier.nonPurchasePaid)
-        this.form.nonPurchaseDue =
-          Number(this.form.supplier.nonPurchaseCurrentDue) + amount
-      }
       return
     },
 
@@ -277,8 +266,6 @@ export default {
     updateMax() {
       if (this.form.supplier && this.form.type == 1) {
         this.form.max = this.form.supplier.nonPurchaseCurrentDue
-      } else {
-        this.form.max = 99999999999
       }
       this.updateValues()
       return

@@ -208,7 +208,7 @@ class BusinessTransactionJournalService
     /**
      * Create journal entry for invoice payment
      */
-    public function createInvoicePaymentJournal(AccountTransaction $transaction,Invoice $invoice, float $amount, int $userId): JournalEntry
+    public function createInvoicePaymentJournal(AccountTransaction $transaction, Invoice $invoice, float $amount, int $userId): JournalEntry
     {
         DB::beginTransaction();
         
@@ -265,8 +265,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, "Cash/Bank receipt for Invoice {$invoice->invoice_no}");
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $amount, 2, "Reduction in Accounts Receivable for Invoice {$invoice->invoice_no}");
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, " ");
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $amount, 2, " ");
 
             // Create bridge table record
             \App\Models\InvoiceJournal::create([
@@ -550,8 +550,17 @@ class BusinessTransactionJournalService
         DB::beginTransaction();
         
         try {
-            // Get default accounts
-            $otherIncomeAccount = $this->getDefaultAccount('Other Revenue', 'Revenue');
+            // Validate client has chart of account
+            if (!$nonInvoicePayment->client || !$nonInvoicePayment->client->isChartOfAccountConnected()) {
+                throw new Exception('Client must have a Chart of Account assigned for journal entries.');
+            }
+
+            // Get client-specific accounts receivable account
+            $clientAccountsReceivableAccount = $nonInvoicePayment->client->chartOfAccount;
+            
+            if (!$clientAccountsReceivableAccount) {
+                throw new Exception('Client Chart of Account not found.');
+            }
             
             // Try to get the bank account from the non-invoice payment transaction
             $bankAccount = null;
@@ -569,13 +578,9 @@ class BusinessTransactionJournalService
                 }
             }
             
-            // Fall back to default bank account if no specific one found
+            // If no specific bank account found, throw error - we need a specific account
             if (!$bankAccount) {
-                $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
-            }
-            
-            if (!$bankAccount || !$otherIncomeAccount) {
-                throw new Exception('Required chart of accounts not found.');
+                throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
             // Create journal entry
@@ -595,8 +600,10 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
+            // Line 1: Debit to Bank Account (Cash/Bank receipt)
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, "Cash/Bank receipt for non-invoice payment");
-            $this->createJournalEntryLine($journalEntry, $otherIncomeAccount->id, 0, $nonInvoicePayment->amount, 2, "Other Revenue from non-invoice payment");
+            // Line 2: Credit to Client's Accounts Receivable
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $nonInvoicePayment->amount, 2, "Reduction in client accounts receivable");
 
             // Create bridge table record (you'll need to create this model and migration)
             // \App\Models\NonInvoicePaymentJournal::create([
@@ -608,6 +615,7 @@ class BusinessTransactionJournalService
             return $journalEntry;
             
         } catch (Exception $e) {
+            // dd($e);
             DB::rollBack();
             throw $e;
         }

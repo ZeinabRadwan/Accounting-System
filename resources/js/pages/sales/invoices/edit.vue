@@ -1175,10 +1175,13 @@ export default {
         }
         
         if (item.taxType == 'Exclusive') {
+          // For exclusive tax: calculate VAT on the discounted amount
           item.productTax = priceAfterDiscount * (vatRate / 100);
           item.totalTax = item.productTax;
           item.totalPrice = priceAfterDiscount + item.totalTax;
         } else {
+          // For inclusive tax: VAT is already included in the price
+          // Calculate VAT amount from the discounted price
           item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + vatRate / 100));
           item.totalTax = item.productTax;
           item.totalPrice = priceAfterDiscount;
@@ -1204,10 +1207,13 @@ export default {
         let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount;
         
         if (item.taxType == 'Exclusive') {
+          // For exclusive tax: calculate VAT on the discounted amount
           item.productTax = priceAfterDiscount * (item.taxRate / 100);
           item.totalTax = item.productTax;
           item.totalPrice = priceAfterDiscount + item.totalTax;
         } else {
+          // For inclusive tax: VAT is already included in the price
+          // Calculate VAT amount from the discounted price
           item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + item.taxRate / 100));
           item.totalTax = item.productTax;
           item.totalPrice = priceAfterDiscount;
@@ -1240,10 +1246,13 @@ export default {
         let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount;
         
         if (item.taxType == 'Exclusive') {
+          // For exclusive tax: calculate VAT on the discounted amount
           item.productTax = priceAfterDiscount * (vatRate / 100);
           item.totalTax = item.productTax;
           item.totalPrice = priceAfterDiscount + item.totalTax;
         } else {
+          // For inclusive tax: VAT is already included in the price
+          // Calculate VAT amount from the discounted price
           item.productTax = priceAfterDiscount - (priceAfterDiscount / (1 + vatRate / 100));
           item.totalTax = item.productTax;
           item.totalPrice = priceAfterDiscount;

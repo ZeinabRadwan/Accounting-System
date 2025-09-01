@@ -27,7 +27,7 @@ class UpdateNonInvoicePaymentRequest extends BaseRequest
         return [
             'client' => 'required',
             'type' => 'required',
-            'account' => $this->type == 1 ? 'required' : 'nullable',
+            'account' => 'required',
             'paidAmount' => 'required|numeric|min:1|max:'.$this->max,
             'chequeNo' => 'nullable|string|max:255',
             'voucherNo' => 'nullable|string|max:255',
