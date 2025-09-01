@@ -481,9 +481,13 @@
             </form>
             <!-- /.card-body -->
             <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t("Save") }}
-              </v-button>
+              <button type="button" class="btn btn-info mr-2" @click="showValidationSummary">
+                <i class="fas fa-check-circle" /> {{ $t("Check Validation") }}
+              </button>
+              <button type="submit" :disabled="form.busy" class="btn btn-primary" @click="savePurchase">
+                <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
+                {{ form.busy ? $t("Saving...") : $t("Save") }}
+              </button>
               <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
                 <i class="fas fa-power-off" /> {{ $t("Reset") }}
               </button>
@@ -699,23 +703,15 @@ export default {
           name: product.name,
           code: product.code,
           qty: quantity,
-          taxType: product.taxType,
-          taxRate: product.taxRate,
-          productTax: productTax,
-          totalTax: productTax * quantity,
           unitPrice: purchasePrice,
-          unitCost:
-            product.taxType == "Exclusive"
-              ? purchasePrice + totalTax
-              : purchasePrice,
-          totalPrice:
-            product.taxType == "Exclusive"
-              ? 1 * (purchasePrice + totalTax)
-              : 1 * purchasePrice,
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
           selectedVatRate: null,
+          productTax: 0,
+          totalTax: 0,
+          unitCost: purchasePrice,
+          totalPrice: purchasePrice * quantity,
           // Include chart of account IDs for validation
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,
@@ -758,22 +754,37 @@ export default {
             }
           }
         }
-        item.productTax =
-          item.taxType == "Exclusive"
-            ? item.unitPrice * (item.taxRate / 100)
-            : item.unitPrice - item.unitPrice / (1 + item.taxRate / 100);
-        item.totalTax = item.productTax * item.qty;
-        item.totalPrice =
-          item.taxType == "Exclusive"
-            ? item.qty * item.unitPrice + item.totalTax
-            : item.qty * item.unitPrice;
-        item.unitCost =
-          item.taxType == "Exclusive"
-            ? Number(item.unitPrice) + Number(item.productTax)
-            : item.unitPrice;
+        
+        // Calculate VAT based on selected VAT rate
+        if (item.selectedVatRate && item.selectedVatRate.rate) {
+          const vatRate = Number(item.selectedVatRate.rate);
+          const vatType = item.selectedVatRate.tax_type || 'Exclusive'; // Default to Exclusive if not specified
+          
+          if (vatType === 'Exclusive') {
+            // VAT is added on top of the price
+            item.productTax = Number((item.unitPrice * (vatRate / 100)).toFixed(2));
+            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+            item.totalPrice = Number((item.qty * item.unitPrice + item.totalTax).toFixed(2));
+            item.unitCost = Number((item.unitPrice + item.productTax).toFixed(2));
+          } else {
+            // VAT is included in the price
+            item.productTax = Number((item.unitPrice - (item.unitPrice / (1 + vatRate / 100))).toFixed(2));
+            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+            item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
+            item.unitCost = Number(item.unitPrice);
+          }
+        } else {
+          // No VAT selected, calculate without VAT
+          item.productTax = 0;
+          item.totalTax = 0;
+          item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
+          item.unitCost = Number(item.unitPrice);
+        }
+        
         this.form.selectedProducts[index] = item;
       }
       this.updateTax();
+      this.calculateSum();
       return;
     },
     
@@ -787,8 +798,8 @@ export default {
           item.discountAmount = Number(item.discount || 0);
         }
         
-        // Recalculate totals
-        this.generateItemTotal(index);
+        // Recalculate totals including VAT
+        this.generateItemTotal(null, null, index, null);
         this.calculateSum();
       }
     },
@@ -811,7 +822,7 @@ export default {
         }
         
         // Recalculate totals with new VAT rate
-        this.generateItemTotal(index);
+        this.generateItemTotal(null, null, index, null);
         this.calculateSum();
       }
     },
@@ -836,6 +847,7 @@ export default {
         this.form.selectedProducts.splice(index, 1);
       }
       this.updateTax();
+      this.calculateSum();
       return;
     },
     // update tax
@@ -891,23 +903,248 @@ export default {
     },
     // save purchase
     async savePurchase() {
-      await this.form
-        .post(window.location.origin + "/api/purchases")
-        .then(({ data }) => {
-          toast.fire({
-            type: "success",
-            title: this.$t("Purchase added successfully"),
-          });
-          this.$router.push({
-            name: "purchases.show",
-            params: { slug: data.data.slug },
-          });
-        })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+      console.log('Save purchase method called');
+      console.log('Form data:', this.form.data());
+      console.log('Form errors:', this.form.errors);
+      console.log('Form busy state:', this.form.busy);
+      
+      // Check if form is already busy
+      if (this.form.busy) {
+        console.log('Form is already busy, preventing submission');
+        return;
+      }
+      
+      // Validate required fields with detailed logging
+      console.log('=== VALIDATION CHECK START ===');
+      
+      // Check supplier
+      console.log('Supplier check:', {
+        hasSupplier: !!this.form.supplier,
+        supplierData: this.form.supplier,
+        supplierId: this.form.supplier ? this.form.supplier.id : null
+      });
+      
+      if (!this.form.supplier) {
+        console.log('❌ Validation failed: No supplier selected');
+        toast.fire({
+          type: "error",
+          title: this.$t("Validation Error"),
+          text: this.$t("Please select a supplier")
         });
+        return;
+      }
+      console.log('✅ Supplier validation passed');
+      
+      // Check products
+      console.log('Products check:', {
+        hasSelectedProducts: !!this.form.selectedProducts,
+        productsLength: this.form.selectedProducts ? this.form.selectedProducts.length : 0,
+        productsData: this.form.selectedProducts
+      });
+      
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        console.log('❌ Validation failed: No products selected');
+        toast.fire({
+          type: "error",
+          title: this.$t("Validation Error"),
+          text: this.$t("Please add at least one product")
+        });
+        return;
+      }
+      console.log('✅ Products validation passed');
+      
+      // Check account
+      console.log('Account check:', {
+        hasAccount: !!this.form.account,
+        accountData: this.form.account,
+        accountId: this.form.account ? this.form.account.id : null
+      });
+      
+      if (!this.form.account) {
+        console.log('❌ Validation failed: No account selected');
+        toast.fire({
+          type: "error",
+          title: this.$t("Validation Error"),
+          text: this.$t("Please select an account")
+        });
+        return;
+      }
+      console.log('✅ Account validation passed');
+      
+      // Check total paid
+      console.log('Total paid check:', {
+        hasTotalPaid: !!this.form.totalPaid,
+        totalPaidValue: this.form.totalPaid,
+        totalPaidNumber: Number(this.form.totalPaid),
+        isValidAmount: this.form.totalPaid && Number(this.form.totalPaid) > 0
+      });
+      
+      if (!this.form.totalPaid || Number(this.form.totalPaid) <= 0) {
+        console.log('❌ Validation failed: Invalid total paid amount');
+        toast.fire({
+          type: "error",
+          title: this.$t("Validation Error"),
+          text: this.$t("Please enter the total amount paid")
+        });
+        return;
+      }
+      console.log('✅ Total paid validation passed');
+      
+      // Check product details
+      console.log('=== PRODUCT DETAIL VALIDATION ===');
+      this.form.selectedProducts.forEach((product, index) => {
+        console.log(`Product ${index + 1} (${product.name}):`, {
+          id: product.id,
+          qty: product.qty,
+          unitPrice: product.unitPrice,
+          hasQty: !!product.qty && Number(product.qty) > 0,
+          hasUnitPrice: !!product.unitPrice && Number(product.unitPrice) > 0,
+          totalPrice: product.totalPrice,
+          selectedVatRate: product.selectedVatRate
+        });
+        
+        if (!product.qty || Number(product.qty) <= 0) {
+          console.log(`❌ Product ${index + 1} validation failed: Invalid quantity`);
+        }
+        if (!product.unitPrice || Number(product.unitPrice) <= 0) {
+          console.log(`❌ Product ${index + 1} validation failed: Invalid unit price`);
+        }
+      });
+      
+      console.log('=== VALIDATION CHECK END ===');
+      
+      // Show validation summary to user
+      this.showValidationSummary();
+      
+      try {
+        console.log('Submitting form to API...');
+        console.log('Form validation state:', this.form.errors.any());
+        console.log('Form busy state:', this.form.busy);
+        
+        // Log the actual data being sent
+        const formData = this.form.data();
+        console.log('Data being sent to API:', formData);
+        console.log('Selected products data:', this.form.selectedProducts);
+        
+        // Ensure all required fields are present
+        const requiredData = {
+          supplier_id: this.form.supplier.id,
+          products: this.form.selectedProducts.map(product => ({
+            id: product.id,
+            qty: product.qty,
+            unit_price: product.unitPrice,
+            discount: product.discount || 0,
+            discount_type: product.discountType || 'fixed',
+            selected_vat_rate: product.selectedVatRate ? product.selectedVatRate.id : null,
+            total_tax: product.totalTax || 0,
+            total_price: product.totalPrice || 0
+          })),
+          account_id: this.form.account.id,
+          total_paid: this.form.totalPaid,
+          po_reference: this.form.poReference,
+          payment_terms: this.form.paymentTerms,
+          transport_cost: this.form.transportCost || 0,
+          discount: this.form.discount || 0,
+          note: this.form.note,
+          po_date: this.form.poDate,
+          purchase_date: this.form.purchaseDate,
+          status: this.form.status
+        };
+        
+        console.log('Required data structure:', requiredData);
+        
+        const response = await this.form.post(window.location.origin + "/api/purchases");
+        console.log('API response:', response);
+        
+        toast.fire({
+          type: "success",
+          title: this.$t("Purchase added successfully"),
+        });
+        
+        this.$router.push({
+          name: "purchases.show",
+          params: { slug: response.data.data.slug },
+        });
+      } catch (error) {
+        console.error('Save purchase error:', error);
+        
+        if (error.response && error.response.data && error.response.data.errors) {
+          // Validation errors from backend
+          const errorMessages = Object.values(error.response.data.errors).flat();
+          toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: errorMessages.join(', ')
+          });
+        } else if (error.response && error.response.data && error.response.data.message) {
+          // Custom error message from backend
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: error.response.data.message
+          });
+        } else {
+          // Generic error
+          toast.fire({ 
+            type: "error", 
+            title: this.$t("Oops...something went wrong"),
+            text: error.message || this.$t("Please try again")
+          });
+        }
+      }
+        },
+    
+    // Show validation summary to user
+    showValidationSummary() {
+      const missingFields = [];
+      
+      if (!this.form.supplier) {
+        missingFields.push('Supplier');
+      }
+      
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        missingFields.push('Products');
+      }
+      
+      if (!this.form.account) {
+        missingFields.push('Account');
+      }
+      
+      if (!this.form.totalPaid || Number(this.form.totalPaid) <= 0) {
+        missingFields.push('Total Amount Paid');
+      }
+      
+      // Check product details
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach((product, index) => {
+          if (!product.qty || Number(product.qty) <= 0) {
+            missingFields.push(`Product ${index + 1} Quantity`);
+          }
+          if (!product.unitPrice || Number(product.unitPrice) <= 0) {
+            missingFields.push(`Product ${index + 1} Unit Price`);
+          }
+        });
+      }
+      
+      if (missingFields.length > 0) {
+        console.log('❌ Missing/Invalid Fields:', missingFields);
+        toast.fire({
+          type: "warning",
+          title: this.$t("Validation Summary"),
+          html: `
+            <div class="text-left">
+              <strong>Missing or Invalid Fields:</strong><br>
+              ${missingFields.map(field => `• ${field}`).join('<br>')}
+            </div>
+          `,
+          timer: 8000,
+          timerProgressBar: true
+        });
+      } else {
+        console.log('✅ All validation checks passed');
+      }
     },
-
+    
     // Auto-assign Chart of Account for supplier
     async autoAssignSupplierChartOfAccount() {
       if (!this.form.supplier || this.isAutoAssigningSupplier) {
@@ -928,24 +1165,7 @@ export default {
           
           console.log('Supplier after updating chart_of_account_id:', this.form.supplier);
           
-          // Add a small delay to ensure the backend has processed the update
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          // Refresh suppliers list to get updated data
-          await this.getSuppliers();
-          
-          // Find and update the current supplier with the refreshed data
-          if (this.items && this.items.length > 0) {
-            const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
-            if (updatedSupplier) {
-              console.log('Found updated supplier in items:', updatedSupplier);
-              // Update the form supplier with all the latest data
-              this.form.supplier = { ...updatedSupplier };
-              console.log('Form supplier after refresh:', this.form.supplier);
-            }
-          }
-          
-          // Force Vue to re-render the component
+          // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
             this.$forceUpdate();
           });
@@ -990,22 +1210,7 @@ export default {
           // Update the product data with new chart of account
           product.purchase_account_id = response.data.purchase_account_id;
           
-          // Add a small delay to ensure the backend has processed the update
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          // Refresh products list to get updated data
-          await this.getProducts();
-          
-          // Find and update the current product with the refreshed data
-          if (this.products && this.products.length > 0) {
-            const updatedProduct = this.products.find(p => p.id === product.id);
-            if (updatedProduct) {
-              // Update the product with all the latest data
-              Object.assign(product, updatedProduct);
-            }
-          }
-          
-          // Force Vue to re-render the component
+          // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
             this.$forceUpdate();
           });
@@ -1039,6 +1244,16 @@ export default {
     onSupplierChange() {
       // Clear any previous errors
       this.form.errors.clear('supplier');
+      
+      // If a supplier is selected, ensure we have the latest data including Chart of Account
+      if (this.form.supplier && this.form.supplier.id) {
+        // Find the supplier in the items list to get the most up-to-date data
+        const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
+        if (updatedSupplier) {
+          // Update the form supplier with all the latest data
+          this.form.supplier = { ...updatedSupplier };
+        }
+      }
     },
   },
 };

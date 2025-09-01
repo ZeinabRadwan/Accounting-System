@@ -26,6 +26,7 @@ class SupplierListResource extends JsonResource
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('/images/suppliers/'.$this->image_path) : '',
             'type' => $this->type,
+            'chart_of_account_id' => $this->chart_of_account_id,
         ];
     }
 }
