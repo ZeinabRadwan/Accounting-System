@@ -26,8 +26,8 @@ class StoreNonPurchasePaymentRequest extends BaseRequest
         return [
             'supplier' => 'required',
             'type' => 'required',
-            'account' => $this->type == 1 ? 'required' : 'nullable',
-            'availableBalance' => $this->type == 1 ? 'required|numeric|min:'.$this->amount : 'nullable',
+            'account' => 'required',
+            'availableBalance' => 'required|numeric|min:'.$this->amount,
             'amount' => 'required|numeric|min:1|max:'.$this->max,
             'chequeNo' => 'nullable|string|max:255',
             'receiptNo' => 'nullable|string|max:255',

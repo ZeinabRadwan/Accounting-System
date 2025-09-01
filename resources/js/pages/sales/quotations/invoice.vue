@@ -513,17 +513,19 @@ export default {
             }
           }
         }
-        item.productTax =
-          item.taxType == 'Exclusive'
-            ? item.unitPrice * (item.taxRate / 100)
-            : item.unitPrice - item.unitPrice / (1 + item.taxRate / 100)
-
-        item.totalTax = item.productTax * item.qty
-
-        item.totalPrice =
-          item.taxType == 'Exclusive'
-            ? item.qty * item.unitPrice + item.totalTax
-            : item.qty * item.unitPrice
+        // Calculate VAT based on tax type
+        if (item.taxType == 'Exclusive') {
+          // For exclusive tax: calculate VAT on unit price
+          item.productTax = item.unitPrice * (item.taxRate / 100)
+          item.totalTax = item.productTax * item.qty
+          item.totalPrice = item.qty * item.unitPrice + item.totalTax
+        } else {
+          // For inclusive tax: VAT is already included in unit price
+          // Calculate VAT amount from the unit price
+          item.productTax = item.unitPrice - item.unitPrice / (1 + item.taxRate / 100)
+          item.totalTax = item.productTax * item.qty
+          item.totalPrice = item.qty * item.unitPrice
+        }
         item.unitCost =
           item.taxType == 'Exclusive'
             ? Number(item.unitPrice) + Number(item.productTax)

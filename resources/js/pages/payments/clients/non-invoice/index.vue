@@ -91,11 +91,8 @@
                     </td>
                     <td>{{ data.clientName }}</td>
                     <td>
-                      <span v-if="data.type === 1" class="badge bg-primary">{{
+                      <span class="badge bg-primary">{{
                         $t("Due Paid")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Due Added")
                       }}</span>
                     </td>
                     <td>{{ data.amount | withCurrency }}</td>

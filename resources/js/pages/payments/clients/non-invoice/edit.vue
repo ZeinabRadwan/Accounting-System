@@ -31,9 +31,6 @@
                   <label for="type">{{ $t('Type') }}</label>
                   <select id="type" v-model="form.type" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('type') }" disabled>
-                    <option value="0">
-                      {{ $t('Add Due') }}
-                    </option>
                     <option value="1">
                       {{ $t('Add Payment') }}
                     </option>
@@ -236,10 +233,7 @@ export default {
       this.form.receiptNo = data.data.transaction
         ? data.data.transaction.receipt_no
         : ''
-      this.form.max =
-        data.data.type == 1
-          ? data.data.client.nonInvoiceCurrentDue + data.data.amount
-          : 99999999999
+      this.form.max = data.data.client.nonInvoiceCurrentDue + data.data.amount
     },
 
     // get accounts
@@ -263,16 +257,7 @@ export default {
           paidAmount
       }
 
-      if (this.form.client && this.form.type == 0) {
-        this.form.nonInvoiceTotal =
-          Number(this.form.client.nonInvoiceDue) -
-          Number(this.form.rowPaid) +
-          paidAmount
-        this.form.nonInvoicePaid = Number(this.form.client.nonInvoicePaid)
-        this.form.nonInvoiceDue =
-          Number(this.form.client.nonInvoiceCurrentDue - this.form.rowPaid) +
-          paidAmount
-      }
+
       return
     },
 

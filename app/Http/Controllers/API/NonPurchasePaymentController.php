@@ -185,14 +185,9 @@ class NonPurchasePaymentController extends Controller
 
             // check if the payment can be delete
             $canDelete = true;
-            if ($payment->type == 0) {
-                if ($payment->amount > $payment->supplier->nonPurchaseCurrentDue()) {
-                    $canDelete = false;
-                }
-            }
-
+            
             if ($canDelete) {
-                if ($payment->type == 1) {
+                if ($payment->paymentTransaction) {
                     $payment->paymentTransaction->delete();
                 }
 

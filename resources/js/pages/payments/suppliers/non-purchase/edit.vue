@@ -31,9 +31,6 @@
                   <label for="type">{{ $t('Type') }}</label>
                   <select id="type" v-model="form.type" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('type') }" disabled>
-                    <option value="0">
-                      {{ $t('Add Due') }}
-                    </option>
                     <option value="1">
                       {{ $t('Add Payment') }}
                     </option>
@@ -186,7 +183,7 @@ export default {
     ],
     form: new Form({
       supplier: '',
-      type: 0,
+      type: 1,
       account: '',
       amount: '',
       chequeNo: '',
@@ -246,10 +243,7 @@ export default {
 
       this.form.chequeNo = data.data.transaction.cheque_no
       this.form.receiptNo = data.data.transaction.receipt_no
-      this.form.max =
-        data.data.type == 1
-          ? data.data.supplier.nonPurchaseCurrentDue + data.data.amount
-          : 99999999999
+      this.form.max = data.data.supplier.nonPurchaseCurrentDue + data.data.amount
     },
 
     // get accounts
@@ -281,16 +275,7 @@ export default {
           amount
       }
 
-      if (this.form.supplier && this.form.type == 0) {
-        this.form.nonPurchaseTotal =
-          Number(this.form.supplier.nonPurchaseTotalDue) -
-          Number(this.form.rowPaid) +
-          amount
-        this.form.nonPurchasePaid = Number(this.form.supplier.nonPurchasePaid)
-        this.form.nonPurchaseDue =
-          Number(this.form.supplier.nonPurchaseCurrentDue - this.form.rowPaid) +
-          amount
-      }
+
       this.form.max = this.form.supplier.nonPurchaseCurrentDue
       return
     },

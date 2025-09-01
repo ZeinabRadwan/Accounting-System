@@ -1443,17 +1443,20 @@ export default {
         
         // Calculate tax based on discounted price
         if (item.taxType == "Exclusive") {
+          // For exclusive tax: calculate VAT on the discounted amount
           item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
+          item.totalTax = this.roundToTwoDecimals(item.productTax);
           item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
         } else {
-          // For inclusive tax, recalculate based on discounted unit price
+          // For inclusive tax: VAT is already included in the unit price
+          // Calculate the VAT amount from the discounted price
           let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
           item.unitPrice = discountedUnitPrice;
-          item.unitCost = this.roundToTwoDecimals(discountedUnitPrice + (discountedUnitPrice * (vatRate / 100)));
-          item.productTax = this.roundToTwoDecimals(item.unitCost - item.unitPrice);
+          
+          // Calculate VAT amount from the inclusive price
+          item.productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
           item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
-          item.totalPrice = this.roundToTwoDecimals(item.qty * item.unitCost);
+          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
         }
         
         this.form.selectedProducts[index] = item;
