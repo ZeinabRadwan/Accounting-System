@@ -16,7 +16,8 @@ class VatRate extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'code', 'rate', 'note', 'status',  'is_group_tax', 'group_tax_ids',
+        'name', 'slug', 'code', 'rate', 'note', 'status', 'is_group_tax', 'group_tax_ids',
+        'sales_vat_account_id', 'purchase_vat_account_id'
     ];
 
     protected $casts = [
@@ -39,13 +40,101 @@ class VatRate extends Model
         ];
     }
 
-      // Accessor to get group tax details
-      public function getGroupTaxDetailsAttribute()
-      {
-          if ($this->is_group_tax && !empty($this->group_tax_ids)) {
-              return VatRate::whereIn('id', $this->group_tax_ids)->get();
-          }
+    /**
+     * Get the sales VAT account for this VAT rate
+     */
+    public function salesVatAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'sales_vat_account_id');
+    }
 
-          return null;
-      }
+    /**
+     * Get the purchase VAT account for this VAT rate
+     */
+    public function purchaseVatAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'purchase_vat_account_id');
+    }
+
+    /**
+     * Get the default sales VAT account if none is set
+     */
+    public function getSalesVatAccount()
+    {
+        if ($this->sales_vat_account_id) {
+            return $this->salesVatAccount;
+        }
+        
+        // Get default account from routing settings
+        $setting = \App\Models\AccountRoutingSetting::where('module', 'vat')
+            ->where('setting_key', 'sales_vat_account')
+            ->where('is_active', true)
+            ->first();
+        
+        if ($setting && $setting->main_account_id) {
+            return ChartOfAccount::find($setting->main_account_id);
+        }
+        
+        // Fallback to account named "Sales VAT Payable" if routing not configured
+        return ChartOfAccount::where('name', 'Sales VAT Payable')
+            ->where('is_active', true)
+            ->first();
+    }
+
+    /**
+     * Get the default purchase VAT account if none is set
+     */
+    public function getPurchaseVatAccount()
+    {
+        if ($this->purchase_vat_account_id) {
+            return $this->purchaseVatAccount;
+        }
+        
+        // Get default account from routing settings
+        $setting = \App\Models\AccountRoutingSetting::where('module', 'vat')
+            ->where('setting_key', 'purchase_vat_account')
+            ->where('is_active', true)
+            ->first();
+        
+        if ($setting && $setting->main_account_id) {
+            return ChartOfAccount::find($setting->main_account_id);
+        }
+        
+        // Fallback to account named "Purchase VAT Receivable" if routing not configured
+        return ChartOfAccount::where('name', 'Purchase VAT Receivable')
+            ->where('is_active', true)
+            ->first();
+    }
+
+    /**
+     * Check if this VAT rate has proper chart of account connections
+     */
+    public function hasChartOfAccountConnections(): bool
+    {
+        $salesAccount = $this->getSalesVatAccount();
+        $purchaseAccount = $this->getPurchaseVatAccount();
+        
+        return $salesAccount && $purchaseAccount;
+    }
+
+    /**
+     * Get validation message for chart of account connections
+     */
+    public function getChartOfAccountValidationMessage(): string
+    {
+        if (!$this->hasChartOfAccountConnections()) {
+            return "VAT Rate '{$this->name}' is not properly connected to required Chart of Accounts. Please ensure Sales VAT Payable and Purchase VAT Receivable accounts exist.";
+        }
+        return '';
+    }
+
+    // Accessor to get group tax details
+    public function getGroupTaxDetailsAttribute()
+    {
+        if ($this->is_group_tax && !empty($this->group_tax_ids)) {
+            return VatRate::whereIn('id', $this->group_tax_ids)->get();
+        }
+
+        return null;
+    }
 }

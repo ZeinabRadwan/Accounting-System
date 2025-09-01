@@ -47,10 +47,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('domain_requests', function (Blueprint $table) {
-            $table->dropForeign(['modified_by']);
-            $table->dropForeign(['tenant_id']);
-            $table->dropIfExists();
-        });
+        // SQLite doesn't support dropping foreign keys, so we just drop the table
+        Schema::dropIfExists('domain_requests');
     }
 };

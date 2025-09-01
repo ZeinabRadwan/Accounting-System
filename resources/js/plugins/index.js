@@ -1,7 +1,7 @@
 import './fontawesome'
 import './adminLte'
 import './ToggleButton'
-import './sweetalert'
+import './custom-toast'
 import './filter'
 import './VueInputTag'
 import './rtl'

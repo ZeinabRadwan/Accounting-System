@@ -35,6 +35,8 @@ class UpdateVatRateRequest extends BaseRequest
             'note' => 'nullable|string|max:255',
             'isGroupTax' => 'boolean',
             'groupTaxItem' => 'required_if:isGroupTax,true|array',
+            'sales_vat_account_id' => 'nullable|exists:chart_of_accounts,id',
+            'purchase_vat_account_id' => 'nullable|exists:chart_of_accounts,id',
         ];
     }
 }

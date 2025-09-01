@@ -77,9 +77,8 @@
                     <th>{{ $t("Name") }}</th>
                     <th>{{ $t("Contact Number") }}</th>
                     <th>{{ $t("Email") }}</th>
-                                         <th>{{ $t("Company Name") }}</th>
-                     <th>{{ $t("CR Number") }}</th>
-                     <th>{{ $t("Type") }}</th>
+                    <th>{{ $t("Company Name") }}</th>
+                    <th>{{ $t("Type") }}</th>
                     <th>{{ $t("Status") }}</th>
                     <th v-if="$can('supplier-view') ||
                       $can('supplier-edit') ||
@@ -120,9 +119,8 @@
                     </td>
                     <td>{{ data.phoneNumber }}</td>
                     <td>{{ data.email }}</td>
-                                         <td>{{ data.companyName }}</td>
-                     <td>{{ data.crNumber || 'N/A' }}</td>
-                     <td>{{ data.type || 'Company' }}</td>
+                    <td>{{ data.companyName }}</td>
+                    <td>{{ data.type }}</td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -148,6 +146,10 @@
                         }" class="btn btn-info btn-sm">
                           <i class="fas fa-edit" />
                         </router-link>
+                        <button v-if="$can('supplier-edit')" v-tooltip="$t('Quick Edit')" 
+                          @click="openEditModal(data)" class="btn btn-warning btn-sm">
+                          <i class="fas fa-edit" />
+                        </button>
                         <a v-if="$can('supplier-delete')" v-tooltip="$t('Delete')" href="#"
                           class="btn btn-danger btn-sm" @click="deleteData(data.slug)">
                           <i class="fas fa-trash" />
@@ -156,9 +158,9 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                                         <td colspan="10">
-                       <EmptyTable />
-                     </td>
+                    <td colspan="9">
+                      <EmptyTable />
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -192,6 +194,16 @@
         <img :src="imagePath" class="rounded img-fluid" loading="lazy" />
       </div>
     </Modal>
+    
+    <!-- Supplier Edit Modal -->
+    <SupplierEditModal 
+      :showModal="showEditModal" 
+      :supplier="selectedSupplierForEdit"
+      @supplierUpdated="onSupplierUpdated"
+      @reloadSuppliers="reload"
+      @close="showEditModal = false"
+    />
+    
     <!--csv modal start-->
     <Modal class="pay-modal" v-if="showUploadCsvModal" @close="showUploadCsvModal = false">
       <h5 slot="header">{{ $t("Upload Your CSV file") }}</h5>
@@ -228,6 +240,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
+import SupplierEditModal from "../../components/SupplierEditModal.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -236,6 +249,7 @@ export default {
   },
   components: {
     DateRangePicker,
+    SupplierEditModal,
   },
   data: () => ({
     form: new Form({
@@ -257,6 +271,8 @@ export default {
     selectedType: "",
     perPage: 10,
     showModal: false,
+    showEditModal: false,
+    selectedSupplierForEdit: null,
     supplierPrefix: "",
     minDate: moment(new Date("01-01-2021")).format("YYYY-MM-DD"),
     maxDate: moment().add(1, "days").format("YYYY-MM-DD"),
@@ -381,6 +397,21 @@ export default {
         "YYYY-MM-DD"
       );
       this.searchData();
+    },
+    
+    // Open edit modal
+    openEditModal(supplier) {
+      this.selectedSupplierForEdit = supplier;
+      this.showEditModal = true;
+    },
+    
+    // Handle supplier updated event
+    onSupplierUpdated(updatedSupplier) {
+      // Update the supplier in the list
+      const index = this.items.findIndex(item => item.slug === updatedSupplier.slug);
+      if (index !== -1) {
+        this.items[index] = { ...this.items[index], ...updatedSupplier };
+      }
     },
     // refresh table
     refreshTable() {

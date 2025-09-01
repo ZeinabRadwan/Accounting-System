@@ -720,6 +720,42 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label for="country"
+                                                >{{
+                                                    $t(
+                                                        'Country'
+                                                    )
+                                                }}
+                                                <span class="required"
+                                                    >*</span
+                                                ></label
+                                            >
+                                            <select
+                                                v-model="form.country"
+                                                name="country"
+                                                class="form-control"
+                                                :class="{
+                                                    'is-invalid':
+                                                        form.errors.has(
+                                                            'country'
+                                                        ),
+                                                }"
+                                            >
+                                                <option value="">{{ $t('Select a country') }}</option>
+                                                <option
+                                                    v-for="country in countries"
+                                                    :key="country.code"
+                                                    :value="country.code"
+                                                >
+                                                    {{ country.name }}
+                                                </option>
+                                            </select>
+                                            <has-error
+                                                :form="form"
+                                                field="country"
+                                            />
+                                        </div>
                                         <div
                                             v-if="items"
                                             class="form-group col-md-4"
@@ -1160,6 +1196,155 @@ export default {
         allClients: [],
         allAccounts: [],
         allVatRates: [],
+        countries: [
+            { code: 'SA', name: 'Saudi Arabia' },
+            { code: 'US', name: 'United States' },
+            { code: 'CA', name: 'Canada' },
+            { code: 'GB', name: 'United Kingdom' },
+            { code: 'DE', name: 'Germany' },
+            { code: 'FR', name: 'France' },
+            { code: 'IT', name: 'Italy' },
+            { code: 'ES', name: 'Spain' },
+            { code: 'NL', name: 'Netherlands' },
+            { code: 'BE', name: 'Belgium' },
+            { code: 'CH', name: 'Switzerland' },
+            { code: 'AT', name: 'Austria' },
+            { code: 'SE', name: 'Sweden' },
+            { code: 'NO', name: 'Norway' },
+            { code: 'DK', name: 'Denmark' },
+            { code: 'FI', name: 'Finland' },
+            { code: 'PL', name: 'Poland' },
+            { code: 'CZ', name: 'Czech Republic' },
+            { code: 'HU', name: 'Hungary' },
+            { code: 'RO', name: 'Romania' },
+            { code: 'BG', name: 'Bulgaria' },
+            { code: 'HR', name: 'Croatia' },
+            { code: 'SI', name: 'Slovenia' },
+            { code: 'SK', name: 'Slovakia' },
+            { code: 'LT', name: 'Lithuania' },
+            { code: 'LV', name: 'Latvia' },
+            { code: 'EE', name: 'Estonia' },
+            { code: 'IE', name: 'Ireland' },
+            { code: 'PT', name: 'Portugal' },
+            { code: 'GR', name: 'Greece' },
+            { code: 'CY', name: 'Cyprus' },
+            { code: 'MT', name: 'Malta' },
+            { code: 'LU', name: 'Luxembourg' },
+            { code: 'IS', name: 'Iceland' },
+            { code: 'LI', name: 'Liechtenstein' },
+            { code: 'MC', name: 'Monaco' },
+            { code: 'SM', name: 'San Marino' },
+            { code: 'VA', name: 'Vatican City' },
+            { code: 'AD', name: 'Andorra' },
+            { code: 'AU', name: 'Australia' },
+            { code: 'NZ', name: 'New Zealand' },
+            { code: 'JP', name: 'Japan' },
+            { code: 'CN', name: 'China' },
+            { code: 'KR', name: 'South Korea' },
+            { code: 'IN', name: 'India' },
+            { code: 'BR', name: 'Brazil' },
+            { code: 'MX', name: 'Mexico' },
+            { code: 'AR', name: 'Argentina' },
+            { code: 'CL', name: 'Chile' },
+            { code: 'CO', name: 'Colombia' },
+            { code: 'PE', name: 'Peru' },
+            { code: 'VE', name: 'Venezuela' },
+            { code: 'UY', name: 'Uruguay' },
+            { code: 'PY', name: 'Paraguay' },
+            { code: 'BO', name: 'Bolivia' },
+            { code: 'EC', name: 'Ecuador' },
+            { code: 'GY', name: 'Guyana' },
+            { code: 'SR', name: 'Suriname' },
+            { code: 'FK', name: 'Falkland Islands' },
+            { code: 'GS', name: 'South Georgia' },
+            { code: 'AQ', name: 'Antarctica' },
+            { code: 'RU', name: 'Russia' },
+            { code: 'UA', name: 'Ukraine' },
+            { code: 'BY', name: 'Belarus' },
+            { code: 'MD', name: 'Moldova' },
+            { code: 'GE', name: 'Georgia' },
+            { code: 'AM', name: 'Armenia' },
+            { code: 'AZ', name: 'Azerbaijan' },
+            { code: 'KZ', name: 'Kazakhstan' },
+            { code: 'UZ', name: 'Uzbekistan' },
+            { code: 'TM', name: 'Turkmenistan' },
+            { code: 'KG', name: 'Kyrgyzstan' },
+            { code: 'TJ', name: 'Tajikistan' },
+            { code: 'MN', name: 'Mongolia' },
+            { code: 'AF', name: 'Afghanistan' },
+            { code: 'PK', name: 'Pakistan' },
+            { code: 'BD', name: 'Bangladesh' },
+            { code: 'LK', name: 'Sri Lanka' },
+            { code: 'NP', name: 'Nepal' },
+            { code: 'BT', name: 'Bhutan' },
+            { code: 'MV', name: 'Maldives' },
+            { code: 'MM', name: 'Myanmar' },
+            { code: 'TH', name: 'Thailand' },
+            { code: 'LA', name: 'Laos' },
+            { code: 'KH', name: 'Cambodia' },
+            { code: 'VN', name: 'Vietnam' },
+            { code: 'MY', name: 'Malaysia' },
+            { code: 'SG', name: 'Singapore' },
+            { code: 'ID', name: 'Indonesia' },
+            { code: 'PH', name: 'Philippines' },
+            { code: 'TW', name: 'Taiwan' },
+            { code: 'HK', name: 'Hong Kong' },
+            { code: 'MO', name: 'Macau' },
+            { code: 'TR', name: 'Turkey' },
+            { code: 'IL', name: 'Israel' },
+            { code: 'LB', name: 'Lebanon' },
+            { code: 'SY', name: 'Syria' },
+            { code: 'JO', name: 'Jordan' },
+            { code: 'IQ', name: 'Iraq' },
+            { code: 'IR', name: 'Iran' },
+            { code: 'KW', name: 'Kuwait' },
+            { code: 'BH', name: 'Bahrain' },
+            { code: 'QA', name: 'Qatar' },
+            { code: 'AE', name: 'United Arab Emirates' },
+            { code: 'OM', name: 'Oman' },
+            { code: 'YE', name: 'Yemen' },
+            { code: 'EG', name: 'Egypt' },
+            { code: 'SD', name: 'Sudan' },
+            { code: 'SS', name: 'South Sudan' },
+            { code: 'LY', name: 'Libya' },
+            { code: 'TN', name: 'Tunisia' },
+            { code: 'DZ', name: 'Algeria' },
+            { code: 'MA', name: 'Morocco' },
+            { code: 'EH', name: 'Western Sahara' },
+            { code: 'MR', name: 'Mauritania' },
+            { code: 'ML', name: 'Mali' },
+            { code: 'BF', name: 'Burkina Faso' },
+            { code: 'NE', name: 'Niger' },
+            { code: 'TD', name: 'Chad' },
+            { code: 'NG', name: 'Nigeria' },
+            { code: 'CM', name: 'Cameroon' },
+            { code: 'CF', name: 'Central African Republic' },
+            { code: 'CG', name: 'Republic of the Congo' },
+            { code: 'CD', name: 'Democratic Republic of the Congo' },
+            { code: 'GA', name: 'Gabon' },
+            { code: 'GQ', name: 'Equatorial Guinea' },
+            { code: 'ST', name: 'São Tomé and Príncipe' },
+            { code: 'AO', name: 'Angola' },
+            { code: 'NA', name: 'Namibia' },
+            { code: 'BW', name: 'Botswana' },
+            { code: 'ZW', name: 'Zimbabwe' },
+            { code: 'ZM', name: 'Zambia' },
+            { code: 'MW', name: 'Malawi' },
+            { code: 'MZ', name: 'Mozambique' },
+            { code: 'MG', name: 'Madagascar' },
+            { code: 'MU', name: 'Mauritius' },
+            { code: 'SC', name: 'Seychelles' },
+            { code: 'KM', name: 'Comoros' },
+            { code: 'DJ', name: 'Djibouti' },
+            { code: 'SO', name: 'Somalia' },
+            { code: 'ET', name: 'Ethiopia' },
+            { code: 'ER', name: 'Eritrea' },
+            { code: 'KE', name: 'Kenya' },
+            { code: 'TZ', name: 'Tanzania' },
+            { code: 'UG', name: 'Uganda' },
+            { code: 'RW', name: 'Rwanda' },
+            { code: 'BI', name: 'Burundi' },
+        ],
         breadcrumbsCurrent: 'General Settings',
         breadcrumbs: [
             {
@@ -1196,7 +1381,8 @@ export default {
             invoiceReturnPrefix: '',
             adjustmentPrefix: '',
             currency: '',
-            language: 'en',
+            language: 'ar',
+            country: 'SA',
             copyrightText: '',
             invoiceThankYouMessage: '',
             taxRegistrationNumber: '',
@@ -1298,6 +1484,7 @@ export default {
                 this.form.adjustmentPrefix = this.appInfo.adjustmentPrefix;
                 this.form.currency = this.appInfo.currency;
                 this.form.language = this.appInfo.language;
+                this.form.country = this.appInfo.country;
                 this.logo = this.appInfo.logo;
                 this.blackLogo = this.appInfo.blackLogo;
                 this.smallLogo = this.appInfo.smallLogo;

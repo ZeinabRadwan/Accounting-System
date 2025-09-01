@@ -29,8 +29,9 @@ use App\Http\Resources\InvoiceReturnListResource;
 use App\Http\Resources\NonInvoicePaymentListResource;
 use App\Http\Resources\ClientWithInvoicePaymentResource;
 use App\Http\Resources\ClientWithNonInvoicePaymentResource;
+use App\Models\ChartOfAccount;
 use Illuminate\Support\Str;
-use App\Models\Account;
+use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
@@ -86,49 +87,55 @@ class ClientController extends Controller
                 Image::make($request->image)->save(public_path('images/clients/') . $imageName);
             }
 
-            // Handle account creation or linking
-            $accountId = null;
-            if ($request->accountOption === 'new' && $request->bankName && $request->accountNumber) {
-                // Create new account
-                $account = Account::create([
-                    'bank_name' => $request->bankName,
-                    'branch_name' => $request->branchName,
-                    'account_number' => $request->accountNumber,
-                    'note' => $request->accountNote,
-                    'created_by' => Auth::id(),
-                    'status' => 1,
-                ]);
-                $accountId = $account->id;
-            } elseif ($request->accountOption === 'existing' && $request->existingAccount) {
-                // Link existing account
-                $accountId = $request->existingAccount['id'];
-            }
-
-            // create client
-            $userSchema = Client::create([
-                'name' => $request->name,
+            // Prepare client data
+            $clientData = [
+                // Legacy fields for backward compatibility
+                'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'client_id' => $code,
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
-                'phone_numbers' => $request->phoneNumbers,
-                'email_addresses' => $request->emailAddresses,
-                'company_name' => $request->companyName,
-                'tax_registration_number' => $request->taxRegistrationNumber,
-                'cr_number' => $request->crNumber,
-                'address' => $request->address,
+                'phone_legacy' => $request->phoneNumber,
+                'company_name' => $request->companyName ?? $request->businessName,
+                'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
+                'address' => $request->address ?? $request->streetAddress1,
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
-                'nationality_id' => $request->nationalityId,
-                'city_name' => $request->cityName,
-                'district' => $request->district,
-                'street_name' => $request->streetName,
-                'building_number' => $request->buildingNumber,
-                'zip_code' => $request->zipCode,
-                'additional_number' => $request->additionalNumber,
-                'unit_no' => $request->unitNo,
-                'account_id' => $accountId,
-            ]);
+                'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
+                
+                // New fields for enhanced client form
+                'code_number' => $request->codeNumber,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                
+                // Enhanced client details based on type
+                'full_name' => $request->type === 'Individual' ? $request->fullName : null,
+                'business_name' => $request->type === 'Company' ? $request->businessName : null,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_number' => $request->phoneNumber,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'neighbourhood' => $request->neighbourhood,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                
+                // Additional fields
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
+                
+                // Handle attachments if provided
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
+            ];
+
+            // Auto-assign Chart of Account if not provided
+            $clientData = $this->autoAssignChartOfAccountForClient($clientData);
+
+            // create client
+            $userSchema = Client::create($clientData);
 
             //send welcome notification
             try {
@@ -141,6 +148,27 @@ class ClientController extends Controller
             } catch (Exception $e) {
                 //handle email error here if necessary
                 throw new Exception($e);
+            }
+
+            // Handle representatives if provided
+            if ($request->has('representatives') && is_array($request->representatives)) {
+                foreach ($request->representatives as $repData) {
+                    if (!empty($repData['name'])) {
+                        // If this is a primary representative, unset others
+                        if (isset($repData['is_primary']) && $repData['is_primary']) {
+                            $userSchema->representatives()->update(['is_primary' => false]);
+                        }
+                        
+                        $userSchema->representatives()->create([
+                            'name' => $repData['name'],
+                            'email' => $repData['email'] ?? null,
+                            'phone' => $repData['phone'] ?? null,
+                            'position' => $repData['position'] ?? null,
+                            'is_primary' => $repData['is_primary'] ?? false,
+                            'notes' => $repData['notes'] ?? null,
+                        ]);
+                    }
+                }
             }
 
             // add activity log
@@ -173,6 +201,11 @@ class ClientController extends Controller
     {
         try {
             $client = Client::where('slug', $slug)->first();
+            
+            if ($client) {
+                $client->ensureChartOfAccountLoaded();
+            }
+            
             return new ClientResource($client);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -188,70 +221,144 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, $slug)
     {
-        // get client
-        $client = Client::where('slug', $slug)->first();
-
-        // validate request
-        // $this->validate($request, [
-        //     'name' => 'required|string|max:255',
-        //     'phoneNumber' => 'required|string|max:20|min:3',
-        //     'email' => 'nullable|email|max:255|min:3|unique:clients,email,' . $client->id,
-        //     'companyName' => 'nullable|string|max:100|min:2',
-        //     'address' => 'nullable|string|max:255',
-        // ]);
         try {
+            // get client
+            $client = Client::where('slug', $slug)->first();
+
             // upload thumbnail and set the name
             $imageName = $client->image_path;
             if ($request->image) {
                 if ($imageName) {
                     @unlink(public_path('images/clients/' . $imageName));
                 }
-                $imageName = time() . '.' . explode(
-                    '/',
-                    explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
-                )[1];
-                Image::make($request->image)->save(public_path('images/clients/') . $imageName);
+                
+                // SAFE IMAGE PROCESSING - Handle different image formats
+                if (strpos($request->image, 'data:image/') === 0) {
+                    // Base64 image data
+                    $imageData = explode(',', $request->image);
+                    if (count($imageData) > 1) {
+                        $imageInfo = explode(';', $imageData[0]);
+                        if (count($imageInfo) > 0) {
+                            $mimeType = explode(':', $imageInfo[0]);
+                            if (count($mimeType) > 1) {
+                                $extension = explode('/', $mimeType[1]);
+                                if (count($extension) > 1) {
+                                    $fileExtension = $extension[1];
+                                } else {
+                                    $fileExtension = 'png'; // fallback
+                                }
+                            } else {
+                                $fileExtension = 'png'; // fallback
+                            }
+                        } else {
+                            $fileExtension = 'png'; // fallback
+                        }
+                    } else {
+                        $fileExtension = 'png'; // fallback
+                    }
+                } else {
+                    // Direct file upload or other format
+                    $fileExtension = 'png'; // fallback
+                }
+                
+                $imageName = time() . '.' . $fileExtension;
+                
             }
 
             // update client
-            $client->update([
-                'name' => $request->name,
+            $updateData = [
+                // Legacy fields for backward compatibility
+                'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'email' => $request->email,
-                'phone' => $request->phoneNumber,
-                'phone_numbers' => $request->phoneNumbers,
-                'email_addresses' => $request->emailAddresses,
-                'company_name' => $request->companyName,
-                'tax_registration_number' => $request->taxRegistrationNumber,
-                'cr_number' => $request->crNumber,
-                'address' => $request->address,
+                'phone_legacy' => $request->phoneNumber,
+                'company_name' => $request->companyName ?? $request->businessName,
+                'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
+                'address' => $request->address ?? $request->streetAddress1,
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
-                'nationality_id' => $request->nationalityId,
-                'city_name' => $request->cityName,
-                'district' => $request->district,
-                'street_name' => $request->streetName,
-                'building_number' => $request->buildingNumber,
-                'zip_code' => $request->zipCode,
-                'additional_number' => $request->additionalNumber,
-                'unit_no' => $request->unitNo,
-            ]);
+                'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
+                
+                // New fields for enhanced client form
+                'code_number' => $request->codeNumber,
+                'notes' => $request->notes,
+                'display_language' => $request->displayLanguage,
+                
+                // Enhanced client details based on type
+                'full_name' => $request->type === 'Individual' ? $request->fullName : null,
+                'business_name' => $request->type === 'Company' ? $request->businessName : null,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'phone_number' => $request->phoneNumber,
+                'street_address1' => $request->streetAddress1,
+                'street_address2' => $request->streetAddress2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postalCode,
+                'country' => $request->country,
+                'neighbourhood' => $request->neighbourhood,
+                'commercial_register' => $request->commercialRegister,
+                'tax_card' => $request->taxCard,
+                
+                // Additional fields
+                'is_send_email' => $request->isSendEmail,
+                'is_send_sms' => $request->isSendSMS,
+                
+                // Handle attachments if provided
+                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
+            ];
+
+            // Auto-assign Chart of Account if not provided
+            $updateData = $this->autoAssignChartOfAccountForClient($updateData);
+
+            $client->update($updateData);
+
+            // Handle representatives if provided
+            if ($request->has('representatives') && is_array($request->representatives)) {
+                // Clear existing representatives
+                $client->representatives()->delete();
+                
+                // Add new representatives
+                foreach ($request->representatives as $repData) {
+                    if (!empty($repData['name'])) {
+                        // If this is a primary representative, unset others
+                        if (isset($repData['is_primary']) && $repData['is_primary']) {
+                            $client->representatives()->update(['is_primary' => false]);
+                        }
+                        
+                        $client->representatives()->create([
+                            'name' => $repData['name'],
+                            'email' => $repData['email'] ?? null,
+                            'phone' => $repData['phone'] ?? null,
+                            'position' => $repData['position'] ?? null,
+                            'is_primary' => $repData['is_primary'] ?? false,
+                            'notes' => $repData['notes'] ?? null,
+                        ]);
+                    }
+                }
+            }
 
             // add activity log
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($client)
-                ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->name . ']',
-                    'event' => 'Update',
-                    'slug' => $client->slug,
-                    'routeName' => 'clients.show'
-                ])
-                ->useLog('Client Updated')
-                ->log('Client Updated');
+            try {
+                activity()
+                    ->causedBy(Auth::user())
+                    ->performedOn($client)
+                    ->withProperties([
+                        'name' => "",
+                        'code' => '[' . $request->name . ']',
+                        'event' => 'Update',
+                        'slug' => $client->slug,
+                        'routeName' => 'clients.show'
+                    ])
+                    ->useLog('Client Updated')
+                    ->log('Client Updated');
+                
+            } catch (\Exception $activityError) {
+                // Don't fail the update if activity logging fails
+            }
 
             return $this->responseWithSuccess('Client updated successfully');
+            
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -324,11 +431,12 @@ class ClientController extends Controller
             $query->where('name', 'Like', '%' . $term . '%')
                 ->orWhere('client_id', 'Like', '%' . $term . '%')
                 ->orWhere('email', 'Like', '%' . $term . '%')
-                ->orWhere('phone', 'Like', '%' . $term . '%')
+                ->orWhere('phone_number', 'Like', '%' . $term . '%')
+                ->orWhere('phone_legacy', 'Like', '%' . $term . '%')
                 ->orWhere('company_name', 'Like', '%' . $term . '%');
         });
 
-        return ClientResource::collection($query->latest()->paginate($request->perPage));
+        return ClientResource::collection($query->with('chartOfAccount')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -338,7 +446,7 @@ class ClientController extends Controller
      */
     public function allClients()
     {
-        $clients = Client::where('status', 1)->latest()->get();
+        $clients = Client::with('chartOfAccount')->where('status', 1)->latest()->get();
 
         return ClientListResource::collection($clients);
     }
@@ -554,7 +662,8 @@ class ClientController extends Controller
                             ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
                             ->orWhereHas('client', function ($anotherQuery) use ($term) {
                                 $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone', 'LIKE', '%' . $term . '%');
+                                    ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
+                                    ->orWhere('phone_legacy', 'LIKE', '%' . $term . '%');
                             });
                     })
                     ->orWhereHas('invoicePaymentTransaction', function ($newQuery) use ($term) {
@@ -629,7 +738,7 @@ class ClientController extends Controller
 
             $rules = [
                 'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:20|min:3',
+                'phone_number' => 'required|string|max:20|min:3',
                 'email' => 'nullable|email|max:255|min:3|unique:clients,email',
                 'company_name' => 'nullable|string|max:100|min:2',
                 'address' => 'nullable|string|max:255',
@@ -641,7 +750,7 @@ class ClientController extends Controller
                 if ($validator->passes()) {
                     $data = $validator->validated();
                     $data['type'] = $data['type'] ?? 'Company';
-                    $data['slug'] = \Str::slug($data['name']);
+                    $data['slug'] = Str::slug($data['name']);
                     $data['status'] = 1;
                     
                     Client::create(
@@ -756,5 +865,457 @@ ORDER BY `date`");
             'totalCredit' => $totalCredit,
             'finalBalance' => $finalBalance,
         ];
+    }
+
+    /**
+     * Get chart of accounts for client selection based on routing setup.
+     */
+    public function getChartOfAccounts()
+    {
+        try {
+            // Get the clients account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting || !$routingSetting->parent_account_id) {
+                // Fallback to all active accounts if routing is not configured
+                $accounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->orderBy('name')
+                    ->get();
+                    
+                return $this->formatChartOfAccounts($accounts, 'Fallback to all accounts');
+            }
+            
+            // Get accounts from the routing setup (parent + children)
+            $accounts = $routingSetting->getAllAccounts();
+            
+            return $this->formatChartOfAccounts($accounts, 'From routing setup');
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve chart of accounts.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Format chart of accounts for response
+     */
+    private function formatChartOfAccounts($accounts, $source = 'Unknown')
+    {
+        $chartOfAccounts = collect();
+        $processedCount = 0;
+        $skippedCount = 0;
+        
+        foreach ($accounts as $account) {
+            try {
+                // Skip if account is null or missing essential data
+                if (!$account || !$account->id || !$account->name) {
+                    continue;
+                }
+                
+                // Get type name safely
+                $typeName = 'No Type';
+                try {
+                    if ($account->type_id) {
+                        $type = $account->type;
+                        if ($type && $type->name) {
+                            $typeName = $type->name;
+                        }
+                    }
+                } catch (\Exception $typeError) {
+                    continue;
+                }
+                
+                $chartOfAccounts->push([
+                    'id' => (int) $account->id,
+                    'name' => (string) ($account->name ?? 'Unknown'),
+                    'code' => (string) ($account->code ?? ''),
+                    'type' => $typeName
+                ]);
+                
+                $processedCount++;
+                
+            } catch (\Exception $accountError) {
+                $skippedCount++;
+                continue;
+            }
+        }
+        
+        return response()->json($chartOfAccounts->values()->toArray());
+    }
+
+    /**
+     * Auto-assign Chart of Account to client
+     */
+    public function autoAssignChartOfAccount($slug)
+    {
+        try {
+            $client = Client::where('slug', $slug)->first();
+            
+            if (!$client) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Client not found'
+                ], 404);
+            }
+
+            // Auto-assign Chart of Account
+            $clientData = [
+                'type' => $client->type ?? 'Company'
+            ];
+            $clientData = Client::assignDefaultChartOfAccount($clientData);
+            
+            if (isset($clientData['chart_of_account_id'])) {
+                $client->update(['chart_of_account_id' => $clientData['chart_of_account_id']]);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Chart of Account assigned successfully',
+                    'chart_of_account_id' => $clientData['chart_of_account_id']
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No suitable Chart of Account found for automatic assignment'
+                ], 400);
+            }
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get chart of accounts specifically for client routing setup
+     */
+    public function getClientRoutingAccounts()
+    {
+        try {
+            // Get the clients account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Client account routing is not configured',
+                    'accounts' => []
+                ], 404);
+            }
+            
+            if (!$routingSetting->parent_account_id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Client account routing is not properly configured. Please set a parent account.',
+                    'accounts' => []
+                ], 400);
+            }
+            
+            // Get accounts from the routing setup (parent + children)
+            $accounts = $routingSetting->getAccountsForDropdown();
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Client routing accounts retrieved successfully',
+                'accounts' => $accounts,
+                'routing_setting' => [
+                    'id' => $routingSetting->id,
+                    'setting_name' => $routingSetting->setting_name,
+                    'description' => $routingSetting->description,
+                    'parent_account' => $routingSetting->parentAccount ? [
+                        'id' => $routingSetting->parentAccount->id,
+                        'name' => $routingSetting->parentAccount->name,
+                        'code' => $routingSetting->parentAccount->code
+                    ] : null
+                ]
+            ]);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve client routing accounts.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get the next available code number for a new client
+     */
+    public function getNextCodeNumber()
+    {
+        try {
+            // Get the last client to determine the next code number
+            $lastClient = Client::latest()->first();
+            
+            if ($lastClient) {
+                $nextCode = $lastClient->client_id + 1;
+            } else {
+                $nextCode = 1;
+            }
+            
+            // Format the code number with leading zeros (6 digits)
+            $formattedCode = str_pad($nextCode, 6, '0', STR_PAD_LEFT);
+            
+            return response()->json([
+                'success' => true,
+                'next_code' => $nextCode,
+                'formatted_code' => $formattedCode,
+                'message' => 'Next code number retrieved successfully'
+            ]);
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Auto-assign chart of account based on routing configuration
+     */
+    private function autoAssignChartOfAccountForClient($clientData)
+    {
+        try {
+            // Get the clients account routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+            
+            if (!$routingSetting) {
+                // If no routing setting, use default behavior
+                return $clientData;
+            }
+            
+            \Illuminate\Support\Facades\Log::info("Processing client chart of account with routing type: " . $routingSetting->routing_type, [
+                'routing_setting' => $routingSetting->toArray(),
+                'client_data' => $clientData
+            ]);
+            
+            switch ($routingSetting->routing_type) {
+                case 'automatic':
+                    // For automatic routing, always create/assign account if none provided
+                    if (empty($clientData['chart_of_account_id']) && $routingSetting->main_account_id) {
+                        $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
+                        $clientData['chart_of_account_id'] = $newAccount->id;
+                        
+                        \Illuminate\Support\Facades\Log::info("Auto-created chart of account {$newAccount->id} for client with automatic routing", [
+                            'client_data' => $clientData,
+                            'routing_setting' => $routingSetting->toArray()
+                        ]);
+                    }
+                    break;
+                    
+                case 'per_each':
+                    // For per each routing, validate that account is provided
+                    if (empty($clientData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
+                            $clientData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for client with per_each routing", [
+                                'client_data' => $clientData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'main_account_per_each':
+                    // For main account per each, validate that account is provided
+                    if (empty($clientData['chart_of_account_id'])) {
+                        // If no account provided, create one under the main account if available
+                        if ($routingSetting->main_account_id) {
+                            $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
+                            $clientData['chart_of_account_id'] = $newAccount->id;
+                            
+                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for client with main_account_per_each routing", [
+                                'client_data' => $clientData,
+                                'routing_setting' => $routingSetting->toArray()
+                            ]);
+                        }
+                    }
+                    break;
+                    
+                case 'cancel':
+                    // For cancel routing, no chart of account needed
+                    $clientData['chart_of_account_id'] = null;
+                    \Illuminate\Support\Facades\Log::info("No chart of account assigned for client with cancel routing", [
+                        'client_data' => $clientData,
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
+                    
+                default:
+                    // Unknown routing type, use default behavior
+                    \Illuminate\Support\Facades\Log::warning("Unknown routing type: " . $routingSetting->routing_type, [
+                        'routing_setting' => $routingSetting->toArray()
+                    ]);
+                    break;
+            }
+            
+            return $clientData;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error auto-assigning chart of account: " . $e->getMessage(), [
+                'client_data' => $clientData,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return $clientData;
+        }
+    }
+    
+    /**
+     * Create chart of account for client
+     */
+    private function createChartOfAccountForClient($clientData, $routingSetting)
+    {
+        try {
+            $newAccount = \App\Models\ChartOfAccount::create([
+                'name' => $this->getClientDisplayName($clientData),
+                'code' => $this->generateAccountCode($routingSetting->main_account_id),
+                'type_id' => $this->getAssetAccountTypeId(),
+                'parent_id' => $routingSetting->main_account_id,
+                'is_active' => true,
+                'created_by' => Auth::id(),
+            ]);
+            
+            \Illuminate\Support\Facades\Log::info("Created new chart of account for client", [
+                'account_id' => $newAccount->id,
+                'account_name' => $newAccount->name,
+                'account_code' => $newAccount->code,
+                'parent_account_id' => $routingSetting->main_account_id
+            ]);
+            
+            return $newAccount;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error creating chart of account for client: " . $e->getMessage());
+            throw $e;
+        }
+    }
+    
+    /**
+     * Get client display name for account creation
+     */
+    private function getClientDisplayName($clientData)
+    {
+        if (isset($clientData['type']) && $clientData['type'] === 'Individual') {
+            return $clientData['full_name'] ?? $clientData['name'] ?? 'Individual Client';
+        } else {
+            return $clientData['business_name'] ?? $clientData['company_name'] ?? 'Business Client';
+        }
+    }
+    
+    /**
+     * Generate unique account code
+     */
+    private function generateAccountCode($mainAccountId)
+    {
+        try {
+            $mainAccount = \App\Models\ChartOfAccount::find($mainAccountId);
+            if (!$mainAccount) {
+                throw new \Exception("Main account not found");
+            }
+            
+            $baseCode = $mainAccount->code;
+            $existingCodes = \App\Models\ChartOfAccount::where('code', 'like', $baseCode . '-%')
+                ->pluck('code')
+                ->toArray();
+            
+            $counter = 1;
+            $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            
+            while (in_array($newCode, $existingCodes)) {
+                $counter++;
+                $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            }
+            
+            return $newCode;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error generating account code: " . $e->getMessage());
+            // Fallback code
+            $timestamp = time() % 1000000;
+            return 'CLI-' . $timestamp;
+        }
+    }
+    
+    /**
+     * Get Asset account type ID
+     */
+    private function getAssetAccountTypeId()
+    {
+        try {
+            $assetType = \App\Models\ChartOfAccountType::where('name', 'Asset')->first();
+            return $assetType ? $assetType->id : 1; // Default to first type if Asset not found
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Error getting Asset account type: " . $e->getMessage());
+            return 1; // Default fallback
+        }
+    }
+
+    /**
+     * Create a new chart of account for a client
+     */
+    public function createClientChartOfAccount(Request $request, $slug)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:150',
+                'routing_type' => 'required|in:per_each,main_account_per_each'
+            ]);
+
+            // Get the client
+            $client = Client::where('slug', $slug)->first();
+            if (!$client) {
+                return $this->responseWithError('Client not found');
+            }
+
+            // Get the routing setting
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+
+            if (!$routingSetting) {
+                return $this->responseWithError('Client account routing is not configured');
+            }
+
+            // Prepare account data
+            $accountData = [
+                'name' => $request->name,
+                'code' => $this->generateAccountCode($routingSetting->main_account_id ?? null),
+                'type_id' => $this->getAssetAccountTypeId(),
+                'is_active' => true,
+                'created_by' => Auth::id(),
+            ];
+
+            // Set parent_id based on routing type
+            if ($routingSetting->routing_type === 'main_account_per_each' && $routingSetting->main_account_id) {
+                $accountData['parent_id'] = $routingSetting->main_account_id;
+            }
+            // For 'per_each', no parent_id (null)
+
+            // Create the account
+            $newAccount = \App\Models\ChartOfAccount::create($accountData);
+
+            // Update the client with the new account
+            $client->update(['chart_of_account_id' => $newAccount->id]);
+
+            return $this->responseWithSuccess('Chart of account created successfully', [
+                'account' => $newAccount,
+                'client' => $client->fresh()
+            ]);
+
+        } catch (\Exception $e) {
+            return $this->responseWithError('Failed to create chart of account: ' . $e->getMessage());
+        }
     }
 }

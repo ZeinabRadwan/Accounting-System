@@ -72,9 +72,8 @@
                     <th>{{ $t("Name") }}</th>
                     <th>{{ $t("Contact Number") }}</th>
                     <th>{{ $t("Email") }}</th>
-                                         <th>{{ $t("Company Name") }}</th>
-                     <th>{{ $t("CR Number") }}</th>
-                     <th>{{ $t("Type") }}</th>
+                    <th>{{ $t("Company Name") }}</th>
+                    <th>{{ $t("Type") }}</th>
                     <th>{{ $t("Status") }}</th>
                     <th v-if="$can('client-edit') ||
                       $can('client-view') ||
@@ -115,11 +114,10 @@
                     </td>
                     <td>{{ data.phoneNumber }}</td>
                     <td>{{ data.email }}</td>
-                                         <td>{{ data.companyName }}</td>
-                     <td>{{ data.crNumber || 'N/A' }}</td>
-                     <td>
-                       <span class="badge bg-info">{{ data.type || 'Company' }}</span>
-                     </td>
+                    <td>{{ data.companyName }}</td>
+                    <td>
+                      <span class="badge bg-info">{{ data.type || 'Company' }}</span>
+                    </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -139,12 +137,17 @@
                         }" class="btn btn-primary btn-sm">
                           <i class="fas fa-eye" />
                         </router-link>
-                        <router-link v-if="$can('client-edit')" v-tooltip="$t('Edit')" :to="{
-                          name: 'clients.edit',
-                          params: { slug: data.slug },
-                        }" class="btn btn-info btn-sm">
-                          <i class="fas fa-edit" />
-                        </router-link>
+                        <div class="btn-group" v-if="$can('client-edit')">
+                          <router-link v-tooltip="$t('Edit Page')" :to="{
+                            name: 'clients.edit',
+                            params: { slug: data.slug },
+                          }" class="btn btn-info btn-sm">
+                            <i class="fas fa-edit" />
+                          </router-link>
+                          <button v-tooltip="$t('Quick Edit')" @click="openEditModal(data)" class="btn btn-warning btn-sm">
+                            <i class="fas fa-pen" />
+                          </button>
+                        </div>
                         <a v-if="appInfo.defaultClientSlug != data.slug &&
                           $can('client-delete')
                           " v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
@@ -155,9 +158,9 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                                         <td colspan="10">
-                       <EmptyTable />
-                     </td>
+                    <td colspan="9">
+                      <EmptyTable />
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -219,6 +222,14 @@
         </div>
       </form>
     </Modal>
+
+    <!-- Client Edit Modal -->
+    <ClientEditModal 
+      v-if="selectedClientForEdit"
+      :client="selectedClientForEdit"
+      @reloadClients="reload"
+      @close="selectedClientForEdit = null"
+    />
   </div>
 </template>
 
@@ -230,6 +241,7 @@ import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import VButton from "../../components/Button";
 import DateRangePicker from "vue2-daterange-picker";
+import ClientEditModal from "../../components/ClientEditModal.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -239,6 +251,7 @@ export default {
   components: {
     VButton,
     DateRangePicker,
+    ClientEditModal,
   },
   data: () => ({
     form: new Form({
@@ -280,6 +293,7 @@ export default {
       monthNames: moment.monthsShort(),
       firstDay: 1,
     },
+    selectedClientForEdit: null,
   }),
   filters: {
     startDate(val) {
@@ -564,6 +578,11 @@ export default {
             });
         }
       });
+    },
+
+    // Open edit modal for client
+    openEditModal(client) {
+      this.selectedClientForEdit = client;
     },
   },
 };

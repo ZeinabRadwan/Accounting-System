@@ -22,10 +22,13 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->string('note')->nullable();
             $table->boolean('status')->nullable()->default(1);
+            $table->string('image_path')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('chart_of_account_id')->nullable();
 
             $table->foreign('created_by')->references('id')->on('users')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('chart_of_account_id')->references('id')->on('chart_of_accounts')->onDelete('set null');
         });
     }
 

@@ -18,8 +18,12 @@ class TenantChartOfAccountSeeder extends Seeder
      */
     public function run()
     {
+        // Check if chart of accounts already exist to avoid foreign key constraint issues
+        if (DB::table('chart_of_accounts')->count() > 0) {
+            $this->command->info('Chart of accounts already exist, skipping seeding.');
+            return;
+        }
 
-        ChartOfAccount::truncate();
         // First, let's create some account types
         $accountTypes = [
             ['name' => 'Asset', 'order' => 1],

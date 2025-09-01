@@ -11,6 +11,8 @@ use App\Models\InvoicePayment;
 use App\Models\InvoiceProduct;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\AccountTransaction;
+use App\Models\InvoiceJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +22,12 @@ use App\Notifications\InvoiceNotification;
 use App\Http\Resources\InvoiceListResource;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\InvoicePaymentNotification;
+use Illuminate\Support\Facades\Log;
+use App\Models\Client;
+use App\Models\ChartOfAccount;
+use App\Models\AccountRoutingSetting;
+use App\Http\Requests\Invoice\StoreInvoiceRequest;
+use App\Models\Account;
 
 class InvoiceController extends Controller
 {
@@ -43,37 +51,91 @@ class InvoiceController extends Controller
         return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments')->latest()->paginate($request->perPage));
     }
 
+    private function getDiscountAllowedAccount(): ?ChartOfAccount
+    {
+        $setting = AccountRoutingSetting::where('module', 'sales')
+            ->where('setting_key', 'discount_allowed_account')
+            ->first();
+
+        if (!$setting || !$setting->main_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::find($setting->main_account_id);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreInvoiceRequest $request)
     {
-        // validate request
-        $this->validate($request, [
-            'client' => 'required',
-            'reference' => 'nullable|string|max:255',
-            'selectedProducts' => 'required|array|min:1',
-            'selectedProducts.*' => 'required|distinct',
-            'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:' . $request->subTotal,
-            'transportCost' => 'nullable|numeric|min:1',
-            'orderTax' => 'required',
-            'netTotal' => 'required|numeric|min:1',
-            'poReference' => 'nullable|string|max:255',
-            'paymentTerms' => 'nullable|string|max:255',
-            'deliveryPlace' => 'nullable|string|max:255',
-            'account' => $request->addPayment == true ? 'required' : 'nullable',
-            'paidAmount' => $request->addPayment == true ? 'required|min:1|max:' . $request->netTotal : 'nullable',
-            'chequeNo' => 'nullable|string|max:255',
-            'receiptNo' => 'nullable|string|max:255',
-            'date' => 'nullable|date_format:Y-m-d',
-            'note' => 'nullable|string|max:255',
-        ]);
-
         try {
+            $client = Client::findOrFail($request->client['id']);
+            $chartOfAccount = $client?->chartOfAccount;
+
+            // Collect all validation errors
+            $validationErrors = [];
+
+            // Validate client has chart of account
+            if (!$client || !$chartOfAccount) {
+                $validationErrors[] = 'Client must have a Chart of Account assigned for journal entries.';
+            }
+
+            $totalDiscountAmount = 0;
+
+            foreach ($request->selectedProducts as $key => $selectedProduct) {
+                $product = Product::where('slug', $selectedProduct['slug'])->first();
+                if (!$product || !$product->hasSalesAccount()) {
+                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.';
+                }
+                
+                // Check if product has a VAT rate and if that VAT rate has a sales VAT account (with fallback)
+                if (!$product || !$product->productTax) {
+                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a VAT rate assigned.';
+                } elseif (!$product->productTax->getSalesVatAccount()) {
+                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned. Please configure the VAT rate "' . $product->productTax->name . '" with a Sales VAT Account or ensure the default "Sales VAT Payable" account exists.';
+                }
+
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    $totalDiscountAmount += $selectedProduct['discount'];
+                }
+            }
+
+            if ($totalDiscountAmount > 0) {
+                $discountAccount = $this->getDiscountAllowedAccount();
+                if (!$discountAccount) {
+                    $validationErrors[] = 'Discount Allowed account must be configured in account routing settings to process discounts.';
+                }
+            }
+
+            if ($request->addPayment == 1) {
+                $account = Account::findOrFail($request->account['id']);
+                if (!$account) {
+                    $validationErrors[] = 'Bank Account not found.';
+                }
+
+                if (!$account->chartOfAccount) {
+                    $validationErrors[] = 'Bank Account must have a Chart of Account assigned for journal entries.';
+                }
+            }
+
+            // If there are validation errors, return them all at once
+            if (!empty($validationErrors)) {
+                $errorMessage = count($validationErrors) === 1 
+                    ? $validationErrors[0] 
+                    : 'Multiple validation errors found: ' . implode('; ', $validationErrors);
+                
+                return $this->responseWithError($errorMessage, [
+                    'validation_errors' => $validationErrors,
+                    'error_count' => count($validationErrors)
+                ]);
+            }
+
             DB::beginTransaction();
+
 
             // generate code
             $code = 1;
@@ -91,11 +153,7 @@ class InvoiceController extends Controller
                 $isPaid = 1;
             }
 
-            // calculate discount
-            $discount = $request->discount;
-            if ($request->discountType == 1) {
-                $discount = $request->totalDiscount;
-            }
+            // dd($request->selectedProducts);
 
             // create invoice
             $invoice = Invoice::create([
@@ -104,9 +162,9 @@ class InvoiceController extends Controller
                 'slug' => uniqid(),
                 'client_id' => $request->client['id'],
                 'transport' => $request->transportCost,
-                'discount_type' => $request->discountType,
-                'discount' => $discount,
                 'sub_total' => $request->subTotal,
+                'discount_type' => $request->discountType,
+                'discount' => $request->discount,
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
                 'delivery_place' => $request->deliveryPlace,
@@ -118,13 +176,31 @@ class InvoiceController extends Controller
                 'created_by' => $userId,
             ]);
 
+
+
             // store invoice products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
+
+                // Validate product has sales account
+                if (!$product->hasSalesAccount()) {
+                    throw new Exception('Product ' . $product->name . ' must have a Sales Account assigned.');
+                }
+
                 // update product stock
                 $product->update([
                     'inventory_count' => $product->inventory_count - $selectedProduct['qty'],
                 ]);
+
+                // Calculate discount amount
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
 
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
@@ -133,12 +209,35 @@ class InvoiceController extends Controller
                     'purchase_price' => $selectedProduct['avgPurchasePrice'],
                     'sale_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
-                    'tax_amount' => $selectedProduct['productTax'],
+                    'tax_amount' => $selectedProduct['totalTax'],
+                    // 'tax_amount' => $selectedProduct['productTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
+                    'vat_rate_id' => $selectedProduct['selectedVatRate']['id'] ?? null,
                 ]);
             }
 
+
+
+
+            // Create journal entry for invoice sale
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the invoice creation
+                Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
+            }
+
+
+
+
+
+
+
             // store transaction
-            if ($request->addPayment == true) {
+            if ($request->addPayment == 1) {
                 $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $request->account['accountNumber'] . ']';
 
                 // create transaction
@@ -165,6 +264,19 @@ class InvoiceController extends Controller
                     'created_by' => $userId,
                     'status' => $request->status,
                 ]);
+
+
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $request->paidAmount, $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                }
+
+
+                // Create journal entry for invoice payment
+
             }
 
             //send notification
@@ -243,6 +355,15 @@ class InvoiceController extends Controller
                 'status' => $request->status,
             ]);
 
+            // Create journal entry for invoice payment
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoice, $request->paidAmount, $request->account['id'], $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the payment creation
+                Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+            }
+
             $isPaid = 0;
             if ($request->netTotal == $request->paidAmount) {
                 $isPaid = 1;
@@ -272,7 +393,6 @@ class InvoiceController extends Controller
             return $this->responseWithSuccess('Invoice payment added successfully!', [
                 'invoice_id' => $invoice->id,
             ]);
-
         } catch (Exception $e) {
             DB::rollback();
             return $this->responseWithError($e->getMessage());
@@ -314,7 +434,6 @@ class InvoiceController extends Controller
             'reference' => 'nullable|string|max:255',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:' . $request->subTotal,
             'transportCost' => 'nullable|numeric|min:1',
             'netTotal' => ['required', 'numeric', new MinTotal($minAmount, $request->netTotal)],
             'poReference' => 'nullable|string|max:255',
@@ -333,20 +452,16 @@ class InvoiceController extends Controller
                 $isPaid = 1;
             }
 
-            // calculate discount
-            $discount = $request->discount;
-            if ($request->discountType == 1) {
-                $discount = $request->totalDiscount;
-            }
+
 
             // update invoice
             $invoice->update([
                 'reference' => $request->reference,
                 'client_id' => $request->client['id'],
                 'transport' => $request->transportCost,
-                'discount_type' => $request->discountType,
-                'discount' => $discount,
                 'sub_total' => $request->subTotal,
+                'discount_type' => $request->discountType,
+                'discount' => $request->discount,
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
                 'delivery_place' => $request->deliveryPlace,
@@ -367,6 +482,16 @@ class InvoiceController extends Controller
                     'inventory_count' => $totalQty,
                 ]);
 
+                // Calculate discount amount
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
                     'product_id' => $selectedProduct['id'],
@@ -375,6 +500,10 @@ class InvoiceController extends Controller
                     'sale_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
                     'tax_amount' => $selectedProduct['productTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
+                    'vat_rate_id' => $selectedProduct['selectedVatRate']['id'] ?? null,
                 ]);
             }
 
@@ -495,7 +624,8 @@ class InvoiceController extends Controller
     }
 
     // notify customer
-    public function notifyCustomer($slug, Request $request){
+    public function notifyCustomer($slug, Request $request)
+    {
         $invoice = Invoice::where('slug', $slug)->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 'invoiceTax', 'user')->first();
         // send notification
         $invoice->client->notify(new InvoiceNotification($invoice, [

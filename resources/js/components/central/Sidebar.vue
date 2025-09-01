@@ -287,7 +287,8 @@ export default {
     ...mapGetters('operations', ['appInfo']),
   },
   mounted() {
-    $('[data-widget="treeview"]').Treeview('init')
+    // Initialize AdminLTE 3.2.0 Treeview functionality
+    $('[data-widget="treeview"]').Treeview('init');
   },
   methods: {
     async executeAction(command) {

@@ -48,6 +48,37 @@
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
+                  <label for="chartOfAccountId">{{ $t('Chart of Account') }}
+                    <span class="required">*</span></label>
+                  <v-select
+                    v-model="formattedChartOfAccountId"
+                    :options="chartOfAccounts"
+                    label="name"
+                    :reduce="option => option.id"
+                    track-by="id"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                    name="chartOfAccountId"
+                    :placeholder="$t('Select a Chart of Account')"
+                    :key="chartOfAccounts.length"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div>
+                        <strong>{{ name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ code }} - {{ type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
+                  <!-- Debug information -->
+                  <div v-if="selectedChartOfAccount" class="mt-2 text-muted small">
+                    Selected: {{ selectedChartOfAccount.name }} (ID: {{ selectedChartOfAccount.id }})
+                  </div>
+                  <div v-else class="mt-2 text-muted small">
+                    No chart of account selected. Current value: {{ formattedChartOfAccountId }}
+                  </div>
+                  <has-error :form="form" field="chartOfAccountId" />
+                </div>
+                <div class="form-group col-md-6">
                   <label for="image">{{ $t("Image") }}</label>
                   <div class="custom-file">
                     <input
@@ -72,13 +103,15 @@
                     />
                   </div>
                 </div>
-                <div class="form-group col-md-3">
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
                   <label for="date">{{ $t('Date') }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -146,28 +179,93 @@ export default {
       image: '',
       note: '',
       status: 1,
+      chartOfAccountId: '',
     }),
     url: null,
     loading: true,
+    chartOfAccounts: [],
   }),
 
   mounted() {
-    this.getAccount()
+    this.loadChartOfAccounts()
   },
+
+  watch: {
+    'formattedChartOfAccountId': {
+      handler(newVal, oldVal) {
+        console.log('formattedChartOfAccountId changed from', oldVal, 'to', newVal)
+      },
+      deep: true
+    },
+    'chartOfAccounts': {
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          // Load account data after chart of accounts are available
+          this.getAccount()
+        }
+      },
+      immediate: true
+    }
+  },
+
+  computed: {
+    selectedChartOfAccount() {
+      if (!this.form.chartOfAccountId || !this.chartOfAccounts.length) return null
+      return this.chartOfAccounts.find(coa => coa.id === this.form.chartOfAccountId)
+    },
+    
+    // Ensure the chartOfAccountId is properly formatted
+    formattedChartOfAccountId: {
+      get() {
+        return this.form.chartOfAccountId
+      },
+      set(value) {
+        this.form.chartOfAccountId = value
+      }
+    }
+  },
+
   methods: {
+    // load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await this.$axios.get('/api/accounts/chart-of-accounts')
+        console.log('Full API response:', response)
+        console.log('Response data:', response.data)
+        this.chartOfAccounts = response.data.data || []
+        console.log('Loaded chart of accounts:', this.chartOfAccounts)
+        console.log('First chart of account structure:', this.chartOfAccounts[0])
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error)
+      }
+    },
     // get account
     async getAccount() {
       const { data } = await axios.get(
         window.location.origin + '/api/accounts/' + this.$route.params.slug
       )
+      console.log('Loaded account data:', data.data)
       this.form.accountLabel = data.data.accountLabel
       this.form.bankName = data.data.bankName
       this.form.branchName = data.data.branchName
       this.form.accountNumber = data.data.accountNumber
       this.form.date = data.data.date
-       this.url = data.data.image
+      this.url = data.data.image
       this.form.note = data.data.note
       this.form.status = data.data.status
+      
+      // Fix: Set the chartOfAccountId to the ID value for proper v-select handling
+      if (data.data.chartOfAccount && data.data.chartOfAccount.id) {
+        this.form.chartOfAccountId = data.data.chartOfAccount.id
+      } else {
+        this.form.chartOfAccountId = null
+      }
+      console.log('Set chartOfAccountId to:', this.form.chartOfAccountId)
+      
+      // Ensure the v-select is properly updated
+      this.$nextTick(() => {
+        console.log('After nextTick - chartOfAccountId:', this.form.chartOfAccountId)
+      })
     },
     // update account
     async updateAccount() {

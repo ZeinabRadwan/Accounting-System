@@ -3,13 +3,15 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\BrandResource;
+use App\Http\Resources\VatRateResource;
 
 class ProductListingResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Resources\Json\JsonResource  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -25,6 +27,8 @@ class ProductListingResource extends JsonResource
             'code' => $this->code,
             'itemModel' => $this->model,
             'itemUnit' => new UnitResource($this->productUnit),
+            'itemBrand' => new BrandResource($this->whenLoaded('productBrand')),
+            'itemTax' => new VatRateResource($this->whenLoaded('productTax')),
             'inventoryCount' => $this->inventory_count,
             'alertQty' => $this->alert_qty,
             'regularPrice' => $this->regular_price,

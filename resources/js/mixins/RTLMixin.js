@@ -65,7 +65,7 @@ export default {
      */
     handleRTLChange(event) {
       this.isRTL = event.detail.isRTL
-      this.currentLocale = event.detail.locale
+      this.currentLocale = event.detail.locale || rtlService.getCurrentLocale()
       this.$forceUpdate() // Force component re-render
     },
 
@@ -73,14 +73,14 @@ export default {
      * Set RTL mode for a specific locale
      */
     setRTLMode(locale) {
-      rtlService.setRTLMode(locale)
+      rtlService.setRTLModeByLocale(locale)
     },
 
     /**
      * Check if current locale is RTL
      */
     isCurrentLocaleRTL() {
-      return rtlService.isRTLLocale(this.currentLocale)
+      return rtlService.getLanguageRTLStatus(this.currentLocale)
     },
 
     /**

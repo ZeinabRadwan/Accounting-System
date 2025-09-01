@@ -8,11 +8,13 @@ use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\VatRate;
+use App\Models\ChartOfAccount;
 use Illuminate\Http\Request;
 use App\Models\GeneralSetting;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ProductResource;
@@ -22,6 +24,8 @@ use App\Http\Resources\ProductSelectResource;
 use App\Http\Resources\ProductListingResource;
 use Intervention\Image\Facades\Image as Image;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Models\AccountRoutingSetting;
+
 
 class ProductController extends Controller
 {
@@ -42,8 +46,14 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        return ProductListingResource::collection(Product::with('proSubCategory.category', 'productUnit', 'productTax',
-            'productBrand')->latest()->paginate($request->perPage));
+        return ProductListingResource::collection(Product::with(
+            'proSubCategory.category',
+            'productUnit',
+            'productTax',
+            'productBrand',
+            'salesAccount.type',
+            'purchaseAccount.type'
+        )->latest()->paginate($request->perPage));
     }
 
     /**
@@ -73,8 +83,6 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
             'alertQuantity' => 'nullable|numeric|min:1',
-            'salesAccount' => 'required|array',
-            'purchaseAccount' => 'required|array',
         ]);
         try {
             DB::beginTransaction();
@@ -103,10 +111,10 @@ class ProductController extends Controller
 
             $brand = $tax = $discount = null;
             if (isset($request->brand)) {
-                $brand = $request->brand['id'];
+                $brand = is_array($request->brand) ? $request->brand['id'] : $request->brand;
             }
             if (isset($request->productTax)) {
-                $tax = $request->productTax['id'];
+                $tax = is_array($request->productTax) ? $request->productTax['id'] : $request->productTax;
             }
             if ($request->discount) {
                 $discount = $request->discount;
@@ -119,17 +127,60 @@ class ProductController extends Controller
                 $openingStockUnitPrice = $request->openingStockUnitPrice;
             }
 
+            // Safely extract account IDs
+            $salesAccountId = null;
+            $purchaseAccountId = null;
+
+            $sales_settings = AccountRoutingSetting::where('module', 'sales')->where('setting_key', 'product_sales_account')->first();
+            $purchase_settings = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
+
+            if ($sales_settings->routing_type == 'automatic') {
+                $salesAccountId = $sales_settings?->main_account_id;
+
+                if ($salesAccountId == null || $salesAccountId == '' || $salesAccountId == 0) {
+                    return $this->responseWithError('Sales Account is required');
+                }
+            } else {
+                if ($request->salesAccountId) {
+                    $salesAccountId = is_array($request->salesAccountId) || is_object($request->salesAccountId)
+                        ? (is_array($request->salesAccountId) ? $request->salesAccountId['id'] : $request->salesAccountId->id)
+                        : $request->salesAccountId;
+                } else {
+                    return $this->responseWithError('Sales Account is required');
+                }
+            }
+
+            if ($purchase_settings->routing_type == 'automatic') {
+                $purchaseAccountId = $purchase_settings?->main_account_id;
+
+                if ($purchaseAccountId == null || $purchaseAccountId == '' || $purchaseAccountId == 0) {
+                    return $this->responseWithError('Purchase Account is required');
+                }
+            } else {
+                if ($request->purchaseAccountId) {
+                    $purchaseAccountId = is_array($request->purchaseAccountId) || is_object($request->purchaseAccountId)
+                        ? (is_array($request->purchaseAccountId) ? $request->purchaseAccountId['id'] : $request->purchaseAccountId->id)
+                        : $request->purchaseAccountId;
+                } else {
+                    return $this->responseWithError('Purchase Account is required');
+                }
+            }
+
+
+
             // create product
             $product = Product::create([
-                'is_service' => $request->itemType == 'service'? true : false,
+                'is_service' => $request->itemType == 'service' ? true : false,
                 'name' => $request->itemName,
                 'code' => $code,
                 'model' => $request->itemModel,
                 'barcode_symbology' => $request->barcodeSymbology,
-                'sub_cat_id' => $request->subCategory['id'],
+                'sub_cat_id' => is_array($request->subCategory) ? $request->subCategory['id'] : $request->subCategory,
                 'brand_id' => $brand,
-                'unit_id' => $request->itemUnit['id'],
+                'unit_id' => is_array($request->itemUnit) ? $request->itemUnit['id'] : $request->itemUnit,
                 'tax_id' => $tax,
+                'sales_account_id' => $salesAccountId,
+                'purchase_account_id' => $purchaseAccountId,
                 'tax_type' => $request->taxType,
                 'regular_price' => $request->regularPrice,
                 'inventory_count' => $openingStockCount,
@@ -141,8 +192,6 @@ class ProductController extends Controller
                 'alert_qty' => $request->alertQuantity,
                 'status' => $request->status,
                 'image_path' => $imageName,
-                'sales_account_id' => $request->salesAccount['id'],
-                'purchase_account_id' => $request->purchaseAccount['id'],
             ]);
 
             // add activity log
@@ -169,6 +218,30 @@ class ProductController extends Controller
     }
 
     /**
+     * Get chart of accounts for dropdown
+     */
+    public function getChartOfAccounts()
+    {
+        try {
+            $chartOfAccounts = ChartOfAccount::where('is_active', true)
+                ->with('type')
+                ->orderBy('name')
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'name' => $account->name,
+                        'code' => $account->code,
+                        'type' => $account->type ? $account->type->name : 'Unknown'
+                    ];
+                });
+            return response()->json($chartOfAccounts);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve chart of accounts.'], 500);
+        }
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -177,7 +250,7 @@ class ProductController extends Controller
     public function show($slug)
     {
         try {
-            $product = Product::where('slug', $slug)->with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->first();
+            $product = Product::where('slug', $slug)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
 
             return new ProductResource($product);
         } catch (Exception $e) {
@@ -199,8 +272,8 @@ class ProductController extends Controller
         // validate request
         $this->validate($request, [
             'itemType' => 'required|string',
-            'itemName' => 'required|string|max:255|unique:products,name,'.$product->id,
-            'itemCode' => 'required|unique:products,code,'.$product->id,
+            'itemName' => 'required|string|max:255|unique:products,name,' . $product->id,
+            'itemCode' => 'required|unique:products,code,' . $product->id,
             'itemModel' => 'nullable|string|min:2|max:255',
             'barcodeSymbology' => 'required|string|max:20',
             'subCategory' => 'required',
@@ -215,11 +288,11 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
             'alertQuantity' => 'nullable|numeric|min:1|max:1000',
-            'salesAccount' => 'required|array',
-            'purchaseAccount' => 'required|array',
         ]);
         try {
             DB::beginTransaction();
+
+
 
             // upload thumbnail and set the name
             $imageName = $product->image_path;
@@ -236,11 +309,11 @@ class ProductController extends Controller
 
             $brand = $product->brand_id;
             if (isset($request->brand)) {
-                $brand = $request->brand['id'];
+                $brand = is_array($request->brand) ? $request->brand['id'] : $request->brand;
             }
             $tax = $product->tax_id;
             if (isset($request->productTax)) {
-                $tax = $request->productTax['id'];
+                $tax = is_array($request->productTax) ? $request->productTax['id'] : $request->productTax;
             }
             $discount = $product->discount;
             if ($request->discount) {
@@ -257,7 +330,7 @@ class ProductController extends Controller
                 $newOpeningStockUnitPrice = $request->openingStockUnitPrice;
 
                 $newInventoryCount = $product->inventory_count + ($request->openingStockCount - $product->opening_stock_count);
-               
+
                 $totalValueOldStock = $product->inventory_count * $product->purchase_price;
                 $totalValueNewStock = $newOpeningStockCount * $newOpeningStockUnitPrice;
 
@@ -267,17 +340,59 @@ class ProductController extends Controller
                 $purchasePrice = $totalStockValue / $totalStockCount;
             }
 
+            // Safely extract account IDs
+            // Safely extract account IDs
+            $salesAccountId = null;
+            $purchaseAccountId = null;
+
+            $sales_settings = AccountRoutingSetting::where('module', 'sales')->where('setting_key', 'product_sales_account')->first();
+            $purchase_settings = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
+
+            if ($sales_settings->routing_type == 'automatic') {
+                $salesAccountId = $sales_settings?->main_account_id;
+
+                if ($salesAccountId == null || $salesAccountId == '' || $salesAccountId == 0) {
+                    return $this->responseWithError('Sales Account is required');
+                }
+            } else {
+                if ($request->salesAccountId) {
+                    $salesAccountId = is_array($request->salesAccountId) || is_object($request->salesAccountId)
+                        ? (is_array($request->salesAccountId) ? $request->salesAccountId['id'] : $request->salesAccountId->id)
+                        : $request->salesAccountId;
+                } else {
+                    return $this->responseWithError('Sales Account is required');
+                }
+            }
+
+            if ($purchase_settings->routing_type == 'automatic') {
+                $purchaseAccountId = $purchase_settings?->main_account_id;
+
+                if ($purchaseAccountId == null || $purchaseAccountId == '' || $purchaseAccountId == 0) {
+                    return $this->responseWithError('Purchase Account is required');
+                }
+            } else {
+                if ($request->purchaseAccountId) {
+                    $purchaseAccountId = is_array($request->purchaseAccountId) || is_object($request->purchaseAccountId)
+                        ? (is_array($request->purchaseAccountId) ? $request->purchaseAccountId['id'] : $request->purchaseAccountId->id)
+                        : $request->purchaseAccountId;
+                } else {
+                    return $this->responseWithError('Purchase Account is required');
+                }
+            }
+
             // update product
             $product->update([
-                'is_service' => $request->itemType == 'service'? true : false,
+                'is_service' => $request->itemType == 'service' ? true : false,
                 'name' => $request->itemName,
                 'code' => $request->itemCode,
                 'model' => $request->itemModel,
                 'barcode_symbology' => $request->barcodeSymbology,
-                'sub_cat_id' => $request->subCategory['id'],
+                'sub_cat_id' => is_array($request->subCategory) ? $request->subCategory['id'] : $request->subCategory,
                 'brand_id' => $brand,
-                'unit_id' => $request->itemUnit['id'],
+                'unit_id' => is_array($request->itemUnit) ? $request->itemUnit['id'] : $request->itemUnit,
                 'tax_id' => $tax,
+                'sales_account_id' => $salesAccountId,
+                'purchase_account_id' => $purchaseAccountId,
                 'tax_type' => $request->taxType,
                 'regular_price' => $request->regularPrice,
                 'purchase_price' => $request->itemType == 'product' ? $purchasePrice : $request->servicePurchasePrice,
@@ -289,8 +404,6 @@ class ProductController extends Controller
                 'alert_qty' => $request->alertQuantity,
                 'status' => $request->status,
                 'image_path' => $imageName,
-                'sales_account_id' => $request->salesAccount['id'],
-                'purchase_account_id' => $request->purchaseAccount['id'],
             ]);
 
             // add activity log
@@ -330,7 +443,7 @@ class ProductController extends Controller
             $product = Product::where('slug', $slug)->first();
             //delete image from storage
             if ($product->image_path) {
-                @unlink(public_path('images/products/'.$product->image_path));
+                @unlink(public_path('images/products/' . $product->image_path));
             }
 
             // add activity log
@@ -367,16 +480,16 @@ class ProductController extends Controller
     {
         $term = $request->term;
 
-        $query = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->where('name', 'LIKE', '%'.$term.'%')
-            ->orWhere('slug', 'LIKE', '%'.$term.'%')
-            ->orWhere('model', 'LIKE', '%'.$term.'%')
-            ->orWhere('code', 'LIKE', '%'.$term.'%')
-            ->orWhere('regular_price', 'LIKE', '%'.$term.'%')
-            ->orWhere('purchase_price', 'LIKE', '%'.$term.'%')
+        $query = Product::with('proSubCategory.category')->where('name', 'LIKE', '%' . $term . '%')
+            ->orWhere('slug', 'LIKE', '%' . $term . '%')
+            ->orWhere('model', 'LIKE', '%' . $term . '%')
+            ->orWhere('code', 'LIKE', '%' . $term . '%')
+            ->orWhere('regular_price', 'LIKE', '%' . $term . '%')
+            ->orWhere('purchase_price', 'LIKE', '%' . $term . '%')
             ->orWhereHas('proSubCategory', function ($newQuery) use ($term) {
-                $newQuery->where('name', 'LIKE', '%'.$term.'%')
+                $newQuery->where('name', 'LIKE', '%' . $term . '%')
                     ->orWhereHas('category', function ($newQuery) use ($term) {
-                        $newQuery->where('name', 'LIKE', '%'.$term.'%');
+                        $newQuery->where('name', 'LIKE', '%' . $term . '%');
                     });
             });
 
@@ -392,7 +505,7 @@ class ProductController extends Controller
     public function searchFromPos(Request $request)
     {
         $term = $request->term;
-        $query = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount');
+        $query = Product::with('proSubCategory.category');
         if (isset($request->catSlug) && isset($request->subCatSlug)) {
             $subCategory = ProductSubCategory::where('slug', $request->subCatSlug)->first();
             $query = $query->where('sub_cat_id', $subCategory->id);
@@ -402,10 +515,10 @@ class ProductController extends Controller
             $query = $query->whereIn('sub_cat_id', $subCategories);
         }
         $query = $query->where(function ($query) use ($term) {
-            $query->where('name', 'LIKE', '%'.$term.'%')
-                ->orWhere('slug', 'LIKE', '%'.$term.'%')
-                ->orWhere('model', 'LIKE', '%'.$term.'%')
-                ->orWhere('code', 'LIKE', '%'.$term.'%');
+            $query->where('name', 'LIKE', '%' . $term . '%')
+                ->orWhere('slug', 'LIKE', '%' . $term . '%')
+                ->orWhere('model', 'LIKE', '%' . $term . '%')
+                ->orWhere('code', 'LIKE', '%' . $term . '%');
         });
         return ProductSelectResource::collection($query->orderBy('code', 'ASC')->limit(24)->get());
     }
@@ -417,8 +530,15 @@ class ProductController extends Controller
      */
     public function allProducts()
     {
-        $products = Product::with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->get();
+        $products = Product::with(
+            'purchaseProducts',
+            'adjustmentProducts',
+            'invoiceProducts',
+            'invoiceReturnProducts',
+            'productTax',
+            'salesAccount',
+            'purchaseAccount'
+        )->where('status', 1)->latest()->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -430,8 +550,15 @@ class ProductController extends Controller
      */
     public function allProductsNotService()
     {
-        $products = Product::where('is_service', false)->with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->get();
+        $products = Product::where('is_service', false)->with(
+            'purchaseProducts',
+            'adjustmentProducts',
+            'invoiceProducts',
+            'invoiceReturnProducts',
+            'productTax',
+            'salesAccount',
+            'purchaseAccount'
+        )->where('status', 1)->latest()->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -441,8 +568,15 @@ class ProductController extends Controller
      */
     public function allProductsPaginated()
     {
-        $products = Product::with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->paginate(24);
+        $products = Product::with(
+            'purchaseProducts',
+            'adjustmentProducts',
+            'invoiceProducts',
+            'invoiceReturnProducts',
+            'productTax',
+            'salesAccount',
+            'purchaseAccount'
+        )->where('status', 1)->latest()->paginate(24);
 
         return ProductSelectResource::collection($products);
     }
@@ -454,8 +588,15 @@ class ProductController extends Controller
      */
     public function allProductsForSelect()
     {
-        $products = Product::with('purchaseProducts', 'adjustmentProducts', 'invoiceProducts', 'invoiceReturnProducts',
-            'productTax')->where('status', 1)->latest()->get();
+        $products = Product::with(
+            'purchaseProducts',
+            'adjustmentProducts',
+            'invoiceProducts',
+            'invoiceReturnProducts',
+            'productTax',
+            'salesAccount',
+            'purchaseAccount'
+        )->where('status', 1)->latest()->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -495,12 +636,14 @@ class ProductController extends Controller
             $products = Product::latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
             $category = ProductCategory::where('slug', $catSlug)->first();
-            $products = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->whereHas('proSubCategory',
+            $products = Product::with('proSubCategory.category')->whereHas(
+                'proSubCategory',
                 function ($newQuery) use ($category) {
                     $newQuery->whereHas('category', function ($newQuery) use ($category) {
                         $newQuery->where('id', $category->id);
                     });
-                })->get();
+                }
+            )->get();
         } else {
             $subCat = ProductSubCategory::where('slug', $subCatSlug)->first();
             $products = Product::where('sub_cat_id', $subCat->id)->latest()->get();
@@ -516,12 +659,14 @@ class ProductController extends Controller
             $products = Product::latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
             $category = ProductCategory::where('slug', $catSlug)->first();
-            $products = Product::with('proSubCategory.category', 'salesAccount', 'purchaseAccount')->whereHas('proSubCategory',
+            $products = Product::with('proSubCategory.category')->whereHas(
+                'proSubCategory',
                 function ($newQuery) use ($category) {
                     $newQuery->whereHas('category', function ($newQuery) use ($category) {
                         $newQuery->where('id', $category->id);
                     });
-                })->get();
+                }
+            )->get();
         } else {
             $subCat = ProductSubCategory::where('slug', $subCatSlug)->first();
             $products = Product::where('sub_cat_id', $subCat->id)->latest()->paginate(5);
@@ -542,18 +687,18 @@ class ProductController extends Controller
             $data = SimpleExcelReader::create($file, 'csv')->getRows();
 
             $rules = [
-                'name' => ['required','string','max:255','unique:products,name'],
-                'model' => ['nullable','string','min:2','max:255'],
-                'barcode_symbology' => ['required','string','max:20'],
+                'name' => ['required', 'string', 'max:255', 'unique:products,name'],
+                'model' => ['nullable', 'string', 'min:2', 'max:255'],
+                'barcode_symbology' => ['required', 'string', 'max:20'],
                 'sub_cat_id' => ['required'],
                 'brand_id' => ['nullable'],
                 'unit_id' => ['required'],
                 'tax_id' => ['required'],
                 'tax_type' => ['required'],
-                'regular_price' => ['required','numeric','min:0'],
-                'discount' => ['nullable','numeric','min:0','max:100'],
-                'note' => ['nullable','string','max:255'],
-                'alert_qty' => ['nullable','numeric','min:1'],
+                'regular_price' => ['required', 'numeric', 'min:0'],
+                'discount' => ['nullable', 'numeric', 'min:0', 'max:100'],
+                'note' => ['nullable', 'string', 'max:255'],
+                'alert_qty' => ['nullable', 'numeric', 'min:1'],
             ];
 
             foreach ($data as $key => $item) {
@@ -561,7 +706,7 @@ class ProductController extends Controller
                 if ($validator->passes()) {
                     Product::create(
                         $this->incrementCode() +
-                        $validator->validated()
+                            $validator->validated()
                     );
                 } else {
                     return response()->json([
@@ -590,7 +735,8 @@ class ProductController extends Controller
     }
 
     // cxv import with template with sheet brand_id, sub_cat_id, unit_id, tax_id
-    public function importTemplate(){
+    public function importTemplate()
+    {
         // generate csv template
         $this->subCategoryImportTemplate();
         $this->brandImportTemplate();
@@ -613,11 +759,11 @@ class ProductController extends Controller
 
         // download zip file
         return response()->download('products.zip');
-
     }
-    public function subCategoryImportTemplate(){
+    public function subCategoryImportTemplate()
+    {
         $handle = fopen(public_path('demo-csv-file/sub-categories.csv'), 'w');
-        fputcsv($handle, ['sub_cat_id','sub_category_name']);
+        fputcsv($handle, ['sub_cat_id', 'sub_category_name']);
         ProductSubCategory::chunk(2000, function ($subCategories) use ($handle) {
             foreach ($subCategories->toArray() as $subCategory) {
                 fputcsv($handle, [$subCategory['id'], $subCategory['name']]);
@@ -627,31 +773,32 @@ class ProductController extends Controller
 
         return response()->download(public_path('demo-csv-file/sub-categories.csv'));
     }
-    public function brandImportTemplate(){
+    public function brandImportTemplate()
+    {
         $handle = fopen(public_path('demo-csv-file/brands.csv'), 'w');
-        fputcsv($handle, ['brand_id','brand_name']);
+        fputcsv($handle, ['brand_id', 'brand_name']);
         Brand::chunk(2000, function ($brands) use ($handle) {
             foreach ($brands->toArray() as $brand) {
                 fputcsv($handle, [$brand['id'], $brand['name']]);
             }
         });
         fclose($handle);
-
     }
-    public function unitImportTemplate(){
+    public function unitImportTemplate()
+    {
         $handle = fopen(public_path('demo-csv-file/units.csv'), 'w');
-        fputcsv($handle, ['unit_id','unit_name']);
+        fputcsv($handle, ['unit_id', 'unit_name']);
         Unit::chunk(2000, function ($units) use ($handle) {
             foreach ($units->toArray() as $unit) {
                 fputcsv($handle, [$unit['id'], $unit['name']]);
             }
         });
         fclose($handle);
-
     }
-    public function taxImportTemplate(){
+    public function taxImportTemplate()
+    {
         $handle = fopen(public_path('demo-csv-file/taxes.csv'), 'w');
-        fputcsv($handle, ['tax_id','tax_name']);
+        fputcsv($handle, ['tax_id', 'tax_name']);
         VatRate::chunk(2000, function ($taxes) use ($handle) {
             foreach ($taxes->toArray() as $tax) {
                 fputcsv($handle, [$tax['id'], $tax['name']]);
@@ -660,4 +807,109 @@ class ProductController extends Controller
         fclose($handle);
     }
 
+    /**
+     * Auto-assign Chart of Account to product
+     */
+    public function autoAssignChartOfAccount($slug, $type = 'purchase')
+    {
+        try {
+            Log::info('Product auto-assign started for slug: ' . $slug);
+
+            $product = Product::where('slug', $slug)->first();
+
+            if (!$product) {
+                Log::error('Product not found for slug: ' . $slug);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found'
+                ], 404);
+            }
+
+            Log::info('Product found:', [
+                'id' => $product->id,
+                'name' => $product->name,
+                'is_service' => $product->is_service,
+                'current_sales_account_id' => $product->sales_account_id,
+                'current_purchase_account_id' => $product->purchase_account_id
+            ]);
+
+            // Auto-assign Chart of Account
+            $productData = [
+                'type' => $product->is_service ? 'Service' : 'Product'
+            ];
+
+            Log::info('Product data before assignment:', $productData);
+
+            $productData = Product::assignDefaultChartOfAccount($productData);
+
+            Log::info('Product data after assignment:', $productData);
+
+            $updateData = [];
+
+
+            if(!isset($productData['sales_account_id']) && $type == 'sales'){
+
+                return response()->json([
+                    'error' => true,
+                    'message' => 'No suitable Sales Account found for automatic assignment',
+                ], 400);
+
+            }
+            if(!isset($productData['purchase_account_id']) && $type == 'purchase'){
+                return response()->json([
+                    'error' => true,
+                    'message' => 'No suitable Purchase Account found for automatic assignment',
+                ], 400);
+            }
+            
+
+            if (isset($productData['sales_account_id'])) {
+                $updateData['sales_account_id'] = $productData['sales_account_id'];
+                Log::info('Will update sales_account_id to: ' . $productData['sales_account_id']);
+            }
+            if (isset($productData['purchase_account_id'])) {
+                $updateData['purchase_account_id'] = $productData['purchase_account_id'];
+                Log::info('Will update purchase_account_id to: ' . $productData['purchase_account_id']);
+            }
+
+            Log::info('Update data to be applied:', $updateData);
+
+            if (!empty($updateData)) {
+                $result = $product->update($updateData);
+                Log::info('Product update result:', ['success' => $result]);
+
+                // Refresh the product to get updated values
+                $product->refresh();
+
+                Log::info('Product after update:', [
+                    'sales_account_id' => $product->sales_account_id,
+                    'purchase_account_id' => $product->purchase_account_id
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Chart of Account assigned successfully',
+                    'chart_of_account_id' => $productData['sales_account_id'] ?? $productData['purchase_account_id'],
+                    'sales_account_id' => $productData['sales_account_id'] ?? null,
+                    'purchase_account_id' => $productData['purchase_account_id'] ?? null
+                ]);
+            } else {
+                Log::warning('No update data available for product: ' . $product->id);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No suitable Chart of Account found for automatic assignment'
+                ], 400);
+            }
+        } catch (Exception $e) {
+            Log::error('Product auto-assign failed: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return response()->json([
+                'error' => true,
+                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

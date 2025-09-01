@@ -243,7 +243,8 @@ class NonPurchasePaymentController extends Controller
                     $newQuery->where('name', 'LIKE', '%'.$term.'%')
                         ->orWhere('email', 'LIKE', '%'.$term.'%')
                         ->orWhere('company_name', 'LIKE', '%'.$term.'%')
-                        ->orWhere('phone', 'LIKE', '%'.$term.'%');
+                        ->orWhere('phone_number', 'LIKE', '%'.$term.'%')
+                        ->orWhere('phone_legacy', 'LIKE', '%'.$term.'%');
                 })
                 ->orWhereHas('paymentTransaction', function ($newQuery) use ($term) {
                     $newQuery->where('cheque_no', 'Like', '%'.$term.'%')->orWhere('receipt_no', 'Like', '%'.$term.'%')->whereHas('cashbookAccount', function ($newQuery) use ($term) {

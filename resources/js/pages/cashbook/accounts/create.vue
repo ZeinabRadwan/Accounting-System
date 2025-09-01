@@ -48,6 +48,37 @@
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
+                  <label for="chartOfAccountId">{{ $t('Chart of Account') }}
+                    <span class="required">*</span></label>
+                  <v-select
+                    v-model="formattedChartOfAccountId"
+                    :options="chartOfAccounts"
+                    label="name"
+                    :reduce="option => option.id"
+                    track-by="id"
+                    :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
+                    name="chartOfAccountId"
+                    :placeholder="$t('Select a Chart of Account')"
+                    :key="chartOfAccounts.length"
+                  >
+                    <template #option="{ name, code, type }">
+                      <div>
+                        <strong>{{ name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ code }} - {{ type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
+                  <!-- Debug information -->
+                  <div v-if="selectedChartOfAccount" class="mt-2 text-muted small">
+                    Selected: {{ selectedChartOfAccount.name }} (ID: {{ selectedChartOfAccount.id }})
+                  </div>
+                  <div v-else class="mt-2 text-muted small">
+                    No chart of account selected. Current value: {{ formattedChartOfAccountId }}
+                  </div>
+                  <has-error :form="form" field="chartOfAccountId" />
+                </div>
+                <div class="form-group col-md-6">
                   <label for="image">{{ $t("Image") }}</label>
                   <div class="custom-file">
                     <input id="image" type="file" class="custom-file-input" name="image"
@@ -61,13 +92,15 @@
                     <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
                   </div>
                 </div>
-                <div class="form-group col-md-3">
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
                   <label for="date">{{ $t('Date') }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -135,14 +168,60 @@ export default {
       image: '',
       note: '',
       status: 1,
+      chartOfAccountId: '',
     }),
     url: null,
     loading: true,
+    chartOfAccounts: [],
   }),
 
+  mounted() {
+    this.loadChartOfAccounts()
+  },
+
+  watch: {
+    'formattedChartOfAccountId': {
+      handler(newVal, oldVal) {
+        console.log('formattedChartOfAccountId changed from', oldVal, 'to', newVal)
+      },
+      deep: true
+    }
+  },
+
+  computed: {
+    selectedChartOfAccount() {
+      if (!this.form.chartOfAccountId || !this.chartOfAccounts.length) return null
+      return this.chartOfAccounts.find(coa => coa.id === this.form.chartOfAccountId)
+    },
+    
+    // Ensure the chartOfAccountId is properly formatted
+    formattedChartOfAccountId: {
+      get() {
+        return this.form.chartOfAccountId
+      },
+      set(value) {
+        this.form.chartOfAccountId = value
+      }
+    }
+  },
+
   methods: {
+    // load chart of accounts
+    async loadChartOfAccounts() {
+      try {
+        const response = await this.$axios.get('/api/accounts/chart-of-accounts')
+        console.log('Full API response:', response)
+        console.log('Response data:', response.data)
+        this.chartOfAccounts = response.data.data || []
+        console.log('Loaded chart of accounts:', this.chartOfAccounts)
+        console.log('First chart of account structure:', this.chartOfAccounts[0])
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error)
+      }
+    },
     // save account
     async saveAccount() {
+      console.log('Submitting form with chartOfAccountId:', this.form.chartOfAccountId)
       await this.form
         .post(window.location.origin + '/api/accounts')
         .then(() => {

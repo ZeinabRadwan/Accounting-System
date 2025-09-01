@@ -51,6 +51,12 @@
             {{ $t("Tax Rates") }}
           </router-link>
         </li>
+        <li v-if="$can('general-settings')" class="nav-item">
+          <router-link :to="{ name: 'accountRouting.index' }" class="nav-link thumb">
+            <i class="fas fa-route" />
+            {{ $t("Account Routing") }}
+          </router-link>
+        </li>
         <li v-if="$can('brands-management')" class="nav-item">
           <router-link :to="{ name: 'brands.index' }" class="nav-link thumb">
             <i class="fas fa-bold" />

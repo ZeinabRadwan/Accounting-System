@@ -20,14 +20,12 @@ class SupplierListResource extends JsonResource
             'supplierID' => $this->supplier_id,
             'slug' => $this->slug,
             'email' => $this->email,
-            'phoneNumber' => $this->phone,
+            'phoneNumber' => $this->phone_number ?: $this->phone_legacy,
             'companyName' => $this->company_name,
-            'vatNumber' => $this->tax_registration_number ?? 'N/A',
-            'crNumber' => $this->cr_number ?? 'N/A',
             'address' => $this->address,
             'status' => (int) $this->status,
             'image' => $this->image_path ? global_asset('/images/suppliers/'.$this->image_path) : '',
-            'type' => $this->type ?? 'Company',
+            'type' => $this->type,
         ];
     }
 }

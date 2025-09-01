@@ -198,6 +198,7 @@ import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import moment from "moment";
 import { mapGetters } from "vuex";
+import Swal from "sweetalert2";
 import axios from "axios";
 
 export default {
@@ -327,7 +328,7 @@ export default {
           window.location.replace(data.data.redirect_url);
         })
         .catch((error) => {
-          toast.fire({
+          Swal.fire({
             icon: "error",
             title: error.response.data.message,
           });
@@ -371,6 +372,8 @@ export default {
 
     // delete data
     async deleteData(slug) {
+      console.log('Delete function called with slug:', slug);
+      
       Swal.fire({
         title: this.$t("Delete Tenant"),
         text: this.$t("Are you sure you want to delete this tenant?"),
@@ -378,14 +381,20 @@ export default {
         showCancelButton: true,
         confirmButtonText: this.$t("Yes, delete it!"),
       }).then((result) => {
+        console.log('SweetAlert result:', result);
+        
         // Send request to the server
         if (result.value) {
+          console.log('Sending delete request for tenant:', slug);
+          
           this.$store
             .dispatch("operations/deleteData", {
               path: "/api/tenants/",
               slug: slug,
             })
             .then((response) => {
+              console.log('Delete response:', response);
+              
               if (response === true) {
                 Swal.fire(
                   this.$t("Deleted"),
@@ -394,12 +403,21 @@ export default {
                 );
                 this.getData();
               } else {
+                console.error('Delete failed with response:', response);
                 Swal.fire(
                   this.$t("Failed"),
                   this.$t("Delete failed"),
                   "warning"
                 );
               }
+            })
+            .catch((error) => {
+              console.error('Delete request error:', error);
+              Swal.fire(
+                this.$t("Failed"),
+                this.$t("Delete failed"),
+                "warning"
+              );
             });
         }
       });

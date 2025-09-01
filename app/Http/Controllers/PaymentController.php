@@ -21,7 +21,7 @@ class PaymentController extends Controller
     // central panel active currency
     public function centralActiveCurrency()
     {
-        $activeCurrencyID = tenancy()->central(fn() => GeneralSetting::where('key', 'default_currency')->first()->value);
+        $activeCurrencyID = tenancy()->central(fn() => GeneralSetting::where('key', 'default_currency')->first()?->value ?? 1);
 
         $currency = tenancy()->central(fn() => CentralCurrency::where('id', $activeCurrencyID)->first());
         return $currency;
@@ -43,7 +43,7 @@ class PaymentController extends Controller
 
     public function currencyConvert()
     {
-        $activeCurrencyID = tenancy()->central(fn() => GeneralSetting::where('key', 'default_currency')->first()->value);
+        $activeCurrencyID = tenancy()->central(fn() => GeneralSetting::where('key', 'default_currency')->first()?->value ?? 1);
         $currency = tenancy()->central(fn() => CentralCurrency::where('id', $activeCurrencyID)->first());
 
         $endpoint = 'convert';

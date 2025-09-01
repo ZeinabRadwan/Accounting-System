@@ -32,7 +32,6 @@ use App\Http\Controllers\API\CurrencyController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\PurchaseController;
 use App\Http\Controllers\API\SupplierController;
-use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\PDFGeneratorController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\API\AssetTypeController;
@@ -69,6 +68,11 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\API\SubscriptionPaymentMethodController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 use App\Http\Controllers\API\ChartOfAccountController;
+use App\Http\Controllers\API\JournalEntryController;
+use App\Http\Controllers\API\AccountRoutingController;
+use App\Http\Controllers\API\VatReportController;
+use App\Http\Controllers\API\ClientRepresentativeController;
+use App\Http\Controllers\API\SupplierRepresentativeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,9 +113,6 @@ Route::middleware([
 
         Route::get('/impersonate/{token}', [TenantImpersonationController::class, 'impersonate']);
         Route::get('general-settings', [GeneralController::class, 'getGeneralSettings']);
-        
-        // Public chart of accounts endpoint for product forms
-        Route::get('chart-of-accounts/for-products', [ChartOfAccountController::class, 'getForProducts']);
     });
 
     // [PROTECTED API] Tenant Routes protected by Sanctum
@@ -183,8 +184,24 @@ Route::middleware([
         // VAT-RATE routes
         Route::get('/vat-rates/search', [VatRateController::class, 'search']);
         Route::get('/all-vat-rates', [VatRateController::class, 'allVatRates']);
+        Route::get('/vat-rates/chart-of-accounts', [VatRateController::class, 'getVatChartOfAccounts']);
+        Route::get('/vat-rates/check-connections', [VatRateController::class, 'checkVatChartOfAccountConnections']);
         Route::get('/smtp-info', [GeneralController::class, 'getSMTPforTenant']);
         Route::apiResource('vat-rates', VatRateController::class);
+
+        // Account Routing Settings routes - REORDER THESE
+        Route::get('/account-routing-settings', [AccountRoutingController::class, 'index']);
+        Route::put('/account-routing-settings/bulk', [AccountRoutingController::class, 'bulkUpdate']); // Move this BEFORE the {id} route
+        Route::put('/account-routing-settings', [AccountRoutingController::class, 'update']);
+        Route::put('/account-routing-settings/{id}', [AccountRoutingController::class, 'updateSetting']);
+        Route::get('/account-routing-settings/{settingKey}/accounts', [AccountRoutingController::class, 'getAccountsForSetting']);
+        Route::get('/account-routing-settings/available-parent-accounts', [AccountRoutingController::class, 'getAvailableParentAccounts']);
+        Route::get('/account-routing-settings/check-configuration', [AccountRoutingController::class, 'checkConfiguration']);
+Route::get('/account-routing-settings/product-account-routing', [AccountRoutingController::class, 'getProductAccountRouting']);
+
+        // VAT Report routes
+        Route::get('/vat-report', [VatReportController::class, 'generateReport']);
+        Route::get('/vat-report/summary', [VatReportController::class, 'getVatSummary']);
 
         // Brand routes
         Route::get('/brands/search', [BrandController::class, 'search']);
@@ -247,9 +264,24 @@ Route::middleware([
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
 
+        Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
+        Route::get('/clients/routing-accounts', [ClientController::class, 'getClientRoutingAccounts']);
+        Route::get('/clients/next-code', [ClientController::class, 'getNextCodeNumber']);
+
+        // Journal Entry routes
+        Route::get('/journal-entries/search', [JournalEntryController::class, 'search']);
+        Route::get('/journal-entries/all', [JournalEntryController::class, 'getAll']);
+        Route::get('/journal-entries/chart-of-accounts', [JournalEntryController::class, 'getChartOfAccounts']);
+        Route::get('/journal-entries/trial-balance', [JournalEntryController::class, 'getTrialBalance']);
+        Route::post('/journal-entries/{id}/post', [JournalEntryController::class, 'post']);
+        Route::post('/journal-entries/{id}/void', [JournalEntryController::class, 'void']);
+        Route::apiResource('journal-entries', JournalEntryController::class);
+
         // Account routes
         Route::get('/accounts/search', [AccountController::class, 'search']);
         Route::get('/all-accounts', [AccountController::class, 'allAccounts']);
+        Route::get('/accounts/chart-of-accounts', [AccountController::class, 'getChartOfAccounts']);
+        Route::get('/accounts/check-connection', [AccountController::class, 'checkAccountsConnection']);
         Route::get('/accounts/transactions/{slug}', [AccountController::class, 'accountTransactions']);
         Route::get('/accounts/transactions/{slug}/search', [AccountController::class, 'searchTransactions']);
         Route::apiResource('accounts', AccountController::class);
@@ -318,6 +350,9 @@ Route::middleware([
         Route::get('/clients/search', [ClientController::class, 'search']);
         Route::get('/all-clients', [ClientController::class, 'allClients']);
         Route::get('/clients-for-noninvoice-payments', [ClientController::class, 'clientsForNonInvoicePayments']);
+        Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
+        Route::post('/clients/{slug}/auto-assign-chart-of-account', [ClientController::class, 'autoAssignChartOfAccount']);
+Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class, 'createClientChartOfAccount']);
         Route::get('/client/invoices/{slug}', [ClientController::class, 'clientInvoices']);
         Route::post('/client/filter-invoices', [ClientController::class, 'filterClientInvoices']);
         Route::get('/client/{slug}/invoices', [ClientController::class, 'specificClientInvoices']);
@@ -339,8 +374,19 @@ Route::middleware([
         Route::get('/client/{slug}/non-invoice-payments', [ClientController::class, 'clientNonInvoicePayments']);
         Route::get('/client/{slug}/non-invoice-payments/search', [ClientController::class, 'searchClientNonInvoicePayments']);
 
+        // Client representative routes
+        Route::get('/client/{slug}/representatives', [ClientRepresentativeController::class, 'index']);
+        Route::post('/client/{slug}/representatives', [ClientRepresentativeController::class, 'store']);
+        Route::put('/client/{slug}/representatives/{id}', [ClientRepresentativeController::class, 'update']);
+        Route::delete('/client/{slug}/representatives/{id}', [ClientRepresentativeController::class, 'destroy']);
+
         // Supplier routes
         Route::get('/suppliers/search', [SupplierController::class, 'search']);
+        Route::get('/suppliers/chart-of-accounts', [SupplierController::class, 'getChartOfAccounts']);
+        Route::get('/suppliers/chart-of-accounts/routing', [SupplierController::class, 'getChartOfAccountsWithRouting']);
+        Route::get('/suppliers/next-code', [SupplierController::class, 'getNextCodeNumber']);
+        Route::post('/suppliers/{slug}/auto-assign-chart-of-account', [SupplierController::class, 'autoAssignChartOfAccount']);
+        Route::get('/routing-settings/supplier', [SupplierController::class, 'getSupplierRoutingSettings']);
         Route::get('/all-suppliers', [SupplierController::class, 'allSuppliers']);
         Route::get('/supplier/purchases/{slug}', [SupplierController::class, 'supplierPurchases']);
         Route::apiResource('suppliers', SupplierController::class);
@@ -363,9 +409,11 @@ Route::middleware([
         Route::get('/non-purchases/supplier/{slug}', [SupplierController::class, 'nonPurchaseTransForSupplier']);
         Route::get('/non-purchases/supplier/{slug}/search', [SupplierController::class, 'searchNonPurchaseTransForSupplier']);
 
-        // Address routes
-        Route::get('/nationalities', [AddressController::class, 'getNationalities']);
-        Route::get('/cities', [AddressController::class, 'getCities']);
+        // Supplier representative routes
+        Route::get('/supplier/{slug}/representatives', [SupplierRepresentativeController::class, 'index']);
+        Route::post('/supplier/{slug}/representatives', [SupplierRepresentativeController::class, 'store']);
+        Route::put('/supplier/{slug}/representatives/{id}', [SupplierRepresentativeController::class, 'update']);
+        Route::delete('/supplier/{slug}/representatives/{id}', [SupplierRepresentativeController::class, 'destroy']);
 
         // Departments routes
         Route::get('/departments/search', [DepartmentController::class, 'search']);
@@ -406,6 +454,8 @@ Route::middleware([
         // Product routes
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
+        Route::get('/products/chart-of-accounts', [ProductController::class, 'getChartOfAccounts']);
+        Route::post('/products/{slug}/{optionalParam?}/auto-assign-chart-of-account', [ProductController::class, 'autoAssignChartOfAccount']);
         Route::get('/all-products-not-service', [ProductController::class, 'allProductsNotService']);
         Route::get('/all-products', [ProductController::class, 'allProducts']);
         Route::get('/all-products-paginated', [ProductController::class, 'allProductsPaginated']);

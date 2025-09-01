@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss">
 .modal-content {
-  max-width: 500px;
+  max-width: 1000px;
   margin: 1.75rem auto;
 }
 

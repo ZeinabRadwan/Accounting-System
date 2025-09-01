@@ -11,10 +11,8 @@
                     <th>@lang('Supplier ID')</th>
                     <th>@lang('Phone')</th>
                     <th>@lang('Email')</th>
-                                         <th>@lang('Company')</th>
-                     <th>@lang('VAT Number')</th>
-                     <th>@lang('CR Number')</th>
-                     <th>@lang('Status')</th>
+                    <th>@lang('Company')</th>
+                    <th>@lang('Status')</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,12 +21,10 @@
                         <td> {{ ++$key }} </td>
                         <td>{{ $supplier['name'] }}</td>
                         <td>{{ config('config.supplierPrefix') . '-' . $supplier['supplier_id'] }}</td>
-                        <td>{{ $supplier['phone'] }}</td>
+                        <td>{{ $supplier['phone_number'] }}</td>
                         <td>{{ $supplier['email'] }}</td>
-                                                 <td>{{ $supplier['company_name'] }}</td>
-                         <td>{{ $supplier['tax_registration_number'] ?? 'N/A' }}</td>
-                         <td>{{ $supplier['cr_number'] ?? 'N/A' }}</td>
-                         <td>
+                        <td>{{ $supplier['company_name'] }}</td>
+                        <td>
                             @if ($supplier['status'])
                                 @lang('Active')
                             @else

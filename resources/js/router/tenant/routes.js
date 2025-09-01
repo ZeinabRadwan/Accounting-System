@@ -206,6 +206,14 @@ export default [
     meta: {permissions: ['vat-rate-management']},
   },
 
+  // Account Routing Settings routes
+  {
+    path: '/setup/accounting-settings/account-routing',
+    name: 'accountRouting.index',
+    component: page('setup/accounting-settings/account-routing.vue'),
+    meta: {permissions: ['general-settings']},
+  },
+
   // Brand routes
   {
     path: '/setup/brands',
@@ -1127,6 +1135,12 @@ export default [
     meta: {permissions: ['inventory-report']},
   },
   {
+    path: '/reports/vat-report',
+    name: 'reports.vatReport',
+    component: page('reports/vat-report.vue'),
+    meta: {permissions: ['vat-report']},
+  },
+  {
     path: "/activity-log",
     name: "activity.log",
     component: page("activity-log.vue"),
@@ -1220,6 +1234,40 @@ export default [
         },
       }
     ]
+  },
+
+  // Journal Entries routes
+  {
+    path: '/journal-entries',
+    name: 'journal-entries.index',
+    component: page('journal-entries/index.vue'),
+    meta: {
+      permissions: ['journal-entry-list'],
+    },
+  },
+  {
+    path: '/journal-entries/create',
+    name: 'journal-entries.create',
+    component: page('journal-entries/create.vue'),
+    meta: {
+      permissions: ['journal-entry-create'],
+    },
+  },
+  {
+    path: '/journal-entries/:id',
+    name: 'journal-entries.show',
+    component: page('journal-entries/show.vue'),
+    meta: {
+      permissions: ['journal-entry-view'],
+    },
+  },
+  {
+    path: '/journal-entries/:id/edit',
+    name: 'journal-entries.edit',
+    component: page('journal-entries/edit.vue'),
+    meta: {
+      permissions: ['journal-entry-edit'],
+    },
   },
 
   // Permission denied

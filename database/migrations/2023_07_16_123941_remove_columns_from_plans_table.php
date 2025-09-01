@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('plans', function (Blueprint $table) {
-            $table->dropColumn('api_id');
-            $table->dropColumn('product_id');
+            $table->dropColumn(['api_id', 'product_id']);
         });
     }
 

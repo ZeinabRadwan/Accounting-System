@@ -27,7 +27,6 @@ use Illuminate\Http\Request;
 if (! app()->isProduction()) {
     Route::group(['prefix' => '/debug'], function () {
         Route::get('/version', [DebugController::class, 'version']);
-        Route::get('/check-database', [DebugController::class, 'checkDatabase']);
     });
 }
 

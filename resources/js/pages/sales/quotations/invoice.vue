@@ -15,9 +15,16 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="createInvoice" @keydown="form.onKeydown($event)">
             <div class="card-body">
+              <!-- Chart of Account Validation -->
+              <ChartOfAccountValidation
+                :client="form.client"
+                :products="form.selectedProducts"
+                type="invoice"
+                @chart-of-account-assigned="handleChartOfAccountAssigned"
+              />
+              <!-- form start -->
+              <form role="form" @submit.prevent="createInvoice" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t('Client') }}
@@ -301,7 +308,7 @@
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
-            </div>
+            </form>
             <!-- /.card-body -->
             <div class="card-footer">
               <v-button :loading="form.busy" class="btn btn-primary">
@@ -311,10 +318,10 @@
                 <i class="fas fa-power-off" /> {{ $t('Reset') }}
               </button>
             </div>
-          </form>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -322,11 +329,15 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Quotation To Invoice') }
+  },
+  components: {
+    ChartOfAccountValidation
   },
   data: () => ({
     breadcrumbsCurrent: 'Quotation To Invoice',
@@ -622,6 +633,17 @@ export default {
             title: this.$t('Opps...something went wrong'),
           })
         })
+    },
+
+    // Handle chart of account assignment
+    handleChartOfAccountAssigned(data) {
+      if (data.entity === 'client') {
+        // Refresh client data
+        this.getClients();
+      } else if (data.entity === 'product') {
+        // Refresh product data
+        this.getProducts();
+      }
     },
   },
 }

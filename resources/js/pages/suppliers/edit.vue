@@ -3,6 +3,7 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
+    
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
@@ -13,238 +14,23 @@
             </router-link>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <form role="form" @submit.prevent="updateSupplier" @keydown="form.onKeydown($event)">
-            <div class="card-body">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">{{ $t('Name') }}
-                    <span class="required">*</span></label>
-                  <input id="name" v-model="form.name" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter a name')" />
-                  <has-error :form="form" field="name" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="companyName">{{
-                    $t('Company Name')
-                  }}</label>
-                  <input id="companyName" v-model="form.companyName" type="companyName" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('companyName') }" name="companyName"
-                    :placeholder="$t('Enter a company name')" />
-                  <has-error :form="form" field="companyName" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="phoneNumber">{{ $t('Contact Number') }}
-                    <span class="required">*</span></label>
-                  <input id="phoneNumber" v-model="form.phoneNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('phoneNumber') }" name="phoneNumber"
-                    :placeholder="$t('Enter a contact number')" />
-                  <has-error :form="form" field="phoneNumber" />
-                </div>
-              </div>
-
-              <!-- Multiple Phone Numbers -->
-              <div class="form-group">
-                <label>{{ $t("Additional Phone Numbers") }}</label>
-                <div v-for="(phone, index) in form.phoneNumbers" :key="index" class="row mb-2">
-                  <div class="col-md-10">
-                    <input type="text" v-model="form.phoneNumbers[index]" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('phoneNumbers.' + index) }"
-                      :placeholder="$t('Enter phone number')" />
-                    <has-error :form="form" field="'phoneNumbers.' + index" />
-                  </div>
-                  <div class="col-md-2">
-                    <button type="button" @click="removePhoneNumber(index)" class="btn btn-danger btn-sm">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                <button type="button" @click="addPhoneNumber" class="btn btn-secondary btn-sm">
-                  <i class="fas fa-plus"></i> {{ $t("Add Phone Number") }}
-                </button>
-              </div>
-
-              <!-- Multiple Email Addresses -->
-              <div class="form-group">
-                <label>{{ $t("Additional Email Addresses") }}</label>
-                <div v-for="(email, index) in form.emailAddresses" :key="index" class="row mb-2">
-                  <div class="col-md-10">
-                    <input type="email" v-model="form.emailAddresses[index]" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('emailAddresses.' + index) }"
-                      :placeholder="$t('Enter email address')" />
-                    <has-error :form="form" field="'emailAddresses.' + index" />
-                  </div>
-                  <div class="col-md-2">
-                    <button type="button" @click="removeEmailAddress(index)" class="btn btn-danger btn-sm">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                <button type="button" @click="addEmailAddress" class="btn btn-secondary btn-sm">
-                  <i class="fas fa-plus"></i> {{ $t("Add Email Address") }}
-                </button>
-              </div>
-
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="email">{{ $t('Email') }}</label>
-                  <input id="email" v-model="form.email" type="email" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('email') }" name="email"
-                    :placeholder="$t('Enter your email address')" />
-                  <has-error :form="form" field="email" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="taxRegistrationNumber">{{
-                    $t("VAT Number")
-                  }}</label>
-                  <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }" name="taxRegistrationNumber"
-                    :placeholder="$t('Enter VAT number')" />
-                  <has-error :form="form" field="taxRegistrationNumber" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="crNumber">{{ $t("CR Number") }}</label>
-                  <input id="crNumber" v-model="form.crNumber" type="text"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('crNumber') }"
-                    name="crNumber" :placeholder="$t('Enter CR number')" />
-                  <has-error :form="form" field="crNumber" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="address">{{ $t('Address') }}</label>
-                <textarea id="address" v-model="form.address" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('address') }" :placeholder="$t('Enter an address')" />
-                <has-error :form="form" field="address" />
-              </div>
-              
-              <!-- New Address Fields -->
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="nationalityId">{{ $t("Nationality") }}</label>
-                  <select id="nationalityId" v-model="form.nationalityId" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('nationalityId') }" 
-                    :disabled="form.type !== 'Individual'">
-                    <option value="">{{ $t("Select Nationality") }}</option>
-                    <option v-for="nationality in nationalities" :key="nationality.id" :value="nationality.id">
-                      {{ nationality.name }}
-                    </option>
-                  </select>
-                  <has-error :form="form" field="nationalityId" />
-                  <small class="form-text text-muted" v-if="form.type !== 'Individual'">
-                    {{ $t("Nationality is only available for Individual type") }}
-                  </small>
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="cityName">{{ $t("City") }}</label>
-                  <input id="cityName" v-model="form.cityName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('cityName') }" 
-                    :placeholder="$t('Enter city name')" />
-                  <has-error :form="form" field="cityName" />
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="district">{{ $t("District") }}</label>
-                  <input id="district" v-model="form.district" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('district') }" 
-                    :placeholder="$t('Enter district name')" />
-                  <has-error :form="form" field="district" />
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="streetName">{{ $t("Street Name") }}</label>
-                  <input id="streetName" v-model="form.streetName" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('streetName') }" 
-                    :placeholder="$t('Enter street name')" />
-                  <has-error :form="form" field="streetName" />
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="buildingNumber">{{ $t("Building Number") }}</label>
-                  <input id="buildingNumber" v-model="form.buildingNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('buildingNumber') }" 
-                    :placeholder="$t('Enter building number')" />
-                  <has-error :form="form" field="buildingNumber" />
-                </div>
-                
-                <div class="form-group col-md-4">
-                  <label for="zipCode">{{ $t("Zip Code") }}</label>
-                  <input id="zipCode" v-model="form.zipCode" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('zipCode') }" 
-                    :placeholder="$t('Enter 5-digit zip code')" maxlength="5" />
-                  <has-error :form="form" field="zipCode" />
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="additionalNumber">{{ $t("Additional Number") }}</label>
-                  <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('additionalNumber') }" 
-                    :placeholder="$t('Enter additional reference number')" />
-                  <has-error :form="form" field="additionalNumber" />
-                </div>
-                
-                <div class="form-group col-md-6">
-                  <label for="unitNo">{{ $t("Unit No") }}</label>
-                  <input id="unitNo" v-model="form.unitNo" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('unitNo') }" 
-                    :placeholder="$t('Enter unit number')" />
-                  <has-error :form="form" field="unitNo" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="type">{{ $t('Type') }}
-                    <span class="required">*</span></label>
-                  <select id="type" v-model="form.type" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('type') }" name="type">
-                    <option value="">{{ $t('Select Type') }}</option>
-                    <option value="Company">{{ $t('Company') }}</option>
-                    <option value="Individual">{{ $t('Individual') }}</option>
-                  </select>
-                  <has-error :form="form" field="type" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="image">{{ $t('Image') }}</label>
-                  <div class="custom-file">
-                    <input id="image" type="file" class="custom-file-input" name="image"
-                      :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
-                    <label class="custom-file-label" for="image">{{
-                      $t('Choose file')
-                    }}</label>
-                  </div>
-                  <has-error :form="form" field="image" />
-                  <div class="bg-light mt-4 w-25">
-                    <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
-                  </div>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="status">{{ $t('Status') }}</label>
-                  <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
-                  </select>
-                  <has-error :form="form" field="status" />
-                </div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-edit" /> {{ $t('Save changes') }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t('Reset') }}
-              </button>
-            </div>
-          </form>
+          
+          <!-- Use the SupplierForm component -->
+          <SupplierForm 
+            ref="supplierForm"
+            :showCardBody="true"
+            :initialData="supplierData"
+          />
+          
+          <!-- Card footer with action buttons -->
+          <div class="card-footer">
+            <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="saveSupplier">
+              <i class="fas fa-save" /> {{ $t("Save") }}
+            </v-button>
+            <button type="button" class="btn btn-secondary float-right" @click="resetForm">
+              <i class="fas fa-power-off" /> {{ $t("Reset") }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -252,169 +38,357 @@
 </template>
 
 <script>
-import Form from 'vform'
-import axios from 'axios'
+import SupplierForm from "../../components/SupplierForm.vue";
+import VButton from "../../components/Button.vue";
 
 export default {
-  middleware: ['auth', 'check-permissions'],
+  middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t('Edit Supplier') }
+    return { title: this.$t("Edit Supplier") };
+  },
+  components: {
+    SupplierForm,
+    VButton,
   },
   data: () => ({
-    breadcrumbsCurrent: 'Edit Supplier',
+    breadcrumbsCurrent: "Edit Supplier",
     breadcrumbs: [
       {
-        name: 'Dashboard',
-        url: 'home',
+        name: "Dashboard",
+        url: "home",
       },
       {
-        name: 'Suppliers',
-        url: 'suppliers.index',
+        name: "Suppliers",
+        url: "suppliers.index",
       },
       {
-        name: 'Edit',
-        url: '',
+        name: "Edit",
+        url: "",
       },
     ],
-    form: new Form({
-      name: '',
-      email: '',
-      phoneNumber: '',
-      phoneNumbers: [],
-      emailAddresses: [],
-      companyName: '',
-      taxRegistrationNumber: '',
-      crNumber: '',
-      address: '',
-      type: '',
-      image: '',
-      status: 1,
-      nationalityId: '',
-             cityName: '',
-      district: '',
-      streetName: '',
-      buildingNumber: '',
-      zipCode: '',
-      additionalNumber: '',
-      unitNo: '',
-    }),
-    url: null,
     loading: true,
-    nationalities: [],
-    
+    isSubmitting: false,
+    supplierData: {},
   }),
-  mounted() {
-    this.getSupplier()
+  computed: {
+    // Check if form is ready
+    isFormReady() {
+      return this.$refs.supplierForm && 
+             this.$refs.supplierForm.getFormData && 
+             this.$refs.supplierForm.getFormData().data;
+    }
+  },
+  watch: {
+    // Watch for form readiness
+    '$refs.supplierForm': {
+      handler(newVal) {
+        if (newVal && newVal.getFormData && newVal.getFormData().data) {
+          console.log('Form is now ready');
+          this.loading = false;
+        }
+      },
+      immediate: true
+    }
   },
   async created() {
-    await this.fetchNationalities();
+    try {
+      await this.getSupplier();
+    } catch (error) {
+      console.error("Error in created lifecycle:", error);
+    }
   },
   methods: {
-    // get supplier
+    // Get supplier data
     async getSupplier() {
-      const { data } = await axios.get(
-        window.location.origin + '/api/suppliers/' + this.$route.params.slug
-      )
-      this.form.name = data.data.name
-      this.form.email = data.data.email
-      this.form.phoneNumber = data.data.phoneNumber
-      this.form.phoneNumbers = data.data.phoneNumbers || []
-      this.form.emailAddresses = data.data.emailAddresses || []
-      this.form.companyName = data.data.companyName
-      this.form.taxRegistrationNumber = data.data.vatNumber
-      this.form.crNumber = data.data.crNumber
-      this.form.address = data.data.address
-      this.form.type = data.data.type
-      this.form.status = data.data.status
-      this.form.nationalityId = data.data.nationality?.id || ''
-             this.form.cityName = data.data.cityName || ''
-      this.form.district = data.data.district || ''
-      this.form.streetName = data.data.streetName || ''
-      this.form.buildingNumber = data.data.buildingNumber || ''
-      this.form.zipCode = data.data.zipCode || ''
-      this.form.additionalNumber = data.data.additionalNumber || ''
-      this.form.unitNo = data.data.unitNo || ''
-      this.url = data.data.image
-    },
-
-    // vue file upload
-    onFileChange(e) {
-      const file = e.target.files[0]
-      const reader = new FileReader()
-      if (
-        file.size < 2111775 &&
-        (file.type === 'image/jpeg' ||
-          file.type === 'image/png' ||
-          file.type === 'image/gif')
-      ) {
-        reader.onloadend = () => {
-          this.form.image = reader.result
+      try {
+        // Check if we have a valid slug
+        if (!this.$route.params.slug) {
+          throw new Error("No supplier slug provided");
         }
-        reader.readAsDataURL(file)
-        this.url = URL.createObjectURL(file)
-      } else {
-        Swal.fire(
-          this.$t('Error!'),
-          this.$t('Please select a valid thumbnail with size less than 2 MB'),
-          'error'
-        )
+
+        console.log("Fetching supplier with slug:", this.$route.params.slug);
+        
+        const response = await this.$http.get(
+          `/api/suppliers/${this.$route.params.slug}`
+        );
+        
+        if (!response.data) {
+          throw new Error("No data received from API");
+        }
+        
+        console.log("Raw API response data:", response.data);
+        
+        // The API response is wrapped in a 'data' object
+        const supplierData = response.data.data || response.data;
+        
+        // Transform the data to match the expected format
+        this.supplierData = {
+          ...supplierData,
+          // Map API fields to component fields
+          codeNumber: supplierData.code_number || (supplierData.supplierID ? supplierData.supplierID.toString().padStart(6, '0') : "000001"),
+          fullName: supplierData.full_name || "",
+          businessName: supplierData.business_name || "",
+          firstName: supplierData.first_name || "",
+          lastName: supplierData.last_name || "",
+          phoneNumber: supplierData.phoneNumber || supplierData.phone_number || "",
+          streetAddress1: supplierData.street_address1 || "",
+          streetAddress2: supplierData.street_address2 || "",
+          postalCode: supplierData.postal_code || "",
+          commercialRegister: supplierData.commercial_register || "",
+          taxCard: supplierData.tax_card || "",
+          isSendEmail: supplierData.is_send_email || false,
+          isSendSMS: supplierData.is_send_sms || false,
+        };
+        
+        console.log("Transformed supplier data:", this.supplierData);
+        this.loading = false;
+      } catch (error) {
+        console.error("Error getting supplier:", error);
+        this.loading = false;
       }
     },
 
-    // update supplier
-    async updateSupplier() {
-      await this.form
-        .patch(
-          window.location.origin + '/api/suppliers/' + this.$route.params.slug
-        )
-        .then(() => {
-          toast.fire({
-            type: 'success',
-            title: this.$t('Supplier updated successfully'),
-          })
-          this.$router.push({ name: 'suppliers.index' })
-        })
-        .catch(() => {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Opps...something went wrong'),
-          })
-        })
-    },
-
-    // fetch nationalities
-    async fetchNationalities() {
+    // Save supplier using the SupplierForm component
+    async saveSupplier() {
+      console.log('=== SAVE SUPPLIER STARTED ===');
+      
+      // Check if form is ready
+      if (!this.isFormReady) {
+        console.error('Form is not ready yet');
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Form is not ready yet"),
+            text: this.$t("Please wait a moment and try again.")
+          });
+        } else {
+          alert(this.$t("Form is not ready yet. Please wait a moment and try again."));
+        }
+        return;
+      }
+      
       try {
-        const response = await axios.get('/api/nationalities');
+        this.isSubmitting = true;
+        console.log('Set isSubmitting to true');
+        
+        // Get form data from the SupplierForm component
+        console.log('Getting form from SupplierForm component...');
+        const form = this.$refs.supplierForm.getFormData();
+        console.log('Form data retrieved:', form);
+        
+        if (!form) {
+          throw new Error("No form data available");
+        }
+        
+        // Check if form is ready
+        if (!form.data) {
+          console.error('Form is not ready yet');
+          if (window.toast && typeof window.toast.fire === 'function') {
+            window.toast.fire({
+              type: "error",
+              title: this.$t("Form is not ready yet"),
+              text: this.$t("Please wait a moment and try again.")
+            });
+          } else {
+            alert(this.$t("Form is not ready yet. Please wait a moment and try again."));
+          }
+          this.isSubmitting = false;
+          return;
+        }
+        
+        console.log('Saving supplier with data:', form);
+        console.log('Preparing update data...');
+        
+        // Get the actual form data using .data() method
+        const formData = form.data();
+        console.log('Form data using .data() method:', formData);
+        
+        // Prepare the data for update
+        const updateData = {
+          // Account Details
+          codeNumber: formData.codeNumber,
+          notes: formData.notes,
+          displayLanguage: formData.displayLanguage,
+          status: formData.status,
+          
+          // Supplier Details
+          type: formData.type,
+          fullName: formData.fullName,
+          businessName: formData.businessName,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+          phoneNumber: formData.phoneNumber,
+          email: formData.email,
+          streetAddress1: formData.streetAddress1,
+          streetAddress2: formData.streetAddress2,
+          city: formData.city,
+          state: formData.state,
+          postalCode: formData.postalCode,
+          country: formData.country,
+          neighbourhood: formData.neighbourhood,
+          commercialRegister: formData.commercialRegister,
+          taxCard: formData.taxCard,
+          
+          // Additional Fields
+          image: formData.image,
+          attachments: formData.attachments,
+          isSendEmail: formData.isSendEmail,
+          isSendSMS: formData.isSendSMS,
+          
+          // Representatives
+          representatives: formData.representatives || [],
+          
+          // Legacy fields for backward compatibility
+          name: formData.type === 'Individual' ? formData.fullName : formData.businessName,
+          companyName: formData.businessName,
+          taxRegistrationNumber: formData.taxCard,
+          address: formData.streetAddress1,
+        };
+        
+        console.log('Update data prepared:', updateData);
+        console.log('Making API call to update supplier...');
+        
+        // Make API call to update supplier
+        const response = await this.$http.put(
+          `/api/suppliers/${this.$route.params.slug}`, 
+          updateData
+        );
+        
+        console.log('API response received:', response);
+        
         if (response.data.success) {
-          this.nationalities = response.data.data;
+          console.log('Supplier updated successfully');
+          if (window.toast && typeof window.toast.fire === 'function') {
+            window.toast.fire({
+              type: "success",
+              title: this.$t("Supplier updated successfully"),
+            });
+          } else {
+            alert(this.$t("Supplier updated successfully"));
+          }
+          this.$router.push({ name: "suppliers.index" });
+        } else {
+          throw new Error(response.data.message || "Failed to update supplier");
         }
       } catch (error) {
-        console.error('Error fetching nationalities:', error);
+        console.error("Error updating supplier:", error);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Oops...something went wrong"),
+          });
+        } else {
+          alert(this.$t("Oops...something went wrong"));
+        }
+      } finally {
+        console.log('Setting isSubmitting to false');
+        this.isSubmitting = false;
       }
     },
 
-    // Add phone number
-    addPhoneNumber() {
-      this.form.phoneNumbers.push('');
+    // Reset form
+    resetForm() {
+      if (this.$refs.supplierForm) {
+        this.$refs.supplierForm.resetForm();
+      }
     },
-
-    // Remove phone number
-    removePhoneNumber(index) {
-      this.form.phoneNumbers.splice(index, 1);
-    },
-
-    // Add email address
-    addEmailAddress() {
-      this.form.emailAddresses.push('');
-    },
-
-    // Remove email address
-    removeEmailAddress(index) {
-      this.form.emailAddresses.splice(index, 1);
-    },
-
-
   },
-}
+};
 </script>
+
+<style scoped>
+.section-title {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.radio-inline {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.radio-inline input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.required {
+  color: #dc3545;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.btn {
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #545b62;
+  border-color: #545b62;
+}
+
+.btn-dark {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .radio-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .col-md-3 {
+    margin-bottom: 1rem;
+  }
+}
+</style>

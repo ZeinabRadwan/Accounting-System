@@ -28,7 +28,9 @@ class StoreSupplierRequest extends BaseRequest
             'phoneNumber' => 'required|string|max:20|min:3',
             'email' => 'nullable|email|max:255|min:3|unique:suppliers,email',
             'companyName' => 'nullable|string|max:100|min:2',
-            'address' => 'nullable|string|max:255'
+            'address' => 'nullable|string|max:255',
+            'type' => 'required|string|in:Company,Individual',
+            'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
         ];
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use Exception;
 use App\Models\Expense;
+use App\Models\ExpenseJournal;
+use App\Services\BusinessTransactionJournalService;
 use Illuminate\Http\Request;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +15,7 @@ use App\Http\Resources\ExpenseResource;
 use App\Interfaces\ITransactionService;
 use App\Http\Requests\Expense\StoreExpenseRequest;
 use App\Http\Requests\Expense\UpdateExpenseRequest;
+use Illuminate\Support\Facades\Log;
 
 class ExpenseController extends Controller
 {
@@ -78,6 +81,15 @@ class ExpenseController extends Controller
                 'image_path' => $imageName,
                 'status' => $request->status,
             ]);
+
+            // Create journal entry for expense
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createExpenseJournal($expense, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the expense creation
+                Log::error('Failed to create journal entry for expense: ' . $e->getMessage());
+            }
 
             // add activity log
             activity()

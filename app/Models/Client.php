@@ -17,9 +17,86 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'client_id', 'email', 'phone', 'phone_numbers', 'email_addresses', 'company_name', 'address', 'status', 'image_path','tax_registration_number', 'cr_number', 'type',
-                    'nationality_id', 'city_name', 'district', 'street_name', 'building_number', 'zip_code', 'additional_number', 'unit_no', 'account_id',
+        'name', 'slug', 'client_id', 'email', 'phone_legacy', 'phone_secondary', 'status', 'image_path', 'type', 'chart_of_account_id',
+        // Account and billing details
+        'code_number', 'notes', 'display_language',
+        // Name fields (conditional based on type)
+        'full_name', 'business_name', 'first_name', 'last_name', 'company_name',
+        // Address information (handle both legacy and new fields)
+        'address', 'street_address1', 'street_address2', 'city', 'state', 'postal_code', 'country', 'neighbourhood',
+        // Business-specific fields (handle both naming conventions)
+        'commercial_register', 'tax_card', 'tax_registration_number',
+        // Settings and preferences
+        'is_send_email', 'is_send_sms',
+        // Media and attachments
+        'attachments', 'phone_number'
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'attachments' => 'array',
+        'add_secondary_address' => 'boolean',
+        'is_send_email' => 'boolean',
+        'is_send_sms' => 'boolean',
+        'status' => 'boolean',
+    ];
+
+    /**
+     * Get the display name based on client type
+     */
+    public function getDisplayNameAttribute()
+    {
+        if ($this->type === 'Individual') {
+            return $this->full_name ?: $this->name;
+        } else {
+            return $this->business_name ?: $this->name;
+        }
+    }
+
+    /**
+     * Get the primary contact name
+     */
+    public function getPrimaryContactNameAttribute()
+    {
+        if ($this->type === 'Individual') {
+            return $this->full_name ?: $this->name;
+        } else {
+            if ($this->first_name && $this->last_name) {
+                return $this->first_name . ' ' . $this->last_name;
+            }
+            return $this->first_name ?: $this->last_name ?: $this->name;
+        }
+    }
+
+    /**
+     * Get the primary phone number
+     */
+    public function getPrimaryPhoneAttribute()
+    {
+        return $this->phone_number ?: $this->phone_legacy;
+    }
+
+    /**
+     * Get the complete address
+     */
+    public function getCompleteAddressAttribute()
+    {
+        $addressParts = [];
+        
+        if ($this->street_address1) $addressParts[] = $this->street_address1;
+        if ($this->street_address2) $addressParts[] = $this->street_address2;
+        if ($this->country) $addressParts[] = $this->country;
+        if ($this->state) $addressParts[] = $this->state;
+        if ($this->city) $addressParts[] = $this->city;
+        if ($this->neighbourhood) $addressParts[] = $this->neighbourhood;
+        if ($this->postal_code) $addressParts[] = $this->postal_code;
+        
+        return implode(', ', $addressParts);
+    }
 
     /**
      * Return the sluggable configuration array for this model.
@@ -163,33 +240,143 @@ class Client extends Model
     }
 
     /**
-     * Get the nationality of the client
+     * Get the chart of account for the client.
      */
-    public function nationality()
+    public function chartOfAccount()
     {
-        return $this->belongsTo(Nationality::class);
+        return $this->belongsTo(ChartOfAccount::class, 'chart_of_account_id');
     }
 
     /**
-     * Get the account of the client
+     * Ensure client has a chart of account assigned and load the relationship.
      */
-    public function account()
+    public function ensureChartOfAccountLoaded()
     {
-        return $this->belongsTo(Account::class);
+        // If no chart of account is assigned, assign one
+        if (!$this->chart_of_account_id) {
+            $clientData = [
+                'type' => $this->type ?? 'Company'
+            ];
+            $clientData = self::assignDefaultChartOfAccount($clientData);
+            if (isset($clientData['chart_of_account_id'])) {
+                $this->update(['chart_of_account_id' => $clientData['chart_of_account_id']]);
+            }
+        }
+        
+        // Load the relationship if not already loaded
+        if (!$this->relationLoaded('chartOfAccount')) {
+            $this->load('chartOfAccount');
+        }
+        
+        return $this;
     }
 
     /**
-     * Get the city of the client
+     * Get the representatives for the client.
      */
+    public function representatives()
+    {
+        return $this->hasMany(ClientRepresentative::class);
+    }
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * Get the primary representative for the client.
      */
-    protected $casts = [
-        'phone_numbers' => 'array',
-        'email_addresses' => 'array',
-        'status' => 'boolean',
-    ];
+    public function primaryRepresentative()
+    {
+        return $this->hasOne(ClientRepresentative::class)->where('is_primary', true);
+    }
+
+    /**
+     * Get the chart of account ID for journal entries.
+     */
+    public function getChartOfAccountIdForJournal()
+    {
+        return $this->chart_of_account_id;
+    }
+
+    /**
+     * Check if the client is connected to a chart of account.
+     */
+    public function isChartOfAccountConnected()
+    {
+        return !is_null($this->chart_of_account_id);
+    }
+
+    /**
+     * Get validation message for chart of account connection.
+     */
+    public function getChartOfAccountValidationMessage()
+    {
+        if (!$this->isChartOfAccountConnected()) {
+            return 'Client must be connected to a Chart of Account for journal entries.';
+        }
+        return null;
+    }
+
+    /**
+     * Automatically assign default Chart of Account if none is set
+     */
+    public static function assignDefaultChartOfAccount($clientData)
+    {
+        // If chart_of_account_id is already provided, use it
+        if (isset($clientData['chart_of_account_id']) && $clientData['chart_of_account_id']) {
+            return $clientData;
+        }
+
+        // Get the clients account routing setting
+        $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+            ->where('is_active', true)
+            ->first();
+        
+        if ($routingSetting && $routingSetting->parent_account_id) {
+            // Use the parent account from routing setup
+            $defaultAccount = $routingSetting->parentAccount;
+            
+            if ($defaultAccount && $defaultAccount->is_active) {
+                $clientData['chart_of_account_id'] = $defaultAccount->id;
+                return $clientData;
+            }
+        }
+        
+        // Fallback to the old logic if routing is not configured
+        $defaultAccount = null;
+        
+        if (isset($clientData['type'])) {
+            switch ($clientData['type']) {
+                case 'Company':
+                    // Look for "Accounts Receivable - Companies" or similar
+                    $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
+                        ->where('name', 'like', '%Accounts Receivable%')
+                        ->where('name', 'like', '%Company%')
+                        ->first();
+                    break;
+                case 'Individual':
+                    // Look for "Accounts Receivable - Individuals" or similar
+                    $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
+                        ->where('name', 'like', '%Accounts Receivable%')
+                        ->where('name', 'like', '%Individual%')
+                        ->first();
+                    break;
+            }
+        }
+
+        // Fallback to any Accounts Receivable account
+        if (!$defaultAccount) {
+            $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
+                ->where('name', 'like', '%Accounts Receivable%')
+                ->first();
+        }
+
+        // Final fallback to any active account
+        if (!$defaultAccount) {
+            $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)->first();
+        }
+
+        if ($defaultAccount) {
+            $clientData['chart_of_account_id'] = $defaultAccount->id;
+        }
+
+        return $clientData;
+    }
 }

@@ -15,6 +15,7 @@ import TableLoading from './TableLoading'
 import RecentActivities from './RecentActivities'
 import SettingsSidebar from './SettingsSidebar'
 import VModal from './VModal'
+import ClientForm from './ClientForm'
 import {
   HasError,
   AlertError,
@@ -44,7 +45,8 @@ import {
   AlertError,
   AlertErrors,
   AlertSuccess,
-  VModal
+  VModal,
+  ClientForm
 ].forEach(Component => {
   Vue.component(Component.name, Component)
 })

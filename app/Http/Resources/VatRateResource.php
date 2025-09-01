@@ -32,6 +32,27 @@ class VatRateResource extends JsonResource
             }
         }
 
+        // Add chart of account information
+        if ($this->salesVatAccount) {
+            $data['salesVatAccount'] = [
+                'id' => $this->salesVatAccount->id,
+                'name' => $this->salesVatAccount->name,
+                'code' => $this->salesVatAccount->code,
+            ];
+        }
+
+        if ($this->purchaseVatAccount) {
+            $data['purchaseVatAccount'] = [
+                'id' => $this->purchaseVatAccount->id,
+                'name' => $this->purchaseVatAccount->name,
+                'code' => $this->purchaseVatAccount->code,
+            ];
+        }
+
+        // Add chart of account IDs for form handling
+        $data['sales_vat_account_id'] = $this->sales_vat_account_id;
+        $data['purchase_vat_account_id'] = $this->purchase_vat_account_id;
+
         return $data;
     }
 }
