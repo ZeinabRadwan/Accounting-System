@@ -447,18 +447,24 @@
                         <td>{{ (allData.subTotal ) | withCurrency }}</td>
                       </tr>
                       <tr>
-                        <th>{{ $t("Discount") }}:</th>
-                        <td>{{ (totalProductDiscount) | withCurrency }}</td>
+                        <th>{{ $t("Product Discount") }}:</th>
+                        <td>
+                          <span class="minus-sign">-</span>
+                          {{ (totalProductDiscount) | withCurrency }}
+                        </td>
                       </tr>
 
-                      <tr class="bg-green-light text-bold">
+                      <tr v-if="isSaudiArabia" class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
                         <td>{{ (allData.subTotal - totalProductDiscount) | withCurrency }}</td>
                       </tr>
 
-                      <tr >
-                        <th>{{ $t("VAT") }}:</th>
-                        <td>{{ (totalProductVat) | withCurrency }}</td>
+                      <tr v-if="isSaudiArabia && totalProductVat > 0">
+                        <th>{{ $t("Product VAT") }}:</th>
+                        <td>
+                          <span class="plus-sign">+</span>
+                          {{ (totalProductVat) | withCurrency }}
+                        </td>
                       </tr>
 
 
@@ -541,7 +547,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ ((allData.subTotal - totalProductDiscount) + calculatedTotal - (allData.totalPaid || 0)) | withCurrency }}</td>
+                        <td>{{ (allData.subTotal - (allData.totalPaid || 0)) | withCurrency }}</td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountPayable">
                         <th>{{ $t("Account Payable") }}:</th>
@@ -732,13 +738,15 @@ export default {
       return !this.appInfo?.country || this.appInfo.country === 'SA';
     },
     
-         // Calculate correct total based on Saudi Arabia rules
+    // Calculate correct total based on Saudi Arabia rules
      calculatedTotal() {
        if (!this.allData) return 0;
        
        if (this.isSaudiArabia) {
-         return this.allData.subTotal - (this.allData.totalInvoiceReturn || 0);
+         // For Saudi Arabia: Subtotal - Product Discount + Product VAT
+         return this.allData.subTotal - this.totalProductDiscount + this.totalProductVat;
        } else {
+         // For other countries: Subtotal - Returns - Global Discount + Transport + Tax
          return this.allData.subTotal - 
                 (this.allData.totalInvoiceReturn || 0) - 
                 this.globalDiscountAmount + 
@@ -775,19 +783,7 @@ export default {
        return this.invoiceProducts.filter(product => product.productDiscount && product.productDiscount > 0).length;
      },
      
-     // Calculate actual discount amount for a product (handles both percentage and fixed)
-     calculateProductDiscountAmount() {
-       return (product) => {
-         if (!product.productDiscount || product.productDiscount <= 0) return 0;
-         
-         // Product discounts use string values: 'percentage' or 'fixed'
-         if (product.discountType === 'percentage') {
-           return (product.salePrice * product.quantity * product.productDiscount) / 100;
-         } else {
-           return product.productDiscount;
-         }
-       };
-     },
+
      
      // Calculate global discount amount (handles both percentage and fixed)
      globalDiscountAmount() {
@@ -820,6 +816,18 @@ export default {
     this.invoicePrefix = this.appInfo.invoicePrefix;
   },
   methods: {
+    // Calculate actual discount amount for a product (handles both percentage and fixed)
+    calculateProductDiscountAmount(product) {
+      if (!product.productDiscount || product.productDiscount <= 0) return 0;
+      
+      // Product discounts use string values: 'percentage' or 'fixed'
+      if (product.discountType === 'percentage') {
+        return (product.salePrice * product.quantity * product.productDiscount) / 100;
+      } else {
+        return product.productDiscount;
+      }
+    },
+    
     // get the invoice
     async getInvoice() {
       this.loading = true;
