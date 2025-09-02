@@ -15,6 +15,7 @@ use App\Models\NonInvoicePayment;
 use App\Models\AccountRoutingSetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Models\AccountTransaction;
 
@@ -285,7 +286,7 @@ class BusinessTransactionJournalService
         }
     }
 
-    /**
+        /**
      * Create journal entry for purchase
      */
     public function createPurchaseJournal(Purchase $purchase, int $userId): JournalEntry
@@ -298,16 +299,6 @@ class BusinessTransactionJournalService
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
             }
 
-            // Validate all products have purchase accounts (including fallback)
-            $purchaseProducts = $purchase->purchaseProducts;
-            if ($purchaseProducts && $purchaseProducts->count() > 0) {
-                foreach ($purchaseProducts as $purchaseProduct) {
-                    if (!$purchaseProduct->product || !$purchaseProduct->product->hasPurchaseAccountWithFallback()) {
-                        throw new Exception('Product ' . ($purchaseProduct->product->name ?? 'Unknown') . ' must have a Purchase Account assigned or a default Product Purchase Account configured in routing settings.');
-                    }
-                }
-            }
-
             // Get supplier-specific accounts payable account
             $supplierAccountsPayableAccount = $purchase->supplier->chartOfAccount;
             
@@ -315,16 +306,88 @@ class BusinessTransactionJournalService
                 throw new Exception('Supplier Chart of Account not found.');
             }
 
+            // Get purchase products
+            $purchaseProducts = $purchase->purchaseProducts;
+            if (!$purchaseProducts || $purchaseProducts->count() === 0) {
+                throw new Exception('No products found for this purchase.');
+            }
+            
+            Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
+
+            // Validate all products have purchase accounts (including fallback)
+            foreach ($purchaseProducts as $purchaseProduct) {
+                if (!$purchaseProduct->product || !$purchaseProduct->product->hasPurchaseAccountWithFallback()) {
+                    throw new Exception('Product ' . ($purchaseProduct->product->name ?? 'Unknown') . ' must have a Purchase Account assigned or a default Product Purchase Account configured in routing settings.');
+                }
+            }
+
             $totalAmount = $purchase->purchaseTotal();
             
-            // Create journal entry
+            // Calculate final totals first
+            $totalDebit = 0;
+            $totalCredit = 0;
+            
+            // Credit to supplier's accounts payable (after discount)
+            $totalCredit += $totalAmount;
+            
+            // Debit to purchase expense accounts (grouped by account)
+            $purchaseExpensesByAccount = [];
+            foreach ($purchaseProducts as $purchaseProduct) {
+                $purchaseAccount = $purchaseProduct->product->getPurchaseAccountWithFallback();
+                $accountId = $purchaseAccount->id;
+                $productTotal = $purchaseProduct->getFinalTotalAttribute();
+                
+                Log::info("Product: {$purchaseProduct->product->name}, Total: {$productTotal}, Account: {$purchaseAccount->name}");
+                
+                if (!isset($purchaseExpensesByAccount[$accountId])) {
+                    $purchaseExpensesByAccount[$accountId] = [
+                        'account' => $purchaseAccount,
+                        'total' => 0
+                    ];
+                }
+                $purchaseExpensesByAccount[$accountId]['total'] += $productTotal;
+            }
+            
+            foreach ($purchaseExpensesByAccount as $expense) {
+                $totalDebit += $expense['total'];
+            }
+            
+            // Add transport costs if applicable
+            if ($purchase->transport && $purchase->transport > 0) {
+                Log::info("Adding transport cost: {$purchase->transport}");
+                $totalDebit += $purchase->transport;
+            }
+            
+            // Add VAT input if applicable
+            if ($purchase->tax_id) {
+                $vatAmount = $purchase->taxAmount();
+                if ($vatAmount > 0) {
+                    Log::info("Adding VAT amount: {$vatAmount}");
+                    $totalDebit += $vatAmount;
+                }
+            }
+            
+            // Note: Discount is already included in $totalAmount (purchaseTotal() subtracts it)
+            
+            // Debug logging
+            Log::info("Purchase Journal Calculation for PO {$purchase->purchase_no}:");
+            Log::info("Total Amount: {$totalAmount}");
+            Log::info("Calculated Total Debit: {$totalDebit}");
+            Log::info("Calculated Total Credit: {$totalCredit}");
+            Log::info("Balance Check: " . ($totalDebit - $totalCredit));
+            Log::info("Purchase Sub Total: {$purchase->sub_total}");
+            Log::info("Purchase Transport: {$purchase->transport}");
+            Log::info("Purchase Discount: {$purchase->discount}");
+            Log::info("Purchase Tax ID: {$purchase->tax_id}");
+            
+            // Create journal entry with correct balanced totals
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $purchase->purchase_date,
                 'reference' => $purchase->purchase_no,
                 'description' => "Purchase Order {$purchase->purchase_no}",
-                'total_debit' => $totalAmount,
-                'total_credit' => $totalAmount,
+                'total_debit' => $totalDebit,
+                'total_credit' => $totalCredit,
                 'status' => 'posted',
                 'created_by' => $userId,
                 'posted_by' => $userId,
@@ -332,6 +395,13 @@ class BusinessTransactionJournalService
                 'source_type' => Purchase::class,
                 'source_id' => $purchase->id,
             ]);
+
+            $lineNumber = 1;
+
+            // Line 1: Credit to Supplier's Accounts Payable
+            Log::info("Creating journal line 1: Credit to Supplier Accounts Payable - Amount: {$totalAmount}");
+            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $totalAmount, $lineNumber, "Accounts Payable for PO {$purchase->purchase_no}");
+            $lineNumber++;
 
             // Group by purchase account to handle multiple products with different accounts
             $purchaseByAccount = [];
@@ -347,35 +417,42 @@ class BusinessTransactionJournalService
                 $purchaseByAccount[$accountId] += $amount;
             }
             
-            // Create separate journal entry lines for each purchase account
+            // Create separate journal entry lines for each purchase account (Debit)
             foreach ($purchaseByAccount as $accountId => $amount) {
-                $this->createJournalEntryLine($journalEntry, $accountId, $amount, 0, 1, "Purchase Expense for PO {$purchase->purchase_no}");
+                Log::info("Creating journal line {$lineNumber}: Debit to Purchase Expense - Account ID: {$accountId}, Amount: {$amount}");
+                $this->createJournalEntryLine($journalEntry, $accountId, $amount, 0, $lineNumber, "Purchase Expense for PO {$purchase->purchase_no}");
+                $lineNumber++;
             }
 
-            // Create VAT journal entry if applicable
-            if ($purchase->tax_id) {
-                $vatAmount = $purchase->taxAmount();
-                if ($vatAmount > 0) {
-                    $this->createVatJournalEntry($journalEntry, $purchase, $vatAmount, $userId, 'purchase');
-                }
-            }
-
-            // Create transport cost journal entry if applicable
+            // Create transport cost journal entry if applicable (Debit)
             if ($purchase->transport && $purchase->transport > 0) {
                 $transportAccount = $this->getTransportExpenseAccount();
                 if ($transportAccount) {
-                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, $purchase->transport, 0, count($purchaseByAccount) + 2, "Transport Cost for PO {$purchase->purchase_no}");
+                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, $purchase->transport, 0, $lineNumber, "Transport Cost for PO {$purchase->purchase_no}");
                 } else {
                     // Fallback to first purchase account if transport account not configured
                     $firstPurchaseAccountId = array_key_first($purchaseByAccount);
                     if ($firstPurchaseAccountId) {
-                        $this->createJournalEntryLine($journalEntry, $firstPurchaseAccountId, $purchase->transport, 0, count($purchaseByAccount) + 2, "Transport Cost for PO {$purchase->purchase_no}");
+                        $this->createJournalEntryLine($journalEntry, $firstPurchaseAccountId, $purchase->transport, 0, $lineNumber, "Transport Cost for PO {$purchase->purchase_no}");
+                    }
+                }
+                $lineNumber++;
+            }
+
+            // Create VAT journal entry if applicable (Debit)
+            if ($purchase->tax_id) {
+                $vatAmount = $purchase->taxAmount();
+                if ($vatAmount > 0) {
+                    $vatAccount = $this->getVatAccountForPurchase($purchase);
+                    if ($vatAccount) {
+                        Log::info("Creating journal line {$lineNumber}: Debit to VAT Input - Account ID: {$vatAccount->id}, Amount: {$vatAmount}");
+                        $this->createJournalEntryLine($journalEntry, $vatAccount->id, $vatAmount, 0, $lineNumber, "VAT Input for PO {$purchase->purchase_no}");
+                        $lineNumber++;
                     }
                 }
             }
 
-            // Create accounts payable line
-            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $totalAmount, count($purchaseByAccount) + 2, "Accounts Payable for PO {$purchase->purchase_no}");
+            // Note: Discount is already included in the purchase total, so no separate journal entry line needed
 
             // Create bridge table record
             \App\Models\PurchaseJournal::create([
@@ -389,6 +466,7 @@ class BusinessTransactionJournalService
             
         } catch (Exception $e) {
             DB::rollBack();
+            Log::error('Purchase journal creation failed: ' . $e->getMessage());
             throw $e;
         }
     }
@@ -931,6 +1009,47 @@ class BusinessTransactionJournalService
     {
         $setting = AccountRoutingSetting::where('module', 'purchase')
             ->where('setting_key', 'transport_expense_account')
+            ->first();
+
+        if (!$setting || !$setting->parent_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::find($setting->parent_account_id);
+    }
+
+    /**
+     * Get VAT account for purchase from routing settings
+     */
+    private function getVatAccountForPurchase(Purchase $purchase): ?ChartOfAccount
+    {
+        // First try to get VAT account from the purchase's tax rate
+        if ($purchase->tax_id) {
+            $vatRate = $purchase->purchaseTax;
+            if ($vatRate && $vatRate->chart_of_account_id) {
+                return ChartOfAccount::find($vatRate->chart_of_account_id);
+            }
+        }
+
+        // Fallback to default VAT input account from routing settings
+        $setting = AccountRoutingSetting::where('module', 'purchase')
+            ->where('setting_key', 'vat_input_account')
+            ->first();
+
+        if (!$setting || !$setting->parent_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::find($setting->parent_account_id);
+    }
+
+    /**
+     * Get discount received account from routing settings
+     */
+    private function getDiscountReceivedAccount(): ?ChartOfAccount
+    {
+        $setting = AccountRoutingSetting::where('module', 'purchase')
+            ->where('setting_key', 'discount_received_account')
             ->first();
 
         if (!$setting || !$setting->parent_account_id) {
