@@ -444,7 +444,7 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ (allData.subTotal - totalProductVat) | withCurrency }}</td>
+                        <td>{{ (allData.subTotal ) | withCurrency }}</td>
                       </tr>
                       <tr>
                         <th>{{ $t("Discount") }}:</th>
@@ -453,7 +453,7 @@
 
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ (allData.subTotal - totalProductVat - totalProductDiscount) | withCurrency }}</td>
+                        <td>{{ (allData.subTotal - totalProductDiscount) | withCurrency }}</td>
                       </tr>
 
                       <tr >
@@ -541,7 +541,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.due | withCurrency }}</td>
+                        <td>{{ ((allData.subTotal - totalProductDiscount) + calculatedTotal - (allData.totalPaid || 0)) | withCurrency }}</td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountPayable">
                         <th>{{ $t("Account Payable") }}:</th>
@@ -804,7 +804,7 @@ export default {
 
   watch: {
     // watch search data
-    query: function (newQ, oldQ) {
+    query: function (newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {
