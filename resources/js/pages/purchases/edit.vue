@@ -821,24 +821,7 @@ export default {
           
           console.log('Supplier after updating chart_of_account_id:', this.form.supplier);
           
-          // Add a small delay to ensure the backend has processed the update
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          // Refresh suppliers list to get updated data
-          await this.getSuppliers();
-          
-          // Find and update the current supplier with the refreshed data
-          if (this.items && this.items.length > 0) {
-            const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
-            if (updatedSupplier) {
-              console.log('Found updated supplier in items:', updatedSupplier);
-              // Update the form supplier with all the latest data
-              this.form.supplier = { ...updatedSupplier };
-              console.log('Form supplier after refresh:', this.form.supplier);
-            }
-          }
-          
-          // Force Vue to re-render the component
+          // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
             this.$forceUpdate();
           });
@@ -883,22 +866,7 @@ export default {
           // Update the product data with new chart of account
           product.purchase_account_id = response.data.purchase_account_id;
           
-          // Add a small delay to ensure the backend has processed the update
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          // Refresh products list to get updated data
-          await this.getProducts();
-          
-          // Find and update the current product with the refreshed data
-          if (this.products && this.products.length > 0) {
-            const updatedProduct = this.products.find(p => p.id === product.id);
-            if (updatedProduct) {
-              // Update the product with all the latest data
-              Object.assign(product, updatedProduct);
-            }
-          }
-          
-          // Force Vue to re-render the component
+          // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
             this.$forceUpdate();
           });
@@ -932,6 +900,16 @@ export default {
     onSupplierChange() {
       // Clear any previous errors
       this.form.errors.clear('supplier');
+      
+      // If a supplier is selected, ensure we have the latest data including Chart of Account
+      if (this.form.supplier && this.form.supplier.id) {
+        // Find the supplier in the items list to get the most up-to-date data
+        const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
+        if (updatedSupplier) {
+          // Update the form supplier with all the latest data
+          this.form.supplier = { ...updatedSupplier };
+        }
+      }
     },
 
     // update purchase

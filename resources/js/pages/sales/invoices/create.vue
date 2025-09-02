@@ -2063,16 +2063,10 @@ export default {
           // Update the client data with new chart of account
           this.form.client.chart_of_account_id = response.data.chart_of_account_id;
           
-          // Refresh clients list to get updated data
-          await this.getClients('default'); // Use 'default' instead of 'latest'
-          
-          // Restore the EXACT same client selection
-          if (this.items) {
-            const updatedClient = this.items.find(c => c.slug === currentClientSlug);
-            if (updatedClient) {
-              this.form.client = updatedClient;
-            }
-          }
+          // Force Vue to re-render the component to update the UI
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
           
           // Show success message
           toast.fire({
@@ -2398,8 +2392,10 @@ export default {
           // Update the product data with new chart of account
           product.sales_account_id = response.data.sales_account_id;
           
-          // Refresh products list to get updated data
-          await this.getProducts();
+          // Force Vue to re-render the component to update the UI
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
           
           // Show success message
           toast.fire({
