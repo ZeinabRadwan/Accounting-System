@@ -134,11 +134,11 @@ class ProductController extends Controller
             $sales_settings = AccountRoutingSetting::where('module', 'sales')->where('setting_key', 'product_sales_account')->first();
             $purchase_settings = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
 
-            if ($sales_settings->routing_type == 'automatic') {
+            if ($sales_settings && $sales_settings->routing_type == 'automatic') {
                 $salesAccountId = $sales_settings?->main_account_id;
 
                 if ($salesAccountId == null || $salesAccountId == '' || $salesAccountId == 0) {
-                    return $this->responseWithError('Sales Account is required');
+                    return $this->responseWithError('Sales Account is required - Please configure account routing settings');
                 }
             } else {
                 if ($request->salesAccountId) {
@@ -150,11 +150,11 @@ class ProductController extends Controller
                 }
             }
 
-            if ($purchase_settings->routing_type == 'automatic') {
+            if ($purchase_settings && $purchase_settings->routing_type == 'automatic') {
                 $purchaseAccountId = $purchase_settings?->main_account_id;
 
                 if ($purchaseAccountId == null || $purchaseAccountId == '' || $purchaseAccountId == 0) {
-                    return $this->responseWithError('Purchase Account is required');
+                    return $this->responseWithError('Purchase Account is required - Please configure account routing settings');
                 }
             } else {
                 if ($request->purchaseAccountId) {
@@ -348,11 +348,11 @@ class ProductController extends Controller
             $sales_settings = AccountRoutingSetting::where('module', 'sales')->where('setting_key', 'product_sales_account')->first();
             $purchase_settings = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
 
-            if ($sales_settings->routing_type == 'automatic') {
+            if ($sales_settings && $sales_settings->routing_type == 'automatic') {
                 $salesAccountId = $sales_settings?->main_account_id;
 
                 if ($salesAccountId == null || $salesAccountId == '' || $salesAccountId == 0) {
-                    return $this->responseWithError('Sales Account is required');
+                    return $this->responseWithError('Sales Account is required - Please configure account routing settings');
                 }
             } else {
                 if ($request->salesAccountId) {
@@ -364,11 +364,11 @@ class ProductController extends Controller
                 }
             }
 
-            if ($purchase_settings->routing_type == 'automatic') {
+            if ($purchase_settings && $purchase_settings->routing_type == 'automatic') {
                 $purchaseAccountId = $purchase_settings?->main_account_id;
 
                 if ($purchaseAccountId == null || $purchaseAccountId == '' || $purchaseAccountId == 0) {
-                    return $this->responseWithError('Purchase Account is required');
+                    return $this->responseWithError('Purchase Account is required - Please configure account routing settings');
                 }
             } else {
                 if ($request->purchaseAccountId) {

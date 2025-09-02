@@ -320,15 +320,16 @@
                       " />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
-                <div v-if="taxes && isSaudiArabia" class="form-group col-md-6 col-xl-3">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
                   <label for="orderTax">{{ $t("Purchase Tax") }}
                     <span class="required">*</span></label>
+                  <!-- Debug: isSaudiArabia = {{ isSaudiArabia }}, taxes = {{ taxes ? 'exists' : 'null' }} -->
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" :placeholder="$t('Select a tax type')
                       " @input="updateTax" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes && isSaudiArabia" class="form-group col-md-6 col-xl-3">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
                   <label for="totalTax">{{
                     $t("Total Tax")
                   }}</label>
@@ -338,10 +339,11 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
-                <div class="form-group col-md-6 col-xl-3" v-if="isSaudiArabia">
+                <div class="form-group col-md-6 col-xl-3" v-if="!isSaudiArabia">
                   <label for="discount">{{
                     $t("Discount")
                   }}</label>
+                  <!-- Debug: isSaudiArabia = {{ isSaudiArabia }} -->
                   <input id="discount" v-model="form.discount" type="number" step="any" min="1" :max="form.subTotal"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
                     :placeholder="$t('Enter discount')
@@ -572,12 +574,47 @@ export default {
         return total + (item.unitPrice * item.qty);
       }, 0);
     },
-    // Match invoice logic: treat missing country as Saudi by default
+    // Check if the country is Saudi Arabia
     isSaudiArabia() {
-      return !this.appInfo?.country || this.appInfo.country === 'SA'
+      console.log('=== isSaudiArabia Debug ===');
+      console.log('appInfo:', this.appInfo);
+      console.log('appInfo.country:', this.appInfo ? this.appInfo.country : 'appInfo is null/undefined');
+      console.log('Country comparison result:', this.appInfo && this.appInfo.country === 'SA');
+      console.log('========================');
+      return this.appInfo && this.appInfo.country === 'SA'
     },
   },
+  watch: {
+    appInfo: {
+      handler(newVal, oldVal) {
+        console.log('=== appInfo Watcher ===');
+        console.log('New appInfo:', newVal);
+        console.log('Old appInfo:', oldVal);
+        console.log('Country in new appInfo:', newVal ? newVal.country : 'newVal is null/undefined');
+        console.log('======================');
+      },
+      immediate: true,
+      deep: true
+    },
+    isSaudiArabia: {
+      handler(newVal, oldVal) {
+        console.log('=== isSaudiArabia Watcher ===');
+        console.log('New isSaudiArabia:', newVal);
+        console.log('Old isSaudiArabia:', oldVal);
+        // Clear orderTax when fields are hidden (when isSaudiArabia is true)
+        if (newVal === true) {
+          console.log('Clearing orderTax because fields are hidden');
+          this.form.orderTax = null;
+          this.form.totalTax = 0;
+        }
+        console.log('============================');
+      },
+      immediate: true
+    }
+  },
   created() {
+    console.log('=== Component Created ===');
+    console.log('appInfo at creation:', this.appInfo);
     this.getSuppliers();
     this.getProducts();
     this.getAccounts();
@@ -703,7 +740,7 @@ export default {
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
-          selectedVatRate: null,
+          selectedVatRate: this.findMatchingVatRate(product.productTax) || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
           productTax: 0,
           totalTax: 0,
           unitCost: purchasePrice,
@@ -724,6 +761,10 @@ export default {
         this.form.selectedProducts[index] = updatedProduct;
       }
       this.generateItemTotal(quantity, "qty", index, "");
+      // Calculate VAT for the newly added product if it has a default VAT rate
+      if (index === -1 && this.taxes && this.taxes.length > 0) {
+        this.calculateProductVat(0); // 0 because we used unshift, so new product is at index 0
+      }
       this.updateTax();
       return;
     },
@@ -841,7 +882,18 @@ export default {
     // Helper method to find matching VAT rate
     findMatchingVatRate(productTax) {
       if (!this.taxes || !productTax) return null;
-      return this.taxes.find(tax => tax.rate === productTax);
+      
+      // If productTax is an object (VAT rate object), use its rate property
+      if (typeof productTax === 'object' && productTax.rate !== undefined) {
+        return this.taxes.find(tax => tax.rate === productTax.rate);
+      }
+      
+      // If productTax is a number (rate value), compare directly
+      if (typeof productTax === 'number') {
+        return this.taxes.find(tax => tax.rate === productTax);
+      }
+      
+      return null;
     },
 
     // return number to word
@@ -991,8 +1043,8 @@ export default {
           delete formData.totalPaid;
         }
         
-        // Handle orderTax - only include if country is Saudi Arabia
-        if (!this.isSaudiArabia) {
+        // Handle orderTax - only include if country is NOT Saudi Arabia
+        if (this.isSaudiArabia) {
           delete formData.orderTax;
         }
         

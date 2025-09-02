@@ -358,13 +358,17 @@ class BusinessTransactionJournalService
                 $totalDebit += $purchase->transport;
             }
             
-            // Add VAT input if applicable
-            if ($purchase->tax_id) {
-                $vatAmount = $purchase->taxAmount();
-                if ($vatAmount > 0) {
-                    Log::info("Adding VAT amount: {$vatAmount}");
-                    $totalDebit += $vatAmount;
-                }
+            // Add VAT input if applicable (since sub_total includes VAT but product totals might not)
+            // Calculate VAT amount from the difference between sub_total and product totals
+            $productTotalSum = 0;
+            foreach ($purchaseProducts as $purchaseProduct) {
+                $productTotalSum += $purchaseProduct->getFinalTotalAttribute();
+            }
+            
+            $vatAmount = $purchase->sub_total - $productTotalSum;
+            if ($vatAmount > 0) {
+                Log::info("Adding VAT amount: {$vatAmount} (calculated from sub_total: {$purchase->sub_total} - product totals: {$productTotalSum})");
+                $totalDebit += $vatAmount;
             }
             
             // Note: Discount is already included in $totalAmount (purchaseTotal() subtracts it)
@@ -407,7 +411,7 @@ class BusinessTransactionJournalService
             $purchaseByAccount = [];
             foreach ($purchaseProducts as $purchaseProduct) {
                 $product = $purchaseProduct->product;
-                $purchaseAccount = $product->getPurchaseAccountWithFallback();
+                $purchaseAccount = $purchaseProduct->product->getPurchaseAccountWithFallback();
                 $accountId = $purchaseAccount->id;
                 $amount = $purchaseProduct->getFinalTotalAttribute(); // Use amount after discount
                 
@@ -440,15 +444,12 @@ class BusinessTransactionJournalService
             }
 
             // Create VAT journal entry if applicable (Debit)
-            if ($purchase->tax_id) {
-                $vatAmount = $purchase->taxAmount();
-                if ($vatAmount > 0) {
-                    $vatAccount = $this->getVatAccountForPurchase($purchase);
-                    if ($vatAccount) {
-                        Log::info("Creating journal line {$lineNumber}: Debit to VAT Input - Account ID: {$vatAccount->id}, Amount: {$vatAmount}");
-                        $this->createJournalEntryLine($journalEntry, $vatAccount->id, $vatAmount, 0, $lineNumber, "VAT Input for PO {$purchase->purchase_no}");
-                        $lineNumber++;
-                    }
+            if ($vatAmount > 0) {
+                $vatAccount = $this->getVatAccountForPurchase($purchase);
+                if ($vatAccount) {
+                    Log::info("Creating journal line {$lineNumber}: Debit to VAT Input - Account ID: {$vatAccount->id}, Amount: {$vatAmount}");
+                    $this->createJournalEntryLine($journalEntry, $vatAccount->id, $vatAmount, 0, $lineNumber, "VAT Input for PO {$purchase->purchase_no}");
+                    $lineNumber++;
                 }
             }
 

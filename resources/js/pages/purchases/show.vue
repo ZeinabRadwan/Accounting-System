@@ -381,7 +381,7 @@
                           {{ allData.transport | withCurrency }}
                         </td>
                       </tr>
-                      <tr>
+                      <tr v-if="allData.taxType">
                         <th>
                           {{ $t("Tax") }}
                           <span>({{ allData.taxType.rate }}%):</span>
@@ -584,7 +584,6 @@ export default {
     purchaseProducts: [],
     productPrefix: "",
     purchasePrefix: "",
-    loading: false,
     form: new Form({
       isSendEmail: false,
       isSendSMS: false,
@@ -617,14 +616,14 @@ export default {
   methods: {
     // get the purchase
     async getPurchase() {
-      this.loading = true;
+      this.$store.state.operations.loading = true;
       const { data } = await axios.get(
         window.location.origin + "/api/purchases/" + this.$route.params.slug
       );
       this.allData = data.data;
       this.purchaseProducts = this.allData.products;
       this.purchaseProducts.sort(this.sortProducts);
-      this.loading = false;
+      this.$store.state.operations.loading = false;
     },
     sortProducts(a, b) {
       if (a.productCode < b.productCode) {
@@ -656,7 +655,7 @@ export default {
     // notify
     async notify() {
       if (!this.isDemoMode) {
-        this.loading = true;
+        this.$store.state.operations.loading = true;
         await this.form
           .post(
             window.location.origin +
@@ -672,7 +671,7 @@ export default {
           .catch(() => {
             toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
           });
-        this.loading = false;
+        this.$store.state.operations.loading = false;
       } else {
         toast.fire({
           type: "warning",

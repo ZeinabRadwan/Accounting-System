@@ -474,7 +474,7 @@ export default {
       this.form.poReference = data.data.poReference
       this.form.transportCost = data.data.transport
       this.form.totalTax = data.data.tax
-      this.form.orderTax = data.data.taxType
+      this.form.orderTax = data.data.taxType || null
       this.form.discount = data.data.totalDiscount
       this.form.paymentTerms = data.data.paymentTerms
       this.form.poDate = data.data.poDate

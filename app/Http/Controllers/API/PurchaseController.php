@@ -57,6 +57,9 @@ class PurchaseController extends Controller
         $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
         $isSaudiArabia = $country === 'SA';
         
+        // Note: For purchases (bills), VAT is required only when NOT Saudi Arabia
+        // In Saudi Arabia, purchases don't require bill-level VAT (but items can have VAT)
+        
         // validate request
         $this->validate($request, [
             'supplier' => 'required',
@@ -64,7 +67,7 @@ class PurchaseController extends Controller
             'selectedProducts.*' => 'required|distinct',
             'discount' => 'nullable|numeric|min:1|max:'.$request->subTotal,
             'transportCost' => 'nullable|numeric|min:1',
-            'orderTax' => $isSaudiArabia ? 'required' : 'nullable',
+            'orderTax' => 'nullable', // VAT is not required for purchases (bills)
             'netTotal' => 'required|numeric|min:1',
             'poReference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',
@@ -98,7 +101,7 @@ class PurchaseController extends Controller
                 'supplier_id' => $request->supplier['id'],
                 'discount' => $request->discount,
                 'transport' => $request->transportCost,
-                'tax_id' => $isSaudiArabia && $request->orderTax ? $request->orderTax['id'] : null,
+                'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
                 'sub_total' => $request->subTotal,
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
@@ -252,6 +255,11 @@ class PurchaseController extends Controller
     {
         try {
             $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 'purchaseProducts.product.proSubCategory.category', 'user')->where('slug', $slug)->first();
+            
+            if (!$purchase) {
+                return $this->responseWithError('Purchase not found');
+            }
+            
             return new PurchaseProductsResource($purchase);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -278,7 +286,7 @@ class PurchaseController extends Controller
             'selectedProducts.*' => 'required|distinct',
             'discount' => 'nullable|numeric|min:1|max:'.$request->rowSubTotal,
             'transportCost' => 'nullable|numeric|min:1',
-            'orderTax' => 'required',
+            'orderTax' => 'nullable', // VAT is not required for purchases (bills)
             'netTotal' => ['required', 'numeric', new MinTotal($minAmount, $request->netTotal)],
             'poReference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',

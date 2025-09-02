@@ -405,6 +405,11 @@ export default {
 
     toggleModal() {
       this.showProductCreateModal = !this.showProductCreateModal
+      
+      // When opening the modal, ensure account routing settings are loaded
+      if (this.showProductCreateModal) {
+        this.loadAccountRoutingSettings();
+      }
     },
 
     submitItem(evt) {
@@ -437,17 +442,27 @@ export default {
           this.accountRoutingSettings.purchase.routing_type === 'automatic';
         
         // If automatic routing is enabled, set the account IDs from routing settings
-        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.parent_account_id) {
-          this.form.salesAccountId = this.accountRoutingSettings.sales.parent_account_id;
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id;
         }
         
-        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.parent_account_id) {
-          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.parent_account_id;
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id;
         }
 
-        console.log('Account routing settings loaded:', this.accountRoutingSettings);
-        console.log('Sales automatic:', this.isSalesAccountAutomatic);
-        console.log('Purchase automatic:', this.isPurchaseAccountAutomatic);
+        console.log('=== ACCOUNT ROUTING DEBUG ===');
+        console.log('Full account routing settings:', this.accountRoutingSettings);
+        console.log('Sales settings:', this.accountRoutingSettings.sales);
+        console.log('Purchase settings:', this.accountRoutingSettings.purchase);
+        console.log('Sales routing type:', this.accountRoutingSettings.sales?.routing_type);
+        console.log('Sales main_account_id:', this.accountRoutingSettings.sales?.main_account_id);
+        console.log('Purchase routing type:', this.accountRoutingSettings.purchase?.routing_type);
+        console.log('Purchase main_account_id:', this.accountRoutingSettings.purchase?.main_account_id);
+        console.log('isSalesAccountAutomatic:', this.isSalesAccountAutomatic);
+        console.log('isPurchaseAccountAutomatic:', this.isPurchaseAccountAutomatic);
+        console.log('Form salesAccountId after auto-assignment:', this.form.salesAccountId);
+        console.log('Form purchaseAccountId after auto-assignment:', this.form.purchaseAccountId);
+        console.log('==============================');
       } catch (error) {
         console.error("Error loading account routing settings:", error);
         // Set defaults if API fails
@@ -549,6 +564,14 @@ export default {
         return;
       }
 
+      // Debug: Log validation state
+      console.log("Validation state:", {
+        isSalesAccountAutomatic: this.isSalesAccountAutomatic,
+        salesAccountId: this.form.salesAccountId,
+        isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
+        purchaseAccountId: this.form.purchaseAccountId
+      });
+
       // Validate sales account if not automatic
       if (!this.isSalesAccountAutomatic && !this.form.salesAccountId) {
         toast.fire({ 
@@ -568,7 +591,16 @@ export default {
       }
 
       // Debug: Log form data being sent
+      console.log("=== FORM SUBMISSION DEBUG ===");
       console.log("Form data being sent:", this.form.data());
+      console.log("Account routing settings:", this.accountRoutingSettings);
+      console.log("Sales settings:", this.accountRoutingSettings.sales);
+      console.log("Purchase settings:", this.accountRoutingSettings.purchase);
+      console.log("Sales routing type:", this.accountRoutingSettings.sales?.routing_type);
+      console.log("Sales main_account_id:", this.accountRoutingSettings.sales?.main_account_id);
+      console.log("Form salesAccountId:", this.form.salesAccountId);
+      console.log("Form purchaseAccountId:", this.form.purchaseAccountId);
+      console.log("=============================");
 
       await this.form
         .post(window.location.origin + "/api/products")
@@ -577,8 +609,22 @@ export default {
             type: "success",
             title: this.$t("Product added successfully"),
           });
+          
+          // Store auto-assigned account IDs before reset
+          const autoAssignedSalesAccountId = this.isSalesAccountAutomatic ? this.form.salesAccountId : null;
+          const autoAssignedPurchaseAccountId = this.isPurchaseAccountAutomatic ? this.form.purchaseAccountId : null;
+          
           this.form.reset();
           this.form.itemType = "product"; // Reset to default
+          
+          // Restore auto-assigned account IDs after reset
+          if (autoAssignedSalesAccountId) {
+            this.form.salesAccountId = autoAssignedSalesAccountId;
+          }
+          if (autoAssignedPurchaseAccountId) {
+            this.form.purchaseAccountId = autoAssignedPurchaseAccountId;
+          }
+          
           this.showProductCreateModal = false;
           this.$emit('reloadProducts');
         })

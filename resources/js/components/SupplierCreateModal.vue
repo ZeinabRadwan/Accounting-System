@@ -4,6 +4,7 @@
       <template v-slot:title>{{ $t("Create Supplier") }}</template>
       <div class="w-100">
         <SupplierForm 
+          ref="supplierForm"
           :showCardBody="false" 
           @submit="createSupplier"
         />
@@ -47,7 +48,9 @@ export default {
         this.loading = true;
         
         // Get form data from SupplierForm component
-        const formData = this.$refs.supplierForm ? this.$refs.supplierForm.form.data() : {};
+        const formData = this.$refs.supplierForm ? this.$refs.supplierForm.getFormData().data() : {};
+        
+        console.log('Raw form data:', formData);
         
         // Map to API format
         const submitData = {
@@ -58,6 +61,8 @@ export default {
           taxRegistrationNumber: formData.taxCard,
           address: formData.streetAddress1,
         };
+        
+        console.log('Submit data:', submitData);
         
         // Make API call to create supplier
         const response = await this.$http.post("/api/suppliers", submitData);
