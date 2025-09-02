@@ -104,7 +104,7 @@
                 <div class="form-group col-md-4">
                   <label for="amount">{{ $t('Amount') }}
                     <span class="required">*</span></label>
-                  <input id="amount" v-model="form.amount" type="number" step="any" min="1" :max="form.max"
+                  <input id="amount" v-model="form.amount" type="number" step="any" min="1"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('amount') }" name="amount"
                     :placeholder="$t('Enter an amount')" @change="updateValues" @keyup="updateValues" />
                   <has-error :form="form" field="amount" />
@@ -188,7 +188,6 @@ export default {
       amount: '',
       chequeNo: '',
       receiptNo: '',
-      max: 99999999999,
       nonPurchaseTotal: 0,
       nonPurchasePaid: 0,
       nonPurchaseDue: 0,
@@ -243,7 +242,6 @@ export default {
 
       this.form.chequeNo = data.data.transaction.cheque_no
       this.form.receiptNo = data.data.transaction.receipt_no
-      this.form.max = data.data.supplier.nonPurchaseCurrentDue + data.data.amount
     },
 
     // get accounts
@@ -275,8 +273,6 @@ export default {
           amount
       }
 
-
-      this.form.max = this.form.supplier.nonPurchaseCurrentDue
       return
     },
 
