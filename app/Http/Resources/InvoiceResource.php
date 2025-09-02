@@ -17,7 +17,7 @@ class InvoiceResource extends JsonResource
         return [
             'id' => $this->id,
             'invoiceNo' => $this->invoice_no,
-            'label' => config('config.invoicePrefix').'-'.$this->invoice_no,
+            'label' => config('config.invoicePrefix').$this->invoice_no,
             'slug' => $this->slug,
             'reference' => $this->reference,
             'client' => new ClientListResource($this->client),
