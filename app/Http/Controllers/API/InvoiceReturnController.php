@@ -77,12 +77,42 @@ class InvoiceReturnController extends Controller
                 $transactionID = $transaction->id;
             }
 
+            // Calculate total return using the correct formula
+            $calculatedTotalReturn = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                if ($selectedProduct['returnQty'] > 0) {
+                    // Get the original invoice product data
+                    $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $request->invoice['id'])
+                        ->where('product_id', $selectedProduct['id'])
+                        ->first();
+                    
+                    if ($invoiceProduct) {
+                        // unit_discount = round(discount_amount / quantity, 2)
+                        $unitDiscount = round($invoiceProduct->discount_amount / $invoiceProduct->quantity, 2);
+                        
+                        // unit_net = sale_price - unit_discount
+                        $unitNet = $invoiceProduct->sale_price - $unitDiscount;
+                        
+                        // unit_vat = round(unit_net * 0.20, 2)
+                        $unitVat = round($unitNet * 0.20, 2);
+                        
+                        // unit_total = unit_net + unit_vat
+                        $unitTotal = $unitNet + $unitVat;
+                        
+                        // return_total = round(unit_total * return_qty, 2)
+                        $returnTotal = round($unitTotal * $selectedProduct['returnQty'], 2);
+                        
+                        $calculatedTotalReturn += $returnTotal;
+                    }
+                }
+            }
+
             // store invoice return
             $invoiceReturn = InvoiceReturn::create([
                 'reason' => $request->returnReason,
                 'return_no' => $code,
                 'invoice_id' => $request->invoice['id'],
-                'total_return' => $request->totalReturn,
+                'total_return' => $calculatedTotalReturn,
                 'date' => $request->date,
                 'note' => clean($request->note),
                 'transaction_id' => $transactionID,
@@ -195,11 +225,41 @@ class InvoiceReturnController extends Controller
                 }
             }
 
+            // Calculate total return using the correct formula
+            $calculatedTotalReturn = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                if ($selectedProduct['returnQty'] > 0) {
+                    // Get the original invoice product data
+                    $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $invoiceReturn->invoice_id)
+                        ->where('product_id', $selectedProduct['id'])
+                        ->first();
+                    
+                    if ($invoiceProduct) {
+                        // unit_discount = round(discount_amount / quantity, 2)
+                        $unitDiscount = round($invoiceProduct->discount_amount / $invoiceProduct->quantity, 2);
+                        
+                        // unit_net = sale_price - unit_discount
+                        $unitNet = $invoiceProduct->sale_price - $unitDiscount;
+                        
+                        // unit_vat = round(unit_net * 0.20, 2)
+                        $unitVat = round($unitNet * 0.20, 2);
+                        
+                        // unit_total = unit_net + unit_vat
+                        $unitTotal = $unitNet + $unitVat;
+                        
+                        // return_total = round(unit_total * return_qty, 2)
+                        $returnTotal = round($unitTotal * $selectedProduct['returnQty'], 2);
+                        
+                        $calculatedTotalReturn += $returnTotal;
+                    }
+                }
+            }
+
             // update invoice return
             $invoiceReturn->update([
                 'reason' => $request->returnReason,
                 'transaction_id' => $transactionID,
-                'total_return' => $request->totalReturn,
+                'total_return' => $calculatedTotalReturn,
                 'date' => $request->date,
                 'note' => clean($request->note),
                 'status' => $request->status,
@@ -269,6 +329,9 @@ class InvoiceReturnController extends Controller
                     [
                         'invoice' => [
                             'client',
+                            'invoiceProducts' => [
+                                'vatRate'
+                            ]
                         ],
                         'invoiceReturnProducts' => [
                             'invoiceReturn',

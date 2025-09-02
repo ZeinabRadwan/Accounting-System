@@ -36,7 +36,7 @@
                   <has-error :form="form" field="client" />
                 </div>
               </div>
-              <div v-if="products" class="row">
+              <!-- <div class="row">
                 <div class="form-group col-md-12">
                   <label for="product">{{
                     $t('Select Products')
@@ -46,7 +46,7 @@
                     :placeholder="$t('Search products')" @input="assignInvoices" />
                   <has-error :form="form" field="product" />
                 </div>
-              </div>
+              </div> -->
               <div class="row" v-if="form.client && clientInvoices">
                 <div class="form-group col-md-12">
                   <label for="invoice">{{ $t('Invoices') }}
@@ -139,38 +139,86 @@
                   </table>
                 </div>
               </div>
-              <div v-if="form.invoice" class="row">
-                <div v-if="form.discountPercentage > 0" class="form-group col-md-2">
-                  <label for="discountType">{{
-                    $t('Discount Type')
-                  }}</label>
-                  <select id="discountType" v-model="form.discountType" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" disabled>
-                    <option value="0">{{ $t('Fixed') }}</option>
-                    <option value="1">{{ $t('Percentage') }}(%)</option>
-                  </select>
-                  <has-error :form="form" field="discountType" />
-                </div>
-                <div class="form-group" :class="form.discountPercentage > 0 ? 'col-md-2' : 'col-md-4'">
-                  <label for="invoiceDiscount">{{
-                    $t('Total discount')
-                  }}</label>
-                  <input id="invoiceDiscount" v-model="form.invoiceDiscount" type="number" step="any" class="form-control"
-                    name="invoiceDiscount" readonly />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="invoiceTransport">{{
-                    $t('Transport Cost')
-                  }}</label>
-                  <input id="invoiceTransport" v-model="form.invoiceTransport" type="number" step="any"
-                    class="form-control" name="invoiceTransport" readonly />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="invoiceTax">{{
-                    $t('Invoice Tax')
-                  }}</label>
-                  <input id="invoiceTax" v-model="form.newTax" type="number" step="any" class="form-control"
-                    name="invoiceTax" readonly />
+              <!-- Invoice Return Calculation Summary -->
+              <div v-if="form.invoice && form.selectedProducts && form.selectedProducts.length > 0" class="row mt-4" id="invoice-return-calculation-summary">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title">{{ $t('Invoice Return Calculation Summary') }}</h5>
+                    </div>
+                    <div class="card-body">
+                      <div v-for="(product, index) in productsWithReturns" :key="index" class="mb-4">
+                        <h6 class="text-primary">{{ product.name }} ({{ product.code }})</h6>
+                        <div class="row">
+                          <div class="col-md-2">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-info"><i class="fas fa-boxes"></i></span>
+                              <div class="info-box-content">
+                                <span class="info-box-text">{{ $t('Returned Quantity') }}</span>
+                                <span class="info-box-number">{{ product.returnQty }} {{ product.unit }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-secondary"><i class="fas fa-tag"></i></span>
+                              <div class="info-box-content">
+                                <span class="info-box-text">{{ $t('Subtotal') }}</span>
+                                <span class="info-box-number">{{ calculateReturnSubtotal(product) | withCurrency }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-warning"><i class="fas fa-percentage"></i></span>
+                              <div class="info-box-content">
+                                <span class="info-box-text">{{ $t('Discount') }}</span>
+                                <span class="info-box-number">{{ calculateReturnDiscount(product) | withCurrency }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-success"><i class="fas fa-calculator"></i></span>
+                              <div class="info-box-content">
+                                <span class="info-box-text">{{ $t('Net Sale') }}</span>
+                                <span class="info-box-number">{{ calculateReturnNet(product) | withCurrency }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-primary"><i class="fas fa-receipt"></i></span>
+                              <div class="info-box-content">
+                                <span class="info-box-text">{{ $t('VAT') }} ({{ getVatRate(product) }}%)</span>
+                                <span class="info-box-number">{{ calculateReturnVat(product) | withCurrency }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-danger"><i class="fas fa-undo"></i></span>
+                              <div class="info-box-content">
+                                <span class="info-box-text">{{ $t('Total Refund') }}</span>
+                                <span class="info-box-number">{{ calculateReturnTotal(product) | withCurrency }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-12">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-dark"><i class="fas fa-file-invoice"></i></span>
+                              <div class="info-box-content">
+                                <span class="info-box-text">{{ $t('From Invoice ID') }}</span>
+                                <span class="info-box-number">#{{ form.invoice.invoiceNo }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row">
@@ -266,79 +314,6 @@
                   <has-error :form="form" field="status" />
                 </div>
               </div>
-              
-              <!-- Calculation Summary -->
-              <div v-if="form.invoice" class="row mt-4">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <h5 class="card-title">{{ $t('Calculation Summary') }}</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-2">
-                          <div class="info-box">
-                            <span class="info-box-icon bg-secondary"><i class="fas fa-calculator"></i></span>
-                            <div class="info-box-content">
-                              <span class="info-box-text">{{ $t('Base Subtotal') }}</span>
-                              <span class="info-box-number">{{ (form.newSubTotal + form.invoiceDiscount) | withCurrency }}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="info-box">
-                            <span class="info-box-icon bg-info"><i class="fas fa-tags"></i></span>
-                            <div class="info-box-content">
-                              <span class="info-box-text">{{ $t('New Subtotal') }}</span>
-                              <span class="info-box-number">{{ form.newSubTotal | withCurrency }}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="info-box">
-                            <span class="info-box-icon bg-warning"><i class="fas fa-percentage"></i></span>
-                            <div class="info-box-content">
-                              <span class="info-box-text">{{ $t('Total Discount') }}</span>
-                              <span class="info-box-number">{{ totalDiscount | withCurrency }}</span>
-                              <small class="d-block text-muted">
-                                Product: {{ totalProductDiscounts | withCurrency }}<br>
-                                Invoice: {{ totalInvoiceDiscount | withCurrency }}
-                              </small>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="fas fa-receipt"></i></span>
-                            <div class="info-box-content">
-                              <span class="info-box-text">{{ $t('Total Tax') }}</span>
-                              <span class="info-box-number">{{ form.newTax | withCurrency }}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="info-box">
-                            <span class="info-box-icon bg-primary"><i class="fas fa-file-invoice-dollar"></i></span>
-                            <div class="info-box-content">
-                              <span class="info-box-text">{{ $t('New Total') }}</span>
-                              <span class="info-box-number">{{ form.newSubTotal | withCurrency }}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="info-box">
-                            <span class="info-box-icon bg-danger"><i class="fas fa-undo"></i></span>
-                            <div class="info-box-content">
-                              <span class="info-box-text">{{ $t('Return Amount') }}</span>
-                              <span class="info-box-number">{{ form.totalReturn | withCurrency }}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -413,6 +388,10 @@ export default {
       returnAmount: 0,
       returnAmountText: 0,
       newSubTotal: 0,
+      // Detailed return calculation fields
+      netTotal: 0, // Net Sale (without VAT)
+      taxAmount: 0, // VAT amount
+      discountTotal: 0, // Total discount
     }),
     products: '',
     accounts: '',
@@ -421,6 +400,14 @@ export default {
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
+    
+    // Filter products that have return quantities > 0
+    productsWithReturns() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return []
+      }
+      return this.form.selectedProducts.filter(product => product.returnQty > 0)
+    },
     
     // Calculate total product discounts
     totalProductDiscounts() {
@@ -547,6 +534,7 @@ export default {
       this.form.invoiceDue = this.form.invoice.due
       this.form.newDue = this.form.invoice.due
       this.form.newDueText = this.form.invoice.due
+      this.form.totalPaid = this.form.invoice.totalPaid
       for (var key in this.form.invoice.invoiceProducts) {
         let invoiceItem = this.form.invoice.invoiceProducts[key]
         this.form.selectedProducts.unshift({
@@ -651,6 +639,11 @@ export default {
       let totalProductTax = 0
       let invoiceSubtotal = 0
       
+      // Initialize detailed return calculation fields
+      this.form.netTotal = 0
+      this.form.taxAmount = 0
+      this.form.discountTotal = 0
+      
       for (let i = 0; i < length; i++) {
         let looProduct = this.form.selectedProducts[i]
         let remainingQty = looProduct.qty - looProduct.returnQty
@@ -662,8 +655,38 @@ export default {
         // Calculate subtotal for remaining items (this will be the base for calculations)
         this.form.newSubTotal += Number(productTotal.toFixed(2))
         
-        // Calculate return total
-        this.form.totalReturn += Number(looProduct.returnTotal.toFixed(2))
+        // Calculate return total using the new formula
+        if (looProduct.returnQty > 0) {
+          // Calculate detailed return values using the correct formula
+          const salePrice = parseFloat(looProduct.unitCost)
+          const totalQty = parseFloat(looProduct.qty)
+          const totalDiscount = parseFloat(looProduct.discountAmount) || 0
+          const returnQty = parseFloat(looProduct.returnQty)
+          
+          // unit_discount = round(discount_amount / quantity, 2)
+          const unitDiscount = Number((totalDiscount / totalQty).toFixed(2))
+          
+          // unit_net = sale_price - unit_discount
+          const unitNet = Number((salePrice - unitDiscount).toFixed(2))
+          
+          // unit_vat = round(unit_net * 0.20, 2)
+          const unitVat = Number((unitNet * 0.20).toFixed(2))
+          
+          // unit_total = unit_net + unit_vat
+          const unitTotal = Number((unitNet + unitVat).toFixed(2))
+          
+          // return_total = round(unit_total * return_qty, 2)
+          const returnTotal = Number((unitTotal * returnQty).toFixed(2))
+          
+          // Update the product's returnTotal with the correct calculation
+          looProduct.returnTotal = returnTotal
+          
+          // Add to detailed totals
+          this.form.totalReturn += returnTotal
+          this.form.netTotal += Number((unitNet * returnQty).toFixed(2))
+          this.form.taxAmount += Number((unitVat * returnQty).toFixed(2))
+          this.form.discountTotal += Number((unitDiscount * returnQty).toFixed(2))
+        }
         
         // Calculate product-level discounts for remaining items
         if (looProduct.productDiscount && looProduct.productDiscount > 0) {
@@ -766,6 +789,135 @@ export default {
       return
     },
 
+    // Return Invoice Calculation Summary Methods (Based on Pseudocode)
+    
+    // Get VAT rate for a product
+    getVatRate(product) {
+      if (product.vatRate && product.vatRate.rate) {
+        return product.vatRate.rate
+      }
+      return 20 // Default VAT rate
+    },
+
+    // Calculate return subtotal (sale_price * return_qty)
+    calculateReturnSubtotal(product) {
+      const salePrice = parseFloat(product.unitCost) || 0
+      const returnQty = parseFloat(product.returnQty) || 0
+      return Number((salePrice * returnQty).toFixed(2))
+    },
+
+    // Calculate unit discount (discount_amount / quantity)
+    calculateUnitDiscount(product) {
+      const totalQty = parseFloat(product.qty) || 1
+      const totalDiscount = parseFloat(product.discountAmount) || 0
+      return Number((totalDiscount / totalQty).toFixed(2))
+    },
+
+    // Calculate return discount (unit_discount * return_qty)
+    calculateReturnDiscount(product) {
+      const unitDiscount = this.calculateUnitDiscount(product)
+      const returnQty = parseFloat(product.returnQty) || 0
+      return Number((unitDiscount * returnQty).toFixed(2))
+    },
+
+    // Calculate unit net (sale_price - unit_discount)
+    calculateUnitNet(product) {
+      const salePrice = parseFloat(product.unitCost) || 0
+      const unitDiscount = this.calculateUnitDiscount(product)
+      return Number((salePrice - unitDiscount).toFixed(2))
+    },
+
+    // Calculate unit VAT (unit_net * 0.20)
+    calculateUnitVat(product) {
+      const unitNet = this.calculateUnitNet(product)
+      return Number((unitNet * 0.20).toFixed(2))
+    },
+
+    // Calculate unit total (unit_net + unit_vat)
+    calculateUnitTotal(product) {
+      const unitNet = this.calculateUnitNet(product)
+      const unitVat = this.calculateUnitVat(product)
+      return Number((unitNet + unitVat).toFixed(2))
+    },
+
+    // Calculate return net (unit_net * return_qty)
+    calculateReturnNet(product) {
+      const unitNet = this.calculateUnitNet(product)
+      const returnQty = parseFloat(product.returnQty) || 0
+      return Number((unitNet * returnQty).toFixed(2))
+    },
+
+    // Calculate return VAT (unit_vat * return_qty)
+    calculateReturnVat(product) {
+      const unitVat = this.calculateUnitVat(product)
+      const returnQty = parseFloat(product.returnQty) || 0
+      return Number((unitVat * returnQty).toFixed(2))
+    },
+
+    // Calculate return total (unit_total * return_qty)
+    calculateReturnTotal(product) {
+      const unitTotal = this.calculateUnitTotal(product)
+      const returnQty = parseFloat(product.returnQty) || 0
+      return Number((unitTotal * returnQty).toFixed(2))
+    },
+
+    // Main calculation method following the updated formula
+    calculateReturnSummary(originalInvoiceId) {
+      // This method follows the updated calculation structure
+      // 1. Fetch the original invoice (already available as this.form.invoice)
+      
+      // 2. Fetch the product(s) linked to the invoice (already available as this.form.selectedProducts)
+      const invoiceProducts = this.form.selectedProducts
+      
+      // 3. Calculate for each product with return quantity > 0
+      const returnSummaries = []
+      
+      invoiceProducts.forEach(product => {
+        if (product.returnQty > 0) {
+          // 4. Calculate per-unit values using the correct formula
+          const salePrice = parseFloat(product.unitCost)
+          const totalQty = parseFloat(product.qty)
+          const totalDiscount = parseFloat(product.discountAmount) || 0
+          const returnQty = parseFloat(product.returnQty)
+          
+          // unit_discount = round(discount_amount / quantity, 2)
+          const unitDiscount = Number((totalDiscount / totalQty).toFixed(2))
+          
+          // unit_net = sale_price - unit_discount
+          const unitNet = Number((salePrice - unitDiscount).toFixed(2))
+          
+          // unit_vat = round(unit_net * 0.20, 2)
+          const unitVat = Number((unitNet * 0.20).toFixed(2))
+          
+          // unit_total = unit_net + unit_vat
+          const unitTotal = Number((unitNet + unitVat).toFixed(2))
+          
+          // return_total = round(unit_total * return_qty, 2)
+          const returnTotal = Number((unitTotal * returnQty).toFixed(2))
+          
+          // 5. Output return calculation summary
+          returnSummaries.push({
+            productName: product.name,
+            productCode: product.code,
+            returnedQuantity: returnQty,
+            fromInvoiceId: originalInvoiceId,
+            salePrice: salePrice,
+            unitDiscount: unitDiscount,
+            unitNet: unitNet,
+            unitVat: unitVat,
+            unitTotal: unitTotal,
+            returnSubtotal: Number((salePrice * returnQty).toFixed(2)),
+            returnDiscount: Number((unitDiscount * returnQty).toFixed(2)),
+            returnNet: Number((unitNet * returnQty).toFixed(2)),
+            returnVat: Number((unitVat * returnQty).toFixed(2)),
+            totalRefund: returnTotal
+          })
+        }
+      })
+      
+      return returnSummaries
+    },
+
     // Debug method to show calculation breakdown
     showCalculationBreakdown() {
       console.log('=== Invoice Return Calculation Breakdown ===')
@@ -782,6 +934,10 @@ export default {
       console.log('New Invoice Total:', this.form.invoiceTotal)
       console.log('New Due Amount:', this.form.invoiceDue)
       console.log('Return Amount:', this.form.returnAmount)
+      
+      console.log('=== Return Calculation Summary (Pseudocode Implementation) ===')
+      const returnSummaries = this.calculateReturnSummary(this.form.invoice.id)
+      console.log('Return Summaries:', returnSummaries)
       
       console.log('=== Discount Calculation ===')
       console.log('Formula: discounted_total = base_total - discount_amount')
@@ -804,7 +960,13 @@ export default {
             ? ((product.qty - product.returnQty) * product.unitCost * product.productDiscount) / 100
             : (product.productDiscount / product.qty) * (product.qty - product.returnQty),
           productTax: product.productTax,
-          returnTotal: product.returnTotal
+          returnTotal: product.returnTotal,
+          // New calculation methods
+          returnSubtotal: this.calculateReturnSubtotal(product),
+          returnDiscount: this.calculateReturnDiscount(product),
+          returnNet: this.calculateReturnNet(product),
+          returnVat: this.calculateReturnVat(product),
+          calculatedReturnTotal: this.calculateReturnTotal(product)
         })
       })
       
@@ -877,6 +1039,12 @@ export default {
         return
       }
       
+      // Sync form fields with Calculation Summary just before save
+      this.form.totalPaid = this.form.invoice?.totalPaid || 0
+      this.form.invoiceTax = this.form.newTax
+      this.form.newDue = this.form.invoiceDue
+      // invoiceTotal, invoiceDiscount and invoiceTransport are already current
+
       await this.form
         .post(window.location.origin + '/api/invoice-returns')
         .then(({ data }) => {
@@ -945,6 +1113,7 @@ export default {
 .bg-success { background-color: #28a745 !important; }
 .bg-primary { background-color: #007bff !important; }
 .bg-danger { background-color: #dc3545 !important; }
+.bg-dark { background-color: #343a40 !important; }
 
 .badge {
   display: inline-block;
