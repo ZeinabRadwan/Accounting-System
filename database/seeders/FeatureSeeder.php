@@ -14,19 +14,18 @@ class FeatureSeeder extends Seeder
      */
     public function run()
     {
-        Feature::insert([
-            [
-                'name' => 'Role Management',
-            ],
-            [
-                'name' => 'VAT Rates Management',
-            ],
-            [
-                'name' => 'Database Backup',
-            ],
-            [
-                'name' => 'On Demand Support',
-            ],
-        ]);
+        $features = [
+            'Role Management',
+            'VAT Rates Management',
+            'Database Backup',
+            'On Demand Support',
+        ];
+
+        foreach ($features as $featureName) {
+            Feature::updateOrCreate(
+                ['name' => $featureName],
+                ['name' => $featureName]
+            );
+        }
     }
 }
