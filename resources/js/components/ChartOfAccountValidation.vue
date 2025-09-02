@@ -77,12 +77,6 @@ export default {
     }
   },
   mounted() {
-    console.log('ChartOfAccountValidation component mounted')
-    console.log('Initial props:', {
-      client: this.client,
-      products: this.products,
-      type: this.type
-    })
   },
      watch: {
      client: {
@@ -108,25 +102,16 @@ export default {
    },
   computed: {
     validationErrors() {
-      console.log('Computing validation errors:', {
-        client: this.client,
-        products: this.products,
-        type: this.type
-      })
-      
       const errors = []
       
       // Check if we have data to validate
       if (!this.client && !this.products) {
-        console.log('No data to validate yet')
         return errors
       }
       
       // Validate client (for invoices)
       if (this.type === 'invoice' && this.client && typeof this.client === 'object') {
-        console.log('Validating client:', this.client)
         if (!this.client.chart_of_account_id) {
-          console.log('Client missing chart of account')
           errors.push({
             message: this.$t('Client must have a Chart of Account assigned for journal entries'),
             field: 'client',
@@ -137,8 +122,6 @@ export default {
             autoAssignUrl: `/api/clients/${this.client.slug}/auto-assign-chart-of-account`,
             context: `Client: ${this.client.name}`
           })
-        } else {
-          console.log('Client has chart of account:', this.client.chart_of_account_id)
         }
       }
       
@@ -204,7 +187,6 @@ export default {
         })
       }
       
-      console.log('Validation errors found:', errors.length)
       return errors
     }
   },
