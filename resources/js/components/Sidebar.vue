@@ -128,7 +128,7 @@
                 " class="nav-item">
                 <router-link :to="{ name: 'invoiceReturns.index' }" class="nav-link">
                   <i class="fas fa-undo-alt nav-icon" />
-                  <p>{{ $t('Returns List') }}</p>
+                  <p>{{ isSaudiArabia ? $t('Invoice Returns KSA') : $t('Returns List') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('client-list') ||
@@ -189,7 +189,7 @@
                 " class="nav-item">
                 <router-link :to="{ name: 'purchaseReturns.index' }" class="nav-link">
                   <i class="fas fa-undo-alt nav-icon" />
-                  <p>{{ $t('Returns List') }}</p>
+                  <p>{{ isSaudiArabia ? $t('Purchase Returns KSA') : $t('Returns List') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('supplier-list') ||
@@ -1000,6 +1000,10 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters('operations', ['appInfo']),
+    // Check if the country is Saudi Arabia
+    isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
   },
   mounted() {
     // Initialize AdminLTE 3.2.0 Treeview functionality
