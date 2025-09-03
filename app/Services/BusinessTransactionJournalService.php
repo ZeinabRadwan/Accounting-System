@@ -936,4 +936,148 @@ class BusinessTransactionJournalService
 
         return ChartOfAccount::find($setting->main_account_id);
     }
+
+    /**
+     * Create journal entry for invoice return
+     */
+    public function createInvoiceReturnJournal(\App\Models\InvoiceReturn $invoiceReturn, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Load the invoice return with its relationships
+            $invoiceReturn->load(['invoice.client', 'invoiceReturnProducts.product']);
+            
+            // Validate client has chart of account
+            if (!$invoiceReturn->invoice || !$invoiceReturn->invoice->client || !$invoiceReturn->invoice->client->isChartOfAccountConnected()) {
+                throw new Exception('Client must have a Chart of Account assigned for journal entries.');
+            }
+
+            // Get client-specific accounts receivable account
+            $clientAccountsReceivableAccount = $invoiceReturn->invoice->client->chartOfAccount;
+            
+            if (!$clientAccountsReceivableAccount) {
+                throw new Exception('Client Chart of Account not found.');
+            }
+
+            // Calculate return amounts from return items
+            $returnProducts = $invoiceReturn->invoiceReturnProducts;
+            
+            // Debug: Log the return products count
+            \Illuminate\Support\Facades\Log::info('Invoice Return Journal Creation - Return Products Count: ' . $returnProducts->count());
+            
+            // If no return products, skip journal creation
+            if ($returnProducts->count() === 0) {
+                \Illuminate\Support\Facades\Log::info('No return products found, skipping journal entry creation');
+                DB::rollBack();
+                return null;
+            }
+            
+            $totalReturnAmount = 0;
+            $totalReturnVat = 0;
+            $totalReturnDiscount = 0;
+            $salesByAccount = [];
+            $vatByAccount = [];
+
+            foreach ($returnProducts as $returnProduct) {
+                $product = $returnProduct->product;
+                $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $invoiceReturn->invoice_id)
+                    ->where('product_id', $product->id)
+                    ->first();
+
+                if (!$invoiceProduct) {
+                    continue;
+                }
+
+                // Calculate amounts based on returned quantity
+                $returnQty = $returnProduct->quantity;
+                $unitPrice = $invoiceProduct->sale_price;
+                $unitDiscount = $invoiceProduct->discount_amount / $invoiceProduct->quantity;
+                $unitVat = $invoiceProduct->tax_amount / $invoiceProduct->quantity;
+
+                // Calculate return amounts
+                $returnSubtotal = $unitPrice * $returnQty;
+                $returnDiscount = $unitDiscount * $returnQty;
+                $returnVat = $unitVat * $returnQty;
+                $returnNet = $returnSubtotal - $returnDiscount;
+
+                $totalReturnAmount += $returnNet + $returnVat;
+                $totalReturnVat += $returnVat;
+                $totalReturnDiscount += $returnDiscount;
+
+                // Group by sales account
+                if ($product->sales_account_id) {
+                    if (!isset($salesByAccount[$product->sales_account_id])) {
+                        $salesByAccount[$product->sales_account_id] = 0;
+                    }
+                    $salesByAccount[$product->sales_account_id] += $returnNet;
+                }
+
+                // Group by VAT account
+                if ($invoiceProduct->vatRate && $returnVat > 0) {
+                    $vatAccount = $invoiceProduct->vatRate->getSalesVatAccount();
+                    if ($vatAccount) {
+                        if (!isset($vatByAccount[$vatAccount->id])) {
+                            $vatByAccount[$vatAccount->id] = 0;
+                        }
+                        $vatByAccount[$vatAccount->id] += $returnVat;
+                    }
+                }
+            }
+
+            // Debug: Log the calculated amounts
+            \Illuminate\Support\Facades\Log::info('Invoice Return Journal - Total Return Amount: ' . $totalReturnAmount);
+            \Illuminate\Support\Facades\Log::info('Invoice Return Journal - Sales Accounts: ' . json_encode($salesByAccount));
+            \Illuminate\Support\Facades\Log::info('Invoice Return Journal - VAT Accounts: ' . json_encode($vatByAccount));
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => $invoiceReturn->date,
+                'reference' => $invoiceReturn->return_no . '-RET-' . time(), // Make reference unique
+                'description' => "Invoice Return {$invoiceReturn->return_no}",
+                'total_debit' => $totalReturnAmount,
+                'total_credit' => $totalReturnAmount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => \App\Models\InvoiceReturn::class,
+                'source_id' => $invoiceReturn->id,
+            ]);
+
+            $lineNumber = 1;
+
+            // Create sales revenue reversal lines (Credit to reverse sales)
+            foreach ($salesByAccount as $accountId => $amount) {
+                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "Sales Revenue Reversal for Return {$invoiceReturn->return_no}");
+                $lineNumber++;
+            }
+
+            // Create VAT reversal lines (Credit to reverse VAT payable)
+            foreach ($vatByAccount as $accountId => $amount) {
+                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "VAT Payable Reversal for Return {$invoiceReturn->return_no}");
+                $lineNumber++;
+            }
+
+            // Create discount reversal line if applicable
+            if ($totalReturnDiscount > 0) {
+                $discountAccount = $this->getDiscountAllowedAccount();
+                if ($discountAccount) {
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalReturnDiscount, $lineNumber, "Discount Allowed Reversal for Return {$invoiceReturn->return_no}");
+                    $lineNumber++;
+                }
+            }
+
+            // Create accounts receivable reduction line (Debit to reduce client balance)
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalReturnAmount, 0, $lineNumber, "Accounts Receivable Reduction for Return {$invoiceReturn->return_no}");
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
 }

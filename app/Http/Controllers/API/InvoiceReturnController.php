@@ -146,6 +146,18 @@ class InvoiceReturnController extends Controller
                 }
             }
 
+            // Create journal entry for invoice return (after products are stored)
+            try {
+                \Illuminate\Support\Facades\Log::info('Creating journal entry for invoice return: ' . $invoiceReturn->return_no);
+                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
+                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for invoice return: ' . $invoiceReturn->return_no);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the return creation
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return: ' . $e->getMessage());
+                \Illuminate\Support\Facades\Log::error('Stack trace: ' . $e->getTraceAsString());
+            }
+
             // add activity log
             activity()
                 ->causedBy(Auth::user())
@@ -286,6 +298,15 @@ class InvoiceReturnController extends Controller
                 }
             }
 
+            // Create journal entry for invoice return update (after products are updated)
+            try {
+                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the return update
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return update: ' . $e->getMessage());
+            }
+
             // update invoice
             $invoiceReturn->invoice->update([
                 'discount' => $request->invoiceDiscount,
@@ -340,7 +361,16 @@ class InvoiceReturnController extends Controller
                                 'productTax',
                             ],
                         ],
-                        'user'
+                        'user',
+                        'journalEntries' => [
+                            'lines' => [
+                                'chartOfAccount' => [
+                                    'type'
+                                ]
+                            ],
+                            'creator',
+                            'poster'
+                        ]
                     ],
                 )->firstOrFail();
 
