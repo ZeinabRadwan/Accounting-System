@@ -253,10 +253,6 @@ class NonInvoicePaymentController extends Controller
                 if (($payment->client->nonInvoiceTotalDue() < $payment->client->nonInvoicePaid()) || $payment->paymentTransaction->cashbookAccount->availableBalance() < $payment->amount) {
                     $canDelete = false;
                 }
-            } else {
-                if ($payment->amount > $payment->client->nonInvoiceCurrentDue()) {
-                    $canDelete = false;
-                }
             }
 
             if ($canDelete) {

@@ -215,8 +215,8 @@
                   <div class="form-control-plaintext text-muted">
                     <i class="fas fa-info-circle"></i> {{ $t('Automatically assigned from account routing settings') }}
                     <br>
-                    <small v-if="accountRoutingSettings.sales && accountRoutingSettings.sales.parent_account_id">
-                      {{ $t('Account ID') }}: {{ accountRoutingSettings.sales.parent_account_id }}
+                    <small v-if="accountRoutingSettings.sales && accountRoutingSettings.sales.main_account_id">
+                      {{ $t('Account ID') }}: {{ accountRoutingSettings.sales.main_account_id }}
                     </small>
                   </div>
                 </div>
@@ -251,8 +251,8 @@
                   <div class="form-control-plaintext text-muted">
                     <i class="fas fa-info-circle"></i> {{ $t('Automatically assigned from account routing settings') }}
                     <br>
-                    <small v-if="accountRoutingSettings.purchase && accountRoutingSettings.purchase.parent_account_id">
-                      {{ $t('Account ID') }}: {{ accountRoutingSettings.purchase.parent_account_id }}
+                    <small v-if="accountRoutingSettings.purchase && accountRoutingSettings.purchase.main_account_id">
+                      {{ $t('Account ID') }}: {{ accountRoutingSettings.purchase.main_account_id }}
                     </small>
                   </div>
                 </div>
@@ -475,17 +475,19 @@ export default {
           this.accountRoutingSettings.purchase.routing_type === 'automatic'
         
         // If automatic routing is enabled, set the account IDs from routing settings
-        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.parent_account_id) {
-          this.form.salesAccountId = this.accountRoutingSettings.sales.parent_account_id
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
         }
         
-        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.parent_account_id) {
-          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.parent_account_id
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
         }
 
         console.log('Account routing settings loaded:', this.accountRoutingSettings)
         console.log('Sales automatic:', this.isSalesAccountAutomatic)
         console.log('Purchase automatic:', this.isPurchaseAccountAutomatic)
+        console.log('Form salesAccountId after auto-assignment:', this.form.salesAccountId)
+        console.log('Form purchaseAccountId after auto-assignment:', this.form.purchaseAccountId)
       } catch (error) {
         console.error('Error loading account routing settings:', error)
         // Set defaults if API fails
@@ -564,6 +566,14 @@ export default {
         return;
       }
 
+      // Debug: Log validation state
+      console.log("Validation state:", {
+        isSalesAccountAutomatic: this.isSalesAccountAutomatic,
+        salesAccountId: this.form.salesAccountId,
+        isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
+        purchaseAccountId: this.form.purchaseAccountId
+      });
+
       // Validate sales account if not automatic
       if (!this.isSalesAccountAutomatic && !this.form.salesAccountId) {
         toast.fire({ 
@@ -592,10 +602,23 @@ export default {
             type: "success",
             title: this.$t("Product added successfully"),
           });
+          
+          // Store auto-assigned account IDs before reset
+          const autoAssignedSalesAccountId = this.isSalesAccountAutomatic ? this.form.salesAccountId : null;
+          const autoAssignedPurchaseAccountId = this.isPurchaseAccountAutomatic ? this.form.purchaseAccountId : null;
+          
           this.form.reset();
           this.form.itemType = "product"; // Reset to default
-          this.showProductCreateModal = false;
-          this.$emit('reloadProducts');
+          
+          // Restore auto-assigned account IDs after reset
+          if (autoAssignedSalesAccountId) {
+            this.form.salesAccountId = autoAssignedSalesAccountId;
+          }
+          if (autoAssignedPurchaseAccountId) {
+            this.form.purchaseAccountId = autoAssignedPurchaseAccountId;
+          }
+          
+          this.$router.push({ name: 'products.index' });
         })
         .catch((error) => {
           console.error("Error creating product:", error);

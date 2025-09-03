@@ -25,7 +25,7 @@ class SupplierStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'phoneNumber' => ['required', 'string', 'max:20', 'min:3', 'phone'],
+            'phoneNumber' => ['required', 'string', 'max:20', 'min:3'],
             'email' => ['nullable', 'required_if:isSendEmail,true', 'email', 'max:255', 'min:3', 'unique:suppliers,email'],
             'companyName' => ['nullable', 'string', 'max:100', 'min:2'],
             'type' => ['required', 'string', 'in:Company,Individual'],
@@ -37,7 +37,7 @@ class SupplierStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'phone' => 'The phone number is not valid',
+            // Custom validation messages can be added here if needed
         ];
     }
 }

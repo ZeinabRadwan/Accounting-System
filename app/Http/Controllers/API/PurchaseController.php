@@ -12,6 +12,7 @@ use App\Models\PurchaseProduct;
 use App\Rules\PurchaseTotalPaid;
 use App\Models\AccountTransaction;
 use App\Models\PurchaseJournal;
+use App\Models\GeneralSetting;
 use App\Services\BusinessTransactionJournalService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -52,6 +53,13 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        // Get country setting to determine if orderTax is required
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        $isSaudiArabia = $country === 'SA';
+        
+        // Note: For purchases (bills), VAT is required only when NOT Saudi Arabia
+        // In Saudi Arabia, purchases don't require bill-level VAT (but items can have VAT)
+        
         // validate request
         $this->validate($request, [
             'supplier' => 'required',
@@ -59,7 +67,7 @@ class PurchaseController extends Controller
             'selectedProducts.*' => 'required|distinct',
             'discount' => 'nullable|numeric|min:1|max:'.$request->subTotal,
             'transportCost' => 'nullable|numeric|min:1',
-            'orderTax' => 'required',
+            'orderTax' => 'nullable', // VAT is not required for purchases (bills)
             'netTotal' => 'required|numeric|min:1',
             'poReference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',
@@ -93,7 +101,7 @@ class PurchaseController extends Controller
                 'supplier_id' => $request->supplier['id'],
                 'discount' => $request->discount,
                 'transport' => $request->transportCost,
-                'tax_id' => $request->orderTax['id'],
+                'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
                 'sub_total' => $request->subTotal,
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
@@ -103,15 +111,6 @@ class PurchaseController extends Controller
                 'status' => $request->status,
                 'created_by' => $userId,
             ]);
-
-            // Create journal entry for purchase
-            try {
-                $journalService = new BusinessTransactionJournalService();
-                $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
-            } catch (\Exception $e) {
-                // Log the error but don't fail the purchase creation
-                Log::error('Failed to create journal entry for purchase: ' . $e->getMessage());
-            }
 
             // store purchase products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
@@ -156,6 +155,19 @@ class PurchaseController extends Controller
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
                     'discount_amount' => $discountAmount,
                 ]);
+            }
+
+            // Create journal entry for purchase (after products are stored)
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
+                Log::info('Journal entry created successfully for purchase: ' . $purchase->purchase_no);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the purchase creation
+                Log::error('Failed to create journal entry for purchase: ' . $e->getMessage());
+                Log::error('Purchase ID: ' . $purchase->id);
+                Log::error('User ID: ' . $userId);
+                Log::error('Exception trace: ' . $e->getTraceAsString());
             }
 
             // store transaction
@@ -243,6 +255,11 @@ class PurchaseController extends Controller
     {
         try {
             $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 'purchaseProducts.product.proSubCategory.category', 'user')->where('slug', $slug)->first();
+            
+            if (!$purchase) {
+                return $this->responseWithError('Purchase not found');
+            }
+            
             return new PurchaseProductsResource($purchase);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -269,7 +286,7 @@ class PurchaseController extends Controller
             'selectedProducts.*' => 'required|distinct',
             'discount' => 'nullable|numeric|min:1|max:'.$request->rowSubTotal,
             'transportCost' => 'nullable|numeric|min:1',
-            'orderTax' => 'required',
+            'orderTax' => 'nullable', // VAT is not required for purchases (bills)
             'netTotal' => ['required', 'numeric', new MinTotal($minAmount, $request->netTotal)],
             'poReference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',

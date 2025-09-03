@@ -94,7 +94,7 @@
                 <div class="form-group col-md-4">
                   <label for="paidAmount">{{ $t('Amount') }}
                     <span class="required">*</span></label>
-                  <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" min="1" :max="form.max"
+                  <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" min="1"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount"
                     :placeholder="$t('Enter an amount')" @change="updateValues" @keyup="updateValues" />
                   <has-error :form="form" field="paidAmount" />
@@ -177,7 +177,6 @@ export default {
       paidAmount: '',
       chequeNo: '',
       receiptNo: '',
-      max: 99999999999,
       nonInvoiceTotal: 0,
       nonInvoicePaid: 0,
       nonInvoiceDue: 0,
@@ -233,7 +232,6 @@ export default {
       this.form.receiptNo = data.data.transaction
         ? data.data.transaction.receipt_no
         : ''
-      this.form.max = data.data.client.nonInvoiceCurrentDue + data.data.amount
     },
 
     // get accounts

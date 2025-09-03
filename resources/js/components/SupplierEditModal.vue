@@ -4,6 +4,7 @@
       <template v-slot:title>{{ $t("Edit Supplier") }}</template>
       <div class="w-100">
         <SupplierForm 
+          ref="supplierForm"
           :showCardBody="false" 
           :initialData="supplierData" 
           @submit="updateSupplier"
@@ -108,7 +109,7 @@ export default {
         this.loading = true;
         
         // Get form data from SupplierForm component
-        const formData = this.$refs.supplierForm ? this.$refs.supplierForm.form.data() : {};
+        const formData = this.$refs.supplierForm ? this.$refs.supplierForm.getFormData().data() : {};
         
         // Map to API format
         const updateData = {

@@ -27,7 +27,7 @@ class StoreNonInvoicePaymentRequest extends BaseRequest
             'client' => 'required',
             'type' => 'required',
             'account' => 'required',
-            'amount' => 'required|numeric|min:1|max:'.$this->max,
+            'amount' => 'required|numeric|min:1',
             'chequeNo' => 'nullable|string|max:255',
             'receiptNo' => 'nullable|string|max:255',
             'paymentDate' => 'nullable|date_format:Y-m-d',

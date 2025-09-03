@@ -56,11 +56,6 @@
                         </div>
                       </div>
                       
-                      <!-- Debug info (remove in production) -->
-                      <div v-if="form.supplier" class="mt-1 text-muted small">
-                        Debug: chart_of_account_id = {{ form.supplier.chart_of_account_id || 'null' }}
-                      </div>
-                      
                       <has-error :form="form" field="supplier" />
                     </div>
                   </div>
@@ -325,15 +320,16 @@
                       " />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
-                <div v-if="taxes" class="form-group col-md-6 col-xl-3">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
                   <label for="orderTax">{{ $t("Purchase Tax") }}
                     <span class="required">*</span></label>
+                  <!-- Debug: isSaudiArabia = {{ isSaudiArabia }}, taxes = {{ taxes ? 'exists' : 'null' }} -->
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" :placeholder="$t('Select a tax type')
                       " @input="updateTax" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes" class="form-group col-md-6 col-xl-3">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
                   <label for="totalTax">{{
                     $t("Total Tax")
                   }}</label>
@@ -343,10 +339,11 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
-                <div class="form-group col-md-6 col-xl-3">
+                <div class="form-group col-md-6 col-xl-3" v-if="!isSaudiArabia">
                   <label for="discount">{{
                     $t("Discount")
                   }}</label>
+                  <!-- Debug: isSaudiArabia = {{ isSaudiArabia }} -->
                   <input id="discount" v-model="form.discount" type="number" step="any" min="1" :max="form.subTotal"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
                     :placeholder="$t('Enter discount')
@@ -481,9 +478,6 @@
             </form>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="button" class="btn btn-info mr-2" @click="showValidationSummary">
-                <i class="fas fa-check-circle" /> {{ $t("Check Validation") }}
-              </button>
               <button type="submit" :disabled="form.busy" class="btn btn-primary" @click="savePurchase">
                 <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
                 {{ form.busy ? $t("Saving...") : $t("Save") }}
@@ -580,8 +574,47 @@ export default {
         return total + (item.unitPrice * item.qty);
       }, 0);
     },
+    // Check if the country is Saudi Arabia
+    isSaudiArabia() {
+      console.log('=== isSaudiArabia Debug ===');
+      console.log('appInfo:', this.appInfo);
+      console.log('appInfo.country:', this.appInfo ? this.appInfo.country : 'appInfo is null/undefined');
+      console.log('Country comparison result:', this.appInfo && this.appInfo.country === 'SA');
+      console.log('========================');
+      return this.appInfo && this.appInfo.country === 'SA'
+    },
+  },
+  watch: {
+    appInfo: {
+      handler(newVal, oldVal) {
+        console.log('=== appInfo Watcher ===');
+        console.log('New appInfo:', newVal);
+        console.log('Old appInfo:', oldVal);
+        console.log('Country in new appInfo:', newVal ? newVal.country : 'newVal is null/undefined');
+        console.log('======================');
+      },
+      immediate: true,
+      deep: true
+    },
+    isSaudiArabia: {
+      handler(newVal, oldVal) {
+        console.log('=== isSaudiArabia Watcher ===');
+        console.log('New isSaudiArabia:', newVal);
+        console.log('Old isSaudiArabia:', oldVal);
+        // Clear orderTax when fields are hidden (when isSaudiArabia is true)
+        if (newVal === true) {
+          console.log('Clearing orderTax because fields are hidden');
+          this.form.orderTax = null;
+          this.form.totalTax = 0;
+        }
+        console.log('============================');
+      },
+      immediate: true
+    }
   },
   created() {
+    console.log('=== Component Created ===');
+    console.log('appInfo at creation:', this.appInfo);
     this.getSuppliers();
     this.getProducts();
     this.getAccounts();
@@ -707,7 +740,7 @@ export default {
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
-          selectedVatRate: null,
+          selectedVatRate: this.findMatchingVatRate(product.productTax) || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
           productTax: 0,
           totalTax: 0,
           unitCost: purchasePrice,
@@ -728,6 +761,10 @@ export default {
         this.form.selectedProducts[index] = updatedProduct;
       }
       this.generateItemTotal(quantity, "qty", index, "");
+      // Calculate VAT for the newly added product if it has a default VAT rate
+      if (index === -1 && this.taxes && this.taxes.length > 0) {
+        this.calculateProductVat(0); // 0 because we used unshift, so new product is at index 0
+      }
       this.updateTax();
       return;
     },
@@ -808,21 +845,36 @@ export default {
     calculateProductVat(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
-        // Ensure the selectedVatRate is properly set
-        if (!item.selectedVatRate) {
-          // First try to use the product's default VAT rate, then fall back to available taxes
-          if (item.productTax) {
-            item.selectedVatRate = this.findMatchingVatRate(item.productTax);
-          }
+        // Calculate VAT based on selected VAT rate without changing user input
+        if (item.selectedVatRate && item.selectedVatRate.rate) {
+          const vatRate = Number(item.selectedVatRate.rate);
+          const vatType = item.selectedVatRate.tax_type || 'Exclusive'; // Default to Exclusive if not specified
           
-          // If no match found or no productTax, fall back to available taxes
-          if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
-            item.selectedVatRate = this.taxes[0];
+          if (vatType === 'Exclusive') {
+            // VAT is added on top of the price
+            item.productTax = Number((item.unitPrice * (vatRate / 100)).toFixed(2));
+            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+            item.totalPrice = Number((item.qty * item.unitPrice + item.totalTax).toFixed(2));
+            item.unitCost = Number((item.unitPrice + item.productTax).toFixed(2));
+          } else {
+            // VAT is included in the price
+            item.productTax = Number((item.unitPrice - (item.unitPrice / (1 + vatRate / 100))).toFixed(2));
+            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+            item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
+            item.unitCost = Number(item.unitPrice);
           }
+        } else {
+          // No VAT selected, calculate without VAT
+          item.productTax = 0;
+          item.totalTax = 0;
+          item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
+          item.unitCost = Number(item.unitPrice);
         }
         
-        // Recalculate totals with new VAT rate
-        this.generateItemTotal(null, null, index, null);
+        // Update the item in the array
+        this.form.selectedProducts[index] = item;
+        
+        // Recalculate totals
         this.calculateSum();
       }
     },
@@ -830,7 +882,18 @@ export default {
     // Helper method to find matching VAT rate
     findMatchingVatRate(productTax) {
       if (!this.taxes || !productTax) return null;
-      return this.taxes.find(tax => tax.rate === productTax);
+      
+      // If productTax is an object (VAT rate object), use its rate property
+      if (typeof productTax === 'object' && productTax.rate !== undefined) {
+        return this.taxes.find(tax => tax.rate === productTax.rate);
+      }
+      
+      // If productTax is a number (rate value), compare directly
+      if (typeof productTax === 'number') {
+        return this.taxes.find(tax => tax.rate === productTax);
+      }
+      
+      return null;
     },
 
     // return number to word
@@ -856,7 +919,7 @@ export default {
       if (
         this.form.orderTax &&
         this.form.orderTax.rate > 0 &&
-        this.form.netTotal > 0
+        this.form.subTotal > 0
       ) {
         this.form.totalTax = Number(
           ((this.form.orderTax.rate / 100) * this.form.subTotal).toFixed(2)
@@ -903,158 +966,90 @@ export default {
     },
     // save purchase
     async savePurchase() {
-      console.log('Save purchase method called');
-      console.log('Form data:', this.form.data());
-      console.log('Form errors:', this.form.errors);
-      console.log('Form busy state:', this.form.busy);
+
       
       // Check if form is already busy
       if (this.form.busy) {
-        console.log('Form is already busy, preventing submission');
+
         return;
       }
       
-      // Validate required fields with detailed logging
-      console.log('=== VALIDATION CHECK START ===');
+      // Validate required fields - collect all errors first
+      const validationErrors = [];
       
       // Check supplier
-      console.log('Supplier check:', {
-        hasSupplier: !!this.form.supplier,
-        supplierData: this.form.supplier,
-        supplierId: this.form.supplier ? this.form.supplier.id : null
-      });
-      
       if (!this.form.supplier) {
-        console.log('❌ Validation failed: No supplier selected');
-        toast.fire({
-          type: "error",
-          title: this.$t("Validation Error"),
-          text: this.$t("Please select a supplier")
-        });
-        return;
+        validationErrors.push(this.$t("Please select a supplier"));
       }
-      console.log('✅ Supplier validation passed');
       
       // Check products
-      console.log('Products check:', {
-        hasSelectedProducts: !!this.form.selectedProducts,
-        productsLength: this.form.selectedProducts ? this.form.selectedProducts.length : 0,
-        productsData: this.form.selectedProducts
-      });
-      
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        console.log('❌ Validation failed: No products selected');
-        toast.fire({
-          type: "error",
-          title: this.$t("Validation Error"),
-          text: this.$t("Please add at least one product")
-        });
-        return;
+        validationErrors.push(this.$t("Please add at least one product"));
       }
-      console.log('✅ Products validation passed');
       
-      // Check account
-      console.log('Account check:', {
-        hasAccount: !!this.form.account,
-        accountData: this.form.account,
-        accountId: this.form.account ? this.form.account.id : null
-      });
-      
-      if (!this.form.account) {
-        console.log('❌ Validation failed: No account selected');
-        toast.fire({
-          type: "error",
-          title: this.$t("Validation Error"),
-          text: this.$t("Please select an account")
-        });
-        return;
+      // Check account (only required if adding payment)
+      if (this.form.addPayment == 1 && !this.form.account) {
+        validationErrors.push(this.$t("Please select an account"));
       }
-      console.log('✅ Account validation passed');
       
-      // Check total paid
-      console.log('Total paid check:', {
-        hasTotalPaid: !!this.form.totalPaid,
-        totalPaidValue: this.form.totalPaid,
-        totalPaidNumber: Number(this.form.totalPaid),
-        isValidAmount: this.form.totalPaid && Number(this.form.totalPaid) > 0
-      });
-      
-      if (!this.form.totalPaid || Number(this.form.totalPaid) <= 0) {
-        console.log('❌ Validation failed: Invalid total paid amount');
-        toast.fire({
-          type: "error",
-          title: this.$t("Validation Error"),
-          text: this.$t("Please enter the total amount paid")
-        });
-        return;
+      // Check total paid (only required if adding payment)
+      if (this.form.addPayment == 1 && (!this.form.totalPaid || Number(this.form.totalPaid) <= 0)) {
+        validationErrors.push(this.$t("Please enter the total amount paid"));
       }
-      console.log('✅ Total paid validation passed');
       
       // Check product details
-      console.log('=== PRODUCT DETAIL VALIDATION ===');
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
       this.form.selectedProducts.forEach((product, index) => {
-        console.log(`Product ${index + 1} (${product.name}):`, {
-          id: product.id,
-          qty: product.qty,
-          unitPrice: product.unitPrice,
-          hasQty: !!product.qty && Number(product.qty) > 0,
-          hasUnitPrice: !!product.unitPrice && Number(product.unitPrice) > 0,
-          totalPrice: product.totalPrice,
-          selectedVatRate: product.selectedVatRate
-        });
-        
         if (!product.qty || Number(product.qty) <= 0) {
-          console.log(`❌ Product ${index + 1} validation failed: Invalid quantity`);
+            validationErrors.push(`${this.$t("Product")} ${index + 1}: ${this.$t("Invalid quantity")}`);
         }
         if (!product.unitPrice || Number(product.unitPrice) <= 0) {
-          console.log(`❌ Product ${index + 1} validation failed: Invalid unit price`);
-        }
-      });
+            validationErrors.push(`${this.$t("Product")} ${index + 1}: ${this.$t("Invalid unit price")}`);
+          }
+        });
+      }
       
-      console.log('=== VALIDATION CHECK END ===');
-      
-      // Show validation summary to user
-      this.showValidationSummary();
+      // Show all validation errors if any
+      if (validationErrors.length > 0) {
+        const errorList = validationErrors.map(error => `• ${error}`).join('\n');
+        toast.fire({
+          type: "error",
+          title: `${this.$t("Validation Error")}:\n\n${errorList}`,
+          timer: 8000,
+          timerProgressBar: true
+        });
+        return;
+      }
       
       try {
-        console.log('Submitting form to API...');
-        console.log('Form validation state:', this.form.errors.any());
-        console.log('Form busy state:', this.form.busy);
+        // Clear any existing form errors to prevent individual error display
+        this.form.errors.clear();
         
-        // Log the actual data being sent
+        // Submit the form
+        
+        // Prepare the form data
         const formData = this.form.data();
-        console.log('Data being sent to API:', formData);
-        console.log('Selected products data:', this.form.selectedProducts);
         
-        // Ensure all required fields are present
-        const requiredData = {
-          supplier_id: this.form.supplier.id,
-          products: this.form.selectedProducts.map(product => ({
-            id: product.id,
-            qty: product.qty,
-            unit_price: product.unitPrice,
-            discount: product.discount || 0,
-            discount_type: product.discountType || 'fixed',
-            selected_vat_rate: product.selectedVatRate ? product.selectedVatRate.id : null,
-            total_tax: product.totalTax || 0,
-            total_price: product.totalPrice || 0
-          })),
-          account_id: this.form.account.id,
-          total_paid: this.form.totalPaid,
-          po_reference: this.form.poReference,
-          payment_terms: this.form.paymentTerms,
-          transport_cost: this.form.transportCost || 0,
-          discount: this.form.discount || 0,
-          note: this.form.note,
-          po_date: this.form.poDate,
-          purchase_date: this.form.purchaseDate,
-          status: this.form.status
-        };
+        // Convert addPayment to boolean for backend validation
+        formData.addPayment = this.form.addPayment == 1;
         
-        console.log('Required data structure:', requiredData);
+        // Only include payment-related fields if payment is being added
+        if (this.form.addPayment == 1) {
+          formData.account = this.form.account;
+          formData.totalPaid = this.form.totalPaid;
+        } else {
+          // Remove payment-related fields if not adding payment
+          delete formData.account;
+          delete formData.totalPaid;
+        }
         
-        const response = await this.form.post(window.location.origin + "/api/purchases");
-        console.log('API response:', response);
+        // Handle orderTax - only include if country is NOT Saudi Arabia
+        if (this.isSaudiArabia) {
+          delete formData.orderTax;
+        }
+        
+        // Use direct axios call instead of form.post to have better control over error handling
+        const response = await this.$axios.post("/api/purchases", formData);
         
         toast.fire({
           type: "success",
@@ -1066,15 +1061,15 @@ export default {
           params: { slug: response.data.data.slug },
         });
       } catch (error) {
-        console.error('Save purchase error:', error);
-        
         if (error.response && error.response.data && error.response.data.errors) {
-          // Validation errors from backend
+          // Validation errors from backend - show all errors in one notification
           const errorMessages = Object.values(error.response.data.errors).flat();
+          const errorList = errorMessages.map(error => `• ${error}`).join('\n');
           toast.fire({
             type: "error",
-            title: this.$t("Validation Error"),
-            text: errorMessages.join(', ')
+            title: `${this.$t("Validation Error")}:\n\n${errorList}`,
+            timer: 8000,
+            timerProgressBar: true
           });
         } else if (error.response && error.response.data && error.response.data.message) {
           // Custom error message from backend
@@ -1094,56 +1089,7 @@ export default {
       }
         },
     
-    // Show validation summary to user
-    showValidationSummary() {
-      const missingFields = [];
-      
-      if (!this.form.supplier) {
-        missingFields.push('Supplier');
-      }
-      
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        missingFields.push('Products');
-      }
-      
-      if (!this.form.account) {
-        missingFields.push('Account');
-      }
-      
-      if (!this.form.totalPaid || Number(this.form.totalPaid) <= 0) {
-        missingFields.push('Total Amount Paid');
-      }
-      
-      // Check product details
-      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
-        this.form.selectedProducts.forEach((product, index) => {
-          if (!product.qty || Number(product.qty) <= 0) {
-            missingFields.push(`Product ${index + 1} Quantity`);
-          }
-          if (!product.unitPrice || Number(product.unitPrice) <= 0) {
-            missingFields.push(`Product ${index + 1} Unit Price`);
-          }
-        });
-      }
-      
-      if (missingFields.length > 0) {
-        console.log('❌ Missing/Invalid Fields:', missingFields);
-        toast.fire({
-          type: "warning",
-          title: this.$t("Validation Summary"),
-          html: `
-            <div class="text-left">
-              <strong>Missing or Invalid Fields:</strong><br>
-              ${missingFields.map(field => `• ${field}`).join('<br>')}
-            </div>
-          `,
-          timer: 8000,
-          timerProgressBar: true
-        });
-      } else {
-        console.log('✅ All validation checks passed');
-      }
-    },
+
     
     // Auto-assign Chart of Account for supplier
     async autoAssignSupplierChartOfAccount() {
