@@ -1,6 +1,7 @@
 const {join} = require('path')
 const mix = require('laravel-mix')
 
+// Simplified configuration for Node.js v14 compatibility
 mix
   .js('resources/js/central.js', 'public/js')
   .js('resources/js/tenant.js', 'public/js')
@@ -12,6 +13,11 @@ if (mix.inProduction()) {
     .version();
 } else {
   mix.sourceMaps()
+    .options({
+      hmrOptions: {
+        port: 8081
+      }
+    })
 }
 
 mix.webpackConfig({
@@ -33,4 +39,10 @@ mix.webpackConfig({
       '~': join(__dirname, './resources/js')
     }
   },
+  optimization: {
+    minimize: false
+  },
+  performance: {
+    hints: false
+  }
 })

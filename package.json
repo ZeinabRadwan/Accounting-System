@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "mix watch --hot",
-    "watch": "mix watch",
-    "build": "mix --production",
+    "dev": "npx mix watch --hot",
+    "watch": "npx mix watch",
+    "build": "npx mix --production",
     "eslint": "eslint --fix --ext .js,.vue resources/js"
   },
   "dependencies": {

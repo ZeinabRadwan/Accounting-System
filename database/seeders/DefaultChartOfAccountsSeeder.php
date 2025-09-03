@@ -62,6 +62,7 @@ class DefaultChartOfAccountsSeeder extends Seeder
             ['name' => 'Accounts Receivable', 'code' => '1100'],
             ['name' => 'VAT Receivable', 'code' => '1200'],
             ['name' => 'Purchase VAT Receivable', 'code' => '1201'],
+            ['name' => 'VAT In', 'code' => '1202'],
             ['name' => 'Inventory', 'code' => '1300'],
             ['name' => 'Fixed Assets', 'code' => '1400'],
         ];
@@ -89,6 +90,7 @@ class DefaultChartOfAccountsSeeder extends Seeder
         $accounts = [
             ['name' => 'Accounts Payable', 'code' => '2000'],
             ['name' => 'Sales VAT Payable', 'code' => '2100'],
+            ['name' => 'VAT Out', 'code' => '2101'],
             ['name' => 'Loans Payable', 'code' => '2200'],
             ['name' => 'Accrued Expenses', 'code' => '2300'],
         ];
@@ -115,9 +117,11 @@ class DefaultChartOfAccountsSeeder extends Seeder
         
         $accounts = [
             ['name' => 'Sales Revenue', 'code' => '4000'],
-            ['name' => 'Service Revenue', 'code' => '4001'],
-            ['name' => 'Other Revenue', 'code' => '4002'],
+            ['name' => 'Selling Product', 'code' => '4001'],
+            ['name' => 'Service Revenue', 'code' => '4002'],
+            ['name' => 'Other Revenue', 'code' => '4003'],
             ['name' => 'Discount Allowed', 'code' => '4100'],
+            ['name' => 'Sales Returns', 'code' => '4101'],
         ];
 
         foreach ($accounts as $account) {
@@ -145,6 +149,7 @@ class DefaultChartOfAccountsSeeder extends Seeder
             ['name' => 'Cost of Goods Sold', 'code' => '5001'],
             ['name' => 'Operating Expenses', 'code' => '5100'],
             ['name' => 'Discount Received', 'code' => '5200'],
+            ['name' => 'Discount in Sell', 'code' => '5201'],
             ['name' => 'Transportation Expense', 'code' => '5300'],
         ];
 
