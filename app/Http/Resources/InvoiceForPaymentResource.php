@@ -17,7 +17,7 @@ class InvoiceForPaymentResource extends JsonResource
         return [
             'id' => $this->id,
             'invoiceNo' => $this->invoice_no,
-            'label' => config('config.invoicePrefix').'-'.$this->invoice_no,
+            'label' => config('config.invoicePrefix').$this->invoice_no,
             'slug' => $this->slug,
             'reference' => $this->reference,
             'discountType' => $this->discount_type,

@@ -65,5 +65,5 @@ Vue.filter('withAbsoluteCurrency', function (number) {
 
 // return code with prefix
 Vue.filter('withPrefix', function (code, prefix) {
-  return prefix + '-' + code;
+  return prefix + code;
 })

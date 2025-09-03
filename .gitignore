@@ -77,3 +77,16 @@ composer.phar
 # Keep vendor view files that are custom
 !/resources/views/vendor/installer/
 !/public/vendor/telescope/
+
+# Ignore compiled JS/CSS in public
+/public/js/*
+/public/css/*
+/public/mix-manifest.json
+
+# Don't ignore essential entry files
+!/public/index.php
+!/public/.htaccess
+
+# Optional: Keep empty folders
+!/public/js/.gitkeep
+!/public/css/.gitkeep

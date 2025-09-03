@@ -112,6 +112,14 @@
                     </template>
                   </VSelect>
                 </div>
+
+                <!-- Special handling for Discount Allowed setting -->
+                <div v-if="setting.setting_key === 'discount_allowed_account' && setting.routing_type === 'automatic'" class="form-group">
+                  <div class="alert alert-info">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <strong>Note:</strong> When discounts are applied to sales, they will be automatically posted to the selected account above.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -419,6 +427,17 @@
       <p>Sales Settings: {{ salesSettings.length }}</p>
       <p>Purchase Settings: {{ purchaseSettings.length }}</p>
       <p>VAT Settings: {{ vatSettings.length }}</p>
+      
+      <!-- Discount Setting Debug -->
+      <h5>Discount Allowed Setting:</h5>
+      <div v-if="settings.find(s => s.setting_key === 'discount_allowed_account')" class="discount-debug">
+        <p><strong>Found:</strong> Yes</p>
+        <p><strong>Setting:</strong> {{ JSON.stringify(settings.find(s => s.setting_key === 'discount_allowed_account'), null, 2) }}</p>
+      </div>
+      <div v-else class="discount-debug">
+        <p><strong>Found:</strong> No</p>
+      </div>
+      
       <p>Settings Data: {{ JSON.stringify(settings, null, 2) }}</p>
       <p>Chart of Accounts Sample: {{ JSON.stringify(chartOfAccounts.slice(0, 2), null, 2) }}</p>
     </div>
@@ -428,6 +447,10 @@
       <button @click="debugMode = !debugMode" class="btn btn-sm btn-secondary">
         <i class="fas fa-bug mr-1"></i>
         {{ debugMode ? 'Hide Debug' : 'Show Debug' }}
+      </button>
+      <button @click="debugDiscountSetting" class="btn btn-sm btn-info ml-2">
+        <i class="fas fa-search mr-1"></i>
+        Debug Discount
       </button>
     </div>
   </div>
@@ -439,6 +462,8 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'AccountRoutingSettings',
   data() {
+    console.log('AccountRoutingSettings data() called')
+    
     return {
       settings: [],
       saving: false,
@@ -470,6 +495,7 @@ export default {
   },
   computed: {
     tabs() {
+      console.log('tabs computed property evaluated')
       return [
         {
           id: 'sales',
@@ -499,37 +525,80 @@ export default {
     },
     
     salesSettings() {
-      return this.settings.filter(s => s.module === 'sales' && s.setting_key !== 'returns_account')
+      const sales = this.settings.filter(s => s.module === 'sales' && s.setting_key !== 'returns_account')
+      console.log('Sales settings found:', sales.map(s => ({ key: s.setting_key, name: s.setting_name, routing_type: s.routing_type })))
+      
+      // Check specifically for discount setting
+      const discountSetting = sales.find(s => s.setting_key === 'discount_allowed_account')
+      if (discountSetting) {
+        console.log('Discount Allowed Setting in salesSettings:', discountSetting)
+      } else {
+        console.log('Discount Allowed Setting NOT found in salesSettings')
+        console.log('All sales settings keys:', sales.map(s => s.setting_key))
+      }
+      
+      return sales
     },
     
     purchaseSettings() {
-      return this.settings.filter(s => s.module === 'purchase' && s.setting_key !== 'purchase_returns_account')
+      const purchase = this.settings.filter(s => s.module === 'purchase' && s.setting_key !== 'purchase_returns_account')
+      console.log('Purchase settings found:', purchase.map(s => ({ key: s.setting_key, name: s.setting_name, routing_type: s.routing_type })))
+      return purchase
     },
     
     vatSettings() {
-      return this.settings.filter(s => s.module === 'vat')
+      const vat = this.settings.filter(s => s.module === 'vat')
+      console.log('VAT settings found:', vat.map(s => ({ key: s.setting_key, name: s.setting_name, routing_type: s.routing_type })))
+      return vat
     },
     
     expenseSettings() {
-      return this.settings.filter(s => s.module === 'expenses')
+      const expenses = this.settings.filter(s => s.module === 'expenses')
+      console.log('Expense settings found:', expenses.map(s => ({ key: s.setting_key, name: s.setting_name, routing_type: s.routing_type })))
+      return expenses
     },
 
     // Get routing type options for a specific setting
     getRoutingTypeOptions() {
       return (setting) => {
+        console.log('getRoutingTypeOptions called for setting:', setting.setting_key)
+        
         // If a custom routing_type_options array is provided, use it.
         if (setting.routing_type_options && Array.isArray(setting.routing_type_options)) {
+          // Debug for discount setting
+          if (setting.setting_key === 'discount_allowed_account') {
+            console.log('Discount setting using custom routing options:', setting.routing_type_options)
+          }
           return setting.routing_type_options
         }
         // Otherwise, use the default options.
+        if (setting.setting_key === 'discount_allowed_account') {
+          console.log('Discount setting using default routing options:', this.defaultRoutingTypeOptions)
+        }
         return this.defaultRoutingTypeOptions
       }
     }
   },
   
   async mounted() {
+    console.log('AccountRoutingSettings component mounted')
+    
     await this.loadSettings()
     await this.loadChartOfAccounts()
+    
+    // Debug discount setting
+    this.$nextTick(() => {
+      console.log('Component mounted, checking discount setting...')
+      this.debugDiscountSetting()
+      
+      // Additional debugging
+      console.log('Component state after mount:', {
+        settingsCount: this.settings.length,
+        hasDiscountSetting: this.settings.some(s => s.setting_key === 'discount_allowed_account'),
+        salesSettingsCount: this.salesSettings.length,
+        chartOfAccountsCount: this.chartOfAccounts.length
+      })
+    })
   },
   
   methods: {
@@ -558,6 +627,15 @@ export default {
         }
         
         console.log('Processed settings:', this.settings)
+        
+        // Check for discount setting specifically
+        const discountSetting = this.settings.find(s => s.setting_key === 'discount_allowed_account')
+        if (discountSetting) {
+          console.log('Discount Allowed Setting found:', discountSetting)
+        } else {
+          console.log('Discount Allowed Setting NOT found in processed settings')
+          console.log('Available setting keys:', this.settings.map(s => s.setting_key))
+        }
       } catch (error) {
         console.error('Error loading settings:', error)
         this.showMessage('Error loading settings: ' + (error.response?.data?.message || error.message), 'alert-danger')
@@ -572,6 +650,15 @@ export default {
         this.chartOfAccounts = response.data.data || []
         console.log('Chart of accounts loaded:', this.chartOfAccounts.length)
         
+        // Check for Revenue accounts specifically
+        const revenueAccounts = this.chartOfAccounts.filter(account => {
+          if (account.type && typeof account.type === 'object' && account.type.name) {
+            return account.type.name === 'Revenue'
+          }
+          return account.type === 'Revenue'
+        })
+        console.log('Revenue accounts found:', revenueAccounts.length)
+        
         if (this.chartOfAccounts.length === 0) {
           this.showMessage('Warning: No chart of accounts found. Please create some accounts first.', 'alert-warning')
         }
@@ -582,12 +669,15 @@ export default {
     },
     
     getAccountsForType(accountType) {
+      console.log('getAccountsForType called for account type:', accountType)
+      
       if (!this.chartOfAccounts || this.chartOfAccounts.length === 0) {
+        console.log('No chart of accounts available')
         return []
       }
       
       // Filter by account type name
-      return this.chartOfAccounts.filter(account => {
+      const accounts = this.chartOfAccounts.filter(account => {
         if (account.type && typeof account.type === 'object' && account.type.name) {
           return account.type.name === accountType
         }
@@ -598,19 +688,39 @@ export default {
         code: account.code,
         type: account.type && typeof account.type === 'object' ? account.type.name : account.type
       }))
+      
+      // Debug for Revenue accounts (used by discount setting)
+      if (accountType === 'Revenue') {
+        console.log('Revenue accounts found for discount setting:', accounts)
+      }
+      
+      console.log(`Found ${accounts.length} accounts for type: ${accountType}`)
+      return accounts
     },
     
     async updateSetting(setting) {
+      console.log('updateSetting called for setting:', setting.setting_key)
+      
       try {
         const updateData = {
           routing_type: setting.routing_type,
           main_account_id: setting.main_account_id
         }
         
+        // Debug for discount setting
+        if (setting.setting_key === 'discount_allowed_account') {
+          console.log('Updating discount setting:', updateData)
+        }
+        
         const response = await this.$http.put(`/api/account-routing-settings/${setting.id}`, updateData)
         
         if (response.data.success) {
           this.showMessage('Setting updated successfully', 'alert-success')
+          
+          // Debug for discount setting
+          if (setting.setting_key === 'discount_allowed_account') {
+            console.log('Discount setting updated successfully')
+          }
         }
       } catch (error) {
         console.error('Error updating setting:', error)
@@ -619,6 +729,7 @@ export default {
     },
     
     async saveAllSettings() {
+      console.log('saveAllSettings called')
       this.saving = true
       
       try {
@@ -627,6 +738,15 @@ export default {
           routing_type: setting.routing_type,
           main_account_id: setting.main_account_id
         }))
+        
+        // Debug for discount setting
+        const discountUpdate = updates.find(u => {
+          const setting = this.settings.find(s => s.id === u.id)
+          return setting && setting.setting_key === 'discount_allowed_account'
+        })
+        if (discountUpdate) {
+          console.log('Discount setting update in bulk save:', discountUpdate)
+        }
         
         const response = await this.$http.put('/api/account-routing-settings/bulk', { updates })
         
@@ -645,6 +765,11 @@ export default {
       this.message = message
       this.messageType = type
       
+      // Debug for discount-related messages
+      if (message.includes('discount') || message.includes('Discount')) {
+        console.log('Discount-related message shown:', { message, type })
+      }
+      
       setTimeout(() => {
         this.message = ''
       }, 5000)
@@ -655,12 +780,22 @@ export default {
         `To initialize the account routing settings, you need to run the database seeder. Open your terminal and run: php artisan db:seed --class=AccountRoutingSettingsSeeder. This will create the default settings for all modules. After running the seeder, refresh this page to see the settings.`,
         'alert-info'
       )
+      
+      // Debug current state
+      console.log('Seeder instructions shown - current settings state:', {
+        settingsCount: this.settings.length,
+        hasDiscountSetting: this.settings.some(s => s.setting_key === 'discount_allowed_account'),
+        discountSetting: this.settings.find(s => s.setting_key === 'discount_allowed_account')
+      })
     },
 
     async checkSettingsExist() {
       try {
         const response = await this.$http.get('/api/account-routing-settings')
         if (response.data.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+          // Check for discount setting specifically
+          const hasDiscountSetting = response.data.data.some(s => s.setting_key === 'discount_allowed_account')
+          console.log('Settings exist check - has discount setting:', hasDiscountSetting)
           return true
         }
         return false
@@ -672,11 +807,21 @@ export default {
 
     // Handle routing type change
     onRoutingTypeChange(setting) {
-      console.log('Routing type changed for', setting.setting_name, 'to', setting.routing_type)
+      console.log('onRoutingTypeChange called for setting:', setting.setting_name, 'to routing type:', setting.routing_type)
       
       // Clear main account when switching to per_each or cancel routing
       if (setting.routing_type === 'per_each' || setting.routing_type === 'cancel') {
         setting.main_account_id = null
+      }
+      
+      // Debug for discount setting
+      if (setting.setting_key === 'discount_allowed_account') {
+        console.log('Discount setting routing type changed:', {
+          setting_key: setting.setting_key,
+          old_routing_type: setting.routing_type,
+          main_account_id: setting.main_account_id,
+          shouldShowMainAccount: this.shouldShowMainAccount(setting)
+        })
       }
       
       // Update the setting
@@ -685,7 +830,17 @@ export default {
 
     // Handle main account change
     onMainAccountChange(setting) {
-      console.log('Main account changed for', setting.setting_name, 'to', setting.main_account_id)
+      console.log('onMainAccountChange called for setting:', setting.setting_name, 'to main account ID:', setting.main_account_id)
+      
+      // Debug for discount setting
+      if (setting.setting_key === 'discount_allowed_account') {
+        console.log('Discount setting main account changed:', {
+          setting_key: setting.setting_key,
+          routing_type: setting.routing_type,
+          main_account_id: setting.main_account_id,
+          shouldShowMainAccount: this.shouldShowMainAccount(setting)
+        })
+      }
       
       // Update the setting
       this.updateSetting(setting)
@@ -693,22 +848,68 @@ export default {
 
     // Check if main account dropdown should be shown
     shouldShowMainAccount(setting) {
-      return ['automatic', 'main_account_per_each'].includes(setting.routing_type)
+      console.log('shouldShowMainAccount called for setting:', setting.setting_key, 'with routing_type:', setting.routing_type)
+      
+      const shouldShow = ['automatic', 'main_account_per_each'].includes(setting.routing_type)
+      
+      // Debug for discount setting
+      if (setting.setting_key === 'discount_allowed_account') {
+        console.log('shouldShowMainAccount for discount setting:', {
+          setting_key: setting.setting_key,
+          routing_type: setting.routing_type,
+          shouldShow: shouldShow
+        })
+      }
+      
+      return shouldShow
     },
 
     // Check if setting is configured based on routing type
     isSettingConfigured(setting) {
-      switch (setting.routing_type) {
-        case 'automatic':
-          return setting.main_account_id !== null
-        case 'per_each':
-          return true // No account needed for per each routing
-        case 'main_account_per_each':
-          return setting.main_account_id !== null
-        case 'cancel':
-          return true // No account needed for cancel routing
-        default:
-          return false
+      console.log('isSettingConfigured called for setting:', setting.setting_key, 'with routing_type:', setting.routing_type)
+      
+      const isConfigured = (() => {
+        switch (setting.routing_type) {
+          case 'automatic':
+            return setting.main_account_id !== null
+          case 'per_each':
+            return true // No account needed for per each routing
+          case 'main_account_per_each':
+            return setting.main_account_id !== null
+          case 'cancel':
+            return true // No account needed for cancel routing
+          default:
+            return false
+        }
+      })()
+      
+      // Debug for discount setting
+      if (setting.setting_key === 'discount_allowed_account') {
+        console.log('isSettingConfigured for discount setting:', {
+          setting_key: setting.setting_key,
+          routing_type: setting.routing_type,
+          main_account_id: setting.main_account_id,
+          isConfigured: isConfigured
+        })
+      }
+      
+      return isConfigured
+    },
+
+    // Debug method to check discount setting specifically
+    debugDiscountSetting() {
+      const discountSetting = this.settings.find(s => s.setting_key === 'discount_allowed_account')
+      if (discountSetting) {
+        console.log('Discount Allowed Setting:', {
+          key: discountSetting.setting_key,
+          name: discountSetting.setting_name,
+          routing_type: discountSetting.routing_type,
+          main_account_id: discountSetting.main_account_id,
+          account_type: discountSetting.account_type,
+          routing_type_options: discountSetting.routing_type_options
+        })
+      } else {
+        console.log('Discount Allowed Setting not found in settings')
       }
     }
   }
@@ -984,6 +1185,20 @@ export default {
   border: 1px solid #ffeaa7;
 }
 
+/* Discount info alert styling */
+.setting-card .alert-info {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  text-align: left;
+  border-left: 4px solid #17a2b8;
+}
+
+.setting-card .alert-info i {
+  margin-right: 0.5rem;
+  color: #17a2b8;
+}
+
 .loading-container {
   text-align: center;
   padding: 3rem;
@@ -1046,6 +1261,20 @@ export default {
 .debug-panel p {
   margin-bottom: 0.5rem;
   word-break: break-all;
+}
+
+.debug-panel h5 {
+  color: #495057;
+  margin: 1rem 0 0.5rem 0;
+  border-top: 1px solid #dee2e6;
+  padding-top: 0.5rem;
+}
+
+.discount-debug {
+  background: #e9ecef;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
 }
 
 /* Form Elements */

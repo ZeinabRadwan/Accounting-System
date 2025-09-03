@@ -77,12 +77,42 @@ class InvoiceReturnController extends Controller
                 $transactionID = $transaction->id;
             }
 
+            // Calculate total return using the correct formula
+            $calculatedTotalReturn = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                if ($selectedProduct['returnQty'] > 0) {
+                    // Get the original invoice product data
+                    $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $request->invoice['id'])
+                        ->where('product_id', $selectedProduct['id'])
+                        ->first();
+                    
+                    if ($invoiceProduct) {
+                        // unit_discount = round(discount_amount / quantity, 2)
+                        $unitDiscount = round($invoiceProduct->discount_amount / $invoiceProduct->quantity, 2);
+                        
+                        // unit_net = sale_price - unit_discount
+                        $unitNet = $invoiceProduct->sale_price - $unitDiscount;
+                        
+                        // unit_vat = round(unit_net * 0.20, 2)
+                        $unitVat = round($unitNet * 0.20, 2);
+                        
+                        // unit_total = unit_net + unit_vat
+                        $unitTotal = $unitNet + $unitVat;
+                        
+                        // return_total = round(unit_total * return_qty, 2)
+                        $returnTotal = round($unitTotal * $selectedProduct['returnQty'], 2);
+                        
+                        $calculatedTotalReturn += $returnTotal;
+                    }
+                }
+            }
+
             // store invoice return
             $invoiceReturn = InvoiceReturn::create([
                 'reason' => $request->returnReason,
                 'return_no' => $code,
                 'invoice_id' => $request->invoice['id'],
-                'total_return' => $request->totalReturn,
+                'total_return' => $calculatedTotalReturn,
                 'date' => $request->date,
                 'note' => clean($request->note),
                 'transaction_id' => $transactionID,
@@ -114,6 +144,18 @@ class InvoiceReturnController extends Controller
                         'quantity' => $selectedProduct['returnQty'],
                     ]);
                 }
+            }
+
+            // Create journal entry for invoice return (after products are stored)
+            try {
+                \Illuminate\Support\Facades\Log::info('Creating journal entry for invoice return: ' . $invoiceReturn->return_no);
+                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
+                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for invoice return: ' . $invoiceReturn->return_no);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the return creation
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return: ' . $e->getMessage());
+                \Illuminate\Support\Facades\Log::error('Stack trace: ' . $e->getTraceAsString());
             }
 
             // add activity log
@@ -195,11 +237,41 @@ class InvoiceReturnController extends Controller
                 }
             }
 
+            // Calculate total return using the correct formula
+            $calculatedTotalReturn = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                if ($selectedProduct['returnQty'] > 0) {
+                    // Get the original invoice product data
+                    $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $invoiceReturn->invoice_id)
+                        ->where('product_id', $selectedProduct['id'])
+                        ->first();
+                    
+                    if ($invoiceProduct) {
+                        // unit_discount = round(discount_amount / quantity, 2)
+                        $unitDiscount = round($invoiceProduct->discount_amount / $invoiceProduct->quantity, 2);
+                        
+                        // unit_net = sale_price - unit_discount
+                        $unitNet = $invoiceProduct->sale_price - $unitDiscount;
+                        
+                        // unit_vat = round(unit_net * 0.20, 2)
+                        $unitVat = round($unitNet * 0.20, 2);
+                        
+                        // unit_total = unit_net + unit_vat
+                        $unitTotal = $unitNet + $unitVat;
+                        
+                        // return_total = round(unit_total * return_qty, 2)
+                        $returnTotal = round($unitTotal * $selectedProduct['returnQty'], 2);
+                        
+                        $calculatedTotalReturn += $returnTotal;
+                    }
+                }
+            }
+
             // update invoice return
             $invoiceReturn->update([
                 'reason' => $request->returnReason,
                 'transaction_id' => $transactionID,
-                'total_return' => $request->totalReturn,
+                'total_return' => $calculatedTotalReturn,
                 'date' => $request->date,
                 'note' => clean($request->note),
                 'status' => $request->status,
@@ -224,6 +296,15 @@ class InvoiceReturnController extends Controller
                         'quantity' => $selectedProduct['returnQty'],
                     ]);
                 }
+            }
+
+            // Create journal entry for invoice return update (after products are updated)
+            try {
+                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the return update
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return update: ' . $e->getMessage());
             }
 
             // update invoice
@@ -269,6 +350,9 @@ class InvoiceReturnController extends Controller
                     [
                         'invoice' => [
                             'client',
+                            'invoiceProducts' => [
+                                'vatRate'
+                            ]
                         ],
                         'invoiceReturnProducts' => [
                             'invoiceReturn',
@@ -277,7 +361,16 @@ class InvoiceReturnController extends Controller
                                 'productTax',
                             ],
                         ],
-                        'user'
+                        'user',
+                        'journalEntries' => [
+                            'lines' => [
+                                'chartOfAccount' => [
+                                    'type'
+                                ]
+                            ],
+                            'creator',
+                            'poster'
+                        ]
                     ],
                 )->firstOrFail();
 

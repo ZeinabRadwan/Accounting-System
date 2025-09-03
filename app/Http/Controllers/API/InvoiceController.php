@@ -57,11 +57,11 @@ class InvoiceController extends Controller
             ->where('setting_key', 'discount_allowed_account')
             ->first();
 
-        if (!$setting || !$setting->parent_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
-        return ChartOfAccount::find($setting->parent_account_id);
+        return ChartOfAccount::find($setting->main_account_id);
     }
 
     /**
@@ -91,8 +91,12 @@ class InvoiceController extends Controller
                 if (!$product || !$product->hasSalesAccount()) {
                     $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.';
                 }
-                if (!$product || !$product->productTax || !$product->productTax->salesVatAccount) {
-                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned.';
+                
+                // Check if product has a VAT rate and if that VAT rate has a sales VAT account (with fallback)
+                if (!$product || !$product->productTax) {
+                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a VAT rate assigned.';
+                } elseif (!$product->productTax->getSalesVatAccount()) {
+                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned. Please configure the VAT rate "' . $product->productTax->name . '" with a Sales VAT Account or ensure the default "Sales VAT Payable" account exists.';
                 }
 
                 if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {

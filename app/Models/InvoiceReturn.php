@@ -64,4 +64,20 @@ class InvoiceReturn extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    /**
+     * Get the journal entries for this invoice return.
+     */
+    public function journalEntries()
+    {
+        return $this->morphMany(\App\Models\JournalEntry::class, 'source');
+    }
+
+    /**
+     * Get the latest journal entry for this invoice return.
+     */
+    public function latestJournalEntry()
+    {
+        return $this->morphOne(\App\Models\JournalEntry::class, 'source')->latest();
+    }
 }

@@ -169,11 +169,11 @@ class VatJournalService
             ->where('setting_key', 'sales_vat_account')
             ->first();
 
-        if (!$setting || !$setting->parent_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
-        return ChartOfAccount::find($setting->parent_account_id);
+        return ChartOfAccount::find($setting->main_account_id);
     }
 
     /**
@@ -185,11 +185,11 @@ class VatJournalService
             ->where('setting_key', 'purchase_vat_account')
             ->first();
 
-        if (!$setting || !$setting->parent_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
-        return ChartOfAccount::find($setting->parent_account_id);
+        return ChartOfAccount::find($setting->main_account_id);
     }
 
     /**
@@ -201,11 +201,11 @@ class VatJournalService
             ->where('setting_key', $settingKey)
             ->first();
 
-        if (!$setting || !$setting->parent_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
-        return ChartOfAccount::find($setting->parent_account_id);
+        return ChartOfAccount::find($setting->main_account_id);
     }
 
     /**

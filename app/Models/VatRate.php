@@ -65,7 +65,17 @@ class VatRate extends Model
             return $this->salesVatAccount;
         }
         
-        // Return default Sales VAT Payable account
+        // Get default account from routing settings
+        $setting = \App\Models\AccountRoutingSetting::where('module', 'vat')
+            ->where('setting_key', 'sales_vat_account')
+            ->where('is_active', true)
+            ->first();
+        
+        if ($setting && $setting->main_account_id) {
+            return ChartOfAccount::find($setting->main_account_id);
+        }
+        
+        // Fallback to account named "Sales VAT Payable" if routing not configured
         return ChartOfAccount::where('name', 'Sales VAT Payable')
             ->where('is_active', true)
             ->first();
@@ -80,7 +90,17 @@ class VatRate extends Model
             return $this->purchaseVatAccount;
         }
         
-        // Return default Purchase VAT Receivable account
+        // Get default account from routing settings
+        $setting = \App\Models\AccountRoutingSetting::where('module', 'vat')
+            ->where('setting_key', 'purchase_vat_account')
+            ->where('is_active', true)
+            ->first();
+        
+        if ($setting && $setting->main_account_id) {
+            return ChartOfAccount::find($setting->main_account_id);
+        }
+        
+        // Fallback to account named "Purchase VAT Receivable" if routing not configured
         return ChartOfAccount::where('name', 'Purchase VAT Receivable')
             ->where('is_active', true)
             ->first();

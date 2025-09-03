@@ -17,7 +17,7 @@ class PurchaseListResource extends JsonResource
         return [
             'id' => $this->id,
             'code' => $this->purchase_no,
-            'purchaseNo' => config('config.purchasePrefix').'-'.$this->purchase_no,
+            'purchaseNo' => config('config.purchasePrefix').$this->purchase_no,
             'slug' => $this->slug,
             'supplierName' => $this->supplier ? $this->supplier->name : null,
             'supplierPhone' => $this->supplier ? $this->supplier->phone_number : null,
