@@ -32,11 +32,11 @@ Vue.directive('currency-symbol', {
       const svgElement = document.createElement('img')
       svgElement.src = currency.symbol.startsWith('/') ? currency.symbol : `/images/${currency.symbol}`
       svgElement.alt = currency.code || 'Currency Symbol'
-      svgElement.width = 24
-      svgElement.height = 24
+      svgElement.width = 15
+      svgElement.height = 15
       svgElement.style.verticalAlign = 'middle'
-      svgElement.style.marginRight = currency.position === 'left' ? '8px' : '0px'
-      svgElement.style.marginLeft = currency.position === 'right' ? '8px' : '0px'
+      svgElement.style.marginRight = currency.position === 'left' ? '5px' : '0px'
+      svgElement.style.marginLeft = currency.position === 'right' ? '5px' : '0px'
       // Check if this is a dashboard card (small-box)
       const isDashboardCard = el.closest('.small-box')
       if (isDashboardCard) {

@@ -89,10 +89,10 @@ export default {
       const svgElement = document.createElement('img')
       svgElement.src = currency.symbol.startsWith('/') ? currency.symbol : `/images/${currency.symbol}`
       svgElement.alt = currency.code || 'Currency'
-      svgElement.width = 24
-      svgElement.height = 24
+      svgElement.width = 15
+      svgElement.height = 15
       svgElement.style.verticalAlign = 'middle'
-      svgElement.style.marginRight = '8px'
+      svgElement.style.marginRight = '5px'
       // Check if this is a dashboard card (small-box)
       const isDashboardCard = element.closest('.small-box')
       if (isDashboardCard) {

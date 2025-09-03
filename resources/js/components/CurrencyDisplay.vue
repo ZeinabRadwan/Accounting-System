@@ -4,9 +4,9 @@
       v-if="isSvgSymbol" 
       :src="svgPath" 
       :alt="currency.code"
-      width="24"
-      height="24"
-      style="vertical-align: middle; margin-right: 8px; filter: brightness(0.2) contrast(2) saturate(1.5);"
+      width="15"
+      height="15"
+      style="vertical-align: middle; margin-right: 5px; filter: brightness(0.2) contrast(2) saturate(1.5);"
       class="currency-svg"
     />
     <span v-else-if="currency && currency.position === 'left'" class="currency-text">{{ currency.symbol }}</span>
