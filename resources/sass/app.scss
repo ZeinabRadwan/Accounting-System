@@ -87,6 +87,11 @@ body {
   padding: 0px !important;
 }
 
+/* Arabic font for currency symbols */
+.currency-symbol {
+  font-family: "Noto Sans Arabic", "Noto Sans Bengali", "Kumbh Sans", sans-serif;
+}
+
 a {
   color: #6366f1;
 }

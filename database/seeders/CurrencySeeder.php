@@ -23,7 +23,16 @@ class CurrencySeeder extends Seeder
                     'code' => 'SAR',
                     'symbol' => 'ر.س',
                     'position' => 'left',
-                    'note' => 'This is default currency for Saudi Arabia',
+                    'note' => 'Official currency of Saudi Arabia with new symbol',
+                    'status' => 1,
+                ],
+                [
+                    'name' => 'Riyal',
+                    'slug' => 'riyal',
+                    'code' => 'RY',
+                    'symbol' => 'ر',
+                    'position' => 'right',
+                    'note' => 'Simple Riyal currency',
                     'status' => 1,
                 ],
                 [

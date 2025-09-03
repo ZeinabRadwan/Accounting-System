@@ -25,7 +25,7 @@ class CentralCurrencySeeder extends Seeder
                     'rate' =>  3.75,
                     'symbol' => 'ر.س',
                     'position' => 'left',
-                    'note' => 'This is default currency for Saudi Arabia',
+                    'note' => 'Official currency of Saudi Arabia with new symbol',
                     'status' => 1,
                 ],
                 [
