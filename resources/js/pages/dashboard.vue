@@ -53,7 +53,7 @@
                   <div class="small-box bg-primary">
                     <div class="inner">
                       <h3>
-                        {{ dashboardSummery.purchaseAmount | withCurrency }}
+                        <currency-display :amount="dashboardSummery.purchaseAmount" />
                       </h3>
                       <p>{{ $t("Purchase") }}</p>
                     </div>
@@ -88,7 +88,7 @@
                 <div class="col-lg-3 col-6">
                   <div class="small-box bg-success">
                     <div class="inner">
-                      <h3>{{ dashboardSummery.salesAmount | withCurrency }}</h3>
+                      <h3><currency-display :amount="dashboardSummery.salesAmount" /></h3>
                       <p>{{ $t("Sales") }}</p>
                     </div>
                     <div class="icon">
@@ -104,7 +104,7 @@
                   <div class="small-box bg-gray">
                     <div class="inner">
                       <h3>
-                        {{ dashboardSummery.salesReturnAmount | withCurrency }}
+                        <currency-display :amount="dashboardSummery.salesReturnAmount" />
                       </h3>
                       <p>{{ $t("Sales Return") }}</p>
                     </div>
@@ -121,7 +121,7 @@
                   <div class="small-box bg-olive">
                     <div class="inner">
                       <h3>
-                        {{ dashboardSummery.paymentReceived | withCurrency }}
+                        <currency-display :amount="dashboardSummery.paymentReceived" />
                       </h3>
                       <p>
                         {{ $t("Client Payment") }}
@@ -139,7 +139,7 @@
                 <div class="col-lg-3 col-6">
                   <div class="small-box bg-indigo">
                     <div class="inner">
-                      <h3>{{ dashboardSummery.paymentSent | withCurrency }}</h3>
+                      <h3><currency-display :amount="dashboardSummery.paymentSent" /></h3>
                       <p>{{ $t("Supplier Payment") }}</p>
                     </div>
                     <div class="icon">
@@ -155,7 +155,7 @@
                   <div class="small-box bg-danger">
                     <div class="inner">
                       <h3>
-                        {{ dashboardSummery.expenseAmount | withCurrency }}
+                        <currency-display :amount="dashboardSummery.expenseAmount" />
                       </h3>
                       <p>{{ $t("Expense") }}</p>
                     </div>
@@ -172,7 +172,7 @@
                   <div class="small-box bg-navy">
                     <div class="inner">
                       <h3>
-                        {{ dashboardSummery.balanceTransfer | withCurrency }}
+                        <currency-display :amount="dashboardSummery.balanceTransfer" />
                       </h3>
                       <p>
                         {{ $t("Balance Transfers") }}

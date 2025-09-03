@@ -439,7 +439,7 @@ export default {
     // Calculate total discount (product + invoice)
     totalDiscount() {
       return this.totalProductDiscounts + this.totalInvoiceDiscount
-    }
+    },
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA';

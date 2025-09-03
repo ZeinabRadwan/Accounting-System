@@ -21,7 +21,7 @@ class DemoCurrenciesTableSeeder extends Seeder
                 'name' => 'Saudi Riyal',
                 'slug' => 'saudi-riyal',
                 'code' => 'SAR',
-                'symbol' => '﷼',
+                'symbol' => 'riyal-symbol.svg',
                 'position' => 'right',
                 'note' => 'Official currency of Saudi Arabia with new symbol',
                 'status' => 1,

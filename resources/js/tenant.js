@@ -7,6 +7,8 @@ import router from '~/router/tenant'
 import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
 import App from '~/components/App'
+import currencyMixin from '~/mixins/currencyMixin'
+import globalCurrencyMixin from '~/mixins/globalCurrencyMixin'
 import VuePageTransition from 'vue-page-transition'
 import Clipboard from 'v-clipboard'
 import VueMasonry from 'vue-masonry-css'
@@ -62,6 +64,10 @@ Vue.prototype.$tenant = window.tenant
 Vue.prototype.$stripe_key = window.stripe_key
 Vue.prototype.$axios = axios
 Vue.prototype.$http = axios
+
+// Register global mixin
+Vue.mixin(currencyMixin)
+Vue.mixin(globalCurrencyMixin)
 
 /* eslint-disable no-new */
 new Vue({
