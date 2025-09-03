@@ -13,6 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google" content="notranslate">
     <title>{{ config('app.name') }}</title>
     <link rel="icon" href='{{ global_asset('images/' . config('config.favicon')) }}'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,12 +23,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {!! settings()->get('custom_html') !!}
 
-    <style>
-        /* Hides the Google Translate dropdown */
-        .goog-te-gadget {
-            display: none !important;
-        }
-    </style>
+
 </head>
 
 <body class="hold-transition layout-footer-fixed" dir="{{ session('locale', config('app.fallback_locale', 'ar')) === 'ar' ? 'rtl' : 'ltr' }}">
@@ -42,19 +38,7 @@
     <script src="{{ mix('/js/central.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script  type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lewis-kori/vue-google-translate@main/src/utils/translatorRegex.js"></script>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-            { 
-                pageLanguage: "en", 
-                autoDisplay: true 
-            },
-            'app'
-        );
-        }
-    </script>
+
 
 </body>
 

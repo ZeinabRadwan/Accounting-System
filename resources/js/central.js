@@ -35,8 +35,7 @@ import vSelect from 'vue-select'
 import VTooltip from 'v-tooltip'
 import axios from 'axios'
 
-import { Translator } from 'vue-google-translate';
-Vue.component('Translator', Translator)
+
 
 Vue.use(VuePageTransition)
 

@@ -79,18 +79,11 @@
               </div>
             </div>
           </div>
-          <button @click="previewModal()" type="button" class="btn btn-info">
-            Translate
-          </button>
+
         </div>
       </div>
     </nav>
-    <Modal v-if="showModal" @close="previewModal()">
-      <h5 slot="header">Select a language</h5>
-      <div class="w-100 country-list" slot="body">
-        <Translator :countries="countries" @on-country-click="previewModal" />
-      </div>
-    </Modal>
+
   </section>
   <!-- HEADER AREA END -->
 </template>
@@ -284,18 +277,11 @@ export default {
 
   data: () => ({
     appName: window.config.appName,
-    showModal: false,
   }),
 
 
   methods: {
-    // display language translate modal
-    previewModal() {
-      if (this.showModal) {
-        return (this.showModal = false);
-      }
-      return (this.showModal = true);
-    },
+
 
     handleSCroll() {
       let header = document.querySelector('.navbar')
