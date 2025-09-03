@@ -68,13 +68,40 @@
                                         <td>{{ data.name }}</td>
                                         <td class="text-uppercase">{{ data.code }}</td>
                                         <td>{{ data.rate }}</td>
-                                        <td>{{ data.symbol }}</td>
+                                        <td>
+                                            <currency-symbol 
+                                                v-if="isSvgCurrencySymbol(data.symbol, data.code)"
+                                                :symbol="data.symbol"
+                                                :currency-code="data.code"
+                                                :width="20"
+                                                :height="20"
+                                            />
+                                            <span v-else>{{ data.symbol }}</span>
+                                        </td>
                                         <td>{{ data.position }}</td>
                                         <td>
                                             <span v-if="data.position === 'left'">
-                                                {{ data.symbol }}0.00
+                                                <currency-symbol 
+                                                    v-if="isSvgCurrencySymbol(data.symbol, data.code)"
+                                                    :symbol="data.symbol"
+                                                    :currency-code="data.code"
+                                                    :width="16"
+                                                    :height="16"
+                                                />
+                                                <span v-else>{{ data.symbol }}</span>
+                                                0.00
                                             </span>
-                                            <span v-else>0.00{{ data.symbol }}</span>
+                                            <span v-else>
+                                                0.00
+                                                <currency-symbol 
+                                                    v-if="isSvgCurrencySymbol(data.symbol, data.code)"
+                                                    :symbol="data.symbol"
+                                                    :currency-code="data.code"
+                                                    :width="16"
+                                                    :height="16"
+                                                />
+                                                <span v-else>{{ data.symbol }}</span>
+                                            </span>
                                         </td>
                                         <td>
                                             <span v-if="data.status === 1" class="badge bg-success">{{

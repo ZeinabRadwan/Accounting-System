@@ -82,14 +82,39 @@
 @import '../js/assets/css/daterangepicker-rtl-overrides.css';
 
 body {
-  font-family: "Noto Sans Bengali", "Kumbh Sans", sans-serif;
+  font-family: "Noto Sans Arabic", "Noto Sans Bengali", "Kumbh Sans", sans-serif;
   background-color: #f4f6f9;
   padding: 0px !important;
 }
 
-/* Arabic font for currency symbols */
-.currency-symbol {
+/* Ensure currency symbols use Arabic font */
+.small-box .inner h3,
+.card-body .inner h3,
+.table td,
+.table th,
+.badge,
+.text-muted,
+.form-control,
+.alert,
+.navbar,
+.sidebar,
+.main-header,
+.content-header,
+.content-wrapper,
+.main-footer {
   font-family: "Noto Sans Arabic", "Noto Sans Bengali", "Kumbh Sans", sans-serif;
+}
+
+/* Make currency symbols smaller */
+.small-box .inner h3,
+.card-body .inner h3 {
+  font-size: 0.85em;
+}
+
+/* Specific styling for currency symbols in dashboard cards */
+.small-box .inner h3 {
+  font-size: 0.8em;
+  line-height: 1.2;
 }
 
 a {

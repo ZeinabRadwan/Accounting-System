@@ -15,6 +15,7 @@ if (mix.inProduction()) {
   mix.sourceMaps()
     .options({
       hmrOptions: {
+        host: 'localhost',
         port: 8081
       }
     })

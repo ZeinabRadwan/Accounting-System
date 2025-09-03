@@ -1,14 +1,14 @@
 <template>
   <div>
     <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+    <breadcrumbs :items="dynamicBreadcrumbs" :current="dynamicBreadcrumbsCurrent" />
     <!-- breadcrumbs end -->
     <div class="row">
       <div class="col-lg-12 col-xl-12">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">
-              {{ $t('Create invoice return') }}
+              {{ isSaudiArabia ? $t('Create invoice return KSA') : $t('Create invoice return') }}
             </h3>
             <router-link :to="{ name: 'invoiceReturns.index' }" class="btn btn-dark float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
@@ -362,17 +362,17 @@ import { mapGetters } from 'vuex'
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: this.$t('Create Invoice Return') }
+    return { title: this.isSaudiArabia ? this.$t('Create Invoice Return KSA') : this.$t('Create Invoice Return') }
   },
   data: () => ({
-    breadcrumbsCurrent: 'Create Invoice Return',
+    breadcrumbsCurrent: '',
     breadcrumbs: [
       {
         name: 'Dashboard',
         url: 'home',
       },
       {
-        name: 'Invoice Returns',
+        name: '',
         url: 'invoiceReturns.index',
       },
       {
@@ -535,7 +535,28 @@ export default {
         const lineTax = taxAmount / quantity
         return total + lineTax
       }, 0)
-    }
+    },
+    // Dynamic breadcrumbs current based on country
+    dynamicBreadcrumbsCurrent() {
+      return this.isSaudiArabia ? this.$t('Create Invoice Return KSA') : this.$t('Create Invoice Return');
+    },
+    // Dynamic breadcrumbs based on country
+    dynamicBreadcrumbs() {
+      return [
+        {
+          name: 'Dashboard',
+          url: 'home',
+        },
+        {
+          name: this.isSaudiArabia ? this.$t('Invoice Returns KSA') : this.$t('Invoice Returns'),
+          url: 'invoiceReturns.index',
+        },
+        {
+          name: 'Create',
+          url: '',
+        },
+      ];
+    },
   },
   watch: {
     'form.selectedProducts': {
@@ -1194,7 +1215,7 @@ export default {
         .then(({ data }) => {
           toast.fire({
             type: 'success',
-            title: this.$t('Invoice return added successfully'),
+            title: this.isSaudiArabia ? this.$t('Invoice return added successfully KSA') : this.$t('Invoice return added successfully'),
           })
           this.$router.push({ name: 'invoiceReturns.show', params: { slug: data.data.slug }, })
         })

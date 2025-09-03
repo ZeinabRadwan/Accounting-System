@@ -318,23 +318,33 @@ class BusinessTransactionJournalService
                 }
             }
 
-            $totalAmount = $purchase->purchaseTotal();
-            
-            // Calculate final totals first
+            // Calculate totals for proper journal entry
             $totalDebit = 0;
             $totalCredit = 0;
             
-            // Credit to supplier's accounts payable (after discount)
-            $totalCredit += $totalAmount;
-            
-            // Debit to purchase expense accounts (grouped by account)
+            // Calculate purchase amounts before discount and VAT
             $purchaseExpensesByAccount = [];
+            $totalDiscountAmount = 0;
+            $totalVatAmount = 0;
+            
             foreach ($purchaseProducts as $purchaseProduct) {
                 $purchaseAccount = $purchaseProduct->product->getPurchaseAccountWithFallback();
                 $accountId = $purchaseAccount->id;
-                $productTotal = $purchaseProduct->getFinalTotalAttribute();
                 
-                Log::info("Product: {$purchaseProduct->product->name}, Total: {$productTotal}, Account: {$purchaseAccount->name}");
+                // Calculate original amount (before discount)
+                $originalAmount = $purchaseProduct->purchase_price * $purchaseProduct->quantity;
+                
+                // Calculate discount amount
+                $discountAmount = $purchaseProduct->calculateDiscountAmount();
+                $totalDiscountAmount += $discountAmount;
+                
+                // Calculate amount after discount
+                $amountAfterDiscount = $originalAmount - $discountAmount;
+                
+                // Add VAT amount from product
+                $totalVatAmount += $purchaseProduct->tax_amount;
+                
+                Log::info("Product: {$purchaseProduct->product->name}, Original: {$originalAmount}, Discount: {$discountAmount}, After Discount: {$amountAfterDiscount}, VAT: {$purchaseProduct->tax_amount}");
                 
                 if (!isset($purchaseExpensesByAccount[$accountId])) {
                     $purchaseExpensesByAccount[$accountId] = [
@@ -342,11 +352,7 @@ class BusinessTransactionJournalService
                         'total' => 0
                     ];
                 }
-                $purchaseExpensesByAccount[$accountId]['total'] += $productTotal;
-            }
-            
-            foreach ($purchaseExpensesByAccount as $expense) {
-                $totalDebit += $expense['total'];
+                $purchaseExpensesByAccount[$accountId]['total'] += $amountAfterDiscount;
             }
             
             // Add transport costs if applicable
@@ -355,20 +361,26 @@ class BusinessTransactionJournalService
                 $totalDebit += $purchase->transport;
             }
             
-            // Add VAT input if applicable (since sub_total includes VAT but product totals might not)
-            // Calculate VAT amount from the difference between sub_total and product totals
-            $productTotalSum = 0;
-            foreach ($purchaseProducts as $purchaseProduct) {
-                $productTotalSum += $purchaseProduct->getFinalTotalAttribute();
+            // Add VAT amount
+            if ($totalVatAmount > 0) {
+                Log::info("Adding VAT amount: {$totalVatAmount}");
+                $totalDebit += $totalVatAmount;
             }
             
-            $vatAmount = $purchase->sub_total - $productTotalSum;
-            if ($vatAmount > 0) {
-                Log::info("Adding VAT amount: {$vatAmount} (calculated from sub_total: {$purchase->sub_total} - product totals: {$productTotalSum})");
-                $totalDebit += $vatAmount;
+            // Add discount received amount (debit to discount received account)
+            if ($totalDiscountAmount > 0) {
+                Log::info("Adding discount received amount: {$totalDiscountAmount}");
+                $totalDebit += $totalDiscountAmount;
             }
             
-            // Note: Discount is already included in $totalAmount (purchaseTotal() subtracts it)
+            // Add purchase expense amounts
+            foreach ($purchaseExpensesByAccount as $expense) {
+                $totalDebit += $expense['total'];
+            }
+            
+            // Credit to supplier's accounts payable (total amount to be paid)
+            $totalAmount = $purchase->purchaseTotal();
+            $totalCredit += $totalAmount;
             
             // Debug logging
             Log::info("Purchase Journal Calculation for PO {$purchase->purchase_no}:");
@@ -404,25 +416,23 @@ class BusinessTransactionJournalService
             $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $totalAmount, $lineNumber, "Accounts Payable for PO {$purchase->purchase_no}");
             $lineNumber++;
 
-            // Group by purchase account to handle multiple products with different accounts
-            $purchaseByAccount = [];
-            foreach ($purchaseProducts as $purchaseProduct) {
-                $product = $purchaseProduct->product;
-                $purchaseAccount = $purchaseProduct->product->getPurchaseAccountWithFallback();
-                $accountId = $purchaseAccount->id;
-                $amount = $purchaseProduct->getFinalTotalAttribute(); // Use amount after discount
-                
-                if (!isset($purchaseByAccount[$accountId])) {
-                    $purchaseByAccount[$accountId] = 0;
-                }
-                $purchaseByAccount[$accountId] += $amount;
+            // Create separate journal entry lines for each purchase account (Debit)
+            foreach ($purchaseExpensesByAccount as $accountId => $expense) {
+                Log::info("Creating journal line {$lineNumber}: Debit to Purchase Expense - Account ID: {$accountId}, Amount: {$expense['total']}");
+                $this->createJournalEntryLine($journalEntry, $accountId, $expense['total'], 0, $lineNumber, "Purchase Expense for PO {$purchase->purchase_no}");
+                $lineNumber++;
             }
             
-            // Create separate journal entry lines for each purchase account (Debit)
-            foreach ($purchaseByAccount as $accountId => $amount) {
-                Log::info("Creating journal line {$lineNumber}: Debit to Purchase Expense - Account ID: {$accountId}, Amount: {$amount}");
-                $this->createJournalEntryLine($journalEntry, $accountId, $amount, 0, $lineNumber, "Purchase Expense for PO {$purchase->purchase_no}");
-                $lineNumber++;
+            // Create discount received journal entry if applicable (Debit)
+            if ($totalDiscountAmount > 0) {
+                $discountAccount = $this->getDiscountReceivedAccount();
+                if ($discountAccount) {
+                    Log::info("Creating journal line {$lineNumber}: Debit to Discount Received - Account ID: {$discountAccount->id}, Amount: {$totalDiscountAmount}");
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, $lineNumber, "Discount Received for PO {$purchase->purchase_no}");
+                    $lineNumber++;
+                } else {
+                    Log::warning("Discount Received account not configured, skipping discount journal entry");
+                }
             }
 
             // Create transport cost journal entry if applicable (Debit)
@@ -432,7 +442,7 @@ class BusinessTransactionJournalService
                     $this->createJournalEntryLine($journalEntry, $transportAccount->id, $purchase->transport, 0, $lineNumber, "Transport Cost for PO {$purchase->purchase_no}");
                 } else {
                     // Fallback to first purchase account if transport account not configured
-                    $firstPurchaseAccountId = array_key_first($purchaseByAccount);
+                    $firstPurchaseAccountId = array_key_first($purchaseExpensesByAccount);
                     if ($firstPurchaseAccountId) {
                         $this->createJournalEntryLine($journalEntry, $firstPurchaseAccountId, $purchase->transport, 0, $lineNumber, "Transport Cost for PO {$purchase->purchase_no}");
                     }
@@ -441,16 +451,16 @@ class BusinessTransactionJournalService
             }
 
             // Create VAT journal entry if applicable (Debit)
-            if ($vatAmount > 0) {
+            if ($totalVatAmount > 0) {
                 $vatAccount = $this->getVatAccountForPurchase($purchase);
                 if ($vatAccount) {
-                    Log::info("Creating journal line {$lineNumber}: Debit to VAT Input - Account ID: {$vatAccount->id}, Amount: {$vatAmount}");
-                    $this->createJournalEntryLine($journalEntry, $vatAccount->id, $vatAmount, 0, $lineNumber, "VAT Input for PO {$purchase->purchase_no}");
+                    Log::info("Creating journal line {$lineNumber}: Debit to VAT Input - Account ID: {$vatAccount->id}, Amount: {$totalVatAmount}");
+                    $this->createJournalEntryLine($journalEntry, $vatAccount->id, $totalVatAmount, 0, $lineNumber, "VAT Input for PO {$purchase->purchase_no}");
                     $lineNumber++;
+                } else {
+                    Log::warning("VAT Input account not configured, skipping VAT journal entry");
                 }
             }
-
-            // Note: Discount is already included in the purchase total, so no separate journal entry line needed
 
             // Create bridge table record
             \App\Models\PurchaseJournal::create([

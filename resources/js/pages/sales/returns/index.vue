@@ -1,7 +1,7 @@
 <template>
   <div class="mb-50">
     <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+    <breadcrumbs :items="dynamicBreadcrumbs" :current="dynamicBreadcrumbsCurrent" />
     <!-- breadcrumbs end -->
     <div class="row">
       <div class="col-lg-12">
@@ -9,7 +9,7 @@
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
               <h3 class="card-title">
-                {{ $t("Invoice Returns") }}
+                {{ isSaudiArabia ? $t("Invoice Returns KSA") : $t("Invoice Returns") }}
               </h3>
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
@@ -178,13 +178,13 @@ import DateRangePicker from "vue2-daterange-picker";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Invoice Returns") };
+    return { title: this.isSaudiArabia ? this.$t("Invoice Returns KSA") : this.$t("Invoice Returns") };
   },
   components: {
     DateRangePicker,
   },
   data: () => ({
-    breadcrumbsCurrent: "Invoice Returns",
+    breadcrumbsCurrent: "",
     breadcrumbs: [
       {
         name: "Dashboard",
@@ -195,7 +195,7 @@ export default {
         url: "invoices.index",
       },
       {
-        name: "Invoice Returns",
+        name: "",
         url: "",
       },
     ],
@@ -233,6 +233,31 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
+    // Check if the country is Saudi Arabia
+    isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
+    // Dynamic breadcrumbs current based on country
+    dynamicBreadcrumbsCurrent() {
+      return this.isSaudiArabia ? this.$t("Invoice Returns KSA") : this.$t("Invoice Returns");
+    },
+    // Dynamic breadcrumbs based on country
+    dynamicBreadcrumbs() {
+      return [
+        {
+          name: "Dashboard",
+          url: "home",
+        },
+        {
+          name: "Invoices",
+          url: "invoices.index",
+        },
+        {
+          name: this.isSaudiArabia ? this.$t("Invoice Returns KSA") : this.$t("Invoice Returns"),
+          url: "",
+        },
+      ];
+    },
     exportUrl() {
       // Create a dynamic export URL with query parameters
       return `/invoice-returns/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;

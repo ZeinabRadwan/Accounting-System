@@ -7,6 +7,8 @@ import router from '~/router/central'
 import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
 import App from '~/components/central/CentralApp'
+import currencyMixin from '~/mixins/currencyMixin'
+import globalCurrencyMixin from '~/mixins/globalCurrencyMixin'
 import Swal from 'sweetalert2'
 
 // Import RTL styles
@@ -74,6 +76,10 @@ Vue.config.productionTip = false
 Vue.prototype.$can = can
 Vue.prototype.$axios = axios
 Vue.prototype.$swal = Swal
+
+// Register global mixin
+Vue.mixin(currencyMixin)
+Vue.mixin(globalCurrencyMixin)
 
 // Make Swal globally available
 window.Swal = Swal

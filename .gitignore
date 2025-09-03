@@ -90,3 +90,4 @@ composer.phar
 # Optional: Keep empty folders
 !/public/js/.gitkeep
 !/public/css/.gitkeep
+public/hot
