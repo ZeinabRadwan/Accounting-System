@@ -31,7 +31,7 @@ class DemoVatRatesTableSeeder extends Seeder
                 'id' => 2,
                 'name' => 'VAT 5%',
                 'slug' => 'vat-5',
-                'code' => 'VAT@6',
+                'code' => 'VAT@5',
                 'rate' => 5.0,
                 'note' => null,
                 'status' => 1,

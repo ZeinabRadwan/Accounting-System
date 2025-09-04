@@ -57,7 +57,7 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'module' => 'sales',
                 'setting_key' => 'discount_allowed_account',
                 'setting_name' => 'Discount Allowed Account',
-                'account_type' => 'Revenue',
+                'account_type' => 'Expense',
                 'description' => 'Parent account for sales discounts given to customers',
                 'is_required' => true,
                 'routing_type' => 'cancel',

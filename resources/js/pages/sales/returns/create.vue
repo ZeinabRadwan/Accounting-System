@@ -221,20 +221,41 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="form-group col-md-4">
+              <div class="row" id="input-fields">
+                <div class="form-group col-md-3">
                   <label for="invoiceTotal">{{
                     $t('Invoice Total')
                   }}</label>
                   <input id="invoiceTotal" v-model="form.invoiceTotal" type="number" step="any" class="form-control"
                     name="invoiceTotal" readonly />
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="!isSaudiArabia" class="form-group col-md-3">
+                  <label for="totalDiscount">{{
+                    $t('Total Discount')
+                  }}</label>
+                  <input id="totalDiscount" v-model="form.totalDiscount" type="number" step="any" class="form-control"
+                    name="totalDiscount" readonly />
+                </div>
+                <div v-if="!isSaudiArabia" class="form-group col-md-3">
+                  <label for="transportCost">{{
+                    $t('Transport Cost')
+                  }}</label>
+                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" class="form-control"
+                    name="transportCost" readonly />
+                </div>
+                <div v-if="!isSaudiArabia" class="form-group col-md-3">
+                  <label for="invoiceTax">{{
+                    $t('Invoice Tax')
+                  }}</label>
+                  <input id="invoiceTax" v-model="form.invoiceTax" type="number" step="any" class="form-control"
+                    name="invoiceTax" readonly />
+                </div>
+                <div class="form-group col-md-3">
                   <label for="totalPaid">{{ $t('Total Paid') }}</label>
                   <input id="totalPaid" v-model="form.invoice.totalPaid" type="number" step="any" class="form-control"
                     name="totalPaid" readonly />
                 </div>
-                <div v-if="form.returnAmount > 0" class="form-group col-md-4">
+                <div v-if="form.returnAmount > 0" class="form-group col-md-3">
                   <label for="returnAmountText">{{
                     $t('Return Amount')
                   }}</label>
@@ -243,7 +264,7 @@
                   }" name="returnAmountText" readonly />
                   <has-error :form="form" field="returnAmountText" />
                 </div>
-                <div v-else class="form-group col-md-4">
+                <div v-else class="form-group col-md-3">
                   <label for="newDueText">{{
                     $t('New Due')
                   }}</label>
@@ -392,6 +413,9 @@ export default {
       netTotal: 0, // Net Sale (without VAT)
       taxAmount: 0, // VAT amount
       discountTotal: 0, // Total discount
+      // New fields for display
+      totalDiscount: 0,
+      transportCost: 0,
     }),
     products: '',
     accounts: '',
@@ -400,6 +424,11 @@ export default {
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
+    
+    // Check if the country is Saudi Arabia
+    isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA'
+    },
     
     // Filter products that have return quantities > 0
     productsWithReturns() {
@@ -440,9 +469,72 @@ export default {
     totalDiscount() {
       return this.totalProductDiscounts + this.totalInvoiceDiscount
     },
-    // Check if the country is Saudi Arabia
-    isSaudiArabia() {
-      return this.appInfo && this.appInfo.country === 'SA';
+    
+    // Calculate total return discount from Invoice Return Calculation Summary
+    totalReturnDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0
+      }
+      
+      return this.form.selectedProducts.reduce((total, product) => {
+        if (product.returnQty > 0) {
+          return total + this.calculateReturnDiscount(product)
+        }
+        return total
+      }, 0)
+    },
+    
+    // Calculate total return VAT from Invoice Return Calculation Summary
+    totalReturnVat() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0
+      }
+      
+      return this.form.selectedProducts.reduce((total, product) => {
+        if (product.returnQty > 0) {
+          return total + this.calculateReturnVat(product)
+        }
+        return total
+      }, 0)
+    },
+    
+    // Calculate original invoice total discount from invoice_products table
+    originalInvoiceTotalDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0
+      }
+      
+      return this.form.selectedProducts.reduce((total, product) => {
+        // Use the original product data from invoice_products
+        const salePrice = parseFloat(product.unitCost) || 0
+        const quantity = parseFloat(product.qty) || 0
+        const discountAmount = parseFloat(product.discountAmount) || 0
+        const discountType = product.discountType || 'fixed'
+        
+        let lineDiscount = 0
+        if (discountType === 'fixed') {
+          lineDiscount = discountAmount
+        } else if (discountType === 'percentage') {
+          lineDiscount = (salePrice * quantity) * (discountAmount / 100)
+        }
+        
+        return total + lineDiscount
+      }, 0)
+    },
+    
+    // Calculate original invoice total tax from invoice_products table
+    originalInvoiceTotalTax() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0
+      }
+      
+      return this.form.selectedProducts.reduce((total, product) => {
+        // Use the logic: (SUM(tax_amount) / quantity) per product line
+        const taxAmount = parseFloat(product.totalTax) || 0
+        const quantity = parseFloat(product.qty) || 1
+        const lineTax = taxAmount / quantity
+        return total + lineTax
+      }, 0)
     },
     // Dynamic breadcrumbs current based on country
     dynamicBreadcrumbsCurrent() {
@@ -560,6 +652,10 @@ export default {
       this.form.newDue = this.form.invoice.due
       this.form.newDueText = this.form.invoice.due
       this.form.totalPaid = this.form.invoice.totalPaid
+      // Set the new display fields with calculated values
+      // These will be updated in calculateSum() method
+      this.form.totalDiscount = 0
+      this.form.transportCost = this.form.invoice.transport || 0
       for (var key in this.form.invoice.invoiceProducts) {
         let invoiceItem = this.form.invoice.invoiceProducts[key]
         this.form.selectedProducts.unshift({
@@ -787,6 +883,20 @@ export default {
       this.form.invoiceDue = Number(
         (this.form.invoiceTotal - this.form.invoice.totalPaid).toFixed(2)
       )
+      
+      // Update the display fields with calculated values
+      // 1. Total Discount = Original Invoice Total Discount - Discount from Invoice Return Calculation Summary
+      this.form.totalDiscount = Number(
+        (this.originalInvoiceTotalDiscount - this.totalReturnDiscount).toFixed(2)
+      )
+      
+      // 2. Transport Cost = from table invoices.transport (already set in storeProducts)
+      // this.form.transportCost is already set from this.form.invoice.transport
+      
+      // 3. Invoice Tax = Original Invoice Total Tax - VAT from Invoice Return Calculation Summary
+      this.form.invoiceTax = Number(
+        (this.originalInvoiceTotalTax - this.totalReturnVat).toFixed(2)
+      )
 
       // calculate new due or payable
       if (this.form.invoiceDue >= 0) {
@@ -972,6 +1082,24 @@ export default {
       
       console.log('=== Product Details ===')
       this.form.selectedProducts.forEach((product, index) => {
+        // Calculate original line discount for this product
+        const salePrice = parseFloat(product.unitCost) || 0
+        const productQty = parseFloat(product.qty) || 0
+        const discountAmount = parseFloat(product.discountAmount) || 0
+        const discountType = product.discountType || 'fixed'
+        
+        let originalLineDiscount = 0
+        if (discountType === 'fixed') {
+          originalLineDiscount = discountAmount
+        } else if (discountType === 'percentage') {
+          originalLineDiscount = (salePrice * productQty) * (discountAmount / 100)
+        }
+        
+        // Calculate original line tax for this product
+        const totalTax = parseFloat(product.totalTax) || 0
+        const taxQty = parseFloat(product.qty) || 1
+        const originalLineTax = totalTax / taxQty
+        
         console.log(`Product ${index + 1}:`, {
           name: product.name,
           originalQty: product.qty,
@@ -981,9 +1109,10 @@ export default {
           productTotal: (product.qty - product.returnQty) * product.unitCost,
           productDiscount: product.productDiscount,
           discountType: product.discountType,
-          discountAmount: product.discountType === 'percentage' 
-            ? ((product.qty - product.returnQty) * product.unitCost * product.productDiscount) / 100
-            : (product.productDiscount / product.qty) * (product.qty - product.returnQty),
+          discountAmount: product.discountAmount,
+          originalLineDiscount: originalLineDiscount,
+          totalTax: product.totalTax,
+          originalLineTax: originalLineTax,
           productTax: product.productTax,
           returnTotal: product.returnTotal,
           // New calculation methods
@@ -999,6 +1128,17 @@ export default {
       console.log('Total Product Discounts:', this.totalProductDiscounts)
       console.log('Total Invoice Discount:', this.totalInvoiceDiscount)
       console.log('Total Discount:', this.totalDiscount)
+      console.log('Total Return Discount:', this.totalReturnDiscount)
+      console.log('Total Return VAT:', this.totalReturnVat)
+      
+      console.log('=== Original Invoice Totals (from invoice_products) ===')
+      console.log('Original Invoice Total Discount:', this.originalInvoiceTotalDiscount)
+      console.log('Original Invoice Total Tax (SUM(tax_amount) / quantity per line):', this.originalInvoiceTotalTax)
+      
+      console.log('=== Display Fields ===')
+      console.log('Total Discount (original invoice discount - return discount):', this.form.totalDiscount)
+      console.log('Transport Cost (from invoice):', this.form.transportCost)
+      console.log('Invoice Tax (original invoice tax - return VAT):', this.form.invoiceTax)
       
       // Show alert with key information
       let message = `Calculation Summary:\n\n`

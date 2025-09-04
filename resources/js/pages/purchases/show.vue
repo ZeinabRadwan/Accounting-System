@@ -229,11 +229,11 @@
                           {{ data.productUnit }}
                         </td>
                         <td>{{ data.purchasePrice | withCurrency }}</td>
-                        <td>{{ (data.purchasePrice * data.quantity) | withCurrency }}</td>
-                        <td>{{ (data.discountAmount || 0) | withCurrency }}</td>
-                        <td>{{ ((data.purchasePrice * data.quantity) - (data.discountAmount || 0)) | withCurrency }}</td>
+                        <td>{{ data.grossTotal | withCurrency }}</td>
+                        <td>{{ data.discountAmount | withCurrency }}</td>
+                        <td>{{ data.totalAfterDiscount | withCurrency }}</td>
                         <td>{{ data.taxAmount | withCurrency }}</td>
-                        <td>{{ (data.unitCost * data.quantity) | withCurrency }}</td>
+                        <td>{{ data.lineTotal | withCurrency }}</td>
                         <td
                           v-if="allData.purchaseReturn"
                           :class="allData.purchaseReturn ? 'text-right' : ''"
@@ -367,35 +367,35 @@
                           }}
                         </td>
                       </tr>
-                      <tr>
-                        <th>{{ $t("Discount") }}:</th>
+                      <tr class="bg-indigo-light">
+                        <th>{{ $t("Total") }}:</th>
+                        <td>
+                          <span class="equal-sign">=</span>
+                          {{ allData.purchaseTotal | withCurrency }}
+                        </td>
+                      </tr>
+                      <tr class="text-muted small">
+                        <th colspan="2">{{ $t("Breakdown") }}:</th>
+                      </tr>
+                      <tr class="text-muted small">
+                        <th>{{ $t("Product Discounts") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
                           {{ allData.totalDiscount | withCurrency }}
                         </td>
                       </tr>
-                      <tr>
+                      <tr class="text-muted small">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
                           {{ allData.transport | withCurrency }}
                         </td>
                       </tr>
-                      <tr v-if="allData.taxType">
-                        <th>
-                          {{ $t("Tax") }}
-                          <span>({{ allData.taxType.rate }}%):</span>
-                        </th>
+                      <tr class="text-muted small">
+                        <th>{{ $t("Tax") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
                           {{ allData.tax | withCurrency }}
-                        </td>
-                      </tr>
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total") }}:</th>
-                        <td>
-                          <span class="equal-sign">=</span>
-                          {{ allData.purchaseTotal | withCurrency }}
                         </td>
                       </tr>
                       <tr>
@@ -598,7 +598,7 @@ export default {
 
   watch: {
     // watch search data
-    query: function (newQ, oldQ) {
+    query: function (newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {

@@ -65,7 +65,7 @@ class PurchaseController extends Controller
             'supplier' => 'required',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'discount' => 'nullable|numeric|min:1|max:'.$request->subTotal,
+            'discount' => 'nullable|numeric'.$request->subTotal,
             'transportCost' => 'nullable|numeric|min:1',
             'orderTax' => 'nullable', // VAT is not required for purchases (bills)
             'netTotal' => 'required|numeric|min:1',
@@ -94,15 +94,64 @@ class PurchaseController extends Controller
             // get logged in user id
             $userId = auth()->user()->id;
 
+            // Calculate total discount from all products
+            $totalProductDiscount = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+                $totalProductDiscount += $discountAmount;
+            }
+
+            // Calculate sub_total following the exact pseudocode logic
+            $subTotal = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                // gross = quantity × purchase_price
+                $gross = $selectedProduct['qty'] * $selectedProduct['unitPrice'];
+                
+                // Calculate discounted amount
+                $discounted = 0;
+                if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                    // discounted = gross - (gross × discount_amount / 100)
+                    $discounted = $gross - ($gross * ($selectedProduct['discount'] ?? 0) / 100);
+                } else {
+                    // discounted = gross - discount_amount
+                    $discounted = $gross - ($selectedProduct['discount'] ?? 0);
+                }
+                
+                // vat = discounted × vat_rate
+                $vatRate = 0;
+                if (isset($selectedProduct['selectedVatRate']) && isset($selectedProduct['selectedVatRate']['rate'])) {
+                    $vatRate = $selectedProduct['selectedVatRate']['rate'];
+                }
+                $vat = $discounted * ($vatRate / 100);
+                
+                // line_total = discounted + vat
+                $lineTotal = $discounted + $vat;
+                
+                // sub_total += line_total
+                $subTotal += $lineTotal;
+            }
+            
+            // if transport is not null: sub_total += transport
+            if ($request->transportCost) {
+                $subTotal += $request->transportCost;
+            }
+
             // create purchase
             $purchase = Purchase::create([
                 'purchase_no' => $code,
                 'slug' => uniqid(),
                 'supplier_id' => $request->supplier['id'],
-                'discount' => $request->discount,
+                'discount' => $totalProductDiscount, // Sum of all product discount amounts
                 'transport' => $request->transportCost,
                 'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
-                'sub_total' => $request->subTotal,
+                'sub_total' => $subTotal, // Calculated following the exact pseudocode logic
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
                 'po_date' => $request->poDate,
@@ -121,20 +170,7 @@ class PurchaseController extends Controller
                     throw new Exception('Product ' . $product->name . ' must have a Purchase Account assigned or a default Product Purchase Account configured in routing settings.');
                 }
 
-                // calculate new purchase price
-                $currentStockPrice = $product->inventory_count * $product->purchase_price;
-                $newStockPrice = $selectedProduct['qty'] * $selectedProduct['unitCost'];
-                $totalStockPrice = $currentStockPrice + $newStockPrice;
-                $totalQty = $product->inventory_count + $selectedProduct['qty'];
-                $unitCost = $totalStockPrice / $totalQty;
-
-                // update product stock purchase price
-                $product->update([
-                    'purchase_price' => $unitCost,
-                    'inventory_count' => $product->inventory_count + $selectedProduct['qty'],
-                ]);
-
-                // Calculate discount amount
+                // Calculate discount amount for stock calculation
                 $discountAmount = 0;
                 if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
                     if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
@@ -144,13 +180,33 @@ class PurchaseController extends Controller
                     }
                 }
 
+                // Calculate unit cost for stock calculation: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
+                $taxAmount = $selectedProduct['productTax'] ?? 0;
+                $calculatedUnitCost = (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $taxAmount) / $selectedProduct['qty'];
+
+                // calculate new purchase price for stock
+                $currentStockPrice = $product->inventory_count * $product->purchase_price;
+                $newStockPrice = $selectedProduct['qty'] * $calculatedUnitCost;
+                $totalStockPrice = $currentStockPrice + $newStockPrice;
+                $totalQty = $product->inventory_count + $selectedProduct['qty'];
+                $newPurchasePrice = $totalStockPrice / $totalQty;
+
+                // update product stock purchase price
+                $product->update([
+                    'purchase_price' => $newPurchasePrice,
+                    'inventory_count' => $product->inventory_count + $selectedProduct['qty'],
+                ]);
+
+                // Calculate unit cost: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
+                $unitCost = (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $taxAmount) / $selectedProduct['qty'];
+
                 PurchaseProduct::create([
                     'purchase_id' => $purchase->id,
                     'product_id' => $product->id,
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => $selectedProduct['unitCost'],
-                    'tax_amount' => $selectedProduct['productTax'],
+                    'unit_cost' => $unitCost,
+                    'tax_amount' => $taxAmount,
                     'discount' => $selectedProduct['discount'] ?? 0,
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
                     'discount_amount' => $discountAmount,
@@ -312,26 +368,92 @@ class PurchaseController extends Controller
                 ->useLog('Purchase Updated')
                 ->log('Purchase Updated');
 
+            // Calculate total discount from all products
+            $totalProductDiscount = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+                $totalProductDiscount += $discountAmount;
+            }
+
+            // Calculate sub_total following the exact pseudocode logic
+            $subTotal = 0;
+            foreach ($request->selectedProducts as $selectedProduct) {
+                // gross = quantity × purchase_price
+                $gross = $selectedProduct['qty'] * $selectedProduct['unitPrice'];
+                
+                // Calculate discounted amount
+                $discounted = 0;
+                if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                    // discounted = gross - (gross × discount_amount / 100)
+                    $discounted = $gross - ($gross * ($selectedProduct['discount'] ?? 0) / 100);
+                } else {
+                    // discounted = gross - discount_amount
+                    $discounted = $gross - ($selectedProduct['discount'] ?? 0);
+                }
+                
+                // vat = discounted × vat_rate
+                $vatRate = 0;
+                if (isset($selectedProduct['selectedVatRate']) && isset($selectedProduct['selectedVatRate']['rate'])) {
+                    $vatRate = $selectedProduct['selectedVatRate']['rate'];
+                }
+                $vat = $discounted * ($vatRate / 100);
+                
+                // line_total = discounted + vat
+                $lineTotal = $discounted + $vat;
+                
+                // sub_total += line_total
+                $subTotal += $lineTotal;
+            }
+            
+            // if transport is not null: sub_total += transport
+            if ($request->transportCost) {
+                $subTotal += $request->transportCost;
+            }
+
             // delete current products
             $purchase->purchaseProducts->each->delete();
             // store purchase products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
 
-                // calculate new purchase price
+                // Calculate discount amount for stock calculation
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+
+                // Calculate unit cost for stock calculation: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
+                $taxAmount = $selectedProduct['productTax'] ?? 0;
+                $calculatedUnitCost = (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $taxAmount) / $selectedProduct['qty'];
+
+                // calculate new purchase price for stock
                 $currentStockPrice = $product->inventory_count * $product->purchase_price;
-                $newStockPrice = $selectedProduct['qty'] * $selectedProduct['unitCost'];
+                $newStockPrice = $selectedProduct['qty'] * $calculatedUnitCost;
                 $totalStockPrice = $currentStockPrice + $newStockPrice;
                 $totalQty = $product->inventory_count + $selectedProduct['qty'];
-                $unitCost = $totalStockPrice / $totalQty;
+                $newPurchasePrice = $totalStockPrice / $totalQty;
 
                 $newInventory = $product->inventory_count - $selectedProduct['oldQty'] + $selectedProduct['qty'];
 
                 // update product purchase price
                 $product->update([
-                    'purchase_price' => $unitCost,
+                    'purchase_price' => $newPurchasePrice,
                     'inventory_count' => $newInventory,
                 ]);
+
+                // Calculate unit cost: ((purchase_price * quantity - discount_amount) + tax_amount) / quantity
+                $unitCost = (($selectedProduct['unitPrice'] * $selectedProduct['qty'] - $discountAmount) + $taxAmount) / $selectedProduct['qty'];
 
                 // store products
                 PurchaseProduct::create([
@@ -339,18 +461,21 @@ class PurchaseController extends Controller
                     'product_id' => $product->id,
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => $selectedProduct['unitCost'],
-                    'tax_amount' => $selectedProduct['productTax'],
+                    'unit_cost' => $unitCost,
+                    'tax_amount' => $taxAmount,
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
                 ]);
             }
 
             // update purchase
             $purchase->update([
                 'supplier_id' => $request->supplier['id'],
-                'discount' => $request->discount,
+                'discount' => $totalProductDiscount, // Sum of all product discount amounts
                 'transport' => $request->transportCost,
                 'tax_id' => $request->orderTax['id'],
-                'sub_total' => $request->rowSubTotal,
+                'sub_total' => $subTotal, // Calculated following the exact pseudocode logic
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
                 'po_date' => $request->poDate,

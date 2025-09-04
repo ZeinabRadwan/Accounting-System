@@ -13,6 +13,31 @@ class TenantChartOfAccountSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * 
+     * This seeder creates a comprehensive Chart of Accounts with specific accounts
+     * required for the accounting system, ensuring no duplication of account purposes.
+     * 
+     * SALES ACCOUNTS (Revenue Type):
+     * - Sales Account (4110) - Main sales revenue account
+     * - Product Sales Account (4111) - Specific product sales tracking
+     * - Clients Account (1130) - Asset account for client receivables
+     * - Discount Allowed Account (5310) - Expense for sales discounts given
+     * 
+     * PURCHASE ACCOUNTS:
+     * - Suppliers Account (2110) - Liability account for supplier payables
+     * - Purchase Account (5110) - Main purchase expense account
+     * - Product Purchase Account (5111) - Specific product purchase tracking
+     * - Discount Received Account (5311) - Expense for purchase discounts received
+     * 
+     * VAT ACCOUNTS:
+     * - Purchase VAT Account (1131) - Asset account for VAT paid on purchases
+     * - Sales VAT Account (2111) - Liability account for VAT collected on sales
+     * 
+     * EXPENSE ACCOUNTS:
+     * - Expenses Account (5210) - General operating expenses
+     * 
+     * All accounts are properly categorized and have unique codes to prevent
+     * duplication and maintain clarity in financial reports.
      *
      * @return void
      */
@@ -257,7 +282,7 @@ class TenantChartOfAccountSeeder extends Seeder
             $subAccountIds[$account['name']] = $id;
         }
 
-        // Level 2 - Detailed accounts
+        // Level 2 - Detailed accounts with specific accounting system requirements
         $detailedAccounts = [
             // Current Assets detailed accounts
             [
@@ -279,7 +304,7 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
             [
-                'name' => 'Accounts Receivable',
+                'name' => 'Clients Account',
                 'code' => '1130',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Current Assets'],
@@ -288,7 +313,7 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
             [
-                'name' => 'VAT In',
+                'name' => 'Purchase VAT Account',
                 'code' => '1131',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Current Assets'],
@@ -337,7 +362,7 @@ class TenantChartOfAccountSeeder extends Seeder
 
             // Current Liabilities detailed accounts
             [
-                'name' => 'Accounts Payable',
+                'name' => 'Suppliers Account',
                 'code' => '2110',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => $subAccountIds['Current Liabilities'],
@@ -346,11 +371,11 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
             [
-                'name' => 'VAT Out',
+                'name' => 'Sales VAT Account',
                 'code' => '2111',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => $subAccountIds['Current Liabilities'],
-                'order' => 2,
+                'order' => 1,
                 'is_active' => 1,
                 'created_by' => $userId,
             ],
@@ -364,9 +389,9 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
 
-            // Sales Revenue detailed accounts
+            // Sales Revenue detailed accounts - Specific to accounting system requirements
             [
-                'name' => 'Product Sales',
+                'name' => 'Sales Account',
                 'code' => '4110',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $subAccountIds['Sales Revenue'],
@@ -375,7 +400,7 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
             [
-                'name' => 'Selling Product',
+                'name' => 'Product Sales Account',
                 'code' => '4111',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $subAccountIds['Sales Revenue'],
@@ -402,9 +427,38 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
 
+            // Cost of Goods Sold detailed accounts - Purchase related
+            [
+                'name' => 'Purchase Account',
+                'code' => '5110',
+                'type_id' => $expenseTypeId,
+                'parent_id' => $subAccountIds['Cost of Goods Sold'],
+                'order' => 1,
+                'is_active' => 1,
+                'created_by' => $userId,
+            ],
+            [
+                'name' => 'Product Purchase Account',
+                'code' => '5111',
+                'type_id' => $expenseTypeId,
+                'parent_id' => $subAccountIds['Cost of Goods Sold'],
+                'order' => 2,
+                'is_active' => 1,
+                'created_by' => $userId,
+            ],
+            [
+                'name' => 'Purchase Returns',
+                'code' => '5112',
+                'type_id' => $expenseTypeId,
+                'parent_id' => $subAccountIds['Cost of Goods Sold'],
+                'order' => 3,
+                'is_active' => 1,
+                'created_by' => $userId,
+            ],
+
             // Operating Expenses detailed accounts
             [
-                'name' => 'Salaries and Wages',
+                'name' => 'Expenses Account',
                 'code' => '5210',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
@@ -413,7 +467,7 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
             [
-                'name' => 'Rent Expense',
+                'name' => 'Salaries and Wages',
                 'code' => '5220',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
@@ -422,7 +476,7 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
             [
-                'name' => 'Utilities',
+                'name' => 'Rent Expense',
                 'code' => '5230',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
@@ -431,11 +485,40 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_by' => $userId,
             ],
             [
-                'name' => 'Discount in Sell',
+                'name' => 'Utilities',
                 'code' => '5240',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
                 'order' => 4,
+                'is_active' => 1,
+                'created_by' => $userId,
+            ],
+
+            // Financial Expenses detailed accounts - Discount related
+            [
+                'name' => 'Discount Allowed Account',
+                'code' => '5310',
+                'type_id' => $expenseTypeId,
+                'parent_id' => $subAccountIds['Financial Expenses'],
+                'order' => 1,
+                'is_active' => 1,
+                'created_by' => $userId,
+            ],
+            [
+                'name' => 'Discount Received Account',
+                'code' => '5311',
+                'type_id' => $expenseTypeId,
+                'parent_id' => $subAccountIds['Financial Expenses'],
+                'order' => 2,
+                'is_active' => 1,
+                'created_by' => $userId,
+            ],
+            [
+                'name' => 'Interest Expense',
+                'code' => '5320',
+                'type_id' => $expenseTypeId,
+                'parent_id' => $subAccountIds['Financial Expenses'],
+                'order' => 3,
                 'is_active' => 1,
                 'created_by' => $userId,
             ],
