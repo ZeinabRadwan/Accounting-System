@@ -126,7 +126,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="line in journalEntry.lines" :key="line.id">
+                  <tr v-for="line in sortedLines" :key="line.id">
                     <td>{{ line.line_number }}</td>
                     <td>
                       <strong>{{ line.chart_of_account.code }}</strong><br>
@@ -298,6 +298,26 @@ export default {
     return {
       journalEntry: null,
       loading: true
+    }
+  },
+  computed: {
+    sortedLines() {
+      if (!this.journalEntry || !this.journalEntry.lines) {
+        return []
+      }
+      
+      // Sort lines: debits first (debit_amount > 0), then credits (credit_amount > 0)
+      return [...this.journalEntry.lines].sort((a, b) => {
+        // If both are debits or both are credits, maintain original order
+        const aIsDebit = a.debit_amount > 0
+        const bIsDebit = b.debit_amount > 0
+        
+        if (aIsDebit && !bIsDebit) return -1 // a is debit, b is credit - a comes first
+        if (!aIsDebit && bIsDebit) return 1  // a is credit, b is debit - b comes first
+        
+        // If both are same type, maintain original order by line number
+        return a.line_number - b.line_number
+      })
     }
   },
   async created() {
