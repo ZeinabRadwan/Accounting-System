@@ -29,6 +29,18 @@ class BusinessTransactionJournalService
         DB::beginTransaction();
         
         try {
+            // Check if journal entry already exists for this invoice
+            $existingJournalEntry = JournalEntry::where('reference', $invoice->invoice_no)
+                ->where('source_type', Invoice::class)
+                ->where('source_id', $invoice->id)
+                ->first();
+                
+            if ($existingJournalEntry) {
+                Log::info("Journal entry already exists for invoice {$invoice->invoice_no} with ID: {$existingJournalEntry->id}");
+                DB::rollBack();
+                return $existingJournalEntry;
+            }
+            
             // Validate client has chart of account
             if (!$invoice->client || !$invoice->client->isChartOfAccountConnected()) {
                 throw new Exception('Client must have a Chart of Account assigned for journal entries.');
@@ -211,6 +223,21 @@ class BusinessTransactionJournalService
         DB::beginTransaction();
         
         try {
+            // Generate unique reference for payment
+            $paymentReference = $invoice->invoice_no . '-PAY-' . time();
+            
+            // Check if journal entry already exists for this payment (very unlikely but safe)
+            $existingJournalEntry = JournalEntry::where('reference', $paymentReference)
+                ->where('source_type', InvoicePayment::class)
+                ->where('source_id', $invoice->id)
+                ->first();
+                
+            if ($existingJournalEntry) {
+                Log::info("Journal entry already exists for invoice payment {$paymentReference} with ID: {$existingJournalEntry->id}");
+                DB::rollBack();
+                return $existingJournalEntry;
+            }
+            
             // Validate client has chart of account
             if (!$invoice->client || !$invoice->client->isChartOfAccountConnected()) {
                 throw new Exception('Client must have a Chart of Account assigned for journal entries.');
@@ -250,7 +277,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => now()->toDateString(),
-                'reference' => $invoice->invoice_no . '-PAY-' . time(),
+                'reference' => $paymentReference,
                 'description' => "Payment received for Invoice {$invoice->invoice_no}",
                 'total_debit' => $amount,
                 'total_credit' => $amount,
@@ -291,6 +318,18 @@ class BusinessTransactionJournalService
         DB::beginTransaction();
         
         try {
+            // Check if journal entry already exists for this purchase
+            $existingJournalEntry = JournalEntry::where('reference', $purchase->purchase_no)
+                ->where('source_type', Purchase::class)
+                ->where('source_id', $purchase->id)
+                ->first();
+                
+            if ($existingJournalEntry) {
+                Log::info("Journal entry already exists for purchase {$purchase->purchase_no} with ID: {$existingJournalEntry->id}");
+                DB::rollBack();
+                return $existingJournalEntry;
+            }
+            
             // Validate supplier has chart of account
             if (!$purchase->supplier || !$purchase->supplier->isChartOfAccountConnected()) {
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
@@ -487,6 +526,21 @@ class BusinessTransactionJournalService
         DB::beginTransaction();
         
         try {
+            // Generate unique reference for payment
+            $paymentReference = $purchase->purchase_no . '-PAY-' . time();
+            
+            // Check if journal entry already exists for this payment (very unlikely but safe)
+            $existingJournalEntry = JournalEntry::where('reference', $paymentReference)
+                ->where('source_type', Purchase::class)
+                ->where('source_id', $purchase->id)
+                ->first();
+                
+            if ($existingJournalEntry) {
+                Log::info("Journal entry already exists for purchase payment {$paymentReference} with ID: {$existingJournalEntry->id}");
+                DB::rollBack();
+                return $existingJournalEntry;
+            }
+            
             // Validate supplier has chart of account
             if (!$purchase->supplier || !$purchase->supplier->isChartOfAccountConnected()) {
                 throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
@@ -525,7 +579,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => now()->toDateString(),
-                'reference' => $purchase->purchase_no . '-PAY-' . time(),
+                'reference' => $paymentReference,
                 'description' => "Payment made for Purchase Order {$purchase->purchase_no}",
                 'total_debit' => $amount,
                 'total_credit' => $amount,
