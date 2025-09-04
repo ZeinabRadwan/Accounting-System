@@ -178,14 +178,14 @@
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="unitPrice" @click="
                                 generateItemTotal(
-                                  item.unitPrice,
+                                  item.originalPrice || item.unitPrice,
                                   'price',
                                   i - 1,
                                   'decrement'
                                 )
                                 " />
 
-                            <input type="number" step="any" :id="`unitPrice-${i}`" :value="item.unitPrice"
+                            <input type="number" step="any" :id="`unitPrice-${i}`" :value="item.originalPrice || item.unitPrice"
                               name="unitPrice" class="quantity-field border-0 incrementor" required min="0" 
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.unitPrice`) }"
                               @change="
@@ -199,7 +199,7 @@
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
                               data-field="unitPrice" @click="
                                 generateItemTotal(
-                                  item.unitPrice,
+                                  item.originalPrice || item.unitPrice,
                                   'price',
                                   i - 1,
                                   'increment'
@@ -210,7 +210,7 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
+                        <td>{{ ((item.originalPrice || item.unitPrice) * item.qty) | withCurrency }}</td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -229,7 +229,7 @@
                               style="width: 80px;"
                               step="any" 
                               min="0" 
-                              :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
+                              :max="item.discountType == 'percentage' ? 100 : ((item.originalPrice || item.unitPrice) * item.qty)"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discount`) }"
                               placeholder="0"
                               @change="calculateProductDiscount(i - 1)"
@@ -240,7 +240,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>{{ (((item.originalPrice || item.unitPrice) * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -571,7 +571,7 @@ export default {
         return 0;
       }
       return this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.unitPrice * item.qty);
+        return total + ((item.originalPrice || item.unitPrice) * item.qty);
       }, 0);
     },
     // Check if the country is Saudi Arabia
@@ -724,11 +724,6 @@ export default {
       if (index === -1) {
         let purchasePrice =
           product.avgPurchasePrice > 0 ? product.avgPurchasePrice : 1;
-        let productTax =
-          product.taxType == "Exclusive"
-            ? purchasePrice * (product.taxRate / 100)
-            : purchasePrice - purchasePrice / (1 + product.taxRate / 100);
-        let totalTax = productTax * quantity;
         // store product
         this.form.selectedProducts.unshift({
           id: product.id,
@@ -737,6 +732,7 @@ export default {
           code: product.code,
           qty: quantity,
           unitPrice: purchasePrice,
+          originalPrice: purchasePrice, // Store original price to preserve it
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
@@ -790,33 +786,12 @@ export default {
               item.unitPrice = Number(item.unitPrice) - 1;
             }
           }
+          // Update original price when user manually changes unit price
+          item.originalPrice = item.unitPrice;
         }
         
-        // Calculate VAT based on selected VAT rate
-        if (item.selectedVatRate && item.selectedVatRate.rate) {
-          const vatRate = Number(item.selectedVatRate.rate);
-          const vatType = item.selectedVatRate.tax_type || 'Exclusive'; // Default to Exclusive if not specified
-          
-          if (vatType === 'Exclusive') {
-            // VAT is added on top of the price
-            item.productTax = Number((item.unitPrice * (vatRate / 100)).toFixed(2));
-            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
-            item.totalPrice = Number((item.qty * item.unitPrice + item.totalTax).toFixed(2));
-            item.unitCost = Number((item.unitPrice + item.productTax).toFixed(2));
-          } else {
-            // VAT is included in the price
-            item.productTax = Number((item.unitPrice - (item.unitPrice / (1 + vatRate / 100))).toFixed(2));
-            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
-            item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
-            item.unitCost = Number(item.unitPrice);
-          }
-        } else {
-          // No VAT selected, calculate without VAT
-          item.productTax = 0;
-          item.totalTax = 0;
-          item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
-          item.unitCost = Number(item.unitPrice);
-        }
+        // Use the new method to calculate totals
+        this.generateItemTotalPrice(index);
         
         this.form.selectedProducts[index] = item;
       }
@@ -830,13 +805,13 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         if (item.discountType === "percentage") {
-          item.discountAmount = Number(((item.unitPrice * item.qty * item.discount) / 100).toFixed(2));
+          item.discountAmount = Number((((item.originalPrice || item.unitPrice) * item.qty * item.discount) / 100).toFixed(2));
         } else {
           item.discountAmount = Number(item.discount || 0);
         }
         
-        // Recalculate totals including VAT
-        this.generateItemTotal(null, null, index, null);
+        // Recalculate totals using the new method
+        this.generateItemTotalPrice(index);
         this.calculateSum();
       }
     },
@@ -845,37 +820,53 @@ export default {
     calculateProductVat(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
-        // Calculate VAT based on selected VAT rate without changing user input
-        if (item.selectedVatRate && item.selectedVatRate.rate) {
-          const vatRate = Number(item.selectedVatRate.rate);
-          const vatType = item.selectedVatRate.tax_type || 'Exclusive'; // Default to Exclusive if not specified
+        // Recalculate totals using the new method
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+      }
+    },
+
+    // generate item total price (similar to sales invoice)
+    generateItemTotalPrice(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        // Calculate price after discount using original price
+        let priceAfterDiscount = Number((((item.originalPrice || item.unitPrice) * item.qty) - (item.discountAmount || 0)).toFixed(2));
+        
+        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
+        let vatRate = 0;
+        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+          vatRate = Number(item.selectedVatRate.rate);
+        } else if (item.taxRate !== undefined && item.taxRate !== null) {
+          vatRate = Number(item.taxRate);
+        }
+        
+        // Ensure vatRate is a valid number
+        if (isNaN(vatRate) || vatRate < 0) {
+          vatRate = 0;
+        }
+        
+        // Calculate tax based on discounted price
+        if (item.selectedVatRate && item.selectedVatRate.tax_type === 'Inclusive') {
+          // For inclusive tax: VAT is already included in the unit price
+          // Calculate the VAT amount from the discounted price
+          let discountedUnitPrice = Number((priceAfterDiscount / item.qty).toFixed(2));
           
-          if (vatType === 'Exclusive') {
-            // VAT is added on top of the price
-            item.productTax = Number((item.unitPrice * (vatRate / 100)).toFixed(2));
-            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
-            item.totalPrice = Number((item.qty * item.unitPrice + item.totalTax).toFixed(2));
-            item.unitCost = Number((item.unitPrice + item.productTax).toFixed(2));
-          } else {
-            // VAT is included in the price
-            item.productTax = Number((item.unitPrice - (item.unitPrice / (1 + vatRate / 100))).toFixed(2));
-            item.totalTax = Number((item.productTax * item.qty).toFixed(2));
-            item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
-            item.unitCost = Number(item.unitPrice);
-          }
+          // Calculate VAT amount from the inclusive price
+          item.productTax = Number((discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100))).toFixed(2));
+          item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+          item.totalPrice = Number(priceAfterDiscount.toFixed(2));
+          item.unitCost = Number(discountedUnitPrice.toFixed(2));
         } else {
-          // No VAT selected, calculate without VAT
-          item.productTax = 0;
-          item.totalTax = 0;
-          item.totalPrice = Number((item.qty * item.unitPrice).toFixed(2));
-          item.unitCost = Number(item.unitPrice);
+          // For exclusive tax: calculate VAT on the discounted amount
+          item.productTax = Number((priceAfterDiscount * (vatRate / 100)).toFixed(2));
+          item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+          item.totalPrice = Number((priceAfterDiscount + item.totalTax).toFixed(2));
+          item.unitCost = Number(((item.originalPrice || item.unitPrice) + item.productTax).toFixed(2));
         }
         
         // Update the item in the array
         this.form.selectedProducts[index] = item;
-        
-        // Recalculate totals
-        this.calculateSum();
       }
     },
 
