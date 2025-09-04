@@ -10,19 +10,32 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a class="nav-link active" href="#details" data-toggle="tab" @click="getInvoiceReturn">
+                <a
+                  class="nav-link active"
+                  href="#details"
+                  data-toggle="tab"
+                  @click="getInvoiceReturn"
+                >
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a>
+                  {{ $t("Details") }}</a
+                >
               </li>
               <li class="nav-item">
-                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
+                <a
+                  @click="getActivity"
+                  class="nav-link"
+                  href="#activity-log"
+                  data-toggle="tab"
+                >
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a>
+                  {{ $t("Activity log") }}</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#journal-entry" data-toggle="tab">
                   <i class="nav-icon fa fa-book" aria-hidden="true"></i>
-                  {{ $t("Journal Entry") }}</a>
+                  {{ $t("Journal Entry") }}</a
+                >
               </li>
             </ul>
           </div>
@@ -33,13 +46,20 @@
             <a @click="printWindow()" href="#" class="btn btn-secondary">
               <i class="fas fa-print"></i> {{ $t("Print") }}
             </a>
-            <router-link v-if="$can('invoice-return-edit')" :to="{
-              name: 'invoiceReturns.edit',
-              params: { slug: allData.slug },
-            }" class="btn btn-info">
+            <router-link
+              v-if="$can('invoice-return-edit')"
+              :to="{
+                name: 'invoiceReturns.edit',
+                params: { slug: allData.slug },
+              }"
+              class="btn btn-info"
+            >
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <router-link :to="{ name: 'invoiceReturns.index' }" class="btn btn-dark float-right">
+            <router-link
+              :to="{ name: 'invoiceReturns.index' }"
+              class="btn btn-dark float-right"
+            >
               <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
             </router-link>
           </div>
@@ -58,21 +78,33 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right">
+              <div
+                class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right"
+              >
                 <h5>{{ $t("Client Details") }}</h5>
                 <div v-if="allData.client">
-                  <span v-if="allData.client.companyName"><strong>{{ $t("Client ID") }}:</strong>
-                    {{ allData.client.clientID | withPrefix(clientPrefix) }}<br /></span>
+                  <span v-if="allData.client.companyName"
+                    ><strong>{{ $t("Client ID") }}:</strong>
+                    {{ allData.client.clientID | withPrefix(clientPrefix) }}<br
+                  /></span>
                   <strong>{{ $t("Client Name") }}:</strong>
                   {{ allData.client.name }}<br />
-                  <span v-if="allData.client.companyName"><strong>{{ $t("Company Name") }}:</strong>
-                    {{ allData.client.companyName }}<br /></span>
-                  <span v-if="allData.client.email"><strong>{{ $t("Email") }}:</strong>
-                    {{ allData.client.email }}<br /></span>
-                  <span v-if="allData.client.contactNumber"><strong>{{ $t("Contact Number") }}:</strong>
-                    {{ allData.client.contactNumber }}<br /></span>
-                  <span v-if="allData.client.address"><strong>{{ $t("Address") }}:</strong>
-                    {{ allData.client.address }}<br /></span>
+                  <span v-if="allData.client.companyName"
+                    ><strong>{{ $t("Company Name") }}:</strong>
+                    {{ allData.client.companyName }}<br
+                  /></span>
+                  <span v-if="allData.client.email"
+                    ><strong>{{ $t("Email") }}:</strong>
+                    {{ allData.client.email }}<br
+                  /></span>
+                  <span v-if="allData.client.contactNumber"
+                    ><strong>{{ $t("Contact Number") }}:</strong>
+                    {{ allData.client.contactNumber }}<br
+                  /></span>
+                  <span v-if="allData.client.address"
+                    ><strong>{{ $t("Address") }}:</strong>
+                    {{ allData.client.address }}<br
+                  /></span>
                 </div>
               </div>
               <!-- /.col -->
@@ -112,7 +144,7 @@
                         <td v-if="allData.invoice.invoiceNo">
                           {{
                             allData.invoice.invoiceNo
-                            | withPrefix(invoicePrefix)
+                              | withPrefix(invoicePrefix)
                           }}
                         </td>
                         <td v-if="allData.returnNo">
@@ -129,10 +161,14 @@
                         <td v-if="allData.reason">{{ allData.reason }}</td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td>
-                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                          <span
+                            v-if="allData.status === 1"
+                            class="badge bg-success"
+                            >{{ $t("Active") }}</span
+                          >
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
-                            }}</span>
+                          }}</span>
                         </td>
                         <td v-if="allData.createdBy" class="text-right">
                           {{ allData.createdBy }}
@@ -149,7 +185,10 @@
               <table-loading v-show="loading" />
               <div class="col-12">
                 <strong class="mt-3">{{ $t("Return Products") }}:</strong>
-                <div v-if="allData.invoice" class="table-custom table-responsive text-center">
+                <div
+                  v-if="allData.invoice"
+                  class="table-custom table-responsive text-center"
+                >
                   <table class="table table-sm">
                     <thead>
                       <tr>
@@ -178,7 +217,9 @@
                         <td>{{ data.invoiceQty }} {{ data.productUnit }}</td>
                         <td>{{ data.returnQty }} {{ data.productUnit }}</td>
                         <td>{{ data.salePrice | withCurrency }}</td>
-                        <td>{{ calculateUnitDiscount(data) | withCurrency }}</td>
+                        <td>
+                          {{ calculateUnitDiscount(data) | withCurrency }}
+                        </td>
                         <td>{{ calculateUnitNet(data) | withCurrency }}</td>
                         <td>{{ calculateUnitVat(data) | withCurrency }}</td>
                         <td>{{ calculateUnitTotal(data) | withCurrency }}</td>
@@ -193,7 +234,7 @@
                         <td>
                           <strong>{{
                             allData.invoice.subTotal | withCurrency
-                            }}</strong>
+                          }}</strong>
                         </td>
                         <td class="text-right">
                           <strong>{{ invoiceReturn | withCurrency }}</strong>
@@ -354,90 +395,98 @@
             </div> -->
 
             <!-- Invoice Calculation Summary Table -->
-            <div v-if="allData.invoice" class="row mt-3">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h5 class="card-title">{{ $t('Invoice Calculation Summary') }}</h5>
-                  </div>
-                  <div class="card-body">
-                                         <div class="table-responsive table-custom table-border-y-0">
-                       <table class="table">
-                         <tbody>
-                           <tr class="bg-sub-light text-bold">
-                             <th>{{ $t("1. Subtotal") }}:</th>
-                             <td>{{ allData.invoice.subTotal | withCurrency }}</td>
-                           </tr>
-                           <tr>
-                             <th>{{ $t("2. Cost of Returned Products") }}:</th>
-                             <td>
-                               <span class="minus-sign">-</span>
-                               {{ calculateTotalReturnedProductCost() | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr>
-                             <th>{{ $t("3. Return Discount") }}:</th>
-                             <td>
-                               <span class="minus-sign">-</span>
-                               {{ calculateTotalReturnDiscount() | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr>
-                             <th>{{ $t("4. Return VAT") }}:</th>
-                             <td>
-                               <span class="minus-sign">-</span>
-                               {{ calculateTotalReturnTax() | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr>
-                             <th>{{ $t("5. Remaining Discount") }}:</th>
-                             <td>
-                               <span class="minus-sign">-</span>
-                               {{ calculateTotalRemainingDiscount() | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr>
-                             <th>{{ $t("6. Remaining Tax") }}:</th>
-                             <td>
-                               <span class="plus-sign">+</span>
-                               {{ calculateTotalRemainingTax() | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr>
-                             <th>{{ $t("Transport") }}:</th>
-                             <td>
-                               <span class="plus-sign">+</span>
-                               {{ allData.invoice.transport | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr class="bg-indigo-light">
-                             <th>{{ $t("Total") }}:</th>
-                             <td>
-                               <span class="equal-sign">=</span>
-                               {{ calculateFinalTotal() | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr>
-                             <th>{{ $t("Total Paid") }}:</th>
-                             <td>
-                               <span class="minus-sign">-</span>
-                               {{ allData.invoice.totalPaid | withCurrency }}
-                             </td>
-                           </tr>
-                           <tr class="bg-red-light">
-                             <th>{{ $t("Due") }}:</th>
-                             <td>{{ allData.invoice.due | withCurrency }}</td>
-                           </tr>
-                           <tr v-if="allData.accountPayable" class="bg-green-light">
-                             <th>{{ $t("Account Payable") }}:</th>
-                             <td>
-                               {{ allData.accountPayable.amount | withCurrency }}
-                             </td>
-                           </tr>
-                         </tbody>
-                       </table>
-                     </div>
-                  </div>
+            <div class="row mt-4" id="page-break">
+              <div class="col-lg-12 col-xl-8">
+                <!-- Empty space for left side content if needed -->
+              </div>
+              <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
+                <div class="table-responsive table-custom table-border-y-0">
+                  <table class="table">
+                    <tbody>
+                      <tr class="bg-sub-light text-bold">
+                        <th>{{ $t("Subtotal") }}:</th>
+                        <td>
+                          {{ allData.invoice.subTotal | withCurrency }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Cost of Returned Products") }}:</th>
+                        <td>
+                          <span class="minus-sign">-</span>
+                          {{
+                            calculateTotalReturnedProductCost()
+                              | withCurrency
+                          }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Return Discount") }}:</th>
+                        <td>
+                          <span class="minus-sign">-</span>
+                          {{
+                            calculateTotalReturnDiscount() | withCurrency
+                          }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Return VAT") }}:</th>
+                        <td>
+                          <span class="minus-sign">-</span>
+                          {{ calculateTotalReturnTax() | withCurrency }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Remaining Discount") }}:</th>
+                        <td>
+                          <span class="minus-sign">-</span>
+                          {{
+                            calculateTotalRemainingDiscount() | withCurrency
+                          }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Remaining Tax") }}:</th>
+                        <td>
+                          <span class="plus-sign">+</span>
+                          {{ calculateTotalRemainingTax() | withCurrency }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Transport") }}:</th>
+                        <td>
+                          <span class="plus-sign">+</span>
+                          {{ allData.invoice.transport | withCurrency }}
+                        </td>
+                      </tr>
+                      <tr class="bg-indigo-light">
+                        <th>{{ $t("Total") }}:</th>
+                        <td>
+                          <span class="equal-sign">=</span>
+                          {{ calculateFinalTotal() | withCurrency }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Total Paid") }}:</th>
+                        <td>
+                          <span class="minus-sign">-</span>
+                          {{ allData.invoice.totalPaid | withCurrency }}
+                        </td>
+                      </tr>
+                      <tr class="bg-red-light">
+                        <th>{{ $t("Due") }}:</th>
+                        <td>{{ allData.invoice.due | withCurrency }}</td>
+                      </tr>
+                      <tr
+                        v-if="allData.accountPayable"
+                        class="bg-green-light"
+                      >
+                        <th>{{ $t("Account Payable") }}:</th>
+                        <td>
+                          {{ allData.accountPayable.amount | withCurrency }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -446,12 +495,16 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print mt-5">
               <div class="col-12">
-                <router-link :to="{ name: 'invoiceReturns.index' }" class="btn btn-dark float-right">
+                <router-link
+                  :to="{ name: 'invoiceReturns.index' }"
+                  class="btn btn-dark float-right"
+                >
                   <i class="fas fa-long-arrow-alt-left" />
                   {{ $t("Back") }}
                 </router-link>
-                <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{ $t("Print")
-                  }}</a>
+                <a href="#" @click="printWindow" class="btn btn-default"
+                  ><i class="fas fa-print"></i> {{ $t("Print") }}</a
+                >
               </div>
             </div>
           </div>
@@ -470,10 +523,19 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success">
+                <a
+                  @click="refreshTable()"
+                  href="#"
+                  v-tooltip="'Refresh'"
+                  class="btn btn-success"
+                >
                   <i class="fas fa-sync"></i>
                 </a>
-                <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
+                <a
+                  @click="print"
+                  v-tooltip="$t('Print Table')"
+                  class="btn btn-info"
+                >
                   <i class="fas fa-print"></i>
                 </a>
               </div>
@@ -483,18 +545,40 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
+                <search
+                  v-model="query"
+                  @reset-pagination="resetPagination()"
+                  @reload="reload"
+                />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
+              <div
+                v-show="items.length > 0"
+                v-for="(data, i) in items"
+                :key="i"
+              >
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div class="col-1 d-flex justify-content-center align-items-center">
-                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
-                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
-                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
+                      <div
+                        class="col-1 d-flex justify-content-center align-items-center"
+                      >
+                        <i
+                          v-if="data.event == 'Update'"
+                          class="fa fa-magic"
+                          aria-hidden="true"
+                        ></i>
+                        <i
+                          v-if="data.event == 'Create'"
+                          class="fa fa-plus-circle"
+                          aria-hidden="true"
+                        ></i>
+                        <i
+                          v-if="data.event == 'Delete'"
+                          class="fa fa-trash"
+                          aria-hidden="true"
+                        ></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -523,7 +607,11 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
+                  <select
+                    @change="updatePerPager"
+                    v-model="perPage"
+                    class="form-control form-control-sm ml-1"
+                  >
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -532,8 +620,13 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
-                class="justify-flex-end" @paginate="paginate" />
+              <pagination
+                v-if="pagination && pagination.last_page > 1"
+                :pagination="pagination"
+                :offset="5"
+                class="justify-flex-end"
+                @paginate="paginate"
+              />
               <!-- pagination-end -->
             </div>
           </div>
@@ -551,32 +644,51 @@
             </div>
           </div>
           <div class="card-body">
-            <div v-if="allData.journalEntries && allData.journalEntries.length > 0">
-              <div v-for="(journalEntry, index) in allData.journalEntries" :key="index" class="mb-4">
+            <div
+              v-if="allData.journalEntries && allData.journalEntries.length > 0"
+            >
+              <div
+                v-for="(journalEntry, index) in allData.journalEntries"
+                :key="index"
+                class="mb-4"
+              >
                 <div class="row mb-3">
                   <div class="col-md-3">
-                    <strong>{{ $t('Entry Number') }}:</strong>
-                    <span class="ml-2">{{ journalEntry.formatted_entry_number }}</span>
+                    <strong>{{ $t("Entry Number") }}:</strong>
+                    <span class="ml-2">{{
+                      journalEntry.formatted_entry_number
+                    }}</span>
                   </div>
                   <div class="col-md-3">
-                    <strong>{{ $t('Entry Date') }}:</strong>
-                    <span class="ml-2">{{ journalEntry.entry_date | formatDate }}</span>
+                    <strong>{{ $t("Entry Date") }}:</strong>
+                    <span class="ml-2">{{
+                      journalEntry.entry_date | formatDate
+                    }}</span>
                   </div>
                   <div class="col-md-3">
-                    <strong>{{ $t('Status') }}:</strong>
-                    <span class="ml-2 badge" :class="journalEntry.status === 'posted' ? 'badge-success' : 'badge-warning'">
+                    <strong>{{ $t("Status") }}:</strong>
+                    <span
+                      class="ml-2 badge"
+                      :class="
+                        journalEntry.status === 'posted'
+                          ? 'badge-success'
+                          : 'badge-warning'
+                      "
+                    >
                       {{ journalEntry.formatted_status }}
                     </span>
                   </div>
                   <div class="col-md-3">
-                    <strong>{{ $t('Total Amount') }}:</strong>
-                    <span class="ml-2">{{ journalEntry.total_debit | withCurrency }}</span>
+                    <strong>{{ $t("Total Amount") }}:</strong>
+                    <span class="ml-2">{{
+                      journalEntry.total_debit | withCurrency
+                    }}</span>
                   </div>
                 </div>
-                
+
                 <div class="row mb-3">
                   <div class="col-12">
-                    <strong>{{ $t('Description') }}:</strong>
+                    <strong>{{ $t("Description") }}:</strong>
                     <span class="ml-2">{{ journalEntry.description }}</span>
                   </div>
                 </div>
@@ -585,43 +697,71 @@
                   <table class="table table-bordered table-sm">
                     <thead class="bg-light">
                       <tr>
-                        <th>{{ $t('Line') }}</th>
-                        <th>{{ $t('Chart of Account') }}</th>
-                        <th>{{ $t('Description') }}</th>
-                        <th class="text-right">{{ $t('Debit') }}</th>
-                        <th class="text-right">{{ $t('Credit') }}</th>
+                        <th>{{ $t("Line") }}</th>
+                        <th>{{ $t("Chart of Account") }}</th>
+                        <th>{{ $t("Description") }}</th>
+                        <th class="text-right">{{ $t("Debit") }}</th>
+                        <th class="text-right">{{ $t("Credit") }}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(line, lineIndex) in journalEntry.lines" :key="lineIndex">
+                      <tr
+                        v-for="(line, lineIndex) in journalEntry.lines"
+                        :key="lineIndex"
+                      >
                         <td>{{ line.line_number }}</td>
                         <td>
                           <strong>{{ line.chart_of_account.name }}</strong>
-                          <br>
-                          <small class="text-muted">{{ line.chart_of_account.type.name }}</small>
+                          <br />
+                          <small class="text-muted">{{
+                            line.chart_of_account.type.name
+                          }}</small>
                         </td>
                         <td>{{ line.description }}</td>
                         <td class="text-right">
-                          <span v-if="line.debit_amount > 0">{{ line.debit_amount | withCurrency }}</span>
+                          <span v-if="line.debit_amount > 0">{{
+                            line.debit_amount | withCurrency
+                          }}</span>
                           <span v-else class="text-muted">-</span>
                         </td>
                         <td class="text-right">
-                          <span v-if="line.credit_amount > 0">{{ line.credit_amount | withCurrency }}</span>
+                          <span v-if="line.credit_amount > 0">{{
+                            line.credit_amount | withCurrency
+                          }}</span>
                           <span v-else class="text-muted">-</span>
                         </td>
                       </tr>
                     </tbody>
                     <tfoot class="bg-light">
                       <tr>
-                        <th colspan="3" class="text-right">{{ $t('Total') }}:</th>
-                        <th class="text-right">{{ journalEntry.total_debit | withCurrency }}</th>
-                        <th class="text-right">{{ journalEntry.total_credit | withCurrency }}</th>
+                        <th colspan="3" class="text-right">
+                          {{ $t("Total") }}:
+                        </th>
+                        <th class="text-right">
+                          {{ journalEntry.total_debit | withCurrency }}
+                        </th>
+                        <th class="text-right">
+                          {{ journalEntry.total_credit | withCurrency }}
+                        </th>
                       </tr>
                       <tr>
-                        <th colspan="3" class="text-right">{{ $t('Balance') }}:</th>
+                        <th colspan="3" class="text-right">
+                          {{ $t("Balance") }}:
+                        </th>
                         <th colspan="2" class="text-center">
-                          <span class="badge" :class="journalEntry.is_balanced ? 'badge-success' : 'badge-danger'">
-                            {{ journalEntry.is_balanced ? $t('Balanced') : $t('Unbalanced') }}
+                          <span
+                            class="badge"
+                            :class="
+                              journalEntry.is_balanced
+                                ? 'badge-success'
+                                : 'badge-danger'
+                            "
+                          >
+                            {{
+                              journalEntry.is_balanced
+                                ? $t("Balanced")
+                                : $t("Unbalanced")
+                            }}
                           </span>
                         </th>
                       </tr>
@@ -631,7 +771,9 @@
               </div>
             </div>
             <div v-else class="text-center text-muted">
-              <p>{{ $t('No journal entries found for this invoice return.') }}</p>
+              <p>
+                {{ $t("No journal entries found for this invoice return.") }}
+              </p>
             </div>
           </div>
         </div>
@@ -685,9 +827,9 @@ export default {
     // Filter products that have return quantities > 0
     productsWithReturns() {
       if (!this.returnProducts || this.returnProducts.length === 0) {
-        return []
+        return [];
       }
-      return this.returnProducts.filter(product => product.returnQty > 0)
+      return this.returnProducts.filter((product) => product.returnQty > 0);
     },
   },
 
@@ -715,8 +857,8 @@ export default {
       this.loading = true;
       const { data } = await axios.get(
         window.location.origin +
-        "/api/invoice-returns/" +
-        this.$route.params.slug
+          "/api/invoice-returns/" +
+          this.$route.params.slug
       );
       this.allData = data.data;
       this.returnProducts = this.allData.invoiceReturnProducts;
@@ -740,13 +882,13 @@ export default {
     // Get VAT rate for a product from database
     getVatRate(product = null) {
       if (product && product.vatRate) {
-        return product.vatRate
+        return product.vatRate;
       }
       // Fallback to first product's VAT rate or default 20%
       if (this.returnProducts && this.returnProducts.length > 0) {
-        return this.returnProducts[0].vatRate || 20
+        return this.returnProducts[0].vatRate || 20;
       }
-      return 20 // Default VAT rate
+      return 20; // Default VAT rate
     },
 
     // 1. Calculate Subtotal (Original Quantity × Price per Unit)
@@ -781,7 +923,11 @@ export default {
       const returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
       const totalInvoiceAmount = this.calculateSubtotalWithVat(invoiceProduct);
 
-      return originalQty > 0 ? Number(((totalInvoiceAmount / originalQty) * returnedUnits).toFixed(2)) : 0;
+      return originalQty > 0
+        ? Number(
+            ((totalInvoiceAmount / originalQty) * returnedUnits).toFixed(2)
+          )
+        : 0;
     },
 
     // 3. Calculate Return Discount
@@ -790,7 +936,9 @@ export default {
       const originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
       const totalDiscount = parseFloat(invoiceProduct.discountAmount) || 0;
 
-      return originalQty > 0 ? Number((totalDiscount / originalQty).toFixed(2)) : 0;
+      return originalQty > 0
+        ? Number((totalDiscount / originalQty).toFixed(2))
+        : 0;
     },
 
     // Return Discount = Per Unit Discount × Returned Units
@@ -966,7 +1114,17 @@ export default {
       const transport = parseFloat(this.allData.invoice.transport) || 0;
 
       // Final Total = Subtotal - Cost of Returned Products - Return Discount - Return VAT - Remaining Discount + Remaining Tax + Transport
-      return Number((subtotal - returnedProductCost - returnDiscount - returnVat - remainingDiscount + remainingTax + transport).toFixed(2));
+      return Number(
+        (
+          subtotal -
+          returnedProductCost -
+          returnDiscount -
+          returnVat -
+          remainingDiscount +
+          remainingTax +
+          transport
+        ).toFixed(2)
+      );
     },
 
     // calculate total return using the correct formula
@@ -982,37 +1140,43 @@ export default {
         ) {
           return prev + Number(next.invoiceQty) * Number(next.salePrice);
         },
-          0);
+        0);
 
         // Calculate return total using the correct formula
-        invoiceReturn = this.allData.invoiceReturnProducts.reduce((prev, next) => {
-          if (next.returnQty > 0) {
-            // Parse quantities safely and ensure they're numbers
-            const quantity = parseFloat(next.quantity) || 1;  // fallback to 1 to avoid division by zero
-            const returnQty = parseFloat(next.returnQty) || 0;
-            const discountAmount = parseFloat(next.discountAmount) || 0;
-            const salePrice = parseFloat(next.salePrice) || 0;
+        invoiceReturn = this.allData.invoiceReturnProducts.reduce(
+          (prev, next) => {
+            if (next.returnQty > 0) {
+              // Parse quantities safely and ensure they're numbers
+              const quantity = parseFloat(next.quantity) || 1; // fallback to 1 to avoid division by zero
+              const returnQty = parseFloat(next.returnQty) || 0;
+              const discountAmount = parseFloat(next.discountAmount) || 0;
+              const salePrice = parseFloat(next.salePrice) || 0;
 
-            // unit_discount = round(discount_amount / quantity, 2)
-            const unitDiscount = quantity > 0 ? Number((discountAmount / quantity).toFixed(2)) : 0;
+              // unit_discount = round(discount_amount / quantity, 2)
+              const unitDiscount =
+                quantity > 0
+                  ? Number((discountAmount / quantity).toFixed(2))
+                  : 0;
 
-            // unit_net = sale_price - unit_discount
-            const unitNet = Number((salePrice - unitDiscount).toFixed(2));
+              // unit_net = sale_price - unit_discount
+              const unitNet = Number((salePrice - unitDiscount).toFixed(2));
 
-            // unit_vat = round(unit_net * vat_rate / 100, 2)
-            const vatRate = this.getVatRate(next);
-            const unitVat = Number((unitNet * vatRate / 100).toFixed(2));
+              // unit_vat = round(unit_net * vat_rate / 100, 2)
+              const vatRate = this.getVatRate(next);
+              const unitVat = Number(((unitNet * vatRate) / 100).toFixed(2));
 
-            // unit_total = unit_net + unit_vat
-            const unitTotal = Number((unitNet + unitVat).toFixed(2));
+              // unit_total = unit_net + unit_vat
+              const unitTotal = Number((unitNet + unitVat).toFixed(2));
 
-            // return_total = round(unit_total * return_qty, 2)
-            const returnTotal = Number((unitTotal * returnQty).toFixed(2));
+              // return_total = round(unit_total * return_qty, 2)
+              const returnTotal = Number((unitTotal * returnQty).toFixed(2));
 
-            return prev + returnTotal;
-          }
-          return prev;
-        }, 0);
+              return prev + returnTotal;
+            }
+            return prev;
+          },
+          0
+        );
       }
 
       this.invoiceSubTotal = invoiceSubTotal;
@@ -1116,7 +1280,7 @@ export default {
   min-height: 80px;
   background: #fff;
   width: 100%;
-  box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 0.25rem;
   margin-bottom: 1rem;
 }
