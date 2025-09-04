@@ -240,7 +240,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ (((item.originalPrice || item.unitPrice) * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>{{ getTotalAfterDiscount(item) | withCurrency }}</td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -265,7 +265,7 @@
                             {{ item.productTax | withCurrency }}
                           </span>
                         </td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ getTotalWithVAT(item) | withCurrency }}</td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -281,19 +281,19 @@
                           <strong>{{ totalUnitPrice | withCurrency }}</strong>
                         </td>
                         <td>
-                          <strong>{{ form.totalDiscount | withCurrency }}</strong>
+                          <strong>{{ getTotalDiscountSum() | withCurrency }}</strong>
                         </td>
                         <td>
-                          <strong>{{ (totalUnitPrice - form.totalDiscount) | withCurrency }}</strong>
+                          <strong>{{ getSubTotalAfterDiscount() | withCurrency }}</strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ form.totalProductTax | withCurrency }}</strong>
+                          <strong>{{ getTotalVATSum() | withCurrency }}</strong>
                         </td>
                         <td>
-                          <strong>{{ form.subTotal | withCurrency }}</strong>
+                          <strong>{{ getTotalWithVATSum() | withCurrency }}</strong>
                         </td>
                         <td></td>
                       </tr>
@@ -610,6 +610,19 @@ export default {
         console.log('============================');
       },
       immediate: true
+    },
+    // Watch for changes in selectedProducts to update Net Total
+    'form.selectedProducts': {
+      handler() {
+        this.updateNetTotal();
+      },
+      deep: true
+    },
+    // Watch for changes in transport cost to update Net Total
+    'form.transportCost': {
+      handler() {
+        this.updateNetTotal();
+      }
     }
   },
   created() {
@@ -804,9 +817,13 @@ export default {
     calculateProductDiscount(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
+        let total = (item.originalPrice || item.unitPrice) * item.qty;
+        
         if (item.discountType === "percentage") {
-          item.discountAmount = Number((((item.originalPrice || item.unitPrice) * item.qty * item.discount) / 100).toFixed(2));
+          // For percentage: discount amount = total * discount / 100
+          item.discountAmount = Number((total * (item.discount || 0) / 100).toFixed(2));
         } else {
+          // For fixed: discount amount = discount value directly
           item.discountAmount = Number(item.discount || 0);
         }
         
@@ -826,14 +843,22 @@ export default {
       }
     },
 
-    // generate item total price (similar to sales invoice)
+    // generate item total price (following the pseudocode exactly)
     generateItemTotalPrice(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
-        // Calculate price after discount using original price
-        let priceAfterDiscount = Number((((item.originalPrice || item.unitPrice) * item.qty) - (item.discountAmount || 0)).toFixed(2));
+        // 1. Line Item: Total (Before Discount)
+        let total = Number(((item.originalPrice || item.unitPrice) * item.qty).toFixed(2));
         
-        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
+        // 2. Line Item: Total After Discount
+        let totalAfterDiscount;
+        if (item.discountType === "percentage") {
+          totalAfterDiscount = Number((total - (total * (item.discount || 0) / 100)).toFixed(2));
+        } else {
+          totalAfterDiscount = Number((total - (item.discountAmount || 0)).toFixed(2));
+        }
+        
+        // Get VAT rate
         let vatRate = 0;
         if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
           vatRate = Number(item.selectedVatRate.rate);
@@ -846,28 +871,102 @@ export default {
           vatRate = 0;
         }
         
-        // Calculate tax based on discounted price
-        if (item.selectedVatRate && item.selectedVatRate.tax_type === 'Inclusive') {
-          // For inclusive tax: VAT is already included in the unit price
-          // Calculate the VAT amount from the discounted price
-          let discountedUnitPrice = Number((priceAfterDiscount / item.qty).toFixed(2));
-          
-          // Calculate VAT amount from the inclusive price
-          item.productTax = Number((discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100))).toFixed(2));
-          item.totalTax = Number((item.productTax * item.qty).toFixed(2));
-          item.totalPrice = Number(priceAfterDiscount.toFixed(2));
-          item.unitCost = Number(discountedUnitPrice.toFixed(2));
-        } else {
-          // For exclusive tax: calculate VAT on the discounted amount
-          item.productTax = Number((priceAfterDiscount * (vatRate / 100)).toFixed(2));
-          item.totalTax = Number((item.productTax * item.qty).toFixed(2));
-          item.totalPrice = Number((priceAfterDiscount + item.totalTax).toFixed(2));
-          item.unitCost = Number(((item.originalPrice || item.unitPrice) + item.productTax).toFixed(2));
-        }
+        // 3. Line Item: VAT Amount (always calculated on TotalAfterDiscount)
+        item.productTax = Number((totalAfterDiscount * vatRate / 100).toFixed(2));
+        item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+        
+        // 4. Line Item: Total With VAT
+        item.totalPrice = Number((totalAfterDiscount + item.totalTax).toFixed(2));
+        
+        // Calculate unit cost (unit price + VAT per unit)
+        item.unitCost = Number(((item.originalPrice || item.unitPrice) + item.productTax).toFixed(2));
         
         // Update the item in the array
         this.form.selectedProducts[index] = item;
       }
+    },
+
+    // Helper method to get total after discount for display
+    getTotalAfterDiscount(item) {
+      let total = (item.originalPrice || item.unitPrice) * item.qty;
+      if (item.discountType === "percentage") {
+        return total - (total * (item.discount || 0) / 100);
+      } else {
+        return total - (item.discountAmount || 0);
+      }
+    },
+
+    // Helper method to get subtotal after discount for display
+    getSubTotalAfterDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (prev, cur) {
+        let lineTotal = (cur.originalPrice || cur.unitPrice) * cur.qty;
+        let lineTotalAfterDiscount;
+        if (cur.discountType === "percentage") {
+          lineTotalAfterDiscount = lineTotal - (lineTotal * (cur.discount || 0) / 100);
+        } else {
+          lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
+        }
+        return Number((prev + lineTotalAfterDiscount).toFixed(2));
+      }, 0);
+    },
+
+    // Helper method to get total with VAT for display (VAT + Total After Discount)
+    getTotalWithVAT(item) {
+      let totalAfterDiscount = this.getTotalAfterDiscount(item);
+      let vatAmount = item.productTax || 0;
+      return Number((totalAfterDiscount + vatAmount).toFixed(2));
+    },
+
+    // Helper method to get grand total with VAT (Total VAT + Total After Discount)
+    getGrandTotalWithVAT() {
+      let totalAfterDiscount = this.getSubTotalAfterDiscount();
+      let totalVAT = this.form.totalProductTax || 0;
+      return Number((totalAfterDiscount + totalVAT).toFixed(2));
+    },
+
+    // Helper method to get sum of all individual "Total with VAT" values
+    getTotalWithVATSum() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return Number((total + this.getTotalWithVAT(item)).toFixed(2));
+      }, 0);
+    },
+
+    // Helper method to get sum of all individual VAT amounts
+    getTotalVATSum() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return Number((total + (item.productTax || 0)).toFixed(2));
+      }, 0);
+    },
+
+    // Helper method to get sum of all individual discount amounts
+    getTotalDiscountSum() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return Number((total + (item.discountAmount || 0)).toFixed(2));
+      }, 0);
+    },
+
+    // Update Net Total when Total with VAT or Transport Cost changes
+    updateNetTotal() {
+      // Calculate Total with VAT (sum of all individual "Total with VAT" values)
+      let totalWithVAT = this.getTotalWithVATSum();
+      
+      // Net Total = Total with VAT + Transport cost (if transport cost is empty, Net Total = Total with VAT)
+      this.form.netTotal = Number((
+        totalWithVAT + 
+        Number(this.form.transportCost || 0)
+      ).toFixed(2));
     },
 
     // Helper method to find matching VAT rate
@@ -890,7 +989,7 @@ export default {
     // return number to word
     toWord(){
       const toWords = new ToWords();
-      let words = toWords.convert(this.form.subTotal);
+      let words = toWords.convert(this.totalUnitPrice);
       return words + ' Only';
     },
     
@@ -919,40 +1018,44 @@ export default {
       this.calculateSum();
       return;
     },
-    // calculate sum
+    // calculate sum (following the pseudocode exactly)
     calculateSum() {
-      // Calculate total discount from all products
-      this.form.totalDiscount = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        this.form.totalDiscount = 0;
+        this.form.subTotal = 0;
+        this.form.totalProductTax = 0;
+        this.form.netTotal = 0;
+        return;
+      }
+      
+      // 5. Discount Summary (All Lines)
+      this.form.totalDiscount = this.form.selectedProducts.reduce(function (prev, cur) {
         return Number((prev + (cur.discountAmount || 0)).toFixed(2));
       }, 0);
       
-      this.form.subTotal = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return Number((prev + cur.totalPrice).toFixed(2));
-      },
-        0);
-      this.form.totalProductTax = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return Number((prev + cur.totalTax).toFixed(2));
-      },
-        0);
-      if (this.form.subTotal > 0) {
-        this.form.netTotal = Number(
-          (
-            this.form.subTotal +
-            Number(this.form.totalTax) +
-            Number(this.form.transportCost) -
-            Number(this.form.discount)
-          ).toFixed(2)
-        );
-      }
+      // 7. Subtotal After Discount (All Lines) - sum of all line totals after discount
+      let subTotalAfterDiscount = this.form.selectedProducts.reduce(function (prev, cur) {
+        let lineTotal = (cur.originalPrice || cur.unitPrice) * cur.qty;
+        let lineTotalAfterDiscount;
+        if (cur.discountType === "percentage") {
+          lineTotalAfterDiscount = lineTotal - (lineTotal * (cur.discount || 0) / 100);
+        } else {
+          lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
+        }
+        return Number((prev + lineTotalAfterDiscount).toFixed(2));
+      }, 0);
+      
+      // 8. Total VAT Summary (All Lines)
+      this.form.totalProductTax = this.form.selectedProducts.reduce(function (prev, cur) {
+        return Number((prev + (cur.totalTax || 0)).toFixed(2));
+      }, 0);
+      
+      // 9. Net Total (Final Payable Amount) = Total with VAT + Transport cost
+      this.form.subTotal = subTotalAfterDiscount; // This is the subtotal after discount
+      
+      // Update Net Total using the dedicated method
+      this.updateNetTotal();
+      
       return;
     },
     // save purchase
