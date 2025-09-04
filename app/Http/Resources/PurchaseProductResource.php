@@ -23,15 +23,28 @@ class PurchaseProductResource extends JsonResource
             ->where('purchase_returns.purchase_id', '=', $this->purchase->id)
             ->sum('purchase_return_products.quantity');
 
+        // Calculate totals for display
+        $grossTotal = $this->quantity * $this->purchase_price;
+        $discountAmount = $this->discount_amount ?? 0;
+        $totalAfterDiscount = $grossTotal - $discountAmount;
+        $taxTotal = $this->quantity * $this->tax_amount;
+        $lineTotal = $totalAfterDiscount + $taxTotal;
+
         return [
             'id' => $this->id,
             'purchasePrice' => $this->purchase_price,
             'unitCost' => $this->unit_cost,
             'taxAmount' => $this->tax_amount,
             'quantity' => $this->quantity,
-            'purchasePricetotal' => $this->quantity * $this->purchase_price,
+            'discount' => $this->discount ?? 0,
+            'discountType' => $this->discount_type ?? 'fixed',
+            'discountAmount' => $discountAmount,
+            'grossTotal' => $grossTotal,
+            'totalAfterDiscount' => $totalAfterDiscount,
+            'taxTotal' => $taxTotal,
+            'lineTotal' => $lineTotal,
+            'purchasePricetotal' => $grossTotal, // Keep for backward compatibility
             'unitCostTotal' => $this->quantity * $this->unit_cost,
-            'taxTotal' => $this->quantity * $this->tax_amount,
             'totalReturn' => $returnQty * $this->unit_cost,
             'returnQty' => $returnQty > 0 ? $returnQty : 0,
             'productID' => $this->product->id,
