@@ -367,18 +367,15 @@ class BusinessTransactionJournalService
                 $totalDebit += $totalVatAmount;
             }
             
-            // Add discount received amount (debit to discount received account)
-            if ($totalDiscountAmount > 0) {
-                Log::info("Adding discount received amount: {$totalDiscountAmount}");
-                $totalDebit += $totalDiscountAmount;
-            }
+            // Note: Discount received reduces the amount we owe, so it's a credit
+            // We don't add it to totalDebit here as it reduces our liability
             
             // Add purchase expense amounts
             foreach ($purchaseExpensesByAccount as $expense) {
                 $totalDebit += $expense['total'];
             }
             
-            // Credit to supplier's accounts payable (total amount to be paid)
+            // Credit to supplier's accounts payable (net amount after discount)
             $totalAmount = $purchase->purchaseTotal();
             $totalCredit += $totalAmount;
             
@@ -411,9 +408,10 @@ class BusinessTransactionJournalService
 
             $lineNumber = 1;
 
-            // Line 1: Credit to Supplier's Accounts Payable
-            Log::info("Creating journal line 1: Credit to Supplier Accounts Payable - Amount: {$totalAmount}");
-            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $totalAmount, $lineNumber, "Accounts Payable for PO {$purchase->purchase_no}");
+            // Line 1: Credit to Supplier's Accounts Payable (net amount after discount)
+            $accountsPayableAmount = $totalAmount - $totalDiscountAmount;
+            Log::info("Creating journal line 1: Credit to Supplier Accounts Payable - Amount: {$accountsPayableAmount}");
+            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $accountsPayableAmount, $lineNumber, "Accounts Payable for PO {$purchase->purchase_no}");
             $lineNumber++;
 
             // Create separate journal entry lines for each purchase account (Debit)
@@ -423,12 +421,12 @@ class BusinessTransactionJournalService
                 $lineNumber++;
             }
             
-            // Create discount received journal entry if applicable (Debit)
+            // Create discount received journal entry if applicable (Credit)
             if ($totalDiscountAmount > 0) {
                 $discountAccount = $this->getDiscountReceivedAccount();
                 if ($discountAccount) {
-                    Log::info("Creating journal line {$lineNumber}: Debit to Discount Received - Account ID: {$discountAccount->id}, Amount: {$totalDiscountAmount}");
-                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, $lineNumber, "Discount Received for PO {$purchase->purchase_no}");
+                    Log::info("Creating journal line {$lineNumber}: Credit to Discount Received - Account ID: {$discountAccount->id}, Amount: {$totalDiscountAmount}");
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalDiscountAmount, $lineNumber, "Discount Received for PO {$purchase->purchase_no}");
                     $lineNumber++;
                 } else {
                     Log::warning("Discount Received account not configured, skipping discount journal entry");
@@ -463,11 +461,13 @@ class BusinessTransactionJournalService
             }
 
             // Create bridge table record
-            \App\Models\PurchaseJournal::create([
+            Log::info("Creating purchase journal bridge record for purchase ID: {$purchase->id}, journal entry ID: {$journalEntry->id}");
+            $purchaseJournal = \App\Models\PurchaseJournal::create([
                 'purchase_id' => $purchase->id,
                 'journal_entry_id' => $journalEntry->id,
                 'type' => 'purchase'
             ]);
+            Log::info("Purchase journal bridge record created with ID: {$purchaseJournal->id}");
 
             DB::commit();
             return $journalEntry;
@@ -1184,15 +1184,15 @@ class BusinessTransactionJournalService
         }
 
         // Fallback to default VAT input account from routing settings
-        $setting = AccountRoutingSetting::where('module', 'purchase')
-            ->where('setting_key', 'vat_input_account')
+        $setting = AccountRoutingSetting::where('module', 'vat')
+            ->where('setting_key', 'purchase_vat_account')
             ->first();
 
-        if (!$setting || !$setting->parent_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
-        return ChartOfAccount::find($setting->parent_account_id);
+        return ChartOfAccount::find($setting->main_account_id);
     }
 
     /**
@@ -1204,10 +1204,10 @@ class BusinessTransactionJournalService
             ->where('setting_key', 'discount_received_account')
             ->first();
 
-        if (!$setting || !$setting->parent_account_id) {
+        if (!$setting || !$setting->main_account_id) {
             return null;
         }
 
-        return ChartOfAccount::find($setting->parent_account_id);
+        return ChartOfAccount::find($setting->main_account_id);
     }
 }

@@ -81,6 +81,35 @@ class PurchaseController extends Controller
             'note' => 'nullable|string|max:255',
         ]);
 
+        // Collect all validation errors for journal entries
+        $validationErrors = [];
+
+        // Validate supplier has chart of account
+        $supplier = \App\Models\Supplier::find($request->supplier['id']);
+        if (!$supplier || !$supplier->isChartOfAccountConnected()) {
+            $validationErrors[] = 'Supplier must have a Chart of Account assigned for journal entries.';
+        }
+
+        // Validate all products have purchase accounts
+        foreach ($request->selectedProducts as $selectedProduct) {
+            $product = Product::where('slug', $selectedProduct['slug'])->first();
+            if (!$product || !$product->hasPurchaseAccountWithFallback()) {
+                $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Purchase Account assigned or a default Product Purchase Account configured in routing settings.';
+            }
+        }
+
+        // If there are validation errors, return them all at once
+        if (!empty($validationErrors)) {
+            $errorMessage = count($validationErrors) === 1 
+                ? $validationErrors[0] 
+                : 'Multiple validation errors found: ' . implode('; ', $validationErrors);
+            
+            return $this->responseWithError($errorMessage, [
+                'validation_errors' => $validationErrors,
+                'error_count' => count($validationErrors)
+            ]);
+        }
+
         try {
             DB::beginTransaction();
 
@@ -215,9 +244,21 @@ class PurchaseController extends Controller
 
             // Create journal entry for purchase (after products are stored)
             try {
+                Log::info('Starting journal entry creation for purchase: ' . $purchase->purchase_no);
                 $journalService = new BusinessTransactionJournalService();
                 $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
-                Log::info('Journal entry created successfully for purchase: ' . $purchase->purchase_no);
+                Log::info('Journal entry created successfully for purchase: ' . $purchase->purchase_no . ' with ID: ' . $journalEntry->id);
+                
+                // Check if purchase_journals record was created
+                $purchaseJournal = \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)
+                    ->where('journal_entry_id', $journalEntry->id)
+                    ->first();
+                
+                if ($purchaseJournal) {
+                    Log::info('Purchase journal bridge record created successfully: ' . $purchaseJournal->id);
+                } else {
+                    Log::error('Purchase journal bridge record NOT created for purchase: ' . $purchase->purchase_no);
+                }
             } catch (\Exception $e) {
                 // Log the error but don't fail the purchase creation
                 Log::error('Failed to create journal entry for purchase: ' . $e->getMessage());
@@ -263,6 +304,7 @@ class PurchaseController extends Controller
                     // Log the error but don't fail the payment creation
                     Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
                 }
+
             }
             // update purchase
             if ($purchase->totalDue() == 0) {
@@ -639,6 +681,15 @@ class PurchaseController extends Controller
             'created_by' => $userId,
             'status' => $request->status,
         ]);
+
+        // Create journal entry for purchase payment
+        try {
+            $journalService = new BusinessTransactionJournalService();
+            $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->paidAmount, $userId);
+        } catch (\Exception $e) {
+            // Log the error but don't fail the payment creation
+            Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+        }
 
         // update purchase
         $purchase->update([
