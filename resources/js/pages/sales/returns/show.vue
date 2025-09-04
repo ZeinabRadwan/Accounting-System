@@ -648,7 +648,7 @@
               v-if="allData.journalEntries && allData.journalEntries.length > 0"
             >
               <div
-                v-for="(journalEntry, index) in allData.journalEntries"
+                v-for="(journalEntry, index) in sortedJournalEntries"
                 :key="index"
                 class="mb-4"
               >
@@ -831,6 +831,18 @@ export default {
       }
       return this.returnProducts.filter((product) => product.returnQty > 0);
     },
+
+    // Sort journal entry lines with debits first, then credits
+    sortedJournalEntries() {
+      if (!this.allData || !this.allData.journalEntries) {
+        return [];
+      }
+      
+      return this.allData.journalEntries.map(journalEntry => ({
+        ...journalEntry,
+        lines: this.sortJournalEntryLines(journalEntry.lines || [])
+      }));
+    },
   },
 
   watch: {
@@ -875,6 +887,25 @@ export default {
         return 1;
       }
       return 0;
+    },
+
+    // Sort journal entry lines: debits first, then credits
+    sortJournalEntryLines(lines) {
+      if (!lines || lines.length === 0) {
+        return [];
+      }
+      
+      return [...lines].sort((a, b) => {
+        // If both are debits or both are credits, maintain original order
+        const aIsDebit = a.debit_amount > 0;
+        const bIsDebit = b.debit_amount > 0;
+        
+        if (aIsDebit && !bIsDebit) return -1; // a is debit, b is credit - a comes first
+        if (!aIsDebit && bIsDebit) return 1;  // a is credit, b is debit - b comes first
+        
+        // If both are same type, maintain original order by line number
+        return a.line_number - b.line_number;
+      });
     },
 
     // Return Invoice Calculation Summary Methods (Based on Updated Formula)
