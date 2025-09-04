@@ -10,6 +10,18 @@
           </router-link>
         </li>
         <li class="nav-item">
+          <router-link :to="{ name: 'setup.fiscal-years' }" class="nav-link thumb">
+            <i class="fas fa-cog" />
+            {{ $t("Fiscal Years") }}
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'setup.accounting-periods' }" class="nav-link thumb">
+            <i class="fas fa-cog" />
+            {{ $t("Accounting Periods") }}
+          </router-link>
+        </li>
+        <li class="nav-item">
           <router-link :to="{ name: 'setup.mailConfiguration' }" class="nav-link thumb">
             <i class="fas fa-envelope" />
             {{ $t("Mail Configurations") }}

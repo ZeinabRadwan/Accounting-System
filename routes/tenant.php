@@ -151,6 +151,23 @@ Route::middleware([
         // general settings
         Route::post('update-settings', [GeneralController::class, 'updateGeneralSettings']);
 
+        // Fiscal Year routes
+        Route::get('/fiscal-years/search', [App\Http\Controllers\API\FiscalYearController::class, 'index']);
+        Route::get('/all-fiscal-years', [App\Http\Controllers\API\FiscalYearController::class, 'allFiscalYears']);
+        Route::get('/fiscal-years/current', [App\Http\Controllers\API\FiscalYearController::class, 'getCurrent']);
+        Route::post('/fiscal-years/set-current', [App\Http\Controllers\API\FiscalYearController::class, 'setCurrent']);
+        Route::apiResource('fiscal-years', App\Http\Controllers\API\FiscalYearController::class);
+
+        // Accounting Period routes
+        Route::get('/accounting-periods/search', [App\Http\Controllers\API\AccountingPeriodController::class, 'index']);
+        Route::get('/all-accounting-periods', [App\Http\Controllers\API\AccountingPeriodController::class, 'allAccountingPeriods']);
+        Route::get('/accounting-periods/by-fiscal-year', [App\Http\Controllers\API\AccountingPeriodController::class, 'getByFiscalYear']);
+        Route::get('/accounting-periods/current', [App\Http\Controllers\API\AccountingPeriodController::class, 'getCurrent']);
+        Route::post('/accounting-periods/set-current', [App\Http\Controllers\API\AccountingPeriodController::class, 'setCurrent']);
+        Route::post('/accounting-periods/{accountingPeriod}/close', [App\Http\Controllers\API\AccountingPeriodController::class, 'close']);
+        Route::post('/accounting-periods/{accountingPeriod}/reopen', [App\Http\Controllers\API\AccountingPeriodController::class, 'reopen']);
+        Route::apiResource('accounting-periods', App\Http\Controllers\API\AccountingPeriodController::class);
+
         // Email routes
         Route::get('mail-configuration', [GeneralController::class, 'getSMTPforTenant']);
         Route::post('update-mail-configuration', [GeneralController::class, 'updateSMTPforTenant']);

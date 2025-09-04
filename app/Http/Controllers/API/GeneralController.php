@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Models\Currency;
 use Illuminate\Mail\Message;
 use App\Models\GeneralSetting;
+use App\Models\FiscalYear;
+use App\Models\AccountingPeriod;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
@@ -76,6 +78,12 @@ class GeneralController extends Controller
             'defaultClientSlug' => $query->where('key', 'default_client_slug')->first()?->value ?? '',
             'defaultAccountSlug' => $query->where('key', 'default_account_slug')->first()?->value ?? '',
             'defaultVatRateSlug' => $query->where('key', 'default_vat_rate_slug')->first()?->value ?? '',
+            
+            // Fiscal Year and Accounting Period data
+            'currentFiscalYear' => $this->getCurrentFiscalYear(),
+            'currentAccountingPeriod' => $this->getCurrentAccountingPeriod(),
+            'fiscalYears' => $this->getAllFiscalYears(),
+            'accountingPeriods' => $this->getAllAccountingPeriods(),
         ];
 
         return $settings;
@@ -329,6 +337,107 @@ class GeneralController extends Controller
             ->log('SMS Configuration Updated');
             
         return 'Env SMS updated successfully!';
+    }
+
+    /**
+     * Get current fiscal year from general settings
+     */
+    private function getCurrentFiscalYear()
+    {
+        $fiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
+        if ($fiscalYearId) {
+            $fiscalYear = FiscalYear::find($fiscalYearId);
+            if ($fiscalYear) {
+                return [
+                    'id' => $fiscalYear->id,
+                    'name' => $fiscalYear->name,
+                    'slug' => $fiscalYear->slug,
+                    'start_date' => $fiscalYear->start_date->format('Y-m-d'),
+                    'end_date' => $fiscalYear->end_date->format('Y-m-d'),
+                    'is_active' => $fiscalYear->is_active,
+                    'full_name' => $fiscalYear->full_name,
+                ];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get current accounting period from general settings
+     */
+    private function getCurrentAccountingPeriod()
+    {
+        $accountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
+        if ($accountingPeriodId) {
+            $accountingPeriod = AccountingPeriod::with('fiscalYear')->find($accountingPeriodId);
+            if ($accountingPeriod) {
+                return [
+                    'id' => $accountingPeriod->id,
+                    'name' => $accountingPeriod->name,
+                    'slug' => $accountingPeriod->slug,
+                    'start_date' => $accountingPeriod->start_date->format('Y-m-d'),
+                    'end_date' => $accountingPeriod->end_date->format('Y-m-d'),
+                    'is_active' => $accountingPeriod->is_active,
+                    'is_closed' => $accountingPeriod->is_closed,
+                    'full_name' => $accountingPeriod->full_name,
+                    'fiscal_year' => [
+                        'id' => $accountingPeriod->fiscalYear->id,
+                        'name' => $accountingPeriod->fiscalYear->name,
+                        'slug' => $accountingPeriod->fiscalYear->slug,
+                    ],
+                ];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get all fiscal years for dropdown
+     */
+    private function getAllFiscalYears()
+    {
+        return FiscalYear::select('id', 'name', 'slug', 'start_date', 'end_date', 'is_active')
+            ->orderBy('start_date', 'desc')
+            ->get()
+            ->map(function ($fiscalYear) {
+                return [
+                    'id' => $fiscalYear->id,
+                    'name' => $fiscalYear->name,
+                    'slug' => $fiscalYear->slug,
+                    'start_date' => $fiscalYear->start_date->format('Y-m-d'),
+                    'end_date' => $fiscalYear->end_date->format('Y-m-d'),
+                    'is_active' => $fiscalYear->is_active,
+                    'full_name' => $fiscalYear->full_name,
+                ];
+            });
+    }
+
+    /**
+     * Get all accounting periods for dropdown
+     */
+    private function getAllAccountingPeriods()
+    {
+        return AccountingPeriod::with('fiscalYear')
+            ->select('id', 'name', 'slug', 'fiscal_year_id', 'start_date', 'end_date', 'is_active', 'is_closed')
+            ->orderBy('start_date', 'desc')
+            ->get()
+            ->map(function ($period) {
+                return [
+                    'id' => $period->id,
+                    'name' => $period->name,
+                    'slug' => $period->slug,
+                    'start_date' => $period->start_date->format('Y-m-d'),
+                    'end_date' => $period->end_date->format('Y-m-d'),
+                    'is_active' => $period->is_active,
+                    'is_closed' => $period->is_closed,
+                    'full_name' => $period->full_name,
+                    'fiscal_year' => [
+                        'id' => $period->fiscalYear->id,
+                        'name' => $period->fiscalYear->name,
+                        'slug' => $period->fiscalYear->slug,
+                    ],
+                ];
+            });
     }
 
 }

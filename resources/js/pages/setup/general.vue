@@ -836,6 +836,59 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <!-- Fiscal Year Selection -->
+                                        <div class="form-group col-md-6">
+                                            <label for="currentFiscalYear">{{
+                                                $t('Current Fiscal Year')
+                                            }}
+                                                <span class="required">*</span>
+                                            </label>
+                                            <v-select
+                                                v-model="form.currentFiscalYear"
+                                                :options="fiscalYears"
+                                                label="full_name"
+                                                :class="{
+                                                    'is-invalid': form.errors.has('currentFiscalYear'),
+                                                }"
+                                                name="currentFiscalYear"
+                                                :placeholder="fiscalYears.length > 0 ? $t('Select a fiscal year') : $t('No fiscal years available. Please create one first.')"
+                                                @input="onFiscalYearChange"
+                                                :disabled="fiscalYears.length === 0"
+                                            />
+                                            <has-error :form="form" field="currentFiscalYear" />
+                                            <small v-if="fiscalYears.length === 0" class="text-muted">
+                                                <router-link :to="{ name: 'setup.fiscal-years' }">
+                                                    {{ $t('Create Fiscal Years') }}
+                                                </router-link>
+                                            </small>
+                                        </div>
+                                        <!-- Accounting Period Selection -->
+                                        <div class="form-group col-md-6">
+                                            <label for="currentAccountingPeriod">{{
+                                                $t('Current Accounting Period')
+                                            }}
+                                                <span class="required">*</span>
+                                            </label>
+                                            <v-select
+                                                v-model="form.currentAccountingPeriod"
+                                                :options="filteredAccountingPeriods"
+                                                label="full_name"
+                                                :class="{
+                                                    'is-invalid': form.errors.has('currentAccountingPeriod'),
+                                                }"
+                                                name="currentAccountingPeriod"
+                                                :placeholder="filteredAccountingPeriods.length > 0 ? $t('Select an accounting period') : $t('No accounting periods available. Please create one first.')"
+                                                :disabled="filteredAccountingPeriods.length === 0"
+                                            />
+                                            <has-error :form="form" field="currentAccountingPeriod" />
+                                            <small v-if="filteredAccountingPeriods.length === 0" class="text-muted">
+                                                <router-link :to="{ name: 'setup.accounting-periods' }">
+                                                    {{ $t('Create Accounting Periods') }}
+                                                </router-link>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <!--/Default client-->
                                         <div
                                             v-if="this.allClients"
@@ -1196,6 +1249,8 @@ export default {
         allClients: [],
         allAccounts: [],
         allVatRates: [],
+        fiscalYears: [],
+        accountingPeriods: [],
         countries: [
             { code: 'SA', name: 'Saudi Arabia' },
             { code: 'US', name: 'United States' },
@@ -1393,23 +1448,37 @@ export default {
             defaultClient: '',
             defaultAccount: '',
             defaultVatRate: '',
+            currentFiscalYear: '',
+            currentAccountingPeriod: '',
         }),
         logo: '',
         blackLogo: '',
         smallLogo: '',
         favicon: '',
     }),
-    computed: mapGetters({
-        appInfo: 'operations/appInfo',
-        items: 'operations/items',
-        locales: 'lang/locales',
-    }),
+    computed: {
+        ...mapGetters({
+            appInfo: 'operations/appInfo',
+            items: 'operations/items',
+            locales: 'lang/locales',
+        }),
+        filteredAccountingPeriods() {
+            if (!this.form.currentFiscalYear || !this.accountingPeriods) {
+                return this.accountingPeriods || [];
+            }
+            return this.accountingPeriods.filter(period => 
+                period.fiscal_year && period.fiscal_year.id === this.form.currentFiscalYear.id
+            );
+        }
+    },
 
     created() {
         this.getVatRates();
         this.getCurrencies();
         this.getClients();
         this.getAccounts();
+        this.getFiscalYears();
+        this.getAccountingPeriods();
         this.assignValues();
     },
     methods: {
@@ -1458,6 +1527,44 @@ export default {
                 }
             });
         },
+        // get all fiscal years
+        getFiscalYears() {
+            axios.get('/api/all-fiscal-years').then((response) => {
+                this.fiscalYears = response.data.data;
+                console.log('Fiscal Years loaded:', this.fiscalYears);
+                // assign current fiscal year
+                if (this.appInfo.currentFiscalYear) {
+                    this.form.currentFiscalYear = this.fiscalYears.find(
+                        (fy) => fy.id === this.appInfo.currentFiscalYear.id
+                    );
+                }
+            }).catch((error) => {
+                console.error('Error loading fiscal years:', error);
+                this.fiscalYears = [];
+            });
+        },
+        // get all accounting periods
+        getAccountingPeriods() {
+            axios.get('/api/all-accounting-periods').then((response) => {
+                this.accountingPeriods = response.data.data;
+                console.log('Accounting Periods loaded:', this.accountingPeriods);
+                // assign current accounting period
+                if (this.appInfo.currentAccountingPeriod) {
+                    this.form.currentAccountingPeriod = this.accountingPeriods.find(
+                        (period) => period.id === this.appInfo.currentAccountingPeriod.id
+                    );
+                }
+            }).catch((error) => {
+                console.error('Error loading accounting periods:', error);
+                this.accountingPeriods = [];
+            });
+        },
+        // handle fiscal year change
+        onFiscalYearChange(fiscalYear) {
+            this.form.currentFiscalYear = fiscalYear;
+            // Reset accounting period when fiscal year changes
+            this.form.currentAccountingPeriod = '';
+        },
         // assign values
         assignValues() {
             if (this.appInfo) {
@@ -1492,6 +1599,14 @@ export default {
                 this.form.copyrightText = this.appInfo.copyright;
                 this.form.invoiceThankYouMessage = this.appInfo.invoiceThankYouMessage;
                 this.form.taxRegistrationNumber = this.appInfo.taxRegistrationNumber;
+                
+                // Assign fiscal year and accounting period
+                if (this.appInfo.currentFiscalYear) {
+                    this.form.currentFiscalYear = this.appInfo.currentFiscalYear;
+                }
+                if (this.appInfo.currentAccountingPeriod) {
+                    this.form.currentAccountingPeriod = this.appInfo.currentAccountingPeriod;
+                }
             }
         },
 
@@ -1616,6 +1731,14 @@ export default {
                 this.$store.dispatch('lang/setLocale', { locale });
             }
 
+            // Update fiscal year and accounting period if selected
+            if (this.form.currentFiscalYear) {
+                await this.setCurrentFiscalYear(this.form.currentFiscalYear.id);
+            }
+            if (this.form.currentAccountingPeriod) {
+                await this.setCurrentAccountingPeriod(this.form.currentAccountingPeriod.id);
+            }
+
             // for production
             await this.form
                 .post(window.location.origin + '/api/update-settings')
@@ -1640,6 +1763,26 @@ export default {
             //   type: "warning",
             //   title: this.$t("You are not allowed to do this in demo version."),
             // });
+        },
+        // set current fiscal year
+        async setCurrentFiscalYear(fiscalYearId) {
+            try {
+                await axios.post('/api/fiscal-years/set-current', {
+                    fiscal_year_id: fiscalYearId
+                });
+            } catch (error) {
+                console.error('Error setting current fiscal year:', error);
+            }
+        },
+        // set current accounting period
+        async setCurrentAccountingPeriod(accountingPeriodId) {
+            try {
+                await axios.post('/api/accounting-periods/set-current', {
+                    accounting_period_id: accountingPeriodId
+                });
+            } catch (error) {
+                console.error('Error setting current accounting period:', error);
+            }
         },
     },
 };

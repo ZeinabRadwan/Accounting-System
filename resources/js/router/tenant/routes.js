@@ -260,6 +260,22 @@ export default [
     meta: {permissions: ['payment-method-management']},
   },
 
+  // Fiscal Years routes
+  {
+    path: '/setup/fiscal-years',
+    name: 'setup.fiscal-years',
+    component: page('setup/fiscal-years.vue'),
+    meta: {permissions: ['general-settings']},
+  },
+
+  // Accounting Periods routes
+  {
+    path: '/setup/accounting-periods',
+    name: 'setup.accounting-periods',
+    component: page('setup/accounting-periods.vue'),
+    meta: {permissions: ['general-settings']},
+  },
+
   // Expense categories routes
   {
     path: '/expense-categories',

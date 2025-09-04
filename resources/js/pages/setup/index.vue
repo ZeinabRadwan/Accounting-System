@@ -174,6 +174,40 @@
             </div>
           </div>
         </div>
+        <div v-if="$can('general-settings')" class="col-xl-4 col-sm-12 col-md-6">
+          <div class="card card-large-icons">
+            <div class="card-icon text-white bg-info">
+              <i class="fas fa-calendar-alt" />
+            </div>
+            <div class="card-body">
+              <h4>{{ $t('Fiscal Years') }}</h4>
+              <p>
+                {{ $t('Manage fiscal years for your accounting system.') }}
+              </p>
+              <router-link :to="{ name: 'setup.fiscal-years' }" class="card-cta">
+                {{ $t('Fiscal Years') }}
+                <i class="fas fa-long-arrow-alt-right" />
+              </router-link>
+            </div>
+          </div>
+        </div>
+        <div v-if="$can('general-settings')" class="col-xl-4 col-sm-12 col-md-6">
+          <div class="card card-large-icons">
+            <div class="card-icon text-white bg-warning">
+              <i class="fas fa-calendar-week" />
+            </div>
+            <div class="card-body">
+              <h4>{{ $t('Accounting Periods') }}</h4>
+              <p>
+                {{ $t('Manage accounting periods within fiscal years.') }}
+              </p>
+              <router-link :to="{ name: 'setup.accounting-periods' }" class="card-cta">
+                {{ $t('Accounting Periods') }}
+                <i class="fas fa-long-arrow-alt-right" />
+              </router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
