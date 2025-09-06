@@ -619,8 +619,16 @@ class BusinessTransactionJournalService
         DB::beginTransaction();
         
         try {
-            // Get default accounts
-            $expenseAccount = $this->getDefaultAccount('Operating Expenses', 'Expense');
+            // Get the expense account - use selected account or fallback to default
+            $expenseAccount = null;
+            if ($expense->expense_account_id) {
+                $expenseAccount = \App\Models\ChartOfAccount::find($expense->expense_account_id);
+            }
+            
+            // Fallback to default if no specific account selected
+            if (!$expenseAccount) {
+                $expenseAccount = $this->getDefaultAccount('Operating Expenses', 'Expense');
+            }
             
             // Try to get the bank account from the expense's linked account
             $bankAccount = null;
@@ -647,6 +655,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Required chart of accounts not found.');
             }
 
+            // Debug: Log the expense amount being used for journal
+            Log::info('Creating journal entry for expense ID: ' . $expense->id . ' with amount: ' . $expense->amount);
+            
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -664,7 +675,10 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
+            Log::info('Creating journal line 1: Debit to expense account ' . $expenseAccount->id . ' with amount: ' . $expense->amount);
             $this->createJournalEntryLine($journalEntry, $expenseAccount->id, $expense->amount, 0, 1, "Expense: {$expense->reason}");
+            
+            Log::info('Creating journal line 2: Credit to bank account ' . $bankAccount->id . ' with amount: ' . $expense->amount);
             $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $expense->amount, 2, "Cash/Bank payment for expense");
 
             // Create bridge table record

@@ -16,7 +16,7 @@ class Expense extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'slug', 'sub_cat_id', 'transaction_id', 'date', 'created_by', 'note', 'image_path', 'status',
+        'reason', 'slug', 'sub_cat_id', 'transaction_id', 'amount', 'expense_account_id', 'date', 'created_by', 'note', 'image_path', 'status',
     ];
 
     /**
@@ -55,5 +55,29 @@ class Expense extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Get the journal entry for this expense.
+     */
+    public function expenseJournal()
+    {
+        return $this->hasOne(ExpenseJournal::class);
+    }
+
+    /**
+     * Get the journal entry through the expense journal relationship.
+     */
+    public function journalEntry()
+    {
+        return $this->hasOneThrough(JournalEntry::class, ExpenseJournal::class, 'expense_id', 'id', 'id', 'journal_entry_id');
+    }
+
+    /**
+     * Get the expense account (chart of account) for this expense.
+     */
+    public function expenseAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'expense_account_id');
     }
 }

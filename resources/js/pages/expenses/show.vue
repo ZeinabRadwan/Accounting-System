@@ -30,6 +30,17 @@
                   {{ $t("Activity log") }}</a
                 >
               </li>
+              <li class="nav-item">
+                <a
+                  @click="getJournalEntry"
+                  class="nav-link"
+                  href="#journal-entry"
+                  data-toggle="tab"
+                >
+                  <i class="nav-icon fa fa-book" aria-hidden="true"></i>
+                  {{ $t("Journal Entry") }}</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -294,6 +305,124 @@
           </div>
         </div>
       </div>
+
+      <!-- Journal Entry Tab -->
+      <div class="tab-pane" id="journal-entry">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ $t('Journal Entry Details') }}</h3>
+                <div class="card-tools">
+                  <button 
+                    v-if="journalEntry && journalEntry.status !== 'void'" 
+                    @click="voidJournalEntry" 
+                    class="btn btn-danger btn-sm"
+                  >
+                    <i class="fas fa-ban"></i> {{ $t('Void Entry') }}
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div v-if="journalEntryLoading" class="text-center">
+                  <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading...') }}
+                </div>
+                <div v-else-if="!journalEntry" class="text-center text-muted">
+                  <i class="fas fa-exclamation-triangle"></i> {{ $t('No journal entry found for this expense.') }}
+                </div>
+                <div v-else>
+                  <!-- Journal Entry Header -->
+                  <div class="row mb-4">
+                    <div class="col-md-6">
+                      <h5>{{ $t('Entry Information') }}</h5>
+                      <table class="table table-sm">
+                        <tr>
+                          <td><strong>{{ $t('Entry Number') }}:</strong></td>
+                          <td>{{ journalEntry.formatted_entry_number }}</td>
+                        </tr>
+                        <tr>
+                          <td><strong>{{ $t('Date') }}:</strong></td>
+                          <td>{{ formatDate(journalEntry.entry_date) }}</td>
+                        </tr>
+                        <tr>
+                          <td><strong>{{ $t('Reference') }}:</strong></td>
+                          <td>{{ journalEntry.reference || '-' }}</td>
+                        </tr>
+                        <tr>
+                          <td><strong>{{ $t('Status') }}:</strong></td>
+                          <td>
+                            <span :class="getStatusBadgeClass(journalEntry.status)">
+                              {{ journalEntry.formatted_status }}
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-6">
+                      <h5>{{ $t('Amounts') }}</h5>
+                      <table class="table table-sm">
+                        <tr>
+                          <td><strong>{{ $t('Total Debit') }}:</strong></td>
+                          <td class="text-success"><CurrencyDisplay :amount="journalEntry.total_debit" /></td>
+                        </tr>
+                        <tr>
+                          <td><strong>{{ $t('Total Credit') }}:</strong></td>
+                          <td class="text-danger"><CurrencyDisplay :amount="journalEntry.total_credit" /></td>
+                        </tr>
+                        <tr>
+                          <td><strong>{{ $t('Balance') }}:</strong></td>
+                          <td :class="journalEntry.is_balanced ? 'text-success' : 'text-danger'">
+                            {{ journalEntry.is_balanced ? $t('Balanced') : $t('Out of Balance') }}
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Journal Entry Lines -->
+                  <h5>{{ $t('Journal Entry Lines') }}</h5>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>{{ $t('Line') }}</th>
+                          <th>{{ $t('Account') }}</th>
+                          <th>{{ $t('Description') }}</th>
+                          <th class="text-right">{{ $t('Debit') }}</th>
+                          <th class="text-right">{{ $t('Credit') }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="line in journalEntry.lines" :key="line.id">
+                          <td>{{ line.line_number }}</td>
+                          <td>
+                            <strong>{{ line.chart_of_account.name }}</strong>
+                            <br>
+                            <small class="text-muted">{{ line.chart_of_account.code }}</small>
+                          </td>
+                          <td>{{ line.description }}</td>
+                          <td class="text-right">
+                            <span v-if="line.debit_amount > 0" class="text-success">
+                              <CurrencyDisplay :amount="line.debit_amount" />
+                            </span>
+                            <span v-else>-</span>
+                          </td>
+                          <td class="text-right">
+                            <span v-if="line.credit_amount > 0" class="text-danger">
+                              <CurrencyDisplay :amount="line.credit_amount" />
+                            </span>
+                            <span v-else>-</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- use the modal component, pass in the prop -->
@@ -315,6 +444,9 @@ export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Expense Details") };
+  },
+  components: {
+    CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
   },
   data: () => ({
     breadcrumbsCurrent: "Expense Details",
@@ -338,6 +470,8 @@ export default {
     subCatPrefix: "",
     query: "",
     perPage: 10,
+    journalEntry: null,
+    journalEntryLoading: false,
   }),
 
   computed: {
@@ -367,6 +501,64 @@ export default {
         window.location.origin + "/api/expenses/" + this.$route.params.slug
       );
       this.allData = data.data;
+    },
+
+    // get journal entry for this expense
+    async getJournalEntry() {
+      this.journalEntryLoading = true;
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/expenses/" + this.allData.id + "/journal-entry"
+        );
+        this.journalEntry = data.data;
+      } catch (error) {
+        console.error('Error loading journal entry:', error);
+        this.journalEntry = null;
+      } finally {
+        this.journalEntryLoading = false;
+      }
+    },
+
+    // void journal entry
+    async voidJournalEntry() {
+      if (!confirm(this.$t('Are you sure you want to void this journal entry?'))) {
+        return;
+      }
+
+      try {
+        await axios.post(
+          window.location.origin + "/api/expenses/" + this.allData.id + "/void-journal"
+        );
+        window.toast.success(this.$t('Journal entry voided successfully'));
+        await this.getJournalEntry(); // Refresh the journal entry data
+      } catch (error) {
+        console.error('Error voiding journal entry:', error);
+        window.toast.error(this.$t('Error voiding journal entry'));
+      }
+    },
+
+    // format date
+    formatDate(date) {
+      return this.$moment(date).format('MMM DD, YYYY');
+    },
+
+    // format currency
+    formatCurrency(amount) {
+      return this.$options.filters.withCurrency(amount);
+    },
+
+    // get status badge class
+    getStatusBadgeClass(status) {
+      switch (status) {
+        case 'posted':
+          return 'badge bg-success';
+        case 'draft':
+          return 'badge bg-warning';
+        case 'void':
+          return 'badge bg-danger';
+        default:
+          return 'badge bg-secondary';
+      }
     },
 
     // download pdf

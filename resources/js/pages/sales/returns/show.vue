@@ -680,9 +680,9 @@
                   </div>
                   <div class="col-md-3">
                     <strong>{{ $t("Total Amount") }}:</strong>
-                    <span class="ml-2">{{
-                      journalEntry.total_debit | withCurrency
-                    }}</span>
+                    <span class="ml-2">
+                      <CurrencyDisplay :amount="journalEntry.total_debit" />
+                    </span>
                   </div>
                 </div>
 
@@ -791,6 +791,9 @@ export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Invoice Return Details") };
+  },
+  components: {
+    CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
   },
   data: () => ({
     breadcrumbsCurrent: "Invoice Return Details",

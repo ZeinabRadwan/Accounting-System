@@ -190,11 +190,11 @@
                             <span v-if="isBalanced" class="text-success">{{ $t('Balanced') }}</span>
                             <span v-else class="text-danger">{{ $t('Unbalanced') }}</span>
                             <br>
-                            <strong>{{ $t('Total Debit') }}:</strong> {{ formatCurrency(totalDebit) }} |
-                            <strong>{{ $t('Total Credit') }}:</strong> {{ formatCurrency(totalCredit) }}
+                            <strong>{{ $t('Total Debit') }}:</strong> <CurrencyDisplay :amount="totalDebit" /> |
+                            <strong>{{ $t('Total Credit') }}:</strong> <CurrencyDisplay :amount="totalCredit" />
                             <span v-if="!isBalanced">
                               <br>
-                              <strong>{{ $t('Balance Difference') }}:</strong> {{ formatCurrency(balanceDifference) }}
+                              <strong>{{ $t('Balance Difference') }}:</strong> <CurrencyDisplay :amount="balanceDifference" />
                             </span>
                           </div>
                         </div>
@@ -233,6 +233,9 @@ export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Create Journal Entry') }
+  },
+  components: {
+    CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
   },
   data() {
     return {

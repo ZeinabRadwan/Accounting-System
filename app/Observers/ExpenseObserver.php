@@ -36,12 +36,21 @@ class ExpenseObserver
      */
     public function deleted(Expense $expense)
     {
-        // delete image from storage
+        // Clean up journal entries
+        if ($expense->expenseJournal) {
+            $expense->expenseJournal->journalEntry->delete();
+            $expense->expenseJournal->delete();
+        }
+        
+        // Clean up transaction
+        if ($expense->expTransaction) {
+            $expense->expTransaction->delete();
+        }
+        
+        // Clean up image
         if ($expense->image_path) {
             @unlink(public_path('images/expenses/'.$expense->image_path));
         }
-        // delete transaction
-        $expense->expTransaction->delete();
     }
 
     /**

@@ -2499,5 +2499,13 @@
   "Select Language": "اختر اللغة",
   "English": "الإنجليزية",
   "Arabic": "العربية",
+  "Payment Account" :"حساب الدفع",
+  "Select payment account": "اختر حساب الدفع",
+  "Expense Account": "حساب المصروفات",
+  "Select expense account": "اختر حساب المصروفات",
+  "This account will be debited for the expense": "سيتم خصم هذا الحساب للمصروف",
+  "Search...": "بحث...",
+  "Bank Accounts": "حسابات البنوك",
+  "Loading payment accounts...": "جاري تحميل حسابات الدفع...",
   "Display Language": "لغة العرض"
 }

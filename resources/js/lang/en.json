@@ -1712,5 +1712,11 @@
   "Chart of Account assigned successfully": "Chart of Account assigned successfully",
   "Failed to assign Chart of Account": "Failed to assign Chart of Account",
   "Saving...": "Saving...",
-  "Fixed": "Fixed"
+  "Fixed": "Fixed",
+  "Expense Account": "Expense Account",
+  "Select expense account": "Select expense account",
+  "This account will be debited for the expense": "This account will be debited for the expense",
+  "Search...": "Search...",
+  "Bank Accounts": "Bank Accounts",
+  "Loading payment accounts...": "Loading payment accounts..."
 }

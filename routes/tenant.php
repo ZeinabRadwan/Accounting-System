@@ -243,6 +243,9 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
 
         // Expense routes
         Route::get('/expenses/search/', [ExpenseController::class, 'search']);
+        Route::get('/expenses/{expense}/journal-entry', [ExpenseController::class, 'getJournalEntry']);
+        Route::post('/expenses/{expense}/void-journal', [ExpenseController::class, 'voidJournalEntry']);
+        Route::get('/expense-accounts', [ExpenseController::class, 'getExpenseAccounts']);
         Route::apiResource('expenses', ExpenseController::class);
 
         // Purchase routes

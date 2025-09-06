@@ -36,19 +36,22 @@
                   <has-error :form="form" field="subCategory" />
                 </div>
               </div>
-              <div class="row" v-if="accounts">
+              <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="account">{{ $t('Account') }}
+                  <label for="account">{{ $t('Payment Account') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.account" :options="accounts" label="label"
+                  <v-select v-model="form.account" :options="accounts || []" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')" @input="updateBalance">
+                    :placeholder="$t('Select payment account')" @input="updateBalance">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
                     </template>
                   </v-select>
                   <has-error :form="form" field="account" />
+                  <small class="form-text text-muted" v-if="!accounts || accounts.length === 0">
+                    {{ $t('Loading payment accounts...') }}
+                  </small>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="availableBalance">{{
@@ -59,6 +62,23 @@
                       'is-invalid': form.errors.has('availableBalance'),
                     }" name="availableBalance" readonly />
                   <has-error :form="form" field="availableBalance" />
+                </div>
+              </div>
+              <div class="row" v-if="expenseAccounts">
+                <div class="form-group col-md-12">
+                  <label for="expenseAccount">{{ $t('Expense Account') }}
+                    <span class="required">*</span></label>
+                  <v-select v-model="form.expenseAccount" :options="expenseAccounts" label="label"
+                    :class="{ 'is-invalid': form.errors.has('expenseAccount') }" name="expenseAccount"
+                    :placeholder="$t('Select expense account')">
+                    <template slot="option" slot-scope="option">
+                      <strong>{{ option.name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ option.code }} - {{ option.type }}</small>
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="expenseAccount" />
+                  <small class="form-text text-muted">{{ $t('This account will be debited for the expense') }}</small>
                 </div>
               </div>
               <div class="row">
@@ -173,6 +193,7 @@ export default {
       reason: '',
       subCategory: '',
       account: '',
+      expenseAccount: '',
       amount: '',
       chequeNo: '',
       voucherNo: '',
@@ -184,6 +205,7 @@ export default {
     }),
     url: null,
     accounts: '',
+    expenseAccounts: '',
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -191,6 +213,11 @@ export default {
   created() {
     this.getSubCategories()
     this.getAccounts()
+    this.getExpenseAccounts()
+    // Load app info if not already loaded
+    if (!this.appInfo) {
+      this.$store.dispatch('operations/fetchSettingData')
+    }
   },
   methods: {
     // get all expense categories
@@ -200,20 +227,70 @@ export default {
       })
     },
 
-    // get accounts
+    // get payment accounts (with available balance)
     async getAccounts() {
-      const { data } = await axios.get(
-        window.location.origin + '/api/all-accounts'
-      )
-      this.accounts = data.data
-
-      // assign default account
-      if (this.accounts && this.accounts.length > 0) {
-        let defaultAccountSlug = this.appInfo.defaultAccountSlug;
-        this.form.account = this.accounts.find(
-          account => account.slug === defaultAccountSlug
+      try {
+        console.log('Loading payment accounts...')
+        const { data } = await axios.get(
+          window.location.origin + '/api/all-accounts'
         )
-        this.updateBalance()
+        
+        console.log('API Response:', data)
+        
+        // Check if data is an array (direct collection) or has success/data structure
+        const accountsData = Array.isArray(data) ? data : (data.data || data)
+        
+        if (accountsData && Array.isArray(accountsData)) {
+          // Transform the accounts to match the expected format
+          this.accounts = accountsData.map(account => ({
+            id: account.id,
+            label: account.label || `${account.bankName} [${account.accountNumber}]`,
+            name: account.bankName,
+            code: account.accountNumber, // Use accountNumber as code
+            availableBalance: account.availableBalance || 0,
+            image: account.image || null
+          }))
+          
+          console.log('Transformed accounts:', this.accounts)
+          
+          // Set default account if available
+          if (this.accounts && this.accounts.length > 0) {
+            this.updateBalance()
+          }
+        } else {
+          console.warn('No accounts data found in response:', data)
+          this.accounts = []
+        }
+      } catch (error) {
+        console.error('Error loading payment accounts:', error)
+        this.accounts = []
+      }
+    },
+
+
+    // get expense accounts from routing settings
+    async getExpenseAccounts() {
+      try {
+        const { data } = await axios.get(
+          window.location.origin + '/api/expense-accounts'
+        )
+        
+        if (data.success) {
+          // Transform the accounts to match the expected format
+          this.expenseAccounts = data.data.accounts.map(account => ({
+            id: account.id,
+            label: `${account.name} [${account.code}]`,
+            name: account.name,
+            code: account.code,
+            type: account.type
+          }))
+        } else {
+          console.warn('Expense account routing not configured:', data.message)
+          this.expenseAccounts = []
+        }
+      } catch (error) {
+        console.error('Error loading expense accounts:', error)
+        this.expenseAccounts = []
       }
     },
 
@@ -252,17 +329,105 @@ export default {
 
     // save expense
     async saveExpense() {
-      await this.form
-        .post(window.location.origin + '/api/expenses')
-        .then(() => {
-          toast.fire({
-            type: 'success',
-            title: this.$t('Expense added successfully'),
-          })
-          this.$router.push({ name: 'expenses.index' })
+      // Ensure we have the required data in the correct format
+      if (!this.form.account || !this.form.account.id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a payment account')
         })
-        .catch(() => {
-          toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
+        return
+      }
+      
+      if (!this.form.expenseAccount || !this.form.expenseAccount.id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select an expense account')
+        })
+        return
+      }
+      
+      if (!this.form.subCategory || !this.form.subCategory.id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a sub category')
+        })
+        return
+      }
+      
+      // Debug: Log the form data before sending
+      console.log('Form data being sent:', {
+        account: this.form.account,
+        expenseAccount: this.form.expenseAccount,
+        amount: this.form.amount,
+        reason: this.form.reason,
+        subCategory: this.form.subCategory
+      })
+      
+      // Create a new form with properly formatted data
+      const formData = new FormData()
+      formData.append('reason', this.form.reason)
+      formData.append('subCategory[id]', this.form.subCategory.id)
+      formData.append('subCategory[code]', this.form.subCategory.code)
+      formData.append('account[id]', this.form.account.id)
+      formData.append('account[availableBalance]', this.form.account.availableBalance)
+      formData.append('expenseAccount[id]', this.form.expenseAccount.id)
+      formData.append('amount', this.form.amount)
+      formData.append('chequeNo', this.form.chequeNo || '')
+      formData.append('voucherNo', this.form.voucherNo || '')
+      formData.append('date', this.form.date)
+      formData.append('note', this.form.note || '')
+      formData.append('status', this.form.status)
+      if (this.form.image) {
+        formData.append('image', this.form.image)
+      }
+      
+      // Debug: Log the form data being sent
+      console.log('Form data being sent:')
+      for (let [key, value] of formData.entries()) {
+        console.log(key, ':', value)
+      }
+      
+      await axios.post(window.location.origin + '/api/expenses', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then((response) => {
+          if (response.data.success) {
+            toast.fire({
+              type: 'success',
+              title: this.$t('Expense added successfully'),
+            })
+            this.$router.push({ name: 'expenses.index' })
+          } else {
+            toast.fire({
+              type: 'error',
+              title: this.$t('Error'),
+              text: response.data.message || this.$t('Opps...something went wrong')
+            })
+          }
+        })
+        .catch((error) => {
+          console.error('Error details:', error.response?.data)
+          if (error.response?.status === 422 && error.response?.data?.errors) {
+            // Handle validation errors
+            const errors = error.response.data.errors
+            let errorMessage = this.$t('Validation errors:')
+            Object.keys(errors).forEach(field => {
+              errorMessage += `\n${field}: ${errors[field].join(', ')}`
+            })
+            toast.fire({
+              type: 'error',
+              title: this.$t('Validation Error'),
+              text: errorMessage
+            })
+          } else {
+            toast.fire({ 
+              type: 'error', 
+              title: this.$t('Error'),
+              text: error.response?.data?.message || this.$t('Opps...something went wrong')
+            })
+          }
         })
     },
   },

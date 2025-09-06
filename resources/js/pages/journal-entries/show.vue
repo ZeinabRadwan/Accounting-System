@@ -135,13 +135,13 @@
                     <td>{{ line.description || '-' }}</td>
                     <td class="text-right">
                       <span v-if="line.debit_amount > 0" class="text-success">
-                        {{ formatCurrency(line.debit_amount) }}
+                        <CurrencyDisplay :amount="line.debit_amount" />
                       </span>
                       <span v-else>-</span>
                     </td>
                     <td class="text-right">
                       <span v-if="line.credit_amount > 0" class="text-danger">
-                        {{ formatCurrency(line.credit_amount) }}
+                        <CurrencyDisplay :amount="line.credit_amount" />
                       </span>
                       <span v-else>-</span>
                     </td>
@@ -165,7 +165,7 @@
                 <div class="form-group">
                   <label class="font-weight-bold">{{ $t('Total Debit') }}:</label>
                   <p class="form-control-plaintext text-success">
-                    {{ formatCurrency(journalEntry.total_debit) }}
+                    <CurrencyDisplay :amount="journalEntry.total_debit" />
                   </p>
                 </div>
               </div>
@@ -173,7 +173,7 @@
                 <div class="form-group">
                   <label class="font-weight-bold">{{ $t('Total Credit') }}:</label>
                   <p class="form-control-plaintext text-danger">
-                    {{ formatCurrency(journalEntry.total_credit) }}
+                    <CurrencyDisplay :amount="journalEntry.total_credit" />
                   </p>
                 </div>
               </div>
@@ -195,7 +195,7 @@
                 <div class="form-group">
                   <label class="font-weight-bold">{{ $t('Balance Difference') }}:</label>
                   <p class="form-control-plaintext text-danger">
-                    {{ formatCurrency(journalEntry.balance_difference) }}
+                    <CurrencyDisplay :amount="journalEntry.balance_difference" />
                   </p>
                 </div>
               </div>
@@ -293,6 +293,9 @@ export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Journal Entry Details') }
+  },
+  components: {
+    CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
   },
   data() {
     return {

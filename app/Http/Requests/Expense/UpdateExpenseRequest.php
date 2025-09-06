@@ -36,15 +36,19 @@ class UpdateExpenseRequest extends BaseRequest
         }
 
         return [
-
             'reason' => 'required|string|max:255',
-            'subCategory' => 'required',
-            'account' => 'required',
-            'amount' => isset($this->account) ? 'required|numeric|max:'.$availableBalance : 'nullable',
+            'subCategory' => 'required|array',
+            'subCategory.id' => 'required|exists:expense_sub_categories,id',
+            'subCategory.code' => 'required|string',
+            'account' => 'required|array',
+            'account.id' => 'required|exists:accounts,id',
+            'amount' => isset($this->account) ? 'required|numeric|min:0.01|max:'.$availableBalance : 'nullable|numeric|min:0.01',
             'chequeNo' => 'nullable|string|max:255',
             'voucherNo' => 'nullable|string|max:255',
-            'date' => 'nullable|date_format:Y-m-d',
-            'note' => 'nullable|string|max:255',
+            'date' => 'required|date_format:Y-m-d|before_or_equal:today',
+            'note' => 'nullable|string|max:1000',
+            'status' => 'required|in:0,1',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

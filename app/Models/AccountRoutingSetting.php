@@ -38,11 +38,27 @@ class AccountRoutingSetting extends Model
     }
 
     /**
+     * Get the parent account (legacy field)
+     */
+    public function parentAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'parent_account_id');
+    }
+
+    /**
      * Get child accounts under this main account
      */
     public function childAccounts()
     {
         return $this->hasMany(ChartOfAccount::class, 'parent_id', 'main_account_id');
+    }
+
+    /**
+     * Get child accounts under the parent account (legacy)
+     */
+    public function parentChildAccounts()
+    {
+        return $this->hasMany(ChartOfAccount::class, 'parent_id', 'parent_account_id');
     }
 
     /**
@@ -52,9 +68,15 @@ class AccountRoutingSetting extends Model
     {
         $accounts = collect();
         
+        // Check for main account first (newer approach)
         if ($this->mainAccount) {
             $accounts->push($this->mainAccount);
             $accounts = $accounts->merge($this->childAccounts);
+        }
+        // Fallback to parent account (legacy approach)
+        elseif ($this->parentAccount) {
+            $accounts->push($this->parentAccount);
+            $accounts = $accounts->merge($this->parentChildAccounts);
         }
         
         return $accounts->filter(function ($account) {

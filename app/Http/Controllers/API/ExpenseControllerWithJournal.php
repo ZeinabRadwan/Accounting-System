@@ -65,6 +65,8 @@ class ExpenseControllerWithJournal extends Controller
                 'reason' => $request->reason,
                 'sub_cat_id' => $request->subCategory['id'],
                 'transaction_id' => null, // Will be set after transaction creation
+                'amount' => $request->amount,
+                'expense_account_id' => $request->expenseAccount ? $request->expenseAccount['id'] : null,
                 'date' => $request->date,
                 'created_by' => $userId,
                 'note' => clean($request->note),

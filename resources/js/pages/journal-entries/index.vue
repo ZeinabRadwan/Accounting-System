@@ -122,10 +122,14 @@
                     <td>{{ entry.description }}</td>
                     <td>{{ entry.reference || '-' }}</td>
                     <td class="text-center">
-                      <span class="text-success">{{ formatCurrency(entry.total_debit) }}</span>
+                      <span class="text-success">
+                        <CurrencyDisplay :amount="entry.total_debit" />
+                      </span>
                     </td>
                     <td class="text-center">
-                      <span class="text-danger">{{ formatCurrency(entry.total_credit) }}</span>
+                      <span class="text-danger">
+                        <CurrencyDisplay :amount="entry.total_credit" />
+                      </span>
                     </td>
                     <td>
                       <span :class="getStatusBadgeClass(entry.status)">
@@ -225,6 +229,7 @@ export default {
   components: {
     Pagination: () => import('~/components/Pagination'),
     TableLoading: () => import('~/components/TableLoading'),
+    CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
   },
   data() {
     return {
