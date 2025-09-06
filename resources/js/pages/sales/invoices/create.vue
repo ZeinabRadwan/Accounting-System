@@ -548,7 +548,7 @@
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" @change="clearFieldError('date')" />
                   <has-error :form="form" field="date" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="status">{{ $t("Status") }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }" @change="clearFieldError('status')">

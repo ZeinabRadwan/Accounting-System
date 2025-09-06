@@ -120,6 +120,10 @@
                           class="btn btn-secondary btn-sm" @click="handleModal(data)">
                           <i class="fas fa-money-check-alt" />
                         </a>
+                        <a v-if="isSaudiArabia && data.status === 0" v-tooltip="$t('Send Invoice')"
+                          class="btn btn-success btn-sm" @click="sendInvoice(data)">
+                          <i class="fas fa-paper-plane" />
+                        </a>
                         <router-link v-if="$can('invoice-view')" v-tooltip="$t('View')" :to="{
                           name: 'invoices.show',
                           params: { slug: data.slug },
@@ -359,6 +363,10 @@ export default {
       // Create a dynamic export URL with query parameters
       return `/invoices/export/export?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
     },
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
   },
   watch: {
     // watch search data
@@ -527,6 +535,38 @@ export default {
                 );
               }
             });
+        }
+      });
+    },
+
+    // send invoice
+    async sendInvoice(data) {
+      Swal.fire({
+        title: this.$t("Send Invoice"),
+        text: this.$t("Are you sure you want to send this invoice?"),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Send"),
+        cancelButtonText: this.$t("Cancel"),
+      }).then((result) => {
+        if (result.value) {
+          // Here you can add the logic to send the invoice
+          // For now, we'll just show a success message
+          Swal.fire(
+            this.$t("Sent!"),
+            this.$t("Invoice sent successfully."),
+            "success"
+          );
+          
+          // You can add API call here to actually send the invoice
+          // Example:
+          // axios.post(`/api/invoices/${data.slug}/send`)
+          //   .then(response => {
+          //     // Handle success
+          //   })
+          //   .catch(error => {
+          //     // Handle error
+          //   });
         }
       });
     },

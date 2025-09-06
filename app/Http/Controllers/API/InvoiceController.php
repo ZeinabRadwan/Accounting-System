@@ -28,6 +28,7 @@ use App\Models\ChartOfAccount;
 use App\Models\AccountRoutingSetting;
 use App\Http\Requests\Invoice\StoreInvoiceRequest;
 use App\Models\Account;
+use App\Models\GeneralSetting;
 
 class InvoiceController extends Controller
 {
@@ -147,6 +148,13 @@ class InvoiceController extends Controller
             // get logged in user id
             $userId = auth()->user()->id;
 
+            // Get country setting to determine status
+            $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+            $isSaudiArabia = $country === 'SA';
+            
+            // Set status based on country
+            $invoiceStatus = $isSaudiArabia ? 0 : $request->status; // 0 = Inactive for KSA, use request value for others
+
             // calculate is paid
             $isPaid = 0;
             if ($request->netTotal == $request->paidAmount) {
@@ -171,7 +179,7 @@ class InvoiceController extends Controller
                 'tax_id' => $request->orderTax['id'],
                 'invoice_date' => $request->date,
                 'note' => clean($request->note),
-                'status' => $request->status,
+                'status' => $invoiceStatus,
                 'is_paid' => $isPaid,
                 'created_by' => $userId,
             ]);
