@@ -114,7 +114,18 @@ class FiscalYearController extends Controller
     {
         $fiscalYears = FiscalYear::select('id', 'name', 'slug', 'start_date', 'end_date', 'is_active')
             ->orderBy('start_date', 'desc')
-            ->get();
+            ->get()
+            ->map(function ($fiscalYear) {
+                return [
+                    'id' => $fiscalYear->id,
+                    'name' => $fiscalYear->name,
+                    'slug' => $fiscalYear->slug,
+                    'full_name' => $fiscalYear->name . ' (' . $fiscalYear->start_date->format('Y') . '-' . $fiscalYear->end_date->format('Y') . ')',
+                    'start_date' => $fiscalYear->start_date,
+                    'end_date' => $fiscalYear->end_date,
+                    'is_active' => $fiscalYear->is_active,
+                ];
+            });
 
         return response()->json([
             'data' => $fiscalYears

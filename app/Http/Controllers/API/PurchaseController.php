@@ -123,6 +123,34 @@ class PurchaseController extends Controller
             // get logged in user id
             $userId = auth()->user()->id;
 
+            // Get default fiscal year and accounting period from general settings
+            $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
+            $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
+
+            // Validate that the settings exist
+            if (!$currentFiscalYearId) {
+                return $this->responseWithError('Current fiscal year is not configured in system settings.');
+            }
+            if (!$currentAccountingPeriodId) {
+                return $this->responseWithError('Current accounting period is not configured in system settings.');
+            }
+
+            // Validate that the fiscal year and accounting period exist in their respective tables
+            $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
+            if (!$fiscalYear) {
+                return $this->responseWithError('The configured fiscal year does not exist.');
+            }
+
+            $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
+            if (!$accountingPeriod) {
+                return $this->responseWithError('The configured accounting period does not exist.');
+            }
+
+            // Validate that the accounting period belongs to the fiscal year
+            if ($accountingPeriod->fiscal_year_id != $fiscalYear->id) {
+                return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
+            }
+
             // Calculate total discount from all products
             $totalProductDiscount = 0;
             foreach ($request->selectedProducts as $selectedProduct) {
@@ -188,6 +216,8 @@ class PurchaseController extends Controller
                 'note' => clean($request->note),
                 'status' => $request->status,
                 'created_by' => $userId,
+                'fiscal_year_id' => $currentFiscalYearId,
+                'accounting_period_id' => $currentAccountingPeriodId,
             ]);
 
             // store purchase products
@@ -511,6 +541,34 @@ class PurchaseController extends Controller
                 ]);
             }
 
+            // Get current fiscal year and accounting period from general settings for update
+            $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
+            $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
+
+            // Validate that the settings exist
+            if (!$currentFiscalYearId) {
+                return $this->responseWithError('Current fiscal year is not configured in system settings.');
+            }
+            if (!$currentAccountingPeriodId) {
+                return $this->responseWithError('Current accounting period is not configured in system settings.');
+            }
+
+            // Validate that the fiscal year and accounting period exist in their respective tables
+            $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
+            if (!$fiscalYear) {
+                return $this->responseWithError('The configured fiscal year does not exist.');
+            }
+
+            $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
+            if (!$accountingPeriod) {
+                return $this->responseWithError('The configured accounting period does not exist.');
+            }
+
+            // Validate that the accounting period belongs to the fiscal year
+            if ($accountingPeriod->fiscal_year_id != $fiscalYear->id) {
+                return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
+            }
+
             // update purchase
             $purchase->update([
                 'supplier_id' => $request->supplier['id'],
@@ -525,6 +583,8 @@ class PurchaseController extends Controller
                 'note' => clean($request->note),
                 'status' => $request->status,
                 'is_paid' => 1,
+                'fiscal_year_id' => $currentFiscalYearId,
+                'accounting_period_id' => $currentAccountingPeriodId,
             ]);
 
             DB::commit();

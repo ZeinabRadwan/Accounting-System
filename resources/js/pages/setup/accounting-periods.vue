@@ -315,6 +315,7 @@ export default {
             try {
                 const response = await axios.get('/api/accounting-periods');
                 this.accountingPeriods = response.data.data;
+                console.log('Accounting periods loaded:', this.accountingPeriods);
             } catch (error) {
                 console.error('Error fetching accounting periods:', error);
             }
@@ -324,8 +325,13 @@ export default {
             try {
                 const response = await axios.get('/api/all-fiscal-years');
                 this.fiscalYears = response.data.data;
+                console.log('Fiscal years loaded:', this.fiscalYears);
             } catch (error) {
                 console.error('Error fetching fiscal years:', error);
+                toast.fire({
+                    type: 'error',
+                    title: this.$t('Error loading fiscal years'),
+                });
             }
         },
         // Filter by fiscal year
