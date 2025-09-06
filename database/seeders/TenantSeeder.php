@@ -46,6 +46,11 @@ class TenantSeeder extends Seeder
             'fallback_domain_id' => $domain->id,
         ]);
 
+        // Run tenant-specific seeders
+        $tenant1->run(function () {
+            $this->call(\Database\Seeders\Tenant\TenantSeeder::class);
+        });
+
         $tenant2 = Tenant::create([
             'company' => 'Codeshaper',
             'name' => 'Jane Doe',
@@ -71,5 +76,10 @@ class TenantSeeder extends Seeder
             'primary_domain_id' => $domain->id,
             'fallback_domain_id' => $domain->id,
         ]);
+
+        // Run tenant-specific seeders
+        $tenant2->run(function () {
+            $this->call(\Database\Seeders\Tenant\TenantSeeder::class);
+        });
     }
 }

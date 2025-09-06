@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\InvoiceReturn;
 use App\Models\AccountTransaction;
+use App\Models\GeneralSetting;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\InvoiceReturnProduct;
@@ -66,6 +67,34 @@ class InvoiceReturnController extends Controller
             // get logged in user id
             $userId = auth()->user()->id;
 
+            // Get default fiscal year and accounting period from general settings
+            $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
+            $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
+
+            // Validate that the settings exist
+            if (!$currentFiscalYearId) {
+                return $this->responseWithError('Current fiscal year is not configured in system settings.');
+            }
+            if (!$currentAccountingPeriodId) {
+                return $this->responseWithError('Current accounting period is not configured in system settings.');
+            }
+
+            // Validate that the fiscal year and accounting period exist in their respective tables
+            $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
+            if (!$fiscalYear) {
+                return $this->responseWithError('The configured fiscal year does not exist.');
+            }
+
+            $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
+            if (!$accountingPeriod) {
+                return $this->responseWithError('The configured accounting period does not exist.');
+            }
+
+            // Validate that the accounting period belongs to the fiscal year
+            if ($accountingPeriod->fiscal_year_id != $fiscalYear->id) {
+                return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
+            }
+
             // store retrun amount
             $isPaid = 0;
             $transactionID = null;
@@ -118,6 +147,8 @@ class InvoiceReturnController extends Controller
                 'transaction_id' => $transactionID,
                 'created_by' => $userId,
                 'status' => $request->status,
+                'fiscal_year_id' => $currentFiscalYearId,
+                'accounting_period_id' => $currentAccountingPeriodId,
             ]);
 
             // update invoice
@@ -197,6 +228,34 @@ class InvoiceReturnController extends Controller
         try {
             DB::beginTransaction();
 
+            // Get current fiscal year and accounting period from general settings for update
+            $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
+            $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
+
+            // Validate that the settings exist
+            if (!$currentFiscalYearId) {
+                return $this->responseWithError('Current fiscal year is not configured in system settings.');
+            }
+            if (!$currentAccountingPeriodId) {
+                return $this->responseWithError('Current accounting period is not configured in system settings.');
+            }
+
+            // Validate that the fiscal year and accounting period exist in their respective tables
+            $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
+            if (!$fiscalYear) {
+                return $this->responseWithError('The configured fiscal year does not exist.');
+            }
+
+            $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
+            if (!$accountingPeriod) {
+                return $this->responseWithError('The configured accounting period does not exist.');
+            }
+
+            // Validate that the accounting period belongs to the fiscal year
+            if ($accountingPeriod->fiscal_year_id != $fiscalYear->id) {
+                return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
+            }
+
             // store retrun amount
             $isPaid = 0;
             $transactionID = null;
@@ -275,6 +334,8 @@ class InvoiceReturnController extends Controller
                 'date' => $request->date,
                 'note' => clean($request->note),
                 'status' => $request->status,
+                'fiscal_year_id' => $currentFiscalYearId,
+                'accounting_period_id' => $currentAccountingPeriodId,
             ]);
 
             // delete return products and store new return products
