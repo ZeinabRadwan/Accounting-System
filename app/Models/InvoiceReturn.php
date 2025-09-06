@@ -16,7 +16,7 @@ class InvoiceReturn extends Model
      * @var array
      */
     protected $fillable = [
-        'return_no', 'reason', 'slug', 'invoice_id', 'transaction_id', 'total_return', 'date', 'note', 'status', 'created_by',
+        'return_no', 'reason', 'slug', 'invoice_id', 'transaction_id', 'total_return', 'date', 'note', 'status', 'created_by', 'fiscal_year_id', 'accounting_period_id',
     ];
 
     /**
@@ -79,5 +79,21 @@ class InvoiceReturn extends Model
     public function latestJournalEntry()
     {
         return $this->morphOne(\App\Models\JournalEntry::class, 'source')->latest();
+    }
+
+    /**
+     * Get the fiscal year for this invoice return.
+     */
+    public function fiscalYear()
+    {
+        return $this->belongsTo(FiscalYear::class, 'fiscal_year_id');
+    }
+
+    /**
+     * Get the accounting period for this invoice return.
+     */
+    public function accountingPeriod()
+    {
+        return $this->belongsTo(AccountingPeriod::class, 'accounting_period_id');
     }
 }
