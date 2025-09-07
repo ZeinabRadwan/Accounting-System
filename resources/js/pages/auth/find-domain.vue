@@ -33,11 +33,40 @@
                     </div>
                     <has-error :form="form" :style="[form.errors.has('domain') ? 'block' : 'none']" field="domain" />
                   </div>
+                  
+                  <!-- email -->
+                  <div class="form-group mb-3">
+                    <input v-model="form.email" id="email" name="email"
+                      :class="{ 'is-invalid': form.errors.has('email') }" class="
+                        form-control
+                        rounded-pill
+                        border-0
+                        shadow-sm
+                        px-4
+                        text-primary
+                      " type="email" :placeholder="$t('email_placeholder')" />
+                    <has-error :form="form" field="email" />
+                  </div>
+                  
+                  <!-- password -->
+                  <div class="form-group mb-3">
+                    <input v-model="form.password" id="password" name="password"
+                      :class="{ 'is-invalid': form.errors.has('password') }" class="
+                        form-control
+                        rounded-pill
+                        border-0
+                        shadow-sm
+                        px-4
+                        text-primary
+                      " type="password" :placeholder="$t('password_placeholder')" />
+                    <has-error :form="form" field="password" />
+                  </div>
+                  
                   <!-- Submit Button -->
                   <v-button :loading="form.busy"
                     class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
                     <i class="fas fa-sign-in-alt" />
-                    <strong>{{ $t('find') }}</strong>
+                    <strong>{{ $t('login') }}</strong>
                   </v-button>
                 </form>
                 <div class="row text-center">
@@ -68,6 +97,8 @@ export default {
   data: () => ({
     form: new Form({
       domain: '',
+      email: '',
+      password: '',
     }),
     appName: window.config.appName,
     host: location.host
@@ -78,10 +109,32 @@ export default {
   },
   methods: {
     async findDomain() {
-      // find the user.
-      const data = await this.form.post('/api/find-domain')
-      if (data) {
-        window.location.href = location.protocol + '//' + data.data.data.domain
+      try {
+        // find the domain and login with credentials
+        const data = await this.form.post('/api/find-domain')
+        if (data && data.data.success) {
+          // Show success message
+          this.$toast.success('Login successful! Redirecting...')
+          
+          // Small delay to show success message
+          setTimeout(() => {
+            // Redirect to the tenant domain using the special login URL
+            window.location.href = data.data.data.login_url
+          }, 1000)
+        }
+      } catch (error) {
+        // Handle validation errors or login failures
+        if (error.response && error.response.status === 422) {
+          // Validation errors are handled by the form component
+          return
+        }
+        
+        // Show error message for other errors
+        if (error.response && error.response.data && error.response.data.message) {
+          this.$toast.error(error.response.data.message)
+        } else {
+          this.$toast.error('Login failed. Please check your credentials.')
+        }
       }
     },
   }

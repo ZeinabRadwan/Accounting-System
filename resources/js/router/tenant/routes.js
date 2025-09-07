@@ -25,6 +25,11 @@ export default [
     component: page('auth/login.vue'),
   },
   {
+    path: '/cross-domain-login',
+    name: 'cross-domain-login',
+    component: page('auth/cross-domain-login.vue'),
+  },
+  {
     path: '/register',
     name: 'register',
     component: page('auth/login.vue'),

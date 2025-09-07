@@ -3,25 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Rules\FindDomainValidation;
+use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class TenantDomainFindController extends Controller
 {
     /*
-    *   Find domain from database
+    *   Find domain from database and login user
     */
     public function findDomain(Request $request)
     {
         $request->validate([
             'domain' => ['required', 'string', 'max:255', 'alpha_dash', new FindDomainValidation()],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:6'],
         ]);
 
         // get host name
         $host = request()->getHttpHost();
-        $domainWithHost = $request->domain.'.'.$host;
+        $domain = $request->domain;
 
-        return $this->responseWithSuccess('Domain found', [
-            'domain' => $domainWithHost,
+        // Find tenant by subdomain
+        $tenant = Tenant::whereHas('domains', function($query) use ($domain) {
+            $query->where('domain', $domain);
+        })->first();
+
+        if (!$tenant) {
+            throw ValidationException::withMessages([
+                'domain' => ['Tenant not found for this domain.'],
+            ]);
+        }
+
+        // Switch to tenant context
+        tenancy()->initialize($tenant);
+
+        // Find user in tenant database
+        $user = User::where('email', $request->input('email'))->first();
+
+        if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+
+        // Set user locale
+        app()->setLocale($user->locale);
+
+        // Create a special login URL for the tenant domain with encrypted credentials
+        $tenantDomain = $domain . '.' . $host;
+        $protocol = request()->secure() ? 'https' : 'http';
+        
+        // Encrypt the credentials for secure transmission
+        $encryptedEmail = encrypt($request->input('email'));
+        $encryptedPassword = encrypt($request->input('password'));
+        
+        $loginUrl = $protocol . '://' . $tenantDomain . '/cross-domain-login?' . 
+                   'email=' . urlencode($encryptedEmail) . 
+                   '&password=' . urlencode($encryptedPassword);
+
+        return $this->responseWithSuccess('Login successful', [
+            'domain' => $tenantDomain,
+            'login_url' => $loginUrl,
         ]);
     }
 }
