@@ -21,6 +21,7 @@ class QuotationProductListResource extends JsonResource
             'unitCost' => $this->unit_cost,
             'taxAmount' => $this->tax_amount,
             'quantity' => $this->quantity,
+            'discountAmount' => $this->discount_amount,
             'purchasePricetotal' => $this->quantity * $this->purchase_price,
             'unitCostTotal' => $this->quantity * $this->unit_cost,
             'taxTotal' => $this->quantity * $this->tax_amount,

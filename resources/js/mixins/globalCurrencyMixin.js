@@ -81,6 +81,16 @@ export default {
           return
         }
         
+        // Skip elements with no-currency class
+        if (element.classList && element.classList.contains('no-currency')) {
+          return
+        }
+        
+        // Skip elements that are inside a parent with no-currency class
+        if (element.closest && element.closest('.no-currency')) {
+          return
+        }
+        
         // Skip if element already contains a currency display component
         if (element.querySelector && element.querySelector('.currency-display')) {
           return
@@ -207,7 +217,8 @@ export default {
             const headerText = header.textContent.toLowerCase()
             if (headerText.includes('date') || headerText.includes('id') || 
                 headerText.includes('number') || headerText.includes('reference') ||
-                headerText.includes('code') || headerText.includes('status')) {
+                headerText.includes('code') || headerText.includes('status') ||
+                headerText.includes('vat') || headerText.includes('total with vat')) {
               return true
             }
           }

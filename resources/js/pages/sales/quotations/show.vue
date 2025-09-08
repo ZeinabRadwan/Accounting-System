@@ -197,6 +197,8 @@
                         <th>{{ $t("Item Name") }}</th>
                         <th>{{ $t("Quantity") }}</th>
                         <th>{{ $t("Unit Price") }}</th>
+                        <th>{{ $t("Discount") }}</th>
+                        <th>{{ $t("Total After Discount") }}</th>
                         <th>{{ $t("Unit Tax") }}</th>
                         <th>{{ $t("Unit Cost") }}</th>
                         <th class="text-right">{{ $t("Subtotal") }}</th>
@@ -210,19 +212,21 @@
                         </td>
                         <td>{{ data.productName }}</td>
                         <td>{{ data.quantity }} {{ data.productUnit }}</td>
-                        <td>{{ data.salePrice | withCurrency }}</td>
-                        <td>{{ data.taxAmount | withCurrency }}</td>
-                        <td>{{ data.unitCost | withCurrency }}</td>
-                        <td class="text-right">
-                          {{ data.unitCostTotal | withCurrency }}
+                        <td class="no-currency">{{ data.salePrice }}</td>
+                        <td class="no-currency">{{ data.discountAmount || 0 }}</td>
+                        <td class="no-currency">{{ calculateTotalAfterDiscount(data) }}</td>
+                        <td class="no-currency">{{ calculateUnitTax(data) }}</td>
+                        <td class="no-currency">{{ calculateUnitCost(data) }}</td>
+                        <td class="text-right no-currency">
+                          {{ calculateSubtotal(data) }}
                         </td>
                       </tr>
                       <tr>
-                        <td class="text-right" colspan="7">
+                        <td class="text-right" colspan="9">
                           <strong>{{ $t("Subtotal") }}</strong>
                         </td>
-                        <td class="text-right">
-                          <strong>{{ allData.subTotal | withCurrency }}</strong>
+                        <td class="text-right no-currency">
+                          <strong>{{ calculatedSubTotal }}</strong>
                         </td>
                       </tr>
                     </tbody>
@@ -238,14 +242,7 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.subTotal | withCurrency }}</td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Transport") }}:</th>
-                        <td>
-                          <span class="plus-sign">+</span>
-                          {{ allData.transport | withCurrency }}
-                        </td>
+                        <td class="no-currency">{{ calculatedSubTotal }}</td>
                       </tr>
                       <tr>
                         <th>
@@ -254,9 +251,22 @@
                             >({{ allData.discountPercentage }}%)</span
                           >:
                         </th>
-                        <td>
+                        <td class="no-currency">
                           <span class="minus-sign">-</span>
-                          {{ allData.discount | withCurrency }}
+                          {{ calculatedTotalDiscount }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Total After Discount") }}:</th>
+                        <td class="no-currency">
+                          {{ calculatedTotalAfterDiscount }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>{{ $t("Transport") }}:</th>
+                        <td class="no-currency">
+                          <span class="plus-sign">+</span>
+                          {{ allData.transport }}
                         </td>
                       </tr>
                       <tr>
@@ -290,16 +300,16 @@
                             >)
                           </span>
                         </th>
-                        <td>
+                        <td class="no-currency">
                           <span class="plus-sign">+</span>
-                          {{ allData.totalTax | withCurrency }}
+                          {{ allData.totalTax }}
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
-                        <td>
+                        <td class="no-currency">
                           <span class="equal-sign">=</span>
-                          {{ allData.total | withCurrency }}
+                          {{ calculatedTotal }}
                         </td>
                       </tr>
                     </tbody>
@@ -481,6 +491,55 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+    
+    // calculate total subtotal based on new formula
+    calculatedSubTotal() {
+      if (!this.allData.products) return 0;
+      
+      let total = 0;
+      this.allData.products.forEach(product => {
+        total += parseFloat(this.calculateSubtotal(product));
+      });
+      return total.toFixed(2);
+    },
+
+    // calculate total discount from all products
+    calculatedTotalDiscount() {
+      if (!this.allData.products) return 0;
+      
+      let totalDiscount = 0;
+      this.allData.products.forEach(product => {
+        totalDiscount += parseFloat(product.discountAmount) || 0;
+      });
+      return totalDiscount.toFixed(2);
+    },
+
+    // calculate total after discount
+    calculatedTotalAfterDiscount() {
+      if (!this.allData.products) return 0;
+      
+      let totalAfterDiscount = 0;
+      this.allData.products.forEach(product => {
+        const unitPrice = parseFloat(product.salePrice) || 0;
+        const quantity = parseFloat(product.quantity) || 0;
+        const discount = parseFloat(product.discountAmount) || 0;
+        
+        // Total After Discount = unit price * quantity - discount
+        const productTotalAfterDiscount = (unitPrice * quantity) - discount;
+        totalAfterDiscount += productTotalAfterDiscount;
+      });
+      return totalAfterDiscount.toFixed(2);
+    },
+
+    // calculate total with new formulas
+    calculatedTotal() {
+      const subtotal = parseFloat(this.calculatedSubTotal) || 0;
+      const transport = parseFloat(this.allData.transport) || 0;
+      
+      // Total = Subtotal + Transport only
+      const total = subtotal + transport;
+      return total.toFixed(2);
+    },
   },
   created() {
     this.getQuotation();
@@ -491,7 +550,7 @@ export default {
 
   watch: {
     // watch search data
-    query: function (newQ, oldQ) {
+    query: function (newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {
@@ -630,6 +689,47 @@ export default {
     // reset pagination
     async resetPagination() {
       this.pagination.current_page = 1;
+    },
+
+    // calculate total after discount
+    calculateTotalAfterDiscount(data) {
+      const salePrice = parseFloat(data.salePrice) || 0;
+      const discountAmount = parseFloat(data.discountAmount) || 0;
+      const quantity = parseFloat(data.quantity) || 1;
+      
+      // Total After Discount = quotation_products.sale_price - (quotation_products.discount_amount/quotation_products.quantity)
+      const totalAfterDiscount = salePrice - (discountAmount / quantity);
+      return totalAfterDiscount.toFixed(2);
+    },
+
+    // calculate unit tax
+    calculateUnitTax(data) {
+      const taxAmount = parseFloat(data.taxAmount) || 0;
+      const quantity = parseFloat(data.quantity) || 1;
+      
+      // Unit Tax = quotation_products.tax_amount/quotation_products.quantity
+      const unitTax = taxAmount / quantity;
+      return unitTax.toFixed(2);
+    },
+
+    // calculate unit cost
+    calculateUnitCost(data) {
+      const totalAfterDiscount = parseFloat(this.calculateTotalAfterDiscount(data)) || 0;
+      const unitTax = parseFloat(this.calculateUnitTax(data)) || 0;
+      
+      // Unit Cost = Total After Discount + Unit Tax
+      const unitCost = totalAfterDiscount + unitTax;
+      return unitCost.toFixed(2);
+    },
+
+    // calculate subtotal
+    calculateSubtotal(data) {
+      const unitCost = parseFloat(this.calculateUnitCost(data)) || 0;
+      const quantity = parseFloat(data.quantity) || 1;
+      
+      // Subtotal = Unit Cost * quantity
+      const subtotal = unitCost * quantity;
+      return subtotal.toFixed(2);
     },
   },
 };
