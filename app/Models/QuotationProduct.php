@@ -16,6 +16,7 @@ class QuotationProduct extends Model
      */
     protected $fillable = [
         'quotation_id', 'product_id', 'quantity', 'purchase_price', 'sale_price', 'unit_cost', 'tax_amount',
+        'discount', 'discount_type', 'discount_amount', 'vat_rate_id',
     ];
 
     /**
@@ -24,5 +25,13 @@ class QuotationProduct extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    /**
+     * Get the VAT rate.
+     */
+    public function vatRate()
+    {
+        return $this->belongsTo(VatRate::class, 'vat_rate_id');
     }
 }

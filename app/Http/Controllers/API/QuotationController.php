@@ -7,6 +7,7 @@ use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\QuotationProduct;
+use App\Models\GeneralSetting;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -46,21 +47,35 @@ class QuotationController extends Controller
      */
     public function store(Request $request)
     {
-        // validate request
-        $this->validate($request, [
+        // Get country setting to determine validation rules
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        $isSaudiArabia = $country === 'SA';
+
+        // Build validation rules based on country
+        $validationRules = [
             'client' => 'required',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:'.$request->netTotal,
-            'transportCost' => 'nullable|numeric|min:1',
             'netTotal' => 'required|numeric|min:1',
             'poReference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',
-            'orderTax' => 'required',
             'deliveryPlace' => 'nullable|string|max:255',
             'date' => 'nullable|date_format:Y-m-d',
             'note' => 'nullable|string|max:255',
-        ]);
+        ];
+
+        // Add country-specific validation rules
+        if (!$isSaudiArabia) {
+            $validationRules = array_merge($validationRules, [
+                'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:'.$request->netTotal,
+                'transportCost' => 'nullable|numeric|min:1',
+                'orderTax' => 'required',
+                'status' => 'required|in:1,0',
+            ]);
+        }
+
+        // validate request
+        $this->validate($request, $validationRules);
 
         try {
             DB::beginTransaction();
@@ -78,6 +93,9 @@ class QuotationController extends Controller
                 $discount = $request->totalDiscount;
             }
 
+            // Set status based on country
+            $quotationStatus = $isSaudiArabia ? 0 : $request->status; // 0 = Inactive for KSA, use request value for others
+
             // create quotation
             $quotation = Quotation::create([
                 'quotation_no' => $code,
@@ -90,15 +108,25 @@ class QuotationController extends Controller
                 'total_tax' => $request->totalTax,
                 'sub_total' => $request->subTotal,
                 'delivery_place' => $request->deliveryPlace,
-                'tax_id' => $request->orderTax['id'],
+                'tax_id' => $request->orderTax ? $request->orderTax['id'] : null,
                 'quotation_date' => $request->date,
                 'note' => clean($request->note),
-                'status' => $request->status,
+                'status' => $quotationStatus,
                 'created_by' => auth()->user()->id,
             ]);
 
             // store quotation products
             foreach ($request->selectedProducts as $key => $selectedProduct) {
+                // Recalculate discount amount server-side (align with invoices)
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+
                 QuotationProduct::create([
                     'quotation_id' => $quotation->id,
                     'product_id' => $selectedProduct['id'],
@@ -107,6 +135,10 @@ class QuotationController extends Controller
                     'sale_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
                     'tax_amount' => $selectedProduct['totalTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
+                    'vat_rate_id' => $selectedProduct['selectedVatRate']['id'] ?? null,
                 ]);
             }
 
@@ -168,20 +200,35 @@ class QuotationController extends Controller
     {
         $quotation = Quotation::where('slug', $slug)->first();
 
-        // validate request
-        $this->validate($request, [
+        // Get country setting to determine validation rules
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        $isSaudiArabia = $country === 'SA';
+
+        // Build validation rules based on country
+        $validationRules = [
             'client' => 'required',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:'.$request->netTotal,
-            'transportCost' => 'nullable|numeric|min:1',
             'netTotal' => 'required|numeric|min:1',
             'poReference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',
             'deliveryPlace' => 'nullable|string|max:255',
             'date' => 'nullable|date_format:Y-m-d',
             'note' => 'nullable|string|max:255',
-        ]);
+        ];
+
+        // Add country-specific validation rules
+        if (!$isSaudiArabia) {
+            $validationRules = array_merge($validationRules, [
+                'discount' => $request->discountType == true ? 'nullable|numeric|min:1|max:100' : 'nullable|numeric|min:1|max:'.$request->netTotal,
+                'transportCost' => 'nullable|numeric|min:1',
+                'orderTax' => 'required',
+                'status' => 'required|in:1,0',
+            ]);
+        }
+
+        // validate request
+        $this->validate($request, $validationRules);
 
         try {
             DB::beginTransaction();
@@ -191,6 +238,9 @@ class QuotationController extends Controller
             if ($request->discountType == 1) {
                 $discount = $request->totalDiscount;
             }
+
+            // Set status based on country
+            $quotationStatus = $isSaudiArabia ? 0 : $request->status; // 0 = Inactive for KSA, use request value for others
 
             // update quotation
             $quotation->update([
@@ -202,15 +252,25 @@ class QuotationController extends Controller
                 'total_tax' => $request->totalTax,
                 'sub_total' => $request->subTotal,
                 'delivery_place' => $request->deliveryPlace,
-                'tax_id' => $request->orderTax['id'],
+                'tax_id' => $request->orderTax ? $request->orderTax['id'] : null,
                 'quotation_date' => $request->date,
                 'note' => clean($request->note),
-                'status' => $request->status,
+                'status' => $quotationStatus,
             ]);
 
             // delete old products and store new products
             $quotation->quotationProducts->each->delete();
             foreach ($request->selectedProducts as $key => $selectedProduct) {
+                // Recalculate discount amount server-side (align with invoices)
+                $discountAmount = 0;
+                if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
+                    if (isset($selectedProduct['discountType']) && $selectedProduct['discountType'] === 'percentage') {
+                        $discountAmount = ($selectedProduct['unitPrice'] * $selectedProduct['qty'] * $selectedProduct['discount']) / 100;
+                    } else {
+                        $discountAmount = $selectedProduct['discount'];
+                    }
+                }
+
                 QuotationProduct::create([
                     'quotation_id' => $quotation->id,
                     'product_id' => $selectedProduct['id'],
@@ -219,6 +279,10 @@ class QuotationController extends Controller
                     'sale_price' => $selectedProduct['unitPrice'],
                     'unit_cost' => $selectedProduct['unitCost'],
                     'tax_amount' => $selectedProduct['totalTax'],
+                    'discount' => $selectedProduct['discount'] ?? 0,
+                    'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
+                    'discount_amount' => $discountAmount,
+                    'vat_rate_id' => $selectedProduct['selectedVatRate']['id'] ?? null,
                 ]);
             }
 
