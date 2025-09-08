@@ -5,6 +5,5 @@ import './custom-toast'
 import './filter'
 import './VueInputTag'
 import './rtl'
-import '../directives/currencySymbol'
 
 

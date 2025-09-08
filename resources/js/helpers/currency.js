@@ -51,21 +51,7 @@ export function formatCurrencyWithSvg(amount, currency, options = {}) {
     displayText,
     fullText: displayText
   };
-}
-
-/**
- * Get SVG symbol path for specific currency codes
- * @param {string} currencyCode - Currency code (e.g., 'SAR', 'USD')
- * @returns {string|null} - SVG path or null if not available
- */
-export function getSvgSymbolPath(currencyCode) {
-  const svgSymbols = {
-    'SAR': 'riyal-symbol.svg',
-    'RY': 'riyal-symbol.svg'
-  };
-  
-  return svgSymbols[currencyCode] || null;
-}
+} 
 
 /**
  * Check if a currency symbol should be rendered as SVG

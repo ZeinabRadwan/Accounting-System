@@ -16,8 +16,6 @@ import RecentActivities from './RecentActivities'
 import SettingsSidebar from './SettingsSidebar'
 import VModal from './VModal'
 import ClientForm from './ClientForm'
-import CurrencySymbol from './CurrencySymbol'
-import CurrencyDisplay from './CurrencyDisplay'
 import {
   HasError,
   AlertError,
@@ -48,9 +46,7 @@ import {
   AlertErrors,
   AlertSuccess,
   VModal,
-  ClientForm,
-  CurrencySymbol,
-  CurrencyDisplay
+  ClientForm
 ].forEach(Component => {
   Vue.component(Component.name, Component)
 })

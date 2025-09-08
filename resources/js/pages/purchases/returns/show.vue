@@ -217,14 +217,14 @@
                             data.product.itemUnit.code
                           }}</span>
                         </td>
-                        <td v-currency-symbol>{{ data.purchasePrice | withCurrency }}</td>
-                        <td v-currency-symbol>
+                        <td>{{ data.purchasePrice | withCurrency }}</td>
+                        <td>
                           {{
                             (data.purchasePrice * data.purchasedQty)
                               | withCurrency
                           }}
                         </td>
-                        <td class="text-right" v-currency-symbol>
+                        <td class="text-right">
                           {{
                             (data.purchasePrice * data.returnQty) | withCurrency
                           }}

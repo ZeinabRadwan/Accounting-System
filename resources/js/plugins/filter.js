@@ -32,16 +32,8 @@ Vue.filter('withCurrency', function (number) {
   let currency = store.state.operations.appInfo.currency
   if (number > 0) {
     let newNumber = (Number(number).toFixed(2)).toLocaleString()
-    // Check if symbol is SVG - return only the number for SVG symbols
-    if (currency.symbol && currency.symbol.includes('.svg')) {
-      return newNumber
-    }
     return currency.position == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
   } else {
-    // Check if symbol is SVG - return only 0 for SVG symbols
-    if (currency.symbol && currency.symbol.includes('.svg')) {
-      return '0'
-    }
     return currency.position == 'left' ? currency.symbol + 0 : 0 + currency.symbol
   }
 })
@@ -74,21 +66,4 @@ Vue.filter('withAbsoluteCurrency', function (number) {
 // return code with prefix
 Vue.filter('withPrefix', function (code, prefix) {
   return prefix + code;
-})
-
-// return currency symbol component data for SVG symbols
-Vue.filter('currencySymbolData', function (currency) {
-  if (currency && currency.symbol && currency.symbol.includes('.svg')) {
-    return {
-      isSvg: true,
-      symbolPath: currency.symbol.startsWith('/') ? currency.symbol : `/images/${currency.symbol}`,
-      currencyCode: currency.code || '',
-      position: currency.position || 'left'
-    }
-  }
-  return {
-    isSvg: false,
-    symbol: currency ? currency.symbol : '',
-    position: currency ? currency.position : 'left'
-  }
 })
