@@ -32,6 +32,22 @@ mix.webpackConfig({
           },
         ],
       },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              api: 'modern-compiler',
+              sassOptions: {
+                api: 'modern-compiler'
+              }
+            }
+          }
+        ]
+      }
     ],
   },
   resolve: {
