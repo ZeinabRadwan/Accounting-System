@@ -1,11 +1,25 @@
 <template>
-  <div class="account-routing-settings">
-    <div class="page-header">
-      <h1 class="page-title">{{ $t('Account Routing Settings') }}</h1>
-      <p class="page-description">
-        {{ $t('Configure parent accounts for different accounting modules to ensure proper journal entry routing') }}
-      </p>
-    </div>
+  <div>
+    <!-- breadcrumbs Start -->
+    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+    <!-- breadcrumbs end -->
+
+    <div class="row">
+      <div class="col-12 col-xl-3">
+        <SettingsSidebar />
+      </div>
+      <div class="col-12 col-xl-9">
+        <div class="card">
+          <div class="card-header setings-header">
+            <h3 class="card-title">
+              <i class="fas fa-route mr-2"></i>
+              {{ $t('Account Routing Settings') }}
+            </h3>
+            <p class="card-description">
+              {{ $t('Configure parent accounts for different accounting modules to ensure proper journal entry routing') }}
+            </p>
+          </div>
+          <div class="card-body">
 
     <!-- Loading State -->
     <div v-if="isLoading" class="loading-container">
@@ -442,16 +456,20 @@
       <p>Chart of Accounts Sample: {{ JSON.stringify(chartOfAccounts.slice(0, 2), null, 2) }}</p>
     </div>
 
-    <!-- Debug Toggle -->
-    <div class="debug-toggle">
-      <button @click="debugMode = !debugMode" class="btn btn-sm btn-secondary">
-        <i class="fas fa-bug mr-1"></i>
-        {{ debugMode ? 'Hide Debug' : 'Show Debug' }}
-      </button>
-      <button @click="debugDiscountSetting" class="btn btn-sm btn-info ml-2">
-        <i class="fas fa-search mr-1"></i>
-        Debug Discount
-      </button>
+            <!-- Debug Toggle -->
+            <div class="debug-toggle">
+              <button @click="debugMode = !debugMode" class="btn btn-sm btn-secondary">
+                <i class="fas fa-bug mr-1"></i>
+                {{ debugMode ? 'Hide Debug' : 'Show Debug' }}
+              </button>
+              <button @click="debugDiscountSetting" class="btn btn-sm btn-info ml-2">
+                <i class="fas fa-search mr-1"></i>
+                Debug Discount
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -461,10 +479,28 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'AccountRoutingSettings',
+  components: {
+    SettingsSidebar: () => import('~/components/SettingsSidebar'),
+  },
   data() {
     console.log('AccountRoutingSettings data() called')
     
     return {
+      breadcrumbsCurrent: 'Account Routing Settings',
+      breadcrumbs: [
+        {
+          name: 'Dashboard',
+          url: 'home',
+        },
+        {
+          name: 'Setup',
+          url: 'setup.index',
+        },
+        {
+          name: 'Account Routing Settings',
+          url: '',
+        },
+      ],
       settings: [],
       saving: false,
       message: '',
@@ -917,42 +953,11 @@ export default {
 </script>
 
 <style scoped>
-.account-routing-settings {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  background-color: #f8f9fa;
-  min-height: 100vh;
-}
-
-.page-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.page-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-}
-
-.page-description {
-  font-size: 1.1rem;
-  color: #7f8c8d;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.settings-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+.card-description {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0;
+  margin-top: 0.5rem;
 }
 
 /* Tab Navigation */
@@ -1012,7 +1017,7 @@ export default {
 
 /* Tab Content */
 .tab-content {
-  padding: 2rem;
+  padding: 0;
 }
 
 .tab-panel {
@@ -1025,26 +1030,26 @@ export default {
 }
 
 .module-header {
-  margin-bottom: 2rem;
-  text-align: center;
+  margin-bottom: 1.5rem;
+  text-align: left;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #e9ecef;
+  border-bottom: 1px solid #e9ecef;
 }
 
 .module-title {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #2c3e50;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.75rem;
 }
 
 .module-description {
-  color: #7f8c8d;
-  font-size: 1.1rem;
+  color: #6c757d;
+  font-size: 0.9rem;
   margin: 0;
 }
 

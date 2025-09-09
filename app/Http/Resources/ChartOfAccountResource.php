@@ -19,6 +19,27 @@ class ChartOfAccountResource extends JsonResource
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            // Debit and Credit information
+            'debit_amount' => $this->getTotalDebits(),
+            'credit_amount' => $this->getTotalCredits(),
+            'total_debit_amount' => $this->getTotalDebitsIncludingChildren(),
+            'total_credit_amount' => $this->getTotalCreditsIncludingChildren(),
+            'formatted_debit_amount' => number_format($this->getTotalDebits(), 2),
+            'formatted_credit_amount' => number_format($this->getTotalCredits(), 2),
+            'formatted_total_debit_amount' => number_format($this->getTotalDebitsIncludingChildren(), 2),
+            'formatted_total_credit_amount' => number_format($this->getTotalCreditsIncludingChildren(), 2),
+            // Balance information with Debit/Credit labels
+            'balance' => $this->getBalance(),
+            'balance_type' => $this->getBalanceType(),
+            'balance_amount' => $this->getBalanceAmount(),
+            'formatted_balance_with_type' => $this->getFormattedBalanceWithType(),
+            'total_balance' => $this->getTotalBalance(),
+            'total_balance_type' => $this->getTotalBalanceType(),
+            'total_balance_amount' => $this->getTotalBalanceAmount(),
+            'formatted_total_balance_with_type' => $this->getFormattedTotalBalanceWithType(),
+            // Keep old formatted fields for backward compatibility
+            'formatted_balance' => number_format($this->getBalance(), 2),
+            'formatted_total_balance' => number_format($this->getTotalBalance(), 2),
             // Include relationships
             'types' => $this->whenLoaded('type', function() {
                 return [

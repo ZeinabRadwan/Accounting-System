@@ -98,11 +98,46 @@
             <div v-else>
               <!-- Selected Account Header -->
               <div class="selected-account-header mb-4">
-                <div class="d-flex align-items-center">
-                  <i class="fas fa-folder-open text-primary mr-3" style="font-size: 24px;"></i>
-                  <div>
-                    <h4 class="mb-1">{{ selectedAccount.name }}</h4>
-                    <p class="text-muted mb-0">Account Code: {{ selectedAccount.code }}</p>
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-folder-open text-primary mr-3" style="font-size: 24px;"></i>
+                    <div>
+                      <h4 class="mb-1">{{ selectedAccount.name }}</h4>
+                      <p class="text-muted mb-0">Account Code: {{ selectedAccount.code }}</p>
+                      <p class="text-muted mb-0" v-if="selectedAccount.types">
+                        Type: {{ selectedAccount.types.name }}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <!-- Account Balance Information -->
+                  <div class="account-balance-info">
+                    <div class="balance-cards">
+                      <!-- Debit Amount -->
+                      <div class="balance-card debit-card">
+                        <div class="balance-label">Debit</div>
+                        <div class="balance-amount">
+                          {{ selectedAccount.formatted_debit_amount || '0.00' }}
+                        </div>
+                      </div>
+                      
+                      <!-- Credit Amount -->
+                      <div class="balance-card credit-card">
+                        <div class="balance-label">Credit</div>
+                        <div class="balance-amount">
+                          {{ selectedAccount.formatted_credit_amount || '0.00' }}
+                        </div>
+                      </div>
+                      
+                      <!-- Balance with Type -->
+                      <div class="balance-card balance-card-main" 
+                           :class="selectedAccount.balance_type === 'Debit' ? 'debit-balance' : 'credit-balance'">
+                        <div class="balance-label">Balance</div>
+                        <div class="balance-amount">
+                          {{ selectedAccount.formatted_balance_with_type || '0.00 Debit' }}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -114,7 +149,9 @@
                   <thead>
                     <tr>
                       <th class="border-0">Account</th>
-                      <th class="border-0 text-right">Balance</th>
+                      <th class="border-0 text-center">Debit</th>
+                      <th class="border-0 text-center">Credit</th>
+                      <th class="border-0 text-center">Balance</th>
                       <th class="border-0 text-right" width="50">Actions</th>
                     </tr>
                   </thead>
@@ -147,23 +184,27 @@
                           </div>
                         </div>
                       </td>
-                      <td class="border-0 text-right">
-                        <router-link v-if="$can('chart-of-account-view')" :to="{
-                          name: 'chart-of-accounts.show',
-                          params: { slug: child.code },
-                        }">
-                          <div class="credit-wrap text-right">
-                            <div class="credit-container">
-                              <p class="cost">{{ child.balance || '0.00' }}</p>
-                              <p class="type">{{ child.types ? child.types.name : 'N/A' }}</p>
-                            </div>
-                          </div>
-                        </router-link>
-                        <div v-else class="credit-wrap text-right">
-                          <div class="credit-container">
-                            <p class="cost">{{ child.balance || '0.00' }}</p>
-                            <p class="type">{{ child.types ? child.types.name : 'N/A' }}</p>
-                          </div>
+                      <!-- Debit Amount Column -->
+                      <td class="border-0 text-center">
+                        <div class="amount-display">
+                          <span class="amount-value">{{ child.formatted_debit_amount || '0.00' }}</span>
+                        </div>
+                      </td>
+                      
+                      <!-- Credit Amount Column -->
+                      <td class="border-0 text-center">
+                        <div class="amount-display">
+                          <span class="amount-value">{{ child.formatted_credit_amount || '0.00' }}</span>
+                        </div>
+                      </td>
+                      
+                      <!-- Balance Column -->
+                      <td class="border-0 text-center">
+                        <div class="balance-display">
+                          <span class="balance-value" 
+                                :class="child.balance_type === 'Debit' ? 'debit-text' : 'credit-text'">
+                            {{ child.formatted_balance_with_type || '0.00 Debit' }}
+                          </span>
                         </div>
                       </td>
                       <td class="border-0 text-right" width="50">
@@ -809,6 +850,27 @@ export default {
   .chart-of-accounts-col-3-body-container {
     height: 300px;
   }
+  
+  /* Mobile balance cards */
+  .balance-cards {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .balance-card {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .account-balance-info {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+  
+  .selected-account-header .d-flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
 }
 
 /* Print Styles */
@@ -857,6 +919,105 @@ export default {
 .selected-account-header h4 {
   color: #333;
   margin: 0;
+}
+
+/* Account Balance Information */
+.account-balance-info {
+  margin-left: 20px;
+}
+
+.balance-cards {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.balance-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #e9ecef;
+  min-width: 120px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.balance-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.balance-card-main {
+  border: 2px solid #007bff;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.debit-card {
+  border-left: 4px solid #28a745;
+}
+
+.credit-card {
+  border-left: 4px solid #dc3545;
+}
+
+.debit-balance {
+  border-left: 4px solid #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+}
+
+.credit-balance {
+  border-left: 4px solid #dc3545;
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+}
+
+.balance-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+
+.balance-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.2;
+}
+
+/* Table Amount Display */
+.amount-display {
+  text-align: center;
+}
+
+.amount-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.balance-display {
+  text-align: center;
+}
+
+.balance-value {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.debit-text {
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+}
+
+.credit-text {
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
 }
 
 /* No children message */

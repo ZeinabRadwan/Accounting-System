@@ -282,6 +282,7 @@ import i18n from "~/plugins/i18n";
 import { mapGetters } from "vuex";
 import DateRangePicker from "vue2-daterange-picker";
 import { ToggleButton } from "vue-js-toggle-button";
+import Swal from "sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -365,7 +366,9 @@ export default {
     },
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
-      return !this.appInfo?.country || this.appInfo.country === 'SA';
+      const result = !this.appInfo?.country || this.appInfo.country === 'SA';
+      console.log('isSaudiArabia computed:', result, 'appInfo.country:', this.appInfo?.country);
+      return result;
     },
   },
   watch: {
@@ -541,32 +544,59 @@ export default {
 
     // send invoice
     async sendInvoice(data) {
+      console.log('Send invoice clicked for:', data);
+      console.log('isSaudiArabia:', this.isSaudiArabia);
+      console.log('data.status:', data.status);
+      
       Swal.fire({
-        title: this.$t("Send Invoice"),
-        text: this.$t("Are you sure you want to send this invoice?"),
+        title: this.$t("Send Invoice to ZATCA"),
+        text: this.$t("Do you want to send this invoice to ZATCA?"),
         type: "question",
         showCancelButton: true,
-        confirmButtonText: this.$t("Send"),
-        cancelButtonText: this.$t("Cancel"),
-      }).then((result) => {
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#dc3545",
+      }).then(async (result) => {
         if (result.value) {
-          // Here you can add the logic to send the invoice
-          // For now, we'll just show a success message
-          Swal.fire(
-            this.$t("Sent!"),
-            this.$t("Invoice sent successfully."),
-            "success"
-          );
-          
-          // You can add API call here to actually send the invoice
-          // Example:
-          // axios.post(`/api/invoices/${data.slug}/send`)
-          //   .then(response => {
-          //     // Handle success
-          //   })
-          //   .catch(error => {
-          //     // Handle error
-          //   });
+          try {
+            // Show loading
+            Swal.fire({
+              title: this.$t("Sending..."),
+              text: this.$t("Please wait while we send the invoice to ZATCA"),
+              allowOutsideClick: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                Swal.showLoading();
+              }
+            });
+
+            // Send invoice to ZATCA and create journal entries
+            const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
+            
+            if (response.data.success) {
+              Swal.fire(
+                this.$t("Sent Successfully!"),
+                this.$t("Invoice has been sent to ZATCA and journal entries have been created."),
+                "success"
+              );
+              // Refresh the table to update the status
+              this.getData();
+            } else {
+              Swal.fire(
+                this.$t("Failed!"),
+                response.data.message || this.$t("Failed to send invoice to ZATCA"),
+                "error"
+              );
+            }
+          } catch (error) {
+            console.error('Error sending invoice to ZATCA:', error);
+            Swal.fire(
+              this.$t("Error!"),
+              this.$t("An error occurred while sending the invoice to ZATCA"),
+              "error"
+            );
+          }
         }
       });
     },

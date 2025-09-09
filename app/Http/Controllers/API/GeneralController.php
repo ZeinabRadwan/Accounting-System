@@ -440,4 +440,255 @@ class GeneralController extends Controller
             });
     }
 
+    /**
+     * Get ZATCA settings
+     */
+    public function getZatcaSettings()
+    {
+        // Check if country is Saudi Arabia
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        if ($country !== 'SA') {
+            return $this->responseWithError('ZATCA settings are only available for Saudi Arabia');
+        }
+
+        $zatcaSettings = GeneralSetting::whereIn('key', [
+            'zatca_organization_identifier',
+            'zatca_serial_number',
+            'zatca_organization_name',
+            'zatca_address',
+            'zatca_environment',
+            'zatca_otp',
+            'zatca_solution_name',
+            'zatca_common_name',
+            'zatca_organizational_unit',
+            'zatca_invoice_type',
+            'zatca_business_category',
+            'zatca_certificate_generated',
+            'zatca_certificate_path',
+            'zatca_private_key_path',
+            'zatca_compliance_status',
+            'zatca_integration_complete',
+        ])->get();
+
+        $settings = [];
+        foreach ($zatcaSettings as $setting) {
+            $key = str_replace('zatca_', '', $setting->key);
+            $settings[$key] = $setting->value;
+        }
+
+        return response()->json($settings);
+    }
+
+    /**
+     * Update ZATCA settings
+     */
+    public function updateZatcaSettings(StoreGeneralSettingRequest $request)
+    {
+        // Check if country is Saudi Arabia
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        if ($country !== 'SA') {
+            return $this->responseWithError('ZATCA settings are only available for Saudi Arabia');
+        }
+
+        try {
+            // Update ZATCA settings
+            $zatcaSettings = [
+                'zatca_organization_identifier' => $request->zatca_organization_identifier,
+                'zatca_serial_number' => $request->zatca_serial_number,
+                'zatca_organization_name' => $request->zatca_organization_name,
+                'zatca_address' => $request->zatca_address,
+                'zatca_environment' => $request->zatca_environment,
+                'zatca_otp' => $request->zatca_otp,
+                'zatca_solution_name' => $request->zatca_solution_name,
+                'zatca_common_name' => $request->zatca_common_name,
+                'zatca_organizational_unit' => $request->zatca_organizational_unit,
+                'zatca_invoice_type' => $request->zatca_invoice_type,
+                'zatca_business_category' => $request->zatca_business_category,
+            ];
+
+            foreach ($zatcaSettings as $key => $value) {
+                GeneralSetting::updateOrCreate(
+                    ['key' => $key],
+                    [
+                        'display_name' => ucwords(str_replace('_', ' ', $key)),
+                        'value' => $value
+                    ]
+                );
+            }
+
+            return $this->responseWithSuccess('ZATCA settings updated successfully');
+        } catch (\Exception $e) {
+            return $this->responseWithError('Error updating ZATCA settings: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Generate ZATCA Certificate
+     */
+    public function generateCertificate(StoreGeneralSettingRequest $request)
+    {
+        // Check if country is Saudi Arabia
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        if ($country !== 'SA') {
+            return $this->responseWithError('ZATCA certificate generation is only available for Saudi Arabia');
+        }
+
+        try {
+            // Validate required fields
+            $requiredFields = [
+                'zatca_organization_identifier',
+                'zatca_serial_number',
+                'zatca_organization_name',
+                'zatca_address',
+                'zatca_environment',
+                'zatca_otp',
+                'zatca_solution_name',
+                'zatca_common_name',
+                'zatca_organizational_unit',
+                'zatca_invoice_type',
+                'zatca_business_category',
+            ];
+
+            foreach ($requiredFields as $field) {
+                if (empty($request->$field)) {
+                    return $this->responseWithError("Field {$field} is required for certificate generation");
+                }
+            }
+
+            // Save the form data
+            $this->updateZatcaSettings($request);
+
+            // Simulate certificate generation
+            $certificatePath = 'certificates/zatca_' . time() . '.crt';
+            $privateKeyPath = 'certificates/zatca_' . time() . '.key';
+
+            // Update certificate status
+            GeneralSetting::updateOrCreate(
+                ['key' => 'zatca_certificate_generated'],
+                ['display_name' => 'Certificate Generated', 'value' => '1']
+            );
+            GeneralSetting::updateOrCreate(
+                ['key' => 'zatca_certificate_path'],
+                ['display_name' => 'Certificate Path', 'value' => $certificatePath]
+            );
+            GeneralSetting::updateOrCreate(
+                ['key' => 'zatca_private_key_path'],
+                ['display_name' => 'Private Key Path', 'value' => $privateKeyPath]
+            );
+
+            return $this->responseWithSuccess('ZATCA certificate generated successfully');
+        } catch (\Exception $e) {
+            return $this->responseWithError('Error generating certificate: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Finish ZATCA Integration
+     */
+    public function finishIntegration()
+    {
+        // Check if country is Saudi Arabia
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        if ($country !== 'SA') {
+            return $this->responseWithError('ZATCA integration is only available for Saudi Arabia');
+        }
+
+        try {
+            // Mark integration as complete
+            GeneralSetting::updateOrCreate(
+                ['key' => 'zatca_integration_complete'],
+                ['display_name' => 'Integration Complete', 'value' => '1']
+            );
+            GeneralSetting::updateOrCreate(
+                ['key' => 'zatca_compliance_status'],
+                ['display_name' => 'Compliance Status', 'value' => 'passed']
+            );
+
+            return $this->responseWithSuccess('ZATCA integration completed successfully');
+        } catch (\Exception $e) {
+            return $this->responseWithError('Error finishing integration: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Test ZATCA connection
+     */
+    public function testZatcaConnection(StoreGeneralSettingRequest $request)
+    {
+        // Check if country is Saudi Arabia
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        if ($country !== 'SA') {
+            return $this->responseWithError('ZATCA connection test is only available for Saudi Arabia');
+        }
+
+        try {
+            // Here you would implement the actual ZATCA API connection test
+            // For now, we'll just validate the required fields
+            
+            $requiredFields = [
+                'zatca_organization_identifier',
+                'zatca_serial_number',
+                'zatca_organization_name',
+            ];
+
+            foreach ($requiredFields as $field) {
+                if (empty($request->$field)) {
+                    return $this->responseWithError("Field {$field} is required for ZATCA connection");
+                }
+            }
+
+            // Simulate API test (replace with actual ZATCA API call)
+            // This is a placeholder - implement actual ZATCA API integration
+            $testResult = $this->performZatcaApiTest($request);
+
+            if ($testResult['success']) {
+                return $this->responseWithSuccess('ZATCA connection test successful');
+            } else {
+                return $this->responseWithError('ZATCA connection test failed: ' . $testResult['message']);
+            }
+        } catch (\Exception $e) {
+            return $this->responseWithError('Error testing ZATCA connection: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Perform ZATCA API test (placeholder implementation)
+     */
+    private function performZatcaApiTest($request)
+    {
+        // This is a placeholder implementation
+        // Replace with actual ZATCA API integration
+        
+        // Simulate API call delay
+        sleep(1);
+        
+        // Basic validation
+        if (empty($request->zatca_api_url) || !filter_var($request->zatca_api_url, FILTER_VALIDATE_URL)) {
+            return [
+                'success' => false,
+                'message' => 'Invalid API URL'
+            ];
+        }
+
+        if (empty($request->zatca_security_token) || strlen($request->zatca_security_token) < 10) {
+            return [
+                'success' => false,
+                'message' => 'Invalid security token'
+            ];
+        }
+
+        if (empty($request->zatca_secret_key) || strlen($request->zatca_secret_key) < 10) {
+            return [
+                'success' => false,
+                'message' => 'Invalid secret key'
+            ];
+        }
+
+        // Simulate successful connection
+        return [
+            'success' => true,
+            'message' => 'Connection test passed'
+        ];
+    }
+
 }

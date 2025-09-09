@@ -30,9 +30,65 @@
                 <div class="form-group col-md-6">
                   <label for="code">{{ $t('Account Code') }}
                     <span class="required">*</span></label>
-                  <input id="code" v-model="form.code" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('code') }" name="code"
-                    :placeholder="$t('Enter account code')" />
+                  
+                  <!-- Code Generation Toggle -->
+                  <div class="code-generation-toggle mb-2">
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button type="button" 
+                              :class="['btn', form.code_generation === 'manual' ? 'btn-primary' : 'btn-outline-primary']"
+                              @click="setCodeGeneration('manual')">
+                        <i class="fas fa-edit mr-1"></i>
+                        {{ $t('Manual') }}
+                      </button>
+                      <button type="button" 
+                              :class="['btn', form.code_generation === 'automatic' ? 'btn-primary' : 'btn-outline-primary']"
+                              @click="setCodeGeneration('automatic')">
+                        <i class="fas fa-magic mr-1"></i>
+                        {{ $t('Regenerate') }}
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Code Input Field -->
+                  <div class="code-input-container">
+                    <input id="code" 
+                           v-model="form.code" 
+                           type="text" 
+                           class="form-control"
+                           :class="{ 'is-invalid': form.errors.has('code') }" 
+                           name="code"
+                           :placeholder="form.code_generation === 'automatic' ? $t('Code will be regenerated') : $t('Enter account code')"
+                           :readonly="form.code_generation === 'automatic'"
+                           :style="form.code_generation === 'automatic' ? 'background-color: #f8f9fa;' : ''" />
+                    
+                    <!-- Regenerate Button -->
+                    <div v-if="form.code_generation === 'automatic'" class="code-generate-btn">
+                      <button type="button" 
+                              class="btn btn-outline-secondary btn-sm"
+                              @click="generateCode"
+                              :disabled="!form.parent_id">
+                        <i class="fas fa-sync-alt mr-1"></i>
+                        {{ $t('Generate') }}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- Code Preview -->
+                  <div v-if="form.code_generation === 'automatic' && form.code" class="code-preview mt-2">
+                    <small class="text-muted">
+                      <i class="fas fa-info-circle mr-1"></i>
+                      {{ $t('Generated Code') }}: <strong>{{ form.code }}</strong>
+                    </small>
+                  </div>
+                  
+                  <!-- Warning when switching to regenerate mode -->
+                  <div v-if="form.code_generation === 'automatic' && originalCode && form.code !== originalCode" class="code-warning mt-2">
+                    <small class="text-warning">
+                      <i class="fas fa-exclamation-triangle mr-1"></i>
+                      {{ $t('Warning') }}: {{ $t('Code will be changed from') }} <strong>{{ originalCode }}</strong> {{ $t('to') }} <strong>{{ form.code }}</strong>
+                    </small>
+                  </div>
+                  
                   <has-error :form="form" field="code" />
                 </div>
               </div>
@@ -116,6 +172,7 @@ export default {
     form: new Form({
       name: '',
       code: '',
+      code_generation: 'manual', // 'automatic' or 'manual' - default to manual for edit
       type_id: null,
       parent_id: null,
       order: '',
@@ -123,6 +180,9 @@ export default {
     }),
     accountTypes: [],
     parentAccounts: [],
+    codeGenerationTimeout: null, // For debouncing
+    isGeneratingCode: false, // Prevent multiple simultaneous generations
+    originalCode: '', // Store original code for comparison
   }),
 
   async created() {
@@ -131,7 +191,79 @@ export default {
     await this.getAccount();
   },
 
+  beforeDestroy() {
+    // Clean up any pending timeouts
+    if (this.codeGenerationTimeout) {
+      clearTimeout(this.codeGenerationTimeout);
+    }
+  },
+
+  watch: {
+    // Watch for parent_id changes to auto-generate code
+    'form.parent_id': {
+      handler(newParent, oldParent) {
+        // console.log('Parent changed from', oldParent, 'to', newParent);
+        if (this.form.code_generation === 'automatic' && newParent !== oldParent) {
+          // console.log('Auto-generating code due to parent change');
+          
+          // Clear any existing timeout
+          if (this.codeGenerationTimeout) {
+            clearTimeout(this.codeGenerationTimeout);
+          }
+          
+          // Debounce the code generation
+          this.codeGenerationTimeout = setTimeout(() => {
+            this.generateCode();
+          }, 300); // 300ms delay
+        }
+      },
+      deep: true
+    }
+  },
+
   methods: {
+    // set code generation mode
+    setCodeGeneration(mode) {
+      this.form.code_generation = mode;
+      if (mode === 'automatic') {
+        // Don't clear the code, just make it readonly
+        this.generateCode();
+      } else {
+        // Switch back to manual mode - keep current code
+        // this.form.code = this.originalCode; // Keep current code
+      }
+    },
+
+    // generate automatic code based on parent-child hierarchy
+    async generateCode() {
+      if (this.form.code_generation !== 'automatic') return;
+      if (this.isGeneratingCode) {
+        // console.log('Code generation already in progress, skipping...');
+        return;
+      }
+      
+      this.isGeneratingCode = true;
+      // console.log('Generating code with parent_id:', this.form.parent_id ? this.form.parent_id.id : null);
+      
+      try {
+        const response = await this.$axios.post('/api/chart-of-accounts/generate-code', {
+          parent_id: this.form.parent_id ? this.form.parent_id.id : null
+        });
+        
+        // console.log('Code generation response:', response.data);
+        
+        if (response.data && response.data.code) {
+          // console.log('Setting code to:', response.data.code);
+          this.form.code = response.data.code;
+        }
+      } catch (error) {
+        console.error('Error generating code:', error);
+        this.$toastr.error(this.$t('Error generating code'));
+      } finally {
+        this.isGeneratingCode = false;
+      }
+    },
+
     // load account types
     async loadAccountTypes() {
       try {
@@ -163,6 +295,7 @@ export default {
         // Set form data
         this.form.name = account.name || '';
         this.form.code = account.code || '';
+        this.originalCode = account.code || ''; // Store original code
         this.form.order = account.order || '';
         
         // Handle is_active status - ensure it's a boolean/number
@@ -244,3 +377,111 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+/* Code Generation Toggle */
+.code-generation-toggle {
+  margin-bottom: 0.5rem;
+}
+
+.code-generation-toggle .btn-group {
+  width: 100%;
+}
+
+.code-generation-toggle .btn {
+  flex: 1;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+
+/* Code Input Container */
+.code-input-container {
+  position: relative;
+}
+
+.code-generate-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.code-generate-btn .btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+/* Code Preview */
+.code-preview {
+  padding: 0.5rem;
+  background: #e3f2fd;
+  border: 1px solid #bbdefb;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.code-preview strong {
+  color: #1976d2;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* Code Warning */
+.code-warning {
+  padding: 0.5rem;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.code-warning strong {
+  color: #856404;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* Form Input Readonly State */
+.form-control[readonly] {
+  background-color: #f8f9fa !important;
+  border-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .code-generate-btn {
+    position: static;
+    transform: none;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  
+  .code-generate-btn .btn {
+    width: 100%;
+  }
+  
+  .code-generation-toggle .btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Button States */
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+/* Disabled State */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+</style>

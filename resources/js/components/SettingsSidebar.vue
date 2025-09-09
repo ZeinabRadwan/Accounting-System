@@ -33,6 +33,12 @@
             {{ $t("SMS Configurations") }}
           </router-link>
         </li>
+        <li class="nav-item" v-if="isSaudiArabia">
+          <router-link :to="{ name: 'setup.zatca' }" class="nav-link thumb">
+            <i class="fas fa-file-invoice" />
+            {{ $t("ZATCA E-Invoicing") }}
+          </router-link>
+        </li>
         <li class="nav-item" v-if="developer">
           <router-link :to="{ name: 'permissions.index' }" class="nav-link thumb">
             <i class="fas fa-braille" />
@@ -98,6 +104,11 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("auth", ["user"]),
+    ...mapGetters("operations", ["appInfo"]),
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
   },
   created() {
     this.developer = this.user.roles.includes("developer");

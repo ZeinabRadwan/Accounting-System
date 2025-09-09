@@ -208,6 +208,25 @@
             </div>
           </div>
         </div>
+        
+        <!-- ZATCA Settings - Only show for Saudi Arabia -->
+        <div v-if="$can('general-settings') && isSaudiArabia" class="col-xl-4 col-sm-12 col-md-6">
+          <div class="card card-large-icons">
+            <div class="card-icon text-white bg-danger">
+              <i class="fas fa-file-invoice" />
+            </div>
+            <div class="card-body">
+              <h4>{{ $t('ZATCA Settings') }}</h4>
+              <p>
+                {{ $t('Configure ZATCA e-invoicing settings for Saudi Arabia compliance.') }}
+              </p>
+              <router-link :to="{ name: 'setup.zatca' }" class="card-cta">
+                {{ $t('ZATCA Settings') }}
+                <i class="fas fa-long-arrow-alt-right" />
+              </router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -239,6 +258,11 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters('auth', ['user']),
+    ...mapGetters('operations', ['appInfo']),
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
   },
   created() {
     this.developer = this.user.roles.includes('developer')
