@@ -179,6 +179,12 @@ Route::middleware([
         Route::get('sms-configuration', [GeneralController::class, 'getSMSforTenant']);
         Route::post('update-sms-configuration', [GeneralController::class, 'updateSMSforTenant']);
 
+        // ZATCA routes
+        Route::get('zatca-settings', [GeneralController::class, 'getZatcaSettings']);
+        Route::post('zatca-settings', [GeneralController::class, 'updateZatcaSettings']);
+        Route::post('zatca-settings/generate-certificate', [GeneralController::class, 'generateCertificate']);
+        Route::post('zatca-settings/finish-integration', [GeneralController::class, 'finishIntegration']);
+        Route::post('zatca-settings/test-connection', [GeneralController::class, 'testZatcaConnection']);
 
         // Permission routes
         Route::get('/permissions/search', [PermissionController::class, 'search']);
@@ -273,6 +279,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/due-invoices', [InvoiceController::class, 'allDueInvoices']);
         Route::post('/invoice/notify/{slug}', [InvoiceController::class, 'notifyCustomer']);
         Route::post('/invoices-pay', [InvoiceController::class, 'storeInvoicePayments']);
+        Route::post('/invoices/{slug}/send-to-zatca', [InvoiceController::class, 'sendToZatca']);
         Route::apiResource('invoices', InvoiceController::class);
 
         // Invoice return routes
@@ -282,8 +289,10 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         // Chart of Accounts routes
         Route::get('/chart-of-accounts/search', [ChartOfAccountController::class, 'search']);
         Route::get('/chart-of-accounts/tree', [ChartOfAccountController::class, 'tree']);
+        Route::get('/chart-of-accounts/{slug}/journal-entries', [ChartOfAccountController::class, 'getJournalEntries']);
         Route::get('/chart-of-accounts/all', [ChartOfAccountController::class, 'getAll']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
+        Route::post('/chart-of-accounts/generate-code', [ChartOfAccountController::class, 'generateCode']);
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
 
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
