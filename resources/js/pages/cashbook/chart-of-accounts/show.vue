@@ -1,146 +1,232 @@
 <template>
-  <div>
+  <div class="chart-account-detail">
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-    <div class="row no-print mb-2">
-      <div class="w-100 text-right float-right">
-        <div class="btn-group" v-if="allData">
-          <a :href="'/account-transactions/pdf/' + allData.slug" v-tooltip="$t('Export Table')"
-            class="btn btn-primary">
-            <i class="fas fa-download"></i> {{ $t("Download") }}
-          </a>
+    
+    <div class="container-fluid">
+      <!-- Header Actions -->
+      <div class="page-header-actions no-print" v-if="accountData">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="page-title">
+            <h2 class="page-title-text">{{ accountData.name }}</h2>
+            <p class="page-subtitle">{{ accountData.code }} • {{ accountData.types ? accountData.types.name : 'N/A' }}</p>
+          </div>
+          <div class="page-actions">
+            <button @click="printWindow" class="btn btn-outline-secondary btn-sm">
+              <i class="fas fa-print mr-1"></i>
+              {{ $t("Print") }}
+            </button>
+            <router-link :to="{ name: 'chart-of-accounts.tree' }" class="btn btn-primary btn-sm">
+              <i class="fas fa-arrow-left mr-1"></i>
+              {{ $t("Back to Tree") }}
+            </router-link>
+          </div>
+        </div>
+      </div>
 
-          <a href="#" @click="printWindow" class="btn btn-info"><i class="fas fa-print"></i> {{ $t("Print") }}</a>
-          <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-dark float-right">
-            <i class="fas fa-long-arrow-alt-left" />
-            {{ $t("Back") }}
-          </router-link>
+    <!-- Account Overview -->
+    <div class="account-overview" v-if="accountData">
+      <div class="row">
+        <!-- Account Information -->
+        <div class="col-lg-8">
+          <div class="info-card">
+            <div class="info-card-header">
+              <h5 class="info-card-title">
+                <i class="fas fa-info-circle mr-2"></i>
+                {{ $t("Account Information") }}
+              </h5>
+            </div>
+            <div class="info-card-body">
+              <div class="info-grid">
+                <div class="info-item">
+                  <label class="info-label">{{ $t("Account Name") }}</label>
+                  <span class="info-value">{{ accountData.name }}</span>
+                </div>
+                <div class="info-item">
+                  <label class="info-label">{{ $t("Account Code") }}</label>
+                  <span class="info-value code-value">{{ accountData.code }}</span>
+                </div>
+                <div class="info-item" v-if="accountData.types">
+                  <label class="info-label">{{ $t("Account Type") }}</label>
+                  <span class="info-value type-value">{{ accountData.types.name }}</span>
+                </div>
+                <div class="info-item" v-if="accountData.parent">
+                  <label class="info-label">{{ $t("Parent Account") }}</label>
+                  <span class="info-value">{{ accountData.parent.name }}</span>
+                </div>
+                <div class="info-item">
+                  <label class="info-label">{{ $t("Status") }}</label>
+                  <span class="status-badge" :class="accountData.is_active ? 'status-active' : 'status-inactive'">
+                    {{ accountData.is_active ? $t('Active') : $t('Inactive') }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Balance Summary -->
+        <div class="col-lg-4">
+          <div class="balance-card">
+            <div class="balance-card-header">
+              <h5 class="balance-card-title">
+                <i class="fas fa-calculator mr-2"></i>
+                {{ $t("Account Balance") }}
+              </h5>
+            </div>
+            <div class="balance-card-body">
+              <div class="balance-summary">
+                <div class="balance-row">
+                  <span class="balance-label">{{ $t("Total Debits") }}</span>
+                  <span class="balance-value debit-value">
+                    {{ accountData.formatted_debit_amount || '0.00' }}
+                  </span>
+                </div>
+                <div class="balance-row">
+                  <span class="balance-label">{{ $t("Total Credits") }}</span>
+                  <span class="balance-value credit-value">
+                    {{ accountData.formatted_credit_amount || '0.00' }}
+                  </span>
+                </div>
+                <div class="balance-divider"></div>
+                <div class="balance-row balance-total">
+                  <span class="balance-label">{{ $t("Current Balance") }}</span>
+                  <span class="balance-value total-value" 
+                        :class="accountData.balance_type === 'Debit' ? 'debit-total' : 'credit-total'">
+                    {{ accountData.formatted_balance_with_type || '0.00 Debit' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="invoice p-3 mb-3 w-100">
-        <!-- info row -->
-        <div class="row invoice-info">
-          <div class="col-sm-4 invoice-col">
-            <CompanyInfo />
-          </div>
-          <!-- /.col -->
-          <div v-if="allData" class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right">
-            <h5 v-if="allData.date">
-              {{ $t("Account Details") }}
-            </h5>
-            <strong>{{ $t("Bank Name") }}:</strong>
-            {{ allData.bankName }}<br />
-            <span v-if="allData.branchName"><strong>{{ $t("Branch Name") }}:</strong>
-              {{ allData.branchName }}<br /></span>
-            <span v-if="allData.accountNumber"><strong>{{ $t("Account Number") }}:</strong>
-              {{ allData.accountNumber }}<br /></span>
-            <span v-if="allData.accountNumber"><strong>{{ $t("Created At") }}:</strong>
-              {{ allData.date | moment("Do MMM, YYYY") }}<br /></span>
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
 
+    <!-- Journal Entries Section -->
+    <div class="journal-entries-section" v-if="accountData">
+      <div class="section-header">
+        <div class="section-title">
+          <h3 class="section-title-text">
+            <i class="fas fa-book mr-2"></i>
+            {{ $t("Journal Entries") }}
+          </h3>
+          <p class="section-subtitle">{{ $t("Transaction history for this account") }}</p>
+        </div>
+      </div>
+
+      <!-- Search and Filters -->
+      <div class="filters-section">
         <div class="row">
-          <div v-if="pagination" class="col-lg-3 col-6">
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h4>
-                  <span>{{ totalCount }}</span>
-                </h4>
-                <p>{{ $t("Total Transactions") }}</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-coins"></i>
-              </div>
+          <div class="col-md-8">
+            <div class="search-box">
+              <i class="fas fa-search search-icon"></i>
+              <input 
+                v-model="query" 
+                type="text" 
+                class="search-input" 
+                :placeholder="$t('Search by reference or description...')"
+                @input="searchJournalEntries"
+              />
             </div>
           </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h4>{{ allData.totalCredits | withCurrency }}</h4>
-                <p>{{ $t("Credit Amount") }}</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-sign-in-alt"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-secondary">
-              <div class="inner">
-                <h4>{{ allData.totalDebits | withCurrency }}</h4>
-                <p>{{ $t("Debit Amount") }}</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-sign-out-alt"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-primary">
-              <div class="inner">
-                <h4>{{ allData.availableBalance | withCurrency }}</h4>
-                <p>{{ $t("Available Balance") }}</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-piggy-bank"></i>
-              </div>
+          <div class="col-md-4">
+            <div class="per-page-selector">
+              <label class="per-page-label">{{ $t("Show") }}</label>
+              <select v-model="perPage" @change="updatePerPager" class="per-page-select">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span class="per-page-text">{{ $t("entries") }}</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="row">
-          <table-loading v-show="loading" />
-          <div class="table-responsive table-custom">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Info") }}</th>
-                  <th>{{ $t("Date") }}</th>
-                  <th>{{ $t("Credit") }}</th>
-                  <th>{{ $t("Debit") }}</th>
-                  <th>{{ $t("Balance") }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-show="transactions.length" v-for="(data, i) in transactions" :key="i">
-                  <td>{{ ++i }}</td>
-                  <td>{{ data.reason }}</td>
-                  <td>
-                    <span v-if="data.transactionDate">{{
-                      data.transactionDate | moment("Do MMM, YYYY")
-                    }}</span>
-                  </td>
-                  <td>
-                    <span v-if="data.type === 1">{{
-                      data.amount | withCurrency
-                    }}</span>
-                    <span v-else>{{ 0 | withCurrency }}</span>
-                  </td>
-
-                  <td>
-                    <span v-if="data.type === 1">{{ 0 | withCurrency }}</span>
-                    <span v-else>{{ data.amount | withCurrency }}</span>
-                  </td>
-                  <td>{{ data.balance | withCurrency }}</td>
-                </tr>
-                <tr v-show="!loading && !transactions.length">
-                  <td colspan="8">
-                    <EmptyTable />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <!-- Journal Entries Table -->
+      <div class="table-container" v-if="journalEntries.length > 0">
+        <div class="table-wrapper">
+          <table class="journal-table">
+            <thead>
+              <tr>
+                <th class="date-col">{{ $t("Date") }}</th>
+                <th class="reference-col">{{ $t("Reference") }}</th>
+                <th class="description-col">{{ $t("Description") }}</th>
+                <th class="amount-col">{{ $t("Debit") }}</th>
+                <th class="amount-col">{{ $t("Credit") }}</th>
+                <th class="balance-col">{{ $t("Balance") }}</th>
+                <th class="status-col">{{ $t("Status") }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="entry in journalEntries" :key="entry.id" class="journal-row">
+                <td class="date-cell">
+                  <span class="date-text">{{ entry.entry_date | moment("MMM DD, YYYY") }}</span>
+                </td>
+                <td class="reference-cell">
+                  <span class="reference-badge">{{ entry.reference }}</span>
+                </td>
+                <td class="description-cell">
+                  <span class="description-text">{{ entry.description }}</span>
+                </td>
+                <td class="amount-cell">
+                  <span class="amount-value debit-amount" v-if="entry.debit_amount > 0">
+                    {{ entry.formatted_debit_amount }}
+                  </span>
+                  <span class="amount-value empty-amount" v-else>-</span>
+                </td>
+                <td class="amount-cell">
+                  <span class="amount-value credit-amount" v-if="entry.credit_amount > 0">
+                    {{ entry.formatted_credit_amount }}
+                  </span>
+                  <span class="amount-value empty-amount" v-else>-</span>
+                </td>
+                <td class="balance-cell">
+                  <span class="balance-badge" 
+                        :class="entry.balance_type === 'Debit' ? 'balance-debit' : 'balance-credit'">
+                    {{ entry.formatted_balance_with_type || '0.00 Debit' }}
+                  </span>
+                </td>
+                <td class="status-cell">
+                  <span class="status-badge" 
+                        :class="entry.status === 'posted' ? 'status-posted' : 'status-draft'">
+                    {{ entry.formatted_status }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div v-show="allData.length" class="no-print callout callout-danger mt-4 w-100">
-          <h5>{{ $t("No transaction is available yet!") }}</h5>
-          <p>{{ $t("You haven't made any transactions using this account. After doing the transaction you will see the list here.") }}</p>
+      </div>
+
+      <!-- No Journal Entries Message -->
+      <div v-else class="empty-state">
+        <div class="empty-state-content">
+          <div class="empty-state-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <h4 class="empty-state-title">{{ $t("No Journal Entries") }}</h4>
+          <p class="empty-state-text">{{ $t("This account doesn't have any journal entries yet.") }}</p>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div v-if="pagination && pagination.last_page > 1" class="pagination-container">
+        <pagination 
+          :pagination="pagination" 
+          :offset="5"
+          @paginate="paginate" 
+        />
+      </div>
+    </div>
+
+      <!-- Loading State -->
+      <div v-if="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">{{ $t("Loading...") }}</span>
         </div>
       </div>
     </div>
@@ -150,119 +236,709 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import moment from "moment";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Account Transactions") };
+    return { title: this.$t("Chart of Account Details") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Account Transactions",
+    breadcrumbsCurrent: "Chart of Account Details",
     breadcrumbs: [
       {
         name: "Dashboard",
         url: "home",
       },
       {
-        name: "Accounts",
-        url: "accounts.index",
+        name: "Chart of Accounts",
+        url: "chart-of-accounts.tree",
       },
       {
-        name: "Transactions",
+        name: "Account Details",
         url: "",
       },
     ],
     query: "",
-    allData: "",
-    transactions: [],
+    accountData: null,
+    journalEntries: [],
     perPage: 10,
     totalCount: 0,
+    loading: false,
   }),
 
   // Map Getters
   computed: {
-    ...mapGetters("operations", ["items", "loading", "pagination"]),
+    ...mapGetters("operations", ["pagination"]),
   },
+  
   watch: {
     // watch search data
     query: function (newQ) {
       if (newQ === "") {
-        this.getTransactions();
+        this.getJournalEntries();
       } else {
-        this.searchTransactions();
+        this.searchJournalEntries();
       }
     },
   },
 
   created() {
     this.getAccount();
-    this.getTransactions();
+    this.getJournalEntries();
   },
+  
   methods: {
     // update per page count
     updatePerPager() {
       this.pagination.current_page = 1;
-      this.query === "" ? this.getTransactions() : this.searchTransactions();
+      this.query === "" ? this.getJournalEntries() : this.searchJournalEntries();
     },
 
-    // get the account
+    // get the chart of account
     async getAccount() {
-      const { data } = await axios.get(
-        window.location.origin + "/api/accounts/" + this.$route.params.slug
-      );
-      this.allData = data.data;
+      try {
+        this.loading = true;
+        const { data } = await axios.get(
+          `/api/chart-of-accounts/${this.$route.params.slug}`
+        );
+        this.accountData = data.data;
+      } catch (error) {
+        console.error('Error loading account:', error);
+        this.$toastr.error(this.$t("Error loading account details"));
+      } finally {
+        this.loading = false;
+      }
     },
 
-    // get the supplier lc
-    async getTransactions() {
-      this.$store.state.operations.loading = true;
-      const { data } = await axios.get(
-        window.location.origin +
-        "/api/accounts/transactions/" +
-        this.$route.params.slug
-      );
-      let totalBalance = 0;
-      this.transactions = data.data.map((transaction) => {
-        totalBalance =
-          transaction.type == 0
-            ? totalBalance - transaction.amount
-            : totalBalance + transaction.amount; // Debit subtracts, Credit adds
-        return { ...transaction, balance: totalBalance };
-      });
-      this.totalCount = this.transactions.length;
-      this.$store.state.operations.loading = false;
+    // get journal entries for this account
+    async getJournalEntries() {
+      try {
+        this.loading = true;
+        const { data } = await axios.get(
+          `/api/chart-of-accounts/${this.$route.params.slug}/journal-entries`,
+          {
+            params: {
+              per_page: this.perPage,
+              page: this.pagination?.current_page || 1
+          }
+        });
+        this.journalEntries = data.data || [];
+        this.totalCount = data.total || 0;
+      } catch (error) {
+        console.error('Error loading journal entries:', error);
+        this.$toastr.error(this.$t("Error loading journal entries"));
+      } finally {
+        this.loading = false;
+      }
     },
 
-    // search lc
-    async searchTransactions() {
-      this.$store.state.operations.loading = true;
-      await this.$store.dispatch("operations/searchData", {
-        term: this.query,
-        path:
-          "/api/accounts/transactions/" + this.$route.params.slug + "/search",
-        currentPage: this.pagination.current_page + "&perPage=" + this.perPage,
-      });
+    // search journal entries
+    async searchJournalEntries() {
+      try {
+        this.loading = true;
+        const { data } = await axios.get(
+          `/api/chart-of-accounts/${this.$route.params.slug}/journal-entries`,
+          {
+            params: {
+              search: this.query,
+              per_page: this.perPage,
+              page: this.pagination?.current_page || 1
+            }
+          }
+        );
+        this.journalEntries = data.data || [];
+        this.totalCount = data.total || 0;
+      } catch (error) {
+        console.error('Error searching journal entries:', error);
+        this.$toastr.error(this.$t("Error searching journal entries"));
+      } finally {
+        this.loading = false;
+      }
     },
 
     // pagination
-    async paginate() {
-      this.query === "" ? this.getTransactions() : this.searchTransactions();
+    paginate(page) {
+      this.pagination.current_page = page;
+      this.query === "" ? this.getJournalEntries() : this.searchJournalEntries();
     },
 
-    // reset purchase pagination
-    async resetPagination() {
-      this.pagination.current_page = 1;
-    },
-
-    // reload purchases after search
-    async reload() {
-      this.query = "";
-    },
-
-    // print
+    // print window
     printWindow() {
       window.print();
     },
   },
 };
 </script>
+
+<style scoped>
+/* Main Container */
+.chart-account-detail {
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* Page Header */
+.page-header-actions {
+  background: #fff;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem;
+  margin: 0 0 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-title-text {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0.25rem 0 0 0;
+  font-weight: 400;
+}
+
+.page-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* Account Overview */
+.account-overview {
+  margin-bottom: 2rem;
+}
+
+/* Info Card */
+.info-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+}
+
+.info-card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 1.5rem;
+}
+
+.info-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.info-card-body {
+  padding: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.code-value {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.type-value {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-block;
+  width: fit-content;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-block;
+  width: fit-content;
+}
+
+.status-active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Balance Card */
+.balance-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.balance-card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 1.5rem;
+}
+
+.balance-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.balance-card-body {
+  padding: 1.5rem;
+}
+
+.balance-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.balance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+}
+
+.balance-row:not(:last-child) {
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.balance-total {
+  background: #f8f9fa;
+  margin: 0 -1.5rem;
+  padding: 1rem 1.5rem;
+  border-top: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+.balance-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.balance-value {
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.debit-value {
+  color: #28a745;
+}
+
+.credit-value {
+  color: #dc3545;
+}
+
+.debit-total {
+  color: #28a745;
+  font-size: 1.1rem;
+}
+
+.credit-total {
+  color: #dc3545;
+  font-size: 1.1rem;
+}
+
+.balance-divider {
+  height: 1px;
+  background: #e9ecef;
+  margin: 0.5rem 0;
+}
+
+/* Journal Entries Section */
+.journal-entries-section {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+}
+
+.section-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem;
+}
+
+.section-title-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #495057;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.section-subtitle {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0 0;
+}
+
+/* Filters Section */
+.filters-section {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  background: #fff;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  color: #6c757d;
+  font-size: 0.875rem;
+  z-index: 2;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+
+.per-page-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.per-page-label {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.per-page-select {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background: #fff;
+}
+
+.per-page-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+/* Table Container */
+.table-container {
+  overflow-x: auto;
+}
+
+.table-wrapper {
+  min-width: 100%;
+}
+
+.journal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.journal-table thead {
+  background: #f8f9fa;
+}
+
+.journal-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #e9ecef;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.journal-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #f1f3f4;
+  vertical-align: middle;
+}
+
+.journal-row:hover {
+  background: #f8f9fa;
+}
+
+/* Table Columns */
+.date-col { width: 120px; }
+.reference-col { width: 180px; }
+.description-col { min-width: 250px; }
+.amount-col { width: 130px; text-align: right; }
+.balance-col { width: 180px; text-align: center; }
+.status-col { width: 120px; text-align: center; }
+
+/* Cell Content */
+.date-text {
+  font-size: 0.875rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+.reference-badge {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.description-text {
+  color: #495057;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.amount-value {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.debit-amount {
+  color: #28a745;
+}
+
+.credit-amount {
+  color: #dc3545;
+}
+
+.empty-amount {
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.balance-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.balance-debit {
+  background: #d4edda;
+  color: #155724;
+}
+
+.balance-credit {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-posted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-draft {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.empty-state-content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.75rem;
+}
+
+.empty-state-text {
+  color: #6c757d;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Pagination */
+.pagination-container {
+  padding: 1.5rem;
+  border-top: 1px solid #e9ecef;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: center;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header-actions {
+    padding: 1rem;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .page-title-text {
+    font-size: 1.5rem;
+  }
+  
+  .page-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+    margin-top: 1rem;
+  }
+  
+  .d-flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .filters-section .row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .per-page-selector {
+    justify-content: flex-start;
+  }
+  
+  .journal-table {
+    font-size: 0.8rem;
+  }
+  
+  .journal-table th,
+  .journal-table td {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .date-col { width: 100px; }
+  .reference-col { width: 150px; }
+  .description-col { min-width: 180px; }
+  .amount-col { width: 110px; }
+  .balance-col { width: 150px; }
+  .status-col { width: 100px; }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .chart-account-detail {
+    background: #fff !important;
+  }
+  
+  .info-card,
+  .balance-card,
+  .journal-entries-section {
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+  }
+  
+  .journal-table {
+    font-size: 0.8rem;
+  }
+  
+  .journal-table th {
+    background: #f0f0f0 !important;
+  }
+}
+</style>

@@ -111,6 +111,14 @@ export default [
     meta: { permissions: ["general-settings"] }
   },
 
+  // ZATCA settings route
+  {
+    path: "/setup/zatca",
+    name: "setup.zatca",
+    component: page("setup/zatca.vue"),
+    meta: { permissions: ["general-settings"] }
+  },
+
   // Permissions routes
   {
     path: '/setup/permissions',

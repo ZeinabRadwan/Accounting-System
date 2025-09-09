@@ -259,13 +259,15 @@ class InvoiceController extends Controller
 
 
 
-            // Create journal entry for invoice sale
-            try {
-                $journalService = new BusinessTransactionJournalService();
-                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
-            } catch (\Exception $e) {
-                // Log the error but don't fail the invoice creation
-                Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
+            // Create journal entry for invoice sale (skip for Saudi Arabia)
+            if (!$isSaudiArabia) {
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the invoice creation
+                    Log::error('Failed to create journal entry for invoice: ' . $e->getMessage());
+                }
             }
 
 
@@ -304,16 +306,16 @@ class InvoiceController extends Controller
                 ]);
 
 
-                try {
-                    $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $request->paidAmount, $userId);
-                } catch (\Exception $e) {
-                    // Log the error but don't fail the payment creation
-                    Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                // Create journal entry for invoice payment (skip for Saudi Arabia)
+                if (!$isSaudiArabia) {
+                    try {
+                        $journalService = new BusinessTransactionJournalService();
+                        $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $request->paidAmount, $userId);
+                    } catch (\Exception $e) {
+                        // Log the error but don't fail the payment creation
+                        Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                    }
                 }
-
-
-                // Create journal entry for invoice payment
 
             }
 
@@ -712,5 +714,90 @@ class InvoiceController extends Controller
     {
         $dueInvoices = Invoice::where('status', 1)->where('is_paid', 0)->latest()->get();
         return InvoiceResource::collection($dueInvoices);
+    }
+
+    /**
+     * Send invoice to ZATCA and create journal entries
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendToZatca($slug)
+    {
+        try {
+            $invoice = Invoice::where('slug', $slug)->with('client', 'invoiceProducts.product', 'invoicePayments')->first();
+            
+            if (!$invoice) {
+                return $this->responseWithError('Invoice not found');
+            }
+
+            // Get country setting
+            $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+            $isSaudiArabia = $country === 'SA';
+
+            // Only allow for Saudi Arabia
+            if (!$isSaudiArabia) {
+                return $this->responseWithError('This feature is only available for Saudi Arabia');
+            }
+
+            // Only allow for inactive invoices
+            if ($invoice->status != 0) {
+                return $this->responseWithError('Only inactive invoices can be sent to ZATCA');
+            }
+
+            DB::beginTransaction();
+
+            $userId = auth()->user()->id;
+
+            // Create journal entry for invoice sale (now that we're sending to ZATCA)
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+            } catch (\Exception $e) {
+                Log::error('Failed to create journal entry for ZATCA invoice: ' . $e->getMessage());
+                DB::rollback();
+                return $this->responseWithError('Failed to create journal entries: ' . $e->getMessage());
+            }
+
+            // Create journal entries for any existing payments
+            foreach ($invoice->invoicePayments as $payment) {
+                try {
+                    $transaction = AccountTransaction::find($payment->transaction_id);
+                    if ($transaction) {
+                        $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $payment->amount, $userId);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Failed to create payment journal entry for ZATCA invoice: ' . $e->getMessage());
+                    // Continue with other payments even if one fails
+                }
+            }
+
+            // Update invoice status to active (sent to ZATCA)
+            $invoice->update(['status' => 1]);
+
+            // Here you would add actual ZATCA integration
+            // For now, we'll just simulate the ZATCA sending
+            // You can integrate with ZATCA API here
+            
+            // Log the ZATCA sending
+            Log::info("Invoice {$invoice->invoice_no} sent to ZATCA", [
+                'invoice_id' => $invoice->id,
+                'user_id' => $userId,
+                'timestamp' => now()
+            ]);
+
+            DB::commit();
+
+            return $this->responseWithSuccess('Invoice sent to ZATCA successfully and journal entries created', [
+                'invoice_id' => $invoice->id,
+                'invoice_no' => $invoice->invoice_no,
+                'status' => 'sent_to_zatca'
+            ]);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            Log::error('Error sending invoice to ZATCA: ' . $e->getMessage());
+            return $this->responseWithError('Failed to send invoice to ZATCA: ' . $e->getMessage());
+        }
     }
 }

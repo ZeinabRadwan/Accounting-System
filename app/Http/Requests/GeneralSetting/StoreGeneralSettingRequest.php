@@ -23,7 +23,7 @@ class StoreGeneralSettingRequest extends BaseRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'companyName' => 'required|string|max:30',
             'companyTagline' => 'required|string|max:255|min:3',
             'emailAddress' => 'required|string|email|max:80',
@@ -52,5 +52,24 @@ class StoreGeneralSettingRequest extends BaseRequest
             'defaultAccount' => 'required',
             'defaultVatRate' => 'required'
         ];
+
+        // Add ZATCA validation rules if the request contains ZATCA fields
+        if ($this->has('zatca_environment')) {
+            $rules = array_merge($rules, [
+                'zatca_organization_identifier' => 'required|string|size:15|regex:/^3\d{13}3$/',
+                'zatca_serial_number' => 'required|string|max:255',
+                'zatca_organization_name' => 'required|string|max:255',
+                'zatca_address' => 'required|string|max:500',
+                'zatca_environment' => 'required|in:developer,production',
+                'zatca_otp' => 'required|string|min:6|max:10',
+                'zatca_solution_name' => 'required|string|max:255',
+                'zatca_common_name' => 'required|string|max:255',
+                'zatca_organizational_unit' => 'required|string|max:255',
+                'zatca_invoice_type' => 'required|in:standard,simplified,both',
+                'zatca_business_category' => 'required|string|max:255',
+            ]);
+        }
+
+        return $rules;
     }
 }
