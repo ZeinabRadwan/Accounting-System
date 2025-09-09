@@ -14,6 +14,23 @@ class TenantPermissionSeeder extends Seeder
      */
     public function run()
     {
+        // Check if purchase order permissions already exist
+        $purchaseOrderPermissions = [
+            'purchase-order-create',
+            'purchase-order-list',
+            'purchase-order-edit',
+            'purchase-order-view',
+            'purchase-order-delete'
+        ];
+        
+        $existingPermissions = DB::table('permissions')->whereIn('slug', $purchaseOrderPermissions)->pluck('slug')->toArray();
+        $missingPermissions = array_diff($purchaseOrderPermissions, $existingPermissions);
+        
+        // If all purchase order permissions exist, skip
+        if (empty($missingPermissions)) {
+            return;
+        }
+        
         // check if table is empty
         if (DB::table('permissions')->count() == 0) {
             DB::table('permissions')->insert([
@@ -113,6 +130,33 @@ class TenantPermissionSeeder extends Seeder
                     'name' => 'Delete',
                     'guard_name' => 'Purchase Management',
                     'slug' => 'purchase-delete',
+                ],
+
+                // purchase order permission
+                [
+                    'name' => 'Create',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-create',
+                ],
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-list',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-edit',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-view',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-delete',
                 ],
 
                 // purchase return permission
@@ -1050,6 +1094,44 @@ class TenantPermissionSeeder extends Seeder
                     'slug' => 'journal-entry-post',
                 ],
             ]);
+        } else {
+            // Insert only missing purchase order permissions
+            $purchaseOrderPermissionsData = [
+                [
+                    'name' => 'Create',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-create',
+                ],
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-list',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-edit',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-view',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Purchase Order Management',
+                    'slug' => 'purchase-order-delete',
+                ],
+            ];
+            
+            // Filter to only include missing permissions
+            $permissionsToInsert = array_filter($purchaseOrderPermissionsData, function($permission) use ($missingPermissions) {
+                return in_array($permission['slug'], $missingPermissions);
+            });
+            
+            if (!empty($permissionsToInsert)) {
+                DB::table('permissions')->insert($permissionsToInsert);
+            }
         }
     }
 }

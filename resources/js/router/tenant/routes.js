@@ -373,6 +373,32 @@ export default [
     meta: {permissions: ['purchase-edit']},
   },
 
+  // Purchase Order routes
+  {
+    path: '/purchase-order',
+    name: 'purchase-order.index',
+    component: page('purchase-order/index.vue'),
+    meta: {permissions: ['purchase-order-list']},
+  },
+  {
+    path: '/purchase-order/create',
+    name: 'purchase-order.create',
+    component: page('purchase-order/create.vue'),
+    meta: {permissions: ['purchase-order-create']},
+  },
+  {
+    path: '/purchase-order/:slug',
+    name: 'purchase-order.show',
+    component: page('purchase-order/show.vue'),
+    meta: {permissions: ['purchase-order-view']},
+  },
+  {
+    path: '/purchase-order/edit/:slug',
+    name: 'purchase-order.edit',
+    component: page('purchase-order/edit.vue'),
+    meta: {permissions: ['purchase-order-edit']},
+  },
+
   // Purchase return routes
   {
     path: '/purchase-returns',

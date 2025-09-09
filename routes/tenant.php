@@ -31,6 +31,7 @@ use App\Http\Controllers\TableExportController;
 use App\Http\Controllers\API\CurrencyController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\PurchaseController;
+use App\Http\Controllers\API\PurchaseOrderController;
 use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\PDFGeneratorController;
 use App\Http\Controllers\SubscriptionController;
@@ -256,6 +257,10 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::post('/purchase/notify/{slug}', [PurchaseController::class, 'notifySupplier']);
         Route::post('/purchase-pay', [PurchaseController::class, 'storePurchasePayment']);
         Route::apiResource('purchases', PurchaseController::class);
+
+        // Purchase Order routes
+        Route::get('/purchase-order/search', [PurchaseOrderController::class, 'search']);
+        Route::apiResource('purchase-order', PurchaseOrderController::class);
 
         // Purchase return routes
         Route::post('/supplier/filter-purchases', [SupplierController::class, 'filterSupplierPurchases']);

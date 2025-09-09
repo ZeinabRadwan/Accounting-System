@@ -158,7 +158,7 @@
             $can('purchase-return-view') ||
             $can('purchase-return-delete')
             " class="nav-item has-treeview"
-            :class="menuOpen('purchases') || menuOpen('purchaseReturns') ? 'menu-is-opening menu-open' : ''">
+            :class="menuOpen('purchases') || menuOpen('purchaseReturns') || menuOpen('purchase-order') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-basket" />
               <p>
@@ -166,10 +166,21 @@
                 <i class="right fas fa-angle-left" />
               </p>
             </a>
-            <ul class="nav nav-treeview" :style="menuOpen('purchases') || menuOpen('purchaseReturns')
+            <ul class="nav nav-treeview" :style="menuOpen('purchases') || menuOpen('purchaseReturns') || menuOpen('purchase-order')
               ? 'display: block'
               : 'display: none'
               ">
+              <li v-if="$can('purchase-order-list') ||
+                $can('purchase-order-create') ||
+                $can('purchase-order-edit') ||
+                $can('purchase-order-view') ||
+                $can('purchase-order-delete')
+                " class="nav-item">
+                <router-link :to="{ name: 'purchase-order.index' }" class="nav-link">
+                  <i class="fas fa-file-invoice nav-icon" />
+                  <p>{{ $t('Purchase Orders') }}</p>
+                </router-link>
+              </li>
               <li v-if="$can('purchase-list') ||
                 $can('purchase-create') ||
                 $can('purchase-edit') ||
