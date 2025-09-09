@@ -93,5 +93,7 @@ composer.phar
 public/hot
 /public/images/vendor
 /public/images
-public/mix-manifest.json
+
+# Ignore build artifacts
 /public/fonts
+/public/mix-manifest.json
