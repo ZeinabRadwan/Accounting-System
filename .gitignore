@@ -97,3 +97,5 @@ public/hot
 # Ignore build artifacts
 /public/fonts
 /public/mix-manifest.json
+/public/images
+/public/fonts
