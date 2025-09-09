@@ -91,3 +91,5 @@ composer.phar
 !/public/js/.gitkeep
 !/public/css/.gitkeep
 public/hot
+/public/images/vendor
+/public/images
