@@ -29,7 +29,7 @@ class TenantDomainFindController extends Controller
         $domain = $request->domain;
 
         // Find tenant by subdomain
-        $tenant = Tenant::whereHas('domains', function($query) use ($domain) {
+        $tenant = Tenant::whereHas('domains', function ($query) use ($domain) {
             $query->where('domain', $domain);
         })->first();
 
@@ -57,18 +57,26 @@ class TenantDomainFindController extends Controller
         // Create a special login URL for the tenant domain with encrypted credentials
         $tenantDomain = $domain . '.' . $host;
         $protocol = request()->secure() ? 'https' : 'http';
-        
+
         // Encrypt the credentials for secure transmission
         $encryptedEmail = encrypt($request->input('email'));
         $encryptedPassword = encrypt($request->input('password'));
-        
-        $loginUrl = $protocol . '://' . $tenantDomain . '/cross-domain-login?' . 
-                   'email=' . urlencode($encryptedEmail) . 
-                   '&password=' . urlencode($encryptedPassword);
+
+        $loginUrl = $protocol . '://' . $tenantDomain . '/cross-domain-login?' .
+            'email=' . urlencode($encryptedEmail) .
+            '&password=' . urlencode($encryptedPassword);
+
+
+        $token = (string) $user->createToken(Str::random(10))->plainTextToken;
+
+
 
         return $this->responseWithSuccess('Login successful', [
             'domain' => $tenantDomain,
             'login_url' => $loginUrl,
+            'token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => null,
         ]);
     }
 }
