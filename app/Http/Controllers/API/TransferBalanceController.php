@@ -58,6 +58,32 @@ class TransferBalanceController extends Controller
             // get logged in user id
             $userId = auth()->user()->id;
 
+            // Validate that both bank accounts are connected to chart of accounts
+            $debitAccount = \App\Models\Account::find($request->fromAccount['id']);
+            $creditAccount = \App\Models\Account::find($request->toAccount['id']);
+            
+            if (!$debitAccount) {
+                DB::rollback();
+                return $this->responseWithError('Debit bank account not found.');
+            }
+            
+            if (!$creditAccount) {
+                DB::rollback();
+                return $this->responseWithError('Credit bank account not found.');
+            }
+
+            // Check if debit account is connected to chart of accounts
+            if (!$debitAccount->isChartOfAccountConnected()) {
+                DB::rollback();
+                return $this->responseWithError($debitAccount->getChartOfAccountValidationMessage());
+            }
+
+            // Check if credit account is connected to chart of accounts
+            if (!$creditAccount->isChartOfAccountConnected()) {
+                DB::rollback();
+                return $this->responseWithError($creditAccount->getChartOfAccountValidationMessage());
+            }
+
             // store debit transaction
             $debitTransaction = $this->transactionService->createTransactionFromBalanceTransfer($request, $userId, 0);
 
@@ -80,13 +106,10 @@ class TransferBalanceController extends Controller
 try {
     $this->journalService->createBalanceTransferJournal($balanceTansfer, $userId);
 } catch (Exception $journalException) {
-    // Log the journal creation error but don't fail the entire transaction
-    // This allows balance transfers to work even if journal entries fail
-    Log::error('Failed to create journal entry for balance transfer: ' . $journalException->getMessage(), [
-        'balance_transfer_id' => $balanceTansfer->id,
-        'user_id' => $userId,
-        'error' => $journalException->getMessage()
-    ]);
+    // If journal creation fails, we should also fail the transfer creation
+    // since the user expects both to be created together
+    DB::rollback();
+    return $this->responseWithError('Failed to create journal entry: ' . $journalException->getMessage());
 }
 
             // add activity log

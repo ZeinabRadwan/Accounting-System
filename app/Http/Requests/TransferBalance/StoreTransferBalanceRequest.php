@@ -30,6 +30,7 @@ class StoreTransferBalanceRequest extends BaseRequest
             'amount' => 'required|numeric|min:1|max:'.$this->availableBalance,
             'date' => 'nullable|date_format:Y-m-d',
             'note' => 'nullable|string|max:255',
+            'status' => 'required|in:0,1',
         ];
     }
 }

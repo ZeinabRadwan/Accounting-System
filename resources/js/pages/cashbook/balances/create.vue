@@ -20,18 +20,39 @@
             <div class="card-body">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
-                  <label for="account">{{ $t("Account") }}
+                  <label for="account">{{ $t("Bank Account") }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="items" label="label"
-                    :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')">
+                    :class="{ 'is-invalid': form.errors.has('account') || bankAccountError }" name="account"
+                    :placeholder="$t('Select a bank account')">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
                     </template>
                   </v-select>
                   <has-error :form="form" field="account" />
+                  <div v-if="bankAccountError" class="invalid-feedback d-block">
+                    {{ bankAccountError }}
+                  </div>
                 </div>
+                <div class="form-group col-md-6" v-if="chartOfAccounts && chartOfAccounts.length > 0">
+                  <label for="secondAccount">{{ $t("Account") }}
+                    <span class="required">*</span></label>
+                  <v-select v-model="form.secondAccount" :options="chartOfAccounts" label="name"
+                    :class="{ 'is-invalid': form.errors.has('secondAccount') }" name="secondAccount"
+                    :placeholder="$t('Select account for journal entry')">
+                    <template slot="option" slot-scope="option">
+                      <div>
+                        <strong>{{ option.name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ option.code }} - {{ option.type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="secondAccount" />
+                </div>
+              </div>
+              <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="type">{{ $t("Type") }}</label>
                   <select id="type" v-model="form.type" class="form-control"
@@ -44,24 +65,6 @@
                     </option>
                   </select>
                   <has-error :form="form" field="type" />
-                </div>
-              </div>
-              <div class="row" v-if="chartOfAccounts && chartOfAccounts.length > 0">
-                <div class="form-group col-md-12">
-                  <label for="secondAccount">{{ $t("Second Account") }}
-                    <span class="required">*</span></label>
-                  <v-select v-model="form.secondAccount" :options="chartOfAccounts" label="name"
-                    :class="{ 'is-invalid': form.errors.has('secondAccount') }" name="secondAccount"
-                    :placeholder="$t('Select second account for journal entry')">
-                    <template slot="option" slot-scope="option">
-                      <div>
-                        <strong>{{ option.name }}</strong>
-                        <br>
-                        <small class="text-muted">{{ option.code }} - {{ option.type }}</small>
-                      </div>
-                    </template>
-                  </v-select>
-                  <has-error :form="form" field="secondAccount" />
                 </div>
               </div>
               <div class="row" v-if="form.account">
@@ -165,9 +168,16 @@ export default {
     }),
     loading: true,
     chartOfAccounts: [],
+    bankAccountError: null,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+  },
+  watch: {
+    'form.account'() {
+      // Clear bank account error when user changes the account
+      this.bankAccountError = null;
+    },
   },
   created() {
     this.getAccounts();
@@ -225,8 +235,21 @@ export default {
           });
           this.$router.push({ name: "balances.index" });
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        .catch((error) => {
+          // Display the specific error message from the server
+          const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+          
+          // Check if it's a bank account validation error
+          if (errorMessage.includes("not connected to any Chart of Account")) {
+            this.bankAccountError = errorMessage;
+          } else {
+            this.bankAccountError = null;
+          }
+          
+          toast.fire({ 
+            type: "error", 
+            title: errorMessage 
+          });
         });
     },
   },
