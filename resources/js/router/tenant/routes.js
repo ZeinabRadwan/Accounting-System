@@ -1148,6 +1148,18 @@ export default [
     meta: { permissions: ["client-receivable-report"] }
   },
   {
+    path: '/reports/account-statement',
+    name: 'reports.accountStatement',
+    component: page('reports/account-statement.vue'),
+    meta: {permissions: ['account-statement']},
+  },
+  {
+    path: '/reports/group-account-statement',
+    name: 'reports.groupAccountStatement',
+    component: page('reports/group-account-statement.vue'),
+    meta: {permissions: ['account-statement']},
+  },
+  {
     path: '/reports/balance-sheet',
     name: 'reports.balanceSheet',
     component: page('reports/balance-sheet.vue'),

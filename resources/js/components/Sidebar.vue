@@ -829,6 +829,18 @@
           </li>
 
           <li class="nav-header text-bold">{{ $t('REPORTS') }}</li>
+          <li v-if="$can('account-statement')" class="nav-item">
+            <router-link :to="{ name: 'reports.accountStatement' }" class="nav-link">
+              <i class="fas fa-file-alt nav-icon" />
+              <p>{{ $t('Account Statement') }}</p>
+            </router-link>
+          </li>
+          <li v-if="$can('account-statement')" class="nav-item">
+            <router-link :to="{ name: 'reports.groupAccountStatement' }" class="nav-link">
+              <i class="fas fa-file-alt nav-icon" />
+              <p>{{ $t('Group Account Statement') }}</p>
+            </router-link>
+          </li>
           <li v-if="$can('balance-sheet')" class="nav-item">
             <router-link :to="{ name: 'reports.balanceSheet' }" class="nav-link">
               <i class="fas fa-file-invoice-dollar nav-icon" />

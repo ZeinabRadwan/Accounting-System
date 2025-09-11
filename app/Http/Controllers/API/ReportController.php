@@ -43,6 +43,7 @@ class ReportController extends Controller
     // define middleware
     public function __construct()
     {
+        $this->middleware('can:account-statement', ['only' => ['accountStatement']]);
         $this->middleware('can:balance-sheet', ['only' => ['balanceSheet']]);
         $this->middleware('can:summary-report', ['only' => ['summeryReport']]);
         $this->middleware('can:profit-loss', ['only' => ['profitLossReport']]);
@@ -51,75 +52,198 @@ class ReportController extends Controller
         $this->middleware('can:inventory-report', ['only' => ['inventoryReport']]);
     }
 
-    // return balance sheet data
-    public function balanceSheet()
+    // return balance sheet data based on chart of accounts and journal entries
+    public function balanceSheet(Request $request)
     {
-        // total assets
-        $assets = Asset::where('status', 1)->get()->sum('calculated_value');
+        try {
+            // Validate request
+            $this->validate($request, [
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
 
-        // inventory value
-        $inventoryValue = Product::where('status', 1)->get()->sum(function ($currentRow) {
-            return $currentRow->purchase_price * $currentRow->inventory_count;
-        });
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
 
-        // client dues
-        $sales = Invoice::where('status', 1)->sum('sub_total');
-        $salesTransportCost = Invoice::where('status', 1)->sum('transport');
-        $salesDiscount = Invoice::where('status', 1)->sum('discount');
-        $salesTax = Invoice::where('status', 1)->get()->sum('calculated_tax');
-        $totalSales = $sales - $salesDiscount + $salesTransportCost + $salesTax;
+            // Determine date range
+            $dateRange = $this->getDateRange($fiscalYearId, $accountingPeriodId, $fromDate, $toDate);
 
-        // invoice due
-        $invoiceTotalPaid = InvoicePayment::where('status', 1)->sum('amount');
-        $invoiceDue = $totalSales - $invoiceTotalPaid;
+            // Get all chart of accounts with their balances
+            $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
+                ->where('is_active', true)
+                ->get();
 
-        // non invoice due
-        $nonInvoiceTotal = NonInvoicePayment::where('type', 0)->where('status', 1)->sum('amount');
-        $nonInvoicePaid = NonInvoicePayment::where('type', 1)->where('status', 1)->sum('amount');
-        $nonInvoiceDue = $nonInvoiceTotal - $nonInvoicePaid;
+            // Calculate balances for each account type
+            $accountTypeBalances = $this->calculateAccountTypeBalances($chartOfAccounts, $dateRange);
 
-        $clientTotalDue = $invoiceDue + $nonInvoiceDue;
+            // Calculate totals
+            $totalAssets = $accountTypeBalances['Asset'];
+            $totalLiabilities = $accountTypeBalances['Liability'];
+            $totalEquity = $accountTypeBalances['Equity'];
+            $totalRevenue = $accountTypeBalances['Revenue'];
+            $totalExpenses = $accountTypeBalances['Expense'];
 
-        // bank balance
-        $bankBalance = Account::where('status', 1)->get()->sum('available_balance');
+            // Calculate net income (Revenue - Expenses)
+            $netIncome = $totalRevenue - $totalExpenses;
 
-        // supplier dues
-        $purchases = Purchase::where('status', 1)->sum('sub_total');
-        $purchaseTransportCost = Purchase::where('status', 1)->sum('transport');
-        $purchaseDiscount = Purchase::where('status', 1)->sum('discount');
-        $purchaseTax = Purchase::where('status', 1)->get()->sum('calculated_tax');
-        $totalPurchases = $purchases - $purchaseDiscount + $purchaseTransportCost + $purchaseTax;
+            // Calculate total equity including net income
+            $totalEquityWithIncome = $totalEquity + $netIncome;
 
-        // purchase due
-        $purchaseTotalPaid = PurchasePayment::where('status', 1)->sum('amount');
-        $purchaseDue = $totalPurchases - $purchaseTotalPaid;
+            // Calculate total assets and total liabilities + equity
+            $totalAssetsAmount = $totalAssets;
+            $totalLiabilitiesAndEquity = $totalLiabilities + $totalEquityWithIncome;
 
-        // non purchase due
-        $nonPurchaseTotal = NonPurchasePayment::where('type', 0)->where('status', 1)->sum('amount');
-        $nonPurchasePaid = NonPurchasePayment::where('type', 1)->where('status', 1)->sum('amount');
-        $nonPurchaseDue = $nonPurchaseTotal - $nonPurchasePaid;
+            // Get detailed account breakdown
+            $assetAccounts = $this->getAccountDetailsByType($chartOfAccounts, 'Asset', $dateRange);
+            $liabilityAccounts = $this->getAccountDetailsByType($chartOfAccounts, 'Liability', $dateRange);
+            $equityAccounts = $this->getAccountDetailsByType($chartOfAccounts, 'Equity', $dateRange);
 
-        // supplier due
-        $supplierTotalDue = $purchaseDue + $nonPurchaseDue;
+            return [
+                'success' => true,
+                'data' => [
+                    'date_range' => $dateRange,
+                    'totals' => [
+                        'total_assets' => round($totalAssetsAmount, 2),
+                        'total_liabilities' => round($totalLiabilities, 2),
+                        'total_equity' => round($totalEquity, 2),
+                        'total_revenue' => round($totalRevenue, 2),
+                        'total_expenses' => round($totalExpenses, 2),
+                        'net_income' => round($netIncome, 2),
+                        'total_liabilities_and_equity' => round($totalLiabilitiesAndEquity, 2),
+                    ],
+                    'accounts' => [
+                        'assets' => $assetAccounts,
+                        'liabilities' => $liabilityAccounts,
+                        'equity' => $equityAccounts,
+                    ],
+                    'legacy_data' => [
+                        'assets' => round($totalAssetsAmount, 2),
+                        'inventoryValue' => $this->getAccountBalance($chartOfAccounts, 'Inventory', $dateRange),
+                        'clientTotalDue' => $this->getAccountBalance($chartOfAccounts, 'Accounts Receivable', $dateRange),
+                        'bankBalance' => $this->getAccountBalance($chartOfAccounts, 'Bank Accounts', $dateRange),
+                        'supplierDue' => $this->getAccountBalance($chartOfAccounts, 'Accounts Payable', $dateRange),
+                        'loanDue' => $this->getAccountBalance($chartOfAccounts, 'Loans Payable', $dateRange),
+                        'buisnessTotal' => round($totalAssetsAmount, 2),
+                        'liabilities' => round($totalLiabilities, 2),
+                        'totalAsset' => round($totalAssetsAmount - $totalLiabilities, 2),
+                    ]
+                ]
+            ];
 
-        // loan due
-        $loanDue = LoanAuthority::where('status', 1)->get()->sum('due');
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate balance sheet',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
-        $buisnessTotal = $assets + $inventoryValue + $clientTotalDue + $bankBalance;
-        $liabilities = $loanDue + $supplierTotalDue;
-        $totalAsset = $buisnessTotal - $liabilities;
+    /**
+     * Get date range based on filters
+     */
+    private function getDateRange($fiscalYearId, $accountingPeriodId, $fromDate, $toDate)
+    {
+        if ($fiscalYearId) {
+            $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
+            return [
+                'start_date' => $fiscalYear->start_date,
+                'end_date' => $fiscalYear->end_date,
+                'type' => 'fiscal_year',
+                'name' => $fiscalYear->name
+            ];
+        } elseif ($accountingPeriodId) {
+            $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
+            return [
+                'start_date' => $accountingPeriod->start_date,
+                'end_date' => $accountingPeriod->end_date,
+                'type' => 'accounting_period',
+                'name' => $accountingPeriod->name
+            ];
+        } elseif ($fromDate && $toDate) {
+            return [
+                'start_date' => $fromDate,
+                'end_date' => $toDate,
+                'type' => 'custom_range',
+                'name' => 'Custom Range'
+            ];
+        } else {
+            // Default to current year
+            return [
+                'start_date' => now()->startOfYear()->format('Y-m-d'),
+                'end_date' => now()->endOfYear()->format('Y-m-d'),
+                'type' => 'current_year',
+                'name' => 'Current Year'
+            ];
+        }
+    }
 
-        return [
-            'assets' => round($assets, 2),
-            'inventoryValue' => round($inventoryValue, 2),
-            'clientTotalDue' => round($clientTotalDue, 2),
-            'bankBalance' => round($bankBalance, 2),
-            'supplierDue' => round($supplierTotalDue, 2),
-            'loanDue' => round($loanDue, 2),
-            'buisnessTotal' => round($buisnessTotal, 2),
-            'liabilities' => round($liabilities, 2),
-            'totalAsset' => round($totalAsset, 2),
+    /**
+     * Calculate balances for each account type
+     */
+    private function calculateAccountTypeBalances($chartOfAccounts, $dateRange)
+    {
+        $balances = [
+            'Asset' => 0,
+            'Liability' => 0,
+            'Equity' => 0,
+            'Revenue' => 0,
+            'Expense' => 0,
         ];
+
+        foreach ($chartOfAccounts as $account) {
+            $accountType = $account->type->name ?? 'Unknown';
+            $balance = $account->getBalanceForDateRange($dateRange['start_date'], $dateRange['end_date']);
+            
+            if (isset($balances[$accountType])) {
+                $balances[$accountType] += $balance;
+            }
+        }
+
+        return $balances;
+    }
+
+    /**
+     * Get account details by type
+     */
+    private function getAccountDetailsByType($chartOfAccounts, $typeName, $dateRange)
+    {
+        return $chartOfAccounts
+            ->filter(function($account) use ($typeName) {
+                return ($account->type->name ?? '') === $typeName;
+            })
+            ->map(function($account) use ($dateRange) {
+                $balance = $account->getBalanceForDateRange($dateRange['start_date'], $dateRange['end_date']);
+                return [
+                    'id' => $account->id,
+                    'code' => $account->code,
+                    'name' => $account->name,
+                    'type' => $account->type->name ?? 'Unknown',
+                    'balance' => round($balance, 2),
+                    'balance_type' => $balance >= 0 ? 'Debit' : 'Credit',
+                    'absolute_balance' => round(abs($balance), 2),
+                ];
+            })
+            ->values()
+            ->toArray();
+    }
+
+    /**
+     * Get balance for a specific account by name
+     */
+    private function getAccountBalance($chartOfAccounts, $accountName, $dateRange)
+    {
+        $account = $chartOfAccounts->firstWhere('name', $accountName);
+        if (!$account) {
+            return 0;
+        }
+        
+        $balance = $account->getBalanceForDateRange($dateRange['start_date'], $dateRange['end_date']);
+        return round($balance, 2);
     }
 
     // return summery report data
@@ -980,5 +1104,460 @@ class ReportController extends Controller
             'grossProfit'                 => round($grossProfitForToday, 2),
             'netProfit'                   => round($netProfitOrLoss, 2),
         ];
+    }
+
+    /**
+     * Get sub chart of accounts for a selected parent account
+     */
+    public function getSubChartOfAccounts(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'parent_account_id' => 'required|exists:chart_of_accounts,id',
+                'search' => 'nullable|string|max:255',
+            ]);
+
+            $parentAccountId = $request->parent_account_id;
+            $search = $request->search;
+
+            // Get the parent account
+            $parentAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($parentAccountId);
+
+            // Build query for sub accounts (children + parent itself)
+            $query = \App\Models\ChartOfAccount::with('type')
+                ->where(function($q) use ($parentAccountId) {
+                    $q->where('id', $parentAccountId) // Include the parent account itself
+                      ->orWhere('parent_id', $parentAccountId); // Include direct children
+                })
+                ->where('is_active', true);
+
+            // Apply search filter if provided
+            if ($search) {
+                $query->where(function($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                      ->orWhere('code', 'like', "%{$search}%");
+                });
+            }
+
+            $subAccounts = $query->orderBy('code')->orderBy('name')->get();
+
+            // Format the response
+            $formattedAccounts = $subAccounts->map(function($account) use ($parentAccountId) {
+                return [
+                    'id' => $account->id,
+                    'name' => $account->name,
+                    'code' => $account->code,
+                    'type' => $account->type ? $account->type->name : 'Unknown',
+                    'display_name' => "[{$account->code}] {$account->name}",
+                    'is_parent' => $account->id == $parentAccountId,
+                    'parent_id' => $account->parent_id,
+                ];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $formattedAccounts,
+                'parent_account' => [
+                    'id' => $parentAccount->id,
+                    'name' => $parentAccount->name,
+                    'code' => $parentAccount->code,
+                    'type' => $parentAccount->type ? $parentAccount->type->name : 'Unknown',
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error retrieving sub chart of accounts',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get Account Statement report data with chunked loading
+     */
+    public function accountStatement(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'chart_of_account_id' => 'required|exists:chart_of_accounts,id',
+                'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'page' => 'nullable|integer|min:1',
+                'per_page' => 'nullable|integer|min:1|max:100',
+            ]);
+
+            $chartOfAccountId = $request->chart_of_account_id;
+            $subChartOfAccountId = $request->sub_chart_of_account_id;
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $page = $request->page ?? 1;
+            $perPage = $request->per_page ?? 10; // Default to 10 rows per chunk
+
+            // Determine which account to use for the report
+            $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
+            
+            // Get chart of account details
+            $chartOfAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($chartOfAccountId);
+            $reportAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($reportAccountId);
+
+            // Build date range query
+            $dateQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function($query) use ($reportAccountId) {
+                    $query->where('chart_of_account_id', $reportAccountId);
+                });
+
+            // Apply fiscal year filter
+            if ($fiscalYearId) {
+                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
+                $dateQuery->whereBetween('entry_date', [$fiscalYear->start_date, $fiscalYear->end_date]);
+            }
+
+            // Apply accounting period filter
+            if ($accountingPeriodId) {
+                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
+                $dateQuery->whereBetween('entry_date', [$accountingPeriod->start_date, $accountingPeriod->end_date]);
+            }
+
+            // Apply custom date range filter
+            if ($fromDate && $toDate) {
+                $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
+            }
+
+            // Get total count for pagination
+            $totalCount = $dateQuery->count();
+
+            // Get journal entries with pagination
+            $journalEntries = $dateQuery
+                ->with(['lines' => function($query) use ($reportAccountId) {
+                    $query->where('chart_of_account_id', $reportAccountId);
+                }])
+                ->orderBy('entry_date', 'desc')
+                ->orderBy('id', 'desc')
+                ->skip(($page - 1) * $perPage)
+                ->take($perPage)
+                ->get();
+
+            // Calculate opening balance (balance before the date range)
+            $openingBalanceQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function($query) use ($reportAccountId) {
+                    $query->where('chart_of_account_id', $reportAccountId);
+                });
+
+            if ($fiscalYearId) {
+                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
+                $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
+            } elseif ($accountingPeriodId) {
+                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
+                $openingBalanceQuery->where('entry_date', '<', $accountingPeriod->start_date);
+            } elseif ($fromDate) {
+                $openingBalanceQuery->where('entry_date', '<', $fromDate);
+            }
+
+            $openingDebits = $openingBalanceQuery->get()->sum(function($entry) use ($reportAccountId) {
+                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('debit_amount');
+            });
+
+            $openingCredits = $openingBalanceQuery->get()->sum(function($entry) use ($reportAccountId) {
+                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('credit_amount');
+            });
+
+            $openingBalance = $openingDebits - $openingCredits;
+
+            // Calculate running balance for each entry
+            $runningBalance = $openingBalance;
+            $processedEntries = [];
+
+            foreach ($journalEntries as $entry) {
+                $entryLines = $entry->lines->where('chart_of_account_id', $reportAccountId);
+                
+                if ($entryLines->count() > 0) {
+                    // If there are multiple lines for the same account, show each one separately
+                    foreach ($entryLines as $entryLine) {
+                        $debitAmount = $entryLine->debit_amount;
+                        $creditAmount = $entryLine->credit_amount;
+                        $netAmount = $debitAmount - $creditAmount;
+                        $runningBalance += $netAmount;
+
+                        $processedEntries[] = [
+                            'id' => $entry->id . '_' . $entryLine->id, // Unique ID for each line
+                            'entry_number' => $entry->formatted_entry_number,
+                            'entry_date' => $entry->entry_date->format('Y-m-d'),
+                            'reference' => $entry->reference,
+                            'description' => $entry->description,
+                            'debit_amount' => number_format($debitAmount, 2),
+                            'credit_amount' => number_format($creditAmount, 2),
+                            'net_amount' => number_format($netAmount, 2),
+                            'running_balance' => number_format($runningBalance, 2),
+                            'balance_type' => $runningBalance >= 0 ? 'Debit' : 'Credit',
+                            'source_type' => $entry->source_type,
+                            'source_id' => $entry->source_id,
+                        ];
+                    }
+                }
+            }
+
+            // Calculate period totals
+            $periodDebits = $journalEntries->sum(function($entry) use ($reportAccountId) {
+                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('debit_amount');
+            });
+
+            $periodCredits = $journalEntries->sum(function($entry) use ($reportAccountId) {
+                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('credit_amount');
+            });
+
+            $periodNet = $periodDebits - $periodCredits;
+            $closingBalance = $openingBalance + $periodNet;
+
+            return [
+                'success' => true,
+                'data' => [
+                    'chart_of_account' => [
+                        'id' => $chartOfAccount->id,
+                        'code' => $chartOfAccount->code,
+                        'name' => $chartOfAccount->name,
+                        'type' => $chartOfAccount->type->name ?? 'Unknown',
+                    ],
+                    'report_account' => [
+                        'id' => $reportAccount->id,
+                        'code' => $reportAccount->code,
+                        'name' => $reportAccount->name,
+                        'type' => $reportAccount->type->name ?? 'Unknown',
+                    ],
+                    'filters' => [
+                        'fiscal_year_id' => $fiscalYearId,
+                        'accounting_period_id' => $accountingPeriodId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'summary' => [
+                        'opening_balance' => number_format($openingBalance, 2),
+                        'opening_balance_type' => $openingBalance >= 0 ? 'Debit' : 'Credit',
+                        'period_debits' => number_format($periodDebits, 2),
+                        'period_credits' => number_format($periodCredits, 2),
+                        'period_net' => number_format($periodNet, 2),
+                        'closing_balance' => number_format($closingBalance, 2),
+                        'closing_balance_type' => $closingBalance >= 0 ? 'Debit' : 'Credit',
+                    ],
+                    'entries' => $processedEntries,
+                    'pagination' => [
+                        'current_page' => $page,
+                        'per_page' => $perPage,
+                        'total_count' => $totalCount,
+                        'total_pages' => ceil($totalCount / $perPage),
+                        'has_more' => $page < ceil($totalCount / $perPage),
+                    ],
+                ],
+            ];
+
+        } catch (\Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Group Account Statement report data
+     */
+    public function groupAccountStatement(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'chart_of_account_ids' => 'required|array|min:1',
+                'chart_of_account_ids.*' => 'exists:chart_of_accounts,id',
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+
+            $chartOfAccountIds = $request->chart_of_account_ids;
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Get chart of accounts details
+            $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
+                ->whereIn('id', $chartOfAccountIds)
+                ->get();
+
+            if ($chartOfAccounts->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No valid accounts found'
+                ], 400);
+            }
+
+            // Apply date filters
+            $dateQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function($query) use ($chartOfAccountIds) {
+                    $query->whereIn('chart_of_account_id', $chartOfAccountIds);
+                });
+
+            if ($fiscalYearId) {
+                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
+                $dateQuery->whereBetween('entry_date', [$fiscalYear->start_date, $fiscalYear->end_date]);
+            } elseif ($accountingPeriodId) {
+                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
+                $dateQuery->whereBetween('entry_date', [$accountingPeriod->start_date, $accountingPeriod->end_date]);
+            } elseif ($fromDate && $toDate) {
+                $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
+            }
+
+            // Get journal entries
+            $journalEntries = $dateQuery
+                ->with(['lines' => function($query) use ($chartOfAccountIds) {
+                    $query->whereIn('chart_of_account_id', $chartOfAccountIds);
+                }])
+                ->orderBy('entry_date', 'desc')
+                ->orderBy('id', 'desc')
+                ->get();
+
+            // Calculate opening balance (balance before the date range)
+            $openingBalanceQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function($query) use ($chartOfAccountIds) {
+                    $query->whereIn('chart_of_account_id', $chartOfAccountIds);
+                });
+
+            if ($fiscalYearId) {
+                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
+                $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
+            } elseif ($accountingPeriodId) {
+                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
+                $openingBalanceQuery->where('entry_date', '<', $accountingPeriod->start_date);
+            } elseif ($fromDate) {
+                $openingBalanceQuery->where('entry_date', '<', $fromDate);
+            }
+
+            $openingDebits = $openingBalanceQuery->get()->sum(function($entry) use ($chartOfAccountIds) {
+                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('debit_amount');
+            });
+
+            $openingCredits = $openingBalanceQuery->get()->sum(function($entry) use ($chartOfAccountIds) {
+                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('credit_amount');
+            });
+
+            $openingBalance = $openingDebits - $openingCredits;
+            $openingBalanceType = $openingBalance >= 0 ? 'Debit' : 'Credit';
+            $openingBalance = abs($openingBalance);
+
+            // Process entries
+            $processedEntries = [];
+            $runningBalance = $openingBalance;
+            $runningBalanceType = $openingBalanceType;
+
+            foreach ($journalEntries as $entry) {
+                $entryLines = $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds);
+                
+                $totalDebit = $entryLines->sum('debit_amount');
+                $totalCredit = $entryLines->sum('credit_amount');
+                $netAmount = $totalDebit - $totalCredit;
+
+                // Update running balance
+                if ($runningBalanceType === 'Debit') {
+                    $runningBalance += $netAmount;
+                } else {
+                    $runningBalance -= $netAmount;
+                }
+
+                // Determine new balance type
+                if ($runningBalance >= 0) {
+                    $runningBalanceType = 'Debit';
+                } else {
+                    $runningBalanceType = 'Credit';
+                    $runningBalance = abs($runningBalance);
+                }
+
+                $processedEntries[] = [
+                    'id' => $entry->id,
+                    'entry_date' => $entry->entry_date,
+                    'entry_number' => $entry->entry_number,
+                    'reference' => $entry->reference,
+                    'description' => $entry->description,
+                    'debit_amount' => number_format($totalDebit, 2),
+                    'credit_amount' => number_format($totalCredit, 2),
+                    'net_amount' => $netAmount >= 0 ? '+' . number_format($netAmount, 2) : number_format($netAmount, 2),
+                    'running_balance' => number_format($runningBalance, 2),
+                    'balance_type' => $runningBalanceType,
+                    'accounts' => $entryLines->map(function($line) {
+                        return [
+                            'id' => $line->chart_of_account_id,
+                            'code' => $line->chartOfAccount->code,
+                            'name' => $line->chartOfAccount->name,
+                            'debit' => $line->debit_amount,
+                            'credit' => $line->credit_amount,
+                        ];
+                    })->toArray(),
+                ];
+            }
+
+            // Calculate period totals
+            $periodDebits = $journalEntries->sum(function($entry) use ($chartOfAccountIds) {
+                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('debit_amount');
+            });
+
+            $periodCredits = $journalEntries->sum(function($entry) use ($chartOfAccountIds) {
+                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('credit_amount');
+            });
+
+            $periodNet = $periodDebits - $periodCredits;
+
+            // Calculate closing balance
+            $closingBalance = $openingBalance + $periodNet;
+            $closingBalanceType = $closingBalance >= 0 ? 'Debit' : 'Credit';
+            $closingBalance = abs($closingBalance);
+
+            $summary = [
+                'opening_balance' => number_format($openingBalance, 2),
+                'opening_balance_type' => $openingBalanceType,
+                'period_debits' => number_format($periodDebits, 2),
+                'period_credits' => number_format($periodCredits, 2),
+                'period_net' => $periodNet >= 0 ? '+' . number_format($periodNet, 2) : number_format($periodNet, 2),
+                'closing_balance' => number_format($closingBalance, 2),
+                'closing_balance_type' => $closingBalanceType,
+                'total_entries' => count($processedEntries),
+            ];
+
+            return [
+                'success' => true,
+                'data' => [
+                    'chart_of_accounts' => $chartOfAccounts->map(function($account) {
+                        return [
+                            'id' => $account->id,
+                            'code' => $account->code,
+                            'name' => $account->name,
+                            'type' => $account->type->name ?? 'Unknown',
+                        ];
+                    }),
+                    'filters' => [
+                        'fiscal_year_id' => $fiscalYearId,
+                        'accounting_period_id' => $accountingPeriodId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'entries' => $processedEntries,
+                    'summary' => $summary,
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate group account statement',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

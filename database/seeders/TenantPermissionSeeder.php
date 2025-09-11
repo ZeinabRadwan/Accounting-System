@@ -908,6 +908,11 @@ class TenantPermissionSeeder extends Seeder
 
                 // report permissions
                 [
+                    'name' => 'Account Statement',
+                    'guard_name' => 'Report View',
+                    'slug' => 'account-statement',
+                ],
+                [
                     'name' => 'Sales By User Report',
                     'guard_name' => 'Report View',
                     'slug' => 'sales-by-user-report',

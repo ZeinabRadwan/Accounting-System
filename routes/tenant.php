@@ -514,6 +514,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::apiResource('/inventory-adjustments', InventoryAdjustmentController::class);
 
         // Report routes
+        Route::get('/reports/account-statement', [ReportController::class, 'accountStatement']);
+        Route::get('/reports/group-account-statement', [ReportController::class, 'groupAccountStatement']);
+        Route::get('/reports/sub-chart-of-accounts', [ReportController::class, 'getSubChartOfAccounts']);
         Route::get('/reports/balance-sheet', [ReportController::class, 'balanceSheet']);
         Route::post('/reports/summery', [ReportController::class, 'summeryReport']);
         Route::post('/reports/profit-loss', [ReportController::class, 'profitLossReport']);
