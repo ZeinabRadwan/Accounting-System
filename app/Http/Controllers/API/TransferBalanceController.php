@@ -13,20 +13,25 @@ use App\Interfaces\ITransactionService;
 use App\Http\Resources\BalanceTranasferResource;
 use App\Http\Requests\TransferBalance\StoreTransferBalanceRequest;
 use App\Http\Requests\TransferBalance\UpdateTransferBalanceRequest;
+use Illuminate\Support\Facades\Log;
+use App\Services\BusinessTransactionJournalService;
 
 class TransferBalanceController extends Controller
 {
     protected ITransactionService $transactionService;
+    protected BusinessTransactionJournalService $journalService;
+    
     // define middleware
-    public function __construct(ITransactionService $transactionService)
+    public function __construct(ITransactionService $transactionService, BusinessTransactionJournalService $journalService)
     {
         $this->middleware('can:account-transfer-balance-list', ['only' => ['index', 'search']]);
         $this->middleware('can:account-transfer-balance-create', ['only' => ['create']]);
         $this->middleware('can:account-transfer-balance-view', ['only' => ['show']]);
         $this->middleware('can:account-transfer-balance-edit', ['only' => ['update']]);
         $this->middleware('can:account-transfer-balance-delete', ['only' => ['destroy']]);
-
+    
         $this->transactionService = $transactionService;
+        $this->journalService = $journalService;
     }
 
     /**
@@ -70,6 +75,19 @@ class TransferBalanceController extends Controller
                 'status' => $request->status,
                 'created_by' => $userId,
             ]);
+
+            // Create journal entry for the balance transfer
+try {
+    $this->journalService->createBalanceTransferJournal($balanceTansfer, $userId);
+} catch (Exception $journalException) {
+    // Log the journal creation error but don't fail the entire transaction
+    // This allows balance transfers to work even if journal entries fail
+    Log::error('Failed to create journal entry for balance transfer: ' . $journalException->getMessage(), [
+        'balance_transfer_id' => $balanceTansfer->id,
+        'user_id' => $userId,
+        'error' => $journalException->getMessage()
+    ]);
+}
 
             // add activity log
             activity()

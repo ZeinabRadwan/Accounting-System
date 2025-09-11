@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Models\AccountTransaction;
+use App\Models\BalanceTansfer;
 
 class BusinessTransactionJournalService
 {
@@ -1277,5 +1278,107 @@ class BusinessTransactionJournalService
         }
 
         return ChartOfAccount::find($setting->main_account_id);
+    }
+
+    /**
+     * Create journal entry for balance transfer
+     */
+    public function createBalanceTransferJournal(BalanceTansfer $balanceTransfer, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Check if journal entry already exists for this balance transfer
+            $existingJournalEntry = JournalEntry::where('source_type', BalanceTansfer::class)
+                ->where('source_id', $balanceTransfer->id)
+                ->first();
+                
+            if ($existingJournalEntry) {
+                Log::info("Journal entry already exists for balance transfer {$balanceTransfer->slug} with ID: {$existingJournalEntry->id}");
+                DB::rollBack();
+                return $existingJournalEntry;
+            }
+
+            // Get the debit and credit transactions
+            $debitTransaction = $balanceTransfer->debitTransaction;
+            $creditTransaction = $balanceTransfer->creditTransaction;
+
+            if (!$debitTransaction || !$creditTransaction) {
+                throw new Exception('Balance transfer transactions not found.');
+            }
+
+            // Get the cashbook accounts
+            $fromAccount = $debitTransaction->cashbookAccount;
+            $toAccount = $creditTransaction->cashbookAccount;
+
+            if (!$fromAccount || !$toAccount) {
+                throw new Exception('Cashbook accounts not found for balance transfer.');
+            }
+
+            // Validate that both accounts are connected to chart of accounts
+            if (!$fromAccount->isChartOfAccountConnected()) {
+                throw new Exception($fromAccount->getChartOfAccountValidationMessage());
+            }
+
+            if (!$toAccount->isChartOfAccountConnected()) {
+                throw new Exception($toAccount->getChartOfAccountValidationMessage());
+            }
+
+            // Get chart of account IDs
+            $fromChartOfAccountId = $fromAccount->getChartOfAccountIdForJournal();
+            $toChartOfAccountId = $toAccount->getChartOfAccountIdForJournal();
+
+            if (!$fromChartOfAccountId || !$toChartOfAccountId) {
+                throw new Exception('Chart of accounts not found for balance transfer accounts.');
+            }
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => $balanceTransfer->date,
+                'reference' => $balanceTransfer->slug,
+                'description' => "Balance Transfer: {$balanceTransfer->reason}",
+                'total_debit' => $balanceTransfer->amount,
+                'total_credit' => $balanceTransfer->amount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => BalanceTansfer::class,
+                'source_id' => $balanceTransfer->id,
+            ]);
+
+            // Create journal entry lines
+            // Line 1: Debit the "To" account (money going in)
+            $this->createJournalEntryLine(
+                $journalEntry, 
+                $toChartOfAccountId, 
+                $balanceTransfer->amount, 
+                0, 
+                1, 
+                "Balance Transfer to {$toAccount->bank_name} [{$toAccount->account_number}]"
+            );
+
+            // Line 2: Credit the "From" account (money going out)
+            $this->createJournalEntryLine(
+                $journalEntry, 
+                $fromChartOfAccountId, 
+                0, 
+                $balanceTransfer->amount, 
+                2, 
+                "Balance Transfer from {$fromAccount->bank_name} [{$fromAccount->account_number}]"
+            );
+
+            // Update the account transactions to link them to the journal entry
+            $debitTransaction->update(['journal_entry_id' => $journalEntry->id]);
+            $creditTransaction->update(['journal_entry_id' => $journalEntry->id]);
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }
