@@ -16,9 +16,11 @@ use App\Http\Requests\Account\StoreAccountRequest;
 use App\Http\Resources\AccountTransactionResource;
 use App\Http\Requests\Account\UpdateAccountRequest;
 use App\Models\ChartOfAccount;
+use App\Traits\ApiResponse;
 
 class AccountController extends Controller
 {
+    use ApiResponse;
     private $imageService;
     // define middleware
     public function __construct(ImageService $imageService)

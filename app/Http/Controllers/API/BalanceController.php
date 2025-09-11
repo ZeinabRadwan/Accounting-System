@@ -65,6 +65,7 @@ public function __construct(BusinessTransactionJournalService $journalService)
                 'created_by' => auth()->user()->id,
                 'note' => $request->note,
                 'status' => $request->status,
+                'second_account_id' => $request->secondAccount['id'],
             ]);
 
 // Create journal entry for the balance adjustment

@@ -1425,15 +1425,12 @@ class BusinessTransactionJournalService
             
             // For balance adjustments, we need to create a journal entry that affects:
             // - The cashbook account (Asset)
-            // - An equity account (Owner's Equity or Retained Earnings)
+            // - The selected second account from the form
             
-            // Get the appropriate equity account
-            $equityAccount = $this->getDefaultAccount('Owner\'s Equity', 'Equity');
-            if (!$equityAccount) {
-                $equityAccount = $this->getDefaultAccount('Retained Earnings', 'Equity');
-            }
-            if (!$equityAccount) {
-                throw new Exception('Equity account not found. Please ensure Owner\'s Equity or Retained Earnings account exists.');
+            // Get the selected second account
+            $secondAccount = ChartOfAccount::find($accountTransaction->second_account_id);
+            if (!$secondAccount) {
+                throw new Exception('Second account not found. Please select a valid chart of account.');
             }
 
             // Create journal entry
@@ -1453,7 +1450,7 @@ class BusinessTransactionJournalService
             ]);
 
             if ($isAddBalance) {
-                // Adding balance: Debit Cashbook Account, Credit Equity
+                // Adding balance: Debit Cashbook Account, Credit Selected Account
                 $this->createJournalEntryLine(
                     $journalEntry, 
                     $chartOfAccountId, 
@@ -1465,21 +1462,21 @@ class BusinessTransactionJournalService
 
                 $this->createJournalEntryLine(
                     $journalEntry, 
-                    $equityAccount->id, 
+                    $secondAccount->id, 
                     0, 
                     $accountTransaction->amount, 
                     2, 
-                    "Owner's Equity - Balance Adjustment"
+                    "Balance Adjustment - {$secondAccount->name}"
                 );
             } else {
-                // Removing balance: Debit Equity, Credit Cashbook Account
+                // Removing balance: Debit Selected Account, Credit Cashbook Account
                 $this->createJournalEntryLine(
                     $journalEntry, 
-                    $equityAccount->id, 
+                    $secondAccount->id, 
                     $accountTransaction->amount, 
                     0, 
                     1, 
-                    "Owner's Equity - Balance Adjustment"
+                    "Balance Adjustment - {$secondAccount->name}"
                 );
 
                 $this->createJournalEntryLine(
