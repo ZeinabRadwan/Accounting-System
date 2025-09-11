@@ -33,7 +33,7 @@
                   <label for="fromAccount">{{ $t('From Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.fromAccount" :options="items" label="label"
-                    :class="{ 'is-invalid': form.errors.has('fromAccount') }" name="fromAccount"
+                    :class="{ 'is-invalid': form.errors.has('fromAccount') || fromAccountError }" name="fromAccount"
                     :placeholder="$t('Select an account')" @input="updateBalance">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
@@ -41,12 +41,15 @@
                     </template>
                   </v-select>
                   <has-error :form="form" field="fromAccount" />
+                  <div v-if="fromAccountError" class="invalid-feedback d-block">
+                    {{ fromAccountError }}
+                  </div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="toAccount">{{ $t('To Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.toAccount" :options="items" label="label"
-                    :class="{ 'is-invalid': form.errors.has('toAccount') }" name="toAccount"
+                    :class="{ 'is-invalid': form.errors.has('toAccount') || toAccountError }" name="toAccount"
                     :placeholder="$t('Select an account')">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
@@ -54,6 +57,9 @@
                     </template>
                   </v-select>
                   <has-error :form="form" field="toAccount" />
+                  <div v-if="toAccountError" class="invalid-feedback d-block">
+                    {{ toAccountError }}
+                  </div>
                 </div>
               </div>
               <div class="row" v-if="form.fromAccount">
@@ -159,9 +165,21 @@ export default {
       status: 1,
     }),
     loading: true,
+    fromAccountError: null,
+    toAccountError: null,
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
+  },
+  watch: {
+    'form.fromAccount'() {
+      // Clear from account error when user changes the account
+      this.fromAccountError = null;
+    },
+    'form.toAccount'() {
+      // Clear to account error when user changes the account
+      this.toAccountError = null;
+    },
   },
   created() {
     this.getAccoutns()
@@ -197,8 +215,47 @@ export default {
           })
           this.$router.push({ name: 'transferBalances.index' })
         })
-        .catch(() => {
-          toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
+        .catch((error) => {
+          // Display the specific error message from the server
+          const errorMessage = error.response?.data?.message || this.$t('Opps...something went wrong');
+          
+          // Check if it's a bank account validation error
+          if (errorMessage.includes("not connected to any Chart of Account")) {
+            // Try to determine which account has the error based on the account number in the message
+            const fromAccountNumber = this.form.fromAccount?.accountNumber || '';
+            const toAccountNumber = this.form.toAccount?.accountNumber || '';
+            const fromBankName = this.form.fromAccount?.bank_name || '';
+            const toBankName = this.form.toAccount?.bank_name || '';
+            
+            // Check for account number in brackets first
+            if (fromAccountNumber && errorMessage.includes(`[${fromAccountNumber}]`)) {
+              this.fromAccountError = errorMessage;
+              this.toAccountError = null;
+            } else if (toAccountNumber && errorMessage.includes(`[${toAccountNumber}]`)) {
+              this.toAccountError = errorMessage;
+              this.fromAccountError = null;
+            } 
+            // Fallback to bank name matching
+            else if (fromBankName && errorMessage.includes(fromBankName)) {
+              this.fromAccountError = errorMessage;
+              this.toAccountError = null;
+            } else if (toBankName && errorMessage.includes(toBankName)) {
+              this.toAccountError = errorMessage;
+              this.fromAccountError = null;
+            } else {
+              // If we can't determine which account, show on both
+              this.fromAccountError = errorMessage;
+              this.toAccountError = errorMessage;
+            }
+          } else {
+            this.fromAccountError = null;
+            this.toAccountError = null;
+          }
+          
+          toast.fire({ 
+            type: 'error', 
+            title: errorMessage 
+          });
         })
     },
   },

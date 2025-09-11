@@ -47,6 +47,18 @@ public function __construct(BusinessTransactionJournalService $journalService)
     public function store(StoreBalanceRequest $request)
     {
         try {
+            // Get the bank account to validate chart of account connection
+            $bankAccount = \App\Models\Account::find($request->account['id']);
+            
+            if (!$bankAccount) {
+                return $this->responseWithError('Bank account not found.');
+            }
+
+            // Validate that the bank account is connected to chart of accounts
+            if (!$bankAccount->isChartOfAccountConnected()) {
+                return $this->responseWithError($bankAccount->getChartOfAccountValidationMessage());
+            }
+
             // generate reason
             $accountNumber = $request->account['accountNumber'];
             if ($request->type == 1) {
@@ -72,12 +84,10 @@ public function __construct(BusinessTransactionJournalService $journalService)
 try {
     $this->journalService->createBalanceAdjustmentJournal($accountTransaction, auth()->user()->id);
 } catch (Exception $journalException) {
-    // Log the journal creation error but don't fail the entire transaction
-    Log::error('Failed to create journal entry for balance adjustment: ' . $journalException->getMessage(), [
-        'account_transaction_id' => $accountTransaction->id,
-        'user_id' => auth()->user()->id,
-        'error' => $journalException->getMessage()
-    ]);
+    // If journal creation fails, we should also fail the transaction creation
+    // since the user expects both to be created together
+    $accountTransaction->delete(); // Rollback the transaction
+    return $this->responseWithError('Failed to create journal entry: ' . $journalException->getMessage());
 }
 
             // add activity log
