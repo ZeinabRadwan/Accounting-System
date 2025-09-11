@@ -16,7 +16,7 @@ class AccountTransaction extends Model
      * @var array
      */
     protected $fillable = [
-        'account_id', 'reason', 'amount', 'type', 'transaction_date', 'cheque_no', 'receipt_no',  'created_by', 'note', 'status', 'journal_entry_id',
+        'account_id', 'reason', 'amount', 'type', 'transaction_date', 'cheque_no', 'receipt_no',  'created_by', 'note', 'status', 'journal_entry_id', 'second_account_id',
     ];
 
     /**

@@ -46,6 +46,24 @@
                   <has-error :form="form" field="type" />
                 </div>
               </div>
+              <div class="row" v-if="chartOfAccounts && chartOfAccounts.length > 0">
+                <div class="form-group col-md-12">
+                  <label for="secondAccount">{{ $t("Second Account") }}
+                    <span class="required">*</span></label>
+                  <v-select v-model="form.secondAccount" :options="chartOfAccounts" label="name"
+                    :class="{ 'is-invalid': form.errors.has('secondAccount') }" name="secondAccount"
+                    :placeholder="$t('Select second account for journal entry')">
+                    <template slot="option" slot-scope="option">
+                      <div>
+                        <strong>{{ option.name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ option.code }} - {{ option.type }}</small>
+                      </div>
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="secondAccount" />
+                </div>
+              </div>
               <div class="row" v-if="form.account">
                 <div class="form-group col-md-6">
                   <label for="availableAmount">{{
@@ -143,14 +161,17 @@ export default {
       date: new Date().toISOString().slice(0, 10),
       note: "",
       status: 1,
+      secondAccount: null,
     }),
     loading: true,
+    chartOfAccounts: [],
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
   },
   created() {
     this.getAccounts();
+    this.getChartOfAccounts();
   },
   methods: {
     // get all accounts
@@ -166,8 +187,35 @@ export default {
         );
       }
     },
+    // get chart of accounts
+    async getChartOfAccounts() {
+      try {
+        const response = await this.$http.get('/api/accounts/chart-of-accounts');
+        
+        if (response.data && response.data.success) {
+          this.chartOfAccounts = response.data.data || [];
+        } else {
+          this.chartOfAccounts = [];
+        }
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to load chart of accounts")
+        });
+      }
+    },
     // save adjustment
     async saveAdjustment() {
+      // Validate that second account is selected
+      if (!this.form.secondAccount) {
+        toast.fire({
+          type: "error",
+          title: this.$t("Please select a second account")
+        });
+        return;
+      }
+
       await this.form
         .post(window.location.origin + "/api/balances")
         .then(() => {
