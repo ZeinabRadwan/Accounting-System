@@ -10,17 +10,23 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Balance\StoreBalanceRequest;
 use App\Http\Resources\AccountTransactionResource;
 use App\Http\Requests\Balance\UpdateBalanceRequest;
+use Illuminate\Support\Facades\Log;
+use App\Services\BusinessTransactionJournalService;
 
 class BalanceController extends Controller
 {
-    // define middleware
-    public function __construct()
-    {
-        $this->middleware('can:account-balance-list', ['only' => ['index', 'search']]);
-        $this->middleware('can:account-balance-create', ['only' => ['create']]);
-        $this->middleware('can:account-balance-edit', ['only' => ['update']]);
-        $this->middleware('can:account-balance-delete', ['only' => ['destroy']]);
-    }
+    protected BusinessTransactionJournalService $journalService;
+
+// define middleware
+public function __construct(BusinessTransactionJournalService $journalService)
+{
+    $this->middleware('can:account-balance-list', ['only' => ['index', 'search']]);
+    $this->middleware('can:account-balance-create', ['only' => ['create']]);
+    $this->middleware('can:account-balance-edit', ['only' => ['update']]);
+    $this->middleware('can:account-balance-delete', ['only' => ['destroy']]);
+
+    $this->journalService = $journalService;
+}
 
     /**
      * Display a listing of the resource.
@@ -60,6 +66,18 @@ class BalanceController extends Controller
                 'note' => $request->note,
                 'status' => $request->status,
             ]);
+
+// Create journal entry for the balance adjustment
+try {
+    $this->journalService->createBalanceAdjustmentJournal($accountTransaction, auth()->user()->id);
+} catch (Exception $journalException) {
+    // Log the journal creation error but don't fail the entire transaction
+    Log::error('Failed to create journal entry for balance adjustment: ' . $journalException->getMessage(), [
+        'account_transaction_id' => $accountTransaction->id,
+        'user_id' => auth()->user()->id,
+        'error' => $journalException->getMessage()
+    ]);
+}
 
             // add activity log
             activity()
