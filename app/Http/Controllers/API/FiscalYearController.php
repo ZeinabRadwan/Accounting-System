@@ -75,7 +75,23 @@ class FiscalYearController extends Controller
      */
     public function update(UpdateFiscalYearRequest $request, FiscalYear $fiscalYear)
     {
-        $fiscalYear->update($request->validated());
+        $validatedData = $request->validated();
+        
+        // Log the data being updated
+        \Log::info('Updating fiscal year', [
+            'id' => $fiscalYear->id,
+            'current_data' => $fiscalYear->toArray(),
+            'new_data' => $validatedData
+        ]);
+        
+        $fiscalYear->update($validatedData);
+        
+        // Refresh the model to get updated data
+        $fiscalYear->refresh();
+        
+        \Log::info('After update', [
+            'updated_data' => $fiscalYear->toArray()
+        ]);
 
         return response()->json([
             'message' => 'Fiscal year updated successfully',

@@ -122,12 +122,11 @@ class AccountingPeriodController extends Controller
     public function allAccountingPeriods()
     {
         $accountingPeriods = AccountingPeriod::with('fiscalYear')
-            ->select('id', 'name', 'slug', 'fiscal_year_id', 'start_date', 'end_date', 'is_active', 'is_closed')
             ->orderBy('start_date', 'desc')
             ->get();
 
         return response()->json([
-            'data' => $accountingPeriods
+            'data' => AccountingPeriodResource::collection($accountingPeriods)
         ]);
     }
 

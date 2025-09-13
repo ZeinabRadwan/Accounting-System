@@ -38,6 +38,13 @@ class FiscalYear extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_name', 'duration_in_days'];
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
@@ -91,6 +98,9 @@ class FiscalYear extends Model
      */
     public function isCurrentlyActive(): bool
     {
+        if (!$this->start_date || !$this->end_date) {
+            return false;
+        }
         return $this->is_active && 
                $this->start_date <= now() && 
                $this->end_date >= now();
@@ -99,8 +109,11 @@ class FiscalYear extends Model
     /**
      * Get the duration of the fiscal year in days.
      */
-    public function getDurationInDays(): int
+    public function getDurationInDaysAttribute(): int
     {
+        if (!$this->start_date || !$this->end_date) {
+            return 0;
+        }
         return $this->start_date->diffInDays($this->end_date) + 1;
     }
 
@@ -109,6 +122,11 @@ class FiscalYear extends Model
      */
     public function getFullNameAttribute(): string
     {
-        return $this->name . ' (' . $this->start_date->format('Y') . '-' . $this->end_date->format('Y') . ')';
+        $name = $this->name ?? 'Unnamed Fiscal Year';
+        
+        if (!$this->start_date || !$this->end_date) {
+            return $name;
+        }
+        return $name . ' (' . $this->start_date->format('Y') . '-' . $this->end_date->format('Y') . ')';
     }
 }

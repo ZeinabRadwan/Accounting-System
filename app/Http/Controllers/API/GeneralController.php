@@ -254,6 +254,21 @@ class GeneralController extends Controller
         GeneralSetting::updateOrCreate(['key' =>  'invoice_thank_you_message'],[ 'display_name' => 'Invoice message', 'value' => clean($request->invoiceThankYouMessage)]);
         GeneralSetting::updateOrCreate(['key' =>  'tax_registration_number'],[ 'display_name' => 'Tax Registration Number', 'value' => clean($request->taxRegistrationNumber)]);
 
+        // Update fiscal year and accounting period if provided
+        if ($request->currentFiscalYear && isset($request->currentFiscalYear['id'])) {
+            GeneralSetting::updateOrCreate(
+                ['key' => 'current_fiscal_year_id'],
+                ['display_name' => 'Current Fiscal Year ID', 'value' => $request->currentFiscalYear['id']]
+            );
+        }
+
+        if ($request->currentAccountingPeriod && isset($request->currentAccountingPeriod['id'])) {
+            GeneralSetting::updateOrCreate(
+                ['key' => 'current_accounting_period_id'],
+                ['display_name' => 'Current Accounting Period ID', 'value' => $request->currentAccountingPeriod['id']]
+            );
+        }
+
         return redirect()->back()->withSuccess('Settings updated successfully!');
     }
 

@@ -1463,22 +1463,33 @@ export default {
             locales: 'lang/locales',
         }),
         filteredAccountingPeriods() {
-            if (!this.form.currentFiscalYear || !this.accountingPeriods) {
-                return this.accountingPeriods || [];
+            if (!this.accountingPeriods) {
+                return [];
             }
+            
+            // If no fiscal year is selected, return all accounting periods
+            if (!this.form.currentFiscalYear) {
+                return this.accountingPeriods;
+            }
+            
+            // Filter accounting periods by the selected fiscal year
             return this.accountingPeriods.filter(period => 
                 period.fiscal_year && period.fiscal_year.id === this.form.currentFiscalYear.id
             );
         }
     },
 
-    created() {
+    async created() {
         this.getVatRates();
         this.getCurrencies();
         this.getClients();
         this.getAccounts();
-        this.getFiscalYears();
-        this.getAccountingPeriods();
+        
+        // Load fiscal years and accounting periods first
+        await this.getFiscalYears();
+        await this.getAccountingPeriods();
+        
+        // Then assign values
         this.assignValues();
     },
     methods: {
@@ -1528,42 +1539,38 @@ export default {
             });
         },
         // get all fiscal years
-        getFiscalYears() {
-            axios.get('/api/all-fiscal-years').then((response) => {
+        async getFiscalYears() {
+            try {
+                const response = await axios.get('/api/all-fiscal-years');
                 this.fiscalYears = response.data.data;
                 console.log('Fiscal Years loaded:', this.fiscalYears);
-                // assign current fiscal year
-                if (this.appInfo.currentFiscalYear) {
-                    this.form.currentFiscalYear = this.fiscalYears.find(
-                        (fy) => fy.id === this.appInfo.currentFiscalYear.id
-                    );
-                }
-            }).catch((error) => {
+            } catch (error) {
                 console.error('Error loading fiscal years:', error);
                 this.fiscalYears = [];
-            });
+            }
         },
         // get all accounting periods
-        getAccountingPeriods() {
-            axios.get('/api/all-accounting-periods').then((response) => {
+        async getAccountingPeriods() {
+            try {
+                const response = await axios.get('/api/all-accounting-periods');
                 this.accountingPeriods = response.data.data;
                 console.log('Accounting Periods loaded:', this.accountingPeriods);
-                // assign current accounting period
-                if (this.appInfo.currentAccountingPeriod) {
-                    this.form.currentAccountingPeriod = this.accountingPeriods.find(
-                        (period) => period.id === this.appInfo.currentAccountingPeriod.id
-                    );
-                }
-            }).catch((error) => {
+            } catch (error) {
                 console.error('Error loading accounting periods:', error);
                 this.accountingPeriods = [];
-            });
+            }
         },
         // handle fiscal year change
         onFiscalYearChange(fiscalYear) {
             this.form.currentFiscalYear = fiscalYear;
-            // Reset accounting period when fiscal year changes
-            this.form.currentAccountingPeriod = '';
+            
+            // Check if current accounting period belongs to the new fiscal year
+            if (this.form.currentAccountingPeriod && 
+                this.form.currentAccountingPeriod.fiscal_year && 
+                this.form.currentAccountingPeriod.fiscal_year.id !== fiscalYear.id) {
+                // Reset accounting period if it doesn't belong to the new fiscal year
+                this.form.currentAccountingPeriod = '';
+            }
         },
         // assign values
         assignValues() {
@@ -1601,11 +1608,15 @@ export default {
                 this.form.taxRegistrationNumber = this.appInfo.taxRegistrationNumber;
                 
                 // Assign fiscal year and accounting period
-                if (this.appInfo.currentFiscalYear) {
-                    this.form.currentFiscalYear = this.appInfo.currentFiscalYear;
+                if (this.appInfo.currentFiscalYear && this.fiscalYears.length > 0) {
+                    this.form.currentFiscalYear = this.fiscalYears.find(
+                        (fy) => fy.id === this.appInfo.currentFiscalYear.id
+                    );
                 }
-                if (this.appInfo.currentAccountingPeriod) {
-                    this.form.currentAccountingPeriod = this.appInfo.currentAccountingPeriod;
+                if (this.appInfo.currentAccountingPeriod && this.accountingPeriods.length > 0) {
+                    this.form.currentAccountingPeriod = this.accountingPeriods.find(
+                        (period) => period.id === this.appInfo.currentAccountingPeriod.id
+                    );
                 }
             }
         },
@@ -1731,14 +1742,6 @@ export default {
                 this.$store.dispatch('lang/setLocale', { locale });
             }
 
-            // Update fiscal year and accounting period if selected
-            if (this.form.currentFiscalYear) {
-                await this.setCurrentFiscalYear(this.form.currentFiscalYear.id);
-            }
-            if (this.form.currentAccountingPeriod) {
-                await this.setCurrentAccountingPeriod(this.form.currentAccountingPeriod.id);
-            }
-
             // for production
             await this.form
                 .post(window.location.origin + '/api/update-settings')
@@ -1763,26 +1766,6 @@ export default {
             //   type: "warning",
             //   title: this.$t("You are not allowed to do this in demo version."),
             // });
-        },
-        // set current fiscal year
-        async setCurrentFiscalYear(fiscalYearId) {
-            try {
-                await axios.post('/api/fiscal-years/set-current', {
-                    fiscal_year_id: fiscalYearId
-                });
-            } catch (error) {
-                console.error('Error setting current fiscal year:', error);
-            }
-        },
-        // set current accounting period
-        async setCurrentAccountingPeriod(accountingPeriodId) {
-            try {
-                await axios.post('/api/accounting-periods/set-current', {
-                    accounting_period_id: accountingPeriodId
-                });
-            } catch (error) {
-                console.error('Error setting current accounting period:', error);
-            }
         },
     },
 };
