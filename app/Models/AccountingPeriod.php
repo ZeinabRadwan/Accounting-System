@@ -111,6 +111,10 @@ class AccountingPeriod extends Model
      */
     public function isCurrentlyActive(): bool
     {
+        if (!$this->start_date || !$this->end_date) {
+            return false;
+        }
+        
         return $this->is_active && 
                !$this->is_closed &&
                $this->start_date <= now() && 
@@ -122,6 +126,10 @@ class AccountingPeriod extends Model
      */
     public function getDurationInDays(): int
     {
+        if (!$this->start_date || !$this->end_date) {
+            return 0;
+        }
+        
         return $this->start_date->diffInDays($this->end_date) + 1;
     }
 
@@ -130,7 +138,13 @@ class AccountingPeriod extends Model
      */
     public function getFullNameAttribute(): string
     {
-        return $this->name . ' (' . $this->start_date->format('M d, Y') . ' - ' . $this->end_date->format('M d, Y') . ')';
+        $name = $this->name ?? 'Unnamed Period';
+        
+        if (!$this->start_date || !$this->end_date) {
+            return $name;
+        }
+        
+        return $name . ' (' . $this->start_date->format('M d, Y') . ' - ' . $this->end_date->format('M d, Y') . ')';
     }
 
     /**
