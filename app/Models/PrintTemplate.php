@@ -10,6 +10,7 @@ class PrintTemplate extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'module',
         'template_key',
@@ -21,7 +22,10 @@ class PrintTemplate extends Model
         'html_template',
         'css_styles',
         'preview_data',
+        'custom_logo',
         'sort_order',
+        'created_at',
+        'updated_at',
     ];
 
     protected $casts = [
@@ -89,5 +93,47 @@ class PrintTemplate extends Model
     public function setPreviewDataAttribute($value)
     {
         $this->preview_data = is_array($value) ? $value : json_decode($value, true);
+    }
+
+    /**
+     * Get the logo URL for this template
+     */
+    public function getLogoUrlAttribute()
+    {
+        if ($this->custom_logo) {
+            return asset('images/' . $this->custom_logo);
+        }
+
+        // Fallback to general settings logo
+        $settings = \App\Models\GeneralSetting::get();
+        $logo = $settings->where('key', 'logo')->first()?->value;
+        
+        if ($logo) {
+            return asset('images/' . $logo);
+        }
+
+        // Default logo
+        return asset('images/logo.png');
+    }
+
+    /**
+     * Get the logo path for this template
+     */
+    public function getLogoPathAttribute()
+    {
+        if ($this->custom_logo) {
+            return public_path('images/' . $this->custom_logo);
+        }
+
+        // Fallback to general settings logo
+        $settings = \App\Models\GeneralSetting::get();
+        $logo = $settings->where('key', 'logo')->first()?->value;
+        
+        if ($logo) {
+            return public_path('images/' . $logo);
+        }
+
+        // Default logo
+        return public_path('images/logo.png');
     }
 }

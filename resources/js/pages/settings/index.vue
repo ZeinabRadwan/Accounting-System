@@ -75,7 +75,7 @@ export default {
           name: this.$t('Subscription Requests'),
           route: 'settings.billing.subscription-requests',
           permission: 'billing',
-        }
+        },
       ]
     }
   }

@@ -921,6 +921,12 @@
               <p>{{ $t('Setup') }}</p>
             </router-link>
           </li>
+          <li v-if="$can('print-templates')" class="nav-item">
+            <router-link :to="{ name: 'print-templates' }" class="nav-link">
+              <i class="nav-icon fas fa-print" />
+              <p>{{ $t('Print Templates') }}</p>
+            </router-link>
+          </li>
           <li class="nav-item">
             <router-link :to="{ name: 'activity.log' }" class="nav-link">
               <i class="nav-icon fa fa-bell" aria-hidden="true"></i>

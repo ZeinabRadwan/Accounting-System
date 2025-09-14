@@ -1098,6 +1098,38 @@ class TenantPermissionSeeder extends Seeder
                     'guard_name' => 'Journal Entry Management',
                     'slug' => 'journal-entry-post',
                 ],
+
+                // Print Templates permissions
+                [
+                    'name' => 'Print Templates',
+                    'guard_name' => 'Print Templates Management',
+                    'slug' => 'print-templates',
+                ],
+                [
+                    'name' => 'Create',
+                    'guard_name' => 'Print Templates Management',
+                    'slug' => 'print-templates-create',
+                ],
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Print Templates Management',
+                    'slug' => 'print-templates-list',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Print Templates Management',
+                    'slug' => 'print-templates-edit',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Print Templates Management',
+                    'slug' => 'print-templates-view',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Print Templates Management',
+                    'slug' => 'print-templates-delete',
+                ],
             ]);
         } else {
             // Insert only missing purchase order permissions

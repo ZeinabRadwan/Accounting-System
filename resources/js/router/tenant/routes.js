@@ -1299,8 +1299,18 @@ export default [
         meta: {
           permissions: ['billing'],
         },
-      }
+      },
     ]
+  },
+
+  // Print Templates route
+  {
+    path: '/print-templates',
+    name: 'print-templates',
+    component: page('settings/print-templates.vue'),
+    meta: {
+      permissions: ['print-templates'],
+    },
   },
 
   // Journal Entries routes

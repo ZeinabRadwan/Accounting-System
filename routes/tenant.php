@@ -589,13 +589,28 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
 
 
         Route::post('/rich-editor-file-upload', [RichEditorController::class, 'handleUpload']);
+
+        // Print Templates API routes
+        Route::apiResource('print-templates', App\Http\Controllers\API\PrintTemplateController::class);
+        Route::post('/print-templates/{id}/set-default', [App\Http\Controllers\API\PrintTemplateController::class, 'setDefault']);
+        Route::get('/print-templates/{id}/preview', [App\Http\Controllers\API\PrintTemplateController::class, 'preview']);
+        Route::get('/print-templates/default/get', [App\Http\Controllers\API\PrintTemplateController::class, 'getDefault']);
+        Route::delete('/print-templates/{id}/remove-logo', [App\Http\Controllers\API\PrintTemplateController::class, 'removeCustomLogo']);
     });
 
 
-    // email pdf generator routes
+    // email pdf generator routes (legacy - keeping for backward compatibility)
     Route::get('/invoice/pdf/{slug}', [PDFGeneratorController::class, 'generateInvoicePDF'])->name('email.invoice.pdf');
     Route::get('/purchase/pdf/{slug}', [PDFGeneratorController::class, 'generatePurchasePDF'])->name('email.purchase.pdf');
     Route::get('/quotation/pdf/{slug}', [PDFGeneratorController::class, 'generateQuotationPDF'])->name('email.quotation.pdf');
+    
+    // Template preview routes
+    Route::get('/template/preview/{id}', [PDFGeneratorController::class, 'previewTemplate'])->name('template.preview');
+    
+    // New HTML print routes
+    Route::get('/print/invoice/{slug}', [App\Http\Controllers\PrintController::class, 'printInvoice'])->name('print.invoice');
+    Route::get('/print/purchase/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchase'])->name('print.purchase');
+    Route::get('/print/quotation/{slug}', [App\Http\Controllers\PrintController::class, 'printQuotation'])->name('print.quotation');
 
 
     // pdf download blade routes

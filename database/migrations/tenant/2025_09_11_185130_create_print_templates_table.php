@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('html_template'); // stores the HTML template
             $table->text('css_styles'); // stores custom CSS styles
             $table->json('preview_data')->nullable(); // sample data for preview
+            $table->string('custom_logo')->nullable(); // custom logo for this template
             $table->integer('sort_order')->default(0);
             $table->timestamps();
             

@@ -848,22 +848,11 @@ export default {
       }
       return 0;
     },
-    // download pdf
+    // download pdf - now opens print page
     generatePDF() {
-      // Get the HTML content to be converted
-      const element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      const options = {
-        margin: 5,
-        filename: "Sales Invoice-" + this.$route.params.slug + ".pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        pagebreak: { mode: "avoid-all", before: "#page-break" },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
-      };
-
-      // Generate PDF from HTML content
-      html2pdf().from(element).set(options).save();
+      // Open the print page in a new window
+      const printUrl = `/print/invoice/${this.$route.params.slug}`;
+      window.open(printUrl, '_blank');
     },
     // notify
     async notify() {
@@ -892,9 +881,11 @@ export default {
         });
       }
     },
-    // print
+    // print - now opens print page
     printWindow() {
-      window.print();
+      // Open the print page in a new window
+      const printUrl = `/print/invoice/${this.$route.params.slug}`;
+      window.open(printUrl, '_blank');
     },
 
     // print table

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\PrintTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PrintTemplateController extends Controller
 {
@@ -14,13 +17,18 @@ class PrintTemplateController extends Controller
      */
     public function index(Request $request)
     {
-        $module = $request->get('module', 'invoice');
+        $module = $request->get('module');
         
-        $templates = PrintTemplate::byModule($module)
-            ->active()
+        $query = PrintTemplate::active()
+            ->orderBy('module')
             ->orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+            ->orderBy('name');
+        
+        if ($module) {
+            $query->byModule($module);
+        }
+        
+        $templates = $query->get();
 
         return response()->json([
             'status' => 'success',
@@ -58,6 +66,7 @@ class PrintTemplateController extends Controller
             'html_template' => 'required|string',
             'css_styles' => 'required|string',
             'preview_data' => 'nullable|array',
+            'custom_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sort_order' => 'integer|min:0'
         ]);
 
@@ -74,7 +83,19 @@ class PrintTemplateController extends Controller
             PrintTemplate::byModule($request->module)->update(['is_default' => false]);
         }
 
-        $template = PrintTemplate::create($request->all());
+        // Handle logo upload
+        $logoName = null;
+        if ($request->hasFile('custom_logo')) {
+            $logoName = $this->handleLogoUpload($request->file('custom_logo'));
+        }
+
+        // Filter out _method and other non-model fields
+        $templateData = $request->except(['_method', 'custom_logo']);
+        if ($logoName) {
+            $templateData['custom_logo'] = $logoName;
+        }
+
+        $template = PrintTemplate::create($templateData);
 
         return response()->json([
             'status' => 'success',
@@ -102,6 +123,7 @@ class PrintTemplateController extends Controller
             'html_template' => 'sometimes|required|string',
             'css_styles' => 'sometimes|required|string',
             'preview_data' => 'nullable|array',
+            'custom_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sort_order' => 'integer|min:0'
         ]);
 
@@ -118,7 +140,25 @@ class PrintTemplateController extends Controller
             PrintTemplate::byModule($template->module)->where('id', '!=', $id)->update(['is_default' => false]);
         }
 
-        $template->update($request->all());
+        // Handle logo upload
+        if ($request->hasFile('custom_logo')) {
+            // Delete old logo if exists
+            if ($template->custom_logo && file_exists(public_path('images/' . $template->custom_logo))) {
+                unlink(public_path('images/' . $template->custom_logo));
+            }
+            
+            $logoName = $this->handleLogoUpload($request->file('custom_logo'));
+            
+            // Filter out _method and other non-model fields
+            $updateData = $request->except(['_method', 'custom_logo']);
+            $updateData['custom_logo'] = $logoName;
+            
+            $template->update($updateData);
+        } else {
+            // Filter out _method and other non-model fields
+            $updateData = $request->except(['_method']);
+            $template->update($updateData);
+        }
 
         return response()->json([
             'status' => 'success',
@@ -155,19 +195,37 @@ class PrintTemplateController extends Controller
      */
     public function setDefault(Request $request, $id)
     {
-        $template = PrintTemplate::findOrFail($id);
-        
-        // Unset other defaults for this module
-        PrintTemplate::byModule($template->module)->update(['is_default' => false]);
-        
-        // Set this one as default
-        $template->update(['is_default' => true]);
+        try {
+            Log::info('Setting template as default', ['template_id' => $id, 'user_id' => auth()->id()]);
+            
+            $template = PrintTemplate::findOrFail($id);
+            Log::info('Template found', ['template' => $template->toArray()]);
+            
+            // Unset other defaults for this module
+            $updated = PrintTemplate::byModule($template->module)->update(['is_default' => false]);
+            Log::info('Unset other defaults', ['updated_count' => $updated]);
+            
+            // Set this one as default
+            $template->update(['is_default' => true]);
+            Log::info('Template set as default successfully');
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Template set as default successfully',
-            'data' => $template
-        ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Template set as default successfully',
+                'data' => $template
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error setting template as default', [
+                'template_id' => $id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to set template as default: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -275,6 +333,48 @@ class PrintTemplateController extends Controller
                 
             default:
                 return $baseData;
+        }
+    }
+
+    /**
+     * Handle logo upload
+     */
+    private function handleLogoUpload($file)
+    {
+        $filename = 'template_logo_' . time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images'), $filename);
+        return $filename;
+    }
+
+    /**
+     * Remove custom logo from template
+     */
+    public function removeCustomLogo($id)
+    {
+        try {
+            $template = PrintTemplate::findOrFail($id);
+            
+            if ($template->custom_logo && file_exists(public_path('images/' . $template->custom_logo))) {
+                unlink(public_path('images/' . $template->custom_logo));
+            }
+            
+            $template->update(['custom_logo' => null]);
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Custom logo removed successfully',
+                'data' => $template
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error removing custom logo', [
+                'template_id' => $id,
+                'error' => $e->getMessage()
+            ]);
+            
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to remove custom logo'
+            ], 500);
         }
     }
 }
