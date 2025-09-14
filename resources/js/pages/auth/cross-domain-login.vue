@@ -71,10 +71,12 @@ export default {
           return
         }
 
-        // Call the cross-domain login API
-        const response = await this.$axios.post('/api/cross-domain-login', {
-          email: encryptedEmail,
-          password: encryptedPassword
+        // Call the cross-domain login API with GET request
+        const response = await this.$axios.get('/api/cross-domain-login', {
+          params: {
+            email: encryptedEmail,
+            password: encryptedPassword
+          }
         })
 
         if (response.data && response.data.token) {

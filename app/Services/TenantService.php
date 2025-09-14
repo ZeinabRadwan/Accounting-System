@@ -11,6 +11,7 @@ use App\Models\GeneralSetting;
 use Stancl\Tenancy\Database\Models\Domain;
 use App\Http\Requests\TenantRegisterRequest;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Log;
 use App\Notifications\NewSubscriptionNotification;
 use App\Notifications\TenantRegisterNotifyForAdmin;
 use App\Notifications\TenantVerificationNotification;
@@ -70,11 +71,26 @@ class TenantService
         // Set up print templates for the new tenant
         $this->setupPrintTemplatesForTenant($tenant);
 
+        // Create the admin user in the tenant database
+        $this->createTenantAdminUser($tenant, $request);
+
         // get host name
         $host = request()->getHttpHost();
-        $domainWithHost = request()->getScheme() . '://' . $request->domain . '.' . $host;
-        $token = tenancy()->impersonate(
-            $tenant, 1, $request->domain . '.' . $host
+        $domainWithHost = $request->domain . '.' . $host;
+        $protocol = request()->secure() ? 'https' : 'http';
+        $fullDomainWithHost = $protocol . '://' . $domainWithHost;
+
+        // Create login URL with encrypted credentials for automatic login
+        $encryptedEmail = encrypt($request->input('email'));
+        $encryptedPassword = encrypt($request->input('password'));
+        
+        $loginUrl = $fullDomainWithHost . '/cross-domain-login?' .
+            'email=' . urlencode($encryptedEmail) .
+            '&password=' . urlencode($encryptedPassword);
+
+        // Create impersonation token for direct access
+        $impersonateToken = tenancy()->impersonate(
+            $tenant, 1, $domainWithHost
         )->token;
 
         // tenant verification mail
@@ -82,8 +98,15 @@ class TenantService
         $host = env('CENTRAL_DOMAIN');
         $domainTenant =  $tenant->domain . '.' . $host;
         windowsTestSubHostReg($domainTenant);
+        
         return $this->responseWithSuccess(
-            'Registration successful. Check your email for verification link.', $tenant
+            'Registration successful. You will be automatically logged in.', [
+                'tenant' => $tenant,
+                'domain' => $domainWithHost,
+                'login_url' => $loginUrl,
+                'impersonate_url' => $fullDomainWithHost . '/impersonate/' . $impersonateToken,
+                'token' => $impersonateToken
+            ]
         );
     }
 
@@ -215,6 +238,37 @@ class TenantService
     }
 
     /**
+     * Create admin user for the tenant
+     *
+     * @param  Tenant  $tenant
+     * @param  TenantRegisterRequest  $request
+     * @return void
+     */
+    private function createTenantAdminUser($tenant, $request)
+    {
+        try {
+            // Initialize the tenant context
+            tenancy()->initialize($tenant);
+            
+            Log::info("Creating admin user for new tenant: {$tenant->id} ({$tenant->getTenantKey()})");
+            
+            // Create the admin user in the tenant database
+            User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('password')),
+                'locale' => 'en', // Set default locale for new users
+                'account_role' => 1, // Admin role
+            ]);
+            
+            Log::info("✅ Admin user created successfully for tenant: {$tenant->getTenantKey()}");
+            
+        } catch (\Exception $e) {
+            Log::error("❌ Error creating admin user for tenant {$tenant->id}: " . $e->getMessage());
+        }
+    }
+
+    /**
      * Set up print templates for a tenant
      *
      * @param  Tenant  $tenant
@@ -226,7 +280,7 @@ class TenantService
             // Initialize the tenant context
             tenancy()->initialize($tenant);
             
-            \Log::info("Setting up print templates for new tenant: {$tenant->id} ({$tenant->getTenantKey()})");
+            Log::info("Setting up print templates for new tenant: {$tenant->id} ({$tenant->getTenantKey()})");
             
             // Run PrintTemplateSeeder
             $printTemplateSeeder = new \Database\Seeders\PrintTemplateSeeder();
@@ -236,10 +290,10 @@ class TenantService
             $printTemplatePermissionsSeeder = new \Database\Seeders\PrintTemplatePermissionsSeeder();
             $printTemplatePermissionsSeeder->run();
             
-            \Log::info("✅ Print templates setup completed for tenant: {$tenant->getTenantKey()}");
+            Log::info("✅ Print templates setup completed for tenant: {$tenant->getTenantKey()}");
             
         } catch (\Exception $e) {
-            \Log::error("❌ Error setting up print templates for tenant {$tenant->id}: " . $e->getMessage());
+            Log::error("❌ Error setting up print templates for tenant {$tenant->id}: " . $e->getMessage());
         }
     }
 }

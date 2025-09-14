@@ -26,6 +26,7 @@ class TenantDatabaseSeeder extends Seeder
             ]);
 
             $this->call([
+                TenantSettingSeeder::class,
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
                 AccountRoutingSettingsSeeder::class,

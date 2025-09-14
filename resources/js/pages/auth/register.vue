@@ -326,7 +326,23 @@ export default {
             // register the user.
             const { data } = await this.form.post('/api/register');
             if (data) {
-                this.verificationForm.email = data.data.email;
+                // Show success message
+                toast.fire({
+                    type: 'success',
+                    title: this.$t('Registration successful! Redirecting to your dashboard...'),
+                });
+
+                // Automatically redirect to the tenant dashboard
+                if (data.data.login_url) {
+                    // Use the cross-domain login URL for automatic authentication
+                    window.location.href = data.data.login_url;
+                } else if (data.data.impersonate_url) {
+                    // Fallback to impersonation URL
+                    window.location.href = data.data.impersonate_url;
+                } else {
+                    // Fallback to verification form
+                    this.verificationForm.email = data.data.tenant.email;
+                }
             }
         },
         async resendVerification() {
