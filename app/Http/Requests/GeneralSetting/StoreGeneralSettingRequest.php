@@ -50,7 +50,9 @@ class StoreGeneralSettingRequest extends BaseRequest
             'invoiceThankYouMessage' => 'required|string|max:100',
             'defaultClient' => 'required',
             'defaultAccount' => 'required',
-            'defaultVatRate' => 'required'
+            'defaultVatRate' => 'required',
+            'currentFiscalYear' => 'nullable|array',
+            'currentAccountingPeriod' => 'nullable|array'
         ];
 
         // Add ZATCA validation rules if the request contains ZATCA fields

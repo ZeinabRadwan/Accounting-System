@@ -67,6 +67,9 @@ class TenantService
             'fallback_domain_id' => $domain->id,
         ]);
 
+        // Set up print templates for the new tenant
+        $this->setupPrintTemplatesForTenant($tenant);
+
         // get host name
         $host = request()->getHttpHost();
         $domainWithHost = request()->getScheme() . '://' . $request->domain . '.' . $host;
@@ -110,6 +113,9 @@ class TenantService
             'primary_domain_id' => $domain->id,
             'fallback_domain_id' => $domain->id,
         ]);
+
+        // Set up print templates for the new tenant
+        $this->setupPrintTemplatesForTenant($tenant);
 
         // get host name
         $host = request()->getHttpHost();
@@ -206,5 +212,34 @@ class TenantService
                 'redirect_url' => $domainWithHost.'/impersonate/'.$token
             ]
         );
+    }
+
+    /**
+     * Set up print templates for a tenant
+     *
+     * @param  Tenant  $tenant
+     * @return void
+     */
+    private function setupPrintTemplatesForTenant(Tenant $tenant)
+    {
+        try {
+            // Initialize the tenant context
+            tenancy()->initialize($tenant);
+            
+            \Log::info("Setting up print templates for new tenant: {$tenant->id} ({$tenant->getTenantKey()})");
+            
+            // Run PrintTemplateSeeder
+            $printTemplateSeeder = new \Database\Seeders\PrintTemplateSeeder();
+            $printTemplateSeeder->run();
+            
+            // Run PrintTemplatePermissionsSeeder
+            $printTemplatePermissionsSeeder = new \Database\Seeders\PrintTemplatePermissionsSeeder();
+            $printTemplatePermissionsSeeder->run();
+            
+            \Log::info("✅ Print templates setup completed for tenant: {$tenant->getTenantKey()}");
+            
+        } catch (\Exception $e) {
+            \Log::error("❌ Error setting up print templates for tenant {$tenant->id}: " . $e->getMessage());
+        }
     }
 }

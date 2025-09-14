@@ -61,9 +61,17 @@ class FiscalYearController extends Controller
      * @param FiscalYear $fiscalYear
      * @return FiscalYearResource
      */
-    public function show(FiscalYear $fiscalYear)
+    public function show($id)
     {
-        return new FiscalYearResource($fiscalYear->load(['user', 'accountingPeriods']));
+        $fiscalYear = FiscalYear::with(['user', 'accountingPeriods'])->find($id);
+        
+        if (!$fiscalYear) {
+            return response()->json([
+                'message' => 'Fiscal year not found'
+            ], 404);
+        }
+
+        return new FiscalYearResource($fiscalYear);
     }
 
     /**
@@ -73,13 +81,36 @@ class FiscalYearController extends Controller
      * @param FiscalYear $fiscalYear
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateFiscalYearRequest $request, FiscalYear $fiscalYear)
+    public function update(UpdateFiscalYearRequest $request, $id)
     {
-        $fiscalYear->update($request->validated());
+        // Find the fiscal year manually to ensure it exists in the current tenant context
+        $fiscalYear = FiscalYear::find($id);
+        
+        if (!$fiscalYear) {
+            return response()->json([
+                'message' => 'Fiscal year not found'
+            ], 404);
+        }
+
+        $validatedData = $request->validated();
+        
+        // Check if slug needs to be generated
+        if (isset($validatedData['name']) && $validatedData['name'] !== $fiscalYear->name) {
+            // The name has changed, so we need to regenerate the slug
+            $validatedData['slug'] = \Str::slug($validatedData['name']);
+        }
+
+        $fiscalYear->update($validatedData);
+        
+        // Refresh the model to get updated data
+        $fiscalYear->refresh();
+        
+        // Reload the model with relationships
+        $fiscalYear->load(['user', 'accountingPeriods']);
 
         return response()->json([
             'message' => 'Fiscal year updated successfully',
-            'data' => new FiscalYearResource($fiscalYear->load(['user', 'accountingPeriods']))
+            'data' => new FiscalYearResource($fiscalYear)
         ]);
     }
 
@@ -89,8 +120,16 @@ class FiscalYearController extends Controller
      * @param FiscalYear $fiscalYear
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(FiscalYear $fiscalYear)
+    public function destroy($id)
     {
+        $fiscalYear = FiscalYear::find($id);
+        
+        if (!$fiscalYear) {
+            return response()->json([
+                'message' => 'Fiscal year not found'
+            ], 404);
+        }
+
         // Check if fiscal year has accounting periods
         if ($fiscalYear->accountingPeriods()->count() > 0) {
             return response()->json([
@@ -139,16 +178,25 @@ class FiscalYearController extends Controller
      */
     public function getCurrent()
     {
-        $currentFiscalYear = FiscalYear::getCurrent();
+        // Get the current fiscal year ID from general settings
+        $currentFiscalYearId = \App\Models\GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
+        
+        if (!$currentFiscalYearId) {
+            return response()->json([
+                'message' => 'No current fiscal year set'
+            ], 404);
+        }
+
+        $currentFiscalYear = FiscalYear::with(['user', 'accountingPeriods'])->find($currentFiscalYearId);
 
         if (!$currentFiscalYear) {
             return response()->json([
-                'message' => 'No active fiscal year found'
+                'message' => 'Current fiscal year not found'
             ], 404);
         }
 
         return response()->json([
-            'data' => new FiscalYearResource($currentFiscalYear->load(['user', 'accountingPeriods']))
+            'data' => new FiscalYearResource($currentFiscalYear)
         ]);
     }
 
@@ -169,12 +217,12 @@ class FiscalYearController extends Controller
         // Update general settings
         $generalSetting = \App\Models\GeneralSetting::where('key', 'current_fiscal_year_id')->first();
         if ($generalSetting) {
-            $generalSetting->update(['value' => $fiscalYear->id]);
+            $generalSetting->update(['value' => (string) $fiscalYear->id]);
         } else {
             \App\Models\GeneralSetting::create([
                 'key' => 'current_fiscal_year_id',
                 'display_name' => 'Current Fiscal Year ID',
-                'value' => $fiscalYear->id,
+                'value' => (string) $fiscalYear->id,
             ]);
         }
 

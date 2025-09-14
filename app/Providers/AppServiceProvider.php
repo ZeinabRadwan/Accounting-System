@@ -80,6 +80,8 @@ class AppServiceProvider extends ServiceProvider
         // define default string length
         // Schema::defaultStringLength(191);
 
+        // Print template setup is handled directly in TenantService
+
         $this->generalSettingAndPermission();
 
         /*
