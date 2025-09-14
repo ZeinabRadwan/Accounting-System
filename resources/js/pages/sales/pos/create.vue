@@ -110,11 +110,11 @@
                      </td>
                      <td>{{ (product.unitPrice * product.qty) | withCurrency }}</td>
                      <td>
-                       <div class="input-group">
+                       <div class="d-flex align-items-center gap-1">
                         <select 
                           v-model="product.discountType" 
                           class="form-control form-control-sm" 
-                          style="width: 60px;"
+                          style="width: 70px; flex-shrink: 0;"
                           :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.discountType`) }"
                           @change="calculateProductDiscount(i)">
                           <option value="fixed">{{ $t("Fixed") }}</option>
@@ -124,7 +124,7 @@
                           type="number" 
                           v-model="product.discount" 
                           class="form-control form-control-sm" 
-                          style="width: 80px;"
+                          style="width: 90px; flex-shrink: 0;"
                           step="any" 
                           min="0" 
                           :max="product.discountType == 'percentage' ? 100 : (product.unitPrice * product.qty)"

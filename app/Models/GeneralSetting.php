@@ -17,4 +17,13 @@ class GeneralSetting extends Model
     protected $fillable = [
         'key', 'display_name', 'value',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'value' => 'string',
+    ];
 }
