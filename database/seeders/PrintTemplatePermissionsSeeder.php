@@ -87,6 +87,8 @@ class PrintTemplatePermissionsSeeder extends Seeder
             }
         }
 
-        $this->command->info('Print template permissions created and assigned to all roles!');
+        if ($this->command) {
+            $this->command->info('Print template permissions created and assigned to all roles!');
+        }
     }
 }

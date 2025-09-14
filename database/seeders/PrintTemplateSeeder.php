@@ -15,7 +15,9 @@ class PrintTemplateSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->info('Updating print templates...');
+        if ($this->command) {
+            $this->command->info('Updating print templates...');
+        }
         
         // Clear existing templates
         PrintTemplate::truncate();
@@ -25,7 +27,9 @@ class PrintTemplateSeeder extends Seeder
         $this->createQuotationTemplates();
         $this->createExpenseTemplates();
         
-        $this->command->info('Print templates updated successfully!');
+        if ($this->command) {
+            $this->command->info('Print templates updated successfully!');
+        }
     }
 
     private function createInvoiceTemplates()
