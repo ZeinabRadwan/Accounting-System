@@ -73,6 +73,5 @@ export default {
 }
 
 .currency-amount {
-  font-weight: 500;
 }
 </style>

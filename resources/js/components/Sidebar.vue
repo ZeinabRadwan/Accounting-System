@@ -841,10 +841,28 @@
               <p>{{ $t('Group Account Statement') }}</p>
             </router-link>
           </li>
+          <li v-if="$can('account-statement')" class="nav-item">
+            <router-link :to="{ name: 'reports.invoiceSummary' }" class="nav-link">
+              <i class="fas fa-file-invoice nav-icon" />
+              <p>{{ $t('Invoice Summary') }}</p>
+            </router-link>
+          </li>
+          <li v-if="$can('account-statement')" class="nav-item">
+            <router-link :to="{ name: 'reports.purchaseSummary' }" class="nav-link">
+              <i class="fas fa-shopping-cart nav-icon" />
+              <p>{{ $t('Purchase Summary') }}</p>
+            </router-link>
+          </li>
           <li v-if="$can('balance-sheet')" class="nav-item">
             <router-link :to="{ name: 'reports.balanceSheet' }" class="nav-link">
               <i class="fas fa-file-invoice-dollar nav-icon" />
               <p>{{ $t('Balance Sheet') }}</p>
+            </router-link>
+          </li>
+          <li v-if="$can('balance-sheet')" class="nav-item">
+            <router-link :to="{ name: 'reports.trialBalance' }" class="nav-link">
+              <i class="fas fa-balance-scale nav-icon" />
+              <p>{{ $t('Trial Balance') }}</p>
             </router-link>
           </li>
           <li v-if="$can('today-profit')" class="nav-item">

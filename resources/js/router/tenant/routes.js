@@ -1160,9 +1160,27 @@ export default [
     meta: {permissions: ['account-statement']},
   },
   {
+    path: '/reports/invoice-summary',
+    name: 'reports.invoiceSummary',
+    component: page('reports/invoice-summary.vue'),
+    meta: {permissions: ['account-statement']},
+  },
+  {
+    path: '/reports/purchase-summary',
+    name: 'reports.purchaseSummary',
+    component: page('reports/purchase-summary.vue'),
+    meta: {permissions: ['account-statement']},
+  },
+  {
     path: '/reports/balance-sheet',
     name: 'reports.balanceSheet',
     component: page('reports/balance-sheet.vue'),
+    meta: {permissions: ['balance-sheet']},
+  },
+  {
+    path: '/reports/trial-balance',
+    name: 'reports.trialBalance',
+    component: page('reports/trial-balance.vue'),
     meta: {permissions: ['balance-sheet']},
   },
   {

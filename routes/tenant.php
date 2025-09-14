@@ -516,8 +516,11 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         // Report routes
         Route::get('/reports/account-statement', [ReportController::class, 'accountStatement']);
         Route::get('/reports/group-account-statement', [ReportController::class, 'groupAccountStatement']);
+        Route::get('/reports/invoice-summary', [ReportController::class, 'invoiceSummary']);
+        Route::get('/reports/purchase-summary', [ReportController::class, 'purchaseSummary']);
         Route::get('/reports/sub-chart-of-accounts', [ReportController::class, 'getSubChartOfAccounts']);
         Route::get('/reports/balance-sheet', [ReportController::class, 'balanceSheet']);
+        Route::get('/reports/trial-balance', [ReportController::class, 'trialBalance']);
         Route::post('/reports/summery', [ReportController::class, 'summeryReport']);
         Route::post('/reports/profit-loss', [ReportController::class, 'profitLossReport']);
         Route::post('/reports/expenses', [ReportController::class, 'expenseReport']);
