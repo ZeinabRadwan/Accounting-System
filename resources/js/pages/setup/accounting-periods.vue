@@ -324,8 +324,55 @@ export default {
                 
                 // Update current period ID based on is_active flag
                 this.getCurrentPeriod();
+                
+                // Auto-set current if only one accounting period exists
+                this.autoSetCurrentIfSingle();
             } catch (error) {
                 console.error('Error fetching accounting periods:', error);
+            }
+        },
+        
+        // Get accounting periods by fiscal year
+        async getAccountingPeriodsByFiscalYear(fiscalYearId) {
+            try {
+                const response = await axios.get(`/api/accounting-periods/by-fiscal-year/${fiscalYearId}`);
+                this.accountingPeriods = response.data.data;
+                console.log('Accounting periods loaded for fiscal year:', this.accountingPeriods);
+                
+                // Update current period ID based on is_active flag
+                this.getCurrentPeriod();
+            } catch (error) {
+                console.error('Error fetching accounting periods by fiscal year:', error);
+            }
+        },
+        
+        // Reset current accounting period when fiscal year changes
+        async resetCurrentAccountingPeriod() {
+            if (!this.selectedFiscalYear) return;
+            
+            try {
+                const response = await axios.post('/api/accounting-periods/reset-current', {
+                    fiscal_year_id: this.selectedFiscalYear
+                });
+                
+                // Refresh the accounting periods list
+                await this.getAccountingPeriodsByFiscalYear(this.selectedFiscalYear);
+                
+                console.log('Current accounting period reset:', response.data.message);
+            } catch (error) {
+                console.error('Error resetting current accounting period:', error);
+                // If no periods exist for the fiscal year, just refresh the list
+                await this.getAccountingPeriodsByFiscalYear(this.selectedFiscalYear);
+            }
+        },
+        
+        // Auto-set current if only one item exists
+        autoSetCurrentIfSingle() {
+            if (this.accountingPeriods.length === 1 && !this.currentPeriodId) {
+                const period = this.accountingPeriods[0];
+                if (!period.is_closed) {
+                    this.setCurrentPeriod(period);
+                }
             }
         },
         // Get all fiscal years
@@ -348,8 +395,17 @@ export default {
             this.currentPeriodId = activePeriod ? activePeriod.id : null;
         },
         // Filter by fiscal year
-        filterByFiscalYear() {
-            // This is handled by the computed property
+        async filterByFiscalYear() {
+            if (this.selectedFiscalYear) {
+                // Load accounting periods for the selected fiscal year
+                await this.getAccountingPeriodsByFiscalYear(this.selectedFiscalYear);
+                
+                // Reset current accounting period to the first one in the selected fiscal year
+                await this.resetCurrentAccountingPeriod();
+            } else {
+                // Load all accounting periods
+                await this.getAccountingPeriods();
+            }
         },
         // Open modal for adding/editing
         openModal() {

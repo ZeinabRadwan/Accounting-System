@@ -49,6 +49,28 @@ class FiscalYearController extends Controller
             'created_by' => Auth::id(),
         ]);
 
+        // Auto-set as current if it's the only fiscal year
+        $totalFiscalYears = FiscalYear::count();
+        if ($totalFiscalYears === 1) {
+            // Set all fiscal years to inactive first
+            FiscalYear::query()->update(['is_active' => false]);
+            
+            // Set this fiscal year as active
+            $fiscalYear->update(['is_active' => true]);
+            
+            // Update general settings
+            $generalSetting = \App\Models\GeneralSetting::where('key', 'current_fiscal_year_id')->first();
+            if ($generalSetting) {
+                $generalSetting->update(['value' => (string) $fiscalYear->id]);
+            } else {
+                \App\Models\GeneralSetting::create([
+                    'key' => 'current_fiscal_year_id',
+                    'display_name' => 'Current Fiscal Year ID',
+                    'value' => (string) $fiscalYear->id,
+                ]);
+            }
+        }
+
         return response()->json([
             'message' => 'Fiscal year created successfully',
             'data' => new FiscalYearResource($fiscalYear->load(['user', 'accountingPeriods']))

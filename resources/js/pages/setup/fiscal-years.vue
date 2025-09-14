@@ -237,8 +237,19 @@ export default {
             try {
                 const response = await axios.get('/api/fiscal-years');
                 this.fiscalYears = response.data.data;
+                
+                // Auto-set current if only one fiscal year exists
+                this.autoSetCurrentIfSingle();
             } catch (error) {
                 console.error('Error fetching fiscal years:', error);
+            }
+        },
+        
+        // Auto-set current if only one item exists
+        autoSetCurrentIfSingle() {
+            if (this.fiscalYears.length === 1 && !this.currentFiscalYearId) {
+                const fiscalYear = this.fiscalYears[0];
+                this.setCurrentFiscalYear(fiscalYear);
             }
         },
         // Get current fiscal year
