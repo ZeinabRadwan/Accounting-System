@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice - {{ $invoice->invoiceNumber }}</title>
+    <title>Invoice - {{ $invoice->invoice_no }}</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -64,14 +63,14 @@
                         $companyPhone = $settings->where('key', 'phone_number')->first()?->value ?? 'Phone';
                         $companyEmail = $settings->where('key', 'email_address')->first()?->value ?? 'Email';
                     @endphp
-                    <h1 style="font-size: 24px; margin: 0 0 10px 0;">{{ $companyName }}</h1>
+                    <h1 style="font-size: 24px; margin: 0 0 10px 0;" class="arabic-text">{{ $companyName }}</h1>
                     <p style="margin: 0;">{{ $companyAddress }}</p>
                     <p style="margin: 0;">{{ $companyPhone }} • {{ $companyEmail }}</p>
                 </div>
                 <div style="text-align: right;">
                     <h2 style="font-size: 24px; margin: 0 0 15px 0;">INVOICE</h2>
-                    <p style="margin: 0;">Invoice #: {{ $invoice->invoiceNumber }}</p>
-                    <p style="margin: 0;">Date: {{ \Carbon\Carbon::parse($invoice->invoiceDate)->format('M d, Y') }}</p>
+                    <p style="margin: 0;">Invoice #: {{ $invoice->invoice_no }}</p>
+                    <p style="margin: 0;">Date: {{ \Carbon\Carbon::parse($invoice->invoice_date)->format('M d, Y') }}</p>
                     @if($invoice->dueDate)
                     <p style="margin: 0;">Due Date: {{ \Carbon\Carbon::parse($invoice->dueDate)->format('M d, Y') }}</p>
                     @endif
@@ -82,7 +81,7 @@
         <!-- Client Info -->
         <div style="margin-bottom: 30px;">
             <h3 style="margin-bottom: 10px;">Bill To:</h3>
-            <p style="margin: 0; font-weight: 600;">{{ $invoice->client->name ?? 'N/A' }}</p>
+            <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $invoice->client->name ?? 'N/A' }}</p>
             <p style="margin: 0;">{{ $invoice->client->address ?? 'N/A' }}</p>
             <p style="margin: 0;">{{ $invoice->client->email ?? 'N/A' }} • {{ $invoice->client->phone ?? 'N/A' }}</p>
         </div>
@@ -121,23 +120,23 @@
             <div class="totals-table">
                 <div class="total-row">
                     <span>Subtotal:</span>
-                    <span>${{ number_format($invoice->subTotal, 2) }}</span>
+                    <span>${{ number_format($invoice->sub_total, 2) }}</span>
                 </div>
-                @if($invoice->discountTotal > 0)
+                @if($invoice->discount > 0)
                 <div class="total-row">
                     <span>Discount:</span>
-                    <span>-${{ number_format($invoice->discountTotal, 2) }}</span>
+                    <span>-${{ number_format($invoice->discount, 2) }}</span>
                 </div>
                 @endif
-                @if($invoice->taxTotal > 0)
+                @if($invoice->calculated_tax > 0)
                 <div class="total-row">
                     <span>Tax:</span>
-                    <span>${{ number_format($invoice->taxTotal, 2) }}</span>
+                    <span>${{ number_format($invoice->calculated_tax, 2) }}</span>
                 </div>
                 @endif
                 <div class="total-row total-final">
                     <span>Total:</span>
-                    <span>${{ number_format($invoice->total, 2) }}</span>
+                    <span>${{ number_format($invoice->calculated_total, 2) }}</span>
                 </div>
             </div>
         </div>
