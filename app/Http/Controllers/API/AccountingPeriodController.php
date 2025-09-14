@@ -58,6 +58,28 @@ class AccountingPeriodController extends Controller
             'created_by' => Auth::id(),
         ]);
 
+        // Auto-set as current if it's the only accounting period
+        $totalAccountingPeriods = AccountingPeriod::count();
+        if ($totalAccountingPeriods === 1) {
+            // Set all accounting periods to inactive first
+            AccountingPeriod::query()->update(['is_active' => false]);
+            
+            // Set this accounting period as active
+            $accountingPeriod->update(['is_active' => true]);
+            
+            // Update general settings
+            $generalSetting = \App\Models\GeneralSetting::where('key', 'current_accounting_period_id')->first();
+            if ($generalSetting) {
+                $generalSetting->update(['value' => (string) $accountingPeriod->id]);
+            } else {
+                \App\Models\GeneralSetting::create([
+                    'key' => 'current_accounting_period_id',
+                    'display_name' => 'Current Accounting Period ID',
+                    'value' => (string) $accountingPeriod->id,
+                ]);
+            }
+        }
+
         return response()->json([
             'message' => 'Accounting period created successfully',
             'data' => new AccountingPeriodResource($accountingPeriod->load(['fiscalYear', 'user']))
@@ -169,27 +191,6 @@ class AccountingPeriodController extends Controller
         ]);
     }
 
-    /**
-     * Get accounting periods by fiscal year.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getByFiscalYear(Request $request)
-    {
-        $request->validate([
-            'fiscal_year_id' => 'required|exists:fiscal_years,id'
-        ]);
-
-        $accountingPeriods = AccountingPeriod::where('fiscal_year_id', $request->fiscal_year_id)
-            ->select('id', 'name', 'slug', 'start_date', 'end_date', 'is_active', 'is_closed')
-            ->orderBy('start_date', 'asc')
-            ->get();
-
-        return response()->json([
-            'data' => $accountingPeriods
-        ]);
-    }
 
     /**
      * Get the current active accounting period.
@@ -310,5 +311,70 @@ class AccountingPeriodController extends Controller
             'message' => 'Accounting period reopened successfully',
             'data' => new AccountingPeriodResource($accountingPeriod->load(['fiscalYear', 'user']))
         ]);
+    }
+
+    /**
+     * Get accounting periods by fiscal year.
+     *
+     * @param int $fiscalYearId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getByFiscalYear($fiscalYearId)
+    {
+        $accountingPeriods = AccountingPeriod::with(['fiscalYear', 'user'])
+            ->where('fiscal_year_id', $fiscalYearId)
+            ->orderBy('start_date', 'asc')
+            ->get();
+
+        return response()->json([
+            'data' => AccountingPeriodResource::collection($accountingPeriods)
+        ]);
+    }
+
+    /**
+     * Reset current accounting period when fiscal year changes.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetCurrent(Request $request)
+    {
+        $request->validate([
+            'fiscal_year_id' => 'required|exists:fiscal_years,id'
+        ]);
+
+        // Get the first accounting period of the selected fiscal year
+        $firstPeriod = AccountingPeriod::where('fiscal_year_id', $request->fiscal_year_id)
+            ->orderBy('start_date', 'asc')
+            ->first();
+
+        if ($firstPeriod) {
+            // Set all accounting periods to inactive
+            AccountingPeriod::query()->update(['is_active' => false]);
+            
+            // Set the first period of the selected fiscal year as active
+            $firstPeriod->update(['is_active' => true]);
+            
+            // Update general settings
+            $generalSetting = \App\Models\GeneralSetting::where('key', 'current_accounting_period_id')->first();
+            if ($generalSetting) {
+                $generalSetting->update(['value' => (string) $firstPeriod->id]);
+            } else {
+                \App\Models\GeneralSetting::create([
+                    'key' => 'current_accounting_period_id',
+                    'display_name' => 'Current Accounting Period ID',
+                    'value' => (string) $firstPeriod->id,
+                ]);
+            }
+
+            return response()->json([
+                'message' => 'Current accounting period reset successfully',
+                'data' => new AccountingPeriodResource($firstPeriod->load(['fiscalYear', 'user']))
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'No accounting periods found for the selected fiscal year'
+        ], 404);
     }
 }
