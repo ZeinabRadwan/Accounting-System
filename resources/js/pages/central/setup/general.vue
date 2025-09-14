@@ -148,10 +148,7 @@
                                                     $t(
                                                         'Phone Number'
                                                     )
-                                                }}
-                                                <span class="required"
-                                                    >*</span
-                                                ></label
+                                                }}</label
                                             >
                                             <input
                                                 id="phoneNumber"
@@ -244,10 +241,7 @@
                                                     $t(
                                                         'Trial Day Count'
                                                     )
-                                                }}
-                                                <span class="required"
-                                                    >*</span
-                                                ></label
+                                                }}</label
                                             >
                                             <input
                                                 id="trial_day_count"
@@ -700,20 +694,6 @@ export default {
             emailAddress: '',
             phoneNumber: '',
             address: '',
-            clientPrefix: '',
-            supplierPrefix: '',
-            employeePrefix: '',
-            proCatPrefix: '',
-            proSubCatPrefix: '',
-            productPrefix: '',
-            expCatPrefix: '',
-            expSubCatPrefix: '',
-            purchasePrefix: '',
-            purchaseReturnPrefix: '',
-            quotationPrefix: '',
-            invoicePrefix: '',
-            invoiceReturnPrefix: '',
-            adjustmentPrefix: '',
             language: 'en',
             copyrightText: '',
             logo: '',
@@ -760,22 +740,6 @@ export default {
                 this.form.emailAddress = this.appInfo.email;
                 this.form.phoneNumber = this.appInfo.phone;
                 this.form.address = this.appInfo.address;
-                this.form.clientPrefix = this.appInfo.clientPrefix;
-                this.form.supplierPrefix = this.appInfo.supplierPrefix;
-                this.form.employeePrefix = this.appInfo.employeePrefix;
-                this.form.proCatPrefix = this.appInfo.proCatPrefix;
-                this.form.proSubCatPrefix = this.appInfo.proSubCatPrefix;
-                this.form.productPrefix = this.appInfo.productPrefix;
-                this.form.expCatPrefix = this.appInfo.expCatPrefix;
-                this.form.expSubCatPrefix = this.appInfo.expSubCatPrefix;
-                this.form.purchasePrefix = this.appInfo.purchasePrefix;
-                this.form.purchaseReturnPrefix =
-                    this.appInfo.purchaseReturnPrefix;
-                this.form.quotationPrefix = this.appInfo.quotationPrefix;
-                this.form.invoicePrefix = this.appInfo.invoicePrefix;
-                this.form.invoiceReturnPrefix =
-                    this.appInfo.invoiceReturnPrefix;
-                this.form.adjustmentPrefix = this.appInfo.adjustmentPrefix;
                 this.form.currency = this.appInfo.currency;
                 this.form.language = this.appInfo.language;
                 this.logo = this.appInfo.logo;

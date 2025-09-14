@@ -35,6 +35,10 @@ class PrintTemplate extends Model
         'is_active' => 'boolean',
     ];
 
+    protected $appends = [
+        'logo_url'
+    ];
+
     /**
      * Get templates by module
      */
@@ -101,7 +105,7 @@ class PrintTemplate extends Model
     public function getLogoUrlAttribute()
     {
         if ($this->custom_logo) {
-            return asset('images/' . $this->custom_logo);
+            return global_asset('images/' . $this->custom_logo);
         }
 
         // Fallback to general settings logo
@@ -109,11 +113,11 @@ class PrintTemplate extends Model
         $logo = $settings->where('key', 'logo')->first()?->value;
         
         if ($logo) {
-            return asset('images/' . $logo);
+            return global_asset('images/' . $logo);
         }
 
         // Default logo
-        return asset('images/logo.png');
+        return global_asset('images/logo.png');
     }
 
     /**

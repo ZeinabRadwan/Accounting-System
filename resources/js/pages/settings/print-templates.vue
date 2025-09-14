@@ -1369,9 +1369,6 @@ export default {
 
     // Get logo URL for template
     getLogoUrl() {
-      if (this.editingTemplate.custom_logo) {
-        return `/images/${this.editingTemplate.custom_logo}`;
-      }
       if (this.editingTemplate.logo_url) {
         return this.editingTemplate.logo_url;
       }
