@@ -16,6 +16,29 @@
 // vue datepicker
 @import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap');
+@import '@abdulrysr/saudi-riyal-new-symbol-font/style.css';
+
+/* Apply Saudi Riyal font to ê symbol in currency contexts */
+.currency-display,
+.currency-text,
+[class*="currency"],
+[class*="amount"],
+[class*="price"],
+[class*="total"],
+[class*="balance"],
+[class*="value"] {
+  .saudi-riyal {
+    font-family: SaudiRiyalSymbol, sans-serif !important;
+    font-weight: 700;
+  }
+}
+
+/* Global style for Saudi Riyal symbol */
+.saudi-riyal {
+  font-family: SaudiRiyalSymbol, sans-serif !important;
+  font-weight: 700;
+}
+
 
 /* ========================================
    DateRangePicker RTL Override Styles

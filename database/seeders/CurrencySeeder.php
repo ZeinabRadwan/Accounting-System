@@ -21,7 +21,7 @@ class CurrencySeeder extends Seeder
                     'name' => 'Saudi Riyal',
                     'slug' => 'saudi-riyal',
                     'code' => 'SAR',
-                    'symbol' => '﷼',
+                    'symbol' => 'ê',
                     'position' => 'left',
                     'note' => 'Official currency of Saudi Arabia with new symbol',
                     'status' => 1,

@@ -9,9 +9,9 @@
       style="vertical-align: middle; margin-right: 5px; filter: brightness(0.2) contrast(2) saturate(1.5);"
       class="currency-svg"
     />
-    <span v-else-if="currency && currency.position === 'left'" class="currency-text">{{ currency.symbol }}</span>
+    <span v-else-if="currency && currency.position === 'left'" class="currency-text" :class="{ 'saudi-riyal': isSaudiRiyal }">{{ currency.symbol }}</span>
     <span class="currency-amount">{{ formattedAmount }}</span>
-    <span v-if="!isSvgSymbol && currency && currency.position === 'right'" class="currency-text">{{ currency.symbol }}</span>
+    <span v-if="!isSvgSymbol && currency && currency.position === 'right'" class="currency-text" :class="{ 'saudi-riyal': isSaudiRiyal }">{{ currency.symbol }}</span>
   </span>
 </template>
 
@@ -32,6 +32,11 @@ export default {
     },
     isSvgSymbol() {
       return this.currency && this.currency.symbol && this.currency.symbol.includes('.svg')
+    },
+    isSaudiRiyal() {
+      // Check if this is Saudi Riyal currency (SAR or RY) with the new symbol
+      return (this.currency && (this.currency.code === 'SAR' || this.currency.code === 'RY')) && 
+             this.currency.symbol && this.currency.symbol.includes('ê')
     },
     svgPath() {
       if (this.isSvgSymbol) {

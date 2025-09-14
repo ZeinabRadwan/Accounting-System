@@ -12,7 +12,17 @@ export default {
      * @returns {boolean} - True if should use SVG
      */
     isSvgCurrencySymbol(symbol, currencyCode) {
-      return ['SAR', 'RY'].includes(currencyCode) || (symbol && symbol.includes('.svg'));
+      return symbol && symbol.includes('.svg');
+    },
+    
+    /**
+     * Check if a currency symbol should use the Saudi Riyal font
+     * @param {string} symbol - Currency symbol
+     * @param {string} currencyCode - Currency code
+     * @returns {boolean} - True if should use Saudi Riyal font
+     */
+    isSaudiRiyalCurrency(symbol, currencyCode) {
+      return ['SAR', 'RY'].includes(currencyCode) && symbol && symbol.includes('ê');
     },
     
     /**
