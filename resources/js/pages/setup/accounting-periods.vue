@@ -49,6 +49,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>{{ $t('ID') }}</th>
                                         <th>{{ $t('Name') }}</th>
                                         <th>{{ $t('Fiscal Year') }}</th>
                                         <th>{{ $t('Start Date') }}</th>
@@ -59,6 +60,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="period in filteredPeriods" :key="period.id">
+                                        <td>{{ period.id }}</td>
                                         <td>{{ period.full_name }}</td>
                                         <td>{{ period.fiscal_year ? period.fiscal_year.name : '-' }}</td>
                                         <td>{{ formatDate(period.start_date) }}</td>
@@ -83,7 +85,7 @@
                                                     class="btn btn-success btn-sm"
                                                     @click="setCurrentPeriod(period)"
                                                     :title="$t('Set as Current')"
-                                                    :disabled="period.is_closed"
+                                                    :disabled="period.is_closed || period.id === currentPeriodId"
                                                 >
                                                     <i class="fas fa-check" />
                                                 </button>
@@ -279,10 +281,12 @@ export default {
             },
         ],
         accountingPeriods: [],
+        currentPeriodId: null,
         fiscalYears: [],
         selectedFiscalYear: '',
         isEditMode: false,
         form: new Form({
+            id: null,
             name: '',
             fiscal_year_id: '',
             start_date: '',
@@ -308,6 +312,7 @@ export default {
     created() {
         this.getAccountingPeriods();
         this.getFiscalYears();
+        this.getCurrentPeriod();
     },
     methods: {
         // Get all accounting periods
@@ -316,6 +321,9 @@ export default {
                 const response = await axios.get('/api/accounting-periods');
                 this.accountingPeriods = response.data.data;
                 console.log('Accounting periods loaded:', this.accountingPeriods);
+                
+                // Update current period ID based on is_active flag
+                this.getCurrentPeriod();
             } catch (error) {
                 console.error('Error fetching accounting periods:', error);
             }
@@ -334,6 +342,11 @@ export default {
                 });
             }
         },
+        // Get current accounting period (find the one with is_active = true)
+        getCurrentPeriod() {
+            const activePeriod = this.accountingPeriods.find(period => period.is_active);
+            this.currentPeriodId = activePeriod ? activePeriod.id : null;
+        },
         // Filter by fiscal year
         filterByFiscalYear() {
             // This is handled by the computed property
@@ -348,13 +361,26 @@ export default {
         // Edit period
         editPeriod(period) {
             this.isEditMode = true;
-            this.form.fill(period);
+            
+            // Manually set all form fields to ensure proper mapping
+            this.form.id = period.id;
+            this.form.name = period.name;
+            this.form.fiscal_year_id = period.fiscal_year_id;
+            this.form.start_date = period.start_date;
+            this.form.end_date = period.end_date;
+            this.form.is_active = period.is_active;
+            this.form.is_closed = period.is_closed;
+            this.form.note = period.note;
+            
             $('#periodModal').modal('show');
         },
         // Save period
         async savePeriod() {
             try {
                 if (this.isEditMode) {
+                    if (!this.form.id) {
+                        throw new Error('Period ID is missing for update operation');
+                    }
                     await this.form.put(`/api/accounting-periods/${this.form.id}`);
                 } else {
                     await this.form.post('/api/accounting-periods');
@@ -369,6 +395,17 @@ export default {
                 this.getAccountingPeriods();
             } catch (error) {
                 console.error('Error saving accounting period:', error);
+                if (error.response && error.response.data && error.response.data.message) {
+                    toast.fire({
+                        type: 'error',
+                        title: error.response.data.message,
+                    });
+                } else {
+                    toast.fire({
+                        type: 'error',
+                        title: this.$t('Error saving accounting period'),
+                    });
+                }
             }
         },
         // Set current period
@@ -383,25 +420,52 @@ export default {
                     title: this.$t('Current accounting period set successfully'),
                 });
                 
-                this.getAccountingPeriods();
+                // Refresh the accounting periods list to get updated is_active flags
+                await this.getAccountingPeriods();
+                
+                // Update the current period ID based on the refreshed data
+                this.getCurrentPeriod();
             } catch (error) {
                 console.error('Error setting current period:', error);
+                if (error.response && error.response.data && error.response.data.message) {
+                    toast.fire({
+                        type: 'error',
+                        title: error.response.data.message,
+                    });
+                } else {
+                    toast.fire({
+                        type: 'error',
+                        title: this.$t('Error setting current accounting period'),
+                    });
+                }
             }
         },
         // Close period
         async closePeriod(period) {
             if (confirm(this.$t('Are you sure you want to close this accounting period?'))) {
                 try {
-                    await axios.post(`/api/accounting-periods/${period.id}/close`);
+                    const response = await axios.post(`/api/accounting-periods/${period.id}/close`);
                     
                     toast.fire({
                         type: 'success',
-                        title: this.$t('Accounting period closed successfully'),
+                        title: response.data.message || this.$t('Accounting period closed successfully'),
                     });
                     
-                    this.getAccountingPeriods();
+                    // Refresh the accounting periods list to get updated is_closed flags
+                    await this.getAccountingPeriods();
                 } catch (error) {
                     console.error('Error closing period:', error);
+                    if (error.response && error.response.data && error.response.data.message) {
+                        toast.fire({
+                            type: 'error',
+                            title: error.response.data.message,
+                        });
+                    } else {
+                        toast.fire({
+                            type: 'error',
+                            title: this.$t('Error closing accounting period'),
+                        });
+                    }
                 }
             }
         },
@@ -409,16 +473,28 @@ export default {
         async reopenPeriod(period) {
             if (confirm(this.$t('Are you sure you want to reopen this accounting period?'))) {
                 try {
-                    await axios.post(`/api/accounting-periods/${period.id}/reopen`);
+                    const response = await axios.post(`/api/accounting-periods/${period.id}/reopen`);
                     
                     toast.fire({
                         type: 'success',
-                        title: this.$t('Accounting period reopened successfully'),
+                        title: response.data.message || this.$t('Accounting period reopened successfully'),
                     });
                     
-                    this.getAccountingPeriods();
+                    // Refresh the accounting periods list to get updated is_closed flags
+                    await this.getAccountingPeriods();
                 } catch (error) {
                     console.error('Error reopening period:', error);
+                    if (error.response && error.response.data && error.response.data.message) {
+                        toast.fire({
+                            type: 'error',
+                            title: error.response.data.message,
+                        });
+                    } else {
+                        toast.fire({
+                            type: 'error',
+                            title: this.$t('Error reopening accounting period'),
+                        });
+                    }
                 }
             }
         },
@@ -436,10 +512,17 @@ export default {
                     this.getAccountingPeriods();
                 } catch (error) {
                     console.error('Error deleting period:', error);
-                    toast.fire({
-                        type: 'error',
-                        title: this.$t('Cannot delete closed accounting period'),
-                    });
+                    if (error.response && error.response.data && error.response.data.message) {
+                        toast.fire({
+                            type: 'error',
+                            title: error.response.data.message,
+                        });
+                    } else {
+                        toast.fire({
+                            type: 'error',
+                            title: this.$t('Cannot delete closed accounting period'),
+                        });
+                    }
                 }
             }
         },

@@ -29,6 +29,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>{{ $t('ID') }}</th>
                                         <th>{{ $t('Name') }}</th>
                                         <th>{{ $t('Start Date') }}</th>
                                         <th>{{ $t('End Date') }}</th>
@@ -39,6 +40,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="fiscalYear in fiscalYears" :key="fiscalYear.id">
+                                        <td>{{ fiscalYear.id }}</td>
                                         <td>{{ fiscalYear.full_name }}</td>
                                         <td>{{ formatDate(fiscalYear.start_date) }}</td>
                                         <td>{{ formatDate(fiscalYear.end_date) }}</td>
@@ -63,7 +65,7 @@
                                                     class="btn btn-success btn-sm"
                                                     @click="setCurrentFiscalYear(fiscalYear)"
                                                     :title="$t('Set as Current')"
-                                                    :disabled="fiscalYear.is_active"
+                                                    :disabled="fiscalYear.id === currentFiscalYearId"
                                                 >
                                                     <i class="fas fa-check" />
                                                 </button>
@@ -209,8 +211,10 @@ export default {
             },
         ],
         fiscalYears: [],
+        currentFiscalYearId: null,
         isEditMode: false,
         form: new Form({
+            id: null,
             name: '',
             start_date: '',
             end_date: '',
@@ -225,6 +229,7 @@ export default {
     },
     created() {
         this.getFiscalYears();
+        this.getCurrentFiscalYear();
     },
     methods: {
         // Get all fiscal years
@@ -236,11 +241,23 @@ export default {
                 console.error('Error fetching fiscal years:', error);
             }
         },
+        // Get current fiscal year
+        async getCurrentFiscalYear() {
+            try {
+                const response = await axios.get('/api/fiscal-years/current');
+                if (response.data.data) {
+                    this.currentFiscalYearId = response.data.data.id;
+                }
+            } catch (error) {
+                console.error('Error fetching current fiscal year:', error);
+            }
+        },
         // Open modal for adding/editing
         openModal() {
             this.isEditMode = false;
             this.form.reset();
             this.form.clear();
+            this.form.id = null;
             $('#fiscalYearModal').modal('show');
         },
         // Edit fiscal year
@@ -253,6 +270,7 @@ export default {
         async saveFiscalYear() {
             try {
                 if (this.isEditMode) {
+                    console.log('Editing fiscal year with ID:', this.form.id);
                     await this.form.put(`/api/fiscal-years/${this.form.id}`);
                 } else {
                     await this.form.post('/api/fiscal-years');
@@ -267,6 +285,17 @@ export default {
                 this.getFiscalYears();
             } catch (error) {
                 console.error('Error saving fiscal year:', error);
+                if (error.response && error.response.data && error.response.data.message) {
+                    toast.fire({
+                        type: 'error',
+                        title: error.response.data.message,
+                    });
+                } else {
+                    toast.fire({
+                        type: 'error',
+                        title: this.$t('Error saving fiscal year'),
+                    });
+                }
             }
         },
         // Set current fiscal year
@@ -276,6 +305,9 @@ export default {
                     fiscal_year_id: fiscalYear.id
                 });
                 
+                // Update the current fiscal year ID
+                this.currentFiscalYearId = fiscalYear.id;
+                
                 toast.fire({
                     type: 'success',
                     title: this.$t('Current fiscal year set successfully'),
@@ -284,6 +316,17 @@ export default {
                 this.getFiscalYears();
             } catch (error) {
                 console.error('Error setting current fiscal year:', error);
+                if (error.response && error.response.data && error.response.data.message) {
+                    toast.fire({
+                        type: 'error',
+                        title: error.response.data.message,
+                    });
+                } else {
+                    toast.fire({
+                        type: 'error',
+                        title: this.$t('Error setting current fiscal year'),
+                    });
+                }
             }
         },
         // Delete fiscal year
@@ -300,10 +343,17 @@ export default {
                     this.getFiscalYears();
                 } catch (error) {
                     console.error('Error deleting fiscal year:', error);
-                    toast.fire({
-                        type: 'error',
-                        title: this.$t('Cannot delete fiscal year with existing accounting periods'),
-                    });
+                    if (error.response && error.response.data && error.response.data.message) {
+                        toast.fire({
+                            type: 'error',
+                            title: error.response.data.message,
+                        });
+                    } else {
+                        toast.fire({
+                            type: 'error',
+                            title: this.$t('Cannot delete fiscal year with existing accounting periods'),
+                        });
+                    }
                 }
             }
         },

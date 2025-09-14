@@ -70,9 +70,17 @@ class AccountingPeriodController extends Controller
      * @param AccountingPeriod $accountingPeriod
      * @return AccountingPeriodResource
      */
-    public function show(AccountingPeriod $accountingPeriod)
+    public function show($id)
     {
-        return new AccountingPeriodResource($accountingPeriod->load(['fiscalYear', 'user']));
+        $accountingPeriod = AccountingPeriod::with(['fiscalYear', 'user'])->find($id);
+        
+        if (!$accountingPeriod) {
+            return response()->json([
+                'message' => 'Accounting period not found'
+            ], 404);
+        }
+
+        return new AccountingPeriodResource($accountingPeriod);
     }
 
     /**
@@ -82,13 +90,36 @@ class AccountingPeriodController extends Controller
      * @param AccountingPeriod $accountingPeriod
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateAccountingPeriodRequest $request, AccountingPeriod $accountingPeriod)
+    public function update(UpdateAccountingPeriodRequest $request, $id)
     {
-        $accountingPeriod->update($request->validated());
+        // Find the accounting period manually to ensure it exists in the current tenant context
+        $accountingPeriod = AccountingPeriod::find($id);
+        
+        if (!$accountingPeriod) {
+            return response()->json([
+                'message' => 'Accounting period not found'
+            ], 404);
+        }
+
+        $validatedData = $request->validated();
+        
+        // Check if slug needs to be generated
+        if (isset($validatedData['name']) && $validatedData['name'] !== $accountingPeriod->name) {
+            // The name has changed, so we need to regenerate the slug
+            $validatedData['slug'] = \Str::slug($validatedData['name']);
+        }
+
+        $accountingPeriod->update($validatedData);
+        
+        // Refresh the model to get updated data
+        $accountingPeriod->refresh();
+        
+        // Reload the model with relationships
+        $accountingPeriod->load(['fiscalYear', 'user']);
 
         return response()->json([
             'message' => 'Accounting period updated successfully',
-            'data' => new AccountingPeriodResource($accountingPeriod->load(['fiscalYear', 'user']))
+            'data' => new AccountingPeriodResource($accountingPeriod)
         ]);
     }
 
@@ -98,8 +129,16 @@ class AccountingPeriodController extends Controller
      * @param AccountingPeriod $accountingPeriod
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(AccountingPeriod $accountingPeriod)
+    public function destroy($id)
     {
+        $accountingPeriod = AccountingPeriod::find($id);
+        
+        if (!$accountingPeriod) {
+            return response()->json([
+                'message' => 'Accounting period not found'
+            ], 404);
+        }
+
         // Check if accounting period is closed
         if ($accountingPeriod->is_closed) {
             return response()->json([
@@ -186,32 +225,49 @@ class AccountingPeriodController extends Controller
 
         $accountingPeriod = AccountingPeriod::findOrFail($request->accounting_period_id);
 
+        // Set all accounting periods to inactive first
+        AccountingPeriod::query()->update(['is_active' => false]);
+
+        // Refresh the model to ensure we have the latest data
+        $accountingPeriod->refresh();
+
+        // Set the selected accounting period to active
+        $accountingPeriod->update(['is_active' => true]);
+
         // Update general settings
         $generalSetting = \App\Models\GeneralSetting::where('key', 'current_accounting_period_id')->first();
         if ($generalSetting) {
-            $generalSetting->update(['value' => $accountingPeriod->id]);
+            $generalSetting->update(['value' => (string) $accountingPeriod->id]);
         } else {
             \App\Models\GeneralSetting::create([
                 'key' => 'current_accounting_period_id',
                 'display_name' => 'Current Accounting Period ID',
-                'value' => $accountingPeriod->id,
+                'value' => (string) $accountingPeriod->id,
             ]);
         }
 
         return response()->json([
             'message' => 'Current accounting period set successfully',
-            'data' => new AccountingPeriodResource($accountingPeriod)
+            'data' => new AccountingPeriodResource($accountingPeriod->load(['fiscalYear', 'user']))
         ]);
     }
 
     /**
      * Close the accounting period.
      *
-     * @param AccountingPeriod $accountingPeriod
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function close(AccountingPeriod $accountingPeriod)
+    public function close($id)
     {
+        $accountingPeriod = AccountingPeriod::find($id);
+        
+        if (!$accountingPeriod) {
+            return response()->json([
+                'message' => 'Accounting period not found'
+            ], 404);
+        }
+
         if ($accountingPeriod->is_closed) {
             return response()->json([
                 'message' => 'Accounting period is already closed'
@@ -222,18 +278,26 @@ class AccountingPeriodController extends Controller
 
         return response()->json([
             'message' => 'Accounting period closed successfully',
-            'data' => new AccountingPeriodResource($accountingPeriod)
+            'data' => new AccountingPeriodResource($accountingPeriod->load(['fiscalYear', 'user']))
         ]);
     }
 
     /**
      * Reopen the accounting period.
      *
-     * @param AccountingPeriod $accountingPeriod
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function reopen(AccountingPeriod $accountingPeriod)
+    public function reopen($id)
     {
+        $accountingPeriod = AccountingPeriod::find($id);
+        
+        if (!$accountingPeriod) {
+            return response()->json([
+                'message' => 'Accounting period not found'
+            ], 404);
+        }
+
         if (!$accountingPeriod->is_closed) {
             return response()->json([
                 'message' => 'Accounting period is already open'
@@ -244,7 +308,7 @@ class AccountingPeriodController extends Controller
 
         return response()->json([
             'message' => 'Accounting period reopened successfully',
-            'data' => new AccountingPeriodResource($accountingPeriod)
+            'data' => new AccountingPeriodResource($accountingPeriod->load(['fiscalYear', 'user']))
         ]);
     }
 }
