@@ -4,6 +4,7 @@
     "dev": "npx mix watch --hot",
     "watch": "npx mix watch",
     "build": "npx mix --production",
+    "prod": "npx mix --production",
     "eslint": "eslint --fix --ext .js,.vue resources/js"
   },
   "dependencies": {
