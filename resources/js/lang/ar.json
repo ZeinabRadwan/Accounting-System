@@ -2507,5 +2507,18 @@
   "Search...": "بحث...",
   "Bank Accounts": "حسابات البنوك",
   "Loading payment accounts...": "جاري تحميل حسابات الدفع...",
-  "Display Language": "لغة العرض"
+  "Display Language": "لغة العرض",
+  "Row Number": "#",
+  "Product Code": "الرمز",
+  "Product Name": "اسم الصنف",
+  "Quantity": "الكمية",
+  "Return Quantity": "كمية الإرجاع",
+  "Price": "السعر",
+  "Total": "الإجمالي",
+  "Discount": "الخصم",
+  "Total After Discount": "الإجمالي بعد الخصم",
+  "VAT": "الضريبة",
+  "Total with Tax": "الإجمالي مع الضريبة",
+  "No Discount": "لا يوجد خصم",
+  "No VAT": "لا توجد ضريبة"
 }

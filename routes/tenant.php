@@ -614,6 +614,11 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/print/invoice/{slug}', [App\Http\Controllers\PrintController::class, 'printInvoice'])->name('print.invoice');
     Route::get('/print/purchase/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchase'])->name('print.purchase');
     Route::get('/print/quotation/{slug}', [App\Http\Controllers\PrintController::class, 'printQuotation'])->name('print.quotation');
+    
+    // PDF download routes for print templates
+    Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
+    Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
+    Route::get('/print/quotation/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadQuotationPDF'])->name('print.quotation.pdf');
 
 
     // pdf download blade routes

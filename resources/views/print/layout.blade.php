@@ -1,13 +1,17 @@
+@php
+    $currentLocale = app()->getLocale();
+    $isRTL = $currentLocale === 'ar';
+@endphp
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $currentLocale }}" dir="{{ $isRTL ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $documentTitle ?? 'Document' }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
     <!-- Print-specific styles -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -16,7 +20,7 @@
         }
         
         body {
-            font-family: {{ $template->template_config['typography']['fontFamily'] ?? 'Inter, sans-serif' }};
+            font-family: {{ $template->template_config['typography']['fontFamily'] ?? 'DejaVu Sans, Arial, sans-serif' }};
             font-size: {{ $template->template_config['typography']['baseFontSize'] ?? 14 }}px;
             line-height: 1.6;
             color: {{ $template->template_config['colors']['secondary'] ?? '#6b7280' }};
@@ -24,7 +28,43 @@
             margin: 0;
             padding: {{ $template->template_config['layout']['margins'] ?? 20 }}mm;
             min-height: 100vh;
+            direction: {{ $isRTL ? 'rtl' : 'ltr' }};
         }
+        
+        /* Arabic text support */
+        .arabic-text {
+            font-family: 'DejaVu Sans', 'Arial Unicode MS', 'Tahoma', sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+        
+        /* RTL Support */
+        @if($isRTL)
+        .document-header > div {
+            flex-direction: row-reverse;
+        }
+        
+        .document-info {
+            text-align: left !important;
+        }
+        
+        .totals-section {
+            justify-content: flex-start !important;
+        }
+        
+        .items-table th,
+        .items-table td {
+            text-align: {{ $isRTL ? 'right' : 'left' }};
+        }
+        
+        .items-table .text-right {
+            text-align: {{ $isRTL ? 'left' : 'right' }} !important;
+        }
+        
+        .items-table .text-center {
+            text-align: center !important;
+        }
+        @endif
         
         .document-container {
             max-width: 800px;
@@ -84,7 +124,11 @@
                 page-break-inside: avoid;
             }
             
-            .print-button {
+            .action-buttons {
+                display: none !important;
+            }
+            
+            .print-button, .pdf-button {
                 display: none !important;
             }
             
@@ -116,12 +160,17 @@
             }
         }
         
-        /* Print button styles */
-        .print-button {
+        /* Action buttons styles */
+        .action-buttons {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .print-button, .pdf-button {
             background: #667eea;
             color: white;
             border: none;
@@ -131,6 +180,19 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Show buttons by default, hide in PDF */
+        .action-buttons {
+            display: flex;
+        }
+        
+        .pdf-button {
+            background: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
         
         .print-button:hover {
@@ -139,7 +201,13 @@
             box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
         }
         
-        .print-button:active {
+        .pdf-button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+        
+        .print-button:active, .pdf-button:active {
             transform: translateY(0);
         }
         
@@ -252,10 +320,15 @@
     @endif
 </head>
 <body>
-    <!-- Print Button -->
-    <button class="print-button no-print" onclick="window.print()">
-        <i class="fas fa-print"></i> Print Document
-    </button>
+    <!-- Action Buttons -->
+    <div class="action-buttons no-print">
+        <button class="print-button" onclick="window.print()">
+            <i class="fas fa-print"></i> Print Document
+        </button>
+        <button class="pdf-button" onclick="downloadPDF()">
+            <i class="fas fa-download"></i> Download PDF
+        </button>
+    </div>
     
     <div class="document-container">
         <div class="template-content">
@@ -263,8 +336,15 @@
         </div>
     </div>
     
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Font Awesome for icons - using local fallback -->
+    <style>
+        .fas, .fa-print, .fa-download {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+        }
+        .fa-print:before { content: "\f02f"; }
+        .fa-download:before { content: "\f019"; }
+    </style>
     
     <script>
         // Auto-focus for better print experience
@@ -283,6 +363,38 @@
             // Add any post-print logic here
             console.log('Print completed');
         });
+        
+        // PDF Download function
+        function downloadPDF() {
+            // Get current URL path to determine document type
+            const currentPath = window.location.pathname;
+            let pdfUrl = '';
+            
+            // Extract slug from URL and determine PDF route
+            if (currentPath.includes('/print/invoice/')) {
+                const slug = currentPath.split('/print/invoice/')[1];
+                pdfUrl = `/print/invoice/${slug}/pdf`;
+            } else if (currentPath.includes('/print/purchase/')) {
+                const slug = currentPath.split('/print/purchase/')[1];
+                pdfUrl = `/print/purchase/${slug}/pdf`;
+            } else if (currentPath.includes('/print/quotation/')) {
+                const slug = currentPath.split('/print/quotation/')[1];
+                pdfUrl = `/print/quotation/${slug}/pdf`;
+            }
+            
+            if (pdfUrl) {
+                // Create a temporary link to download the PDF
+                const link = document.createElement('a');
+                link.href = pdfUrl;
+                link.download = '';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                console.error('Unable to determine document type for PDF download');
+                alert('Unable to download PDF. Please try again.');
+            }
+        }
     </script>
 </body>
 </html>
