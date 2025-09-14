@@ -125,3 +125,16 @@ Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
     // SPA Routes
     Route::get('/{path}', CentralAppController::class)->where('path', '^(?!.*(?:api|storage)).*$');
 });
+
+// Route to serve temporary HTML files for PDF generation
+Route::get('/storage/app/temp/{filename}', function ($filename) {
+    $filePath = storage_path('app/temp/' . $filename);
+    
+    if (file_exists($filePath)) {
+        return response()->file($filePath, [
+            'Content-Type' => 'text/html; charset=utf-8'
+        ]);
+    }
+    
+    return response('File not found', 404);
+});

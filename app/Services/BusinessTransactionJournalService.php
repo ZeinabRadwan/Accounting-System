@@ -19,9 +19,54 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Models\AccountTransaction;
 use App\Models\BalanceTansfer;
+use App\Models\GeneralSetting;
+use App\Models\FiscalYear;
+use App\Models\AccountingPeriod;
 
 class BusinessTransactionJournalService
 {
+    /**
+     * Get default fiscal year and accounting period from settings
+     * 
+     * @return array
+     * @throws Exception
+     */
+    private function getDefaultFiscalYearAndPeriod(): array
+    {
+        // Get default fiscal year and accounting period from general settings
+        $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
+        $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
+
+        // Validate that the settings exist
+        if (!$currentFiscalYearId) {
+            throw new Exception('Current fiscal year is not configured in system settings.');
+        }
+        if (!$currentAccountingPeriodId) {
+            throw new Exception('Current accounting period is not configured in system settings.');
+        }
+
+        // Validate that the fiscal year and accounting period exist in their respective tables
+        $fiscalYear = FiscalYear::find($currentFiscalYearId);
+        if (!$fiscalYear) {
+            throw new Exception('The configured fiscal year does not exist.');
+        }
+
+        $accountingPeriod = AccountingPeriod::find($currentAccountingPeriodId);
+        if (!$accountingPeriod) {
+            throw new Exception('The configured accounting period does not exist.');
+        }
+
+        // Validate that the accounting period belongs to the fiscal year
+        if ($accountingPeriod->fiscal_year_id != $fiscalYear->id) {
+            throw new Exception('The configured accounting period does not belong to the configured fiscal year.');
+        }
+
+        return [
+            'fiscal_year_id' => $currentFiscalYearId,
+            'accounting_period_id' => $currentAccountingPeriodId
+        ];
+    }
+
     /**
      * Create journal entry for invoice sale
      */
@@ -99,6 +144,9 @@ class BusinessTransactionJournalService
 
             $totalAmount = $invoice->invoiceTotal();
             
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -113,6 +161,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => Invoice::class,
                 'source_id' => $invoice->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Line 1: Debit to Client's Accounts Receivable
@@ -274,6 +324,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Client Chart of Account not found.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -288,6 +341,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => InvoicePayment::class,
                 'source_id' => $invoice->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -430,6 +485,9 @@ class BusinessTransactionJournalService
             Log::info("Purchase Discount: {$purchase->discount}");
             Log::info("Purchase Tax ID: {$purchase->tax_id}");
             
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry with correct balanced totals
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -444,6 +502,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => Purchase::class,
                 'source_id' => $purchase->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             $lineNumber = 1;
@@ -576,6 +636,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Supplier Chart of Account not found.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -590,6 +653,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => PurchasePayment::class,
                 'source_id' => $purchase->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -659,6 +724,9 @@ class BusinessTransactionJournalService
             // Debug: Log the expense amount being used for journal
             Log::info('Creating journal entry for expense ID: ' . $expense->id . ' with amount: ' . $expense->amount);
             
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -673,6 +741,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => Expense::class,
                 'source_id' => $expense->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -738,6 +808,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -752,6 +825,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => NonInvoicePayment::class,
                 'source_id' => $nonInvoicePayment->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -812,6 +887,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Required chart of accounts not found.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -826,6 +904,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => LoanPayment::class,
                 'source_id' => $loanPayment->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -890,6 +970,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Journal entry must be balanced. Total debits must equal total credits.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -904,6 +987,8 @@ class BusinessTransactionJournalService
                 'posted_at' => $data['status'] === 'posted' ? now() : null,
                 'source_type' => $data['source_type'] ?? null,
                 'source_id' => $data['source_id'] ?? null,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -943,6 +1028,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Required VAT chart of accounts not found. Please ensure Sales VAT Payable and Accounts Receivable accounts exist.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -957,6 +1045,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => 'VAT',
                 'source_id' => null,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -988,6 +1078,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Required VAT chart of accounts not found. Please ensure Purchase VAT Receivable and Accounts Payable accounts exist.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -1002,6 +1095,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => 'VAT',
                 'source_id' => null,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines
@@ -1128,7 +1223,7 @@ class BusinessTransactionJournalService
             if ($returnProducts->count() === 0) {
                 \Illuminate\Support\Facades\Log::info('No return products found, skipping journal entry creation');
                 DB::rollBack();
-                return null;
+                throw new Exception('No return products found for invoice return journal entry creation.');
             }
             
             $totalReturnAmount = 0;
@@ -1188,6 +1283,9 @@ class BusinessTransactionJournalService
             \Illuminate\Support\Facades\Log::info('Invoice Return Journal - Sales Accounts: ' . json_encode($salesByAccount));
             \Illuminate\Support\Facades\Log::info('Invoice Return Journal - VAT Accounts: ' . json_encode($vatByAccount));
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -1202,6 +1300,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => \App\Models\InvoiceReturn::class,
                 'source_id' => $invoiceReturn->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             $lineNumber = 1;
@@ -1332,6 +1432,9 @@ class BusinessTransactionJournalService
                 throw new Exception('Chart of accounts not found for balance transfer accounts.');
             }
 
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -1346,6 +1449,8 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => BalanceTansfer::class,
                 'source_id' => $balanceTransfer->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
             // Create journal entry lines

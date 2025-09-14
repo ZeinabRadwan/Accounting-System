@@ -27,6 +27,8 @@ class JournalEntry extends Model
         'posted_at',
         'source_type',
         'source_id',
+        'fiscal_year_id',
+        'accounting_period_id',
     ];
 
     protected $casts = [
@@ -87,6 +89,22 @@ class JournalEntry extends Model
     public function poster(): BelongsTo
     {
         return $this->belongsTo(User::class, 'posted_by');
+    }
+
+    /**
+     * Get the fiscal year for this journal entry
+     */
+    public function fiscalYear(): BelongsTo
+    {
+        return $this->belongsTo(FiscalYear::class, 'fiscal_year_id');
+    }
+
+    /**
+     * Get the accounting period for this journal entry
+     */
+    public function accountingPeriod(): BelongsTo
+    {
+        return $this->belongsTo(AccountingPeriod::class, 'accounting_period_id');
     }
 
     /**
@@ -263,5 +281,21 @@ class JournalEntry extends Model
             $query->where('source_id', $sourceId);
         }
         return $query;
+    }
+
+    /**
+     * Scope for entries by fiscal year
+     */
+    public function scopeByFiscalYear($query, $fiscalYearId)
+    {
+        return $query->where('fiscal_year_id', $fiscalYearId);
+    }
+
+    /**
+     * Scope for entries by accounting period
+     */
+    public function scopeByAccountingPeriod($query, $accountingPeriodId)
+    {
+        return $query->where('accounting_period_id', $accountingPeriodId);
     }
 }
