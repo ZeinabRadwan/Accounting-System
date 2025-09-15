@@ -30,18 +30,18 @@ axios.interceptors.response.use(response => response, error => {
     store.dispatch('operations/setDemoMessage', 'You are not allowed to do this in demo version.')
   }
 
+  // Handle different error status codes with proper error messages
   if (status >= 500) {
+    const errorMessage = error.response?.data?.message || i18n.t('error_alert_text')
     Swal.fire({
       type: 'error',
       title: i18n.t('error_alert_title'),
-      text: i18n.t('error_alert_text'),
+      text: errorMessage,
       reverseButtons: true,
       confirmButtonText: i18n.t('ok'),
       cancelButtonText: i18n.t('cancel')
     })
-  }
-
-  if (status === 401 && store.getters['auth/check']) {
+  } else if (status === 401 && store.getters['auth/check']) {
     Swal.fire({
       type: 'warning',
       title: i18n.t('token_expired_alert_title'),
@@ -53,6 +53,25 @@ axios.interceptors.response.use(response => response, error => {
       store.commit('auth/LOGOUT')
 
       router.push({ name: 'login' })
+    })
+  } else if (status === 422) {
+    // Handle validation errors - let individual components handle these
+    // Don't show generic error for validation errors
+  } else if (status === 400 || status === 403 || status === 404 || status === 409) {
+    // Handle other client errors with specific messages
+    const errorMessage = error.response?.data?.message || 
+      (status === 400 ? 'Bad Request' :
+       status === 403 ? 'Access Forbidden' :
+       status === 404 ? 'Resource Not Found' :
+       status === 409 ? 'Conflict' : 'Request Error')
+    
+    Swal.fire({
+      type: 'error',
+      title: 'Error',
+      text: errorMessage,
+      reverseButtons: true,
+      confirmButtonText: i18n.t('ok'),
+      cancelButtonText: i18n.t('cancel')
     })
   }
 

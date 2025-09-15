@@ -1823,13 +1823,10 @@ export default {
           });
           
         } else {
-          // Generic error fallback
-          toast.fire({
-            type: "error",
-            title: this.$t("Unexpected Error"),
-            text: this.$t("Something went wrong. Please try again or contact support if the problem persists."),
-            timer: 6000,
-            timerProgressBar: true,
+          // Use centralized error handler for any remaining errors
+          const ErrorHandler = require('~/utils/errorHandler').default;
+          ErrorHandler.handleApiError(error, {
+            showValidationErrors: false
           });
         }
         
@@ -2008,8 +2005,11 @@ export default {
           this.formClient.reset();
           this.url = null;
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        .catch((error) => {
+          const ErrorHandler = require('~/utils/errorHandler').default;
+          ErrorHandler.handleApiError(error, {
+            showValidationErrors: false
+          });
         });
     },
 
