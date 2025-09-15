@@ -385,11 +385,22 @@ class QuotationController extends Controller
     // notify customer
     public function notifyCustomer($slug, Request $request){
         $quotation = Quotation::with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')->where('slug', $slug)->firstOrFail();
-        // send notification
-        $quotation->client->notify(new QuotationNotification($quotation, [
+        
+        $viaData = [
             'isSendEmail' => filter_var($request->isSendEmail, FILTER_VALIDATE_BOOLEAN),
             'isSendSMS' =>  filter_var($request->isSendSMS, FILTER_VALIDATE_BOOLEAN)
-        ]));
+        ];
+        
+        // Log the notification attempt
+        \Log::info('Sending quotation notification', [
+            'quotation_id' => $quotation->id,
+            'client_id' => $quotation->client->id,
+            'via_data' => $viaData,
+            'twilio_configured' => !empty(env('TWILIO_ACCOUNT_SID')) && !empty(env('TWILIO_AUTH_TOKEN')) && !empty(env('TWILIO_FROM'))
+        ]);
+        
+        // send notification
+        $quotation->client->notify(new QuotationNotification($quotation, $viaData));
         return 'Successfully Notified!';
     }
 }
