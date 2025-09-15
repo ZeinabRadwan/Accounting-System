@@ -36,10 +36,24 @@ export function formatCurrencyWithSvg(amount, currency, options = {}) {
     };
   }
   
-  if (currency.position === 'left') {
-    displayText = isSvgSymbol ? formattedAmount : `${currency.symbol}${formattedAmount}`;
+  // Check if we're in RTL mode
+  const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+               document.body.classList.contains('rtl')
+  
+  if (isRTL) {
+    // In RTL mode, reverse the position logic
+    if (currency.position === 'right') {
+      displayText = isSvgSymbol ? formattedAmount : `${currency.symbol}${formattedAmount}`;
+    } else {
+      displayText = isSvgSymbol ? formattedAmount : `${formattedAmount}${currency.symbol}`;
+    }
   } else {
-    displayText = isSvgSymbol ? formattedAmount : `${formattedAmount}${currency.symbol}`;
+    // LTR mode - original logic
+    if (currency.position === 'left') {
+      displayText = isSvgSymbol ? formattedAmount : `${currency.symbol}${formattedAmount}`;
+    } else {
+      displayText = isSvgSymbol ? formattedAmount : `${formattedAmount}${currency.symbol}`;
+    }
   }
   
   return {

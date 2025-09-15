@@ -10,6 +10,45 @@
   text-align: right;
 }
 
+/* ========================================
+   Currency Display RTL Styles
+   ======================================== */
+
+/* RTL Currency Display */
+[dir="rtl"] .currency-display {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Currency Symbol positioning */
+[dir="rtl"] .currency-display .currency-svg {
+  /* RTL margin adjustments are handled in JavaScript */
+}
+
+/* RTL Currency Text alignment */
+[dir="rtl"] .currency-display .currency-text {
+  text-align: right;
+}
+
+/* RTL Currency Amount alignment */
+[dir="rtl"] .currency-display .currency-amount {
+  text-align: right;
+}
+
+/* RTL Currency Symbol component */
+[dir="rtl"] .currency-symbol {
+  direction: rtl;
+}
+
+/* RTL Dashboard card currency symbols */
+[dir="rtl"] .small-box .currency-display {
+  direction: rtl;
+}
+
+[dir="rtl"] .small-box .currency-display .currency-svg {
+  /* RTL margin adjustments for dashboard cards */
+}
+
 [dir="rtl"] body {
   direction: rtl;
   text-align: right;

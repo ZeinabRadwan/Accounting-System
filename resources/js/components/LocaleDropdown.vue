@@ -67,6 +67,12 @@ export default {
       console.log('LocaleDropdown: Applied RTL mode - Locale:', locale, 'RTL:', isRTL)
     },
 
+    // Check if a locale is RTL
+    isRTLLocale(locale) {
+      const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+      return rtlLanguages.includes(locale.toLowerCase())
+    },
+
     async setLocale(locale) {
       // Don't change if it's the same locale or if already loading
       if (this.$i18n.locale === locale || this.isLoading) {
@@ -109,10 +115,13 @@ export default {
             this.$toast.success(this.$t('Locale changed successfully'))
           }
           
-          // Force page refresh to ensure all components update properly
-          setTimeout(() => {
-            window.location.reload()
-          }, 500)
+          // Force Vue to re-render all components with new locale
+          this.$forceUpdate()
+          
+          // Trigger a custom event for components to listen to
+          window.dispatchEvent(new CustomEvent('locale-changed', {
+            detail: { locale: locale, isRTL: this.isRTLLocale(locale) }
+          }))
         } else {
           console.error('Failed to set locale:', response?.data?.error || 'Unknown error')
           if (this.$toast) {

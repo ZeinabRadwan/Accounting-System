@@ -171,6 +171,7 @@
   "token_expired_alert_title": "انتهت صلاحية الجلسة!",
   "token_expired_alert_text": "يرجى تسجيل الدخول مرة أخرى للمتابعة.",
   "login": "تسجيل الدخول",
+  "go_to_login": "الذهاب لتسجيل الدخول",
   "register": "تسجيل جديد",
   "page_not_found": "الصفحة غير موجودة",
   "go_home": "العودة إلى الرئيسية",

@@ -1,25 +1,27 @@
 <template>
-  <span class="currency-display">
+  <span class="currency-display" :class="rtlClasses">
     <img 
       v-if="isSvgSymbol" 
       :src="svgPath" 
       :alt="currency.code"
       width="15"
       height="15"
-      style="vertical-align: middle; margin-right: 5px; filter: brightness(0.2) contrast(2) saturate(1.5);"
+      :style="svgStyle"
       class="currency-svg"
     />
-    <span v-else-if="currency && currency.position === 'left'" class="currency-text" :class="{ 'saudi-riyal': isSaudiRiyal }">{{ currency.symbol }}</span>
+    <span v-else-if="currency && shouldShowSymbolLeft" class="currency-text" :class="{ 'saudi-riyal': isSaudiRiyal }">{{ currency.symbol }}</span>
     <span class="currency-amount">{{ formattedAmount }}</span>
-    <span v-if="!isSvgSymbol && currency && currency.position === 'right'" class="currency-text" :class="{ 'saudi-riyal': isSaudiRiyal }">{{ currency.symbol }}</span>
+    <span v-if="!isSvgSymbol && currency && shouldShowSymbolRight" class="currency-text" :class="{ 'saudi-riyal': isSaudiRiyal }">{{ currency.symbol }}</span>
   </span>
 </template>
 
 <script>
 import store from '../store'
+import RTLMixin from '../mixins/RTLMixin'
 
 export default {
   name: 'CurrencyDisplay',
+  mixins: [RTLMixin],
   props: {
     amount: {
       type: [Number, String],
@@ -50,6 +52,46 @@ export default {
         return num.toFixed(2).toLocaleString()
       }
       return '0'
+    },
+    // RTL-aware symbol positioning
+    shouldShowSymbolLeft() {
+      if (!this.currency) return false
+      // In RTL mode, reverse the position logic
+      return this.isRTL ? this.currency.position === 'right' : this.currency.position === 'left'
+    },
+    shouldShowSymbolRight() {
+      if (!this.currency) return false
+      // In RTL mode, reverse the position logic
+      return this.isRTL ? this.currency.position === 'left' : this.currency.position === 'right'
+    },
+    // RTL-aware SVG styling
+    svgStyle() {
+      const baseStyle = {
+        verticalAlign: 'middle',
+        filter: 'brightness(0.2) contrast(2) saturate(1.5)'
+      }
+      
+      if (this.isRTL) {
+        // In RTL mode, reverse the margin logic
+        if (this.currency && this.currency.position === 'left') {
+          baseStyle.marginLeft = '5px'
+          baseStyle.marginRight = '0px'
+        } else {
+          baseStyle.marginRight = '5px'
+          baseStyle.marginLeft = '0px'
+        }
+      } else {
+        // LTR mode - original logic
+        if (this.currency && this.currency.position === 'left') {
+          baseStyle.marginRight = '5px'
+          baseStyle.marginLeft = '0px'
+        } else {
+          baseStyle.marginLeft = '5px'
+          baseStyle.marginRight = '0px'
+        }
+      }
+      
+      return baseStyle
     }
   }
 }
@@ -78,5 +120,19 @@ export default {
 }
 
 .currency-amount {
+}
+
+/* RTL-specific styles */
+[dir="rtl"] .currency-display {
+  direction: rtl;
+}
+
+[dir="rtl"] .currency-display .currency-svg {
+  /* RTL margin adjustments are handled in the computed svgStyle */
+}
+
+[dir="rtl"] .currency-display .currency-text {
+  /* RTL text alignment */
+  text-align: right;
 }
 </style>

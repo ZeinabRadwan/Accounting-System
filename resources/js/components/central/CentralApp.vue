@@ -48,6 +48,14 @@ export default {
     
     // Simple RTL initialization
     this.initializeRTLMode()
+    
+    // Listen for locale changes from LocaleDropdown
+    window.addEventListener('locale-changed', this.handleLocaleChange)
+  },
+
+  beforeDestroy() {
+    // Clean up event listener
+    window.removeEventListener('locale-changed', this.handleLocaleChange)
   },
 
   methods: {
@@ -113,6 +121,23 @@ export default {
         
         console.log('CentralApp: Applied RTL mode (fallback) - Locale:', locale, 'RTL:', isRTL)
       }
+    },
+
+    // Handle locale change events from LocaleDropdown
+    handleLocaleChange(event) {
+      console.log('CentralApp: Received locale change event:', event.detail)
+      const { locale, isRTL } = event.detail
+      
+      // Force re-render of all components
+      this.$forceUpdate()
+      
+      // Update any components that need to know about locale changes
+      this.$nextTick(() => {
+        // Trigger a custom event for currency components to update
+        window.dispatchEvent(new CustomEvent('currency-update', {
+          detail: { locale: locale, isRTL: isRTL }
+        }))
+      })
     },
 
     // get settings

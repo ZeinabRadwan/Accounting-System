@@ -270,6 +270,15 @@
                                             {{ $t('resend_verification_link') }}
                                         </button>
                                     </p>
+                                    <div class="mt-3">
+                                        <router-link
+                                            :to="{ name: 'find-domain' }"
+                                            class="btn btn-outline-primary btn-sm"
+                                        >
+                                            <i class="fas fa-sign-in-alt mr-1"></i>
+                                            {{ $t('go_to_login') }}
+                                        </router-link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -326,23 +335,7 @@ export default {
             // register the user.
             const { data } = await this.form.post('/api/register');
             if (data) {
-                // Show success message
-                toast.fire({
-                    type: 'success',
-                    title: this.$t('Registration successful! Redirecting to your dashboard...'),
-                });
-
-                // Automatically redirect to the tenant dashboard
-                if (data.data.login_url) {
-                    // Use the cross-domain login URL for automatic authentication
-                    window.location.href = data.data.login_url;
-                } else if (data.data.impersonate_url) {
-                    // Fallback to impersonation URL
-                    window.location.href = data.data.impersonate_url;
-                } else {
-                    // Fallback to verification form
-                    this.verificationForm.email = data.data.tenant.email;
-                }
+                this.verificationForm.email = data.data.tenant.email;
             }
         },
         async resendVerification() {

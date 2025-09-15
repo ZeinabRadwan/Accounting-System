@@ -51,6 +51,9 @@ export default {
     // Initialize RTL mode
     this.initializeRTLMode()
 
+    // Listen for locale changes from LocaleDropdown
+    window.addEventListener('locale-changed', this.handleLocaleChange)
+
     if (!store.getters['auth/check'] && store.getters['auth/token']) {
       try {
         this.getTenant()
@@ -58,6 +61,11 @@ export default {
         console.log('unauthenticated')
       }
     }
+  },
+
+  beforeDestroy() {
+    // Clean up event listener
+    window.removeEventListener('locale-changed', this.handleLocaleChange)
   },
 
   methods: {
@@ -78,6 +86,26 @@ export default {
           }
         }
       )
+    },
+
+    // Handle locale change events from LocaleDropdown
+    handleLocaleChange(event) {
+      console.log('App: Received locale change event:', event.detail)
+      const { locale, isRTL } = event.detail
+      
+      // Force re-render of all components
+      this.$forceUpdate()
+      
+      // Update RTL service
+      rtlService.setRTLModeByLocale(locale)
+      
+      // Update any components that need to know about locale changes
+      this.$nextTick(() => {
+        // Trigger a custom event for currency components to update
+        window.dispatchEvent(new CustomEvent('currency-update', {
+          detail: { locale: locale, isRTL: isRTL }
+        }))
+      })
     },
 
     // get settings
