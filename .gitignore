@@ -79,8 +79,8 @@ composer.phar
 !/public/vendor/telescope/
 
 # Ignore compiled JS/CSS in public
-/public/js
-/public/css
+# /public/js
+# /public/css
 /public/fonts
 /public/mix-manifest.json
 
