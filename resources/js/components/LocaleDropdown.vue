@@ -23,7 +23,6 @@ import { mapGetters } from 'vuex'
 import { loadMessages } from '~/plugins/i18n'
 import LangFlag from 'vue-lang-code-flags'
 import axios from 'axios'
-import rtlService from '~/services/RTLService'
 
 export default {
   computed: mapGetters({
@@ -42,6 +41,32 @@ export default {
   },
 
   methods: {
+    // Simple RTL utility function
+    applyRTLMode(locale) {
+      const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+      const isRTL = rtlLanguages.includes(locale.toLowerCase())
+      
+      // Update document attributes
+      document.documentElement.setAttribute('lang', locale)
+      document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+      document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+      
+      // Update CSS classes
+      if (isRTL) {
+        document.body.classList.add('rtl')
+        document.body.classList.remove('ltr')
+      } else {
+        document.body.classList.add('ltr')
+        document.body.classList.remove('rtl')
+      }
+      
+      // Store in localStorage
+      localStorage.setItem('current_locale', locale)
+      localStorage.setItem('rtl_mode', isRTL.toString())
+      
+      console.log('LocaleDropdown: Applied RTL mode - Locale:', locale, 'RTL:', isRTL)
+    },
+
     async setLocale(locale) {
       // Don't change if it's the same locale or if already loading
       if (this.$i18n.locale === locale || this.isLoading) {
@@ -71,18 +96,23 @@ export default {
           await loadMessages(locale)
           this.$store.dispatch('lang/setLocale', { locale })
           
-          // Set RTL mode based on the selected locale
-          rtlService.setRTLModeByLocale(locale)
+          // Use global RTL manager
+          if (window.RTLManager) {
+            window.RTLManager.applyRTLMode(locale)
+          } else {
+            // Fallback to local method
+            this.applyRTLMode(locale)
+          }
           
           // Show success message
           if (this.$toast) {
             this.$toast.success(this.$t('Locale changed successfully'))
           }
           
-          // Refresh the page to ensure all components update properly
-          // setTimeout(() => {
-          //   window.location.reload()
-          // }, 500)
+          // Force page refresh to ensure all components update properly
+          setTimeout(() => {
+            window.location.reload()
+          }, 500)
         } else {
           console.error('Failed to set locale:', response?.data?.error || 'Unknown error')
           if (this.$toast) {
