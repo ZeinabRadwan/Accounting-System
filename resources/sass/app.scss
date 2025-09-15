@@ -1067,10 +1067,21 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .control-sidebar {
-  display: block;
+  display: none;
   position: fixed;
   top: 0px;
   padding: 80px 20px 20px !important;
+}
+
+/* RTL Control Sidebar Support */
+[dir="rtl"] .control-sidebar {
+  right: auto;
+  left: -250px;
+}
+
+[dir="rtl"] .control-sidebar-slide-open .control-sidebar {
+  left: 0;
+  right: auto;
 }
 
 .menu-is-opening.menu-open {
