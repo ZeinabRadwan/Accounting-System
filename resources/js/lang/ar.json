@@ -2543,5 +2543,22 @@
   "Add any additional notes...": "أضف أي ملاحظات إضافية...",
   "Enter price": "أدخل السعر",
   "Discount (%)": "الخصم (%)",
-  "Additional Details": "تفاصيل إضافية"
+  "Additional Details": "تفاصيل إضافية",
+  "Auto-assign": "تعيين تلقائي",
+  "Auto-assigned": "تم التعيين تلقائياً",
+  "Upload": "رفع",
+  "Product Image": "صورة المنتج",
+  "Error!": "خطأ!",
+  "Please select a valid thumbnail with size less than 2 MB": "يرجى اختيار صورة مصغرة صالحة بحجم أقل من 2 ميجابايت",
+  "Service Purchase Price is required for services": "سعر شراء الخدمة مطلوب للخدمات",
+  "Sales Account is required": "حساب المبيعات مطلوب",
+  "Purchase Account is required": "حساب المشتريات مطلوب",
+  "Product added successfully": "تم إضافة المنتج بنجاح",
+  "Opps...something went wrong": "عذراً... حدث خطأ ما",
+  "Sales Account auto-assigned successfully": "تم تعيين حساب المبيعات تلقائياً بنجاح",
+  "No suitable Sales Account found for automatic assignment": "لم يتم العثور على حساب مبيعات مناسب للتعيين التلقائي",
+  "Failed to auto-assign Sales Account": "فشل في تعيين حساب المبيعات تلقائياً",
+  "Purchase Account auto-assigned successfully": "تم تعيين حساب المشتريات تلقائياً بنجاح",
+  "No suitable Purchase Account found for automatic assignment": "لم يتم العثور على حساب مشتريات مناسب للتعيين التلقائي",
+  "Failed to auto-assign Purchase Account": "فشل في تعيين حساب المشتريات تلقائياً"
 }
