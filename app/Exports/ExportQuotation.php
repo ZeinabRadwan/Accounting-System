@@ -52,7 +52,8 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
         });
 
         $salesQuotations = QuotationListResource::collection($query->latest()->get())->map(function ($salesQuotation) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $generalSettings = getGeneralSettingsInfo();
+            $currencySymbol = $generalSettings['currency']?->symbol ?? '$';
             return [
                 config('config.quotationPrefix') . ' - ' . $salesQuotation->quotation_no,
                 date('jS M, Y', strtotime($salesQuotation->quotation_date)),
@@ -66,25 +67,28 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
             ];
         });
 
-        $totalSub_Total = $salesQuotations->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[4]  ?? 0));
+        $generalSettings = getGeneralSettingsInfo();
+        $currencySymbol = $generalSettings['currency']?->symbol ?? '$';
+        
+        $totalSub_Total = $salesQuotations->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[4]  ?? 0));
         });
-        $totalTransport = $salesQuotations->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[5]  ?? 0));
+        $totalTransport = $salesQuotations->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[5]  ?? 0));
         });
-        $totalDiscount = $salesQuotations->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[6] ?? 0));
+        $totalDiscount = $salesQuotations->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[6] ?? 0));
         });
-        $totalVat = $salesQuotations->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[7]  ?? 0));
+        $totalVat = $salesQuotations->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[7]  ?? 0));
         });
-        $totalNetTotal = $salesQuotations->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[8] ?? 0));
+        $totalNetTotal = $salesQuotations->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '',  $row[8] ?? 0));
         });
 
         // Add the total paid as a new row
         $salesQuotations->push([
-            '', '', '', '', 'Total Subtotal = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalSub_Total, 'Total Transport = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalTransport, 'Total Discount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalDiscount, 'Total Vat = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalVat, 'Total NetTotal = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalNetTotal,
+            '', '', '', '', 'Total Subtotal = ' . $currencySymbol . $totalSub_Total, 'Total Transport = ' . $currencySymbol . $totalTransport, 'Total Discount = ' . $currencySymbol . $totalDiscount, 'Total Vat = ' . $currencySymbol . $totalVat, 'Total NetTotal = ' . $currencySymbol . $totalNetTotal,
         ]);
 
         return $salesQuotations;
