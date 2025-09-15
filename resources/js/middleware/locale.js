@@ -45,12 +45,19 @@ export default async (to, from, next) => {
     applyRTLMode(storedLocale)
   }
   
+  // Check if locale was just changed by user
+  const localeJustChanged = localStorage.getItem('locale_just_changed')
+  
   // Check if user is authenticated and has a locale preference
-  if (store.getters['auth/check']) {
+  if (store.getters['auth/check'] && !localeJustChanged) {
     const user = store.getters['auth/user']
     console.log('Locale middleware - User locale:', user?.locale)
     
-    if (user && user.locale && user.locale !== store.getters['lang/locale']) {
+    // Only update if there's no current locale in store AND user has a different locale
+    const currentStoreLocale = store.getters['lang/locale']
+    const hasStoredLocale = localStorage.getItem('current_locale')
+    
+    if (user && user.locale && user.locale !== currentStoreLocale && !hasStoredLocale) {
       try {
         console.log('Locale middleware - Updating locale from user preference:', user.locale)
         
@@ -71,7 +78,11 @@ export default async (to, from, next) => {
       } catch (error) {
         console.warn('Failed to update locale from user preference:', error)
       }
+    } else {
+      console.log('Locale middleware - Skipping user locale update. Current store locale:', currentStoreLocale, 'Has stored locale:', !!hasStoredLocale, 'Just changed:', !!localeJustChanged)
     }
+  } else if (localeJustChanged) {
+    console.log('Locale middleware - Skipping user locale update because locale was just changed by user')
   }
   
   // Continue with normal locale loading

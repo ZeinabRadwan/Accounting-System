@@ -102,13 +102,28 @@ export default {
           await loadMessages(locale)
           this.$store.dispatch('lang/setLocale', { locale })
           
-          // Use global RTL manager
+          // Apply RTL mode using multiple methods
+          this.applyRTLMode(locale)
+          
+          // Use global RTL manager if available
           if (window.RTLManager) {
             window.RTLManager.applyRTLMode(locale)
-          } else {
-            // Fallback to local method
-            this.applyRTLMode(locale)
           }
+          
+          // Force RTL mode multiple times to ensure it sticks
+          setTimeout(() => {
+            this.applyRTLMode(locale)
+          }, 100)
+          
+          setTimeout(() => {
+            this.applyRTLMode(locale)
+          }, 300)
+          
+          // Set a flag to prevent middleware from overriding
+          localStorage.setItem('locale_just_changed', 'true')
+          setTimeout(() => {
+            localStorage.removeItem('locale_just_changed')
+          }, 1000)
           
           // Show success message
           if (this.$toast) {
@@ -122,6 +137,17 @@ export default {
           window.dispatchEvent(new CustomEvent('locale-changed', {
             detail: { locale: locale, isRTL: this.isRTLLocale(locale) }
           }))
+          
+          // Force re-render all components without page refresh
+          this.$nextTick(() => {
+            this.$forceUpdate()
+            // Force re-render of all child components
+            this.$children.forEach(child => {
+              if (child.$forceUpdate) {
+                child.$forceUpdate()
+              }
+            })
+          })
         } else {
           console.error('Failed to set locale:', response?.data?.error || 'Unknown error')
           if (this.$toast) {

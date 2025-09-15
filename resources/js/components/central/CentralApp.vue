@@ -51,11 +51,15 @@ export default {
     
     // Listen for locale changes from LocaleDropdown
     window.addEventListener('locale-changed', this.handleLocaleChange)
+    
+    // Listen for RTL forced events from router
+    window.addEventListener('rtl-forced', this.handleRTLForced)
   },
 
   beforeDestroy() {
-    // Clean up event listener
+    // Clean up event listeners
     window.removeEventListener('locale-changed', this.handleLocaleChange)
+    window.removeEventListener('rtl-forced', this.handleRTLForced)
   },
 
   methods: {
@@ -133,6 +137,29 @@ export default {
       
       // Update any components that need to know about locale changes
       this.$nextTick(() => {
+        // Trigger a custom event for currency components to update
+        window.dispatchEvent(new CustomEvent('currency-update', {
+          detail: { locale: locale, isRTL: isRTL }
+        }))
+      })
+    },
+
+    // Handle RTL forced events from router
+    handleRTLForced(event) {
+      console.log('CentralApp: Received RTL forced event:', event.detail)
+      const { locale, isRTL } = event.detail
+      
+      // Force re-render of all components
+      this.$forceUpdate()
+      
+      // Force re-render of all child components
+      this.$nextTick(() => {
+        this.$children.forEach(child => {
+          if (child.$forceUpdate) {
+            child.$forceUpdate()
+          }
+        })
+        
         // Trigger a custom event for currency components to update
         window.dispatchEvent(new CustomEvent('currency-update', {
           detail: { locale: locale, isRTL: isRTL }
