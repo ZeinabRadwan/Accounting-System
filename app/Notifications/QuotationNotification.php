@@ -33,15 +33,31 @@ class QuotationNotification extends Notification
      */
     public function via($notifiable)
     {
-        if ($this->via_data['isSendEmail'] && $this->via_data['isSendSMS']) {
-            return ['mail', TwilioChannel::class];
-        } elseif ($this->via_data['isSendEmail'] && ($this->via_data['isSendSMS'] == false)) {
-            return ['mail'];
-        } elseif ($this->via_data['isSendSMS'] && ($this->via_data['isSendEmail'] == false)) {
-            return [TwilioChannel::class];
-        } else {
-            return [];
+        $channels = [];
+        
+        // Add email channel if requested
+        if ($this->via_data['isSendEmail']) {
+            $channels[] = 'mail';
         }
+        
+        // Add SMS channel if requested and Twilio is configured
+        if ($this->via_data['isSendSMS'] && $this->isTwilioConfigured()) {
+            $channels[] = TwilioChannel::class;
+        }
+        
+        return $channels;
+    }
+    
+    /**
+     * Check if Twilio is properly configured
+     *
+     * @return bool
+     */
+    private function isTwilioConfigured()
+    {
+        return !empty(env('TWILIO_ACCOUNT_SID')) && 
+               !empty(env('TWILIO_AUTH_TOKEN')) && 
+               !empty(env('TWILIO_FROM'));
     }
 
     /**
