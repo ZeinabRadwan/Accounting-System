@@ -82,7 +82,7 @@ composer.phar
 # /public/js
 # /public/css
 /public/fonts
-/public/mix-manifest.json
+# /public/mix-manifest.json
 
 # Don't ignore essential entry files
 !/public/index.php
