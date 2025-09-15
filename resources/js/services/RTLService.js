@@ -19,6 +19,12 @@ class RTLService {
       
       console.log('Stored RTL:', storedRTL, 'Stored Locale:', storedLocale)
       
+      // Get document attributes
+      const docLang = document.documentElement.getAttribute('lang') || 'en'
+      const docDir = document.documentElement.getAttribute('dir')
+      
+      console.log('Document lang:', docLang, 'Document dir:', docDir)
+      
       if (storedRTL !== null && storedLocale) {
         this.isRTL = storedRTL === 'true'
         this.currentLocale = storedLocale
@@ -26,8 +32,17 @@ class RTLService {
       } else {
         // Check document direction if no stored preference
         this.isRTL = this.validateDocumentDirection()
-        this.currentLocale = document.documentElement.getAttribute('lang') || 'en'
+        this.currentLocale = docLang
         console.log('Using document attributes - RTL:', this.isRTL, 'Locale:', this.currentLocale)
+      }
+      
+      // Sync with document if there's a mismatch
+      if (this.currentLocale !== docLang) {
+        console.log('Syncing with document language:', docLang)
+        this.currentLocale = docLang
+        this.isRTL = this.getLanguageRTLStatus(docLang)
+        localStorage.setItem('current_locale', docLang)
+        localStorage.setItem('rtl_mode', this.isRTL.toString())
       }
       
       this.applyRTLMode()
@@ -128,7 +143,7 @@ class RTLService {
       this.currentLocale = locale
       const shouldBeRTL = this.getLanguageRTLStatus(locale)
       
-      console.log('Locale:', locale, 'Should be RTL:', shouldBeRTL)
+      console.log('Locale:', locale, 'Should be RTL:', shouldBeRTL, 'Current RTL:', this.isRTL)
       
       // Store locale preference
       localStorage.setItem('current_locale', locale)
@@ -352,10 +367,69 @@ class RTLService {
     const currentLang = document.documentElement.getAttribute('lang') || 'en'
     const shouldBeRTL = this.getLanguageRTLStatus(currentLang)
     
+    // Only auto-correct if we don't have stored preferences or if the document lang doesn't match our stored locale
+    const storedLocale = localStorage.getItem('current_locale')
+    const storedRTL = localStorage.getItem('rtl_mode')
+    
+    // If we have stored preferences, use them instead of document attributes
+    if (storedLocale && storedRTL !== null) {
+      console.log('Using stored preferences instead of auto-correcting from document')
+      return false
+    }
+    
     if (this.isRTL !== shouldBeRTL || this.currentLocale !== currentLang) {
       console.log('Auto-correcting RTL mode from', this.isRTL, 'to', shouldBeRTL, 'Locale:', currentLang)
       return this.setRTLModeByLocale(currentLang)
     }
+    return false
+  }
+
+  /**
+   * Force synchronization with current document state
+   */
+  forceSync() {
+    console.log('Force syncing RTL service with current state...')
+    
+    // Get current document state
+    const docLang = document.documentElement.getAttribute('lang') || 'en'
+    const docDir = document.documentElement.getAttribute('dir')
+    
+    // Get stored state
+    const storedLocale = localStorage.getItem('current_locale')
+    const storedRTL = localStorage.getItem('rtl_mode')
+    
+    console.log('Document state - lang:', docLang, 'dir:', docDir)
+    console.log('Stored state - locale:', storedLocale, 'rtl:', storedRTL)
+    console.log('Service state - locale:', this.currentLocale, 'rtl:', this.isRTL)
+    
+    // Determine which state to use
+    let targetLocale = docLang
+    let targetRTL = this.getLanguageRTLStatus(docLang)
+    
+    // If we have stored preferences and they're different from document, use stored
+    if (storedLocale && storedRTL !== null && storedLocale !== docLang) {
+      console.log('Using stored preferences over document state')
+      targetLocale = storedLocale
+      targetRTL = storedRTL === 'true'
+    }
+    
+    // Apply the target state
+    if (this.currentLocale !== targetLocale || this.isRTL !== targetRTL) {
+      console.log('Syncing to - locale:', targetLocale, 'rtl:', targetRTL)
+      this.currentLocale = targetLocale
+      this.isRTL = targetRTL
+      
+      // Update localStorage
+      localStorage.setItem('current_locale', targetLocale)
+      localStorage.setItem('rtl_mode', targetRTL.toString())
+      
+      // Apply changes
+      this.applyRTLMode()
+      this.updateCSSVariables()
+      
+      return true
+    }
+    
     return false
   }
 }
@@ -371,7 +445,24 @@ if (typeof window !== 'undefined') {
 // Auto-correct on page load
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded - Auto-correcting RTL mode')
     rtlService.autoCorrectRTLMode()
+  })
+  
+  // Also listen for page visibility changes to re-sync
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      console.log('Page visible - Force syncing RTL service')
+      rtlService.forceSync()
+    }
+  })
+  
+  // Listen for storage changes (in case locale is changed in another tab)
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'current_locale' || e.key === 'rtl_mode') {
+      console.log('Storage changed - Force syncing RTL service')
+      rtlService.forceSync()
+    }
   })
 }
 

@@ -30,22 +30,44 @@ Vue.filter('shortText', function (str) {
 // return formatted currency
 Vue.filter('withCurrency', function (number) {
   let currency = store.state.operations.appInfo.currency
+  
+  // Check if we're in RTL mode
+  const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+               document.body.classList.contains('rtl')
+  
+  // RTL-aware position logic
+  let effectivePosition = currency.position
+  if (isRTL) {
+    effectivePosition = currency.position === 'left' ? 'right' : 'left'
+  }
+  
   if (number > 0) {
     let newNumber = (Number(number).toFixed(2)).toLocaleString()
-    return currency.position == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
+    return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
   } else {
-    return currency.position == 'left' ? currency.symbol + 0 : 0 + currency.symbol
+    return effectivePosition == 'left' ? currency.symbol + 0 : 0 + currency.symbol
   }
 })
 
 // return central admin active formatted currency
 Vue.filter('withCentralAdminCurrency', function (number) {
   let currency = store.state.operations.appInfo.centralAdminCurrency
+  
+  // Check if we're in RTL mode
+  const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+               document.body.classList.contains('rtl')
+  
+  // RTL-aware position logic
+  let effectivePosition = currency.position
+  if (isRTL) {
+    effectivePosition = currency.position === 'left' ? 'right' : 'left'
+  }
+  
   if (number > 0) {
     let newNumber = (Number(number).toFixed(2)).toLocaleString()
-    return currency.position == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
+    return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
   } else {
-    return currency.position == 'left' ? currency.symbol + 0 : 0 + currency.symbol
+    return effectivePosition == 'left' ? currency.symbol + 0 : 0 + currency.symbol
   }
 })
 
@@ -53,12 +75,23 @@ Vue.filter('withCentralAdminCurrency', function (number) {
 // return formatted currency
 Vue.filter('withAbsoluteCurrency', function (number) {
   let currency = store.state.operations.appInfo.currency
+  
+  // Check if we're in RTL mode
+  const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+               document.body.classList.contains('rtl')
+  
+  // RTL-aware position logic
+  let effectivePosition = currency.position
+  if (isRTL) {
+    effectivePosition = currency.position === 'left' ? 'right' : 'left'
+  }
+  
   if (number > 0) {
     let newNumber = (Number(number).toFixed(2)).toLocaleString()
-    return currency.position == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
+    return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
   } else {
     let newNumber = (Number(number).toFixed(2)).toLocaleString()
-    return currency.position == 'left' ? '-' + currency.symbol + Math.abs(number) : newNumber + currency.symbol
+    return effectivePosition == 'left' ? '-' + currency.symbol + Math.abs(number) : newNumber + currency.symbol
   }
 })
 

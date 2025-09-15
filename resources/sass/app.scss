@@ -29,14 +29,16 @@
 [class*="value"] {
   .saudi-riyal {
     font-family: SaudiRiyalSymbol, sans-serif !important;
-    font-weight: 700;
+    font-weight: normal;
+    padding: 0 3px;
   }
 }
 
 /* Global style for Saudi Riyal symbol */
 .saudi-riyal {
   font-family: SaudiRiyalSymbol, sans-serif !important;
-  font-weight: 700;
+  font-weight: normal;
+  padding: 0 3px;
 }
 
 

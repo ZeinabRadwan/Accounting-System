@@ -9,7 +9,6 @@
 
 <script>
 import Loading from './../Loading'
-import rtlService from '~/services/RTLService'
 
 // Load layout components dynamically.
 const requireContext = require.context('~/layouts', false, /.*\.vue$/)
@@ -47,13 +46,23 @@ export default {
     this.$loading = this.$refs.loading
     this.getSettings()
     
-    // Initialize RTL mode
+    // Simple RTL initialization
     this.initializeRTLMode()
+    
+    // Listen for locale changes from LocaleDropdown
+    window.addEventListener('locale-changed', this.handleLocaleChange)
+  },
+
+  beforeDestroy() {
+    // Clean up event listener
+    window.removeEventListener('locale-changed', this.handleLocaleChange)
   },
 
   methods: {
-    // Initialize RTL mode
+    // Simple RTL initialization
     initializeRTLMode() {
+      console.log('CentralApp: Initializing RTL mode...')
+      
       // Get current locale from store if available
       let currentLocale = 'en'
       
@@ -64,20 +73,71 @@ export default {
         currentLocale = window.config.locale
       }
       
-      // Initialize RTL service with current locale
-      rtlService.setRTLModeByLocale(currentLocale)
+      console.log('CentralApp: Current locale from store/config:', currentLocale)
+      
+      // Apply RTL mode directly
+      this.applyRTLMode(currentLocale)
       
       // Listen for locale changes from store if available
       if (this.$store) {
         this.$store.watch(
           (state) => state.lang.locale,
           (newLocale) => {
+            console.log('CentralApp: Locale changed in store:', newLocale)
             if (newLocale) {
-              rtlService.setRTLModeByLocale(newLocale)
+              this.applyRTLMode(newLocale)
             }
           }
         )
       }
+    },
+
+    // Use global RTL manager if available, otherwise fallback
+    applyRTLMode(locale) {
+      if (window.RTLManager) {
+        window.RTLManager.applyRTLMode(locale)
+      } else {
+        // Fallback implementation
+        const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+        const isRTL = rtlLanguages.includes(locale.toLowerCase())
+        
+        // Update document attributes
+        document.documentElement.setAttribute('lang', locale)
+        document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+        document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+        
+        // Update CSS classes
+        if (isRTL) {
+          document.body.classList.add('rtl')
+          document.body.classList.remove('ltr')
+        } else {
+          document.body.classList.add('ltr')
+          document.body.classList.remove('rtl')
+        }
+        
+        // Store in localStorage
+        localStorage.setItem('current_locale', locale)
+        localStorage.setItem('rtl_mode', isRTL.toString())
+        
+        console.log('CentralApp: Applied RTL mode (fallback) - Locale:', locale, 'RTL:', isRTL)
+      }
+    },
+
+    // Handle locale change events from LocaleDropdown
+    handleLocaleChange(event) {
+      console.log('CentralApp: Received locale change event:', event.detail)
+      const { locale, isRTL } = event.detail
+      
+      // Force re-render of all components
+      this.$forceUpdate()
+      
+      // Update any components that need to know about locale changes
+      this.$nextTick(() => {
+        // Trigger a custom event for currency components to update
+        window.dispatchEvent(new CustomEvent('currency-update', {
+          detail: { locale: locale, isRTL: isRTL }
+        }))
+      })
     },
 
     // get settings

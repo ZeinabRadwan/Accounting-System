@@ -28,6 +28,10 @@ Vue.directive('currency-symbol', {
       // Mark as processed
       el.setAttribute('data-currency-processed', 'true')
       
+      // Check if we're in RTL mode
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+                   document.body.classList.contains('rtl')
+      
       if (currency.symbol.includes('.svg')) {
         // Create SVG element with better visibility
         const svgElement = document.createElement('img')
@@ -36,8 +40,18 @@ Vue.directive('currency-symbol', {
         svgElement.width = 15
         svgElement.height = 15
         svgElement.style.verticalAlign = 'middle'
-        svgElement.style.marginRight = currency.position === 'left' ? '5px' : '0px'
-        svgElement.style.marginLeft = currency.position === 'right' ? '5px' : '0px'
+        
+        // RTL-aware margin logic
+        if (isRTL) {
+          // In RTL mode, reverse the margin logic
+          svgElement.style.marginRight = currency.position === 'left' ? '5px' : '0px'
+          svgElement.style.marginLeft = currency.position === 'right' ? '5px' : '0px'
+        } else {
+          // LTR mode - original logic
+          svgElement.style.marginRight = currency.position === 'left' ? '5px' : '0px'
+          svgElement.style.marginLeft = currency.position === 'right' ? '5px' : '0px'
+        }
+        
         // Check if this is a dashboard card (small-box)
         const isDashboardCard = el.closest('.small-box')
         if (isDashboardCard) {
@@ -48,11 +62,21 @@ Vue.directive('currency-symbol', {
         svgElement.style.opacity = '1'
         svgElement.classList.add('currency-svg')
         
-        // Insert SVG symbol
-        if (currency.position === 'left') {
-          el.insertBefore(svgElement, el.firstChild)
+        // RTL-aware symbol insertion
+        if (isRTL) {
+          // In RTL mode, reverse the insertion logic
+          if (currency.position === 'right') {
+            el.insertBefore(svgElement, el.firstChild)
+          } else {
+            el.appendChild(svgElement)
+          }
         } else {
-          el.appendChild(svgElement)
+          // LTR mode - original logic
+          if (currency.position === 'left') {
+            el.insertBefore(svgElement, el.firstChild)
+          } else {
+            el.appendChild(svgElement)
+          }
         }
       } else if ((currency.code === 'SAR' || currency.code === 'RY') && currency.symbol.includes('ê')) {
         // Apply Saudi Riyal font class to the element

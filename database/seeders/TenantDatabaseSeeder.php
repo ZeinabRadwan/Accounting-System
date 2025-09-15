@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Demo\DemoDatabaseSeeder;
+use Database\Seeders\Tenant\DefaultFiscalAndAccountingPeriodSeeder;
+use Database\Seeders\Tenant\DefaultRouteAccountingSettingsSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 
@@ -30,6 +32,8 @@ class TenantDatabaseSeeder extends Seeder
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
                 AccountRoutingSettingsSeeder::class,
+                DefaultRouteAccountingSettingsSeeder::class,
+                DefaultFiscalAndAccountingPeriodSeeder::class,
             ]);
             
 

@@ -113,9 +113,20 @@ function centralCurrencySymbolFormat($amount){
     $paymentController = new PaymentController();
     $centralActiveCurrency = $paymentController->centralActiveCurrency();
 
+     // Check if we're in RTL mode
+     $isRTL = session('locale') === 'ar' || 
+              (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
+
      // Format the amount based on the central currency position
      $currencyPosition = $centralActiveCurrency->position;
-     if ($currencyPosition === 'left') {
+     
+     // RTL-aware position logic
+     $effectivePosition = $currencyPosition;
+     if ($isRTL) {
+         $effectivePosition = $currencyPosition === 'left' ? 'right' : 'left';
+     }
+     
+     if ($effectivePosition === 'left') {
          $formattedPendingAmount = $centralActiveCurrency->symbol . number_format($amount, 2);
      } else {
          $formattedPendingAmount = number_format($amount, 2) . $centralActiveCurrency->symbol;
@@ -128,9 +139,20 @@ function centralCurrencyCodeFormat($amount){
     $paymentController = new PaymentController();
     $centralActiveCurrency = $paymentController->centralActiveCurrency();
 
+     // Check if we're in RTL mode
+     $isRTL = session('locale') === 'ar' || 
+              (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
+
      // Format the amount based on the central currency position
      $currencyPosition = $centralActiveCurrency->position;
-     if ($currencyPosition === 'left') {
+     
+     // RTL-aware position logic
+     $effectivePosition = $currencyPosition;
+     if ($isRTL) {
+         $effectivePosition = $currencyPosition === 'left' ? 'right' : 'left';
+     }
+     
+     if ($effectivePosition === 'left') {
          $formattedPendingAmount = $centralActiveCurrency->code . ' ' . number_format($amount, 2);
      } else {
          $formattedPendingAmount = number_format($amount, 2) . ' ' . $centralActiveCurrency->code;

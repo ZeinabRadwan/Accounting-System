@@ -35,6 +35,9 @@
         window.config = @json($config);
     </script>
 
+    {{-- Load RTL Manager first --}}
+    <script src="{{ asset('js/rtl-manager.js') }}"></script>
+
     {{-- Load the application scripts --}}
     <script src="{{ mix('/js/central.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
