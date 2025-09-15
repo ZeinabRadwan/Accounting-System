@@ -1905,5 +1905,10 @@
   "VAT": "VAT",
   "Total with Tax": "Total with Tax",
   "No Discount": "No Discount",
-  "No VAT": "No VAT"
+  "No VAT": "No VAT",
+  "Service Details": "Service Details",
+  "Enter purchase price": "Enter purchase price",
+  "Select sales account": "Select sales account",
+  "Select purchase account": "Select purchase account",
+  "Add any additional notes...": "Add any additional notes..."
 }
