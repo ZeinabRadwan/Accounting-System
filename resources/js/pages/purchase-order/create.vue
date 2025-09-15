@@ -1064,31 +1064,13 @@ export default {
           params: { slug: response.data.data.slug },
         });
       } catch (error) {
-        if (error.response && error.response.data && error.response.data.errors) {
-          // Validation errors from backend - show all errors in one notification
-          const errorMessages = Object.values(error.response.data.errors).flat();
-          const errorList = errorMessages.map(error => `• ${error}`).join('\n');
-          toast.fire({
-            type: "error",
-            title: `${this.$t("Validation Error")}:\n\n${errorList}`,
-            timer: 8000,
-            timerProgressBar: true
-          });
-        } else if (error.response && error.response.data && error.response.data.message) {
-          // Custom error message from backend
-          toast.fire({
-            type: "error",
-            title: this.$t("Error"),
-            text: error.response.data.message
-          });
-        } else {
-          // Generic error
-          toast.fire({ 
-            type: "error", 
-            title: this.$t("Oops...something went wrong"),
-            text: error.message || this.$t("Please try again")
-          });
-        }
+        this.loading = false;
+        
+        // Use centralized error handler
+        const ErrorHandler = require('~/utils/errorHandler').default;
+        ErrorHandler.handleApiError(error, {
+          showValidationErrors: true
+        });
       }
         },
     

@@ -1161,8 +1161,11 @@ export default {
             this.showInvoiceAndPrint();
           }
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        .catch((error) => {
+          const ErrorHandler = require('~/utils/errorHandler').default;
+          ErrorHandler.handleApiError(error, {
+            showValidationErrors: false
+          });
         });
     },
 
@@ -1177,11 +1180,15 @@ export default {
             this.form.reset();
             this.againDefaultSettings();
           })
-          .catch(() => {
-            toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+          .catch((error) => {
+            const ErrorHandler = require('~/utils/errorHandler').default;
+            ErrorHandler.handleApiError(error, {
+              showValidationErrors: false
+            });
           });
       } else {
-        await toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+        const ErrorHandler = require('~/utils/errorHandler').default;
+        ErrorHandler.showError(this.$t("Error"), this.$t("Please try again"));
       }
     },
 

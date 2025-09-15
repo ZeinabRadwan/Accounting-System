@@ -1173,11 +1173,10 @@ export default {
             text: error.response.data.message
           });
         } else {
-          // Generic error
-          toast.fire({ 
-            type: "error", 
-            title: this.$t("Oops...something went wrong"),
-            text: error.message || this.$t("Please try again")
+          // Use centralized error handler
+          const ErrorHandler = require('~/utils/errorHandler').default;
+          ErrorHandler.handleApiError(error, {
+            showValidationErrors: true
           });
         }
       }
