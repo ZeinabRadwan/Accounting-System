@@ -17,6 +17,7 @@ import VTooltip from 'v-tooltip'
 import axios from 'axios'
 import VueMoment from 'vue-moment'
 import { vfmPlugin } from "vue-final-modal"
+import SaudiRiyalSymbolPlugin from '~/plugins/saudiRiyalSymbol'
 
 // Import RTL styles
 import '~/assets/css/rtl.css'
@@ -34,6 +35,7 @@ Vue.use(DateRangePicker)
 Vue.use(VueMoment)
 Vue.use(vfmPlugin)
 Vue.use(VTooltip)
+Vue.use(SaudiRiyalSymbolPlugin)
 
 // Use RTL DateRangePicker Plugin
 Vue.use(rtlDaterangepickerPlugin)

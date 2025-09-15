@@ -95,10 +95,10 @@ function getGeneralSettingsInfo()
             (int) ($query->where('key', 'default_currency')->first()?->value ?? 1)
         )->first()),
         'language' => $query->where('key', 'default_language')->first()?->value ?? 'en',
-        'logo' => asset('images/' . ($query->where('key', 'logo')->first()?->value ?? '')),
-        'blackLogo' => asset('images/' . ($query->where('key', 'logo_black')->first()?->value ?? '')),
-        'smallLogo' => asset('images/' . ($query->where('key', 'small_logo')->first()?->value ?? '')),
-        'favicon' => asset('images/' . ($query->where('key', 'favicon')->first()?->value ?? '')),
+        'logo' => getLogoWithFallback($query, 'logo', 'white_logo.png'),
+        'blackLogo' => getLogoWithFallback($query, 'logo_black', 'black_logo.png'),
+        'smallLogo' => getLogoWithFallback($query, 'small_logo', 'small_logo.png'),
+        'favicon' => getLogoWithFallback($query, 'favicon', 'favicon.png'),
         'copyright' => $query->where('key', 'copyright')->first()?->value ?? '',
         'defaultClientSlug' => $query->where('key', 'default_client_slug')->first()?->value ?? '',
         'defaultAccountSlug' => $query->where('key', 'default_account_slug')->first()?->value ?? '',
@@ -113,9 +113,20 @@ function centralCurrencySymbolFormat($amount){
     $paymentController = new PaymentController();
     $centralActiveCurrency = $paymentController->centralActiveCurrency();
 
+     // Check if we're in RTL mode
+     $isRTL = session('locale') === 'ar' || 
+              (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
+
      // Format the amount based on the central currency position
      $currencyPosition = $centralActiveCurrency->position;
-     if ($currencyPosition === 'left') {
+     
+     // RTL-aware position logic
+     $effectivePosition = $currencyPosition;
+     if ($isRTL) {
+         $effectivePosition = $currencyPosition === 'left' ? 'right' : 'left';
+     }
+     
+     if ($effectivePosition === 'left') {
          $formattedPendingAmount = $centralActiveCurrency->symbol . number_format($amount, 2);
      } else {
          $formattedPendingAmount = number_format($amount, 2) . $centralActiveCurrency->symbol;
@@ -128,9 +139,20 @@ function centralCurrencyCodeFormat($amount){
     $paymentController = new PaymentController();
     $centralActiveCurrency = $paymentController->centralActiveCurrency();
 
+     // Check if we're in RTL mode
+     $isRTL = session('locale') === 'ar' || 
+              (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
+
      // Format the amount based on the central currency position
      $currencyPosition = $centralActiveCurrency->position;
-     if ($currencyPosition === 'left') {
+     
+     // RTL-aware position logic
+     $effectivePosition = $currencyPosition;
+     if ($isRTL) {
+         $effectivePosition = $currencyPosition === 'left' ? 'right' : 'left';
+     }
+     
+     if ($effectivePosition === 'left') {
          $formattedPendingAmount = $centralActiveCurrency->code . ' ' . number_format($amount, 2);
      } else {
          $formattedPendingAmount = number_format($amount, 2) . ' ' . $centralActiveCurrency->code;
@@ -283,4 +305,36 @@ function invoiceThankYouMessage(){
         
             return $imageName;
         }
+}
+
+/**
+ * Get logo with fallback to default logo if tenant logo is empty
+ */
+function getLogoWithFallback($query, $logoKey, $defaultLogo)
+{
+    $logoValue = $query->where('key', $logoKey)->first()?->value;
+    
+    // If tenant has a logo, use it
+    if (!empty($logoValue)) {
+        return asset('images/' . $logoValue);
+    }
+    
+    // Fallback to default logo
+    return asset('images/' . $defaultLogo);
+}
+
+/**
+ * Get logo with fallback to default logo if tenant logo is empty (using global_asset)
+ */
+function getLogoWithFallbackGlobal($query, $logoKey, $defaultLogo)
+{
+    $logoValue = $query->where('key', $logoKey)->first()?->value;
+    
+    // If tenant has a logo, use it
+    if (!empty($logoValue)) {
+        return global_asset('images/' . $logoValue);
+    }
+    
+    // Fallback to default logo
+    return global_asset('images/' . $defaultLogo);
 }

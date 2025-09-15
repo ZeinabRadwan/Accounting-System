@@ -9,6 +9,7 @@
       class="currency-svg"
       @error="handleImageError"
     />
+    <span v-else-if="isSaudiRiyal" class="saudi-riyal">{{ symbol }}</span>
     <span v-else>{{ symbol }}</span>
   </span>
 </template>
@@ -42,6 +43,11 @@ export default {
     isSvgSymbol() {
       // Check if the symbol is a path to an SVG file
       return this.symbol && this.symbol.includes('.svg');
+    },
+    isSaudiRiyal() {
+      // Check if this is Saudi Riyal currency (SAR or RY) with the new symbol
+      return (this.currencyCode === 'SAR' || this.currencyCode === 'RY') && 
+             this.symbol && this.symbol.includes('ê');
     },
     symbolPath() {
       if (this.isSvgSymbol) {

@@ -112,12 +112,12 @@ class PrintTemplate extends Model
         $settings = \App\Models\GeneralSetting::get();
         $logo = $settings->where('key', 'logo')->first()?->value;
         
-        if ($logo) {
+        if (!empty($logo)) {
             return global_asset('images/' . $logo);
         }
 
-        // Default logo
-        return global_asset('images/logo.png');
+        // Default logo fallback
+        return global_asset('images/white_logo.png');
     }
 
     /**
@@ -133,11 +133,11 @@ class PrintTemplate extends Model
         $settings = \App\Models\GeneralSetting::get();
         $logo = $settings->where('key', 'logo')->first()?->value;
         
-        if ($logo) {
+        if (!empty($logo)) {
             return public_path('images/' . $logo);
         }
 
-        // Default logo
-        return public_path('images/logo.png');
+        // Default logo fallback
+        return public_path('images/white_logo.png');
     }
 }

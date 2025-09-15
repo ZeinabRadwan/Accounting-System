@@ -113,6 +113,7 @@ Route::middleware([
         Route::get('oauth/{driver}/callback', [OAuthController::class, 'handleCallback'])->name('oauth.callback');
 
         Route::get('/impersonate/{token}', [TenantImpersonationController::class, 'impersonate']);
+        Route::get('/cross-domain-login', [App\Http\Controllers\CrossDomainAuthController::class, 'crossDomainLogin']);
         Route::post('/cross-domain-login', [App\Http\Controllers\CrossDomainAuthController::class, 'crossDomainLogin']);
         Route::post('/cross-domain-auth', [App\Http\Controllers\CrossDomainAuthController::class, 'authenticate']);
         Route::get('general-settings', [GeneralController::class, 'getGeneralSettings']);

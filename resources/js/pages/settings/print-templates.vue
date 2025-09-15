@@ -1372,7 +1372,7 @@ export default {
       if (this.editingTemplate.logo_url) {
         return this.editingTemplate.logo_url;
       }
-      return '/images/logo.png'; // Default logo
+      return '/images/white_logo.png'; // Default logo
     }
   }
 }

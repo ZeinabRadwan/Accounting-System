@@ -8,6 +8,7 @@ import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
 import App from '~/components/central/CentralApp'
 import Swal from 'sweetalert2'
+import GlobalRTLMixin from '~/mixins/GlobalRTLMixin'
 
 // Import RTL styles
 import '~/assets/css/rtl.css'
@@ -74,6 +75,9 @@ Vue.config.productionTip = false
 Vue.prototype.$can = can
 Vue.prototype.$axios = axios
 Vue.prototype.$swal = Swal
+
+// Add global RTL mixin to all components
+Vue.mixin(GlobalRTLMixin)
 
 // Make Swal globally available
 window.Swal = Swal

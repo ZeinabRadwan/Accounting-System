@@ -24,34 +24,63 @@ Vue.directive('currency-symbol', {
       existingImg.remove()
     }
     
-    if (currency && currency.symbol && currency.symbol.includes('.svg')) {
+    if (currency && currency.symbol) {
       // Mark as processed
       el.setAttribute('data-currency-processed', 'true')
       
-      // Create SVG element with better visibility
-      const svgElement = document.createElement('img')
-      svgElement.src = currency.symbol.startsWith('/') ? currency.symbol : `/images/${currency.symbol}`
-      svgElement.alt = currency.code || 'Currency Symbol'
-      svgElement.width = 15
-      svgElement.height = 15
-      svgElement.style.verticalAlign = 'middle'
-      svgElement.style.marginRight = currency.position === 'left' ? '5px' : '0px'
-      svgElement.style.marginLeft = currency.position === 'right' ? '5px' : '0px'
-      // Check if this is a dashboard card (small-box)
-      const isDashboardCard = el.closest('.small-box')
-      if (isDashboardCard) {
-        svgElement.style.filter = 'brightness(0) invert(1) contrast(1)'
-      } else {
-        svgElement.style.filter = 'brightness(0.2) contrast(2) saturate(1.5)'
-      }
-      svgElement.style.opacity = '1'
-      svgElement.classList.add('currency-svg')
+      // Check if we're in RTL mode
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+                   document.body.classList.contains('rtl')
       
-      // Insert SVG symbol
-      if (currency.position === 'left') {
-        el.insertBefore(svgElement, el.firstChild)
-      } else {
-        el.appendChild(svgElement)
+      if (currency.symbol.includes('.svg')) {
+        // Create SVG element with better visibility
+        const svgElement = document.createElement('img')
+        svgElement.src = currency.symbol.startsWith('/') ? currency.symbol : `/images/${currency.symbol}`
+        svgElement.alt = currency.code || 'Currency Symbol'
+        svgElement.width = 15
+        svgElement.height = 15
+        svgElement.style.verticalAlign = 'middle'
+        
+        // RTL-aware margin logic
+        if (isRTL) {
+          // In RTL mode, reverse the margin logic
+          svgElement.style.marginRight = currency.position === 'left' ? '5px' : '0px'
+          svgElement.style.marginLeft = currency.position === 'right' ? '5px' : '0px'
+        } else {
+          // LTR mode - original logic
+          svgElement.style.marginRight = currency.position === 'left' ? '5px' : '0px'
+          svgElement.style.marginLeft = currency.position === 'right' ? '5px' : '0px'
+        }
+        
+        // Check if this is a dashboard card (small-box)
+        const isDashboardCard = el.closest('.small-box')
+        if (isDashboardCard) {
+          svgElement.style.filter = 'brightness(0) invert(1) contrast(1)'
+        } else {
+          svgElement.style.filter = 'brightness(0.2) contrast(2) saturate(1.5)'
+        }
+        svgElement.style.opacity = '1'
+        svgElement.classList.add('currency-svg')
+        
+        // RTL-aware symbol insertion
+        if (isRTL) {
+          // In RTL mode, reverse the insertion logic
+          if (currency.position === 'right') {
+            el.insertBefore(svgElement, el.firstChild)
+          } else {
+            el.appendChild(svgElement)
+          }
+        } else {
+          // LTR mode - original logic
+          if (currency.position === 'left') {
+            el.insertBefore(svgElement, el.firstChild)
+          } else {
+            el.appendChild(svgElement)
+          }
+        }
+      } else if ((currency.code === 'SAR' || currency.code === 'RY') && currency.symbol.includes('ê')) {
+        // Apply Saudi Riyal font class to the element
+        el.classList.add('saudi-riyal')
       }
     }
   }

@@ -23,7 +23,7 @@ class CentralCurrencySeeder extends Seeder
                     'slug' => 'saudi-riyal',
                     'code' => 'SAR',
                     'rate' =>  3.75,
-                    'symbol' => '﷼',
+                    'symbol' => 'ê',
                     'position' => 'left',
                     'note' => 'Official currency of Saudi Arabia with new symbol',
                     'status' => 1,

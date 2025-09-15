@@ -79,9 +79,10 @@ composer.phar
 !/public/vendor/telescope/
 
 # Ignore compiled JS/CSS in public
-/public/js/*
-/public/css/*
-/public/mix-manifest.json
+# /public/js
+# /public/css
+/public/fonts
+# /public/mix-manifest.json
 
 # Don't ignore essential entry files
 !/public/index.php
@@ -93,9 +94,3 @@ composer.phar
 public/hot
 /public/images/vendor
 /public/images
-
-# Ignore build artifacts
-/public/fonts
-/public/mix-manifest.json
-/public/images
-/public/fonts

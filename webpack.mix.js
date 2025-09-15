@@ -6,6 +6,8 @@ mix
   .js('resources/js/central.js', 'public/js')
   .js('resources/js/tenant.js', 'public/js')
   .vue()
+  .sass('resources/sass/custom_ltr.scss', 'public/css/custom_ltr.css')
+  .sass('resources/sass/custom_rtl.scss', 'public/css/custom_rtl.css')
   .sass('resources/sass/app.scss', 'public/css')
 
 if (mix.inProduction()) {
