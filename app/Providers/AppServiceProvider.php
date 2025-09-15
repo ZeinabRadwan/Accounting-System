@@ -43,8 +43,8 @@ class AppServiceProvider extends ServiceProvider
                     config(['config.companyName' => $allSettings->where('key', 'company_name')->first()?->value]);
                     config(['config.companyPhoneNumber' => $allSettings->where('key', 'phone_number')->first()?->value]);
                     config(['config.companyEmail' => $allSettings->where('key', 'email_address')->first()?->value]);
-                    config(['config.logo' => $allSettings->where('key', 'logo')->first()?->value]);
-                    config(['config.logoBlack' => $allSettings->where('key', 'logo_black')->first()?->value]);
+                    config(['config.logo' => $allSettings->where('key', 'logo')->first()?->value ?: 'white_logo.png']);
+                    config(['config.logoBlack' => $allSettings->where('key', 'logo_black')->first()?->value ?: 'black_logo.png']);
                     config(['config.address' => $allSettings->where('key', 'address')->first()?->value]);
                 }
             }
