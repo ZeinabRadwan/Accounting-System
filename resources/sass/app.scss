@@ -1842,10 +1842,50 @@ img.circle-img.circle-img--small {
 /* Card RTL adjustments */
 [dir="rtl"] .card-header {
   text-align: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+/* General card-tools styling for all languages */
+.card-tools {
+  min-width: 150px;
+  flex-shrink: 0;
+}
+
+.card-tools select {
+  min-width: 140px;
+  width: auto;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  padding-right: 25px; /* Space for dropdown arrow */
+}
+
+/* Override form-control height to remove calc(2.25rem + 2px) */
+.form-control {
+  height: auto !important;
 }
 
 [dir="rtl"] .card-title {
   text-align: right;
+  float: none;
+  margin: 0;
+  order: 2;
+}
+
+[dir="rtl"] .card-tools {
+  order: 1;
+  margin-left: 0;
+  margin-right: auto;
+  min-width: 150px;
+  flex-shrink: 0;
+}
+
+[dir="rtl"] .card-tools select {
+  padding-right: 8px;
+  padding-left: 25px; /* Space for dropdown arrow in RTL */
 }
 
 [dir="rtl"] .card-body {
@@ -1871,6 +1911,40 @@ img.circle-img.circle-img--small {
 [dir="rtl"] .alert-dismissible .close {
   right: auto;
   left: 0;
+}
+
+/* Responsive RTL card header adjustments */
+@media (max-width: 767.98px) {
+  [dir="rtl"] .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  [dir="rtl"] .card-title {
+    order: 1;
+  }
+  
+  [dir="rtl"] .card-tools {
+    order: 2;
+    margin-right: 0;
+    width: 100%;
+    min-width: auto;
+  }
+  
+  [dir="rtl"] .card-tools select {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  /* General responsive adjustments for all languages */
+  .card-tools {
+    min-width: 120px;
+  }
+  
+  .card-tools select {
+    min-width: 110px;
+  }
 }
 
 /* ========================================
