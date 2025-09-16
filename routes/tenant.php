@@ -526,6 +526,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::post('/reports/calculate-account-balances', [ReportController::class, 'calculateAccountBalances']);
         Route::post('/reports/summery', [ReportController::class, 'summeryReport']);
         Route::post('/reports/profit-loss', [ReportController::class, 'profitLossReport']);
+        Route::post('/reports/vat-report', [ReportController::class, 'vatReport']);
         Route::post('/reports/expenses', [ReportController::class, 'expenseReport']);
         Route::post('/reports/items', [ReportController::class, 'itemsReport']);
         Route::post('/reports/inventory', [ReportController::class, 'inventoryReport']);

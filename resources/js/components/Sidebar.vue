@@ -865,6 +865,12 @@
               <p>{{ $t('Trial Balance') }}</p>
             </router-link>
           </li>
+          <li v-if="$can('vat-report')" class="nav-item">
+            <router-link :to="{ name: 'reports.vatReport' }" class="nav-link">
+              <i class="fas fa-percentage nav-icon" />
+              <p>{{ $t('VAT Report') }}</p>
+            </router-link>
+          </li>
           <li v-if="$can('today-profit')" class="nav-item">
             <router-link :to="{ name: 'reports.todayReport' }" class="nav-link">
               <i class="fas fa-file-invoice-dollar nav-icon" />

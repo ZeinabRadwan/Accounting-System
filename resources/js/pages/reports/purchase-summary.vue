@@ -221,7 +221,17 @@
         <!-- Supplier Summary Table -->
         <div class="row mb-4">
           <div class="col-12">
-            <h5>{{ $t('Supplier Summary') }}</h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5>{{ $t('Supplier Summary') }}</h5>
+              <div class="d-flex align-items-center">
+                <label class="mr-2">{{ $t('Per Page') }}:</label>
+                <select v-model="supplierPerPage" @change="loadSupplierPage(1)" class="form-control form-control-sm" style="width: 80px;">
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+            </div>
             <div class="table-responsive">
               <table class="table table-bordered table-striped">
                 <thead>
@@ -237,7 +247,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="reportData.supplier_summary.length === 0">
+                  <tr v-if="loadingSuppliers">
+                    <td colspan="8" class="text-center">
+                      <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading suppliers...') }}
+                    </td>
+                  </tr>
+                  <tr v-else-if="reportData.supplier_summary.length === 0">
                     <td colspan="8" class="text-center text-muted">
                       {{ $t('No supplier data available') }}
                     </td>
@@ -254,6 +269,39 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+            
+            <!-- Supplier Pagination -->
+            <div v-if="reportData.pagination" class="d-flex justify-content-between align-items-center mt-3">
+              <div class="dataTables_info">
+                {{ $t('Showing') }} {{ ((reportData.pagination.current_page - 1) * reportData.pagination.per_page) + 1 }} 
+                {{ $t('to') }} {{ Math.min(reportData.pagination.current_page * reportData.pagination.per_page, reportData.pagination.total_suppliers) }} 
+                {{ $t('of') }} {{ reportData.pagination.total_suppliers }} {{ $t('suppliers') }}
+              </div>
+              <nav>
+                <ul class="pagination pagination-sm mb-0">
+                  <li class="page-item" :class="{ disabled: reportData.pagination.current_page <= 1 }">
+                    <button class="page-link" @click="loadSupplierPage(1)" :disabled="reportData.pagination.current_page <= 1">
+                      <i class="fas fa-angle-double-left"></i>
+                    </button>
+                  </li>
+                  <li class="page-item" :class="{ disabled: reportData.pagination.current_page <= 1 }">
+                    <button class="page-link" @click="loadSupplierPage(reportData.pagination.current_page - 1)" :disabled="reportData.pagination.current_page <= 1">
+                      <i class="fas fa-angle-left"></i>
+                    </button>
+                  </li>
+                  <li class="page-item" :class="{ disabled: reportData.pagination.current_page >= reportData.pagination.total_pages }">
+                    <button class="page-link" @click="loadSupplierPage(reportData.pagination.current_page + 1)" :disabled="reportData.pagination.current_page >= reportData.pagination.total_pages">
+                      <i class="fas fa-angle-right"></i>
+                    </button>
+                  </li>
+                  <li class="page-item" :class="{ disabled: reportData.pagination.current_page >= reportData.pagination.total_pages }">
+                    <button class="page-link" @click="loadSupplierPage(reportData.pagination.total_pages)" :disabled="reportData.pagination.current_page >= reportData.pagination.total_pages">
+                      <i class="fas fa-angle-double-right"></i>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
@@ -344,6 +392,7 @@ export default {
       loading: false,
       loadingFiscalYears: false,
       loadingAccountingPeriods: false,
+      loadingSuppliers: false,
       reportData: null,
       errors: {},
       
@@ -367,6 +416,10 @@ export default {
         fromDate: null,
         toDate: null,
       },
+      
+      // Pagination
+      supplierPerPage: 50,
+      currentSupplierPage: 1,
       
       // Options
       fiscalYears: [],
@@ -448,7 +501,10 @@ export default {
       this.reportData = null;
 
       try {
-        const params = {};
+        const params = {
+          page: this.currentSupplierPage,
+          per_page: this.supplierPerPage
+        };
 
         if (this.filters.fiscalYear) {
           params.fiscal_year_id = this.filters.fiscalYear;
@@ -502,6 +558,43 @@ export default {
     exportToPDF() {
       // TODO: Implement PDF export functionality
       this.$toast.info('', this.$t('PDF export functionality will be implemented soon'));
+    },
+
+    async loadSupplierPage(page) {
+      if (!this.reportData) return;
+      
+      this.loadingSuppliers = true;
+      this.currentSupplierPage = page;
+
+      try {
+        const params = {
+          page: page,
+          per_page: this.supplierPerPage
+        };
+
+        if (this.filters.fiscalYear) {
+          params.fiscal_year_id = this.filters.fiscalYear;
+        } else if (this.filters.accountingPeriod) {
+          params.accounting_period_id = this.filters.accountingPeriod;
+        } else if (this.filters.fromDate && this.filters.toDate) {
+          params.from_date = this.filters.fromDate;
+          params.to_date = this.filters.toDate;
+        }
+
+        const response = await axios.get('/api/reports/purchase-summary', { params });
+        
+        if (response.data.success) {
+          // Update only the supplier summary and pagination data
+          this.reportData.supplier_summary = response.data.data.supplier_summary;
+          this.reportData.pagination = response.data.data.pagination;
+        } else {
+          this.$toast.error('', response.data.message || this.$t('Failed to load supplier data'));
+        }
+      } catch (error) {
+        this.$toast.error('', error.response?.data?.message || this.$t('Failed to load supplier data'));
+      } finally {
+        this.loadingSuppliers = false;
+      }
     },
   },
 };

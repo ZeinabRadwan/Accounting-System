@@ -28,6 +28,7 @@ use App\Models\AdjustmentProduct;
 use App\Models\NonInvoicePayment;
 use App\Models\NonPurchasePayment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\InvoiceReturnProduct;
 use App\Models\PurchaseReturnProduct;
@@ -52,7 +53,7 @@ class ReportController extends Controller
         $this->middleware('can:inventory-report', ['only' => ['inventoryReport']]);
     }
 
-    // return balance sheet data based on chart of accounts and journal entries
+    // return balance sheet data based on chart of accounts and journal entries - OPTIMIZED
     public function balanceSheet(Request $request)
     {
         try {
@@ -77,13 +78,24 @@ class ReportController extends Controller
                 'to_date' => $toDate,
             ];
 
-            // Get all chart of accounts with their balances
-            $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
-                ->where('is_active', true)
-                ->get();
+            // OPTIMIZED: Get all account balances in a single query using database aggregation
+            $accountBalances = $this->getAllAccountBalancesOptimized($filters);
 
-            // Calculate balances for each account type
-            $accountTypeBalances = $this->calculateAccountTypeBalances($chartOfAccounts, $filters);
+            // Calculate totals by account type using the pre-calculated balances
+            $accountTypeBalances = [
+                'Asset' => 0,
+                'Liability' => 0,
+                'Equity' => 0,
+                'Revenue' => 0,
+                'Expense' => 0,
+            ];
+
+            foreach ($accountBalances as $accountId => $balanceData) {
+                $accountType = $balanceData['type_name'];
+                if (isset($accountTypeBalances[$accountType])) {
+                    $accountTypeBalances[$accountType] += $balanceData['balance'];
+                }
+            }
 
             // Calculate totals
             $totalAssets = $accountTypeBalances['Asset'];
@@ -102,10 +114,13 @@ class ReportController extends Controller
             $totalAssetsAmount = $totalAssets;
             $totalLiabilitiesAndEquity = $totalLiabilities + $totalEquityWithIncome;
 
-            // Get detailed account breakdown
-            $assetAccounts = $this->getAccountDetailsByType($chartOfAccounts, 'Asset', $filters);
-            $liabilityAccounts = $this->getAccountDetailsByType($chartOfAccounts, 'Liability', $filters);
-            $equityAccounts = $this->getAccountDetailsByType($chartOfAccounts, 'Equity', $filters);
+            // Get detailed account breakdown using pre-calculated balances
+            $assetAccounts = $this->getAccountDetailsByTypeOptimized($accountBalances, 'Asset');
+            $liabilityAccounts = $this->getAccountDetailsByTypeOptimized($accountBalances, 'Liability');
+            $equityAccounts = $this->getAccountDetailsByTypeOptimized($accountBalances, 'Equity');
+
+            // Get legacy data using pre-calculated balances
+            $legacyData = $this->getLegacyBalanceData($accountBalances, $totalAssetsAmount, $totalLiabilities);
 
             return [
                 'success' => true,
@@ -125,17 +140,7 @@ class ReportController extends Controller
                         'liabilities' => $liabilityAccounts,
                         'equity' => $equityAccounts,
                     ],
-                    'legacy_data' => [
-                        'assets' => round($totalAssetsAmount, 2),
-                        'inventoryValue' => $this->getAccountBalance($chartOfAccounts, 'Inventory', $filters),
-                        'clientTotalDue' => $this->getAccountBalance($chartOfAccounts, 'Accounts Receivable', $filters),
-                        'bankBalance' => $this->getAccountBalance($chartOfAccounts, 'Bank Accounts', $filters),
-                        'supplierDue' => $this->getAccountBalance($chartOfAccounts, 'Accounts Payable', $filters),
-                        'loanDue' => $this->getAccountBalance($chartOfAccounts, 'Loans Payable', $filters),
-                        'buisnessTotal' => round($totalAssetsAmount, 2),
-                        'liabilities' => round($totalLiabilities, 2),
-                        'totalAsset' => round($totalAssetsAmount - $totalLiabilities, 2),
-                    ]
+                    'legacy_data' => $legacyData
                 ]
             ];
 
@@ -150,7 +155,60 @@ class ReportController extends Controller
 
 
     /**
-     * Calculate balances for each account type
+     * Get all account balances in a single optimized query
+     */
+    private function getAllAccountBalancesOptimized($filters)
+    {
+        // Build base query for journal entries with filters
+        $baseQuery = DB::table('journal_entries')
+            ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+            ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
+            ->join('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
+            ->where('journal_entries.status', 'posted')
+            ->where('chart_of_accounts.is_active', true);
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $baseQuery->where('journal_entries.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $baseQuery->where('journal_entries.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $baseQuery->whereBetween('journal_entries.entry_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        // Get all account balances in one query
+        $balances = $baseQuery
+            ->selectRaw('
+                chart_of_accounts.id as account_id,
+                chart_of_accounts.code as account_code,
+                chart_of_accounts.name as account_name,
+                chart_of_account_types.name as type_name,
+                SUM(journal_entry_lines.debit_amount) as total_debits,
+                SUM(journal_entry_lines.credit_amount) as total_credits
+            ')
+            ->groupBy('chart_of_accounts.id', 'chart_of_accounts.code', 'chart_of_accounts.name', 'chart_of_account_types.name')
+            ->get();
+
+        // Convert to array format
+        $result = [];
+        foreach ($balances as $balance) {
+            $accountBalance = $balance->total_debits - $balance->total_credits;
+            $result[$balance->account_id] = [
+                'account_id' => $balance->account_id,
+                'account_code' => $balance->account_code,
+                'account_name' => $balance->account_name,
+                'type_name' => $balance->type_name,
+                'balance' => $accountBalance,
+                'total_debits' => $balance->total_debits,
+                'total_credits' => $balance->total_credits,
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Calculate balances for each account type - DEPRECATED (kept for compatibility)
      */
     private function calculateAccountTypeBalances($chartOfAccounts, $filters)
     {
@@ -175,7 +233,30 @@ class ReportController extends Controller
     }
 
     /**
-     * Get account details by type
+     * Get account details by type - OPTIMIZED
+     */
+    private function getAccountDetailsByTypeOptimized($accountBalances, $typeName)
+    {
+        $accounts = [];
+        foreach ($accountBalances as $accountId => $balanceData) {
+            if ($balanceData['type_name'] === $typeName) {
+                $balance = $balanceData['balance'];
+                $accounts[] = [
+                    'id' => $balanceData['account_id'],
+                    'code' => $balanceData['account_code'],
+                    'name' => $balanceData['account_name'],
+                    'type' => $balanceData['type_name'],
+                    'balance' => round($balance, 2),
+                    'balance_type' => $balance >= 0 ? 'Debit' : 'Credit',
+                    'absolute_balance' => round(abs($balance), 2),
+                ];
+            }
+        }
+        return $accounts;
+    }
+
+    /**
+     * Get account details by type - DEPRECATED (kept for compatibility)
      */
     private function getAccountDetailsByType($chartOfAccounts, $typeName, $filters)
     {
@@ -200,7 +281,45 @@ class ReportController extends Controller
     }
 
     /**
-     * Get balance for a specific account by name
+     * Get legacy balance data using pre-calculated balances
+     */
+    private function getLegacyBalanceData($accountBalances, $totalAssetsAmount, $totalLiabilities)
+    {
+        // Find specific accounts by name
+        $inventoryValue = $this->findAccountBalanceByName($accountBalances, 'Inventory');
+        $clientTotalDue = $this->findAccountBalanceByName($accountBalances, 'Accounts Receivable');
+        $bankBalance = $this->findAccountBalanceByName($accountBalances, 'Bank Accounts');
+        $supplierDue = $this->findAccountBalanceByName($accountBalances, 'Accounts Payable');
+        $loanDue = $this->findAccountBalanceByName($accountBalances, 'Loans Payable');
+
+        return [
+            'assets' => round($totalAssetsAmount, 2),
+            'inventoryValue' => $inventoryValue,
+            'clientTotalDue' => $clientTotalDue,
+            'bankBalance' => $bankBalance,
+            'supplierDue' => $supplierDue,
+            'loanDue' => $loanDue,
+            'buisnessTotal' => round($totalAssetsAmount, 2),
+            'liabilities' => round($totalLiabilities, 2),
+            'totalAsset' => round($totalAssetsAmount - $totalLiabilities, 2),
+        ];
+    }
+
+    /**
+     * Find account balance by name in pre-calculated balances
+     */
+    private function findAccountBalanceByName($accountBalances, $accountName)
+    {
+        foreach ($accountBalances as $balanceData) {
+            if ($balanceData['account_name'] === $accountName) {
+                return round($balanceData['balance'], 2);
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Get balance for a specific account by name - DEPRECATED (kept for compatibility)
      */
     private function getAccountBalance($chartOfAccounts, $accountName, $filters)
     {
@@ -334,168 +453,906 @@ class ReportController extends Controller
         ];
     }
 
-    // return profit loss report data
+    // return profit loss report data - OPTIMIZED
     public function profitLossReport(Request $request)
     {
+        // Validate request
+        $this->validate($request, [
+            'reportType' => 'required|integer|in:1,2',
+            'fromDate' => 'required|date',
+            'toDate' => 'required|date|after_or_equal:fromDate',
+            'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+            'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+        ]);
+
+        $fiscalYearId = $request->fiscal_year_id;
+        $accountingPeriodId = $request->accounting_period_id;
+        $fromDate = $request->fromDate;
+        $toDate = $request->toDate;
+
         if ($request->reportType == 1) {
-            $products = [];
-            $inventoryOuts = InvoiceProduct::with('invoice', 'product')->whereHas('invoice', function ($newQuery) use ($request) {
-                $newQuery->where('status', 1)->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-            })->groupBy('product_id')
-                ->selectRaw('sum(quantity) as sumQty, product_id')
-                ->selectRaw('sum(purchase_price * quantity) as purchasePrice, product_id')
-                ->selectRaw('sum(sale_price * quantity) as salePrice, product_id')
-                ->get();
-
-            foreach ($inventoryOuts  as $key => $inventoryOut) {
-                $returnQty = InvoiceReturnProduct::with('invoiceReturn.invoice')->whereHas('invoiceReturn', function ($newQuery) use ($request) {
-                    $newQuery->whereHas('invoice', function ($anotherQuery) use ($request) {
-                        $anotherQuery->where('status', 1)->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-                    });
-                })->where('product_id', $inventoryOut->product->id)->sum('quantity');
-
-                $currentQty = $inventoryOut->sumQty - $returnQty;
-                $avgPurchasePrice = $inventoryOut->purchasePrice / $inventoryOut->sumQty;
-                $avgSalePrice = $inventoryOut->salePrice / $inventoryOut->sumQty;
-                $profitOrLoss = ($avgSalePrice * $currentQty) - ($avgPurchasePrice * $currentQty);
-
-                $products[$key]['itemCode'] = $inventoryOut->product->code;
-                $products[$key]['code'] = $inventoryOut->product->code;
-                $products[$key]['itemName'] = $inventoryOut->product->name;
-                $products[$key]['avgPurchasePrice'] = round($avgPurchasePrice, 2);
-                $products[$key]['avgSalePrice'] = round($avgSalePrice, 2);
-                $products[$key]['invoiceQty'] = $inventoryOut->sumQty;
-                $products[$key]['currentQty'] = $currentQty;
-                $products[$key]['returnQty'] = $returnQty > 0 ? $returnQty : 0;
-                $products[$key]['profitOrLoss'] = round($profitOrLoss, 2);
-            }
-
-            return [
-                'type' => 1,
-                'reportData' => $products,
-            ];
+            // Product-wise profit & loss report - OPTIMIZED
+            return $this->getProductWiseProfitLoss($fromDate, $toDate, $fiscalYearId, $accountingPeriodId);
         } else {
-            $fromDate = date_format((date_create($request->fromDate)), 'Y-m-d');
-            $toDate = date_format((date_create($request->toDate)), 'Y-m-d');
-            $daysDifference = strtotime($toDate) - strtotime($fromDate);
-            $daysDifference = floor($daysDifference / (60 * 60 * 24)) + 1;
+            // Summary profit & loss report - OPTIMIZED
+            return $this->getSummaryProfitLoss($fromDate, $toDate, $fiscalYearId, $accountingPeriodId);
+        }
+    }
 
-            // total sales between a given date range
-            $totalSales = Invoice::where('status', 1)->whereBetween('invoice_date', [$request->fromDate, $request->toDate])->sum('sub_total');
+    /**
+     * Get product-wise profit & loss report - OPTIMIZED
+     */
+    private function getProductWiseProfitLoss($fromDate, $toDate, $fiscalYearId = null, $accountingPeriodId = null)
+    {
+        // Build base query for invoices with filters
+        $invoiceQuery = DB::table('invoices')
+            ->where('status', 1)
+            ->whereBetween('invoice_date', [$fromDate, $toDate]);
 
-            // cost of goods sold between a given date range
-            $invoicePurchasePrice = InvoiceProduct::with('invoice')->whereHas('invoice', function ($newQuery) use ($request) {
-                $newQuery->where('status', 1)->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-            })->get()->sum(function ($row) {
-                return $row->purchase_price * $row->quantity;
-            });
+        if ($fiscalYearId) {
+            $invoiceQuery->where('fiscal_year_id', $fiscalYearId);
+        } elseif ($accountingPeriodId) {
+            $invoiceQuery->where('accounting_period_id', $accountingPeriodId);
+        }
 
-            $returnPurchasePrice = InvoiceReturnProduct::with('invoiceReturn.invoice')->whereHas('invoiceReturn', function ($newQuery) use ($request) {
-                $newQuery->whereHas('invoice', function ($anotherQuery) use ($request) {
-                    $anotherQuery->where('status', 1)->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-                });
-            })->get()->sum(function ($row) {
-                return $row->purchase_price * $row->quantity;
-            });
-            $costOfGoodsSold = $invoicePurchasePrice - $returnPurchasePrice;
+        // Get product sales data in one optimized query
+        $productSales = DB::table('invoice_products')
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->join('products', 'invoice_products.product_id', '=', 'products.id')
+            ->where('invoices.status', 1)
+            ->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
 
-            // inventory positive adjustment
-            $posAdjustment = AdjustmentProduct::with('inventoryAdjustment')->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
-                $newQuery->where('status', 1)->where('type', 1)->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->get()->sum(function ($row) {
-                return $row->purchase_price * $row->quantity;
-            });
+        if ($fiscalYearId) {
+            $productSales->where('invoices.fiscal_year_id', $fiscalYearId);
+        } elseif ($accountingPeriodId) {
+            $productSales->where('invoices.accounting_period_id', $accountingPeriodId);
+        }
 
-            // inventory negative adjustment
-            $negAdjustment = AdjustmentProduct::with('inventoryAdjustment')->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
-                $newQuery->where('status', 1)->where('type', 0)->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->get()->sum(function ($row) {
-                return $row->purchase_price * $row->quantity;
-            });
+        $productSales = $productSales
+            ->selectRaw('
+                products.id as product_id,
+                products.code as product_code,
+                products.name as product_name,
+                SUM(invoice_products.quantity) as total_quantity,
+                SUM(invoice_products.purchase_price * invoice_products.quantity) as total_purchase_cost,
+                SUM(invoice_products.sale_price * invoice_products.quantity) as total_sale_value
+            ')
+            ->groupBy('products.id', 'products.code', 'products.name')
+            ->get();
 
-            // general expenses between a given date range
-            $expenses = Expense::select(DB::raw('SUM(account_transactions.amount) As expAmount'))
-                ->leftJoin('account_transactions', 'account_transactions.id', '=', 'expenses.transaction_id')
-                ->where('expenses.status', 1)->whereBetween('expenses.date', [$request->fromDate, $request->toDate])
-                ->first();
+        // Get product returns data in one optimized query
+        $productReturns = DB::table('invoice_return_products')
+            ->join('invoice_returns', 'invoice_return_products.return_id', '=', 'invoice_returns.id')
+            ->join('invoices', 'invoice_returns.invoice_id', '=', 'invoices.id')
+            ->where('invoices.status', 1)
+            ->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
 
-            // payrolls between a given date range
-            $payrolls = Payroll::select(DB::raw('SUM(account_transactions.amount) As payrollAmount'))
-                ->leftJoin('account_transactions', 'account_transactions.id', '=', 'payrolls.transaction_id')
-                ->where('payrolls.status', 1)->whereBetween('payrolls.salary_date', [$request->fromDate, $request->toDate])
-                ->first();
+        if ($fiscalYearId) {
+            $productReturns->where('invoices.fiscal_year_id', $fiscalYearId);
+        } elseif ($accountingPeriodId) {
+            $productReturns->where('invoices.accounting_period_id', $accountingPeriodId);
+        }
 
-            // loan interests between a given date range
-            $loanInterest = LoanPayment::where('status', 1)->whereBetween('date', [$request->fromDate, $request->toDate])->sum('interest');
+        $productReturns = $productReturns
+            ->selectRaw('
+                invoice_return_products.product_id,
+                SUM(invoice_return_products.quantity) as return_quantity
+            ')
+            ->groupBy('invoice_return_products.product_id')
+            ->pluck('return_quantity', 'product_id');
 
-            $assetDepriciation = Asset::where('status', 1)
-                ->where('depreciation', 1)
-                ->where('expire_date', '>=', date('Y-m-d'))
-                ->sum('daily_depreciation') * $daysDifference;
+        // Process results
+        $products = [];
+        foreach ($productSales as $key => $product) {
+            $returnQty = $productReturns[$product->product_id] ?? 0;
+            $currentQty = $product->total_quantity - $returnQty;
+            $avgPurchasePrice = $product->total_quantity > 0 ? $product->total_purchase_cost / $product->total_quantity : 0;
+            $avgSalePrice = $product->total_quantity > 0 ? $product->total_sale_value / $product->total_quantity : 0;
+            $profitOrLoss = ($avgSalePrice * $currentQty) - ($avgPurchasePrice * $currentQty);
 
+            $products[$key] = [
+                'itemCode' => $product->product_code,
+                'code' => $product->product_code,
+                'itemName' => $product->product_name,
+                'avgPurchasePrice' => round($avgPurchasePrice, 2),
+                'avgSalePrice' => round($avgSalePrice, 2),
+                'invoiceQty' => $product->total_quantity,
+                'currentQty' => $currentQty,
+                'returnQty' => $returnQty > 0 ? $returnQty : 0,
+                'profitOrLoss' => round($profitOrLoss, 2),
+            ];
+        }
 
-            $products = [];
-            $inventoryOuts = InvoiceProduct::with('invoice', 'product')->whereHas('invoice', function ($newQuery) use ($request) {
-                $newQuery->where('status', 1)->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-            })->groupBy('product_id')
-                ->selectRaw('sum(quantity) as sumQty, product_id')
-                ->selectRaw('sum(purchase_price * quantity) as purchasePrice, product_id')
-                ->selectRaw('sum(sale_price * quantity) as salePrice, product_id')
-                ->get();
+        return [
+            'type' => 1,
+            'reportData' => $products,
+        ];
+    }
 
-            foreach ($inventoryOuts  as $key => $inventoryOut) {
-                $returnQty = InvoiceReturnProduct::with('invoiceReturn.invoice')->whereHas('invoiceReturn', function ($newQuery) use ($request) {
-                    $newQuery->whereHas('invoice', function ($anotherQuery) use ($request) {
-                        $anotherQuery->where('status', 1)->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-                    });
-                })->where('product_id', $inventoryOut->product->id)->sum('quantity');
+    /**
+     * Get summary profit & loss report - OPTIMIZED
+     */
+    private function getSummaryProfitLoss($fromDate, $toDate, $fiscalYearId = null, $accountingPeriodId = null)
+    {
+        $daysDifference = strtotime($toDate) - strtotime($fromDate);
+        $daysDifference = floor($daysDifference / (60 * 60 * 24)) + 1;
 
-                $currentQty = $inventoryOut->sumQty - $returnQty;
-                $avgPurchasePrice = $inventoryOut->purchasePrice / $inventoryOut->sumQty;
-                $avgSalePrice = $inventoryOut->salePrice / $inventoryOut->sumQty;
-                $profitOrLoss = ($avgSalePrice * $currentQty) - ($avgPurchasePrice * $currentQty);
+        // Build base query for invoices with filters
+        $invoiceQuery = DB::table('invoices')
+            ->where('status', 1)
+            ->whereBetween('invoice_date', [$fromDate, $toDate]);
 
-                $products[$key]['itemCode'] = $inventoryOut->product->code;
-                $products[$key]['code'] = $inventoryOut->product->code;
-                $products[$key]['itemName'] = $inventoryOut->product->name;
-                $products[$key]['avgPurchasePrice'] = round($avgPurchasePrice, 2);
-                $products[$key]['avgSalePrice'] = round($avgSalePrice, 2);
-                $products[$key]['invoiceQty'] = $inventoryOut->sumQty;
-                $products[$key]['currentQty'] = $currentQty;
-                $products[$key]['returnQty'] = $returnQty > 0 ? $returnQty : 0;
-                $products[$key]['profitOrLoss'] = round($profitOrLoss, 2);
-            }
+        if ($fiscalYearId) {
+            $invoiceQuery->where('fiscal_year_id', $fiscalYearId);
+        } elseif ($accountingPeriodId) {
+            $invoiceQuery->where('accounting_period_id', $accountingPeriodId);
+        }
 
-            $totalSaleReturn = 0;
-            foreach ($products as $product) {
-                $totalSaleReturn += $product['returnQty'] * $product['avgSalePrice'];
-            }
+        // Get total sales - OPTIMIZED
+        $totalSales = $invoiceQuery->sum('sub_total');
 
-            $grossProfitOrLoss = round(($totalSales + $posAdjustment - ($costOfGoodsSold + $negAdjustment + $totalSaleReturn)), 2);
-            $totalExpense = round(($expenses->expAmount + $payrolls->payrollAmount + $loanInterest + $assetDepriciation), 2);
-            $netProfitOrLoss = round(($grossProfitOrLoss - $totalExpense), 2);
+        // Get cost of goods sold - OPTIMIZED
+        $costOfGoodsSold = $this->getCostOfGoodsSold($fromDate, $toDate, $fiscalYearId, $accountingPeriodId);
 
-            $data = [[
+        // Get inventory adjustments - OPTIMIZED
+        $adjustments = $this->getInventoryAdjustments($fromDate, $toDate, $fiscalYearId, $accountingPeriodId);
+
+        // Get expenses - OPTIMIZED
+        $expenses = $this->getExpenses($fromDate, $toDate, $fiscalYearId, $accountingPeriodId);
+
+        // Get other costs - OPTIMIZED
+        $otherCosts = $this->getOtherCosts($fromDate, $toDate, $fiscalYearId, $accountingPeriodId, $daysDifference);
+
+        // Get product details for detailed breakdown
+        $productDetails = $this->getProductWiseProfitLoss($fromDate, $toDate, $fiscalYearId, $accountingPeriodId);
+
+        // Calculate totals
+        $totalSaleReturn = 0;
+        foreach ($productDetails['reportData'] as $product) {
+            $totalSaleReturn += $product['returnQty'] * $product['avgSalePrice'];
+        }
+
+        $grossProfitOrLoss = round(($totalSales + $adjustments['pos'] - ($costOfGoodsSold + $adjustments['neg'] + $totalSaleReturn)), 2);
+        $totalExpense = round(($expenses['general'] + $expenses['payroll'] + $otherCosts['loanInterest'] + $otherCosts['depreciation']), 2);
+        $netProfitOrLoss = round(($grossProfitOrLoss - $totalExpense), 2);
+
+        return [
+            'type' => 2,
+            'reportData' => [
                 'totalSales' => round($totalSales, 2),
                 'totalSalesReturn' => round($totalSaleReturn, 2),
                 'costOfGoodsSold' => round($costOfGoodsSold, 2),
-                'posAdjustment' => round($posAdjustment, 2),
-                'negAdjustment' => round($negAdjustment, 2),
-                'totalAdjustment' => round($posAdjustment - $negAdjustment, 2),
-                'expenseAmount' => round($expenses->expAmount, 2),
-                'payrollAmount' => round($payrolls->payrollAmount, 2),
-                'loanInterest' => round($loanInterest, 2),
-                'assetDepriciation' => round($assetDepriciation, 2),
-                'grossProfitOrLoss' => round($grossProfitOrLoss, 2),
-                'totalExpense' => round($totalExpense, 2),
-                'netProfitOrLoss' => round($netProfitOrLoss, 2),
-            ]];
+                'posAdjustment' => round($adjustments['pos'], 2),
+                'negAdjustment' => round($adjustments['neg'], 2),
+                'totalAdjustment' => round($adjustments['pos'] - $adjustments['neg'], 2),
+                'expenseAmount' => round($expenses['general'], 2),
+                'payrollAmount' => round($expenses['payroll'], 2),
+                'loanInterest' => round($otherCosts['loanInterest'], 2),
+                'assetDepriciation' => round($otherCosts['depreciation'], 2),
+                'grossProfitOrLoss' => $grossProfitOrLoss,
+                'totalExpense' => $totalExpense,
+                'netProfitOrLoss' => $netProfitOrLoss,
+            ],
+            'products' => $productDetails['reportData'],
+        ];
+    }
+
+    /**
+     * Get cost of goods sold - OPTIMIZED
+     */
+    private function getCostOfGoodsSold($fromDate, $toDate, $fiscalYearId = null, $accountingPeriodId = null)
+    {
+        // Invoice purchase price - OPTIMIZED
+        $invoiceQuery = DB::table('invoice_products')
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->where('invoices.status', 1)
+            ->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
+
+        if ($fiscalYearId) {
+            $invoiceQuery->where('invoices.fiscal_year_id', $fiscalYearId);
+        } elseif ($accountingPeriodId) {
+            $invoiceQuery->where('invoices.accounting_period_id', $accountingPeriodId);
+        }
+
+        $invoicePurchasePrice = $invoiceQuery->sum(DB::raw('invoice_products.purchase_price * invoice_products.quantity'));
+
+        // Return purchase price - OPTIMIZED
+        $returnQuery = DB::table('invoice_return_products')
+            ->join('invoice_returns', 'invoice_return_products.return_id', '=', 'invoice_returns.id')
+            ->join('invoices', 'invoice_returns.invoice_id', '=', 'invoices.id')
+            ->where('invoices.status', 1)
+            ->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
+
+        if ($fiscalYearId) {
+            $returnQuery->where('invoices.fiscal_year_id', $fiscalYearId);
+        } elseif ($accountingPeriodId) {
+            $returnQuery->where('invoices.accounting_period_id', $accountingPeriodId);
+        }
+
+        $returnPurchasePrice = $returnQuery->sum(DB::raw('invoice_return_products.purchase_price * invoice_return_products.quantity'));
+
+        return $invoicePurchasePrice - $returnPurchasePrice;
+    }
+
+    /**
+     * Get inventory adjustments - OPTIMIZED
+     */
+    private function getInventoryAdjustments($fromDate, $toDate, $fiscalYearId = null, $accountingPeriodId = null)
+    {
+        $adjustmentQuery = DB::table('adjustment_products')
+            ->join('inventory_adjustments', 'adjustment_products.adjustment_id', '=', 'inventory_adjustments.id')
+            ->where('inventory_adjustments.status', 1)
+            ->whereBetween('inventory_adjustments.date', [$fromDate, $toDate]);
+
+        $posAdjustment = (clone $adjustmentQuery)->where('adjustment_products.type', 1)
+            ->sum(DB::raw('adjustment_products.purchase_price * adjustment_products.quantity'));
+
+        $negAdjustment = (clone $adjustmentQuery)->where('adjustment_products.type', 0)
+            ->sum(DB::raw('adjustment_products.purchase_price * adjustment_products.quantity'));
+
+        return [
+            'pos' => $posAdjustment,
+            'neg' => $negAdjustment,
+        ];
+    }
+
+    /**
+     * Get expenses - OPTIMIZED
+     */
+    private function getExpenses($fromDate, $toDate, $fiscalYearId = null, $accountingPeriodId = null)
+    {
+        // General expenses - OPTIMIZED
+        $generalExpenses = DB::table('expenses')
+            ->join('account_transactions', 'account_transactions.id', '=', 'expenses.transaction_id')
+            ->where('expenses.status', 1)
+            ->whereBetween('expenses.date', [$fromDate, $toDate])
+            ->sum('account_transactions.amount');
+
+        // Payroll expenses - OPTIMIZED
+        $payrollExpenses = DB::table('payrolls')
+            ->join('account_transactions', 'account_transactions.id', '=', 'payrolls.transaction_id')
+            ->where('payrolls.status', 1)
+            ->whereBetween('payrolls.salary_date', [$fromDate, $toDate])
+            ->sum('account_transactions.amount');
+
+        return [
+            'general' => $generalExpenses,
+            'payroll' => $payrollExpenses,
+        ];
+    }
+
+    /**
+     * Get other costs - OPTIMIZED
+     */
+    private function getOtherCosts($fromDate, $toDate, $fiscalYearId = null, $accountingPeriodId = null, $daysDifference)
+    {
+        // Loan interest - OPTIMIZED
+        $loanInterest = DB::table('loan_payments')
+            ->where('status', 1)
+            ->whereBetween('date', [$fromDate, $toDate])
+            ->sum('interest');
+
+        // Asset depreciation - OPTIMIZED
+        $depreciation = DB::table('assets')
+            ->where('status', 1)
+            ->where('depreciation', 1)
+            ->where('expire_date', '>=', date('Y-m-d'))
+            ->sum('daily_depreciation') * $daysDifference;
+
+        return [
+            'loanInterest' => $loanInterest,
+            'depreciation' => $depreciation,
+        ];
+    }
+
+    /**
+     * Get VAT report data - OPTIMIZED
+     */
+    public function vatReport(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+                'page' => 'nullable|integer|min:1',
+                'per_page' => 'nullable|integer|min:1|max:100',
+            ]);
+
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $page = $request->page ?? 1;
+            $perPage = $request->per_page ?? 10; // Default to 10 rows per page
+
+            // Create filter object for consistency
+            $filters = [
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate,
+            ];
+
+            // Get all VAT rates with their accounts (no filtering by specific rate)
+            $vatRates = $this->getVatRates();
+
+            // Get VAT summary data (always calculate for consistency)
+            $vatSummary = $this->getVatSummary($filters, $vatRates);
+
+            // Get detailed VAT transactions with pagination
+            $vatTransactionsData = $this->getVatTransactionsPaginated($filters, $vatRates, $page, $perPage);
 
             return [
-                'type' => 0,
-                'reportData' => $data,
+                'success' => true,
+                'data' => [
+                    'filters' => $filters,
+                    'vat_rates' => $vatRates,
+                    'summary' => $vatSummary,
+                    'transactions' => $vatTransactionsData['transactions'],
+                    'pagination' => $vatTransactionsData['pagination'],
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate VAT report',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get VAT rates with their accounts
+     */
+    private function getVatRates()
+    {
+        return DB::table('vat_rates')
+            ->leftJoin('chart_of_accounts as sales_account', 'vat_rates.sales_vat_account_id', '=', 'sales_account.id')
+            ->leftJoin('chart_of_accounts as purchase_account', 'vat_rates.purchase_vat_account_id', '=', 'purchase_account.id')
+            ->where('vat_rates.status', 1)
+            ->selectRaw('
+                vat_rates.id,
+                vat_rates.name,
+                vat_rates.code,
+                vat_rates.rate,
+                vat_rates.note,
+                sales_account.id as sales_account_id,
+                sales_account.name as sales_account_name,
+                sales_account.code as sales_account_code,
+                purchase_account.id as purchase_account_id,
+                purchase_account.name as purchase_account_name,
+                purchase_account.code as purchase_account_code
+            ')
+            ->get();
+    }
+
+    /**
+     * Get VAT summary data - OPTIMIZED
+     */
+    private function getVatSummary($filters, $vatRates)
+    {
+        $summary = [];
+
+        // Get total purchase VAT (since purchase_products doesn't have vat_rate_id)
+        $totalPurchaseVat = $this->getTotalPurchaseVatAmount($filters);
+
+        // Get all sales VAT amounts in one query
+        $salesVatData = $this->getAllSalesVatAmounts($filters, $vatRates);
+        
+        // Get all journal VAT amounts in one query
+        $journalVatData = $this->getAllJournalVatAmounts($filters, $vatRates);
+
+        foreach ($vatRates as $vatRate) {
+            // Get sales VAT from cached data
+            $salesVat = $salesVatData[$vatRate->id] ?? 0;
+            
+            // For purchase VAT, we'll distribute the total based on the VAT rate percentage
+            // This is a simplified approach since we can't track which products use which VAT rates
+            $purchaseVat = $this->calculatePurchaseVatForRate($totalPurchaseVat, $vatRate->rate, $vatRates);
+
+            // Get VAT from journal entries from cached data
+            $journalVat = $journalVatData[$vatRate->id] ?? 0;
+
+            $netVat = $salesVat - $purchaseVat + $journalVat;
+
+            $summary[] = [
+                'vat_rate_id' => $vatRate->id,
+                'vat_rate_name' => $vatRate->name,
+                'vat_rate_code' => $vatRate->code,
+                'vat_rate_percentage' => $vatRate->rate,
+                'sales_vat' => round($salesVat, 2),
+                'purchase_vat' => round($purchaseVat, 2),
+                'journal_vat' => round($journalVat, 2),
+                'net_vat' => round($netVat, 2),
+                'sales_account' => [
+                    'id' => $vatRate->sales_account_id,
+                    'name' => $vatRate->sales_account_name,
+                    'code' => $vatRate->sales_account_code,
+                ],
+                'purchase_account' => [
+                    'id' => $vatRate->purchase_account_id,
+                    'name' => $vatRate->purchase_account_name,
+                    'code' => $vatRate->purchase_account_code,
+                ],
             ];
         }
+
+        return $summary;
+    }
+
+    /**
+     * Get all sales VAT amounts in one query - OPTIMIZED
+     */
+    private function getAllSalesVatAmounts($filters, $vatRates)
+    {
+        $vatRateIds = $vatRates->pluck('id')->toArray();
+        
+        $query = DB::table('invoice_products')
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->where('invoices.status', 1)
+            ->whereIn('invoice_products.vat_rate_id', $vatRateIds);
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('invoices.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('invoices.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('invoices.invoice_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        $results = $query
+            ->selectRaw('invoice_products.vat_rate_id, SUM(invoice_products.tax_amount) as total_vat')
+            ->groupBy('invoice_products.vat_rate_id')
+            ->get()
+            ->keyBy('vat_rate_id');
+
+        $salesVatData = [];
+        foreach ($vatRates as $vatRate) {
+            $salesVatData[$vatRate->id] = $results->get($vatRate->id)->total_vat ?? 0;
+        }
+
+        return $salesVatData;
+    }
+
+    /**
+     * Get sales VAT amount - OPTIMIZED (kept for backward compatibility)
+     */
+    private function getSalesVatAmount($filters, $vatRateId)
+    {
+        $query = DB::table('invoice_products')
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->where('invoices.status', 1)
+            ->where('invoice_products.vat_rate_id', $vatRateId);
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('invoices.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('invoices.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('invoices.invoice_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        return $query->sum('invoice_products.tax_amount');
+    }
+
+    /**
+     * Get total purchase VAT amount - OPTIMIZED
+     */
+    private function getTotalPurchaseVatAmount($filters)
+    {
+        $query = DB::table('purchase_products')
+            ->join('purchases', 'purchase_products.purchase_id', '=', 'purchases.id')
+            ->where('purchases.status', 1)
+            ->where('purchase_products.tax_amount', '>', 0);
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('purchases.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('purchases.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('purchases.purchase_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        return $query->sum('purchase_products.tax_amount');
+    }
+
+    /**
+     * Calculate purchase VAT for a specific rate
+     */
+    private function calculatePurchaseVatForRate($totalPurchaseVat, $ratePercentage, $vatRates)
+    {
+        // Calculate total percentage of all VAT rates
+        $totalPercentage = $vatRates->sum('rate');
+        
+        if ($totalPercentage == 0) {
+            return 0;
+        }
+
+        // Distribute purchase VAT proportionally based on rate percentage
+        return ($totalPurchaseVat * $ratePercentage) / $totalPercentage;
+    }
+
+    /**
+     * Get all journal VAT amounts in one query - OPTIMIZED
+     */
+    private function getAllJournalVatAmounts($filters, $vatRates)
+    {
+        // Collect all unique account IDs
+        $accountIds = [];
+        foreach ($vatRates as $vatRate) {
+            if ($vatRate->sales_account_id) {
+                $accountIds[] = $vatRate->sales_account_id;
+            }
+            if ($vatRate->purchase_account_id) {
+                $accountIds[] = $vatRate->purchase_account_id;
+            }
+        }
+
+        if (empty($accountIds)) {
+            return [];
+        }
+
+        $query = DB::table('journal_entries')
+            ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+            ->where('journal_entries.status', 'posted')
+            ->whereIn('journal_entry_lines.chart_of_account_id', $accountIds);
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('journal_entries.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('journal_entries.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('journal_entries.entry_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        $results = $query
+            ->selectRaw('
+                journal_entry_lines.chart_of_account_id,
+                SUM(journal_entry_lines.credit_amount - journal_entry_lines.debit_amount) as vat_amount
+            ')
+            ->groupBy('journal_entry_lines.chart_of_account_id')
+            ->get()
+            ->keyBy('chart_of_account_id');
+
+        $journalVatData = [];
+        foreach ($vatRates as $vatRate) {
+            $totalVat = 0;
+
+            // Sales VAT (credit - debit)
+            if ($vatRate->sales_account_id && $results->has($vatRate->sales_account_id)) {
+                $totalVat += $results->get($vatRate->sales_account_id)->vat_amount ?? 0;
+            }
+
+            // Purchase VAT (debit - credit) - we need to negate the result
+            if ($vatRate->purchase_account_id && $results->has($vatRate->purchase_account_id)) {
+                $totalVat -= $results->get($vatRate->purchase_account_id)->vat_amount ?? 0;
+            }
+
+            $journalVatData[$vatRate->id] = $totalVat;
+        }
+
+        return $journalVatData;
+    }
+
+    /**
+     * Get VAT from journal entries - OPTIMIZED (kept for backward compatibility)
+     */
+    private function getJournalVatAmount($filters, $vatRate)
+    {
+        $salesVatAccountId = $vatRate->sales_account_id;
+        $purchaseVatAccountId = $vatRate->purchase_account_id;
+
+        if (!$salesVatAccountId && !$purchaseVatAccountId) {
+            return 0;
+        }
+
+        $query = DB::table('journal_entries')
+            ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+            ->where('journal_entries.status', 'posted');
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('journal_entries.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('journal_entries.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('journal_entries.entry_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        $totalVat = 0;
+
+        // Sales VAT (credit - debit)
+        if ($salesVatAccountId) {
+            $salesVat = (clone $query)
+                ->where('journal_entry_lines.chart_of_account_id', $salesVatAccountId)
+                ->selectRaw('SUM(journal_entry_lines.credit_amount - journal_entry_lines.debit_amount) as vat_amount')
+                ->value('vat_amount');
+            $totalVat += $salesVat ?? 0;
+        }
+
+        // Purchase VAT (debit - credit)
+        if ($purchaseVatAccountId) {
+            $purchaseVat = (clone $query)
+                ->where('journal_entry_lines.chart_of_account_id', $purchaseVatAccountId)
+                ->selectRaw('SUM(journal_entry_lines.debit_amount - journal_entry_lines.credit_amount) as vat_amount')
+                ->value('vat_amount');
+            $totalVat += $purchaseVat ?? 0;
+        }
+
+        return $totalVat;
+    }
+
+    /**
+     * Get detailed VAT transactions - OPTIMIZED
+     */
+    private function getVatTransactions($filters, $vatRates)
+    {
+        $transactions = [];
+        $seenTransactions = []; // Track unique transactions
+
+        foreach ($vatRates as $vatRate) {
+            // Get invoice VAT transactions
+            $invoiceTransactions = $this->getInvoiceVatTransactions($filters, $vatRate->id);
+            
+            // Get journal VAT transactions
+            $journalTransactions = $this->getJournalVatTransactions($filters, $vatRate);
+
+            $transactions = array_merge($transactions, $invoiceTransactions, $journalTransactions);
+        }
+
+        // Get purchase VAT transactions (all purchases, not filtered by VAT rate)
+        $purchaseTransactions = $this->getPurchaseVatTransactions($filters);
+        $transactions = array_merge($transactions, $purchaseTransactions);
+
+        // Remove duplicates based on reference, date, type, and source
+        $uniqueTransactions = [];
+        foreach ($transactions as $transaction) {
+            $key = $transaction['reference'] . '|' . $transaction['date'] . '|' . $transaction['type'] . '|' . $transaction['source'];
+            if (!isset($seenTransactions[$key])) {
+                $seenTransactions[$key] = true;
+                $uniqueTransactions[] = $transaction;
+            }
+        }
+
+        // Sort by date
+        usort($uniqueTransactions, function($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        return $uniqueTransactions;
+    }
+
+    /**
+     * Get detailed VAT transactions with pagination - OPTIMIZED
+     */
+    private function getVatTransactionsPaginated($filters, $vatRates, $page, $perPage)
+    {
+        $transactions = [];
+        $seenTransactions = []; // Track unique transactions
+
+        // Get all transactions first (we need to deduplicate before paginating)
+        foreach ($vatRates as $vatRate) {
+            // Get invoice VAT transactions
+            $invoiceTransactions = $this->getInvoiceVatTransactions($filters, $vatRate->id);
+            
+            // Get journal VAT transactions
+            $journalTransactions = $this->getJournalVatTransactions($filters, $vatRate);
+
+            $transactions = array_merge($transactions, $invoiceTransactions, $journalTransactions);
+        }
+
+        // Get purchase VAT transactions (all purchases, not filtered by VAT rate)
+        $purchaseTransactions = $this->getPurchaseVatTransactions($filters);
+        $transactions = array_merge($transactions, $purchaseTransactions);
+
+        // Remove duplicates based on reference, date, type, and source
+        $uniqueTransactions = [];
+        foreach ($transactions as $transaction) {
+            $key = $transaction['reference'] . '|' . $transaction['date'] . '|' . $transaction['type'] . '|' . $transaction['source'];
+            if (!isset($seenTransactions[$key])) {
+                $seenTransactions[$key] = true;
+                $uniqueTransactions[] = $transaction;
+            }
+        }
+
+        // Sort by date
+        usort($uniqueTransactions, function($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        // Apply pagination
+        $totalCount = count($uniqueTransactions);
+        $totalPages = ceil($totalCount / $perPage);
+        $offset = ($page - 1) * $perPage;
+        $paginatedTransactions = array_slice($uniqueTransactions, $offset, $perPage);
+
+        return [
+            'transactions' => $paginatedTransactions,
+            'pagination' => [
+                'current_page' => $page,
+                'per_page' => $perPage,
+                'total_count' => $totalCount,
+                'total_pages' => $totalPages,
+                'has_more' => $page < $totalPages,
+            ],
+        ];
+    }
+
+    /**
+     * Get invoice VAT transactions - OPTIMIZED
+     */
+    private function getInvoiceVatTransactions($filters, $vatRateId)
+    {
+        $query = DB::table('invoice_products')
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->join('clients', 'invoices.client_id', '=', 'clients.id')
+            ->where('invoices.status', 1)
+            ->where('invoice_products.vat_rate_id', $vatRateId)
+            ->where('invoice_products.tax_amount', '>', 0);
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('invoices.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('invoices.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('invoices.invoice_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        return $query
+            ->selectRaw('
+                invoices.invoice_no as reference,
+                invoices.invoice_date as date,
+                clients.name as client_name,
+                invoice_products.tax_amount as vat_amount,
+                "Sales" as type,
+                "Invoice" as source
+            ')
+            ->get()
+            ->map(function($transaction) {
+                return [
+                    'reference' => $transaction->reference,
+                    'date' => $transaction->date,
+                    'client_supplier' => $transaction->client_name,
+                    'vat_amount' => round($transaction->vat_amount, 2),
+                    'type' => $transaction->type,
+                    'source' => $transaction->source,
+                ];
+            })
+            ->toArray();
+    }
+
+    /**
+     * Get purchase VAT transactions - OPTIMIZED
+     */
+    private function getPurchaseVatTransactions($filters)
+    {
+        $query = DB::table('purchase_products')
+            ->join('purchases', 'purchase_products.purchase_id', '=', 'purchases.id')
+            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->where('purchases.status', 1)
+            ->where('purchase_products.tax_amount', '>', 0);
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('purchases.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('purchases.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('purchases.purchase_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        return $query
+            ->selectRaw('
+                purchases.purchase_no as reference,
+                purchases.purchase_date as date,
+                suppliers.name as supplier_name,
+                purchase_products.tax_amount as vat_amount,
+                "Purchase" as type,
+                "Purchase" as source
+            ')
+            ->get()
+            ->map(function($transaction) {
+                return [
+                    'reference' => $transaction->reference,
+                    'date' => $transaction->date,
+                    'client_supplier' => $transaction->supplier_name,
+                    'vat_amount' => round($transaction->vat_amount, 2),
+                    'type' => $transaction->type,
+                    'source' => $transaction->source,
+                ];
+            })
+            ->toArray();
+    }
+
+    /**
+     * Get journal VAT transactions - OPTIMIZED
+     */
+    private function getJournalVatTransactions($filters, $vatRate)
+    {
+        $salesVatAccountId = $vatRate->sales_account_id;
+        $purchaseVatAccountId = $vatRate->purchase_account_id;
+
+        if (!$salesVatAccountId && !$purchaseVatAccountId) {
+            return [];
+        }
+
+        $query = DB::table('journal_entries')
+            ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+            ->where('journal_entries.status', 'posted');
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $query->where('journal_entries.fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $query->where('journal_entries.accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $query->whereBetween('journal_entries.entry_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        $transactions = [];
+
+        // Sales VAT transactions
+        if ($salesVatAccountId) {
+            $salesTransactions = (clone $query)
+                ->where('journal_entry_lines.chart_of_account_id', $salesVatAccountId)
+                ->whereRaw('journal_entry_lines.credit_amount > journal_entry_lines.debit_amount')
+                ->selectRaw('
+                    journal_entries.reference,
+                    journal_entries.entry_date as date,
+                    journal_entry_lines.credit_amount - journal_entry_lines.debit_amount as vat_amount,
+                    "Sales" as type,
+                    "Journal Entry" as source
+                ')
+                ->get();
+
+            foreach ($salesTransactions as $transaction) {
+                $transactions[] = [
+                    'reference' => $transaction->reference ?: 'Manual Entry',
+                    'date' => $transaction->date,
+                    'client_supplier' => 'N/A',
+                    'vat_amount' => round($transaction->vat_amount, 2),
+                    'type' => $transaction->type,
+                    'source' => $transaction->source,
+                ];
+            }
+        }
+
+        // Purchase VAT transactions
+        if ($purchaseVatAccountId) {
+            $purchaseTransactions = (clone $query)
+                ->where('journal_entry_lines.chart_of_account_id', $purchaseVatAccountId)
+                ->whereRaw('journal_entry_lines.debit_amount > journal_entry_lines.credit_amount')
+                ->selectRaw('
+                    journal_entries.reference,
+                    journal_entries.entry_date as date,
+                    journal_entry_lines.debit_amount - journal_entry_lines.credit_amount as vat_amount,
+                    "Purchase" as type,
+                    "Journal Entry" as source
+                ')
+                ->get();
+
+            foreach ($purchaseTransactions as $transaction) {
+                $transactions[] = [
+                    'reference' => $transaction->reference ?: 'Manual Entry',
+                    'date' => $transaction->date,
+                    'client_supplier' => 'N/A',
+                    'vat_amount' => round($transaction->vat_amount, 2),
+                    'type' => $transaction->type,
+                    'source' => $transaction->source,
+                ];
+            }
+        }
+
+        return $transactions;
     }
 
     //return expense report data
@@ -1199,7 +2056,7 @@ class ReportController extends Controller
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
             $page = $request->page ?? 1;
-            $perPage = $request->per_page ?? 10; // Default to 10 rows per chunk
+            $perPage = $request->per_page ?? 10; // Default to 10 rows per page
 
             // Determine which account to use for the report
             $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
@@ -1238,30 +2095,28 @@ class ReportController extends Controller
                 ->take($perPage)
                 ->get();
 
-            // Calculate opening balance (balance before the date range)
+            // Calculate opening balance (balance before the date range) - OPTIMIZED
             $openingBalanceQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function($query) use ($reportAccountId) {
-                    $query->where('chart_of_account_id', $reportAccountId);
-                });
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
 
             if ($fiscalYearId) {
                 $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
-                $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fiscalYear->start_date);
             } elseif ($accountingPeriodId) {
                 $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
-                $openingBalanceQuery->where('entry_date', '<', $accountingPeriod->start_date);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $accountingPeriod->start_date);
             } elseif ($fromDate) {
-                $openingBalanceQuery->where('entry_date', '<', $fromDate);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fromDate);
             }
 
-            $openingDebits = $openingBalanceQuery->get()->sum(function($entry) use ($reportAccountId) {
-                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('debit_amount');
-            });
+            $openingTotals = $openingBalanceQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
 
-            $openingCredits = $openingBalanceQuery->get()->sum(function($entry) use ($reportAccountId) {
-                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('credit_amount');
-            });
+            $openingDebits = $openingTotals->total_debits ?? 0;
+            $openingCredits = $openingTotals->total_credits ?? 0;
 
             $openingBalance = $openingDebits - $openingCredits;
 
@@ -1298,14 +2153,27 @@ class ReportController extends Controller
                 }
             }
 
-            // Calculate period totals
-            $periodDebits = $journalEntries->sum(function($entry) use ($reportAccountId) {
-                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('debit_amount');
-            });
+            // Calculate period totals - OPTIMIZED
+            $periodTotalsQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
 
-            $periodCredits = $journalEntries->sum(function($entry) use ($reportAccountId) {
-                return $entry->lines->where('chart_of_account_id', $reportAccountId)->sum('credit_amount');
-            });
+            // Apply same filters as main query
+            if ($fiscalYearId) {
+                $periodTotalsQuery->where('journal_entries.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $periodTotalsQuery->where('journal_entries.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $periodTotalsQuery->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
+            }
+
+            $periodTotals = $periodTotalsQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $periodDebits = $periodTotals->total_debits ?? 0;
+            $periodCredits = $periodTotals->total_credits ?? 0;
 
             $periodNet = $periodDebits - $periodCredits;
             $closingBalance = $openingBalance + $periodNet;
@@ -1380,7 +2248,7 @@ class ReportController extends Controller
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
             $page = $request->page ?? 1;
-            $perPage = $request->per_page ?? 10; // Default to 10 rows per chunk
+            $perPage = $request->per_page ?? 10; // Default to 10 rows per page
 
             // Get chart of accounts details
             $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
@@ -1423,30 +2291,28 @@ class ReportController extends Controller
                 ->take($perPage)
                 ->get();
 
-            // Calculate opening balance (balance before the date range)
+            // Calculate opening balance (balance before the date range) - OPTIMIZED
             $openingBalanceQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function($query) use ($chartOfAccountIds) {
-                    $query->whereIn('chart_of_account_id', $chartOfAccountIds);
-                });
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
 
             if ($fiscalYearId) {
                 $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
-                $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fiscalYear->start_date);
             } elseif ($accountingPeriodId) {
                 $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
-                $openingBalanceQuery->where('entry_date', '<', $accountingPeriod->start_date);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $accountingPeriod->start_date);
             } elseif ($fromDate) {
-                $openingBalanceQuery->where('entry_date', '<', $fromDate);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fromDate);
             }
 
-            $openingDebits = $openingBalanceQuery->get()->sum(function($entry) use ($chartOfAccountIds) {
-                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('debit_amount');
-            });
+            $openingTotals = $openingBalanceQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
 
-            $openingCredits = $openingBalanceQuery->get()->sum(function($entry) use ($chartOfAccountIds) {
-                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('credit_amount');
-            });
+            $openingDebits = $openingTotals->total_debits ?? 0;
+            $openingCredits = $openingTotals->total_credits ?? 0;
 
             $openingBalance = $openingDebits - $openingCredits;
             $openingBalanceType = $openingBalance >= 0 ? 'Debit' : 'Credit';
@@ -1502,14 +2368,27 @@ class ReportController extends Controller
                 ];
             }
 
-            // Calculate period totals
-            $periodDebits = $journalEntries->sum(function($entry) use ($chartOfAccountIds) {
-                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('debit_amount');
-            });
+            // Calculate period totals - OPTIMIZED
+            $periodTotalsQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
 
-            $periodCredits = $journalEntries->sum(function($entry) use ($chartOfAccountIds) {
-                return $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds)->sum('credit_amount');
-            });
+            // Apply same filters as main query
+            if ($fiscalYearId) {
+                $periodTotalsQuery->where('journal_entries.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $periodTotalsQuery->where('journal_entries.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $periodTotalsQuery->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
+            }
+
+            $periodTotals = $periodTotalsQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $periodDebits = $periodTotals->total_debits ?? 0;
+            $periodCredits = $periodTotals->total_credits ?? 0;
 
             $periodNet = $periodDebits - $periodCredits;
 
@@ -1568,7 +2447,7 @@ class ReportController extends Controller
     }
 
     /**
-     * Get Invoice Summary report data
+     * Get Invoice Summary report data - OPTIMIZED
      */
     public function invoiceSummary(Request $request)
     {
@@ -1579,105 +2458,237 @@ class ReportController extends Controller
                 'accounting_period_id' => 'nullable|exists:accounting_periods,id',
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
+                'page' => 'nullable|integer|min:1',
+                'per_page' => 'nullable|integer|min:1|max:100',
             ]);
 
             $fiscalYearId = $request->fiscal_year_id;
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
+            $page = $request->page ?? 1;
+            $perPage = $request->per_page ?? 50; // Default to 50 clients per page
 
             // Build base query for invoices
-            $invoiceQuery = Invoice::query()
-                ->with(['client', 'invoiceProducts', 'invoicePayments', 'invoiceReturn'])
-                ->where('status', 1); // Only active invoices
+            $baseQuery = Invoice::query()->where('status', 1);
 
             // Apply filters
             if ($fiscalYearId) {
-                $invoiceQuery->where('fiscal_year_id', $fiscalYearId);
+                $baseQuery->where('fiscal_year_id', $fiscalYearId);
             } elseif ($accountingPeriodId) {
-                $invoiceQuery->where('accounting_period_id', $accountingPeriodId);
+                $baseQuery->where('accounting_period_id', $accountingPeriodId);
             } elseif ($fromDate && $toDate) {
-                $invoiceQuery->whereBetween('invoice_date', [$fromDate, $toDate]);
+                $baseQuery->whereBetween('invoice_date', [$fromDate, $toDate]);
             }
 
-            // Get invoices
-            $invoices = $invoiceQuery->orderBy('invoice_date', 'desc')->get();
+            // Calculate summary data using database aggregation - MUCH FASTER
+            $summaryData = $baseQuery->selectRaw('
+                COUNT(*) as total_invoices,
+                SUM(sub_total) as total_amount,
+                SUM(discount) as total_discount,
+                SUM(transport) as total_transport
+            ')->first();
 
-            // Calculate summary data
-            $totalInvoices = $invoices->count();
-            $totalAmount = $invoices->sum('sub_total');
-            $totalPaid = $invoices->sum(function($invoice) {
-                return $invoice->invoicePayments->sum('amount');
-            });
-            $totalDue = $invoices->sum(function($invoice) {
-                return $invoice->totalDue();
-            });
-            $totalDiscount = $invoices->sum('discount');
-            $totalTax = $invoices->sum(function($invoice) {
-                return $invoice->taxAmount();
-            });
+            // Calculate total paid using join
+            $totalPaid = DB::table('invoices')
+                ->join('invoice_payments', 'invoices.id', '=', 'invoice_payments.invoice_id')
+                ->where('invoices.status', 1)
+                ->where('invoice_payments.status', 1);
 
-            // Calculate returns data
-            $totalReturns = 0;
-            $totalReturnAmount = 0;
-            $returnInvoices = [];
-
-            foreach ($invoices as $invoice) {
-                $return = $invoice->invoiceReturn;
-                if ($return) {
-                    $totalReturns++;
-                    $returnAmount = $return->total_return;
-                    $totalReturnAmount += $returnAmount;
-                    $returnInvoices[] = [
-                        'invoice' => $invoice,
-                        'returns' => [$return], // Wrap in array for consistency
-                        'return_amount' => $returnAmount
-                    ];
-                }
+            if ($fiscalYearId) {
+                $totalPaid->where('invoices.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $totalPaid->where('invoices.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $totalPaid->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
             }
 
-            // Calculate net sales (total - returns)
+            $totalPaid = $totalPaid->sum('invoice_payments.amount');
+
+            // Calculate total returns using join
+            $returnData = DB::table('invoices')
+                ->join('invoice_returns', 'invoices.id', '=', 'invoice_returns.invoice_id')
+                ->where('invoices.status', 1)
+                ->where('invoice_returns.status', 1);
+
+            if ($fiscalYearId) {
+                $returnData->where('invoices.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $returnData->where('invoices.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $returnData->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
+            }
+
+            $returnData = $returnData->selectRaw('
+                COUNT(*) as total_returns,
+                SUM(invoice_returns.total_return) as total_return_amount
+            ')->first();
+
+            // Calculate tax using join with vat_rates
+            $taxData = DB::table('invoices')
+                ->join('vat_rates', 'invoices.tax_id', '=', 'vat_rates.id')
+                ->where('invoices.status', 1);
+
+            if ($fiscalYearId) {
+                $taxData->where('invoices.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $taxData->where('invoices.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $taxData->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
+            }
+
+            $taxData = $taxData->selectRaw('
+                SUM((invoices.sub_total - IFNULL(invoices.discount, 0)) * (vat_rates.rate / 100)) as total_tax
+            ')->first();
+
+            $totalInvoices = $summaryData->total_invoices ?? 0;
+            $totalAmount = $summaryData->total_amount ?? 0;
+            $totalDiscount = $summaryData->total_discount ?? 0;
+            $totalTax = $taxData->total_tax ?? 0;
+            $totalReturns = $returnData->total_returns ?? 0;
+            $totalReturnAmount = $returnData->total_return_amount ?? 0;
+            $totalDue = $totalAmount - $totalPaid;
             $netSales = $totalAmount - $totalReturnAmount;
 
-            // Group by client for client summary
-            $clientSummary = $invoices->groupBy('client_id')->map(function ($clientInvoices) {
-                $client = $clientInvoices->first()->client;
-                return [
-                    'client_id' => $client->id,
-                    'client_name' => $client->name,
-                    'client_phone' => $client->phone,
-                    'invoice_count' => $clientInvoices->count(),
-                    'total_amount' => $clientInvoices->sum('sub_total'),
-                    'paid_amount' => $clientInvoices->sum(function($invoice) {
-                        return $invoice->invoicePayments->sum('amount');
-                    }),
-                    'due_amount' => $clientInvoices->sum(function($invoice) {
-                        return $invoice->totalDue();
-                    }),
-                    'discount_amount' => $clientInvoices->sum('discount'),
-                    'tax_amount' => $clientInvoices->sum(function($invoice) {
-                        return $invoice->taxAmount();
-                    }),
-                ];
-            })->values();
+            // Get client summary with pagination using database aggregation
+            $clientSummaryQuery = DB::table('invoices')
+                ->join('clients', 'invoices.client_id', '=', 'clients.id')
+                ->where('invoices.status', 1);
 
-            // Group by month for monthly summary
-            $monthlySummary = $invoices->groupBy(function ($invoice) {
-                return \Carbon\Carbon::parse($invoice->invoice_date)->format('Y-m');
-            })->map(function ($monthInvoices, $month) {
+            if ($fiscalYearId) {
+                $clientSummaryQuery->where('invoices.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $clientSummaryQuery->where('invoices.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $clientSummaryQuery->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
+            }
+
+            $clientSummary = $clientSummaryQuery
+                ->selectRaw('
+                    clients.id as client_id,
+                    clients.name as client_name,
+                    clients.phone as client_phone,
+                    COUNT(invoices.id) as invoice_count,
+                    SUM(invoices.sub_total) as total_amount,
+                    SUM(invoices.discount) as discount_amount
+                ')
+                ->groupBy('clients.id', 'clients.name', 'clients.phone')
+                ->orderBy('total_amount', 'desc')
+                ->offset(($page - 1) * $perPage)
+                ->limit($perPage)
+                ->get();
+
+            // Get total client count for pagination
+            $totalClients = DB::table('invoices')
+                ->where('status', 1);
+
+            if ($fiscalYearId) {
+                $totalClients->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $totalClients->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $totalClients->whereBetween('invoice_date', [$fromDate, $toDate]);
+            }
+
+            $totalClients = $totalClients->distinct('client_id')->count('client_id');
+
+            // Calculate paid and due amounts for each client (this is still expensive but limited to paginated results)
+            $clientIds = $clientSummary->pluck('client_id');
+            $clientPayments = [];
+            $clientReturns = [];
+
+            if ($clientIds->isNotEmpty()) {
+                // Get payments for these clients
+                $payments = DB::table('invoices')
+                    ->join('invoice_payments', 'invoices.id', '=', 'invoice_payments.invoice_id')
+                    ->whereIn('invoices.client_id', $clientIds)
+                    ->where('invoices.status', 1)
+                    ->where('invoice_payments.status', 1);
+
+                if ($fiscalYearId) {
+                    $payments->where('invoices.fiscal_year_id', $fiscalYearId);
+                } elseif ($accountingPeriodId) {
+                    $payments->where('invoices.accounting_period_id', $accountingPeriodId);
+                } elseif ($fromDate && $toDate) {
+                    $payments->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
+                }
+
+                $clientPayments = $payments
+                    ->selectRaw('invoices.client_id, SUM(invoice_payments.amount) as paid_amount')
+                    ->groupBy('invoices.client_id')
+                    ->pluck('paid_amount', 'client_id');
+
+                // Get returns for these clients
+                $returns = DB::table('invoices')
+                    ->join('invoice_returns', 'invoices.id', '=', 'invoice_returns.invoice_id')
+                    ->whereIn('invoices.client_id', $clientIds)
+                    ->where('invoices.status', 1)
+                    ->where('invoice_returns.status', 1);
+
+                if ($fiscalYearId) {
+                    $returns->where('invoices.fiscal_year_id', $fiscalYearId);
+                } elseif ($accountingPeriodId) {
+                    $returns->where('invoices.accounting_period_id', $accountingPeriodId);
+                } elseif ($fromDate && $toDate) {
+                    $returns->whereBetween('invoices.invoice_date', [$fromDate, $toDate]);
+                }
+
+                $clientReturns = $returns
+                    ->selectRaw('invoices.client_id, SUM(invoice_returns.total_return) as return_amount')
+                    ->groupBy('invoices.client_id')
+                    ->pluck('return_amount', 'client_id');
+            }
+
+            // Add paid and due amounts to client summary
+            $clientSummary = $clientSummary->map(function ($client) use ($clientPayments, $clientReturns) {
+                $paidAmount = $clientPayments[$client->client_id] ?? 0;
+                $returnAmount = $clientReturns[$client->client_id] ?? 0;
+                $dueAmount = $client->total_amount - $paidAmount;
+                
                 return [
-                    'month' => $month,
-                    'month_name' => \Carbon\Carbon::parse($month . '-01')->format('F Y'),
-                    'invoice_count' => $monthInvoices->count(),
-                    'total_amount' => $monthInvoices->sum('sub_total'),
-                    'paid_amount' => $monthInvoices->sum(function($invoice) {
-                        return $invoice->invoicePayments->sum('amount');
-                    }),
-                    'due_amount' => $monthInvoices->sum(function($invoice) {
-                        return $invoice->totalDue();
-                    }),
+                    'client_id' => $client->client_id,
+                    'client_name' => $client->client_name,
+                    'client_phone' => $client->client_phone,
+                    'invoice_count' => $client->invoice_count,
+                    'total_amount' => round($client->total_amount, 2),
+                    'paid_amount' => round($paidAmount, 2),
+                    'due_amount' => round($dueAmount, 2),
+                    'discount_amount' => round($client->discount_amount, 2),
+                    'tax_amount' => 0, // Will be calculated if needed
                 ];
-            })->values();
+            });
+
+            // Get monthly summary using database aggregation
+            $monthlySummary = DB::table('invoices')
+                ->where('status', 1);
+
+            if ($fiscalYearId) {
+                $monthlySummary->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $monthlySummary->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $monthlySummary->whereBetween('invoice_date', [$fromDate, $toDate]);
+            }
+
+            $monthlySummary = $monthlySummary
+                ->selectRaw('
+                    DATE_FORMAT(invoice_date, "%Y-%m") as month,
+                    COUNT(*) as invoice_count,
+                    SUM(sub_total) as total_amount
+                ')
+                ->groupBy('month')
+                ->orderBy('month', 'desc')
+                ->get()
+                ->map(function ($month) {
+                    return [
+                        'month' => $month->month,
+                        'month_name' => \Carbon\Carbon::parse($month->month . '-01')->format('F Y'),
+                        'invoice_count' => $month->invoice_count,
+                        'total_amount' => round($month->total_amount, 2),
+                        'paid_amount' => 0, // Will be calculated if needed
+                        'due_amount' => 0, // Will be calculated if needed
+                    ];
+                });
 
             return [
                 'success' => true,
@@ -1702,7 +2713,13 @@ class ReportController extends Controller
                     ],
                     'client_summary' => $clientSummary,
                     'monthly_summary' => $monthlySummary,
-                    'return_invoices' => $returnInvoices,
+                    'pagination' => [
+                        'current_page' => $page,
+                        'per_page' => $perPage,
+                        'total_clients' => $totalClients,
+                        'total_pages' => ceil($totalClients / $perPage),
+                        'has_more' => $page < ceil($totalClients / $perPage),
+                    ],
                 ]
             ];
 
@@ -1716,7 +2733,7 @@ class ReportController extends Controller
     }
 
     /**
-     * Get Purchase Summary report data
+     * Get Purchase Summary report data - OPTIMIZED
      */
     public function purchaseSummary(Request $request)
     {
@@ -1727,105 +2744,237 @@ class ReportController extends Controller
                 'accounting_period_id' => 'nullable|exists:accounting_periods,id',
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
+                'page' => 'nullable|integer|min:1',
+                'per_page' => 'nullable|integer|min:1|max:100',
             ]);
 
             $fiscalYearId = $request->fiscal_year_id;
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
+            $page = $request->page ?? 1;
+            $perPage = $request->per_page ?? 50; // Default to 50 suppliers per page
 
             // Build base query for purchases
-            $purchaseQuery = Purchase::query()
-                ->with(['supplier', 'purchaseProducts', 'purchasePayments', 'purchaseReturn'])
-                ->where('status', 1); // Only active purchases
+            $baseQuery = Purchase::query()->where('status', 1);
 
             // Apply filters
             if ($fiscalYearId) {
-                $purchaseQuery->where('fiscal_year_id', $fiscalYearId);
+                $baseQuery->where('fiscal_year_id', $fiscalYearId);
             } elseif ($accountingPeriodId) {
-                $purchaseQuery->where('accounting_period_id', $accountingPeriodId);
+                $baseQuery->where('accounting_period_id', $accountingPeriodId);
             } elseif ($fromDate && $toDate) {
-                $purchaseQuery->whereBetween('purchase_date', [$fromDate, $toDate]);
+                $baseQuery->whereBetween('purchase_date', [$fromDate, $toDate]);
             }
 
-            // Get purchases
-            $purchases = $purchaseQuery->orderBy('purchase_date', 'desc')->get();
+            // Calculate summary data using database aggregation - MUCH FASTER
+            $summaryData = $baseQuery->selectRaw('
+                COUNT(*) as total_purchases,
+                SUM(sub_total) as total_amount,
+                SUM(discount) as total_discount,
+                SUM(transport) as total_transport
+            ')->first();
 
-            // Calculate summary data
-            $totalPurchases = $purchases->count();
-            $totalAmount = $purchases->sum('sub_total');
-            $totalPaid = $purchases->sum(function($purchase) {
-                return $purchase->purchasePayments->sum('amount');
-            });
-            $totalDue = $purchases->sum(function($purchase) {
-                return $purchase->totalDue();
-            });
-            $totalDiscount = $purchases->sum('discount');
-            $totalTax = $purchases->sum(function($purchase) {
-                return $purchase->taxAmount();
-            });
+            // Calculate total paid using join
+            $totalPaid = DB::table('purchases')
+                ->join('purchase_payments', 'purchases.id', '=', 'purchase_payments.purchase_id')
+                ->where('purchases.status', 1)
+                ->where('purchase_payments.status', 1);
 
-            // Calculate returns data
-            $totalReturns = 0;
-            $totalReturnAmount = 0;
-            $returnPurchases = [];
-
-            foreach ($purchases as $purchase) {
-                $return = $purchase->purchaseReturn;
-                if ($return) {
-                    $totalReturns++;
-                    $returnAmount = $return->total_return;
-                    $totalReturnAmount += $returnAmount;
-                    $returnPurchases[] = [
-                        'purchase' => $purchase,
-                        'returns' => [$return], // Wrap in array for consistency
-                        'return_amount' => $returnAmount
-                    ];
-                }
+            if ($fiscalYearId) {
+                $totalPaid->where('purchases.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $totalPaid->where('purchases.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $totalPaid->whereBetween('purchases.purchase_date', [$fromDate, $toDate]);
             }
 
-            // Calculate net purchases (total - returns)
+            $totalPaid = $totalPaid->sum('purchase_payments.amount');
+
+            // Calculate total returns using join
+            $returnData = DB::table('purchases')
+                ->join('purchase_returns', 'purchases.id', '=', 'purchase_returns.purchase_id')
+                ->where('purchases.status', 1)
+                ->where('purchase_returns.status', 1);
+
+            if ($fiscalYearId) {
+                $returnData->where('purchases.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $returnData->where('purchases.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $returnData->whereBetween('purchases.purchase_date', [$fromDate, $toDate]);
+            }
+
+            $returnData = $returnData->selectRaw('
+                COUNT(*) as total_returns,
+                SUM(purchase_returns.total_return) as total_return_amount
+            ')->first();
+
+            // Calculate tax using join with vat_rates
+            $taxData = DB::table('purchases')
+                ->join('vat_rates', 'purchases.tax_id', '=', 'vat_rates.id')
+                ->where('purchases.status', 1);
+
+            if ($fiscalYearId) {
+                $taxData->where('purchases.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $taxData->where('purchases.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $taxData->whereBetween('purchases.purchase_date', [$fromDate, $toDate]);
+            }
+
+            $taxData = $taxData->selectRaw('
+                SUM((purchases.sub_total - IFNULL(purchases.discount, 0)) * (vat_rates.rate / 100)) as total_tax
+            ')->first();
+
+            $totalPurchases = $summaryData->total_purchases ?? 0;
+            $totalAmount = $summaryData->total_amount ?? 0;
+            $totalDiscount = $summaryData->total_discount ?? 0;
+            $totalTax = $taxData->total_tax ?? 0;
+            $totalReturns = $returnData->total_returns ?? 0;
+            $totalReturnAmount = $returnData->total_return_amount ?? 0;
+            $totalDue = $totalAmount - $totalPaid;
             $netPurchases = $totalAmount - $totalReturnAmount;
 
-            // Group by supplier for supplier summary
-            $supplierSummary = $purchases->groupBy('supplier_id')->map(function ($supplierPurchases) {
-                $supplier = $supplierPurchases->first()->supplier;
-                return [
-                    'supplier_id' => $supplier->id,
-                    'supplier_name' => $supplier->name,
-                    'supplier_phone' => $supplier->phone,
-                    'purchase_count' => $supplierPurchases->count(),
-                    'total_amount' => $supplierPurchases->sum('sub_total'),
-                    'paid_amount' => $supplierPurchases->sum(function($purchase) {
-                        return $purchase->purchasePayments->sum('amount');
-                    }),
-                    'due_amount' => $supplierPurchases->sum(function($purchase) {
-                        return $purchase->totalDue();
-                    }),
-                    'discount_amount' => $supplierPurchases->sum('discount'),
-                    'tax_amount' => $supplierPurchases->sum(function($purchase) {
-                        return $purchase->taxAmount();
-                    }),
-                ];
-            })->values();
+            // Get supplier summary with pagination using database aggregation
+            $supplierSummaryQuery = DB::table('purchases')
+                ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+                ->where('purchases.status', 1);
 
-            // Group by month for monthly summary
-            $monthlySummary = $purchases->groupBy(function ($purchase) {
-                return \Carbon\Carbon::parse($purchase->purchase_date)->format('Y-m');
-            })->map(function ($monthPurchases, $month) {
+            if ($fiscalYearId) {
+                $supplierSummaryQuery->where('purchases.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $supplierSummaryQuery->where('purchases.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $supplierSummaryQuery->whereBetween('purchases.purchase_date', [$fromDate, $toDate]);
+            }
+
+            $supplierSummary = $supplierSummaryQuery
+                ->selectRaw('
+                    suppliers.id as supplier_id,
+                    suppliers.name as supplier_name,
+                    suppliers.phone as supplier_phone,
+                    COUNT(purchases.id) as purchase_count,
+                    SUM(purchases.sub_total) as total_amount,
+                    SUM(purchases.discount) as discount_amount
+                ')
+                ->groupBy('suppliers.id', 'suppliers.name', 'suppliers.phone')
+                ->orderBy('total_amount', 'desc')
+                ->offset(($page - 1) * $perPage)
+                ->limit($perPage)
+                ->get();
+
+            // Get total supplier count for pagination
+            $totalSuppliers = DB::table('purchases')
+                ->where('status', 1);
+
+            if ($fiscalYearId) {
+                $totalSuppliers->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $totalSuppliers->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $totalSuppliers->whereBetween('purchase_date', [$fromDate, $toDate]);
+            }
+
+            $totalSuppliers = $totalSuppliers->distinct('supplier_id')->count('supplier_id');
+
+            // Calculate paid and due amounts for each supplier (this is still expensive but limited to paginated results)
+            $supplierIds = $supplierSummary->pluck('supplier_id');
+            $supplierPayments = [];
+            $supplierReturns = [];
+
+            if ($supplierIds->isNotEmpty()) {
+                // Get payments for these suppliers
+                $payments = DB::table('purchases')
+                    ->join('purchase_payments', 'purchases.id', '=', 'purchase_payments.purchase_id')
+                    ->whereIn('purchases.supplier_id', $supplierIds)
+                    ->where('purchases.status', 1)
+                    ->where('purchase_payments.status', 1);
+
+                if ($fiscalYearId) {
+                    $payments->where('purchases.fiscal_year_id', $fiscalYearId);
+                } elseif ($accountingPeriodId) {
+                    $payments->where('purchases.accounting_period_id', $accountingPeriodId);
+                } elseif ($fromDate && $toDate) {
+                    $payments->whereBetween('purchases.purchase_date', [$fromDate, $toDate]);
+                }
+
+                $supplierPayments = $payments
+                    ->selectRaw('purchases.supplier_id, SUM(purchase_payments.amount) as paid_amount')
+                    ->groupBy('purchases.supplier_id')
+                    ->pluck('paid_amount', 'supplier_id');
+
+                // Get returns for these suppliers
+                $returns = DB::table('purchases')
+                    ->join('purchase_returns', 'purchases.id', '=', 'purchase_returns.purchase_id')
+                    ->whereIn('purchases.supplier_id', $supplierIds)
+                    ->where('purchases.status', 1)
+                    ->where('purchase_returns.status', 1);
+
+                if ($fiscalYearId) {
+                    $returns->where('purchases.fiscal_year_id', $fiscalYearId);
+                } elseif ($accountingPeriodId) {
+                    $returns->where('purchases.accounting_period_id', $accountingPeriodId);
+                } elseif ($fromDate && $toDate) {
+                    $returns->whereBetween('purchases.purchase_date', [$fromDate, $toDate]);
+                }
+
+                $supplierReturns = $returns
+                    ->selectRaw('purchases.supplier_id, SUM(purchase_returns.total_return) as return_amount')
+                    ->groupBy('purchases.supplier_id')
+                    ->pluck('return_amount', 'supplier_id');
+            }
+
+            // Add paid and due amounts to supplier summary
+            $supplierSummary = $supplierSummary->map(function ($supplier) use ($supplierPayments, $supplierReturns) {
+                $paidAmount = $supplierPayments[$supplier->supplier_id] ?? 0;
+                $returnAmount = $supplierReturns[$supplier->supplier_id] ?? 0;
+                $dueAmount = $supplier->total_amount - $paidAmount;
+                
                 return [
-                    'month' => $month,
-                    'month_name' => \Carbon\Carbon::parse($month . '-01')->format('F Y'),
-                    'purchase_count' => $monthPurchases->count(),
-                    'total_amount' => $monthPurchases->sum('sub_total'),
-                    'paid_amount' => $monthPurchases->sum(function($purchase) {
-                        return $purchase->purchasePayments->sum('amount');
-                    }),
-                    'due_amount' => $monthPurchases->sum(function($purchase) {
-                        return $purchase->totalDue();
-                    }),
+                    'supplier_id' => $supplier->supplier_id,
+                    'supplier_name' => $supplier->supplier_name,
+                    'supplier_phone' => $supplier->supplier_phone,
+                    'purchase_count' => $supplier->purchase_count,
+                    'total_amount' => round($supplier->total_amount, 2),
+                    'paid_amount' => round($paidAmount, 2),
+                    'due_amount' => round($dueAmount, 2),
+                    'discount_amount' => round($supplier->discount_amount, 2),
+                    'tax_amount' => 0, // Will be calculated if needed
                 ];
-            })->values();
+            });
+
+            // Get monthly summary using database aggregation
+            $monthlySummary = DB::table('purchases')
+                ->where('status', 1);
+
+            if ($fiscalYearId) {
+                $monthlySummary->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $monthlySummary->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $monthlySummary->whereBetween('purchase_date', [$fromDate, $toDate]);
+            }
+
+            $monthlySummary = $monthlySummary
+                ->selectRaw('
+                    DATE_FORMAT(purchase_date, "%Y-%m") as month,
+                    COUNT(*) as purchase_count,
+                    SUM(sub_total) as total_amount
+                ')
+                ->groupBy('month')
+                ->orderBy('month', 'desc')
+                ->get()
+                ->map(function ($month) {
+                    return [
+                        'month' => $month->month,
+                        'month_name' => \Carbon\Carbon::parse($month->month . '-01')->format('F Y'),
+                        'purchase_count' => $month->purchase_count,
+                        'total_amount' => round($month->total_amount, 2),
+                        'paid_amount' => 0, // Will be calculated if needed
+                        'due_amount' => 0, // Will be calculated if needed
+                    ];
+                });
 
             return [
                 'success' => true,
@@ -1850,7 +2999,13 @@ class ReportController extends Controller
                     ],
                     'supplier_summary' => $supplierSummary,
                     'monthly_summary' => $monthlySummary,
-                    'return_purchases' => $returnPurchases,
+                    'pagination' => [
+                        'current_page' => $page,
+                        'per_page' => $perPage,
+                        'total_suppliers' => $totalSuppliers,
+                        'total_pages' => ceil($totalSuppliers / $perPage),
+                        'has_more' => $page < ceil($totalSuppliers / $perPage),
+                    ],
                 ]
             ];
 
@@ -1939,7 +3094,7 @@ class ReportController extends Controller
                 'difference' => 0
             ];
 
-            \Log::info("Trial Balance - All accounts loaded: {$totalCount} accounts with zero balances");
+            Log::info("Trial Balance - All accounts loaded: {$totalCount} accounts with zero balances");
 
             return [
                 'success' => true,
@@ -2004,8 +3159,8 @@ class ReportController extends Controller
 
             // Calculate balance for this single account using the original method
             $balanceDetails = $this->calculateAccountBalanceDetailsOriginal($account, $filters);
-            \Log::info("CalculateAccountBalance - Account {$accountId} ({$account->name}) - Filters: " . json_encode($filters));
-            \Log::info("CalculateAccountBalance - Calculated balance for account {$accountId}: " . json_encode($balanceDetails));
+            Log::info("CalculateAccountBalance - Account {$accountId} ({$account->name}) - Filters: " . json_encode($filters));
+            Log::info("CalculateAccountBalance - Calculated balance for account {$accountId}: " . json_encode($balanceDetails));
 
             // Return the account with calculated balance
             $accountWithBalance = [
@@ -2064,7 +3219,7 @@ class ReportController extends Controller
 
         // Get all journal entries
         $allEntries = $baseQuery->get();
-        \Log::info("PreloadJournalEntryData - Found " . $allEntries->count() . " journal entries");
+        Log::info("PreloadJournalEntryData - Found " . $allEntries->count() . " journal entries");
         
         // Group by account ID for fast lookup
         $accountBalances = [];
@@ -2106,7 +3261,7 @@ class ReportController extends Controller
             }
         }
         
-        \Log::info("PreloadJournalEntryData - Processed balances for " . count($accountBalances) . " accounts");
+        Log::info("PreloadJournalEntryData - Processed balances for " . count($accountBalances) . " accounts");
         return $accountBalances;
     }
 
@@ -2393,18 +3548,18 @@ class ReportController extends Controller
         if ($filters['fiscal_year_id']) {
             $fiscalYear = \App\Models\FiscalYear::findOrFail($filters['fiscal_year_id']);
             $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
-            \Log::info("CalculateAccountBalance - Using fiscal year: {$fiscalYear->name} (start: {$fiscalYear->start_date})");
+            Log::info("CalculateAccountBalance - Using fiscal year: {$fiscalYear->name} (start: {$fiscalYear->start_date})");
         } elseif ($filters['accounting_period_id']) {
             $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($filters['accounting_period_id']);
             $openingBalanceQuery->where('entry_date', '<', $accountingPeriod->start_date);
-            \Log::info("CalculateAccountBalance - Using accounting period: {$accountingPeriod->name} (start: {$accountingPeriod->start_date})");
+            Log::info("CalculateAccountBalance - Using accounting period: {$accountingPeriod->name} (start: {$accountingPeriod->start_date})");
         } elseif ($filters['from_date']) {
             $openingBalanceQuery->where('entry_date', '<', $filters['from_date']);
-            \Log::info("CalculateAccountBalance - Using from_date: {$filters['from_date']}");
+            Log::info("CalculateAccountBalance - Using from_date: {$filters['from_date']}");
         } else {
             // Default to current year
             $openingBalanceQuery->where('entry_date', '<', now()->startOfYear());
-            \Log::info("CalculateAccountBalance - Using default current year: " . now()->startOfYear());
+            Log::info("CalculateAccountBalance - Using default current year: " . now()->startOfYear());
         }
 
         // Use efficient database aggregation instead of loading all entries
@@ -2417,7 +3572,7 @@ class ReportController extends Controller
         $openingDebits = $openingTotals->total_debits ?? 0;
         $openingCredits = $openingTotals->total_credits ?? 0;
         
-        \Log::info("CalculateAccountBalance - Opening balance for account {$account->id}: debits={$openingDebits}, credits={$openingCredits}");
+        Log::info("CalculateAccountBalance - Opening balance for account {$account->id}: debits={$openingDebits}, credits={$openingCredits}");
 
         $openingBalance = $openingDebits - $openingCredits;
         $openingDebit = max($openingBalance, 0);
@@ -2433,7 +3588,7 @@ class ReportController extends Controller
         $movementDebits = $movementTotals->total_debits ?? 0;
         $movementCredits = $movementTotals->total_credits ?? 0;
         
-        \Log::info("CalculateAccountBalance - Movement balance for account {$account->id}: debits={$movementDebits}, credits={$movementCredits}");
+        Log::info("CalculateAccountBalance - Movement balance for account {$account->id}: debits={$movementDebits}, credits={$movementCredits}");
 
         $netMovement = $movementDebits - $movementCredits;
         $netMovementDebit = max($netMovement, 0);

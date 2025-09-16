@@ -14,32 +14,14 @@ class TenantPermissionSeeder extends Seeder
      */
     public function run()
     {
-        // Check if purchase order permissions already exist
-        $purchaseOrderPermissions = [
-            'purchase-order-create',
-            'purchase-order-list',
-            'purchase-order-edit',
-            'purchase-order-view',
-            'purchase-order-delete'
-        ];
-        
-        $existingPermissions = DB::table('permissions')->whereIn('slug', $purchaseOrderPermissions)->pluck('slug')->toArray();
-        $missingPermissions = array_diff($purchaseOrderPermissions, $existingPermissions);
-        
-        // If all purchase order permissions exist, skip
-        if (empty($missingPermissions)) {
-            return;
-        }
-        
-        // check if table is empty
-        if (DB::table('permissions')->count() == 0) {
-            DB::table('permissions')->insert([
-                // expense category permission
-                [
-                    'name' => 'Create',
-                    'guard_name' => 'Expense Category Management',
-                    'slug' => 'expense-category-create',
-                ],
+        // Define all permissions to be inserted/updated
+        $allPermissions = [
+            // expense category permission
+            [
+                'name' => 'Create',
+                'guard_name' => 'Expense Category Management',
+                'slug' => 'expense-category-create',
+            ],
                 [
                     'name' => 'List',
                     'guard_name' => 'Expense Category Management',
@@ -1130,45 +1112,244 @@ class TenantPermissionSeeder extends Seeder
                     'guard_name' => 'Print Templates Management',
                     'slug' => 'print-templates-delete',
                 ],
-            ]);
-        } else {
-            // Insert only missing purchase order permissions
-            $purchaseOrderPermissionsData = [
+
+                // Missing permissions from system analysis
                 [
-                    'name' => 'Create',
-                    'guard_name' => 'Purchase Order Management',
-                    'slug' => 'purchase-order-create',
+                    'name' => 'Non Purchase Payment Show',
+                    'guard_name' => 'Non Purchase Payment Management',
+                    'slug' => 'non-purchase-payment-show',
                 ],
                 [
-                    'name' => 'List',
-                    'guard_name' => 'Purchase Order Management',
-                    'slug' => 'purchase-order-list',
+                    'name' => 'Role Permissions',
+                    'guard_name' => 'Role Permissions Management',
+                    'slug' => 'role-permissions',
                 ],
                 [
-                    'name' => 'Edit',
-                    'guard_name' => 'Purchase Order Management',
-                    'slug' => 'purchase-order-edit',
+                    'name' => 'Units',
+                    'guard_name' => 'Units Management',
+                    'slug' => 'units',
                 ],
                 [
-                    'name' => 'View',
-                    'guard_name' => 'Purchase Order Management',
-                    'slug' => 'purchase-order-view',
+                    'name' => 'Currencies',
+                    'guard_name' => 'Currencies Management',
+                    'slug' => 'currencies',
                 ],
                 [
-                    'name' => 'Delete',
+                    'name' => 'Brands',
+                    'guard_name' => 'Brands Management',
+                    'slug' => 'brands',
+                ],
+                [
+                    'name' => 'Payment Methods',
+                    'guard_name' => 'Payment Methods Management',
+                    'slug' => 'payment-methods',
+                ],
+                [
+                    'name' => 'VAT Rates',
+                    'guard_name' => 'VAT Rates Management',
+                    'slug' => 'vat-rates',
+                ],
+                [
+                    'name' => 'Fiscal Years',
+                    'guard_name' => 'Fiscal Years Management',
+                    'slug' => 'fiscal-years',
+                ],
+                [
+                    'name' => 'Accounting Periods',
+                    'guard_name' => 'Accounting Periods Management',
+                    'slug' => 'accounting-periods',
+                ],
+                [
+                    'name' => 'Chart of Account Types',
+                    'guard_name' => 'Chart of Account Types Management',
+                    'slug' => 'chart-of-account-types',
+                ],
+                [
+                    'name' => 'Sub Chart of Accounts',
+                    'guard_name' => 'Sub Chart of Accounts Management',
+                    'slug' => 'sub-chart-of-accounts',
+                ],
+                [
+                    'name' => 'Journal Entry Delete',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-delete',
+                ],
+                [
+                    'name' => 'Journal Entry Post',
+                    'guard_name' => 'Journal Entry Management',
+                    'slug' => 'journal-entry-post',
+                ],
+                [
+                    'name' => 'Product Delete',
+                    'guard_name' => 'Product Management',
+                    'slug' => 'product-delete',
+                ],
+                [
+                    'name' => 'Product Category Delete',
+                    'guard_name' => 'Product Category Management',
+                    'slug' => 'product-category-delete',
+                ],
+                [
+                    'name' => 'Product Sub Category Delete',
+                    'guard_name' => 'Product Subcategory Management',
+                    'slug' => 'product-sub-category-delete',
+                ],
+                [
+                    'name' => 'Department Delete',
+                    'guard_name' => 'Department Management',
+                    'slug' => 'department-delete',
+                ],
+                [
+                    'name' => 'Employee Delete',
+                    'guard_name' => 'Employee Management',
+                    'slug' => 'employee-delete',
+                ],
+                [
+                    'name' => 'Increment Delete',
+                    'guard_name' => 'Increment Management',
+                    'slug' => 'increment-delete',
+                ],
+                [
+                    'name' => 'Asset Type Delete',
+                    'guard_name' => 'Asset Type Management',
+                    'slug' => 'asset-type-delete',
+                ],
+                [
+                    'name' => 'Asset Delete',
+                    'guard_name' => 'Asset Management',
+                    'slug' => 'asset-delete',
+                ],
+                [
+                    'name' => 'Payroll Delete',
+                    'guard_name' => 'Payroll Management',
+                    'slug' => 'payroll-delete',
+                ],
+                [
+                    'name' => 'Client Delete',
+                    'guard_name' => 'Client Management',
+                    'slug' => 'client-delete',
+                ],
+                [
+                    'name' => 'Supplier Delete',
+                    'guard_name' => 'Supplier Management',
+                    'slug' => 'supplier-delete',
+                ],
+                [
+                    'name' => 'Adjustment Delete',
+                    'guard_name' => 'Inventory Adjustment Management',
+                    'slug' => 'adjustment-delete',
+                ],
+                [
+                    'name' => 'Invoice Delete',
+                    'guard_name' => 'Invoice Management',
+                    'slug' => 'invoice-delete',
+                ],
+                [
+                    'name' => 'Invoice Return Delete',
+                    'guard_name' => 'Invoice Return Management',
+                    'slug' => 'invoice-return-delete',
+                ],
+                [
+                    'name' => 'Purchase Delete',
+                    'guard_name' => 'Purchase Management',
+                    'slug' => 'purchase-delete',
+                ],
+                [
+                    'name' => 'Purchase Return Delete',
+                    'guard_name' => 'Purchase Return Management',
+                    'slug' => 'purchase-return-delete',
+                ],
+                [
+                    'name' => 'Quotation Delete',
+                    'guard_name' => 'Quotation Management',
+                    'slug' => 'quotation-delete',
+                ],
+                [
+                    'name' => 'Chart of Account Delete',
+                    'guard_name' => 'Chart of Account Management',
+                    'slug' => 'chart-of-account-delete',
+                ],
+                [
+                    'name' => 'Account Delete',
+                    'guard_name' => 'Account Management',
+                    'slug' => 'account-delete',
+                ],
+                [
+                    'name' => 'Account Balance Delete',
+                    'guard_name' => 'Account Balance Management',
+                    'slug' => 'account-balance-delete',
+                ],
+                [
+                    'name' => 'Account Transfer Balance Delete',
+                    'guard_name' => 'Balance Transfer Management',
+                    'slug' => 'account-transfer-balance-delete',
+                ],
+                [
+                    'name' => 'Non Purchase Payment Delete',
+                    'guard_name' => 'Non Purchase Payment Management',
+                    'slug' => 'non-purchase-payment-delete',
+                ],
+                [
+                    'name' => 'Purchase Payment Delete',
+                    'guard_name' => 'Purchase Payment Management',
+                    'slug' => 'purchase-payment-delete',
+                ],
+                [
+                    'name' => 'Non Invoice Payment Delete',
+                    'guard_name' => 'Non Invoice Payment Management',
+                    'slug' => 'non-invoice-payment-delete',
+                ],
+                [
+                    'name' => 'Invoice Payment Delete',
+                    'guard_name' => 'Invoice Payment Management',
+                    'slug' => 'invoice-payment-delete',
+                ],
+                [
+                    'name' => 'Loan Authority Delete',
+                    'guard_name' => 'Loan Authority Management',
+                    'slug' => 'loan-authority-delete',
+                ],
+                [
+                    'name' => 'Loan Delete',
+                    'guard_name' => 'Loan Management',
+                    'slug' => 'loan-delete',
+                ],
+                [
+                    'name' => 'Loan Payment Delete',
+                    'guard_name' => 'Loan Payment Management',
+                    'slug' => 'loan-payment-delete',
+                ],
+                [
+                    'name' => 'Expense Category Delete',
+                    'guard_name' => 'Expense Category Management',
+                    'slug' => 'expense-category-delete',
+                ],
+                [
+                    'name' => 'Expense Sub Category Delete',
+                    'guard_name' => 'Expense Subcategory Management',
+                    'slug' => 'expense-sub-category-delete',
+                ],
+                [
+                    'name' => 'Expense Delete',
+                    'guard_name' => 'Expense Management',
+                    'slug' => 'expense-delete',
+                ],
+                [
+                    'name' => 'Purchase Order Delete',
                     'guard_name' => 'Purchase Order Management',
                     'slug' => 'purchase-order-delete',
                 ],
-            ];
-            
-            // Filter to only include missing permissions
-            $permissionsToInsert = array_filter($purchaseOrderPermissionsData, function($permission) use ($missingPermissions) {
-                return in_array($permission['slug'], $missingPermissions);
-            });
-            
-            if (!empty($permissionsToInsert)) {
-                DB::table('permissions')->insert($permissionsToInsert);
-            }
+        ];
+
+        // Use upsert to insert or update permissions
+        // This will insert if not exists, update if exists based on slug
+        foreach ($allPermissions as $permission) {
+            DB::table('permissions')->updateOrInsert(
+                ['slug' => $permission['slug']], // Match condition
+                $permission // Data to insert/update
+            );
         }
+
+        
     }
 }

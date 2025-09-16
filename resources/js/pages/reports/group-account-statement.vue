@@ -320,9 +320,30 @@
           </table>
           
         </div>
+
+        <!-- Loading More Data Indicator -->
+        <div v-if="loadingMore" class="row mt-3">
+          <div class="col-12 text-center">
+            <div class="alert alert-info">
+              <i class="fas fa-spinner fa-spin"></i> 
+              {{ $t('Loading more entries...') }} ({{ reportData.entries.length }} {{ $t('loaded') }})
+            </div>
+          </div>
+        </div>
+        
+        <!-- Data Summary -->
+        <div v-if="reportData && reportData.entries.length > 0" class="row mt-3">
+          <div class="col-12">
+            <div class="dataTables_info">
+              {{ $t('Total entries loaded') }}: {{ reportData.entries.length }}
+              <span v-if="!hasMoreData" class="text-success">
+                <i class="fas fa-check"></i> {{ $t('All data loaded') }}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
 
     <!-- Loading Overlay -->
     <div v-if="loading" class="overlay">
@@ -379,7 +400,7 @@ export default {
       
       // Chunked loading
       currentChunk: 1,
-      chunkSize: 10,
+      chunkSize: 30,
       hasMoreData: true,
       loadingMore: false,
       retryCount: 0,

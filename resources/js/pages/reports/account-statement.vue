@@ -363,7 +363,7 @@ export default {
       
       // Chunked loading
       currentChunk: 1,
-      chunkSize: 10,
+      chunkSize: 30,
       hasMoreData: true,
       loadingMore: false,
       retryCount: 0,
