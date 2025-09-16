@@ -60,6 +60,7 @@ use App\Exports\ExportInvoiceReturn;
 use App\Exports\ExportLoanAuthority;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportPurchaseReturn;
+use App\Exports\ExportPurchaseOrder;
 use App\Exports\ExpSubCategoryExport;
 use App\Exports\ExportBalanceTransfer;
 use App\Exports\ExportProductCategory;
@@ -81,6 +82,23 @@ use App\Exports\ExportSupplierNonPurchasePayment;
 
 class TableExportController extends Controller
 {
+    /**
+     * Generate PDF with consistent configuration
+     */
+    private function generatePDF($view, $data, $filename, $paper = 'a4', $orientation = 'portrait')
+    {
+        $pdf = PDF::loadView($view, $data)
+            ->setPaper($paper, $orientation)
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => false,
+                'defaultFont' => 'DejaVu Sans',
+                'isPhpEnabled' => false,
+                'isJavascriptEnabled' => false,
+            ]);
+        
+        return $pdf->download($filename);
+    }
     // return all brands pdf
     public function brandsPDF()
     {
@@ -88,9 +106,7 @@ class TableExportController extends Controller
         $data = Brand::latest()->get()->toArray();
         // share data to view
         view()->share('brands', $data);
-        $pdf = PDF::loadView('pdf.brands', $data);
-        // download PDF file with download method
-        return $pdf->download('brands-list.pdf');
+        return $this->generatePDF('pdf.brands', $data, 'brands-list.pdf');
     }
 
     // return all currencies pdf
@@ -198,9 +214,7 @@ class TableExportController extends Controller
         $data = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')->latest()->get()->toArray();
         // share data to view
         view()->share('expenses', $data);
-        $pdf = PDF::loadView('pdf.expenses', $data)->setPaper('a4', 'landscape');
-        // download PDF file with download method
-        return $pdf->download('expenses-list.pdf');
+        return $this->generatePDF('pdf.expenses', $data, 'expenses-list.pdf', 'a4', 'landscape');
     }
 
     // return expense export
@@ -220,9 +234,7 @@ class TableExportController extends Controller
         $data = Purchase::with('supplier')->latest()->get()->toArray();
         // share data to view
         view()->share('purchases', $data);
-        $pdf = PDF::loadView('pdf.purchases', $data)->setPaper('a4', 'landscape');
-        // download PDF file with download method
-        return $pdf->download('purchases-list.pdf');
+        return $this->generatePDF('pdf.purchases', $data, 'purchases-list.pdf', 'a4', 'landscape');
     }
 
     // return purchases excel
@@ -233,6 +245,16 @@ class TableExportController extends Controller
         $term = $request->input('term');
 
         return Excel::download(new ExportPurchase($startDate, $endDate, $term), 'Purchases.xlsx');
+    }
+
+    // return purchase orders excel
+    public function purchaseOrdersExportExcel(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $term = $request->input('term');
+
+        return Excel::download(new ExportPurchaseOrder($startDate, $endDate, $term), 'PurchaseOrders.xlsx');
     }
 
     // return purchase returns pdf
@@ -286,9 +308,7 @@ class TableExportController extends Controller
         $data = Invoice::with('client', 'invoicePayments')->latest()->get()->toArray();
         // share data to view
         view()->share('invoices', $data);
-        $pdf = PDF::loadView('pdf.invoices', $data)->setPaper('a4', 'landscape');
-        // download PDF file with download method
-        return $pdf->download('invoice-list.pdf');
+        return $this->generatePDF('pdf.invoices', $data, 'invoice-list.pdf', 'a4', 'landscape');
     }
 
     // return invoice pdf
