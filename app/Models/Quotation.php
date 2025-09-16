@@ -81,4 +81,20 @@ class Quotation extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    /**
+     * Get calculated tax attribute.
+     */
+    public function getCalculatedTaxAttribute()
+    {
+        return $this->total_tax ?? 0;
+    }
+
+    /**
+     * Get calculated total attribute.
+     */
+    public function getCalculatedTotalAttribute()
+    {
+        return $this->quotationTotal();
+    }
 }
