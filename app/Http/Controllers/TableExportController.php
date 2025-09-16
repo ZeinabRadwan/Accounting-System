@@ -60,6 +60,7 @@ use App\Exports\ExportInvoiceReturn;
 use App\Exports\ExportLoanAuthority;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportPurchaseReturn;
+use App\Exports\ExportPurchaseOrder;
 use App\Exports\ExpSubCategoryExport;
 use App\Exports\ExportBalanceTransfer;
 use App\Exports\ExportProductCategory;
@@ -233,6 +234,16 @@ class TableExportController extends Controller
         $term = $request->input('term');
 
         return Excel::download(new ExportPurchase($startDate, $endDate, $term), 'Purchases.xlsx');
+    }
+
+    // return purchase orders excel
+    public function purchaseOrdersExportExcel(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $term = $request->input('term');
+
+        return Excel::download(new ExportPurchaseOrder($startDate, $endDate, $term), 'PurchaseOrders.xlsx');
     }
 
     // return purchase returns pdf

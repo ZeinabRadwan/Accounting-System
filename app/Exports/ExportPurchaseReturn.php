@@ -46,7 +46,8 @@ class ExportPurchaseReturn implements FromCollection,  WithHeadings, ShouldAutoS
                         ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
                         ->orWhereHas('supplier', function ($anotherQuery) use ($term) {
                             $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
-                                ->orWhere('phone', 'LIKE', '%' . $term . '%');
+                                ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
+                                ->orWhere('phone_legacy', 'LIKE', '%' . $term . '%');
                         });
                 });
         });
