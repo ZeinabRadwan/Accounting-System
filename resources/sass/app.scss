@@ -16,7 +16,7 @@
 // vue datepicker
 @import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap');
-@import '@abdulrysr/saudi-riyal-new-symbol-font/style.css';
+// @import '@abdulrysr/saudi-riyal-new-symbol-font/style.css'; // Commented out - package not installed
 
 /* Apply Saudi Riyal font to ê symbol in currency contexts */
 .currency-display,
