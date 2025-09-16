@@ -289,7 +289,10 @@ class EmployeeController extends Controller
                 $employee->user->update([
                     'is_active' => 0,
                 ]);
-                $employee->user->permissions()->detach($employee->user->roles[0]->permissions);
+                // Check if user has roles before detaching permissions
+                if ($employee->user->roles && count($employee->user->roles) > 0) {
+                    $employee->user->permissions()->detach($employee->user->roles[0]->permissions);
+                }
             }
 
             // add activity log
