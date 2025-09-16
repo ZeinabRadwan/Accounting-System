@@ -77,7 +77,7 @@ class Client extends Model
      */
     public function getPrimaryPhoneAttribute()
     {
-        return $this->phone_number ?: $this->phone_legacy;
+        return $this->phone_number ?: $this->phone;
     }
 
     /**

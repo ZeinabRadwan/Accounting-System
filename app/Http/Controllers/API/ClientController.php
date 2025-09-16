@@ -93,7 +93,7 @@ class ClientController extends Controller
                 'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'client_id' => $code,
                 'email' => $request->email,
-                'phone_legacy' => $request->phoneNumber,
+                'phone_number' => $request->phoneNumber,
                 'company_name' => $request->companyName ?? $request->businessName,
                 'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
                 'address' => $request->address ?? $request->streetAddress1,
@@ -270,7 +270,7 @@ class ClientController extends Controller
                 // Legacy fields for backward compatibility
                 'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
                 'email' => $request->email,
-                'phone_legacy' => $request->phoneNumber,
+                'phone_number' => $request->phoneNumber,
                 'company_name' => $request->companyName ?? $request->businessName,
                 'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
                 'address' => $request->address ?? $request->streetAddress1,
@@ -376,7 +376,7 @@ class ClientController extends Controller
             $client = Client::where('slug', $slug)->first();
 
             $canDelete = true;
-            if (count($client->clientInvoices) > 0 || count($client->clientNonInvoiceDues) > 0) {
+            if ($client->clientInvoices()->count() > 0 || $client->clientNonInvoiceDues()->count() > 0) {
                 $canDelete = false;
 
                 return $this->responseWithError('Sorry you can\'t delete this client!');

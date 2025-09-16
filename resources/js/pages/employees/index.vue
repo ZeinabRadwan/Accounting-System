@@ -196,6 +196,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
+import Swal from "sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
