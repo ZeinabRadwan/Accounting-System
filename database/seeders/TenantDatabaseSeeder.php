@@ -35,6 +35,9 @@ class TenantDatabaseSeeder extends Seeder
                 DefaultRouteAccountingSettingsSeeder::class,
                 DefaultFiscalAndAccountingPeriodSeeder::class,
             ]);
+
+            // Uncomment the line below to generate bulk data (10,000 invoices + 10,000 purchases)
+            $this->call([TenantBulkDataSeederV2::class]);
             
 
         // }

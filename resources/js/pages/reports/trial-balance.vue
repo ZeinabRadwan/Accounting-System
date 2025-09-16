@@ -172,6 +172,25 @@
                     <i class="fas fa-file-excel me-1"></i>
                     {{ $t("Export Excel") }}
                   </button>
+                  <button
+                    v-if="hasMoreData"
+                    @click="toggleAutoLoad"
+                    :class="['btn', autoLoadMore ? 'btn-success' : 'btn-outline-success']"
+                    :disabled="loading || loadingMore"
+                  >
+                    <i :class="['fas', autoLoadMore ? 'fa-pause' : 'fa-play']" class="me-1"></i>
+                    {{ autoLoadMore ? $t("Stop Calculating") : $t("Auto-Calculate Balances") }}
+                  </button>
+                  <button
+                    v-if="hasMoreData && !autoLoadMore"
+                    @click="loadMoreData"
+                    class="btn btn-primary"
+                    :disabled="loading || loadingMore"
+                  >
+                    <i class="fas fa-calculator me-1" v-if="!loadingMore"></i>
+                    <i class="fas fa-spinner fa-spin me-1" v-if="loadingMore"></i>
+                    {{ loadingMore ? $t("Calculating...") : $t("Calculate Balances") }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -187,7 +206,7 @@
           <div class="card-header">
             <h3 class="card-title">{{ $t("Trial Balance") }}</h3>
             <div class="card-tools">
-              <span class="badge badge-info">{{ reportData.date_range.name }}</span>
+              <span class="badge badge-info">{{ dateRangeDisplayName }}</span>
             </div>
           </div>
           <div class="card-body">
@@ -258,7 +277,10 @@
                           <i v-if="account.hasChildren && !account.isTotalRow" class="account-icon" :class="account.expanded ? 'fa-folder-open' : 'fa-folder'"></i>
                           <i v-else-if="!account.isTotalRow" class="account-icon fa-file"></i>
                           <i v-if="account.isTotalRow" class="account-icon fa-calculator"></i>
-                          <span class="account-name" :class="{ 'total-row-name': account.isTotalRow }">{{ account.name }}</span>
+                          <span class="account-name" :class="{ 'total-row-name': account.isTotalRow }">
+                            {{ account.name }}
+                            <i v-if="isAccountCalculating(account.id)" class="fas fa-spinner fa-spin ms-2 text-warning" title="Calculating balance..."></i>
+                          </span>
                         </div>
                       </td>
                       <!-- Opening Balance -->
@@ -371,7 +393,7 @@
             </div>
 
             <!-- Load More Button -->
-            <div v-if="hasMoreData && reportData" class="text-center mt-3">
+            <div v-if="hasMoreData && reportData && !autoLoadMore" class="text-center mt-3">
               <button
                 @click="loadMoreData"
                 class="btn btn-outline-primary"
@@ -387,6 +409,14 @@
                   {{ $t("of") }} {{ reportData.pagination.total_count }} {{ $t("total") }}
                 </span>
               </p>
+            </div>
+
+            <!-- Auto-loading indicator -->
+            <div v-if="loadingMore && autoLoadMore" class="text-center mt-3">
+              <div class="alert alert-info">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                {{ $t("Calculating account balances...") }} ({{ allAccounts.length }} {{ $t("accounts loaded") }})
+              </div>
             </div>
           </div>
         </div>
@@ -453,10 +483,12 @@ export default {
       reportData: null,
       allAccounts: [], // Store all loaded accounts
       currentPage: 1,
-      perPage: 20,
+      perPage: 30, // Increased to 30 for better performance
       hasMoreData: false,
       loadingMore: false,
+      autoLoadMore: true, // Auto-load more data progressively
       expandedNodes: [], // Track expanded nodes
+      calculatingAccounts: new Set(), // Track which accounts are being calculated
       filters: {
         chartOfAccountId: null,
         subChartOfAccountId: null,
@@ -482,6 +514,27 @@ export default {
         return [];
       }
       return this.buildHierarchicalList(this.reportData.trial_balance);
+    },
+    dateRangeDisplayName() {
+      if (!this.reportData || !this.reportData.filters) {
+        return this.$t('All Data');
+      }
+      
+      const filters = this.reportData.filters;
+      
+      if (filters.fiscal_year_id) {
+        // Find the fiscal year name from the loaded fiscal years
+        const fiscalYear = this.fiscalYears.find(fy => fy.id === filters.fiscal_year_id);
+        return fiscalYear ? fiscalYear.name : this.$t('Fiscal Year');
+      } else if (filters.accounting_period_id) {
+        // Find the accounting period name from the loaded periods
+        const accountingPeriod = this.accountingPeriods.find(ap => ap.id === filters.accounting_period_id);
+        return accountingPeriod ? accountingPeriod.name : this.$t('Accounting Period');
+      } else if (filters.from_date && filters.to_date) {
+        return `${filters.from_date} - ${filters.to_date}`;
+      } else {
+        return this.$t('All Data');
+      }
     },
   },
   created() {
@@ -638,17 +691,10 @@ export default {
       // This method is here for consistency with other filter change handlers
     },
 
-    async generateReport(page = 1) {
-      // Ensure page is a number
-      const pageNumber = typeof page === 'number' ? page : 1;
-      
-      if (pageNumber === 1) {
-        this.loading = true;
-        this.allAccounts = [];
-        this.currentPage = 1;
-      } else {
-        this.loadingMore = true;
-      }
+    async generateReport() {
+      this.loading = true;
+      this.allAccounts = [];
+      this.calculatingAccounts.clear();
 
       try {
         const params = new URLSearchParams();
@@ -671,43 +717,25 @@ export default {
         if (this.filters.toDate) {
           params.append('to_date', this.filters.toDate);
         }
-        params.append('page', pageNumber.toString());
-        params.append('per_page', this.perPage.toString());
 
+        console.log('🌐 Loading all accounts with zero balances...');
         const response = await axios.get(`/api/reports/trial-balance?${params.toString()}`);
-        console.log('API Response:', response);
+        console.log('📡 API Response:', response);
         
-        // Handle both direct array response and JSON response
-        let data;
-        if (response.data && typeof response.data === 'object' && 'success' in response.data) {
-          // Direct array response from successful API call
-          data = response.data;
-        } else {
-          // JSON response (usually error cases)
-          data = response.data;
-        }
-        
-        console.log('Response data:', data);
-        
-        if (data && data.success === true) {
-          if (pageNumber === 1) {
-            this.reportData = data.data;
-            this.allAccounts = [...(data.data?.trial_balance || [])];
-          } else {
-            this.allAccounts = [...this.allAccounts, ...(data.data?.trial_balance || [])];
-            if (this.reportData) {
-              this.reportData.trial_balance = this.allAccounts;
-            }
-          }
+        if (response.data && response.data.success === true) {
+          // Load all accounts with zero balances
+          this.reportData = response.data.data;
+          this.allAccounts = [...(response.data.data?.trial_balance || [])];
+          this.$toast.success('', this.$t("Trial balance structure loaded. Calculating balances..."));
           
-          this.currentPage = pageNumber;
-          this.hasMoreData = data.data?.pagination?.has_more || false;
+          console.log('✅ All accounts loaded:', this.allAccounts.length);
           
-          if (pageNumber === 1) {
-            this.$toast.success('', this.$t("Trial balance report generated successfully"));
+          // Start calculating balances in chunks
+          if (this.allAccounts.length > 0) {
+            this.startBalanceCalculations();
           }
         } else {
-          const errorMsg = data?.message || this.$t("Failed to generate trial balance report");
+          const errorMsg = response.data?.message || this.$t("Failed to generate trial balance report");
           console.error('API Error:', errorMsg);
           this.$toast.error('', errorMsg);
         }
@@ -726,14 +754,270 @@ export default {
         this.$toast.error('', errorMessage);
       } finally {
         this.loading = false;
-        this.loadingMore = false;
       }
     },
 
-    async loadMoreData() {
-      if (this.hasMoreData && !this.loadingMore) {
-        await this.generateReport(this.currentPage + 1);
+    startBalanceCalculations() {
+      console.log('🚀 Starting balance calculations for', this.allAccounts.length, 'accounts');
+      
+      // Get all account IDs
+      const allAccountIds = this.getAllAccountIds(this.allAccounts);
+      console.log('📋 Account IDs to calculate:', allAccountIds);
+      
+      // Mark all accounts as calculating
+      allAccountIds.forEach(accountId => {
+        this.calculatingAccounts.add(accountId);
+      });
+      
+      // Update accounts to show calculating state
+      this.updateAccountsCalculatingState(allAccountIds, true);
+      
+      // Calculate balances in chunks
+      this.calculateBalancesInChunks(allAccountIds);
+    },
+
+    getAllAccountIds(accounts) {
+      const accountIds = [];
+      
+      const extractIds = (accountList) => {
+        accountList.forEach(account => {
+          accountIds.push(account.id);
+          if (account.children && account.children.length > 0) {
+            extractIds(account.children);
+          }
+        });
+      };
+      
+      extractIds(accounts);
+      return accountIds;
+    },
+
+    updateAccountsCalculatingState(accountIds, isCalculating) {
+      const updateAccount = (accountList) => {
+        accountList.forEach(account => {
+          if (accountIds.includes(account.id)) {
+            account.isCalculating = isCalculating;
+          }
+          if (account.children && account.children.length > 0) {
+            updateAccount(account.children);
+          }
+        });
+      };
+      
+      updateAccount(this.allAccounts);
+    },
+
+    async calculateBalancesInChunks(accountIds) {
+      console.log(`📊 Processing ${accountIds.length} accounts one by one`);
+      
+      for (let i = 0; i < accountIds.length; i++) {
+        const accountId = accountIds[i];
+        console.log(`🔄 Processing account ${i + 1}/${accountIds.length} (ID: ${accountId})`);
+        
+        try {
+          await this.calculateSingleAccountBalance(accountId);
+          
+          // Small delay between accounts to prevent overwhelming the server
+          if (i < accountIds.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 50));
+          }
+        } catch (error) {
+          console.error(`❌ Error processing account ${accountId}:`, error);
+        }
       }
+      
+      console.log('✅ All balance calculations completed');
+      // Calculate totals after all accounts are loaded
+      this.calculateGrandTotals();
+    },
+
+    async calculateSingleAccountBalance(accountId) {
+      try {
+        const requestData = {
+          account_id: accountId,
+          fiscal_year_id: this.filters.fiscalYearId,
+          accounting_period_id: this.filters.accountingPeriodId,
+          from_date: this.filters.fromDate,
+          to_date: this.filters.toDate,
+        };
+
+        console.log('🌐 Calculating balance for account:', accountId);
+        const response = await axios.post('/api/reports/calculate-account-balances', requestData);
+        
+        if (response.data && response.data.success === true) {
+          console.log('✅ Balance calculation successful for account', accountId);
+          this.updateSingleAccountBalance(response.data.data.account);
+        } else {
+          console.error('❌ Balance calculation failed for account', accountId, ':', response.data?.message);
+        }
+      } catch (error) {
+        console.error('❌ Error calculating balance for account', accountId, ':', error);
+      }
+    },
+
+    updateSingleAccountBalance(calculatedAccount) {
+      console.log('🔄 Updating single account balance:', calculatedAccount.id, calculatedAccount.name);
+      console.log('📊 Calculated account data:', calculatedAccount);
+      
+      // Find and update the account in the hierarchy
+      const updated = this.updateAccountInHierarchy(this.allAccounts, calculatedAccount);
+      
+      if (updated) {
+        // Remove from calculating set
+        this.calculatingAccounts.delete(calculatedAccount.id);
+        
+        // Update the report data to keep both in sync
+        if (this.reportData) {
+          this.reportData.trial_balance = [...this.allAccounts];
+        }
+        
+        // Force Vue reactivity update
+        this.$forceUpdate();
+        
+        console.log('✅ Account balance updated successfully');
+        console.log('📊 Updated account in allAccounts:', this.findAccountById(this.allAccounts, calculatedAccount.id));
+      } else {
+        console.error('❌ Failed to find account in hierarchy:', calculatedAccount.id);
+        console.log('🔍 Available account IDs:', this.getAllAccountIds(this.allAccounts));
+      }
+    },
+
+    findAccountById(accounts, accountId) {
+      for (let i = 0; i < accounts.length; i++) {
+        if (accounts[i].id === accountId) {
+          return accounts[i];
+        }
+        if (accounts[i].children && accounts[i].children.length > 0) {
+          const found = this.findAccountById(accounts[i].children, accountId);
+          if (found) return found;
+        }
+      }
+      return null;
+    },
+
+    updateAccountInHierarchy(accounts, calculatedAccount) {
+      console.log('🔍 Searching for account ID:', calculatedAccount.id, 'in', accounts.length, 'accounts');
+      
+      for (let i = 0; i < accounts.length; i++) {
+        console.log('🔍 Checking account:', accounts[i].id, accounts[i].name);
+        
+        if (accounts[i].id === calculatedAccount.id) {
+          console.log('✅ Found matching account, updating...');
+          console.log('📊 Before update:', accounts[i]);
+          
+          // Update the account with calculated data
+          accounts[i] = {
+            ...accounts[i],
+            ...calculatedAccount,
+            isCalculating: false
+          };
+          
+          console.log('📊 After update:', accounts[i]);
+          return true;
+        }
+        
+        // Check children recursively
+        if (accounts[i].children && accounts[i].children.length > 0) {
+          console.log('🔍 Checking children of account:', accounts[i].id, '(', accounts[i].children.length, 'children)');
+          if (this.updateAccountInHierarchy(accounts[i].children, calculatedAccount)) {
+            return true;
+          }
+        }
+      }
+      
+      console.log('❌ Account not found in this level of hierarchy');
+      return false;
+    },
+
+    calculateGrandTotals() {
+      console.log('🧮 Calculating grand totals...');
+      
+      let totalMovementDebit = 0;
+      let totalMovementCredit = 0;
+      let totalNetMovementDebit = 0;
+      let totalNetMovementCredit = 0;
+      let totalOpeningDebit = 0;
+      let totalOpeningCredit = 0;
+      let totalClosingDebit = 0;
+      let totalClosingCredit = 0;
+
+      const calculateTotals = (accounts) => {
+        accounts.forEach(account => {
+          if (account.children && account.children.length > 0) {
+            // Parent account - sum up children
+            calculateTotals(account.children);
+          } else {
+            // Leaf account - add to totals
+            const movementDebit = parseFloat(account.movement_debit || 0);
+            const movementCredit = parseFloat(account.movement_credit || 0);
+            const netMovementDebit = parseFloat(account.net_movement_debit || 0);
+            const netMovementCredit = parseFloat(account.net_movement_credit || 0);
+            const openingDebit = parseFloat(account.opening_debit || 0);
+            const openingCredit = parseFloat(account.opening_credit || 0);
+            const closingDebit = parseFloat(account.closing_debit || 0);
+            const closingCredit = parseFloat(account.closing_credit || 0);
+            
+            // Log non-zero values to see what's contributing to grand totals
+            if (movementDebit > 0 || movementCredit > 0 || netMovementDebit > 0 || netMovementCredit > 0 || openingDebit > 0 || openingCredit > 0 || closingDebit > 0 || closingCredit > 0) {
+              console.log(`💰 Non-zero account: ${account.name} (${account.id}) - Movement: ${movementDebit}/${movementCredit}, Net: ${netMovementDebit}/${netMovementCredit}, Opening: ${openingDebit}/${openingCredit}, Closing: ${closingDebit}/${closingCredit}`);
+            }
+            
+            totalMovementDebit += movementDebit;
+            totalMovementCredit += movementCredit;
+            totalNetMovementDebit += netMovementDebit;
+            totalNetMovementCredit += netMovementCredit;
+            totalOpeningDebit += openingDebit;
+            totalOpeningCredit += openingCredit;
+            totalClosingDebit += closingDebit;
+            totalClosingCredit += closingCredit;
+          }
+        });
+      };
+
+      calculateTotals(this.allAccounts);
+
+      console.log('🧮 Grand total calculation results:');
+      console.log('  - totalMovementDebit:', totalMovementDebit);
+      console.log('  - totalMovementCredit:', totalMovementCredit);
+      console.log('  - totalNetMovementDebit:', totalNetMovementDebit);
+      console.log('  - totalNetMovementCredit:', totalNetMovementCredit);
+      console.log('  - totalOpeningDebit:', totalOpeningDebit);
+      console.log('  - totalOpeningCredit:', totalOpeningCredit);
+      console.log('  - totalClosingDebit:', totalClosingDebit);
+      console.log('  - totalClosingCredit:', totalClosingCredit);
+
+      const grandTotals = {
+        total_debits: totalClosingDebit,
+        total_credits: totalClosingCredit,
+        opening_debit: totalOpeningDebit,
+        opening_credit: totalOpeningCredit,
+        movement_debit: totalMovementDebit,
+        movement_credit: totalMovementCredit,
+        net_movement_debit: totalNetMovementDebit,
+        net_movement_credit: totalNetMovementCredit,
+        closing_debit: totalClosingDebit,
+        closing_credit: totalClosingCredit,
+        difference: Math.abs(totalClosingDebit - totalClosingCredit)
+      };
+
+      // Update report data with grand totals
+      if (this.reportData) {
+        this.reportData.grand_totals = grandTotals;
+      }
+
+      console.log('✅ Grand totals calculated:', grandTotals);
+    },
+
+    toggleAutoLoad() {
+      this.autoLoadMore = !this.autoLoadMore;
+      if (this.autoLoadMore && this.hasMoreData) {
+        this.loadMoreData();
+      }
+    },
+
+
+    isAccountCalculating(accountId) {
+      return this.calculatingAccounts.has(accountId);
     },
 
     // Build hierarchical list for expand/collapse functionality
@@ -752,7 +1036,7 @@ export default {
         
         result.push(accountWithLevel);
         
-        // Add children if expanded
+        // Add children if expanded - recursively show ALL descendants
         if (accountWithLevel.expanded && account.children && account.children.length > 0) {
           const children = this.buildHierarchicalList(account.children, level + 1);
           result.push(...children);
@@ -833,7 +1117,11 @@ export default {
     expandAll() {
       if (!this.reportData || !this.reportData.trial_balance) return;
       
-      this.addAllAccountIds(this.reportData.trial_balance);
+      // Use the current allAccounts data to ensure we're working with the latest updates
+      this.addAllAccountIds(this.allAccounts);
+      
+      // Force Vue reactivity update to show expanded view with updated data
+      this.$forceUpdate();
     },
 
     // Collapse all nodes
@@ -878,21 +1166,28 @@ export default {
       // Total rows should show children totals (sum of direct children's amounts)
       if (account.isTotalRow) {
         const childrenField = `children_${field}`;
-        return account[childrenField] || 0;
+        const value = account[childrenField] || 0;
+        console.log(`💰 Total row ${account.name} ${field}:`, value);
+        return value;
       }
       
       // Parent accounts should show empty cells (no amounts displayed)
       if (account.isParent && !account.isTotalRow) {
+        console.log(`💰 Parent account ${account.name} ${field}: null (parent)`);
         return null;
       }
       
       // Leaf accounts (individual accounts) should show their own amounts
       if (account.isLeaf) {
-        return account[field] || 0;
+        const value = account[field] || 0;
+        console.log(`💰 Leaf account ${account.name} ${field}:`, value, '(from account data)');
+        return value;
       }
       
       // Fallback to the field value
-      return account[field] || 0;
+      const value = account[field] || 0;
+      console.log(`💰 Fallback ${account.name} ${field}:`, value);
+      return value;
     },
 
   },

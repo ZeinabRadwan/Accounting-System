@@ -246,11 +246,11 @@
                     <td>{{ supplier.supplier_name }}</td>
                     <td>{{ supplier.supplier_phone || '-' }}</td>
                     <td class="text-center">{{ supplier.purchase_count }}</td>
-                    <td class="text-right">{{ numberFormat(supplier.total_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(supplier.paid_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(supplier.due_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(supplier.discount_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(supplier.tax_amount) }}</td>
+                    <td class="text-right">{{ supplier.total_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ supplier.paid_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ supplier.due_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ supplier.discount_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ supplier.tax_amount | withAbsoluteCurrency }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -282,9 +282,9 @@
                   <tr v-else v-for="month in reportData.monthly_summary" :key="month.month">
                     <td>{{ month.month_name }}</td>
                     <td class="text-center">{{ month.purchase_count }}</td>
-                    <td class="text-right">{{ numberFormat(month.total_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(month.paid_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(month.due_amount) }}</td>
+                    <td class="text-right">{{ month.total_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ month.paid_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ month.due_amount | withAbsoluteCurrency }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -313,8 +313,8 @@
                     <td>{{ returnData.purchase.purchase_no }}</td>
                     <td>{{ returnData.purchase.supplier?.name || '-' }}</td>
                     <td>{{ formatDate(returnData.purchase.purchase_date) }}</td>
-                    <td class="text-right">{{ numberFormat(returnData.purchase.sub_total) }}</td>
-                    <td class="text-right text-danger">{{ numberFormat(returnData.return_amount) }}</td>
+                    <td class="text-right">{{ returnData.purchase.sub_total | withAbsoluteCurrency }}</td>
+                    <td class="text-right text-danger">{{ returnData.return_amount | withAbsoluteCurrency }}</td>
                     <td class="text-center">{{ returnData.returns.length }}</td>
                   </tr>
                 </tbody>
@@ -380,6 +380,18 @@ export default {
     }),
   },
   
+  watch: {
+    'filters.fiscalYear'(newValue) {
+      if (newValue) {
+        this.loadAccountingPeriods();
+        this.filters.accountingPeriod = null; // Reset accounting period when fiscal year changes
+      } else {
+        this.accountingPeriods = [];
+        this.filters.accountingPeriod = null;
+      }
+    },
+  },
+  
   mounted() {
     this.loadInitialData();
   },
@@ -408,9 +420,12 @@ export default {
     async loadAccountingPeriods(search = '') {
       this.loadingAccountingPeriods = true;
       try {
-        const response = await axios.get('/api/accounting-periods/search', {
-          params: { search, perPage: 100 }
-        });
+        const params = { search, perPage: 100 };
+        if (this.filters.fiscalYear) {
+          params.fiscal_year_id = this.filters.fiscalYear;
+        }
+        
+        const response = await axios.get('/api/accounting-periods/search', { params });
         this.accountingPeriods = response.data.data || response.data;
       } catch (error) {
         this.$toast.error('', this.$t('Failed to load accounting periods'));
@@ -462,9 +477,6 @@ export default {
       }
     },
 
-    numberFormat(value) {
-      return parseFloat(value).toFixed(2);
-    },
 
     formatDate(dateString) {
       if (!dateString) return '-';

@@ -1120,15 +1120,15 @@ class ReportController extends Controller
             $parentAccountId = $request->parent_account_id;
             $search = $request->search;
 
-            // Get the parent account
-            $parentAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($parentAccountId);
-
-            // Build query for sub accounts (children + parent itself)
+            // Get the parent account with complete hierarchy
+            $parentAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($parentAccountId);
+            
+            // Get all descendants of the parent account (complete hierarchy)
+            $allDescendants = $this->getAllDescendants($parentAccount);
+            
+            // Build query for sub accounts (parent + all descendants)
             $query = \App\Models\ChartOfAccount::with('type')
-                ->where(function($q) use ($parentAccountId) {
-                    $q->where('id', $parentAccountId) // Include the parent account itself
-                      ->orWhere('parent_id', $parentAccountId); // Include direct children
-                })
+                ->whereIn('id', array_merge([$parentAccountId], $allDescendants))
                 ->where('is_active', true);
 
             // Apply search filter if provided
@@ -1286,10 +1286,10 @@ class ReportController extends Controller
                             'entry_date' => $entry->entry_date->format('Y-m-d'),
                             'reference' => $entry->reference,
                             'description' => $entry->description,
-                            'debit_amount' => number_format($debitAmount, 2),
-                            'credit_amount' => number_format($creditAmount, 2),
-                            'net_amount' => number_format($netAmount, 2),
-                            'running_balance' => number_format($runningBalance, 2),
+                            'debit_amount' => round($debitAmount, 2),
+                            'credit_amount' => round($creditAmount, 2),
+                            'net_amount' => round($netAmount, 2),
+                            'running_balance' => round($runningBalance, 2),
                             'balance_type' => $runningBalance >= 0 ? 'Debit' : 'Credit',
                             'source_type' => $entry->source_type,
                             'source_id' => $entry->source_id,
@@ -1332,12 +1332,12 @@ class ReportController extends Controller
                         'to_date' => $toDate,
                     ],
                     'summary' => [
-                        'opening_balance' => number_format($openingBalance, 2),
+                        'opening_balance' => round($openingBalance, 2),
                         'opening_balance_type' => $openingBalance >= 0 ? 'Debit' : 'Credit',
-                        'period_debits' => number_format($periodDebits, 2),
-                        'period_credits' => number_format($periodCredits, 2),
-                        'period_net' => number_format($periodNet, 2),
-                        'closing_balance' => number_format($closingBalance, 2),
+                        'period_debits' => round($periodDebits, 2),
+                        'period_credits' => round($periodCredits, 2),
+                        'period_net' => round($periodNet, 2),
+                        'closing_balance' => round($closingBalance, 2),
                         'closing_balance_type' => $closingBalance >= 0 ? 'Debit' : 'Credit',
                     ],
                     'entries' => $processedEntries,
@@ -1370,6 +1370,8 @@ class ReportController extends Controller
                 'accounting_period_id' => 'nullable|exists:accounting_periods,id',
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
+                'page' => 'nullable|integer|min:1',
+                'per_page' => 'nullable|integer|min:1|max:100',
             ]);
 
             $chartOfAccountIds = $request->chart_of_account_ids;
@@ -1377,6 +1379,8 @@ class ReportController extends Controller
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
+            $page = $request->page ?? 1;
+            $perPage = $request->per_page ?? 10; // Default to 10 rows per chunk
 
             // Get chart of accounts details
             $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
@@ -1405,13 +1409,18 @@ class ReportController extends Controller
                 $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
             }
 
-            // Get journal entries
+            // Get total count for pagination
+            $totalCount = $dateQuery->count();
+            
+            // Get journal entries with pagination
             $journalEntries = $dateQuery
                 ->with(['lines' => function($query) use ($chartOfAccountIds) {
                     $query->whereIn('chart_of_account_id', $chartOfAccountIds);
                 }])
                 ->orderBy('entry_date', 'desc')
                 ->orderBy('id', 'desc')
+                ->skip(($page - 1) * $perPage)
+                ->take($perPage)
                 ->get();
 
             // Calculate opening balance (balance before the date range)
@@ -1476,10 +1485,10 @@ class ReportController extends Controller
                     'entry_number' => $entry->entry_number,
                     'reference' => $entry->reference,
                     'description' => $entry->description,
-                    'debit_amount' => number_format($totalDebit, 2),
-                    'credit_amount' => number_format($totalCredit, 2),
-                    'net_amount' => $netAmount >= 0 ? '+' . number_format($netAmount, 2) : number_format($netAmount, 2),
-                    'running_balance' => number_format($runningBalance, 2),
+                    'debit_amount' => round($totalDebit, 2),
+                    'credit_amount' => round($totalCredit, 2),
+                    'net_amount' => round($netAmount, 2),
+                    'running_balance' => round($runningBalance, 2),
                     'balance_type' => $runningBalanceType,
                     'accounts' => $entryLines->map(function($line) {
                         return [
@@ -1510,12 +1519,12 @@ class ReportController extends Controller
             $closingBalance = abs($closingBalance);
 
             $summary = [
-                'opening_balance' => number_format($openingBalance, 2),
+                'opening_balance' => round($openingBalance, 2),
                 'opening_balance_type' => $openingBalanceType,
-                'period_debits' => number_format($periodDebits, 2),
-                'period_credits' => number_format($periodCredits, 2),
-                'period_net' => $periodNet >= 0 ? '+' . number_format($periodNet, 2) : number_format($periodNet, 2),
-                'closing_balance' => number_format($closingBalance, 2),
+                'period_debits' => round($periodDebits, 2),
+                'period_credits' => round($periodCredits, 2),
+                'period_net' => round($periodNet, 2),
+                'closing_balance' => round($closingBalance, 2),
                 'closing_balance_type' => $closingBalanceType,
                 'total_entries' => count($processedEntries),
             ];
@@ -1539,6 +1548,13 @@ class ReportController extends Controller
                     ],
                     'entries' => $processedEntries,
                     'summary' => $summary,
+                    'pagination' => [
+                        'current_page' => $page,
+                        'per_page' => $perPage,
+                        'total_count' => $totalCount,
+                        'total_pages' => ceil($totalCount / $perPage),
+                        'has_more' => $page < ceil($totalCount / $perPage),
+                    ],
                 ]
             ];
 
@@ -1674,15 +1690,15 @@ class ReportController extends Controller
                     ],
                     'summary' => [
                         'total_invoices' => $totalInvoices,
-                        'total_amount' => number_format($totalAmount, 2),
-                        'total_paid' => number_format($totalPaid, 2),
-                        'total_due' => number_format($totalDue, 2),
-                        'total_discount' => number_format($totalDiscount, 2),
-                        'total_tax' => number_format($totalTax, 2),
+                        'total_amount' => round($totalAmount, 2),
+                        'total_paid' => round($totalPaid, 2),
+                        'total_due' => round($totalDue, 2),
+                        'total_discount' => round($totalDiscount, 2),
+                        'total_tax' => round($totalTax, 2),
                         'total_returns' => $totalReturns,
-                        'total_return_amount' => number_format($totalReturnAmount, 2),
-                        'net_sales' => number_format($netSales, 2),
-                        'payment_percentage' => $totalAmount > 0 ? number_format(($totalPaid / $totalAmount) * 100, 2) : 0,
+                        'total_return_amount' => round($totalReturnAmount, 2),
+                        'net_sales' => round($netSales, 2),
+                        'payment_percentage' => $totalAmount > 0 ? round(($totalPaid / $totalAmount) * 100, 2) : 0,
                     ],
                     'client_summary' => $clientSummary,
                     'monthly_summary' => $monthlySummary,
@@ -1822,15 +1838,15 @@ class ReportController extends Controller
                     ],
                     'summary' => [
                         'total_purchases' => $totalPurchases,
-                        'total_amount' => number_format($totalAmount, 2),
-                        'total_paid' => number_format($totalPaid, 2),
-                        'total_due' => number_format($totalDue, 2),
-                        'total_discount' => number_format($totalDiscount, 2),
-                        'total_tax' => number_format($totalTax, 2),
+                        'total_amount' => round($totalAmount, 2),
+                        'total_paid' => round($totalPaid, 2),
+                        'total_due' => round($totalDue, 2),
+                        'total_discount' => round($totalDiscount, 2),
+                        'total_tax' => round($totalTax, 2),
                         'total_returns' => $totalReturns,
-                        'total_return_amount' => number_format($totalReturnAmount, 2),
-                        'net_purchases' => number_format($netPurchases, 2),
-                        'payment_percentage' => $totalAmount > 0 ? number_format(($totalPaid / $totalAmount) * 100, 2) : 0,
+                        'total_return_amount' => round($totalReturnAmount, 2),
+                        'net_purchases' => round($netPurchases, 2),
+                        'payment_percentage' => $totalAmount > 0 ? round(($totalPaid / $totalAmount) * 100, 2) : 0,
                     ],
                     'supplier_summary' => $supplierSummary,
                     'monthly_summary' => $monthlySummary,
@@ -1872,7 +1888,7 @@ class ReportController extends Controller
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
             $page = (int) ($request->page ?? 1);
-            $perPage = (int) ($request->per_page ?? 20); // Default to 20 accounts per chunk
+            $perPage = (int) ($request->per_page ?? ($page === 1 ? 999999 : 30)); // Page 1 loads all, others use chunks
 
             // Create filter object for consistency
             $filters = [
@@ -1882,59 +1898,48 @@ class ReportController extends Controller
                 'to_date' => $toDate,
             ];
 
-            // Get chart of accounts with hierarchical structure
-            $query = \App\Models\ChartOfAccount::with(['type', 'children' => function($query) {
-                $query->with(['type', 'children' => function($query) {
-                    $query->with(['type', 'children' => function($query) {
-                        $query->with('type');
-                    }]);
-                }]);
-            }])
+            // Load ALL chart of accounts first (much faster) - load complete hierarchy
+            $allAccountsQuery = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())
             ->where('is_active', true)
             ->whereNull('parent_id'); // Only get root level accounts
 
             // If specific account is selected, get that account and its children
             if ($subChartOfAccountId) {
-                $selectedAccount = \App\Models\ChartOfAccount::with(['type', 'children' => function($query) {
-                    $query->with(['type', 'children' => function($query) {
-                        $query->with(['type', 'children' => function($query) {
-                            $query->with('type');
-                        }]);
-                    }]);
-                }])->findOrFail($subChartOfAccountId);
+                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($subChartOfAccountId);
                 
-                $accounts = collect([$selectedAccount]);
+                $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } elseif ($chartOfAccountId) {
-                $selectedAccount = \App\Models\ChartOfAccount::with(['type', 'children' => function($query) {
-                    $query->with(['type', 'children' => function($query) {
-                        $query->with(['type', 'children' => function($query) {
-                            $query->with('type');
-                        }]);
-                    }]);
-                }])->findOrFail($chartOfAccountId);
+                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($chartOfAccountId);
                 
-                $accounts = collect([$selectedAccount]);
+                $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } else {
-                // Get total count for pagination
-                $totalCount = $query->count();
-                
-                // Get paginated accounts
-                $accounts = $query->orderBy('code')
-                    ->skip(($page - 1) * $perPage)
-                    ->take($perPage)
-                    ->get();
+                // Load ALL accounts at once (much faster than pagination)
+                $allAccounts = $allAccountsQuery->orderBy('code')->get();
+                $totalCount = $allAccounts->count();
             }
 
-            // Build hierarchical trial balance data
-            $trialBalanceData = $this->buildTrialBalanceHierarchy($accounts, $filters);
+            // Always return ALL accounts with zero balances (no pagination)
+            $trialBalanceData = $this->buildTrialBalanceHierarchyWithZeroBalances($allAccounts);
+            $totalCount = count($trialBalanceData);
 
-            // Calculate grand totals (only for first page or when no pagination)
-            $grandTotals = null;
-            if ($page === 1 || $totalCount <= $perPage) {
-                $grandTotals = $this->calculateGrandTotals($trialBalanceData);
-            }
+            // Since all accounts have zero balances, grand totals should also be zero
+            $grandTotals = [
+                'total_debits' => 0,
+                'total_credits' => 0,
+                'opening_debit' => 0,
+                'opening_credit' => 0,
+                'movement_debit' => 0,
+                'movement_credit' => 0,
+                'net_movement_debit' => 0,
+                'net_movement_credit' => 0,
+                'closing_debit' => 0,
+                'closing_credit' => 0,
+                'difference' => 0
+            ];
+
+            \Log::info("Trial Balance - All accounts loaded: {$totalCount} accounts with zero balances");
 
             return [
                 'success' => true,
@@ -1942,13 +1947,7 @@ class ReportController extends Controller
                     'filters' => $filters,
                     'trial_balance' => $trialBalanceData,
                     'grand_totals' => $grandTotals,
-                    'pagination' => [
-                        'current_page' => $page,
-                        'per_page' => $perPage,
-                        'total_count' => $totalCount,
-                        'total_pages' => ceil($totalCount / $perPage),
-                        'has_more' => $page < ceil($totalCount / $perPage),
-                    ],
+                    'total_count' => $totalCount,
                 ]
             ];
 
@@ -1962,15 +1961,264 @@ class ReportController extends Controller
     }
 
     /**
-     * Build hierarchical trial balance data
+     * Calculate balance for a single account
      */
-    private function buildTrialBalanceHierarchy($accounts, $filters, $level = 0)
+    public function calculateAccountBalances(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'account_id' => 'required|exists:chart_of_accounts,id',
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+
+            $accountId = $request->account_id;
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Create filter object for consistency
+            $filters = [
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate,
+            ];
+
+            // Get the specific account
+            $account = \App\Models\ChartOfAccount::with(['type'])
+                ->where('id', $accountId)
+                ->where('is_active', true)
+                ->first();
+
+            if (!$account) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Account not found'
+                ], 404);
+            }
+
+            // Calculate balance for this single account using the original method
+            $balanceDetails = $this->calculateAccountBalanceDetailsOriginal($account, $filters);
+            \Log::info("CalculateAccountBalance - Account {$accountId} ({$account->name}) - Filters: " . json_encode($filters));
+            \Log::info("CalculateAccountBalance - Calculated balance for account {$accountId}: " . json_encode($balanceDetails));
+
+            // Return the account with calculated balance
+            $accountWithBalance = [
+                'id' => $account->id,
+                'name' => $account->name,
+                'code' => $account->code,
+                'type' => $account->type,
+                'opening_debit' => $balanceDetails['opening_debit'],
+                'opening_credit' => $balanceDetails['opening_credit'],
+                'movement_debit' => $balanceDetails['movement_debit'],
+                'movement_credit' => $balanceDetails['movement_credit'],
+                'net_movement_debit' => $balanceDetails['net_movement_debit'],
+                'net_movement_credit' => $balanceDetails['net_movement_credit'],
+                'closing_debit' => $balanceDetails['closing_debit'],
+                'closing_credit' => $balanceDetails['closing_credit'],
+                'isCalculating' => false
+            ];
+
+            return [
+                'success' => true,
+                'data' => [
+                    'account' => $accountWithBalance
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to calculate account balance',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Pre-load all journal entry data for efficient calculation
+     */
+    private function preloadJournalEntryData($filters)
+    {
+        // Build base query for journal entries
+        $baseQuery = \App\Models\JournalEntry::query()
+            ->where('status', 'posted')
+            ->with(['lines' => function($query) {
+                $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'debit_amount', 'credit_amount');
+            }])
+            ->select('id', 'entry_date', 'fiscal_year_id', 'accounting_period_id');
+
+        // Apply filters
+        if ($filters['fiscal_year_id']) {
+            $baseQuery->where('fiscal_year_id', $filters['fiscal_year_id']);
+        } elseif ($filters['accounting_period_id']) {
+            $baseQuery->where('accounting_period_id', $filters['accounting_period_id']);
+        } elseif ($filters['from_date'] && $filters['to_date']) {
+            $baseQuery->whereBetween('entry_date', [$filters['from_date'], $filters['to_date']]);
+        }
+
+        // Get all journal entries
+        $allEntries = $baseQuery->get();
+        \Log::info("PreloadJournalEntryData - Found " . $allEntries->count() . " journal entries");
+        
+        // Group by account ID for fast lookup
+        $accountBalances = [];
+        
+        foreach ($allEntries as $entry) {
+            foreach ($entry->lines as $line) {
+                $accountId = $line->chart_of_account_id;
+                
+                if (!isset($accountBalances[$accountId])) {
+                    $accountBalances[$accountId] = [
+                        'opening_debit' => 0,
+                        'opening_credit' => 0,
+                        'movement_debit' => 0,
+                        'movement_credit' => 0,
+                    ];
+                }
+                
+                // Determine if this is opening balance or movement
+                $isOpening = false;
+                if ($filters['fiscal_year_id']) {
+                    $fiscalYear = \App\Models\FiscalYear::find($filters['fiscal_year_id']);
+                    $isOpening = $fiscalYear && $entry->entry_date < $fiscalYear->start_date;
+                } elseif ($filters['accounting_period_id']) {
+                    $accountingPeriod = \App\Models\AccountingPeriod::find($filters['accounting_period_id']);
+                    $isOpening = $accountingPeriod && $entry->entry_date < $accountingPeriod->start_date;
+                } elseif ($filters['from_date']) {
+                    $isOpening = $entry->entry_date < $filters['from_date'];
+                } else {
+                    $isOpening = $entry->entry_date < now()->startOfYear();
+                }
+                
+                if ($isOpening) {
+                    $accountBalances[$accountId]['opening_debit'] += $line->debit_amount;
+                    $accountBalances[$accountId]['opening_credit'] += $line->credit_amount;
+                } else {
+                    $accountBalances[$accountId]['movement_debit'] += $line->debit_amount;
+                    $accountBalances[$accountId]['movement_credit'] += $line->credit_amount;
+                }
+            }
+        }
+        
+        \Log::info("PreloadJournalEntryData - Processed balances for " . count($accountBalances) . " accounts");
+        return $accountBalances;
+    }
+
+    /**
+     * Build hierarchical trial balance data with zero balances (for immediate display)
+     */
+    private function buildTrialBalanceHierarchyWithZeroBalances($accounts, $level = 0)
     {
         $result = [];
 
         foreach ($accounts as $account) {
-            // Calculate detailed balance information
-            $balanceData = $this->calculateAccountBalanceDetails($account, $filters);
+            // Get children accounts
+            $children = $account->children()->where('is_active', true)->orderBy('code')->get();
+            $childrenData = [];
+
+            if ($children->count() > 0) {
+                $childrenData = $this->buildTrialBalanceHierarchyWithZeroBalances($children, $level + 1);
+            }
+
+            $accountData = [
+                'id' => $account->id,
+                'code' => $account->code,
+                'name' => $account->name,
+                'type' => $account->type ? $account->type->name : 'Unknown',
+                'level' => $level,
+                'is_parent' => $children->count() > 0,
+                
+                // All zero balances for immediate display
+                'opening_debit' => 0,
+                'opening_credit' => 0,
+                'movement_debit' => 0,
+                'movement_credit' => 0,
+                'net_movement_debit' => 0,
+                'net_movement_credit' => 0,
+                'closing_debit' => 0,
+                'closing_credit' => 0,
+                
+                // Children totals (also zero)
+                'children_opening_debit' => 0,
+                'children_opening_credit' => 0,
+                'children_movement_debit' => 0,
+                'children_movement_credit' => 0,
+                'children_net_movement_debit' => 0,
+                'children_net_movement_credit' => 0,
+                'children_closing_debit' => 0,
+                'children_closing_credit' => 0,
+                
+                // Total amounts (also zero)
+                'total_opening_debit' => 0,
+                'total_opening_credit' => 0,
+                'total_movement_debit' => 0,
+                'total_movement_credit' => 0,
+                'total_net_movement_debit' => 0,
+                'total_net_movement_credit' => 0,
+                'total_closing_debit' => 0,
+                'total_closing_credit' => 0,
+                
+                'children' => $childrenData,
+            ];
+
+            $result[] = $accountData;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get complete hierarchy eager load for chart of accounts
+     * This ensures we load all levels of the hierarchy
+     */
+    private function getCompleteHierarchyEagerLoad($depth = 10)
+    {
+        $eagerLoad = ['type'];
+        
+        $currentLevel = 'children';
+        for ($i = 0; $i < $depth; $i++) {
+            $eagerLoad[$currentLevel] = function($query) use ($i, $depth) {
+                $query->with('type');
+                if ($i < $depth - 1) {
+                    $query->with('children');
+                }
+            };
+            $currentLevel .= '.children';
+        }
+        
+        return $eagerLoad;
+    }
+
+    /**
+     * Get all descendant account IDs from a parent account
+     */
+    private function getAllDescendants($account, $descendants = [])
+    {
+        if ($account->children && $account->children->count() > 0) {
+            foreach ($account->children as $child) {
+                $descendants[] = $child->id;
+                $descendants = $this->getAllDescendants($child, $descendants);
+            }
+        }
+        return $descendants;
+    }
+
+    /**
+     * Build hierarchical trial balance data
+     */
+    private function buildTrialBalanceHierarchy($accounts, $filters, $journalEntryData = null, $level = 0)
+    {
+        $result = [];
+
+        foreach ($accounts as $account) {
+            // Calculate detailed balance information using pre-loaded data
+            $balanceData = $this->calculateAccountBalanceDetails($account, $filters, $journalEntryData);
 
             // Get children accounts
             $children = $account->children()->where('is_active', true)->orderBy('code')->get();
@@ -2065,7 +2313,7 @@ class ReportController extends Controller
      * Calculate detailed account balance information
      * Only calculate balances for leaf accounts (accounts without children)
      */
-    private function calculateAccountBalanceDetails($account, $filters)
+    private function calculateAccountBalanceDetails($account, $filters, $journalEntryData = null)
     {
         // Check if this account has children
         $hasChildren = $account->children()->where('is_active', true)->exists();
@@ -2084,6 +2332,45 @@ class ReportController extends Controller
             ];
         }
 
+        // Use pre-loaded data if available (much faster)
+        if ($journalEntryData && isset($journalEntryData[$account->id])) {
+            $data = $journalEntryData[$account->id];
+            
+            $openingBalance = $data['opening_debit'] - $data['opening_credit'];
+            $openingDebit = max($openingBalance, 0);
+            $openingCredit = $openingBalance < 0 ? abs($openingBalance) : 0;
+            
+            $movementDebits = $data['movement_debit'];
+            $movementCredits = $data['movement_credit'];
+            $netMovement = $movementDebits - $movementCredits;
+            $netMovementDebit = max($netMovement, 0);
+            $netMovementCredit = $netMovement < 0 ? abs($netMovement) : 0;
+            
+            $closingBalance = $openingBalance + $netMovement;
+            $closingDebit = max($closingBalance, 0);
+            $closingCredit = $closingBalance < 0 ? abs($closingBalance) : 0;
+        } else {
+            // Fallback to original method if pre-loaded data not available
+            return $this->calculateAccountBalanceDetailsOriginal($account, $filters);
+        }
+
+        return [
+            'opening_debit' => $openingDebit,
+            'opening_credit' => $openingCredit,
+            'movement_debit' => $movementDebits,
+            'movement_credit' => $movementCredits,
+            'net_movement_debit' => $netMovementDebit,
+            'net_movement_credit' => $netMovementCredit,
+            'closing_debit' => $closingDebit,
+            'closing_credit' => $closingCredit,
+        ];
+    }
+
+    /**
+     * Original calculateAccountBalanceDetails method (fallback)
+     */
+    private function calculateAccountBalanceDetailsOriginal($account, $filters)
+    {
         // Build base query for journal entries
         $baseQuery = \App\Models\JournalEntry::query()
             ->where('status', 'posted')
@@ -2106,37 +2393,47 @@ class ReportController extends Controller
         if ($filters['fiscal_year_id']) {
             $fiscalYear = \App\Models\FiscalYear::findOrFail($filters['fiscal_year_id']);
             $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
+            \Log::info("CalculateAccountBalance - Using fiscal year: {$fiscalYear->name} (start: {$fiscalYear->start_date})");
         } elseif ($filters['accounting_period_id']) {
             $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($filters['accounting_period_id']);
             $openingBalanceQuery->where('entry_date', '<', $accountingPeriod->start_date);
+            \Log::info("CalculateAccountBalance - Using accounting period: {$accountingPeriod->name} (start: {$accountingPeriod->start_date})");
         } elseif ($filters['from_date']) {
             $openingBalanceQuery->where('entry_date', '<', $filters['from_date']);
+            \Log::info("CalculateAccountBalance - Using from_date: {$filters['from_date']}");
         } else {
             // Default to current year
             $openingBalanceQuery->where('entry_date', '<', now()->startOfYear());
+            \Log::info("CalculateAccountBalance - Using default current year: " . now()->startOfYear());
         }
 
-        $openingDebits = $openingBalanceQuery->get()->sum(function($entry) use ($account) {
-            return $entry->lines->where('chart_of_account_id', $account->id)->sum('debit_amount');
-        });
-
-        $openingCredits = $openingBalanceQuery->get()->sum(function($entry) use ($account) {
-            return $entry->lines->where('chart_of_account_id', $account->id)->sum('credit_amount');
-        });
+        // Use efficient database aggregation instead of loading all entries
+        $openingTotals = $openingBalanceQuery
+            ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+            ->where('journal_entry_lines.chart_of_account_id', $account->id)
+            ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+            ->first();
+        
+        $openingDebits = $openingTotals->total_debits ?? 0;
+        $openingCredits = $openingTotals->total_credits ?? 0;
+        
+        \Log::info("CalculateAccountBalance - Opening balance for account {$account->id}: debits={$openingDebits}, credits={$openingCredits}");
 
         $openingBalance = $openingDebits - $openingCredits;
         $openingDebit = max($openingBalance, 0);
         $openingCredit = $openingBalance < 0 ? abs($openingBalance) : 0;
 
-        // Calculate movements (within the current period)
-        $movementQuery = clone $baseQuery;
-        $movementDebits = $movementQuery->get()->sum(function($entry) use ($account) {
-            return $entry->lines->where('chart_of_account_id', $account->id)->sum('debit_amount');
-        });
-
-        $movementCredits = $movementQuery->get()->sum(function($entry) use ($account) {
-            return $entry->lines->where('chart_of_account_id', $account->id)->sum('credit_amount');
-        });
+        // Calculate movements (within the current period) using efficient database aggregation
+        $movementTotals = $baseQuery
+            ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+            ->where('journal_entry_lines.chart_of_account_id', $account->id)
+            ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+            ->first();
+        
+        $movementDebits = $movementTotals->total_debits ?? 0;
+        $movementCredits = $movementTotals->total_credits ?? 0;
+        
+        \Log::info("CalculateAccountBalance - Movement balance for account {$account->id}: debits={$movementDebits}, credits={$movementCredits}");
 
         $netMovement = $movementDebits - $movementCredits;
         $netMovementDebit = max($netMovement, 0);

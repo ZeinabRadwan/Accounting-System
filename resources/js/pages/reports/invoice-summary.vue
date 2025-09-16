@@ -246,11 +246,11 @@
                     <td>{{ client.client_name }}</td>
                     <td>{{ client.client_phone || '-' }}</td>
                     <td class="text-center">{{ client.invoice_count }}</td>
-                    <td class="text-right">{{ numberFormat(client.total_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(client.paid_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(client.due_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(client.discount_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(client.tax_amount) }}</td>
+                    <td class="text-right">{{ client.total_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ client.paid_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ client.due_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ client.discount_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ client.tax_amount | withAbsoluteCurrency }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -282,9 +282,9 @@
                   <tr v-else v-for="month in reportData.monthly_summary" :key="month.month">
                     <td>{{ month.month_name }}</td>
                     <td class="text-center">{{ month.invoice_count }}</td>
-                    <td class="text-right">{{ numberFormat(month.total_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(month.paid_amount) }}</td>
-                    <td class="text-right">{{ numberFormat(month.due_amount) }}</td>
+                    <td class="text-right">{{ month.total_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ month.paid_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ month.due_amount | withAbsoluteCurrency }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -313,8 +313,8 @@
                     <td>{{ returnData.invoice.invoice_no }}</td>
                     <td>{{ returnData.invoice.client?.name || '-' }}</td>
                     <td>{{ formatDate(returnData.invoice.invoice_date) }}</td>
-                    <td class="text-right">{{ numberFormat(returnData.invoice.sub_total) }}</td>
-                    <td class="text-right text-danger">{{ numberFormat(returnData.return_amount) }}</td>
+                    <td class="text-right">{{ returnData.invoice.sub_total | withAbsoluteCurrency }}</td>
+                    <td class="text-right text-danger">{{ returnData.return_amount | withAbsoluteCurrency }}</td>
                     <td class="text-center">{{ returnData.returns.length }}</td>
                   </tr>
                 </tbody>
@@ -380,6 +380,18 @@ export default {
     }),
   },
   
+  watch: {
+    'filters.fiscalYear'(newValue) {
+      if (newValue) {
+        this.loadAccountingPeriods();
+        this.filters.accountingPeriod = null; // Reset accounting period when fiscal year changes
+      } else {
+        this.accountingPeriods = [];
+        this.filters.accountingPeriod = null;
+      }
+    },
+  },
+  
   mounted() {
     this.loadInitialData();
   },
@@ -408,9 +420,12 @@ export default {
     async loadAccountingPeriods(search = '') {
       this.loadingAccountingPeriods = true;
       try {
-        const response = await axios.get('/api/accounting-periods/search', {
-          params: { search, perPage: 100 }
-        });
+        const params = { search, perPage: 100 };
+        if (this.filters.fiscalYear) {
+          params.fiscal_year_id = this.filters.fiscalYear;
+        }
+        
+        const response = await axios.get('/api/accounting-periods/search', { params });
         this.accountingPeriods = response.data.data || response.data;
       } catch (error) {
         this.$toast.error('', this.$t('Failed to load accounting periods'));
@@ -462,9 +477,6 @@ export default {
       }
     },
 
-    numberFormat(value) {
-      return parseFloat(value).toFixed(2);
-    },
 
     formatDate(dateString) {
       if (!dateString) return '-';

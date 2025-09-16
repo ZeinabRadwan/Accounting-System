@@ -139,11 +139,10 @@
         <!-- /.row -->
 
         <!-- Date Range Info -->
-        <div class="row mt-3" v-if="balanceData && balanceData.date_range">
+        <div class="row mt-3" v-if="balanceData && balanceData.filters">
           <div class="col-12 text-center">
             <h6 class="text-muted">
-              {{ $t("Period") }}: {{ balanceData.date_range.name }}
-              ({{ formatDate(balanceData.date_range.start_date) }} - {{ formatDate(balanceData.date_range.end_date) }})
+              {{ $t("Period") }}: {{ dateRangeDisplayName }}
             </h6>
           </div>
         </div>
@@ -332,6 +331,30 @@ export default {
     } catch (error) {
       console.error("Error in created():", error);
     }
+  },
+
+  computed: {
+    dateRangeDisplayName() {
+      if (!this.balanceData || !this.balanceData.filters) {
+        return this.$t('All Data');
+      }
+      
+      const filters = this.balanceData.filters;
+      
+      if (filters.fiscal_year_id) {
+        // Find the fiscal year name from the loaded fiscal years
+        const fiscalYear = this.fiscalYears.find(fy => fy.id === filters.fiscal_year_id);
+        return fiscalYear ? fiscalYear.name : this.$t('Fiscal Year');
+      } else if (filters.accounting_period_id) {
+        // Find the accounting period name from the loaded periods
+        const accountingPeriod = this.accountingPeriods.find(ap => ap.id === filters.accounting_period_id);
+        return accountingPeriod ? accountingPeriod.name : this.$t('Accounting Period');
+      } else if (filters.from_date && filters.to_date) {
+        return `${filters.from_date} - ${filters.to_date}`;
+      } else {
+        return this.$t('All Data');
+      }
+    },
   },
 
   methods: {

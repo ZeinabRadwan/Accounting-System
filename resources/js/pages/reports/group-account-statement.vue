@@ -181,7 +181,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">{{ $t('Opening Balance') }}</span>
                 <span class="info-box-number">
-                  {{ reportData.summary.opening_balance }}
+                  {{ reportData.summary.opening_balance | withAbsoluteCurrency }}
                   <small class="text-muted">({{ reportData.summary.opening_balance_type }})</small>
                 </span>
               </div>
@@ -194,7 +194,7 @@
               </span>
               <div class="info-box-content">
                 <span class="info-box-text">{{ $t('Period Debits') }}</span>
-                <span class="info-box-number">{{ reportData.summary.period_debits }}</span>
+                <span class="info-box-number">{{ reportData.summary.period_debits | withAbsoluteCurrency }}</span>
               </div>
             </div>
           </div>
@@ -205,7 +205,7 @@
               </span>
               <div class="info-box-content">
                 <span class="info-box-text">{{ $t('Period Credits') }}</span>
-                <span class="info-box-number">{{ reportData.summary.period_credits }}</span>
+                <span class="info-box-number">{{ reportData.summary.period_credits | withAbsoluteCurrency }}</span>
               </div>
             </div>
           </div>
@@ -217,7 +217,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">{{ $t('Closing Balance') }}</span>
                 <span class="info-box-number">
-                  {{ reportData.summary.closing_balance }}
+                  {{ reportData.summary.closing_balance | withAbsoluteCurrency }}
                   <small class="text-muted">({{ reportData.summary.closing_balance_type }})</small>
                 </span>
               </div>
@@ -294,16 +294,16 @@
                     </div>
                     <span v-else class="text-muted">-</span>
                   </td>
-                  <td class="text-right">{{ entry.debit_amount }}</td>
-                  <td class="text-right">{{ entry.credit_amount }}</td>
+                  <td class="text-right">{{ entry.debit_amount | withAbsoluteCurrency }}</td>
+                  <td class="text-right">{{ entry.credit_amount | withAbsoluteCurrency }}</td>
                   <td class="text-right">
-                    <span :class="entry.net_amount.startsWith('+') ? 'text-success' : 'text-danger'">
-                      {{ entry.net_amount }}
+                    <span :class="entry.net_amount >= 0 ? 'text-success' : 'text-danger'">
+                      {{ entry.net_amount | withAbsoluteCurrency }}
                     </span>
                   </td>
                   <td class="text-right">
                     <span :class="entry.balance_type === 'Debit' ? 'text-success' : 'text-danger'">
-                      {{ entry.running_balance }}
+                      {{ entry.running_balance | withAbsoluteCurrency }}
                     </span>
                   </td>
                   <td class="text-center">
@@ -318,6 +318,7 @@
               </template>
             </tbody>
           </table>
+          
         </div>
       </div>
     </div>
@@ -375,6 +376,14 @@ export default {
       subChartOfAccounts: [],
       fiscalYears: [],
       accountingPeriods: [],
+      
+      // Chunked loading
+      currentChunk: 1,
+      chunkSize: 10,
+      hasMoreData: true,
+      loadingMore: false,
+      retryCount: 0,
+      maxRetries: 3,
     };
   },
   
@@ -386,6 +395,10 @@ export default {
     selectedAccountsText() {
       if (!this.reportData || !this.reportData.chart_of_accounts) return '';
       return this.reportData.chart_of_accounts.map(acc => `${acc.code} - ${acc.name}`).join(', ');
+    },
+    
+    entriesCount() {
+      return this.reportData && this.reportData.entries ? this.reportData.entries.length : 0;
     }
   },
   
@@ -541,37 +554,16 @@ export default {
       this.loading = true;
       this.errors = {};
       this.reportData = null;
+      this.currentChunk = 1;
+      this.hasMoreData = true;
+      this.loadingMore = false;
 
       try {
-        // Determine which accounts to use for reporting
-        let reportAccountIds = this.filters.chartOfAccounts;
-        if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
-          // If sub accounts are selected, use only the sub accounts
-          reportAccountIds = this.filters.subChartOfAccounts;
-        }
-
-        const params = {
-          chart_of_account_ids: reportAccountIds,
-        };
-
-        if (this.filters.fiscalYear) {
-          params.fiscal_year_id = this.filters.fiscalYear;
-        } else if (this.filters.accountingPeriod) {
-          params.accounting_period_id = this.filters.accountingPeriod;
-        } else if (this.filters.fromDate && this.filters.toDate) {
-          params.from_date = this.filters.fromDate;
-          params.to_date = this.filters.toDate;
-        }
-
-        const response = await axios.get('/api/reports/group-account-statement', { params });
-        
-        if (response.data.success) {
-          this.reportData = response.data.data;
-          this.$toast.success('', this.$t('Report generated successfully'));
-        } else {
-          this.$toast.error('', response.data.message || this.$t('Failed to generate report'));
-        }
+        // Load first chunk
+        await this.loadNextChunk();
+        this.$toast.success('', this.$t('Report generated successfully'));
       } catch (error) {
+        console.error('Generate report error:', error);
         if (error.response && error.response.data && error.response.data.errors) {
           this.errors = error.response.data.errors;
         }
@@ -584,6 +576,108 @@ export default {
     numberFormat(value) {
       return parseFloat(value).toFixed(2);
     },
+
+    // Chunked loading methods
+    async loadNextChunk() {
+      if (this.loadingMore) return;
+      
+      this.loadingMore = true;
+      this.retryCount = 0;
+      
+      try {
+        await this.loadChunkWithRetry();
+      } catch (error) {
+        console.error('Load next chunk error:', error);
+        throw error;
+      } finally {
+        this.loadingMore = false;
+      }
+    },
+    
+    async loadChunkWithRetry() {
+      let lastError = null;
+      
+      for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
+        try {
+          console.log(`Loading chunk ${this.currentChunk}, attempt ${attempt}`);
+          
+          // Determine which accounts to use for reporting
+          let reportAccountIds = this.filters.chartOfAccounts;
+          if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
+            reportAccountIds = this.filters.subChartOfAccounts;
+          }
+
+          const params = {
+            chart_of_account_ids: reportAccountIds,
+            page: this.currentChunk,
+            per_page: this.chunkSize,
+          };
+
+          if (this.filters.fiscalYear) {
+            params.fiscal_year_id = this.filters.fiscalYear;
+          } else if (this.filters.accountingPeriod) {
+            params.accounting_period_id = this.filters.accountingPeriod;
+          } else if (this.filters.fromDate && this.filters.toDate) {
+            params.from_date = this.filters.fromDate;
+            params.to_date = this.filters.toDate;
+          }
+          
+          const response = await axios.get('/api/reports/group-account-statement', { params });
+          
+          if (response.data.success) {
+            const data = response.data.data;
+            
+            // Store summary and chart of account info on first chunk
+            if (this.currentChunk === 1) {
+              this.reportData = {
+                chart_of_accounts: data.chart_of_accounts,
+                filters: data.filters,
+                entries: [],
+                summary: data.summary,
+              };
+            }
+            
+            // Append new entries
+            if (data.entries && data.entries.length > 0) {
+              this.reportData.entries = [...this.reportData.entries, ...data.entries];
+            }
+            
+            // Check if there's more data
+            const pagination = data.pagination;
+            this.hasMoreData = pagination.has_more;
+            
+            if (this.hasMoreData) {
+              this.currentChunk++;
+              // Automatically load next chunk after a short delay
+              setTimeout(() => {
+                this.loadNextChunk();
+              }, 100);
+            }
+            
+            this.retryCount = 0;
+            return;
+            
+          } else if (response.data.error) {
+            throw new Error(response.data.message || this.$t('Failed to load chunk'));
+          } else {
+            throw new Error(this.$t('Failed to load chunk'));
+          }
+          
+        } catch (error) {
+          lastError = error;
+          console.error(`Chunk ${this.currentChunk} attempt ${attempt} failed:`, error);
+          
+          if (attempt < this.maxRetries) {
+            // Wait before retrying
+            await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          }
+        }
+      }
+      
+      // All retries failed
+      throw new Error(`Failed to load chunk ${this.currentChunk} after ${this.maxRetries} attempts: ${lastError?.message || 'Unknown error'}`);
+    },
+    
 
     formatDate(dateString) {
       if (!dateString) return '-';

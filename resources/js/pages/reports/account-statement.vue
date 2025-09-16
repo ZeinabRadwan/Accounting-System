@@ -179,7 +179,7 @@
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Opening Balance') }}</span>
                     <span class="info-box-number">
-                      {{ summary ? summary.opening_balance : '0.00' }} {{ summary ? summary.opening_balance_type : '' }}
+                      {{ summary ? summary.opening_balance : 0 | withAbsoluteCurrency }} {{ summary ? summary.opening_balance_type : '' }}
                     </span>
                   </div>
                 </div>
@@ -191,7 +191,7 @@
                   </span>
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Period Debits') }}</span>
-                    <span class="info-box-number">{{ summary ? summary.period_debits : '0.00' }}</span>
+                    <span class="info-box-number">{{ summary ? summary.period_debits : 0 | withAbsoluteCurrency }}</span>
                   </div>
                 </div>
               </div>
@@ -202,7 +202,7 @@
                   </span>
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Period Credits') }}</span>
-                    <span class="info-box-number">{{ summary ? summary.period_credits : '0.00' }}</span>
+                    <span class="info-box-number">{{ summary ? summary.period_credits : 0 | withAbsoluteCurrency }}</span>
                   </div>
                 </div>
               </div>
@@ -214,7 +214,7 @@
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Closing Balance') }}</span>
                     <span class="info-box-number">
-                      {{ summary ? summary.closing_balance : '0.00' }} {{ summary ? summary.closing_balance_type : '' }}
+                      {{ summary ? summary.closing_balance : 0 | withAbsoluteCurrency }} {{ summary ? summary.closing_balance_type : '' }}
                     </span>
                   </div>
                 </div>
@@ -254,16 +254,16 @@
                     <td>{{ entry.entry_number }}</td>
                     <td>{{ entry.reference || '-' }}</td>
                     <td>{{ entry.description || '-' }}</td>
-                    <td class="text-right">{{ entry.debit_amount }}</td>
-                    <td class="text-right">{{ entry.credit_amount }}</td>
+                    <td class="text-right">{{ entry.debit_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ entry.credit_amount | withAbsoluteCurrency }}</td>
                     <td class="text-right">
-                      <span :class="entry.net_amount.startsWith('-') ? 'text-danger' : 'text-success'">
-                        {{ entry.net_amount }}
+                      <span :class="entry.net_amount < 0 ? 'text-danger' : 'text-success'">
+                        {{ entry.net_amount | withAbsoluteCurrency }}
                       </span>
                     </td>
                     <td class="text-right">
                       <span :class="entry.balance_type === 'Debit' ? 'text-success' : 'text-danger'">
-                        {{ entry.running_balance }}
+                        {{ entry.running_balance | withAbsoluteCurrency }}
                       </span>
                     </td>
                     <td class="text-center">
@@ -291,13 +291,6 @@
             </div>
             
             <!-- Load More Button (if needed) -->
-            <div v-else-if="hasMoreData && entriesCount > 0" class="row mt-3">
-              <div class="col-12 text-center">
-                <button @click="loadMoreData" class="btn btn-primary" :disabled="loadingMore">
-                  <i class="fas fa-plus"></i> {{ $t('Load More Data') }}
-                </button>
-              </div>
-            </div>
             
             <!-- Data Summary -->
             <div v-if="entriesCount > 0" class="row mt-3">
@@ -664,12 +657,6 @@ export default {
       throw new Error(`Failed to load chunk ${this.currentChunk} after ${this.maxRetries} attempts: ${lastError?.message || 'Unknown error'}`);
     },
     
-    // Method to manually load more data if needed
-    async loadMoreData() {
-      if (this.hasMoreData && !this.loadingMore) {
-        await this.loadNextChunk();
-      }
-    },
     
     
     resetFilters() {
