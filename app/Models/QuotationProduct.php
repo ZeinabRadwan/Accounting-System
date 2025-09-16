@@ -34,4 +34,53 @@ class QuotationProduct extends Model
     {
         return $this->belongsTo(VatRate::class, 'vat_rate_id');
     }
+
+    /**
+     * Get total after discount attribute.
+     */
+    public function getTotalAfterDiscountAttribute()
+    {
+        $salePrice = $this->sale_price ?? 0;
+        $quantity = $this->quantity ?? 1;
+        $discountAmount = $this->discount_amount ?? 0;
+        
+        // Total After Discount = (sale_price * quantity) - discount_amount
+        return ($salePrice * $quantity) - $discountAmount;
+    }
+
+    /**
+     * Get unit tax attribute.
+     */
+    public function getUnitTaxAttribute()
+    {
+        $taxAmount = $this->tax_amount ?? 0;
+        $quantity = $this->quantity ?? 1;
+        
+        // Unit Tax = tax_amount / quantity
+        return $quantity > 0 ? $taxAmount / $quantity : 0;
+    }
+
+    /**
+     * Get unit cost attribute.
+     */
+    public function getUnitCostAttribute()
+    {
+        $totalAfterDiscount = $this->getTotalAfterDiscountAttribute();
+        $unitTax = $this->getUnitTaxAttribute();
+        
+        // Unit Cost = Total After Discount + Unit Tax
+        return $totalAfterDiscount + $unitTax;
+    }
+
+    /**
+     * Get subtotal attribute.
+     */
+    public function getSubtotalAttribute()
+    {
+        $unitCost = $this->getUnitCostAttribute();
+        $quantity = $this->quantity ?? 1;
+        
+        // Subtotal = Unit Cost * quantity
+        return $unitCost * $quantity;
+    }
 }
