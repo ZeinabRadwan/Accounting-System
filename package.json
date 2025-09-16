@@ -4,9 +4,11 @@
     "dev": "npx mix watch --hot",
     "watch": "npx mix watch",
     "build": "npx mix --production",
+    "prod": "npx mix --production",
     "eslint": "eslint --fix --ext .js,.vue resources/js"
   },
   "dependencies": {
+    "@abdulrysr/saudi-riyal-new-symbol-font": "^1.0.8",
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",

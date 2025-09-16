@@ -8,6 +8,82 @@ import { sync } from 'vuex-router-sync'
 Vue.use(Meta)
 Vue.use(Router)
 
+// RTL Management Functions
+function isRTLLocale(locale) {
+  const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+  return rtlLanguages.includes(locale.toLowerCase())
+}
+
+function forceRTLMode() {
+  // Get current locale from multiple sources
+  let currentLocale = 'en'
+  
+  // 1. Check store FIRST (most current state)
+  if (store && store.getters['lang/locale']) {
+    currentLocale = store.getters['lang/locale']
+    console.log('Router: Using locale from store:', currentLocale)
+  }
+  // 2. Check localStorage second
+  else if (localStorage.getItem('current_locale')) {
+    currentLocale = localStorage.getItem('current_locale')
+    console.log('Router: Using locale from localStorage:', currentLocale)
+  }
+  // 3. Check window.config
+  else if (window.config && window.config.locale) {
+    currentLocale = window.config.locale
+    console.log('Router: Using locale from window.config:', currentLocale)
+  }
+  // 4. Check document
+  else {
+    const docLang = document.documentElement.getAttribute('lang')
+    if (docLang) {
+      currentLocale = docLang
+      console.log('Router: Using locale from document:', currentLocale)
+    }
+  }
+  
+  // Apply RTL mode
+  const isRTL = isRTLLocale(currentLocale)
+  
+  console.log('Router: Force applying RTL mode - Locale:', currentLocale, 'RTL:', isRTL)
+  
+  // Update document attributes
+  document.documentElement.setAttribute('lang', currentLocale)
+  document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+  
+  // Update body attributes
+  if (document.body) {
+    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+    
+    // Update CSS classes
+    if (isRTL) {
+      document.body.classList.add('rtl')
+      document.body.classList.remove('ltr')
+    } else {
+      document.body.classList.add('ltr')
+      document.body.classList.remove('rtl')
+    }
+  }
+  
+  // Store in localStorage
+  localStorage.setItem('current_locale', currentLocale)
+  localStorage.setItem('rtl_mode', isRTL.toString())
+  
+  // Dispatch custom event
+  window.dispatchEvent(new CustomEvent('rtl-forced', {
+    detail: { locale: currentLocale, isRTL: isRTL }
+  }))
+  
+  // Force re-render of all Vue components
+  if (window.Vue && window.Vue.prototype.$root) {
+    try {
+      window.Vue.prototype.$root.$forceUpdate()
+    } catch (e) {
+      console.log('Router: Could not force update root component')
+    }
+  }
+}
+
 // The middleware for every page of the application.
 const globalMiddleware = ['locale', 'check-auth']
 
@@ -36,6 +112,13 @@ function createRouter () {
 
   router.beforeEach(beforeEach)
   router.afterEach(afterEach)
+  
+  // Add additional RTL guard that runs on every navigation
+  router.beforeResolve((to, from, next) => {
+    console.log('Router: beforeResolve - Force applying RTL mode')
+    forceRTLMode()
+    next()
+  })
 
   return router
 }
@@ -48,6 +131,9 @@ function createRouter () {
  * @param {Function} next
  */
 async function beforeEach (to, from, next) {
+  // FORCE RTL MODE BEFORE ANYTHING ELSE
+  forceRTLMode()
+  
   let components = []
 
   try {
@@ -96,6 +182,9 @@ async function afterEach (to, from, next) {
   await router.app.$nextTick()
 
   router.app.$loading.finish()
+  
+  // FORCE RTL MODE AFTER ROUTE CHANGE
+  forceRTLMode()
 }
 
 /**

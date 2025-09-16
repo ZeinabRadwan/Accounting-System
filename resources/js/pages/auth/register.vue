@@ -270,6 +270,15 @@
                                             {{ $t('resend_verification_link') }}
                                         </button>
                                     </p>
+                                    <div class="mt-3">
+                                        <router-link
+                                            :to="{ name: 'find-domain' }"
+                                            class="btn btn-outline-primary btn-sm"
+                                        >
+                                            <i class="fas fa-sign-in-alt mr-1"></i>
+                                            {{ $t('go_to_login') }}
+                                        </router-link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +335,7 @@ export default {
             // register the user.
             const { data } = await this.form.post('/api/register');
             if (data) {
-                this.verificationForm.email = data.data.email;
+                this.verificationForm.email = data.data.tenant.email;
             }
         },
         async resendVerification() {

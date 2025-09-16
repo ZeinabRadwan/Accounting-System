@@ -12,7 +12,17 @@ export default {
      * @returns {boolean} - True if should use SVG
      */
     isSvgCurrencySymbol(symbol, currencyCode) {
-      return ['SAR', 'RY'].includes(currencyCode) || (symbol && symbol.includes('.svg'));
+      return symbol && symbol.includes('.svg');
+    },
+    
+    /**
+     * Check if a currency symbol should use the Saudi Riyal font
+     * @param {string} symbol - Currency symbol
+     * @param {string} currencyCode - Currency code
+     * @returns {boolean} - True if should use Saudi Riyal font
+     */
+    isSaudiRiyalCurrency(symbol, currencyCode) {
+      return ['SAR', 'RY'].includes(currencyCode) && symbol && symbol.includes('ê');
     },
     
     /**
@@ -37,11 +47,23 @@ export default {
       const formattedAmount = Number(amount).toFixed(2).toLocaleString();
       const isSvg = this.isSvgCurrencySymbol(currency.symbol, currency.code);
       
+      // Check if we're in RTL mode
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+                   document.body.classList.contains('rtl');
+      
+      // RTL-aware position logic
+      let effectivePosition = currency.position;
+      if (isRTL) {
+        effectivePosition = currency.position === 'left' ? 'right' : 'left';
+      }
+      
       return {
         amount: formattedAmount,
         isSvg,
         symbol: currency.symbol,
         position: currency.position,
+        effectivePosition: effectivePosition,
+        isRTL: isRTL,
         displayText: formattedAmount,
         symbolPath: isSvg ? this.getSvgCurrencyPath(currency.symbol) : null
       };

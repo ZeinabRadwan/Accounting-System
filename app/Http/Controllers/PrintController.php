@@ -307,8 +307,8 @@ class PrintController extends Controller
                 }
             }
             
-            // Try default logo
-            $defaultLogoPath = public_path('images/logo.png');
+            // Try default logo fallback
+            $defaultLogoPath = public_path('images/white_logo.png');
             if (file_exists($defaultLogoPath)) {
                 $imageData = file_get_contents($defaultLogoPath);
                 $mimeType = mime_content_type($defaultLogoPath);

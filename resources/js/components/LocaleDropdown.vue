@@ -23,7 +23,6 @@ import { mapGetters } from 'vuex'
 import { loadMessages } from '~/plugins/i18n'
 import LangFlag from 'vue-lang-code-flags'
 import axios from 'axios'
-import rtlService from '~/services/RTLService'
 
 export default {
   computed: mapGetters({
@@ -42,6 +41,38 @@ export default {
   },
 
   methods: {
+    // Simple RTL utility function
+    applyRTLMode(locale) {
+      const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+      const isRTL = rtlLanguages.includes(locale.toLowerCase())
+      
+      // Update document attributes
+      document.documentElement.setAttribute('lang', locale)
+      document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+      document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+      
+      // Update CSS classes
+      if (isRTL) {
+        document.body.classList.add('rtl')
+        document.body.classList.remove('ltr')
+      } else {
+        document.body.classList.add('ltr')
+        document.body.classList.remove('rtl')
+      }
+      
+      // Store in localStorage
+      localStorage.setItem('current_locale', locale)
+      localStorage.setItem('rtl_mode', isRTL.toString())
+      
+      console.log('LocaleDropdown: Applied RTL mode - Locale:', locale, 'RTL:', isRTL)
+    },
+
+    // Check if a locale is RTL
+    isRTLLocale(locale) {
+      const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+      return rtlLanguages.includes(locale.toLowerCase())
+    },
+
     async setLocale(locale) {
       // Don't change if it's the same locale or if already loading
       if (this.$i18n.locale === locale || this.isLoading) {
@@ -71,18 +102,52 @@ export default {
           await loadMessages(locale)
           this.$store.dispatch('lang/setLocale', { locale })
           
-          // Set RTL mode based on the selected locale
-          rtlService.setRTLModeByLocale(locale)
+          // Apply RTL mode using multiple methods
+          this.applyRTLMode(locale)
+          
+          // Use global RTL manager if available
+          if (window.RTLManager) {
+            window.RTLManager.applyRTLMode(locale)
+          }
+          
+          // Force RTL mode multiple times to ensure it sticks
+          setTimeout(() => {
+            this.applyRTLMode(locale)
+          }, 100)
+          
+          setTimeout(() => {
+            this.applyRTLMode(locale)
+          }, 300)
+          
+          // Set a flag to prevent middleware from overriding
+          localStorage.setItem('locale_just_changed', 'true')
+          setTimeout(() => {
+            localStorage.removeItem('locale_just_changed')
+          }, 1000)
           
           // Show success message
           if (this.$toast) {
             this.$toast.success(this.$t('Locale changed successfully'))
           }
           
-          // Refresh the page to ensure all components update properly
-          // setTimeout(() => {
-          //   window.location.reload()
-          // }, 500)
+          // Force Vue to re-render all components with new locale
+          this.$forceUpdate()
+          
+          // Trigger a custom event for components to listen to
+          window.dispatchEvent(new CustomEvent('locale-changed', {
+            detail: { locale: locale, isRTL: this.isRTLLocale(locale) }
+          }))
+          
+          // Force re-render all components without page refresh
+          this.$nextTick(() => {
+            this.$forceUpdate()
+            // Force re-render of all child components
+            this.$children.forEach(child => {
+              if (child.$forceUpdate) {
+                child.$forceUpdate()
+              }
+            })
+          })
         } else {
           console.error('Failed to set locale:', response?.data?.error || 'Unknown error')
           if (this.$toast) {

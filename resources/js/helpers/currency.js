@@ -36,10 +36,24 @@ export function formatCurrencyWithSvg(amount, currency, options = {}) {
     };
   }
   
-  if (currency.position === 'left') {
-    displayText = isSvgSymbol ? formattedAmount : `${currency.symbol}${formattedAmount}`;
+  // Check if we're in RTL mode
+  const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+               document.body.classList.contains('rtl')
+  
+  if (isRTL) {
+    // In RTL mode, reverse the position logic
+    if (currency.position === 'right') {
+      displayText = isSvgSymbol ? formattedAmount : `${currency.symbol}${formattedAmount}`;
+    } else {
+      displayText = isSvgSymbol ? formattedAmount : `${formattedAmount}${currency.symbol}`;
+    }
   } else {
-    displayText = isSvgSymbol ? formattedAmount : `${formattedAmount}${currency.symbol}`;
+    // LTR mode - original logic
+    if (currency.position === 'left') {
+      displayText = isSvgSymbol ? formattedAmount : `${currency.symbol}${formattedAmount}`;
+    } else {
+      displayText = isSvgSymbol ? formattedAmount : `${formattedAmount}${currency.symbol}`;
+    }
   }
   
   return {
@@ -60,6 +74,17 @@ export function formatCurrencyWithSvg(amount, currency, options = {}) {
  * @returns {boolean} - True if should use SVG
  */
 export function shouldUseSvgSymbol(symbol, currencyCode) {
-  // Use SVG for SAR and RY currencies
-  return ['SAR', 'RY'].includes(currencyCode) || (symbol && symbol.includes('.svg'));
+  // Use SVG for currencies that have .svg in their symbol
+  return symbol && symbol.includes('.svg');
+}
+
+/**
+ * Check if a currency symbol should use the Saudi Riyal font
+ * @param {string} symbol - Currency symbol
+ * @param {string} currencyCode - Currency code
+ * @returns {boolean} - True if should use Saudi Riyal font
+ */
+export function shouldUseSaudiRiyalFont(symbol, currencyCode) {
+  // Use Saudi Riyal font for SAR and RY currencies with the new symbol
+  return ['SAR', 'RY'].includes(currencyCode) && symbol && symbol.includes('ê');
 }
