@@ -5,13 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@lang('PDF View')</title>
-    <!-- Google font -->
-    <link rel="preconnect" href="//fonts.googleapis.com">
-    <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: "Noto Sans Bengali", "Kumbh Sans", sans-serif, Helvetica, Arial;
+            font-family: "DejaVu Sans", "Helvetica", "Arial", sans-serif;
             font-size: .90em;
             line-height: 1;
         }
@@ -36,7 +32,7 @@
         }
 
         .table-listing {
-            font-family: "Noto Sans Bengali", "Kumbh Sans", sans-serif, Helvetica, Arial;
+            font-family: "DejaVu Sans", "Helvetica", "Arial", sans-serif;
             border-collapse: collapse;
             width: 100%;
         }
