@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
-class ExportAccountStatement implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
+class ExportGroupAccountStatement implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
     protected $filters;
 
@@ -25,7 +25,7 @@ class ExportAccountStatement implements FromCollection, WithHeadings, ShouldAuto
     public function collection()
     {
         $reportController = new ReportController();
-        $response = $reportController->accountStatement(new \Illuminate\Http\Request($this->filters));
+        $response = $reportController->groupAccountStatement(new \Illuminate\Http\Request($this->filters));
         
         // Check if the response has the expected structure
         if (isset($response['success']) && $response['success'] && isset($response['data'])) {
@@ -38,22 +38,16 @@ class ExportAccountStatement implements FromCollection, WithHeadings, ShouldAuto
         $formattedData = collect([]);
         
         // Add report header
-        $formattedData->push(['ACCOUNT STATEMENT', '', '', '', '', '']);
+        $formattedData->push(['GROUP ACCOUNT STATEMENT', '', '', '', '', '']);
         $formattedData->push(['', '', '', '', '', '']);
         
         // Add account information
-        if (isset($data['chart_of_account'])) {
-            $account = $data['chart_of_account'];
-            $formattedData->push(['Account Code:', $account['code'] ?? '', '', '', '', '']);
-            $formattedData->push(['Account Name:', $account['name'] ?? '', '', '', '', '']);
-            $formattedData->push(['Account Type:', $account['type'] ?? '', '', '', '', '']);
-        }
-        
-        if (isset($data['report_account']) && $data['report_account']['id'] !== $data['chart_of_account']['id']) {
-            $subAccount = $data['report_account'];
-            $formattedData->push(['Sub Account Code:', $subAccount['code'] ?? '', '', '', '', '']);
-            $formattedData->push(['Sub Account Name:', $subAccount['name'] ?? '', '', '', '', '']);
-            $formattedData->push(['Sub Account Type:', $subAccount['type'] ?? '', '', '', '', '']);
+        if (isset($data['chart_of_accounts']) && is_array($data['chart_of_accounts'])) {
+            $formattedData->push(['Selected Accounts:', '', '', '', '', '']);
+            foreach ($data['chart_of_accounts'] as $account) {
+                $formattedData->push(['', $account['code'] ?? '', $account['name'] ?? '', $account['type'] ?? '', '', '']);
+            }
+            $formattedData->push(['', '', '', '', '', '']);
         }
         
         // Add period information
@@ -69,27 +63,40 @@ class ExportAccountStatement implements FromCollection, WithHeadings, ShouldAuto
         if (isset($data['summary'])) {
             $summary = $data['summary'];
             $formattedData->push(['SUMMARY', '', '', '', '', '']);
-            $formattedData->push(['Opening Balance:', $summary['opening_balance'] ?? 0, $summary['opening_balance_type'] ?? '', '', '', '']);
-            $formattedData->push(['Period Debits:', $summary['period_debits'] ?? 0, '', '', '', '']);
-            $formattedData->push(['Period Credits:', $summary['period_credits'] ?? 0, '', '', '', '']);
-            $formattedData->push(['Closing Balance:', $summary['closing_balance'] ?? 0, $summary['closing_balance_type'] ?? '', '', '', '']);
+            $formattedData->push(['Total Opening Balance:', $summary['total_opening_balance'] ?? 0, $summary['total_opening_balance_type'] ?? '', '', '', '']);
+            $formattedData->push(['Total Period Debits:', $summary['total_period_debits'] ?? 0, '', '', '', '']);
+            $formattedData->push(['Total Period Credits:', $summary['total_period_credits'] ?? 0, '', '', '', '']);
+            $formattedData->push(['Total Closing Balance:', $summary['total_closing_balance'] ?? 0, $summary['total_closing_balance_type'] ?? '', '', '', '']);
             $formattedData->push(['', '', '', '', '', '']);
         }
         
         // Add table headers
-        $formattedData->push(['#', 'Date', 'Particulars', 'Debit', 'Credit', 'Balance']);
+        $formattedData->push(['#', 'Date', 'Account', 'Particulars', 'Debit', 'Credit']);
         
         // Add entries data
         if (isset($data['entries']) && is_array($data['entries'])) {
             foreach ($data['entries'] as $index => $entry) {
-                $formattedData->push([
-                    $index + 1,
-                    $entry['entry_date'] ?? $entry['date'] ?? '',
-                    $entry['description'] ?? $entry['particulars'] ?? '',
-                    $entry['debit_amount'] ?? $entry['debit'] ?? 0,
-                    $entry['credit_amount'] ?? $entry['credit'] ?? 0,
-                    $entry['running_balance'] ?? $entry['balance'] ?? 0,
-                ]);
+                if (isset($entry['accounts']) && is_array($entry['accounts'])) {
+                    foreach ($entry['accounts'] as $accountEntry) {
+                        $formattedData->push([
+                            $index + 1,
+                            $entry['entry_date'] ?? '',
+                            $accountEntry['code'] ?? '',
+                            $entry['description'] ?? '',
+                            $accountEntry['debit'] ?? 0,
+                            $accountEntry['credit'] ?? 0,
+                        ]);
+                    }
+                } else {
+                    $formattedData->push([
+                        $index + 1,
+                        $entry['entry_date'] ?? '',
+                        $entry['account_code'] ?? '',
+                        $entry['description'] ?? '',
+                        $entry['debit_amount'] ?? 0,
+                        $entry['credit_amount'] ?? 0,
+                    ]);
+                }
             }
         }
         

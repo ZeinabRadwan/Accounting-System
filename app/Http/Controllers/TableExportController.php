@@ -82,6 +82,8 @@ use App\Exports\ExportTodayReport;
 use App\Exports\ExportBalanceSheet;
 use App\Exports\ExportProfitLoss;
 use App\Exports\ExportAccountStatement;
+use App\Exports\ExportGroupAccountStatement;
+use App\Exports\ExportInvoiceSummary;
 
 
 class TableExportController extends Controller
@@ -1062,8 +1064,16 @@ class TableExportController extends Controller
         $reportController = new \App\Http\Controllers\API\ReportController();
         $response = $reportController->accountStatement($request);
         
+        // Check if the response has the expected structure
+        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
+            $data = $response['data'];
+        } else {
+            // If the response doesn't have the expected structure, use it directly
+            $data = $response;
+        }
+        
         // Add filters to data for template
-        $response['filters'] = [
+        $data['filters'] = [
             'from_date' => $request->input('from_date'),
             'to_date' => $request->input('to_date'),
             'chart_of_account_id' => $request->input('chart_of_account_id'),
@@ -1071,8 +1081,8 @@ class TableExportController extends Controller
         ];
         
         // share data to view
-        view()->share('reportData', $response);
-        return $this->generatePDF('pdf.account-statement', $response, 'account-statement.pdf');
+        view()->share('reportData', $data);
+        return $this->generatePDF('pdf.account-statement', $data, 'account-statement.pdf');
     }
 
     // return account statement excel
@@ -1080,5 +1090,75 @@ class TableExportController extends Controller
     {
         $filters = $request->all();
         return Excel::download(new ExportAccountStatement($filters), 'AccountStatement.xlsx');
+    }
+
+    // return group account statement pdf
+    public function groupAccountStatementPDF(Request $request)
+    {
+        // Get group account statement data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->groupAccountStatement($request);
+        
+        // Check if the response has the expected structure
+        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
+            $data = $response['data'];
+        } else {
+            // If the response doesn't have the expected structure, use it directly
+            $data = $response;
+        }
+        
+        // Add filters to data for template
+        $data['filters'] = [
+            'from_date' => $request->input('from_date'),
+            'to_date' => $request->input('to_date'),
+            'chart_of_account_ids' => $request->input('chart_of_account_ids'),
+            'sub_chart_of_account_ids' => $request->input('sub_chart_of_account_ids'),
+        ];
+        
+        // share data to view
+        view()->share('reportData', $data);
+        return $this->generatePDF('pdf.group-account-statement', $data, 'group-account-statement.pdf');
+    }
+
+    // return group account statement excel
+    public function groupAccountStatementExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportGroupAccountStatement($filters), 'GroupAccountStatement.xlsx');
+    }
+
+    // return invoice summary pdf
+    public function invoiceSummaryPDF(Request $request)
+    {
+        // Get invoice summary data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->invoiceSummary($request);
+        
+        // Check if the response has the expected structure
+        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
+            $data = $response['data'];
+        } else {
+            // If the response doesn't have the expected structure, use it directly
+            $data = $response;
+        }
+        
+        // Add filters to data for template
+        $data['filters'] = [
+            'from_date' => $request->input('from_date'),
+            'to_date' => $request->input('to_date'),
+            'fiscal_year_id' => $request->input('fiscal_year_id'),
+            'accounting_period_id' => $request->input('accounting_period_id'),
+        ];
+        
+        // share data to view
+        view()->share('reportData', $data);
+        return $this->generatePDF('pdf.invoice-summary', $data, 'invoice-summary.pdf');
+    }
+
+    // return invoice summary excel
+    public function invoiceSummaryExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportInvoiceSummary($filters), 'InvoiceSummary.xlsx');
     }
 }
