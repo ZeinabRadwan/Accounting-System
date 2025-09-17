@@ -20,6 +20,54 @@ if (! function_exists('arrayToCollection')) {
     }
 }
 
+if (! function_exists('public_path')) {
+    function public_path($path = '')
+    {
+        // Check if we're not on localhost and public_html disk is available
+        if (!app()->environment('local') && 
+            !str_contains(env('APP_URL', ''), 'localhost') && 
+            config('filesystems.disks.public_html')) {
+            // Use public_html directory when not on localhost
+            return base_path('../public_html' . ($path ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR) : $path));
+        }
+        
+        // Default Laravel public_path behavior for localhost
+        return app()->make('path.public') . ($path ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR) : $path);
+    }
+}
+
+if (! function_exists('asset')) {
+    function asset($path, $secure = null)
+    {
+        // Check if we're not on localhost and public_html disk is available
+        if (!app()->environment('local') && 
+            !str_contains(env('APP_URL', ''), 'localhost') && 
+            config('filesystems.disks.public_html')) {
+            // Use public_html URL when not on localhost
+            return rtrim(env('APP_URL'), '/') . '/public_html/' . ltrim($path, '/');
+        }
+        
+        // Default Laravel asset behavior for localhost
+        return app('url')->asset($path, $secure);
+    }
+}
+
+if (! function_exists('global_asset')) {
+    function global_asset($path, $secure = null)
+    {
+        // Check if we're not on localhost and public_html disk is available
+        if (!app()->environment('local') && 
+            !str_contains(env('APP_URL', ''), 'localhost') && 
+            config('filesystems.disks.public_html')) {
+            // Use public_html URL when not on localhost
+            return rtrim(env('APP_URL'), '/') . '/public_html/' . ltrim($path, '/');
+        }
+        
+        // Default global_asset behavior for localhost (fallback to regular asset)
+        return app('url')->asset($path, $secure);
+    }
+}
+
 if (! function_exists('getActivePaymentMethods')) {
     function getActivePaymentMethods(): Collection
     {
