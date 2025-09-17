@@ -254,13 +254,17 @@
               </div>
               <div class="col-lg-6 no-print">
                 <div class="about-avatar text-center">
-                  <DefaultImage
+                  <img
+                    v-if="allData.image"
                     :src="allData.image"
-                    type="product"
-                    size="large"
-                    shape="rounded"
-                    :alt="allData.name"
                     class="img-fluid"
+                    loading="lazy"
+                  />
+                  <img
+                    v-else
+                    src="https://via.placeholder.com/800x1000"
+                    class="img-fluid"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -398,7 +402,6 @@ import VueBarcode from "vue-barcode";
 import { mapGetters } from "vuex";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
-import DefaultImage from "../../components/DefaultImage.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -407,7 +410,6 @@ export default {
   },
   components: {
     barcode: VueBarcode,
-    DefaultImage,
   },
   data: () => ({
     breadcrumbsCurrent: "Product Details",

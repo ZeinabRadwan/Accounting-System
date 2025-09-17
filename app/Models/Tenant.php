@@ -115,7 +115,12 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     public function photoUrl(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => getUserAvatar(null, $this->name, $this->email),
+            get: fn ($value) => vsprintf(
+                'https://www.gravatar.com/avatar/%s.jpg?s=200&d=%s', [
+                    md5(strtolower($this->email)), $this->name ?
+                        urlencode("https://ui-avatars.com/api/$this->name") : 'mp',
+                ]
+            ),
         );
     }
 

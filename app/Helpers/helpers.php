@@ -310,13 +310,13 @@ function invoiceThankYouMessage(){
 /**
  * Get logo with fallback to default logo if tenant logo is empty
  */
-function getLogoWithFallback($query, $logoKey, $defaultLogo = 'default-company.png')
+function getLogoWithFallback($query, $logoKey, $defaultLogo)
 {
     $logoValue = $query->where('key', $logoKey)->first()?->value;
     
     // If tenant has a logo, use it
     if (!empty($logoValue)) {
-        return getImageWithFallback($logoValue, $defaultLogo);
+        return asset('images/' . $logoValue);
     }
     
     // Fallback to default logo
@@ -326,76 +326,15 @@ function getLogoWithFallback($query, $logoKey, $defaultLogo = 'default-company.p
 /**
  * Get logo with fallback to default logo if tenant logo is empty (using global_asset)
  */
-function getLogoWithFallbackGlobal($query, $logoKey, $defaultLogo = 'default-company.png')
+function getLogoWithFallbackGlobal($query, $logoKey, $defaultLogo)
 {
     $logoValue = $query->where('key', $logoKey)->first()?->value;
     
     // If tenant has a logo, use it
     if (!empty($logoValue)) {
-        return getImageWithFallbackGlobal($logoValue, $defaultLogo);
+        return global_asset('images/' . $logoValue);
     }
     
     // Fallback to default logo
     return global_asset('images/' . $defaultLogo);
-}
-
-/**
- * Get image with fallback to default image if the provided image is empty
- */
-function getImageWithFallback($imagePath, $defaultImage = 'default-avatar.png', $folder = '')
-{
-    if (empty($imagePath)) {
-        return asset('images/' . $defaultImage);
-    }
-    
-    $fullPath = $folder ? 'images/' . $folder . '/' . $imagePath : 'images/' . $imagePath;
-    
-    // Check if the file actually exists
-    if (file_exists(public_path($fullPath))) {
-        return asset($fullPath);
-    }
-    
-    // Fallback to default image
-    return asset('images/' . $defaultImage);
-}
-
-/**
- * Get image with fallback to default image if the provided image is empty (using global_asset)
- */
-function getImageWithFallbackGlobal($imagePath, $defaultImage = 'default-avatar.png', $folder = '')
-{
-    if (empty($imagePath)) {
-        return global_asset('images/' . $defaultImage);
-    }
-    
-    $fullPath = $folder ? 'images/' . $folder . '/' . $imagePath : 'images/' . $imagePath;
-    
-    // Check if the file actually exists
-    if (file_exists(public_path($fullPath))) {
-        return global_asset($fullPath);
-    }
-    
-    // Fallback to default image
-    return global_asset('images/' . $defaultImage);
-}
-
-/**
- * Get user avatar with fallback to default avatar
- */
-function getUserAvatar($imagePath = null, $name = null, $email = null)
-{
-    if (!empty($imagePath) && file_exists(public_path('images/employees/' . $imagePath))) {
-        return asset('images/employees/' . $imagePath);
-    }
-    
-    // Use Gravatar with UI Avatars fallback
-    if ($email) {
-        return vsprintf('https://www.gravatar.com/avatar/%s.jpg?s=200&d=%s', [
-            md5(strtolower($email)),
-            $name ? urlencode("https://ui-avatars.com/api/$name") : 'mp',
-        ]);
-    }
-    
-    // Final fallback to default avatar
-    return asset('images/default-avatar.png');
 }

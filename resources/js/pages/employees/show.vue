@@ -64,15 +64,9 @@
                       loading="lazy"
                     />
                   </a>
-                  <DefaultImage
-                    v-else
-                    :src="allData.image"
-                    type="employee"
-                    size="large"
-                    shape="circle"
-                    :alt="allData.name"
-                    class="profile-user-img img-fluid img-circle"
-                  />
+                  <div v-else class="bg-secondary no-preview-lg">
+                    <small>{{ $t("No Preview") }}</small>
+                  </div>
                 </div>
                 <h3 class="profile-username text-center">{{ allData.name }}</h3>
                 <ul class="list-group list-group-unbordered mb-3">
@@ -773,13 +767,9 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
-import DefaultImage from "../../components/DefaultImage.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
-  components: {
-    DefaultImage
-  },
   metaInfo() {
     return { title: this.$t("Employee Details") };
   },

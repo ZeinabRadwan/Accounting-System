@@ -56,15 +56,9 @@
                       loading="lazy"
                     />
                   </a>
-                  <DefaultImage
-                    v-else
-                    :src="allData.image"
-                    type="client"
-                    size="large"
-                    shape="circle"
-                    :alt="allData.name"
-                    class="profile-user-img img-fluid img-circle"
-                  />
+                  <div v-else class="bg-secondary no-preview-lg">
+                    <small>{{ $t("No Preview") }}</small>
+                  </div>
                 </div>
                 <h3 class="profile-username text-center">{{ allData.name }}</h3>
                 <ul class="list-group list-group-unbordered mb-3">
@@ -1443,7 +1437,6 @@ import i18n from "~/plugins/i18n";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import DateRangePicker from "vue2-daterange-picker";
-import DefaultImage from "../../components/DefaultImage.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -1452,7 +1445,6 @@ export default {
   },
   components: {
     DateRangePicker,
-    DefaultImage,
   },
   data: () => ({
     breadcrumbsCurrent: "Client Details",

@@ -103,15 +103,9 @@
                       <a v-if="data.image" href="#" id="show-modal" @click="previewModal(data.image)">
                         <img :src="data.image" class="rounded preview-sm" loading="lazy" />
                       </a>
-                      <DefaultImage
-                        v-else
-                        :src="data.image"
-                        type="supplier"
-                        size="small"
-                        shape="rounded"
-                        :alt="data.name"
-                        class="rounded preview-sm"
-                      />
+                      <div v-else class="bg-secondary rounded no-preview-sm">
+                        <small>{{ $t("No Preview") }}</small>
+                      </div>
                     </td>
                     <td>{{ data.supplierID | withPrefix(supplierPrefix) }}</td>
                     <td>
@@ -248,7 +242,6 @@ import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import SupplierEditModal from "../../components/SupplierEditModal.vue";
 import Swal from "sweetalert2";
-import DefaultImage from "../../components/DefaultImage.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -258,7 +251,6 @@ export default {
   components: {
     DateRangePicker,
     SupplierEditModal,
-    DefaultImage,
   },
   data: () => ({
     form: new Form({
