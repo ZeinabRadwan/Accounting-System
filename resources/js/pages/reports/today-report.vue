@@ -18,6 +18,12 @@
                                 <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success">
                                     <i class="fas fa-sync"></i>
                                 </a>
+                                <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
+                                    <i class="fa fa-arrow-circle-down"></i>
+                                </a>
+                                <a href="/reports/today-report/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
+                                    <i class="fas fa-file-export"></i>
+                                </a>
                                 <a @click="printWindow()" href="#" v-tooltip="'Print'" class="btn btn-secondary">
                                     <i class="fas fa-print"></i> {{ $t("Print") }}
                                 </a>
@@ -184,6 +190,10 @@ export default {
     // Map Getters
     computed: {
         ...mapGetters("operations", ["appInfo"]),
+        exportUrl() {
+            // Create a dynamic export URL for today's report
+            return `/reports/today-report/export`;
+        },
     },
     created() {
         this.getTodayReportData();

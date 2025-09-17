@@ -78,6 +78,9 @@ use App\Exports\ExportClientNonInvoicePayment;
 use App\Exports\ExportSupplierPurchasePayment;
 use App\Exports\ExportAccountTransactionHistory;
 use App\Exports\ExportSupplierNonPurchasePayment;
+use App\Exports\ExportTodayReport;
+use App\Exports\ExportBalanceSheet;
+use App\Exports\ExportProfitLoss;
 
 
 class TableExportController extends Controller
@@ -885,5 +888,141 @@ class TableExportController extends Controller
         $term = $request->input('term');
 
         return Excel::download(new ExportCollectionByUserReport($startDate, $endDate, $term), 'CollectionByUserReport.xlsx');
+    }
+
+    // return sales by user report pdf
+    public function salesByUserReportPDF(Request $request)
+    {
+        // Get sales by user report data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->salesByUserReport($request);
+        
+        if (!$response['success']) {
+            abort(500, 'Failed to generate sales by user report data');
+        }
+        
+        $data = $response['data'];
+        
+        // Add filters to data for template
+        $data['filters'] = [
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'term' => $request->input('term'),
+        ];
+        
+        // share data to view
+        view()->share('salesByUserData', $data);
+        return $this->generatePDF('pdf.sales-by-user-report', $data, 'sales-by-user-report.pdf', 'a4', 'landscape');
+    }
+
+    // return collection by user report pdf
+    public function collectionByUserReportPDF(Request $request)
+    {
+        // Get collection by user report data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->collectionByUserReport($request);
+        
+        if (!$response['success']) {
+            abort(500, 'Failed to generate collection by user report data');
+        }
+        
+        $data = $response['data'];
+        
+        // Add filters to data for template
+        $data['filters'] = [
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'term' => $request->input('term'),
+        ];
+        
+        // share data to view
+        view()->share('collectionByUserData', $data);
+        return $this->generatePDF('pdf.collection-by-user-report', $data, 'collection-by-user-report.pdf', 'a4', 'landscape');
+    }
+
+    // return today report pdf
+    public function todayReportPDF()
+    {
+        // Get today's report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $data = $reportController->todayReport();
+        
+        // Add current date to data
+        $data['reportDate'] = now()->format('Y-m-d');
+        
+        // share data to view
+        view()->share('reportData', $data);
+        return $this->generatePDF('pdf.today-report', $data, 'today-report.pdf');
+    }
+
+    // return today report excel
+    public function todayReportExportExcel(Request $request)
+    {
+        return Excel::download(new ExportTodayReport(), 'TodayReport.xlsx');
+    }
+
+    // return balance sheet pdf
+    public function balanceSheetPDF(Request $request)
+    {
+        // Get balance sheet data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->balanceSheet($request);
+        
+        if (!$response['success']) {
+            abort(500, 'Failed to generate balance sheet data');
+        }
+        
+        $data = $response['data'];
+        
+        // share data to view
+        view()->share('balanceData', $data);
+        return $this->generatePDF('pdf.balance-sheet', $data, 'balance-sheet.pdf', 'a4', 'landscape');
+    }
+
+    // return balance sheet excel
+    public function balanceSheetExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportBalanceSheet($filters), 'BalanceSheet.xlsx');
+    }
+
+    // return profit loss pdf
+    public function profitLossPDF(Request $request)
+    {
+        // Get profit loss data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->profitLossReport($request);
+        
+        if (!$response) {
+            abort(500, 'Failed to generate profit loss data');
+        }
+        
+        // Ensure filters are properly structured
+        $filters = $request->all();
+        
+        // Normalize date field names to match what the template expects
+        if (isset($filters['fromDate'])) {
+            $filters['from_date'] = $filters['fromDate'];
+        }
+        if (isset($filters['toDate'])) {
+            $filters['to_date'] = $filters['toDate'];
+        }
+        
+        $data = [
+            'type' => $response['type'],
+            'reportData' => $response['reportData'],
+            'filters' => $filters
+        ];
+        
+        // share data to view
+        view()->share('profitLossData', $data);
+        return $this->generatePDF('pdf.profit-loss', $data, 'profit-loss.pdf', 'a4', 'landscape');
+    }
+
+    // return profit loss excel
+    public function profitLossExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportProfitLoss($filters), 'ProfitLoss.xlsx');
     }
 }

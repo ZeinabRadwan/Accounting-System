@@ -648,6 +648,12 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/quotations/export/excel', [TableExportController::class, 'quotationsExportExcel'])->name('quotations.export.excel');
     Route::get('/invoices/pdf', [TableExportController::class, 'invoicePDF'])->name('invoices.pdf');
     Route::get('/invoices/export/export', [TableExportController::class, 'invoiceExportExcel'])->name('invoices.export.export');
+    Route::get('/reports/today-report/pdf', [TableExportController::class, 'todayReportPDF'])->name('todayReport.pdf');
+    Route::get('/reports/today-report/export', [TableExportController::class, 'todayReportExportExcel'])->name('todayReport.export.excel');
+    Route::get('/reports/balance-sheet/pdf', [TableExportController::class, 'balanceSheetPDF'])->name('balanceSheet.pdf');
+    Route::get('/reports/balance-sheet/export', [TableExportController::class, 'balanceSheetExportExcel'])->name('balanceSheet.export.excel');
+    Route::get('/reports/profit-loss/pdf', [TableExportController::class, 'profitLossPDF'])->name('profitLoss.pdf');
+    Route::get('/reports/profit-loss/export', [TableExportController::class, 'profitLossExportExcel'])->name('profitLoss.export.excel');
     Route::get('/invoice-returns/pdf', [TableExportController::class, 'invoiceReturnPDF'])->name('invoiceReturns.pdf');
     Route::get('/invoice-returns/export/excel', [TableExportController::class, 'invoiceReturnExportExcel'])->name('invoiceReturns.export.excel');
 
@@ -711,7 +717,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/supplier-payable-report/export/excel', [TableExportController::class, 'supplierPayableReportExportExcel'])->name('supplierPayableReport.export.excel');
     Route::get('/client-receivable-report/export/excel', [TableExportController::class, 'clientReceivableReportExportExcel'])->name('clientReceivableReport.export.excel');
     Route::get('/sales-by-user-report/export/excel', [TableExportController::class, 'salesByUserReportExportExcel'])->name('salesByUserReport.export.excel');
+    Route::get('/sales-by-user-report/pdf', [TableExportController::class, 'salesByUserReportPDF'])->name('salesByUserReport.pdf');
     Route::get('/collection-by-user-report/export/excel', [TableExportController::class, 'collectionByUserReportExportExcel'])->name('collectionByUserReport.export.excel');
+    Route::get('/collection-by-user-report/pdf', [TableExportController::class, 'collectionByUserReportPDF'])->name('collectionByUserReport.pdf');
 
     // product templates
     Route::get('/product-import-template', [ProductController::class, 'importTemplate']);

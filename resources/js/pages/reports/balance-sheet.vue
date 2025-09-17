@@ -3,8 +3,7 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-
-
+     
     <!-- Filters Card -->
     <div class="row no-print mb-3">
       <div class="col-12">
@@ -115,6 +114,12 @@
     <div class="row no-print mb-2">
       <div class="w-100 text-right float-right">
         <div class="btn-group">
+          <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
+            <i class="fa fa-arrow-circle-down"></i>
+          </a>
+          <a href="/reports/balance-sheet/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
+            <i class="fas fa-file-export"></i>
+          </a>
           <a @click="generatePDF()" href="#" class="btn btn-primary">
             <i class="fas fa-download"></i> {{ $t("Download") }}
           </a>
@@ -326,6 +331,28 @@ export default {
     },
   }),
 
+  computed: {
+    exportUrl() {
+      // Create a dynamic export URL for balance sheet with current filters
+      const params = new URLSearchParams();
+      
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      return `/reports/balance-sheet/export?${params.toString()}`;
+    },
+  },
+
   created() {
     try {
       this.loadFiscalYears();
@@ -362,14 +389,13 @@ export default {
       
       this.loadingAccountingPeriods = true;
       try {
-        const response = await axios.get('/api/accounting-periods/by-fiscal-year', {
+        const response = await axios.get(`/api/accounting-periods/by-fiscal-year/${this.filters.fiscalYearId}`, {
           params: { 
-            fiscal_year_id: this.filters.fiscalYearId,
             search,
-            perPage: 100
+            perPage: 1000 // Increased to get all periods for the year
           }
         });
-        // Handle paginated response
+        // Handle response - the API returns data directly, not paginated
         this.accountingPeriods = response.data.data || response.data;
         console.log("Accounting Periods Response:", this.accountingPeriods);
       } catch (error) {
@@ -395,14 +421,31 @@ export default {
       this.filters.accountingPeriodId = null;
       this.filters.fromDate = null;
       this.filters.toDate = null;
-      this.loadAccountingPeriods();
+      
+      // Load all accounting periods for the selected fiscal year
+      if (this.filters.fiscalYearId) {
+        this.loadAccountingPeriods();
+      } else {
+        this.accountingPeriods = [];
+      }
     },
 
     // Handle accounting period change
     onAccountingPeriodChange() {
-      this.filters.fiscalYearId = null;
+      // Clear date filters when accounting period changes
       this.filters.fromDate = null;
       this.filters.toDate = null;
+      
+      // If an accounting period is selected, update the date range
+      if (this.filters.accountingPeriodId) {
+        const selectedPeriod = this.accountingPeriods.find(
+          period => period.id === this.filters.accountingPeriodId
+        );
+        if (selectedPeriod) {
+          this.filters.fromDate = selectedPeriod.start_date;
+          this.filters.toDate = selectedPeriod.end_date;
+        }
+      }
     },
 
     // Generate balance sheet report
@@ -449,7 +492,8 @@ export default {
         fromDate: null,
         toDate: null,
       };
-      this.generateReport();
+      this.accountingPeriods = [];
+      this.balanceData = null;
     },
 
     // Format date
