@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Log;
 use App\Notifications\NewSubscriptionNotification;
 use App\Notifications\TenantRegisterNotifyForAdmin;
 use App\Notifications\TenantVerificationNotification;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Message;
 
 class TenantService
 {
@@ -51,6 +53,16 @@ class TenantService
      */
     public function createTenantAndSendVerificationNotification(TenantRegisterRequest $request, Carbon $emailVerifiedAt = null): \Illuminate\Http\JsonResponse
     {
+        // Check SMTP configuration before proceeding with registration
+        $smtpValidation = $this->validateSMTPConfiguration();
+        if (!$smtpValidation['is_valid']) {
+            return $this->responseWithError(
+                'SMTP configuration is not properly set up. Please contact the administrator to configure email settings before registration.',
+                ['smtp_error' => $smtpValidation['error']],
+                422
+            );
+        }
+
         $trialDayCount = GeneralSetting::where('key', 'trial_day_count')->first()?->value ?? 14;
 
         $tenant = Tenant::create(
@@ -294,6 +306,82 @@ class TenantService
             
         } catch (\Exception $e) {
             Log::error("❌ Error setting up print templates for tenant {$tenant->id}: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Validate SMTP configuration
+     *
+     * @return array
+     */
+    private function validateSMTPConfiguration(): array
+    {
+        try {
+            // Check if basic SMTP settings are configured
+            $mailHost = config('mail.mailers.smtp.host');
+            $mailPort = config('mail.mailers.smtp.port');
+            $mailUsername = config('mail.mailers.smtp.username');
+            $mailPassword = config('mail.mailers.smtp.password');
+            $mailEncryption = config('mail.mailers.smtp.encryption');
+            $mailFromAddress = config('mail.from.address');
+            $mailFromName = config('mail.from.name');
+
+            // Check if essential SMTP settings are missing
+            if (empty($mailHost) || empty($mailPort) || empty($mailUsername) || empty($mailPassword)) {
+                return [
+                    'is_valid' => false,
+                    'error' => 'SMTP host, port, username, or password is not configured'
+                ];
+            }
+
+            if (empty($mailFromAddress) || empty($mailFromName)) {
+                return [
+                    'is_valid' => false,
+                    'error' => 'Mail from address or name is not configured'
+                ];
+            }
+
+            // Check if SMTP settings are using default/placeholder values
+            $defaultHosts = ['smtp.mailgun.org', 'smtp.mailtrap.io', 'smtp.gmail.com', 'localhost', '127.0.0.1'];
+            $defaultUsernames = ['null', 'your-username', 'your_email@gmail.com', 'test@example.com'];
+            $defaultPasswords = ['null', 'your-password', 'your_password', 'password'];
+            
+            if (in_array($mailHost, $defaultHosts) && 
+                (in_array($mailUsername, $defaultUsernames) || in_array($mailPassword, $defaultPasswords))) {
+                return [
+                    'is_valid' => false,
+                    'error' => 'SMTP configuration appears to be using default/placeholder values. Please configure proper SMTP settings.'
+                ];
+            }
+
+            // Check for common Laravel default values
+            if ($mailHost === 'smtp.mailgun.org' && empty(env('MAILGUN_DOMAIN'))) {
+                return [
+                    'is_valid' => false,
+                    'error' => 'SMTP configuration appears to be using default values. Please configure proper SMTP settings.'
+                ];
+            }
+
+            if ($mailHost === 'smtp.mailtrap.io' && empty(env('MAILTRAP_USERNAME'))) {
+                return [
+                    'is_valid' => false,
+                    'error' => 'SMTP configuration appears to be using default values. Please configure proper SMTP settings.'
+                ];
+            }
+
+            // For production, we can optionally test the connection
+            // But for registration, we'll just validate the configuration exists
+            // to avoid delays during user registration
+            return [
+                'is_valid' => true,
+                'error' => null
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'is_valid' => false,
+                'error' => 'SMTP configuration validation failed: ' . $e->getMessage()
+            ];
         }
     }
 }

@@ -1721,6 +1721,8 @@
   "Failed to create new account": "Failed to create new account",
   "Chart of account automatically created for new client": "Chart of account automatically created for new client",
   "Account will be properly created when you save the client.": "Account will be properly created when you save the client.",
+  "Registration is temporarily unavailable due to email configuration issues. Please contact support or try again later.": "Registration is temporarily unavailable due to email configuration issues. Please contact support or try again later.",
+  "SMTP configuration is not properly set up. Please contact the administrator to configure email settings before registration.": "SMTP configuration is not properly set up. Please contact the administrator to configure email settings before registration.",
   "Please select a chart of account for this client": "Please select a chart of account for this client",
   "Please select a chart of account under the main client account": "Please select a chart of account under the main client account",
   "Select a chart of account for this client. The account will be created without any parent.": "Select a chart of account for this client. The account will be created without any parent.",

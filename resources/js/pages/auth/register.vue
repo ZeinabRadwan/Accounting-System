@@ -59,6 +59,13 @@
                                     @submit.prevent="tenantRegister"
                                     @keydown="form.onKeydown($event)"
                                 >
+                                    <!-- Error Message Display -->
+                                    <div
+                                        v-if="message && type === 'danger'"
+                                        class="alert alert-danger mb-4"
+                                    >
+                                        {{ message }}
+                                    </div>
                                     <!-- Full Name-->
                                     <div class="form-group mb-3">
                                         <input
@@ -325,7 +332,7 @@ export default {
     methods: {
         async tenantRegister() {
             if (this.isDemoMode) {
-                return toast.fire({
+                return window.toast.fire({
                     type: 'warning',
                     title: this.$t(
                         'You are not allowed to do this in demo version.'
@@ -333,14 +340,35 @@ export default {
                 });
             }
             // register the user.
-            const { data } = await this.form.post('/api/register');
-            if (data) {
-                this.verificationForm.email = data.data.tenant.email;
+            try {
+                const { data } = await this.form.post('/api/register');
+                if (data) {
+                    this.verificationForm.email = data.data.tenant.email;
+                }
+            } catch (error) {
+                // Handle SMTP configuration error specifically
+                if (error.response && error.response.status === 422) {
+                    const errorData = error.response.data;
+                    if (errorData.message && errorData.message.includes('SMTP configuration')) {
+                        // Show error message in the form area for SMTP issues
+                        this.message = this.$t('System is unable to send email. Please contact the administrator.');
+                        this.type = 'danger';
+                        return;
+                    }
+                }
+                // Handle other errors normally
+                if (error.response && error.response.data && error.response.data.message) {
+                    this.message = error.response.data.message;
+                    this.type = 'danger';
+                } else {
+                    this.message = 'An error occurred during registration. Please try again.';
+                    this.type = 'danger';
+                }
             }
         },
         async resendVerification() {
             if (this.isDemoMode) {
-                return toast.fire({
+                return window.toast.fire({
                     type: 'warning',
                     title: this.$t(
                         'You are not allowed to do this in demo version.'
