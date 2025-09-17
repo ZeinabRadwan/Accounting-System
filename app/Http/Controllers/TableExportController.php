@@ -85,6 +85,7 @@ use App\Exports\ExportAccountStatement;
 use App\Exports\ExportGroupAccountStatement;
 use App\Exports\ExportInvoiceSummary;
 use App\Exports\ExportPurchaseSummary;
+use App\Exports\ExportVatReport;
 
 
 class TableExportController extends Controller
@@ -1196,5 +1197,43 @@ class TableExportController extends Controller
     {
         $filters = $request->all();
         return Excel::download(new ExportPurchaseSummary($filters), 'PurchaseSummary.xlsx');
+    }
+
+    // return vat report pdf
+    public function vatReportPdf(Request $request)
+    {
+        $filters = $request->all();
+        
+        // Get VAT report data using the same method as the API
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->vatReport($request);
+        
+        // Handle JsonResponse object
+        if ($response instanceof \Illuminate\Http\JsonResponse) {
+            $responseData = $response->getData(true);
+        } else {
+            $responseData = $response;
+        }
+        
+        // Use the same logic as the API
+        if (isset($responseData['success']) && $responseData['success'] && isset($responseData['data'])) {
+            $data = $responseData['data'];
+        } else {
+            $data = $responseData;
+        }
+        
+        // Add app info for the PDF
+        $data['app_name'] = config('app.name', 'Accounting System');
+        
+        // share data to view
+        view()->share('data', $data);
+        return $this->generatePDF('pdf.vat-report', $data, 'vat-report.pdf');
+    }
+
+    // return vat report excel
+    public function vatReportExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportVatReport($filters), 'VatReport.xlsx');
     }
 }
