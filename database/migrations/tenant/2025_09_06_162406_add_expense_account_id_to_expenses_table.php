@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('expenses', function (Blueprint $table) {
-            $table->unsignedBigInteger('expense_account_id')->nullable()->after('amount');
+            $table->unsignedBigInteger('expense_account_id')->nullable();
             $table->foreign('expense_account_id')->references('id')->on('chart_of_accounts')->onDelete('set null');
         });
     }
