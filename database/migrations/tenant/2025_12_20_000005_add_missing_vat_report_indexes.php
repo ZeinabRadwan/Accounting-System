@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         // Check if indexes exist before adding them
-        $this->addIndexIfNotExists('invoice_products', 'idx_invoice_products_invoice_vat', ['invoice_id', 'vat_rate_id', 'tax_amount']);
+        // $this->addIndexIfNotExists('invoice_products', 'idx_invoice_products_invoice_vat', ['invoice_id', 'vat_rate_id', 'tax_amount']);
         $this->addIndexIfNotExists('invoices', 'idx_invoices_status_fiscal', ['status', 'fiscal_year_id']);
         $this->addIndexIfNotExists('invoices', 'idx_invoices_status_period', ['status', 'accounting_period_id']);
         $this->addIndexIfNotExists('invoices', 'idx_invoices_status_date', ['status', 'invoice_date']);
@@ -30,7 +30,7 @@ return new class extends Migration
         $this->addIndexIfNotExists('journal_entry_lines', 'idx_journal_lines_account_amount', ['chart_of_account_id', 'debit_amount', 'credit_amount']);
         
         // Additional composite indexes for better performance
-        $this->addIndexIfNotExists('invoice_products', 'idx_invoice_products_vat_status', ['vat_rate_id', 'tax_amount', 'invoice_id']);
+        // $this->addIndexIfNotExists('invoice_products', 'idx_invoice_products_vat_status', ['vat_rate_id', 'tax_amount', 'invoice_id']);
         $this->addIndexIfNotExists('purchase_products', 'idx_purchase_products_tax_status', ['tax_amount', 'purchase_id']);
     }
 

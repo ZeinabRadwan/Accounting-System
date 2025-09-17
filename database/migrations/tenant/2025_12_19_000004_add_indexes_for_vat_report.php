@@ -28,13 +28,13 @@ return new class extends Migration
         // Add indexes to invoice_products table for VAT calculations
         Schema::table('invoice_products', function (Blueprint $table) {
             // Index for vat_rate_id filtering
-            $table->index('vat_rate_id', 'idx_invoice_products_vat_rate');
+            // $table->index('vat_rate_id', 'idx_invoice_products_vat_rate');
             
             // Index for tax_amount filtering
             $table->index('tax_amount', 'idx_invoice_products_tax_amount');
             
             // Composite index for vat_rate_id + tax_amount (for VAT calculations)
-            $table->index(['vat_rate_id', 'tax_amount'], 'idx_invoice_products_vat_calc');
+            // $table->index(['vat_rate_id', 'tax_amount'], 'idx_invoice_products_vat_calc');
         });
 
         // Add indexes to purchase_products table for VAT calculations
