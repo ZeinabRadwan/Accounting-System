@@ -132,15 +132,22 @@
                     <i class="fas fa-undo"></i>
                     {{ $t('Reset') }}
                   </button>
-                  <button 
+                  <a 
                     v-if="reportData && entriesCount > 0" 
-                    type="button" 
-                    @click="exportToPDF" 
+                    :href="exportExcelUrl" 
+                    v-tooltip="$t('Export to Excel')" 
+                    class="btn btn-info ml-2"
+                  >
+                    <i class="fa fa-arrow-circle-down"></i>
+                  </a>
+                  <a 
+                    v-if="reportData && entriesCount > 0" 
+                    :href="exportPdfUrl" 
+                    v-tooltip="$t('Export to PDF')" 
                     class="btn btn-success ml-2"
                   >
-                    <i class="fas fa-file-pdf"></i>
-                    {{ $t('Export PDF') }}
-                  </button>
+                    <i class="fas fa-file-export"></i>
+                  </a>
                 </div>
               </div>
             </form>
@@ -380,6 +387,53 @@ export default {
     // Safe access to entries count
     entriesCount() {
       return this.safeAllEntries.length;
+    },
+    
+    // Export URLs
+    exportExcelUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccount) {
+        params.append('chart_of_account_id', this.filters.chartOfAccount);
+      }
+      if (this.filters.subChartOfAccount) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return `/account-statement/export?${params.toString()}`;
+    },
+    
+    exportPdfUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccount) {
+        params.append('chart_of_account_id', this.filters.chartOfAccount);
+      }
+      if (this.filters.subChartOfAccount) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return `/account-statement/pdf?${params.toString()}`;
     },
     
     ...mapGetters({
@@ -678,10 +732,6 @@ export default {
       this.retryCount = 0;
     },
     
-    exportToPDF() {
-      // TODO: Implement PDF export
-      this.$toast.info('', this.$t('PDF export feature will be implemented soon'));
-    },
   },
   
   watch: {

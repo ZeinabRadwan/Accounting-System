@@ -722,6 +722,8 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/sales-by-user-report/pdf', [TableExportController::class, 'salesByUserReportPDF'])->name('salesByUserReport.pdf');
     Route::get('/collection-by-user-report/export/excel', [TableExportController::class, 'collectionByUserReportExportExcel'])->name('collectionByUserReport.export.excel');
     Route::get('/collection-by-user-report/pdf', [TableExportController::class, 'collectionByUserReportPDF'])->name('collectionByUserReport.pdf');
+    Route::get('/account-statement/pdf', [TableExportController::class, 'accountStatementPDF'])->name('accountStatement.pdf');
+    Route::get('/account-statement/export', [TableExportController::class, 'accountStatementExportExcel'])->name('accountStatement.export.excel');
 
     // product templates
     Route::get('/product-import-template', [ProductController::class, 'importTemplate']);
