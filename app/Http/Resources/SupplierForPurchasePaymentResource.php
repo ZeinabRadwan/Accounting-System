@@ -24,7 +24,7 @@ class SupplierForPurchasePaymentResource extends JsonResource
             'companyName' => $this->company_name,
             'address' => $this->address,
             'status' => (int) $this->status,
-            'image' => $this->image_path ? global_asset('/images/suppliers/'.$this->image_path) : '',
+            'image' => getAvatarWithFallback($this->image_path, 'suppliers'),
             'type' => $this->type,
             'purchaseTotal' => round($this->purchaseTotal(), 2),
             'purchaseTotalPaid' => round($this->purchaseTotalPaid(), 2),

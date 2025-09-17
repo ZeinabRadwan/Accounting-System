@@ -29,7 +29,7 @@
               <div class="col-12">
                 <template :class="w - 100">
                   <date-range-picker :from="form.fromDate" :to="form.toDate" :panel="$route.query.panel"
-                    @update="update" />
+                    @update="update" style="display: none;" />
                 </template>
               </div>
             </div>

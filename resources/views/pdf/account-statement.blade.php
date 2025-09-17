@@ -38,19 +38,19 @@
                     <table class="table table-bordered table-sm">
                         <tr>
                             <td><strong>@lang('Opening Balance')</strong></td>
-                            <td>{{ $reportData['summary']['opening_balance'] ?? 0 | withAbsoluteCurrency }} {{ $reportData['summary']['opening_balance_type'] ?? '' }}</td>
+                            <td>@currency($reportData['summary']['opening_balance'] ?? 0) {{ $reportData['summary']['opening_balance_type'] ?? '' }}</td>
                         </tr>
                         <tr>
                             <td><strong>@lang('Period Debits')</strong></td>
-                            <td>{{ $reportData['summary']['period_debits'] ?? 0 | withAbsoluteCurrency }}</td>
+                            <td>@currency($reportData['summary']['period_debits'] ?? 0)</td>
                         </tr>
                         <tr>
                             <td><strong>@lang('Period Credits')</strong></td>
-                            <td>{{ $reportData['summary']['period_credits'] ?? 0 | withAbsoluteCurrency }}</td>
+                            <td>@currency($reportData['summary']['period_credits'] ?? 0)</td>
                         </tr>
                         <tr>
                             <td><strong>@lang('Closing Balance')</strong></td>
-                            <td>{{ $reportData['summary']['closing_balance'] ?? 0 | withAbsoluteCurrency }} {{ $reportData['summary']['closing_balance_type'] ?? '' }}</td>
+                            <td>@currency($reportData['summary']['closing_balance'] ?? 0) {{ $reportData['summary']['closing_balance_type'] ?? '' }}</td>
                         </tr>
                     </table>
                 </div>
@@ -75,11 +75,11 @@
                     @foreach ($reportData['entries'] as $index => $entry)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ \Carbon\Carbon::parse($entry['date'])->format('d-M-Y') }}</td>
-                            <td>{{ $entry['particulars'] ?? '' }}</td>
-                            <td>@currency($entry['debit'] ?? 0)</td>
-                            <td>@currency($entry['credit'] ?? 0)</td>
-                            <td>@currency($entry['balance'] ?? 0)</td>
+                            <td>{{ \Carbon\Carbon::parse($entry['entry_date'] ?? $entry['date'] ?? '')->format('d-M-Y') }}</td>
+                            <td>{{ $entry['description'] ?? $entry['particulars'] ?? '' }}</td>
+                            <td>@currency($entry['debit_amount'] ?? $entry['debit'] ?? 0)</td>
+                            <td>@currency($entry['credit_amount'] ?? $entry['credit'] ?? 0)</td>
+                            <td>@currency($entry['running_balance'] ?? $entry['balance'] ?? 0)</td>
                         </tr>
                     @endforeach
                 </tbody>

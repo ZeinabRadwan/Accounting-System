@@ -25,7 +25,7 @@ class AccountResource extends JsonResource
             'totalCredits' => round($this->totalCredits(), 2),
             'totalDebits' => round($this->totalDebits(), 2),
             'date' => $this->date,
-            'image' => $this->image_path ? global_asset('/images/accounts/'.$this->image_path) : '',
+            'image' => getAvatarWithFallback($this->image_path, 'accounts'),
             'chartOfAccountId' => $this->chart_of_account_id,
             'chartOfAccount' => $this->whenLoaded('chartOfAccount', function() {
                 return [

@@ -121,10 +121,8 @@
                     <tr v-for="(topClient, i) in topClients && topClients" :key="i">
                       <td>
                         <div class="d-flex align-items-center">
-                          <img v-if="topClient.photo_url" :src="topClient.photo_url"
+                          <img v-bind="getAvatarProps(topClient.photo_url, '', 'default-avatar.jpeg')"
                             class="circle-img circle-img--small mr-2" loading="lazy" />
-                          <img v-else src="https://via.placeholder.com/50x50" class="circle-img circle-img--small mr-2"
-                            loading="lazy" />
                           <div class="text-left">
                             <h6 class="mb-0">
                               {{ topClient.name }}
@@ -156,6 +154,7 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
+import avatarMixin from '~/mixins/avatarMixin'
 import { use } from 'echarts/core'
 import 'echarts/lib/component/grid'
 import { PieChart } from 'echarts/charts'
@@ -183,6 +182,7 @@ use([
 export default {
   layout: 'central',
   middleware: 'auth',
+  mixins: [avatarMixin],
   metaInfo() {
     return { title: this.$t('Dashboard') }
   },

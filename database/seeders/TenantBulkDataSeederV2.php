@@ -65,6 +65,17 @@ class TenantBulkDataSeederV2 extends Seeder
         // Get required data for relationships
         $this->loadRequiredData();
         
+        // Generate bulk clients and suppliers
+        $this->log('Generating 500 clients...');
+        $this->generateBulkClients(500);
+        
+        $this->log('Generating 500 suppliers...');
+        $this->generateBulkSuppliers(500);
+        
+        // Reload data to include the new clients and suppliers
+        $this->clients = Client::all();
+        $this->suppliers = Supplier::all();
+        
         // Generate invoices
         $this->log('Generating 10,000 invoices...');
         $this->generateInvoices(10000);
@@ -683,5 +694,103 @@ class TenantBulkDataSeederV2 extends Seeder
                 'created_by' => 1,
             ]);
         }
+    }
+
+    /**
+     * Generate bulk clients with realistic data
+     */
+    private function generateBulkClients($count)
+    {
+        $batchSize = 50;
+        $batches = ceil($count / $batchSize);
+
+        for ($batch = 0; $batch < $batches; $batch++) {
+            DB::transaction(function () use ($batch, $batchSize, $count) {
+                $startIndex = $batch * $batchSize;
+                $endIndex = min(($batch + 1) * $batchSize, $count);
+
+                for ($i = $startIndex; $i < $endIndex; $i++) {
+                    $this->createBulkClient($i + 1);
+                }
+            });
+
+            $this->log("Generated clients batch " . ($batch + 1) . "/{$batches}");
+        }
+    }
+
+    /**
+     * Generate bulk suppliers (vendors) with realistic data
+     */
+    private function generateBulkSuppliers($count)
+    {
+        $batchSize = 50;
+        $batches = ceil($count / $batchSize);
+
+        for ($batch = 0; $batch < $batches; $batch++) {
+            DB::transaction(function () use ($batch, $batchSize, $count) {
+                $startIndex = $batch * $batchSize;
+                $endIndex = min(($batch + 1) * $batchSize, $count);
+
+                for ($i = $startIndex; $i < $endIndex; $i++) {
+                    $this->createBulkSupplier($i + 1);
+                }
+            });
+
+            $this->log("Generated suppliers batch " . ($batch + 1) . "/{$batches}");
+        }
+    }
+
+    /**
+     * Create a single bulk client with realistic data
+     */
+    private function createBulkClient($clientNumber)
+    {
+        $companyTypes = ['Corp', 'Inc', 'LLC', 'Ltd', 'Co', 'Group', 'Solutions', 'Services', 'Enterprises', 'Partners'];
+        $industries = ['Technology', 'Manufacturing', 'Healthcare', 'Finance', 'Retail', 'Construction', 'Consulting', 'Education', 'Real Estate', 'Logistics'];
+        $cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose'];
+        
+        $companyType = $this->faker->randomElement($companyTypes);
+        $industry = $this->faker->randomElement($industries);
+        $city = $this->faker->randomElement($cities);
+        
+        $companyName = $this->faker->company() . ' ' . $companyType;
+        $email = strtolower(str_replace([' ', '.', ',', '&'], ['', '', '', 'and'], $companyName)) . '@' . $this->faker->domainName();
+        
+        Client::create([
+            'name' => $companyName,
+            'email' => $email,
+            'phone_number' => $this->faker->phoneNumber(),
+            'address' => $this->faker->streetAddress() . ', ' . $city . ', ' . $this->faker->stateAbbr() . ' ' . $this->faker->postcode(),
+            'status' => $this->faker->randomElement([0, 1]), // Randomly active/inactive
+            'type' => $this->faker->randomElement(['Company', 'Individual']),
+            'tax_registration_number' => $this->faker->optional(0.8)->numerify('##-#######'),
+        ]);
+    }
+
+    /**
+     * Create a single bulk supplier (vendor) with realistic data
+     */
+    private function createBulkSupplier($supplierNumber)
+    {
+        $companyTypes = ['Supply', 'Distributors', 'Manufacturing', 'Wholesale', 'Trading', 'Import/Export', 'Services', 'Solutions', 'Enterprises', 'Partners'];
+        $industries = ['Raw Materials', 'Manufacturing', 'Technology', 'Office Supplies', 'Equipment', 'Food & Beverage', 'Textiles', 'Chemicals', 'Electronics', 'Automotive'];
+        $cities = ['Detroit', 'Dallas', 'Phoenix', 'Denver', 'Seattle', 'Boston', 'Atlanta', 'Miami', 'Tampa', 'Orlando'];
+        
+        $companyType = $this->faker->randomElement($companyTypes);
+        $industry = $this->faker->randomElement($industries);
+        $city = $this->faker->randomElement($cities);
+        
+        $companyName = $this->faker->company() . ' ' . $companyType;
+        $email = strtolower(str_replace([' ', '.', ',', '&'], ['', '', '', 'and'], $companyName)) . '@' . $this->faker->domainName();
+        
+        Supplier::create([
+            'name' => $companyName,
+            'email' => $email,
+            'phone_number' => $this->faker->phoneNumber(),
+            'street_address1' => $this->faker->streetAddress() . ', ' . $city . ', ' . $this->faker->stateAbbr() . ' ' . $this->faker->postcode(),
+            'status' => $this->faker->randomElement([0, 1]), // Randomly active/inactive
+            'type' => $this->faker->randomElement(['Company', 'Individual']),
+            'tax_registration_number' => $this->faker->optional(0.8)->numerify('##-#######'),
+        ]);
     }
 }

@@ -27,7 +27,7 @@ class ClientResource extends JsonResource
             'address' => $this->address,
             'type' => $this->type ?? 'Company',
             'status' => (int) $this->status,
-            'image' => $this->image_path ? global_asset('images/clients/'.$this->image_path) : '',
+            'image' => getAvatarWithFallback($this->image_path, 'clients'),
             'chart_of_account_id' => $this->chart_of_account_id,
             
             // Account and billing details

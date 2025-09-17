@@ -16,9 +16,9 @@
           </div>
           <div class="leaderboard-card__body">
             <div class="text-center">
-              <img v-if="topClients[1].client.image_path" :src="clientImagePath(topClients[1].client.image_path)"
-                class="circle-img mb-2" alt="User Img" />
-              <img v-else src="https://via.placeholder.com/50x50" class="circle-img mb-2" alt="User Img" />
+              <img :src="topClients[1].client.image || '/images/default-avatar.jpeg'"
+                class="circle-img mb-2" alt="User Img" 
+                @error="$event.target.src = '/images/default-avatar.jpeg'" />
               <h6 class="mb-0">{{ topClients[1].client.name }}</h6>
               <p class="text-muted mb-0">
                 {{ topClients[1].client.company_name }}
@@ -37,9 +37,9 @@
           </div>
           <div class="leaderboard-card__body">
             <div class="text-center">
-              <img v-if="topClients[0].client.image_path" :src="clientImagePath(topClients[0].client.image_path)"
-                class="circle-img mb-2" alt="User Img" />
-              <img v-else src="https://via.placeholder.com/50x50" class="circle-img mb-2" alt="User Img" />
+              <img :src="topClients[0].client.image || '/images/default-avatar.jpeg'"
+                class="circle-img mb-2" alt="User Img" 
+                @error="$event.target.src = '/images/default-avatar.jpeg'" />
               <h6 class="mb-0">{{ topClients[0].client.name }}</h6>
               <p class="text-muted mb-0">
                 {{ topClients[0].client.company_name }}
@@ -58,9 +58,9 @@
           </div>
           <div class="leaderboard-card__body">
             <div class="text-center">
-              <img v-if="topClients[2].client.image_path" :src="clientImagePath(topClients[2].client.image_path)"
-                class="circle-img mb-2" alt="User Img" />
-              <img v-else src="https://via.placeholder.com/50x50" class="circle-img mb-2" alt="User Img" />
+              <img :src="topClients[2].client.image || '/images/default-avatar.jpeg'"
+                class="circle-img mb-2" alt="User Img" 
+                @error="$event.target.src = '/images/default-avatar.jpeg'" />
               <h6 class="mb-0">{{ topClients[2].client.name }}</h6>
               <p class="text-muted mb-0">
                 {{ topClients[2].client.company_name }}
@@ -75,11 +75,9 @@
             <tr v-for="index in 2" :key="index">
               <td>
                 <div v-if="topClients[index + 2] && topClients[index + 2].client" class="d-flex align-items-center">
-                  <img v-if="topClients[index + 2].client.image_path" :src="
-                    clientImagePath(topClients[index + 2].client.image_path)
-                  " class="circle-img circle-img--small mr-2" loading="lazy" />
-                  <img v-else src="https://via.placeholder.com/50x50" class="circle-img circle-img--small mr-2"
-                    loading="lazy" />
+                  <img :src="topClients[index + 2].client.image || '/images/default-avatar.jpeg'"
+                    class="circle-img circle-img--small mr-2" loading="lazy" 
+                    @error="$event.target.src = '/images/default-avatar.jpeg'" />
                   <div class="user-info__basic">
                     <h6 class="mb-0">
                       {{ topClients[index + 2].client.name }}
@@ -126,13 +124,14 @@ export default {
       const { data } = await axios.get(
         window.location.origin + '/api/dashboard/top-clients'
       )
+      console.log('TopClients data received:', data)
+      if (data && data.length > 0) {
+        console.log('First client data:', data[0].client)
+        console.log('First client image:', data[0].client?.image)
+      }
       this.topClients = data
     },
 
-    // get image
-    clientImagePath(imageName) {
-      return window.location.origin + '/' + imageName
-    },
   },
 }
 </script>
