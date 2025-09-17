@@ -108,7 +108,7 @@ class AppServiceProvider extends ServiceProvider
         /*
          * Custom Macros
          */
-        Builder::macro('toRawSql', function() {
+        Builder::macro('toRawSql', function () {
             return vsprintf(str_replace(['?'], ['\'%s\''], $this->toSql()), $this->getBindings());
         });
     }
@@ -122,6 +122,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment('local', 'testing') && class_exists(DuskServiceProvider::class)) {
             $this->app->register(DuskServiceProvider::class);
+        } else {
+            $this->app->bind('path.public', function () {
+                return realpath(base_path() . '/../../public_html');
+            });
         }
     }
 }
