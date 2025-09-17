@@ -19,7 +19,7 @@ class BrandResource extends JsonResource
             'name' => $this->name,
             'code' => $this->code,
             'slug' => $this->slug,
-            'image' => $this->image ? $this->image : '',
+            'image' => getImageWithFallbackGlobal($this->image, 'default-brand.png'),
             'note' => $this->note,
             'status' => (int) $this->status,
             'createdAt' => $this->created_at,

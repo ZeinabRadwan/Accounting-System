@@ -152,4 +152,3 @@ class ExportBalanceSheet implements FromCollection, WithHeadings, ShouldAutoSize
         ];
     }
 }
-

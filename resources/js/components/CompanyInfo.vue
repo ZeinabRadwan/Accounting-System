@@ -1,6 +1,13 @@
 <template>
   <div v-if="appInfo" class="company-logo">
-    <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName" class="lg-logo" />
+    <DefaultImage
+      :src="appInfo.blackLogo"
+      type="company"
+      size="large"
+      shape="square"
+      :alt="appInfo.companyName"
+      class="lg-logo"
+    />
     <address class="mt-2">
       <strong v-html="appInfo.companyTagline" /><br />
       <strong v-if="appInfo.phone">{{ $t('Phone') }}: </strong>
@@ -15,8 +22,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import DefaultImage from './DefaultImage.vue'
+
 export default {
   name: 'CompanyInfo',
+  components: {
+    DefaultImage,
+  },
   // Map Getters
   computed: {
     ...mapGetters('operations', ['appInfo']),

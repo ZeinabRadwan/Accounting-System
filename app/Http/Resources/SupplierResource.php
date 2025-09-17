@@ -26,7 +26,7 @@ class SupplierResource extends JsonResource
             'taxRegistrationNumber' => $this->tax_registration_number,
             'address' => $this->address,
             'status' => (int) $this->status,
-            'image' => $this->image_path ? global_asset('/images/suppliers/'.$this->image_path) : '',
+            'image' => getImageWithFallbackGlobal($this->image_path, 'default-supplier.png', 'suppliers'),
             'image_path' => $this->image_path,
             'chart_of_account_id' => $this->chart_of_account_id,
             

@@ -37,7 +37,7 @@ class EmployeeResource extends JsonResource
             'email' => isset($this->user_id) ? $this->user->email : null,
             'role' => isset($this->user_id) && $this->user->roles->count() > 0 ? $this->user->roles[0] : '',
             'status' => (int) $this->status,
-            'image' => $this->image_path ? global_asset('images/employees/'.$this->image_path) : '',
+            'image' => getImageWithFallbackGlobal($this->image_path, 'default-employee.png', 'employees'),
         ];
     }
 }

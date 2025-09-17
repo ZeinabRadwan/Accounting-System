@@ -82,10 +82,7 @@ class User extends Authenticatable
      */
     public function getPhotoUrlAttribute()
     {
-        return vsprintf('https://www.gravatar.com/avatar/%s.jpg?s=200&d=%s', [
-            md5(strtolower($this->email)),
-            $this->name ? urlencode("https://ui-avatars.com/api/$this->name") : 'mp',
-        ]);
+        return getUserAvatar(null, $this->name, $this->email);
     }
 
     /**
