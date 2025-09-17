@@ -84,6 +84,7 @@ use App\Exports\ExportProfitLoss;
 use App\Exports\ExportAccountStatement;
 use App\Exports\ExportGroupAccountStatement;
 use App\Exports\ExportInvoiceSummary;
+use App\Exports\ExportPurchaseSummary;
 
 
 class TableExportController extends Controller
@@ -1160,5 +1161,40 @@ class TableExportController extends Controller
     {
         $filters = $request->all();
         return Excel::download(new ExportInvoiceSummary($filters), 'InvoiceSummary.xlsx');
+    }
+
+    // return purchase summary pdf
+    public function purchaseSummaryPDF(Request $request)
+    {
+        // Get purchase summary data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->purchaseSummary($request);
+        
+        // Check if the response has the expected structure
+        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
+            $data = $response['data'];
+        } else {
+            // If the response doesn't have the expected structure, use it directly
+            $data = $response;
+        }
+        
+        // Add filters to data for template
+        $data['filters'] = [
+            'from_date' => $request->input('from_date'),
+            'to_date' => $request->input('to_date'),
+            'fiscal_year_id' => $request->input('fiscal_year_id'),
+            'accounting_period_id' => $request->input('accounting_period_id'),
+        ];
+        
+        // share data to view
+        view()->share('reportData', $data);
+        return $this->generatePDF('pdf.purchase-summary', $data, 'purchase-summary.pdf');
+    }
+
+    // return purchase summary excel
+    public function purchaseSummaryExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportPurchaseSummary($filters), 'PurchaseSummary.xlsx');
     }
 }

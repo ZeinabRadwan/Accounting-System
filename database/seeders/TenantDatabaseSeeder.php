@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Demo\DemoDatabaseSeeder;
-use Database\Seeders\Tenant\DefaultFiscalAndAccountingPeriodSeeder;
-use Database\Seeders\Tenant\DefaultRouteAccountingSettingsSeeder;
+use Database\Seeders\tenant\DefaultFiscalAndAccountingPeriodSeeder;
+use Database\Seeders\tenant\DefaultRouteAccountingSettingsSeeder;
+use Database\Seeders\tenant\FiscalYearSeeder;
+use Database\Seeders\AccountStatementPermissionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 
@@ -32,8 +34,10 @@ class TenantDatabaseSeeder extends Seeder
                 TenantChartOfAccountType::class,
                 TenantChartOfAccountSeeder::class,
                 AccountRoutingSettingsSeeder::class,
+                FiscalYearSeeder::class,
                 DefaultRouteAccountingSettingsSeeder::class,
                 DefaultFiscalAndAccountingPeriodSeeder::class,
+                AccountStatementPermissionSeeder::class,
             ]);
 
             // Uncomment the line below to generate bulk data (10,000 invoices + 10,000 purchases)

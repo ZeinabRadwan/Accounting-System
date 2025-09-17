@@ -28,7 +28,19 @@ class AccountStatementPermissionSeeder extends Seeder
             ]);
         }
 
+      
 
+        $existingPermission = DB::table('permissions')->where('slug', 'vat-report')->first();
+        
+        if (!$existingPermission) {
+            DB::table('permissions')->insert([
+                [
+                    'name' => 'VAT Report',
+                    'guard_name' => 'Report View',
+                    'slug' => 'vat-report',
+                ],
+            ]);
+        }
 
 
         $adminRole = Role::firstOrCreate(['name' => 'admin']);

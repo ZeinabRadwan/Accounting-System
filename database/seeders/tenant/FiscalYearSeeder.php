@@ -16,11 +16,11 @@ class FiscalYearSeeder extends Seeder
      */
     public function run()
     {
-        // Create current fiscal year (2024-2025)
+        // Create current fiscal year (2025-2026)
         $currentFiscalYear = FiscalYear::create([
-            'name' => 'FY 2024-2025',
-            'start_date' => Carbon::parse('2024-04-01'),
-            'end_date' => Carbon::parse('2025-03-31'),
+            'name' => 'FY 2025-2026',
+            'start_date' => Carbon::parse('2025-04-01'),
+            'end_date' => Carbon::parse('2026-03-31'),
             'is_active' => true,
             'note' => 'Current fiscal year',
             'created_by' => 1,
@@ -28,10 +28,10 @@ class FiscalYearSeeder extends Seeder
 
         // Create accounting periods for current fiscal year
         $periods = [
-            ['name' => 'Q1 2024-25', 'start' => '2024-04-01', 'end' => '2024-06-30'],
-            ['name' => 'Q2 2024-25', 'start' => '2024-07-01', 'end' => '2024-09-30'],
-            ['name' => 'Q3 2024-25', 'start' => '2024-10-01', 'end' => '2024-12-31'],
-            ['name' => 'Q4 2024-25', 'start' => '2025-01-01', 'end' => '2025-03-31'],
+            ['name' => 'Q1 2025-26', 'start' => '2025-04-01', 'end' => '2025-06-30'],
+            ['name' => 'Q2 2025-26', 'start' => '2025-07-01', 'end' => '2025-09-30'],
+            ['name' => 'Q3 2025-26', 'start' => '2025-10-01', 'end' => '2025-12-31'],
+            ['name' => 'Q4 2025-26', 'start' => '2026-01-01', 'end' => '2026-03-31'],
         ];
 
         foreach ($periods as $period) {
@@ -47,11 +47,11 @@ class FiscalYearSeeder extends Seeder
             ]);
         }
 
-        // Create previous fiscal year (2023-2024)
+        // Create previous fiscal year (2024-2025)
         $previousFiscalYear = FiscalYear::create([
-            'name' => 'FY 2023-2024',
-            'start_date' => Carbon::parse('2023-04-01'),
-            'end_date' => Carbon::parse('2024-03-31'),
+            'name' => 'FY 2024-2025',
+            'start_date' => Carbon::parse('2024-04-01'),
+            'end_date' => Carbon::parse('2025-03-31'),
             'is_active' => false,
             'note' => 'Previous fiscal year',
             'created_by' => 1,
@@ -59,10 +59,10 @@ class FiscalYearSeeder extends Seeder
 
         // Create accounting periods for previous fiscal year
         $previousPeriods = [
-            ['name' => 'Q1 2023-24', 'start' => '2023-04-01', 'end' => '2023-06-30'],
-            ['name' => 'Q2 2023-24', 'start' => '2023-07-01', 'end' => '2023-09-30'],
-            ['name' => 'Q3 2023-24', 'start' => '2023-10-01', 'end' => '2023-12-31'],
-            ['name' => 'Q4 2023-24', 'start' => '2024-01-01', 'end' => '2024-03-31'],
+            ['name' => 'Q1 2024-25', 'start' => '2024-04-01', 'end' => '2024-06-30'],
+            ['name' => 'Q2 2024-25', 'start' => '2024-07-01', 'end' => '2024-09-30'],
+            ['name' => 'Q3 2024-25', 'start' => '2024-10-01', 'end' => '2024-12-31'],
+            ['name' => 'Q4 2024-25', 'start' => '2025-01-01', 'end' => '2025-03-31'],
         ];
 
         foreach ($previousPeriods as $period) {
