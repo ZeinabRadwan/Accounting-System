@@ -45,20 +45,16 @@
               <div class="card-body box-profile">
                 <div class="text-center mb-2">
                   <a
-                    v-if="allData.image"
                     href="#"
                     id="show-modal"
-                    @click="previewModal(allData.image)"
+                    @click="previewModal(allData.image || '')"
                   >
                     <img
-                      :src="allData.image"
+                      v-bind="getAvatarProps(allData.image, 'clients')"
                       class="profile-user-img img-fluid img-circle"
                       loading="lazy"
                     />
                   </a>
-                  <div v-else class="bg-secondary no-preview-lg">
-                    <small>{{ $t("No Preview") }}</small>
-                  </div>
                 </div>
                 <h3 class="profile-username text-center">{{ allData.name }}</h3>
                 <ul class="list-group list-group-unbordered mb-3">
@@ -373,6 +369,7 @@
                           @update="updateValues('invoice')"
                           :linkedCalendars="true"
                           class="c-w-100"
+                          style="display: none;"
                         >
                           <template
                             v-slot:input="picker"
@@ -577,6 +574,7 @@
                           @update="updateValues('invoice-returns')"
                           :linkedCalendars="true"
                           class="c-w-100"
+                          style="display: none;"
                         >
                           <template
                             v-slot:input="picker"
@@ -795,6 +793,7 @@
                           @update="updateValues('invoice-payments')"
                           :linkedCalendars="true"
                           class="c-w-100"
+                          style="display: none;"
                         >
                           <template
                             v-slot:input="picker"
@@ -1010,6 +1009,7 @@
                           @update="updateValues('non-invoice-transactions')"
                           :linkedCalendars="true"
                           class="c-w-100"
+                          style="display: none;"
                         >
                           <template
                             v-slot:input="picker"
@@ -1437,12 +1437,14 @@ import i18n from "~/plugins/i18n";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import DateRangePicker from "vue2-daterange-picker";
+import avatarMixin from "~/mixins/avatarMixin";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Client Details") };
   },
+  mixins: [avatarMixin],
   components: {
     DateRangePicker,
   },

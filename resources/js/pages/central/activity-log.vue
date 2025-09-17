@@ -57,6 +57,7 @@
                   @update="updateValues"
                   :linkedCalendars="true"
                   class="c-w-100"
+                  style="display: none;"
                 >
                   <template v-slot:input="picker" style="min-width: 350px">
                     {{ picker.startDate | startDate }} -

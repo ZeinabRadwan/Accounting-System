@@ -7,6 +7,7 @@ use Exception;
 use Carbon\Carbon;
 
 use App\Http\Requests\Profile\UpdateProfileRequest;
+use App\Http\Resources\ClientResource;
 
 use App\Models\Expense;
 use App\Models\Invoice;
@@ -161,6 +162,13 @@ class DashboardController extends Controller
     {
         $year = date('Y');
         $topCustomers = Invoice::with('client')->whereYear('invoice_date', '=', $year)->addSelect(DB::raw('COUNT(invoices.id) as total_invoice'), DB::raw('SUM(sub_total) as invoice_total, client_id'))->groupBy('client_id')->take(5)->orderBy('invoice_total', 'DESC')->get();
+
+        // Add processed image URL to each client
+        $topCustomers->each(function ($item) {
+            $item->client->image = getAvatarWithFallback($item->client->image_path, 'clients');
+            // Debug: Log the image path and result
+            \Log::info('Client: ' . $item->client->name . ' - Image Path: ' . $item->client->image_path . ' - Processed Image: ' . $item->client->image);
+        });
 
         return $topCustomers;
     }

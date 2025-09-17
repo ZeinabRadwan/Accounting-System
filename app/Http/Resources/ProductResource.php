@@ -58,7 +58,7 @@ class ProductResource extends JsonResource
             'alertQty' => $this->alert_qty,
             'note' => $this->note,
             'status' => (int) $this->status,
-            'image' => $this->image_path ? global_asset('images/products/'.$this->image_path) : '',
+            'image' => getAvatarWithFallback($this->image_path, 'products'),
             // Add chart of account IDs for validation
             'sales_account_id' => $this->sales_account_id,
             'purchase_account_id' => $this->purchase_account_id,

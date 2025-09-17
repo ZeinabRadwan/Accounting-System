@@ -9,7 +9,7 @@
         <div class="card card-primary card-outline">
           <div class="card-body">
             <div class="text-center">
-              <img class="profile-user-img img-fluid img-circle" :src="data.photo_url" :alt="$t('Attached Image')" />
+              <img class="profile-user-img img-fluid img-circle" v-bind="getAvatarProps(data.photo_url, '', 'default-avatar.jpeg')" :alt="$t('Attached Image')" />
             </div>
             <h3 class="profile-username text-center text-capitalize">
               {{ data.name }}
@@ -193,10 +193,12 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import avatarMixin from "~/mixins/avatarMixin";
 
 export default {
   layout: "central",
   middleware: ["auth", "check-permissions"],
+  mixins: [avatarMixin],
   metaInfo() {
     return { title: this.$t("Tenant Details") };
   },

@@ -53,20 +53,16 @@
               <div class="card-body box-profile">
                 <div class="text-center mb-2">
                   <a
-                    v-if="allData.image"
                     href="#"
                     id="show-modal"
-                    @click="previewModal(allData.image)"
+                    @click="previewModal(allData.image || '')"
                   >
                     <img
-                      :src="allData.image"
+                      v-bind="getAvatarProps(allData.image, 'employees')"
                       class="profile-user-img img-fluid img-circle"
                       loading="lazy"
                     />
                   </a>
-                  <div v-else class="bg-secondary no-preview-lg">
-                    <small>{{ $t("No Preview") }}</small>
-                  </div>
                 </div>
                 <h3 class="profile-username text-center">{{ allData.name }}</h3>
                 <ul class="list-group list-group-unbordered mb-3">
@@ -767,12 +763,14 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import avatarMixin from "~/mixins/avatarMixin";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Employee Details") };
   },
+  mixins: [avatarMixin],
   data: () => ({
     breadcrumbsCurrent: "Employee Details",
     breadcrumbs: [

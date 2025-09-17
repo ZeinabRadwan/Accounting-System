@@ -10,7 +10,7 @@
                         <div class="text-center">
                             <img
                                 class="profile-user-img img-fluid img-circle"
-                                :src="user.photo_url"
+                                v-bind="getAvatarProps(user.photo_url, '', 'default-avatar.jpeg')"
                                 :alt="$t('Attached Image')"
                             />
                         </div>
@@ -207,10 +207,12 @@
 <script>
 import Form from 'vform';
 import axios from 'axios';
+import avatarMixin from '~/mixins/avatarMixin';
 
 export default {
     layout: 'central',
     middleware: 'auth',
+    mixins: [avatarMixin],
     metaInfo() {
         return { title: this.$t('Update Profile') };
     },

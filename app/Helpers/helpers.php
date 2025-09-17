@@ -338,3 +338,59 @@ function getLogoWithFallbackGlobal($query, $logoKey, $defaultLogo)
     // Fallback to default logo
     return global_asset('images/' . $defaultLogo);
 }
+
+/**
+ * Get avatar with fallback to default avatar if image doesn't exist
+ * 
+ * @param string|null $imagePath The image path (can be null or empty)
+ * @param string $directory The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
+ * @param string $defaultAvatar The default avatar filename (defaults to 'default-avatar.jpeg')
+ * @return string The full URL to the avatar image
+ */
+function getAvatarWithFallback($imagePath, $directory = '', $defaultAvatar = 'default-avatar.jpeg')
+{
+    // If no image path provided, return default avatar
+    if (empty($imagePath)) {
+        return global_asset('images/' . $defaultAvatar);
+    }
+    
+    // Build the full image path
+    $fullImagePath = $directory ? "images/{$directory}/{$imagePath}" : "images/{$imagePath}";
+    $physicalPath = public_path($fullImagePath);
+    
+    // Check if the image file actually exists
+    if (file_exists($physicalPath)) {
+        return global_asset($fullImagePath);
+    }
+    
+    // If image doesn't exist, return default avatar
+    return global_asset('images/' . $defaultAvatar);
+}
+
+/**
+ * Get avatar with fallback to default avatar if image doesn't exist (using asset instead of global_asset)
+ * 
+ * @param string|null $imagePath The image path (can be null or empty)
+ * @param string $directory The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
+ * @param string $defaultAvatar The default avatar filename (defaults to 'default-avatar.jpeg')
+ * @return string The full URL to the avatar image
+ */
+function getAvatarWithFallbackLocal($imagePath, $directory = '', $defaultAvatar = 'default-avatar.jpeg')
+{
+    // If no image path provided, return default avatar
+    if (empty($imagePath)) {
+        return asset('images/' . $defaultAvatar);
+    }
+    
+    // Build the full image path
+    $fullImagePath = $directory ? "images/{$directory}/{$imagePath}" : "images/{$imagePath}";
+    $physicalPath = public_path($fullImagePath);
+    
+    // Check if the image file actually exists
+    if (file_exists($physicalPath)) {
+        return asset($fullImagePath);
+    }
+    
+    // If image doesn't exist, return default avatar
+    return asset('images/' . $defaultAvatar);
+}

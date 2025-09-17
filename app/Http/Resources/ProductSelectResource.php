@@ -38,7 +38,7 @@ class ProductSelectResource extends JsonResource
                 'status' => $this->productTax->status,
             ] : null,
             'inventoryCount' => $this->inventory_count > 0 ? $this->inventory_count : 0,
-            'image' => $this->image_path ? global_asset('images/products/'.$this->image_path) : '',
+            'image' => getAvatarWithFallback($this->image_path, 'products'),
             // Add chart of account IDs for validation
             'sales_account_id' => $this->sales_account_id,
             'purchase_account_id' => $this->purchase_account_id,

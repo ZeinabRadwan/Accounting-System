@@ -24,7 +24,7 @@ class SupplierWithNonPurchasePaymentResource extends JsonResource
             'companyName' => $this->company_name,
             'address' => $this->address,
             'status' => (int) $this->status,
-            'image' => $this->image_path ? global_asset('/images/suppliers/'.$this->image_path) : '',
+            'image' => getAvatarWithFallback($this->image_path, 'suppliers'),
             'type' => $this->type,
             'chart_of_account_id' => $this->chart_of_account_id,
             'nonPurchaseTotalDue' => $this->nonPurchaseTotalDue(),

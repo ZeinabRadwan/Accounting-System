@@ -52,7 +52,7 @@
               <div class="col-6 col-xl-8 mb-2 text-right">
                 <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
                   :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
-                  v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100">
+                  v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100" style="display: none;">
                   <template v-slot:input="picker" style="min-width: 350px">
                     {{ picker.startDate | startDate }} -
                     {{ picker.endDate | endDate }}
