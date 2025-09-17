@@ -1339,6 +1339,13 @@ class TenantPermissionSeeder extends Seeder
                     'guard_name' => 'Purchase Order Management',
                     'slug' => 'purchase-order-delete',
                 ],
+
+                // Print Templates permission
+                [
+                    'name' => 'Print Templates',
+                    'guard_name' => 'Print Templates Management',
+                    'slug' => 'print-templates',
+                ],
         ];
 
         // Use upsert to insert or update permissions
