@@ -81,6 +81,7 @@ use App\Exports\ExportSupplierNonPurchasePayment;
 use App\Exports\ExportTodayReport;
 use App\Exports\ExportBalanceSheet;
 use App\Exports\ExportProfitLoss;
+use App\Exports\ExportAccountStatement;
 
 
 class TableExportController extends Controller
@@ -1052,5 +1053,32 @@ class TableExportController extends Controller
         // share data to view
         view()->share('collectionByUserData', $data);
         return $this->generatePDF('pdf.collection-by-user-report', $data, 'collection-by-user-report.pdf', 'a4', 'landscape');
+    }
+
+    // return account statement pdf
+    public function accountStatementPDF(Request $request)
+    {
+        // Get account statement data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $response = $reportController->accountStatement($request);
+        
+        // Add filters to data for template
+        $response['filters'] = [
+            'from_date' => $request->input('from_date'),
+            'to_date' => $request->input('to_date'),
+            'chart_of_account_id' => $request->input('chart_of_account_id'),
+            'sub_chart_of_account_id' => $request->input('sub_chart_of_account_id'),
+        ];
+        
+        // share data to view
+        view()->share('reportData', $response);
+        return $this->generatePDF('pdf.account-statement', $response, 'account-statement.pdf');
+    }
+
+    // return account statement excel
+    public function accountStatementExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportAccountStatement($filters), 'AccountStatement.xlsx');
     }
 }
