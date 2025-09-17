@@ -37,7 +37,7 @@ class TenantDatabaseSeeder extends Seeder
             ]);
 
             // Uncomment the line below to generate bulk data (10,000 invoices + 10,000 purchases)
-            $this->call([TenantBulkDataSeederV2::class]);
+            // $this->call([TenantBulkDataSeederV2::class]);
             
 
         // }
