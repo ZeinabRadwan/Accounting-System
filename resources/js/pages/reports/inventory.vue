@@ -119,6 +119,12 @@
               <router-link :to="{ name: 'inventory.index' }" class="btn btn-dark float-right">
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </router-link>
+              <a :href="exportExcelUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
+                <i class="fa fa-arrow-circle-down"></i>
+              </a>
+              <a :href="exportPdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
+                <i class="fas fa-file-export"></i>
+              </a>
               <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{ $t("Print")
               }}</a>
             </div>
@@ -181,6 +187,56 @@ export default {
 
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+    exportExcelUrl() {
+      const params = new URLSearchParams();
+      if (this.form.category && this.form.category.slug) {
+        params.append('category[slug]', this.form.category.slug);
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.slug) {
+        params.append('subCategory[slug]', this.form.subCategory.slug);
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
+      }
+      if (this.form.itemName && this.form.itemName.slug) {
+        params.append('itemName[slug]', this.form.itemName.slug);
+        params.append('itemName[id]', this.form.itemName.id);
+        params.append('itemName[name]', this.form.itemName.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      return `/reports/inventory-report/export?${params.toString()}`;
+    },
+    exportPdfUrl() {
+      const params = new URLSearchParams();
+      if (this.form.category && this.form.category.slug) {
+        params.append('category[slug]', this.form.category.slug);
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.slug) {
+        params.append('subCategory[slug]', this.form.subCategory.slug);
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
+      }
+      if (this.form.itemName && this.form.itemName.slug) {
+        params.append('itemName[slug]', this.form.itemName.slug);
+        params.append('itemName[id]', this.form.itemName.id);
+        params.append('itemName[name]', this.form.itemName.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      return `/reports/inventory-report/pdf?${params.toString()}`;
+    },
   },
 
   created() {
