@@ -2853,12 +2853,12 @@ class ReportController extends Controller
                 ->selectRaw('
                     suppliers.id as supplier_id,
                     suppliers.name as supplier_name,
-                    suppliers.phone as supplier_phone,
+                    COALESCE(suppliers.phone_number, suppliers.phone_legacy) as supplier_phone,
                     COUNT(purchases.id) as purchase_count,
                     SUM(purchases.sub_total) as total_amount,
                     SUM(purchases.discount) as discount_amount
                 ')
-                ->groupBy('suppliers.id', 'suppliers.name', 'suppliers.phone')
+                ->groupBy('suppliers.id', 'suppliers.name', 'suppliers.phone_number', 'suppliers.phone_legacy')
                 ->orderBy('total_amount', 'desc')
                 ->offset(($page - 1) * $perPage)
                 ->limit($perPage)
