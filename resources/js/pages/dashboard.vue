@@ -74,7 +74,7 @@
                           dashboardSummery.purchaseReturnAmount | withCurrency
                         }}
                       </h3>
-                      <p>{{ $t("Purchase Return") }}</p>
+                      <p>{{ $t("Debit Notes") }}</p>
                     </div>
                     <div class="icon">
                       <i class="fas fa-forward"></i>
@@ -106,7 +106,7 @@
                       <h3>
                         {{ dashboardSummery.salesReturnAmount | withCurrency }}
                       </h3>
-                      <p>{{ $t("Sales Return") }}</p>
+                      <p>{{ $t("Credit Notes") }}</p>
                     </div>
                     <div class="icon">
                       <i class="fas fa-backward"></i>
@@ -279,7 +279,7 @@
             </div>
             <div class="card-body">
               <template>
-                <v-chart class="chart" :option="lineChartOptions" />
+                <v-chart class="chart" :option="translatedLineChartOptions" />
               </template>
             </div>
           </div>
@@ -514,6 +514,33 @@ export default {
     }
     this.loading = false;
   },
+
+  computed: {
+    // Computed property for line chart options with translations
+    translatedLineChartOptions() {
+      return {
+        ...this.lineChartOptions,
+        legend: {
+          data: [this.$t("Payment Sent"), this.$t("Payment Received")],
+        },
+        series: [
+          {
+            name: this.$t("Payment Sent"),
+            type: "line",
+            smooth: true,
+            data: this.lineChartOptions.series[0].data,
+          },
+          {
+            name: this.$t("Payment Received"),
+            type: "line",
+            smooth: true,
+            data: this.lineChartOptions.series[1].data,
+          },
+        ],
+      };
+    },
+  },
+
   methods: {
     showPaymentNotification(status, message) {
       if (status === 'success') {

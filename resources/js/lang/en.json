@@ -675,6 +675,8 @@
   "Top Selling Products": "Top Selling Products",
   "Payment Sent vs Payment Received": "Payment Sent vs Payment Received",
   "Payment Sent = Supplier Payment + Loan Payment <br/> Payment Received = Client Payment + Loan Recevied": "Payment Sent = Supplier Payment + Loan Payment <br/> Payment Received = Client Payment + Loan Recevied",
+  "Payment Sent": "Payment Sent",
+  "Payment Received": "Payment Received",
   "Top 5 Clients": "Top 5 Clients",
   "Summary": "Summary",
   "Today": "Today",
