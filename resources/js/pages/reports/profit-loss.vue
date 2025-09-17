@@ -320,11 +320,20 @@
 
           <div class="row no-print mt-5">
             <div class="col-12">
-              <router-link :to="{ name: 'inventory.index' }" class="btn btn-dark float-right">
-                <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-              </router-link>
-              <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{ $t("Print")
-              }}</a>
+              <div class="btn-group float-right">
+                <router-link :to="{ name: 'inventory.index' }" class="btn btn-dark">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+                </router-link>
+                <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
+                  <i class="fas fa-file-excel"></i> {{ $t("Excel") }}
+                </a>
+                <a :href="pdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
+                  <i class="fas fa-file-pdf"></i> {{ $t("PDF") }}
+                </a>
+                <a href="#" @click="printWindow" class="btn btn-default">
+                  <i class="fas fa-print"></i> {{ $t("Print") }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -391,6 +400,38 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo"]),
+    exportUrl() {
+      // Create a dynamic export URL for profit loss with current filters
+      const params = new URLSearchParams();
+      
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      if (this.form.reportType) {
+        params.append('reportType', this.form.reportType);
+      }
+      
+      return `/reports/profit-loss/export?${params.toString()}`;
+    },
+    pdfUrl() {
+      // Create a dynamic PDF URL for profit loss with current filters
+      const params = new URLSearchParams();
+      
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      if (this.form.reportType) {
+        params.append('reportType', this.form.reportType);
+      }
+      
+      return `/reports/profit-loss/pdf?${params.toString()}`;
+    },
   },
 
   methods: {
