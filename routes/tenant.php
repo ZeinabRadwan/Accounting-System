@@ -730,6 +730,8 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/invoice-summary/export', [TableExportController::class, 'invoiceSummaryExportExcel'])->name('invoiceSummary.export.excel');
     Route::get('/purchase-summary/pdf', [TableExportController::class, 'purchaseSummaryPDF'])->name('purchaseSummary.pdf');
     Route::get('/purchase-summary/export', [TableExportController::class, 'purchaseSummaryExportExcel'])->name('purchaseSummary.export.excel');
+    Route::get('/vat-report/pdf', [TableExportController::class, 'vatReportPdf'])->name('vatReport.pdf');
+    Route::get('/vat-report/export', [TableExportController::class, 'vatReportExportExcel'])->name('vatReport.export.excel');
 
     // product templates
     Route::get('/product-import-template', [ProductController::class, 'importTemplate']);

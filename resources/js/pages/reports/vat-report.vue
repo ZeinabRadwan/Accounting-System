@@ -123,9 +123,22 @@
           <button type="button" class="btn btn-tool" @click="printReport">
             <i class="fas fa-print"></i>
           </button>
-          <button type="button" class="btn btn-tool" @click="exportReport">
-            <i class="fas fa-download"></i>
-          </button>
+          <a 
+            v-if="reportData && reportData.summary" 
+            :href="exportExcelUrl" 
+            v-tooltip="$t('Export to Excel')" 
+            class="btn btn-tool"
+          >
+            <i class="fas fa-file-excel"></i>
+          </a>
+          <a 
+            v-if="reportData && reportData.summary" 
+            :href="exportPdfUrl" 
+            v-tooltip="$t('Export to PDF')" 
+            class="btn btn-tool"
+          >
+            <i class="fas fa-file-pdf"></i>
+          </a>
         </div>
         </div>
         <div class="card-body">
@@ -363,7 +376,6 @@ export default {
       pageSize: 10,
       totalPages: 0,
       totalTransactions: 0,
-      loadingTransactions: false,
     };
   },
   
@@ -424,6 +436,41 @@ export default {
       return this.reportData.summary.reduce((sum, item) => {
         return sum + this.calculateAmountBeforeVat(item.purchase_vat, item.vat_rate_percentage);
       }, 0);
+    },
+    
+    // Export URLs
+    exportExcelUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return `/vat-report/export?${params.toString()}`;
+    },
+    
+    exportPdfUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return `/vat-report/pdf?${params.toString()}`;
     },
   },
   
@@ -633,11 +680,6 @@ export default {
 
     printReport() {
       window.print();
-    },
-
-    exportReport() {
-      // TODO: Implement export functionality
-      this.$toast.info('', this.$t("Export functionality coming soon"));
     },
   },
 };
