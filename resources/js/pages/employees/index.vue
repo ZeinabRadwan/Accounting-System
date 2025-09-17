@@ -89,9 +89,15 @@
                       <a v-if="data.image" href="#" id="show-modal" @click="previewModal(data.image)">
                         <img :src="data.image" class="rounded preview-sm" loading="lazy" />
                       </a>
-                      <div v-else class="bg-secondary rounded no-preview-sm">
-                        <small>{{ $t("No Preview") }}</small>
-                      </div>
+                      <DefaultImage
+                        v-else
+                        :src="data.image"
+                        type="employee"
+                        size="small"
+                        shape="rounded"
+                        :alt="data.name"
+                        class="rounded preview-sm"
+                      />
                     </td>
                     <td>
                       <router-link v-if="data.slug" :to="{
@@ -197,6 +203,7 @@ import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import Swal from "sweetalert2";
+import DefaultImage from "../../components/DefaultImage.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -205,6 +212,7 @@ export default {
   },
   components: {
     DateRangePicker,
+    DefaultImage,
   },
   data: () => ({
     breadcrumbsCurrent: "Employees",

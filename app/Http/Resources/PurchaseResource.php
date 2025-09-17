@@ -19,11 +19,11 @@ class PurchaseResource extends JsonResource
             'code' => $this->purchase_no,
             'slug' => $this->slug,
             'purchaseNo' => config('config.purchasePrefix').$this->purchase_no,
-            'supplier' => new SupplierListReource($this->supplier),
+            'supplier' => $this->supplier ? new SupplierListReource($this->supplier) : null,
             'totalDiscount' => $this->discount,
             'transport' => $this->transport,
             'tax' => $this->total_tax,
-            'taxRate' => $this->purchaseTax->rate,
+            'taxRate' => $this->purchaseTax ? $this->purchaseTax->rate : 0,
             'subTotal' => $this->sub_total,
             'purchaseTotal' => $this->purchaseTotal(),
             'totalPaid' => $this->purchaseTotalPaid(),
@@ -36,7 +36,7 @@ class PurchaseResource extends JsonResource
             'purchaseProducts' => PurchaseProductResource::collection($this->purchaseProducts),
             'note' => $this->note,
             'status' => (int) $this->status,
-            'createdBy' => $this->user->name,
+            'createdBy' => $this->user ? $this->user->name : null,
         ];
     }
 }

@@ -98,9 +98,15 @@
                       <a v-if="data.image" href="#" id="show-modal" @click="previewModal(data.image)">
                         <img :src="data.image" class="rounded preview-sm" loading="lazy" />
                       </a>
-                      <div v-else class="bg-secondary rounded no-preview-sm">
-                        <small>{{ $t("No Preview") }}</small>
-                      </div>
+                      <DefaultImage
+                        v-else
+                        :src="data.image"
+                        type="client"
+                        size="small"
+                        shape="rounded"
+                        :alt="data.name"
+                        class="rounded preview-sm"
+                      />
                     </td>
                     <td>{{ data.clientID | withPrefix(clientPrefix) }}</td>
                     <td>
@@ -243,6 +249,7 @@ import VButton from "../../components/Button";
 import DateRangePicker from "vue2-daterange-picker";
 import ClientEditModal from "../../components/ClientEditModal.vue";
 import Swal from "sweetalert2";
+import DefaultImage from "../../components/DefaultImage.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -253,6 +260,7 @@ export default {
     VButton,
     DateRangePicker,
     ClientEditModal,
+    DefaultImage,
   },
   data: () => ({
     form: new Form({

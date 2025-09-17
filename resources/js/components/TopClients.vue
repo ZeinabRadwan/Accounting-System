@@ -16,9 +16,14 @@
           </div>
           <div class="leaderboard-card__body">
             <div class="text-center">
-              <img v-if="topClients[1].client.image_path" :src="clientImagePath(topClients[1].client.image_path)"
-                class="circle-img mb-2" alt="User Img" />
-              <img v-else src="https://via.placeholder.com/50x50" class="circle-img mb-2" alt="User Img" />
+              <DefaultImage
+                :src="topClients[1].client.image_path ? clientImagePath(topClients[1].client.image_path) : ''"
+                type="client"
+                size="medium"
+                shape="circle"
+                :alt="topClients[1].client.name"
+                class="circle-img mb-2"
+              />
               <h6 class="mb-0">{{ topClients[1].client.name }}</h6>
               <p class="text-muted mb-0">
                 {{ topClients[1].client.company_name }}
@@ -37,9 +42,14 @@
           </div>
           <div class="leaderboard-card__body">
             <div class="text-center">
-              <img v-if="topClients[0].client.image_path" :src="clientImagePath(topClients[0].client.image_path)"
-                class="circle-img mb-2" alt="User Img" />
-              <img v-else src="https://via.placeholder.com/50x50" class="circle-img mb-2" alt="User Img" />
+              <DefaultImage
+                :src="topClients[0].client.image_path ? clientImagePath(topClients[0].client.image_path) : ''"
+                type="client"
+                size="medium"
+                shape="circle"
+                :alt="topClients[0].client.name"
+                class="circle-img mb-2"
+              />
               <h6 class="mb-0">{{ topClients[0].client.name }}</h6>
               <p class="text-muted mb-0">
                 {{ topClients[0].client.company_name }}
@@ -58,9 +68,14 @@
           </div>
           <div class="leaderboard-card__body">
             <div class="text-center">
-              <img v-if="topClients[2].client.image_path" :src="clientImagePath(topClients[2].client.image_path)"
-                class="circle-img mb-2" alt="User Img" />
-              <img v-else src="https://via.placeholder.com/50x50" class="circle-img mb-2" alt="User Img" />
+              <DefaultImage
+                :src="topClients[2].client.image_path ? clientImagePath(topClients[2].client.image_path) : ''"
+                type="client"
+                size="medium"
+                shape="circle"
+                :alt="topClients[2].client.name"
+                class="circle-img mb-2"
+              />
               <h6 class="mb-0">{{ topClients[2].client.name }}</h6>
               <p class="text-muted mb-0">
                 {{ topClients[2].client.company_name }}
@@ -75,11 +90,14 @@
             <tr v-for="index in 2" :key="index">
               <td>
                 <div v-if="topClients[index + 2] && topClients[index + 2].client" class="d-flex align-items-center">
-                  <img v-if="topClients[index + 2].client.image_path" :src="
-                    clientImagePath(topClients[index + 2].client.image_path)
-                  " class="circle-img circle-img--small mr-2" loading="lazy" />
-                  <img v-else src="https://via.placeholder.com/50x50" class="circle-img circle-img--small mr-2"
-                    loading="lazy" />
+                  <DefaultImage
+                    :src="topClients[index + 2].client.image_path ? clientImagePath(topClients[index + 2].client.image_path) : ''"
+                    type="client"
+                    size="small"
+                    shape="circle"
+                    :alt="topClients[index + 2].client.name"
+                    class="circle-img circle-img--small mr-2"
+                  />
                   <div class="user-info__basic">
                     <h6 class="mb-0">
                       {{ topClients[index + 2].client.name }}
@@ -109,9 +127,13 @@
 
 <script>
 import axios from 'axios'
+import DefaultImage from './DefaultImage.vue'
 
 export default {
   name: 'TopClients',
+  components: {
+    DefaultImage,
+  },
   data: () => ({
     topClients: '',
     year: new Date().getFullYear(),

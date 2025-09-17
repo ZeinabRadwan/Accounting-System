@@ -306,10 +306,14 @@
                 <div class="pos-box">
                   <div class="relative">
                     <div class="pos-box-img">
-                      <div v-if="product.image">
-                        <img class="pos-box-icon" :src="product.image" alt="product image" />
-                      </div>
-                      <div v-else>{{ $t("No Preview") }}</div>
+                      <DefaultImage
+                        :src="product.image"
+                        type="product"
+                        size="medium"
+                        shape="rounded"
+                        :alt="product.name"
+                        class="pos-box-icon"
+                      />
                     </div>
                     <span class="box-qty" :class="Number(product.inventoryCount) < 1 ? 'qty-red' : ''
                       ">{{ product.inventoryCount }}</span>
@@ -568,6 +572,7 @@ import VueBarcode from "vue-barcode";
 import sound from "../../../audio/beep.wav";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
+import DefaultImage from '../../../components/DefaultImage.vue'
 
 export default {
   middleware: ["auth"],
@@ -577,7 +582,8 @@ export default {
   components: {
     barcode: VueBarcode,
     ClientCreateModal,
-    ProductCreateModal
+    ProductCreateModal,
+    DefaultImage,
   },
   data: () => ({
     breadcrumbsCurrent: "Create Sale",

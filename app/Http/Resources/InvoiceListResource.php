@@ -30,7 +30,7 @@ class InvoiceListResource extends JsonResource
             'discount' => $this->discount,
             'discountPercentage' => $this->discountPercentage(),
             'tax' => $this->taxAmount(),
-            'taxRate' => $this->invoiceTax->rate,
+            'taxRate' => $this->invoiceTax ? $this->invoiceTax->rate : 0,
             'totalPaid' => $this->invoiceTotalPaid(),
             'due' => $this->totalDue(),
             'poReference' => $this->po_reference,
