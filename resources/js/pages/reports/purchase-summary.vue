@@ -95,15 +95,22 @@
                 <i class="fas fa-undo"></i>
                 {{ $t('Reset') }}
               </button>
-              <button 
+              <a 
                 v-if="reportData && reportData.summary" 
-                type="button" 
-                @click="exportToPDF" 
+                :href="exportExcelUrl" 
+                v-tooltip="$t('Export to Excel')" 
+                class="btn btn-info ml-2"
+              >
+                <i class="fa fa-arrow-circle-down"></i>
+              </a>
+              <a 
+                v-if="reportData && reportData.summary" 
+                :href="exportPdfUrl" 
+                v-tooltip="$t('Export to PDF')" 
                 class="btn btn-success ml-2"
               >
-                <i class="fas fa-file-pdf"></i>
-                {{ $t('Export PDF') }}
-              </button>
+                <i class="fas fa-file-export"></i>
+              </a>
             </div>
           </div>
         </form>
@@ -431,6 +438,41 @@ export default {
     ...mapGetters({
       appInfo: "appInfo",
     }),
+    
+    // Export URLs
+    exportExcelUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return `/purchase-summary/export?${params.toString()}`;
+    },
+    
+    exportPdfUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return `/purchase-summary/pdf?${params.toString()}`;
+    },
   },
   
   watch: {
@@ -555,10 +597,6 @@ export default {
       this.errors = {};
     },
 
-    exportToPDF() {
-      // TODO: Implement PDF export functionality
-      this.$toast.info('', this.$t('PDF export functionality will be implemented soon'));
-    },
 
     async loadSupplierPage(page) {
       if (!this.reportData) return;
