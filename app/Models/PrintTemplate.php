@@ -105,7 +105,7 @@ class PrintTemplate extends Model
     public function getLogoUrlAttribute()
     {
         if ($this->custom_logo) {
-            return getImageWithFallbackGlobal($this->custom_logo, 'default-company.png');
+            return global_asset('images/' . $this->custom_logo);
         }
 
         // Fallback to general settings logo
@@ -113,11 +113,11 @@ class PrintTemplate extends Model
         $logo = $settings->where('key', 'logo')->first()?->value;
         
         if (!empty($logo)) {
-            return getImageWithFallbackGlobal($logo, 'default-company.png');
+            return global_asset('images/' . $logo);
         }
 
         // Default logo fallback
-        return global_asset('images/default-company.png');
+        return global_asset('images/white_logo.png');
     }
 
     /**
@@ -126,7 +126,7 @@ class PrintTemplate extends Model
     public function getLogoPathAttribute()
     {
         if ($this->custom_logo) {
-            return getImageWithFallbackGlobal($this->custom_logo, 'default-company.png');
+            return public_path('images/' . $this->custom_logo);
         }
 
         // Fallback to general settings logo
@@ -134,10 +134,10 @@ class PrintTemplate extends Model
         $logo = $settings->where('key', 'logo')->first()?->value;
         
         if (!empty($logo)) {
-            return getImageWithFallbackGlobal($logo, 'default-company.png');
+            return public_path('images/' . $logo);
         }
 
         // Default logo fallback
-        return global_asset('images/default-company.png');
+        return public_path('images/white_logo.png');
     }
 }

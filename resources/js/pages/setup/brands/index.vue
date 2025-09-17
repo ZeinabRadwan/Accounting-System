@@ -64,15 +64,9 @@
                         <a v-if="data.image" href="#" id="show-modal" @click="previewModal(data.image)">
                           <img :src="data.image" class="rounded preview-sm" loading="lazy" />
                         </a>
-                        <DefaultImage
-                          v-else
-                          :src="data.image"
-                          type="brand"
-                          size="small"
-                          shape="rounded"
-                          :alt="data.name"
-                          class="rounded preview-sm"
-                        />
+                        <div v-else class="bg-secondary rounded no-preview-sm">
+                          <small>{{ $t("No Preview") }}</small>
+                        </div>
                       </td>
                       <td>{{ data.name }}</td>
                       <td>{{ data.code }}</td>
@@ -146,13 +140,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import DefaultImage from "../../../components/DefaultImage.vue";
-
 export default {
   middleware: ["auth", "check-permissions"],
-  components: {
-    DefaultImage,
-  },
   metaInfo() {
     return { title: this.$t("Brands") };
   },

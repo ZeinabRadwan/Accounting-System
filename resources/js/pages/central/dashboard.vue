@@ -121,14 +121,10 @@
                     <tr v-for="(topClient, i) in topClients && topClients" :key="i">
                       <td>
                         <div class="d-flex align-items-center">
-                          <DefaultImage
-                            :src="topClient.photo_url"
-                            type="client"
-                            size="small"
-                            shape="circle"
-                            :alt="topClient.name"
-                            class="circle-img circle-img--small mr-2"
-                          />
+                          <img v-if="topClient.photo_url" :src="topClient.photo_url"
+                            class="circle-img circle-img--small mr-2" loading="lazy" />
+                          <img v-else src="https://via.placeholder.com/50x50" class="circle-img circle-img--small mr-2"
+                            loading="lazy" />
                           <div class="text-left">
                             <h6 class="mb-0">
                               {{ topClient.name }}
@@ -163,7 +159,6 @@ import axios from 'axios'
 import { use } from 'echarts/core'
 import 'echarts/lib/component/grid'
 import { PieChart } from 'echarts/charts'
-import DefaultImage from '../../components/DefaultImage.vue'
 import { BarChart } from 'echarts/charts'
 import { LineChart } from 'echarts/charts'
 import VChart, { THEME_KEY } from 'vue-echarts'
@@ -193,7 +188,6 @@ export default {
   },
   components: {
     VChart,
-    DefaultImage,
   },
   provide: {
     [THEME_KEY]: 'vintage',
