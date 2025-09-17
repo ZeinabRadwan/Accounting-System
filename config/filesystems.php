@@ -41,7 +41,8 @@ return [
     |
     */
 
-    'disks' => array_merge([
+    'disks' => [
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -53,7 +54,6 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
-
         'tenant-public' => [
             'driver' => 'local',
             'root' => storage_path('tenants'),
@@ -69,26 +69,8 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-    ], 
-    // Only add public_html disk when not on localhost
-    !app()->environment('local') && !str_contains(env('APP_URL', ''), 'localhost') ? [
-        'public_html' => [
-            'driver' => 'local',
-            'root' => base_path('../public_html'),
-            'url' => env('APP_URL') . '/public_html',
-            'visibility' => 'public',
-            'permissions' => [
-                'file' => [
-                    'public' => 0644,
-                    'private' => 0600,
-                ],
-                'dir' => [
-                    'public' => 0755,
-                    'private' => 0700,
-                ],
-            ],
-        ],
-    ] : []),
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
