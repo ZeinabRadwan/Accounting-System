@@ -36,12 +36,12 @@
       <div class="w-100 text-right float-right">
         <div class="btn-group" v-if="items && items.length > 0">
           <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
-            <i class="fa fa-arrow-circle-down"></i> {{ $t("Excel") }}
+            <i class="fa fa-arrow-circle-down"></i>
           </a>
-          <a :href="pdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
-            <i class="fas fa-file-pdf"></i> {{ $t("PDF") }}
+          <a :href="exportPdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
+            <i class="fas fa-file-export"></i>
           </a>
-          <a @click="printWindow()" href="#" class="btn btn-default">
+          <a @click="printWindow()" href="#" class="btn btn-secondary">
             <i class="fas fa-print"></i> {{ $t("Print") }}
           </a>
           <router-link :to="{ name: 'home' }" class="btn btn-dark float-right">
@@ -138,8 +138,7 @@ export default {
       // Create a dynamic export URL with query parameters
       return `/sales-by-user-report/export/excel?start_date=${this.form.fromDate}&end_date=${this.form.toDate}&term=${this.form.user['id']}`;
     },
-    pdfUrl() {
-      // Create a dynamic PDF URL with query parameters
+    exportPdfUrl() {
       return `/sales-by-user-report/pdf?start_date=${this.form.fromDate}&end_date=${this.form.toDate}&term=${this.form.user['id']}`;
     },
   },
@@ -181,4 +180,5 @@ export default {
   },
 };
 </script>
+
 

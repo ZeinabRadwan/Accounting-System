@@ -890,56 +890,6 @@ class TableExportController extends Controller
         return Excel::download(new ExportCollectionByUserReport($startDate, $endDate, $term), 'CollectionByUserReport.xlsx');
     }
 
-    // return sales by user report pdf
-    public function salesByUserReportPDF(Request $request)
-    {
-        // Get sales by user report data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->salesByUserReport($request);
-        
-        if (!$response['success']) {
-            abort(500, 'Failed to generate sales by user report data');
-        }
-        
-        $data = $response['data'];
-        
-        // Add filters to data for template
-        $data['filters'] = [
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-            'term' => $request->input('term'),
-        ];
-        
-        // share data to view
-        view()->share('salesByUserData', $data);
-        return $this->generatePDF('pdf.sales-by-user-report', $data, 'sales-by-user-report.pdf', 'a4', 'landscape');
-    }
-
-    // return collection by user report pdf
-    public function collectionByUserReportPDF(Request $request)
-    {
-        // Get collection by user report data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->collectionByUserReport($request);
-        
-        if (!$response['success']) {
-            abort(500, 'Failed to generate collection by user report data');
-        }
-        
-        $data = $response['data'];
-        
-        // Add filters to data for template
-        $data['filters'] = [
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-            'term' => $request->input('term'),
-        ];
-        
-        // share data to view
-        view()->share('collectionByUserData', $data);
-        return $this->generatePDF('pdf.collection-by-user-report', $data, 'collection-by-user-report.pdf', 'a4', 'landscape');
-    }
-
     // return today report pdf
     public function todayReportPDF()
     {
@@ -1024,5 +974,83 @@ class TableExportController extends Controller
     {
         $filters = $request->all();
         return Excel::download(new ExportProfitLoss($filters), 'ProfitLoss.xlsx');
+    }
+
+    // return sales by user report pdf
+    public function salesByUserReportPDF(Request $request)
+    {
+        // Map query params to expected ReportController payload
+        $mappedRequest = new \Illuminate\Http\Request([
+            'fromDate' => $request->input('start_date'),
+            'toDate' => $request->input('end_date'),
+            'user' => [ 'id' => (int) $request->input('term') ],
+        ]);
+
+        // Get sales by user report data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $collection = $reportController->salesByUserReport($mappedRequest);
+        // Normalize to plain array to avoid any accidental model access in Blade
+        $raw = $collection->toArray(request());
+        $plainItems = array_map(function ($row) {
+            return [
+                'salesBy' => $row['salesBy'] ?? '',
+                'invoiceLabel' => $row['invoiceLabel'] ?? '',
+                'client' => $row['client'] ?? '',
+                'invoiceTotal' => isset($row['invoiceTotal']) ? $row['invoiceTotal'] : null,
+                'invoiceDate' => $row['invoiceDate'] ?? null,
+            ];
+        }, $raw);
+        $data = [ 'items' => $plainItems ];
+        
+        // Add filters to data for template
+        $data['filters'] = [
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'term' => $request->input('term'),
+        ];
+        
+        // share data to view
+        view()->share('salesByUserData', $data);
+        return $this->generatePDF('pdf.sales-by-user-report', $data, 'sales-by-user-report.pdf', 'a4', 'landscape');
+    }
+
+    // return collection by user report pdf
+    public function collectionByUserReportPDF(Request $request)
+    {
+        // Map query params to expected ReportController payload
+        $mappedRequest = new \Illuminate\Http\Request([
+            'fromDate' => $request->input('start_date'),
+            'toDate' => $request->input('end_date'),
+            'user' => [ 'id' => (int) $request->input('term') ],
+        ]);
+
+        // Get collection by user report data using the same filters
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $collection = $reportController->collectionByUserReport($mappedRequest);
+        // Normalize to plain array to avoid accessing Eloquent relations in Blade
+        $raw = $collection->toArray(request());
+        $plainItems = array_map(function ($row) {
+            return [
+                'collectionBy' => $row['collectionBy'] ?? ($row['user']['employee']['name'] ?? ''),
+                'invoiceLabel' => $row['invoice']['invoiceLabel'] ?? '',
+                'clientName' => $row['client']['name'] ?? '',
+                // Use subTotal from resource to avoid invoking model accessors/relations
+                'invoiceAmount' => isset($row['invoice']['subTotal']) ? $row['invoice']['subTotal'] : null,
+                'amount' => $row['amount'] ?? 0,
+                'transactionDate' => $row['transaction']['transaction_date'] ?? null,
+            ];
+        }, $raw);
+        $data = [ 'items' => $plainItems ];
+        
+        // Add filters to data for template
+        $data['filters'] = [
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'term' => $request->input('term'),
+        ];
+        
+        // share data to view
+        view()->share('collectionByUserData', $data);
+        return $this->generatePDF('pdf.collection-by-user-report', $data, 'collection-by-user-report.pdf', 'a4', 'landscape');
     }
 }

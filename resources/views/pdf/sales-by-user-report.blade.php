@@ -2,52 +2,49 @@
 
 @section('content-area')
     <h3>@lang('Sales By User Report')</h3>
-    
-    @if(isset($salesByUserData['filters']['start_date']) && isset($salesByUserData['filters']['end_date']))
-        <div class="row mt-3">
-            <div class="col-12 text-center">
-                <h6 class="text-muted">
-                    @lang('Period'): {{ $salesByUserData['filters']['start_date'] }} - {{ $salesByUserData['filters']['end_date'] }}
-                </h6>
-            </div>
-        </div>
-    @endif
 
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table-listing table table-bordered table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>@lang('#')</th>
-                            <th>@lang('Sales By')</th>
-                            <th>@lang('Invoice No')</th>
-                            <th>@lang('Client')</th>
-                            <th>@lang('Net Total')</th>
-                            <th>@lang('Invoice Date')</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(isset($salesByUserData) && count($salesByUserData) > 0)
-                            @foreach($salesByUserData as $index => $item)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $item['salesBy'] }}</td>
-                                    <td>{{ $item['invoiceLabel'] }}</td>
-                                    <td>{{ $item['client'] }}</td>
-                                    <td>@currency($item['invoiceTotal'])</td>
-                                    <td>{{ \Carbon\Carbon::parse($item['invoiceDate'])->format('d M, Y') }}</td>
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="6" class="text-center">@lang('No data available')</td>
-                            </tr>
-                        @endif
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    @php($filters = $salesByUserData['filters'] ?? [])
+    <p>
+        <strong>@lang('From'):</strong> {{ $filters['start_date'] ?? '' }}
+        &nbsp; <strong>@lang('To'):</strong> {{ $filters['end_date'] ?? '' }}
+        @if(isset($filters['term']))
+            &nbsp; <strong>@lang('User ID'):</strong> {{ $filters['term'] }}
+        @endif
+    </p>
+
+    <div class="table-responsive">
+        <table class="table-listing table table-bordered table-striped table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>@lang('#')</th>
+                    <th>@lang('Sales By')</th>
+                    <th>@lang('Invoice No')</th>
+                    <th>@lang('Client')</th>
+                    <th>@lang('Net Total')</th>
+                    <th>@lang('Invoice Date')</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse(($salesByUserData['items'] ?? []) as $idx => $row)
+                    <tr>
+                        <td>{{ $idx + 1 }}</td>
+                        <td>{{ $row['salesBy'] ?? '' }}</td>
+                        <td>{{ $row['invoiceLabel'] ?? '' }}</td>
+                        <td>{{ $row['client'] ?? '' }}</td>
+                        <td>@currency($row['invoiceTotal'] ?? 0)</td>
+                        <td>
+                            @if(!empty($row['invoiceDate']))
+                                {{ \Carbon\Carbon::parse($row['invoiceDate'])->format('d-M-Y') }}
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6">@lang('No data found.')</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 @endsection
-
+ 
