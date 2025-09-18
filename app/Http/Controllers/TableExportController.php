@@ -44,7 +44,7 @@ use App\Models\ExpenseCategory;
 use App\Models\ProductCategory;
 use App\Models\PurchasePayment;
 use App\Models\SalaryIncrement;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use App\Exports\ExportAssetType;
 use App\Exports\ExportInventory;
 use App\Exports\ExportQuotation;
@@ -873,6 +873,68 @@ class TableExportController extends Controller
     public function clientReceivableReportExportExcel(Request $request){
         $term = $request->input('term');
         return Excel::download(new ExportClientReceivableReport($term), 'ClientReceivableReport.xlsx');
+    }
+
+    // return client receivable report pdf
+    public function clientReceivableReportPDF(Request $request)
+    {
+        $term = $request->input('term');
+        
+        // Get the same data as the Excel export
+        $query = \App\Models\Client::query();
+        
+        if ($term) {
+            $query->where(function ($query) use ($term) {
+                $query->where('name', 'Like', '%' . $term . '%')
+                    ->orWhere('client_id', 'Like', '%' . $term . '%')
+                    ->orWhere('email', 'Like', '%' . $term . '%')
+                    ->orWhere('phone', 'Like', '%' . $term . '%')
+                    ->orWhere('company_name', 'Like', '%' . $term . '%');
+            });
+        }
+        
+        $clients = $query->latest()->get();
+        
+        // Calculate totals
+        $totalInvoiceDue = $clients->sum(function ($client) {
+            return $client->clientDue() ?: 0;
+        });
+        
+        $totalNonInvoiceDue = $clients->sum(function ($client) {
+            return $client->nonInvoiceCurrentDue() ?: 0;
+        });
+        
+        $totalDue = $totalInvoiceDue + $totalNonInvoiceDue;
+        
+        // Prepare data for the view
+        $data = [
+            'clients' => $clients,
+            'totalInvoiceDue' => $totalInvoiceDue,
+            'totalNonInvoiceDue' => $totalNonInvoiceDue,
+            'totalDue' => $totalDue,
+            'currencySymbol' => getGeneralSettingsInfo()['currency']['symbol'],
+            'clientPrefix' => config('config.clientPrefix'),
+            'companyName' => getGeneralSettingsInfo()['company_name'],
+            'companyAddress' => getGeneralSettingsInfo()['company_address'],
+            'companyPhone' => getGeneralSettingsInfo()['company_phone'],
+            'companyEmail' => getGeneralSettingsInfo()['company_email'],
+            'companyVatNumber' => getGeneralSettingsInfo()['company_vat_number'],
+            'companyLogo' => getGeneralSettingsInfo()['company_logo'],
+        ];
+        
+        // Share data to view
+        view()->share('data', $data);
+        
+        // Generate PDF using the Saudi Professional template
+        $pdf = PDF::loadView('pdf.client-receivable-report-saudi', $data)
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'defaultFont' => 'Cairo'
+            ]);
+        
+        return $pdf->download('client-receivable-report.pdf');
     }
 
     // return salesByUser export
