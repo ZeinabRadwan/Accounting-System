@@ -18,6 +18,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap');
 @import '@abdulrysr/saudi-riyal-new-symbol-font/style.css';
 
+/* DIN Next Arabic font */
+@font-face {
+  font-family: 'DINNextLTArabic';
+  src: url('/fonts/DINNextLTArabic-Regular-3.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Apply Saudi Riyal font to ê symbol in currency contexts */
 .currency-display,
 .currency-text,
@@ -107,8 +116,8 @@
 @import '../js/assets/css/daterangepicker-rtl-overrides.css';
 
 body {
-  font-family: "Noto Sans Arabic", "Noto Sans Bengali", "Kumbh Sans", sans-serif;
-  background-color: #f4f6f9;
+  font-family: 'DINNextLTArabic', sans-serif;
+  background-color: #ffffff;
   padding: 0px !important;
 }
 
@@ -127,7 +136,11 @@ body {
 .content-header,
 .content-wrapper,
 .main-footer {
-  font-family: "Noto Sans Arabic", "Noto Sans Bengali", "Kumbh Sans", sans-serif;
+  font-family: 'DINNextLTArabic', sans-serif;
+}
+
+.content-wrapper {
+  background-color: #ffffff;
 }
 
 /* Make currency symbols smaller */
@@ -143,7 +156,7 @@ body {
 }
 
 a {
-  color: #6366f1;
+  color: #1B3C71;
 }
 
 .text-22{
@@ -156,14 +169,14 @@ a {
 
 .custom-control-input:checked ~ .custom-control-label::before {
   color: #fff;
-  border-color: #6366f1;
-  background-color: #6366f1;
+  border-color: #1B3C71;
+  background-color: #1B3C71;
   box-shadow: none;
 }
 
 .dark-mode .bg-success,
 .bg-success {
-  background-color: #6366f1 !important;
+  background-color: #1B3C71 !important;
 }
 
 .dark-logo {
@@ -293,7 +306,7 @@ a {
 .dark-mode .btn-primary,
 .btn-primary {
   color: #fff;
-  background-color: #6366f1;
+  background-color: #1B3C71;
   border-color: #5558e5;
   box-shadow: none;
 }
@@ -301,7 +314,7 @@ a {
 .dark-mode .btn-primary:hover,
 .btn-primary:hover {
   color: #fff;
-  background-color: #6366f1;
+  background-color: #1B3C71;
   border-color: #5558e5;
   box-shadow: none;
 }
@@ -740,6 +753,8 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 [dir="rtl"] .breadcrumbs-style h3 {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
   text-align: right;
 }
 
@@ -1034,7 +1049,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 
 .dark-mode .brand-link,
 .dark-sidebar .brand-link {
-  border-color: #f4f6f947;
+  border-color: #ffffff47;
   background: #111827;
 }
 
@@ -1853,10 +1868,6 @@ img.circle-img.circle-img--small {
 /* Card RTL adjustments */
 [dir="rtl"] .card-header {
   text-align: right;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row-reverse;
 }
 
 /* General card-tools styling for all languages */

@@ -94,14 +94,19 @@ export default {
 }
 
 .currentpage a {
-  background: #6366f1 !important;
-  color: #fff !important;
+  background: #F8FAFF !important;
+  border-radius: 4px;
 }
 
 .pagination-sm .page-link {
   padding: 10px 15px;
   font-size: 15px;
   line-height: 1.5;
+}
+
+/* Remove borders from pagination items */
+.page-link {
+  border: none !important;
 }
 
 .dark-mode .page-item:not(.active) .page-link {

@@ -254,16 +254,35 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         try {
-
             $password = $user->password;
             if ($request->newPassword) {
                 $password = bcrypt($request->newPassword);
             }
 
+            // Handle profile image upload
+            $profileImage = $user->profile_image;
+            if ($request->hasFile('profile_image')) {
+                // Delete old image if exists
+                if ($profileImage && file_exists(public_path('images/users/' . $profileImage))) {
+                    unlink(public_path('images/users/' . $profileImage));
+                }
+                
+                // Create directory if it doesn't exist
+                if (!file_exists(public_path('images/users'))) {
+                    mkdir(public_path('images/users'), 0755, true);
+                }
+                
+                // Upload new image
+                $file = $request->file('profile_image');
+                $profileImage = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/users'), $profileImage);
+            }
+
             $user->update([
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'password'  => $password,
+                'name'          => $request->name,
+                'email'         => $request->email,
+                'password'      => $password,
+                'profile_image' => $profileImage,
             ]);
 
             return $this->responseWithSuccess('Profile updated successfully');

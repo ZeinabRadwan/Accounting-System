@@ -1298,7 +1298,7 @@ export default {
 }
 
 .pos-item-grid>div:hover {
-  border-color: #6366f1;
+  border-color: #1B3C71;
 }
 
 .pos-item-grid>div .box-qty {
@@ -1306,7 +1306,7 @@ export default {
   width: 50px;
   height: 30px;
   display: block;
-  background: #6366f1;
+  background: #1B3C71;
   top: 0;
   left: 0px;
   text-align: center;
@@ -1377,7 +1377,7 @@ export default {
 
 .table-wrap .table thead tr {
   border-bottom: 0;
-  background: #6366f11f !important;
+  background: #1B3C711f !important;
 }
 
 .table-wrap .incrementor {
@@ -1414,7 +1414,7 @@ export default {
 }
 
 .pos-net-total {
-  background: #6366f133;
+  background: #1B3C7133;
   width: 100%;
   padding: 10px 10px;
   text-align: center;

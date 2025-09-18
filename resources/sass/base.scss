@@ -17,9 +17,18 @@
 @import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap');
 
+/* DIN Next Arabic font */
+@font-face {
+  font-family: 'DINNextLTArabic';
+  src: url('/fonts/DINNextLTArabic-Regular-3.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
-  font-family: "Noto Sans Arabic", "Noto Sans Bengali", "Kumbh Sans", sans-serif;
-  background-color: #f4f6f9;
+  font-family: 'DINNextLTArabic', sans-serif;
+  background-color: #ffffff;
   padding: 0px !important;
 }
 
@@ -38,7 +47,7 @@ body {
 .content-header,
 .content-wrapper,
 .main-footer {
-  font-family: "Noto Sans Arabic", "Noto Sans Bengali", "Kumbh Sans", sans-serif;
+  font-family: 'DINNextLTArabic', sans-serif;
 }
 
 /* Make currency symbols smaller */
@@ -54,7 +63,7 @@ body {
 }
 
 a {
-  color: #6366f1;
+  color: #1B3C71;
 }
 
 .text-22{
@@ -67,14 +76,14 @@ a {
 
 .custom-control-input:checked ~ .custom-control-label::before {
   color: #fff;
-  border-color: #6366f1;
-  background-color: #6366f1;
+  border-color: #1B3C71;
+  background-color: #1B3C71;
   box-shadow: none;
 }
 
 .dark-mode .bg-success,
 .bg-success {
-  background-color: #6366f1 !important;
+  background-color: #1B3C71 !important;
 }
 
 .dark-logo {
@@ -202,7 +211,7 @@ a {
 .dark-mode .btn-primary,
 .btn-primary {
   color: #fff;
-  background-color: #6366f1;
+  background-color: #1B3C71;
   border-color: #5558e5;
   box-shadow: none;
 }
@@ -210,7 +219,7 @@ a {
 .dark-mode .btn-primary:hover,
 .btn-primary:hover {
   color: #fff;
-  background-color: #6366f1;
+  background-color: #1B3C71;
   border-color: #5558e5;
   box-shadow: none;
 }
@@ -275,7 +284,7 @@ a {
 }
 
 .page-link {
-  color: #6366f1;
+  color: #1B3C71;
 }
 
 .w-64 {
@@ -642,7 +651,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .breadcrumb-item a {
-  color: #6366f1;
+  color: #1B3C71;
   text-decoration: none;
 }
 
@@ -792,7 +801,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .nav-link.router-link-exact-active.router-link-active {
-  background-color: #6366f1 !important;
+  background-color: #1B3C71 !important;
   color: #ffffff !important;
 }
 
@@ -816,7 +825,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .nav-pills .nav-link:not(.active):hover {
-  color: #6366f1;
+  color: #1B3C71;
 }
 
 .control-sidebar .custom-control-label {
@@ -865,7 +874,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 
 .dark-mode .brand-link,
 .dark-sidebar .brand-link {
-  border-color: #f4f6f947;
+  border-color: #ffffff47;
   background: #111827;
 }
 
@@ -927,7 +936,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 .nav-flat.nav-sidebar > .nav-item .nav-treeview .nav-item > .nav-link,
 .nav-flat.nav-sidebar > .nav-item > .nav-treeview .nav-item > .nav-link {
   border-left: 0.2rem solid;
-  border-color: #6366f1;
+  border-color: #1B3C71;
 }
 
 .border-bottom-0 .sidmain-sidebarebar,
@@ -1007,12 +1016,12 @@ label:not(.form-check-label):not(.custom-file-label) {
 .mj-calendar .calendar-days .day.is-selected,
 .mj-daterange-picker .panels-choices .panel-button.is-current,
 .mj-daterange-picker .panels-choices .panel-button:hover {
-  background-color: #6366f1 !important;
+  background-color: #1B3C71 !important;
   color: #fff;
 }
 
 .mj-daterange-picker .preset-ranges .preset input:checked ~ label .check {
-  background-color: #6366f1 !important;
+  background-color: #1B3C71 !important;
 }
 
 .mj-calendar.mj-calendar-days .calendar-days .day:not(.is-edge-range):hover {
@@ -1022,7 +1031,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 
 .bg-indigo-light:hover,
 .bg-indigo-light {
-  background: #6366f159 !important;
+  background: #1B3C7159 !important;
   font-weight: bold;
 }
 
@@ -1204,16 +1213,16 @@ img.circle-img.circle-img--small {
   flex-wrap: nowrap;
 }
 .pos-btn{
-  background: #6366f1;
-  border: 1px solid#6366f1;
+  background: #1B3C71;
+  border: 1px solid#1B3C71;
   border-radius: 20px;
   color: #fff;
 }
 .pos-btn:hover{
   background: #fff;
-  border: 1px solid#6366f1;
+  border: 1px solid#1B3C71;
   border-radius: 20px;
-  color: #6366f1;
+  color: #1B3C71;
 }
 
 #invoice-POS {
@@ -1351,7 +1360,7 @@ img.circle-img.circle-img--small {
 
 // new style
 .nav-item .active {
-  color: #6366f1;
+  color: #1B3C71;
 }
 
 // auth page css
@@ -1407,7 +1416,7 @@ img.circle-img.circle-img--small {
   }
 }
 .nav-item .router-link-active {
-  background-color: #6366f1;
+  background-color: #1B3C71;
   color: #ffffff !important;
 }
 

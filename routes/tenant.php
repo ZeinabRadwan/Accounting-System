@@ -736,6 +736,22 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     // product templates
     Route::get('/product-import-template', [ProductController::class, 'importTemplate']);
 
+    // Serve profile images
+    Route::get('/images/users/{filename}', function ($filename) {
+        $path = public_path('images/users/' . $filename);
+        if (file_exists($path)) {
+            return response()->file($path);
+        }
+        
+        // If no default avatar exists, return a 404
+        $defaultPath = public_path('images/users/default-avatar.png');
+        if (file_exists($defaultPath)) {
+            return response()->file($defaultPath);
+        }
+        
+        return response()->json(['error' => 'Image not found'], 404);
+    })->name('profile.image');
+
     // Tenant SPA routes
     Route::get('{path}', SpaController::class)->where('path', '^(?!.*api).*$');
 });
