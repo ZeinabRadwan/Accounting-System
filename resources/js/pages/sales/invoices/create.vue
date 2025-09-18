@@ -100,27 +100,30 @@
                       </div>
                       
                       <!-- Product Chart of Account Status - Similar to client validation -->
-                      <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
-                        <div v-if="!form.selectedProducts[0].sales_account_id" class="product-warning">
+                      <div class="product-status mt-2" v-if="form.product">
+                        <div v-if="!form.product.sales_account_id" class="product-warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs Sales Account') }}</span>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}</span>
                           <button 
                             type="button" 
                             class="btn btn-sm btn-outline-warning ml-2"
-                            @click="autoAssignProductChartOfAccount(form.selectedProducts[0], 'sales')"
-                            :disabled="isAutoAssigningProduct === form.selectedProducts[0].id"
+                            @click="autoAssignProductChartOfAccount(form.product, 'sales')"
+                            :disabled="isAutoAssigningProduct === form.product.id"
                           >
-                            <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                            {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
+                            <i :class="isAutoAssigningProduct === form.product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                            {{ isAutoAssigningProduct === form.product.id ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        <div v-else class="product-success">
+                        <div v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id" class="product-success">
                           <i class="fas fa-check-circle text-success"></i>
                           <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
                         </div>
                       </div>
                       
                       <has-error :form="form" field="selectedProducts" />
+                      <div v-if="!form.selectedProducts || form.selectedProducts.length === 0" class="text-warning mt-1">
+                        <small><i class="fas fa-exclamation-triangle"></i> {{ $t('At least one product must be selected') }}</small>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -145,8 +148,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
+                      <tr v-for="(item, index) in form.selectedProducts" :key="index">
+                        <td>{{ index + 1 }}</td>
                         <td>
                           {{ item.code | withPrefix(prefix) }}
                         </td>
@@ -182,22 +185,15 @@
                                 generateItemTotal(
                                   item.qty,
                                   'qty',
-                                  i - 1,
+                                  index,
                                   'decrement'
                                 )
                                 " />
 
-                            <input type="number" step="any" :id="`Qty-${i}`" :value="item.qty" name="quantity"
+                            <input type="number" step="any" :id="`Qty-${index+1}`" v-model.number="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`) }"
-                              @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'qty',
-                                  i - 1,
-                                  ''
-                                )
-                                " @keyup="generateItemTotal($event.target.value, 'qty', i - 1, '')"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.qty`) }"
+                              @input="generateItemTotal(item.qty, 'qty', index, '')"
                               placeholder="Quantity" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
@@ -205,13 +201,13 @@
                                 generateItemTotal(
                                   item.qty,
                                   'qty',
-                                  i - 1,
+                                  index,
                                   'increment'
                                 )
                                 " />
                           </div>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.qty`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${i-1}.qty`) }}
+                          <div v-if="form.errors.has(`selectedProducts.${index}.qty`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${index}.qty`) }}
                           </div>
                         </td>
                         <td>
@@ -221,34 +217,27 @@
                                 generateItemTotal(
                                   item.unitPrice,
                                   'price',
-                                  i - 1,
+                                  index,
                                   'decrement'
                                 )
                                 " />
-                            <input type="unitPrice" step="any" :id="`unitPrice-${i}`" :value="item.unitPrice"
+                            <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
                               name="unitPrice" class="quantity-field border-0 incrementor" required min="0" 
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.unitPrice`) }"
-                              @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'price',
-                                  i - 1,
-                                  ''
-                                )
-                                " @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.unitPrice`) }"
+                              @input="generateItemTotal(item.unitPrice, 'price', index, '')" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
                               data-field="unitPrice" @click="
                                 generateItemTotal(
                                   item.unitPrice,
                                   'price',
-                                  i - 1,
+                                  index,
                                   'increment'
                                 )
                                 " />
                           </div>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.unitPrice`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
+                          <div v-if="form.errors.has(`selectedProducts.${index}.unitPrice`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
                           </div>
                         </td>
                         <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
@@ -258,8 +247,8 @@
                               v-model="item.discountType" 
                               class="form-control form-control-sm" 
                               style="width: 60px;"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discountType`) }"
-                              @change="calculateProductDiscount(i - 1)">
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discountType`) }"
+                              @change="calculateProductDiscount(index)">
                               <option value="fixed">{{ $t("Fixed") }}</option>
                               <option value="percentage">{{ $t("%") }}</option>
                             </select>
@@ -271,14 +260,14 @@
                               step="any" 
                               min="0" 
                               :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discount`) }"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discount`) }"
                               placeholder="0"
-                              @change="calculateProductDiscount(i - 1)"
-                              @keyup="calculateProductDiscount(i - 1)" />
+                              @change="calculateProductDiscount(index)"
+                              @keyup="calculateProductDiscount(index)" />
                           </div>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.discount`) || form.errors.has(`selectedProducts.${i-1}.discountType`)" class="invalid-feedback d-block">
-                            <span v-if="form.errors.has(`selectedProducts.${i-1}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discount`) }}</span>
-                            <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
+                          <div v-if="form.errors.has(`selectedProducts.${index}.discount`) || form.errors.has(`selectedProducts.${index}.discountType`)" class="invalid-feedback d-block">
+                            <span v-if="form.errors.has(`selectedProducts.${index}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discount`) }}</span>
+                            <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
                           </div>
                         </td>
                         <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
@@ -286,8 +275,8 @@
                           <select 
                             v-model="item.selectedVatRate" 
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.selectedVatRate`) }"
-                            @change="calculateProductVat(i - 1)"
+                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.selectedVatRate`) }"
+                            @change="calculateProductVat(index)"
                             style="min-width: 120px;">
                             <option value="">{{ $t('Select VAT') }}</option>
                             <option 
@@ -297,8 +286,8 @@
                               {{ tax.code }} ({{ tax.rate }}%)
                             </option>
                           </select>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.selectedVatRate`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${i-1}.selectedVatRate`) }}
+                          <div v-if="form.errors.has(`selectedProducts.${index}.selectedVatRate`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${index}.selectedVatRate`) }}
                           </div>
                         </td>
                         <td>
@@ -590,33 +579,6 @@
                   <i class="fas fa-power-off" /> {{ $t("Reset") }}
                 </button>
                 
-                <!-- Form readiness indicator -->
-                <div v-if="!isFormReady" class="mt-3">
-                  <div class="alert alert-warning mb-0">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>{{ $t("Form Not Ready") }}:</strong>
-                    <ul class="mb-0 mt-2">
-                      <li v-if="!hasChartOfAccount">
-                        {{ $t("Client must have a Chart of Account assigned") }}
-                      </li>
-                      <li v-if="!allProductsHaveSalesAccounts">
-                        {{ $t("All products must have Sales Accounts assigned") }}
-                      </li>
-                      <li v-if="!form.selectedProducts || form.selectedProducts.length === 0">
-                        {{ $t("At least one product must be selected") }}
-                      </li>
-                      <li v-if="!hasBankAccountChartOfAccount">
-                        {{ $t("Bank Account must have a Chart of Account assigned for journal entries") }}
-                      </li>
-                      <li v-if="form.addPayment == 1 && !form.account">
-                        {{ $t("Please choose a bank account for the payment") }}
-                      </li>
-                      <li v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)">
-                        {{ $t("Paid amount must be greater than 0") }}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
                 
 
               </div>
@@ -967,6 +929,21 @@ export default {
     this.cleanupGlobalErrorHandling();
   },
   methods: {
+    // Debug helpers
+    logDebug(label, payload) {
+      try {
+        // Toggle with window.__INVOICE_DEBUG (true by default)
+        if (typeof window === 'undefined' || window.__INVOICE_DEBUG === false) return;
+        console.log(`[InvoiceCreate] ${label}`, payload);
+      } catch (e) {}
+    },
+    debugBreak() {
+      try {
+        if (typeof window !== 'undefined' && window.__INVOICE_DEBUGGER) {
+          debugger; // eslint-disable-line no-debugger
+        }
+      } catch (e) {}
+    },
     // get all clients
     async getClients(selectedClient = 'default') {
       try {
@@ -1291,6 +1268,11 @@ export default {
     // store product
     storeProduct(product) {
       if (product) {
+        // Skip adding items without a Sales Account
+        if (!product.sales_account_id) {
+          // Keep it selected in dropdown and show auto-assign UI below
+          return;
+        }
         // Clear selectedProducts validation errors when adding a product
         this.clearFieldError('selectedProducts');
         
@@ -1336,7 +1318,15 @@ export default {
 
     // update array
     generateItemTotal(value, field, index, type) {
+      this.debugBreak();
       let item = this.form.selectedProducts[index];
+      this.logDebug('generateItemTotal:start', {
+        value,
+        field,
+        index,
+        type,
+        before: item ? JSON.parse(JSON.stringify(item)) : null,
+      });
       if (item) {
         if (type === "increment") {
           if (field === "qty") {
@@ -1361,10 +1351,17 @@ export default {
             this.clearProductErrors(index);
           }
         }
+        this.logDebug('generateItemTotal:after-mutate', { index, item: JSON.parse(JSON.stringify(item)) });
         
         // Recalculate totals
+        // persist row change so Vue updates the row immediately
+        this.$set(this.form.selectedProducts, index, item);
         this.generateItemTotalPrice(index);
         this.calculateSum();
+        this.logDebug('generateItemTotal:end', {
+          index,
+          row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
+        });
       }
     },
 
@@ -1375,8 +1372,10 @@ export default {
 
     // calculate product discount
     calculateProductDiscount(index) {
+      this.debugBreak();
       let item = this.form.selectedProducts[index];
       if (item) {
+        this.logDebug('calculateProductDiscount:start', { index, before: JSON.parse(JSON.stringify(item)) });
         // Clear discount validation errors when values change
         this.clearProductErrors(index);
         
@@ -1386,16 +1385,20 @@ export default {
           item.discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
         }
         
-        // Recalculate totals
+        // Persist reactive change and recalc
+        this.$set(this.form.selectedProducts, index, item);
         this.generateItemTotalPrice(index);
         this.calculateSum();
+        this.logDebug('calculateProductDiscount:end', { index, row: JSON.parse(JSON.stringify(this.form.selectedProducts[index])) });
       }
     },
 
     // calculate product VAT
     calculateProductVat(index) {
+      this.debugBreak();
       let item = this.form.selectedProducts[index];
       if (item) {
+        this.logDebug('calculateProductVat:start', { index, before: JSON.parse(JSON.stringify(item)) });
         // Clear VAT validation errors when values change
         this.clearProductErrors(index);
         
@@ -1412,9 +1415,11 @@ export default {
           }
         }
         
-        // Recalculate totals with new VAT rate
+        // Persist reactive change and recalc
+        this.$set(this.form.selectedProducts, index, item);
         this.generateItemTotalPrice(index);
         this.calculateSum();
+        this.logDebug('calculateProductVat:end', { index, row: JSON.parse(JSON.stringify(this.form.selectedProducts[index])) });
       }
     },
 
@@ -1422,8 +1427,10 @@ export default {
 
     // generate item total price
     generateItemTotalPrice(index) {
+      this.debugBreak();
       let item = this.form.selectedProducts[index];
       if (item) {
+        this.logDebug('generateItemTotalPrice:start', { index, before: JSON.parse(JSON.stringify(item)) });
         
         // Calculate price after discount
         let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
@@ -1459,7 +1466,11 @@ export default {
           item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
         }
         
-        this.form.selectedProducts[index] = item;
+        this.$set(this.form.selectedProducts, index, item);
+        this.logDebug('generateItemTotalPrice:end', {
+          index,
+          row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
+        });
       }
     },
 
@@ -1491,7 +1502,8 @@ export default {
     },
 
          // calculate sum
-     calculateSum() {
+    calculateSum() {
+      this.debugBreak();
        // Update products with default VAT rate if needed
        this.updateProductsWithDefaultVatRate();
        
@@ -1548,7 +1560,7 @@ export default {
        // calculate final total with proper decimal precision
        // For Saudi Arabia: Net Total = SubTotal (no global discount, no invoice tax, no transport cost)
        // For other countries: Net Total = SubTotal - Global Discount + Invoice Tax + Transport Cost
-       if (this.isSaudiArabia) {
+      if (this.isSaudiArabia) {
          this.form.netTotal = this.roundToTwoDecimals(this.form.subTotal);
        } else {
          this.form.netTotal = this.roundToTwoDecimals(
@@ -1558,6 +1570,23 @@ export default {
            Number(this.form.transportCost || 0)
          );
        }
+      this.logDebug('calculateSum', {
+        subTotal: this.form.subTotal,
+        productTotalTax: this.form.productTotalTax,
+        invoiceTax: this.form.invoiceTax,
+        totalTax: this.form.totalTax,
+        netTotal: this.form.netTotal,
+        totalDiscount: this.form.totalDiscount,
+        selectedProducts: this.form.selectedProducts.map((p, i) => ({
+          i,
+          qty: p.qty,
+          unitPrice: p.unitPrice,
+          discountAmount: p.discountAmount || 0,
+          productTax: p.productTax,
+          totalTax: p.totalTax,
+          totalPrice: p.totalPrice,
+        })),
+      });
        return;
      },
 
@@ -2023,14 +2052,8 @@ export default {
       // Clear client validation errors when client changes
       this.clearFieldError('client');
       
-      if (this.form.client) {
-        this.form.client = this.items.find(
-          (item) => item.id === this.form.client.id
-        );
-        if (this.form.client && !this.form.client.chart_of_account_id) {
-          this.form.client = this.items[0];
-        }
-      }
+      // Do not override user selection; keep current client even if missing chart_of_account_id
+      // Validation UI will prompt auto-assign if needed
       
       // Reset payment fields when client changes
       this.form.addPayment = 0; // Reset to 0 (No) by default
@@ -2061,7 +2084,15 @@ export default {
         
         if (response.data.success) {
           // Update the client data with new chart of account
-          this.form.client.chart_of_account_id = response.data.chart_of_account_id;
+          const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null;
+          if (newAccountId) {
+            this.form.client.chart_of_account_id = newAccountId;
+            // Also update the option in items list to keep state consistent when switching clients
+            const idx = this.items.findIndex(i => i.slug === currentClientSlug);
+            if (idx !== -1) {
+              this.$set(this.items[idx], 'chart_of_account_id', newAccountId);
+            }
+          }
           
           // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
@@ -2391,6 +2422,12 @@ export default {
         if (response.data.success) {
           // Update the product data with new chart of account
           product.sales_account_id = response.data.sales_account_id;
+
+          // If item not yet in table, add it now
+          const exists = this.form.selectedProducts && this.form.selectedProducts.some(p => p.id === product.id);
+          if (!exists) {
+            this.storeProduct(product);
+          }
           
           // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {

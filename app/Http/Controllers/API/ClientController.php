@@ -963,26 +963,77 @@ ORDER BY `date`");
                 ], 404);
             }
 
-            // Auto-assign Chart of Account
+            // Routing-aware auto-assign for invoice flow
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->first();
+
+            if ($routingSetting) {
+                // Main-account-per-each: create a child under main account
+                if ($routingSetting->routing_type === 'main_account_per_each') {
+                    if (!$routingSetting->main_account_id) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Client routing is not properly configured: Main account is missing.'
+                        ], 400);
+                    }
+
+                    $newAccount = $this->createChartOfAccountForClient([
+                        'type' => $client->type ?? 'Company',
+                        'full_name' => $client->full_name,
+                        'name' => $client->name,
+                        'business_name' => $client->business_name,
+                        'company_name' => $client->company_name,
+                    ], $routingSetting);
+
+                    $client->update(['chart_of_account_id' => $newAccount->id]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Chart of Account created and assigned successfully',
+                        'chart_of_account_id' => $newAccount->id
+                    ]);
+                }
+
+                // Automatic: assign the main account directly
+                if ($routingSetting->routing_type === 'automatic') {
+                    if (!$routingSetting->main_account_id) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Client routing is not properly configured: Main account is missing.'
+                        ], 400);
+                    }
+
+                    $client->update(['chart_of_account_id' => $routingSetting->main_account_id]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Main account assigned to client successfully',
+                        'chart_of_account_id' => $routingSetting->main_account_id
+                    ]);
+                }
+            }
+
+            // Fallback to legacy/default behavior if routing not configured or other types
             $clientData = [
                 'type' => $client->type ?? 'Company'
             ];
             $clientData = Client::assignDefaultChartOfAccount($clientData);
-            
+
             if (isset($clientData['chart_of_account_id'])) {
                 $client->update(['chart_of_account_id' => $clientData['chart_of_account_id']]);
-                
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Chart of Account assigned successfully',
                     'chart_of_account_id' => $clientData['chart_of_account_id']
                 ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No suitable Chart of Account found for automatic assignment'
-                ], 400);
             }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'No suitable Chart of Account found for automatic assignment'
+            ], 400);
             
         } catch (Exception $e) {
             return response()->json([
@@ -1209,11 +1260,11 @@ ORDER BY `date`");
      */
     private function getClientDisplayName($clientData)
     {
-        if (isset($clientData['type']) && $clientData['type'] === 'Individual') {
+        // if (isset($clientData['type']) && $clientData['type'] === 'Individual') {
             return $clientData['full_name'] ?? $clientData['name'] ?? 'Individual Client';
-        } else {
-            return $clientData['business_name'] ?? $clientData['company_name'] ?? 'Business Client';
-        }
+        // } else {
+        //     return $clientData['business_name'] ?? $clientData['company_name'] ?? 'Business Client';
+        // }
     }
     
     /**

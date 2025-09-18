@@ -61,6 +61,38 @@ class ChartOfAccountController extends Controller
     }
 
     /**
+     * Lightweight list for dropdowns (faster than full resource)
+     */
+    public function getDropdown()
+    {
+        try {
+            $accounts = ChartOfAccount::where('is_active', true)
+                ->with(['type:id,name'])
+                ->select('id', 'name', 'code', 'type_id', 'parent_id')
+                ->orderBy('name', 'asc')
+                ->get()
+                ->map(function ($account) {
+                    return [
+                        'id' => $account->id,
+                        'name' => $account->name,
+                        'code' => $account->code,
+                        'type' => $account->type ? $account->type->name : null,
+                        'parent_id' => $account->parent_id,
+                    ];
+                });
+
+            return response()->json([
+                'data' => $accounts,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error loading dropdown accounts',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Get chart of accounts in tree structure
      */
     public function tree()

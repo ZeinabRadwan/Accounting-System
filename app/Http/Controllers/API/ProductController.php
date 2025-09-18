@@ -25,6 +25,7 @@ use App\Http\Resources\ProductListingResource;
 use Intervention\Image\Facades\Image as Image;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use App\Models\AccountRoutingSetting;
+use App\Models\ChartOfAccountType;
 
 
 class ProductController extends Controller
@@ -833,71 +834,112 @@ class ProductController extends Controller
                 'current_purchase_account_id' => $product->purchase_account_id
             ]);
 
-            // Auto-assign Chart of Account
-            $productData = [
-                'type' => $product->is_service ? 'Service' : 'Product'
-            ];
+            // Resolve routing setting based on type
+            if ($type === 'sales') {
+                $routing = AccountRoutingSetting::where('module', 'sales')->where('setting_key', 'product_sales_account')->first();
 
-            Log::info('Product data before assignment:', $productData);
+                if (!$routing) {
+                    return response()->json([
+                        'error' => true,
+                        'message' => 'Sales routing not configured. Please configure Account Routing.'
+                    ], 400);
+                }
 
-            $productData = Product::assignDefaultChartOfAccount($productData);
+                if ($routing->routing_type === 'automatic') {
+                    if (!$routing->main_account_id) {
+                        return response()->json([
+                            'error' => true,
+                            'message' => 'Sales main account missing in routing settings.'
+                        ], 400);
+                    }
+                    $product->update(['sales_account_id' => $routing->main_account_id]);
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Main Sales Account assigned to product successfully',
+                        'sales_account_id' => $routing->main_account_id
+                    ]);
+                }
 
-            Log::info('Product data after assignment:', $productData);
-
-            $updateData = [];
-
-
-            if(!isset($productData['sales_account_id']) && $type == 'sales'){
+                if ($routing->routing_type === 'main_account_per_each') {
+                    if (!$routing->main_account_id) {
+                        return response()->json([
+                            'error' => true,
+                            'message' => 'Sales main account missing in routing settings.'
+                        ], 400);
+                    }
+                    // Create child account under main account with product name
+                    $newAccount = ChartOfAccount::create([
+                        'name' => $product->name,
+                        'code' => $this->generateChildAccountCode($routing->main_account_id),
+                        'type_id' => $this->getRevenueAccountTypeId(),
+                        'parent_id' => $routing->main_account_id,
+                        'is_active' => true,
+                        'created_by' => Auth::id(),
+                    ]);
+                    $product->update(['sales_account_id' => $newAccount->id]);
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Sales Account created under main account and assigned to product',
+                        'sales_account_id' => $newAccount->id
+                    ]);
+                }
 
                 return response()->json([
                     'error' => true,
-                    'message' => 'No suitable Sales Account found for automatic assignment',
+                    'message' => 'Routing type not supported for auto-assign. Please assign manually.'
                 ], 400);
-
-            }
-            if(!isset($productData['purchase_account_id']) && $type == 'purchase'){
-                return response()->json([
-                    'error' => true,
-                    'message' => 'No suitable Purchase Account found for automatic assignment',
-                ], 400);
-            }
-            
-
-            if (isset($productData['sales_account_id'])) {
-                $updateData['sales_account_id'] = $productData['sales_account_id'];
-                Log::info('Will update sales_account_id to: ' . $productData['sales_account_id']);
-            }
-            if (isset($productData['purchase_account_id'])) {
-                $updateData['purchase_account_id'] = $productData['purchase_account_id'];
-                Log::info('Will update purchase_account_id to: ' . $productData['purchase_account_id']);
-            }
-
-            Log::info('Update data to be applied:', $updateData);
-
-            if (!empty($updateData)) {
-                $result = $product->update($updateData);
-                Log::info('Product update result:', ['success' => $result]);
-
-                // Refresh the product to get updated values
-                $product->refresh();
-
-                Log::info('Product after update:', [
-                    'sales_account_id' => $product->sales_account_id,
-                    'purchase_account_id' => $product->purchase_account_id
-                ]);
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Chart of Account assigned successfully',
-                    'chart_of_account_id' => $productData['sales_account_id'] ?? $productData['purchase_account_id'],
-                    'sales_account_id' => $productData['sales_account_id'] ?? null,
-                    'purchase_account_id' => $productData['purchase_account_id'] ?? null
-                ]);
             } else {
-                Log::warning('No update data available for product: ' . $product->id);
+                // purchase flow
+                $routing = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
+
+                if (!$routing) {
+                    return response()->json([
+                        'error' => true,
+                        'message' => 'Purchase routing not configured. Please configure Account Routing.'
+                    ], 400);
+                }
+
+                if ($routing->routing_type === 'automatic') {
+                    if (!$routing->main_account_id) {
+                        return response()->json([
+                            'error' => true,
+                            'message' => 'Purchase main account missing in routing settings.'
+                        ], 400);
+                    }
+                    $product->update(['purchase_account_id' => $routing->main_account_id]);
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Main Purchase Account assigned to product successfully',
+                        'purchase_account_id' => $routing->main_account_id
+                    ]);
+                }
+
+                if ($routing->routing_type === 'main_account_per_each') {
+                    if (!$routing->main_account_id) {
+                        return response()->json([
+                            'error' => true,
+                            'message' => 'Purchase main account missing in routing settings.'
+                        ], 400);
+                    }
+                    $newAccount = ChartOfAccount::create([
+                        'name' => $product->name,
+                        'code' => $this->generateChildAccountCode($routing->main_account_id),
+                        'type_id' => $this->getExpenseAccountTypeId(),
+                        'parent_id' => $routing->main_account_id,
+                        'is_active' => true,
+                        'created_by' => Auth::id(),
+                    ]);
+                    $product->update(['purchase_account_id' => $newAccount->id]);
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Purchase Account created under main account and assigned to product',
+                        'purchase_account_id' => $newAccount->id
+                    ]);
+                }
+
                 return response()->json([
-                    'success' => false,
-                    'message' => 'No suitable Chart of Account found for automatic assignment'
+                    'error' => true,
+                    'message' => 'Routing type not supported for auto-assign. Please assign manually.'
                 ], 400);
             }
         } catch (Exception $e) {
@@ -911,5 +953,39 @@ class ProductController extends Controller
                 'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    private function generateChildAccountCode($parentId)
+    {
+        $parent = ChartOfAccount::find($parentId);
+        if (!$parent) {
+            return 'PRD-' . (time() % 1000000);
+        }
+        $baseCode = $parent->code;
+        // Collect existing child codes that start with baseCode-
+        $existingCodes = ChartOfAccount::where('parent_id', $parentId)
+            ->where('code', 'like', $baseCode . '-%')
+            ->pluck('code')
+            ->toArray();
+
+        $counter = 1;
+        $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+        while (in_array($newCode, $existingCodes)) {
+            $counter++;
+            $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+        }
+        return $newCode;
+    }
+
+    private function getRevenueAccountTypeId()
+    {
+        $type = ChartOfAccountType::where('name', 'Revenue')->first();
+        return $type ? $type->id : 1;
+    }
+
+    private function getExpenseAccountTypeId()
+    {
+        $type = ChartOfAccountType::where('name', 'Expense')->first();
+        return $type ? $type->id : 1;
     }
 }

@@ -298,6 +298,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/chart-of-accounts/tree', [ChartOfAccountController::class, 'tree']);
         Route::get('/chart-of-accounts/{slug}/journal-entries', [ChartOfAccountController::class, 'getJournalEntries']);
         Route::get('/chart-of-accounts/all', [ChartOfAccountController::class, 'getAll']);
+        Route::get('/chart-of-accounts/dropdown', [ChartOfAccountController::class, 'getDropdown']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::post('/chart-of-accounts/generate-code', [ChartOfAccountController::class, 'generateCode']);
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
