@@ -38,6 +38,8 @@ class TenantDatabaseSeeder extends Seeder
                 DefaultRouteAccountingSettingsSeeder::class,
                 DefaultFiscalAndAccountingPeriodSeeder::class,
                 AccountStatementPermissionSeeder::class,
+                TenantPermissionSeeder::class,
+                RolePermissionSeeder::class,
             ]);
 
             // Uncomment the line below to generate bulk data (10,000 invoices + 10,000 purchases)
