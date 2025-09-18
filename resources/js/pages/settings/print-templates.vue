@@ -49,6 +49,10 @@
                         @click="selectModule('expense')" type="button">
                   {{ $t('Expenses') }}
                 </button>
+                <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'reports' }" 
+                        @click="selectModule('reports')" type="button">
+                  {{ $t('Reports') }}
+                </button>
               </div>
             </div>
 

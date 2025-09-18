@@ -146,6 +146,15 @@
                     <i class="fas fa-print me-1"></i>
                     {{ $t("Print") }}
                   </button>
+                  <a
+                    :href="printTemplateUrl"
+                    target="_blank"
+                    class="btn btn-info"
+                    :disabled="!reportData"
+                  >
+                    <i class="fas fa-print me-1"></i>
+                    {{ $t("Print with Template") }}
+                  </a>
                   <button
                     v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
                     @click="expandAll"
@@ -535,6 +544,31 @@ export default {
       } else {
         return this.$t('All Data');
       }
+    },
+    printTemplateUrl() {
+      // Create a dynamic print template URL for trial balance with current filters
+      const params = new URLSearchParams();
+      
+      if (this.filters.chartOfAccountId) {
+        params.append('chart_of_account_id', this.filters.chartOfAccountId);
+      }
+      if (this.filters.subChartOfAccountId) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccountId);
+      }
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      return `/print/reports/trial-balance?${params.toString()}`;
     },
   },
   created() {

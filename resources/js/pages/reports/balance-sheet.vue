@@ -120,11 +120,8 @@
           <a href="/reports/balance-sheet/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
             <i class="fas fa-file-export"></i>
           </a>
-          <a @click="generatePDF()" href="#" class="btn btn-primary">
-            <i class="fas fa-download"></i> {{ $t("Download") }}
-          </a>
-          <a @click="printWindow()" href="#" class="btn btn-secondary">
-            <i class="fas fa-print"></i> {{ $t("Print") }}
+          <a :href="printTemplateUrl" target="_blank" class="btn btn-primary">
+            <i class="fas fa-print"></i> {{ $t("Print with Template") }}
           </a>
           <router-link :to="{ name: 'home' }" class="btn btn-dark float-right">
             <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
@@ -293,7 +290,6 @@
 
 <script>
 import axios from "axios";
-import html2pdf from "html2pdf.js";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -350,17 +346,28 @@ export default {
       
       return `/reports/balance-sheet/export?${params.toString()}`;
     },
-  },
+    
+    printTemplateUrl() {
+      // Create a dynamic print template URL for balance sheet with current filters
+      const params = new URLSearchParams();
+      
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      return `/print/reports/balance-sheet?${params.toString()}`;
+    },
 
-  created() {
-    try {
-      this.loadFiscalYears();
-    } catch (error) {
-      console.error("Error in created():", error);
-    }
-  },
-
-  computed: {
+    // Moved here to keep a single computed block
     dateRangeDisplayName() {
       if (!this.balanceData || !this.balanceData.filters) {
         return this.$t('All Data');
@@ -382,6 +389,14 @@ export default {
         return this.$t('All Data');
       }
     },
+  },
+
+  created() {
+    try {
+      this.loadFiscalYears();
+    } catch (error) {
+      console.error("Error in created():", error);
+    }
   },
 
   methods: {
@@ -526,25 +541,7 @@ export default {
       return date.toLocaleDateString();
     },
 
-    // Print
-    printWindow() {
-      window.print();
-    },
-
-    // Download PDF
-    generatePDF() {
-      const element = document.getElementById("content-to-pdf");
-      const options = {
-        margin: 2,
-        filename: "Balance Sheet.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        pagebreak: { mode: "avoid-all", before: "#page-break" },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
-      };
-
-      html2pdf().from(element).set(options).save();
-    },
+    // Printing handled via server-rendered templates (see printTemplateUrl)
   },
 };
 </script>

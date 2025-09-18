@@ -620,6 +620,12 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/print/purchase/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchase'])->name('print.purchase');
     Route::get('/print/quotation/{slug}', [App\Http\Controllers\PrintController::class, 'printQuotation'])->name('print.quotation');
     
+    // Reports print routes
+    Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
+    Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
+    Route::get('/print/reports/profit-loss', [App\Http\Controllers\PrintController::class, 'printProfitLoss'])->name('print.reports.profit-loss');
+    Route::get('/print/reports/summary', [App\Http\Controllers\PrintController::class, 'printSummary'])->name('print.reports.summary');
+    
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
     Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
