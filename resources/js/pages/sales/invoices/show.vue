@@ -319,7 +319,7 @@
              </div> -->
              
                            <!-- Product Summary -->
-              <div class="row mt-3">
+              <!-- <div class="row mt-3">
                <div class="col-12">
                  <div class="table-responsive table-custom">
                    <table class="table table-sm">
@@ -340,7 +340,7 @@
                    </table>
                  </div>
                </div>
-             </div>
+             </div> -->
             
                          <!-- Debug Information (remove in production) -->
              <div class="row mt-3" v-if="false">
@@ -442,28 +442,30 @@
                 <div class="table-responsive table-custom table-border-y-0">
                   <table class="table">
                     <tbody>
+                    
+                     
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ (allData.subTotal ) | withCurrency }}</td>
+                        <td>{{ allData.subTotal }} </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Product Discount") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ (totalProductDiscount) | withCurrency }}
+                          {{ totalProductDiscount  }} 
                         </td>
                       </tr>
 
                       <tr v-if="isSaudiArabia" class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ (allData.subTotal - totalProductDiscount) | withCurrency }}</td>
+                        <td>{{ (allData.subTotal - totalProductDiscount)  }} </td>
                       </tr>
 
                       <tr v-if="isSaudiArabia && totalProductVat > 0">
                         <th>{{ $t("Product VAT") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ (totalProductVat) | withCurrency }}
+                          {{ totalProductVat  }} 
                         </td>
                       </tr>
 
@@ -528,30 +530,30 @@
                         </th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.tax | withCurrency }}
+                          {{ allData.tax  }}
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ calculatedTotal | withCurrency }}
+                          {{ calculatedTotal  }} 
                         </td>
                       </tr>
                       <tr v-if="allData.invoicePayments">
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.totalPaid | withCurrency }}
+                          {{ allData.totalPaid  }}
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ (allData.subTotal - (allData.totalPaid || 0)) | withCurrency }}</td>
+                        <td>{{ (calculatedTotal - (allData.totalPaid || 0))  }}</td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountPayable">
                         <th>{{ $t("Account Payable") }}:</th>
-                        <td>{{ allData.accountPayable | withCurrency }}</td>
+                        <td>{{ allData.accountPayable  }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -731,11 +733,13 @@ export default {
   }),
   // Map Getters
   computed: {
-    ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+    ...mapGetters("operations", ["appInfo", "items", "pagination"]),
     
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
-      return !this.appInfo?.country || this.appInfo.country === 'SA';
+      const result = !this.appInfo?.country || this.appInfo.country === 'SA';
+      console.log('[InvoiceDetails] isSaudiArabia:', result, 'appInfo.country:', this.appInfo?.country);
+      return result;
     },
     
     // Calculate correct total based on Saudi Arabia rules
@@ -837,6 +841,15 @@ export default {
       this.allData = data.data;
       this.invoiceProducts = this.allData.invoiceProducts;
       this.invoiceProducts.sort(this.sortProducts);
+      
+      // Debug: Check what we're getting
+      console.log('[InvoiceDetails] allData.subTotal:', this.allData.subTotal);
+      console.log('[InvoiceDetails] totalProductVat:', this.totalProductVat);
+      console.log('[InvoiceDetails] totalProductDiscount:', this.totalProductDiscount);
+      console.log('[InvoiceDetails] calculatedTotal:', this.calculatedTotal);
+      console.log('[InvoiceDetails] isSaudiArabia:', this.isSaudiArabia);
+      console.log('[InvoiceDetails] appInfo:', this.appInfo);
+      
       this.loading = false;
     },
     sortProducts(a, b) {

@@ -148,7 +148,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, index) in form.selectedProducts" :key="index">
+                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}-${item.totalPrice}-${item.totalAfterDiscount}`">
                         <td>{{ index + 1 }}</td>
                         <td>
                           {{ item.code | withPrefix(prefix) }}
@@ -240,7 +240,7 @@
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
+                        <td>{{ item.totalBeforeDiscount | withCurrency }}</td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -270,7 +270,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>{{ item.totalAfterDiscount | withCurrency }}</td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -303,27 +303,27 @@
                         </td>
                       </tr>
                       <!-- Totals Row -->
-                      <tr>
+                      <tr :key="`totals-${getSubTotal()}-${getTotalUnitPrice()}`">
                         <td colspan="5" class="text-right">
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                          <strong>{{ getTotalUnitPrice() | withCurrency }}</strong>
                         </td>
                         <td>
-                          <strong>{{ form.totalDiscount | withCurrency }}</strong>
+                          <strong>{{ getTotalDiscount() | withCurrency }}</strong>
                         </td>
                         <td>
-                          <strong>{{ (totalUnitPrice - form.totalDiscount) | withCurrency }}</strong>
+                          <strong>{{ getTotalAfterDiscount() | withCurrency }}</strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ form.productTotalTax | withCurrency }}</strong>
+                          <strong>{{ getProductTotalTax() | withCurrency }}</strong>
                         </td>
                         <td>
-                          <strong>{{ form.subTotal | withCurrency }}</strong>
+                          <strong>{{ getSubTotal() | withCurrency }}</strong>
                         </td>
                         <td></td>
                       </tr>
@@ -675,6 +675,16 @@ export default {
 
       isAutoAssigningClient: false, // Add this back for the auto-assign button
       isAutoAssigningProduct: null, // Track which product is being auto-assigned
+      
+      // Reactive totals for the table
+      reactiveTotals: {
+        totalUnitPrice: 0,
+        totalAfterDiscount: 0,
+        totalDiscount: 0,
+        productTotalTax: 0,
+        subTotal: 0
+      },
+      
     }
   },
   computed: {
@@ -704,6 +714,16 @@ export default {
       }
       return this.form.selectedProducts.reduce((total, item) => {
         return total + (item.unitPrice * item.qty);
+      }, 0);
+    },
+
+    // Calculate total after discount (sum of all totalAfterDiscount values)
+    totalAfterDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalAfterDiscount || 0);
       }, 0);
     },
 
@@ -864,6 +884,9 @@ export default {
           // Only clear errors, don't reset the actual values
           this.clearFieldError('paidAmount');
         }
+        
+        // Update reactive totals when products change
+        this.updateReactiveTotals();
       },
       deep: true
     },
@@ -922,6 +945,9 @@ export default {
         });
         this.calculateSum();
       }
+      
+      // Initialize reactive totals
+      this.updateReactiveTotals();
     });
   },
   beforeDestroy() {
@@ -1297,6 +1323,8 @@ export default {
           totalPrice: product.regularPrice,
           productTax: product.productTax, // Store the product's default VAT rate object
           totalTax: 0, // Will be calculated below
+          totalBeforeDiscount: product.regularPrice, // Will be calculated below
+          totalAfterDiscount: product.regularPrice, // Will be calculated below
           itemType: product.itemType,
           discount: 0,
           discountType: "fixed",
@@ -1313,6 +1341,9 @@ export default {
         
         this.form.product = "";
         this.calculateSum();
+        
+        // Update reactive totals
+        this.updateReactiveTotals();
       }
     },
 
@@ -1328,36 +1359,54 @@ export default {
         before: item ? JSON.parse(JSON.stringify(item)) : null,
       });
       if (item) {
+        let updatedItem = { ...item };
+        
         if (type === "increment") {
           if (field === "qty") {
-            item.qty = item.qty + 1;
+            updatedItem.qty = item.qty + 1;
           } else if (field === "price") {
-            item.unitPrice = this.roundToTwoDecimals(item.unitPrice + 1);
+            updatedItem.unitPrice = this.roundToTwoDecimals(item.unitPrice + 1);
           }
         } else if (type === "decrement") {
           if (field === "qty" && item.qty > 1) {
-            item.qty = item.qty - 1;
+            updatedItem.qty = item.qty - 1;
           } else if (field === "price" && item.unitPrice > 0) {
-            item.unitPrice = this.roundToTwoDecimals(item.unitPrice - 1);
+            updatedItem.unitPrice = this.roundToTwoDecimals(item.unitPrice - 1);
           }
         } else {
           if (field === "qty") {
-            item.qty = Number(value);
+            updatedItem.qty = Number(value);
             // Clear quantity validation error when value changes
             this.clearProductErrors(index);
           } else if (field === "price") {
-            item.unitPrice = this.roundToTwoDecimals(Number(value));
+            updatedItem.unitPrice = this.roundToTwoDecimals(Number(value));
             // Clear unit price validation error when value changes
             this.clearProductErrors(index);
           }
         }
-        this.logDebug('generateItemTotal:after-mutate', { index, item: JSON.parse(JSON.stringify(item)) });
+        
+        // Ensure discount amount doesn't exceed the new total before discount
+        if (updatedItem.discountAmount > (updatedItem.unitPrice * updatedItem.qty)) {
+          updatedItem.discountAmount = this.roundToTwoDecimals(updatedItem.unitPrice * updatedItem.qty);
+        }
+        
+        this.logDebug('generateItemTotal:after-mutate', { index, item: JSON.parse(JSON.stringify(updatedItem)) });
         
         // Recalculate totals
         // persist row change so Vue updates the row immediately
-        this.$set(this.form.selectedProducts, index, item);
+        this.$set(this.form.selectedProducts, index, updatedItem);
         this.generateItemTotalPrice(index);
         this.calculateSum();
+        
+        // Update reactive totals
+        this.updateReactiveTotals();
+        
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+        
+        // Force update totals row specifically
+        this.forceUpdateTotals();
+        
         this.logDebug('generateItemTotal:end', {
           index,
           row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
@@ -1379,16 +1428,36 @@ export default {
         // Clear discount validation errors when values change
         this.clearProductErrors(index);
         
+        // Calculate discount amount based on type
+        let discountAmount;
         if (item.discountType === "percentage") {
-          item.discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
+          discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
         } else {
-          item.discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+          discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
         }
         
+        // Ensure discount amount doesn't exceed the total before discount
+        if (discountAmount > (item.unitPrice * item.qty)) {
+          discountAmount = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        }
+        
+        // Create updated item with new discount amount
+        const updatedItem = {
+          ...item,
+          discountAmount
+        };
+        
         // Persist reactive change and recalc
-        this.$set(this.form.selectedProducts, index, item);
+        this.$set(this.form.selectedProducts, index, updatedItem);
         this.generateItemTotalPrice(index);
         this.calculateSum();
+        
+        // Update reactive totals
+        this.updateReactiveTotals();
+        
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+        
         this.logDebug('calculateProductDiscount:end', { index, row: JSON.parse(JSON.stringify(this.form.selectedProducts[index])) });
       }
     },
@@ -1402,23 +1471,32 @@ export default {
         // Clear VAT validation errors when values change
         this.clearProductErrors(index);
         
+        let updatedItem = { ...item };
+        
         // Ensure the selectedVatRate is properly set
-        if (!item.selectedVatRate) {
+        if (!updatedItem.selectedVatRate) {
           // First try to use the product's default VAT rate, then fall back to available taxes
-          if (item.productTax) {
-            item.selectedVatRate = this.findMatchingVatRate(item.productTax);
+          if (updatedItem.productTax) {
+            updatedItem.selectedVatRate = this.findMatchingVatRate(updatedItem.productTax);
           }
           
           // If no match found or no productTax, fall back to available taxes
-          if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
-            item.selectedVatRate = this.taxes[0];
+          if (!updatedItem.selectedVatRate && this.taxes && this.taxes.length > 0) {
+            updatedItem.selectedVatRate = this.taxes[0];
           }
         }
         
         // Persist reactive change and recalc
-        this.$set(this.form.selectedProducts, index, item);
+        this.$set(this.form.selectedProducts, index, updatedItem);
         this.generateItemTotalPrice(index);
         this.calculateSum();
+        
+        // Update reactive totals
+        this.updateReactiveTotals();
+        
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+        
         this.logDebug('calculateProductVat:end', { index, row: JSON.parse(JSON.stringify(this.form.selectedProducts[index])) });
       }
     },
@@ -1432,8 +1510,11 @@ export default {
       if (item) {
         this.logDebug('generateItemTotalPrice:start', { index, before: JSON.parse(JSON.stringify(item)) });
         
+        // Calculate total before discount
+        const totalBeforeDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        
         // Calculate price after discount
-        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
+        const totalAfterDiscount = this.roundToTwoDecimals(totalBeforeDiscount - (item.discountAmount || 0));
         
         // Use selected VAT rate if available, otherwise fall back to product's default tax rate
         let vatRate = 0;
@@ -1449,24 +1530,40 @@ export default {
         }
         
         // Calculate tax based on discounted price
+        let productTax, totalTax, totalPrice;
+        
         if (item.taxType == "Exclusive") {
           // For exclusive tax: calculate VAT on the discounted amount
-          item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-          item.totalTax = this.roundToTwoDecimals(item.productTax);
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
+          productTax = this.roundToTwoDecimals(totalAfterDiscount * (vatRate / 100));
+          totalTax = this.roundToTwoDecimals(productTax);
+          totalPrice = this.roundToTwoDecimals(totalAfterDiscount + totalTax);
         } else {
           // For inclusive tax: VAT is already included in the unit price
           // Calculate the VAT amount from the discounted price
-          let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
-          item.unitPrice = discountedUnitPrice;
+          let discountedUnitPrice = this.roundToTwoDecimals(totalAfterDiscount / item.qty);
           
           // Calculate VAT amount from the inclusive price
-          item.productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
-          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
+          productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
+          totalTax = this.roundToTwoDecimals(productTax * item.qty);
+          totalPrice = this.roundToTwoDecimals(totalAfterDiscount);
         }
         
-        this.$set(this.form.selectedProducts, index, item);
+        // Create a new object with all the calculated values to ensure reactivity
+        const updatedItem = {
+          ...item,
+          totalBeforeDiscount,
+          totalAfterDiscount,
+          productTax,
+          totalTax,
+          totalPrice
+        };
+        
+        // Use Vue.set to ensure reactivity
+        this.$set(this.form.selectedProducts, index, updatedItem);
+        
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+        
         this.logDebug('generateItemTotalPrice:end', {
           index,
           row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
@@ -1497,6 +1594,9 @@ export default {
       
       // Recalculate totals after removing item
       this.calculateSum();
+      
+      // Update reactive totals
+      this.updateReactiveTotals();
       
       return;
     },
@@ -1570,6 +1670,10 @@ export default {
            Number(this.form.transportCost || 0)
          );
        }
+       
+       // Update reactive totals for the table
+       this.updateReactiveTotals();
+       
       this.logDebug('calculateSum', {
         subTotal: this.form.subTotal,
         productTotalTax: this.form.productTotalTax,
@@ -1577,6 +1681,7 @@ export default {
         totalTax: this.form.totalTax,
         netTotal: this.form.netTotal,
         totalDiscount: this.form.totalDiscount,
+        reactiveTotals: this.reactiveTotals,
         selectedProducts: this.form.selectedProducts.map((p, i) => ({
           i,
           qty: p.qty,
@@ -1595,6 +1700,100 @@ export default {
       const toWords = new ToWords();
       let words = toWords.convert(this.form.subTotal);
       return words + ' Only';
+    },
+
+    // Update reactive totals for the table
+    updateReactiveTotals() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        this.reactiveTotals.totalUnitPrice = 0;
+        this.reactiveTotals.totalAfterDiscount = 0;
+        this.reactiveTotals.totalDiscount = 0;
+        this.reactiveTotals.productTotalTax = 0;
+        this.reactiveTotals.subTotal = 0;
+        return;
+      }
+
+      // Calculate totals
+      this.reactiveTotals.totalUnitPrice = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.unitPrice * item.qty);
+      }, 0));
+      
+      this.reactiveTotals.totalAfterDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalAfterDiscount || 0);
+      }, 0));
+      
+      this.reactiveTotals.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.discountAmount || 0);
+      }, 0));
+      
+      this.reactiveTotals.productTotalTax = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalTax || 0);
+      }, 0));
+      
+      this.reactiveTotals.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalPrice || 0);
+      }, 0));
+
+      console.log('[InvoiceCreate] updateReactiveTotals called:', this.reactiveTotals);
+      
+      // Force update to ensure template re-renders
+      this.$forceUpdate();
+    },
+
+    // Methods to get totals on-demand (forces reactivity)
+    getTotalUnitPrice() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.unitPrice * item.qty);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getTotalAfterDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalAfterDiscount || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getTotalDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.discountAmount || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getProductTotalTax() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalTax || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getSubTotal() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalPrice || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    // Force update totals row
+    forceUpdateTotals() {
+      this.$forceUpdate();
     },
 
     // vue file upload
