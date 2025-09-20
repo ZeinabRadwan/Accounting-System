@@ -7,6 +7,13 @@
             <!-- breadcrumbs Start -->
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <router-link :to="{ name: 'authorities.index' }" class="btn btn-primary">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                </router-link>
+              </div>
+            </div>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -76,17 +83,14 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <div class="d-flex justify-content-between">
-                <router-link :to="{ name: 'authorities.index' }" class="btn btn-secondary">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-                </router-link>
-                <div>
-                  <button type="reset" class="btn btn-secondary mr-2" @click="form.reset()">
-                    <i class="fas fa-power-off" /> {{ $t('Reset') }}
-                  </button>
+              <div class="dtable-footer">
+                <div class="form-group row display-per-page">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
+                  <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                    <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -182,114 +186,56 @@ export default {
 </script>
 
 <style scoped>
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
 .card {
   margin-top: 30px;
   border-radius: 20px;
   box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA;
-}
-
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid #CED4DA;
-  padding: 1.25rem 1.25rem 0 1.25rem;
-  border-radius: 20px 20px 0 0;
-}
-
-.card-body {
-  padding: 1.25rem;
+  border: 1px solid #CED4DA
 }
 
 .card-footer {
   background-color: white;
   border-top: 1px solid #CED4DA;
-  padding: 1.25rem;
+  padding: 0 1.25rem 0.625rem 1.25rem;
   border-radius: 0 0 20px 20px;
 }
 
-/* Form styling */
-.form-control {
+/* Search Input Background Override */
+.form-control{
   background: #F1F5FB !important;
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-  padding: 12px 16px;
 }
 
-.form-control:focus {
-  border-color: #33a0d9;
-  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
-}
-
-.form-group label {
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 8px;
-}
-
-.required {
-  color: #DC3545;
-}
-
-/* Button styling */
 .btn-primary {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
   border-radius: 10px !important;
   border: none !important;
-  font-weight: 500;
-}
-
-.btn-primary:hover {
-  background: #239a28 !important;
 }
 
 .btn-secondary {
-  background: #6C757D !important;
+  background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
   border-radius: 10px !important;
   border: none !important;
-  font-weight: 500;
-}
-
-.btn-secondary:hover {
-  background: #5a6268 !important;
-}
-
-/* Input validation styling */
-.is-invalid {
-  border-color: #DC3545 !important;
-}
-
-/* Textarea styling */
-textarea.form-control {
-  min-height: 100px;
-  resize: vertical;
-}
-
-/* Row spacing */
-.row {
-  margin-bottom: 1rem;
-}
-
-.row:last-child {
-  margin-bottom: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .card-footer .d-flex {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .card-footer .d-flex > div {
-    width: 100%;
-  }
-  
-  .card-footer .btn {
-    width: 100%;
-  }
 }
 </style>

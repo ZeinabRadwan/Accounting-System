@@ -1,43 +1,29 @@
 <template>
-  <div class="container-fluid">
-    <!-- Page Header -->
-    <div class="page-header">
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="page-title">{{ $t('Edit Journal Entry') }}</h3>
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item">
-              <router-link to="/home">{{ $t('Dashboard') }}</router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/journal-entries">{{ $t('Journal Entries') }}</router-link>
-            </li>
-            <li class="breadcrumb-item active">{{ $t('Edit') }}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <router-link :to="{ name: 'journal-entries.index' }" class="btn btn-primary">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                </router-link>
+              </div>
+            </div>
+          </div>
 
-    <!-- Loading State -->
-    <div v-if="loading" class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body text-center">
+          <!-- Loading State -->
+          <div v-if="loading" class="card-body text-center">
             <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
             <p class="mt-3">{{ $t('Loading journal entry...') }}</p>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Journal Entry Form -->
-    <div v-else-if="journalEntry" class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">{{ $t('Edit Journal Entry') }} - {{ journalEntry.formatted_entry_number }}</h4>
-          </div>
-          <div class="card-body">
+          <!-- Journal Entry Form -->
+          <div v-else-if="journalEntry" class="card-body">
             <form @submit.prevent="updateJournalEntry">
               <!-- Basic Information -->
               <div class="row">
@@ -217,15 +203,15 @@
               </div>
 
               <!-- Form Actions -->
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary" :disabled="!isBalanced || loading">
-                      <i v-if="loading" class="fa fa-spinner fa-spin"></i>
+              <div class="card-footer">
+                <div class="dtable-footer">
+                  <div class="form-group row display-per-page">
+                    <button type="submit" class="btn btn-primary" :disabled="!isBalanced || saving">
+                      <i v-if="saving" class="fa fa-spinner fa-spin"></i>
                       <i v-else class="fa fa-save"></i>
-                      {{ loading ? $t('Updating...') : $t('Update') }}
+                      {{ saving ? $t('Updating...') : $t('Update') }}
                     </button>
-                    <router-link to="/journal-entries" class="btn btn-secondary ml-2">
+                    <router-link to="/journal-entries" class="btn btn-secondary">
                       <i class="fa fa-times"></i> {{ $t('Cancel') }}
                     </router-link>
                   </div>
@@ -233,15 +219,9 @@
               </div>
             </form>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Error State -->
-    <div v-else-if="error" class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body text-center">
+          <!-- Error State -->
+          <div v-else-if="error" class="card-body text-center">
             <i class="fa fa-exclamation-triangle fa-3x text-danger"></i>
             <p class="mt-3">{{ error }}</p>
             <router-link to="/journal-entries" class="btn btn-primary">
@@ -266,6 +246,21 @@ export default {
   },
   data() {
     return {
+      breadcrumbsCurrent: 'Edit Journal Entry',
+      breadcrumbs: [
+        {
+          name: 'Dashboard',
+          url: 'home',
+        },
+        {
+          name: 'Journal Entries',
+          url: 'journal-entries.index',
+        },
+        {
+          name: 'Edit',
+          url: '',
+        },
+      ],
       journalEntry: null,
       form: {
         entry_date: '',
@@ -440,18 +435,91 @@ export default {
 </script>
 
 <style scoped>
-.page-header {
-  margin-bottom: 20px;
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
 }
 
-.breadcrumb {
-  background: none;
-  padding: 0;
-  margin: 0;
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-  content: ">";
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #F1F5FB !important;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.invalid-feedback {
+  display: block;
+}
+</style>
+
+  border-radius: 0 0 20px 20px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #F1F5FB !important;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
 }
 
 .table th {

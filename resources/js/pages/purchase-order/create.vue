@@ -1,18 +1,12 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
+  <div class="mb-50">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t("Create Purchase Order") }}
-            </h3>
-            <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -414,14 +408,19 @@
               </div>
             </form>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <button type="submit" :disabled="form.busy" class="btn btn-primary" @click="savePurchaseOrder">
-                <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
-                {{ form.busy ? $t("Saving...") : $t("Save") }}
-              </button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t("Reset") }}
-              </button>
+            <div class="card-footer d-flex justify-content-between">
+              <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-secondary">
+                <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+              </router-link>
+              <div>
+                <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                  <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                </button>
+                <button type="submit" :disabled="form.busy" class="btn btn-primary" @click="savePurchaseOrder">
+                  <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
+                  {{ form.busy ? $t("Saving...") : $t("Save") }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1191,41 +1190,225 @@ export default {
 </script>
 
 <style scoped>
-.create-btn {
-  padding: 11px;
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
 }
 
-/* Supplier status styles */
-.supplier-status {
-  font-size: 13px;
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
 }
 
-.supplier-warning,
-.supplier-success {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 6px;
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Form Control Styling */
+.form-control {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+/* Form Group Labels */
+.form-group label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.required {
+  color: #DC3545;
+  font-weight: bold;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
   font-weight: 500;
 }
 
-.supplier-warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeaa7;
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
 
-.supplier-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+.btn-secondary {
+  background: #6C757D !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
 }
 
-/* Product status styles */
+.btn-secondary:hover {
+  background: #5A6268 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* Invalid Form Control */
+.is-invalid {
+  border-color: #DC3545 !important;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* V-Select Styling */
+.v-select {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+}
+
+.v-select .vs__dropdown-toggle {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+.v-select .vs__search::placeholder {
+  color: #6B7280;
+}
+
+.v-select .vs__selected {
+  color: #374151;
+}
+
+.v-select .vs__dropdown-menu {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+.table-custom {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-custom thead th {
+  background-color: #F8F9FA;
+  border-bottom: 2px solid #E5E7EB;
+  font-weight: 600;
+  color: #374151;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.table-custom tbody td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #E5E7EB;
+  vertical-align: middle;
+}
+
+.table-custom tbody tr:hover {
+  background-color: #F8F9FA;
+}
+
+/* Custom Quantity Input Styling */
+.custom-qty-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #F1F5FB;
+}
+
+.custom-qty-input .button-minus,
+.custom-qty-input .button-plus {
+  background: #6C757D;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.custom-qty-input .button-minus:hover {
+  background: #DC3545;
+}
+
+.custom-qty-input .button-plus:hover {
+  background: #2AB930;
+}
+
+.custom-qty-input .quantity-field {
+  border: none;
+  background: transparent;
+  text-align: center;
+  width: 60px;
+  padding: 8px 4px;
+  font-weight: 500;
+}
+
+.custom-qty-input .quantity-field:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+  margin-right: 10px;
+}
+
+/* Create Button Styling */
+.create-btn {
+  padding: 11px;
+  background: #2AB930;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-btn:hover {
+  background: #229A26;
+}
+
+/* Supplier/Product Status Styles */
+.supplier-status,
 .product-status {
   font-size: 13px;
 }
 
+.supplier-warning,
+.supplier-success,
 .product-warning,
 .product-success {
   display: flex;
@@ -1235,12 +1418,14 @@ export default {
   font-weight: 500;
 }
 
+.supplier-warning,
 .product-warning {
   background-color: #fff3cd;
   color: #856404;
   border: 1px solid #ffeaa7;
 }
 
+.supplier-success,
 .product-success {
   background-color: #d4edda;
   color: #155724;
@@ -1252,6 +1437,7 @@ export default {
   color: #856404;
   font-size: 12px;
   padding: 4px 8px;
+  border-radius: 6px;
 }
 
 .btn-outline-warning:hover {
@@ -1263,5 +1449,49 @@ export default {
 .btn-outline-warning:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Row Spacing */
+.row {
+  margin-bottom: 1rem;
+}
+
+/* Form Text Styling */
+.form-text {
+  color: #6B7280;
+  font-size: 0.875rem;
+}
+
+.text-muted {
+  color: #6B7280 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-footer .btn {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+  
+  .card-footer div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .table-custom {
+    font-size: 12px;
+  }
+  
+  .table-custom thead th,
+  .table-custom tbody td {
+    padding: 8px 4px;
+  }
 }
 </style>

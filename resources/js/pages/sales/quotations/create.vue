@@ -1,18 +1,19 @@
 <template>
   <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
     <div class="row">
       <div class="col-lg-12 col-xl-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t("Create quotation") }}
-            </h3>
-            <router-link :to="{ name: 'quotations.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <router-link :to="{ name: 'quotations.index' }" class="btn btn-primary">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+                </router-link>
+              </div>
+            </div>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -71,22 +72,20 @@
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
                 <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center">
+                  <table class="table table-hover table-sm text-center quotations-create-table">
                     <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Qty") }}</th>
-                        <th>{{ $t("Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT Type") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
-                        <th class="text-right">{{ $t("Action") }}</th>
-                      </tr>
+                      <th>{{ $t("#") }}</th>
+                      <th>{{ $t("Code") }}</th>
+                      <th>{{ $t("Item Name") }}</th>
+                      <th>{{ $t("Qty") }}</th>
+                      <th>{{ $t("Price") }}</th>
+                      <th>{{ $t("Total") }}</th>
+                      <th>{{ $t("Discount") }}</th>
+                      <th>{{ $t("Total After Discount") }}</th>
+                      <th>{{ $t("VAT Type") }}</th>
+                      <th>{{ $t("VAT") }}</th>
+                      <th>{{ $t("Total with VAT") }}</th>
+                      <th class="text-right">{{ $t("Action") }}</th>
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
@@ -386,12 +385,16 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t("Save") }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t("Reset") }}
-              </button>
+              <div class="dtable-footer">
+                <div class="form-group row display-per-page">
+                  <v-button :loading="form.busy" class="btn btn-primary">
+                    <i class="fas fa-save" /> {{ $t("Save") }}
+                  </v-button>
+                  <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">
+                    <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -877,5 +880,108 @@ export default {
 <style scoped>
 .create-btn {
   padding: 11px;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.quotations-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.quotations-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.quotations-create-table thead tr {
+  border: none !important;
+}
+
+.quotations-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.quotations-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .quotations-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .quotations-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Custom Status Badge Styling */
+.quotations-create-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #F1F5FB !important;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
 }
 </style>

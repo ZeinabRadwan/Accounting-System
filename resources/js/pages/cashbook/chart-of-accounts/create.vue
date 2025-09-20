@@ -1,18 +1,12 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
+  <div class="mb-50">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t('Create a chart of account') }}
-            </h3>
-            <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -121,13 +115,18 @@
               </div>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t('Save') }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t('Reset') }}
-              </button>
+            <div class="card-footer d-flex justify-content-between">
+              <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-secondary">
+                <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+              </router-link>
+              <div>
+                <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                  <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                </button>
+                <v-button :loading="form.busy" class="btn btn-primary">
+                  <i class="fas fa-save" /> {{ $t('Save') }}
+                </v-button>
+              </div>
             </div>
           </form>
         </div>
@@ -309,6 +308,116 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Form Control Styling */
+.form-control {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+/* Form Group Labels */
+.form-group label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.required {
+  color: #DC3545;
+  font-weight: bold;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-secondary {
+  background: #6C757D !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #5A6268 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* Invalid Form Control */
+.is-invalid {
+  border-color: #DC3545 !important;
+}
+
+/* V-Select Styling */
+.v-select {
+  background: #F1F5FB !important;
+}
+
+.v-select .vs__dropdown-toggle {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
+}
+
+.v-select .vs__dropdown-toggle:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25) !important;
+}
+
+.v-select.is-invalid .vs__dropdown-toggle {
+  border-color: #DC3545 !important;
+}
+
 /* Code Generation Toggle */
 .code-generation-toggle {
   margin-bottom: 0.5rem;
@@ -322,6 +431,17 @@ export default {
   flex: 1;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+
+.code-generation-toggle .btn-outline-primary {
+  border-color: #33a0d9;
+  color: #33a0d9;
+}
+
+.code-generation-toggle .btn-outline-primary:hover {
+  background-color: #33a0d9;
+  border-color: #33a0d9;
 }
 
 /* Code Input Container */
@@ -340,6 +460,7 @@ export default {
 .code-generate-btn .btn {
   padding: 0.25rem 0.75rem;
   font-size: 0.8rem;
+  border-radius: 8px;
 }
 
 /* Code Preview */
@@ -347,7 +468,7 @@ export default {
   padding: 0.5rem;
   background: #e3f2fd;
   border: 1px solid #bbdefb;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 0.875rem;
 }
 
@@ -363,8 +484,30 @@ export default {
   cursor: not-allowed;
 }
 
+/* Row Spacing */
+.row {
+  margin-bottom: 1rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+  .card-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-footer .btn {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+  
+  .card-footer div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
   .code-generate-btn {
     position: static;
     transform: none;
@@ -385,8 +528,8 @@ export default {
 /* Button States */
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #33a0d9;
+  border-color: #33a0d9;
 }
 
 .btn-outline-secondary:hover {
