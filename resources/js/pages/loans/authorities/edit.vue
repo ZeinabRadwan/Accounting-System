@@ -1,18 +1,12 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
+  <div class="mb-50">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t('Edit loan authority') }}
-            </h3>
-            <router-link :to="{ name: 'authorities.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -82,13 +76,19 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-edit" /> {{ $t('Save changes') }}
-              </v-button>
-
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t('Reset') }}
-              </button>
+              <div class="d-flex justify-content-between">
+                <router-link :to="{ name: 'authorities.index' }" class="btn btn-secondary">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                </router-link>
+                <div>
+                  <button type="reset" class="btn btn-secondary mr-2" @click="form.reset()">
+                    <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                  </button>
+                  <v-button :loading="form.busy" class="btn btn-primary">
+                    <i class="fas fa-edit" /> {{ $t('Save changes') }}
+                  </v-button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -180,3 +180,116 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Form styling */
+.form-control {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #DC3545;
+}
+
+/* Button styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #239a28 !important;
+}
+
+.btn-secondary {
+  background: #6C757D !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background: #5a6268 !important;
+}
+
+/* Input validation styling */
+.is-invalid {
+  border-color: #DC3545 !important;
+}
+
+/* Textarea styling */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Row spacing */
+.row {
+  margin-bottom: 1rem;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-footer .d-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-footer .d-flex > div {
+    width: 100%;
+  }
+  
+  .card-footer .btn {
+    width: 100%;
+  }
+}
+</style>

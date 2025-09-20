@@ -4,32 +4,53 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+        <a class="nav-link custom-nav-btn" data-widget="pushmenu" href="#" role="button">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
           </svg>
         </a>
       </li>
-
-      <locale-dropdown />
     </ul>
+
+    <!-- Search beside sidebar toggle -->
+    <div class="navbar-search d-none d-md-block" style="margin-left: 10px;">
+      <div class="search-area position-relative">
+        <input type="text" v-model="menuSearchQuery" @input="searchMenu"
+          class="search-input" :placeholder="$t('Search...')">
+        <span class="search-icon" :class="[this.menuSearchQuery !== '' ? 'd-none' : '']">
+          <i class="fas fa-search"></i>
+        </span>
+        <button v-if="menuSearchQuery" class="btn btn-link p-0 clear-btn" @click="clearMenuSearch">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div v-if="menuSearchQuery" class="dropdown-menu show w-100 mt-1 shadow" style="display:block; max-height: 320px; overflow:auto;">
+        <div v-if="menuItems.length">
+          <router-link v-for="(menuItem, index) in menuItems" :key="index" :to="{ name: menuItem.route }" class="dropdown-item d-flex align-items-center">
+            <i v-if="menuItem.icon" :class="menuItem.icon + ' mr-2'" />
+            <span>{{ $t(menuItem.text) }}</span>
+          </router-link>
+        </div>
+        <div v-else class="dropdown-item text-muted">{{ $t('No matching items found') }}</div>
+      </div>
+    </div>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li v-tooltip="'POS'">
+      <li v-tooltip="'POS'" class="nav-item" style="margin-right: 8px;">
         <router-link :to="{ name: 'pos.create' }" class="btn pos-btn">
           <i class="fas fa-cash-register"></i>
           {{ this.$t("POS") }}</router-link>
       </li>
 
-      <li v-if="$can('today-profit')" v-tooltip="'Today Report'" class="pt-2 pl-2">
-        <router-link :to="{ name: 'reports.todayReport' }">
+      <li v-if="$can('today-profit')" v-tooltip="'Today Report'" class="nav-item">
+        <a class="nav-link custom-nav-btn" :href="`#${$route.name === 'reports.todayReport' ? '' : 'reports.todayReport'}`" @click.prevent="$router.push({ name: 'reports.todayReport' })">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 1v22M17 5v14M7 5v14M5 10h14M5 14h14" />
           </svg>
-        </router-link>
+        </a>
       </li>
 
       <li v-if="$can('lc-create') ||
@@ -38,7 +59,7 @@
         $can('expense-create') ||
         $can('international-purchase-create')
         " class="nav-item dropdown" v-tooltip="'Quick Add'">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+        <a class="nav-link custom-nav-btn" data-toggle="dropdown" href="#" aria-expanded="true">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -88,7 +109,7 @@
 
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown" v-tooltip="'Notifications'">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <a class="nav-link custom-nav-btn" data-toggle="dropdown" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -109,8 +130,11 @@
         </div>
       </li>
 
+      <!-- Language Dropdown Menu -->
+      <locale-dropdown />
+
       <li class="nav-item" v-tooltip="'Toggle Full Screen Mode'">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <a class="nav-link custom-nav-btn" data-widget="fullscreen" href="#" role="button">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -119,7 +143,7 @@
         </a>
       </li>
       <li class="nav-item" v-tooltip="'Theme Settings'">
-        <a class="nav-link" @click.prevent="sideBarControl" href="#">
+        <a class="nav-link custom-nav-btn" @click.prevent="sideBarControl" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -132,10 +156,23 @@
       <li v-if="user" class="nav-item dropdown">
         <a class="nav-link user-profile" data-toggle="dropdown" href="#">
           <div>
-            <img :src="user.photo_url" :alt="user.name" />
+            <img 
+              v-if="!imageError"
+              :src="user.photo_url" 
+              :alt="user.name" 
+              @error="handleImageError"
+              class="profile-avatar"
+            />
+            <div 
+              v-else
+              class="profile-avatar profile-avatar-fallback"
+            >
+              <i class="fas fa-user"></i>
+            </div>
           </div>
-          <div>
-            <p class="mb-0 ml-2 d-none d-md-block">{{ user.name }}</p>
+          <div class="ml-2 d-none d-md-block">
+            <div class="welcome-text">{{ $t('Welcome') }}</div>
+            <div class="user-name">{{ getFirstName(user.name) }}</div>
           </div>
           <span class="mt-1 ml-1">
             <i class="fas fa-angle-down"></i>
@@ -193,6 +230,9 @@ export default {
   data: () => ({
     appName: window.config.appName,
     notificationCount: 0,
+    menuSearchQuery: "",
+    menuItems: [],
+    imageError: false,
   }),
 
   computed: mapGetters({
@@ -212,6 +252,53 @@ export default {
       this.notificationCount = data;
     },
 
+    // handle image load error
+    handleImageError(event) {
+      console.log('Profile image failed to load:', event.target.src);
+      this.imageError = true;
+      // Fallback to a default avatar or initials
+      event.target.style.display = 'none';
+    },
+
+    // get first name from full name
+    getFirstName(fullName) {
+      if (!fullName) return '';
+      return fullName.split(' ')[0];
+    },
+
+    clearMenuSearch() {
+      this.menuSearchQuery = "";
+      this.menuItems = [];
+    },
+
+    searchMenu() {
+      const menuSearchQuery = this.menuSearchQuery;
+      if (!menuSearchQuery) {
+        this.menuItems = [];
+        return;
+      }
+      axios
+        .get(window.location.origin + "/api/menu-search", {
+          params: {
+            menuSearchQuery: menuSearchQuery,
+          },
+        })
+        .then((response) => {
+          const fetchedMenuItems = response.data.result.map((item) => ({
+            route: item.route,
+            text: item.text,
+            icon: item.icon,
+          }));
+          this.menuItems = fetchedMenuItems;
+        })
+        .catch(() => {
+          toast.fire({
+            type: "error",
+            title: this.$t("Opps...something went wrong"),
+          });
+        });
+    },
+
     async logout() {
       // Log out the user.
       await this.$store.dispatch("auth/logout");
@@ -227,10 +314,21 @@ export default {
 </script>
 
 <style scoped>
-.user-profile img {
+.user-profile img,
+.profile-avatar {
   width: 40px;
   height: 40px;
   border-radius: 100%;
+  object-fit: cover;
+}
+
+.profile-avatar-fallback {
+  background-color: #6c757d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
 }
 
 .user-profile {
@@ -238,6 +336,71 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: #5f5f5f;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.user-name {
+  font-size: 16px;
+  color: #000000;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.search-input {
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid #E1E4E8;
+  padding: 6px 14px;
+  font-family: 'DIN', sans-serif;
+  width: 300px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.search-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+  font-size: 16px;
+}
+
+[dir="rtl"] .search-icon {
+  right: auto;
+  left: 14px;
+}
+
+.clear-btn {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  border: none;
+  background: none;
+}
+
+[dir="rtl"] .clear-btn {
+  left: auto;
+  right: 8px;
+}
+
+.clear-btn:hover {
+  color: #000000;
 }
 
 .dropdown-icon-center {
@@ -249,11 +412,75 @@ export default {
   margin-right: 4px;
 }
 
+.pos-btn {
+  background: #1B3C71;
+  color: #ffffff;
+  border: 2px solid #1B3C71;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin: 0;
+  text-decoration: none;
+}
+
+.pos-btn:hover {
+  background: #0f2a4f;
+  border-color: #0f2a4f;
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .btn-pos {
   background: transparent;
   color: #111;
-  border: 2px solid #6366f1;
+  border: 2px solid #1B3C71;
   border-radius: 34px;
   padding: 4px 15px;
+}
+
+/* Custom navbar button styles */
+.custom-nav-btn {
+  background: #33A0D91A !important;
+  color: #33A0D9 !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 10px !important;
+  padding: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  margin: 0 4px !important;
+}
+
+.custom-nav-btn:hover {
+  background: #33A0D933 !important;
+  color: #33A0D9 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.2) !important;
+}
+
+.custom-nav-btn:focus {
+  background: #33A0D91A !important;
+  color: #33A0D9 !important;
+  box-shadow: 0 0 0 2px rgba(51, 160, 217, 0.3) !important;
+}
+
+.custom-nav-btn svg {
+  color: #33A0D9 !important;
+  stroke: #33A0D9 !important;
+}
+
+.custom-nav-btn .badge {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  font-size: 10px !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  padding: 0 4px !important;
 }
 </style>

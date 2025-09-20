@@ -6,8 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@lang('PDF View')</title>
     <style>
+        @font-face {
+            font-family: 'DINNextLTArabic';
+            src: url('{{ public_path('fonts/DINNextLTArabic-Regular-3.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
-            font-family: "DejaVu Sans", "Helvetica", "Arial", sans-serif;
+            font-family: 'DINNextLTArabic', "DejaVu Sans", "Helvetica", "Arial", sans-serif;
             font-size: .90em;
             line-height: 1;
         }
@@ -55,7 +62,7 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: left;
-            background-color: #6366f1;
+            background-color: #1B3C71;
             color: white;
         }
 

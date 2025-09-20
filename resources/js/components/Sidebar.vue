@@ -10,37 +10,8 @@
 
     <!-- Sidebar -->
     <div class="sidebar custom-sidebar">
-    <!-- menu search -->
-      <div class="search-area sidebar-search-wrapper mt-4">
-        <div class="menu-search-btn" :class="[this.menuSearchQuery !== '' ? 'd-none' : 'd-inline-block']">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-        <input ref="autoFocusInput" type="text" v-model="menuSearchQuery" @input="searchMenu"
-          class="search-input form-control" :placeholder="$t('Search...')">
-        <label class="menu-search-btn" :class="[this.menuSearchQuery !== '' ? 'd-inline-block' : 'd-none']"
-          @click="clearMenuSearch">
-          <i class="fas fa-times" />
-        </label>
-      </div>
-      <div v-if="menuSearchQuery" id="searchMenuResult">
-        <nav class="py-3 pb-5">
-          <ul v-if="menuItems.length" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-            <li v-for="(menuItem, index) in menuItems" :key="index" class="nav-item">
-              <router-link :to="{ name: menuItem.route }" class="nav-link">
-                <i v-if="menuItem.icon" :class="menuItem.icon" />
-                <p>{{ $t(menuItem.text) }}</p>
-              </router-link>
-            </li>
-          </ul>
-          <p v-else>{{$t('No matching items found')}}</p>
-        </nav>
-      </div>
-
       <!-- Sidebar Menu -->
-      <nav class="py-3 pb-5" :class="{ 'd-none': menuSearchQuery }">
+      <nav class="py-3 pb-5">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <!-- لوحة التحكم -->
           <li class="nav-header text-uppercase text-bold">
@@ -1041,14 +1012,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
     appName: window.config.appName,
-    menuSearchQuery: "",
-    menuItems: [],
   }),
   // Map Getters
   computed: {
@@ -1070,29 +1038,6 @@ export default {
       return false
     },
 
-    clearMenuSearch() {
-      this.menuSearchQuery = "";
-    },
-
-    searchMenu() {
-      const menuSearchQuery = this.menuSearchQuery;
-      axios.get(window.location.origin + '/api/menu-search', {
-        params: {
-          menuSearchQuery: menuSearchQuery
-        }
-      })
-        .then((response) => {
-          const fetchedMenuItems = response.data.result.map(item => ({
-            route: item.route,
-            text: item.text,
-            icon: item.icon
-          }));
-          this.menuItems = fetchedMenuItems;
-        }).catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
-        })
-    },
-
     async logout() {
       // Log out the user.
       await this.$store.dispatch('auth/logout')
@@ -1104,19 +1049,66 @@ export default {
 </script>
 
 <style>
-.search-area input {
-  padding: 5px 11px 5px 35px;
-  border-radius: 5px;
+.main-sidebar {
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
-.sidebar-search-wrapper {
-  position: relative;
+.main-sidebar .brand-link {
+  border-bottom: 0 !important;
 }
 
-.menu-search-btn {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+/* Sidebar link spacing */
+.main-sidebar .nav-sidebar .nav-link {
+  margin: 0 10px;
+}
+
+/* Active menu styles */
+.main-sidebar .nav-sidebar .nav-link.router-link-exact-active,
+.main-sidebar .nav-sidebar .nav-link.active,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
+  background-color: #1B3C71 !important;
+  color: #fff !important;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Ensure icon/text remain visible on active */
+.main-sidebar .nav-sidebar .nav-link.router-link-exact-active i,
+.main-sidebar .nav-sidebar .nav-link.active i,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active i,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.active i,
+.main-sidebar .nav-sidebar .nav-link.router-link-exact-active p,
+.main-sidebar .nav-sidebar .nav-link.active p,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active p,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.active p {
+  color: #fff !important;
+}
+
+/* LTR chevron: point right when collapsed, rotate -90deg when open */
+html[dir="ltr"] .main-sidebar .nav-sidebar .fa-angle-left {
+  display: inline-block;
+  transform: scaleX(-1);
+  transition: transform 0.2s ease;
+}
+html[dir="ltr"] .main-sidebar .nav-sidebar .menu-open > a .fa-angle-left,
+html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
+  transform: scaleX(-1) rotate(-90deg);
+}
+
+/* Opened menu styles */
+.main-sidebar .nav-sidebar .menu-open,
+.main-sidebar .nav-sidebar .menu-is-opening {
+  background-color: #F1F5FB;
+  border-radius: 10px;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.main-sidebar .nav-sidebar .menu-open > a,
+.main-sidebar .nav-sidebar .menu-is-opening > a {
+  border-left: none !important;
+  border-right: none !important;
 }
 </style>

@@ -130,8 +130,6 @@
 /* Card RTL adjustments */
 [dir="rtl"] .card-header {
   text-align: right;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-direction: row-reverse;
 }
@@ -220,6 +218,24 @@
 
 [dir="rtl"] .pagination .page-item:last-child .page-link {
   border-radius: 0.25rem 0 0 0.25rem;
+}
+
+/* Mirror pagination order and alignment in RTL */
+[dir="rtl"] .pagination {
+  flex-direction: row-reverse;
+}
+
+/* If pagination uses float-right utility, flip it in RTL */
+[dir="rtl"] .pagination.float-right {
+  float: left !important;
+}
+
+/* Mirror chevron icons for Prev/Next/First/Last in RTL */
+[dir="rtl"] .pagination .fa-angle-left,
+[dir="rtl"] .pagination .fa-angle-double-left,
+[dir="rtl"] .pagination .fa-angle-right,
+[dir="rtl"] .pagination .fa-angle-double-right {
+  transform: rotate(180deg);
 }
 
 /* Breadcrumb RTL adjustments */
