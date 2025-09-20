@@ -1,13 +1,51 @@
 @extends('pdf')
 
+@section('page-style')
+    <style>
+        body {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .currency-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        /* Fix for riyal symbol display */
+        .riyal-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .table-listing th, .table-listing td {
+            text-align: center;
+        }
+    </style>
+@endsection
+
 @section('content-area')
-    <h3>@lang('Invoice Summary Report')</h3>
+    @php
+        // Custom currency formatter for PDF to fix riyal symbol display
+        function formatPdfCurrency($amount) {
+            $currencySymbol = config('config.currencySymbol');
+            $currencyPosition = config('config.currencyPosition');
+            $formattedAmount = number_format($amount, 2, '.', ',');
+            
+            // Replace the problematic 'ê' with proper riyal symbol
+            if ($currencySymbol === 'ê') {
+                $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
+            }
+            
+            if ($currencyPosition == 'left') {
+                return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
+            } else {
+                return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
+            }
+        }
+    @endphp
+    
+    <h3>@lang('print.Invoice Summary')</h3>
     
     <div class="row mb-4">
         <div class="col-md-6">
-            <strong>@lang('Date'):</strong> {{ date('d-M-Y') }}<br>
+            <strong>@lang('print.Generated'):</strong> {{ date('d-M-Y') }}<br>
             @if(isset($reportData['filters']['from_date']) && isset($reportData['filters']['to_date']))
-                <strong>@lang('Period'):</strong> {{ $reportData['filters']['from_date'] }} - {{ $reportData['filters']['to_date'] }}
+                <strong>@lang('print.Period'):</strong> {{ $reportData['filters']['from_date'] }} - {{ $reportData['filters']['to_date'] }}
             @endif
         </div>
     </div>
@@ -15,24 +53,32 @@
     @if(isset($reportData['summary']))
         <div class="row mb-4">
             <div class="col-md-12">
-                <h5>@lang('Summary')</h5>
+                <h5>@lang('print.Summary')</h5>
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm">
                         <tr>
-                            <td><strong>@lang('Total Invoices')</strong></td>
+                            <td><strong>@lang('print.Total Clients')</strong></td>
+                            <td>{{ $reportData['summary']['total_clients'] ?? 0 }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>@lang('print.Total Invoices')</strong></td>
                             <td>{{ $reportData['summary']['total_invoices'] ?? 0 }}</td>
                         </tr>
                         <tr>
-                            <td><strong>@lang('Total Amount')</strong></td>
-                            <td>@currency($reportData['summary']['total_amount'] ?? 0)</td>
+                            <td><strong>@lang('print.Total Amount')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['total_amount'] ?? 0) !!}</td>
                         </tr>
                         <tr>
-                            <td><strong>@lang('Paid Amount')</strong></td>
-                            <td>@currency($reportData['summary']['paid_amount'] ?? 0)</td>
+                            <td><strong>@lang('print.Total Tax')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['total_tax'] ?? 0) !!}</td>
                         </tr>
                         <tr>
-                            <td><strong>@lang('Unpaid Amount')</strong></td>
-                            <td>@currency($reportData['summary']['unpaid_amount'] ?? 0)</td>
+                            <td><strong>@lang('print.Total Paid')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['total_paid'] ?? 0) !!}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>@lang('print.Total Due')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['total_due'] ?? 0) !!}</td>
                         </tr>
                     </table>
                 </div>
@@ -40,28 +86,30 @@
         </div>
     @endif
 
-    @if(isset($reportData['client_summary']) && count($reportData['client_summary']) > 0)
+    @if(isset($reportData['clients']) && count($reportData['clients']) > 0)
         <div class="table-responsive">
             <table class="table-listing table table-bordered table-striped table-sm">
                 <thead class="thead-light">
                     <tr>
-                        <th>@lang('#')</th>
-                        <th>@lang('Client')</th>
-                        <th>@lang('Invoice Count')</th>
-                        <th>@lang('Total Amount')</th>
-                        <th>@lang('Paid Amount')</th>
-                        <th>@lang('Unpaid Amount')</th>
+                        <th>@lang('print.Row Number')</th>
+                        <th>@lang('print.Client Name')</th>
+                        <th>@lang('print.Total Invoices')</th>
+                        <th>@lang('print.Total Amount')</th>
+                        <th>@lang('print.Total Tax')</th>
+                        <th>@lang('print.Total Paid')</th>
+                        <th>@lang('print.Total Due')</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($reportData['client_summary'] as $index => $client)
+                    @foreach ($reportData['clients'] as $index => $client)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $client->client_name ?? $client['client_name'] ?? '' }}</td>
-                            <td>{{ $client->invoice_count ?? $client['invoice_count'] ?? 0 }}</td>
-                            <td>@currency($client->total_amount ?? $client['total_amount'] ?? 0)</td>
-                            <td>@currency($client->paid_amount ?? $client['paid_amount'] ?? 0)</td>
-                            <td>@currency($client->unpaid_amount ?? $client['unpaid_amount'] ?? 0)</td>
+                            <td>{{ $client['client_name'] ?? 'Unknown Client' }}</td>
+                            <td>{{ $client['total_invoices'] ?? 0 }}</td>
+                            <td>{!! formatPdfCurrency($client['total_amount'] ?? 0) !!}</td>
+                            <td>{!! formatPdfCurrency($client['total_tax'] ?? 0) !!}</td>
+                            <td>{!! formatPdfCurrency($client['total_paid'] ?? 0) !!}</td>
+                            <td>{!! formatPdfCurrency($client['total_due'] ?? 0) !!}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -69,7 +117,7 @@
         </div>
     @else
         <div class="alert alert-info">
-            @lang('No clients found for the selected period.')
+            @lang('print.No clients found for the selected period.')
         </div>
     @endif
 @endsection

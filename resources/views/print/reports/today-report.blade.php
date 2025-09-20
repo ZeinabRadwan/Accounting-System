@@ -1,4 +1,4 @@
-@extends('pdf')
+@extends('print.layout')
 
 @section('page-style')
 <style>
@@ -74,7 +74,7 @@
     }
 @endphp
 
-@section('content-area')
+@section('content')
 <div class="container-fluid">
     <!-- Header -->
     <div class="text-center mb-4">
@@ -88,7 +88,7 @@
             <div class="col-md-6">
                 <h4>@lang('print.Opening Stock Information')</h4>
                 <div class="table-responsive">
-                    <table class="table-listing table table-bordered table-striped table-sm">
+                    <table class="table table-bordered table-striped table-sm">
                         <tbody>
                             <tr>
                                 <th>@lang('print.Opening Stock') <br><small class="text-muted">@lang('print.By purchase price')</small>:</th>
@@ -114,7 +114,7 @@
             <div class="col-md-6">
                 <h4>@lang('print.Sales & Purchase Information')</h4>
                 <div class="table-responsive">
-                    <table class="table-listing table table-bordered table-striped table-sm">
+                    <table class="table table-bordered table-striped table-sm">
                         <tbody>
                             <tr>
                                 <th>@lang('print.Invoice Sales'):</th>
@@ -153,7 +153,7 @@
             <div class="col-md-12">
                 <h4>@lang('print.Expenses Information')</h4>
                 <div class="table-responsive">
-                    <table class="table-listing table table-bordered table-striped table-sm">
+                    <table class="table table-bordered table-striped table-sm">
                         <tbody>
                             <tr>
                                 <th>@lang('print.Total Expense'):</th>
@@ -212,4 +212,26 @@
         </div>
     @endif
 </div>
+
+<!-- Print and Download Buttons -->
+<div class="action-buttons no-print">
+    <button class="print-button" onclick="window.print()">
+        <i class="fas fa-print"></i> @lang('print.Print')
+    </button>
+    <button class="pdf-button" onclick="downloadPDF()">
+        <i class="fas fa-download"></i> @lang('print.Download PDF')
+    </button>
+</div>
+
+<script>
+    function downloadPDF() {
+        // Create PDF download URL for today's report
+        const link = document.createElement('a');
+        link.href = '/today-report/pdf';
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 @endsection

@@ -1,5 +1,57 @@
 @extends('print.layout')
 
+@section('page-style')
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        @if(app()->getLocale() == 'ar')
+            direction: rtl;
+            text-align: right;
+            font-family: 'Noto Kufi Arabic', sans-serif;
+        @endif
+    }
+    
+    .table th, .table td {
+        text-align: center;
+        @if(app()->getLocale() == 'ar')
+            text-align: center;
+        @endif
+    }
+    
+    .text-right {
+        @if(app()->getLocale() == 'ar')
+            text-align: left !important;
+        @endif
+    }
+    
+    .text-left {
+        @if(app()->getLocale() == 'ar')
+            text-align: right !important;
+        @endif
+    }
+</style>
+@endsection
+
+@php
+    // Custom currency formatter for PDF
+    if (!function_exists('formatPdfCurrency')) {
+        function formatPdfCurrency($amount) {
+            $locale = app()->getLocale();
+            $formattedAmount = number_format(abs($amount), 2);
+            
+            if ($locale == 'ar') {
+                // For Arabic, use the proper riyal symbol instead of 'ê'
+                return $formattedAmount . ' ﷼';
+            } else {
+                // For English
+                return '$' . $formattedAmount;
+            }
+        }
+    }
+@endphp
+
 @section('content')
     @php
         $config = $template->template_config ?? [];
@@ -196,4 +248,31 @@
             height: auto;
         }
     </style>
+
+    <!-- Print and Download Buttons -->
+    <div class="action-buttons no-print">
+        <button class="print-button" onclick="window.print()">
+            <i class="fas fa-print"></i> @lang('print.Print')
+        </button>
+        <button class="pdf-button" onclick="downloadPDF()">
+            <i class="fas fa-download"></i> @lang('print.Download PDF')
+        </button>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            // Create PDF download URL for profit loss report
+            const urlParams = new URLSearchParams(window.location.search);
+            let pdfUrl = '/reports/profit-loss/pdf';
+            if (urlParams.toString()) {
+                pdfUrl += '?' + urlParams.toString();
+            }
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
 @endsection

@@ -1,5 +1,58 @@
 @extends('print.layout')
 
+@section('page-style')
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        @if(app()->getLocale() == 'ar')
+            direction: rtl;
+            text-align: right;
+            font-family: 'Noto Kufi Arabic', sans-serif;
+        @endif
+    }
+    
+    .table th, .table td {
+        text-align: center;
+        @if(app()->getLocale() == 'ar')
+            text-align: center;
+        @endif
+    }
+    
+    .text-right {
+        @if(app()->getLocale() == 'ar')
+            text-align: left !important;
+        @endif
+    }
+    
+    .text-left {
+        @if(app()->getLocale() == 'ar')
+            text-align: right !important;
+        @endif
+    }
+</style>
+@endsection
+
+@php
+    // Custom currency formatter for PDF
+    if (!function_exists('formatPdfCurrency')) {
+        function formatPdfCurrency($amount) {
+            $locale = app()->getLocale();
+            $formattedAmount = number_format(abs($amount), 2);
+            
+            if ($locale == 'ar') {
+                // For Arabic, use the proper riyal symbol instead of 'ê'
+                return $formattedAmount . ' ﷼';
+            } else {
+                // For English
+                return '$' . $formattedAmount;
+            }
+        }
+    }
+
+@endphp
+
 @php
     // Create a default template for basic view
     $template = (object) [

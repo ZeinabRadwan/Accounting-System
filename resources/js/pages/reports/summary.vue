@@ -242,6 +242,15 @@
             <router-link :to="{ name: 'home' }" class="btn btn-dark float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
             </router-link>
+            <a 
+              v-if="reportInfo" 
+              :href="printTemplateUrl" 
+              target="_blank" 
+              v-tooltip="$t('Print with Template')" 
+              class="btn btn-success mr-2"
+            >
+              <i class="fas fa-print"></i> {{ $t("Print with Template") }}
+            </a>
             <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{ $t("Print")
             }}</a>
           </div>
@@ -293,6 +302,19 @@ export default {
         { length: this.form.currentYear - 2020 },
         (value, index) => 2021 + index
       );
+    },
+    printTemplateUrl() {
+      // Create a dynamic print template URL for summary report with current filters
+      const params = new URLSearchParams();
+      
+      if (this.form.month) {
+        params.append('month', this.form.month);
+      }
+      if (this.form.year) {
+        params.append('year', this.form.year);
+      }
+      
+      return `/print/reports/summary?${params.toString()}`;
     },
   },
 

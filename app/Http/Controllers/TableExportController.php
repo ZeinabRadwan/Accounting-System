@@ -25,6 +25,7 @@ use App\Exports\ExportLoan;
 use App\Models\LoanPayment;
 use App\Exports\ExportAsset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Exports\ExportClient;
 use App\Models\InvoiceReturn;
 use App\Models\LoanAuthority;
@@ -95,17 +96,40 @@ class TableExportController extends Controller
      */
     private function generatePDF($view, $data, $filename, $paper = 'a4', $orientation = 'portrait')
     {
-        $pdf = PDF::loadView($view, $data)
-            ->setPaper($paper, $orientation)
-            ->setOptions([
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => false,
-                'defaultFont' => 'DejaVu Sans',
-                'isPhpEnabled' => false,
-                'isJavascriptEnabled' => false,
+        try {
+            Log::info("Generating PDF: {$filename}", [
+                'view' => $view,
+                'data_keys' => array_keys($data),
+                'paper' => $paper,
+                'orientation' => $orientation
             ]);
-        
-        return $pdf->download($filename);
+            
+            $pdf = PDF::loadView($view, $data)
+                ->setPaper($paper, $orientation)
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => false,
+                    'defaultFont' => 'DejaVu Sans',
+                    'isPhpEnabled' => false,
+                    'isJavascriptEnabled' => false,
+                    'debugKeepTemp' => false,
+                    'debugCss' => false,
+                    'debugLayout' => false,
+                    'debugLayoutLines' => false,
+                    'debugLayoutBlocks' => false,
+                    'debugLayoutInline' => false,
+                ]);
+            
+            Log::info("PDF generated successfully: {$filename}");
+            return $pdf->download($filename);
+            
+        } catch (\Exception $e) {
+            Log::error("PDF generation failed: {$filename}", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
     }
     // return all brands pdf
     public function brandsPDF()
@@ -981,19 +1005,65 @@ class TableExportController extends Controller
     // return balance sheet pdf
     public function balanceSheetPDF(Request $request)
     {
-        // Get balance sheet data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->balanceSheet($request);
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
         
-        if (!$response['success']) {
-            abort(500, 'Failed to generate balance sheet data');
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+        
+        try {
+            // Get balance sheet data using the same filters
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->balanceSheet($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            Log::info('Balance Sheet PDF - Processing balance sheet data');
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('Balance Sheet PDF Data Structure:', [
+                'has_accounts' => isset($data['accounts']),
+                'has_totals' => isset($data['totals']),
+                'assets_count' => isset($data['accounts']['assets']) ? count($data['accounts']['assets']) : 0,
+                'liabilities_count' => isset($data['accounts']['liabilities']) ? count($data['accounts']['liabilities']) : 0,
+                'equity_count' => isset($data['accounts']['equity']) ? count($data['accounts']['equity']) : 0,
+            ]);
+            
+            // share data to view
+            view()->share('balanceData', $data);
+            return $this->generatePDF('pdf.balance-sheet', $data, 'balance-sheet.pdf', 'a4', 'landscape');
+            
+        } catch (\Exception $e) {
+            Log::error('Balance Sheet PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
         }
-        
-        $data = $response['data'];
-        
-        // share data to view
-        view()->share('balanceData', $data);
-        return $this->generatePDF('pdf.balance-sheet', $data, 'balance-sheet.pdf', 'a4', 'landscape');
     }
 
     // return balance sheet excel
@@ -1124,29 +1194,77 @@ class TableExportController extends Controller
     // return account statement pdf
     public function accountStatementPDF(Request $request)
     {
-        // Get account statement data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->accountStatement($request);
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
         
-        // Check if the response has the expected structure
-        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
-            $data = $response['data'];
-        } else {
-            // If the response doesn't have the expected structure, use it directly
-            $data = $response;
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+        
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->accountStatementForPrint($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            // Log entry count for debugging
+            if (isset($data['entries'])) {
+                Log::info('Account Statement PDF - Processing all entries. Total: ' . count($data['entries']));
+            }
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'chart_of_account_id' => $request->input('chart_of_account_id'),
+                'sub_chart_of_account_id' => $request->input('sub_chart_of_account_id'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('Account Statement PDF Data Structure:', [
+                'has_chart_of_account' => isset($data['chart_of_account']),
+                'has_report_account' => isset($data['report_account']),
+                'has_summary' => isset($data['summary']),
+                'has_entries' => isset($data['entries']),
+                'entries_count' => isset($data['entries']) ? count($data['entries']) : 0,
+                'chart_of_account_keys' => isset($data['chart_of_account']) ? array_keys($data['chart_of_account']) : [],
+                'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
+            ]);
+            
+            // For debugging purposes, temporarily return HTML instead of PDF
+            if ($request->has('debug')) {
+                return view('pdf.account-statement', ['reportData' => $data]);
+            }
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.account-statement', $data, 'account-statement.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Account Statement PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
         }
-        
-        // Add filters to data for template
-        $data['filters'] = [
-            'from_date' => $request->input('from_date'),
-            'to_date' => $request->input('to_date'),
-            'chart_of_account_id' => $request->input('chart_of_account_id'),
-            'sub_chart_of_account_id' => $request->input('sub_chart_of_account_id'),
-        ];
-        
-        // share data to view
-        view()->share('reportData', $data);
-        return $this->generatePDF('pdf.account-statement', $data, 'account-statement.pdf');
     }
 
     // return account statement excel
@@ -1159,29 +1277,66 @@ class TableExportController extends Controller
     // return group account statement pdf
     public function groupAccountStatementPDF(Request $request)
     {
-        // Get group account statement data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->groupAccountStatement($request);
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
         
-        // Check if the response has the expected structure
-        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
-            $data = $response['data'];
-        } else {
-            // If the response doesn't have the expected structure, use it directly
-            $data = $response;
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+        
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->groupAccountStatementForPrint($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'chart_of_account_ids' => $request->input('chart_of_account_ids'),
+                'sub_chart_of_account_ids' => $request->input('sub_chart_of_account_ids'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('Group Account Statement PDF Data Structure:', [
+                'has_chart_of_accounts' => isset($data['chart_of_accounts']),
+                'has_summary' => isset($data['summary']),
+                'has_entries' => isset($data['entries']),
+                'entries_count' => isset($data['entries']) ? count($data['entries']) : 0,
+                'chart_of_accounts_count' => isset($data['chart_of_accounts']) ? count($data['chart_of_accounts']) : 0,
+                'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
+            ]);
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.group-account-statement', $data, 'group-account-statement.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Group Account Statement PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
         }
-        
-        // Add filters to data for template
-        $data['filters'] = [
-            'from_date' => $request->input('from_date'),
-            'to_date' => $request->input('to_date'),
-            'chart_of_account_ids' => $request->input('chart_of_account_ids'),
-            'sub_chart_of_account_ids' => $request->input('sub_chart_of_account_ids'),
-        ];
-        
-        // share data to view
-        view()->share('reportData', $data);
-        return $this->generatePDF('pdf.group-account-statement', $data, 'group-account-statement.pdf');
     }
 
     // return group account statement excel
@@ -1191,33 +1346,6 @@ class TableExportController extends Controller
         return Excel::download(new ExportGroupAccountStatement($filters), 'GroupAccountStatement.xlsx');
     }
 
-    // return invoice summary pdf
-    public function invoiceSummaryPDF(Request $request)
-    {
-        // Get invoice summary data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->invoiceSummary($request);
-        
-        // Check if the response has the expected structure
-        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
-            $data = $response['data'];
-        } else {
-            // If the response doesn't have the expected structure, use it directly
-            $data = $response;
-        }
-        
-        // Add filters to data for template
-        $data['filters'] = [
-            'from_date' => $request->input('from_date'),
-            'to_date' => $request->input('to_date'),
-            'fiscal_year_id' => $request->input('fiscal_year_id'),
-            'accounting_period_id' => $request->input('accounting_period_id'),
-        ];
-        
-        // share data to view
-        view()->share('reportData', $data);
-        return $this->generatePDF('pdf.invoice-summary', $data, 'invoice-summary.pdf');
-    }
 
     // return invoice summary excel
     public function invoiceSummaryExportExcel(Request $request)
@@ -1226,33 +1354,6 @@ class TableExportController extends Controller
         return Excel::download(new ExportInvoiceSummary($filters), 'InvoiceSummary.xlsx');
     }
 
-    // return purchase summary pdf
-    public function purchaseSummaryPDF(Request $request)
-    {
-        // Get purchase summary data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->purchaseSummary($request);
-        
-        // Check if the response has the expected structure
-        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
-            $data = $response['data'];
-        } else {
-            // If the response doesn't have the expected structure, use it directly
-            $data = $response;
-        }
-        
-        // Add filters to data for template
-        $data['filters'] = [
-            'from_date' => $request->input('from_date'),
-            'to_date' => $request->input('to_date'),
-            'fiscal_year_id' => $request->input('fiscal_year_id'),
-            'accounting_period_id' => $request->input('accounting_period_id'),
-        ];
-        
-        // share data to view
-        view()->share('reportData', $data);
-        return $this->generatePDF('pdf.purchase-summary', $data, 'purchase-summary.pdf');
-    }
 
     // return purchase summary excel
     public function purchaseSummaryExportExcel(Request $request)
@@ -1261,36 +1362,6 @@ class TableExportController extends Controller
         return Excel::download(new ExportPurchaseSummary($filters), 'PurchaseSummary.xlsx');
     }
 
-    // return vat report pdf
-    public function vatReportPdf(Request $request)
-    {
-        $filters = $request->all();
-        
-        // Get VAT report data using the same method as the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->vatReport($request);
-        
-        // Handle JsonResponse object
-        if ($response instanceof \Illuminate\Http\JsonResponse) {
-            $responseData = $response->getData(true);
-        } else {
-            $responseData = $response;
-        }
-        
-        // Use the same logic as the API
-        if (isset($responseData['success']) && $responseData['success'] && isset($responseData['data'])) {
-            $data = $responseData['data'];
-        } else {
-            $data = $responseData;
-        }
-        
-        // Add app info for the PDF
-        $data['app_name'] = config('app.name', 'Accounting System');
-        
-        // share data to view
-        view()->share('data', $data);
-        return $this->generatePDF('pdf.vat-report', $data, 'vat-report.pdf');
-    }
 
     // return vat report excel
     public function vatReportExportExcel(Request $request)
@@ -1298,4 +1369,465 @@ class TableExportController extends Controller
         $filters = $request->all();
         return Excel::download(new ExportVatReport($filters), 'VatReport.xlsx');
     }
+
+    // return invoice summary pdf
+    public function invoiceSummaryPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+        
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->invoiceSummaryForPrint($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            // Log entry count for debugging
+            if (isset($data['clients'])) {
+                Log::info('Invoice Summary PDF - Processing all clients. Total: ' . count($data['clients']));
+            }
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('Invoice Summary PDF Data Structure:', [
+                'has_summary' => isset($data['summary']),
+                'has_clients' => isset($data['clients']),
+                'clients_count' => isset($data['clients']) ? count($data['clients']) : 0,
+                'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
+            ]);
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.invoice-summary', $data, 'invoice-summary.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Invoice Summary PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return purchase summary pdf
+    public function purchaseSummaryPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+        
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->purchaseSummaryForPrint($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            // Log entry count for debugging
+            if (isset($data['suppliers'])) {
+                Log::info('Purchase Summary PDF - Processing all suppliers. Total: ' . count($data['suppliers']));
+            }
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('Purchase Summary PDF Data Structure:', [
+                'has_summary' => isset($data['summary']),
+                'has_suppliers' => isset($data['suppliers']),
+                'suppliers_count' => isset($data['suppliers']) ? count($data['suppliers']) : 0,
+                'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
+            ]);
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.purchase-summary', $data, 'purchase-summary.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Purchase Summary PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return trial balance pdf
+    public function trialBalancePDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->trialBalanceForPrint($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            // Log entry count for debugging
+            if (isset($data['trial_balance'])) {
+                Log::info('Trial Balance PDF - Processing all accounts. Total: ' . count($data['trial_balance']));
+            }
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+                'chart_of_account_id' => $request->input('chart_of_account_id'),
+                'sub_chart_of_account_id' => $request->input('sub_chart_of_account_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('Trial Balance PDF Data Structure:', [
+                'has_trial_balance' => isset($data['trial_balance']),
+                'has_grand_totals' => isset($data['grand_totals']),
+                'accounts_count' => isset($data['trial_balance']) ? count($data['trial_balance']) : 0,
+                'total_count' => $data['total_count'] ?? 0,
+            ]);
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.trial-balance', $data, 'trial-balance.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Trial Balance PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return inventory report pdf
+    public function inventoryReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get inventory report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->inventoryReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.inventory-report', $data, 'inventory-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Inventory Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return items report pdf
+    public function itemsReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get items report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->itemsReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.items-report', $data, 'items-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Items Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return expenses report pdf
+    public function expensesReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get expenses report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->expenseReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.expenses-report', $data, 'expenses-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Expenses Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return supplier payable report pdf
+    public function supplierPayableReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get supplier payable report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->supplierDueReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.supplier-payable-report', $data, 'supplier-payable-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Supplier Payable Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return VAT report pdf
+    public function vatReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
+        
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->vatReportForPrint($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            // Log entry count for debugging
+            if (isset($data['transactions'])) {
+                Log::info('VAT Report PDF - Processing all transactions. Total: ' . count($data['transactions']));
+            }
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('VAT Report PDF Data Structure:', [
+                'has_summary' => isset($data['summary']),
+                'has_transactions' => isset($data['transactions']),
+                'vat_rates_count' => isset($data['vat_rates']) ? count($data['vat_rates']) : 0,
+                'summary_count' => isset($data['summary']) ? count($data['summary']) : 0,
+                'transactions_count' => isset($data['transactions']) ? count($data['transactions']) : 0,
+            ]);
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.vat-report', $data, 'vat-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('VAT Report PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return summary report pdf
+    public function summaryPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get summary report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $summaryData = $reportController->summeryReport($request);
+            
+            // Handle JsonResponse
+            if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
+                $summaryData = $summaryData->getData(true);
+            }
+            
+            // Log the data structure for debugging
+            Log::info('Summary Report PDF Data Structure:', [
+                'has_data' => !empty($summaryData),
+                'data_count' => count($summaryData),
+                'data_keys' => is_array($summaryData) ? array_keys($summaryData) : 'not array',
+            ]);
+            
+            // share data to view
+            view()->share('reportData', $summaryData);
+            return $this->generatePDF('pdf.summary', $summaryData, 'summary-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Summary Report PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    // Note: Other missing PDF methods (invoiceSummaryPDF, etc.) already exist in the codebase
 }

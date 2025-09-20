@@ -1,7 +1,84 @@
 @extends('print.layout')
 
+@section('page-style')
+    <style>
+        body {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .currency-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        /* Fix for riyal symbol display */
+        .riyal-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        
+        /* Print styles */
+        .action-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .print-button, .pdf-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .pdf-button {
+            background: #28a745;
+        }
+        
+        .print-button:hover {
+            background: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .pdf-button:hover {
+            background: #1e7e34;
+            color: white;
+            text-decoration: none;
+        }
+        
+        @media print {
+            .no-print, .action-buttons {
+                display: none !important;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
     @php
+        $currentLocale = app()->getLocale();
+        $isRTL = $currentLocale === 'ar';
+        
+        // Custom currency formatter for PDF to fix riyal symbol display
+        function formatPdfCurrency($amount) {
+            $currencySymbol = config('config.currencySymbol');
+            $currencyPosition = config('config.currencyPosition');
+            $formattedAmount = number_format($amount, 2, '.', ',');
+            
+            // Replace the problematic 'ê' with proper riyal symbol
+            if ($currencySymbol === 'ê') {
+                $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
+            }
+            
+            if ($currencyPosition == 'left') {
+                return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
+            } else {
+                return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
+            }
+        }
+        
         $config = $template->template_config ?? [];
         $elements = $config['elements'] ?? [];
         $colors = $config['colors'] ?? [];
@@ -14,6 +91,16 @@
         $companyPhone = $settings->where('key', 'phone_number')->first()?->value ?? 'Phone';
         $companyEmail = $settings->where('key', 'email_address')->first()?->value ?? 'Email';
     @endphp
+
+    <!-- Action Buttons -->
+    <div class="action-buttons no-print">
+        <button class="print-button" onclick="window.print()">
+            <i class="fas fa-print"></i> @lang('print.Print')
+        </button>
+        <button class="pdf-button" onclick="downloadPDF()">
+            <i class="fas fa-download"></i> @lang('print.Download PDF')
+        </button>
+    </div>
 
     @if(($elements['showLogo'] ?? true) || ($elements['showCompanyInfo'] ?? true))
     <!-- Header -->
@@ -98,9 +185,9 @@
                             <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: right; font-weight: bold;">
                                 @if(isset($balanceData['accounts']['assets'][$i]))
                                     @if($balanceData['accounts']['assets'][$i]['balance_type'] === 'Debit')
-                                        <span style="color: #059669;">{{ number_format($balanceData['accounts']['assets'][$i]['absolute_balance'], 2) }}</span>
+                                        <span style="color: #059669;">{!! formatPdfCurrency($balanceData['accounts']['assets'][$i]['absolute_balance']) !!}</span>
                                     @else
-                                        <span style="color: #dc2626;">({{ number_format($balanceData['accounts']['assets'][$i]['absolute_balance'], 2) }})</span>
+                                        <span style="color: #dc2626;">({!! formatPdfCurrency($balanceData['accounts']['assets'][$i]['absolute_balance']) !!})</span>
                                     @endif
                                 @endif
                             </td>
@@ -117,16 +204,16 @@
                             <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: right; font-weight: bold;">
                                 @if(isset($balanceData['accounts']['liabilities'][$i]))
                                     @if($balanceData['accounts']['liabilities'][$i]['balance_type'] === 'Credit')
-                                        <span style="color: #dc2626;">{{ number_format($balanceData['accounts']['liabilities'][$i]['absolute_balance'], 2) }}</span>
+                                        <span style="color: #dc2626;">{!! formatPdfCurrency($balanceData['accounts']['liabilities'][$i]['absolute_balance']) !!}</span>
                                     @else
-                                        <span style="color: #059669;">({{ number_format($balanceData['accounts']['liabilities'][$i]['absolute_balance'], 2) }})</span>
+                                        <span style="color: #059669;">({!! formatPdfCurrency($balanceData['accounts']['liabilities'][$i]['absolute_balance']) !!})</span>
                                     @endif
                                 @elseif(isset($balanceData['accounts']['equity'][$i - count($balanceData['accounts']['liabilities'] ?? [])]))
                                     @php $equityIndex = $i - count($balanceData['accounts']['liabilities'] ?? []); @endphp
                                     @if($balanceData['accounts']['equity'][$equityIndex]['balance_type'] === 'Credit')
-                                        <span style="color: #dc2626;">{{ number_format($balanceData['accounts']['equity'][$equityIndex]['absolute_balance'], 2) }}</span>
+                                        <span style="color: #dc2626;">{!! formatPdfCurrency($balanceData['accounts']['equity'][$equityIndex]['absolute_balance']) !!}</span>
                                     @else
-                                        <span style="color: #059669;">({{ number_format($balanceData['accounts']['equity'][$equityIndex]['absolute_balance'], 2) }})</span>
+                                        <span style="color: #059669;">({!! formatPdfCurrency($balanceData['accounts']['equity'][$equityIndex]['absolute_balance']) !!})</span>
                                     @endif
                                 @endif
                             </td>
@@ -215,4 +302,25 @@
             height: auto;
         }
     </style>
+
+    <script>
+        function downloadPDF() {
+            // Get current URL parameters to maintain filters
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Build PDF URL with same parameters
+            let pdfUrl = '/balance-sheet/pdf';
+            if (urlParams.toString()) {
+                pdfUrl += '?' + urlParams.toString();
+            }
+            
+            // Create a temporary link to download the PDF
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
 @endsection
