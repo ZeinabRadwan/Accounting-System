@@ -32,6 +32,19 @@
                   <v-select v-model="form.client" :options="items" label="name"
                     :class="{ 'is-invalid': form.errors.has('client') }" name="client"
                     :placeholder="$t('Select a client')" />
+                  
+                  <!-- Client Chart of Account Status -->
+                  <div class="client-status mt-2" v-if="form.client">
+                    <div v-if="!form.client.chart_of_account_id" class="client-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                    </div>
+                    <div v-else class="client-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
+                    </div>
+                  </div>
+                  
                   <has-error :form="form" field="client" />
                 </div>
                 <div class="form-group col-md-6">
@@ -50,6 +63,19 @@
                     'is-invalid': form.errors.has('selectedProducts'),
                   }" name="product" :placeholder="$t('Search Items')"
                     @input="storeProduct(form.product)" />
+                  
+                  <!-- Product Chart of Account Status -->
+                  <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                    <div v-if="!allProductsHaveSalesAccounts" class="product-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Some products need Sales Accounts assigned') }}</span>
+                    </div>
+                    <div v-else class="product-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('All products have Sales Accounts assigned') }}</span>
+                    </div>
+                  </div>
+                  
                   <has-error :form="form" field="selectedProducts" />
                 </div>
               </div>
@@ -141,7 +167,7 @@
               </div>
 
               <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="discountType">{{
                     $t('Discount Type')
                   }}</label>
@@ -153,7 +179,7 @@
                   </select>
                   <has-error :form="form" field="discountType" />
                 </div>
-                <div class="form-group" :class="form.discountType == 1 ? 'col-md-2' : 'col-md-4'">
+                <div class="form-group" :class="form.discountType == 1 ? 'col-md-2' : 'col-md-4'" v-if="!isSaudiArabia">
                   <label for="discount">{{ $t('Discount') }}
                     <span v-if="form.discountType == 1">(%)</span></label>
                   <input id="discount" v-model="form.discount" type="number" step="any" min="1"
@@ -162,7 +188,7 @@
                     :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
                   <has-error :form="form" field="discount" />
                 </div>
-                <div v-if="form.discountType == 1" class="form-group col-md-2">
+                <div v-if="form.discountType == 1 && !isSaudiArabia" class="form-group col-md-2">
                   <label for="totalDiscount">{{
                     $t('Total discount')
                   }}</label>
@@ -170,7 +196,7 @@
                     :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
                   <has-error :form="form" field="totalDiscount" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="transportCost">{{
                     $t('Transport Cost')
                   }}</label>
@@ -182,7 +208,7 @@
               </div>
 
               <div class="row">
-                <div v-if="taxes" class="form-group col-md-4">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
                   <label for="orderTax">{{ $t('Invoice Tax') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
@@ -190,13 +216,13 @@
                     :placeholder="$t('Select a tax type')" @input="calculateSum" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes" class="form-group col-md-4">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
                   <label for="totalTax">{{ $t('Total Tax') }}</label>
                   <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group" :class="isSaudiArabia ? 'col-md-12' : 'col-md-4'">
                   <label for="netTotal">{{ $t('Net Total') }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
@@ -251,6 +277,19 @@
                         {{ option.label }}
                     </template>
                   </v-select>
+                  
+                  <!-- Account Chart of Account Status -->
+                  <div class="account-status mt-2" v-if="form.account">
+                    <div v-if="!form.account.chartOfAccountId" class="account-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Account needs Chart of Account') }}</span>
+                    </div>
+                    <div v-else class="account-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('Account Chart of Account ready') }}</span>
+                    </div>
+                  </div>
+                  
                   <has-error :form="form" field="account" />
                 </div>
                 <div class="form-group col-md-6">
@@ -292,7 +331,7 @@
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -308,16 +347,25 @@
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
+              
+              <!-- Form buttons inside the form -->
+              <div class="form-group text-right">
+                <button 
+                  type="submit"
+                  :disabled="!isFormReady || form.busy"
+                  class="btn btn-primary"
+                  :class="{ 'btn-warning': !isFormReady }"
+                >
+                  <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
+                  <i v-else :class="isFormReady ? 'fas fa-save' : 'fas fa-exclamation-triangle'" /> 
+                  {{ form.busy ? $t('Saving...') : (isFormReady ? $t('Save') : $t('Complete Required Fields')) }}
+                </button>
+                <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">
+                  <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                </button>
+              </div>
             </form>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t('Save') }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t('Reset') }}
-              </button>
-            </div>
         </div>
       </div>
     </div>
@@ -330,6 +378,7 @@ import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
+import Swal from 'sweetalert2'
 
 export default {
   middleware: ['auth', 'check-permissions'],
@@ -386,6 +435,97 @@ export default {
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
+    
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
+    
+    // Add computed property to check if chart of account is assigned
+    hasChartOfAccount() {
+      return !!this.form.client && !!this.form.client.chart_of_account_id;
+    },
+
+    // Check if all products have sales accounts assigned
+    allProductsHaveSalesAccounts() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return true; // No products selected, so no validation needed
+      }
+      return this.form.selectedProducts.every(product => product.sales_account_id);
+    },
+
+    // Check if bank account has chart of account assigned (when payment is being added)
+    hasBankAccountChartOfAccount() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment being added, so no validation needed
+      }
+      return this.form.account && this.form.account.chartOfAccountId;
+    },
+
+    // Calculate due amount when payment is being added
+    dueAmount() {
+      if (this.form.addPayment != 1 || !this.form.paidAmount) {
+        return this.form.netTotal;
+      }
+      return Math.max(0, this.form.netTotal - Number(this.form.paidAmount));
+    },
+
+    // Check if form is ready for submission
+    isFormReady() {
+      const basicRequirements = this.hasChartOfAccount && 
+                               this.allProductsHaveSalesAccounts && 
+                               this.hasBankAccountChartOfAccount &&
+                               this.form.selectedProducts && 
+                               this.form.selectedProducts.length > 0;
+      
+      // Debug logging
+      console.log('Form validation debug:', {
+        hasChartOfAccount: this.hasChartOfAccount,
+        allProductsHaveSalesAccounts: this.allProductsHaveSalesAccounts,
+        hasBankAccountChartOfAccount: this.hasBankAccountChartOfAccount,
+        selectedProducts: this.form.selectedProducts?.length || 0,
+        addPayment: this.form.addPayment,
+        isPaymentValid: this.isPaymentValid,
+        basicRequirements,
+        client: this.form.client,
+        products: this.form.selectedProducts
+      });
+      
+      // If basic requirements are not met, form is not ready
+      if (!basicRequirements) {
+        return false;
+      }
+      
+      // If payment is enabled, check payment fields
+      if (this.form.addPayment == 1) {
+        return this.isPaymentValid;
+      }
+      
+      // If no payment required, form is ready
+      return true;
+    },
+
+    // Check if payment fields are valid when payment is enabled
+    isPaymentValid() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment required
+      }
+      
+      // Check if both fields have values and paid amount is greater than 0
+      return this.form.account && 
+             this.form.paidAmount && 
+             Number(this.form.paidAmount) > 0;
+    },
+
+    // Check if payment fields are filled (for warning hints)
+    arePaymentFieldsFilled() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment required
+      }
+      
+      // Only check if fields have values, not their validity
+      return this.form.account && this.form.paidAmount;
+    },
   },
   created() {
     this.getClients()
@@ -394,6 +534,13 @@ export default {
     this.getQuotation()
     this.getAccounts()
     this.prefix = this.appInfo.productPrefix
+    
+    // Set default status based on country
+    if (this.isSaudiArabia) {
+      this.form.status = 0 // Inactive for Saudi Arabia
+    } else {
+      this.form.status = 1 // Active for other countries
+    }
   },
   methods: {
     // get the quotation
@@ -415,8 +562,27 @@ export default {
       this.form.subTotal = data.data.subTotal
       this.form.deliveryPlace = data.data.deliveryPlace
       this.form.note = data.data.note
-      this.form.status = data.data.status
+      // Set status based on country after loading quotation data
+      if (this.isSaudiArabia) {
+        this.form.status = 0 // Inactive for Saudi Arabia
+      } else {
+        this.form.status = data.data.status || 1 // Use quotation status or default to Active
+      }
       this.form.selectedProducts = this.assignProducts(data.data.products)
+      
+      // Recalculate totals after loading data
+      this.calculateSum()
+      
+      // Debug logging
+      console.log('Quotation data loaded:', {
+        client: this.form.client,
+        selectedProducts: this.form.selectedProducts,
+        isSaudiArabia: this.isSaudiArabia,
+        status: this.form.status,
+        hasChartOfAccount: this.hasChartOfAccount,
+        allProductsHaveSalesAccounts: this.allProductsHaveSalesAccounts,
+        isFormReady: this.isFormReady
+      })
     },
     // get all clients
     async getClients() {
@@ -484,6 +650,8 @@ export default {
               : 1 * product.priceWithDiscount,
           productTax: product.productTax,
           totalTax: totalTax,
+          sales_account_id: product.sales_account_id || null,
+          selectedVatRate: product.selectedVatRate || null,
         })
       }
       this.generateItemTotal(qunatity, 'qty', index, '')
@@ -566,29 +734,43 @@ export default {
       },
         0)
 
-      this.form.netTotal = this.form.subTotal
+      // calculate total product discount
+      this.form.totalDiscount = this.form.selectedProducts.reduce(function (
+        prev,
+        cur
+      ) {
+        return Number((prev + (cur.discountAmount || 0)).toFixed(2))
+      },
+        0)
 
-      // calculate quatation tax
-      this.form.totalTax = 0
-      if (this.form.orderTax) {
-        this.form.totalTax =
-          (this.form.orderTax.rate / 100) * this.form.subTotal
+      // calculate global discount (skip for Saudi Arabia)
+      let globalDiscount = 0
+      if (!this.isSaudiArabia && this.form.discount > 0) {
+        if (this.form.discountType == 1) { // Percentage
+          globalDiscount = Number(((this.form.discount / 100) * this.form.subTotal).toFixed(2))
+        } else { // Fixed
+          globalDiscount = Number(this.form.discount)
+        }
       }
 
-      // calculate discount and total
-      if (this.form.subTotal > 0) {
-        let discount = Number(this.form.discount)
-        if (this.form.discountType == 1) {
-          discount = (discount / 100) * this.form.subTotal
-          this.form.totalDiscount = Number(discount.toFixed(2))
-        } else {
-          discount = Number(this.form.discount)
-        }
-        this.form.netTotal =
-          this.form.subTotal +
-          Number(this.form.transportCost) -
-          discount +
-          this.form.totalTax
+      // calculate invoice tax (skip for Saudi Arabia)
+      this.form.totalTax = 0
+      if (!this.isSaudiArabia && this.form.orderTax) {
+        this.form.totalTax = Number(((this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount)).toFixed(2))
+      }
+
+      // calculate final total
+      if (this.isSaudiArabia) {
+        // For Saudi Arabia: Net Total = SubTotal (no global discount, no invoice tax, no transport cost)
+        this.form.netTotal = this.form.subTotal
+      } else {
+        // For other countries: Net Total = SubTotal - Global Discount + Invoice Tax + Transport Cost
+        this.form.netTotal = Number((
+          this.form.subTotal -
+          globalDiscount +
+          this.form.totalTax +
+          Number(this.form.transportCost || 0)
+        ).toFixed(2))
       }
       return
     },
@@ -612,29 +794,202 @@ export default {
           totalPrice: quotationProduct.unitCostTotal,
           productTax: quotationProduct.taxAmount,
           totalTax: quotationProduct.taxAmount * quotationProduct.quantity,
+          sales_account_id: quotationProduct.sales_account_id || null,
+          selectedVatRate: quotationProduct.selectedVatRate || null,
         })
       }
       this.calculateSum()
       return this.form.selectedProducts
     },
 
+    // Validate payment fields
+    validatePaymentFields() {
+      const errors = [];
+      
+      if (this.form.addPayment == 1) {
+        if (!this.form.account) {
+          errors.push({
+            type: "warning",
+            title: this.$t("Account Required"),
+            message: this.$t("Please select an account for payment."),
+            field: "account"
+          });
+        }
+        
+        if (!this.form.paidAmount || Number(this.form.paidAmount) <= 0) {
+          errors.push({
+            type: "warning",
+            title: this.$t("Paid Amount Required"),
+            message: this.$t("Please enter a valid paid amount."),
+            field: "paidAmount"
+          });
+        }
+        
+        if (Number(this.form.paidAmount) > this.form.netTotal) {
+          errors.push({
+            type: "warning",
+            title: this.$t("Invalid Paid Amount"),
+            message: this.$t("Paid amount cannot exceed the net total."),
+            field: "paidAmount"
+          });
+        }
+      }
+      
+      return {
+        isValid: errors.length === 0,
+        errors: errors
+      };
+    },
+
+    // Validate calculations
+    validateCalculations() {
+      try {
+        // Basic validation that calculations are reasonable
+        return this.form.netTotal > 0 && 
+               this.form.subTotal >= 0 && 
+               this.form.totalTax >= 0;
+      } catch (error) {
+        return false;
+      }
+    },
+
+    // Show multiple validation errors
+    showMultipleValidationErrors(errors) {
+      if (errors.length === 1) {
+        // Single error - show as regular toast
+        toast.fire({
+          type: errors[0].type,
+          title: errors[0].title,
+          text: errors[0].message,
+          timer: errors[0].timer || 5000,
+          timerProgressBar: errors[0].timerProgressBar || false
+        });
+      } else {
+        // Multiple errors - show as alert with list
+        const errorList = errors.map(err => `• ${err.message}`).join('\n');
+        Swal.fire({
+          type: 'warning',
+          title: this.$t('Validation Errors'),
+          text: this.$t('Please fix the following issues:'),
+          html: `<div style="text-align: left; margin-top: 10px;">${errorList}</div>`,
+          confirmButtonText: this.$t('OK'),
+          timer: 10000,
+          timerProgressBar: true
+        });
+      }
+    },
+
+    // Format form values before submission
+    formatFormValues() {
+      // Ensure all monetary values are properly formatted to 2 decimal places
+      if (this.form.discount) {
+        this.form.discount = Number(this.form.discount).toFixed(2);
+      }
+      if (this.form.transportCost) {
+        this.form.transportCost = Number(this.form.transportCost).toFixed(2);
+      }
+      if (this.form.paidAmount) {
+        this.form.paidAmount = Number(this.form.paidAmount).toFixed(2);
+      }
+      
+      // Format product values
+      if (this.form.selectedProducts) {
+        this.form.selectedProducts.forEach(product => {
+          product.unitPrice = Number(product.unitPrice).toFixed(2);
+          product.totalPrice = Number(product.totalPrice).toFixed(2);
+          product.totalTax = Number(product.totalTax).toFixed(2);
+          product.productTax = Number(product.productTax).toFixed(2);
+        });
+      }
+    },
+
     // create invoice
     async createInvoice() {
-      await this.form
-        .post(window.location.origin + '/api/invoices')
-        .then(() => {
-          toast.fire({
-            type: 'success',
-            title: this.$t('Invoice created successfully'),
+      console.log('createInvoice method called');
+      try {
+        // Ensure all monetary values are properly formatted to 2 decimal places before submission
+        this.formatFormValues();
+        
+        // Collect all validation errors before submission
+        const validationErrors = [];
+        
+        if (!this.form.client || !this.form.client.chart_of_account_id) {
+          validationErrors.push({
+            type: "warning",
+            title: this.$t("Chart of Account Required"),
+            message: this.$t("Client must have a Chart of Account assigned before creating an invoice."),
+            field: "client"
+          });
+        }
+
+        if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+          validationErrors.push({
+            type: "warning",
+            title: this.$t("No Products Selected"),
+            message: this.$t("Please select at least one product to create an invoice."),
+            field: "selectedProducts"
+          });
+        }
+
+        // Validate that all products have sales accounts assigned
+        const productsWithoutSalesAccount = this.form.selectedProducts.filter(product => !product.sales_account_id);
+        if (productsWithoutSalesAccount.length > 0) {
+          const productNames = productsWithoutSalesAccount.map(p => p.name || 'Unknown').join(', ');
+          validationErrors.push({
+            type: "warning",
+            title: this.$t("Product Chart of Account Required"),
+            message: this.$t("The following products must have Sales Accounts assigned: ") + productNames,
+            field: "products",
+            timer: 8000,
+            timerProgressBar: true
+          });
+        }
+
+        // Validate payment fields when "Add Payment" is set to "Yes"
+        const paymentValidation = this.validatePaymentFields();
+        if (!paymentValidation.isValid) {
+          validationErrors.push(...paymentValidation.errors);
+        }
+
+        // Validate that all calculations are correct
+        if (!this.validateCalculations()) {
+          validationErrors.push({
+            type: "error",
+            title: this.$t("Calculation Error"),
+            message: this.$t("There was an error in the calculations. Please refresh the page and try again."),
+            field: "calculations"
+          });
+        }
+
+        // If there are validation errors, show them all and return
+        if (validationErrors.length > 0) {
+          this.showMultipleValidationErrors(validationErrors);
+          return;
+        }
+
+        await this.form
+          .post(window.location.origin + '/api/invoices')
+          .then(() => {
+            toast.fire({
+              type: 'success',
+              title: this.$t('Invoice created successfully'),
+            })
+            this.$router.push({ name: 'invoices.index' })
           })
-          this.$router.push({ name: 'invoices.index' })
-        })
-        .catch(() => {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Opps...something went wrong'),
+          .catch((error) => {
+            console.error('Invoice creation error:', error);
+            toast.fire({
+              type: 'error',
+              title: this.$t('Opps...something went wrong'),
+            })
           })
+      } catch (error) {
+        console.error('Unexpected error:', error);
+        toast.fire({
+          type: 'error',
+          title: this.$t('Opps...something went wrong'),
         })
+      }
     },
 
     // Handle chart of account assignment
@@ -655,5 +1010,40 @@ export default {
 .custom-qty-input{
     display: flex;
     flex-wrap: nowrap;
+}
+
+.client-status, .product-status, .account-status {
+  font-size: 0.875rem;
+  
+  .client-warning, .product-warning, .account-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .client-success, .product-success, .account-success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.btn-warning {
+  background-color: #ffc107 !important;
+  border-color: #ffc107 !important;
+  color: #212529 !important;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800 !important;
+  border-color: #d39e00 !important;
 }
 </style>

@@ -237,16 +237,21 @@
                 :class="{ 'is-invalid': form.errors.has('paymentDate') }" name="paymentDate" />
               <has-error :form="form" field="paymentDate" />
             </div>
+
             <div class="form-group col-md-6">
               <label for="status">{{ $t("Status") }}</label>
               <select id="status" v-model="form.status" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('status') }">
-                <option value="1">{{ $t("Active") }}</option>
+                :class="{ 'is-invalid': form.errors.has('status') }"
+                :disabled="form.selectedInvoice && form.selectedInvoice.status === 0">
+                <option v-if="!form.selectedInvoice || form.selectedInvoice.status === 1" value="1">{{ $t("Active") }}</option>
                 <option value="0">{{ $t("Inactive") }}</option>
               </select>
               <has-error :form="form" field="status" />
             </div>
           </div>
+
+
+          
           <div class="form-group">
             <label for="note">{{ $t("Note") }}</label>
             <textarea id="note" v-model="form.note" class="form-control"
@@ -485,6 +490,7 @@ export default {
       this.form.selectedInvoice = item;
       this.form.invoice_id = item.id;
       this.form.netTotal = item.due;
+      this.form.status = item.status; // Set status based on selected invoice
       this.showModal = true;
     },
 

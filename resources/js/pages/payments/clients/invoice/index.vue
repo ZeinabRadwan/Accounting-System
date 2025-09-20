@@ -82,7 +82,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
+                  <tr v-show="items.length" v-for="(data, i) in items" :key="i" 
+                      :class="{ 'cancelled-row': data.status === 2 }">
                     <td>
                       <span v-if="pagination && pagination.current_page > 1">
                         {{
@@ -120,6 +121,9 @@
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
                       }}</span>
+                      <span v-else-if="data.status === 2" class="badge bg-danger">{{
+                        $t("Cancelled")
+                      }}</span>
                       <span v-else class="badge bg-danger">{{
                         $t("Inactive")
                       }}</span>
@@ -135,14 +139,24 @@
                         }" class="btn btn-primary btn-sm">
                           <i class="fas fa-eye" />
                         </router-link>
-                        <router-link v-if="$can('invoice-payment-edit')" v-tooltip="$t('Edit')" :to="{
+                        <router-link v-if="$can('invoice-payment-edit') && data.status !== 2" v-tooltip="$t('Edit')" :to="{
                           name: 'invoicePayments.edit',
                           params: { slug: data.slug },
                         }" class="btn btn-info btn-sm">
                           <i class="fas fa-edit" />
                         </router-link>
-                        <a v-if="$can('invoice-payment-delete')" v-tooltip="$t('Delete')" href="#"
-                          class="btn btn-danger btn-sm" @click="deleteData(data.slug)">
+                        <a v-if="$can('invoice-payment-delete') && data.status === 1" 
+                          v-tooltip="$t('Cancel Payment')" 
+                          href="#"
+                          class="btn btn-danger btn-sm"
+                          @click="cancelPayment(data.slug)">
+                          <i class="fas fa-times" />
+                        </a>
+                        <a v-if="$can('invoice-payment-delete') && data.status === 0" 
+                          v-tooltip="$t('Delete')" 
+                          href="#"
+                          class="btn btn-danger btn-sm"
+                          @click="deleteData(data.slug)">
                           <i class="fas fa-trash" />
                         </a>
                       </div>
@@ -182,11 +196,25 @@
   </div>
 </template>
 
+<style scoped>
+.cancelled-row {
+  text-decoration: line-through;
+  opacity: 0.7;
+  background-color: #f8f9fa;
+}
+
+.cancelled-row td {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+</style>
+
 <script>
 import moment from "moment";
 import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
+import Swal from "sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -342,6 +370,48 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    // cancel payment
+    async cancelPayment(slug) {
+      Swal.fire({
+        title: this.$t("Cancel Payment"),
+        text: this.$t("Are you sure you want to cancel this payment? This will delete the related journal entries."),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes, Cancel"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#f39c12",
+        cancelButtonColor: "#6c757d",
+      }).then((result) => {
+        if (result.value) {
+          this.$axios
+            .post(`/api/payments/invoice/cancel/${slug}`)
+            .then((response) => {
+              if (response.data.success) {
+                Swal.fire(
+                  this.$t("Cancelled!"),
+                  this.$t("Payment has been cancelled successfully."),
+                  "success"
+                );
+                this.getData(); // Refresh the table
+              } else {
+                Swal.fire(
+                  this.$t("Failed!"),
+                  this.$t("Sorry, couldn't cancel this payment!"),
+                  "error"
+                );
+              }
+            })
+            .catch((error) => {
+              Swal.fire(
+                this.$t("Failed!"),
+                this.$t("Sorry, couldn't cancel this payment!"),
+                "error"
+              );
+            });
+        }
+      });
     },
 
     // delete data

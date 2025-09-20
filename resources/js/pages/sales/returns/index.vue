@@ -116,6 +116,10 @@
                         $can('invoice-return-delete')
                         " class="text-right no-print">
                       <div class="btn-group">
+                        <a v-if="isSaudiArabia && data.status === 0" v-tooltip="$t('Send Credit Note')"
+                          class="btn btn-success btn-sm" @click="sendCreditNote(data)">
+                          <i class="fas fa-paper-plane" />
+                        </a>
                         <router-link v-if="$can('invoice-return-view')" v-tooltip="$t('View')" :to="{
                           name: 'invoiceReturns.show',
                           params: { slug: data.slug },
@@ -175,6 +179,7 @@ import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -357,6 +362,65 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    // send credit note
+    async sendCreditNote(data) {
+      console.log('Send credit note clicked for:', data);
+      console.log('isSaudiArabia:', this.isSaudiArabia);
+      console.log('data.status:', data.status);
+      
+      Swal.fire({
+        title: this.$t("Send Credit Note to ZATCA"),
+        text: this.$t("Do you want to send this credit note to ZATCA?"),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#dc3545",
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            // Show loading
+            Swal.fire({
+              title: this.$t("Sending..."),
+              text: this.$t("Please wait while we send the credit note to ZATCA"),
+              allowOutsideClick: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                Swal.showLoading();
+              }
+            });
+
+            // Send credit note to ZATCA and create journal entries
+            const response = await axios.post(`/api/invoice-returns/${data.slug}/send-to-zatca`);
+            
+            if (response.data.success) {
+              Swal.fire(
+                this.$t("Sent Successfully!"),
+                this.$t("Credit note has been sent to ZATCA and journal entries have been created."),
+                "success"
+              );
+              // Refresh the table to update the status
+              this.getData();
+            } else {
+              Swal.fire(
+                this.$t("Failed!"),
+                response.data.message || this.$t("Failed to send credit note to ZATCA"),
+                "error"
+              );
+            }
+          } catch (error) {
+            console.error('Error sending credit note:', error);
+            Swal.fire(
+              this.$t("Error!"),
+              error.response?.data?.message || this.$t("An error occurred while sending the credit note"),
+              "error"
+            );
+          }
+        }
+      });
     },
 
     // delete data

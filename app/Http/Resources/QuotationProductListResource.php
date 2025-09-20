@@ -35,6 +35,12 @@ class QuotationProductListResource extends JsonResource
             'productUnit' => $this->product->productUnit->code,
             'taxType' => $this->product->tax_type,
             'taxRate' => $this->product->productTax->rate,
+            'sales_account_id' => $this->product->sales_account_id,
+            'selectedVatRate' => $this->product->productTax ? [
+                'id' => $this->product->productTax->id,
+                'name' => $this->product->productTax->name,
+                'rate' => $this->product->productTax->rate,
+            ] : null,
         ];
     }
 }

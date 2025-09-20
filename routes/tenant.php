@@ -291,6 +291,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
 
         // Invoice return routes
         Route::get('/invoice-returns/search', [InvoiceReturnController::class, 'search']);
+        Route::post('/invoice-returns/{slug}/send-to-zatca', [InvoiceReturnController::class, 'sendToZatca']);
         Route::apiResource('invoice-returns', InvoiceReturnController::class);
 
         // Chart of Accounts routes
@@ -341,6 +342,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
 
         // Client invoice payment routes
         Route::get('/payments/invoice/search', [InvoicePaymentController::class, 'search']);
+        Route::post('/payments/invoice/cancel/{slug}', [InvoicePaymentController::class, 'cancel']);
         Route::apiResource('/payments/invoice', InvoicePaymentController::class);
 
         // Client non invoice payment routes

@@ -103,7 +103,7 @@ class InvoicePaymentController extends Controller
                     'receipt_no' => $request->receiptNo,
                     'transaction_date' => $request->paymentDate,
                     'created_by' => $userId,
-                    'status' => $request->status,
+                    'status' => $request->status === 1 ? 1 : 0,
                 ]);
                 $transactionID = $transaction->id;
 
@@ -119,13 +119,15 @@ class InvoicePaymentController extends Controller
                     'status' => $request->status,
                 ]);
 
-                // Create journal entry for invoice payment
-                try {
-                    $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $selectedInvoice['paidAmount'], $userId);
-                } catch (\Exception $e) {
-                    // Log the error but don't fail the payment creation
-                    Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                // Create journal entry for invoice payment only if status is active
+                if ($request->status === 1) {
+                    try {
+                        $journalService = new BusinessTransactionJournalService();
+                        $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $selectedInvoice['paidAmount'], $userId);
+                    } catch (\Exception $e) {
+                        // Log the error but don't fail the payment creation
+                        Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                    }
                 }
 
                 // update invoice
@@ -205,6 +207,16 @@ class InvoicePaymentController extends Controller
             'note' => 'nullable|string|max:255',
         ]);
 
+        // Check if payment is cancelled - cannot edit cancelled payments
+        if ($invoicePayment->status === 2) {
+            return $this->responseWithError('Cannot edit cancelled payment.');
+        }
+
+        // Check if trying to change status from active to inactive
+        if ($invoicePayment->status === 1 && $request->status === 0) {
+            return $this->responseWithError('Cannot change payment status from active to inactive.');
+        }
+
         try {
             DB::beginTransaction();
 
@@ -227,8 +239,34 @@ class InvoicePaymentController extends Controller
                     'cheque_no' => $request->chequeNo,
                     'receipt_no' => $request->receiptNo,
                     'transaction_date' => $request->paymentDate,
-                    'status' => $request->status,
+                    'status' => $request->status === 1 ? 1 : 0,
                 ]);
+            }
+
+            // Create journal entry if payment status is active and no journal entry exists
+            if ($request->status === 'active') {
+                // Check if journal entry already exists for this payment
+                $existingJournalEntry = \App\Models\InvoiceJournal::where('invoice_id', $invoice->id)
+                    ->where('type', 'payment')
+                    ->first();
+                
+                if (!$existingJournalEntry) {
+                    try {
+                        $journalService = new BusinessTransactionJournalService();
+                        $paymentJournalEntry = $journalService->createInvoicePaymentJournal($invoicePayment->invoicePaymentTransaction, $invoice, $request->paidAmount, auth()->user()->id);
+                    } catch (\Exception $e) {
+                        // Log the error but don't fail the payment update
+                        Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                    }
+                } else {
+                    // Update journal entry date if it exists and payment date changed
+                    $journalEntry = $existingJournalEntry->journalEntry;
+                    if ($journalEntry && $journalEntry->entry_date != $request->paymentDate) {
+                        $journalEntry->update([
+                            'entry_date' => $request->paymentDate,
+                        ]);
+                    }
+                }
             }
             // update invoice
             $invoice->update([
@@ -270,6 +308,11 @@ class InvoicePaymentController extends Controller
             DB::beginTransaction();
 
             $invoicePayment = InvoicePayment::where('slug', $slug)->with('invoice.invoiceReturn.returnTransaction', 'invoicePaymentTransaction')->first();
+
+            // Check if payment is active - cannot delete active payments
+            if ($invoicePayment->status === 1) {
+                return $this->responseWithError('Cannot delete active payment. Please change the status to inactive first.');
+            }
 
             // update invoice
             if ($invoicePayment->invoice->totalDue() - $invoicePayment->amount <= 0) {
@@ -346,5 +389,80 @@ class InvoicePaymentController extends Controller
         });
 
         return InvoicePaymentResource::collection($query->latest()->paginate($request->perPage));
+    }
+
+    /**
+     * Cancel the specified payment.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel($slug)
+    {
+        try {
+            DB::beginTransaction();
+
+            $invoicePayment = InvoicePayment::where('slug', $slug)->with('invoice', 'invoicePaymentTransaction')->first();
+
+            if (!$invoicePayment) {
+                return $this->responseWithError('Payment not found.');
+            }
+
+            // Check if payment is already cancelled
+            if ($invoicePayment->status === 2) {
+                return $this->responseWithError('Payment is already cancelled.');
+            }
+
+            // Check if payment is active - only active payments can be cancelled
+            if ($invoicePayment->status !== 1) {
+                return $this->responseWithError('Only active payments can be cancelled.');
+            }
+
+            // Update payment status to cancelled
+            $invoicePayment->update([
+                'status' => 2,
+            ]);
+
+            // Delete related journal entries
+            $journalEntries = \App\Models\InvoiceJournal::where('invoice_id', $invoicePayment->invoice_id)
+                ->where('type', 'payment')
+                ->get();
+
+            foreach ($journalEntries as $journal) {
+                // Delete journal entry lines first
+                $journal->journalEntry->lines()->delete();
+                // Delete the journal entry
+                $journal->journalEntry->delete();
+                // Delete the bridge record
+                $journal->delete();
+            }
+
+            // Update invoice payment status
+            $invoice = $invoicePayment->invoice;
+            $invoice->update([
+                'is_paid' => $invoice->totalDue() == 0 ? 1 : 0,
+            ]);
+
+            // Add activity log
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($invoicePayment)
+                ->withProperties([
+                    'name' => "",
+                    'code' => "",
+                    'event' => 'Cancel',
+                    'slug' => $invoicePayment->slug,
+                    'routeName' => 'invoicePayments.show'
+                ])
+                ->useLog('Client Invoice Payment Cancelled')
+                ->log('Client Invoice Payment Cancelled');
+
+            DB::commit();
+
+            return $this->responseWithSuccess('Payment cancelled successfully');
+        } catch (Exception $e) {
+            DB::rollback();
+            return $this->responseWithError($e->getMessage());
+        }
     }
 }

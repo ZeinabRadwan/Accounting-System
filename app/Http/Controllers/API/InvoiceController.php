@@ -364,6 +364,7 @@ class InvoiceController extends Controller
         ]);
 
         $invoice = Invoice::findOrFail($request->invoice_id);
+        
         $userId = auth()->id();
         // store transaction
         $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $request->account['accountNumber'] . ']';
@@ -380,7 +381,7 @@ class InvoiceController extends Controller
                 'cheque_no' => $request->chequeNo,
                 'receipt_no' => $request->receiptNo,
                 'created_by' => $userId,
-                'status' => $request->status,
+                'status' => $invoice->status,
             ]);
 
             // store invoice payment record
@@ -392,16 +393,19 @@ class InvoiceController extends Controller
                 'date' => $request->date,
                 'note' => clean($request->note),
                 'created_by' => $userId,
-                'status' => $request->status,
+                'status' => $invoice->status,
             ]);
 
-            // Create journal entry for invoice payment
-            try {
-                $journalService = new BusinessTransactionJournalService();
-                $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $request->paidAmount, $userId);
-            } catch (\Exception $e) {
-                // Log the error but don't fail the payment creation
-                Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+            // Create journal entry for invoice payment only if both invoice and payment status are active
+            if($invoice->status == 1 && $request->status == 1)
+            {
+                try {
+                    $journalService = new BusinessTransactionJournalService();
+                    $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $request->paidAmount, $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                }
             }
 
             $isPaid = 0;

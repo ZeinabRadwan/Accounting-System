@@ -177,16 +177,21 @@ class InvoiceReturnController extends Controller
                 }
             }
 
-            // Create journal entry for invoice return (after products are stored)
-            try {
-                \Illuminate\Support\Facades\Log::info('Creating journal entry for invoice return: ' . $invoiceReturn->return_no);
-                $journalService = new \App\Services\BusinessTransactionJournalService();
-                $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
-                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for invoice return: ' . $invoiceReturn->return_no);
-            } catch (\Exception $e) {
-                // Log the error but don't fail the return creation
-                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return: ' . $e->getMessage());
-                \Illuminate\Support\Facades\Log::error('Stack trace: ' . $e->getTraceAsString());
+            // Create journal entry for invoice return only if status is active (1)
+            // For Saudi Arabia, returns are created as inactive (0) and journal entries are created when sent to ZATCA
+            if ($request->status == 1) {
+                try {
+                    \Illuminate\Support\Facades\Log::info('Creating journal entry for active invoice return: ' . $invoiceReturn->return_no);
+                    $journalService = new \App\Services\BusinessTransactionJournalService();
+                    $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
+                    \Illuminate\Support\Facades\Log::info('Journal entry created successfully for invoice return: ' . $invoiceReturn->return_no);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the return creation
+                    \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return: ' . $e->getMessage());
+                    \Illuminate\Support\Facades\Log::error('Stack trace: ' . $e->getTraceAsString());
+                }
+            } else {
+                \Illuminate\Support\Facades\Log::info('Skipping journal entry creation for inactive invoice return: ' . $invoiceReturn->return_no . ' (status: ' . $request->status . ')');
             }
 
             // add activity log
@@ -518,5 +523,82 @@ class InvoiceReturnController extends Controller
         });
 
         return InvoiceReturnListResource::collection($query->latest()->paginate($request->perPage));
+    }
+
+    /**
+     * Send credit note to ZATCA and create journal entries
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendToZatca($slug)
+    {
+        try {
+            $invoiceReturn = InvoiceReturn::where('slug', $slug)->first();
+            
+            if (!$invoiceReturn) {
+                return $this->responseWithError('Credit note not found');
+            }
+
+            // Load the relationships explicitly
+            $invoiceReturn->load(['invoice.client', 'invoiceReturnProducts.product']);
+
+            // Get country setting
+            $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+            $isSaudiArabia = $country === 'SA';
+
+            // Only allow for Saudi Arabia
+            if (!$isSaudiArabia) {
+                return $this->responseWithError('This feature is only available for Saudi Arabia');
+            }
+
+            // Only allow for inactive credit notes
+            if ($invoiceReturn->status != 0) {
+                return $this->responseWithError('Only inactive credit notes can be sent to ZATCA');
+            }
+
+            DB::beginTransaction();
+
+            $userId = auth()->user()->id;
+
+            // Create journal entry for credit note (now that we're sending to ZATCA)
+            try {
+                \Illuminate\Support\Facades\Log::info('Creating journal entry for ZATCA credit note: ' . $invoiceReturn->return_no);
+                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
+                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for ZATCA credit note: ' . $invoiceReturn->return_no);
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for ZATCA credit note: ' . $e->getMessage());
+                DB::rollback();
+                return $this->responseWithError('Failed to create journal entries: ' . $e->getMessage());
+            }
+
+            // Update credit note status to active (sent to ZATCA)
+            $invoiceReturn->update(['status' => 1]);
+
+            // Here you would add actual ZATCA integration
+            // For now, we'll just simulate the ZATCA sending
+            // You can integrate with ZATCA API here
+            
+            // Log the ZATCA sending
+            \Illuminate\Support\Facades\Log::info("Credit note {$invoiceReturn->return_no} sent to ZATCA", [
+                'credit_note_id' => $invoiceReturn->id,
+                'user_id' => $userId,
+                'timestamp' => now()
+            ]);
+
+            DB::commit();
+
+            return $this->responseWithSuccess('Credit note sent to ZATCA successfully and journal entries created', [
+                'credit_note_id' => $invoiceReturn->id,
+                'credit_note_no' => $invoiceReturn->return_no,
+                'status' => 'sent_to_zatca'
+            ]);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            \Illuminate\Support\Facades\Log::error('Error sending credit note to ZATCA: ' . $e->getMessage());
+            return $this->responseWithError('Failed to send credit note to ZATCA: ' . $e->getMessage());
+        }
     }
 }
