@@ -1,6 +1,41 @@
 @extends('pdf')
 
+@section('page-style')
+    <style>
+        body {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .currency-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        /* Fix for riyal symbol display */
+        .riyal-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+    </style>
+@endsection
+
 @section('content-area')
+    @php
+        // Custom currency formatter for PDF to fix riyal symbol display
+        function formatPdfCurrency($amount) {
+            $currencySymbol = config('config.currencySymbol');
+            $currencyPosition = config('config.currencyPosition');
+            $formattedAmount = number_format($amount, 2, '.', ',');
+            
+            // Replace the problematic 'ê' with proper riyal symbol
+            if ($currencySymbol === 'ê') {
+                $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
+            }
+            
+            if ($currencyPosition == 'left') {
+                return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
+            } else {
+                return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
+            }
+        }
+    @endphp
+    
     <h3>@lang('print.Account Statement')</h3>
     
     @if(isset($reportData['chart_of_account']))
@@ -36,7 +71,7 @@
                     <table class="table table-bordered table-sm">
                         <tr>
                             <td><strong>@lang('print.Opening Balance')</strong></td>
-                            <td>@currency($reportData['summary']['opening_balance'] ?? 0) 
+                            <td>{!! formatPdfCurrency($reportData['summary']['opening_balance'] ?? 0) !!} 
                                 @if(($reportData['summary']['opening_balance_type'] ?? '') === 'Debit')
                                     @lang('print.Debit')
                                 @elseif(($reportData['summary']['opening_balance_type'] ?? '') === 'Credit')
@@ -48,15 +83,15 @@
                         </tr>
                         <tr>
                             <td><strong>@lang('print.Period Debits')</strong></td>
-                            <td>@currency($reportData['summary']['period_debits'] ?? 0)</td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['period_debits'] ?? 0) !!}</td>
                         </tr>
                         <tr>
                             <td><strong>@lang('print.Period Credits')</strong></td>
-                            <td>@currency($reportData['summary']['period_credits'] ?? 0)</td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['period_credits'] ?? 0) !!}</td>
                         </tr>
                         <tr>
                             <td><strong>@lang('print.Closing Balance')</strong></td>
-                            <td>@currency($reportData['summary']['closing_balance'] ?? 0) 
+                            <td>{!! formatPdfCurrency($reportData['summary']['closing_balance'] ?? 0) !!} 
                                 @if(($reportData['summary']['closing_balance_type'] ?? '') === 'Debit')
                                     @lang('print.Debit')
                                 @elseif(($reportData['summary']['closing_balance_type'] ?? '') === 'Credit')
@@ -73,11 +108,6 @@
     @endif
 
     @if(isset($reportData['entries']) && count($reportData['entries']) > 0)
-        @if(isset($reportData['total_entries_note']))
-            <div style="background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin-bottom: 10px; border-radius: 4px;">
-                <strong>Note:</strong> {{ $reportData['total_entries_note'] }}
-            </div>
-        @endif
         <div class="table-responsive">
             <table class="table-listing table table-bordered table-striped table-sm">
                 <thead class="thead-light">
@@ -99,9 +129,9 @@
                             <td>{{ \Carbon\Carbon::parse($entry['entry_date'] ?? $entry['date'] ?? '')->format('d-M-Y') }}</td>
                             <td>{{ $entry['description'] ?? $entry['particulars'] ?? '' }}</td>
                             <td>{{ $entry['reference'] ?? '' }}</td>
-                            <td>@currency($entry['debit_amount'] ?? $entry['debit'] ?? 0)</td>
-                            <td>@currency($entry['credit_amount'] ?? $entry['credit'] ?? 0)</td>
-                            <td>@currency($entry['running_balance'] ?? $entry['balance'] ?? 0)</td>
+                            <td>{!! formatPdfCurrency($entry['debit_amount'] ?? $entry['debit'] ?? 0) !!}</td>
+                            <td>{!! formatPdfCurrency($entry['credit_amount'] ?? $entry['credit'] ?? 0) !!}</td>
+                            <td>{!! formatPdfCurrency($entry['running_balance'] ?? $entry['balance'] ?? 0) !!}</td>
                             <td>
                                 @if(($entry['balance_type'] ?? '') === 'Debit')
                                     @lang('print.Debit')

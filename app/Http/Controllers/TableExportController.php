@@ -112,6 +112,12 @@ class TableExportController extends Controller
                     'defaultFont' => 'DejaVu Sans',
                     'isPhpEnabled' => false,
                     'isJavascriptEnabled' => false,
+                    'debugKeepTemp' => false,
+                    'debugCss' => false,
+                    'debugLayout' => false,
+                    'debugLayoutLines' => false,
+                    'debugLayoutBlocks' => false,
+                    'debugLayoutInline' => false,
                 ]);
             
             Log::info("PDF generated successfully: {$filename}");
@@ -1145,9 +1151,9 @@ class TableExportController extends Controller
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
         
-        // Increase memory limit for large PDFs
-        ini_set('memory_limit', '512M');
-        set_time_limit(120); // 2 minutes
+        // Increase memory limit for large PDFs with all entries
+        ini_set('memory_limit', '1G'); // 1GB for very large datasets
+        set_time_limit(300); // 5 minutes for processing
         
         try {
             // Use the dedicated print method that gets ALL data without pagination
@@ -1167,11 +1173,9 @@ class TableExportController extends Controller
             
             $data = $reportData['data'];
             
-            // If the dataset is very large (>500 entries), limit it for PDF to prevent memory issues
-            if (isset($data['entries']) && count($data['entries']) > 500) {
-                Log::info('Large dataset detected for PDF, limiting to 500 entries. Total: ' . count($data['entries']));
-                $data['entries'] = array_slice($data['entries'], 0, 500);
-                $data['total_entries_note'] = 'Showing first 500 entries of ' . $reportData['data']['total_entries'] . ' total entries';
+            // Log entry count for debugging
+            if (isset($data['entries'])) {
+                Log::info('Account Statement PDF - Processing all entries. Total: ' . count($data['entries']));
             }
             
             // Add filters to data for template - merge with existing filters if they exist
@@ -1366,4 +1370,228 @@ class TableExportController extends Controller
         $filters = $request->all();
         return Excel::download(new ExportVatReport($filters), 'VatReport.xlsx');
     }
+
+    // return purchase summary pdf
+    public function purchaseSummaryPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get purchase summary data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->purchaseSummary($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.purchase-summary', $data, 'purchase-summary.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Purchase Summary PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return trial balance pdf
+    public function trialBalancePDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get trial balance data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->trialBalance($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.trial-balance', $data, 'trial-balance.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Trial Balance PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return inventory report pdf
+    public function inventoryReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get inventory report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->inventoryReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.inventory-report', $data, 'inventory-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Inventory Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return items report pdf
+    public function itemsReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get items report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->itemsReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.items-report', $data, 'items-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Items Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return expenses report pdf
+    public function expensesReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get expenses report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->expenseReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.expenses-report', $data, 'expenses-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Expenses Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // return supplier payable report pdf
+    public function supplierPayableReportPDF(Request $request)
+    {
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
+        
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Get supplier payable report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->supplierDueReport($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            $data = $reportData;
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.supplier-payable-report', $data, 'supplier-payable-report.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Supplier Payable Report PDF Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // Note: Other missing PDF methods (invoiceSummaryPDF, etc.) already exist in the codebase
 }

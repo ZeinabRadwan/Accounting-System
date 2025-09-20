@@ -1167,4 +1167,323 @@ class PrintController extends Controller
 
         return $this->generatePDF($html, 'Quotation-' . $quotation->quotation_no . '.pdf');
     }
+
+    /**
+     * Print Today Report using selected template
+     */
+    public function printTodayReport(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get today's report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->todayReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.today-report-basic', compact('reportData'));
+        }
+
+        return view('print.reports.today-report', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Invoice Summary using selected template
+     */
+    public function printInvoiceSummary(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get invoice summary data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->invoiceSummary($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.invoice-summary-basic', compact('reportData'));
+        }
+
+        return view('print.reports.invoice-summary', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Purchase Summary using selected template
+     */
+    public function printPurchaseSummary(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get purchase summary data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->purchaseSummary($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.purchase-summary-basic', compact('reportData'));
+        }
+
+        return view('print.reports.purchase-summary', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print VAT Report using selected template
+     */
+    public function printVatReport(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get VAT report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->vatReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.vat-report-basic', compact('reportData'));
+        }
+
+        return view('print.reports.vat-report', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Inventory Report using selected template
+     */
+    public function printInventory(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get inventory report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->inventoryReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.inventory-basic', compact('reportData'));
+        }
+
+        return view('print.reports.inventory', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Items Report using selected template
+     */
+    public function printItems(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get items report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->itemsReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.items-basic', compact('reportData'));
+        }
+
+        return view('print.reports.items', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Expenses Report using selected template
+     */
+    public function printExpenses(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get expenses report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->expenseReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.expenses-basic', compact('reportData'));
+        }
+
+        return view('print.reports.expenses', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Client Receivable Report using selected template
+     */
+    public function printClientReceivableReport(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get client receivable report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->clientDueReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.client-receivable-report-basic', compact('reportData'));
+        }
+
+        return view('print.reports.client-receivable-report', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Supplier Payable Report using selected template
+     */
+    public function printSupplierPayableReport(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get supplier payable report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->supplierDueReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.supplier-payable-report-basic', compact('reportData'));
+        }
+
+        return view('print.reports.supplier-payable-report', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Sales By User Report using selected template
+     */
+    public function printSalesByUserReport(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get sales by user report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->salesByUserReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.sales-by-user-report-basic', compact('reportData'));
+        }
+
+        return view('print.reports.sales-by-user-report', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Collection By User Report using selected template
+     */
+    public function printCollectionByUserReport(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get collection by user report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportData = $reportController->collectionByUserReport($request);
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.collection-by-user-report-basic', compact('reportData'));
+        }
+
+        return view('print.reports.collection-by-user-report', compact('reportData', 'template'));
+    }
+
+    /**
+     * Print Group Account Statement using selected template
+     */
+    public function printGroupAccountStatement(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        // Get group account statement data - need to create this method
+        // For now, use regular account statement as fallback
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        
+        // Check if method exists
+        if (method_exists($reportController, 'groupAccountStatement')) {
+            $reportData = $reportController->groupAccountStatement($request);
+        } else {
+            $reportData = $reportController->accountStatement($request);
+        }
+        
+        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            return view('print.group-account-statement-basic', compact('reportData'));
+        }
+
+        return view('print.reports.group-account-statement', compact('reportData', 'template'));
+    }
 }
