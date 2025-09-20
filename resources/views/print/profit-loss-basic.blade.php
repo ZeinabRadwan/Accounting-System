@@ -1,216 +1,209 @@
-@extends('print.layout')
-
-@section('page-style')
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
-    
-    body {
-        font-family: 'Roboto', sans-serif;
-        @if(app()->getLocale() == 'ar')
-            direction: rtl;
-            text-align: right;
-            font-family: 'Noto Kufi Arabic', sans-serif;
-        @endif
-    }
-    
-    .table th, .table td {
-        text-align: center;
-        @if(app()->getLocale() == 'ar')
-            text-align: center;
-        @endif
-    }
-    
-    .text-right {
-        @if(app()->getLocale() == 'ar')
-            text-align: left !important;
-        @endif
-    }
-    
-    .text-left {
-        @if(app()->getLocale() == 'ar')
-            text-align: right !important;
-        @endif
-    }
-</style>
-@endsection
-
-@php
-    // Custom currency formatter for PDF
-    if (!function_exists('formatPdfCurrency')) {
-        function formatPdfCurrency($amount) {
-            $locale = app()->getLocale();
-            $formattedAmount = number_format(abs($amount), 2);
-            
-            if ($locale == 'ar') {
-                // For Arabic, use the proper riyal symbol instead of 'ê'
-                return $formattedAmount . ' ﷼';
-            } else {
-                // For English
-                return '$' . $formattedAmount;
-            }
-        }
-    }
-
-@endphp
-
-@php
-    // Create a default template for basic view
-    $template = (object) [
-        'template_config' => [
-            'colors' => [
-                'primary' => '#2563eb',
-                'secondary' => '#6b7280',
-                'accent' => '#f8fafc',
-                'background' => '#ffffff'
-            ],
-            'typography' => [
-                'fontFamily' => 'Inter, Arial, sans-serif',
-                'baseFontSize' => 12,
-                'headerFontSize' => 18
-            ],
-            'layout' => [
-                'margins' => 20
-            ]
-        ],
-        'css_styles' => ''
-    ];
-@endphp
-
-@section('content')
-    <div class="report-container">
-        <div class="report-header">
-            <h1>@lang('Profit & Loss Statement')</h1>
-            <p>@lang('Period'): {{ $profitLossData['filters']['from_date'] ?? '' }} - {{ $profitLossData['filters']['to_date'] ?? '' }}</p>
-            <p>@lang('Generated'): {{ now()->format('Y-m-d H:i:s') }}</p>
-        </div>
-
-        <div class="report-content">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>@lang('Description')</th>
-                        <th class="text-right">@lang('Amount')</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(isset($profitLossData['revenues']) && count($profitLossData['revenues']) > 0)
-                        <tr class="section-header">
-                            <td colspan="2"><strong>@lang('REVENUES')</strong></td>
-                        </tr>
-                        @foreach($profitLossData['revenues'] as $revenue)
-                        <tr>
-                            <td>{{ $revenue['name'] }}</td>
-                            <td class="text-right">{{ number_format($revenue['amount'], 2) }}</td>
-                        </tr>
-                        @endforeach
-                    @endif
-
-                    @if(isset($profitLossData['expenses']) && count($profitLossData['expenses']) > 0)
-                        <tr class="section-header">
-                            <td colspan="2"><strong>@lang('EXPENSES')</strong></td>
-                        </tr>
-                        @foreach($profitLossData['expenses'] as $expense)
-                        <tr>
-                            <td>{{ $expense['name'] }}</td>
-                            <td class="text-right">{{ number_format($expense['amount'], 2) }}</td>
-                        </tr>
-                        @endforeach
-                    @endif
-                </tbody>
-            </table>
-
-            <div class="totals-section">
-                <table class="totals-table">
-                    <tr>
-                        <td><strong>@lang('Total Revenue'):</strong></td>
-                        <td class="text-right"><strong>{{ number_format($profitLossData['totals']['total_revenue'] ?? 0, 2) }}</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>@lang('Total Expenses'):</strong></td>
-                        <td class="text-right"><strong>{{ number_format($profitLossData['totals']['total_expenses'] ?? 0, 2) }}</strong></td>
-                    </tr>
-                    <tr class="total-final">
-                        <td><strong>@lang('Net Profit/Loss'):</strong></td>
-                        <td class="text-right"><strong>{{ number_format($profitLossData['totals']['net_profit'] ?? 0, 2) }}</strong></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="report-footer">
-            <p>@lang('This report was generated on') {{ now()->format('Y-m-d H:i:s') }}</p>
-        </div>
-    </div>
-
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@lang('print.Profit/Loss Report')</title>
     <style>
-        .report-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+            @if(app()->getLocale() == 'ar')
+                direction: rtl;
+                text-align: right;
+                font-family: 'Noto Kufi Arabic', sans-serif;
+            @endif
         }
         
-        .report-header {
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-collapse: collapse;
+        }
+        
+        .table th, .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border: 1px solid #dee2e6;
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 20px;
         }
         
-        .report-header h1 {
-            color: #1f2937;
-            margin-bottom: 10px;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        .data-table th {
-            background: #f8fafc;
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #e5e7eb;
-            font-weight: 600;
-        }
-        
-        .data-table td {
-            padding: 8px 12px;
-            border: 1px solid #e5e7eb;
-        }
-        
-        .section-header td {
-            font-weight: bold;
-            background: #f8fafc;
-        }
-        
-        .text-right {
-            text-align: right;
-        }
-        
-        .totals-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .totals-table td {
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .total-final {
-            border-top: 2px solid #e5e7eb;
+        .table thead th {
+            border-bottom: 2px solid #dee2e6;
+            background-color: #f8f9fa;
             font-weight: bold;
         }
         
-        .report-footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            color: #6b7280;
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0,0,0,.05);
+        }
+        
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-success { color: #28a745; }
+        .text-danger { color: #dc3545; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        
+        .no-print { display: none; }
+        @media print {
+            .no-print { display: none !important; }
         }
     </style>
-@endsection
+</head>
+<body>
+    @php
+        // Custom currency formatter for PDF
+        if (!function_exists('formatPdfCurrency')) {
+            function formatPdfCurrency($amount) {
+                $locale = app()->getLocale();
+                $formattedAmount = number_format(abs($amount), 2);
+                
+                if ($locale == 'ar') {
+                    // For Arabic, use the proper riyal symbol instead of 'ê'
+                    return $formattedAmount . ' ﷼';
+                } else {
+                    // For English
+                    return '$' . $formattedAmount;
+                }
+            }
+        }
+    @endphp
+
+    <div class="text-center mb-4">
+        <h2>@lang('print.Profit/Loss Report')</h2>
+        @if(isset($profitLossData['filters']['from_date']) && isset($profitLossData['filters']['to_date']))
+            <h4>@lang('print.Period'): {{ $profitLossData['filters']['from_date'] }} - {{ $profitLossData['filters']['to_date'] }}</h4>
+        @endif
+    </div>
+    
+    @if(isset($profitLossData) && $profitLossData)
+        @if($profitLossData['type'] == 1)
+            {{-- Product-wise Profit/Loss Report (Gross) --}}
+            <div>
+                <h3>@lang('print.Gross Profit/Loss Report')</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>@lang('print.#')</th>
+                            <th>@lang('print.Code')</th>
+                            <th>@lang('print.Name')</th>
+                            <th>@lang('print.Avg. Purchase Price')</th>
+                            <th>@lang('print.Avg. Selling Price')</th>
+                            <th>@lang('print.Sold Qty')</th>
+                            <th>@lang('print.Profit') / @lang('print.Loss')</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $totalQty = 0;
+                            $totalProfitOrLoss = 0;
+                        @endphp
+                        @foreach($profitLossData['reportData'] as $index => $item)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $item['itemCode'] }}</td>
+                                <td>{{ $item['itemName'] }}</td>
+                                <td class="text-right">{{ formatPdfCurrency($item['avgPurchasePrice']) }}</td>
+                                <td class="text-right">{{ formatPdfCurrency($item['avgSalePrice']) }}</td>
+                                <td>{{ $item['currentQty'] }}</td>
+                                <td class="text-right">
+                                    @if($item['profitOrLoss'] >= 0)
+                                        <span class="text-success">{{ formatPdfCurrency($item['profitOrLoss']) }}</span>
+                                    @else
+                                        <span class="text-danger">{{ formatPdfCurrency($item['profitOrLoss']) }}</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @php
+                                $totalQty += $item['currentQty'];
+                                $totalProfitOrLoss += $item['profitOrLoss'];
+                            @endphp
+                        @endforeach
+                        <tr style="background-color: #f8f9fa; font-weight: bold;">
+                            <td colspan="5" class="text-right">@lang('print.Total')</td>
+                            <td>{{ $totalQty }}</td>
+                            <td class="text-right">{{ formatPdfCurrency($totalProfitOrLoss) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        @elseif($profitLossData['type'] == 2)
+            {{-- Summary Profit/Loss Report (Net) --}}
+            <div>
+                <h3>@lang('print.Net Profit/Loss Report')</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>@lang('print.Description')</th>
+                            <th>@lang('print.Amount')</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>@lang('print.Total Sales')</th>
+                            <td class="text-right">{{ formatPdfCurrency($profitLossData['reportData']['totalSales'] ?? 0) }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('print.Cost of Goods Sold')</th>
+                            <td class="text-right">{{ formatPdfCurrency($profitLossData['reportData']['costOfGoodsSold'] ?? 0) }}</td>
+                        </tr>
+                        <tr style="background-color: #f8f9fa;">
+                            <th>@lang('print.Gross Profit')/@lang('print.Loss')</th>
+                            <td class="text-right"><strong>{{ formatPdfCurrency($profitLossData['reportData']['grossProfitOrLoss'] ?? 0) }}</strong></td>
+                        </tr>
+                        <tr>
+                            <th>@lang('print.Operating Expenses')</th>
+                            <td class="text-right">{{ formatPdfCurrency($profitLossData['reportData']['totalExpense'] ?? 0) }}</td>
+                        </tr>
+                        <tr style="background-color: #007bff; color: white;">
+                            <th style="color: white;">
+                                @if(($profitLossData['reportData']['netProfitOrLoss'] ?? 0) >= 0)
+                                    @lang('print.Net Profit')
+                                @else
+                                    @lang('print.Net Loss')
+                                @endif
+                            </th>
+                            <td class="text-right" style="color: white; font-size: 18px;">
+                                <strong>{{ formatPdfCurrency($profitLossData['reportData']['netProfitOrLoss'] ?? 0) }}</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    @else
+        <div class="text-center" style="margin-top: 3rem;">
+            <h4>@lang('print.No data found for the selected period.')</h4>
+        </div>
+    @endif
+
+    <!-- Print and Download Buttons -->
+    <div class="no-print" style="margin-top: 30px; text-align: center;">
+        <button onclick="window.print()" style="background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; margin-right: 10px;">
+            🖨️ @lang('print.Print')
+        </button>
+        <button onclick="downloadPDF()" style="background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px;">
+            📥 @lang('print.Download PDF')
+        </button>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            // Create PDF download URL for profit loss report
+            const urlParams = new URLSearchParams(window.location.search);
+            let pdfUrl = '/reports/profit-loss/pdf';
+            if (urlParams.toString()) {
+                pdfUrl += '?' + urlParams.toString();
+            }
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

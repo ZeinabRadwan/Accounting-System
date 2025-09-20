@@ -165,4 +165,53 @@ return [
     'Net Profit/Loss' => 'Net Profit/Loss',
     'Cost of Goods Sold' => 'Cost of Goods Sold',
     'Operating Expenses' => 'Operating Expenses',
+    'Total Sales' => 'Total Sales',
+    'Description' => 'Description',
+    'Amount' => 'Amount',
+    
+    // Expenses Report
+    'Expense Report' => 'Expense Report',
+    'Expense Reason' => 'Expense Reason',
+    'Category' => 'Category',
+    'Sub Category' => 'Sub Category',
+    'Account' => 'Account',
+    'Status' => 'Status',
+    'Created By' => 'Created By',
+    'Active' => 'Active',
+    'Inactive' => 'Inactive',
+    'No expenses found for the selected period.' => 'No expenses found for the selected period.',
+    
+    // Items Report
+    'Item Report' => 'Item Report',
+    'Product' => 'Product',
+    'Available Stock' => 'Available Stock',
+    'Stock In' => 'Stock In',
+    'Stock Out' => 'Stock Out',
+    'Price' => 'Price',
+    'Type' => 'Type',
+    'Code' => 'Code',
+    'Supplier' => 'Supplier',
+    'Client' => 'Client',
+    'Total Quantity' => 'Total Quantity',
+    'No stock in data found' => 'No stock in data found',
+    'No stock out data found' => 'No stock out data found',
+    'No product data found for the selected period.' => 'No product data found for the selected period.',
+    
+    // Inventory Report
+    'Inventory Report' => 'Inventory Report',
+    'Name' => 'Name',
+    'Stock in Hand' => 'Stock in Hand',
+    'No inventory data found for the selected period.' => 'No inventory data found for the selected period.',
+    
+    // User Reports
+    'Sales By User Report' => 'Sales By User Report',
+    'Collection By User Report' => 'Collection By User Report',
+    'User' => 'User',
+    'Sales By' => 'Sales By',
+    'Invoice No' => 'Invoice No',
+    'Client' => 'Client',
+    'Net Total' => 'Net Total',
+    'Invoice Date' => 'Invoice Date',
+    'No sales data found for the selected period.' => 'No sales data found for the selected period.',
+    'No collection data found for the selected period.' => 'No collection data found for the selected period.',
 ];

@@ -165,4 +165,53 @@ return [
     'Net Profit/Loss' => 'صافي الربح/الخسارة',
     'Cost of Goods Sold' => 'تكلفة البضائع المباعة',
     'Operating Expenses' => 'مصروفات التشغيل',
+    'Total Sales' => 'إجمالي المبيعات',
+    'Description' => 'الوصف',
+    'Amount' => 'المبلغ',
+    
+    // Expenses Report
+    'Expense Report' => 'تقرير المصروفات',
+    'Expense Reason' => 'سبب المصروف',
+    'Category' => 'الفئة',
+    'Sub Category' => 'الفئة الفرعية',
+    'Account' => 'الحساب',
+    'Status' => 'الحالة',
+    'Created By' => 'أنشئ بواسطة',
+    'Active' => 'نشط',
+    'Inactive' => 'غير نشط',
+    'No expenses found for the selected period.' => 'لم يتم العثور على مصروفات للفترة المحددة.',
+    
+    // Items Report
+    'Item Report' => 'تقرير الأصناف',
+    'Product' => 'المنتج',
+    'Available Stock' => 'المخزون المتاح',
+    'Stock In' => 'وارد المخزون',
+    'Stock Out' => 'صادر المخزون',
+    'Price' => 'السعر',
+    'Type' => 'النوع',
+    'Code' => 'الرمز',
+    'Supplier' => 'المورد',
+    'Client' => 'العميل',
+    'Total Quantity' => 'إجمالي الكمية',
+    'No stock in data found' => 'لم يتم العثور على بيانات وارد المخزون',
+    'No stock out data found' => 'لم يتم العثور على بيانات صادر المخزون',
+    'No product data found for the selected period.' => 'لم يتم العثور على بيانات المنتج للفترة المحددة.',
+    
+    // Inventory Report
+    'Inventory Report' => 'تقرير المخزون',
+    'Name' => 'الاسم',
+    'Stock in Hand' => 'المخزون المتاح',
+    'No inventory data found for the selected period.' => 'لم يتم العثور على بيانات المخزون للفترة المحددة.',
+    
+    // User Reports
+    'Sales By User Report' => 'تقرير المبيعات حسب المستخدم',
+    'Collection By User Report' => 'تقرير التحصيل حسب المستخدم',
+    'User' => 'المستخدم',
+    'Sales By' => 'المبيعات بواسطة',
+    'Invoice No' => 'رقم الفاتورة',
+    'Client' => 'العميل',
+    'Net Total' => 'إجمالي صافي',
+    'Invoice Date' => 'تاريخ الفاتورة',
+    'No sales data found for the selected period.' => 'لم يتم العثور على بيانات مبيعات للفترة المحددة.',
+    'No collection data found for the selected period.' => 'لم يتم العثور على بيانات تحصيل للفترة المحددة.',
 ];

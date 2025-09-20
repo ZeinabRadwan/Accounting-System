@@ -125,6 +125,15 @@
               <a :href="exportPdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
                 <i class="fas fa-file-export"></i>
               </a>
+              <a 
+                v-if="inventoryData && inventoryItems(inventoryData) > 0 && form.category && form.subCategory && form.itemName" 
+                :href="printTemplateUrl" 
+                target="_blank" 
+                v-tooltip="$t('Print with Template')" 
+                class="btn btn-success"
+              >
+                <i class="fas fa-print"></i> {{ $t("Print with Template") }}
+              </a>
               <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{ $t("Print")
               }}</a>
             </div>
@@ -236,6 +245,35 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       return `/reports/inventory-report/pdf?${params.toString()}`;
+    },
+    printTemplateUrl() {
+      // Create a dynamic print template URL for inventory report with current filters
+      const params = new URLSearchParams();
+      
+      // Always pass required filter information
+      if (this.form.category && this.form.category.slug) {
+        params.append('category[slug]', this.form.category.slug);
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.slug) {
+        params.append('subCategory[slug]', this.form.subCategory.slug);
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
+      }
+      if (this.form.itemName && this.form.itemName.slug) {
+        params.append('itemName[slug]', this.form.itemName.slug);
+        params.append('itemName[id]', this.form.itemName.id);
+        params.append('itemName[name]', this.form.itemName.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      
+      return `/print/reports/inventory?${params.toString()}`;
     },
   },
 

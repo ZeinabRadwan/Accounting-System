@@ -53,226 +53,145 @@
 @endphp
 
 @section('content')
-    @php
-        $config = $template->template_config ?? [];
-        $elements = $config['elements'] ?? [];
-        $colors = $config['colors'] ?? [];
-        $typography = $config['typography'] ?? [];
-        
-        // Get settings from GeneralSetting model
-        $settings = \App\Models\GeneralSetting::get();
-        $companyName = $settings->where('key', 'company_name')->first()?->value ?? 'Company Name';
-        $companyAddress = $settings->where('key', 'address')->first()?->value ?? 'Company Address';
-        $companyPhone = $settings->where('key', 'phone_number')->first()?->value ?? 'Phone';
-        $companyEmail = $settings->where('key', 'email_address')->first()?->value ?? 'Email';
-    @endphp
-
-    @if(($elements['showLogo'] ?? true) || ($elements['showCompanyInfo'] ?? true))
+<div class="container-fluid">
     <!-- Header -->
-    <div class="document-header">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div class="text-center mb-4">
+        <h2>@lang('print.Profit/Loss Report')</h2>
+        @if(isset($profitLossData['filters']['from_date']) && isset($profitLossData['filters']['to_date']))
+            <h4>@lang('print.Period'): {{ $profitLossData['filters']['from_date'] }} - {{ $profitLossData['filters']['to_date'] }}</h4>
+        @endif
+    </div>
+
+    @if(isset($profitLossData) && $profitLossData)
+        @if($profitLossData['type'] == 1)
+            {{-- Product-wise Profit/Loss Report (Gross) --}}
             <div>
-                @if($elements['showLogo'] ?? true)
-                <div style="margin-bottom: 15px;">
-                    <img src="{{ $template->logo_url }}" 
-                         alt="Company Logo" class="company-logo">
+                <h3>@lang('print.Gross Profit/Loss Report')</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>@lang('print.#')</th>
+                                <th>@lang('print.Code')</th>
+                                <th>@lang('print.Name')</th>
+                                <th>@lang('print.Avg. Purchase Price')</th>
+                                <th>@lang('print.Avg. Selling Price')</th>
+                                <th>@lang('print.Sold Qty')</th>
+                                <th>@lang('print.Profit') / @lang('print.Loss')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $totalQty = 0;
+                                $totalProfitOrLoss = 0;
+                            @endphp
+                            @foreach($profitLossData['reportData'] as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item['itemCode'] }}</td>
+                                    <td>{{ $item['itemName'] }}</td>
+                                    <td class="text-right">{{ formatPdfCurrency($item['avgPurchasePrice']) }}</td>
+                                    <td class="text-right">{{ formatPdfCurrency($item['avgSalePrice']) }}</td>
+                                    <td>{{ $item['currentQty'] }}</td>
+                                    <td class="text-right">
+                                        @if($item['profitOrLoss'] >= 0)
+                                            <span class="text-success">{{ formatPdfCurrency($item['profitOrLoss']) }}</span>
+                                        @else
+                                            <span class="text-danger">{{ formatPdfCurrency($item['profitOrLoss']) }}</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @php
+                                    $totalQty += $item['currentQty'];
+                                    $totalProfitOrLoss += $item['profitOrLoss'];
+                                @endphp
+                            @endforeach
+                            <tr class="table-info">
+                                <td colspan="5" class="text-right"><strong>@lang('print.Total')</strong></td>
+                                <td><strong>{{ $totalQty }}</strong></td>
+                                <td class="text-right"><strong>{{ formatPdfCurrency($totalProfitOrLoss) }}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                @endif
-                
-                @if($elements['showCompanyInfo'] ?? true)
-                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;" class="arabic-text">
-                    {{ $companyName }}
-                </h1>
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    {{ $companyAddress }}
-                </p>
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    {{ $companyPhone }} • {{ $companyEmail }}
-                </p>
-                @endif
             </div>
-            <div class="document-info">
-                @if($elements['showReportTitle'] ?? true)
-                <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;">
-                    @lang('Profit & Loss Statement')
-                </h2>
-                @endif
-                
-                @if($elements['showPeriod'] ?? true)
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    @lang('Period'): {{ $profitLossData['filters']['from_date'] ?? '' }} - {{ $profitLossData['filters']['to_date'] ?? '' }}
-                </p>
-                @endif
-                
-                @if($elements['showGeneratedDate'] ?? true)
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    @lang('Generated'): {{ now()->format('Y-m-d H:i:s') }}
-                </p>
-                @endif
+        @elseif($profitLossData['type'] == 2)
+            {{-- Summary Profit/Loss Report (Net) --}}
+            <div>
+                <h3>@lang('print.Net Profit/Loss Report')</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>@lang('print.Description')</th>
+                                <th>@lang('print.Amount')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>@lang('print.Total Sales')</th>
+                                <td class="text-right">{{ formatPdfCurrency($profitLossData['reportData']['totalSales'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Cost of Goods Sold')</th>
+                                <td class="text-right">{{ formatPdfCurrency($profitLossData['reportData']['costOfGoodsSold'] ?? 0) }}</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th>@lang('print.Gross Profit')/@lang('print.Loss')</th>
+                                <td class="text-right"><strong>{{ formatPdfCurrency($profitLossData['reportData']['grossProfitOrLoss'] ?? 0) }}</strong></td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Operating Expenses')</th>
+                                <td class="text-right">{{ formatPdfCurrency($profitLossData['reportData']['totalExpense'] ?? 0) }}</td>
+                            </tr>
+                            <tr class="table-primary">
+                                <th>
+                                    @if(($profitLossData['reportData']['netProfitOrLoss'] ?? 0) >= 0)
+                                        @lang('print.Net Profit')
+                                    @else
+                                        @lang('print.Net Loss')
+                                    @endif
+                                </th>
+                                <td class="text-right">
+                                    <strong style="font-size: 18px;">{{ formatPdfCurrency($profitLossData['reportData']['netProfitOrLoss'] ?? 0) }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </div>
-    @endif
-
-    <!-- Report Content -->
-    <div class="report-content">
-        @if($elements['showDataTable'] ?? true)
-        <div class="data-section">
-            <table class="data-table">
-                <thead>
-                    <tr style="background: {{ $colors['accent'] ?? '#f8fafc' }};">
-                        <th style="padding: 12px; text-align: left; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                            @lang('Description')
-                        </th>
-                        <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                            @lang('Amount')
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(isset($profitLossData['revenues']) && count($profitLossData['revenues']) > 0)
-                        <tr class="section-header">
-                            <td colspan="2" style="padding: 12px; font-weight: bold; background: {{ $colors['accent'] ?? '#f8fafc' }}; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                                @lang('REVENUES')
-                            </td>
-                        </tr>
-                        @foreach($profitLossData['revenues'] as $revenue)
-                        <tr>
-                            <td style="padding: 8px 12px; border: 1px solid #e5e7eb;">
-                                {{ $revenue['name'] }}
-                            </td>
-                            <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: right;">
-                                {{ number_format($revenue['amount'], 2) }}
-                            </td>
-                        </tr>
-                        @endforeach
-                    @endif
-
-                    @if(isset($profitLossData['expenses']) && count($profitLossData['expenses']) > 0)
-                        <tr class="section-header">
-                            <td colspan="2" style="padding: 12px; font-weight: bold; background: {{ $colors['accent'] ?? '#f8fafc' }}; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                                @lang('EXPENSES')
-                            </td>
-                        </tr>
-                        @foreach($profitLossData['expenses'] as $expense)
-                        <tr>
-                            <td style="padding: 8px 12px; border: 1px solid #e5e7eb;">
-                                {{ $expense['name'] }}
-                            </td>
-                            <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: right;">
-                                {{ number_format($expense['amount'], 2) }}
-                            </td>
-                        </tr>
-                        @endforeach
-                    @endif
-                </tbody>
-            </table>
-        </div>
         @endif
-
-        @if($elements['showTotals'] ?? true)
-        <div class="totals-section">
-            <table class="totals-table">
-                <tr>
-                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        @lang('Total Revenue'):
-                    </td>
-                    <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        {{ number_format($profitLossData['totals']['total_revenue'] ?? 0, 2) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        @lang('Total Expenses'):
-                    </td>
-                    <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        {{ number_format($profitLossData['totals']['total_expenses'] ?? 0, 2) }}
-                    </td>
-                </tr>
-                <tr style="border-top: 2px solid {{ $colors['primary'] ?? '#2563eb' }};">
-                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        @lang('Net Profit/Loss'):
-                    </td>
-                    <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        {{ number_format($profitLossData['totals']['net_profit'] ?? 0, 2) }}
-                    </td>
-                </tr>
-            </table>
+    @else
+        <div class="text-center mt-5">
+            <h4>@lang('print.No data found for the selected period.')</h4>
         </div>
-        @endif
-    </div>
-
-    @if($elements['showFooter'] ?? true)
-    <!-- Footer -->
-    <div class="document-footer">
-        <p style="text-align: center; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-size: 12px; margin: 20px 0 0 0;">
-            @lang('This report was generated on') {{ now()->format('Y-m-d H:i:s') }}
-        </p>
-    </div>
     @endif
+</div>
 
-    <style>
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        .data-table th {
-            font-weight: 600;
-            background: {{ $colors['accent'] ?? '#f8fafc' }};
-        }
-        
-        .data-table td {
-            font-size: {{ $typography['baseFontSize'] ?? 12 }}px;
-        }
-        
-        .section-header td {
-            font-weight: bold;
-            background: {{ $colors['accent'] ?? '#f8fafc' }};
-        }
-        
-        .totals-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .totals-table td {
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .company-logo {
-            max-width: 80px;
-            height: auto;
-        }
-    </style>
+<!-- Print and Download Buttons -->
+<div class="action-buttons no-print">
+    <button class="print-button" onclick="window.print()">
+        <i class="fas fa-print"></i> @lang('print.Print')
+    </button>
+    <button class="pdf-button" onclick="downloadPDF()">
+        <i class="fas fa-download"></i> @lang('print.Download PDF')
+    </button>
+</div>
 
-    <!-- Print and Download Buttons -->
-    <div class="action-buttons no-print">
-        <button class="print-button" onclick="window.print()">
-            <i class="fas fa-print"></i> @lang('print.Print')
-        </button>
-        <button class="pdf-button" onclick="downloadPDF()">
-            <i class="fas fa-download"></i> @lang('print.Download PDF')
-        </button>
-    </div>
-
-    <script>
-        function downloadPDF() {
-            // Create PDF download URL for profit loss report
-            const urlParams = new URLSearchParams(window.location.search);
-            let pdfUrl = '/reports/profit-loss/pdf';
-            if (urlParams.toString()) {
-                pdfUrl += '?' + urlParams.toString();
-            }
-            const link = document.createElement('a');
-            link.href = pdfUrl;
-            link.download = '';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+<script>
+    function downloadPDF() {
+        // Create PDF download URL for profit loss report
+        const urlParams = new URLSearchParams(window.location.search);
+        let pdfUrl = '/reports/profit-loss/pdf';
+        if (urlParams.toString()) {
+            pdfUrl += '?' + urlParams.toString();
         }
-    </script>
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 @endsection

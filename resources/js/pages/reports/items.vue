@@ -173,6 +173,15 @@
               <a :href="exportPdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
                 <i class="fas fa-file-export"></i>
               </a>
+              <a 
+                v-if="allData && allData.stockIns && allData.stockOuts && form.productName" 
+                :href="printTemplateUrl" 
+                target="_blank" 
+                v-tooltip="$t('Print with Template')" 
+                class="btn btn-success"
+              >
+                <i class="fas fa-print"></i> {{ $t("Print with Template") }}
+              </a>
               <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{ $t("Print")
               }}</a>
             </div>
@@ -256,6 +265,23 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       return `/reports/items-report/pdf?${params.toString()}`;
+    },
+    printTemplateUrl() {
+      // Create a dynamic print template URL for items report with current filters
+      const params = new URLSearchParams();
+      
+      // Always pass product information (required by API)
+      if (this.form.productName && this.form.productName.slug) {
+        params.append('productName[slug]', this.form.productName.slug);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      
+      return `/print/reports/items?${params.toString()}`;
     },
   },
 

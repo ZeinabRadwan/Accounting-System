@@ -41,6 +41,15 @@
           <a :href="exportPdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
             <i class="fas fa-file-export"></i>
           </a>
+          <a 
+            v-if="items && items.length > 0 && form.user" 
+            :href="printTemplateUrl" 
+            target="_blank" 
+            v-tooltip="$t('Print with Template')" 
+            class="btn btn-success"
+          >
+            <i class="fas fa-print"></i> {{ $t("Print with Template") }}
+          </a>
           <a @click="printWindow()" href="#" class="btn btn-secondary">
             <i class="fas fa-print"></i> {{ $t("Print") }}
           </a>
@@ -140,6 +149,23 @@ export default {
     },
     exportPdfUrl() {
       return `/sales-by-user-report/pdf?start_date=${this.form.fromDate}&end_date=${this.form.toDate}&term=${this.form.user['id']}`;
+    },
+    printTemplateUrl() {
+      // Create a dynamic print template URL for sales by user report with current filters
+      const params = new URLSearchParams();
+      
+      if (this.form.user && this.form.user.id) {
+        params.append('user[id]', this.form.user.id);
+        params.append('user[name]', this.form.user.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      
+      return `/print/reports/sales-by-user?${params.toString()}`;
     },
   },
 
