@@ -625,6 +625,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
     Route::get('/print/reports/profit-loss', [App\Http\Controllers\PrintController::class, 'printProfitLoss'])->name('print.reports.profit-loss');
     Route::get('/print/reports/summary', [App\Http\Controllers\PrintController::class, 'printSummary'])->name('print.reports.summary');
+    Route::get('/print/reports/account-statement', [App\Http\Controllers\PrintController::class, 'printAccountStatement'])->name('print.reports.account-statement');
     
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');

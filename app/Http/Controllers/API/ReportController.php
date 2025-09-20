@@ -2225,6 +2225,179 @@ class ReportController extends Controller
     }
 
     /**
+     * Get Account Statement report data for printing (all data, no pagination)
+     */
+    public function accountStatementForPrint(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'chart_of_account_id' => 'required|exists:chart_of_accounts,id',
+                'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+
+            $chartOfAccountId = $request->chart_of_account_id;
+            $subChartOfAccountId = $request->sub_chart_of_account_id;
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Determine which account to use for the report
+            $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
+            
+            // Get chart of account details
+            $chartOfAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($chartOfAccountId);
+            $reportAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($reportAccountId);
+
+            // Build date range query - NO PAGINATION
+            $dateQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function($query) use ($reportAccountId) {
+                    $query->where('chart_of_account_id', $reportAccountId);
+                });
+
+            // Apply filters
+            if ($fiscalYearId) {
+                $dateQuery->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $dateQuery->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
+            }
+
+            // Get ALL journal entries - NO PAGINATION
+            $journalEntries = $dateQuery
+                ->with(['lines' => function($query) use ($reportAccountId) {
+                    $query->where('chart_of_account_id', $reportAccountId);
+                }])
+                ->orderBy('entry_date', 'desc')
+                ->orderBy('id', 'desc')
+                ->get(); // Get ALL entries
+
+            // Calculate opening balance (balance before the date range) - OPTIMIZED
+            $openingBalanceQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
+
+            if ($fiscalYearId) {
+                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fiscalYear->start_date);
+            } elseif ($accountingPeriodId) {
+                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $accountingPeriod->start_date);
+            } elseif ($fromDate) {
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fromDate);
+            }
+
+            $openingTotals = $openingBalanceQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $openingDebits = $openingTotals->total_debits ?? 0;
+            $openingCredits = $openingTotals->total_credits ?? 0;
+            $openingBalance = $openingDebits - $openingCredits;
+
+            // Process journal entries
+            $processedEntries = [];
+            $runningBalance = $openingBalance;
+
+            foreach ($journalEntries as $entry) {
+                $entryLines = $entry->lines->where('chart_of_account_id', $reportAccountId);
+                
+                foreach ($entryLines as $line) {
+                    $debitAmount = $line->debit_amount ?? 0;
+                    $creditAmount = $line->credit_amount ?? 0;
+                    $netAmount = $debitAmount - $creditAmount;
+                    $runningBalance += $netAmount;
+
+                    $processedEntries[] = [
+                        'entry_date' => $entry->entry_date,
+                        'entry_number' => $entry->entry_number,
+                        'reference' => $entry->reference,
+                        'description' => $line->description ?? $entry->description,
+                        'debit_amount' => $debitAmount,
+                        'credit_amount' => $creditAmount,
+                        'net_amount' => $netAmount,
+                        'running_balance' => $runningBalance,
+                        'balance_type' => $runningBalance >= 0 ? 'Debit' : 'Credit',
+                        'source_type' => $entry->source_type,
+                        'source_id' => $entry->source_id,
+                    ];
+                }
+            }
+
+            // Calculate period totals - OPTIMIZED
+            $periodTotalsQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->where('journal_entry_lines.chart_of_account_id', $reportAccountId);
+
+            // Apply same filters as main query
+            if ($fiscalYearId) {
+                $periodTotalsQuery->where('journal_entries.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $periodTotalsQuery->where('journal_entries.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $periodTotalsQuery->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
+            }
+
+            $periodTotals = $periodTotalsQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $periodDebits = $periodTotals->total_debits ?? 0;
+            $periodCredits = $periodTotals->total_credits ?? 0;
+
+            $periodNet = $periodDebits - $periodCredits;
+            $closingBalance = $openingBalance + $periodNet;
+
+            return [
+                'success' => true,
+                'data' => [
+                    'chart_of_account' => [
+                        'id' => $chartOfAccount->id,
+                        'code' => $chartOfAccount->code,
+                        'name' => $chartOfAccount->name,
+                        'type' => $chartOfAccount->type->name ?? 'Unknown',
+                    ],
+                    'report_account' => [
+                        'id' => $reportAccount->id,
+                        'code' => $reportAccount->code,
+                        'name' => $reportAccount->name,
+                        'type' => $reportAccount->type->name ?? 'Unknown',
+                    ],
+                    'filters' => [
+                        'fiscal_year_id' => $fiscalYearId,
+                        'accounting_period_id' => $accountingPeriodId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'summary' => [
+                        'opening_balance' => round($openingBalance, 2),
+                        'opening_balance_type' => $openingBalance >= 0 ? 'Debit' : 'Credit',
+                        'period_debits' => round($periodDebits, 2),
+                        'period_credits' => round($periodCredits, 2),
+                        'period_net' => round($periodNet, 2),
+                        'closing_balance' => round($closingBalance, 2),
+                        'closing_balance_type' => $closingBalance >= 0 ? 'Debit' : 'Credit',
+                    ],
+                    'entries' => $processedEntries,
+                    'total_entries' => count($processedEntries),
+                ],
+            ];
+
+        } catch (\Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
      * Get Group Account Statement report data
      */
     public function groupAccountStatement(Request $request)

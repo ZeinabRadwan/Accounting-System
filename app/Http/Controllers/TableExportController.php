@@ -25,6 +25,7 @@ use App\Exports\ExportLoan;
 use App\Models\LoanPayment;
 use App\Exports\ExportAsset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Exports\ExportClient;
 use App\Models\InvoiceReturn;
 use App\Models\LoanAuthority;
@@ -95,17 +96,34 @@ class TableExportController extends Controller
      */
     private function generatePDF($view, $data, $filename, $paper = 'a4', $orientation = 'portrait')
     {
-        $pdf = PDF::loadView($view, $data)
-            ->setPaper($paper, $orientation)
-            ->setOptions([
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => false,
-                'defaultFont' => 'DejaVu Sans',
-                'isPhpEnabled' => false,
-                'isJavascriptEnabled' => false,
+        try {
+            Log::info("Generating PDF: {$filename}", [
+                'view' => $view,
+                'data_keys' => array_keys($data),
+                'paper' => $paper,
+                'orientation' => $orientation
             ]);
-        
-        return $pdf->download($filename);
+            
+            $pdf = PDF::loadView($view, $data)
+                ->setPaper($paper, $orientation)
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => false,
+                    'defaultFont' => 'DejaVu Sans',
+                    'isPhpEnabled' => false,
+                    'isJavascriptEnabled' => false,
+                ]);
+            
+            Log::info("PDF generated successfully: {$filename}");
+            return $pdf->download($filename);
+            
+        } catch (\Exception $e) {
+            Log::error("PDF generation failed: {$filename}", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
     }
     // return all brands pdf
     public function brandsPDF()
@@ -1124,29 +1142,79 @@ class TableExportController extends Controller
     // return account statement pdf
     public function accountStatementPDF(Request $request)
     {
-        // Get account statement data using the same filters
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $response = $reportController->accountStatement($request);
+        // Disable Telescope for this request to avoid database issues
+        \Laravel\Telescope\Telescope::stopRecording();
         
-        // Check if the response has the expected structure
-        if (isset($response['success']) && $response['success'] && isset($response['data'])) {
-            $data = $response['data'];
-        } else {
-            // If the response doesn't have the expected structure, use it directly
-            $data = $response;
+        // Increase memory limit for large PDFs
+        ini_set('memory_limit', '512M');
+        set_time_limit(120); // 2 minutes
+        
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $response = $reportController->accountStatementForPrint($request);
+            
+            // Handle JsonResponse
+            if ($response instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $response->getData(true);
+            } else {
+                $reportData = $response;
+            }
+            
+            if (!$reportData['success']) {
+                abort(404, 'Report data not found');
+            }
+            
+            $data = $reportData['data'];
+            
+            // If the dataset is very large (>500 entries), limit it for PDF to prevent memory issues
+            if (isset($data['entries']) && count($data['entries']) > 500) {
+                Log::info('Large dataset detected for PDF, limiting to 500 entries. Total: ' . count($data['entries']));
+                $data['entries'] = array_slice($data['entries'], 0, 500);
+                $data['total_entries_note'] = 'Showing first 500 entries of ' . $reportData['data']['total_entries'] . ' total entries';
+            }
+            
+            // Add filters to data for template - merge with existing filters if they exist
+            $data['filters'] = array_merge($data['filters'] ?? [], [
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+                'chart_of_account_id' => $request->input('chart_of_account_id'),
+                'sub_chart_of_account_id' => $request->input('sub_chart_of_account_id'),
+                'fiscal_year_id' => $request->input('fiscal_year_id'),
+                'accounting_period_id' => $request->input('accounting_period_id'),
+            ]);
+            
+            // Log the data structure for debugging
+            Log::info('Account Statement PDF Data Structure:', [
+                'has_chart_of_account' => isset($data['chart_of_account']),
+                'has_report_account' => isset($data['report_account']),
+                'has_summary' => isset($data['summary']),
+                'has_entries' => isset($data['entries']),
+                'entries_count' => isset($data['entries']) ? count($data['entries']) : 0,
+                'chart_of_account_keys' => isset($data['chart_of_account']) ? array_keys($data['chart_of_account']) : [],
+                'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
+            ]);
+            
+            // For debugging purposes, temporarily return HTML instead of PDF
+            if ($request->has('debug')) {
+                return view('pdf.account-statement', ['reportData' => $data]);
+            }
+            
+            // share data to view
+            view()->share('reportData', $data);
+            return $this->generatePDF('pdf.account-statement', $data, 'account-statement.pdf');
+            
+        } catch (\Exception $e) {
+            Log::error('Account Statement PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return error response
+            return response()->json([
+                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
         }
-        
-        // Add filters to data for template
-        $data['filters'] = [
-            'from_date' => $request->input('from_date'),
-            'to_date' => $request->input('to_date'),
-            'chart_of_account_id' => $request->input('chart_of_account_id'),
-            'sub_chart_of_account_id' => $request->input('sub_chart_of_account_id'),
-        ];
-        
-        // share data to view
-        view()->share('reportData', $data);
-        return $this->generatePDF('pdf.account-statement', $data, 'account-statement.pdf');
     }
 
     // return account statement excel

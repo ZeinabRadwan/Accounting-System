@@ -13,6 +13,7 @@ use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Facades\Log;
 
 class PrintController extends Controller
 {
@@ -308,6 +309,44 @@ class PrintController extends Controller
     }
 
     /**
+     * Print account statement report using selected template
+     */
+    public function printAccountStatement(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale('ar');
+        
+        // Use the dedicated print method that gets ALL data without pagination
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportResponse = $reportController->accountStatementForPrint($request);
+        
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+        
+        if (!$reportData['success']) {
+            abort(404, 'Report data not found');
+        }
+        
+        $accountStatementData = $reportData['data'];
+        
+        Log::info("Print Account Statement - Total entries: " . count($accountStatementData['entries']));
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        if (!$template) {
+            // Fallback to basic template if no print template is set
+            return view('print.account-statement-basic', compact('accountStatementData'));
+        }
+
+        return view('print.reports.account-statement', compact('accountStatementData', 'template'));
+    }
+
+    /**
      * Get template configuration for a specific module
      */
     private function getTemplateConfig($module)
@@ -446,7 +485,7 @@ class PrintController extends Controller
             
             return $pdf->download($filename);
         } catch (\Exception $e) {
-            \Log::warning('Snappy PDF generation failed: ' . $e->getMessage());
+            Log::warning('Snappy PDF generation failed: ' . $e->getMessage());
         }
 
         try {
@@ -456,7 +495,7 @@ class PrintController extends Controller
                 return $result['response'];
             }
         } catch (\Exception $e) {
-            \Log::warning('Puppeteer PDF generation failed: ' . $e->getMessage());
+            Log::warning('Puppeteer PDF generation failed: ' . $e->getMessage());
         }
 
         // Fallback to html2pdf
@@ -534,7 +573,7 @@ class PrintController extends Controller
             }
             
         } catch (\Exception $e) {
-            \Log::warning('Failed to convert logo to base64: ' . $e->getMessage());
+            Log::warning('Failed to convert logo to base64: ' . $e->getMessage());
         }
         
         return null;
@@ -769,9 +808,9 @@ class PrintController extends Controller
             $pattern = '/src="[^"]*\/images\/[^"]*\.(png|jpg|jpeg|gif)"/i';
             $html = preg_replace($pattern, 'src="' . $logoBase64 . '"', $html);
             
-            \Log::info('Logo converted to base64 successfully');
+            Log::info('Logo converted to base64 successfully');
         } else {
-            \Log::warning('Logo base64 conversion failed - no logo will be displayed');
+            Log::warning('Logo base64 conversion failed - no logo will be displayed');
         }
 
         return $this->generatePDF($html, 'Invoice-' . $invoice->invoice_no . '.pdf');
@@ -946,9 +985,9 @@ class PrintController extends Controller
             $pattern = '/src="[^"]*\/images\/[^"]*\.(png|jpg|jpeg|gif)"/i';
             $html = preg_replace($pattern, 'src="' . $logoBase64 . '"', $html);
             
-            \Log::info('Logo converted to base64 successfully');
+            Log::info('Logo converted to base64 successfully');
         } else {
-            \Log::warning('Logo base64 conversion failed - no logo will be displayed');
+            Log::warning('Logo base64 conversion failed - no logo will be displayed');
         }
 
         return $this->generatePDF($html, 'Purchase-' . $purchase->purchase_no . '.pdf');
@@ -1121,9 +1160,9 @@ class PrintController extends Controller
             $pattern = '/src="[^"]*\/images\/[^"]*\.(png|jpg|jpeg|gif)"/i';
             $html = preg_replace($pattern, 'src="' . $logoBase64 . '"', $html);
             
-            \Log::info('Logo converted to base64 successfully');
+            Log::info('Logo converted to base64 successfully');
         } else {
-            \Log::warning('Logo base64 conversion failed - no logo will be displayed');
+            Log::warning('Logo base64 conversion failed - no logo will be displayed');
         }
 
         return $this->generatePDF($html, 'Quotation-' . $quotation->quotation_no . '.pdf');
