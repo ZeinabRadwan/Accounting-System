@@ -1,18 +1,12 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
+  <div class="mb-50">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t("Create adjustment") }}
-            </h3>
-            <router-link :to="{ name: 'adjustments.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -148,13 +142,18 @@
               </div>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t("Save") }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t("Reset") }}
-              </button>
+            <div class="card-footer d-flex justify-content-between">
+              <router-link :to="{ name: 'adjustments.index' }" class="btn btn-secondary">
+                <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+              </router-link>
+              <div>
+                <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                  <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                </button>
+                <v-button :loading="form.busy" class="btn btn-primary">
+                  <i class="fas fa-save" /> {{ $t("Save") }}
+                </v-button>
+              </div>
             </div>
           </form>
         </div>
@@ -295,3 +294,258 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Form Control Styling */
+.form-control {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+/* Form Group Labels */
+.form-group label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.required {
+  color: #DC3545;
+  font-weight: bold;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-secondary {
+  background: #6C757D !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #5A6268 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+.btn-danger {
+  background: #DC3545 !important;
+  color: white !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-danger:hover {
+  background: #C82333 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-warning {
+  background: #FFC107 !important;
+  color: #212529 !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  border: none !important;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+/* Invalid Form Control */
+.is-invalid {
+  border-color: #DC3545 !important;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* V-Select Styling */
+.v-select {
+  background: #F1F5FB !important;
+}
+
+.v-select .vs__dropdown-toggle {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
+}
+
+.v-select .vs__dropdown-toggle:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25) !important;
+}
+
+.v-select.is-invalid .vs__dropdown-toggle {
+  border-color: #DC3545 !important;
+}
+
+/* Table Styling */
+.table-custom {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table-custom thead th {
+  background-color: #F8F9FA;
+  border-bottom: 2px solid #E5E7EB;
+  font-weight: 600;
+  color: #374151;
+  padding: 12px 16px;
+}
+
+.table-custom tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  vertical-align: middle;
+}
+
+.table-custom tbody tr:hover {
+  background-color: #F8F9FA;
+}
+
+/* Custom Quantity Input Styling */
+.custom-qty-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #F1F5FB;
+}
+
+.custom-qty-input .button-minus,
+.custom-qty-input .button-plus {
+  background: #6C757D;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.custom-qty-input .button-minus:hover {
+  background: #5A6268;
+}
+
+.custom-qty-input .button-plus {
+  background: #33a0d9;
+}
+
+.custom-qty-input .button-plus:hover {
+  background: #2a8bc7;
+}
+
+.custom-qty-input .quantity-field {
+  background: #F1F5FB;
+  border: none;
+  text-align: center;
+  padding: 8px 12px;
+  min-width: 60px;
+  font-weight: 500;
+}
+
+.custom-qty-input .quantity-field:focus {
+  outline: none;
+  background: white;
+}
+
+/* Row Spacing */
+.row {
+  margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-footer .btn {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+  
+  .card-footer div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .table-custom {
+    font-size: 12px;
+  }
+  
+  .custom-qty-input {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .custom-qty-input .button-minus,
+  .custom-qty-input .button-plus {
+    width: 100%;
+    margin: 2px 0;
+  }
+}
+</style>

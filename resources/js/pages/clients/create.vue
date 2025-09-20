@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-    
+  <div class="mb-50">
     <!-- Chart of Account Warning Alert - Same as edit form -->
     <div class="chart-account-warning" v-if="showWarning">
       <div class="warning-content">
@@ -19,12 +15,11 @@
     
     <div class="row">
       <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">{{ $t("Create Client") }}</h3>
-            <router-link :to="{ name: 'clients.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -35,15 +30,20 @@
           />
           
           <!-- /.card-body -->
-          <div class="card-footer">
-            <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
-              <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
-              <i v-else class="fas fa-save"></i> 
-              {{ isSubmitting ? $t("Saving...") : $t("Save") }}
-            </button>
-            <button type="reset" class="btn btn-secondary float-right" @click="resetForm">
-              <i class="fas fa-power-off" /> {{ $t("Reset") }}
-            </button>
+          <div class="card-footer d-flex justify-content-between">
+            <router-link :to="{ name: 'clients.index' }" class="btn btn-secondary">
+              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+            </router-link>
+            <div>
+              <button type="reset" class="btn btn-secondary" @click="resetForm">
+                <i class="fas fa-power-off" /> {{ $t("Reset") }}
+              </button>
+              <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
+                <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
+                <i v-else class="fas fa-save"></i> 
+                {{ isSubmitting ? $t("Saving...") : $t("Save") }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -137,6 +137,71 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #6C757D !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: #6C757D !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #5A6268 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
 /* Chart of Account Warning Alert Styles - Same as edit form */
 .chart-account-warning {
   margin-bottom: 20px;
@@ -177,8 +242,25 @@ export default {
   color: #856404;
 }
 
-/* Responsive design */
+/* Responsive adjustments */
 @media (max-width: 768px) {
+  .card-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-footer .btn {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+  
+  .card-footer div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
   .warning-content {
     flex-direction: column;
     text-align: center;

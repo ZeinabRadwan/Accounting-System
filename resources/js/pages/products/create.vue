@@ -1,18 +1,12 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
+  <div class="mb-50">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t('Create Item') }}
-            </h3>
-            <router-link :to="{ name: 'products.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -304,13 +298,18 @@
 
               </div>
             </div>
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
-                <i class="fas fa-save" /> {{ $t('Save') }}
-              </v-button>
-              <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t('Reset') }}
-              </button>
+            <div class="card-footer d-flex justify-content-between">
+              <router-link :to="{ name: 'products.index' }" class="btn btn-secondary">
+                <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+              </router-link>
+              <div>
+                <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                  <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                </button>
+                <v-button :loading="form.busy" class="btn btn-primary">
+                  <i class="fas fa-save" /> {{ $t('Save') }}
+                </v-button>
+              </div>
             </div>
           </form>
         </div>
@@ -630,12 +629,197 @@ export default {
 }
 </script>
 
+<style scoped>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
 
-<style>
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Form Control Styling */
+.form-control {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+/* Form Group Labels */
+.form-group label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.required {
+  color: #DC3545;
+  font-weight: bold;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-secondary {
+  background: #6C757D !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #5A6268 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* Invalid Form Control */
+.is-invalid {
+  border-color: #DC3545 !important;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* V-Select Styling */
+.v-select {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+}
+
+.v-select .vs__dropdown-toggle {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+.v-select .vs__search::placeholder {
+  color: #6B7280;
+}
+
+.v-select .vs__selected {
+  color: #374151;
+}
+
+.v-select .vs__dropdown-menu {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom File Input Styling */
+.custom-file-input {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+.custom-file-label {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: #374151;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+/* Image Preview Styling */
+.bg-light {
+  background-color: #F8F9FA !important;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #E5E7EB;
+}
+
+.img-fluid {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Form Check Styling */
+.form-check-input {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+}
+
+.form-check-input:checked {
+  background-color: #2AB930 !important;
+  border-color: #2AB930 !important;
+}
+
+.form-check-label {
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Input Group Styling */
+.input-group-text {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Button Group Toggle Styling */
 .btn-outline-custom {
   color: #1B3C71;
   border-color: #1B3C71;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-weight: 500;
 }
 
 .btn-outline-custom:hover,
@@ -645,21 +829,38 @@ export default {
   border-color: #1B3C71;
 }
 
-h1, h2 {
-  font-weight: normal;
+/* Row Spacing */
+.row {
+  margin-bottom: 1rem;
 }
- 
-ul {
-  list-style-type: none;
-  padding: 0;
+
+/* Form Text Styling */
+.form-text {
+  color: #6B7280;
+  font-size: 0.875rem;
 }
- 
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.text-muted {
+  color: #6B7280 !important;
 }
- 
-a {
-  color: #42b983;
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-footer .btn {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+  
+  .card-footer div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 </style> 

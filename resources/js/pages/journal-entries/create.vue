@@ -1,29 +1,13 @@
 <template>
-  <div class="container-fluid">
-    <!-- Page Header -->
-    <div class="page-header">
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="page-title">{{ $t('Create Journal Entry') }}</h3>
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item">
-              <router-link to="/home">{{ $t('Dashboard') }}</router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/journal-entries">{{ $t('Journal Entries') }}</router-link>
-            </li>
-            <li class="breadcrumb-item active">{{ $t('Create') }}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
+  <div class="mb-50">
     <!-- Journal Entry Form -->
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">{{ $t('Journal Entry Details') }}</h4>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
           <div class="card-body">
             <form @submit.prevent="saveJournalEntry">
@@ -205,18 +189,19 @@
               </div>
 
               <!-- Form Actions -->
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary" :disabled="!isBalanced || loading">
-                      <i v-if="loading" class="fa fa-spinner fa-spin"></i>
-                      <i v-else class="fa fa-save"></i>
-                      {{ loading ? $t('Saving...') : $t('Save') }}
-                    </button>
-                    <router-link to="/journal-entries" class="btn btn-secondary ml-2">
-                      <i class="fa fa-times"></i> {{ $t('Cancel') }}
-                    </router-link>
-                  </div>
+              <div class="card-footer d-flex justify-content-between">
+                <router-link to="/journal-entries" class="btn btn-secondary">
+                  <i class="fas fa-long-arrow-alt-left"></i> {{ $t('Back') }}
+                </router-link>
+                <div>
+                  <button type="button" class="btn btn-secondary" @click="resetForm">
+                    <i class="fas fa-power-off"></i> {{ $t('Reset') }}
+                  </button>
+                  <button type="submit" class="btn btn-primary" :disabled="!isBalanced || loading">
+                    <i v-if="loading" class="fa fa-spinner fa-spin"></i>
+                    <i v-else class="fa fa-save"></i>
+                    {{ loading ? $t('Saving...') : $t('Save') }}
+                  </button>
                 </div>
               </div>
             </form>
@@ -239,6 +224,21 @@ export default {
   },
   data() {
     return {
+      breadcrumbsCurrent: 'Create Journal Entry',
+      breadcrumbs: [
+        {
+          name: 'Dashboard',
+          url: 'home',
+        },
+        {
+          name: 'Journal Entries',
+          url: 'journal-entries.index',
+        },
+        {
+          name: 'Create',
+          url: '',
+        },
+      ],
       form: {
         entry_date: new Date().toISOString().split('T')[0],
         reference: '',
@@ -413,32 +413,255 @@ export default {
         style: 'currency',
         currency: 'USD'
       }).format(amount)
+    },
+
+    resetForm() {
+      this.form = {
+        entry_date: new Date().toISOString().split('T')[0],
+        reference: '',
+        description: '',
+        status: 'draft',
+        lines: [
+          {
+            chart_of_account_id: '',
+            description: '',
+            reference: '',
+            debit_amount: '',
+            credit_amount: '',
+            line_number: 1
+          },
+          {
+            chart_of_account_id: '',
+            description: '',
+            reference: '',
+            debit_amount: '',
+            credit_amount: '',
+            line_number: 2
+          }
+        ]
+      }
+      this.errors = {}
     }
   }
 }
 </script>
 
 <style scoped>
-.page-header {
-  margin-bottom: 20px;
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
 }
 
-.breadcrumb {
-  background: none;
-  padding: 0;
-  margin: 0;
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-  content: ">";
+.card-body {
+  padding: 1.25rem;
 }
 
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Form Control Styling */
+.form-control {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+/* Form Group Labels */
+.form-group label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.text-danger {
+  color: #DC3545 !important;
+  font-weight: bold;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #6C757D !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: #6C757D !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #5A6268 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+.btn-danger {
+  background: #DC3545 !important;
+  color: white !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-danger:hover {
+  background: #C82333 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Invalid Form Control */
+.is-invalid {
+  border-color: #DC3545 !important;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* V-Select Styling */
+.v-select {
+  background: #F1F5FB !important;
+}
+
+.v-select .vs__dropdown-toggle {
+  background: #F1F5FB !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
+}
+
+.v-select .vs__dropdown-toggle:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25) !important;
+}
+
+.v-select.is-invalid .vs__dropdown-toggle {
+  border-color: #DC3545 !important;
+}
+
+/* Alert Styling */
+.alert {
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 1px solid transparent;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffeaa7;
+  color: #856404;
+}
+
+/* Table Styling */
 .table th {
   background-color: #f8f9fa;
   font-weight: 600;
+  border-bottom: 2px solid #E5E7EB;
+  color: #374151;
+  padding: 12px 16px;
 }
 
+.table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background-color: #F8F9FA;
+}
+
+/* Invalid Feedback */
 .invalid-feedback {
   display: block;
+  color: #DC3545;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Form Text */
+.form-text {
+  font-size: 12px;
+  color: #6C757D;
+  margin-top: 5px;
+}
+
+/* Row Spacing */
+.row {
+  margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-footer .btn {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+  
+  .card-footer div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 </style>
