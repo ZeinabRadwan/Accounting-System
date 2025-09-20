@@ -159,10 +159,13 @@
                   <has-error :form="form" field="paymentDate" />
                 </div>
                 <div class="form-group col-md-3">
-                  <label for="status">{{ $t("Status") }}</label>
+                  <label for="status">{{ $t("Status") }}
+                    <small v-if="hasInactiveInvoice" class="text-muted ml-2">({{ $t("Cannot be changed when invoice is inactive") }})</small>
+                  </label>
                   <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
-                    <option value="1">{{ $t("Active") }}</option>
+                    :class="{ 'is-invalid': form.errors.has('status') }"
+                    :disabled="hasInactiveInvoice">
+                    <option v-if="!hasInactiveInvoice" value="1">{{ $t("Active") }}</option>
                     <option value="0">{{ $t("Inactive") }}</option>
                   </select>
                   <has-error :form="form" field="status" />
@@ -256,6 +259,10 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+    // Check if any selected invoice has status 0 (inactive)
+    hasInactiveInvoice() {
+      return this.form.selectedInvoices.some(invoice => invoice.status === 0);
+    },
   },
   created() {
     this.getClients();
@@ -318,7 +325,13 @@ export default {
           maxAmount: invoice.due,
           paidAmount: 1,
           note: "",
+          status: invoice.status, // Include invoice status
         });
+        
+        // Set payment status based on invoice status
+        if (invoice.status === 0) {
+          this.form.status = 0; // Set payment to inactive if invoice is inactive
+        }
       }
       return true;
     },

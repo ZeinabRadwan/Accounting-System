@@ -148,6 +148,14 @@
                   >
                     <i class="fas fa-file-export"></i>
                   </a>
+                  <a 
+                    v-if="reportData && entriesCount > 0" 
+                    :href="printTemplateUrl" 
+                    target="_blank" 
+                    class="btn btn-primary ml-2"
+                  >
+                    <i class="fas fa-print"></i> {{ $t("Print with Template") }}
+                  </a>
                 </div>
               </div>
             </form>
@@ -434,6 +442,29 @@ export default {
         params.append('to_date', this.filters.toDate);
       }
       return `/account-statement/pdf?${params.toString()}`;
+    },
+    
+    printTemplateUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccount) {
+        params.append('chart_of_account_id', this.filters.chartOfAccount);
+      }
+      if (this.filters.subChartOfAccount) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return `/print/reports/account-statement?${params.toString()}`;
     },
     
     ...mapGetters({

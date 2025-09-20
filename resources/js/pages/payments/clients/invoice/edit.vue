@@ -47,10 +47,12 @@
               <div class="row" v-if="accounts">
                 <div class="form-group col-md-6">
                   <label for="account">{{ $t('Account') }}
-                    <span class="required">*</span></label>
+                    <span class="required">*</span>
+                    <small v-if="isPaymentActive" class="text-muted ml-2">({{ $t('Cannot be changed when payment is active') }})</small>
+                  </label>
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')">
+                    :placeholder="$t('Select an account')" :disabled="isPaymentActive">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
@@ -62,49 +64,60 @@
                   <label for="chequeNo">{{ $t('Cheque No') }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
-                    :placeholder="$t('Enter a cheque number')" />
+                    :placeholder="$t('Enter a cheque number')" :disabled="isPaymentActive" />
                   <has-error :form="form" field="chequeNo" />
                 </div>
                 <div class="form-group col-md-3">
                   <label for="receiptNo">{{ $t('Receipt No') }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
-                    :placeholder="$t('Enter a receipt no')" />
+                    :placeholder="$t('Enter a receipt no')" :disabled="isPaymentActive" />
                   <has-error :form="form" field="receiptNo" />
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="paidAmount">{{ $t('Paid Amount') }}
-                    <span class="required">*</span></label>
+                    <span class="required">*</span>
+                    <small v-if="isPaymentActive" class="text-muted ml-2">({{ $t('Cannot be changed when payment is active') }})</small>
+                  </label>
                   <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" :max="form.maxAmount"
                     :min="form.minAmount" :placeholder="$t('Enter an amount')" @change="calculateDue"
-                    @keyup="calculateDue" />
+                    @keyup="calculateDue" :disabled="isPaymentActive" />
                   <has-error :form="form" field="paidAmount" />
                 </div>
                 <div class="form-group col-md-4">
                   <label for="paymentDate">{{
                     $t('Payment Date')
-                  }}</label>
+                  }}
+                    <small v-if="isPaymentActive" class="text-info ml-2">({{ $t('Only editable field when payment is active') }})</small>
+                  </label>
                   <input id="paymentDate" v-model="form.paymentDate" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paymentDate') }" name="paymentDate" />
                   <has-error :form="form" field="paymentDate" />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="status">{{ $t('Status') }}</label>
-                  <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
+                  <label for="status">{{ $t('Status') }}
+                    <small v-if="isPaymentActive" class="text-muted ml-2">({{ $t('Cannot be changed when payment is active') }})</small>
+                    <small v-else-if="form.invoice && form.invoice.status === 0" class="text-muted ml-2">({{ $t('Cannot be changed when invoice is inactive') }})</small>
+                  </label>
+                  <select id="status" v-model.number="form.status" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('status') }"
+                    :disabled="(form.invoice && form.invoice.status === 0) || isPaymentActive">
+                    <option v-if="!form.invoice || form.invoice.status === 1" :value="1">{{ $t('Active') }}</option>
+                    <option :value="0">{{ $t('Inactive') }}</option>
                   </select>
                   <has-error :form="form" field="status" />
+                  <!-- Debug info - remove in production -->
+                  <small class="text-info">Debug: Status={{ form.status }}, isPaymentActive={{ isPaymentActive }}, invoiceStatus={{ form.invoice ? form.invoice.status : 'N/A' }}</small>
                 </div>
               </div>
               <div class="form-group">
                 <label for="note">{{ $t('Note') }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" 
+                  :disabled="isPaymentActive" />
                 <has-error :form="form" field="note" />
               </div>
             </div>
@@ -175,6 +188,10 @@ export default {
   }),
   computed: {
     ...mapGetters('operations', ['items']),
+    // Check if payment status is active
+    isPaymentActive() {
+      return this.form.status == 1; // Use == instead of === to handle string/number comparison
+    },
   },
   created() {
     this.getAccounts()
@@ -214,7 +231,19 @@ export default {
       this.form.receiptNo = data.data.transaction.receipt_no
       this.form.paymentDate = data.data.date
       this.form.note = data.data.note
-      this.form.status = data.data.status
+      this.form.status = parseInt(data.data.status) // Ensure status is a number
+      
+      // Check if payment is cancelled - redirect if so
+      if (this.form.status === 2) {
+        this.$router.push({ name: 'invoicePayments.index' })
+        this.$toastr.error(this.$t('Cannot edit cancelled payment'))
+        return
+      }
+      
+      // Set payment status based on invoice status if invoice is inactive
+      if (data.data.invoice.status === 0) {
+        this.form.status = 0
+      }
     },
 
     // calculate due

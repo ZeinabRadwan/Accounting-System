@@ -43,6 +43,10 @@ class AccountStatementPermissionSeeder extends Seeder
         }
 
 
+        
+      
+
+
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         
         // Give admin role all journal permissions

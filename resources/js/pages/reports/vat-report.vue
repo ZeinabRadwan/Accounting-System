@@ -139,6 +139,15 @@
           >
             <i class="fas fa-file-pdf"></i>
           </a>
+          <a 
+            v-if="reportData && reportData.summary" 
+            :href="printTemplateUrl" 
+            target="_blank" 
+            v-tooltip="$t('Print with Template')" 
+            class="btn btn-tool"
+          >
+            <i class="fas fa-print"></i>
+          </a>
         </div>
         </div>
         <div class="card-body">
@@ -471,6 +480,26 @@ export default {
         params.append('to_date', this.filters.toDate);
       }
       return `/vat-report/pdf?${params.toString()}`;
+    },
+    
+    printTemplateUrl() {
+      // Create a dynamic print template URL for VAT report with current filters
+      const params = new URLSearchParams();
+      
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      return `/print/reports/vat-report?${params.toString()}`;
     },
   },
   

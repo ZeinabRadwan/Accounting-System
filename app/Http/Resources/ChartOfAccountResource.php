@@ -40,7 +40,13 @@ class ChartOfAccountResource extends JsonResource
             // Keep old formatted fields for backward compatibility
             'formatted_balance' => number_format($this->getBalance(), 2),
             'formatted_total_balance' => number_format($this->getTotalBalance(), 2),
-            // Include relationships
+            // Include relationships (expose as both 'type' and 'types' for compatibility)
+            'type' => $this->whenLoaded('type', function() {
+                return [
+                    'id' => $this->type->id,
+                    'name' => $this->type->name,
+                ];
+            }),
             'types' => $this->whenLoaded('type', function() {
                 return [
                     'id' => $this->type->id,

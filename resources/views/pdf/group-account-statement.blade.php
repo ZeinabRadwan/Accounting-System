@@ -1,19 +1,57 @@
 @extends('pdf')
 
+@section('page-style')
+    <style>
+        body {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .currency-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        /* Fix for riyal symbol display */
+        .riyal-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .table-listing th, .table-listing td {
+            text-align: center;
+        }
+    </style>
+@endsection
+
 @section('content-area')
-    <h3>@lang('Group Account Statement')</h3>
+    @php
+        // Custom currency formatter for PDF to fix riyal symbol display
+        function formatPdfCurrency($amount) {
+            $currencySymbol = config('config.currencySymbol');
+            $currencyPosition = config('config.currencyPosition');
+            $formattedAmount = number_format($amount, 2, '.', ',');
+            
+            // Replace the problematic 'ê' with proper riyal symbol
+            if ($currencySymbol === 'ê') {
+                $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
+            }
+            
+            if ($currencyPosition == 'left') {
+                return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
+            } else {
+                return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
+            }
+        }
+    @endphp
+    
+    <h3>@lang('print.Group Account Statement')</h3>
     
     @if(isset($reportData['chart_of_accounts']) && count($reportData['chart_of_accounts']) > 0)
         <div class="row mb-4">
             <div class="col-md-12">
-                <h5>@lang('Selected Accounts')</h5>
+                <h5>@lang('print.Selected Accounts')</h5>
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr>
-                                <th>@lang('Code')</th>
-                                <th>@lang('Name')</th>
-                                <th>@lang('Type')</th>
+                                <th>@lang('print.Code')</th>
+                                <th>@lang('print.Name')</th>
+                                <th>@lang('print.Type')</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,24 +81,40 @@
     @if(isset($reportData['summary']))
         <div class="row mb-4">
             <div class="col-md-12">
-                <h5>@lang('Summary')</h5>
+                <h5>@lang('print.Summary')</h5>
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm">
                         <tr>
-                            <td><strong>@lang('Total Opening Balance')</strong></td>
-                            <td>@currency($reportData['summary']['total_opening_balance'] ?? 0) {{ $reportData['summary']['total_opening_balance_type'] ?? '' }}</td>
+                            <td><strong>@lang('print.Opening Balance')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['opening_balance'] ?? 0) !!} 
+                                @if(($reportData['summary']['opening_balance_type'] ?? '') === 'Debit')
+                                    @lang('print.Debit')
+                                @elseif(($reportData['summary']['opening_balance_type'] ?? '') === 'Credit')
+                                    @lang('print.Credit')
+                                @else
+                                    {{ $reportData['summary']['opening_balance_type'] ?? '' }}
+                                @endif
+                            </td>
                         </tr>
                         <tr>
-                            <td><strong>@lang('Total Period Debits')</strong></td>
-                            <td>@currency($reportData['summary']['total_period_debits'] ?? 0)</td>
+                            <td><strong>@lang('print.Period Debits')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['period_debits'] ?? 0) !!}</td>
                         </tr>
                         <tr>
-                            <td><strong>@lang('Total Period Credits')</strong></td>
-                            <td>@currency($reportData['summary']['total_period_credits'] ?? 0)</td>
+                            <td><strong>@lang('print.Period Credits')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['period_credits'] ?? 0) !!}</td>
                         </tr>
                         <tr>
-                            <td><strong>@lang('Total Closing Balance')</strong></td>
-                            <td>@currency($reportData['summary']['total_closing_balance'] ?? 0) {{ $reportData['summary']['total_closing_balance_type'] ?? '' }}</td>
+                            <td><strong>@lang('print.Closing Balance')</strong></td>
+                            <td>{!! formatPdfCurrency($reportData['summary']['closing_balance'] ?? 0) !!} 
+                                @if(($reportData['summary']['closing_balance_type'] ?? '') === 'Debit')
+                                    @lang('print.Debit')
+                                @elseif(($reportData['summary']['closing_balance_type'] ?? '') === 'Credit')
+                                    @lang('print.Credit')
+                                @else
+                                    {{ $reportData['summary']['closing_balance_type'] ?? '' }}
+                                @endif
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -73,12 +127,12 @@
             <table class="table-listing table table-bordered table-striped table-sm">
                 <thead class="thead-light">
                     <tr>
-                        <th>@lang('#')</th>
-                        <th>@lang('Date')</th>
-                        <th>@lang('Account')</th>
-                        <th>@lang('Particulars')</th>
-                        <th>@lang('Debit')</th>
-                        <th>@lang('Credit')</th>
+                        <th>@lang('print.Row Number')</th>
+                        <th>@lang('print.Date')</th>
+                        <th>@lang('print.Account')</th>
+                        <th>@lang('print.Description')</th>
+                        <th>@lang('print.Debit')</th>
+                        <th>@lang('print.Credit')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,8 +144,8 @@
                                     <td>{{ \Carbon\Carbon::parse($entry['entry_date'])->format('d-M-Y') }}</td>
                                     <td>{{ $accountEntry['code'] ?? '' }}</td>
                                     <td>{{ $entry['description'] ?? '' }}</td>
-                                    <td>@currency($accountEntry['debit'] ?? 0)</td>
-                                    <td>@currency($accountEntry['credit'] ?? 0)</td>
+                                    <td>{!! formatPdfCurrency($accountEntry['debit'] ?? 0) !!}</td>
+                                    <td>{!! formatPdfCurrency($accountEntry['credit'] ?? 0) !!}</td>
                                 </tr>
                             @endforeach
                         @else
@@ -100,8 +154,8 @@
                                 <td>{{ \Carbon\Carbon::parse($entry['entry_date'])->format('d-M-Y') }}</td>
                                 <td>{{ $entry['account_code'] ?? '' }}</td>
                                 <td>{{ $entry['description'] ?? '' }}</td>
-                                <td>@currency($entry['debit_amount'] ?? 0)</td>
-                                <td>@currency($entry['credit_amount'] ?? 0)</td>
+                                <td>{!! formatPdfCurrency($entry['debit_amount'] ?? 0) !!}</td>
+                                <td>{!! formatPdfCurrency($entry['credit_amount'] ?? 0) !!}</td>
                             </tr>
                         @endif
                     @endforeach
@@ -110,7 +164,7 @@
         </div>
     @else
         <div class="alert alert-info">
-            @lang('No entries found for the selected accounts and period.')
+            @lang('print.No entries found for the selected period.')
         </div>
     @endif
 @endsection

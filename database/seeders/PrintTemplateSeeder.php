@@ -26,6 +26,7 @@ class PrintTemplateSeeder extends Seeder
         $this->createPurchaseTemplates();
         $this->createQuotationTemplates();
         $this->createExpenseTemplates();
+        $this->createReportsTemplates();
         
         if ($this->command) {
             $this->command->info('Print templates updated successfully!');
@@ -3163,5 +3164,553 @@ class PrintTemplateSeeder extends Seeder
     private function getExpenseMinimalCSS()
     {
         return str_replace('#1f2937', '#7c3aed', $this->getSaudiMinimalCSS());
+    }
+
+    private function createReportsTemplates()
+    {
+        // Template 1: Reports Professional (Default)
+        PrintTemplate::create([
+            'name' => 'reports_professional',
+            'module' => 'reports',
+            'template_key' => 'reports_professional',
+            'display_name' => 'Reports Professional',
+            'description' => 'Professional design for accounting reports with clean layout',
+            'is_default' => true,
+            'is_active' => true,
+            'template_config' => [
+                'colors' => [
+                    'primary' => '#1e40af',
+                    'secondary' => '#374151',
+                    'accent' => '#f0f9ff',
+                    'background' => '#ffffff'
+                ],
+                'typography' => [
+                    'fontFamily' => 'Inter, Arial, sans-serif',
+                    'baseFontSize' => 12,
+                    'headerFontSize' => 20
+                ],
+                'layout' => [
+                    'paperSize' => 'A4',
+                    'orientation' => 'portrait',
+                    'margins' => 20
+                ],
+                'elements' => [
+                    'showLogo' => true,
+                    'showCompanyInfo' => true,
+                    'showReportTitle' => true,
+                    'showPeriod' => true,
+                    'showGeneratedDate' => true,
+                    'showDataTable' => true,
+                    'showTotals' => true,
+                    'showFooter' => true
+                ]
+            ],
+            'html_template' => $this->getReportsProfessionalTemplate(),
+            'css_styles' => $this->getReportsProfessionalCSS(),
+            'preview_data' => $this->getReportsPreviewData(),
+            'sort_order' => 1,
+        ]);
+
+        // Template 2: Reports Corporate
+        PrintTemplate::create([
+            'name' => 'reports_corporate',
+            'module' => 'reports',
+            'template_key' => 'reports_corporate',
+            'display_name' => 'Reports Corporate',
+            'description' => 'Corporate design for formal accounting reports',
+            'is_default' => false,
+            'is_active' => true,
+            'template_config' => [
+                'colors' => [
+                    'primary' => '#0f172a',
+                    'secondary' => '#475569',
+                    'accent' => '#f8fafc',
+                    'background' => '#ffffff'
+                ],
+                'typography' => [
+                    'fontFamily' => 'Inter, Arial, sans-serif',
+                    'baseFontSize' => 12,
+                    'headerFontSize' => 22
+                ],
+                'layout' => [
+                    'paperSize' => 'A4',
+                    'orientation' => 'portrait',
+                    'margins' => 25
+                ],
+                'elements' => [
+                    'showLogo' => true,
+                    'showCompanyInfo' => true,
+                    'showReportTitle' => true,
+                    'showPeriod' => true,
+                    'showGeneratedDate' => true,
+                    'showDataTable' => true,
+                    'showTotals' => true,
+                    'showFooter' => true
+                ]
+            ],
+            'html_template' => $this->getReportsCorporateTemplate(),
+            'css_styles' => $this->getReportsCorporateCSS(),
+            'preview_data' => $this->getReportsPreviewData(),
+            'sort_order' => 2,
+        ]);
+
+        // Template 3: Reports Modern
+        PrintTemplate::create([
+            'name' => 'reports_modern',
+            'module' => 'reports',
+            'template_key' => 'reports_modern',
+            'display_name' => 'Reports Modern',
+            'description' => 'Modern design for contemporary accounting reports',
+            'is_default' => false,
+            'is_active' => true,
+            'template_config' => [
+                'colors' => [
+                    'primary' => '#059669',
+                    'secondary' => '#374151',
+                    'accent' => '#ecfdf5',
+                    'background' => '#ffffff'
+                ],
+                'typography' => [
+                    'fontFamily' => 'Inter, Arial, sans-serif',
+                    'baseFontSize' => 12,
+                    'headerFontSize' => 20
+                ],
+                'layout' => [
+                    'paperSize' => 'A4',
+                    'orientation' => 'portrait',
+                    'margins' => 20
+                ],
+                'elements' => [
+                    'showLogo' => true,
+                    'showCompanyInfo' => true,
+                    'showReportTitle' => true,
+                    'showPeriod' => true,
+                    'showGeneratedDate' => true,
+                    'showDataTable' => true,
+                    'showTotals' => true,
+                    'showFooter' => true
+                ]
+            ],
+            'html_template' => $this->getReportsModernTemplate(),
+            'css_styles' => $this->getReportsModernCSS(),
+            'preview_data' => $this->getReportsPreviewData(),
+            'sort_order' => 3,
+        ]);
+
+        // Template 4: Reports Classic
+        PrintTemplate::create([
+            'name' => 'reports_classic',
+            'module' => 'reports',
+            'template_key' => 'reports_classic',
+            'display_name' => 'Reports Classic',
+            'description' => 'Classic design for traditional accounting reports',
+            'is_default' => false,
+            'is_active' => true,
+            'template_config' => [
+                'colors' => [
+                    'primary' => '#7c2d12',
+                    'secondary' => '#374151',
+                    'accent' => '#fef3c7',
+                    'background' => '#ffffff'
+                ],
+                'typography' => [
+                    'fontFamily' => 'Times New Roman, serif',
+                    'baseFontSize' => 12,
+                    'headerFontSize' => 18
+                ],
+                'layout' => [
+                    'paperSize' => 'A4',
+                    'orientation' => 'portrait',
+                    'margins' => 25
+                ],
+                'elements' => [
+                    'showLogo' => true,
+                    'showCompanyInfo' => true,
+                    'showReportTitle' => true,
+                    'showPeriod' => true,
+                    'showGeneratedDate' => true,
+                    'showDataTable' => true,
+                    'showTotals' => true,
+                    'showFooter' => true
+                ]
+            ],
+            'html_template' => $this->getReportsClassicTemplate(),
+            'css_styles' => $this->getReportsClassicCSS(),
+            'preview_data' => $this->getReportsPreviewData(),
+            'sort_order' => 4,
+        ]);
+
+        // Template 5: Reports Minimal
+        PrintTemplate::create([
+            'name' => 'reports_minimal',
+            'module' => 'reports',
+            'template_key' => 'reports_minimal',
+            'display_name' => 'Reports Minimal',
+            'description' => 'Minimal design for clean accounting reports',
+            'is_default' => false,
+            'is_active' => true,
+            'template_config' => [
+                'colors' => [
+                    'primary' => '#1f2937',
+                    'secondary' => '#6b7280',
+                    'accent' => '#f9fafb',
+                    'background' => '#ffffff'
+                ],
+                'typography' => [
+                    'fontFamily' => 'Inter, Arial, sans-serif',
+                    'baseFontSize' => 12,
+                    'headerFontSize' => 18
+                ],
+                'layout' => [
+                    'paperSize' => 'A4',
+                    'orientation' => 'portrait',
+                    'margins' => 20
+                ],
+                'elements' => [
+                    'showLogo' => false,
+                    'showCompanyInfo' => true,
+                    'showReportTitle' => true,
+                    'showPeriod' => true,
+                    'showGeneratedDate' => true,
+                    'showDataTable' => true,
+                    'showTotals' => true,
+                    'showFooter' => false
+                ]
+            ],
+            'html_template' => $this->getReportsMinimalTemplate(),
+            'css_styles' => $this->getReportsMinimalCSS(),
+            'preview_data' => $this->getReportsPreviewData(),
+            'sort_order' => 5,
+        ]);
+    }
+
+    // Reports Preview Data
+    private function getReportsPreviewData()
+    {
+        return [
+            'report_type' => 'Balance Sheet',
+            'report_title' => 'Balance Sheet Report',
+            'period' => now()->format('Y-m-d') . ' to ' . now()->addDays(30)->format('Y-m-d'),
+            'generated_date' => now()->format('Y-m-d H:i:s'),
+            'company' => [
+                'name' => 'Sample Company',
+                'address' => '123 Business St, City, State 12345',
+                'phone' => '+1 234 567 8900',
+                'email' => 'info@sample.com'
+            ],
+            'data' => [
+                'assets' => [
+                    ['name' => 'Cash', 'code' => '1001', 'balance' => 50000.00],
+                    ['name' => 'Accounts Receivable', 'code' => '1002', 'balance' => 25000.00],
+                    ['name' => 'Inventory', 'code' => '1003', 'balance' => 15000.00]
+                ],
+                'liabilities' => [
+                    ['name' => 'Accounts Payable', 'code' => '2001', 'balance' => 20000.00],
+                    ['name' => 'Accrued Expenses', 'code' => '2002', 'balance' => 5000.00]
+                ],
+                'equity' => [
+                    ['name' => 'Owner Equity', 'code' => '3001', 'balance' => 65000.00]
+                ]
+            ],
+            'totals' => [
+                'total_assets' => 90000.00,
+                'total_liabilities' => 25000.00,
+                'total_equity' => 65000.00
+            ]
+        ];
+    }
+
+    // Reports Template Methods
+    private function getReportsProfessionalTemplate()
+    {
+        return '
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>{{ report_title }}</title>
+        </head>
+        <body>
+            <div class="report-container">
+                <div class="report-header">
+                    <div class="company-info">
+                        <img src="{{ company.logo_url }}" alt="Company Logo" class="logo-img">
+                        <div class="company-details">
+                            <h1 class="company-name">{{ company.name }}</h1>
+                            <p class="company-address">{{ company.address }}</p>
+                            <p class="company-contact">{{ company.phone }} | {{ company.email }}</p>
+                        </div>
+                    </div>
+                    <div class="report-info">
+                        <h2 class="report-title">{{ report_title }}</h2>
+                        <p class="report-period">Period: {{ period }}</p>
+                        <p class="generated-date">Generated: {{ generated_date }}</p>
+                    </div>
+                </div>
+
+                <div class="report-content">
+                    <div class="data-section">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Account Name</th>
+                                    <th>Code</th>
+                                    <th class="text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(data.assets)
+                                <tr class="section-header">
+                                    <td colspan="3"><strong>Assets</strong></td>
+                                </tr>
+                                @foreach(data.assets as asset)
+                                <tr>
+                                    <td>{{ asset.name }}</td>
+                                    <td>{{ asset.code }}</td>
+                                    <td class="text-right">{{ asset.balance | currency }}</td>
+                                </tr>
+                                @endforeach
+                                @endif
+
+                                @if(data.liabilities)
+                                <tr class="section-header">
+                                    <td colspan="3"><strong>Liabilities</strong></td>
+                                </tr>
+                                @foreach(data.liabilities as liability)
+                                <tr>
+                                    <td>{{ liability.name }}</td>
+                                    <td>{{ liability.code }}</td>
+                                    <td class="text-right">{{ liability.balance | currency }}</td>
+                                </tr>
+                                @endforeach
+                                @endif
+
+                                @if(data.equity)
+                                <tr class="section-header">
+                                    <td colspan="3"><strong>Equity</strong></td>
+                                </tr>
+                                @foreach(data.equity as equity)
+                                <tr>
+                                    <td>{{ equity.name }}</td>
+                                    <td>{{ equity.code }}</td>
+                                    <td class="text-right">{{ equity.balance | currency }}</td>
+                                </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="totals-section">
+                        <table class="totals-table">
+                            <tr>
+                                <td><strong>Total Assets:</strong></td>
+                                <td class="text-right"><strong>{{ totals.total_assets | currency }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Liabilities:</strong></td>
+                                <td class="text-right"><strong>{{ totals.total_liabilities | currency }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Equity:</strong></td>
+                                <td class="text-right"><strong>{{ totals.total_equity | currency }}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="report-footer">
+                    <p class="footer-text">This report was generated on {{ generated_date }}</p>
+                </div>
+            </div>
+        </body>
+        </html>';
+    }
+
+    private function getReportsProfessionalCSS()
+    {
+        return '
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #374151;
+            background: #ffffff;
+        }
+
+        .report-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #1e40af;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .logo-img {
+            max-width: 60px;
+            height: auto;
+        }
+
+        .company-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+
+        .company-address {
+            color: #6b7280;
+            margin-bottom: 3px;
+        }
+
+        .company-contact {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .report-info {
+            text-align: right;
+        }
+
+        .report-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .report-period {
+            color: #6b7280;
+            margin-bottom: 3px;
+        }
+
+        .generated-date {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .data-section {
+            margin-bottom: 30px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .data-table th {
+            background: #f0f9ff;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1e40af;
+            border: 1px solid #e5e7eb;
+        }
+
+        .data-table td {
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .section-header td {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .totals-table {
+            width: 250px;
+        }
+
+        .totals-table tr {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .totals-table td {
+            padding: 8px 0;
+        }
+
+        .report-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer-text {
+            color: #6b7280;
+            font-size: 11px;
+        }';
+    }
+
+    private function getReportsCorporateTemplate()
+    {
+        return str_replace('#1e40af', '#0f172a', $this->getReportsProfessionalTemplate());
+    }
+
+    private function getReportsCorporateCSS()
+    {
+        return str_replace('#1e40af', '#0f172a', $this->getReportsProfessionalCSS());
+    }
+
+    private function getReportsModernTemplate()
+    {
+        return str_replace('#1e40af', '#059669', $this->getReportsProfessionalTemplate());
+    }
+
+    private function getReportsModernCSS()
+    {
+        return str_replace('#1e40af', '#059669', $this->getReportsProfessionalCSS());
+    }
+
+    private function getReportsClassicTemplate()
+    {
+        return str_replace('#1e40af', '#7c2d12', $this->getReportsProfessionalTemplate());
+    }
+
+    private function getReportsClassicCSS()
+    {
+        return str_replace('#1e40af', '#7c2d12', $this->getReportsProfessionalCSS());
+    }
+
+    private function getReportsMinimalTemplate()
+    {
+        return str_replace('#1e40af', '#1f2937', $this->getReportsProfessionalTemplate());
+    }
+
+    private function getReportsMinimalCSS()
+    {
+        return str_replace('#1e40af', '#1f2937', $this->getReportsProfessionalCSS());
     }
 }

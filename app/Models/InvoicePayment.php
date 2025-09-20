@@ -18,6 +18,10 @@ class InvoicePayment extends Model
         'invoice_id', 'slug',  'amount', 'transaction_id', 'date', 'note', 'status', 'created_by',
     ];
 
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
     /**
      * Get the invoice for this  payment.
      */
@@ -40,5 +44,29 @@ class InvoicePayment extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Check if payment is cancelled
+     */
+    public function isCancelled()
+    {
+        return $this->status === 2;
+    }
+
+    /**
+     * Check if payment is active
+     */
+    public function isActive()
+    {
+        return $this->status === 1;
+    }
+
+    /**
+     * Check if payment is inactive
+     */
+    public function isInactive()
+    {
+        return $this->status === 0;
     }
 }

@@ -1,172 +1,215 @@
 @extends('pdf')
 
-@section('content-area')
-    <h3>@lang('Today\'s Report') - {{ $reportData['reportDate'] }}</h3>
+@section('page-style')
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
     
-    <div class="row">
-        <div class="col-md-6">
-            <h4>@lang('Opening & Purchase Details')</h4>
-            <div class="table-responsive">
-                <table class="table-listing table table-bordered table-striped table-sm">
-                    <tbody>
-                        <tr>
-                            <th>@lang('Opening Stock') <br><small class="text-muted">@lang('By purchase price')</small>:</th>
-                            <td>@currency($reportData['openingStockByPurchasePrice'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Opening Stock') <br><small class="text-muted">@lang('By sale price')</small>:</th>
-                            <td>@currency($reportData['openingStockBySalePrice'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Purchase'):</th>
-                            <td>@currency($reportData['totalPurchase'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Expense'):</th>
-                            <td>@currency($reportData['expenses'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Payroll'):</th>
-                            <td>@currency($reportData['payrolls'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Loan Interest'):</th>
-                            <td>@currency($reportData['loanInterest'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Asset Depreciation'):</th>
-                            <td>@currency($reportData['assetDepriciation'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Sell Discount'):</th>
-                            <td>@currency($reportData['invoiceDiscount'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Sell Return'):</th>
-                            <td>@currency($reportData['invoiceReturn'])</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <h4>@lang('Closing & Sales Details')</h4>
-            <div class="table-responsive">
-                <table class="table-listing table table-bordered table-striped table-sm">
-                    <tbody>
-                        <tr>
-                            <th>@lang('Closing Stock') <br><small class="text-muted">@lang('By purchase price')</small>:</th>
-                            <td>@currency($reportData['closingStockByPurchasePrice'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Closing Stock') <br><small class="text-muted">@lang('By sale price')</small>:</th>
-                            <td>@currency($reportData['closingStockBySalePrice'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Sales'):</th>
-                            <td>@currency($reportData['invoiceSales'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Purchase Return'):</th>
-                            <td>@currency($reportData['purchaseReturn'])</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Total Purchase Discount'):</th>
-                            <td>@currency($reportData['todayPurchaseDiscount'])</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <h4>@lang('Profit & Loss Summary')</h4>
-            <div class="table-responsive">
-                <table class="table-listing table table-bordered table-striped table-sm">
-                    <tbody>
-                        <tr>
-                            <th>@lang('Gross Profit/Loss'):</th>
-                            <td class="{{ $reportData['grossProfit'] >= 0 ? 'text-success' : 'text-danger' }}">
-                                @currency(abs($reportData['grossProfit']))
-                                @if($reportData['grossProfit'] >= 0)
-                                    (@lang('Profit'))
-                                @else
-                                    (@lang('Loss'))
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>@lang('Net Profit/Loss'):</th>
-                            <td class="{{ $reportData['netProfit'] >= 0 ? 'text-success' : 'text-danger' }}">
-                                @currency(abs($reportData['netProfit']))
-                                @if($reportData['netProfit'] >= 0)
-                                    (@lang('Profit'))
-                                @else
-                                    (@lang('Loss'))
-                                @endif
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <p class="text-muted">
-                <small>@lang('Report generated on') {{ now()->format('d-M-Y H:i:s') }}</small>
-            </p>
-        </div>
-    </div>
+    body {
+        font-family: 'Roboto', sans-serif;
+        @if(app()->getLocale() == 'ar')
+            direction: rtl;
+            text-align: right;
+            font-family: 'Noto Kufi Arabic', sans-serif;
+        @endif
+    }
+    
+    .table th, .table td {
+        text-align: center;
+        @if(app()->getLocale() == 'ar')
+            text-align: center;
+        @endif
+    }
+    
+    .text-right {
+        @if(app()->getLocale() == 'ar')
+            text-align: left !important;
+        @endif
+    }
+    
+    .text-left {
+        @if(app()->getLocale() == 'ar')
+            text-align: right !important;
+        @endif
+    }
+    
+    .profit-loss-section {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+    
+    .section-divider {
+        border-top: 2px solid #dee2e6;
+        margin: 30px 0;
+    }
+    
+    .value-positive {
+        color: #28a745;
+        font-weight: bold;
+    }
+    
+    .value-negative {
+        color: #dc3545;
+        font-weight: bold;
+    }
+</style>
 @endsection
 
-@section('page-style')
-    <style>
-        .text-success {
-            color: #28a745 !important;
+@php
+    // Custom currency formatter for PDF
+    if (!function_exists('formatPdfCurrency')) {
+        function formatPdfCurrency($amount) {
+            $locale = app()->getLocale();
+            $formattedAmount = number_format(abs($amount), 2);
+            
+            if ($locale == 'ar') {
+                // For Arabic, use the proper riyal symbol instead of 'ê'
+                return $formattedAmount . ' ﷼';
+            } else {
+                // For English
+                return '$' . $formattedAmount;
+            }
         }
-        .text-danger {
-            color: #dc3545 !important;
-        }
-        .text-muted {
-            color: #6c757d !important;
-        }
-        .mt-3 {
-            margin-top: 1rem !important;
-        }
-        .mt-4 {
-            margin-top: 1.5rem !important;
-        }
-        .col-md-6 {
-            width: 50%;
-            float: left;
-            padding: 0 15px;
-        }
-        .col-md-12 {
-            width: 100%;
-            clear: both;
-            padding: 0 15px;
-        }
-        .row {
-            clear: both;
-            margin-bottom: 1rem;
-        }
-        .row::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        h4 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1em;
-            font-weight: 600;
-        }
-        .table-responsive {
-            overflow-x: auto;
-        }
-    </style>
+    }
+@endphp
+
+@section('content-area')
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h2>@lang('print.Today Report')</h2>
+        <p><strong>@lang('print.Report Date'):</strong> {{ date('Y-m-d') }}</p>
+    </div>
+    
+    @if($reportData && count($reportData) > 0)
+        <!-- Stock Information Section -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h4>@lang('print.Opening Stock Information')</h4>
+                <div class="table-responsive">
+                    <table class="table-listing table table-bordered table-striped table-sm">
+                        <tbody>
+                            <tr>
+                                <th>@lang('print.Opening Stock') <br><small class="text-muted">@lang('print.By purchase price')</small>:</th>
+                                <td>{{ formatPdfCurrency($reportData['openingStockByPurchasePrice'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Opening Stock') <br><small class="text-muted">@lang('print.By sale price')</small>:</th>
+                                <td>{{ formatPdfCurrency($reportData['openingStockBySalePrice'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Closing Stock') <br><small class="text-muted">@lang('print.By purchase price')</small>:</th>
+                                <td>{{ formatPdfCurrency($reportData['closingStockByPurchasePrice'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Closing Stock') <br><small class="text-muted">@lang('print.By sale price')</small>:</th>
+                                <td>{{ formatPdfCurrency($reportData['closingStockBySalePrice'] ?? 0) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <h4>@lang('print.Sales & Purchase Information')</h4>
+                <div class="table-responsive">
+                    <table class="table-listing table table-bordered table-striped table-sm">
+                        <tbody>
+                            <tr>
+                                <th>@lang('print.Invoice Sales'):</th>
+                                <td>{{ formatPdfCurrency($reportData['invoiceSales'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Invoice Discount'):</th>
+                                <td>{{ formatPdfCurrency($reportData['invoiceDiscount'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Invoice Return'):</th>
+                                <td>{{ formatPdfCurrency($reportData['invoiceReturn'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Total Purchase'):</th>
+                                <td>{{ formatPdfCurrency($reportData['totalPurchase'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Purchase Return'):</th>
+                                <td>{{ formatPdfCurrency($reportData['purchaseReturn'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Purchase Discount'):</th>
+                                <td>{{ formatPdfCurrency($reportData['todayPurchaseDiscount'] ?? 0) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Expenses Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h4>@lang('print.Expenses Information')</h4>
+                <div class="table-responsive">
+                    <table class="table-listing table table-bordered table-striped table-sm">
+                        <tbody>
+                            <tr>
+                                <th>@lang('print.Total Expense'):</th>
+                                <td>{{ formatPdfCurrency($reportData['expenses'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Total Payroll'):</th>
+                                <td>{{ formatPdfCurrency($reportData['payrolls'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Total Loan Interest'):</th>
+                                <td>{{ formatPdfCurrency($reportData['loanInterest'] ?? 0) }}</td>
+                            </tr>
+                            <tr>
+                                <th>@lang('print.Asset Depreciation'):</th>
+                                <td>{{ formatPdfCurrency($reportData['assetDepriciation'] ?? 0) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Profit/Loss Section -->
+        <div class="profit-loss-section text-center">
+            <div class="row">
+                <div class="col-md-6">
+                    @if(($reportData['grossProfit'] ?? 0) >= 0)
+                        <h3 class="value-positive">
+                            @lang('print.Gross Profit'): {{ formatPdfCurrency($reportData['grossProfit']) }}
+                        </h3>
+                    @else
+                        <h3 class="value-negative">
+                            @lang('print.Gross Loss'): {{ formatPdfCurrency(abs($reportData['grossProfit'])) }}
+                        </h3>
+                    @endif
+                </div>
+                <div class="col-md-6">
+                    @if(($reportData['netProfit'] ?? 0) >= 0)
+                        <h3 class="value-positive">
+                            @lang('print.Net Profit'): {{ formatPdfCurrency($reportData['netProfit']) }}
+                        </h3>
+                    @else
+                        <h3 class="value-negative">
+                            @lang('print.Net Loss'): {{ formatPdfCurrency(abs($reportData['netProfit'])) }}
+                        </h3>
+                    @endif
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="text-center mt-5">
+            <h4>@lang('print.No data found for today.')</h4>
+        </div>
+    @endif
+</div>
 @endsection

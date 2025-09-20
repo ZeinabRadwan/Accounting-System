@@ -24,6 +24,15 @@
                                 <a href="/reports/today-report/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
                                     <i class="fas fa-file-export"></i>
                                 </a>
+                                <a 
+                                    v-if="reportInfo" 
+                                    :href="printTemplateUrl" 
+                                    target="_blank" 
+                                    v-tooltip="$t('Print with Template')" 
+                                    class="btn btn-tool"
+                                >
+                                    <i class="fas fa-print"></i>
+                                </a>
                                 <a @click="printWindow()" href="#" v-tooltip="'Print'" class="btn btn-secondary">
                                     <i class="fas fa-print"></i> {{ $t("Print") }}
                                 </a>
@@ -193,6 +202,10 @@ export default {
         exportUrl() {
             // Create a dynamic export URL for today's report
             return `/reports/today-report/export`;
+        },
+        printTemplateUrl() {
+            // Create a dynamic print template URL for today's report
+            return `/print/reports/today-report`;
         },
     },
     created() {

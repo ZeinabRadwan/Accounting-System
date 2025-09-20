@@ -12,6 +12,9 @@ class AccountRoutingSettingsSeeder extends Seeder
      */
     public function run(): void
     {
+
+        DB::table('account_routing_settings')->truncate();
+        
         $settings = [
             // Sales Module
             [
@@ -21,7 +24,20 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Asset',
                 'description' => 'Parent account for all customer receivables',
                 'is_required' => true,
-                'routing_type' => 'automatic',
+                'routing_type' => 'main_account_per_each',
+                'routing_type_options' => json_encode([
+                    [
+                        'label' => 'Specify Main Account Per Each',
+                        'description' => 'You will specify a main account and then individual accounts',
+                        'value' => 'main_account_per_each'
+                    ],
+                    [
+                        'label' => 'Automatic Account Routing',
+                        'description' => 'System automatically routes to the selected parent account',
+                        'value' => 'automatic'
+                    ],
+                  
+                ])
             ],
             [
                 'module' => 'sales',
@@ -41,16 +57,18 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'is_required' => true,
                 'routing_type' => 'automatic',
                 'routing_type_options' => json_encode([
+                    
                     [
                         'label' => 'Automatic Account Routing',
                         'description' => 'System automatically routes to the selected parent account',
                         'value' => 'automatic'
                     ],
                     [
-                        'label' => 'Specify Per Each',
-                        'description' => 'You will specify accounts individually for each item',
-                        'value' => 'per_each'
-                    ]
+                        'label' => 'Specify Main Account Per Each',
+                        'description' => 'You will specify a main account and then individual accounts',
+                        'value' => 'main_account_per_each'
+                    ],
+                  
                 ])
             ],
             [
@@ -83,7 +101,20 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Liability',
                 'description' => 'Parent account for all supplier payables',
                 'is_required' => true,
-                'routing_type' => 'automatic',
+                'routing_type' => 'main_account_per_each',
+                'routing_type_options' => json_encode([
+                    [
+                        'label' => 'Specify Main Account Per Each',
+                        'description' => 'You will specify a main account and then individual accounts',
+                        'value' => 'main_account_per_each'
+                    ],
+                    [
+                        'label' => 'Automatic Account Routing',
+                        'description' => 'System automatically routes to the selected parent account',
+                        'value' => 'automatic'
+                    ],
+                  
+                ])
             ],
             [
                 'module' => 'purchase',
@@ -103,16 +134,18 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'is_required' => true,
                 'routing_type' => 'automatic',
                 'routing_type_options' => json_encode([
+                    
                     [
                         'label' => 'Automatic Account Routing',
                         'description' => 'System automatically routes to the selected parent account',
                         'value' => 'automatic'
                     ],
                     [
-                        'label' => 'Specify Per Each',
-                        'description' => 'You will specify accounts individually for each item',
-                        'value' => 'per_each'
-                    ]
+                        'label' => 'Specify Main Account Per Each',
+                        'description' => 'You will specify a main account and then individual accounts',
+                        'value' => 'main_account_per_each'
+                    ],
+                  
                 ])
             ],
             [
@@ -130,9 +163,9 @@ class AccountRoutingSettingsSeeder extends Seeder
                         'value' => 'automatic'
                     ],
                     [
-                        'label' => 'Specify Per Each',
-                        'description' => 'You will specify accounts individually for each item',
-                        'value' => 'per_each'
+                        'label' => 'Cancel Account Routing',
+                        'description' => 'No account routing - discounts are not posted to accounts',
+                        'value' => 'cancel'
                     ]
                 ])
             ],
@@ -145,7 +178,16 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Liability',
                 'description' => 'Parent account for VAT collected on sales',
                 'is_required' => true,
-                'routing_type' => 'automatic',
+                'routing_type' => 'main_account_per_each',
+                'routing_type_options' => json_encode([
+                    [
+                        'label' => 'Specify Main Account Per Each',
+                        'description' => 'You will specify a main account and then individual accounts',
+                        'value' => 'main_account_per_each'
+                    ],
+                    
+                  
+                ])
             ],
             [
                 'module' => 'vat',
@@ -154,7 +196,16 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'account_type' => 'Asset',
                 'description' => 'Parent account for VAT paid on purchases',
                 'is_required' => true,
-                'routing_type' => 'automatic',
+                'routing_type' => 'main_account_per_each',
+                'routing_type_options' => json_encode([
+                    [
+                        'label' => 'Specify Main Account Per Each',
+                        'description' => 'You will specify a main account and then individual accounts',
+                        'value' => 'main_account_per_each'
+                    ],
+                    
+                  
+                ])
             ],
             [
                 'module' => 'purchase',

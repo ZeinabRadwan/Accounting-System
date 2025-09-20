@@ -56,7 +56,7 @@ class PrintTemplateController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'module' => 'required|string|in:invoice,purchase,quotation,expense',
+            'module' => 'required|string|in:invoice,purchase,quotation,expense,reports',
             'template_key' => 'required|string|max:255|unique:print_templates',
             'display_name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -113,7 +113,7 @@ class PrintTemplateController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|required|string|max:255',
-            'module' => 'sometimes|required|string|in:invoice,purchase,quotation,expense',
+            'module' => 'sometimes|required|string|in:invoice,purchase,quotation,expense,reports',
             'template_key' => 'sometimes|required|string|max:255|unique:print_templates,template_key,' . $id,
             'display_name' => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
@@ -330,6 +330,39 @@ class PrintTemplateController extends Controller
                     'quotation_date' => now()->format('Y-m-d'),
                     'valid_until' => now()->addDays(30)->format('Y-m-d'),
                 ]);
+                
+            case 'reports':
+                return [
+                    'report_type' => 'Balance Sheet',
+                    'report_title' => 'Balance Sheet Report',
+                    'period' => now()->format('Y-m-d') . ' to ' . now()->addDays(30)->format('Y-m-d'),
+                    'generated_date' => now()->format('Y-m-d H:i:s'),
+                    'company' => [
+                        'name' => 'Sample Company',
+                        'address' => '123 Business St, City, State 12345',
+                        'phone' => '+1 234 567 8900',
+                        'email' => 'info@sample.com'
+                    ],
+                    'data' => [
+                        'assets' => [
+                            ['name' => 'Cash', 'code' => '1001', 'balance' => 50000.00],
+                            ['name' => 'Accounts Receivable', 'code' => '1002', 'balance' => 25000.00],
+                            ['name' => 'Inventory', 'code' => '1003', 'balance' => 15000.00]
+                        ],
+                        'liabilities' => [
+                            ['name' => 'Accounts Payable', 'code' => '2001', 'balance' => 20000.00],
+                            ['name' => 'Accrued Expenses', 'code' => '2002', 'balance' => 5000.00]
+                        ],
+                        'equity' => [
+                            ['name' => 'Owner Equity', 'code' => '3001', 'balance' => 65000.00]
+                        ]
+                    ],
+                    'totals' => [
+                        'total_assets' => 90000.00,
+                        'total_liabilities' => 25000.00,
+                        'total_equity' => 65000.00
+                    ]
+                ];
                 
             default:
                 return $baseData;

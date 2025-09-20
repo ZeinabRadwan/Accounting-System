@@ -100,21 +100,21 @@
                       </div>
                       
                       <!-- Product Chart of Account Status - Similar to client validation -->
-                      <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
-                        <div v-if="!form.selectedProducts[0].sales_account_id" class="product-warning">
+                      <div class="product-status mt-2" v-if="form.product">
+                        <div v-if="!form.product.sales_account_id" class="product-warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs Sales Account') }}</span>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}</span>
                           <button 
                             type="button" 
                             class="btn btn-sm btn-outline-warning ml-2"
-                            @click="autoAssignProductChartOfAccount(form.selectedProducts[0])"
-                            :disabled="isAutoAssigningProduct === form.selectedProducts[0].id"
+                            @click="autoAssignProductChartOfAccount(form.product)"
+                            :disabled="isAutoAssigningProduct === form.product.id"
                           >
-                            <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                            {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
+                            <i :class="isAutoAssigningProduct === form.product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                            {{ isAutoAssigningProduct === form.product.id ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        <div v-else class="product-success">
+                        <div v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id" class="product-success">
                           <i class="fas fa-check-circle text-success"></i>
                           <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
                         </div>
@@ -578,34 +578,6 @@
                   <i class="fas fa-power-off" /> {{ $t("Reset") }}
                 </button>
                 
-                <!-- Form readiness indicator -->
-                <div v-if="!isFormReady" class="mt-3">
-                  <div class="alert alert-warning mb-0">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>{{ $t("Form Not Ready") }}:</strong>
-                    <ul class="mb-0 mt-2">
-                      <li v-if="!hasChartOfAccount">
-                        {{ $t("Client must have a Chart of Account assigned") }}
-                      </li>
-                      <li v-if="!allProductsHaveSalesAccounts">
-                        {{ $t("All products must have Sales Accounts assigned") }}
-                      </li>
-                      <li v-if="!form.selectedProducts || form.selectedProducts.length === 0">
-                        {{ $t("At least one product must be selected") }}
-                      </li>
-                      <li v-if="!hasBankAccountChartOfAccount">
-                        {{ $t("Bank Account must have a Chart of Account assigned for journal entries") }}
-                      </li>
-                      <li v-if="form.addPayment == 1 && !form.account">
-                        {{ $t("Please choose a bank account for the payment") }}
-                      </li>
-                      <li v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)">
-                        {{ $t("Paid amount must be greater than 0") }}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                
 
               </div>
             </form>
@@ -1057,6 +1029,11 @@ export default {
       );
       let qunatity = 1;
       if (index === -1) {
+        // Skip adding items without a Sales Account
+        if (!product.sales_account_id) {
+          // Keep it selected in dropdown and show auto-assign UI below
+          return;
+        }
         let productTax =
           product.taxType == 'Exclusive'
             ? product.priceWithDiscount * (product.taxRate / 100)
@@ -1542,6 +1519,7 @@ export default {
 
     onClientChange() {
       this.clearFieldError('client');
+      // do not override selected client after auto-assign; keep current selection
       if (this.form.addPayment == 1) {
         this.form.account = "";
         this.form.paidAmount = "";
@@ -1586,7 +1564,10 @@ export default {
         );
         
         if (data.success) {
-          this.form.client.chart_of_account_id = data.data.chart_of_account_id;
+          const newAccountId = data.chart_of_account_id || (data.data && data.data.chart_of_account_id) || null;
+          if (newAccountId) {
+            this.form.client.chart_of_account_id = newAccountId;
+          }
           
           toast.fire({
             type: "success",
@@ -1636,7 +1617,12 @@ export default {
         );
         
         if (data.success) {
-          product.sales_account_id = data.data.sales_account_id;
+          product.sales_account_id = (data.data && data.data.sales_account_id) || data.sales_account_id;
+          // If item not yet in table, add it now
+          const exists = this.form.selectedProducts && this.form.selectedProducts.some(p => p.id === product.id);
+          if (!exists) {
+            this.storeProduct(product);
+          }
           
           toast.fire({
             type: "success",

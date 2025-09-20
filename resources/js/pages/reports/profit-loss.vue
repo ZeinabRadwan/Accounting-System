@@ -29,7 +29,7 @@
               <div class="col-12">
                 <template :class="w - 100">
                   <date-range-picker :from="form.fromDate" :to="form.toDate" :panel="$route.query.panel"
-                    @update="update" style="display: none;" />
+                    @update="update" />
                 </template>
               </div>
             </div>
@@ -330,6 +330,15 @@
                 <a :href="pdfUrl" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
                   <i class="fas fa-file-pdf"></i> {{ $t("PDF") }}
                 </a>
+                <a 
+                  v-if="allData && allData.length > 0" 
+                  :href="printTemplateUrl" 
+                  target="_blank" 
+                  v-tooltip="$t('Print with Template')" 
+                  class="btn btn-success"
+                >
+                  <i class="fas fa-print"></i> {{ $t("Print with Template") }}
+                </a>
                 <a href="#" @click="printWindow" class="btn btn-default">
                   <i class="fas fa-print"></i> {{ $t("Print") }}
                 </a>
@@ -431,6 +440,22 @@ export default {
       }
       
       return `/reports/profit-loss/pdf?${params.toString()}`;
+    },
+    printTemplateUrl() {
+      // Create a dynamic print template URL for profit loss with current filters
+      const params = new URLSearchParams();
+      
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      if (this.form.reportType) {
+        params.append('reportType', this.form.reportType);
+      }
+      
+      return `/print/reports/profit-loss?${params.toString()}`;
     },
   },
 

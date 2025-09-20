@@ -291,6 +291,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
 
         // Invoice return routes
         Route::get('/invoice-returns/search', [InvoiceReturnController::class, 'search']);
+        Route::post('/invoice-returns/{slug}/send-to-zatca', [InvoiceReturnController::class, 'sendToZatca']);
         Route::apiResource('invoice-returns', InvoiceReturnController::class);
 
         // Chart of Accounts routes
@@ -298,6 +299,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/chart-of-accounts/tree', [ChartOfAccountController::class, 'tree']);
         Route::get('/chart-of-accounts/{slug}/journal-entries', [ChartOfAccountController::class, 'getJournalEntries']);
         Route::get('/chart-of-accounts/all', [ChartOfAccountController::class, 'getAll']);
+        Route::get('/chart-of-accounts/dropdown', [ChartOfAccountController::class, 'getDropdown']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::post('/chart-of-accounts/generate-code', [ChartOfAccountController::class, 'generateCode']);
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
@@ -340,6 +342,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
 
         // Client invoice payment routes
         Route::get('/payments/invoice/search', [InvoicePaymentController::class, 'search']);
+        Route::post('/payments/invoice/cancel/{slug}', [InvoicePaymentController::class, 'cancel']);
         Route::apiResource('/payments/invoice', InvoicePaymentController::class);
 
         // Client non invoice payment routes
@@ -619,6 +622,25 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/print/purchase/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchase'])->name('print.purchase');
     Route::get('/print/quotation/{slug}', [App\Http\Controllers\PrintController::class, 'printQuotation'])->name('print.quotation');
     
+    // Reports print routes
+    Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
+    Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
+    Route::get('/print/reports/profit-loss', [App\Http\Controllers\PrintController::class, 'printProfitLoss'])->name('print.reports.profit-loss');
+    Route::get('/print/reports/summary', [App\Http\Controllers\PrintController::class, 'printSummary'])->name('print.reports.summary');
+    Route::get('/print/reports/account-statement', [App\Http\Controllers\PrintController::class, 'printAccountStatement'])->name('print.reports.account-statement');
+    Route::get('/print/reports/today-report', [App\Http\Controllers\PrintController::class, 'printTodayReport'])->name('print.reports.today-report');
+    Route::get('/print/reports/invoice-summary', [App\Http\Controllers\PrintController::class, 'printInvoiceSummary'])->name('print.reports.invoice-summary');
+    Route::get('/print/reports/purchase-summary', [App\Http\Controllers\PrintController::class, 'printPurchaseSummary'])->name('print.reports.purchase-summary');
+    Route::get('/print/reports/vat-report', [App\Http\Controllers\PrintController::class, 'printVatReport'])->name('print.reports.vat-report');
+    Route::get('/print/reports/inventory', [App\Http\Controllers\PrintController::class, 'printInventory'])->name('print.reports.inventory');
+    Route::get('/print/reports/items', [App\Http\Controllers\PrintController::class, 'printItems'])->name('print.reports.items');
+    Route::get('/print/reports/expenses', [App\Http\Controllers\PrintController::class, 'printExpenses'])->name('print.reports.expenses');
+    Route::get('/print/reports/client-receivable-report', [App\Http\Controllers\PrintController::class, 'printClientReceivableReport'])->name('print.reports.client-receivable-report');
+    Route::get('/print/reports/supplier-payable-report', [App\Http\Controllers\PrintController::class, 'printSupplierPayableReport'])->name('print.reports.supplier-payable-report');
+    Route::get('/print/reports/sales-by-user-report', [App\Http\Controllers\PrintController::class, 'printSalesByUserReport'])->name('print.reports.sales-by-user-report');
+    Route::get('/print/reports/collection-by-user-report', [App\Http\Controllers\PrintController::class, 'printCollectionByUserReport'])->name('print.reports.collection-by-user-report');
+    Route::get('/print/reports/group-account-statement', [App\Http\Controllers\PrintController::class, 'printGroupAccountStatement'])->name('print.reports.group-account-statement');
+    
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
     Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
@@ -730,8 +752,19 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/invoice-summary/export', [TableExportController::class, 'invoiceSummaryExportExcel'])->name('invoiceSummary.export.excel');
     Route::get('/purchase-summary/pdf', [TableExportController::class, 'purchaseSummaryPDF'])->name('purchaseSummary.pdf');
     Route::get('/purchase-summary/export', [TableExportController::class, 'purchaseSummaryExportExcel'])->name('purchaseSummary.export.excel');
-    Route::get('/vat-report/pdf', [TableExportController::class, 'vatReportPdf'])->name('vatReport.pdf');
+    Route::get('/vat-report/pdf', [TableExportController::class, 'vatReportPDF'])->name('vatReport.pdf');
+    Route::get('/summary/pdf', [TableExportController::class, 'summaryPDF'])->name('summary.pdf');
     Route::get('/vat-report/export', [TableExportController::class, 'vatReportExportExcel'])->name('vatReport.export.excel');
+    Route::get('/trial-balance/pdf', [TableExportController::class, 'trialBalancePDF'])->name('trialBalance.pdf');
+    Route::get('/trial-balance/export', [TableExportController::class, 'trialBalanceExportExcel'])->name('trialBalance.export.excel');
+    Route::get('/inventory-report/pdf', [TableExportController::class, 'inventoryReportPDF'])->name('inventoryReport.pdf');
+    Route::get('/inventory-report/export', [TableExportController::class, 'inventoryReportExportExcel'])->name('inventoryReport.export.excel');
+    Route::get('/items-report/pdf', [TableExportController::class, 'itemsReportPDF'])->name('itemsReport.pdf');
+    Route::get('/items-report/export', [TableExportController::class, 'itemsReportExportExcel'])->name('itemsReport.export.excel');
+    Route::get('/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('expensesReport.pdf');
+    Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
+    Route::get('/client-receivable-report/pdf', [TableExportController::class, 'clientReceivableReportPDF'])->name('clientReceivableReport.pdf');
+    Route::get('/supplier-payable-report/pdf', [TableExportController::class, 'supplierPayableReportPDF'])->name('supplierPayableReport.pdf');
 
     // product templates
     Route::get('/product-import-template', [ProductController::class, 'importTemplate']);
