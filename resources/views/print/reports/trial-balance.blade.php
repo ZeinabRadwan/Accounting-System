@@ -1,7 +1,84 @@
 @extends('print.layout')
 
+@section('page-style')
+    <style>
+        body {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .currency-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        /* Fix for riyal symbol display */
+        .riyal-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        
+        /* Print styles */
+        .action-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .print-button, .pdf-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .pdf-button {
+            background: #28a745;
+        }
+        
+        .print-button:hover {
+            background: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .pdf-button:hover {
+            background: #1e7e34;
+            color: white;
+            text-decoration: none;
+        }
+        
+        @media print {
+            .no-print, .action-buttons {
+                display: none !important;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
     @php
+        $currentLocale = app()->getLocale();
+        $isRTL = $currentLocale === 'ar';
+        
+        // Custom currency formatter for PDF to fix riyal symbol display
+        function formatPdfCurrency($amount) {
+            $currencySymbol = config('config.currencySymbol');
+            $currencyPosition = config('config.currencyPosition');
+            $formattedAmount = number_format($amount, 2, '.', ',');
+            
+            // Replace the problematic 'ê' with proper riyal symbol
+            if ($currencySymbol === 'ê') {
+                $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
+            }
+            
+            if ($currencyPosition == 'left') {
+                return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
+            } else {
+                return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
+            }
+        }
+        
         $config = $template->template_config ?? [];
         $elements = $config['elements'] ?? [];
         $colors = $config['colors'] ?? [];
@@ -14,6 +91,16 @@
         $companyPhone = $settings->where('key', 'phone_number')->first()?->value ?? 'Phone';
         $companyEmail = $settings->where('key', 'email_address')->first()?->value ?? 'Email';
     @endphp
+
+    <!-- Action Buttons -->
+    <div class="action-buttons no-print">
+        <button class="print-button" onclick="window.print()">
+            <i class="fas fa-print"></i> @lang('print.Print')
+        </button>
+        <button class="pdf-button" onclick="downloadPDF()">
+            <i class="fas fa-download"></i> @lang('print.Download PDF')
+        </button>
+    </div>
 
     @if(($elements['showLogo'] ?? true) || ($elements['showCompanyInfo'] ?? true))
     <!-- Header -->
@@ -95,14 +182,14 @@
                             </td>
                             <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: right;">
                                 @if(isset($account['closing_debit']) && $account['closing_debit'] > 0)
-                                    {{ number_format($account['closing_debit'], 2) }}
+                                    {!! formatPdfCurrency($account['closing_debit']) !!}
                                 @else
                                     -
                                 @endif
                             </td>
                             <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: right;">
                                 @if(isset($account['closing_credit']) && $account['closing_credit'] > 0)
-                                    {{ number_format($account['closing_credit'], 2) }}
+                                    {!! formatPdfCurrency($account['closing_credit']) !!}
                                 @else
                                     -
                                 @endif
@@ -120,18 +207,18 @@
             <table class="totals-table">
                 <tr style="border-top: 2px solid {{ $colors['primary'] ?? '#2563eb' }};">
                     <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        @lang('Total Debit'):
+                        @lang('print.Total Debit'):
                     </td>
                     <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        {{ number_format($trialBalanceData['grand_totals']['total_debit'] ?? 0, 2) }}
+                        {!! formatPdfCurrency($trialBalanceData['grand_totals']['total_debit'] ?? 0) !!}
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        @lang('Total Credit'):
+                        @lang('print.Total Credit'):
                     </td>
                     <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
-                        {{ number_format($trialBalanceData['grand_totals']['total_credit'] ?? 0, 2) }}
+                        {!! formatPdfCurrency($trialBalanceData['grand_totals']['total_credit'] ?? 0) !!}
                     </td>
                 </tr>
             </table>
@@ -180,4 +267,25 @@
             height: auto;
         }
     </style>
+
+    <script>
+        function downloadPDF() {
+            // Get current URL parameters to maintain filters
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Build PDF URL with same parameters
+            let pdfUrl = '/trial-balance/pdf';
+            if (urlParams.toString()) {
+                pdfUrl += '?' + urlParams.toString();
+            }
+            
+            // Create a temporary link to download the PDF
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
 @endsection

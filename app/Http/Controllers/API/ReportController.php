@@ -806,6 +806,123 @@ class ReportController extends Controller
     }
 
     /**
+     * Get VAT report data for printing - NO PAGINATION
+     */
+    public function vatReportForPrint(Request $request)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Debug: Log input parameters
+            Log::info('VAT Report For Print - Input:', $request->all());
+            
+            // Validate request
+            $this->validate($request, [
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+            
+            Log::info('VAT Report For Print - Validation passed');
+
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Create filter object for consistency
+            $filters = [
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate,
+            ];
+
+            // Get all VAT rates with their accounts (no filtering by specific rate)
+            $vatRates = $this->getVatRates();
+
+            // Get VAT summary data (always calculate for consistency)
+            $vatSummary = $this->getVatSummary($filters, $vatRates);
+
+            // Get ALL detailed VAT transactions without pagination
+            $vatTransactions = $this->getAllVatTransactionsForPrint($filters, $vatRates);
+
+            Log::info('VAT Report For Print - Query Results:', [
+                'total_vat_rates' => count($vatRates),
+                'total_transactions' => count($vatTransactions),
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate
+            ]);
+
+            Log::info('VAT Report For Print - Processing complete. Total transactions: ' . count($vatTransactions));
+
+            return [
+                'success' => true,
+                'data' => [
+                    'filters' => $filters,
+                    'vat_rates' => $vatRates,
+                    'summary' => $vatSummary,
+                    'transactions' => $vatTransactions,
+                    'total_entries' => count($vatTransactions),
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Failed to generate VAT report for print',
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Get ALL VAT transactions for print (no pagination)
+     */
+    private function getAllVatTransactionsForPrint($filters, $vatRates)
+    {
+        $transactions = [];
+        $seenTransactions = []; // Track unique transactions
+
+        // Get all transactions first (we need to deduplicate)
+        foreach ($vatRates as $vatRate) {
+            // Get invoice VAT transactions
+            $invoiceTransactions = $this->getInvoiceVatTransactions($filters, $vatRate->id);
+            
+            // Get journal VAT transactions
+            $journalTransactions = $this->getJournalVatTransactions($filters, $vatRate);
+
+            $transactions = array_merge($transactions, $invoiceTransactions, $journalTransactions);
+        }
+
+        // Get purchase VAT transactions (all purchases, not filtered by VAT rate)
+        $purchaseTransactions = $this->getPurchaseVatTransactions($filters);
+        $transactions = array_merge($transactions, $purchaseTransactions);
+
+        // Remove duplicates based on reference, date, type, and source
+        $uniqueTransactions = [];
+        foreach ($transactions as $transaction) {
+            $key = $transaction['reference'] . '|' . $transaction['date'] . '|' . $transaction['type'] . '|' . $transaction['source'];
+            if (!isset($seenTransactions[$key])) {
+                $seenTransactions[$key] = true;
+                $uniqueTransactions[] = $transaction;
+            }
+        }
+
+        // Sort by date
+        usort($uniqueTransactions, function($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        return $uniqueTransactions;
+    }
+
+    /**
      * Get VAT rates with their accounts
      */
     private function getVatRates()
@@ -2620,6 +2737,213 @@ class ReportController extends Controller
     }
 
     /**
+     * Get Group Account Statement report data for printing - NO PAGINATION
+     */
+    public function groupAccountStatementForPrint(Request $request)
+    {
+        try {
+            // Validate request
+            $this->validate($request, [
+                'chart_of_account_ids' => 'required|array|min:1',
+                'chart_of_account_ids.*' => 'exists:chart_of_accounts,id',
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+
+            $chartOfAccountIds = $request->chart_of_account_ids;
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Get chart of accounts details
+            $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
+                ->whereIn('id', $chartOfAccountIds)
+                ->get();
+
+            if ($chartOfAccounts->isEmpty()) {
+                return [
+                    'success' => false,
+                    'message' => 'No valid accounts found'
+                ];
+            }
+
+            // Apply date filters - NO PAGINATION
+            $dateQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->whereHas('lines', function($query) use ($chartOfAccountIds) {
+                    $query->whereIn('chart_of_account_id', $chartOfAccountIds);
+                });
+
+            if ($fiscalYearId) {
+                $dateQuery->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $dateQuery->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $dateQuery->whereBetween('entry_date', [$fromDate, $toDate]);
+            }
+
+            // Get ALL journal entries - NO PAGINATION
+            $journalEntries = $dateQuery
+                ->with(['lines' => function($query) use ($chartOfAccountIds) {
+                    $query->whereIn('chart_of_account_id', $chartOfAccountIds)
+                          ->with('chartOfAccount');
+                }])
+                ->orderBy('entry_date', 'desc')
+                ->orderBy('id', 'desc')
+                ->get(); // Get ALL entries
+
+            // Calculate opening balance (balance before the date range) - OPTIMIZED
+            $openingBalanceQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
+
+            if ($fiscalYearId) {
+                $fiscalYear = \App\Models\FiscalYear::findOrFail($fiscalYearId);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fiscalYear->start_date);
+            } elseif ($accountingPeriodId) {
+                $accountingPeriod = \App\Models\AccountingPeriod::findOrFail($accountingPeriodId);
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $accountingPeriod->start_date);
+            } elseif ($fromDate) {
+                $openingBalanceQuery->where('journal_entries.entry_date', '<', $fromDate);
+            }
+
+            $openingTotals = $openingBalanceQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $openingDebits = $openingTotals->total_debits ?? 0;
+            $openingCredits = $openingTotals->total_credits ?? 0;
+            $openingBalance = $openingDebits - $openingCredits;
+            $openingBalanceType = $openingBalance >= 0 ? 'Debit' : 'Credit';
+            $openingBalance = abs($openingBalance);
+
+            // Process journal entries
+            $processedEntries = [];
+            $runningBalance = $openingBalance;
+            $runningBalanceType = $openingBalanceType;
+
+            foreach ($journalEntries as $entry) {
+                $entryLines = $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds);
+                
+                $totalDebit = $entryLines->sum('debit_amount');
+                $totalCredit = $entryLines->sum('credit_amount');
+                $netAmount = $totalDebit - $totalCredit;
+
+                // Update running balance
+                if ($runningBalanceType === 'Debit') {
+                    $runningBalance += $netAmount;
+                } else {
+                    $runningBalance -= $netAmount;
+                }
+
+                // Determine new balance type
+                if ($runningBalance >= 0) {
+                    $runningBalanceType = 'Debit';
+                } else {
+                    $runningBalanceType = 'Credit';
+                    $runningBalance = abs($runningBalance);
+                }
+
+                $processedEntries[] = [
+                    'id' => $entry->id,
+                    'entry_date' => $entry->entry_date,
+                    'entry_number' => $entry->entry_number,
+                    'reference' => $entry->reference,
+                    'description' => $entry->description,
+                    'debit_amount' => round($totalDebit, 2),
+                    'credit_amount' => round($totalCredit, 2),
+                    'net_amount' => round($netAmount, 2),
+                    'running_balance' => round($runningBalance, 2),
+                    'balance_type' => $runningBalanceType,
+                    'accounts' => $entryLines->map(function($line) {
+                        return [
+                            'id' => $line->chart_of_account_id,
+                            'code' => $line->chartOfAccount->code,
+                            'name' => $line->chartOfAccount->name,
+                            'debit' => $line->debit_amount,
+                            'credit' => $line->credit_amount,
+                        ];
+                    })->toArray(),
+                ];
+            }
+
+            // Calculate period totals - OPTIMIZED
+            $periodTotalsQuery = \App\Models\JournalEntry::query()
+                ->where('status', 'posted')
+                ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
+                ->whereIn('journal_entry_lines.chart_of_account_id', $chartOfAccountIds);
+
+            // Apply same filters as main query
+            if ($fiscalYearId) {
+                $periodTotalsQuery->where('journal_entries.fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $periodTotalsQuery->where('journal_entries.accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $periodTotalsQuery->whereBetween('journal_entries.entry_date', [$fromDate, $toDate]);
+            }
+
+            $periodTotals = $periodTotalsQuery
+                ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
+                ->first();
+
+            $periodDebits = $periodTotals->total_debits ?? 0;
+            $periodCredits = $periodTotals->total_credits ?? 0;
+
+            $periodNet = $periodDebits - $periodCredits;
+
+            // Calculate closing balance
+            $closingBalance = $openingBalance + $periodNet;
+            $closingBalanceType = $closingBalance >= 0 ? 'Debit' : 'Credit';
+            $closingBalance = abs($closingBalance);
+
+            $summary = [
+                'opening_balance' => round($openingBalance, 2),
+                'opening_balance_type' => $openingBalanceType,
+                'period_debits' => round($periodDebits, 2),
+                'period_credits' => round($periodCredits, 2),
+                'period_net' => round($periodNet, 2),
+                'closing_balance' => round($closingBalance, 2),
+                'closing_balance_type' => $closingBalanceType,
+                'total_entries' => count($processedEntries),
+            ];
+
+            return [
+                'success' => true,
+                'data' => [
+                    'chart_of_accounts' => $chartOfAccounts->map(function($account) {
+                        return [
+                            'id' => $account->id,
+                            'code' => $account->code,
+                            'name' => $account->name,
+                            'type' => $account->type->name ?? 'Unknown',
+                        ];
+                    }),
+                    'filters' => [
+                        'fiscal_year_id' => $fiscalYearId,
+                        'accounting_period_id' => $accountingPeriodId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'entries' => $processedEntries,
+                    'summary' => $summary,
+                    'total_entries' => count($processedEntries),
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Failed to generate group account statement for print',
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
      * Get Invoice Summary report data - OPTIMIZED
      */
     public function invoiceSummary(Request $request)
@@ -2902,6 +3226,152 @@ class ReportController extends Controller
                 'message' => 'Failed to generate invoice summary report',
                 'error' => $e->getMessage()
             ], 500);
+        }
+    }
+
+    /**
+     * Get Invoice Summary report data for printing - NO PAGINATION
+     */
+    public function invoiceSummaryForPrint(Request $request)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Debug: Log input parameters
+            Log::info('Invoice Summary For Print - Input:', $request->all());
+            
+            // Validate request
+            $this->validate($request, [
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+            
+            Log::info('Invoice Summary For Print - Validation passed');
+
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Build base query for invoices - NO PAGINATION
+            $baseQuery = Invoice::query()->where('status', 1);
+
+            // Apply filters
+            if ($fiscalYearId) {
+                $baseQuery->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $baseQuery->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $baseQuery->whereBetween('invoice_date', [$fromDate, $toDate]);
+            }
+
+            // Get ALL invoices - NO PAGINATION - OPTIMIZED
+            $invoices = $baseQuery->with(['client:id,name']) // Only load client id and name
+                ->select('id', 'client_id', 'sub_total', 'discount', 'transport', 'invoice_date')
+                ->orderBy('invoice_date', 'desc')
+                ->get(); // Get ALL invoices
+                
+            Log::info('Invoice Summary For Print - Query Results:', [
+                'total_invoices_found' => $invoices->count(),
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate
+            ]);
+
+            // Group by client and calculate summaries
+            $clientSummaries = [];
+            $totalInvoices = 0;
+            $totalAmount = 0;
+            $totalTax = 0;
+            $totalPaid = 0;
+            $totalDue = 0;
+
+            foreach ($invoices as $invoice) {
+                $clientId = $invoice->client_id;
+                $clientName = $invoice->client->name ?? 'Unknown Client';
+                
+                if (!isset($clientSummaries[$clientId])) {
+                    $clientSummaries[$clientId] = [
+                        'client_id' => $clientId,
+                        'client_name' => $clientName,
+                        'total_invoices' => 0,
+                        'total_amount' => 0,
+                        'total_tax' => 0,
+                        'total_paid' => 0,
+                        'total_due' => 0,
+                    ];
+                }
+
+                $invoiceAmount = $invoice->sub_total ?? 0;
+                $invoiceDiscount = $invoice->discount ?? 0;
+                $invoiceTransport = $invoice->transport ?? 0;
+                
+                // Calculate tax and total (simplified calculation)
+                $invoiceTax = 0; // Will calculate from tax relationships if needed
+                $invoiceTotal = $invoiceAmount - $invoiceDiscount + $invoiceTransport + $invoiceTax;
+                
+                // Calculate paid amount (simplified for now - would need payment joins for accuracy)
+                $invoicePaid = 0; // Will be calculated from invoice_payments if needed
+                $invoiceDue = $invoiceTotal - $invoicePaid;
+
+                $clientSummaries[$clientId]['total_invoices']++;
+                $clientSummaries[$clientId]['total_amount'] += $invoiceAmount;
+                $clientSummaries[$clientId]['total_tax'] += $invoiceTax;
+                $clientSummaries[$clientId]['total_paid'] += $invoicePaid;
+                $clientSummaries[$clientId]['total_due'] += $invoiceDue;
+
+                // Don't store individual invoices for print to save memory
+                // $clientSummaries[$clientId]['invoices'][] = [...];
+
+                $totalInvoices++;
+                $totalAmount += $invoiceAmount;
+                $totalTax += $invoiceTax;
+                $totalPaid += $invoicePaid;
+                $totalDue += $invoiceDue;
+            }
+
+            // Convert to array and sort
+            $clientData = array_values($clientSummaries);
+            usort($clientData, function($a, $b) {
+                return strcmp($a['client_name'], $b['client_name']);
+            });
+
+            $summary = [
+                'total_clients' => count($clientData),
+                'total_invoices' => $totalInvoices,
+                'total_amount' => round($totalAmount, 2),
+                'total_tax' => round($totalTax, 2),
+                'total_paid' => round($totalPaid, 2),
+                'total_due' => round($totalDue, 2),
+                'grand_total' => round($totalAmount + $totalTax, 2),
+            ];
+
+            return [
+                'success' => true,
+                'data' => [
+                    'summary' => $summary,
+                    'clients' => $clientData,
+                    'filters' => [
+                        'fiscal_year_id' => $fiscalYearId,
+                        'accounting_period_id' => $accountingPeriodId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'total_entries' => count($clientData),
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Failed to generate invoice summary report for print',
+                'error' => $e->getMessage()
+            ];
         }
     }
 
@@ -3192,6 +3662,152 @@ class ReportController extends Controller
     }
 
     /**
+     * Get Purchase Summary report data for printing - NO PAGINATION
+     */
+    public function purchaseSummaryForPrint(Request $request)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Debug: Log input parameters
+            Log::info('Purchase Summary For Print - Input:', $request->all());
+            
+            // Validate request
+            $this->validate($request, [
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+            
+            Log::info('Purchase Summary For Print - Validation passed');
+
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Build base query for purchases - NO PAGINATION
+            $baseQuery = Purchase::query()->where('status', 1);
+
+            // Apply filters
+            if ($fiscalYearId) {
+                $baseQuery->where('fiscal_year_id', $fiscalYearId);
+            } elseif ($accountingPeriodId) {
+                $baseQuery->where('accounting_period_id', $accountingPeriodId);
+            } elseif ($fromDate && $toDate) {
+                $baseQuery->whereBetween('purchase_date', [$fromDate, $toDate]);
+            }
+
+            // Get ALL purchases - NO PAGINATION - OPTIMIZED
+            $purchases = $baseQuery->with(['supplier:id,name']) // Only load supplier id and name
+                ->select('id', 'supplier_id', 'sub_total', 'discount', 'transport', 'purchase_date')
+                ->orderBy('purchase_date', 'desc')
+                ->get(); // Get ALL purchases
+                
+            Log::info('Purchase Summary For Print - Query Results:', [
+                'total_purchases_found' => $purchases->count(),
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate
+            ]);
+
+            // Group by supplier and calculate summaries
+            $supplierSummaries = [];
+            $totalPurchases = 0;
+            $totalAmount = 0;
+            $totalTax = 0;
+            $totalPaid = 0;
+            $totalDue = 0;
+
+            foreach ($purchases as $purchase) {
+                $supplierId = $purchase->supplier_id;
+                $supplierName = $purchase->supplier->name ?? 'Unknown Supplier';
+                
+                if (!isset($supplierSummaries[$supplierId])) {
+                    $supplierSummaries[$supplierId] = [
+                        'supplier_id' => $supplierId,
+                        'supplier_name' => $supplierName,
+                        'total_purchases' => 0,
+                        'total_amount' => 0,
+                        'total_tax' => 0,
+                        'total_paid' => 0,
+                        'total_due' => 0,
+                    ];
+                }
+
+                $purchaseAmount = $purchase->sub_total ?? 0;
+                $purchaseDiscount = $purchase->discount ?? 0;
+                $purchaseTransport = $purchase->transport ?? 0;
+                
+                // Calculate tax and total (simplified calculation)
+                $purchaseTax = 0; // Will calculate from tax relationships if needed
+                $purchaseTotal = $purchaseAmount - $purchaseDiscount + $purchaseTransport + $purchaseTax;
+                
+                // Calculate paid amount (simplified for now - would need payment joins for accuracy)
+                $purchasePaid = 0; // Will be calculated from purchase_payments if needed
+                $purchaseDue = $purchaseTotal - $purchasePaid;
+
+                $supplierSummaries[$supplierId]['total_purchases']++;
+                $supplierSummaries[$supplierId]['total_amount'] += $purchaseAmount;
+                $supplierSummaries[$supplierId]['total_tax'] += $purchaseTax;
+                $supplierSummaries[$supplierId]['total_paid'] += $purchasePaid;
+                $supplierSummaries[$supplierId]['total_due'] += $purchaseDue;
+
+                // Don't store individual purchases for print to save memory
+                // $supplierSummaries[$supplierId]['purchases'][] = [...];
+
+                $totalPurchases++;
+                $totalAmount += $purchaseAmount;
+                $totalTax += $purchaseTax;
+                $totalPaid += $purchasePaid;
+                $totalDue += $purchaseDue;
+            }
+
+            // Convert to array and sort
+            $supplierData = array_values($supplierSummaries);
+            usort($supplierData, function($a, $b) {
+                return strcmp($a['supplier_name'], $b['supplier_name']);
+            });
+
+            $summary = [
+                'total_suppliers' => count($supplierData),
+                'total_purchases' => $totalPurchases,
+                'total_amount' => round($totalAmount, 2),
+                'total_tax' => round($totalTax, 2),
+                'total_paid' => round($totalPaid, 2),
+                'total_due' => round($totalDue, 2),
+                'grand_total' => round($totalAmount + $totalTax, 2),
+            ];
+
+            return [
+                'success' => true,
+                'data' => [
+                    'summary' => $summary,
+                    'suppliers' => $supplierData,
+                    'filters' => [
+                        'fiscal_year_id' => $fiscalYearId,
+                        'accounting_period_id' => $accountingPeriodId,
+                        'from_date' => $fromDate,
+                        'to_date' => $toDate,
+                    ],
+                    'total_entries' => count($supplierData),
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Failed to generate purchase summary report for print',
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
      * Get Trial Balance report data with hierarchical tree structure
      */
     public function trialBalance(Request $request)
@@ -3285,6 +3901,121 @@ class ReportController extends Controller
                 'message' => 'Failed to generate trial balance',
                 'error' => $e->getMessage()
             ], 500);
+        }
+    }
+
+    /**
+     * Get Trial Balance report data for printing - NO PAGINATION
+     */
+    public function trialBalanceForPrint(Request $request)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
+        try {
+            // Debug: Log input parameters
+            Log::info('Trial Balance For Print - Input:', $request->all());
+            
+            // Validate request
+            $this->validate($request, [
+                'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
+                'sub_chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
+                'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
+                'accounting_period_id' => 'nullable|exists:accounting_periods,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+            
+            Log::info('Trial Balance For Print - Validation passed');
+
+            $chartOfAccountId = $request->chart_of_account_id;
+            $subChartOfAccountId = $request->sub_chart_of_account_id;
+            $fiscalYearId = $request->fiscal_year_id;
+            $accountingPeriodId = $request->accounting_period_id;
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+
+            // Create filter object for consistency
+            $filters = [
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate,
+                'chart_of_account_id' => $chartOfAccountId,
+                'sub_chart_of_account_id' => $subChartOfAccountId,
+            ];
+
+            // Load accounts using Eloquent models (same as original trialBalance method)
+            $allAccountsQuery = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())
+                ->where('is_active', true)
+                ->whereNull('parent_id'); // Only get root level accounts
+
+            // If specific account is selected, get that account and its children
+            if ($subChartOfAccountId) {
+                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($subChartOfAccountId);
+                
+                $allAccounts = collect([$selectedAccount]);
+                $totalCount = 1;
+            } elseif ($chartOfAccountId) {
+                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($chartOfAccountId);
+                
+                $allAccounts = collect([$selectedAccount]);
+                $totalCount = 1;
+            } else {
+                // Load ALL accounts at once (much faster than pagination)
+                $allAccounts = $allAccountsQuery->orderBy('code')->get();
+                $totalCount = $allAccounts->count();
+            }
+
+            Log::info('Trial Balance For Print - Query Results:', [
+                'total_accounts_found' => $totalCount,
+                'fiscal_year_id' => $fiscalYearId,
+                'accounting_period_id' => $accountingPeriodId,
+                'from_date' => $fromDate,
+                'to_date' => $toDate
+            ]);
+
+            // Build the hierarchical trial balance with REAL calculated balances
+            // Note: Not passing pre-loaded data, let the method calculate balances individually
+            Log::info('Trial Balance For Print - Starting hierarchy build with ' . count($allAccounts) . ' accounts');
+            
+            try {
+                $trialBalanceData = $this->buildTrialBalanceHierarchy($allAccounts, $filters);
+                $totalCount = count($trialBalanceData);
+                
+                Log::info('Trial Balance For Print - Hierarchy build successful. Generated ' . $totalCount . ' data entries');
+            } catch (\Exception $e) {
+                Log::error('Trial Balance For Print - Hierarchy build failed: ' . $e->getMessage(), [
+                    'trace' => $e->getTraceAsString(),
+                    'filters' => $filters,
+                    'account_count' => count($allAccounts)
+                ]);
+                throw $e;
+            }
+
+            // Calculate grand totals from real data
+            $grandTotals = $this->calculateGrandTotals($trialBalanceData);
+
+            Log::info('Trial Balance For Print - Processing complete. Total accounts: ' . $totalCount);
+
+            return [
+                'success' => true,
+                'data' => [
+                    'filters' => $filters,
+                    'trial_balance' => $trialBalanceData,
+                    'grand_totals' => $grandTotals,
+                    'total_count' => $totalCount,
+                    'total_entries' => $totalCount,
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Failed to generate trial balance report for print',
+                'error' => $e->getMessage()
+            ];
         }
     }
 

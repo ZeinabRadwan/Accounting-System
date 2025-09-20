@@ -1,8 +1,8 @@
-@extends('print.layout')
+@extends('pdf')
 
 @section('page-style')
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&family:Roboto:wght@400;500;700&display=swap');
     
     body {
         font-family: 'Roboto', sans-serif;
@@ -32,23 +32,8 @@
         @endif
     }
     
-    .section-divider {
-        border-top: 2px solid #dee2e6;
-        margin: 20px 0;
-    }
-    
     .summary-header {
         background-color: #f8f9fa;
-        font-weight: bold;
-    }
-    
-    .amount-positive {
-        color: #28a745;
-        font-weight: bold;
-    }
-    
-    .amount-negative {
-        color: #dc3545;
         font-weight: bold;
     }
 </style>
@@ -72,20 +57,20 @@
     }
 @endphp
 
-@section('content')
+@section('content-area')
 <div class="container-fluid">
     <!-- Header -->
     <div class="text-center mb-4">
         <h2>@lang('print.Monthly Summary')</h2>
-        @if(isset($summaryData['monthName']) && isset($summaryData['year']))
-            <h4>{{ $summaryData['monthName'] }}, {{ $summaryData['year'] }}</h4>
+        @if(isset($reportData['monthName']) && isset($reportData['year']))
+            <h4>{{ $reportData['monthName'] }}, {{ $reportData['year'] }}</h4>
         @endif
     </div>
     
-    @if($summaryData && count($summaryData) > 0)
+    @if($reportData && count($reportData) > 0)
         <!-- Summary Table -->
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-sm">
+            <table class="table-listing table table-bordered table-striped table-sm">
                 <thead>
                     <tr class="summary-header">
                         <th>@lang('print.#')</th>
@@ -101,8 +86,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(isset($summaryData['openingBalances']) && count($summaryData['openingBalances']) > 0)
-                        @foreach($summaryData['openingBalances'] as $index => $balance)
+                    @if(isset($reportData['openingBalances']) && count($reportData['openingBalances']) > 0)
+                        @foreach($reportData['openingBalances'] as $index => $balance)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>
@@ -126,8 +111,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(isset($summaryData['accountCollections']) && count($summaryData['accountCollections']) > 0)
-                        @foreach($summaryData['accountCollections'] as $index => $collection)
+                    @if(isset($reportData['accountCollections']) && count($reportData['accountCollections']) > 0)
+                        @foreach($reportData['accountCollections'] as $index => $collection)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>
@@ -154,22 +139,22 @@
                     <tr>
                         <td>1</td>
                         <td>@lang('print.General Expenses')</td>
-                        <td>{{ formatPdfCurrency($summaryData['expenses'] ?? 0) }}</td>
+                        <td>{{ formatPdfCurrency($reportData['expenses'] ?? 0) }}</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>@lang('print.Payrolls')</td>
-                        <td>{{ formatPdfCurrency($summaryData['payrolls'] ?? 0) }}</td>
+                        <td>{{ formatPdfCurrency($reportData['payrolls'] ?? 0) }}</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>@lang('print.Loan Interest')</td>
-                        <td>{{ formatPdfCurrency($summaryData['loanInterest'] ?? 0) }}</td>
+                        <td>{{ formatPdfCurrency($reportData['loanInterest'] ?? 0) }}</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>@lang('print.Asset Depreciation')</td>
-                        <td>{{ formatPdfCurrency($summaryData['assetDepriciation'] ?? 0) }}</td>
+                        <td>{{ formatPdfCurrency($reportData['assetDepriciation'] ?? 0) }}</td>
                     </tr>
                 </tbody>
                 
@@ -183,29 +168,29 @@
                     <tr>
                         <td>1</td>
                         <td>@lang('print.Invoice Sales')</td>
-                        <td>{{ formatPdfCurrency($summaryData['invoiceSales'] ?? 0) }}</td>
+                        <td>{{ formatPdfCurrency($reportData['invoiceSales'] ?? 0) }}</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>@lang('print.Invoice Due')</td>
-                        <td>{{ formatPdfCurrency($summaryData['invoiceDue'] ?? 0) }}</td>
+                        <td>{{ formatPdfCurrency($reportData['invoiceDue'] ?? 0) }}</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>@lang('print.Total Purchase')</td>
-                        <td>{{ formatPdfCurrency($summaryData['totalPurchase'] ?? 0) }}</td>
+                        <td>{{ formatPdfCurrency($reportData['totalPurchase'] ?? 0) }}</td>
                     </tr>
                 </tbody>
                 
                 <!-- Balance Transfers Section -->
-                @if(isset($summaryData['balanceTransfers']) && count($summaryData['balanceTransfers']) > 0)
+                @if(isset($reportData['balanceTransfers']) && count($reportData['balanceTransfers']) > 0)
                     <thead>
                         <tr class="summary-header">
                             <th colspan="3">@lang('print.Balance Transfers')</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($summaryData['balanceTransfers'] as $index => $transfer)
+                        @foreach($reportData['balanceTransfers'] as $index => $transfer)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>
@@ -225,8 +210,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(isset($summaryData['closingBalances']) && count($summaryData['closingBalances']) > 0)
-                        @foreach($summaryData['closingBalances'] as $index => $balance)
+                    @if(isset($reportData['closingBalances']) && count($reportData['closingBalances']) > 0)
+                        @foreach($reportData['closingBalances'] as $index => $balance)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>
@@ -250,31 +235,4 @@
         </div>
     @endif
 </div>
-
-<!-- Print and Download Buttons -->
-<div class="action-buttons no-print">
-    <button class="print-button" onclick="window.print()">
-        <i class="fas fa-print"></i> @lang('print.Print')
-    </button>
-    <button class="pdf-button" onclick="downloadPDF()">
-        <i class="fas fa-download"></i> @lang('print.Download PDF')
-    </button>
-</div>
-
-<script>
-    function downloadPDF() {
-        // Create PDF download URL for summary report
-        const urlParams = new URLSearchParams(window.location.search);
-        let pdfUrl = '/summary/pdf';
-        if (urlParams.toString()) {
-            pdfUrl += '?' + urlParams.toString();
-        }
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = '';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-</script>
 @endsection

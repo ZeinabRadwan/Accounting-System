@@ -1,13 +1,53 @@
 @extends('pdf')
 
+@section('page-style')
+    <style>
+        body {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .currency-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        /* Fix for riyal symbol display */
+        .riyal-symbol {
+            font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
+        }
+        .table-listing th, .table-listing td {
+            text-align: center;
+        }
+    </style>
+@endsection
+
 @section('content-area')
-    <h3>@lang('Balance Sheet')</h3>
+    @php
+        // Custom currency formatter for PDF to fix riyal symbol display
+        if (!function_exists('formatPdfCurrency')) {
+            function formatPdfCurrency($amount) {
+                $currencySymbol = config('config.currencySymbol');
+                $currencyPosition = config('config.currencyPosition');
+                $formattedAmount = number_format($amount, 2, '.', ',');
+                
+                // Replace the problematic 'ê' with proper riyal symbol
+                if ($currencySymbol === 'ê') {
+                    $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
+                }
+                
+                if ($currencyPosition == 'left') {
+                    return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
+                } else {
+                    return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
+                }
+            }
+        }
+    @endphp
+    
+    <h3>@lang('print.Balance Sheet')</h3>
     
     @if(isset($balanceData['filters']['from_date']) && isset($balanceData['filters']['to_date']))
         <div class="row mt-3">
             <div class="col-12 text-center">
                 <h6 class="text-muted">
-                    @lang('Period'): {{ $balanceData['filters']['from_date'] }} - {{ $balanceData['filters']['to_date'] }}
+                    @lang('print.Period'): {{ $balanceData['filters']['from_date'] }} - {{ $balanceData['filters']['to_date'] }}
                 </h6>
             </div>
         </div>
@@ -20,10 +60,10 @@
                     <thead>
                         <tr class="text-center">
                             <th colspan="2">
-                                <h5>@lang('Assets')</h5>
+                                <h5>@lang('print.Assets')</h5>
                             </th>
                             <th class="red" colspan="2">
-                                <h5>@lang('Liabilities & Equity')</h5>
+                                <h5>@lang('print.Liabilities') & @lang('print.Equity')</h5>
                             </th>
                         </tr>
                     </thead>
@@ -36,11 +76,11 @@
                                     <th class="text-right">
                                         @if($account['balance_type'] === 'Debit')
                                             <span class="text-success">
-                                                @currency($account['absolute_balance'])
+                                                {!! formatPdfCurrency($account['absolute_balance']) !!} !!}
                                             </span>
                                         @else
                                             <span class="text-danger">
-                                                (@currency($account['absolute_balance']))
+                                                ({!! formatPdfCurrency($account['absolute_balance']) !!} !!})
                                             </span>
                                         @endif
                                     </th>
@@ -58,11 +98,11 @@
                                     <th class="text-right">
                                         @if($account['balance_type'] === 'Credit')
                                             <span class="text-danger">
-                                                @currency($account['absolute_balance'])
+                                                {!! formatPdfCurrency($account['absolute_balance']) !!}
                                             </span>
                                         @else
                                             <span class="text-success">
-                                                (@currency($account['absolute_balance']))
+                                                ({!! formatPdfCurrency($account['absolute_balance']) !!})
                                             </span>
                                         @endif
                                     </th>
@@ -78,11 +118,11 @@
                                     <th class="text-right">
                                         @if($account['balance_type'] === 'Credit')
                                             <span class="text-danger">
-                                                @currency($account['absolute_balance'])
+                                                {!! formatPdfCurrency($account['absolute_balance']) !!}
                                             </span>
                                         @else
                                             <span class="text-success">
-                                                (@currency($account['absolute_balance']))
+                                                ({!! formatPdfCurrency($account['absolute_balance']) !!})
                                             </span>
                                         @endif
                                     </th>
@@ -98,11 +138,11 @@
                                     <th class="text-right">
                                         @if($balanceData['totals']['net_income'] > 0)
                                             <span class="text-danger">
-                                                @currency($balanceData['totals']['net_income'])
+                                                {!! formatPdfCurrency($balanceData['totals']['net_income']) !!}
                                             </span>
                                         @else
                                             <span class="text-success">
-                                                (@currency(abs($balanceData['totals']['net_income'])))
+                                                ({!! formatPdfCurrency(abs($balanceData['totals']['net_income'])) !!})
                                             </span>
                                         @endif
                                     </th>
@@ -111,13 +151,13 @@
 
                             <!-- Totals Row -->
                             <tr class="text-right font-weight-bold">
-                                <th>@lang('Total Assets')</th>
-                                <th class="text-success">
-                                    @currency($balanceData['totals']['total_assets'])
-                                </th>
-                                <th>@lang('Total Liabilities & Equity')</th>
+                <th>@lang('print.Total Assets')</th>
+                <th class="text-success">
+                    {!! formatPdfCurrency($balanceData['totals']['total_assets']) !!}
+                </th>
+                <th>@lang('print.Total Liabilities') & @lang('print.Equity')</th>
                                 <th class="text-danger">
-                                    @currency($balanceData['totals']['total_liabilities_and_equity'])
+                                    {!! formatPdfCurrency($balanceData['totals']['total_liabilities_and_equity']) !!}
                                 </th>
                             </tr>
                         @else
@@ -141,15 +181,15 @@
                     @lang('Total Assets'):
                     @if($balanceData['totals']['total_assets'] > $balanceData['totals']['total_liabilities_and_equity'])
                         <span class="text-success">
-                            @currency($balanceData['totals']['total_assets'])
+                            {!! formatPdfCurrency($balanceData['totals']['total_assets']) !!}
                         </span>
                     @elseif($balanceData['totals']['total_assets'] < $balanceData['totals']['total_liabilities_and_equity'])
                         <span class="text-danger">
-                            @currency($balanceData['totals']['total_assets'])
+                            {!! formatPdfCurrency($balanceData['totals']['total_assets']) !!}
                         </span>
                     @else
                         <span class="text-success">
-                            @currency($balanceData['totals']['total_assets'])
+                            {!! formatPdfCurrency($balanceData['totals']['total_assets']) !!}
                         </span>
                     @endif
                 </h4>
@@ -157,15 +197,15 @@
                     @lang('Total Liabilities & Equity'):
                     @if($balanceData['totals']['total_liabilities_and_equity'] > $balanceData['totals']['total_assets'])
                         <span class="text-danger">
-                            @currency($balanceData['totals']['total_liabilities_and_equity'])
+                            {!! formatPdfCurrency($balanceData['totals']['total_liabilities_and_equity']) !!}
                         </span>
                     @elseif($balanceData['totals']['total_liabilities_and_equity'] < $balanceData['totals']['total_assets'])
                         <span class="text-success">
-                            @currency($balanceData['totals']['total_liabilities_and_equity'])
+                            {!! formatPdfCurrency($balanceData['totals']['total_liabilities_and_equity']) !!}
                         </span>
                     @else
                         <span class="text-success">
-                            @currency($balanceData['totals']['total_liabilities_and_equity'])
+                            {!! formatPdfCurrency($balanceData['totals']['total_liabilities_and_equity']) !!}
                         </span>
                     @endif
                 </h4>

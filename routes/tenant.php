@@ -751,6 +751,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/purchase-summary/pdf', [TableExportController::class, 'purchaseSummaryPDF'])->name('purchaseSummary.pdf');
     Route::get('/purchase-summary/export', [TableExportController::class, 'purchaseSummaryExportExcel'])->name('purchaseSummary.export.excel');
     Route::get('/vat-report/pdf', [TableExportController::class, 'vatReportPDF'])->name('vatReport.pdf');
+    Route::get('/summary/pdf', [TableExportController::class, 'summaryPDF'])->name('summary.pdf');
     Route::get('/vat-report/export', [TableExportController::class, 'vatReportExportExcel'])->name('vatReport.export.excel');
     Route::get('/trial-balance/pdf', [TableExportController::class, 'trialBalancePDF'])->name('trialBalance.pdf');
     Route::get('/trial-balance/export', [TableExportController::class, 'trialBalanceExportExcel'])->name('trialBalance.export.excel');

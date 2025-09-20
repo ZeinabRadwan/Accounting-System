@@ -95,108 +95,67 @@ class PrintController extends Controller
      */
     public function printBalanceSheet(Request $request)
     {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
         // Set locale for translations
-        app()->setLocale('ar');
+        app()->setLocale(app()->getLocale());
         
-        // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportResponse = $reportController->balanceSheet($request);
-        
-        // Handle JsonResponse
-        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportResponse->getData(true);
-        } else {
-            $reportData = $reportResponse;
-        }
-        
-        if (!$reportData['success']) {
-            // Provide realistic sample data structure for testing
-            $balanceData = [
-                'filters' => [
-                    'from_date' => now()->format('Y-m-d'),
-                    'to_date' => now()->addDays(30)->format('Y-m-d')
-                ],
-                'totals' => [
-                    'total_assets' => 100000.00,
-                    'total_liabilities' => 30000.00,
-                    'total_equity' => 70000.00
-                ],
-                'accounts' => [
-                    'assets' => [
-                        [
-                            'id' => 1,
-                            'code' => '1001',
-                            'name' => 'Cash',
-                            'type' => 'Asset',
-                            'balance' => 50000.00,
-                            'balance_type' => 'Debit',
-                            'absolute_balance' => 50000.00,
-                        ],
-                        [
-                            'id' => 2,
-                            'code' => '1002',
-                            'name' => 'Accounts Receivable',
-                            'type' => 'Asset',
-                            'balance' => 30000.00,
-                            'balance_type' => 'Debit',
-                            'absolute_balance' => 30000.00,
-                        ],
-                        [
-                            'id' => 3,
-                            'code' => '1003',
-                            'name' => 'Inventory',
-                            'type' => 'Asset',
-                            'balance' => 20000.00,
-                            'balance_type' => 'Debit',
-                            'absolute_balance' => 20000.00,
-                        ]
-                    ],
-                    'liabilities' => [
-                        [
-                            'id' => 4,
-                            'code' => '2001',
-                            'name' => 'Accounts Payable',
-                            'type' => 'Liability',
-                            'balance' => -20000.00,
-                            'balance_type' => 'Credit',
-                            'absolute_balance' => 20000.00,
-                        ],
-                        [
-                            'id' => 5,
-                            'code' => '2002',
-                            'name' => 'Accrued Expenses',
-                            'type' => 'Liability',
-                            'balance' => -10000.00,
-                            'balance_type' => 'Credit',
-                            'absolute_balance' => 10000.00,
-                        ]
-                    ],
-                    'equity' => [
-                        [
-                            'id' => 6,
-                            'code' => '3001',
-                            'name' => 'Owner Equity',
-                            'type' => 'Equity',
-                            'balance' => -70000.00,
-                            'balance_type' => 'Credit',
-                            'absolute_balance' => 70000.00,
-                        ]
-                    ]
-                ]
-            ];
-        } else {
+        try {
+            // Get report data from the API
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportResponse = $reportController->balanceSheet($request);
+            
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+            
+            // Debug: Log the response structure
+            Log::info('Balance Sheet Response Debug:', [
+                'response_type' => gettype($reportResponse),
+                'is_json_response' => $reportResponse instanceof \Illuminate\Http\JsonResponse,
+                'report_data_type' => gettype($reportData),
+                'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
+                'success_key_exists' => isset($reportData['success']),
+                'success_value' => $reportData['success'] ?? 'key not found',
+                'request_params' => $request->all()
+            ]);
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
+                $errorMessage = $reportData['message'] ?? 'Unknown error';
+                $errorDetail = $reportData['error'] ?? 'No error details';
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
+            }
+            
             $balanceData = $reportData['data'];
-        }
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            return view('print.balance-sheet-basic', compact('balanceData'));
-        }
+            
+            Log::info("Print Balance Sheet - Report generated successfully");
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            if (!$template) {
+                return view('print.balance-sheet-basic', compact('balanceData'));
+            }
 
-        return view('print.reports.balance-sheet', compact('balanceData', 'template'));
+            return view('print.reports.balance-sheet', compact('balanceData', 'template'));
+            
+        } catch (\Exception $e) {
+            Log::error('Print Balance Sheet Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return simple HTML error response (no view dependency)
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
+        }
     }
 
     /**
@@ -204,108 +163,121 @@ class PrintController extends Controller
      */
     public function printTrialBalance(Request $request)
     {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
         // Set locale for translations
-        app()->setLocale('ar');
+        app()->setLocale(app()->getLocale());
         
-        // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportResponse = $reportController->trialBalance($request);
-        
-        // Handle JsonResponse
-        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportResponse->getData(true);
-        } else {
-            $reportData = $reportResponse;
-        }
-        
-        if (!$reportData['success']) {
-            abort(404, 'Report data not found');
-        }
-        
-        $trialBalanceData = $reportData['data'];
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            return view('print.trial-balance-basic', compact('trialBalanceData'));
-        }
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportResponse = $reportController->trialBalanceForPrint($request);
+            
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+            
+            // Debug: Log the response structure
+            Log::info('Trial Balance Response Debug:', [
+                'response_type' => gettype($reportResponse),
+                'is_json_response' => $reportResponse instanceof \Illuminate\Http\JsonResponse,
+                'report_data_type' => gettype($reportData),
+                'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
+                'success_key_exists' => isset($reportData['success']),
+                'success_value' => $reportData['success'] ?? 'key not found',
+                'request_params' => $request->all()
+            ]);
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
+                $errorMessage = $reportData['message'] ?? 'Unknown error';
+                $errorDetail = $reportData['error'] ?? 'No error details';
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
+            }
+            
+            $trialBalanceData = $reportData['data'];
+            
+            Log::info("Print Trial Balance - Report generated successfully");
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            if (!$template) {
+                return view('print.trial-balance-basic', compact('trialBalanceData'));
+            }
 
-        return view('print.reports.trial-balance', compact('trialBalanceData', 'template'));
+            return view('print.reports.trial-balance', compact('trialBalanceData', 'template'));
+            
+        } catch (\Exception $e) {
+            Log::error('Print Trial Balance Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return simple HTML error response (no view dependency)
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
+        }
     }
 
     /**
-     * Print profit & loss report using selected template
+     * Print Profit Loss using selected template
      */
     public function printProfitLoss(Request $request)
     {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
         // Set locale for translations
-        app()->setLocale('ar');
+        app()->setLocale(app()->getLocale());
         
-        // Add default parameters if not provided
-        $request->merge([
-            'reportType' => $request->reportType ?? 2, // Default to summary report
-            'fromDate' => $request->fromDate ?? now()->startOfMonth()->format('Y-m-d'),
-            'toDate' => $request->toDate ?? now()->endOfMonth()->format('Y-m-d'),
-        ]);
-        
-        // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportResponse = $reportController->profitLossReport($request);
-        
-        // Handle JsonResponse
-        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportResponse->getData(true);
-        } else {
-            $reportData = $reportResponse;
-        }
-        
-        // Profit-loss API returns data directly, not wrapped in success response
-        $profitLossData = $reportData;
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            return view('print.profit-loss-basic', compact('profitLossData'));
-        }
+        try {
+            // Get report data from the API
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportResponse = $reportController->profitLossReport($request);
+            
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
+                $errorMessage = $reportData['message'] ?? 'Unknown error';
+                $errorDetail = $reportData['error'] ?? 'No error details';
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p></body></html>', 500);
+            }
+            
+            $profitLossData = $reportData['data'];
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            if (!$template) {
+                return view('print.profit-loss-basic', compact('profitLossData'));
+            }
 
-        return view('print.reports.profit-loss', compact('profitLossData', 'template'));
-    }
-
-    /**
-     * Print summary report using selected template
-     */
-    public function printSummary(Request $request)
-    {
-        // Set locale for translations
-        app()->setLocale('ar');
-        
-        // Get report data from the API
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportResponse = $reportController->summeryReport($request);
-        
-        // Handle JsonResponse
-        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportResponse->getData(true);
-        } else {
-            $reportData = $reportResponse;
+            return view('print.reports.profit-loss', compact('profitLossData', 'template'));
+            
+        } catch (\Exception $e) {
+            Log::error('Print Profit Loss Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p></body></html>',
+                500
+            );
         }
-        
-        // Summary API returns data directly, not wrapped in success response
-        $summaryData = $reportData;
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            return view('print.summary-basic', compact('summaryData'));
-        }
-
-        return view('print.reports.summary', compact('summaryData', 'template'));
     }
 
     /**
@@ -1199,25 +1171,67 @@ class PrintController extends Controller
      */
     public function printInvoiceSummary(Request $request)
     {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
         // Set locale for translations
         app()->setLocale(app()->getLocale());
         
-        // Get invoice summary data
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->invoiceSummary($request);
-        
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
-        }
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        if (!$template) {
-            return view('print.invoice-summary-basic', compact('reportData'));
-        }
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportResponse = $reportController->invoiceSummaryForPrint($request);
+            
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+            
+            // Debug: Log the response structure
+            Log::info('Invoice Summary Response Debug:', [
+                'response_type' => gettype($reportResponse),
+                'is_json_response' => $reportResponse instanceof \Illuminate\Http\JsonResponse,
+                'report_data_type' => gettype($reportData),
+                'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
+                'success_key_exists' => isset($reportData['success']),
+                'success_value' => $reportData['success'] ?? 'key not found',
+                'request_params' => $request->all()
+            ]);
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
+                $errorMessage = $reportData['message'] ?? 'Unknown error';
+                $errorDetail = $reportData['error'] ?? 'No error details';
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
+            }
+            
+            $invoiceSummaryData = $reportData['data'];
+            
+            Log::info("Print Invoice Summary - Total clients: " . count($invoiceSummaryData['clients']));
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            if (!$template) {
+                return view('print.invoice-summary-basic', compact('invoiceSummaryData'));
+            }
 
-        return view('print.reports.invoice-summary', compact('reportData', 'template'));
+            return view('print.reports.invoice-summary', compact('invoiceSummaryData', 'template'));
+            
+        } catch (\Exception $e) {
+            Log::error('Print Invoice Summary Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return simple HTML error response (no view dependency)
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
+        }
     }
 
     /**
@@ -1225,25 +1239,67 @@ class PrintController extends Controller
      */
     public function printPurchaseSummary(Request $request)
     {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
         // Set locale for translations
         app()->setLocale(app()->getLocale());
         
-        // Get purchase summary data
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->purchaseSummary($request);
-        
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
-        }
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        if (!$template) {
-            return view('print.purchase-summary-basic', compact('reportData'));
-        }
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportResponse = $reportController->purchaseSummaryForPrint($request);
+            
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+            
+            // Debug: Log the response structure
+            Log::info('Purchase Summary Response Debug:', [
+                'response_type' => gettype($reportResponse),
+                'is_json_response' => $reportResponse instanceof \Illuminate\Http\JsonResponse,
+                'report_data_type' => gettype($reportData),
+                'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
+                'success_key_exists' => isset($reportData['success']),
+                'success_value' => $reportData['success'] ?? 'key not found',
+                'request_params' => $request->all()
+            ]);
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
+                $errorMessage = $reportData['message'] ?? 'Unknown error';
+                $errorDetail = $reportData['error'] ?? 'No error details';
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
+            }
+            
+            $purchaseSummaryData = $reportData['data'];
+            
+            Log::info("Print Purchase Summary - Total suppliers: " . count($purchaseSummaryData['suppliers']));
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            if (!$template) {
+                return view('print.purchase-summary-basic', compact('purchaseSummaryData'));
+            }
 
-        return view('print.reports.purchase-summary', compact('reportData', 'template'));
+            return view('print.reports.purchase-summary', compact('purchaseSummaryData', 'template'));
+            
+        } catch (\Exception $e) {
+            Log::error('Print Purchase Summary Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return simple HTML error response (no view dependency)
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
+        }
     }
 
     /**
@@ -1251,25 +1307,67 @@ class PrintController extends Controller
      */
     public function printVatReport(Request $request)
     {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+        
         // Set locale for translations
         app()->setLocale(app()->getLocale());
         
-        // Get VAT report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->vatReport($request);
-        
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
-        }
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        if (!$template) {
-            return view('print.vat-report-basic', compact('reportData'));
-        }
+        try {
+            // Use the dedicated print method that gets ALL data without pagination
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $reportResponse = $reportController->vatReportForPrint($request);
+            
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+            
+            // Debug: Log the response structure
+            Log::info('VAT Report Response Debug:', [
+                'response_type' => gettype($reportResponse),
+                'is_json_response' => $reportResponse instanceof \Illuminate\Http\JsonResponse,
+                'report_data_type' => gettype($reportData),
+                'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
+                'success_key_exists' => isset($reportData['success']),
+                'success_value' => $reportData['success'] ?? 'key not found',
+                'request_params' => $request->all()
+            ]);
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
+                $errorMessage = $reportData['message'] ?? 'Unknown error';
+                $errorDetail = $reportData['error'] ?? 'No error details';
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
+            }
+            
+            $vatReportData = $reportData['data'];
+            
+            Log::info("Print VAT Report - Data generated successfully");
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            if (!$template) {
+                return view('print.vat-report-basic', compact('vatReportData'));
+            }
 
-        return view('print.reports.vat-report', compact('reportData', 'template'));
+            return view('print.reports.vat-report', compact('vatReportData', 'template'));
+            
+        } catch (\Exception $e) {
+            Log::error('Print VAT Report Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return simple HTML error response (no view dependency)
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
+        }
     }
 
     /**
@@ -1462,28 +1560,76 @@ class PrintController extends Controller
         // Set locale for translations
         app()->setLocale(app()->getLocale());
         
-        // Get group account statement data - need to create this method
-        // For now, use regular account statement as fallback
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportResponse = $reportController->groupAccountStatementForPrint($request);
         
-        // Check if method exists
-        if (method_exists($reportController, 'groupAccountStatement')) {
-            $reportData = $reportController->groupAccountStatement($request);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
         } else {
-            $reportData = $reportController->accountStatement($request);
+            $reportData = $reportResponse;
         }
         
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        if (!$reportData['success']) {
+            abort(404, 'Report data not found');
         }
+        
+        $groupStatementData = $reportData['data'];
+        
+        Log::info("Print Group Account Statement - Total entries: " . count($groupStatementData['entries']));
         
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
         
         if (!$template) {
-            return view('print.group-account-statement-basic', compact('reportData'));
+            return view('print.group-account-statement-basic', compact('groupStatementData'));
         }
 
-        return view('print.reports.group-account-statement', compact('reportData', 'template'));
+        return view('print.reports.group-account-statement', compact('groupStatementData', 'template'));
     }
+
+    /**
+     * Print Summary Report using selected template
+     */
+    public function printSummary(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale(app()->getLocale());
+        
+        try {
+            // Get summary report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $summaryData = $reportController->summeryReport($request);
+            
+            if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
+                $summaryData = $summaryData->getData(true);
+            }
+            
+            Log::info("Print Summary Report - Data generated successfully");
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            if (!$template) {
+                return view('print.summary-basic', compact('summaryData'));
+            }
+
+            return view('print.reports.summary', compact('summaryData', 'template'));
+            
+        } catch (\Exception $e) {
+            Log::error('Print Summary Report Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            // Return simple HTML error response (no view dependency)
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
+        }
+    }
+
+
 }
