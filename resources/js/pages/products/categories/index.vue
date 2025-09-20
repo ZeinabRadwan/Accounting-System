@@ -13,17 +13,17 @@
             <div class="row d-fex" style="justify-content: flex-end">
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
-              </div>
+            </div>
               <div class="col-xl-6 col-3 float-right text-right">
-                <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100">
                   <a
                     @click="refreshTable()"
                     href="#"
                     v-tooltip="'Refresh'"
                     class="btn btn-success refresh-btn"
                   >
-                    <i class="fas fa-sync"></i>
-                  </a>
+                  <i class="fas fa-sync"></i>
+                </a>
                   <a
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
@@ -67,29 +67,29 @@
                     v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
-                    <i class="fas fa-print"></i>
-                  </a>
+                  <i class="fas fa-print"></i>
+                </a>
                   <router-link v-if="$can('product-category-create')" :to="{ name: 'productCats.create' }" class="btn btn-primary">
-                    {{ $t("Create") }}
-                    <i class="fas fa-plus-circle d-none d-sm-inline-block" />
-                  </router-link>
-                </div>
+                  {{ $t("Create") }}
+                  <i class="fas fa-plus-circle d-none d-sm-inline-block" />
+                </router-link>
+              </div>
               </div>
             </div>
             <table-loading v-show="loading" />
             <div id="printMe" class="table-responsive table-custom mt-3">
               <table class="table categories-table">
                 <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Code") }}</th>
-                  <th>{{ $t("Name") }}</th>
-                  <th>{{ $t("Note") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th v-if="$can('product-category-edit') ||
-                    $can('product-category-delete')
-                    " class="text-right no-print">
-                    {{ $t("Action") }}
-                  </th>
+                    <th>{{ $t("#") }}</th>
+                    <th>{{ $t("Code") }}</th>
+                    <th>{{ $t("Name") }}</th>
+                    <th>{{ $t("Note") }}</th>
+                    <th>{{ $t("Status") }}</th>
+                    <th v-if="$can('product-category-edit') ||
+                      $can('product-category-delete')
+                      " class="text-right no-print">
+                      {{ $t("Action") }}
+                    </th>
                 </thead>
                 <tbody>
                   <tr v-show="items.length" v-for="(data, i) in items" :key="i">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-50">
     <div class="row">
       <div class="col-lg-12">
         <div class="card custom-card w-100">
@@ -10,7 +10,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">
-            <div class="row" style="justify-content: flex-end">
+            <div class="row d-fex" style="justify-content: flex-end">
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
@@ -24,7 +24,7 @@
                   </template>
                 </date-range-picker>
               </div>
-              <div class="col-xl-8 col-8 float-right text-right">
+              <div class="col-xl-6 col-3 float-right text-right">
                 <div class="btn-group c-w-100">
                   <a
                     @click="refreshTable()"
@@ -89,9 +89,9 @@
                   >
                     <i class="fas fa-print"></i>
                   </a>
-                  <router-link v-if="$can('invoice-payment-create')" :to="{ name: 'invoicePayments.create' }"
-                    class="btn btn-primary">
-                    <i class="fa fa-plus"></i> {{ $t("Create") }}
+                  <router-link v-if="$can('invoice-payment-create')" :to="{ name: 'invoicePayments.create' }" class="btn btn-primary">
+                    {{ $t("Create") }}
+                    <i class="fas fa-plus-circle d-none d-sm-inline-block" />
                   </router-link>
                 </div>
               </div>
@@ -127,20 +127,20 @@
                       </span>
                       <span v-else>{{ i + 1 }}</span>
                     </td>
-                    <td v-if="data.invoice && invoicePrefix">
-                      <router-link v-if="$can('invoice-view')" :to="{
+                    <td>
+                      <router-link v-if="data.invoice && $can('invoice-view')" :to="{
                         name: 'invoices.show',
                         params: { slug: data.invoice.slug },
                       }">
                         {{ data.invoice.invoiceNo | withPrefix(invoicePrefix) }}
                       </router-link>
-                      <span v-else>{{
+                      <span v-else-if="data.invoice">{{
                         data.invoice.invoiceNo | withPrefix(invoicePrefix)
                       }}</span>
                     </td>
-                    <td v-if="data.client">{{ data.client.name }}</td>
-                    <td v-if="data.invoice">
-                      {{ data.invoice.invoiceTotal | withCurrency }}
+                    <td>{{ data.client ? data.client.name : '' }}</td>
+                    <td>
+                      {{ data.invoice ? (data.invoice.invoiceTotal | withCurrency) : '' }}
                     </td>
                     <td>{{ data.amount | withCurrency }}</td>
                     <td>
@@ -166,33 +166,28 @@
                         $can('invoice-payment-view') ||
                         $can('invoice-payment-delete')
                         " class="text-right no-print">
-                      <div class="btn-group">
-                        <router-link v-if="$can('invoice-payment-view')" v-tooltip="$t('View')" :to="{
-                          name: 'invoicePayments.show',
-                          params: { slug: data.slug },
-                        }" class="btn btn-primary btn-sm">
-                          <i class="fas fa-eye" />
-                        </router-link>
-                        <router-link v-if="$can('invoice-payment-edit') && data.status !== 2" v-tooltip="$t('Edit')" :to="{
-                          name: 'invoicePayments.edit',
-                          params: { slug: data.slug },
-                        }" class="btn btn-info btn-sm">
-                          <i class="fas fa-edit" />
-                        </router-link>
-                        <a v-if="$can('invoice-payment-delete') && data.status === 1" 
-                          v-tooltip="$t('Cancel Payment')" 
-                          href="#"
-                          class="btn btn-danger btn-sm"
-                          @click="cancelPayment(data.slug)">
-                          <i class="fas fa-times" />
-                        </a>
-                        <a v-if="$can('invoice-payment-delete') && data.status === 0" 
-                          v-tooltip="$t('Delete')" 
-                          href="#"
-                          class="btn btn-danger btn-sm"
-                          @click="deleteData(data.slug)">
-                          <i class="fas fa-trash" />
-                        </a>
+                      <div class="action-dropdown" :class="{ open: openActionIndex === i }">
+                        <button type="button" class="action-icon-btn" @click.stop="toggleAction(i)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                            <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                          </svg>
+                        </button>
+                        <div class="action-menu" v-if="openActionIndex === i" @click.stop>
+                          <ul>
+                            <li v-if="$can('invoice-payment-view')">
+                              <router-link :to="{ name: 'invoicePayments.show', params: { slug: data.slug } }">{{ $t('View') }}</router-link>
+                            </li>
+                            <li v-if="$can('invoice-payment-edit') && data.status !== 2">
+                              <router-link :to="{ name: 'invoicePayments.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
+                            </li>
+                            <li v-if="$can('invoice-payment-delete') && data.status === 1">
+                              <a href="#" @click="cancelPayment(data.slug)">{{ $t('Cancel Payment') }}</a>
+                            </li>
+                            <li v-if="$can('invoice-payment-delete') && data.status === 0">
+                              <a href="#" @click="deleteData(data.slug)">{{ $t('Delete') }}</a>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -231,6 +226,199 @@
 </template>
 
 <style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.invoice-payments-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoice-payments-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoice-payments-table thead tr {
+  border: none !important;
+}
+
+.invoice-payments-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoice-payments-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoice-payments-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoice-payments-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+/* Action dropdown styles */
+.action-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.action-icon-btn {
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.action-menu {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border-radius: 10px;
+  min-width: 180px;
+  z-index: 10;
+}
+
+.action-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.action-menu li a {
+  display: block;
+  padding: 10px 16px;
+  color: #023033;
+  text-decoration: none;
+  text-align: center;
+}
+
+.action-menu li a:hover {
+  background: #f1f5fb;
+}
+
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Custom Status Badge Styling */
+.invoice-payments-table .badge.bg-success {
+  background: #F6FEF4 !important;
+  color: #2AB930 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.invoice-payments-table .badge.bg-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #F1F5FB !important;
+}
+
+/* Create Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+}
+
+/* Cancelled row styling */
 .cancelled-row {
   text-decoration: line-through;
   opacity: 0.7;
@@ -277,7 +465,6 @@ export default {
     query: "",
     invoicePrefix: "",
     perPage: 10,
-    openActionIndex: null,
     minDate: moment(new Date("01-01-2021")).format("YYYY-MM-DD"),
     maxDate: moment().add(1, "days").format("YYYY-MM-DD"),
     dateRange: {
@@ -296,6 +483,7 @@ export default {
       monthNames: moment.monthsShort(),
       firstDay: 1,
     },
+    openActionIndex: null,
   }),
   filters: {
     startDate(val) {
@@ -332,20 +520,17 @@ export default {
     this.invoicePrefix = this.appInfo.invoicePrefix;
   },
   mounted() {
-    document.addEventListener("click", this.onClickOutside);
+    document.addEventListener('click', this.onClickOutside);
   },
   beforeDestroy() {
-    document.removeEventListener("click", this.onClickOutside);
+    document.removeEventListener('click', this.onClickOutside);
   },
   methods: {
-    // Action dropdown methods
     toggleAction(index) {
       this.openActionIndex = this.openActionIndex === index ? null : index;
     },
-    onClickOutside(event) {
-      if (!event.target.closest('.action-dropdown')) {
-        this.openActionIndex = null;
-      }
+    onClickOutside() {
+      this.openActionIndex = null;
     },
     // filter data for selected date range
     async updateValues() {
@@ -453,7 +638,7 @@ export default {
                 );
               }
             })
-            .catch((error) => {
+            .catch(() => {
               Swal.fire(
                 this.$t("Failed!"),
                 this.$t("Sorry, couldn't cancel this payment!"),
@@ -501,208 +686,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.table-custom {
-  border: none !important;
-}
-
-.invoice-payments-table {
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-.invoice-payments-table thead th {
-  background-color: #33a0d9;
-  color: #ffffff;
-  padding: 8px;
-  border: none !important;
-  border-color: inherit !important;
-  font-weight: 400;
-}
-
-.invoice-payments-table thead tr {
-  border: none !important;
-}
-
-.invoice-payments-table thead th:first-child {
-  border-top-left-radius: 10px;
-}
-
-.invoice-payments-table thead th:last-child {
-  border-top-right-radius: 10px;
-}
-
-/* RTL styles for Arabic language */
-[dir="rtl"] .invoice-payments-table thead th:first-child {
-  border-top-left-radius: 0;
-  border-top-right-radius: 10px;
-}
-
-[dir="rtl"] .invoice-payments-table thead th:last-child {
-  border-top-right-radius: 0;
-  border-top-left-radius: 10px;
-}
-
-.refresh-btn {
-  background: #33a0d91a !important;
-  color: #33a0d9 !important;
-  width: 56px;
-  height: 44px;
-  border-radius: 10px;
-  padding: 10px 16px;
-  border: none;
-}
-
-.export-excel-btn {
-  background: #f6fef4 !important;
-  color: #2ab930 !important;
-  width: 56px;
-  height: 44px;
-  border-radius: 10px;
-  padding: 10px 16px;
-  border: none;
-}
-
-.export-pdf-btn {
-  background: #f6fef4 !important;
-  color: #2ab930 !important;
-  width: 56px;
-  height: 44px;
-  border-radius: 10px;
-  padding: 10px 16px;
-  border: none;
-}
-
-.print-btn {
-  background: #33a0d91a !important;
-  color: #33a0d9 !important;
-  width: 56px;
-  height: 44px;
-  border-radius: 10px;
-  padding: 10px 16px;
-  border: none;
-}
-
-/* Space between action buttons */
-.btn-group.c-w-100 {
-  gap: 10px;
-}
-
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
-}
-
-.card {
-  margin-top: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA
-}
-
-.card-footer {
-  background-color: white;
-  border-top: 1px solid #CED4DA;
-  padding: 0 1.25rem 0.625rem 1.25rem;
-  border-radius: 0 0 20px 20px;
-}
-
-/* Action Dropdown Styles */
-.action-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.action-menu {
-  position: absolute;
-  right: 0;
-  top: 48px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border-radius: 10px;
-  min-width: 180px;
-  z-index: 10;
-}
-
-.action-icon-btn {
-  background: #f8f9fa;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-}
-
-.action-icon-btn:hover {
-  background: #e9ecef;
-}
-
-.action-menu-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 16px;
-  color: #374151;
-  text-decoration: none;
-  font-size: 14px;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.action-menu-item:last-child {
-  border-bottom: none;
-}
-
-.action-menu-item:hover {
-  background: #f9fafb;
-  color: #111827;
-}
-
-.action-menu-item i {
-  margin-right: 8px;
-  width: 16px;
-  text-align: center;
-}
-
-/* Custom Status Badge Styling */
-.invoice-payments-table .badge.bg-success {
-  background: #F6FEF4 !important;
-  color: #2AB930 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 10px 16px;
-}
-
-.invoice-payments-table .badge.bg-danger {
-  background: #FEF4F4 !important;
-  color: #DC3545 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 10px 16px;
-}
-
-/* Search Input Background Override */
-.form-control{
-  background: #F1F5FB !important;
-}
-
-.btn-primary {
-  background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
-}
-</style>

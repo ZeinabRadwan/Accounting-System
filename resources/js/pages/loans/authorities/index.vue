@@ -13,17 +13,17 @@
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
-              </div>
-              <div class="col-xl-8 col-8 float-right text-right">
-                <div class="btn-group c-w-100">
+            </div>
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
                   <a
                     @click="refreshTable()"
                     href="#"
                     v-tooltip="'Refresh'"
                     class="btn btn-success refresh-btn"
                   >
-                    <i class="fas fa-sync"></i>
-                  </a>
+                  <i class="fas fa-sync"></i>
+                </a>
                   <a
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
@@ -67,31 +67,31 @@
                     v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
-                    <i class="fas fa-print"></i>
-                  </a>
+                  <i class="fas fa-print"></i>
+                </a>
                   <router-link v-if="$can('loan-authority-create')" :to="{ name: 'authorities.create' }" class="btn btn-primary">
-                    {{ $t("Create") }}
-                    <i class="fas fa-plus-circle d-none d-sm-inline-block" />
-                  </router-link>
-                </div>
+                  {{ $t("Create") }}
+                  <i class="fas fa-plus-circle d-none d-sm-inline-block" />
+                </router-link>
+              </div>
               </div>
             </div>
             <table-loading v-show="loading" />
             <div class="table-responsive table-custom mt-3" id="printMe">
               <table class="table loan-authorities-table">
                 <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Name") }}</th>
-                  <th>{{ $t("Email") }}</th>
-                  <th>{{ $t("Contact Number") }}</th>
-                  <th>{{ $t("CC Limit") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th v-if="$can('loan-authority-edit') ||
-                    $can('loan-authority-view') ||
-                    $can('loan-authority-delete')
-                    " class="text-right no-print">
-                    {{ $t("Action") }}
-                  </th>
+                    <th>{{ $t("#") }}</th>
+                    <th>{{ $t("Name") }}</th>
+                    <th>{{ $t("Email") }}</th>
+                    <th>{{ $t("Contact Number") }}</th>
+                    <th>{{ $t("CC Limit") }}</th>
+                    <th>{{ $t("Status") }}</th>
+                    <th v-if="$can('loan-authority-edit') ||
+                      $can('loan-authority-view') ||
+                      $can('loan-authority-delete')
+                      " class="text-right no-print">
+                      {{ $t("Action") }}
+                    </th>
                 </thead>
                 <tbody>
                   <tr v-show="items.length" v-for="(data, i) in items" :key="i">
