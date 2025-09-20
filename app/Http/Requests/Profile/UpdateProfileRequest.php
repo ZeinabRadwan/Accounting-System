@@ -29,6 +29,7 @@ class UpdateProfileRequest extends BaseRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255|min:3|unique:users,email,'.$user->id,
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'currentPassword' => $this->newPassword != null ? ['required', 'string', 'min:8', function ($attribute, $value, $fail) use ($user) {
                 if (! Hash::check($value, $user->password)) {
                     return $fail(__('The current password is incorrect.'));

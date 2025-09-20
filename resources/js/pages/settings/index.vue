@@ -99,8 +99,8 @@ export default {
 
 .settings-card .nav-pills .nav-link.active,
 .settings-card .nav-pills .show>.nav-link {
-  color: #6366f1;
-  background-color: #6366f159;
+  color: #1B3C71;
+  background-color: #1B3C7159;
 }
 
 
@@ -134,7 +134,7 @@ export default {
 .trial-block {
   display: flex;
   align-items: center;
-  background: #6366f1;
+  background: #1B3C71;
   padding: 15px;
   border-radius: 5px;
   color: #fff;

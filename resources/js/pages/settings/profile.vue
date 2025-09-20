@@ -10,6 +10,46 @@
                 @keydown="form.onKeydown($event)"
             >
                 <div class="form-group row">
+                    <label for="profile_image" class="col-sm-2 col-form-label text-right"
+                        >{{ $t('Profile Image') }}</label
+                    >
+                    <div class="col-sm-10">
+                        <div class="d-flex align-items-center">
+                            <div class="mr-3">
+                                <img
+                                    v-if="profileImagePreview"
+                                    :src="profileImagePreview"
+                                    alt="Profile Preview"
+                                    class="rounded-circle"
+                                    style="width: 80px; height: 80px; object-fit: cover;"
+                                />
+                                <div
+                                    v-else
+                                    class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                                    style="width: 80px; height: 80px;"
+                                >
+                                    <i class="fas fa-user fa-2x text-muted"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <input
+                                    type="file"
+                                    ref="profileImageInput"
+                                    @change="handleImageChange"
+                                    accept="image/*"
+                                    class="form-control-file"
+                                    :class="{ 'is-invalid': form.errors.has('profile_image') }"
+                                    id="profile_image"
+                                />
+                                <small class="form-text text-muted">
+                                    {{ $t('Select an image (JPEG, PNG, JPG, GIF) - Max 2MB') }}
+                                </small>
+                                <has-error :form="form" field="profile_image" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label text-right"
                         >{{ $t('Name') }}
                         <span class="required">*</span></label
@@ -153,9 +193,11 @@ export default {
             currentPassword: '',
             newPassword: '',
             confirmPassword: '',
+            profile_image: null,
         }),
         loading: true,
         user: '',
+        profileImagePreview: null,
     }),
     created() {
         this.getUser();
@@ -169,6 +211,41 @@ export default {
             this.user = data.data;
             this.form.name = data.data.name;
             this.form.email = data.data.email;
+            this.profileImagePreview = data.data.photo_url;
+        },
+
+        // handle image change
+        handleImageChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Validate file size (2MB max)
+                if (file.size > 2 * 1024 * 1024) {
+                    toast.fire({
+                        type: 'error',
+                        title: this.$t('File size must be less than 2MB'),
+                    });
+                    return;
+                }
+                
+                // Validate file type
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+                if (!allowedTypes.includes(file.type)) {
+                    toast.fire({
+                        type: 'error',
+                        title: this.$t('Please select a valid image file (JPEG, PNG, JPG, GIF)'),
+                    });
+                    return;
+                }
+                
+                this.form.profile_image = file;
+                
+                // Create preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.profileImagePreview = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         },
 
         // update profile
@@ -181,20 +258,46 @@ export default {
                     ),
                 });
             }
-            await this.form
-                .post(window.location.origin + '/api/update-profile')
-                .then(() => {
-                    toast.fire({
-                        type: 'success',
-                        title: this.$t('Profile updated successfully'),
-                    });
-                })
-                .catch(() => {
-                    toast.fire({
-                        type: 'error',
-                        title: this.$t('Opps...something went wrong'),
-                    });
+            
+            // Create FormData for file upload
+            const formData = new FormData();
+            formData.append('name', this.form.name);
+            formData.append('email', this.form.email);
+            formData.append('currentPassword', this.form.currentPassword);
+            formData.append('newPassword', this.form.newPassword);
+            formData.append('confirmPassword', this.form.confirmPassword);
+            
+            if (this.form.profile_image) {
+                formData.append('profile_image', this.form.profile_image);
+            }
+            
+            try {
+                await axios.post(window.location.origin + '/api/update-profile', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
                 });
+                
+                toast.fire({
+                    type: 'success',
+                    title: this.$t('Profile updated successfully'),
+                });
+                
+                // Refresh user data to get updated profile image
+                await this.getUser();
+                
+                // Reset form but keep the profile image preview
+                this.form.reset();
+                this.form.profile_image = null;
+            } catch (error) {
+                if (error.response && error.response.data.errors) {
+                    this.form.errors.record(error.response.data.errors);
+                }
+                toast.fire({
+                    type: 'error',
+                    title: this.$t('Opps...something went wrong'),
+                });
+            }
         },
     },
 };

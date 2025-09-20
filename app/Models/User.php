@@ -41,6 +41,7 @@ class User extends Authenticatable
         'account_role',
         'is_active',
         'locale',
+        'profile_image',
     ];
 
     protected $attributes = [
@@ -82,6 +83,11 @@ class User extends Authenticatable
      */
     public function getPhotoUrlAttribute()
     {
+        if ($this->profile_image) {
+            // Use relative URL to avoid domain issues in multi-tenant setup
+            return '/images/users/' . $this->profile_image;
+        }
+        
         return vsprintf('https://www.gravatar.com/avatar/%s.jpg?s=200&d=%s', [
             md5(strtolower($this->email)),
             $this->name ? urlencode("https://ui-avatars.com/api/$this->name") : 'mp',

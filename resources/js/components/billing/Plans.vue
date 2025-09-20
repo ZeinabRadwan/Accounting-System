@@ -170,7 +170,7 @@ export default {
 }
 
 .price-single ul li span {
-  color: #6366f1;
+  color: #1B3C71;
 }
 
 .price-single .price-badge {
@@ -178,7 +178,7 @@ export default {
   right: 0px;
   bottom: 0px;
   margin: 0;
-  background: #6366f1;
+  background: #1B3C71;
   color: #fff;
   padding: 3px 8px;
   font-size: 13px;
@@ -197,7 +197,7 @@ export default {
 }
 
 label.price-single.selected {
-  border-color: #6366f1;
+  border-color: #1B3C71;
 }
 
 .current-plan {

@@ -608,16 +608,16 @@ export default {
 
 <style>
 .btn-outline-custom {
-  color: #6366f1;
-  border-color: #6366f1;
+  color: #1B3C71;
+  border-color: #1B3C71;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .btn-outline-custom:hover,
 .btn-custom-active {
-  background-color: #6366f1;
+  background-color: #1B3C71;
   color: #fff;
-  border-color: #6366f1;
+  border-color: #1B3C71;
 }
 
 h1, h2 {
