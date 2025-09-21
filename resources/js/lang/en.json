@@ -1972,5 +1972,8 @@
   "Enter purchase price": "Enter purchase price",
   "Select sales account": "Select sales account",
   "Select purchase account": "Select purchase account",
-  "Add any additional notes...": "Add any additional notes..."
+  "Add any additional notes...": "Add any additional notes...",
+  "No Company": "No Company",
+  "Revenue": "Revenue",
+  "Sales": "Sales"
 }

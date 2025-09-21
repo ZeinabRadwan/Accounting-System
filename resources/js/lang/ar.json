@@ -2600,5 +2600,8 @@
   "Create Credit Note KSA" :"إنشاء اشعار دائن",
   "Debit note added successfully" : "تم إضافة الاشعار المدين بنجاح",
   "Credit note added successfully" : "تم إضافة الاشعار الدائن بنجاح",
-  "Failed to auto-assign Purchase Account": "فشل في تعيين حساب المشتريات تلقائياً"
+  "Failed to auto-assign Purchase Account": "فشل في تعيين حساب المشتريات تلقائياً",
+  "No Company": "لا توجد شركة",
+  "Revenue": "الإيرادات",
+  "Sales": "المبيعات"
 }
