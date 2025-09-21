@@ -6,5 +6,6 @@ import './filter'
 import './VueInputTag'
 import './rtl'
 import './saudiRiyalSymbol'
+import './sweetalert2'
 
 
