@@ -54,24 +54,26 @@ class TenantDomainFindController extends Controller
         // Set user locale
         app()->setLocale($user->locale);
 
-        // Create a direct dashboard URL with authentication token
+        // Create a special login URL for the tenant domain with encrypted credentials
         $tenantDomain = $domain . '.' . $host;
         $protocol = request()->secure() ? 'https' : 'http';
 
-        // Create token for the user
+        // Encrypt the credentials for secure transmission
+        $encryptedEmail = encrypt($request->input('email'));
+        $encryptedPassword = encrypt($request->input('password'));
+
+        $loginUrl = $protocol . '://' . $tenantDomain . '/cross-domain-login?' .
+            'email=' . urlencode($encryptedEmail) .
+            '&password=' . urlencode($encryptedPassword);
+
+
         $token = (string) $user->createToken(Str::random(10))->plainTextToken;
 
-        // Create direct dashboard URL with encrypted token for secure transmission
-        $encryptedToken = encrypt($token);
-        $encryptedUserId = encrypt($user->id);
-        
-        $dashboardUrl = $protocol . '://' . $tenantDomain . '/direct-auth-dashboard?' .
-            'token=' . urlencode($encryptedToken) .
-            '&user_id=' . urlencode($encryptedUserId);
+
 
         return $this->responseWithSuccess('Login successful', [
             'domain' => $tenantDomain,
-            'login_url' => $dashboardUrl,
+            'login_url' => $loginUrl,
             'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => null,

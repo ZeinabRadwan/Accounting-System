@@ -30,11 +30,6 @@ export default [
     component: page('auth/cross-domain-login.vue'),
   },
   {
-    path: '/direct-auth-dashboard',
-    name: 'direct-auth-dashboard',
-    component: page('auth/direct-auth-dashboard.vue'),
-  },
-  {
     path: '/register',
     name: 'register',
     component: page('auth/login.vue'),

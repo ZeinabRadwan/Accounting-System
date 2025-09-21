@@ -16,6 +16,49 @@ class FiscalYearSeeder extends Seeder
      */
     public function run()
     {
+        // Create fiscal year 2025 (January 1, 2025 - December 31, 2025)
+        $currentFiscalYear = FiscalYear::create([
+            'name' => 'FY 2025',
+            'start_date' => Carbon::parse('2025-01-01'),
+            'end_date' => Carbon::parse('2025-12-31'),
+            'is_active' => true,
+            'note' => 'Default fiscal year for 2025',
+            'created_by' => 1,
+        ]);
+
+        // Create single accounting period covering the whole year
+        $currentPeriod = AccountingPeriod::create([
+            'name' => 'Full Year 2025',
+            'fiscal_year_id' => $currentFiscalYear->id,
+            'start_date' => Carbon::parse('2025-01-01'),
+            'end_date' => Carbon::parse('2025-12-31'),
+            'is_active' => true,
+            'is_closed' => false,
+            'note' => 'Full year accounting period for 2025',
+            'created_by' => 1,
+        ]);
+
+        // Set current fiscal year and accounting period in general settings
+        // Set current fiscal year
+        \App\Models\GeneralSetting::updateOrCreate(
+            ['key' => 'current_fiscal_year_id'],
+            [
+                'display_name' => 'Current Fiscal Year ID',
+                'value' => $currentFiscalYear->id,
+            ]
+        );
+        
+        // Set current accounting period
+        \App\Models\GeneralSetting::updateOrCreate(
+            ['key' => 'current_accounting_period_id'],
+            [
+                'display_name' => 'Current Accounting Period ID',
+                'value' => $currentPeriod->id,
+            ]
+        );
+
+        /* COMMENTED OUT: Multiple fiscal years and quarterly periods
+        
         // Create current fiscal year (2025-2026)
         $currentFiscalYear = FiscalYear::create([
             'name' => 'FY 2025-2026',
@@ -103,5 +146,7 @@ class FiscalYearSeeder extends Seeder
                 ]
             );
         }
+        
+        */
     }
 }
