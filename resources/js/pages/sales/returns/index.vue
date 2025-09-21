@@ -237,7 +237,7 @@ import axios from "axios";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.isSaudiArabia ? this.$t("Invoice Returns KSA") : this.$t("Invoice Returns") };
+    return { title: this.isSaudiArabia ? this.$t("Credit notes") : this.$t("Invoice Returns") };
   },
   components: {
     DateRangePicker,
@@ -299,7 +299,7 @@ export default {
     },
     // Dynamic breadcrumbs current based on country
     dynamicBreadcrumbsCurrent() {
-      return this.isSaudiArabia ? this.$t("Invoice Returns KSA") : this.$t("Invoice Returns");
+      return this.isSaudiArabia ? this.$t("Credit notes") : this.$t("Invoice Returns");
     },
     // Dynamic breadcrumbs based on country
     dynamicBreadcrumbs() {
@@ -313,7 +313,7 @@ export default {
           url: "invoices.index",
         },
         {
-          name: this.isSaudiArabia ? this.$t("Invoice Returns KSA") : this.$t("Invoice Returns"),
+          name: this.isSaudiArabia ? this.$t("Credit notes") : this.$t("Invoice Returns"),
           url: "",
         },
       ];

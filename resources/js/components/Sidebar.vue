@@ -99,7 +99,7 @@
                 " class="nav-item">
                 <router-link :to="{ name: 'invoiceReturns.index' }" class="nav-link">
                   <i class="fas fa-undo-alt nav-icon" />
-                  <p>{{ isSaudiArabia ? $t('Invoice Returns KSA') : $t('Returns List') }}</p>
+                  <p>{{ isSaudiArabia ? $t('Credit notes') : $t('Returns List') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('client-list') ||
@@ -171,7 +171,7 @@
                 " class="nav-item">
                 <router-link :to="{ name: 'purchaseReturns.index' }" class="nav-link">
                   <i class="fas fa-undo-alt nav-icon" />
-                  <p>{{ isSaudiArabia ? $t('Purchase Returns KSA') : $t('Returns List') }}</p>
+                  <p>{{ isSaudiArabia ? $t('Debit notes') : $t('Returns List') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('supplier-list') ||

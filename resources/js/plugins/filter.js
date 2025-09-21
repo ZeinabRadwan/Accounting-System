@@ -16,8 +16,12 @@ Vue.filter('limitFormat', function (limit) {
 // return formatted number
 Vue.filter('numberFormat', function (number) {
   if (number) {
-    return Number(number).toFixed(2);
+    return Number(number).toLocaleString('en-US', { 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    });
   }
+  return '0.00';
 });
 
 // return short text
@@ -42,10 +46,15 @@ Vue.filter('withCurrency', function (number) {
   }
   
   if (number > 0) {
-    let newNumber = (Number(number).toFixed(2)).toLocaleString()
+    // Fix: Apply toLocaleString() to the number first, then format
+    let numValue = Number(number)
+    let newNumber = numValue.toLocaleString('en-US', { 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    })
     return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
   } else {
-    return effectivePosition == 'left' ? currency.symbol + 0 : 0 + currency.symbol
+    return effectivePosition == 'left' ? currency.symbol + '0.00' : '0.00' + currency.symbol
   }
 })
 
@@ -64,10 +73,15 @@ Vue.filter('withCentralAdminCurrency', function (number) {
   }
   
   if (number > 0) {
-    let newNumber = (Number(number).toFixed(2)).toLocaleString()
+    // Fix: Apply toLocaleString() to the number first, then format
+    let numValue = Number(number)
+    let newNumber = numValue.toLocaleString('en-US', { 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    })
     return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
   } else {
-    return effectivePosition == 'left' ? currency.symbol + 0 : 0 + currency.symbol
+    return effectivePosition == 'left' ? currency.symbol + '0.00' : '0.00' + currency.symbol
   }
 })
 
@@ -87,11 +101,22 @@ Vue.filter('withAbsoluteCurrency', function (number) {
   }
   
   if (number > 0) {
-    let newNumber = (Number(number).toFixed(2)).toLocaleString()
+    // Fix: Apply toLocaleString() to the number first, then format
+    let numValue = Number(number)
+    let newNumber = numValue.toLocaleString('en-US', { 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    })
     return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
   } else {
-    let newNumber = (Number(number).toFixed(2)).toLocaleString()
-    return effectivePosition == 'left' ? '-' + currency.symbol + Math.abs(number) : newNumber + currency.symbol
+    // Fix: Format negative numbers properly
+    let numValue = Number(number)
+    let absValue = Math.abs(numValue)
+    let newNumber = absValue.toLocaleString('en-US', { 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    })
+    return effectivePosition == 'left' ? '-' + currency.symbol + newNumber : '-' + newNumber + currency.symbol
   }
 })
 

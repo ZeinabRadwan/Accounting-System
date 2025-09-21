@@ -11,7 +11,6 @@ use App\Models\PurchasePayment;
 use App\Models\NonPurchasePayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use JetBrains\PhpStorm\ArrayShape;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PurchaseResource;
@@ -720,7 +719,7 @@ class SupplierController extends Controller
         }
     }
 
-    #[ArrayShape(['supplier_id' => "int"])] public function incrementSupplierId(): array
+    public function incrementSupplierId(): array
     {
         $supplier_id = 1;
         $lastClient = Supplier::latest('id')->first();
@@ -823,13 +822,13 @@ ORDER BY `date`");
         }
 
         $finalBalance = $totalDebit - $totalCredit;
-        return [
+        return response()->json([
             'items' => $data,
             'totalDiscount' => $totalDiscount,
             'totalDebit' => $totalDebit,
             'totalCredit' => $totalCredit,
             'finalBalance' => $totalDebit - $totalCredit,
-        ];
+        ]);
 
     }
 

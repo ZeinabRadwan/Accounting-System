@@ -183,16 +183,10 @@
                               </router-link>
                             </li>
                             <li v-if="$can('invoice-edit')">
-                              <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">
-                                <i class="fas fa-edit"></i>
-                                {{ $t('Edit') }}
-                              </router-link>
+                              <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
                             </li>
                             <li v-if="$can('invoice-delete')">
-                              <a href="#" @click.prevent="deleteData(data.slug)">
-                                <i class="fas fa-trash"></i>
-                                {{ $t('Delete') }}
-                              </a>
+                              <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>
                             </li>
                           </ul>
                         </div>

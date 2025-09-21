@@ -22,6 +22,7 @@ use App\Models\BalanceTansfer;
 use App\Models\GeneralSetting;
 use App\Models\FiscalYear;
 use App\Models\AccountingPeriod;
+use App\Models\PurchaseReturn;
 
 class BusinessTransactionJournalService
 {
@@ -1596,6 +1597,145 @@ class BusinessTransactionJournalService
 
             // Update the account transaction to link it to the journal entry
             $accountTransaction->update(['journal_entry_id' => $journalEntry->id]);
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Create journal entry for purchase return
+     */
+    public function createPurchaseReturnJournal(PurchaseReturn $purchaseReturn, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Load the purchase return with its relationships
+            $purchaseReturn->load(['purchase.supplier', 'purchaseReturnProducts.product']);
+            
+            // Validate supplier has chart of account
+            if (!$purchaseReturn->purchase || !$purchaseReturn->purchase->supplier || !$purchaseReturn->purchase->supplier->isChartOfAccountConnected()) {
+                throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
+            }
+
+            // Get supplier-specific accounts payable account
+            $supplierAccountsPayableAccount = $purchaseReturn->purchase->supplier->chartOfAccount;
+            
+            if (!$supplierAccountsPayableAccount) {
+                throw new Exception('Supplier Chart of Account not found.');
+            }
+
+            // Calculate return amounts from return items
+            $returnProducts = $purchaseReturn->purchaseReturnProducts;
+            
+            // Debug: Log the return products count
+            \Illuminate\Support\Facades\Log::info('Purchase Return Journal Creation - Return Products Count: ' . $returnProducts->count());
+            
+            // If no return products, skip journal creation
+            if ($returnProducts->count() === 0) {
+                \Illuminate\Support\Facades\Log::info('No return products found, skipping journal entry creation');
+                DB::rollBack();
+                throw new Exception('No return products found for purchase return journal entry creation.');
+            }
+            
+            $totalReturnAmount = 0;
+            $purchaseExpensesByAccount = [];
+
+            foreach ($returnProducts as $returnProduct) {
+                $product = $returnProduct->product;
+                
+                if (!$product) {
+                    \Illuminate\Support\Facades\Log::warning('Product not found for return product ID: ' . $returnProduct->id);
+                    continue;
+                }
+
+                // Calculate return amount (quantity * purchase price)
+                $returnAmount = $returnProduct->quantity * $returnProduct->purchase_price;
+                $totalReturnAmount += $returnAmount;
+
+                // Get the product's purchase expense account
+                $purchaseAccount = $product->getPurchaseAccountWithFallback();
+                
+                if ($purchaseAccount) {
+                    $accountId = $purchaseAccount->id;
+                    
+                    if (!isset($purchaseExpensesByAccount[$accountId])) {
+                        $purchaseExpensesByAccount[$accountId] = [
+                            'account' => $purchaseAccount,
+                            'total' => 0
+                        ];
+                    }
+                    
+                    $purchaseExpensesByAccount[$accountId]['total'] += $returnAmount;
+                } else {
+                    \Illuminate\Support\Facades\Log::warning('No purchase account found for product: ' . $product->name . ' (ID: ' . $product->id . ')');
+                }
+            }
+
+            // Debug: Log the calculated amounts
+            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Total Return Amount: ' . $totalReturnAmount);
+            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Purchase Accounts: ' . json_encode($purchaseExpensesByAccount));
+
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => $purchaseReturn->date,
+                'reference' => 'PR-' . $purchaseReturn->code . '-' . time(), // Make reference unique
+                'description' => "Purchase Return PR-{$purchaseReturn->code}",
+                'total_debit' => $totalReturnAmount,
+                'total_credit' => $totalReturnAmount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => PurchaseReturn::class,
+                'source_id' => $purchaseReturn->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
+            ]);
+
+            $lineNumber = 1;
+
+            // Create purchase expense reversal lines (Credit to reverse purchase expenses)
+            foreach ($purchaseExpensesByAccount as $accountId => $expenseData) {
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $accountId,
+                    0, // debit
+                    $expenseData['total'], // credit (to reverse the expense)
+                    $lineNumber,
+                    "Purchase Return - Reverse expense for PR-{$purchaseReturn->code}"
+                );
+                $lineNumber++;
+            }
+
+            // Create accounts payable reduction line (Debit to reduce what we owe the supplier)
+            $this->createJournalEntryLine(
+                $journalEntry,
+                $supplierAccountsPayableAccount->id,
+                $totalReturnAmount, // debit (to reduce payable)
+                0, // credit
+                $lineNumber,
+                "Purchase Return - Reduce payable for PR-{$purchaseReturn->code}"
+            );
+
+            // Create bridge table record if PurchaseReturnJournal model exists
+            $bridgeModelPath = '\\App\\Models\\PurchaseReturnJournal';
+            if (class_exists($bridgeModelPath)) {
+                $bridgeModelPath::create([
+                    'purchase_return_id' => $purchaseReturn->id,
+                    'journal_entry_id' => $journalEntry->id,
+                    'type' => 'return'
+                ]);
+            }
 
             DB::commit();
             return $journalEntry;

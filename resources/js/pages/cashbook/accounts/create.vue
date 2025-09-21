@@ -134,6 +134,7 @@
 
 <script>
 import Form from 'vform'
+import Swal from "sweetalert2"
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {

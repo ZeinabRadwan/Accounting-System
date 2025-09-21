@@ -44,7 +44,10 @@ export default {
      * @returns {Object} - Formatted currency data
      */
     formatCurrencyWithSymbol(amount, currency) {
-      const formattedAmount = Number(amount).toFixed(2).toLocaleString();
+      const formattedAmount = Number(amount).toLocaleString('en-US', { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2 
+      });
       const isSvg = this.isSvgCurrencySymbol(currency.symbol, currency.code);
       
       // Check if we're in RTL mode
