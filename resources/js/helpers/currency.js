@@ -15,7 +15,10 @@ export function formatCurrencyWithSvg(amount, currency, options = {}) {
     decimalPlaces = 2
   } = options;
 
-  const formattedAmount = Number(amount).toFixed(decimalPlaces).toLocaleString();
+  const formattedAmount = Number(amount).toLocaleString('en-US', { 
+    minimumFractionDigits: decimalPlaces, 
+    maximumFractionDigits: decimalPlaces 
+  });
   
   // Check if symbol is an SVG path
   const isSvgSymbol = currency.symbol && currency.symbol.includes('.svg');
