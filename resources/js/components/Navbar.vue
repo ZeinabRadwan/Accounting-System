@@ -16,8 +16,8 @@
     <!-- Search beside sidebar toggle -->
     <div class="navbar-search d-none d-md-block" style="margin-left: 10px;">
       <div class="search-area position-relative">
-        <input type="text" v-model="menuSearchQuery" @input="searchMenu"
-          class="search-input" :placeholder="$t('Search...')">
+        <input ref="searchInput" type="text" v-model="menuSearchQuery" @input="searchMenu"
+          class="search-input" :placeholder="`${$t('Search...')}`">
         <span class="search-icon" :class="[this.menuSearchQuery !== '' ? 'd-none' : '']">
           <i class="fas fa-search"></i>
         </span>
@@ -235,15 +235,48 @@ export default {
     imageError: false,
   }),
 
-  computed: mapGetters({
-    user: "auth/user",
-  }),
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+    searchPlaceholderText() {
+      return this.$t('Search...');
+    }
+  },
 
   created() {
     this.stockNotification();
   },
 
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.setSearchPlaceholder();
+      }, 100);
+    });
+  },
+
+  watch: {
+    '$i18n.locale'() {
+      this.updateSearchPlaceholder();
+    }
+  },
+
   methods: {
+    setSearchPlaceholder() {
+      if (this.$refs.searchInput) {
+        this.$refs.searchInput.setAttribute('placeholder', this.$t('Search...'));
+      }
+    },
+
+    updateSearchPlaceholder() {
+      this.setSearchPlaceholder();
+    },
+
+    getPlaceholder() {
+      return this.$t('Search...');
+    },
+
     // get stock notification
     async stockNotification() {
       const { data } = await axios.get(
