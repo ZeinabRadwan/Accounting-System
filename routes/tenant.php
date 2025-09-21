@@ -115,6 +115,8 @@ Route::middleware([
         Route::get('/impersonate/{token}', [TenantImpersonationController::class, 'impersonate']);
         Route::get('/cross-domain-login', [App\Http\Controllers\CrossDomainAuthController::class, 'crossDomainLogin']);
         Route::post('/cross-domain-login', [App\Http\Controllers\CrossDomainAuthController::class, 'crossDomainLogin']);
+        Route::get('/direct-auth-dashboard', [App\Http\Controllers\CrossDomainAuthController::class, 'directAuthDashboard']);
+        Route::get('/api/direct-auth-dashboard', [App\Http\Controllers\CrossDomainAuthController::class, 'directAuthDashboardApi']);
         Route::post('/cross-domain-auth', [App\Http\Controllers\CrossDomainAuthController::class, 'authenticate']);
         Route::get('general-settings', [GeneralController::class, 'getGeneralSettings']);
     });

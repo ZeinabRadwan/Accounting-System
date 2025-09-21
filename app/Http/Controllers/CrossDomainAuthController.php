@@ -74,6 +74,100 @@ class CrossDomainAuthController extends Controller
     }
 
     /**
+     * Handle direct authentication and redirect to dashboard
+     */
+    public function directAuthDashboard(Request $request)
+    {
+        $encryptedToken = $request->input('token');
+        $encryptedUserId = $request->input('user_id');
+        
+        if (!$encryptedToken || !$encryptedUserId) {
+            Log::error('Direct auth dashboard: Missing parameters', [
+                'token_present' => !empty($encryptedToken),
+                'user_id_present' => !empty($encryptedUserId)
+            ]);
+            return redirect('/login')->with('error', 'Invalid authentication parameters.');
+        }
+
+        try {
+            // Decrypt the token and user ID
+            $token = decrypt($encryptedToken);
+            $userId = decrypt($encryptedUserId);
+            
+            Log::info('Direct auth dashboard: Parameters decrypted', ['user_id' => $userId]);
+        } catch (\Exception $e) {
+            Log::error('Direct auth dashboard: Decryption failed', ['error' => $e->getMessage()]);
+            return redirect('/login')->with('error', 'Invalid encrypted parameters.');
+        }
+
+        // Find user in current tenant database
+        $user = User::find($userId);
+
+        if (!$user) {
+            Log::error('Direct auth dashboard: User not found', ['user_id' => $userId]);
+            return redirect('/login')->with('error', 'User not found.');
+        }
+
+        // Set user locale
+        app()->setLocale($user->locale);
+
+        // Return a view that will automatically authenticate and redirect to dashboard
+        return view('tenant.auth.direct-auth', [
+            'token' => $token,
+            'user' => $user,
+            'redirect_url' => '/dashboard'
+        ]);
+    }
+
+    /**
+     * API version of direct authentication for Vue component
+     */
+    public function directAuthDashboardApi(Request $request)
+    {
+        $encryptedToken = $request->input('token');
+        $encryptedUserId = $request->input('user_id');
+        
+        if (!$encryptedToken || !$encryptedUserId) {
+            Log::error('Direct auth dashboard API: Missing parameters', [
+                'token_present' => !empty($encryptedToken),
+                'user_id_present' => !empty($encryptedUserId)
+            ]);
+            return response()->json(['error' => 'Invalid authentication parameters.'], 400);
+        }
+
+        try {
+            // Decrypt the token and user ID
+            $token = decrypt($encryptedToken);
+            $userId = decrypt($encryptedUserId);
+            
+            Log::info('Direct auth dashboard API: Parameters decrypted', ['user_id' => $userId]);
+        } catch (\Exception $e) {
+            Log::error('Direct auth dashboard API: Decryption failed', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'Invalid encrypted parameters.'], 400);
+        }
+
+        // Find user in current tenant database
+        $user = User::find($userId);
+
+        if (!$user) {
+            Log::error('Direct auth dashboard API: User not found', ['user_id' => $userId]);
+            return response()->json(['error' => 'User not found.'], 404);
+        }
+
+        // Set user locale
+        app()->setLocale($user->locale);
+
+        // Return JSON response with token
+        return response()->json([
+            'token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => null,
+            'user' => $user,
+            'redirect_url' => '/dashboard'
+        ]);
+    }
+
+    /**
      * Authenticate user with credentials and return token for tenant domain
      */
     public function authenticate(Request $request)
