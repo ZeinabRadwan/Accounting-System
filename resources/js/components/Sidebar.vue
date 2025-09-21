@@ -800,107 +800,130 @@
           </li>
 
           <li class="nav-header text-bold">{{ $t('REPORTS') }}</li>
-          <li v-if="$can('account-statement')" class="nav-item">
-            <router-link :to="{ name: 'reports.accountStatement' }" class="nav-link">
-              <i class="fas fa-file-alt nav-icon" />
-              <p>{{ $t('Account Statement') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('account-statement')" class="nav-item">
-            <router-link :to="{ name: 'reports.groupAccountStatement' }" class="nav-link">
-              <i class="fas fa-file-alt nav-icon" />
-              <p>{{ $t('Group Account Statement') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('account-statement')" class="nav-item">
-            <router-link :to="{ name: 'reports.invoiceSummary' }" class="nav-link">
-              <i class="fas fa-file-invoice nav-icon" />
-              <p>{{ $t('Invoice Summary') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('account-statement')" class="nav-item">
-            <router-link :to="{ name: 'reports.purchaseSummary' }" class="nav-link">
-              <i class="fas fa-shopping-cart nav-icon" />
-              <p>{{ $t('Purchase Summary') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('balance-sheet')" class="nav-item">
-            <router-link :to="{ name: 'reports.balanceSheet' }" class="nav-link">
-              <i class="fas fa-file-invoice-dollar nav-icon" />
-              <p>{{ $t('Balance Sheet') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('balance-sheet')" class="nav-item">
-            <router-link :to="{ name: 'reports.trialBalance' }" class="nav-link">
-              <i class="fas fa-balance-scale nav-icon" />
-              <p>{{ $t('Trial Balance') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('vat-report')" class="nav-item">
-            <router-link :to="{ name: 'reports.vatReport' }" class="nav-link">
-              <i class="fas fa-percentage nav-icon" />
-              <p>{{ $t('VAT Report') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('today-profit')" class="nav-item">
-            <router-link :to="{ name: 'reports.todayReport' }" class="nav-link">
-              <i class="fas fa-file-invoice-dollar nav-icon" />
-              <p>{{ $t("Today Report") }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('summary-report')" class="nav-item">
-            <router-link :to="{ name: 'reports.summary' }" class="nav-link">
-              <i class="fas fa-file-contract nav-icon" />
-              <p>{{ $t('Summary Report') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('profit-loss')" class="nav-item">
-            <router-link :to="{ name: 'reports.profitLoss' }" class="nav-link">
-              <i class="fas fa-chart-line nav-icon" />
-              <p>{{ $t('Profit/Loss Report') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('expense-report')" class="nav-item">
-            <router-link :to="{ name: 'reports.expenses' }" class="nav-link">
-              <i class="fas fa-chart-pie nav-icon" />
-              <p>{{ $t('Expense Report') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('item-report')" class="nav-item">
-            <router-link :to="{ name: 'reports.items' }" class="nav-link">
-              <i class="fas fa-chart-bar nav-icon" />
-              <p>{{ $t('Item Report') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('inventory-report')" class="nav-item">
-            <router-link :to="{ name: 'reports.inventory' }" class="nav-link">
-              <i class="fas fa-chart-pie nav-icon" />
-              <p>{{ $t('Inventory Report') }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('balance-sheet')" class="nav-item">
-            <router-link :to="{ name: 'reports.supplierPayableReport' }" class="nav-link">
-              <i class="fas fa-file-invoice-dollar nav-icon" />
-              <p>{{ $t("Supplier Payable Report") }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('balance-sheet')" class="nav-item">
-            <router-link :to="{ name: 'reports.clientReceivableReport' }" class="nav-link">
-              <i class="fas fa-file-invoice-dollar nav-icon" />
-              <p>{{ $t("Client Receivable Report") }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('sales-by-user-report')" class="nav-item">
-            <router-link :to="{ name: 'reports.salesByUserReport' }" class="nav-link">
-              <i class="fas fa-file-invoice-dollar nav-icon" />
-              <p>{{ $t("Sales By User Report") }}</p>
-            </router-link>
-          </li>
-          <li v-if="$can('collection-by-user-report')" class="nav-item">
-            <router-link :to="{ name: 'reports.collectionByUserReport' }" class="nav-link">
-              <i class="fas fa-file-invoice-dollar nav-icon" />
-              <p>{{ $t("Collection By User Report") }}</p>
-            </router-link>
+          <li v-if="$can('account-statement') ||
+            $can('balance-sheet') ||
+            $can('vat-report') ||
+            $can('today-profit') ||
+            $can('summary-report') ||
+            $can('profit-loss') ||
+            $can('expense-report') ||
+            $can('item-report') ||
+            $can('inventory-report') ||
+            $can('sales-by-user-report') ||
+            $can('collection-by-user-report')
+            " class="nav-item has-treeview"
+            :class="menuOpen('reports') ? 'menu-is-opening menu-open' : ''">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar" />
+              <p>
+                {{ $t('Reports') }}
+                <i class="right fas fa-angle-left" />
+              </p>
+            </a>
+            <ul class="nav nav-treeview" :style="menuOpen('reports') ? 'display: block' : 'display: none'">
+              <li v-if="$can('account-statement')" class="nav-item">
+                <router-link :to="{ name: 'reports.accountStatement' }" class="nav-link">
+                  <i class="fas fa-file-alt nav-icon" />
+                  <p>{{ $t('Account Statement') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('account-statement')" class="nav-item">
+                <router-link :to="{ name: 'reports.groupAccountStatement' }" class="nav-link">
+                  <i class="fas fa-file-alt nav-icon" />
+                  <p>{{ $t('Group Account Statement') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('account-statement')" class="nav-item">
+                <router-link :to="{ name: 'reports.invoiceSummary' }" class="nav-link">
+                  <i class="fas fa-file-invoice nav-icon" />
+                  <p>{{ $t('Invoice Summary') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('account-statement')" class="nav-item">
+                <router-link :to="{ name: 'reports.purchaseSummary' }" class="nav-link">
+                  <i class="fas fa-shopping-cart nav-icon" />
+                  <p>{{ $t('Purchase Summary') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('balance-sheet')" class="nav-item">
+                <router-link :to="{ name: 'reports.balanceSheet' }" class="nav-link">
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t('Balance Sheet') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('balance-sheet')" class="nav-item">
+                <router-link :to="{ name: 'reports.trialBalance' }" class="nav-link">
+                  <i class="fas fa-balance-scale nav-icon" />
+                  <p>{{ $t('Trial Balance') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('vat-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.vatReport' }" class="nav-link">
+                  <i class="fas fa-percentage nav-icon" />
+                  <p>{{ $t('VAT Report') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('today-profit')" class="nav-item">
+                <router-link :to="{ name: 'reports.todayReport' }" class="nav-link">
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t("Today Report") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('summary-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.summary' }" class="nav-link">
+                  <i class="fas fa-file-contract nav-icon" />
+                  <p>{{ $t('Summary Report') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('profit-loss')" class="nav-item">
+                <router-link :to="{ name: 'reports.profitLoss' }" class="nav-link">
+                  <i class="fas fa-chart-line nav-icon" />
+                  <p>{{ $t('Profit/Loss Report') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('expense-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.expenses' }" class="nav-link">
+                  <i class="fas fa-chart-pie nav-icon" />
+                  <p>{{ $t('Expense Report') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('item-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.items' }" class="nav-link">
+                  <i class="fas fa-chart-bar nav-icon" />
+                  <p>{{ $t('Item Report') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('inventory-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.inventory' }" class="nav-link">
+                  <i class="fas fa-chart-pie nav-icon" />
+                  <p>{{ $t('Inventory Report') }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('balance-sheet')" class="nav-item">
+                <router-link :to="{ name: 'reports.supplierPayableReport' }" class="nav-link">
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t("Supplier Payable Report") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('balance-sheet')" class="nav-item">
+                <router-link :to="{ name: 'reports.clientReceivableReport' }" class="nav-link">
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t("Client Receivable Report") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('sales-by-user-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.salesByUserReport' }" class="nav-link">
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t("Sales By User Report") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('collection-by-user-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.collectionByUserReport' }" class="nav-link">
+                  <i class="fas fa-file-invoice-dollar nav-icon" />
+                  <p>{{ $t("Collection By User Report") }}</p>
+                </router-link>
+              </li>
+            </ul>
           </li>
 
 
@@ -1097,17 +1120,31 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   transform: scaleX(-1) rotate(-90deg);
 }
 
+/* Remove all borders for nav items */
+.main-sidebar .nav-sidebar .nav-item,
+.main-sidebar .nav-sidebar .nav-link,
+.main-sidebar .nav-sidebar .nav-treeview .nav-item,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
 /* Opened menu styles */
 .main-sidebar .nav-sidebar .menu-open,
 .main-sidebar .nav-sidebar .menu-is-opening {
   background-color: #F1F5FB;
   border-radius: 10px;
+  border: none !important;
   border-left: none !important;
   border-right: none !important;
 }
 
 .main-sidebar .nav-sidebar .menu-open > a,
 .main-sidebar .nav-sidebar .menu-is-opening > a {
+  border: none !important;
   border-left: none !important;
   border-right: none !important;
 }
