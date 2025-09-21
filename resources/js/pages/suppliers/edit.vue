@@ -9,9 +9,13 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">{{ $t('Edit Supplier') }}</h3>
-            <router-link :to="{ name: 'suppliers.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-            </router-link>
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <router-link :to="{ name: 'suppliers.index' }" class="btn btn-primary">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                </router-link>
+              </div>
+            </div>
           </div>
           <!-- /.card-header -->
           
@@ -24,12 +28,16 @@
           
           <!-- Card footer with action buttons -->
           <div class="card-footer">
-            <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="saveSupplier">
-              <i class="fas fa-save" /> {{ $t("Save") }}
-            </v-button>
-            <button type="button" class="btn btn-secondary float-right" @click="resetForm">
-              <i class="fas fa-power-off" /> {{ $t("Reset") }}
-            </button>
+            <div class="dtable-footer">
+              <div class="form-group row display-per-page">
+                <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="saveSupplier">
+                  <i class="fas fa-save" /> {{ $t("Save") }}
+                </v-button>
+                <button type="button" class="btn btn-secondary" @click="resetForm">
+                  <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -298,6 +306,45 @@ export default {
 </script>
 
 <style scoped>
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
 .section-title {
   color: #495057;
   font-weight: 600;
@@ -351,33 +398,34 @@ export default {
 }
 
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
 
 .btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
 }
 
 .btn-secondary:hover {
-  background-color: #545b62;
-  border-color: #545b62;
-}
-
-.btn-dark {
-  background-color: #343a40;
-  border-color: #343a40;
-}
-
-.btn-dark:hover {
-  background-color: #23272b;
-  border-color: #1d2124;
+  background: #2a8bc4 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 
 /* Responsive adjustments */

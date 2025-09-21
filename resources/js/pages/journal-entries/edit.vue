@@ -488,38 +488,10 @@ export default {
   border: none !important;
 }
 
-.table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-}
-
-.invalid-feedback {
-  display: block;
-}
-</style>
-
-  border-radius: 0 0 20px 20px;
-}
-
-/* Search Input Background Override */
-.form-control{
-  background: #F1F5FB !important;
-}
-
-.btn-primary {
-  background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
-}
-
-.btn-secondary {
-  background: #33a0d9 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
+.btn-secondary:hover {
+  background: #2a8bc4 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 
 .table th {

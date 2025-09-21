@@ -140,6 +140,9 @@
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
+                  <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                    <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                  </button>
                 </div>
               </div>
             </div>

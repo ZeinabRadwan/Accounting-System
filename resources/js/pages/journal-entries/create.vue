@@ -8,6 +8,13 @@
             <!-- breadcrumbs Start -->
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <router-link :to="{ name: 'journal-entries.index' }" class="btn btn-primary">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                </router-link>
+              </div>
+            </div>
           </div>
           <div class="card-body">
             <form @submit.prevent="saveJournalEntry">
@@ -189,19 +196,18 @@
               </div>
 
               <!-- Form Actions -->
-              <div class="card-footer d-flex justify-content-between">
-                <router-link to="/journal-entries" class="btn btn-secondary">
-                  <i class="fas fa-long-arrow-alt-left"></i> {{ $t('Back') }}
-                </router-link>
-                <div>
-                  <button type="button" class="btn btn-secondary" @click="resetForm">
-                    <i class="fas fa-power-off"></i> {{ $t('Reset') }}
-                  </button>
-                  <button type="submit" class="btn btn-primary" :disabled="!isBalanced || loading">
-                    <i v-if="loading" class="fa fa-spinner fa-spin"></i>
-                    <i v-else class="fa fa-save"></i>
-                    {{ loading ? $t('Saving...') : $t('Save') }}
-                  </button>
+              <div class="card-footer">
+                <div class="dtable-footer">
+                  <div class="form-group row display-per-page">
+                    <button type="submit" class="btn btn-primary" :disabled="!isBalanced || loading">
+                      <i v-if="loading" class="fa fa-spinner fa-spin"></i>
+                      <i v-else class="fa fa-save"></i>
+                      {{ loading ? $t('Saving...') : $t('Save') }}
+                    </button>
+                    <button type="button" class="btn btn-secondary" @click="resetForm">
+                      <i class="fas fa-power-off"></i> {{ $t('Reset') }}
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
@@ -447,6 +453,24 @@ export default {
 </script>
 
 <style scoped>
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
 .card {
   margin-top: 30px;
   border-radius: 20px;
@@ -524,7 +548,7 @@ export default {
 }
 
 .btn-secondary {
-  background: #6C757D !important;
+  background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
   border-radius: 10px !important;
@@ -534,9 +558,9 @@ export default {
 }
 
 .btn-secondary:hover {
-  background: #5A6268 !important;
+  background: #2a8bc4 !important;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 
 .btn-danger {

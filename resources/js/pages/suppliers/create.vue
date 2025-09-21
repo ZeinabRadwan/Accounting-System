@@ -7,6 +7,13 @@
             <!-- breadcrumbs Start -->
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <router-link :to="{ name: 'suppliers.index' }" class="btn btn-primary">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+                </router-link>
+              </div>
+            </div>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -17,19 +24,18 @@
           />
           
           <!-- /.card-body -->
-          <div class="card-footer d-flex justify-content-between">
-            <router-link :to="{ name: 'suppliers.index' }" class="btn btn-secondary">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-            </router-link>
-            <div>
-              <button type="reset" class="btn btn-secondary" @click="resetForm">
-                <i class="fas fa-power-off" /> {{ $t("Reset") }}
-              </button>
-              <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
-                <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
-                <i v-else class="fas fa-save"></i> 
-                {{ isSubmitting ? $t("Saving...") : $t("Save") }}
-              </button>
+          <div class="card-footer">
+            <div class="dtable-footer">
+              <div class="form-group row display-per-page">
+                <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
+                  <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-save"></i> 
+                  {{ isSubmitting ? $t("Saving...") : $t("Save") }}
+                </button>
+                <button type="reset" class="btn btn-secondary" @click="resetForm">
+                  <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -115,9 +121,75 @@ export default {
 </script>
 <style src="vue-tel-input/dist/vue-tel-input.css"></style>
 <style scoped>
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
 .card {
   margin-top: 30px;
   border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #2a8bc4 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 
 .vue-tel-input {

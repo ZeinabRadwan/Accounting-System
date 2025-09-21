@@ -47,7 +47,7 @@
             <div class="dtable-footer">
               <div class="form-group row display-per-page">
                 <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="submitForm">
-                  <i class="fas fa-save" /> {{ $t("Save") }}
+                  <i class="fas fa-edit" /> {{ $t("Save changes") }}
                 </v-button>
                 <button type="button" class="btn btn-secondary" @click="resetForm">
                   <i class="fas fa-power-off" /> {{ $t("Reset") }}
