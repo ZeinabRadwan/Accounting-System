@@ -267,7 +267,7 @@ import { mapGetters } from 'vuex'
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: this.isSaudiArabia ? this.$t('Create Purchase Return KSA') : this.$t('Create Purchase Return') }
+    return { title: this.isSaudiArabia ? this.$t('Create Debit Note') : this.$t('Create Purchase Return') }
   },
   data: () => ({
     breadcrumbsCurrent: '',
@@ -323,7 +323,7 @@ export default {
     },
     // Dynamic breadcrumbs current based on country
     dynamicBreadcrumbsCurrent() {
-      return this.isSaudiArabia ? this.$t('Create Purchase Return KSA') : this.$t('Create Purchase Return');
+      return this.isSaudiArabia ? this.$t('Create Debit Note') : this.$t('Create Purchase Return');
     },
     // Dynamic breadcrumbs based on country
     dynamicBreadcrumbs() {
@@ -333,7 +333,7 @@ export default {
           url: 'home',
         },
         {
-          name: this.isSaudiArabia ? this.$t('Purchase Returns KSA') : this.$t('Purchase Returns'),
+          name: this.isSaudiArabia ? this.$t('Debit notes') : this.$t('Purchase Returns'),
           url: 'purchaseReturns.index',
         },
         {
@@ -505,7 +505,7 @@ export default {
         .then(({ data }) => {
           toast.fire({
             type: 'success',
-            title: this.isSaudiArabia ? this.$t('Purchase return added successfully KSA') : this.$t('Purchase return added successfully'),
+            title: this.isSaudiArabia ? this.$t('Debit note added successfully') : this.$t('Purchase return added successfully'),
           })
           this.$router.push({ name: 'purchaseReturns.show', params: { slug: data.data.slug }, })
         })

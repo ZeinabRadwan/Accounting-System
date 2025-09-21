@@ -2564,5 +2564,9 @@
   "Failed to auto-assign Sales Account": "فشل في تعيين حساب المبيعات تلقائياً",
   "Purchase Account auto-assigned successfully": "تم تعيين حساب المشتريات تلقائياً بنجاح",
   "No suitable Purchase Account found for automatic assignment": "لم يتم العثور على حساب مشتريات مناسب للتعيين التلقائي",
+  "Create Debit Note" :"إنشاء اشعار مدين",
+  "Create Credit Note KSA" :"إنشاء اشعار دائن",
+  "Debit note added successfully" : "تم إضافة الاشعار المدين بنجاح",
+  "Credit note added successfully" : "تم إضافة الاشعار الدائن بنجاح",
   "Failed to auto-assign Purchase Account": "فشل في تعيين حساب المشتريات تلقائياً"
 }

@@ -216,7 +216,7 @@ import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.isSaudiArabia ? this.$t("Purchase Returns KSA") : this.$t("Purchase Returns") };
+    return { title: this.isSaudiArabia ? this.$t("Debit notes") : this.$t("Purchase Returns") };
   },
   components: {
     DateRangePicker,
@@ -276,7 +276,7 @@ export default {
     },
     // Dynamic breadcrumbs current based on country
     dynamicBreadcrumbsCurrent() {
-      return this.isSaudiArabia ? this.$t("Purchase Returns KSA") : this.$t("Purchase Returns");
+      return this.isSaudiArabia ? this.$t("Debit notes") : this.$t("Purchase Returns");
     },
     // Dynamic breadcrumbs based on country
     dynamicBreadcrumbs() {
@@ -290,7 +290,7 @@ export default {
           url: "purchases.index",
         },
         {
-          name: this.isSaudiArabia ? this.$t("Purchase Returns KSA") : this.$t("Purchase Returns"),
+          name: this.isSaudiArabia ? this.$t("Debit notes") : this.$t("Purchase Returns"),
           url: "",
         },
       ];
