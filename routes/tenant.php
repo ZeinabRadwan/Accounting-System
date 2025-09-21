@@ -450,6 +450,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::get('/non-purchases/supplier/{slug}', [SupplierController::class, 'nonPurchaseTransForSupplier']);
         Route::get('/non-purchases/supplier/{slug}/search', [SupplierController::class, 'searchNonPurchaseTransForSupplier']);
 
+        // Supplier ledger route
+        Route::get('/supplier/{slug}/ledger', [SupplierController::class, 'specificSupplierLedger']);
+
         // Supplier representative routes
         Route::get('/supplier/{slug}/representatives', [SupplierRepresentativeController::class, 'index']);
         Route::post('/supplier/{slug}/representatives', [SupplierRepresentativeController::class, 'store']);
