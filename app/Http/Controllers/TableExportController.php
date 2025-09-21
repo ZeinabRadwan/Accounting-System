@@ -87,6 +87,7 @@ use App\Exports\ExportGroupAccountStatement;
 use App\Exports\ExportInvoiceSummary;
 use App\Exports\ExportPurchaseSummary;
 use App\Exports\ExportVatReport;
+use App\Exports\ExportChartOfAccounts;
 
 
 class TableExportController extends Controller
@@ -395,6 +396,16 @@ class TableExportController extends Controller
         $term = $request->input('term');
 
         return Excel::download(new ExportAccounts($startDate, $endDate, $term), 'Accounts.xlsx');
+    }
+
+    // return chart of accounts export
+    public function chartOfAccountsExportExcel(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $term = $request->input('term');
+
+        return Excel::download(new ExportChartOfAccounts($startDate, $endDate, $term), 'ChartOfAccounts.xlsx');
     }
 
     // return account transaction pdf

@@ -686,6 +686,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
 
     Route::get('/accounts/pdf', [TableExportController::class, 'accountsPDF'])->name('accounts.pdf');
     Route::get('//accounts/export/excel', [TableExportController::class, 'accountsExportExcel'])->name('accounts.export.excel');
+    Route::get('/chart-of-accounts/export/excel', [TableExportController::class, 'chartOfAccountsExportExcel'])->name('chartOfAccounts.export.excel');
     Route::get('/account-transactions/pdf/{slug}', [TableExportController::class, 'accountTransactionsPDF'])->name('account.transactions.pdf');
     Route::get('/cashbook/balance-adjustments/pdf', [TableExportController::class, 'nonInvoiceBalancesPDF'])->name('account.balances.pdf');
     Route::get('/cashbook/balance-adjustments/export/excel', [TableExportController::class, 'nonInvoiceBalancesExportExcel'])->name('account.balances.export.excel');
