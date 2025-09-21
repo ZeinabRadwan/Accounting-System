@@ -854,24 +854,6 @@ export default {
   height: 16px;
 }
 
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-  to {
-    opacity: 1;
-    transform: translate(50%, -50%) translateX(0);
-  }
-}
-
-
-  to {
-    opacity: 1;
-  }
-}
-
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
