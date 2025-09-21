@@ -11,10 +11,10 @@
     <!-- Sidebar -->
     <div class="sidebar custom-sidebar">
       <!-- Sidebar Menu -->
-      <nav class="py-3 pb-5">
+      <nav class="custom-nav-padding">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <!-- لوحة التحكم -->
-          <li class="nav-header text-uppercase text-bold">
+          <li class="nav-header text-bold">
             {{ $t('Dashboard') }}
           </li>
           <li class="nav-item">
@@ -86,7 +86,7 @@
                 $can('invoice-edit') ||
                 $can('invoice-delete')
                 " class="nav-item">
-                <router-link :to="{ name: 'pos.create' }" class="nav-link">
+                <router-link :to="{ name: 'pos.create' }" class="nav-link pos-link">
                   <i class="fas fa-cash-register nav-icon"></i>
                   <p>{{ $t('POS') }}</p>
                 </router-link>
@@ -823,103 +823,86 @@
             <ul class="nav nav-treeview" :style="menuOpen('reports') ? 'display: block' : 'display: none'">
               <li v-if="$can('account-statement')" class="nav-item">
                 <router-link :to="{ name: 'reports.accountStatement' }" class="nav-link">
-                  <i class="fas fa-file-alt nav-icon" />
                   <p>{{ $t('Account Statement') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
                 <router-link :to="{ name: 'reports.groupAccountStatement' }" class="nav-link">
-                  <i class="fas fa-file-alt nav-icon" />
                   <p>{{ $t('Group Account Statement') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
                 <router-link :to="{ name: 'reports.invoiceSummary' }" class="nav-link">
-                  <i class="fas fa-file-invoice nav-icon" />
                   <p>{{ $t('Invoice Summary') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
                 <router-link :to="{ name: 'reports.purchaseSummary' }" class="nav-link">
-                  <i class="fas fa-shopping-cart nav-icon" />
                   <p>{{ $t('Purchase Summary') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('balance-sheet')" class="nav-item">
                 <router-link :to="{ name: 'reports.balanceSheet' }" class="nav-link">
-                  <i class="fas fa-file-invoice-dollar nav-icon" />
                   <p>{{ $t('Balance Sheet') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('balance-sheet')" class="nav-item">
                 <router-link :to="{ name: 'reports.trialBalance' }" class="nav-link">
-                  <i class="fas fa-balance-scale nav-icon" />
                   <p>{{ $t('Trial Balance') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('vat-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.vatReport' }" class="nav-link">
-                  <i class="fas fa-percentage nav-icon" />
                   <p>{{ $t('VAT Report') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('today-profit')" class="nav-item">
                 <router-link :to="{ name: 'reports.todayReport' }" class="nav-link">
-                  <i class="fas fa-file-invoice-dollar nav-icon" />
                   <p>{{ $t("Today Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('summary-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.summary' }" class="nav-link">
-                  <i class="fas fa-file-contract nav-icon" />
                   <p>{{ $t('Summary Report') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('profit-loss')" class="nav-item">
                 <router-link :to="{ name: 'reports.profitLoss' }" class="nav-link">
-                  <i class="fas fa-chart-line nav-icon" />
                   <p>{{ $t('Profit/Loss Report') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('expense-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.expenses' }" class="nav-link">
-                  <i class="fas fa-chart-pie nav-icon" />
                   <p>{{ $t('Expense Report') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('item-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.items' }" class="nav-link">
-                  <i class="fas fa-chart-bar nav-icon" />
                   <p>{{ $t('Item Report') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('inventory-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.inventory' }" class="nav-link">
-                  <i class="fas fa-chart-pie nav-icon" />
                   <p>{{ $t('Inventory Report') }}</p>
                 </router-link>
               </li>
               <li v-if="$can('balance-sheet')" class="nav-item">
                 <router-link :to="{ name: 'reports.supplierPayableReport' }" class="nav-link">
-                  <i class="fas fa-file-invoice-dollar nav-icon" />
                   <p>{{ $t("Supplier Payable Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('balance-sheet')" class="nav-item">
                 <router-link :to="{ name: 'reports.clientReceivableReport' }" class="nav-link">
-                  <i class="fas fa-file-invoice-dollar nav-icon" />
                   <p>{{ $t("Client Receivable Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('sales-by-user-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.salesByUserReport' }" class="nav-link">
-                  <i class="fas fa-file-invoice-dollar nav-icon" />
                   <p>{{ $t("Sales By User Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('collection-by-user-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.collectionByUserReport' }" class="nav-link">
-                  <i class="fas fa-file-invoice-dollar nav-icon" />
                   <p>{{ $t("Collection By User Report") }}</p>
                 </router-link>
               </li>
@@ -1075,6 +1058,12 @@ export default {
 .main-sidebar {
   max-height: 100vh;
   overflow-y: auto;
+  font-family: 'DINNextLTArabic', sans-serif;
+}
+
+.sidebar {
+  padding: 0;
+  border-top: 1px solid #dee2e6;
 }
 
 .main-sidebar .brand-link {
@@ -1083,7 +1072,115 @@ export default {
 
 /* Sidebar link spacing */
 .main-sidebar .nav-sidebar .nav-link {
-  margin: 0 10px;
+  margin: 0;
+}
+
+.nav-link {
+  padding: 0.5rem 0.25rem;
+}
+
+/* Add border-top to nav headers except the first one */
+.main-sidebar .nav-sidebar .nav-header:not(:first-child) {
+  border-top: 1px solid #E6EAED;
+  margin-top: 20px;
+  padding: 10px 0px !important;
+}
+
+.nav-header {
+  color: #212B36;
+  font-size: 16px;
+}
+
+/* Make only first character uppercase for all nav headers */
+.main-sidebar .nav-sidebar .nav-header {
+  text-transform: lowercase;
+}
+
+.main-sidebar .nav-sidebar .nav-header::first-letter {
+  text-transform: uppercase;
+}
+
+/* Simple and professional submenu styling */
+.main-sidebar .nav-sidebar .nav-treeview {
+  background-color: transparent;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-item {
+  margin: 0;
+  position: relative;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link {
+  padding: 8px 16px;
+  margin: 0;
+  border-radius: 0;
+  color: #6B7280;
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover {
+  background-color: #F8FAFC;
+  color: #374151;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
+  background-color: #1B3C71 !important;
+  color: #fff !important;
+  border-radius: 0;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link i {
+  margin-right: 12px;
+  width: 16px;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* Add a small dot indicator for submenu items */
+.main-sidebar .nav-sidebar .nav-treeview .nav-link::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: #D1D5DB;
+  border-radius: 50%;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active::before,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.active::before {
+  background-color: #fff;
+}
+
+/* Custom navigation padding */
+.custom-nav-padding {
+  padding: 24px;
+}
+
+/* Make only first character uppercase for all nav links except POS */
+.main-sidebar .nav-sidebar .nav-link p,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link p {
+  text-transform: lowercase;
+}
+
+.main-sidebar .nav-sidebar .nav-link p::first-letter,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link p::first-letter {
+  text-transform: uppercase;
+}
+
+/* Keep POS in all uppercase */
+.main-sidebar .nav-sidebar .pos-link p {
+  text-transform: uppercase !important;
 }
 
 /* Active menu styles */
@@ -1132,11 +1229,67 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   border-bottom: none !important;
 }
 
+/* Professional hover styles for all sidebar elements */
+.main-sidebar .nav-sidebar .nav-link:hover {
+  background-color: #F8FAFC !important;
+  color: #374151 !important;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  transform: translateX(2px);
+}
+
+.main-sidebar .nav-sidebar .nav-link:hover i {
+  color: #1B3C71 !important;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.main-sidebar .nav-sidebar .nav-link:hover p {
+  color: #374151 !important;
+  font-weight: 500;
+}
+
+/* Professional hover for submenu items */
+.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover {
+  background-color: #F1F5FB !important;
+  color: #1B3C71 !important;
+  transform: translateX(4px);
+  transition: all 0.3s ease;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover i {
+  color: #1B3C71 !important;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link:hover::before {
+  background-color: #1B3C71 !important;
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+/* Professional hover for nav headers */
+.main-sidebar .nav-sidebar .nav-header:hover {
+  background-color: #F8FAFC;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: #1B3C71;
+  font-weight: 600;
+}
+
+/* Professional hover for brand link */
+.main-sidebar .brand-link:hover {
+  background-color: #F8FAFC;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
 /* Opened menu styles */
 .main-sidebar .nav-sidebar .menu-open,
 .main-sidebar .nav-sidebar .menu-is-opening {
-  background-color: #F1F5FB;
-  border-radius: 10px;
+  background-color: transparent;
+  border-radius: 0;
   border: none !important;
   border-left: none !important;
   border-right: none !important;
@@ -1144,8 +1297,26 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 
 .main-sidebar .nav-sidebar .menu-open > a,
 .main-sidebar .nav-sidebar .menu-is-opening > a {
+  background-color: #1B3C71 !important;
+  color: #fff !important;
+  border-radius: 8px;
   border: none !important;
   border-left: none !important;
   border-right: none !important;
+}
+
+/* Active menu header styling */
+.main-sidebar .nav-sidebar .menu-open > a i,
+.main-sidebar .nav-sidebar .menu-is-opening > a i {
+  color: #fff !important;
+}
+
+.main-sidebar .nav-sidebar .menu-open > a p,
+.main-sidebar .nav-sidebar .menu-is-opening > a p {
+  color: #fff !important;
+}
+
+.nav-sidebar .nav-header {
+  margin: 0;
 }
 </style>
