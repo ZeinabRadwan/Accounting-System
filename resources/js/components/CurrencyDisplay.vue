@@ -49,7 +49,10 @@ export default {
     formattedAmount() {
       const num = Number(this.amount)
       if (num > 0) {
-        return num.toFixed(2).toLocaleString()
+        return num.toLocaleString('en-US', { 
+          minimumFractionDigits: 2, 
+          maximumFractionDigits: 2 
+        })
       }
       return '0'
     },

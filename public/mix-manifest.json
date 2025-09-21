@@ -1,7 +1,7 @@
 {
-    "/js/central.js": "/js/central.js",
-    "/js/tenant.js": "/js/tenant.js",
-    "/css/app.css": "/css/app.css",
-    "/css/custom_rtl.css": "/css/custom_rtl.css",
-    "/css/custom_ltr.css": "/css/custom_ltr.css"
+    "/js/central.js": "/js/central.js?id=e1b961df6301188d0dbae67ec9ac2595",
+    "/js/tenant.js": "/js/tenant.js?id=dcafadb4efcd8168fc0e6d6592446499",
+    "/css/app.css": "/css/app.css?id=6635bbfd3b763383f773f38ef18f7934",
+    "/css/custom_rtl.css": "/css/custom_rtl.css?id=d4876919da08a60ab8a7d0a11bb8b0d6",
+    "/css/custom_ltr.css": "/css/custom_ltr.css?id=90e2009c16b8f5e746bc79b833e54ae2"
 }

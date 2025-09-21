@@ -619,6 +619,20 @@ class InvoiceController extends Controller
 
             $invoice = Invoice::where('slug', $slug)->with('invoicePayments.invoicePaymentTransaction', 'invoiceProducts.product', 'invoiceReturn')->first();
 
+            // Check if invoice exists
+            if (!$invoice) {
+                return $this->responseWithError('Invoice not found');
+            }
+
+            // Get country setting
+            $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+            $isSaudiArabia = $country === 'SA';
+
+            // Prevent deletion of active invoices in Saudi Arabia
+            if ($isSaudiArabia && $invoice->status == 1) {
+                return $this->responseWithError('Cannot delete active invoices in Saudi Arabia. Please deactivate the invoice first.');
+            }
+
             // delete return transaction
             $invoiceReturn = $invoice->invoiceReturn;
             if (isset($invoiceReturn)) {

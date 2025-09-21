@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'card-body': showCardBody }">
+  <div class="card-body">
     <!-- Supplier Details Section - Now First -->
     <div class="row">
       <div class="col-md-6">
@@ -563,6 +563,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -1552,6 +1553,7 @@ export default {
 .custom-file-input:lang(en)~.custom-file-label::after {
   content: "Browse";
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

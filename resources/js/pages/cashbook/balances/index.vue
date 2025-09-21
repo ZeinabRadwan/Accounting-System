@@ -210,6 +210,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {

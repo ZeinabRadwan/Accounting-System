@@ -389,6 +389,7 @@
                             <th>{{ $t("#") }}</th>
                             <th>{{ $t("Invoice No") }}</th>
                             <th>{{ $t("Invoice Date") }}</th>
+                            <th>{{ $t("Client") }}</th>
                             <th>{{ $t("Net Total") }}</th>
                             <th>{{ $t("Total Paid") }}</th>
                             <th>{{ $t("Total Due") }}</th>
@@ -444,7 +445,7 @@
                                 data.invoiceDate | moment("Do MMM, YYYY")
                               }}</span>
                             </td>
-
+                            <td>{{ data.client }}</td>
                             <td>{{ data.invoiceTotal | withCurrency }}</td>
                             <td>{{ data.totalPaid | withCurrency }}</td>
                             <td>{{ data.due | withCurrency }}</td>
@@ -469,42 +470,35 @@
                               data-html2canvas-ignore="true"
                             >
                               <div class="btn-group">
-                                <router-link
-                                  v-if="$can('invoice-view')"
-                                  v-tooltip="$t('View')"
-                                  :to="{
-                                    name: 'invoices.show',
-                                    params: { slug: data.slug },
-                                  }"
-                                  class="btn btn-primary btn-sm"
-                                >
+                                <a v-if="$can('invoice-view') && data.due > 0" v-tooltip="$t('Add Payment?')"
+                                  class="btn btn-secondary btn-sm" @click="handleModal(data)">
+                                  <i class="fas fa-money-check-alt" />
+                                </a>
+                                <a v-if="isSaudiArabia && data.status === 0" v-tooltip="$t('Send Invoice')"
+                                  class="btn btn-success btn-sm" @click="sendInvoice(data)">
+                                  <i class="fas fa-paper-plane" />
+                                </a>
+                                <router-link v-if="$can('invoice-view')" v-tooltip="$t('View')" :to="{
+                                  name: 'invoices.show',
+                                  params: { slug: data.slug },
+                                }" class="btn btn-primary btn-sm">
                                   <i class="fas fa-eye" />
                                 </router-link>
-                                <router-link
-                                  v-if="$can('invoice-edit')"
-                                  v-tooltip="$t('Edit')"
-                                  :to="{
-                                    name: 'invoices.edit',
-                                    params: { slug: data.slug },
-                                  }"
-                                  class="btn btn-info btn-sm"
-                                >
+                                <router-link v-if="$can('invoice-edit')" v-tooltip="$t('Edit')" :to="{
+                                  name: 'invoices.edit',
+                                  params: { slug: data.slug },
+                                }" class="btn btn-info btn-sm">
                                   <i class="fas fa-edit" />
                                 </router-link>
-                                <a
-                                  v-if="$can('invoice-delete')"
-                                  v-tooltip="$t('Delete')"
-                                  href="#"
-                                  class="btn btn-danger btn-sm"
-                                  @click="deleteInvoiceData(data.slug)"
-                                >
+                                <a v-if="$can('invoice-delete') && !(isSaudiArabia && data.status === 1)" v-tooltip="$t('Delete')" href="#"
+                                  class="btn btn-danger btn-sm" @click="deleteInvoiceData(data.slug)">
                                   <i class="fas fa-trash" />
                                 </a>
                               </div>
                             </td>
                           </tr>
                           <tr v-show="!loading && items && !items.length">
-                            <td colspan="8">
+                            <td colspan="9">
                               <EmptyTable />
                             </td>
                           </tr>
@@ -594,6 +588,7 @@
                             <th>{{ $t("#") }}</th>
                             <th>{{ $t("Return No") }}</th>
                             <th>{{ $t("Invoice No") }}</th>
+                            <th>{{ $t("Client") }}</th>
                             <th>{{ $t("Return Reason") }}</th>
                             <th>{{ $t("Cost of Return Products") }}</th>
                             <th>{{ $t("Date") }}</th>
@@ -650,6 +645,7 @@
                             <td>
                               {{ data.invoiceNo | withPrefix(invoicePrefix) }}
                             </td>
+                            <td>{{ data.clientName }}</td>
                             <td>{{ data.reason }}</td>
                             <td>{{ data.totalReturn | withCurrency }}</td>
                             <td>
@@ -678,42 +674,31 @@
                               data-html2canvas-ignore="true"
                             >
                               <div class="btn-group">
-                                <router-link
-                                  v-if="$can('invoice-return-view')"
-                                  v-tooltip="$t('View')"
-                                  :to="{
-                                    name: 'invoiceReturns.show',
-                                    params: { slug: data.slug },
-                                  }"
-                                  class="btn btn-primary btn-sm"
-                                >
+                                <a v-if="isSaudiArabia && data.status === 0" v-tooltip="$t('Send Credit Note')"
+                                  class="btn btn-success btn-sm" @click="sendCreditNote(data)">
+                                  <i class="fas fa-paper-plane" />
+                                </a>
+                                <router-link v-if="$can('invoice-return-view')" v-tooltip="$t('View')" :to="{
+                                  name: 'invoiceReturns.show',
+                                  params: { slug: data.slug },
+                                }" class="btn btn-primary btn-sm">
                                   <i class="fas fa-eye" />
                                 </router-link>
-                                <router-link
-                                  v-if="$can('invoice-return-edit')"
-                                  v-tooltip="$t('Edit')"
-                                  :to="{
-                                    name: 'invoiceReturns.edit',
-                                    params: { slug: data.slug },
-                                  }"
-                                  class="btn btn-info btn-sm"
-                                >
+                                <router-link v-if="$can('invoice-return-edit')" v-tooltip="$t('Edit')" :to="{
+                                  name: 'invoiceReturns.edit',
+                                  params: { slug: data.slug },
+                                }" class="btn btn-info btn-sm">
                                   <i class="fas fa-edit" />
                                 </router-link>
-                                <a
-                                  v-if="$can('invoice-return-delete')"
-                                  v-tooltip="$t('Delete')"
-                                  href="#"
-                                  class="btn btn-danger btn-sm"
-                                  @click="deleteInvoiceReturnData(data.slug)"
-                                >
+                                <a v-if="$can('invoice-return-delete')" v-tooltip="$t('Delete')" href="#"
+                                  class="btn btn-danger btn-sm" @click="deleteInvoiceReturnData(data.slug)">
                                   <i class="fas fa-trash" />
                                 </a>
                               </div>
                             </td>
                           </tr>
                           <tr v-show="!loading && !allReturns.length">
-                            <td colspan="8">
+                            <td colspan="9">
                               <EmptyTable />
                             </td>
                           </tr>
@@ -1528,6 +1513,11 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      const result = !this.appInfo?.country || this.appInfo.country === 'SA';
+      return result;
+    },
   },
   watch: {
     // watch invoice search data
@@ -2183,6 +2173,136 @@ export default {
                 );
               }
             });
+        }
+      });
+    },
+
+    // Handle payment modal
+    handleModal(data) {
+      // This would open a payment modal - you can implement this based on your needs
+      console.log('Payment modal for invoice:', data);
+      // For now, just show an alert
+      Swal.fire({
+        title: this.$t("Add Payment"),
+        text: this.$t("Payment functionality would be implemented here"),
+        type: "info"
+      });
+    },
+
+    // Send invoice to ZATCA
+    async sendInvoice(data) {
+      console.log('Send invoice clicked for:', data);
+      console.log('isSaudiArabia:', this.isSaudiArabia);
+      console.log('data.status:', data.status);
+      
+      Swal.fire({
+        title: this.$t("Send Invoice to ZATCA"),
+        text: this.$t("Do you want to send this invoice to ZATCA?"),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#dc3545",
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            // Show loading
+            Swal.fire({
+              title: this.$t("Sending..."),
+              text: this.$t("Please wait while we send the invoice to ZATCA"),
+              allowOutsideClick: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                Swal.showLoading();
+              }
+            });
+
+            // Send invoice to ZATCA and create journal entries
+            const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
+            
+            if (response.data.success) {
+              Swal.fire(
+                this.$t("Sent Successfully!"),
+                this.$t("Invoice has been sent to ZATCA and journal entries have been created."),
+                "success"
+              );
+              // Refresh the table to update the status
+              this.getInvoices();
+            } else {
+              Swal.fire(
+                this.$t("Failed!"),
+                response.data.message || this.$t("Failed to send invoice to ZATCA"),
+                "error"
+              );
+            }
+          } catch (error) {
+            console.error('Error sending invoice to ZATCA:', error);
+            Swal.fire(
+              this.$t("Error!"),
+              this.$t("An error occurred while sending the invoice to ZATCA"),
+              "error"
+            );
+          }
+        }
+      });
+    },
+
+    // Send credit note to ZATCA
+    async sendCreditNote(data) {
+      console.log('Send credit note clicked for:', data);
+      console.log('isSaudiArabia:', this.isSaudiArabia);
+      console.log('data.status:', data.status);
+      
+      Swal.fire({
+        title: this.$t("Send Credit Note to ZATCA"),
+        text: this.$t("Do you want to send this credit note to ZATCA?"),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#dc3545",
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            // Show loading
+            Swal.fire({
+              title: this.$t("Sending..."),
+              text: this.$t("Please wait while we send the credit note to ZATCA"),
+              allowOutsideClick: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                Swal.showLoading();
+              }
+            });
+
+            // Send credit note to ZATCA and create journal entries
+            const response = await axios.post(`/api/invoice-returns/${data.slug}/send-to-zatca`);
+            
+            if (response.data.success) {
+              Swal.fire(
+                this.$t("Sent Successfully!"),
+                this.$t("Credit note has been sent to ZATCA and journal entries have been created."),
+                "success"
+              );
+              // Refresh the table to update the status
+              this.getInvoiceReturns();
+            } else {
+              Swal.fire(
+                this.$t("Failed!"),
+                response.data.message || this.$t("Failed to send credit note to ZATCA"),
+                "error"
+              );
+            }
+          } catch (error) {
+            console.error('Error sending credit note:', error);
+            Swal.fire(
+              this.$t("Error!"),
+              error.response?.data?.message || this.$t("An error occurred while sending the credit note"),
+              "error"
+            );
+          }
         }
       });
     },

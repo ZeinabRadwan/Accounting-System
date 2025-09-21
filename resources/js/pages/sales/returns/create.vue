@@ -464,7 +464,7 @@ export default {
           url: 'home',
         },
         {
-          name: this.isSaudiArabia ? this.$t('Invoice Returns KSA') : this.$t('Invoice Returns'),
+          name: this.isSaudiArabia ? this.$t('Credit notes') : this.$t('Invoice Returns'),
           url: 'invoiceReturns.index',
         },
         {
