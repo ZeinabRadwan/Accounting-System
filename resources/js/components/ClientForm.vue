@@ -655,9 +655,13 @@ export default {
             console.log('- newData.slug !== new:', newData.slug !== 'new');
             console.log('Full newData:', newData);
             
-            // Load next code number only for new clients
-            console.log('Loading next code number for new client');
-            this.loadNextCodeNumber();
+            // Only load next code number for truly new clients (not when editing)
+            if (!newData.slug || newData.slug === 'new') {
+              console.log('Loading next code number for new client');
+              this.loadNextCodeNumber();
+            } else {
+              console.log('Skipping next code number load - this appears to be an edit operation');
+            }
           }
         }
       },

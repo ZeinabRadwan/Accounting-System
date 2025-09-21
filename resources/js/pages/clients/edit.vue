@@ -19,11 +19,28 @@
           
           <!-- Use the new ClientForm component -->
           <ClientForm 
+            v-if="!loading && clientData && clientData.slug"
             ref="clientForm"
             :showCardBody="true"
             :initialData="clientData"
             @submit="saveClient"
           />
+          
+          <!-- Loading state -->
+          <div v-else-if="loading" class="card-body text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">{{ $t('Loading...') }}</span>
+            </div>
+            <p class="mt-2">{{ $t('Loading client data...') }}</p>
+          </div>
+          
+          <!-- Error state -->
+          <div v-else class="card-body text-center">
+            <div class="alert alert-danger">
+              <i class="fas fa-exclamation-triangle"></i>
+              {{ $t('Failed to load client data') }}
+            </div>
+          </div>
           
           <!-- Card footer with action buttons -->
           <div class="card-footer">
@@ -80,7 +97,7 @@ export default {
   computed: {
     // Check if form is ready
     isFormReady() {
-      return !this.loading && this.clientData && Object.keys(this.clientData).length > 0;
+      return !this.loading && this.clientData && this.clientData.slug && Object.keys(this.clientData).length > 0;
     }
   },
   watch: {

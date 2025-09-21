@@ -167,10 +167,10 @@
                             <li v-if="$can('invoice-view')">
                               <router-link :to="{ name: 'invoices.show', params: { slug: data.slug } }">{{ $t('View') }}</router-link>
                             </li>
-                            <li v-if="$can('invoice-edit')">
+                            <li v-if="$can('invoice-edit') && !(isSaudiArabia && data.status === 1)">
                               <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
                             </li>
-                            <li v-if="$can('invoice-delete')">
+                            <li v-if="$can('invoice-delete') && !(isSaudiArabia && data.status === 1)">
                               <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>
                             </li>
                           </ul>
