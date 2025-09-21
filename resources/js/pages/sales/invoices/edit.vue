@@ -1765,4 +1765,14 @@ export default {
   display: block;
   margin-top: 5px;
 }
+
+.btn-primary {
+  background: #2AB930 !important;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
 </style>

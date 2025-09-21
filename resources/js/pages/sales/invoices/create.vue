@@ -3145,26 +3145,19 @@ export default {
   flex-shrink: 0;
 }
 
-.btn-primary {
-  background: #007bff;
-  border-color: #007bff;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
 /* Remove padding for button-plus icon-shape icon-sm btn-primary elements */
 .button-plus.icon-shape.icon-sm.btn-primary {
   padding: 0;
 }
 
+.btn-primary {
+  background: #2AB930 !important;
+}
+
 .btn-primary:hover {
-  background: #0056b3;
-  border-color: #0056b3;
+  background: #229A26 !important;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
 
 .btn-primary:disabled {
@@ -3414,10 +3407,6 @@ export default {
 
 .btn-primary {
   background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
 }
 
 .btn-secondary {
