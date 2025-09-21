@@ -444,10 +444,6 @@ export default {
 
 .btn-primary {
   background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
 }
 
 .btn-secondary {

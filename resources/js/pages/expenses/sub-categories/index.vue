@@ -126,45 +126,41 @@
                     <td v-if="$can('expense-sub-category-edit') ||
                         $can('expense-sub-category-delete')
                         " class="text-right no-print">
-                      <div class="action-dropdown" :class="{ active: openActionIndex === i }">
-                        <button
-                          @click="toggleAction(i)"
-                          class="action-icon-btn"
-                          v-tooltip="$t('Actions')"
-                        >
-                          <svg
-                            width="16"
-                            height="4"
-                            viewBox="0 0 16 4"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M2 0C0.9 0 0 0.9 0 2C0 3.1 0.9 4 2 4C3.1 4 4 3.1 4 2C4 0.9 3.1 0 2 0ZM14 0C12.9 0 12 0.9 12 2C12 3.1 12.9 4 14 4C15.1 4 16 3.1 16 2C16 0.9 15.1 0 14 0ZM8 0C6.9 0 6 0.9 6 2C6 3.1 6.9 4 8 4C9.1 4 10 3.1 10 2C10 0.9 9.1 0 8 0Z"
-                              fill="#6B7280"
-                            />
+                      <div class="action-dropdown" :class="{ open: openActionIndex === i }">
+                        <button type="button" class="action-icon-btn" @click.stop="toggleAction(i)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                            <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
                           </svg>
                         </button>
-                        <div v-show="openActionIndex === i" class="action-menu">
-                          <router-link
-                            v-if="$can('expense-sub-category-edit')"
-                            :to="{
-                          name: 'expenseSubCats.edit',
-                          params: { slug: data.slug },
-                            }"
-                            class="action-menu-item"
-                          >
-                            <i class="fas fa-edit"></i> {{ $t('Edit') }}
-                        </router-link>
-                          <a
-                            v-if="$can('expense-sub-category-delete')"
-                            href="#"
-                            @click.prevent="deleteData(data.slug)"
-                            class="action-menu-item text-danger"
-                          >
-                            <i class="fas fa-trash"></i> {{ $t('Delete') }}
-                          </a>
+                        <div class="action-menu" v-if="openActionIndex === i" @click.stop>
+                          <div class="action-menu-header">
+                            <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
+                            <button type="button" class="action-menu-close" @click.stop="toggleAction(i)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <ul>
+                            <li v-if="$can('expense-sub-category-edit')">
+                              <router-link :to="{ name: 'expenseSubCats.edit', params: { slug: data.slug } }">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                {{ $t('Edit') }}
+                              </router-link>
+                            </li>
+                            <li v-if="$can('expense-sub-category-delete')">
+                              <a href="#" @click.prevent="deleteData(data.slug)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                {{ $t('Delete') }}
+                              </a>
+                            </li>
+                          </ul>
                         </div>
+                        <div class="action-menu-backdrop" v-if="openActionIndex === i" @click.stop="toggleAction(i)"></div>
                       </div>
                     </td>
                   </tr>
@@ -475,64 +471,143 @@ export default {
   border-radius: 0 0 20px 20px;
 }
 
-/* Action Dropdown Styles */
+/* Action dropdown styles */
 .action-dropdown {
   position: relative;
   display: inline-block;
 }
 
-.action-menu {
-  position: absolute;
-  right: 0;
-  top: 48px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border-radius: 10px;
-  min-width: 180px;
-  z-index: 10;
-}
-
 .action-icon-btn {
-  background: #f8f9fa;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
 }
 
 .action-icon-btn:hover {
-  background: #e9ecef;
+  background-color: #f8fafc;
+  border-radius: 4px;
 }
 
-.action-menu-item {
+.action-menu {
+  position: fixed;
+  right: 50%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  min-width: 200px;
+  max-width: 250px;
+  z-index: 1000;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.action-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 12px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fafbfc;
+  border-radius: 12px 12px 0 0;
+}
+
+.action-menu-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.action-menu-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
-  padding: 10px 16px;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.action-menu-close:hover {
+  background-color: #e5e7eb;
+}
+
+.action-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.action-menu li {
+  margin: 0;
+}
+
+.action-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
   color: #374151;
   text-decoration: none;
   font-size: 14px;
-  border-bottom: 1px solid #f3f4f6;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
 }
 
-.action-menu-item:last-child {
-  border-bottom: none;
+.action-menu li a:hover {
+  background: #f8fafc;
+  color: #1f2937;
+  border-left-color: #3b82f6;
+  transform: translateX(2px);
 }
 
-.action-menu-item:hover {
-  background: #f9fafb;
-  color: #111827;
-}
-
-.action-menu-item i {
-  margin-right: 8px;
+.action-menu li a svg {
+  flex-shrink: 0;
   width: 16px;
-  text-align: center;
+  height: 16px;
+}
+
+.action-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translate(50%, -50%) translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(50%, -50%) translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Custom Status Badge Styling */
