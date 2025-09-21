@@ -1,0 +1,54 @@
+[1mdiff --cc resources/js/pages/sales/invoices/index.vue[m
+[1mindex 2a13017,48f437e..0000000[m
+[1m--- a/resources/js/pages/sales/invoices/index.vue[m
+[1m+++ b/resources/js/pages/sales/invoices/index.vue[m
+[36m@@@ -157,42 -157,21 +157,36 @@@[m
+                            </svg>[m
+                          </button>[m
+                          <div class="action-menu" v-if="openActionIndex === i" @click.stop>[m
+[32m +                          <div class="action-menu-header">[m
+[32m +                            <span class="action-menu-title">Actions</span>[m
+[32m +                            <button type="button" class="action-menu-close" @click="toggleAction(i)">[m
+[32m +                              <i class="fas fa-times"></i>[m
+[32m +                            </button>[m
+[32m +                          </div>[m
+                            <ul>[m
+                              <li v-if="$can('invoice-view') && data.due > 0">[m
+[31m -                              <a href="#" @click.prevent="handleModal(data)">{{ $t('Add Payment?') }}</a>[m
+[32m +                              <a href="#" @click.prevent="handleModal(data)">[m
+[32m +                                <i class="fas fa-credit-card"></i>[m
+[32m +                                {{ $t('Add Payment?') }}[m
+[32m +                              </a>[m
+                              </li>[m
+                              <li v-if="isSaudiArabia && data.status === 0">[m
+[31m -                              <a href="#" @click.prevent="sendInvoice(data)">{{ $t('Send Invoice') }}</a>[m
+[32m +                              <a href="#" @click.prevent="sendInvoice(data)">[m
+[32m +                                <i class="fas fa-paper-plane"></i>[m
+[32m +                                {{ $t('Send Invoice') }}[m
+[32m +                              </a>[m
+                              </li>[m
+                              <li v-if="$can('invoice-view')">[m
+[31m -                              <router-link :to="{ name: 'invoices.show', params: { slug: data.slug } }">{{ $t('View') }}</router-link>[m
+[32m +                              <router-link :to="{ name: 'invoices.show', params: { slug: data.slug } }">[m
+[32m +                                <i class="fas fa-eye"></i>[m
+[32m +                                {{ $t('View') }}[m
+[32m +                              </router-link>[m
+                              </li>[m
+[31m -                            <li v-if="$can('invoice-edit') && !(isSaudiArabia && data.status === 1)">[m
+[32m +                            <li v-if="$can('invoice-edit')">[m
+[31m-                               <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">[m
+[31m-                                 <i class="fas fa-edit"></i>[m
+[31m-                                 {{ $t('Edit') }}[m
+[31m-                               </router-link>[m
+[32m+                               <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>[m
+                              </li>[m
+[31m -                            <li v-if="$can('invoice-delete') && !(isSaudiArabia && data.status === 1)">[m
+[32m +                            <li v-if="$can('invoice-delete')">[m
+[31m-                               <a href="#" @click.prevent="deleteData(data.slug)">[m
+[31m-                                 <i class="fas fa-trash"></i>[m
+[31m-                                 {{ $t('Delete') }}[m
+[31m-                               </a>[m
+[32m+                               <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>[m
+                              </li>[m
+                            </ul>[m
+                          </div>[m
