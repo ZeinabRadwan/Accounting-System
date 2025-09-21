@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\ChartOfAccountResource;
+use App\Http\Resources\ChartOfAccountResourceCollection;
 use App\Http\Requests\ChartOfAccount\StoreChartOfAccountRequest;
 use App\Http\Requests\ChartOfAccount\UpdateChartOfAccountRequest;
 use Illuminate\Support\Facades\DB;
@@ -34,10 +35,10 @@ class ChartOfAccountController extends Controller
         $perPage = $request->perPage ?? 10;
         
         $accounts = ChartOfAccount::with(['type', 'parent'])
-            ->latest()
+            ->ordered()
             ->paginate($perPage);
             
-        return ChartOfAccountResource::collection($accounts);
+        return new ChartOfAccountResourceCollection($accounts);
     }
 
     /**
@@ -47,11 +48,10 @@ class ChartOfAccountController extends Controller
     {
         try {
             $accounts = ChartOfAccount::with(['type', 'parent'])
-                ->orderBy('order', 'asc')
-                ->orderBy('name', 'asc')
+                ->ordered()
                 ->get();
                 
-            return ChartOfAccountResource::collection($accounts);
+            return new ChartOfAccountResourceCollection($accounts);
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error loading chart of accounts',
@@ -99,11 +99,10 @@ class ChartOfAccountController extends Controller
     {
         try {
             $accounts = ChartOfAccount::with(['type', 'parent'])
-                ->orderBy('order', 'asc')
-                ->orderBy('name', 'asc')
+                ->ordered()
                 ->get();
                 
-            return ChartOfAccountResource::collection($accounts);
+            return new ChartOfAccountResourceCollection($accounts);
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error loading chart of accounts tree',
@@ -252,7 +251,7 @@ class ChartOfAccountController extends Controller
                       ->orWhere('code', 'like', '%' . $request->term . '%');
             }
 
-            return ChartOfAccountResource::collection(
+            return new ChartOfAccountResourceCollection(
                 $query->latest()->paginate($perPage)
             );
         } catch (Exception $e) {

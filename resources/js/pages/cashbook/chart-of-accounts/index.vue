@@ -106,6 +106,9 @@
                   <th>{{ $t("Parent Account") }}</th>
                   <th>{{ $t("Order") }}</th>
                   <th>{{ $t("Status") }}</th>
+                  <th class="text-right">{{ $t("Debit") }}</th>
+                  <th class="text-right">{{ $t("Credit") }}</th>
+                  <th class="text-right">{{ $t("Balance") }}</th>
                   <th v-if="$can('chart-of-account-view') ||
                     $can('chart-of-account-edit') ||
                     $can('chart-of-account-delete')
@@ -145,6 +148,22 @@
                       <span v-else class="badge bg-danger">{{
                         $t("Inactive")
                       }}</span>
+                    </td>
+                    <td class="text-right">
+                      <span class="text-success font-weight-bold">
+                        {{ formatCurrency(data.debit_amount) }}
+                      </span>
+                    </td>
+                    <td class="text-right">
+                      <span class="text-danger font-weight-bold">
+                        {{ formatCurrency(data.credit_amount) }}
+                      </span>
+                    </td>
+                    <td class="text-right">
+                      <span :class="data.balance >= 0 ? 'text-success' : 'text-danger'" class="font-weight-bold">
+                        {{ formatCurrency(Math.abs(data.balance)) }}
+                        <small class="text-muted">({{ data.balance >= 0 ? 'Dr' : 'Cr' }})</small>
+                      </span>
                     </td>
                     <td v-if="$can('chart-of-account-view') ||
                         $can('chart-of-account-edit') ||
@@ -189,7 +208,7 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="7">
+                    <td colspan="10">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -419,6 +438,15 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    // format currency
+    formatCurrency(amount) {
+      if (amount === null || amount === undefined) return '0.00';
+      return parseFloat(amount).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     },
 
 
