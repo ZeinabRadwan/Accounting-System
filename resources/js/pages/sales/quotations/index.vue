@@ -163,21 +163,40 @@
                           </svg>
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i" @click.stop>
+                          <div class="action-menu-header">
+                            <span class="action-menu-title">Actions</span>
+                            <button type="button" class="action-menu-close" @click="toggleAction(i)">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
                           <ul>
                             <li v-if="$can('quotation-to-invoice')">
-                              <router-link :to="{ name: 'quotations.invoice', params: { slug: data.slug } }">{{ $t('Create Invoice') }}</router-link>
+                              <router-link :to="{ name: 'quotations.invoice', params: { slug: data.slug } }">
+                                <i class="fas fa-file-invoice"></i>
+                                {{ $t('Create Invoice') }}
+                              </router-link>
                             </li>
                             <li v-if="$can('quotation-view')">
-                              <router-link :to="{ name: 'quotations.show', params: { slug: data.slug } }">{{ $t('View') }}</router-link>
+                              <router-link :to="{ name: 'quotations.show', params: { slug: data.slug } }">
+                                <i class="fas fa-eye"></i>
+                                {{ $t('View') }}
+                              </router-link>
                             </li>
                             <li v-if="$can('quotation-edit')">
-                              <router-link :to="{ name: 'quotations.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
+                              <router-link :to="{ name: 'quotations.edit', params: { slug: data.slug } }">
+                                <i class="fas fa-edit"></i>
+                                {{ $t('Edit') }}
+                              </router-link>
                             </li>
                             <li v-if="$can('quotation-delete')">
-                              <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>
+                              <a href="#" @click.prevent="deleteData(data.slug)">
+                                <i class="fas fa-trash"></i>
+                                {{ $t('Delete') }}
+                              </a>
                             </li>
                           </ul>
                         </div>
+                        <div class="action-menu-backdrop" v-if="openActionIndex === i" @click="toggleAction(i)"></div>
                       </div>
                     </td>
                   </tr>
@@ -531,15 +550,81 @@ export default {
 }
 
 .action-menu {
-  position: absolute;
-  right: 0;
-  top: 48px;
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   background: #ffffff;
   border: 1px solid #e5e7eb;
   box-shadow: 0px 8px 20px 0px #00000014;
-  border-radius: 10px;
-  min-width: 180px;
-  z-index: 10;
+  border-radius: 12px;
+  min-width: 200px;
+  z-index: 9999;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+.action-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 9998;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.action-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5fb;
+  background: #f8fafc;
+  border-radius: 12px 12px 0 0;
+}
+
+.action-menu-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #023033;
+}
+
+.action-menu-close {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.action-menu-close:hover {
+  background: #e5e7eb;
+  color: #374151;
 }
 
 .action-menu ul {
@@ -548,16 +633,56 @@ export default {
   padding: 8px 0;
 }
 
+.action-menu li {
+  border-bottom: 1px solid #f1f5fb;
+}
+
+.action-menu li:last-child {
+  border-bottom: none;
+}
+
 .action-menu li a {
-  display: block;
-  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
   color: #023033;
   text-decoration: none;
-  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  gap: 10px;
+}
+
+.action-menu li a i {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
 }
 
 .action-menu li a:hover {
-  background: #f1f5fb;
+  background: #f8fafc;
+  color: #2AB930;
+  transform: translateX(2px);
+}
+
+.action-menu li a:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #2AB930;
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+}
+
+.action-menu li a:hover:before {
+  transform: scaleY(1);
 }
 
 /* Space between action buttons */

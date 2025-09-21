@@ -58,11 +58,7 @@ class InvoiceReturnController extends Controller
             DB::beginTransaction();
 
             // generate code
-            $code = 1;
-            $lastReturn = InvoiceReturn::latest()->first();
-            if ($lastReturn) {
-                $code = $lastReturn->return_no + 1;
-            }
+            $code = $this->generateNextReturnCode();
 
             // get logged in user id
             $userId = auth()->user()->id;
@@ -600,5 +596,33 @@ class InvoiceReturnController extends Controller
             \Illuminate\Support\Facades\Log::error('Error sending credit note to ZATCA: ' . $e->getMessage());
             return $this->responseWithError('Failed to send credit note to ZATCA: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Generate the next return code
+     *
+     * @return string
+     */
+    private function generateNextReturnCode()
+    {
+        // Get return prefix from general settings
+        $returnPrefix = getGeneralSettingsInfo()['invoiceReturnPrefix'] ?? 'RET';
+        
+        // Get the last return to determine the next number
+        $lastReturn = InvoiceReturn::where('return_no', 'like', $returnPrefix . '%')
+            ->orderByRaw('CAST(SUBSTRING(return_no, ' . (strlen($returnPrefix) + 1) . ') AS UNSIGNED) DESC')
+            ->first();
+        
+        if ($lastReturn) {
+            // Extract the numeric part from the last return_no
+            $lastNumber = (int) substr($lastReturn->return_no, strlen($returnPrefix));
+            $nextNumber = $lastNumber + 1;
+        } else {
+            // If no returns exist, start with 1
+            $nextNumber = 1;
+        }
+        
+        // Format the number with leading zeros (e.g., 001, 002, etc.)
+        return $returnPrefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
     }
 }

@@ -139,11 +139,7 @@ class InvoiceController extends Controller
 
 
             // generate code
-            $code = 1;
-            $lastInvoice = Invoice::latest()->first();
-            if ($lastInvoice) {
-                $code = $lastInvoice->invoice_no + 1;
-            }
+            $code = $this->generateNextInvoiceCode();
 
             // get logged in user id
             $userId = auth()->user()->id;
@@ -826,5 +822,33 @@ class InvoiceController extends Controller
             Log::error('Error sending invoice to ZATCA: ' . $e->getMessage());
             return $this->responseWithError('Failed to send invoice to ZATCA: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Generate the next invoice code
+     *
+     * @return string
+     */
+    private function generateNextInvoiceCode()
+    {
+        // Get invoice prefix from general settings
+        $invoicePrefix = getGeneralSettingsInfo()['invoicePrefix'] ?? 'INV';
+        
+        // Get the last invoice to determine the next number
+        $lastInvoice = Invoice::where('invoice_no', 'like', $invoicePrefix . '%')
+            ->orderByRaw('CAST(SUBSTRING(invoice_no, ' . (strlen($invoicePrefix) + 1) . ') AS UNSIGNED) DESC')
+            ->first();
+        
+        if ($lastInvoice) {
+            // Extract the numeric part from the last invoice_no
+            $lastNumber = (int) substr($lastInvoice->invoice_no, strlen($invoicePrefix));
+            $nextNumber = $lastNumber + 1;
+        } else {
+            // If no invoices exist, start with 1
+            $nextNumber = 1;
+        }
+        
+        // Format the number with leading zeros (e.g., 001, 002, etc.)
+        return $invoicePrefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
     }
 }

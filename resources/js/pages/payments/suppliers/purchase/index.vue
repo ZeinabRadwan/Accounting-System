@@ -159,18 +159,42 @@
                           </svg>
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i" @click.stop>
+                          <div class="action-menu-header">
+                            <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
+                            <button type="button" class="action-menu-close" @click.stop="toggleAction(i)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </button>
+                          </div>
                           <ul>
                             <li v-if="$can('purchase-payment-view')">
-                              <router-link :to="{ name: 'purchasePayments.show', params: { slug: data.slug } }">{{ $t('View') }}</router-link>
+                              <router-link :to="{ name: 'purchasePayments.show', params: { slug: data.slug } }">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z" fill="#6B7280"/>
+                                </svg>
+                                {{ $t('View') }}
+                              </router-link>
                             </li>
                             <li v-if="$can('purchase-payment-edit')">
-                              <router-link :to="{ name: 'purchasePayments.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
+                              <router-link :to="{ name: 'purchasePayments.edit', params: { slug: data.slug } }">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                {{ $t('Edit') }}
+                              </router-link>
                             </li>
                             <li v-if="$can('purchase-payment-delete')">
-                              <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>
+                              <a href="#" @click.prevent="deleteData(data.slug)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                {{ $t('Delete') }}
+                              </a>
                             </li>
                           </ul>
                         </div>
+                        <div class="action-menu-backdrop" v-if="openActionIndex === i" @click.stop="toggleAction(i)"></div>
                       </div>
                     </td>
                   </tr>
@@ -519,18 +543,60 @@ export default {
   justify-content: center;
   cursor: pointer;
   padding: 0;
+  transition: all 0.2s ease;
+}
+
+.action-icon-btn:hover {
+  background-color: #f8fafc;
+  border-radius: 4px;
 }
 
 .action-menu {
-  position: absolute;
-  right: 0;
-  top: 48px;
+  position: fixed;
+  right: 50%;
+  top: 50%;
+  transform: translate(50%, -50%);
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border-radius: 10px;
-  min-width: 180px;
-  z-index: 10;
+  box-shadow: 0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  min-width: 200px;
+  max-width: 250px;
+  z-index: 1000;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.action-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 12px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fafbfc;
+  border-radius: 12px 12px 0 0;
+}
+
+.action-menu-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.action-menu-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.action-menu-close:hover {
+  background-color: #e5e7eb;
 }
 
 .action-menu ul {
@@ -539,16 +605,65 @@ export default {
   padding: 8px 0;
 }
 
+.action-menu li {
+  margin: 0;
+}
+
 .action-menu li a {
-  display: block;
-  padding: 10px 16px;
-  color: #023033;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #374151;
   text-decoration: none;
-  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
 }
 
 .action-menu li a:hover {
-  background: #f1f5fb;
+  background: #f8fafc;
+  color: #1f2937;
+  border-left-color: #3b82f6;
+  transform: translateX(2px);
+}
+
+.action-menu li a svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.action-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translate(50%, -50%) translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(50%, -50%) translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Space between action buttons */

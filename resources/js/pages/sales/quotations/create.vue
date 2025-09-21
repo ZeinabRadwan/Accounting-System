@@ -971,10 +971,6 @@ export default {
 
 .btn-primary {
   background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
 }
 
 .btn-secondary {
@@ -983,5 +979,63 @@ export default {
   padding: 10px 20px !important;
   border-radius: 10px !important;
   border: none !important;
+}
+
+/* Custom Quantity Input Styling */
+.custom-qty-input {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.button-minus,
+.button-plus {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-minus {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-plus {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-minus:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+.button-plus:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.quantity-field {
+  width: 60px;
+  text-align: center;
+  margin: 0 5px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.quantity-field:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 </style>
