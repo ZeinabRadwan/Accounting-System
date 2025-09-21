@@ -197,12 +197,12 @@
                                 {{ $t('Edit Page') }}
                               </router-link>
                             </li>
-                            <li v-if="$can('client-edit')">
+                            <!-- <li v-if="$can('client-edit')">
                               <a href="#" @click.prevent="openEditModal(data)">
                                 <i class="fas fa-edit"></i>
                                 {{ $t('Quick Edit') }}
                               </a>
-                            </li>
+                            </li> -->
                             <li v-if="appInfo.defaultClientSlug != data.slug && $can('client-delete')">
                               <a href="#" @click.prevent="deleteData(data.slug)">
                                 <i class="fas fa-trash"></i>

@@ -174,17 +174,11 @@
                                 {{ $t('View') }}
                               </router-link>
                             </li>
-                            <li v-if="$can('invoice-return-edit')">
-                              <router-link :to="{ name: 'invoiceReturns.edit', params: { slug: data.slug } }">
-                                <i class="fas fa-edit"></i>
-                                {{ $t('Edit') }}
-                              </router-link>
+                            <li v-if="$can('invoice-return-edit') && !(isSaudiArabia && data.status === 1)">
+                              <router-link :to="{ name: 'invoiceReturns.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
                             </li>
-                            <li v-if="$can('invoice-return-delete')">
-                              <a href="#" @click="deleteData(data.slug)">
-                                <i class="fas fa-trash"></i>
-                                {{ $t('Delete') }}
-                              </a>
+                            <li v-if="$can('invoice-return-delete') && !(isSaudiArabia && data.status === 1)">
+                              <a href="#" @click="deleteData(data.slug)">{{ $t('Delete') }}</a>
                             </li>
                           </ul>
                         </div>

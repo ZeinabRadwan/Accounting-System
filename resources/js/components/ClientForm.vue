@@ -364,153 +364,19 @@
          <div v-if="routingSetting" class="alert alert-info">
            <i class="fas fa-info-circle mr-2"></i>
            <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
-           <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
+           <!-- <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span> -->
          </div>
 
-         <!-- Auto-creation note for new clients -->
-         <div v-if="isNewClient && routingSetting && routingSetting.routing_type !== 'automatic'" class="alert alert-warning">
-           <i class="fas fa-lightbulb mr-2"></i>
-           <strong>{{ $t("Note for New Clients") }}:</strong> 
-           {{ $t("If you don't select a chart of account, one will be automatically created with the client name when you save the client.") }}
-         </div>
+       
 
         <!-- Automatic Account Routing - No dropdown needed -->
-        <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
+        <!-- <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
           <i class="fas fa-check-circle mr-2"></i>
           {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
-        </div>
+        </div> -->
 
                                                                         <!-- Specify Per Each - Show dropdown and create button -->
-            <div v-if="routingSetting && routingSetting.routing_type === 'per_each'" class="chart-of-account-field">
-              <div class="form-group">
-                <label for="chartOfAccountId">
-                  {{ $t("Select Chart of Account") }} <span class="required">*</span>
-                </label>
-                <VSelect 
-                  v-model="form.chartOfAccountId" 
-                  :options="chartOfAccounts" 
-                  :reduce="option => option.id"
-                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                  :placeholder="$t('Search for an account...')"
-                  :searchable="true"
-                  :clearable="true"
-                  :filterable="false"
-                  :loading="loadingChartOfAccounts"
-                  :minimum-input-length="2"
-                  :delay="300"
-                  :async="true"
-                  :async-search="searchChartOfAccounts"
-                >
-                  <template #option="{ name, code, type }">
-                    <div class="account-option">
-                      <span class="account-name">{{ name }}</span>
-                      <span class="account-code">{{ code }}</span>
-                      <span class="account-type">{{ type }}</span>
-                    </div>
-                  </template>
-                  <template #selected-option="{ name }">
-                    <span class="selected-account-name">{{ name }}</span>
-                  </template>
-                  <template #no-options>
-                    <div class="text-muted p-2">
-                      {{ $t("No accounts found. Try typing to search...") }}
-                    </div>
-                  </template>
-                  <template #loading>
-                    <div class="text-muted p-2">
-                      <i class="fas fa-spinner fa-spin mr-2"></i>
-                      {{ $t("Searching accounts...") }}
-                    </div>
-                  </template>
-                </VSelect>
-                <has-error :form="form" field="chartOfAccountId" />
-                <small class="form-text text-muted">
-                  {{ $t("Select a chart of account for this client. The account will be created without any parent.") }}
-                </small>
-                
-                <!-- Create New Account Button - Positioned below the select -->
-                <div class="mt-3" v-if="!isNewClient">
-                  <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
-                    <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
-                    <i v-else class="fas fa-plus mr-2"></i>
-                    {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-                                           <!-- Specify Main Account Per Each - Show dropdown and create button -->
-          <div v-if="routingSetting && routingSetting.routing_type === 'main_account_per_each'" class="chart-of-account-field">
-            <div class="form-group">
-              <label for="chartOfAccountId">
-                {{ $t("Select Chart of Account") }} <span class="required">*</span>
-              </label>
-              <VSelect 
-                v-model="form.chartOfAccountId" 
-                :options="chartOfAccounts" 
-                :reduce="option => option.id"
-                :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                :placeholder="$t('Search for an account...')"
-                :searchable="true"
-                :clearable="true"
-                :filterable="false"
-                :loading="loadingChartOfAccounts"
-                :minimum-input-length="2"
-                :delay="300"
-                :async="true"
-                :async-search="searchChartOfAccounts"
-              >
-                <template #option="{ name, code, type }">
-                  <div class="account-option">
-                    <span class="account-name">{{ name }}</span>
-                    <span class="account-code">{{ code }}</span>
-                    <span class="account-type">{{ type }}</span>
-                  </div>
-                </template>
-                <template #selected-option="{ name }">
-                  <span class="selected-account-name">{{ name }}</span>
-                </template>
-                <template #no-options>
-                  <div class="text-muted p-2">
-                    {{ $t("No accounts found. Try typing to search...") }}
-                  </div>
-                </template>
-                <template #loading>
-                  <div class="text-muted p-2">
-                    <i class="fas fa-spinner fa-spin mr-2"></i>
-                    {{ $t("Searching accounts...") }}
-                  </div>
-                </template>
-              </VSelect>
-              <has-error :form="form" field="chartOfAccountId" />
-              <small class="form-text text-muted">
-                {{ $t("Select a chart of account for this client. The account will be properly created under the main client account.") }}
-              </small>
-              
-              <!-- Create New Account Button - Positioned below the select -->
-              <div class="mt-3" v-if="!isNewClient">
-                <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
-                  <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
-                  <i v-else class="fas fa-plus mr-2"></i>
-                  {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
-                </button>
-              </div>
-            </div>
-          </div>
-
-        <!-- Loading state -->
-        <div v-if="loadingChartOfAccounts" class="text-center py-3">
-          <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">{{ $t("Loading...") }}</span>
-          </div>
-          <p class="mt-2">{{ $t("Loading chart of accounts...") }}</p>
-        </div>
-
-        <!-- Error state -->
-        <div v-if="chartOfAccountsError" class="alert alert-danger">
-          <i class="fas fa-exclamation-triangle mr-2"></i>
-          {{ chartOfAccountsError }}
-        </div>
+       
           </div>
         </div>
       </div>
@@ -713,9 +579,18 @@ export default {
     console.log('Initial data in mounted:', this.initialData);
     // Don't call loadRepresentatives here - let the watcher handle it
     
+    // Load next code number for new clients
+    this.loadNextCodeNumber();
+    
     // Load routing settings first, then chart of accounts
     this.loadRoutingSettings().then(() => {
-      this.loadChartOfAccounts();
+      console.log('Routing settings loaded, now loading chart of accounts...');
+      this.loadChartOfAccounts().then(() => {
+        console.log('Chart of accounts loading completed. Total accounts:', this.chartOfAccounts.length);
+        console.log('Chart of accounts data:', this.chartOfAccounts);
+      });
+    }).catch(error => {
+      console.error('Error in mounted lifecycle:', error);
     });
   },
   methods: {
@@ -723,7 +598,7 @@ export default {
     initializeForm() {
       this.form = new Form({
         // Account Details
-        codeNumber: "000001",
+        codeNumber: "AC001",
         notes: "",
         displayLanguage: "",
         
@@ -777,22 +652,28 @@ export default {
     // Load the next available code number for new clients
     async loadNextCodeNumber() {
       try {
-        // Only load next code number if this is a new client (no initial data)
-        if (!this.initialData || Object.keys(this.initialData).length === 0) {
-          const response = await axios.get('/clients/next-code');
-          
-          if (response.data.success) {
-            this.form.codeNumber = response.data.formatted_code;
-          } else {
-            console.error('Failed to load next code number:', response.data.message);
-            // Fallback to default
-            this.form.codeNumber = '000001';
-          }
+        console.log('=== LOADING NEXT CODE NUMBER ===');
+        console.log('Current form codeNumber before API call:', this.form.codeNumber);
+        
+        const response = await axios.get('/clients/next-code');
+        console.log('Next code API response:', response.data);
+        
+        if (response.data.success) {
+          this.form.codeNumber = response.data.formatted_code;
+          console.log('Code number successfully loaded:', this.form.codeNumber);
+          console.log('Debug info from API:', response.data.debug);
+        } else {
+          console.error('API returned error:', response.data.message);
+          // Fallback to default
+          this.form.codeNumber = 'AC001';
+          console.log('Using fallback code number:', this.form.codeNumber);
         }
       } catch (error) {
         console.error('Error loading next code number:', error);
+        console.error('Error details:', error.response?.data || error.message);
         // Fallback to default
-        this.form.codeNumber = '000001';
+        this.form.codeNumber = 'AC001';
+        console.log('Using fallback code number due to error:', this.form.codeNumber);
       }
     },
 
@@ -983,33 +864,6 @@ export default {
          }
        }
 
-       // Validate chart of account based on routing type
-       // Only validate if routing settings are loaded and not automatic
-       if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
-         if (!this.form.chartOfAccountId) {
-           const message = this.routingSetting.routing_type === 'per_each' 
-             ? this.$t("Please select a chart of account for this client")
-             : this.$t("Please select a chart of account under the main client account");
-           console.log('Chart of account validation failed:', message);
-           if (window.toast && typeof window.toast.fire === 'function') {
-             window.toast.fire({
-               type: "error",
-               title: message,
-             });
-           } else {
-             alert(message);
-           }
-           return false;
-         }
-       } else {
-         console.log('Skipping chart of account validation - routing type is automatic or not loaded');
-         // If routing settings are not loaded yet, skip validation to avoid blocking form submission
-         if (!this.routingSetting) {
-           console.log('Routing settings not loaded yet, skipping chart of account validation');
-         }
-       }
-
-       console.log('=== FORM VALIDATION PASSED ===');
        return true;
      },
 
@@ -1087,13 +941,33 @@ export default {
             console.log('Routing setting with display name:', this.routingSetting);
           } else {
             console.log('No clients_account setting found in:', response.data.data);
+            // Set a default routing setting if none found
+            this.routingSetting = {
+              routing_type: 'per_each',
+              routing_type_display: 'Specify Per Each',
+              main_account_id: null
+            };
+            console.log('Using default routing setting:', this.routingSetting);
           }
         } else {
           console.log('Routing settings response not successful:', response.data);
+          // Set a default routing setting if API fails
+          this.routingSetting = {
+            routing_type: 'per_each',
+            routing_type_display: 'Specify Per Each',
+            main_account_id: null
+          };
+          console.log('Using default routing setting due to API failure:', this.routingSetting);
         }
       } catch (error) {
         console.error('Error loading routing settings:', error);
-        this.routingSetting = null;
+        // Set a default routing setting if error occurs
+        this.routingSetting = {
+          routing_type: 'per_each',
+          routing_type_display: 'Specify Per Each',
+          main_account_id: null
+        };
+        console.log('Using default routing setting due to error:', this.routingSetting);
       }
     },
 
@@ -1132,26 +1006,51 @@ export default {
         // For other routing types, load accounts based on routing setting
         if (this.routingSetting && this.routingSetting.main_account_id) {
           console.log('Loading accounts from routing setup...');
-          // Load accounts from the routing setup
-          const response = await this.$http.get(`/api/account-routing-settings/${this.routingSetting.setting_key}/accounts`);
-          console.log('Routing accounts response:', response);
-          
-          if (response.data && response.data.success) {
-            this.chartOfAccounts = response.data.accounts || [];
-            console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
-          } else {
-            console.log('Routing accounts response not successful, falling back to all accounts');
+          try {
+            // Load accounts from the routing setup
+            const response = await this.$http.get(`/api/account-routing-settings/${this.routingSetting.setting_key}/accounts`);
+            console.log('Routing accounts response:', response);
+            
+            if (response.data && response.data.success) {
+              this.chartOfAccounts = response.data.accounts || [];
+              console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
+            } else {
+              throw new Error('Routing accounts response not successful');
+            }
+          } catch (routingError) {
+            console.log('Routing accounts failed, falling back to all accounts:', routingError);
             // Fallback to all accounts
             const fallbackResponse = await this.$http.get('/api/chart-of-accounts/all');
-            this.chartOfAccounts = fallbackResponse.data.data || [];
+            this.chartOfAccounts = fallbackResponse.data.data || fallbackResponse.data || [];
             console.log('Loaded fallback accounts:', this.chartOfAccounts.length);
           }
         } else {
           console.log('No main account ID, loading all accounts as fallback');
           // Load all active accounts as fallback
           const response = await this.$http.get('/api/chart-of-accounts/all');
-          this.chartOfAccounts = response.data.data || [];
+          // The getAll endpoint returns a resource collection, so data is directly in response.data
+          this.chartOfAccounts = response.data.data || response.data || [];
           console.log('Loaded all accounts as fallback:', this.chartOfAccounts.length);
+        }
+        
+        // Ensure we have some accounts loaded
+        if (this.chartOfAccounts.length === 0) {
+          console.log('No accounts loaded, trying alternative endpoint...');
+          try {
+            const altResponse = await this.$http.get('/api/chart-of-accounts/dropdown');
+            this.chartOfAccounts = altResponse.data.data || altResponse.data || [];
+            console.log('Loaded accounts from dropdown endpoint:', this.chartOfAccounts.length);
+          } catch (altError) {
+            console.error('Alternative endpoint also failed:', altError);
+            // Set a minimal fallback to prevent empty dropdown
+            this.chartOfAccounts = [{
+              id: 'placeholder',
+              name: 'No accounts available - Please configure chart of accounts',
+              code: 'N/A',
+              type: 'Error'
+            }];
+            this.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
+          }
         }
       } catch (error) {
         console.error('Error loading chart of accounts:', error);
@@ -1195,9 +1094,10 @@ export default {
           
           console.log('API search response:', response);
           
-          if (response.data && response.data.data) {
+          if (response.data && (response.data.data || response.data)) {
             console.log('API returned data, returning results');
-            resolve(response.data.data.slice(0, 50));
+            const apiData = response.data.data || response.data;
+            resolve(apiData.slice(0, 50));
           } else {
             console.log('No API data, returning local filtered');
             resolve(filtered);
@@ -1794,6 +1694,109 @@ export default {
   color: white;
   transform: none;
   box-shadow: none;
+}
+
+/* Vue Select Z-Index Fix - Global */
+.vs__dropdown-menu {
+  z-index: 99999 !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: white !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  max-height: 200px !important;
+  overflow-y: auto !important;
+}
+
+.vs__dropdown-toggle {
+  z-index: 1 !important;
+  position: relative !important;
+}
+
+/* Chart of Account dropdown specific styling */
+.chart-of-account-field .vs__dropdown-menu {
+  z-index: 99999 !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: white !important;
+  border: 1px solid #007bff !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15) !important;
+  max-height: 250px !important;
+  overflow-y: auto !important;
+}
+
+/* Ensure the form card doesn't clip the dropdown */
+.form-card {
+  overflow: visible !important;
+}
+
+/* Chart of Account field container */
+.chart-of-account-field {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Vue Select container positioning */
+.vue-select {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Ensure the dropdown menu is properly positioned */
+.vue-select .vs__dropdown-menu {
+  z-index: 99999 !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: white !important;
+  border: 1px solid #007bff !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15) !important;
+  max-height: 250px !important;
+  overflow-y: auto !important;
+  margin-top: 2px !important;
+}
+
+/* Account option styling within dropdown */
+.vue-select .vs__dropdown-option {
+  padding: 8px 12px !important;
+  cursor: pointer !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.vue-select .vs__dropdown-option:hover {
+  background-color: #f8f9fa !important;
+}
+
+.vue-select .vs__dropdown-option:last-child {
+  border-bottom: none !important;
+}
+
+/* Additional z-index fixes for common UI elements */
+.vs__dropdown-menu {
+  z-index: 99999 !important;
+}
+
+/* Ensure dropdown appears above Bootstrap modals (z-index: 1050) */
+.modal .vs__dropdown-menu {
+  z-index: 99999 !important;
+}
+
+/* Ensure dropdown appears above Bootstrap dropdowns (z-index: 1000) */
+.dropdown .vs__dropdown-menu {
+  z-index: 99999 !important;
+}
+
+/* Ensure dropdown appears above any sticky elements */
+.sticky .vs__dropdown-menu {
+  z-index: 99999 !important;
 }
 
 /* Responsive adjustments */

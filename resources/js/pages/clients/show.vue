@@ -684,13 +684,13 @@
                                 }" class="btn btn-primary btn-sm">
                                   <i class="fas fa-eye" />
                                 </router-link>
-                                <router-link v-if="$can('invoice-return-edit')" v-tooltip="$t('Edit')" :to="{
+                                <router-link v-if="$can('invoice-return-edit') && !(isSaudiArabia && data.status === 1)" v-tooltip="$t('Edit')" :to="{
                                   name: 'invoiceReturns.edit',
                                   params: { slug: data.slug },
                                 }" class="btn btn-info btn-sm">
                                   <i class="fas fa-edit" />
                                 </router-link>
-                                <a v-if="$can('invoice-return-delete')" v-tooltip="$t('Delete')" href="#"
+                                <a v-if="$can('invoice-return-delete') && !(isSaudiArabia && data.status === 1)" v-tooltip="$t('Delete')" href="#"
                                   class="btn btn-danger btn-sm" @click="deleteInvoiceReturnData(data.slug)">
                                   <i class="fas fa-trash" />
                                 </a>

@@ -71,11 +71,7 @@ class ClientController extends Controller
     {
         try {
             // generate code
-            $code = 1;
-            $lastClient = Client::latest()->first();
-            if ($lastClient) {
-                $code = $lastClient->client_id + 1;
-            }
+            $code = $this->generateNextClientCode();
 
             // upload thumbnail and set the name
             $imageName = '';
@@ -1104,26 +1100,50 @@ ORDER BY `date`");
     public function getNextCodeNumber()
     {
         try {
-            // Get the last client to determine the next code number
-            $lastClient = Client::latest()->first();
+            // Get client prefix from general settings
+            $clientPrefix = getGeneralSettingsInfo()['clientPrefix'] ?? 'AC';
             
-            if ($lastClient) {
-                $nextCode = $lastClient->client_id + 1;
-            } else {
-                $nextCode = 1;
-            }
+            // Debug: Check existing clients
+            $existingClients = Client::where('client_id', 'like', $clientPrefix . '%')
+                ->orderByRaw('CAST(SUBSTRING(client_id, ' . (strlen($clientPrefix) + 1) . ') AS UNSIGNED) DESC')
+                ->limit(5)
+                ->get(['client_id']);
             
-            // Format the code number with leading zeros (6 digits)
-            $formattedCode = str_pad($nextCode, 6, '0', STR_PAD_LEFT);
+            \Illuminate\Support\Facades\Log::info('Next code generation debug', [
+                'client_prefix' => $clientPrefix,
+                'existing_clients' => $existingClients->pluck('client_id')->toArray(),
+                'total_clients_count' => Client::count()
+            ]);
+            
+            // Generate the next client code using the same logic as store method
+            $nextClientCode = $this->generateNextClientCode();
+            
+            // Extract the numeric part for the next_code field
+            $nextCode = (int) substr($nextClientCode, strlen($clientPrefix));
+            
+            \Illuminate\Support\Facades\Log::info('Generated next code', [
+                'next_client_code' => $nextClientCode,
+                'next_code_number' => $nextCode
+            ]);
             
             return response()->json([
                 'success' => true,
                 'next_code' => $nextCode,
-                'formatted_code' => $formattedCode,
-                'message' => 'Next code number retrieved successfully'
+                'formatted_code' => $nextClientCode,
+                'message' => 'Next code number retrieved successfully',
+                'debug' => [
+                    'client_prefix' => $clientPrefix,
+                    'existing_clients' => $existingClients->pluck('client_id')->toArray(),
+                    'total_clients' => Client::count()
+                ]
             ]);
             
         } catch (Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Error generating next code number', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
@@ -1156,13 +1176,10 @@ ORDER BY `date`");
                 case 'automatic':
                     // For automatic routing, always create/assign account if none provided
                     if (empty($clientData['chart_of_account_id']) && $routingSetting->main_account_id) {
-                        $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
-                        $clientData['chart_of_account_id'] = $newAccount->id;
+                        // $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
+                        $clientData['chart_of_account_id'] = $routingSetting->main_account_id;
                         
-                        \Illuminate\Support\Facades\Log::info("Auto-created chart of account {$newAccount->id} for client with automatic routing", [
-                            'client_data' => $clientData,
-                            'routing_setting' => $routingSetting->toArray()
-                        ]);
+                     
                     }
                     break;
                     
@@ -1174,10 +1191,7 @@ ORDER BY `date`");
                             $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
                             $clientData['chart_of_account_id'] = $newAccount->id;
                             
-                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for client with per_each routing", [
-                                'client_data' => $clientData,
-                                'routing_setting' => $routingSetting->toArray()
-                            ]);
+                          
                         }
                     }
                     break;
@@ -1190,10 +1204,7 @@ ORDER BY `date`");
                             $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
                             $clientData['chart_of_account_id'] = $newAccount->id;
                             
-                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for client with main_account_per_each routing", [
-                                'client_data' => $clientData,
-                                'routing_setting' => $routingSetting->toArray()
-                            ]);
+                          
                         }
                     }
                     break;
@@ -1369,5 +1380,33 @@ ORDER BY `date`");
         } catch (\Exception $e) {
             return $this->responseWithError('Failed to create chart of account: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Generate the next client code
+     *
+     * @return string
+     */
+    private function generateNextClientCode()
+    {
+        // Get client prefix from general settings
+        $clientPrefix = getGeneralSettingsInfo()['clientPrefix'] ?? 'AC';
+        
+        // Get the last client to determine the next number
+        $lastClient = Client::where('client_id', 'like', $clientPrefix . '%')
+            ->orderByRaw('CAST(SUBSTRING(client_id, ' . (strlen($clientPrefix) + 1) . ') AS UNSIGNED) DESC')
+            ->first();
+        
+        if ($lastClient) {
+            // Extract the numeric part from the last client_id
+            $lastNumber = (int) substr($lastClient->client_id, strlen($clientPrefix));
+            $nextNumber = $lastNumber + 1;
+        } else {
+            // If no clients exist, start with 1
+            $nextNumber = 1;
+        }
+        
+        // Format the number with leading zeros (e.g., 001, 002, etc.)
+        return $clientPrefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
     }
 }

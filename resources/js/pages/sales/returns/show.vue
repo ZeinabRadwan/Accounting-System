@@ -47,7 +47,7 @@
               <i class="fas fa-print"></i> {{ $t("Print") }}
             </a>
             <router-link
-              v-if="$can('invoice-return-edit')"
+              v-if="$can('invoice-return-edit') && !(isSaudiArabia && allData.status === 1)"
               :to="{
                 name: 'invoiceReturns.edit',
                 params: { slug: allData.slug },
@@ -826,6 +826,11 @@ export default {
 
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+
+    // Check if the country is Saudi Arabia
+    isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
 
     // Filter products that have return quantities > 0
     productsWithReturns() {
