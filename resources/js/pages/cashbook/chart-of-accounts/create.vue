@@ -91,7 +91,11 @@
                   <label for="parent_id">{{ $t('Parent Account') }}</label>
                   <v-select v-model="form.parent_id" :options="parentAccounts" label="name"
                     :class="{ 'is-invalid': form.errors.has('parent_id') }" name="parent_id"
-                    :placeholder="$t('Select parent account (optional)')" />
+                    :placeholder="parentAccounts.length === 0 ? $t('No compatible parent accounts available') : $t('Select parent account (optional)')" />
+                  <small v-if="parentAccounts.length === 0 && form.type_id" class="text-muted">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    {{ $t('No parent accounts available for the selected account type') }}
+                  </small>
                   <has-error :form="form" field="parent_id" />
                 </div>
               </div>
@@ -174,6 +178,7 @@ export default {
     }),
     accountTypes: [],
     parentAccounts: [],
+    allParentAccounts: [], // Store all accounts for filtering
     codeGenerationTimeout: null, // For debouncing
     isGeneratingCode: false, // Prevent multiple simultaneous generations
   }),
@@ -191,6 +196,16 @@ export default {
   },
 
   watch: {
+    // Watch for account type changes to filter parent accounts
+    'form.type_id': {
+      handler(newType, oldType) {
+        if (newType !== oldType) {
+          this.filterParentAccounts();
+        }
+      },
+      deep: true
+    },
+
     // Watch for parent_id changes to auto-generate code
     'form.parent_id': {
       handler(newParent, oldParent) {
@@ -270,11 +285,69 @@ export default {
     async loadParentAccounts() {
       try {
         const response = await this.$axios.get('/api/chart-of-accounts/all');
-        this.parentAccounts = response.data.data || [];
+        this.allParentAccounts = response.data.data || [];
+        this.filterParentAccounts();
         console.log('Parent Accounts loaded:', this.parentAccounts);
       } catch (error) {
         console.error('Error loading parent accounts:', error);
       }
+    },
+
+    // filter parent accounts based on selected account type
+    filterParentAccounts() {
+      if (!this.form.type_id || !this.allParentAccounts) {
+        this.parentAccounts = this.allParentAccounts || [];
+        return;
+      }
+
+      const selectedTypeId = this.form.type_id.id || this.form.type_id;
+      
+      // Filter parent accounts based on account type hierarchy
+      this.parentAccounts = this.allParentAccounts.filter(account => {
+        // Allow accounts of the same type or compatible parent types
+        const accountTypeId = account.type_id || account.type?.id;
+        
+        // Basic type compatibility rules
+        const typeCompatibility = {
+          // Assets can be parent of other assets
+          'asset': ['asset'],
+          // Liabilities can be parent of other liabilities  
+          'liability': ['liability'],
+          // Equity can be parent of other equity
+          'equity': ['equity'],
+          // Income can be parent of other income
+          'income': ['income'],
+          // Expense can be parent of other expenses
+          'expense': ['expense'],
+          // COGS can be parent of other COGS
+          'cogs': ['cogs'],
+        };
+
+        // If we have type names, use them for filtering
+        if (account.type && account.type.name) {
+          const accountTypeName = account.type.name.toLowerCase();
+          const selectedTypeName = this.getTypeNameById(selectedTypeId).toLowerCase();
+          
+          // Check if the account type is compatible
+          if (typeCompatibility[selectedTypeName] && typeCompatibility[selectedTypeName].includes(accountTypeName)) {
+            return true;
+          }
+        }
+
+        // Fallback: allow accounts of the same type
+        return accountTypeId === selectedTypeId;
+      });
+
+      // If no parent accounts found, clear the selection
+      if (this.parentAccounts.length === 0) {
+        this.form.parent_id = null;
+      }
+    },
+
+    // get type name by ID
+    getTypeNameById(typeId) {
+      const type = this.accountTypes.find(t => t.id === typeId);
+      return type ? type.name : '';
     },
 
     // save chart of account
