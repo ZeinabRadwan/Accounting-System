@@ -665,68 +665,19 @@ export default {
   border: none !important;
 }
 
-.btn-outline-custom {
-  color: #1B3C71;
-  border-color: #1B3C71;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.btn-outline-custom:hover,
-.btn-custom-active {
-  background-color: #1B3C71;
-  color: #fff;
-  border-color: #1B3C71;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
- 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
- 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
- 
-a {
-  color: #42b983;
-}
-</style> 
-  background-color: white;
-  border-top: 1px solid #CED4DA;
-  padding: 0 1.25rem 0.625rem 1.25rem;
-  border-radius: 0 0 20px 20px;
-}
-
-/* Search Input Background Override */
-.form-control{
-  background: #F1F5FB !important;
-}
-
-.btn-primary {
-  background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
-}
-
-.btn-secondary {
-  background: #33a0d9 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
+.btn-secondary:hover {
+  background: #2a8bc4 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 
 .btn-outline-custom {
   color: #1B3C71;
   border-color: #1B3C71;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-weight: 500;
 }
 
 .btn-outline-custom:hover,

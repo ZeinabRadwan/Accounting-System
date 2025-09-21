@@ -52,10 +52,9 @@
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
-                  <router-link :to="{ name: 'assetTypes.index' }" class="btn btn-secondary ml-2">
-                    <i class="fas fa-long-arrow-alt-left" />
-                    {{ $t('Reset') }}
-                  </router-link>
+                  <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                    <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                  </button>
                 </div>
               </div>
             </div>

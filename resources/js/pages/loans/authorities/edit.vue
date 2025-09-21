@@ -238,4 +238,10 @@ export default {
   border-radius: 10px !important;
   border: none !important;
 }
+
+.btn-secondary:hover {
+  background: #2a8bc4 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
+}
 </style>

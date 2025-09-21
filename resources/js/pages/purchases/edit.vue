@@ -991,6 +991,12 @@ export default {
   border: none !important;
 }
 
+.btn-secondary:hover {
+  background: #2a8bc4 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
+}
+
 .create-btn {
   padding: 11px;
 }
@@ -1008,64 +1014,6 @@ export default {
   border-radius: 6px;
   font-weight: 500;
 }
-
-.supplier-warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeaa7;
-}
-
-.supplier-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-/* Product status styles */
-.product-status {
-  font-size: 13px;
-}
-
-.product-warning,
-.product-success {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-weight: 500;
-}
-
-.product-warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeaa7;
-}
-
-.product-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.btn-outline-warning {
-  border-color: #ffc107;
-  color: #856404;
-  font-size: 12px;
-  padding: 4px 8px;
-}
-
-.btn-outline-warning:hover {
-  background-color: #ffc107;
-  border-color: #ffc107;
-  color: #212529;
-}
-
-.btn-outline-warning:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-</style>
-
 
 .supplier-warning {
   background-color: #fff3cd;
