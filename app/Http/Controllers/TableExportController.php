@@ -398,6 +398,18 @@ class TableExportController extends Controller
         return Excel::download(new ExportAccounts($startDate, $endDate, $term), 'Accounts.xlsx');
     }
 
+    // return chart of accounts pdf
+    public function chartOfAccountsPDF()
+    {
+        // retrieve all records from db
+        $data = \App\Models\ChartOfAccount::with('type', 'parent', 'creator')->orderBy('code')->get()->toArray();
+        // share data to view
+        view()->share('chartOfAccounts', $data);
+        $pdf = PDF::loadView('pdf.chart-of-accounts', $data)->setPaper('a4', 'landscape');
+        // download PDF file with download method
+        return $pdf->download('chart-of-accounts-list.pdf');
+    }
+
     // return chart of accounts export
     public function chartOfAccountsExportExcel(Request $request)
     {
