@@ -281,9 +281,6 @@
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-save" /> {{ $t('Save') }}
                   </v-button>
-                  <button type="button" class="btn btn-info ml-2" @click="showCalculationBreakdown">
-                    <i class="fas fa-calculator" /> Debug Calculations
-                  </button>
                   <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">
                     <i class="fas fa-power-off" /> {{ $t('Reset') }}
                   </button>
