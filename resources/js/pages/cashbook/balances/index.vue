@@ -22,16 +22,16 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('cashbook.Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                   <i class="fas fa-sync"></i>
                 </a>
                   <a
                     :href="exportUrl"
-                    v-tooltip="$t('Export to Excel')"
+                    v-tooltip="$t('cashbook.Export to Excel')"
                     class="btn export-excel-btn"
-                    title="Export to Excel"
+                    :title="$t('cashbook.Export to Excel')"
                   >
                     <svg
                       width="18"
@@ -48,9 +48,9 @@
                   </a>
                   <a
                     href="/cashbook/balance-adjustments/pdf"
-                    v-tooltip="$t('Export to PDF')"
+                    v-tooltip="$t('cashbook.Export to PDF')"
                     class="btn export-pdf-btn"
-                    title="Export to PDF"
+                    :title="$t('cashbook.Export to PDF')"
                   >
                     <svg
                       width="24"
@@ -67,7 +67,7 @@
                   </a>
                   <a
                     @click="print"
-                    v-tooltip="$t('Print Table')"
+                    v-tooltip="$t('cashbook.Print Table')"
                     class="btn print-btn"
                   >
                   <i class="fas fa-print"></i>
@@ -85,12 +85,12 @@
               <table class="table balances-table">
                 <thead>
                     <th>{{ $t("#") }}</th>
-                    <th>{{ $t("Bank Name") }}</th>
-                    <th>{{ $t("Account Number") }}</th>
-                    <th>{{ $t("Amount") }}</th>
-                    <th>{{ $t("Type") }}</th>
-                    <th>{{ $t("Date") }}</th>
-                    <th>{{ $t("Status") }}</th>
+                    <th>{{ $t("cashbook.Bank Name") }}</th>
+                    <th>{{ $t("cashbook.Account Number") }}</th>
+                    <th>{{ $t("cashbook.Amount") }}</th>
+                    <th>{{ $t("cashbook.Type") }}</th>
+                    <th>{{ $t("cashbook.Date") }}</th>
+                    <th>{{ $t("cashbook.Status") }}</th>
                     <th v-if="$can('account-balance-edit') ||
                       $can('account-balance-delete')
                       " class="text-right no-print">
@@ -120,10 +120,10 @@
                     <td>{{ data.amount | withCurrency }}</td>
                     <td>
                       <span v-if="data.type == 1" class="badge bg-success">{{
-                        $t("Add Balance")
+                        $t("cashbook.Add Balance")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("Remove Balance")
+                        $t("cashbook.Remove Balance")
                       }}</span>
                     </td>
                     <td>
@@ -133,10 +133,10 @@
                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
+                        $t("cashbook.Active")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
+                        $t("cashbook.Inactive")
                       }}</span>
                     </td>
                     <td v-if="$can('account-balance-edit') ||
@@ -150,7 +150,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <span class="action-menu-title">Actions</span>
+                            <span class="action-menu-title">{{ $t("cashbook.Actions") }}</span>
                             <button type="button" class="action-menu-close" @click="toggleAction(i)">
                               <i class="fas fa-times"></i>
                             </button>
@@ -159,13 +159,13 @@
                             <li v-if="$can('account-balance-edit')">
                               <router-link :to="{ name: 'balances.edit', params: { slug: data.slug } }">
                                 <i class="fas fa-edit"></i>
-                                {{ $t('Edit') }}
+                                {{ $t("cashbook.Edit") }}
                               </router-link>
                             </li>
                             <li v-if="$can('account-balance-delete')">
                               <a href="#" @click.prevent="deleteData(data.slug)">
                                 <i class="fas fa-trash"></i>
-                                {{ $t('Delete') }}
+                                {{ $t("cashbook.Delete") }}
                               </a>
                             </li>
                           </ul>
@@ -213,20 +213,9 @@ import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Balance Adjustments") };
+    return { title: this.$t("cashbook.Adjustments") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Balance Adjustments",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Adjustments",
-        url: "",
-      },
-    ],
     query: "",
     perPage: 10,
     openActionIndex: null,
@@ -234,6 +223,25 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination"]),
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("cashbook.Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("cashbook.Cashbook"),
+          url: "",
+        },
+        {
+          name: this.$t("cashbook.Adjustments"),
+          url: "",
+        },
+      ];
+    },
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Adjustments");
+    },
     exportUrl() {
       // Create a dynamic export URL with query parameters
       return `/cashbook/balance-adjustments/export/excel?term=${this.query}`;
@@ -370,8 +378,8 @@ export default {
             .then((response) => {
               if (response === true) {
                 Swal.fire(
-                  this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
+                  this.$t("cashbook.Deleted!"),
+                  this.$t("cashbook.Deleted successfully."),
                   "success"
                 );
               } else {

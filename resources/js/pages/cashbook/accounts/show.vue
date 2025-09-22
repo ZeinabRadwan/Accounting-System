@@ -6,15 +6,15 @@
     <div class="row no-print mb-2">
       <div class="w-100 text-right float-right">
         <div class="btn-group" v-if="allData">
-          <a :href="'/account-transactions/pdf/' + allData.slug" v-tooltip="$t('Export Table')"
+          <a :href="'/account-transactions/pdf/' + allData.slug" v-tooltip="$t('cashbook.Export')"
             class="btn btn-primary">
-            <i class="fas fa-download"></i> {{ $t("Download") }}
+            <i class="fas fa-download"></i> {{ $t("cashbook.download") }}
           </a>
 
-          <a href="#" @click="printWindow" class="btn btn-info"><i class="fas fa-print"></i> {{ $t("Print") }}</a>
+          <a href="#" @click="printWindow" class="btn btn-info"><i class="fas fa-print"></i> {{ $t("cashbook.Print") }}</a>
           <router-link :to="{ name: 'accounts.index' }" class="btn btn-dark float-right">
             <i class="fas fa-long-arrow-alt-left" />
-            {{ $t("Back") }}
+            {{ $t("cashbook.Back") }}
           </router-link>
         </div>
       </div>
@@ -29,13 +29,13 @@
           <!-- /.col -->
           <div v-if="allData" class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right">
             <h5 v-if="allData.date">
-              {{ $t("Account Details") }}
+              {{ $t("cashbook.Account Details") }}
             </h5>
-            <strong>{{ $t("Bank Name") }}:</strong>
+            <strong>{{ $t("cashbook.Bank Name") }}:</strong>
             {{ allData.bankName }}<br />
             <span v-if="allData.branchName"><strong>{{ $t("Branch Name") }}:</strong>
               {{ allData.branchName }}<br /></span>
-            <span v-if="allData.accountNumber"><strong>{{ $t("Account Number") }}:</strong>
+            <span v-if="allData.accountNumber"><strong>{{ $t("cashbook.Account Number") }}:</strong>
               {{ allData.accountNumber }}<br /></span>
             <span v-if="allData.accountNumber"><strong>{{ $t("Created At") }}:</strong>
               {{ allData.date | moment("Do MMM, YYYY") }}<br /></span>
@@ -154,24 +154,9 @@ import { mapGetters } from "vuex";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Account Transactions") };
+    return { title: this.$t("cashbook.Bank Account Details") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Account Transactions",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Accounts",
-        url: "accounts.index",
-      },
-      {
-        name: "Transactions",
-        url: "",
-      },
-    ],
     query: "",
     allData: "",
     transactions: [],
@@ -182,6 +167,25 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination"]),
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("cashbook.Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("cashbook.Bank Accounts"),
+          url: "accounts.index",
+        },
+        {
+          name: this.$t("cashbook.Account Details"),
+          url: "",
+        },
+      ];
+    },
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Bank Account Details");
+    },
   },
   watch: {
     // watch search data

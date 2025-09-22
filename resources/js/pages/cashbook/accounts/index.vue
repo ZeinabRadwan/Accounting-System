@@ -36,16 +36,16 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('cashbook.Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
                     :href="exportUrl"
-                    v-tooltip="$t('Export to Excel')"
+                    v-tooltip="$t('cashbook.Export to Excel')"
                     class="btn export-excel-btn"
-                    title="Export to Excel"
+                    :title="$t('cashbook.Export to Excel')"
                   >
                     <svg
                       width="18"
@@ -62,9 +62,9 @@
                   </a>
                   <a
                     href="/accounts/pdf"
-                    v-tooltip="$t('Export to PDF')"
+                    v-tooltip="$t('cashbook.Export to PDF')"
                     class="btn export-pdf-btn"
-                    title="Export to PDF"
+                    :title="$t('cashbook.Export to PDF')"
                   >
                     <svg
                       width="24"
@@ -81,7 +81,7 @@
                   </a>
                   <a
                     @click="print"
-                    v-tooltip="$t('Print Table')"
+                    v-tooltip="$t('cashbook.Print Table')"
                     class="btn print-btn"
                   >
                     <i class="fas fa-print"></i>
@@ -99,11 +99,11 @@
                 <thead>
                   <th>{{ $t("#") }}</th>
                   <th>{{ $t("Image") }}</th>
-                  <th>{{ $t("Bank Name") }}</th>
+                  <th>{{ $t("cashbook.Bank Name") }}</th>
                   <th>{{ $t("Branch Name") }}</th>
-                  <th>{{ $t("Account Number") }}</th>
-                  <th>{{ $t("Available Balance") }}</th>
-                  <th>{{ $t("Status") }}</th>
+                  <th>{{ $t("cashbook.Account Number") }}</th>
+                  <th>{{ $t("cashbook.Available Balance") }}</th>
+                  <th>{{ $t("cashbook.Status") }}</th>
                   <th v-if="$can('account-view') ||
                     $can('account-edit') ||
                     $can('account-delete')
@@ -153,10 +153,10 @@
                     <td>{{ data.availableBalance | withCurrency }}</td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
+                        $t("cashbook.Active")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
+                        $t("cashbook.Inactive")
                       }}</span>
                     </td>
                     <td v-if="$can('account-view') ||
@@ -171,7 +171,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <span class="action-menu-title">Actions</span>
+                            <span class="action-menu-title">{{ $t("cashbook.Actions") }}</span>
                             <button type="button" class="action-menu-close" @click="toggleAction(i)">
                               <i class="fas fa-times"></i>
                             </button>
@@ -180,19 +180,19 @@
                             <li v-if="$can('account-view')">
                               <router-link :to="{ name: 'accounts.show', params: { slug: data.slug } }">
                                 <i class="fas fa-list"></i>
-                                {{ $t('Transactions') }}
+                                {{ $t("Transactions") }}
                               </router-link>
                             </li>
                             <li v-if="$can('account-edit')">
                               <router-link :to="{ name: 'accounts.edit', params: { slug: data.slug } }">
                                 <i class="fas fa-edit"></i>
-                                {{ $t('Edit') }}
+                                {{ $t("cashbook.Edit") }}
                               </router-link>
                             </li>
                             <li v-if="$can('account-delete') && appInfo.defaultAccountSlug != data.slug">
                               <a href="#" @click.prevent="deleteData(data.slug)">
                                 <i class="fas fa-trash"></i>
-                                {{ $t('Delete') }}
+                                {{ $t("cashbook.Delete") }}
                               </a>
                             </li>
                           </ul>
@@ -253,27 +253,12 @@ import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Accounts") };
+    return { title: this.$t("cashbook.Bank Accounts") };
   },
   components: {
     DateRangePicker,
   },
   data: () => ({
-    breadcrumbsCurrent: "Accounts",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Cashbook",
-        url: "",
-      },
-      {
-        name: "Accounts",
-        url: "",
-      },
-    ],
     query: "",
     perPage: 10,
     showModal: false,
@@ -288,10 +273,10 @@ export default {
       direction: "ltr",
       format: "YYYY-MM-DD",
       separator: " - ",
-      applyLabel: "Apply",
-      cancelLabel: "Cancel",
+      applyLabel: this.$t("cashbook.Apply"),
+      cancelLabel: this.$t("cashbook.Cancel"),
       weekLabel: "W",
-      customRangeLabel: "Custom Range",
+      customRangeLabel: this.$t("cashbook.Custom Range"),
       daysOfWeek: moment.weekdaysMin(),
       monthNames: moment.monthsShort(),
       firstDay: 1,
@@ -299,15 +284,34 @@ export default {
   }),
   filters: {
     startDate(val) {
-      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("From");
+      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("cashbook.From");
     },
     endDate(val) {
-      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("To");
+      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("cashbook.To");
     },
   },
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("cashbook.Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("cashbook.Cashbook"),
+          url: "",
+        },
+        {
+          name: this.$t("cashbook.Bank Accounts"),
+          url: "",
+        },
+      ];
+    },
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Bank Accounts");
+    },
     exportUrl() {
       // Create a dynamic export URL with query parameters
       return `/accounts/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
@@ -462,11 +466,11 @@ export default {
     // delete data
     async deleteData(slug) {
       Swal.fire({
-        title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this!"),
+        title: this.$t("cashbook.Are you sure?"),
+        text: this.$t("cashbook.You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("cashbook.Confirm"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -479,14 +483,14 @@ export default {
               if (response === true) {
                 this.getData();
                 Swal.fire(
-                  this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
+                  this.$t("cashbook.Deleted!"),
+                  this.$t("cashbook.Deleted successfully."),
                   "success"
                 );
               } else {
                 Swal.fire(
-                  this.$t("Failed!"),
-                  this.$t("Sorry you can't remove this account!"),
+                  this.$t("cashbook.Failed!"),
+                  this.$t("cashbook.Sorry you can't remove this item!"),
                   "warning"
                 );
               }

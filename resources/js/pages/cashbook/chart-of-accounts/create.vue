@@ -10,7 +10,7 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
                 <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-primary">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t("cashbook.Back") }}
                 </router-link>
               </div>
             </div>
@@ -21,15 +21,15 @@
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="name">{{ $t('Account Name') }}
+                  <label for="name">{{ $t("cashbook.Account Name") }}
                     <span class="required">*</span></label>
                   <input id="name" v-model="form.name" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter account name')" />
+                    :placeholder="$t('cashbook.Enter account name')" />
                   <has-error :form="form" field="name" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="code">{{ $t('Account Code') }}
+                  <label for="code">{{ $t("cashbook.Account Code") }}
                     <span class="required">*</span></label>
                   
                   <!-- Code Generation Toggle -->
@@ -39,13 +39,13 @@
                               :class="['btn', form.code_generation === 'automatic' ? 'btn-primary' : 'btn-outline-primary']"
                               @click="setCodeGeneration('automatic')">
                         <i class="fas fa-magic mr-1"></i>
-                        {{ $t('Automatic') }}
+                        {{ $t("Automatic") }}
                       </button>
                       <button type="button" 
                               :class="['btn', form.code_generation === 'manual' ? 'btn-primary' : 'btn-outline-primary']"
                               @click="setCodeGeneration('manual')">
                         <i class="fas fa-edit mr-1"></i>
-                        {{ $t('Manual') }}
+                        {{ $t("Manual") }}
                       </button>
                     </div>
                   </div>
@@ -95,27 +95,27 @@
                   <has-error :form="form" field="type_id" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="parent_id">{{ $t('Parent Account') }}</label>
+                  <label for="parent_id">{{ $t('cashbook.Parent Account') }}</label>
                   <v-select v-model="form.parent_id" :options="parentAccounts" label="name"
                     :class="{ 'is-invalid': form.errors.has('parent_id') }" name="parent_id"
-                    :placeholder="$t('Select parent account (optional)')" />
+                    :placeholder="$t('cashbook.Select parent account')" />
                   <has-error :form="form" field="parent_id" />
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="order">{{ $t('Order') }}</label>
+                  <label for="order">{{ $t('cashbook.Order') }}</label>
                   <input id="order" v-model="form.order" type="number" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('order') }" name="order"
-                    :placeholder="$t('Enter display order')" />
+                    :placeholder="$t('cashbook.Enter order')" />
                   <has-error :form="form" field="order" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="is_active">{{ $t('Status') }}</label>
+                  <label for="is_active">{{ $t('cashbook.Status') }}</label>
                   <select id="is_active" v-model="form.is_active" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('is_active') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
+                    <option value="1">{{ $t('cashbook.Active') }}</option>
+                    <option value="0">{{ $t('cashbook.Inactive') }}</option>
                   </select>
                   <has-error :form="form" field="is_active" />
                 </div>
@@ -126,10 +126,10 @@
               <div class="dtable-footer">
                 <div class="form-group row display-per-page">
                   <v-button :loading="form.busy" class="btn btn-primary">
-                    <i class="fas fa-save" /> {{ $t('Save') }}
+                    <i class="fas fa-save" /> {{ $t('cashbook.Save') }}
                   </v-button>
                   <button type="reset" class="btn btn-secondary" @click="form.reset()">
-                    <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                    <i class="fas fa-power-off" /> {{ $t('cashbook.Reset') }}
                   </button>
                 </div>
               </div>
@@ -147,28 +147,9 @@ import Form from 'vform'
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: this.$t('Create Chart of Account') }
+    return { title: this.$t('cashbook.Add Account') }
   },
   data: () => ({
-    breadcrumbsCurrent: 'Create Chart of Account',
-    breadcrumbs: [
-      {
-        name: 'Dashboard',
-        url: 'home',
-      },
-      {
-        name: 'Cashbook',
-        url: '',
-      },
-      {
-        name: 'Chart of Accounts',
-        url: 'chart-of-accounts.index',
-      },
-      {
-        name: 'Create',
-        url: '',
-      },
-    ],
     form: new Form({
       name: '',
       code: '',
@@ -183,6 +164,32 @@ export default {
     codeGenerationTimeout: null, // For debouncing
     isGeneratingCode: false, // Prevent multiple simultaneous generations
   }),
+
+  computed: {
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("cashbook.Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("cashbook.Cashbook"),
+          url: "",
+        },
+        {
+          name: this.$t("cashbook.Chart of Accounts"),
+          url: "chart-of-accounts.index",
+        },
+        {
+          name: this.$t("cashbook.Add"),
+          url: "",
+        },
+      ];
+    },
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Add Account");
+    },
+  },
 
   async created() {
     await this.loadAccountTypes();

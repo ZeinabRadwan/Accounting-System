@@ -31,14 +31,14 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('cashbook.Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
                     :href="exportUrl"
-                    v-tooltip="$t('Export to Excel')"
+                    v-tooltip="$t('cashbook.Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
                   >
@@ -57,7 +57,7 @@
                   </a>
                   <a
                     href="/cashbook/transactions/pdf"
-                    v-tooltip="$t('Export to PDF')"
+                    v-tooltip="$t('cashbook.Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
                   >
@@ -76,7 +76,7 @@
                   </a>
                   <a
                     @click="print"
-                    v-tooltip="$t('Print Table')"
+                    v-tooltip="$t('cashbook.Print Table')"
                     class="btn print-btn"
                   >
                     <i class="fas fa-print"></i>
@@ -88,14 +88,14 @@
             <div class="table-responsive table-custom mt-3" id="printMe">
               <table class="table transactions-table">
                 <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Reason") }}</th>
-                  <th>{{ $t("Date") }}</th>
-                  <th>{{ $t("Type") }}</th>
-                  <th>{{ $t("Account") }}</th>
-                  <th>{{ $t("Amount") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th class="text-right">{{ $t("Created By") }}</th>
+                  <th>{{ $t("cashbook.#") }}</th>
+                  <th>{{ $t("cashbook.Reason") }}</th>
+                  <th>{{ $t("cashbook.Date") }}</th>
+                  <th>{{ $t("cashbook.Type") }}</th>
+                  <th>{{ $t("cashbook.Account") }}</th>
+                  <th>{{ $t("cashbook.Amount") }}</th>
+                  <th>{{ $t("cashbook.Status") }}</th>
+                  <th class="text-right">{{ $t("cashbook.Created By") }}</th>
                 </thead>
                 <tbody>
                   <tr v-show="items.length" v-for="(data, i) in items" :key="i">
@@ -116,20 +116,20 @@
                     </td>
                     <td>
                       <span v-if="data.type === 1" class="badge bg-success">{{
-                        $t("Credit")
+                        $t("cashbook.Credit")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("Debit")
+                        $t("cashbook.Debit")
                       }}</span>
                     </td>
                     <td v-if="data.account">{{ data.account.label }}</td>
                     <td>{{ data.amount | withCurrency }}</td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
+                        $t("cashbook.Active")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
+                        $t("cashbook.Inactive")
                       }}</span>
                     </td>
                     <td v-if="data.user" class="text-right">
@@ -148,7 +148,7 @@
           <div class="card-footer">
             <div class="dtable-footer">
               <div class="form-group row display-per-page">
-                <label>{{ $t("per_page") }} </label>
+                <label>{{ $t("cashbook.per_page") }} </label>
                 <div>
                   <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
@@ -179,24 +179,27 @@ import DateRangePicker from "vue2-daterange-picker";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Transaction History") };
+    return { title: this.$t("cashbook.Transaction History") };
   },
   components: {
     DateRangePicker,
   },
-  data: () => ({
-    breadcrumbsCurrent: "Transaction History",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Cashbook",
-        url: "",
-      },
-      {
-        name: "History",
+  computed: {
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Transaction History");
+    },
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("Cashbook"),
+          url: "",
+        },
+        {
+          name: this.$t("cashbook.History"),
         url: "",
       },
     ],

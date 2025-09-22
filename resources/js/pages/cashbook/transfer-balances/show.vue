@@ -17,7 +17,7 @@
                   @click="getTransfer"
                 >
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
+                  {{ $t("cashbook.Details") }}</a
                 >
               </li>
               <li class="nav-item">
@@ -28,17 +28,17 @@
                   data-toggle="tab"
                 >
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
+                  {{ $t("cashbook.Activity log") }}</a
                 >
               </li>
             </ul>
           </div>
           <div class="btn-group">
             <a @click="generatePDF()" href="#" class="btn btn-primary">
-              <i class="fas fa-download"></i> {{ $t("download") }}
+              <i class="fas fa-download"></i> {{ $t("cashbook.download") }}
             </a>
             <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
+              <i class="fas fa-print"></i> {{ $t("cashbook.Print") }}
             </a>
             <router-link
               v-if="$can('account-transfer-balance-edit')"
@@ -48,13 +48,13 @@
               }"
               class="btn btn-info"
             >
-              <i class="fas fa-edit" /> {{ $t("Edit") }}
+              <i class="fas fa-edit" /> {{ $t("cashbook.Edit") }}
             </router-link>
             <router-link
               :to="{ name: 'transferBalances.index' }"
               class="btn btn-dark float-right"
             >
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+              <i class="fas fa-long-arrow-alt-left" /> {{ $t("cashbook.Back") }}
             </router-link>
           </div>
         </div>
@@ -75,10 +75,10 @@
               <div
                 class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right"
               >
-                <h5>{{ $t("Transfers Details") }}</h5>
-                <strong v-if="allData.date">{{ $t("Date") }}:</strong>
+                <h5>{{ $t("cashbook.Transfers Details") }}</h5>
+                <strong v-if="allData.date">{{ $t("cashbook.Date") }}:</strong>
                 {{ allData.date | moment("Do MMM, YYYY") }}<br />
-                <strong>{{ $t("Created By") }}:</strong>
+                <strong>{{ $t("cashbook.Created By") }}:</strong>
                 {{ allData.createdBy }}
               </div>
               <!-- /.col -->
@@ -91,14 +91,14 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>{{ $t("Reason") }}</th>
-                      <th>{{ $t("From Account") }}</th>
-                      <th>{{ $t("To Account") }}</th>
-                      <th>{{ $t("Amount") }}</th>
-                      <th v-if="allData.date">{{ $t("Date") }}</th>
-                      <th v-if="allData.note">{{ $t("Note") }}</th>
-                      <th>{{ $t("Status") }}</th>
-                      <th class="text-right">{{ $t("Created By") }}</th>
+                      <th>{{ $t("cashbook.Reason") }}</th>
+                      <th>{{ $t("cashbook.From Account") }}</th>
+                      <th>{{ $t("cashbook.To Account") }}</th>
+                      <th>{{ $t("cashbook.Amount") }}</th>
+                      <th v-if="allData.date">{{ $t("cashbook.Date") }}</th>
+                      <th v-if="allData.note">{{ $t("cashbook.Note") }}</th>
+                      <th>{{ $t("cashbook.Status") }}</th>
+                      <th class="text-right">{{ $t("cashbook.Created By") }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -125,10 +125,10 @@
                         <span
                           v-if="allData.status === 1"
                           class="badge bg-success"
-                          >{{ $t("Active") }}</span
+                          >{{ $t("cashbook.Active") }}</span
                         >
                         <span v-else class="badge bg-danger">{{
-                          $t("Inactive")
+                          $t("cashbook.Inactive")
                         }}</span>
                       </td>
                       <td class="text-right">{{ allData.createdBy }}</td>
@@ -148,7 +148,7 @@
           <div class="card-header setings-header">
             <div class="col-xl-4 col-4">
               <h3 class="card-title">
-                {{ $t("Activity log") }}
+                {{ $t("cashbook.Activity log") }}
               </h3>
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
@@ -156,14 +156,14 @@
                 <a
                   @click="refreshTable()"
                   href="#"
-                  v-tooltip="'Refresh'"
+                  v-tooltip="$t('cashbook.Refresh')"
                   class="btn btn-success"
                 >
                   <i class="fas fa-sync"></i>
                 </a>
                 <a
                   @click="print"
-                  v-tooltip="$t('Print Table')"
+                  v-tooltip="$t('cashbook.Print Table')"
                   class="btn btn-info"
                 >
                   <i class="fas fa-print"></i>
@@ -235,7 +235,7 @@
           <div class="card-footer">
             <div class="dtable-footer">
               <div class="form-group row display-per-page">
-                <label>{{ $t("per_page") }} </label>
+                <label>{{ $t("cashbook.per_page") }} </label>
                 <div>
                   <select
                     @change="updatePerPager"
@@ -274,28 +274,34 @@ import html2pdf from "html2pdf.js";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Balance Transfers Details") };
+    return { title: this.$t("cashbook.Balance Transfers Details") };
+  },
+  computed: {
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Transfers Details");
+    },
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("Cashbook"),
+          url: "",
+        },
+        {
+          name: this.$t("cashbook.Balance Transfers"),
+          url: "transferBalances.index",
+        },
+        {
+          name: this.$t("cashbook.Details"),
+          url: "",
+        },
+      ];
+    },
   },
   data: () => ({
-    breadcrumbsCurrent: "Transfers Details",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Cashbook",
-        url: "",
-      },
-      {
-        name: "Balance Transfers",
-        url: "transferBalances.index",
-      },
-      {
-        name: "Details",
-        url: "",
-      },
-    ],
     showModal: false,
     allData: "",
     query: "",

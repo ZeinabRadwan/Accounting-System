@@ -9,20 +9,20 @@
       <div class="card-header setings-header">
         <div class="col-xl-4 col-4">
           <h3 class="card-title">
-            {{ $t("Chart of Accounts - Tree View") }}
+            {{ $t("cashbook.Chart of Accounts - Tree View") }}
           </h3>
         </div>
         <div class="col-xl-8 col-8 float-right text-right">
           <div class="btn-group c-w-100">
           
-            <a @click="refreshTree()" href="#" v-tooltip="'Refresh'" class="btn btn-success">
+            <a @click="refreshTree()" href="#" v-tooltip="$t('cashbook.Refresh')" class="btn btn-success">
               <i class="fas fa-sync"></i>
             </a>
             <router-link v-if="$can('chart-of-account-list')" :to="{ name: 'chart-of-accounts.index' }" class="btn btn-info">
               <i class="fas fa-list"></i> 
             </router-link>
             <router-link v-if="$can('chart-of-account-create')" :to="{ name: 'chart-of-accounts.create' }" class="btn btn-primary">
-              <i class="fas fa-plus-circle"></i> {{ $t("Create") }}
+              <i class="fas fa-plus-circle"></i> {{ $t("cashbook.Create") }}
             </router-link>
             <!-- <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
               <i class="fa fa-arrow-circle-down"></i>
@@ -89,8 +89,8 @@
             <div v-if="!selectedAccount" class="empty-state">
               <div class="empty-state-content">
                 <i class="fas fa-folder-open text-muted" style="font-size: 48px; margin-bottom: 20px;"></i>
-                <h4 class="text-muted">Select an Account</h4>
-                <p class="text-muted">Click on any account in the tree to view its details and child accounts.</p>
+                <h4 class="text-muted">{{ $t("cashbook.Select an Account") }}</h4>
+                <p class="text-muted">{{ $t("cashbook.Click on any account in the tree to view its details and child accounts.") }}</p>
               </div>
             </div>
 
@@ -103,9 +103,9 @@
                     <i class="fas fa-folder-open text-primary mr-3" style="font-size: 24px;"></i>
                     <div>
                       <h4 class="mb-1">{{ selectedAccount.name }}</h4>
-                      <p class="text-muted mb-0">Account Code: {{ selectedAccount.code }}</p>
+                      <p class="text-muted mb-0">{{ $t("cashbook.Account Code") }}: {{ selectedAccount.code }}</p>
                       <p class="text-muted mb-0" v-if="selectedAccount.types">
-                        Type: {{ selectedAccount.types.name }}
+                        {{ $t("cashbook.Type") }}: {{ selectedAccount.types.name }}
                       </p>
                     </div>
                   </div>
@@ -115,7 +115,7 @@
                     <div class="balance-cards">
                       <!-- Debit Amount -->
                       <div class="balance-card debit-card">
-                        <div class="balance-label">Debit</div>
+                        <div class="balance-label">{{ $t("cashbook.Debit") }}</div>
                         <div class="balance-amount">
                           {{ selectedAccount.formatted_debit_amount || '0.00' }}
                         </div>
@@ -123,7 +123,7 @@
                       
                       <!-- Credit Amount -->
                       <div class="balance-card credit-card">
-                        <div class="balance-label">Credit</div>
+                        <div class="balance-label">{{ $t("cashbook.Credit") }}</div>
                         <div class="balance-amount">
                           {{ selectedAccount.formatted_credit_amount || '0.00' }}
                         </div>
@@ -132,7 +132,7 @@
                       <!-- Balance with Type -->
                       <div class="balance-card balance-card-main" 
                            :class="selectedAccount.balance_type === 'Debit' ? 'debit-balance' : 'credit-balance'">
-                        <div class="balance-label">Balance</div>
+                        <div class="balance-label">{{ $t("cashbook.Balance") }}</div>
                         <div class="balance-amount">
                           {{ selectedAccount.formatted_balance_with_type || '0.00 Debit' }}
                         </div>
@@ -144,15 +144,15 @@
 
               <!-- Child Accounts Table -->
               <div v-if="childAccounts.length > 0">
-                <h5 class="mb-3">Child Accounts</h5>
+                <h5 class="mb-3">{{ $t("cashbook.Child Accounts") }}</h5>
                 <table class="list-table table table-hover not-clickable chart-of-accounts-col-9-body-container-table">
                   <thead>
                     <tr>
-                      <th class="border-0">Account</th>
-                      <th class="border-0 text-center">Debit</th>
-                      <th class="border-0 text-center">Credit</th>
-                      <th class="border-0 text-center">Balance</th>
-                      <th class="border-0 text-right" width="50">Actions</th>
+                      <th class="border-0">{{ $t("cashbook.Account") }}</th>
+                      <th class="border-0 text-center">{{ $t("cashbook.Debit") }}</th>
+                      <th class="border-0 text-center">{{ $t("cashbook.Credit") }}</th>
+                      <th class="border-0 text-center">{{ $t("cashbook.Balance") }}</th>
+                      <th class="border-0 text-right" width="50">{{ $t("cashbook.Actions") }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -210,21 +210,21 @@
                       <td class="border-0 text-right" width="50">
                         <div class="btn-group">
                           <router-link v-if="$can('chart-of-account-view')" 
-                                      v-tooltip="$t('View')" 
+                                      v-tooltip="$t('cashbook.View')" 
                                       :to="{ name: 'chart-of-accounts.show', params: { slug: child.code } }" 
                                       class="btn btn-primary btn-sm">
                             <i class="fas fa-eye" />
                           </router-link>
                           
                           <router-link v-if="$can('chart-of-account-edit')" 
-                                      v-tooltip="$t('Edit')" 
+                                      v-tooltip="$t('cashbook.Edit')" 
                                       :to="{ name: 'chart-of-accounts.edit', params: { slug: child.code } }" 
                                       class="btn btn-info btn-sm">
                             <i class="fas fa-edit" />
                           </router-link>
                           
                           <a v-if="$can('chart-of-account-delete')" 
-                             v-tooltip="$t('Delete')" 
+                             v-tooltip="$t('cashbook.Delete')" 
                              href="#" 
                              class="btn btn-danger btn-sm"
                              @click="deleteData(child.code)">
@@ -241,8 +241,8 @@
               <div v-else class="no-children-message">
                 <div class="text-center py-4">
                   <i class="fas fa-info-circle text-muted" style="font-size: 32px; margin-bottom: 16px;"></i>
-                  <h5 class="text-muted">No Child Accounts</h5>
-                  <p class="text-muted">This account doesn't have any child accounts.</p>
+                  <h5 class="text-muted">{{ $t("cashbook.No Child Accounts") }}</h5>
+                  <p class="text-muted">{{ $t("cashbook.This account doesn't have any child accounts.") }}</p>
                 </div>
               </div>
             </div>
@@ -264,24 +264,30 @@ import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Chart of Accounts - Tree View") };
+    return { title: this.$t("cashbook.Chart of Accounts - Tree View") };
+  },
+  computed: {
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Chart of Accounts - Tree View");
+    },
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("Cashbook"),
+          url: "",
+        },
+        {
+          name: this.$t("cashbook.Chart of Accounts"),
+          url: "",
+        },
+      ];
+    },
   },
   data: () => ({
-    breadcrumbsCurrent: "Chart of Accounts - Tree View",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Cashbook",
-        url: "",
-      },
-      {
-        name: "Chart of Accounts",
-        url: "",
-      },
-    ],
     query: "",
     allAccounts: [],
     hierarchicalAccounts: [],
