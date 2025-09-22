@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Penyesuaian berhasil ditambahkan',
+    'Chart of account added successfully' => 'Bagan akun berhasil ditambahkan',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Gagal memuat bagan akun',

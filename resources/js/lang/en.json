@@ -1975,5 +1975,18 @@
   "Add any additional notes...": "Add any additional notes...",
   "No Company": "No Company",
   "Revenue": "Revenue",
-  "Sales": "Sales"
+  "Sales": "Sales",
+  "Create Chart of Account": "Create Chart of Account",
+  "Enter account name": "Enter account name",
+  "Code will be generated automatically": "Code will be generated automatically",
+  "Automatic": "Automatic",
+  "Generate": "Generate",
+  "Generated Code": "Generated Code",
+  "Account Type": "Account Type",
+  "Select account type": "Select account type",
+  "Parent Account": "Parent Account",
+  "Select parent account (optional)": "Select parent account (optional)",
+  "Order": "Order",
+  "Enter display order": "Enter display order",
+  "Error generating code": "Error generating code"
 }

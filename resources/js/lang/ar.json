@@ -2603,5 +2603,21 @@
   "Failed to auto-assign Purchase Account": "فشل في تعيين حساب المشتريات تلقائياً",
   "No Company": "لا توجد شركة",
   "Revenue": "الإيرادات",
-  "Sales": "المبيعات"
+  "Sales": "المبيعات",
+  "Create Chart of Account": "إنشاء دليل الحسابات",
+  "Account Name": "اسم الحساب",
+  "Enter account name": "أدخل اسم الحساب",
+  "Account Code": "رمز الحساب",
+  "Code will be generated automatically": "سيتم إنشاء الرمز تلقائياً",
+  "Automatic": "تلقائي",
+  "Manual": "يدوي",
+  "Generate": "توليد",
+  "Generated Code": "الرمز المُنشأ",
+  "Account Type": "نوع الحساب",
+  "Select account type": "اختر نوع الحساب",
+  "Parent Account": "الحساب الرئيسي",
+  "Select parent account (optional)": "اختر الحساب الرئيسي (اختياري)",
+  "Order": "الترتيب",
+  "Enter display order": "أدخل ترتيب العرض",
+  "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }

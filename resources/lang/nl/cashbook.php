@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Aanpassing succesvol toegevoegd',
+    'Chart of account added successfully' => 'Rekeningstelsel succesvol toegevoegd',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Fout bij het laden van het rekeningenplan',
