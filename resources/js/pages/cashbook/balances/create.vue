@@ -10,7 +10,7 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
                 <router-link :to="{ name: 'balances.index' }" class="btn btn-primary">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('cashbook.Back') }}
                 </router-link>
               </div>
             </div>
@@ -21,11 +21,11 @@
             <div class="card-body">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
-                  <label for="account">{{ $t("Bank Account") }}
+                  <label for="account">{{ $t("cashbook.Bank Account") }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="items" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') || bankAccountError }" name="account"
-                    :placeholder="$t('Select a bank account')">
+                    :placeholder="$t('cashbook.Select a bank account')">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
@@ -37,11 +37,11 @@
                   </div>
                 </div>
                 <div class="form-group col-md-6" v-if="chartOfAccounts && chartOfAccounts.length > 0">
-                  <label for="secondAccount">{{ $t("Account") }}
+                  <label for="secondAccount">{{ $t("cashbook.Account") }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.secondAccount" :options="chartOfAccounts" label="name"
                     :class="{ 'is-invalid': form.errors.has('secondAccount') }" name="secondAccount"
-                    :placeholder="$t('Select account for journal entry')">
+                    :placeholder="$t('cashbook.Select account for journal entry')">
                     <template slot="option" slot-scope="option">
                       <div>
                         <strong>{{ option.name }}</strong>
@@ -55,14 +55,14 @@
               </div>
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
-                  <label for="type">{{ $t("Type") }}</label>
+                  <label for="type">{{ $t("cashbook.Type") }}</label>
                   <select id="type" v-model="form.type" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('type') }">
                     <option value="1">
-                      {{ $t("Add Balance") }}
+                      {{ $t("cashbook.Add Balance") }}
                     </option>
                     <option value="0">
-                      {{ $t("Remove Balance") }}
+                      {{ $t("cashbook.Remove Balance") }}
                     </option>
                   </select>
                   <has-error :form="form" field="type" />
@@ -71,46 +71,46 @@
               <div class="row" v-if="form.account">
                 <div class="form-group col-md-6">
                   <label for="availableAmount">{{
-                    $t("Available Balance")
+                    $t("cashbook.Available Balance")
                   }}</label>
                   <input id="availableAmount" v-model="form.account.availableBalance" type="number" step="any"
                     class="form-control" name="availableAmount" readonly />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="amount">{{ $t("Amount") }}
+                  <label for="amount">{{ $t("cashbook.Amount") }}
                     <span class="required">*</span></label>
                   <input id="amount" v-model="form.amount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('amount') }" name="amount"
-                    :placeholder="$t('Enter an amount')"
+                    :placeholder="$t('cashbook.Enter an amount')"
                     :max="form.type == 0 ? form.account.availableBalance : ''" />
                   <has-error :form="form" field="amount" />
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="date">{{ $t("Date") }}</label>
+                  <label for="date">{{ $t("cashbook.Date") }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="status">{{ $t("Status") }}</label>
+                  <label for="status">{{ $t("cashbook.Status") }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
                     <option value="1">
-                      {{ $t("Active") }}
+                      {{ $t("cashbook.Active") }}
                     </option>
                     <option value="0">
-                      {{ $t("Inactive") }}
+                      {{ $t("cashbook.Inactive") }}
                     </option>
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
               </div>
               <div class="form-group">
-                <label for="note">{{ $t("Note") }}</label>
+                <label for="note">{{ $t("cashbook.Note") }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('cashbook.Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
             </div>
@@ -119,10 +119,10 @@
               <div class="dtable-footer">
                 <div class="form-group row display-per-page">
                   <v-button :loading="form.busy" class="btn btn-primary">
-                    <i class="fas fa-save" /> {{ $t("Save") }}
+                    <i class="fas fa-save" /> {{ $t("cashbook.Save") }}
                   </v-button>
                   <button type="reset" class="btn btn-secondary" @click="form.reset()">
-                    <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                    <i class="fas fa-power-off" /> {{ $t("cashbook.Reset") }}
                   </button>
                 </div>
               </div>
@@ -140,28 +140,9 @@ import { mapGetters } from "vuex";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Create Adjustment") };
+    return { title: this.$t("cashbook.Create Adjustment") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Create Adjustment",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Cashbook",
-        url: "",
-      },
-      {
-        name: "Adjustments",
-        url: "balances.index",
-      },
-      {
-        name: "Create",
-        url: "",
-      },
-    ],
     form: new Form({
       account: null,
       type: 1,
@@ -177,6 +158,29 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("cashbook.Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("cashbook.Cashbook"),
+          url: "",
+        },
+        {
+          name: this.$t("cashbook.Adjustments"),
+          url: "balances.index",
+        },
+        {
+          name: this.$t("cashbook.Create"),
+          url: "",
+        },
+      ];
+    },
+    breadcrumbsCurrent() {
+      return this.$t("cashbook.Create Adjustment");
+    },
   },
   watch: {
     'form.account'() {
@@ -216,7 +220,7 @@ export default {
         console.error('Error loading chart of accounts:', error);
         toast.fire({
           type: "error",
-          title: this.$t("Failed to load chart of accounts")
+          title: this.$t("cashbook.Failed to load chart of accounts")
         });
       }
     },
@@ -226,7 +230,7 @@ export default {
       if (!this.form.secondAccount) {
         toast.fire({
           type: "error",
-          title: this.$t("Please select a second account")
+          title: this.$t("cashbook.Please select a second account")
         });
         return;
       }
@@ -236,13 +240,13 @@ export default {
         .then(() => {
           toast.fire({
             type: "success",
-            title: this.$t("Adjustment added successfully"),
+            title: this.$t("cashbook.Adjustment added successfully"),
           });
           this.$router.push({ name: "balances.index" });
         })
         .catch((error) => {
           // Display the specific error message from the server
-          const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+          const errorMessage = error.response?.data?.message || this.$t("cashbook.Opps...something went wrong");
           
           // Check if it's a bank account validation error
           if (errorMessage.includes("not connected to any Chart of Account")) {
