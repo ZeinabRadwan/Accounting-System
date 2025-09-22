@@ -433,21 +433,13 @@
                   class="col-md-12"
                   :class="
                     $can('payment-sent-vs-payment-received')
-                      ? 'col-lg-4'
+                      ? 'col-lg-6'
                       : 'col-lg-12'
                   "
                 >
                   <TopClients />
                 </div>
-              </div>
 
-              <div
-                v-if="$can('stock-alert') || $can('sales-vs-purchases')"
-                class="row"
-              >
-                <div v-if="$can('stock-alert')" class="col-md-12 col-lg-6">
-                  <StockAlert />
-                </div>
                 <div
                   v-if="
                     $can('sales-vs-purchases') &&
@@ -494,6 +486,16 @@
                   </div>
                 </div>
               </div>
+
+              <!-- <div
+                v-if="$can('stock-alert') || $can('sales-vs-purchases')"
+                class="row"
+              >
+                <div v-if="$can('stock-alert')" class="col-md-12 col-lg-6">
+                  <StockAlert />
+                </div>
+          
+              </div> -->
             </div>
           </div>
           <!-- /.card-body -->
