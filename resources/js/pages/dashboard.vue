@@ -433,7 +433,7 @@
                   class="col-md-12"
                   :class="
                     $can('payment-sent-vs-payment-received')
-                      ? 'col-lg-6'
+                      ? 'col-lg-4'
                       : 'col-lg-12'
                   "
                 >
@@ -446,7 +446,7 @@
                     barChartOptions.series[0].data &&
                     barChartOptions.series[0].data.length > 0
                   "
-                  class="col-md-12 col-lg-6"
+                  class="col-md-12 col-lg-8"
                 >
                   <div class="card">
                     <div class="card-header">
