@@ -60,7 +60,7 @@
               {{ allData.product.subCategory.name }}<br />
               <strong>{{ $t("Stock") }}:</strong>
               {{ allData.product.availableQty }}
-              {{ allData.product.itemUnit.code }} <br />
+              {{ allData.product.itemUnit ? allData.product.itemUnit.code : '-' }} <br />
             </div>
           </div>
           <hr />

@@ -141,7 +141,7 @@
                       </router-link>
                     </td>
                     <td>{{ data.itemModel }}</td>
-                    <td>{{ data.itemUnit.code }}</td>
+                    <td>{{ data.itemUnit ? data.itemUnit.code : '-' }}</td>
                     <td>
                       <span v-if="data.discount > 0"><del>{{ data.regularPrice }}</del>
                         {{ data.sellingPrice | withCurrency }} ({{

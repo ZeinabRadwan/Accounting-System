@@ -45,7 +45,7 @@
             <strong>{{ $t('Sub Category') }}:</strong>
             {{ product.subCategory.name }}<br />
             <strong>{{ $t('Stock') }}:</strong>
-            {{ product.availableQty }} {{ product.itemUnit.code }} <br />
+            {{ product.availableQty }} {{ product.itemUnit ? product.itemUnit.code : '-' }} <br />
           </div>
           <!-- /.col -->
         </div>
