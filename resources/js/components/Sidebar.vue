@@ -1115,11 +1115,11 @@ export default {
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link {
-  padding: 8px 16px;
-  margin: 0;
+  padding: 8px;
+  margin: 10px 0;
   border-radius: 0;
   color: #6B7280;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   transition: all 0.2s ease;
   position: relative;
@@ -1138,21 +1138,21 @@ export default {
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link i {
-  margin-right: 12px;
-  width: 16px;
+  margin-right: 10px;
+  width: 14px;
   text-align: center;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* Add a small dot indicator for submenu items */
 .main-sidebar .nav-sidebar .nav-treeview .nav-link::before {
   content: '';
   position: absolute;
-  left: 5px;
+  left: 4px;
   top: 50%;
   transform: translateY(-50%);
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   background-color: #D1D5DB;
   border-radius: 50%;
 }
@@ -1185,13 +1185,19 @@ export default {
 
 /* Active menu styles */
 .main-sidebar .nav-sidebar .nav-link.router-link-exact-active,
-.main-sidebar .nav-sidebar .nav-link.active,
-.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
-.main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
+.main-sidebar .nav-sidebar .nav-link.active {
   background-color: #1B3C71 !important;
   color: #fff !important;
   border-radius: 10px;
   padding: 10px;
+}
+
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
+  background-color: #1B3C71 !important;
+  color: #fff !important;
+  border-radius: 6px;
+  padding: 4px 16px;
 }
 
 /* Ensure icon/text remain visible on active */
