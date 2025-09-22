@@ -1402,16 +1402,12 @@ img.circle-img.circle-img--small {
   flex-wrap: nowrap;
 }
 .pos-btn{
-  background: #6366f1;
-  border: 1px solid#6366f1;
   border-radius: 20px;
   color: #fff;
 }
 .pos-btn:hover{
   background: #fff;
-  border: 1px solid#6366f1;
   border-radius: 20px;
-  color: #6366f1;
 }
 
 #invoice-POS {
@@ -1606,14 +1602,6 @@ img.circle-img.circle-img--small {
     padding-left: 105px !important;
     padding-right: 137px !important;
   }
-}
-.nav-item .router-link-active {
-  background-color: #6366f1;
-  color: #ffffff !important;
-}
-
-.router-link-active i {
-  color: #ffffff !important;;
 }
 
 .demo-message {

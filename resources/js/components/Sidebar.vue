@@ -1103,7 +1103,6 @@ export default {
 /* Simple and professional submenu styling */
 .main-sidebar .nav-sidebar .nav-treeview {
   background-color: transparent;
-  border-radius: 0;
   margin: 0;
   padding: 0;
   margin-left: 20px;
@@ -1117,7 +1116,6 @@ export default {
 .main-sidebar .nav-sidebar .nav-treeview .nav-link {
   padding: 8px;
   margin: 10px 0;
-  border-radius: 0;
   color: #6B7280;
   font-size: 13px;
   font-weight: 400;
@@ -1132,9 +1130,8 @@ export default {
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
-  background-color: #1B3C71 !important;
+  background-color: #33a0d9 !important;
   color: #fff !important;
-  border-radius: 0;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link i {
@@ -1186,7 +1183,7 @@ export default {
 /* Active menu styles */
 .main-sidebar .nav-sidebar .nav-link.router-link-exact-active,
 .main-sidebar .nav-sidebar .nav-link.active {
-  background-color: #1B3C71 !important;
+  background-color: #33a0d9 !important;
   color: #fff !important;
   border-radius: 10px;
   padding: 10px;
@@ -1194,7 +1191,7 @@ export default {
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
-  background-color: #1B3C71 !important;
+  background-color: #33a0d9 !important;
   color: #fff !important;
   border-radius: 6px;
   padding: 4px 16px;
@@ -1245,7 +1242,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 }
 
 .main-sidebar .nav-sidebar .nav-link:hover i {
-  color: #1B3C71 !important;
+  color: #33a0d9 !important;
   transform: scale(1.1);
   transition: all 0.3s ease;
 }
@@ -1258,19 +1255,19 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 /* Professional hover for submenu items */
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover {
   background-color: #F1F5FB !important;
-  color: #1B3C71 !important;
+  color: #33a0d9 !important;
   transform: translateX(4px);
   transition: all 0.3s ease;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover i {
-  color: #1B3C71 !important;
+  color: #33a0d9 !important;
   transform: scale(1.05);
   transition: all 0.3s ease;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover::before {
-  background-color: #1B3C71 !important;
+  background-color: #33a0d9 !important;
   transform: scale(1.2);
   transition: all 0.3s ease;
 }
@@ -1280,7 +1277,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   background-color: #F8FAFC;
   border-radius: 8px;
   transition: all 0.3s ease;
-  color: #1B3C71;
+  color: #33a0d9;
   font-weight: 600;
 }
 
@@ -1303,7 +1300,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 
 .main-sidebar .nav-sidebar .menu-open > a,
 .main-sidebar .nav-sidebar .menu-is-opening > a {
-  background-color: #1B3C71 !important;
+  background-color: #33a0d9 !important;
   color: #fff !important;
   border-radius: 8px;
   border: none !important;
