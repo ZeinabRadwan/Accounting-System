@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Rettifica aggiunta con successo',
+    'Chart of account added successfully' => 'Piano dei conti aggiunto con successo',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Errore nel caricamento del piano dei conti',
