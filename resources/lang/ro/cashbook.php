@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Ajustarea a fost adăugată cu succes',
+    'Chart of account added successfully' => 'Planul de conturi a fost adăugat cu succes',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Eroare la încărcarea planului de conturi',

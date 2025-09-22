@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'تم إضافة التسوية بنجاح',
+    'Chart of account added successfully' => 'تم إضافة دليل الحسابات بنجاح',
 
     // Error Messages
     'Failed to load chart of accounts' => 'فشل في تحميل دليل الحسابات',

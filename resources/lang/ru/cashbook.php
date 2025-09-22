@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Корректировка успешно добавлена',
+    'Chart of account added successfully' => 'План счетов успешно добавлен',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Ошибка загрузки плана счетов',

@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => '調整新增成功',
+    'Chart of account added successfully' => '會計科目表新增成功',
 
     // Error Messages
     'Failed to load chart of accounts' => '載入會計科目表失敗',

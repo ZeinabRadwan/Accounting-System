@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Düzeltme başarıyla eklendi',
+    'Chart of account added successfully' => 'Hesap planı başarıyla eklendi',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Hesap planı yüklenemedi',

@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'เพิ่มการปรับปรุงสำเร็จ',
+    'Chart of account added successfully' => 'เพิ่มผังบัญชีสำเร็จ',
 
     // Error Messages
     'Failed to load chart of accounts' => 'โหลดผังบัญชีไม่สำเร็จ',

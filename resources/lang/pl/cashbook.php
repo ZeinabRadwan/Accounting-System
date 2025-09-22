@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Korekta została pomyślnie dodana',
+    'Chart of account added successfully' => 'Plan kont został pomyślnie dodany',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Nie udało się załadować planu kont',

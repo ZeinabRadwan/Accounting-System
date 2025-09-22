@@ -47,6 +47,7 @@ return [
 
     // Success Messages
     'Adjustment added successfully' => 'Adjustment added successfully',
+    'Chart of account added successfully' => 'Chart of account added successfully',
 
     // Error Messages
     'Failed to load chart of accounts' => 'Failed to load chart of accounts',
