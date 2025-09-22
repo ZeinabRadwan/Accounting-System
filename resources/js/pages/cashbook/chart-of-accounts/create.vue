@@ -5,7 +5,7 @@
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <!-- breadcrumbs Start -->
-            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <breadcrumbs :items="localizedBreadcrumbs" :current="localizedBreadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
@@ -58,9 +58,10 @@
                            class="form-control"
                            :class="{ 'is-invalid': form.errors.has('code') }" 
                            name="code"
+                           dir="ltr"
                            :placeholder="form.code_generation === 'automatic' ? $t('Code will be generated automatically') : $t('Enter account code')"
                            :readonly="form.code_generation === 'automatic'"
-                           :style="form.code_generation === 'automatic' ? 'background-color: #f8f9fa;' : ''" />
+                           :style="[{ direction: 'ltr', textAlign: 'left' }, form.code_generation === 'automatic' ? { backgroundColor: '#f8f9fa' } : {}]" />
                     
                     <!-- Auto-generate Button -->
                     <div v-if="form.code_generation === 'automatic'" class="code-generate-btn">
@@ -309,6 +310,14 @@ export default {
           toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
         })
     },
+  },
+  computed: {
+    localizedBreadcrumbsCurrent() {
+      return this.$t(this.breadcrumbsCurrent)
+    },
+    localizedBreadcrumbs() {
+      return this.breadcrumbs.map(b => ({ ...b, name: this.$t(b.name) }))
+    }
   },
 }
 </script>
