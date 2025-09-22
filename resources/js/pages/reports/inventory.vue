@@ -6,6 +6,15 @@
     <div class="row no-print">
       <div class="col-lg-12">
         <div class="card">
+          <div class="card-header">
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100 header-buttons">
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Filter Settings">
+                  <i class="fas fa-save" />
+                </button>
+              </div>
+            </div>
+          </div>
           <!-- form start -->
           <form role="form" @submit.prevent="saveType" @keydown="form.onKeydown($event)">
             <div class="card-body">
@@ -281,6 +290,9 @@ export default {
     this.getCatgories();
     this.prefix = this.appInfo.productPrefix;
   },
+  mounted() {
+    this.loadTemporaryData()
+  },
   methods: {
     // get all categories
     async getCatgories() {
@@ -390,6 +402,43 @@ export default {
       this.stockInHand = itemInHand;
     },
 
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        category: this.form.category,
+        subCategory: this.form.subCategory,
+        itemName: this.form.itemName,
+        fromDate: this.form.fromDate,
+        toDate: this.form.toDate,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('inventoryReportTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Filter settings saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('inventoryReportTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.category = data.category || this.form.category
+          this.form.subCategory = data.subCategory || this.form.subCategory
+          this.form.itemName = data.itemName || this.form.itemName
+          this.form.fromDate = data.fromDate || this.form.fromDate
+          this.form.toDate = data.toDate || this.form.toDate
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('inventoryReportTempData')
+    },
+
     // print
     printWindow() {
       window.print();
@@ -397,3 +446,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+</style>

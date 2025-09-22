@@ -214,6 +214,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.loadTemporaryData()
+  },
+
   methods: {
     // load chart of accounts
     async loadChartOfAccounts() {
@@ -234,6 +238,7 @@ export default {
       await this.form
         .post(window.location.origin + '/api/accounts')
         .then(() => {
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: this.$t('Account added successfully'),
@@ -243,6 +248,52 @@ export default {
         .catch(() => {
           toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
         })
+    },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        bankName: this.form.bankName,
+        branchName: this.form.branchName,
+        accountNumber: this.form.accountNumber,
+        accountName: this.form.accountName,
+        openingBalance: this.form.openingBalance,
+        bankPhone: this.form.bankPhone,
+        bankAddress: this.form.bankAddress,
+        enabled: this.form.enabled,
+        note: this.form.note,
+        chartOfAccountId: this.form.chartOfAccountId,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('accountTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('accountTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.bankName = data.bankName || ''
+          this.form.branchName = data.branchName || ''
+          this.form.accountNumber = data.accountNumber || ''
+          this.form.accountName = data.accountName || ''
+          this.form.openingBalance = data.openingBalance || ''
+          this.form.bankPhone = data.bankPhone || ''
+          this.form.bankAddress = data.bankAddress || ''
+          this.form.enabled = data.enabled !== undefined ? data.enabled : 1
+          this.form.note = data.note || ''
+          this.form.chartOfAccountId = data.chartOfAccountId || null
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('accountTempData')
     },
 
     // vue file upload
@@ -276,6 +327,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

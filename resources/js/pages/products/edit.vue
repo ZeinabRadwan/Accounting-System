@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'products.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -307,7 +310,7 @@
             </div>
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -400,7 +403,10 @@ export default {
     this.prefix = this.appInfo.productPrefix
   },
   mounted() {
-    // No longer needed with v-select
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
   },
   methods: {
     // get all product categories
@@ -594,6 +600,8 @@ export default {
           window.location.origin + '/api/products/' + this.$route.params.slug
         )
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: 'Product updated successfully 👍',
@@ -607,6 +615,90 @@ export default {
           })
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        itemType: this.form.itemType,
+        itemName: this.form.itemName,
+        itemModel: this.form.itemModel,
+        itemCode: this.form.itemCode,
+        category: this.form.category,
+        subCategory: this.form.subCategory,
+        brand: this.form.brand,
+        unit: this.form.unit,
+        barcodeSymbology: this.form.barcodeSymbology,
+        itemTax: this.form.itemTax,
+        taxType: this.form.taxType,
+        regularPrice: this.form.regularPrice,
+        discountType: this.form.discountType,
+        discountValue: this.form.discountValue,
+        discountPrice: this.form.discountPrice,
+        wholesalePrice: this.form.wholesalePrice,
+        wholesaleQuantity: this.form.wholesaleQuantity,
+        purchasePrice: this.form.purchasePrice,
+        servicePurchasePrice: this.form.servicePurchasePrice,
+        openingStock: this.form.openingStock,
+        openingStockValue: this.form.openingStockValue,
+        reorderPoint: this.form.reorderPoint,
+        salesAccountId: this.form.salesAccountId,
+        purchaseAccountId: this.form.purchaseAccountId,
+        isSalesAccountAutomatic: this.isSalesAccountAutomatic,
+        isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
+        status: this.form.status,
+        note: this.form.note,
+        image: this.form.image ? this.form.image.name : null,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('productEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('productEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.itemType = data.itemType || this.form.itemType
+          this.form.itemName = data.itemName || this.form.itemName
+          this.form.itemModel = data.itemModel || this.form.itemModel
+          this.form.itemCode = data.itemCode || this.form.itemCode
+          this.form.category = data.category || this.form.category
+          this.form.subCategory = data.subCategory || this.form.subCategory
+          this.form.brand = data.brand || this.form.brand
+          this.form.unit = data.unit || this.form.unit
+          this.form.barcodeSymbology = data.barcodeSymbology || this.form.barcodeSymbology
+          this.form.itemTax = data.itemTax || this.form.itemTax
+          this.form.taxType = data.taxType || this.form.taxType
+          this.form.regularPrice = data.regularPrice || this.form.regularPrice
+          this.form.discountType = data.discountType || this.form.discountType
+          this.form.discountValue = data.discountValue || this.form.discountValue
+          this.form.discountPrice = data.discountPrice || this.form.discountPrice
+          this.form.wholesalePrice = data.wholesalePrice || this.form.wholesalePrice
+          this.form.wholesaleQuantity = data.wholesaleQuantity || this.form.wholesaleQuantity
+          this.form.purchasePrice = data.purchasePrice || this.form.purchasePrice
+          this.form.servicePurchasePrice = data.servicePurchasePrice || this.form.servicePurchasePrice
+          this.form.openingStock = data.openingStock || this.form.openingStock
+          this.form.openingStockValue = data.openingStockValue || this.form.openingStockValue
+          this.form.reorderPoint = data.reorderPoint || this.form.reorderPoint
+          this.form.salesAccountId = data.salesAccountId || this.form.salesAccountId
+          this.form.purchaseAccountId = data.purchaseAccountId || this.form.purchaseAccountId
+          this.isSalesAccountAutomatic = data.isSalesAccountAutomatic !== undefined ? data.isSalesAccountAutomatic : this.isSalesAccountAutomatic
+          this.isPurchaseAccountAutomatic = data.isPurchaseAccountAutomatic !== undefined ? data.isPurchaseAccountAutomatic : this.isPurchaseAccountAutomatic
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.note = data.note || this.form.note
+          // Note: Image file cannot be restored from localStorage
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('productEditTempData')
+    },
   },
 }
 </script>
@@ -615,6 +707,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'products.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -307,7 +310,7 @@
             </div>
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-save" /> {{ $t('Save') }}
                   </v-button>
@@ -401,7 +404,7 @@ export default {
     this.loadAccountRoutingSettings()
   },
   mounted() {
-    // No longer needed with v-select
+    this.loadTemporaryData()
   },
   methods: {
     // get all product categories
@@ -603,6 +606,8 @@ export default {
       await this.form
         .post(window.location.origin + "/api/products")
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: "success",
             title: this.$t("Product added successfully"),
@@ -631,6 +636,90 @@ export default {
           toast.fire({ type: "error", title: errorMessage });
         });
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        itemType: this.form.itemType,
+        itemName: this.form.itemName,
+        itemModel: this.form.itemModel,
+        itemCode: this.form.itemCode,
+        category: this.form.category,
+        subCategory: this.form.subCategory,
+        brand: this.form.brand,
+        unit: this.form.unit,
+        barcodeSymbology: this.form.barcodeSymbology,
+        itemTax: this.form.itemTax,
+        taxType: this.form.taxType,
+        regularPrice: this.form.regularPrice,
+        discountType: this.form.discountType,
+        discountValue: this.form.discountValue,
+        discountPrice: this.form.discountPrice,
+        wholesalePrice: this.form.wholesalePrice,
+        wholesaleQuantity: this.form.wholesaleQuantity,
+        purchasePrice: this.form.purchasePrice,
+        servicePurchasePrice: this.form.servicePurchasePrice,
+        openingStock: this.form.openingStock,
+        openingStockValue: this.form.openingStockValue,
+        reorderPoint: this.form.reorderPoint,
+        salesAccountId: this.form.salesAccountId,
+        purchaseAccountId: this.form.purchaseAccountId,
+        isSalesAccountAutomatic: this.isSalesAccountAutomatic,
+        isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
+        status: this.form.status,
+        note: this.form.note,
+        image: this.form.image ? this.form.image.name : null,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('productTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('productTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.itemType = data.itemType || 'product'
+          this.form.itemName = data.itemName || ''
+          this.form.itemModel = data.itemModel || ''
+          this.form.itemCode = data.itemCode || ''
+          this.form.category = data.category || null
+          this.form.subCategory = data.subCategory || null
+          this.form.brand = data.brand || null
+          this.form.unit = data.unit || null
+          this.form.barcodeSymbology = data.barcodeSymbology || 'code128'
+          this.form.itemTax = data.itemTax || null
+          this.form.taxType = data.taxType || 'inclusive'
+          this.form.regularPrice = data.regularPrice || ''
+          this.form.discountType = data.discountType || 'fixed'
+          this.form.discountValue = data.discountValue || ''
+          this.form.discountPrice = data.discountPrice || ''
+          this.form.wholesalePrice = data.wholesalePrice || ''
+          this.form.wholesaleQuantity = data.wholesaleQuantity || ''
+          this.form.purchasePrice = data.purchasePrice || ''
+          this.form.servicePurchasePrice = data.servicePurchasePrice || ''
+          this.form.openingStock = data.openingStock || ''
+          this.form.openingStockValue = data.openingStockValue || ''
+          this.form.reorderPoint = data.reorderPoint || ''
+          this.form.salesAccountId = data.salesAccountId || null
+          this.form.purchaseAccountId = data.purchaseAccountId || null
+          this.isSalesAccountAutomatic = data.isSalesAccountAutomatic !== undefined ? data.isSalesAccountAutomatic : true
+          this.isPurchaseAccountAutomatic = data.isPurchaseAccountAutomatic !== undefined ? data.isPurchaseAccountAutomatic : true
+          this.form.status = data.status !== undefined ? data.status : 1
+          this.form.note = data.note || ''
+          // Note: Image file cannot be restored from localStorage
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('productTempData')
+    },
   },
 }
 </script>
@@ -639,6 +728,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

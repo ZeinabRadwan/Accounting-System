@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'suppliers.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -26,7 +29,7 @@
           <!-- /.card-body -->
           <div class="card-footer">
             <div class="dtable-footer">
-              <div class="form-group row display-per-page">
+              <div class="form-group row display-per-page footer-buttons">
                 <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
                   <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
                   <i v-else class="fas fa-save"></i> 
@@ -74,6 +77,12 @@ export default {
     form: null,
     isSubmitting: false,
   }),
+  mounted() {
+    // Load temporary data after child form is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
+  },
   methods: {
     // Submit form by calling SupplierForm's submitForm method
     submitForm() {
@@ -97,6 +106,7 @@ export default {
             type: "success",
             title: this.$t("Supplier added successfully"),
           });
+          this.clearTemporaryData()
           this.$router.push({ name: "suppliers.index" });
         } else {
           throw new Error(response.data.message || 'Failed to create supplier');
@@ -116,11 +126,110 @@ export default {
     resetForm() {
       this.$refs.supplierForm.resetForm();
     },
+
+    // save form data temporarily
+    saveTemporary() {
+      if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
+        const f = this.$refs.supplierForm.form
+        const tempData = {
+          codeNumber: f.codeNumber,
+          notes: f.notes,
+          displayLanguage: f.displayLanguage,
+          type: f.type,
+          fullName: f.fullName,
+          businessName: f.businessName,
+          firstName: f.firstName,
+          lastName: f.lastName,
+          phone: f.phone,
+          phoneNumber: f.phoneNumber,
+          email: f.email,
+          streetAddress1: f.streetAddress1,
+          streetAddress2: f.streetAddress2,
+          city: f.city,
+          state: f.state,
+          postalCode: f.postalCode,
+          country: f.country,
+          neighbourhood: f.neighbourhood,
+          commercialRegister: f.commercialRegister,
+          taxCard: f.taxCard,
+          attachments: f.attachments,
+          status: f.status,
+          isSendEmail: f.isSendEmail,
+          isSendSMS: f.isSendSMS,
+          chartOfAccountId: f.chartOfAccountId,
+          representatives: f.representatives,
+          timestamp: new Date().toISOString()
+        }
+        localStorage.setItem('supplierTempData', JSON.stringify(tempData))
+        toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+      }
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('supplierTempData')
+      if (tempData && this.$refs.supplierForm && this.$refs.supplierForm.form) {
+        try {
+          const d = JSON.parse(tempData)
+          const f = this.$refs.supplierForm.form
+          f.codeNumber = d.codeNumber || f.codeNumber
+          f.notes = d.notes || f.notes
+          f.displayLanguage = d.displayLanguage || f.displayLanguage
+          f.type = d.type || f.type
+          f.fullName = d.fullName || f.fullName
+          f.businessName = d.businessName || f.businessName
+          f.firstName = d.firstName || f.firstName
+          f.lastName = d.lastName || f.lastName
+          f.phone = d.phone || f.phone
+          f.phoneNumber = d.phoneNumber || f.phoneNumber
+          f.email = d.email || f.email
+          f.streetAddress1 = d.streetAddress1 || f.streetAddress1
+          f.streetAddress2 = d.streetAddress2 || f.streetAddress2
+          f.city = d.city || f.city
+          f.state = d.state || f.state
+          f.postalCode = d.postalCode || f.postalCode
+          f.country = d.country || f.country
+          f.neighbourhood = d.neighbourhood || f.neighbourhood
+          f.commercialRegister = d.commercialRegister || f.commercialRegister
+          f.taxCard = d.taxCard || f.taxCard
+          f.attachments = d.attachments || f.attachments
+          f.status = d.status !== undefined ? d.status : f.status
+          f.isSendEmail = d.isSendEmail !== undefined ? d.isSendEmail : f.isSendEmail
+          f.isSendSMS = d.isSendSMS !== undefined ? d.isSendSMS : f.isSendSMS
+          f.chartOfAccountId = d.chartOfAccountId || f.chartOfAccountId
+          f.representatives = d.representatives || f.representatives
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('supplierTempData')
+    },
   },
 };
 </script>
 <style src="vue-tel-input/dist/vue-tel-input.css"></style>
 <style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;

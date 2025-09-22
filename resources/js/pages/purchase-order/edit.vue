@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -325,7 +328,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t("Save changes") }}
                   </v-button>
@@ -421,6 +424,12 @@ export default {
     
     // Load purchase order after other data is ready
     await this.getPurchaseOrder();
+  },
+  mounted() {
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
   },
   methods: {
     // get purchase order
@@ -900,6 +909,8 @@ export default {
           window.location.origin + '/api/purchase-order/' + this.$route.params.slug
         )
         .then(({ data }) => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: this.$t('Purchase order updated successfully'),
@@ -913,6 +924,68 @@ export default {
           });
         });
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        supplier: this.form.supplier,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        discount: this.form.discount,
+        transportCost: this.form.transportCost,
+        totalProductTax: this.form.totalProductTax,
+        orderTax: this.form.orderTax,
+        totalTax: this.form.totalTax,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        poDate: this.form.poDate,
+        purchaseDate: this.form.purchaseDate,
+        note: this.form.note,
+        status: this.form.status,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        totalDiscount: this.form.totalDiscount,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('purchaseOrderEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('purchaseOrderEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.supplier = data.supplier || this.form.supplier
+          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
+          this.form.subTotal = data.subTotal || this.form.subTotal
+          this.form.netTotal = data.netTotal || this.form.netTotal
+          this.form.discount = data.discount || this.form.discount
+          this.form.transportCost = data.transportCost || this.form.transportCost
+          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
+          this.form.orderTax = data.orderTax || this.form.orderTax
+          this.form.totalTax = data.totalTax || this.form.totalTax
+          this.form.poReference = data.poReference || this.form.poReference
+          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
+          this.form.poDate = data.poDate || this.form.poDate
+          this.form.purchaseDate = data.purchaseDate || this.form.purchaseDate
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
+          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
+          this.form.totalDiscount = data.totalDiscount || this.form.totalDiscount
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('purchaseOrderEditTempData')
+    },
   },
 };
 </script>
@@ -921,6 +994,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

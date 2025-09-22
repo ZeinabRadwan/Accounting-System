@@ -11,9 +11,14 @@
             <h3 class="card-title">
               {{ $t("Edit Invoice") }}
             </h3>
-            <router-link :to="{ name: 'invoices.index' }" class="btn btn-dark float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-            </router-link>
+            <div class="float-right header-buttons">
+              <router-link :to="{ name: 'invoices.index' }" class="btn btn-dark">
+                <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+              </router-link>
+              <button type="button" class="btn btn-primary ml-2" @click="saveTemporary" title="Save Temporarily">
+                <i class="fas fa-save" />
+              </button>
+            </div>
           </div>
           
           <div class="card-body">
@@ -569,14 +574,16 @@
               
               <!-- Form Actions -->
               <div class="card-footer">
-                <button :disabled="form.busy || !isFormReady" class="btn btn-primary" type="submit">
-                  <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
-                  <i v-else class="fas fa-save"></i>
-                  {{ form.busy ? $t("Updating...") : $t("Update") }}
-                </button>
-                <button type="button" class="btn btn-secondary float-right" @click="resetForm">
-                  <i class="fas fa-power-off" /> {{ $t("Reset") }}
-                </button>
+                <div class="footer-buttons">
+                  <button :disabled="form.busy || !isFormReady" class="btn btn-primary" type="submit">
+                    <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
+                    <i v-else class="fas fa-save"></i>
+                    {{ form.busy ? $t("Updating...") : $t("Update") }}
+                  </button>
+                  <button type="button" class="btn btn-secondary" @click="resetForm">
+                    <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                  </button>
+                </div>
                 
 
               </div>
@@ -862,6 +869,8 @@ export default {
   },
   mounted() {
     this.setupGlobalErrorHandling();
+    // Load temporary data
+    this.loadTemporaryData();
     
     this.$nextTick(() => {
       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
@@ -1373,6 +1382,7 @@ export default {
             title: this.$t("Success"),
             text: this.$t("Invoice updated successfully"),
           });
+          this.clearTemporaryData();
           this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
         } else {
           toast.fire({
@@ -1690,11 +1700,109 @@ export default {
       }
       return '';
     },
+
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        invoiceNo: this.form.invoiceNo,
+        client: this.form.client,
+        reference: this.form.reference,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        transportCost: this.form.transportCost,
+        orderTax: this.form.orderTax,
+        totalProductTax: this.form.totalProductTax,
+        totalTax: this.form.totalTax,
+        discount: this.form.discount,
+        discountType: this.form.discountType,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        addPayment: this.form.addPayment,
+        account: this.form.account,
+        paidAmount: this.form.paidAmount,
+        paymentMethod: this.form.paymentMethod,
+        chequeNo: this.form.chequeNo,
+        receiptNo: this.form.receiptNo,
+        deliveryPlace: this.form.deliveryPlace,
+        date: this.form.date,
+        note: this.form.note,
+        status: this.form.status,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('invoiceEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('invoiceEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.invoiceNo = data.invoiceNo || this.form.invoiceNo
+          this.form.client = data.client || this.form.client
+          this.form.reference = data.reference || this.form.reference
+          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
+          this.form.subTotal = data.subTotal || this.form.subTotal
+          this.form.netTotal = data.netTotal || this.form.netTotal
+          this.form.transportCost = data.transportCost || this.form.transportCost
+          this.form.orderTax = data.orderTax || this.form.orderTax
+          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
+          this.form.totalTax = data.totalTax || this.form.totalTax
+          this.form.discount = data.discount || this.form.discount
+          this.form.discountType = data.discountType || this.form.discountType
+          this.form.poReference = data.poReference || this.form.poReference
+          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
+          this.form.addPayment = data.addPayment || this.form.addPayment
+          this.form.account = data.account || this.form.account
+          this.form.paidAmount = data.paidAmount || this.form.paidAmount
+          this.form.paymentMethod = data.paymentMethod || this.form.paymentMethod
+          this.form.chequeNo = data.chequeNo || this.form.chequeNo
+          this.form.receiptNo = data.receiptNo || this.form.receiptNo
+          this.form.deliveryPlace = data.deliveryPlace || this.form.deliveryPlace
+          this.form.date = data.date || this.form.date
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
+          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('invoiceEditTempData')
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 .client-status, .product-status, .account-status {
   .client-warning, .product-warning, .account-warning {
     color: #856404;

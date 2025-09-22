@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'loans.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -207,7 +210,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -281,6 +284,12 @@ export default {
     this.getAuthorities()
     this.getAccounts()
     this.getLoan()
+  },
+  mounted() {
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
   },
   methods: {
     // get all expense categories
@@ -398,6 +407,8 @@ export default {
       await this.form
         .patch(window.location.origin + '/api/loans/' + this.$route.params.slug)
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: this.$t('Loan updated successfully'),
@@ -411,6 +422,58 @@ export default {
           })
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        authority: this.form.authority,
+        account: this.form.account,
+        reason: this.form.reason,
+        amount: this.form.amount,
+        interestRate: this.form.interestRate,
+        duration: this.form.duration,
+        durationType: this.form.durationType,
+        installmentAmount: this.form.installmentAmount,
+        installmentType: this.form.installmentType,
+        startDate: this.form.startDate,
+        endDate: this.form.endDate,
+        status: this.form.status,
+        note: this.form.note,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('loanEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('loanEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.authority = data.authority || this.form.authority
+          this.form.account = data.account || this.form.account
+          this.form.reason = data.reason || this.form.reason
+          this.form.amount = data.amount || this.form.amount
+          this.form.interestRate = data.interestRate || this.form.interestRate
+          this.form.duration = data.duration || this.form.duration
+          this.form.durationType = data.durationType || this.form.durationType
+          this.form.installmentAmount = data.installmentAmount || this.form.installmentAmount
+          this.form.installmentType = data.installmentType || this.form.installmentType
+          this.form.startDate = data.startDate || this.form.startDate
+          this.form.endDate = data.endDate || this.form.endDate
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.note = data.note || this.form.note
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('loanEditTempData')
+    },
   },
 }
 </script>
@@ -419,6 +482,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

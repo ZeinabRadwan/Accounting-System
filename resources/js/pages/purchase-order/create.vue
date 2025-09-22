@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -417,7 +420,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <button type="submit" :disabled="form.busy" class="btn btn-primary" @click="savePurchaseOrder">
                     <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
                     {{ form.busy ? $t("Saving...") : $t("Save") }}
@@ -567,6 +570,9 @@ export default {
     this.getProducts();
     this.getTaxes();
     this.prefix = this.appInfo.productPrefix;
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
   methods: {
     // get all local suppliers
@@ -1059,6 +1065,8 @@ export default {
         // Use direct axios call instead of form.post to have better control over error handling
         const response = await this.$axios.post("/api/purchase-order", formData);
         
+        // Clear temporary data after successful save
+        this.clearTemporaryData()
         toast.fire({
           type: "success",
           title: this.$t("Purchase order created successfully"),
@@ -1077,7 +1085,69 @@ export default {
           showValidationErrors: true
         });
       }
-        },
+    },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        supplier: this.form.supplier,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        discount: this.form.discount,
+        transportCost: this.form.transportCost,
+        totalProductTax: this.form.totalProductTax,
+        orderTax: this.form.orderTax,
+        totalTax: this.form.totalTax,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        poDate: this.form.poDate,
+        purchaseDate: this.form.purchaseDate,
+        note: this.form.note,
+        status: this.form.status,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        totalDiscount: this.form.totalDiscount,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('purchaseOrderTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('purchaseOrderTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.supplier = data.supplier || null
+          this.form.selectedProducts = data.selectedProducts || []
+          this.form.subTotal = data.subTotal || 0
+          this.form.netTotal = data.netTotal || 0
+          this.form.discount = data.discount || 0
+          this.form.transportCost = data.transportCost || 0
+          this.form.totalProductTax = data.totalProductTax || 0
+          this.form.orderTax = data.orderTax || 0
+          this.form.totalTax = data.totalTax || 0
+          this.form.poReference = data.poReference || ''
+          this.form.paymentTerms = data.paymentTerms || ''
+          this.form.poDate = data.poDate || ''
+          this.form.purchaseDate = data.purchaseDate || ''
+          this.form.note = data.note || ''
+          this.form.status = data.status !== undefined ? data.status : 1
+          this.form.isSendEmail = data.isSendEmail || false
+          this.form.isSendSMS = data.isSendSMS || false
+          this.form.totalDiscount = data.totalDiscount || 0
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('purchaseOrderTempData')
+    },
     
 
     
@@ -1199,6 +1269,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'employees.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -239,7 +242,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -315,6 +318,9 @@ export default {
     this.getRoles()
     this.getEmployee()
   },
+  mounted() {
+    this.loadTemporaryData()
+  },
   methods: {
     // get all departments
     async getDepartments() {
@@ -387,6 +393,8 @@ export default {
           window.location.origin + '/api/employees/' + this.$route.params.slug
         )
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: this.$t('Employee updated successfully'),
@@ -400,6 +408,56 @@ export default {
           })
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        employeeName: this.form.employeeName,
+        department: this.form.department,
+        designation: this.form.designation,
+        employeeId: this.form.employeeId,
+        phone: this.form.phone,
+        email: this.form.email,
+        address: this.form.address,
+        salary: this.form.salary,
+        joiningDate: this.form.joiningDate,
+        status: this.form.status,
+        note: this.form.note,
+        role: this.form.role,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('employeeEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('employeeEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.employeeName = data.employeeName || this.form.employeeName
+          this.form.department = data.department || this.form.department
+          this.form.designation = data.designation || this.form.designation
+          this.form.employeeId = data.employeeId || this.form.employeeId
+          this.form.phone = data.phone || this.form.phone
+          this.form.email = data.email || this.form.email
+          this.form.address = data.address || this.form.address
+          this.form.salary = data.salary || this.form.salary
+          this.form.joiningDate = data.joiningDate || this.form.joiningDate
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.note = data.note || this.form.note
+          this.form.role = data.role || this.form.role
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('employeeEditTempData')
+    },
   },
 }
 </script>
@@ -408,6 +466,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */
@@ -468,6 +545,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

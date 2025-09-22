@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'clients.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -45,7 +48,7 @@
           <!-- Card footer with action buttons -->
           <div class="card-footer">
             <div class="dtable-footer">
-              <div class="form-group row display-per-page">
+              <div class="form-group row display-per-page footer-buttons">
                 <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="submitForm">
                   <i class="fas fa-edit" /> {{ $t("Save changes") }}
                 </v-button>
@@ -118,6 +121,12 @@ export default {
     } catch (error) {
       console.error("Error in created lifecycle:", error);
     }
+  },
+  mounted() {
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
   },
   methods: {
     // Get client data
@@ -270,6 +279,8 @@ export default {
         
         if (response.data.success) {
           console.log('Client updated successfully');
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           if (window.toast && typeof window.toast.fire === 'function') {
             window.toast.fire({
               type: "success",
@@ -299,6 +310,70 @@ export default {
         this.isSubmitting = false;
       }
     },
+    // save form data temporarily
+    saveTemporary() {
+      if (this.$refs.clientForm && this.$refs.clientForm.form) {
+        const form = this.$refs.clientForm.form
+        const tempData = {
+          type: form.type,
+          fullName: form.fullName,
+          businessName: form.businessName,
+          firstName: form.firstName,
+          lastName: form.lastName,
+          phone: form.phone,
+          phoneNumber: form.phoneNumber,
+          email: form.email,
+          address: form.address,
+          city: form.city,
+          state: form.state,
+          zipCode: form.zipCode,
+          country: form.country,
+          taxNumber: form.taxNumber,
+          note: form.note,
+          status: form.status,
+          chartOfAccountId: form.chartOfAccountId,
+          timestamp: new Date().toISOString()
+        }
+        localStorage.setItem('clientEditTempData', JSON.stringify(tempData))
+        toast.fire({
+          type: 'success',
+          title: this.$t('Form saved temporarily'),
+        })
+      }
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('clientEditTempData')
+      if (tempData && this.$refs.clientForm && this.$refs.clientForm.form) {
+        try {
+          const data = JSON.parse(tempData)
+          const form = this.$refs.clientForm.form
+          form.type = data.type || form.type
+          form.fullName = data.fullName || form.fullName
+          form.businessName = data.businessName || form.businessName
+          form.firstName = data.firstName || form.firstName
+          form.lastName = data.lastName || form.lastName
+          form.phone = data.phone || form.phone
+          form.phoneNumber = data.phoneNumber || form.phoneNumber
+          form.email = data.email || form.email
+          form.address = data.address || form.address
+          form.city = data.city || form.city
+          form.state = data.state || form.state
+          form.zipCode = data.zipCode || form.zipCode
+          form.country = data.country || form.country
+          form.taxNumber = data.taxNumber || form.taxNumber
+          form.note = data.note || form.note
+          form.status = data.status !== undefined ? data.status : form.status
+          form.chartOfAccountId = data.chartOfAccountId || form.chartOfAccountId
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('clientEditTempData')
+    },
 
     // Reset form
     resetForm() {
@@ -314,6 +389,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */
@@ -371,6 +465,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

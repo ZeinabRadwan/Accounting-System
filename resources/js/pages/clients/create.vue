@@ -21,10 +21,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'clients.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -39,7 +42,7 @@
           <!-- /.card-body -->
           <div class="card-footer">
             <div class="dtable-footer">
-              <div class="form-group row display-per-page">
+              <div class="form-group row display-per-page footer-buttons">
                 <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
                   <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
                   <i v-else class="fas fa-save"></i> 
@@ -95,6 +98,10 @@ export default {
   mounted() {
     console.log('Create page mounted');
     console.log('ClientForm ref:', this.$refs.clientForm);
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
   },
   methods: {
     // Submit form by calling ClientForm's submitForm method
@@ -115,6 +122,8 @@ export default {
         const response = await this.$http.post("/api/clients", formData);
         
         if (response.data.success) {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: "success",
             title: this.$t("Client added successfully"),
@@ -133,6 +142,70 @@ export default {
         this.isSubmitting = false;
       }
     },
+    // save form data temporarily
+    saveTemporary() {
+      if (this.$refs.clientForm && this.$refs.clientForm.form) {
+        const form = this.$refs.clientForm.form
+        const tempData = {
+          type: form.type,
+          fullName: form.fullName,
+          businessName: form.businessName,
+          firstName: form.firstName,
+          lastName: form.lastName,
+          phone: form.phone,
+          phoneNumber: form.phoneNumber,
+          email: form.email,
+          address: form.address,
+          city: form.city,
+          state: form.state,
+          zipCode: form.zipCode,
+          country: form.country,
+          taxNumber: form.taxNumber,
+          note: form.note,
+          status: form.status,
+          chartOfAccountId: form.chartOfAccountId,
+          timestamp: new Date().toISOString()
+        }
+        localStorage.setItem('clientTempData', JSON.stringify(tempData))
+        toast.fire({
+          type: 'success',
+          title: this.$t('Form saved temporarily'),
+        })
+      }
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('clientTempData')
+      if (tempData && this.$refs.clientForm && this.$refs.clientForm.form) {
+        try {
+          const data = JSON.parse(tempData)
+          const form = this.$refs.clientForm.form
+          form.type = data.type || 'Individual'
+          form.fullName = data.fullName || ''
+          form.businessName = data.businessName || ''
+          form.firstName = data.firstName || ''
+          form.lastName = data.lastName || ''
+          form.phone = data.phone || ''
+          form.phoneNumber = data.phoneNumber || ''
+          form.email = data.email || ''
+          form.address = data.address || ''
+          form.city = data.city || ''
+          form.state = data.state || ''
+          form.zipCode = data.zipCode || ''
+          form.country = data.country || ''
+          form.taxNumber = data.taxNumber || ''
+          form.note = data.note || ''
+          form.status = data.status !== undefined ? data.status : 1
+          form.chartOfAccountId = data.chartOfAccountId || null
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('clientTempData')
+    },
 
     // Reset form
     resetForm() {
@@ -146,6 +219,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

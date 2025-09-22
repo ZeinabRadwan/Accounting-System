@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'accounts.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -132,7 +135,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -234,6 +237,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.loadTemporaryData()
+  },
+
   methods: {
     // load chart of accounts
     async loadChartOfAccounts() {
@@ -283,6 +290,8 @@ export default {
           window.location.origin + '/api/accounts/' + this.$route.params.slug
         )
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: this.$t('Account updated successfully'),
@@ -295,6 +304,52 @@ export default {
             title: this.$t('Opps...something went wrong'),
           })
         })
+    },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        bankName: this.form.bankName,
+        branchName: this.form.branchName,
+        accountNumber: this.form.accountNumber,
+        accountName: this.form.accountName,
+        openingBalance: this.form.openingBalance,
+        bankPhone: this.form.bankPhone,
+        bankAddress: this.form.bankAddress,
+        enabled: this.form.enabled,
+        note: this.form.note,
+        chartOfAccountId: this.form.chartOfAccountId,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('accountEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('accountEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.bankName = data.bankName || this.form.bankName
+          this.form.branchName = data.branchName || this.form.branchName
+          this.form.accountNumber = data.accountNumber || this.form.accountNumber
+          this.form.accountName = data.accountName || this.form.accountName
+          this.form.openingBalance = data.openingBalance || this.form.openingBalance
+          this.form.bankPhone = data.bankPhone || this.form.bankPhone
+          this.form.bankAddress = data.bankAddress || this.form.bankAddress
+          this.form.enabled = data.enabled !== undefined ? data.enabled : this.form.enabled
+          this.form.note = data.note || this.form.note
+          this.form.chartOfAccountId = data.chartOfAccountId || this.form.chartOfAccountId
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('accountEditTempData')
     },
 
     // vue file upload
@@ -328,6 +383,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */
@@ -388,6 +462,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

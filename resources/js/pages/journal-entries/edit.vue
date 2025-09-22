@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'journal-entries.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -205,7 +208,7 @@
               <!-- Form Actions -->
               <div class="card-footer">
                 <div class="dtable-footer">
-                  <div class="form-group row display-per-page">
+                  <div class="form-group row display-per-page footer-buttons">
                     <button type="submit" class="btn btn-primary" :disabled="!isBalanced || saving">
                       <i v-if="saving" class="fa fa-spinner fa-spin"></i>
                       <i v-else class="fa fa-save"></i>
@@ -298,6 +301,12 @@ export default {
       this.loadJournalEntry(),
       this.loadChartOfAccounts()
     ])
+  },
+  mounted() {
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
   },
   methods: {
     async loadJournalEntry() {
@@ -407,6 +416,9 @@ export default {
 
         await this.$axios.put(`/api/journal-entries/${this.journalEntry.id}`, data)
         
+        // Clear temporary data after successful save
+        this.clearTemporaryData()
+        
         window.toast.success('Journal entry updated successfully!')
         this.$router.push(`/journal-entries/${this.journalEntry.id}`)
       } catch (error) {
@@ -419,6 +431,39 @@ export default {
       } finally {
         this.saving = false
       }
+    },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        entry_date: this.form.entry_date,
+        reference: this.form.reference,
+        description: this.form.description,
+        status: this.form.status,
+        lines: this.form.lines,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('journalEntryEditTempData', JSON.stringify(tempData))
+      window.toast.success('Form saved temporarily')
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('journalEntryEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.entry_date = data.entry_date || this.form.entry_date
+          this.form.reference = data.reference || this.form.reference
+          this.form.description = data.description || this.form.description
+          this.form.status = data.status || this.form.status
+          this.form.lines = data.lines || this.form.lines
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('journalEntryEditTempData')
     },
 
     formatCurrency(amount) {
@@ -438,6 +483,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'invoicePayments.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -125,7 +128,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -202,6 +205,12 @@ export default {
     this.getAccounts()
     this.getInvoicePayment()
   },
+  mounted() {
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
+  },
   methods: {
     // get accounts
     async getAccounts() {
@@ -267,6 +276,8 @@ export default {
           this.$route.params.slug
         )
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: this.$t('Invoice payment updated successfully'),
@@ -280,6 +291,50 @@ export default {
           })
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        invoice: this.form.invoice,
+        invoiceTotal: this.form.invoiceTotal,
+        amount: this.form.amount,
+        paymentMethod: this.form.paymentMethod,
+        reference: this.form.reference,
+        date: this.form.date,
+        note: this.form.note,
+        status: this.form.status,
+        sendSms: this.form.sendSms,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('invoicePaymentEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('invoicePaymentEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.invoice = data.invoice || this.form.invoice
+          this.form.invoiceTotal = data.invoiceTotal || this.form.invoiceTotal
+          this.form.amount = data.amount || this.form.amount
+          this.form.paymentMethod = data.paymentMethod || this.form.paymentMethod
+          this.form.reference = data.reference || this.form.reference
+          this.form.date = data.date || this.form.date
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.sendSms = data.sendSms || this.form.sendSms
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('invoicePaymentEditTempData')
+    },
   },
 }
 </script>
@@ -288,6 +343,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

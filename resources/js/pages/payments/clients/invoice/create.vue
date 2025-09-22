@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'invoicePayments.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -194,7 +197,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-save" /> {{ $t("Save") }}
                   </v-button>
@@ -272,6 +275,9 @@ export default {
   created() {
     this.getClients();
     this.getAccounts();
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
   methods: {
     // get all clients
@@ -383,6 +389,8 @@ export default {
       await this.form
         .post(window.location.origin + "/api/payments/invoice")
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: "success",
             title: this.$t("Invoice payment added successfully"),
@@ -393,6 +401,52 @@ export default {
           toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
         });
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        client: this.form.client,
+        invoices: this.form.invoices,
+        account: this.form.account,
+        amount: this.form.amount,
+        paymentMethod: this.form.paymentMethod,
+        reference: this.form.reference,
+        date: this.form.date,
+        note: this.form.note,
+        status: this.form.status,
+        sendSms: this.form.sendSms,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('invoicePaymentTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('invoicePaymentTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.client = data.client || null
+          this.form.invoices = data.invoices || []
+          this.form.account = data.account || null
+          this.form.amount = data.amount || ''
+          this.form.paymentMethod = data.paymentMethod || ''
+          this.form.reference = data.reference || ''
+          this.form.date = data.date || ''
+          this.form.note = data.note || ''
+          this.form.status = data.status !== undefined ? data.status : 1
+          this.form.sendSms = data.sendSms || false
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('invoicePaymentTempData')
+    },
   },
 };
 </script>
@@ -401,6 +455,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */

@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'expenses.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -131,7 +134,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -198,6 +201,10 @@ export default {
     this.expense()
     this.getSubCategories()
     this.getAccounts()
+    // Load temporary data after component is mounted
+    this.$nextTick(() => {
+      this.loadTemporaryData()
+    })
   },
   methods: {
     // get all expense categories
@@ -269,6 +276,8 @@ export default {
           window.location.origin + '/api/expenses/' + this.$route.params.slug
         )
         .then(() => {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
           toast.fire({
             type: 'success',
             title: this.$t('Expense updated successfully'),
@@ -282,6 +291,54 @@ export default {
           })
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        reason: this.form.reason,
+        subCategory: this.form.subCategory,
+        account: this.form.account,
+        expenseAccount: this.form.expenseAccount,
+        amount: this.form.amount,
+        chequeNo: this.form.chequeNo,
+        voucherNo: this.form.voucherNo,
+        date: this.form.date,
+        note: this.form.note,
+        status: this.form.status,
+        image: this.form.image ? this.form.image.name : null,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('expenseEditTempData', JSON.stringify(tempData))
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('expenseEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.reason = data.reason || this.form.reason
+          this.form.subCategory = data.subCategory || this.form.subCategory
+          this.form.account = data.account || this.form.account
+          this.form.expenseAccount = data.expenseAccount || this.form.expenseAccount
+          this.form.amount = data.amount || this.form.amount
+          this.form.chequeNo = data.chequeNo || this.form.chequeNo
+          this.form.voucherNo = data.voucherNo || this.form.voucherNo
+          this.form.date = data.date || this.form.date
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          // Note: Image file cannot be restored from localStorage
+        } catch (error) {
+          console.error('Error loading temporary data:', error)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('expenseEditTempData')
+    },
   },
 }
 </script>
@@ -290,6 +347,25 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Restore full border radius for buttons inside the group */
