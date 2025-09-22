@@ -43,7 +43,7 @@
             $can('invoice-return-edit') ||
             $can('invoice-return-delete')
             " class="nav-item has-treeview"
-            :class="menuOpen('quotations') || menuOpen('invoices') || menuOpen('invoiceReturns') ? 'menu-is-opening menu-open' : ''">
+            :class="menuOpen('quotations') || menuOpen('invoices') || menuOpen('invoiceReturns') || menuOpen('pos') || menuOpen('clients') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-bag" />
               <p>
@@ -53,7 +53,9 @@
             </a>
             <ul class="nav nav-treeview" :style="menuOpen('quotations') ||
               menuOpen('invoices') ||
-              menuOpen('invoiceReturns')
+              menuOpen('invoiceReturns') ||
+              menuOpen('pos') ||
+              menuOpen('clients')
               ? 'display: block'
               : 'display: none'
               ">
@@ -129,7 +131,7 @@
             $can('purchase-return-view') ||
             $can('purchase-return-delete')
             " class="nav-item has-treeview"
-            :class="menuOpen('purchases') || menuOpen('purchaseReturns') || menuOpen('purchase-order') ? 'menu-is-opening menu-open' : ''">
+            :class="menuOpen('purchases') || menuOpen('purchaseReturns') || menuOpen('purchase-order') || menuOpen('suppliers') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-basket" />
               <p>
@@ -137,7 +139,7 @@
                 <i class="right fas fa-angle-left" />
               </p>
             </a>
-            <ul class="nav nav-treeview" :style="menuOpen('purchases') || menuOpen('purchaseReturns') || menuOpen('purchase-order')
+            <ul class="nav nav-treeview" :style="menuOpen('purchases') || menuOpen('purchaseReturns') || menuOpen('purchase-order') || menuOpen('suppliers')
               ? 'display: block'
               : 'display: none'
               ">
@@ -277,7 +279,7 @@
             $can('account-transfer-balance-delete') ||
             $can('transaction-history')
             " class="nav-item has-treeview"
-            :class="menuOpen('accounts') || menuOpen('balances') || menuOpen('transferBalances') || menuOpen('transactions') ? 'menu-is-opening menu-open' : ''">
+            :class="menuOpen('accounts') || menuOpen('balances') || menuOpen('transferBalances') || menuOpen('transactions') || menuOpen('chart-of-accounts') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book" />
               <p>
@@ -288,7 +290,8 @@
             <ul class="nav nav-treeview" :style="menuOpen('accounts') ||
               menuOpen('balances') ||
               menuOpen('transferBalances') ||
-              menuOpen('transactions')
+              menuOpen('transactions') ||
+              menuOpen('chart-of-accounts')
               ? 'display: block'
               : 'display: none'
               ">
@@ -963,7 +966,7 @@
               </li>
             </ul>
           </li>
-          <li v-if="$can('domain-management')" class="nav-item has-treeview" :class="menuOpen('domain')
+          <li v-if="$can('domain-management')" class="nav-item has-treeview" :class="menuOpen('domain') || menuOpen('domains') || menuOpen('domain-requests')
             ? 'menu-is-opening menu-open'
             : ''
             ">
@@ -974,7 +977,7 @@
                 <i class="fas fa-angle-left right" />
               </p>
             </a>
-            <ul class="nav nav-treeview" :style="menuOpen('domain')
+            <ul class="nav nav-treeview" :style="menuOpen('domain') || menuOpen('domains') || menuOpen('domain-requests')
               ? 'display: block'
               : 'display: none'
               ">
