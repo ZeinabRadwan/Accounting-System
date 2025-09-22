@@ -1034,18 +1034,67 @@ export default {
     // Load routing settings
     async loadRoutingSettings() {
       try {
-        const response = await axios.get('/api/routing-settings/supplier');
-        if (response.data.success) {
-          this.routingSetting = response.data.data;
-          console.log('Routing settings loaded:', this.routingSetting);
+        console.log('Loading routing settings...');
+        // Try the supplier-specific endpoint first
+        let response;
+        try {
+          response = await axios.get('/api/routing-settings/supplier');
+        } catch (error) {
+          console.log('Supplier-specific routing endpoint failed, trying general endpoint');
+          // Fallback to general account routing settings
+          response = await axios.get('/api/account-routing-settings');
+        }
+        
+        if (response.data && response.data.success) {
+          if (response.data.data && !Array.isArray(response.data.data)) {
+            // Direct supplier routing setting
+            this.routingSetting = response.data.data;
+            console.log('Routing settings loaded (direct):', this.routingSetting);
+          } else if (Array.isArray(response.data.data)) {
+            // Find the suppliers_account setting from array
+            this.routingSetting = response.data.data.find(setting => setting.setting_key === 'suppliers_account');
+            console.log('Found suppliers_account setting:', this.routingSetting);
+          }
+          
+          if (this.routingSetting) {
+            // Add routing type display name if not present
+            if (!this.routingSetting.routing_type_display) {
+              this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
+            }
+            console.log('Routing setting with display name:', this.routingSetting);
+          } else {
+            console.log('No suppliers_account setting found, using default');
+            this.setDefaultRoutingSetting();
+          }
         } else {
-          console.error('Failed to load routing settings:', response.data.message);
-          this.routingSetting = null; // Ensure it's null on error
+          console.log('Routing settings response not successful:', response.data);
+          this.setDefaultRoutingSetting();
         }
       } catch (error) {
         console.error('Error loading routing settings:', error);
-        this.routingSetting = null; // Ensure it's null on error
+        this.setDefaultRoutingSetting();
       }
+    },
+    
+    // Set default routing setting
+    setDefaultRoutingSetting() {
+      this.routingSetting = {
+        routing_type: 'per_each',
+        routing_type_display: 'Specify Per Each',
+        main_account_id: null
+      };
+      console.log('Using default routing setting:', this.routingSetting);
+    },
+    
+    // Get routing type display name
+    getRoutingTypeDisplayName(routingType) {
+      const displays = {
+        'automatic': 'Automatic',
+        'per_each': 'Specify Per Each',
+        'main_account_per_each': 'Specify Main Account Per Each',
+        'cancel': 'Cancel'
+      };
+      return displays[routingType] || routingType;
     },
 
     // Load chart of accounts
@@ -1061,6 +1110,7 @@ export default {
         if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
           console.log('Routing type is automatic, not loading chart of accounts');
           this.chartOfAccounts = [];
+          this.loadingChartOfAccounts = false;
           return;
         }
         
@@ -1130,37 +1180,78 @@ export default {
       this.isCreatingAccount = true;
 
       try {
+        // Get the Asset account type ID (suppliers are typically assets)
+        const assetTypeResponse = await axios.get('/api/chart-of-account-types');
+        let typeId = 1; // Default fallback
+        if (assetTypeResponse.data && assetTypeResponse.data.data) {
+          const assetType = assetTypeResponse.data.data.find(type => 
+            type.name && type.name.toLowerCase().includes('asset')
+          );
+          if (assetType) {
+            typeId = assetType.id;
+          }
+        }
+
         // Determine parent_id based on routing settings
         let parentId = null;
         if (this.routingSetting && this.routingSetting.routing_type === 'main_account_per_each' && this.routingSetting.main_account_id) {
           parentId = this.routingSetting.main_account_id;
         }
 
-        const response = await axios.post('/api/chart-of-accounts/create', {
-          name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
-          type: 'Supplier',
+        // Generate account code
+        const codeResponse = await axios.post('/api/chart-of-accounts/generate-code', {
           parent_id: parentId
         });
+        
+        const accountCode = codeResponse.data.code || '1000';
 
-        if (response.data.success) {
-          this.chartOfAccounts.push(response.data.data);
-          this.form.chartOfAccountId = response.data.data.id;
+        const response = await axios.post('/api/chart-of-accounts', {
+          name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
+          code: accountCode,
+          type_id: typeId,
+          parent_id: parentId,
+          order: 0,
+          is_active: true
+        });
+
+        if (response.data && response.data.data) {
+          // Add to local chartOfAccounts array
+          const newAccount = response.data.data;
+          this.chartOfAccounts.push({
+            id: newAccount.id,
+            name: newAccount.name,
+            code: newAccount.code,
+            type: newAccount.type?.name || 'Asset'
+          });
+          
+          // Set as selected
+          this.form.chartOfAccountId = newAccount.id;
+          
           Swal.fire(
             "Success!",
             "New chart of account created successfully.",
             "success"
           );
         } else {
-          Swal.fire(
-            "Error!",
-            response.data.message || "Failed to create new chart of account.",
-            "error"
-          );
+          throw new Error(response.data.message || "Failed to create new chart of account.");
         }
       } catch (error) {
+        console.error('Error creating chart of account:', error);
+        let errorMessage = "Failed to create new chart of account.";
+        
+        if (error.response && error.response.data) {
+          if (error.response.data.message) {
+            errorMessage = error.response.data.message;
+          } else if (error.response.data.error) {
+            errorMessage = error.response.data.error;
+          }
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
         Swal.fire(
           "Error!",
-          error.message || "Failed to create new chart of account.",
+          errorMessage,
           "error"
         );
       } finally {

@@ -104,7 +104,7 @@ export default {
     // Watch for form readiness
     '$refs.clientForm': {
       handler(newVal) {
-        if (newVal && newVal.getFormData && newVal.getFormData().data) {
+        if (newVal && newVal.getFormData && typeof newVal.getFormData().data === 'function') {
           console.log('Form is now ready');
           this.loading = false;
         }
