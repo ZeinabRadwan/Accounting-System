@@ -36,14 +36,14 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="$t('cashbook.Refresh')"
+                    v-tooltip="'Refresh'"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
                     :href="exportUrl"
-                    v-tooltip="$t('cashbook.Export to Excel')"
+                    v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
                   >
@@ -62,7 +62,7 @@
                   </a>
                   <a
                     href="/cashbook/transfer-balances/pdf"
-                    v-tooltip="$t('cashbook.Export to PDF')"
+                    v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
                   >
@@ -81,14 +81,14 @@
                   </a>
                   <a
                     @click="print"
-                    v-tooltip="$t('cashbook.Print Table')"
+                    v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
                     <i class="fas fa-print"></i>
                   </a>
                   <router-link v-if="$can('account-transfer-balance-create')" :to="{ name: 'transferBalances.create' }"
                     class="btn btn-primary">
-                    {{ $t("cashbook.Add Transfer") }}
+                    {{ $t("Add Transfer") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />
                   </router-link>
                 </div>
@@ -98,18 +98,18 @@
             <div class="table-responsive table-custom mt-3" id="printMe">
               <table class="table transfer-balances-table">
                 <thead>
-                  <th>{{ $t("cashbook.#") }}</th>
-                  <th>{{ $t("cashbook.Reason") }}</th>
-                  <th>{{ $t("cashbook.From Account") }}</th>
-                  <th>{{ $t("cashbook.To Account") }}</th>
-                  <th>{{ $t("cashbook.Amount") }}</th>
-                  <th>{{ $t("cashbook.Date") }}</th>
-                  <th>{{ $t("cashbook.Status") }}</th>
+                  <th>{{ $t("#") }}</th>
+                  <th>{{ $t("Reason") }}</th>
+                  <th>{{ $t("From Account") }}</th>
+                  <th>{{ $t("To Account") }}</th>
+                  <th>{{ $t("Amount") }}</th>
+                  <th>{{ $t("Date") }}</th>
+                  <th>{{ $t("Status") }}</th>
                   <th v-if="$can('account-transfer-balance-edit') ||
                     $can('account-transfer-balance-view') ||
                     $can('account-transfer-balance-delete')
                     " class="text-right no-print">
-                    {{ $t("cashbook.Action") }}
+                    {{ $t("Action") }}
                   </th>
                 </thead>
                 <tbody>
@@ -150,10 +150,10 @@
                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("cashbook.Active")
+                        $t("Active")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("cashbook.Inactive")
+                        $t("Inactive")
                       }}</span>
                     </td>
                     <td v-if="$can('account-transfer-balance-edit') ||
@@ -168,7 +168,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <h6 class="action-menu-title">{{ $t('cashbook.Actions') }}</h6>
+                            <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
                             <button type="button" class="action-menu-close" @click.stop="toggleAction(i)">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -181,7 +181,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                   <path d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z" fill="#6B7280"/>
                                 </svg>
-                                {{ $t('cashbook.View') }}
+                                {{ $t('View') }}
                               </router-link>
                             </li>
                             <li v-if="$can('account-transfer-balance-edit')">
@@ -189,7 +189,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                   <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                {{ $t('cashbook.Edit') }}
+                                {{ $t('Edit') }}
                               </router-link>
                             </li>
                             <li v-if="$can('account-transfer-balance-delete')">
@@ -197,7 +197,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                   <path d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                {{ $t('cashbook.Delete') }}
+                                {{ $t('Delete') }}
                               </a>
                             </li>
                           </ul>
@@ -218,7 +218,7 @@
           <div class="card-footer">
             <div class="dtable-footer">
               <div class="form-group row display-per-page">
-                <label>{{ $t("cashbook.per_page") }} </label>
+                <label>{{ $t("per_page") }} </label>
                 <div>
                   <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
@@ -250,33 +250,27 @@ import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("cashbook.Balance Transfers") };
+    return { title: this.$t("Balance Transfers") };
   },
   components: {
     DateRangePicker,
   },
-  computed: {
-    breadcrumbsCurrent() {
-      return this.$t("cashbook.Balance Transfers");
-    },
-    breadcrumbs() {
-      return [
-        {
-          name: this.$t("Dashboard"),
-          url: "home",
-        },
-        {
-          name: this.$t("Cashbook"),
-          url: "",
-        },
-        {
-          name: this.$t("cashbook.Balance Transfers"),
-          url: "",
-        },
-      ];
-    },
-  },
   data: () => ({
+    breadcrumbsCurrent: "Balance Transfers",
+    breadcrumbs: [
+      {
+        name: "Dashboard",
+        url: "home",
+      },
+      {
+        name: "Cashbook",
+        url: "",
+      },
+      {
+        name: "Balance Transfers",
+        url: "",
+      },
+    ],
     query: "",
     perPage: 10,
     openActionIndex: null,
@@ -290,10 +284,10 @@ export default {
       direction: "ltr",
       format: "YYYY-MM-DD",
       separator: " - ",
-      applyLabel: this.$t("cashbook.Apply"),
-      cancelLabel: this.$t("cashbook.Cancel"),
+      applyLabel: "Apply",
+      cancelLabel: "Cancel",
       weekLabel: "W",
-      customRangeLabel: this.$t("cashbook.Custom Range"),
+      customRangeLabel: "Custom Range",
       daysOfWeek: moment.weekdaysMin(),
       monthNames: moment.monthsShort(),
       firstDay: 1,
@@ -301,10 +295,10 @@ export default {
   }),
   filters: {
     startDate(val) {
-      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("cashbook.From");
+      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("From");
     },
     endDate(val) {
-      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("cashbook.To");
+      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("To");
     },
   },
   // Map Getters

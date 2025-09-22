@@ -10,7 +10,7 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
                 <router-link :to="{ name: 'transferBalances.index' }" class="btn btn-primary">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('cashbook.Back') }}
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
               </div>
             </div>
@@ -21,21 +21,21 @@
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-12">
-                  <label for="transferReason">{{ $t('cashbook.Transfer Reason') }}
+                  <label for="transferReason">{{ $t('Transfer Reason') }}
                     <span class="required">*</span></label>
                   <input type="text" id="transferReason" v-model="form.transferReason" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('transferReason') }"
-                    :placeholder="$t('cashbook.Enter a reason')" name="transferReason" />
+                    :placeholder="$t('Enter a reason')" name="transferReason" />
                   <has-error :form="form" field="transferReason" />
                 </div>
               </div>
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
-                  <label for="fromAccount">{{ $t('cashbook.From Account') }}
+                  <label for="fromAccount">{{ $t('From Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.fromAccount" :options="items" label="label"
                     :class="{ 'is-invalid': form.errors.has('fromAccount') }" name="fromAccount"
-                    :placeholder="$t('cashbook.Select an account')" @input="updateBalance">
+                    :placeholder="$t('Select an account')" @input="updateBalance">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
@@ -44,18 +44,18 @@
                   <has-error :form="form" field="fromAccount" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="toAccount">{{ $t('cashbook.To Account') }}
+                  <label for="toAccount">{{ $t('To Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.toAccount" :options="items" label="label"
                     :class="{ 'is-invalid': form.errors.has('toAccount') }" name="toAccount"
-                    :placeholder="$t('cashbook.Select an account')" disabled />
+                    :placeholder="$t('Select an account')" disabled />
                   <has-error :form="form" field="toAccount" />
                 </div>
               </div>
               <div class="row" v-if="form.fromAccount">
                 <div class="form-group col-md-6">
                   <label for="availableBalance">{{
-                    $t('cashbook.Available Balance')
+                    $t('Available Balance')
                   }}</label>
                   <input id="availableBalance" v-model="form.availableBalance" type="number" step="any"
                     class="form-control" :class="{
@@ -64,39 +64,39 @@
                   <has-error :form="form" field="availableBalance" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="amount">{{ $t('cashbook.Amount') }}
+                  <label for="amount">{{ $t('Amount') }}
                     <span class="required">*</span></label>
                   <input id="amount" v-model="form.amount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('amount') }" name="amount"
-                    :placeholder="$t('cashbook.Enter an amount')" :min="form.minBalance" />
+                    :placeholder="$t('Enter an amount')" :min="form.minBalance" />
                   <has-error :form="form" field="amount" />
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="date">{{ $t('cashbook.Date') }}</label>
+                  <label for="date">{{ $t('Date') }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="status">{{ $t('cashbook.Status') }}</label>
+                  <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
                     <option value="1">
-                      {{ $t('cashbook.Active') }}
+                      {{ $t('Active') }}
                     </option>
                     <option value="0">
-                      {{ $t('cashbook.Inactive') }}
+                      {{ $t('Inactive') }}
                     </option>
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
               </div>
               <div class="form-group">
-                <label for="note">{{ $t('cashbook.Note') }}</label>
+                <label for="note">{{ $t('Note') }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('cashbook.Write your note here!')" />
+                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
             </div>
@@ -105,10 +105,10 @@
               <div class="dtable-footer">
                 <div class="form-group row display-per-page">
                   <v-button :loading="form.busy" class="btn btn-primary">
-                    <i class="fas fa-edit" /> {{ $t('cashbook.Save changes') }}
+                    <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
                   <button type="reset" class="btn btn-secondary" @click="form.reset()">
-                    <i class="fas fa-power-off" /> {{ $t('cashbook.Reset') }}
+                    <i class="fas fa-power-off" /> {{ $t('Reset') }}
                   </button>
                 </div>
               </div>
@@ -128,28 +128,25 @@ import { mapGetters } from 'vuex'
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: this.$t('cashbook.Edit Balance Transfer') }
+    return { title: this.$t('Edit Balance Transfer') }
   },
-  computed: {
-    breadcrumbsCurrent() {
-      return this.$t('cashbook.Edit Balance Transfer');
-    },
-    breadcrumbs() {
-      return [
-        {
-          name: this.$t('Dashboard'),
-          url: 'home',
-        },
-        {
-          name: this.$t('Cashbook'),
-          url: '',
-        },
-        {
-          name: this.$t('cashbook.Balance Transfers'),
-          url: 'transferBalances.index',
-        },
-        {
-          name: this.$t('cashbook.Edit'),
+  data: () => ({
+    breadcrumbsCurrent: 'Edit Balance Transfer',
+    breadcrumbs: [
+      {
+        name: 'Dashboard',
+        url: 'home',
+      },
+      {
+        name: 'Cashbook',
+        url: '',
+      },
+      {
+        name: 'Balance Transfers',
+        url: 'transferBalances.index',
+      },
+      {
+        name: 'Edit',
         url: '',
       },
     ],

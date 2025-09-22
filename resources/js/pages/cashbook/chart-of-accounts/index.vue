@@ -36,16 +36,16 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="$t('cashbook.Refresh')"
+                    v-tooltip="'Refresh'"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
                     :href="exportUrl"
-                    v-tooltip="$t('cashbook.Export to Excel')"
+                    v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
-                    :title="$t('cashbook.Export to Excel')"
+                    title="Export to Excel"
                   >
                     <svg
                       width="18"
@@ -62,9 +62,9 @@
                   </a>
                   <a
                     href="/chart-of-accounts/pdf"
-                    v-tooltip="$t('cashbook.Export to PDF')"
+                    v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
-                    :title="$t('cashbook.Export to PDF')"
+                    title="Export to PDF"
                   >
                     <svg
                       width="24"
@@ -81,7 +81,7 @@
                   </a>
                   <a
                     @click="print"
-                    v-tooltip="$t('cashbook.Print Table')"
+                    v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
                     <i class="fas fa-print"></i>
@@ -102,10 +102,10 @@
                 <thead>
                   <th>{{ $t("Code") }}</th>
                   <th>{{ $t("Name") }}</th>
-                  <th>{{ $t("cashbook.Type") }}</th>
-                  <th>{{ $t("cashbook.Parent Account") }}</th>
+                  <th>{{ $t("Type") }}</th>
+                  <th>{{ $t("Parent Account") }}</th>
                   <th>{{ $t("Order") }}</th>
-                  <th>{{ $t("cashbook.Status") }}</th>
+                  <th>{{ $t("Status") }}</th>
                   <th v-if="$can('chart-of-account-view') ||
                     $can('chart-of-account-edit') ||
                     $can('chart-of-account-delete')
@@ -140,10 +140,10 @@
                     <td>{{ data.order || '-' }}</td>
                     <td>
                       <span v-if="data.is_active" class="badge bg-success">{{
-                        $t("cashbook.Active")
+                        $t("Active")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("cashbook.Inactive")
+                        $t("Inactive")
                       }}</span>
                     </td>
                     <td v-if="$can('chart-of-account-view') ||
@@ -173,13 +173,13 @@
                             <li v-if="$can('chart-of-account-edit')">
                               <router-link :to="{ name: 'chart-of-accounts.edit', params: { slug: data.code } }">
                                 <i class="fas fa-edit"></i>
-                                {{ $t("cashbook.Edit") }}
+                                {{ $t('Edit') }}
                               </router-link>
                             </li>
                             <li v-if="$can('chart-of-account-delete')">
                               <a href="#" @click.prevent="deleteData(data.code)">
                                 <i class="fas fa-trash"></i>
-                                {{ $t("cashbook.Delete") }}
+                                {{ $t('Delete') }}
                               </a>
                             </li>
                           </ul>
@@ -253,12 +253,27 @@ import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("cashbook.Chart of Accounts") };
+    return { title: this.$t("Chart of Accounts") };
   },
   components: {
     DateRangePicker,
   },
   data: () => ({
+    breadcrumbsCurrent: "Chart of Accounts",
+    breadcrumbs: [
+      {
+        name: "Dashboard",
+        url: "home",
+      },
+      {
+        name: "Cashbook",
+        url: "",
+      },
+      {
+        name: "Chart of Accounts",
+        url: "",
+      },
+    ],
     query: "",
     perPage: 10,
     showModal: false,
@@ -274,10 +289,10 @@ export default {
       direction: "ltr",
       format: "YYYY-MM-DD",
       separator: " - ",
-      applyLabel: this.$t("cashbook.Apply"),
-      cancelLabel: this.$t("cashbook.Cancel"),
+      applyLabel: "Apply",
+      cancelLabel: "Cancel",
       weekLabel: "W",
-      customRangeLabel: this.$t("cashbook.Custom Range"),
+      customRangeLabel: "Custom Range",
       daysOfWeek: moment.weekdaysMin(),
       monthNames: moment.monthsShort(),
       firstDay: 1,
@@ -294,25 +309,6 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
-    breadcrumbs() {
-      return [
-        {
-          name: this.$t("cashbook.Dashboard"),
-          url: "home",
-        },
-        {
-          name: this.$t("cashbook.Cashbook"),
-          url: "",
-        },
-        {
-          name: this.$t("cashbook.Chart of Accounts"),
-          url: "",
-        },
-      ];
-    },
-    breadcrumbsCurrent() {
-      return this.$t("cashbook.Chart of Accounts");
-    },
     exportUrl() {
       // Create a dynamic export URL with query parameters
       return `/chart-of-accounts/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
@@ -490,8 +486,8 @@ export default {
               if (response === true) {
                 this.getData();
                 Swal.fire(
-                  this.$t("cashbook.Deleted!"),
-                  this.$t("cashbook.Deleted successfully."),
+                  this.$t("Deleted!"),
+                  this.$t("Deleted successfully."),
                   "success"
                 );
               } else {

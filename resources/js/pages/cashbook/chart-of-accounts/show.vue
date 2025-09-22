@@ -15,11 +15,11 @@
           <div class="page-actions">
             <button @click="printWindow" class="btn btn-outline-secondary btn-sm">
               <i class="fas fa-print mr-1"></i>
-              {{ $t("cashbook.Print") }}
+              {{ $t("Print") }}
             </button>
             <router-link :to="{ name: 'chart-of-accounts.tree' }" class="btn btn-primary btn-sm">
               <i class="fas fa-arrow-left mr-1"></i>
-              {{ $t("cashbook.Back to Tree") }}
+              {{ $t("Back to Tree") }}
             </router-link>
           </div>
         </div>
@@ -34,31 +34,31 @@
             <div class="info-card-header">
               <h5 class="info-card-title">
                 <i class="fas fa-info-circle mr-2"></i>
-                {{ $t("cashbook.Account Information") }}
+                {{ $t("Account Information") }}
               </h5>
             </div>
             <div class="info-card-body">
               <div class="info-grid">
                 <div class="info-item">
-                  <label class="info-label">{{ $t("cashbook.Account Name") }}</label>
+                  <label class="info-label">{{ $t("Account Name") }}</label>
                   <span class="info-value">{{ accountData.name }}</span>
                 </div>
                 <div class="info-item">
-                  <label class="info-label">{{ $t("cashbook.Account Code") }}</label>
+                  <label class="info-label">{{ $t("Account Code") }}</label>
                   <span class="info-value code-value">{{ accountData.code }}</span>
                 </div>
                 <div class="info-item" v-if="accountData.types">
-                  <label class="info-label">{{ $t("cashbook.Account Type") }}</label>
+                  <label class="info-label">{{ $t("Account Type") }}</label>
                   <span class="info-value type-value">{{ accountData.types.name }}</span>
                 </div>
                 <div class="info-item" v-if="accountData.parent">
-                  <label class="info-label">{{ $t("cashbook.Parent Account") }}</label>
+                  <label class="info-label">{{ $t("Parent Account") }}</label>
                   <span class="info-value">{{ accountData.parent.name }}</span>
                 </div>
                 <div class="info-item">
-                  <label class="info-label">{{ $t("cashbook.Status") }}</label>
+                  <label class="info-label">{{ $t("Status") }}</label>
                   <span class="status-badge" :class="accountData.is_active ? 'status-active' : 'status-inactive'">
-                    {{ accountData.is_active ? $t('cashbook.Active') : $t('cashbook.Inactive') }}
+                    {{ accountData.is_active ? $t('Active') : $t('Inactive') }}
                   </span>
                 </div>
               </div>
@@ -72,26 +72,26 @@
             <div class="balance-card-header">
               <h5 class="balance-card-title">
                 <i class="fas fa-calculator mr-2"></i>
-                {{ $t("cashbook.Account Balance") }}
+                {{ $t("Account Balance") }}
               </h5>
             </div>
             <div class="balance-card-body">
               <div class="balance-summary">
                 <div class="balance-row">
-                  <span class="balance-label">{{ $t("cashbook.Total Debits") }}</span>
+                  <span class="balance-label">{{ $t("Total Debits") }}</span>
                   <span class="balance-value debit-value">
                     {{ accountData.formatted_debit_amount || '0.00' }}
                   </span>
                 </div>
                 <div class="balance-row">
-                  <span class="balance-label">{{ $t("cashbook.Total Credits") }}</span>
+                  <span class="balance-label">{{ $t("Total Credits") }}</span>
                   <span class="balance-value credit-value">
                     {{ accountData.formatted_credit_amount || '0.00' }}
                   </span>
                 </div>
                 <div class="balance-divider"></div>
                 <div class="balance-row balance-total">
-                  <span class="balance-label">{{ $t("cashbook.Current Balance") }}</span>
+                  <span class="balance-label">{{ $t("Current Balance") }}</span>
                   <span class="balance-value total-value" 
                         :class="accountData.balance_type === 'Debit' ? 'debit-total' : 'credit-total'">
                     {{ accountData.formatted_balance_with_type || '0.00 Debit' }}
@@ -110,9 +110,9 @@
         <div class="section-title">
           <h3 class="section-title-text">
             <i class="fas fa-book mr-2"></i>
-            {{ $t("cashbook.Journal Entries") }}
+            {{ $t("Journal Entries") }}
           </h3>
-          <p class="section-subtitle">{{ $t("cashbook.Transaction history for this account") }}</p>
+          <p class="section-subtitle">{{ $t("Transaction history for this account") }}</p>
         </div>
       </div>
 
@@ -126,21 +126,21 @@
                 v-model="query" 
                 type="text" 
                 class="search-input" 
-                :placeholder="$t('cashbook.Search by reference or description...')"
+                :placeholder="$t('Search by reference or description...')"
                 @input="searchJournalEntries"
               />
             </div>
           </div>
           <div class="col-md-4">
             <div class="per-page-selector">
-              <label class="per-page-label">{{ $t("cashbook.Show") }}</label>
+              <label class="per-page-label">{{ $t("Show") }}</label>
               <select v-model="perPage" @change="updatePerPager" class="per-page-select">
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span class="per-page-text">{{ $t("cashbook.entries") }}</span>
+              <span class="per-page-text">{{ $t("entries") }}</span>
             </div>
           </div>
         </div>
@@ -152,13 +152,13 @@
           <table class="journal-table">
             <thead>
               <tr>
-                <th class="date-col">{{ $t("cashbook.Date") }}</th>
-                <th class="reference-col">{{ $t("cashbook.Reference") }}</th>
-                <th class="description-col">{{ $t("cashbook.Description") }}</th>
-                <th class="amount-col">{{ $t("cashbook.Debit") }}</th>
-                <th class="amount-col">{{ $t("cashbook.Credit") }}</th>
-                <th class="balance-col">{{ $t("cashbook.Balance") }}</th>
-                <th class="status-col">{{ $t("cashbook.Status") }}</th>
+                <th class="date-col">{{ $t("Date") }}</th>
+                <th class="reference-col">{{ $t("Reference") }}</th>
+                <th class="description-col">{{ $t("Description") }}</th>
+                <th class="amount-col">{{ $t("Debit") }}</th>
+                <th class="amount-col">{{ $t("Credit") }}</th>
+                <th class="balance-col">{{ $t("Balance") }}</th>
+                <th class="status-col">{{ $t("Status") }}</th>
               </tr>
             </thead>
             <tbody>
@@ -208,8 +208,8 @@
           <div class="empty-state-icon">
             <i class="fas fa-book-open"></i>
           </div>
-          <h4 class="empty-state-title">{{ $t("cashbook.No Journal Entries") }}</h4>
-          <p class="empty-state-text">{{ $t("cashbook.This account doesn't have any journal entries yet.") }}</p>
+          <h4 class="empty-state-title">{{ $t("No Journal Entries") }}</h4>
+          <p class="empty-state-text">{{ $t("This account doesn't have any journal entries yet.") }}</p>
         </div>
       </div>
 
@@ -226,7 +226,7 @@
       <!-- Loading State -->
       <div v-if="loading" class="text-center py-5">
         <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">{{ $t("cashbook.Loading...") }}</span>
+          <span class="sr-only">{{ $t("Loading...") }}</span>
         </div>
       </div>
     </div>
@@ -241,30 +241,24 @@ import moment from "moment";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("cashbook.Account Details") };
-  },
-  computed: {
-    breadcrumbsCurrent() {
-      return this.$t("cashbook.Account Details");
-    },
-    breadcrumbs() {
-      return [
-        {
-          name: this.$t("Dashboard"),
-          url: "home",
-        },
-        {
-          name: this.$t("cashbook.Chart of Accounts"),
-          url: "chart-of-accounts.tree",
-        },
-        {
-          name: this.$t("cashbook.Account Details"),
-          url: "",
-        },
-      ];
-    },
+    return { title: this.$t("Chart of Account Details") };
   },
   data: () => ({
+    breadcrumbsCurrent: "Chart of Account Details",
+    breadcrumbs: [
+      {
+        name: "Dashboard",
+        url: "home",
+      },
+      {
+        name: "Chart of Accounts",
+        url: "chart-of-accounts.tree",
+      },
+      {
+        name: "Account Details",
+        url: "",
+      },
+    ],
     query: "",
     accountData: null,
     journalEntries: [],
