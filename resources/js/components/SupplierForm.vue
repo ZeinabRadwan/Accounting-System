@@ -1034,18 +1034,67 @@ export default {
     // Load routing settings
     async loadRoutingSettings() {
       try {
-        const response = await axios.get('/api/routing-settings/supplier');
-        if (response.data.success) {
-          this.routingSetting = response.data.data;
-          console.log('Routing settings loaded:', this.routingSetting);
+        console.log('Loading routing settings...');
+        // Try the supplier-specific endpoint first
+        let response;
+        try {
+          response = await axios.get('/api/routing-settings/supplier');
+        } catch (error) {
+          console.log('Supplier-specific routing endpoint failed, trying general endpoint');
+          // Fallback to general account routing settings
+          response = await axios.get('/api/account-routing-settings');
+        }
+        
+        if (response.data && response.data.success) {
+          if (response.data.data && !Array.isArray(response.data.data)) {
+            // Direct supplier routing setting
+            this.routingSetting = response.data.data;
+            console.log('Routing settings loaded (direct):', this.routingSetting);
+          } else if (Array.isArray(response.data.data)) {
+            // Find the suppliers_account setting from array
+            this.routingSetting = response.data.data.find(setting => setting.setting_key === 'suppliers_account');
+            console.log('Found suppliers_account setting:', this.routingSetting);
+          }
+          
+          if (this.routingSetting) {
+            // Add routing type display name if not present
+            if (!this.routingSetting.routing_type_display) {
+              this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
+            }
+            console.log('Routing setting with display name:', this.routingSetting);
+          } else {
+            console.log('No suppliers_account setting found, using default');
+            this.setDefaultRoutingSetting();
+          }
         } else {
-          console.error('Failed to load routing settings:', response.data.message);
-          this.routingSetting = null; // Ensure it's null on error
+          console.log('Routing settings response not successful:', response.data);
+          this.setDefaultRoutingSetting();
         }
       } catch (error) {
         console.error('Error loading routing settings:', error);
-        this.routingSetting = null; // Ensure it's null on error
+        this.setDefaultRoutingSetting();
       }
+    },
+    
+    // Set default routing setting
+    setDefaultRoutingSetting() {
+      this.routingSetting = {
+        routing_type: 'per_each',
+        routing_type_display: 'Specify Per Each',
+        main_account_id: null
+      };
+      console.log('Using default routing setting:', this.routingSetting);
+    },
+    
+    // Get routing type display name
+    getRoutingTypeDisplayName(routingType) {
+      const displays = {
+        'automatic': 'Automatic',
+        'per_each': 'Specify Per Each',
+        'main_account_per_each': 'Specify Main Account Per Each',
+        'cancel': 'Cancel'
+      };
+      return displays[routingType] || routingType;
     },
 
     // Load chart of accounts
@@ -1061,6 +1110,7 @@ export default {
         if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
           console.log('Routing type is automatic, not loading chart of accounts');
           this.chartOfAccounts = [];
+          this.loadingChartOfAccounts = false;
           return;
         }
         

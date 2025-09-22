@@ -77,12 +77,32 @@ class SupplierController extends Controller
 
             // upload thumbnail and set the name
             $imageName = '';
-            if ($request->image) {
-                $imageName = time() . '.' . explode(
-                    '/',
-                    explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
-                )[1];
-                Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
+            if ($request->image && !empty($request->image)) {
+                try {
+                    // Check if it's a base64 data URI
+                    if (strpos($request->image, 'data:image/') === 0) {
+                        // Extract the file extension from the data URI
+                        $extension = 'jpg'; // default
+                        if (strpos($request->image, ';') !== false) {
+                            $mimeType = substr($request->image, 5, strpos($request->image, ';') - 5);
+                            $extensionMap = [
+                                'image/jpeg' => 'jpg',
+                                'image/jpg' => 'jpg', 
+                                'image/png' => 'png',
+                                'image/gif' => 'gif',
+                                'image/webp' => 'webp'
+                            ];
+                            $extension = $extensionMap[$mimeType] ?? 'jpg';
+                        }
+                        
+                        $imageName = time() . '.' . $extension;
+                        Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
+                    }
+                } catch (Exception $imageException) {
+                    // Log the error but don't fail the entire operation
+                    Log::error('Image processing failed during creation: ' . $imageException->getMessage());
+                    $imageName = ''; // No image on error
+                }
             }
 
             // Prepare supplier data
@@ -213,11 +233,16 @@ class SupplierController extends Controller
     public function update(Request $request, $slug)
     {
         $supplier = Supplier::where('slug', $slug)->first();
+        
+        if (!$supplier) {
+            return $this->responseWithError('Supplier not found', 404);
+        }
+        
         // validate request
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'phoneNumber' => 'required|string|max:20|min:3',
-            'email' => 'nullable|email|max:255|min:3|unique:users,email,' . $supplier->email,
+            'email' => 'nullable|email|max:255|min:3|unique:suppliers,email,' . $supplier->id,
             'companyName' => 'nullable|string|max:100|min:2',
             'type' => 'required|in:Company,Individual',
             'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
@@ -225,15 +250,37 @@ class SupplierController extends Controller
         try {
             // upload thumbnail and set the name
             $imageName = $supplier->image_path;
-            if ($request->image) {
-                if ($imageName) {
-                    @unlink(public_path('images/suppliers/' . $imageName));
+            if ($request->image && !empty($request->image)) {
+                try {
+                    // Check if it's a base64 data URI
+                    if (strpos($request->image, 'data:image/') === 0) {
+                        if ($imageName) {
+                            @unlink(public_path('images/suppliers/' . $imageName));
+                        }
+                        
+                        // Extract the file extension from the data URI
+                        $extension = 'jpg'; // default
+                        if (strpos($request->image, ';') !== false) {
+                            $mimeType = substr($request->image, 5, strpos($request->image, ';') - 5);
+                            $extensionMap = [
+                                'image/jpeg' => 'jpg',
+                                'image/jpg' => 'jpg', 
+                                'image/png' => 'png',
+                                'image/gif' => 'gif',
+                                'image/webp' => 'webp'
+                            ];
+                            $extension = $extensionMap[$mimeType] ?? 'jpg';
+                        }
+                        
+                        $imageName = time() . '.' . $extension;
+                        Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
+                    }
+                    // If it's not a data URI, keep the existing image
+                } catch (Exception $imageException) {
+                    // Log the error but don't fail the entire operation
+                    Log::error('Image processing failed: ' . $imageException->getMessage());
+                    // Keep the existing image name
                 }
-                $imageName = time() . '.' . explode(
-                    '/',
-                    explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
-                )[1];
-                Image::make($request->image)->save(public_path('images/suppliers/') . $imageName);
             }
             // Prepare update data
             $updateData = [
