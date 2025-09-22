@@ -35,6 +35,9 @@ Vue.filter('shortText', function (str) {
 Vue.filter('withCurrency', function (number) {
   let currency = store.state.operations.appInfo.currency
   
+  // Keep the original symbol - the SaudiRiyalSymbol font will handle the 'ê' character display
+  let displaySymbol = currency.symbol
+  
   // Check if we're in RTL mode
   const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
                document.body.classList.contains('rtl')
@@ -52,9 +55,9 @@ Vue.filter('withCurrency', function (number) {
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
+    return effectivePosition == 'left' ? displaySymbol + newNumber : newNumber + displaySymbol
   } else {
-    return effectivePosition == 'left' ? currency.symbol + '0.00' : '0.00' + currency.symbol
+    return effectivePosition == 'left' ? displaySymbol + '0.00' : '0.00' + displaySymbol
   }
 })
 
@@ -62,6 +65,9 @@ Vue.filter('withCurrency', function (number) {
 Vue.filter('withCentralAdminCurrency', function (number) {
   let currency = store.state.operations.appInfo.centralAdminCurrency
   
+  // Keep the original symbol - the SaudiRiyalSymbol font will handle the 'ê' character display
+  let displaySymbol = currency.symbol
+  
   // Check if we're in RTL mode
   const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
                document.body.classList.contains('rtl')
@@ -79,9 +85,9 @@ Vue.filter('withCentralAdminCurrency', function (number) {
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
+    return effectivePosition == 'left' ? displaySymbol + newNumber : newNumber + displaySymbol
   } else {
-    return effectivePosition == 'left' ? currency.symbol + '0.00' : '0.00' + currency.symbol
+    return effectivePosition == 'left' ? displaySymbol + '0.00' : '0.00' + displaySymbol
   }
 })
 
@@ -90,6 +96,9 @@ Vue.filter('withCentralAdminCurrency', function (number) {
 Vue.filter('withAbsoluteCurrency', function (number) {
   let currency = store.state.operations.appInfo.currency
   
+  // Keep the original symbol - the SaudiRiyalSymbol font will handle the 'ê' character display
+  let displaySymbol = currency.symbol
+  
   // Check if we're in RTL mode
   const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
                document.body.classList.contains('rtl')
@@ -107,7 +116,7 @@ Vue.filter('withAbsoluteCurrency', function (number) {
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? currency.symbol + newNumber : newNumber + currency.symbol
+    return effectivePosition == 'left' ? displaySymbol + newNumber : newNumber + displaySymbol
   } else {
     // Fix: Format negative numbers properly
     let numValue = Number(number)
@@ -116,7 +125,7 @@ Vue.filter('withAbsoluteCurrency', function (number) {
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? '-' + currency.symbol + newNumber : '-' + newNumber + currency.symbol
+    return effectivePosition == 'left' ? '-' + displaySymbol + newNumber : '-' + newNumber + displaySymbol
   }
 })
 

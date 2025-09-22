@@ -50,6 +50,17 @@
   padding: 0 3px;
 }
 
+/* Apply Saudi Riyal font to POS system elements */
+#pos td,
+#pos .pos-net-total,
+#pos .input-group-text,
+#pos .table_data td,
+#pos .total,
+.pay-modal td,
+.pay-modal .total {
+  font-family: SaudiRiyalSymbol, sans-serif !important;
+}
+
 
 /* ========================================
    DateRangePicker RTL Override Styles
