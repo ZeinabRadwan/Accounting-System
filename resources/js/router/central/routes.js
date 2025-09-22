@@ -10,7 +10,7 @@ export default [
   {
     path: '/',
     name: 'welcome',
-    component: page('central/template/home.vue')
+    redirect: '/login'
   },
   {
     path: '/admin/login',
