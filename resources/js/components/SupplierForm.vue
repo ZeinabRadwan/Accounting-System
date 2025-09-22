@@ -1180,37 +1180,78 @@ export default {
       this.isCreatingAccount = true;
 
       try {
+        // Get the Asset account type ID (suppliers are typically assets)
+        const assetTypeResponse = await axios.get('/api/chart-of-account-types');
+        let typeId = 1; // Default fallback
+        if (assetTypeResponse.data && assetTypeResponse.data.data) {
+          const assetType = assetTypeResponse.data.data.find(type => 
+            type.name && type.name.toLowerCase().includes('asset')
+          );
+          if (assetType) {
+            typeId = assetType.id;
+          }
+        }
+
         // Determine parent_id based on routing settings
         let parentId = null;
         if (this.routingSetting && this.routingSetting.routing_type === 'main_account_per_each' && this.routingSetting.main_account_id) {
           parentId = this.routingSetting.main_account_id;
         }
 
-        const response = await axios.post('/api/chart-of-accounts/create', {
-          name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
-          type: 'Supplier',
+        // Generate account code
+        const codeResponse = await axios.post('/api/chart-of-accounts/generate-code', {
           parent_id: parentId
         });
+        
+        const accountCode = codeResponse.data.code || '1000';
 
-        if (response.data.success) {
-          this.chartOfAccounts.push(response.data.data);
-          this.form.chartOfAccountId = response.data.data.id;
+        const response = await axios.post('/api/chart-of-accounts', {
+          name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
+          code: accountCode,
+          type_id: typeId,
+          parent_id: parentId,
+          order: 0,
+          is_active: true
+        });
+
+        if (response.data && response.data.data) {
+          // Add to local chartOfAccounts array
+          const newAccount = response.data.data;
+          this.chartOfAccounts.push({
+            id: newAccount.id,
+            name: newAccount.name,
+            code: newAccount.code,
+            type: newAccount.type?.name || 'Asset'
+          });
+          
+          // Set as selected
+          this.form.chartOfAccountId = newAccount.id;
+          
           Swal.fire(
             "Success!",
             "New chart of account created successfully.",
             "success"
           );
         } else {
-          Swal.fire(
-            "Error!",
-            response.data.message || "Failed to create new chart of account.",
-            "error"
-          );
+          throw new Error(response.data.message || "Failed to create new chart of account.");
         }
       } catch (error) {
+        console.error('Error creating chart of account:', error);
+        let errorMessage = "Failed to create new chart of account.";
+        
+        if (error.response && error.response.data) {
+          if (error.response.data.message) {
+            errorMessage = error.response.data.message;
+          } else if (error.response.data.error) {
+            errorMessage = error.response.data.error;
+          }
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
         Swal.fire(
           "Error!",
-          error.message || "Failed to create new chart of account.",
+          errorMessage,
           "error"
         );
       } finally {
