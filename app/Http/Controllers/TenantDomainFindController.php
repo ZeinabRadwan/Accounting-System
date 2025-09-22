@@ -34,6 +34,9 @@ class TenantDomainFindController extends Controller
         })->first();
 
         if (!$tenant) {
+
+        return $this->responseWithError('Tenant not found for this domain.', [], 404);
+
             throw ValidationException::withMessages([
                 'domain' => ['Tenant not found for this domain.'],
             ]);
@@ -46,6 +49,7 @@ class TenantDomainFindController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            return $this->responseWithError('The provided credentials are incorrect.', [], 401);
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
