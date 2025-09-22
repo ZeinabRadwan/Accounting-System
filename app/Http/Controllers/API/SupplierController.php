@@ -140,7 +140,7 @@ class SupplierController extends Controller
                 'is_send_sms' => $request->isSendSMS,
             ];
 
-            // Auto-assign Chart of Account if not provided
+            // Auto-assign Chart of Account if not provided (only for new suppliers)
             $supplierData = $this->autoAssignChartOfAccountForSupplier($supplierData);
 
             // create supplier
@@ -316,8 +316,8 @@ class SupplierController extends Controller
                 'is_send_sms' => $request->isSendSMS,
             ];
 
-            // Auto-assign Chart of Account if not provided
-            $updateData = $this->autoAssignChartOfAccountForSupplier($updateData);
+            // Auto-assign Chart of Account if not provided (only if supplier doesn't already have one)
+            $updateData = $this->autoAssignChartOfAccountForSupplier($updateData, $supplier);
 
             // update supplier
             $supplier->update($updateData);
@@ -1111,7 +1111,58 @@ ORDER BY `date`");
                 ], 404);
             }
 
-            // Auto-assign Chart of Account
+            // Routing-aware auto-assign for supplier
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('is_active', true)
+                ->first();
+
+            if ($routingSetting) {
+                // Main-account-per-each: create a child under main account
+                if ($routingSetting->routing_type === 'main_account_per_each') {
+                    if (!$routingSetting->main_account_id) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Supplier routing is not properly configured: Main account is missing.'
+                        ], 400);
+                    }
+
+                    $newAccount = $this->createChartOfAccountForSupplier([
+                        'type' => $supplier->type ?? 'Company',
+                        'full_name' => $supplier->full_name,
+                        'name' => $supplier->name,
+                        'business_name' => $supplier->business_name,
+                        'company_name' => $supplier->company_name,
+                    ], $routingSetting);
+
+                    $supplier->update(['chart_of_account_id' => $newAccount->id]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Chart of Account created and assigned successfully',
+                        'chart_of_account_id' => $newAccount->id
+                    ]);
+                }
+
+                // Automatic: assign the main account directly
+                if ($routingSetting->routing_type === 'automatic') {
+                    if (!$routingSetting->main_account_id) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Supplier routing is not properly configured: Main account is missing.'
+                        ], 400);
+                    }
+
+                    $supplier->update(['chart_of_account_id' => $routingSetting->main_account_id]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Main account assigned to supplier successfully',
+                        'chart_of_account_id' => $routingSetting->main_account_id
+                    ]);
+                }
+            }
+
+            // Fallback to legacy/default behavior if routing not configured or other types
             $supplierData = [
                 'type' => $supplier->type ?? 'Company'
             ];
@@ -1176,9 +1227,26 @@ ORDER BY `date`");
     /**
      * Auto-assign chart of account based on routing configuration
      */
-    private function autoAssignChartOfAccountForSupplier($supplierData)
+    private function autoAssignChartOfAccountForSupplier($supplierData, $existingSupplier = null)
     {
         try {
+            // If supplier already has a chart of account, don't auto-assign a new one
+            if ($existingSupplier && $existingSupplier->chart_of_account_id) {
+                \Illuminate\Support\Facades\Log::info("Supplier already has chart of account {$existingSupplier->chart_of_account_id}, skipping auto-assignment", [
+                    'supplier_id' => $existingSupplier->id,
+                    'existing_chart_of_account_id' => $existingSupplier->chart_of_account_id
+                ]);
+                return $supplierData;
+            }
+            
+            // If chart_of_account_id is already provided in the data, don't auto-assign
+            if (!empty($supplierData['chart_of_account_id'])) {
+                \Illuminate\Support\Facades\Log::info("Chart of account already provided in data, skipping auto-assignment", [
+                    'provided_chart_of_account_id' => $supplierData['chart_of_account_id']
+                ]);
+                return $supplierData;
+            }
+            
             // Get the suppliers account routing setting
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
                 ->where('is_active', true)

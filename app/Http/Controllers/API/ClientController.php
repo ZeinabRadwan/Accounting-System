@@ -127,7 +127,7 @@ class ClientController extends Controller
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
             ];
 
-            // Auto-assign Chart of Account if not provided
+            // Auto-assign Chart of Account if not provided (only for new clients)
             $clientData = $this->autoAssignChartOfAccountForClient($clientData);
 
             // create client
@@ -304,8 +304,8 @@ class ClientController extends Controller
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
             ];
 
-            // Auto-assign Chart of Account if not provided
-            $updateData = $this->autoAssignChartOfAccountForClient($updateData);
+            // Auto-assign Chart of Account if not provided (only if client doesn't already have one)
+            $updateData = $this->autoAssignChartOfAccountForClient($updateData, $client);
 
             $client->update($updateData);
 
@@ -1154,9 +1154,26 @@ ORDER BY `date`");
     /**
      * Auto-assign chart of account based on routing configuration
      */
-    private function autoAssignChartOfAccountForClient($clientData)
+    private function autoAssignChartOfAccountForClient($clientData, $existingClient = null)
     {
         try {
+            // If client already has a chart of account, don't auto-assign a new one
+            if ($existingClient && $existingClient->chart_of_account_id) {
+                \Illuminate\Support\Facades\Log::info("Client already has chart of account {$existingClient->chart_of_account_id}, skipping auto-assignment", [
+                    'client_id' => $existingClient->id,
+                    'existing_chart_of_account_id' => $existingClient->chart_of_account_id
+                ]);
+                return $clientData;
+            }
+            
+            // If chart_of_account_id is already provided in the data, don't auto-assign
+            if (!empty($clientData['chart_of_account_id'])) {
+                \Illuminate\Support\Facades\Log::info("Chart of account already provided in data, skipping auto-assignment", [
+                    'provided_chart_of_account_id' => $clientData['chart_of_account_id']
+                ]);
+                return $clientData;
+            }
+            
             // Get the clients account routing setting
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
                 ->where('is_active', true)

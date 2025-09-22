@@ -346,8 +346,8 @@
       </div>
     </div>
 
-    <!-- Chart of Account Section -->
-    <div v-if="routingSetting && routingSetting.routing_type !== 'automatic'" class="row mt-4">
+    <!-- Chart of Account Section (match ClientForm: show info only, no dropdown) -->
+    <div v-if="routingSetting" class="row mt-4">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -357,182 +357,20 @@
             </h5>
           </div>
           <div class="card-body">
-        
-                     <!-- Routing Type Info -->
-         <div v-if="routingSetting" class="alert alert-info">
+
+         <!-- Routing Type Info -->
+         <div class="alert alert-info">
            <i class="fas fa-info-circle mr-2"></i>
            <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
            <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
          </div>
-
-         <!-- Auto-creation note for new suppliers -->
-         <div v-if="!isEditMode && routingSetting && routingSetting.routing_type !== 'automatic'" class="alert alert-warning">
-           <i class="fas fa-lightbulb mr-2"></i>
-           <strong>{{ $t("Note for New Suppliers") }}:</strong> 
-           {{ $t("If you don't select a chart of account, one will be automatically created with the supplier name when you save the supplier.") }}
-         </div>
-
-        <!-- Automatic Account Routing - No dropdown needed -->
-        <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
-          <i class="fas fa-check-circle mr-2"></i>
-          {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
-        </div>
-
-                                                                        <!-- Specify Per Each - Show dropdown and create button -->
-            <div v-if="routingSetting && routingSetting.routing_type === 'per_each'" class="chart-of-account-field">
-              <div class="form-group">
-                <label for="chartOfAccountId">
-                  {{ $t("Select Chart of Account") }} <span class="required">*</span>
-                </label>
-                <VSelect 
-                  v-model="form.chartOfAccountId" 
-                  :options="chartOfAccounts" 
-                  :reduce="option => option.id"
-                  :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                  :placeholder="$t('Search for an account...')"
-                  :searchable="true"
-                  :clearable="true"
-                  :filterable="false"
-                  :loading="loadingChartOfAccounts"
-                  :minimum-input-length="2"
-                  :delay="300"
-                  :async="true"
-                  :async-search="searchChartOfAccounts"
-                >
-                  <template #option="{ name, code, type }">
-                    <div class="account-option">
-                      <span class="account-name">{{ name }}</span>
-                      <span class="account-code">{{ code }}</span>
-                      <span class="account-type">{{ type }}</span>
-                    </div>
-                  </template>
-                  <template #selected-option="{ name }">
-                    <span class="selected-account-name">{{ name }}</span>
-                  </template>
-                  <template #no-options>
-                    <div class="text-muted p-2">
-                      {{ $t("No accounts found. Try typing to search...") }}
-                    </div>
-                  </template>
-                  <template #loading>
-                    <div class="text-muted p-2">
-                      <i class="fas fa-spinner fa-spin mr-2"></i>
-                      {{ $t("Searching accounts...") }}
-                    </div>
-                  </template>
-                </VSelect>
-                <has-error :form="form" field="chartOfAccountId" />
-                <small class="form-text text-muted">
-                  {{ $t("Select a chart of account for this supplier. The account will be created without any parent.") }}
-                </small>
-                
-                <!-- Create New Account Button - Positioned below the select -->
-                <div class="mt-3" v-if="isEditMode">
-                  <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
-                    <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
-                    <i v-else class="fas fa-plus mr-2"></i>
-                    {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-                                           <!-- Specify Main Account Per Each - Show dropdown and create button -->
-          <div v-if="routingSetting && routingSetting.routing_type === 'main_account_per_each'" class="chart-of-account-field">
-            <div class="form-group">
-              <label for="chartOfAccountId">
-                {{ $t("Select Chart of Account") }} <span class="required">*</span>
-              </label>
-              <VSelect 
-                v-model="form.chartOfAccountId" 
-                :options="chartOfAccounts" 
-                :reduce="option => option.id"
-                :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
-                :placeholder="$t('Search for an account...')"
-                :searchable="true"
-                :clearable="true"
-                :filterable="false"
-                :loading="loadingChartOfAccounts"
-                :minimum-input-length="2"
-                :delay="300"
-                :async="true"
-                :async-search="searchChartOfAccounts"
-              >
-                <template #option="{ name, code, type }">
-                  <div class="account-option">
-                    <span class="account-name">{{ name }}</span>
-                    <span class="account-code">{{ code }}</span>
-                    <span class="account-type">{{ type }}</span>
-                  </div>
-                </template>
-                <template #selected-option="{ name }">
-                  <span class="selected-account-name">{{ name }}</span>
-                </template>
-                <template #no-options>
-                  <div class="text-muted p-2">
-                    {{ $t("No accounts found. Try typing to search...") }}
-                  </div>
-                </template>
-                <template #loading>
-                  <div class="text-muted p-2">
-                    <i class="fas fa-spinner fa-spin mr-2"></i>
-                    {{ $t("Searching accounts...") }}
-                  </div>
-                </template>
-              </VSelect>
-              <has-error :form="form" field="chartOfAccountId" />
-              <small class="form-text text-muted">
-                {{ $t("Select a chart of account for this supplier. The account will be properly created under the main supplier account.") }}
-              </small>
-              
-              <!-- Create New Account Button - Positioned below the select -->
-              <div class="mt-3" v-if="isEditMode">
-                <button type="button" @click="createNewAccount" class="btn btn-outline-primary create-account-btn" :disabled="isCreatingAccount">
-                  <i v-if="isCreatingAccount" class="fas fa-spinner fa-spin mr-2"></i>
-                  <i v-else class="fas fa-plus mr-2"></i>
-                  {{ isCreatingAccount ? $t("Creating...") : $t("Create New Account") }}
-                </button>
-              </div>
-            </div>
-          </div>
-
-        <!-- Loading state -->
-        <div v-if="loadingChartOfAccounts" class="text-center py-3">
-          <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">{{ $t("Loading...") }}</span>
-          </div>
-          <p class="mt-2">{{ $t("Loading chart of accounts...") }}</p>
-        </div>
-
-        <!-- Error state -->
-        <div v-if="chartOfAccountsError" class="alert alert-danger">
-          <i class="fas fa-exclamation-triangle mr-2"></i>
-          {{ chartOfAccountsError }}
-        </div>
+         <!-- Align to client form: no dropdowns shown here -->
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Automatic Routing Info Section -->
-    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4">
-      <div class="col-md-12">
-        <div class="form-card">
-          <div class="card-header">
-            <h5 class="section-title">
-              <i class="fas fa-chart-line mr-2"></i>
-              {{ $t("Chart of Account") }}
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="alert alert-success">
-              <i class="fas fa-check-circle mr-2"></i>
-              {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Automatic Routing Info handled in the info alert above -->
 
     <!-- Toggle Buttons Section -->
     <div class="row mt-4">
@@ -608,6 +446,7 @@ export default {
       chartOfAccountsError: null,
       chartOfAccounts: [],
       isCreatingAccount: false,
+      isAutoAssigningSupplier: false,
     };
   },
   computed: {
@@ -916,21 +755,7 @@ export default {
         isValid = false;
       }
       
-      // Validate chart of account based on routing type
-      // Only validate if routing settings are loaded and not automatic
-      if (this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
-        if (!this.form.chartOfAccountId) {
-          const message = this.routingSetting.routing_type === 'per_each' 
-            ? "Please select a chart of account for this supplier"
-            : "Please select a chart of account under the main supplier account";
-          console.log('Chart of account validation failed:', message);
-          this.form.errors.set('chartOfAccountId', message);
-          isValid = false;
-        }
-      } else if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
-        // For automatic routing, no validation needed
-        console.log('Automatic routing - no chart of account validation needed');
-      }
+      // Chart of account validation removed to match ClientForm behavior
       
       console.log('=== SUPPLIER FORM VALIDATION RESULT:', isValid, '===');
       return isValid;
@@ -939,6 +764,13 @@ export default {
     // Submit form
     async submitForm() {
       if (!this.validateForm()) {
+        // Provide clear feedback if validation fails
+        if (this.$toast) {
+          this.$toast.fire({
+            type: 'error',
+            title: this.$t('Please fix the highlighted errors and try again')
+          });
+        }
         return;
       }
       
@@ -1035,44 +867,49 @@ export default {
     async loadRoutingSettings() {
       try {
         console.log('Loading routing settings...');
-        // Try the supplier-specific endpoint first
-        let response;
-        try {
-          response = await axios.get('/api/routing-settings/supplier');
-        } catch (error) {
-          console.log('Supplier-specific routing endpoint failed, trying general endpoint');
-          // Fallback to general account routing settings
-          response = await axios.get('/api/account-routing-settings');
-        }
+        // Get the specific suppliers_account routing setting
+        const response = await this.$http.get('/api/account-routing-settings');
+        console.log('Routing settings response:', response);
         
         if (response.data && response.data.success) {
-          if (response.data.data && !Array.isArray(response.data.data)) {
-            // Direct supplier routing setting
-            this.routingSetting = response.data.data;
-            console.log('Routing settings loaded (direct):', this.routingSetting);
-          } else if (Array.isArray(response.data.data)) {
-            // Find the suppliers_account setting from array
-            this.routingSetting = response.data.data.find(setting => setting.setting_key === 'suppliers_account');
-            console.log('Found suppliers_account setting:', this.routingSetting);
-          }
+          console.log('Routing settings data:', response.data.data);
+          // Find the suppliers_account setting
+          this.routingSetting = response.data.data.find(setting => setting.setting_key === 'suppliers_account');
+          console.log('Found suppliers_account setting:', this.routingSetting);
           
           if (this.routingSetting) {
-            // Add routing type display name if not present
-            if (!this.routingSetting.routing_type_display) {
-              this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
-            }
+            // Add routing type display name
+            this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
             console.log('Routing setting with display name:', this.routingSetting);
           } else {
-            console.log('No suppliers_account setting found, using default');
-            this.setDefaultRoutingSetting();
+            console.log('No suppliers_account setting found in:', response.data.data);
+            // Set a default routing setting if none found
+            this.routingSetting = {
+              routing_type: 'per_each',
+              routing_type_display: 'Specify Per Each',
+              main_account_id: null
+            };
+            console.log('Using default routing setting:', this.routingSetting);
           }
         } else {
           console.log('Routing settings response not successful:', response.data);
-          this.setDefaultRoutingSetting();
+          // Set a default routing setting if API fails
+          this.routingSetting = {
+            routing_type: 'per_each',
+            routing_type_display: 'Specify Per Each',
+            main_account_id: null
+          };
+          console.log('Using default routing setting due to API failure:', this.routingSetting);
         }
       } catch (error) {
         console.error('Error loading routing settings:', error);
-        this.setDefaultRoutingSetting();
+        // Set a default routing setting if error occurs
+        this.routingSetting = {
+          routing_type: 'per_each',
+          routing_type_display: 'Specify Per Each',
+          main_account_id: null
+        };
+        console.log('Using default routing setting due to error:', this.routingSetting);
       }
     },
     
@@ -1117,26 +954,50 @@ export default {
         // For other routing types, load accounts based on routing setting
         if (this.routingSetting && this.routingSetting.main_account_id) {
           console.log('Loading accounts from routing setup...');
-          // Load accounts from the routing setup
-          const response = await axios.get(`/api/suppliers/chart-of-accounts/routing`);
-          console.log('Routing accounts response:', response);
-          
-          if (response.data && Array.isArray(response.data)) {
-            this.chartOfAccounts = response.data;
-            console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
-          } else {
-            console.log('Routing accounts response not successful, falling back to all accounts');
+          try {
+            // Load accounts from the routing setup
+            const response = await this.$http.get(`/api/account-routing-settings/${this.routingSetting.setting_key}/accounts`);
+            console.log('Routing accounts response:', response);
+            
+            if (response.data && response.data.success) {
+              this.chartOfAccounts = response.data.accounts || [];
+              console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
+            } else {
+              throw new Error('Routing accounts response not successful');
+            }
+          } catch (routingError) {
+            console.log('Routing accounts failed, falling back to all accounts:', routingError);
             // Fallback to all accounts
-            const fallbackResponse = await axios.get('/api/suppliers/chart-of-accounts');
+            const fallbackResponse = await this.$http.get('/api/suppliers/chart-of-accounts');
             this.chartOfAccounts = fallbackResponse.data || [];
             console.log('Loaded fallback accounts:', this.chartOfAccounts.length);
           }
         } else {
           console.log('No main account ID, loading all accounts as fallback');
-          // Load all accounts as fallback
-          const response = await axios.get('/api/suppliers/chart-of-accounts');
+          // Load all active accounts as fallback
+          const response = await this.$http.get('/api/suppliers/chart-of-accounts');
           this.chartOfAccounts = response.data || [];
           console.log('Loaded all accounts as fallback:', this.chartOfAccounts.length);
+        }
+        
+        // Ensure we have some accounts loaded
+        if (this.chartOfAccounts.length === 0) {
+          console.log('No accounts loaded, trying alternative endpoint...');
+          try {
+            const altResponse = await this.$http.get('/api/chart-of-accounts/dropdown');
+            this.chartOfAccounts = altResponse.data.data || altResponse.data || [];
+            console.log('Loaded accounts from dropdown endpoint:', this.chartOfAccounts.length);
+          } catch (altError) {
+            console.error('Alternative endpoint also failed:', altError);
+            // Set a minimal fallback to prevent empty dropdown
+            this.chartOfAccounts = [{
+              id: 'placeholder',
+              name: 'No accounts available - Please configure chart of accounts',
+              code: 'N/A',
+              type: 'Error'
+            }];
+            this.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
+          }
         }
       } catch (error) {
         console.error('Error loading chart of accounts:', error);
@@ -1147,29 +1008,60 @@ export default {
       }
     },
 
-    // Search for chart of accounts
-    async searchChartOfAccounts(search, loading) {
-      loading(true);
-      try {
-        // Use routing-aware endpoint if available
-        let endpoint = '/api/chart-of-accounts/search';
-        if (this.routingSetting && this.routingSetting.main_account_id) {
-          endpoint = `/api/suppliers/chart-of-accounts/routing?search=${search}`;
-        } else {
-          endpoint = `/api/chart-of-accounts/search?q=${search}`;
-        }
-        
-        const response = await axios.get(endpoint);
-        if (response.data.success || Array.isArray(response.data)) {
-          this.chartOfAccounts = response.data.data || response.data;
-        } else {
-          this.chartOfAccounts = [];
-        }
-      } catch (error) {
-        this.chartOfAccounts = [];
-      } finally {
-        loading(false);
+    // Search chart of accounts (for v-select search)
+    searchChartOfAccounts(search, loading) {
+      console.log('Searching for:', search);
+      
+      if (!search || search.length < 2) {
+        console.log('Search too short, returning first 50 accounts');
+        return Promise.resolve(this.chartOfAccounts.slice(0, 50)); // Return first 50 for initial display
       }
+      
+      return new Promise(async (resolve) => {
+        try {
+          // Filter locally first for better performance
+          const filtered = this.chartOfAccounts.filter(account => 
+            account.name.toLowerCase().includes(search.toLowerCase()) ||
+            account.code.toLowerCase().includes(search.toLowerCase())
+          );
+          
+          console.log('Local filtered results:', filtered.length);
+          
+          // If we have enough results locally, return them
+          if (filtered.length >= 10) {
+            console.log('Enough local results, returning filtered');
+            resolve(filtered.slice(0, 50));
+            return;
+          }
+          
+          // Otherwise, search from API
+          console.log('Searching from API...');
+          const response = await this.$http.get('/api/chart-of-accounts/search', {
+            params: { term: search }
+          });
+          
+          console.log('API search response:', response);
+          
+          if (response.data && (response.data.data || response.data)) {
+            console.log('API returned data, returning results');
+            const apiData = response.data.data || response.data;
+            resolve(apiData.slice(0, 50));
+          } else {
+            console.log('API returned no data, returning local filtered');
+            resolve(filtered.slice(0, 50));
+          }
+        } catch (error) {
+          console.error('Search error:', error);
+          // Return local filtered results on error
+          const filtered = this.chartOfAccounts.filter(account => 
+            account.name.toLowerCase().includes(search.toLowerCase()) ||
+            account.code.toLowerCase().includes(search.toLowerCase())
+          );
+          resolve(filtered.slice(0, 50));
+        } finally {
+          loading(false);
+        }
+      });
     },
 
     // Create new chart of account
@@ -1256,6 +1148,61 @@ export default {
         );
       } finally {
         this.isCreatingAccount = false;
+      }
+    },
+
+    // Auto-assign Chart of Account for supplier
+    async autoAssignSupplierChartOfAccount() {
+      if (!this.form || this.isAutoAssigningSupplier) {
+        return;
+      }
+      
+      this.isAutoAssigningSupplier = true;
+      
+      try {
+        // Get the current supplier slug from the form or route
+        const supplierSlug = this.form.slug || (this.$route && this.$route.params && this.$route.params.slug);
+        
+        if (!supplierSlug || supplierSlug === 'new') {
+          console.log('No supplier slug available for auto-assign');
+          return;
+        }
+        
+        const response = await this.$http.post(`/api/suppliers/${supplierSlug}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          console.log('Auto-assign response:', response.data);
+          
+          // Update the form with new chart of account
+          this.form.chartOfAccountId = response.data.chart_of_account_id;
+          
+          // Force Vue to re-render the component to update the UI
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
+          
+          // Show success message
+          this.$toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
+          
+        } else {
+          this.$toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error auto-assigning chart of account:', error);
+        this.$toast.fire({
+          type: "error",
+          title: this.$t("An error occurred while assigning Chart of Account"),
+        });
+      } finally {
+        this.isAutoAssigningSupplier = false;
       }
     }
   },

@@ -66,23 +66,23 @@ class TenantBulkDataSeederV2 extends Seeder
         $this->loadRequiredData();
         
         // Generate bulk clients and suppliers
-        $this->log('Generating 500 clients...');
-        $this->generateBulkClients(500);
+        $this->log('Generating 100 clients...');
+        $this->generateBulkClients(100);
         
-        $this->log('Generating 500 suppliers...');
-        $this->generateBulkSuppliers(500);
+        $this->log('Generating 100 suppliers...');
+        $this->generateBulkSuppliers(100);
         
         // Reload data to include the new clients and suppliers
         $this->clients = Client::all();
         $this->suppliers = Supplier::all();
         
         // Generate invoices
-        $this->log('Generating 10,000 invoices...');
-        $this->generateInvoices(10000);
+        $this->log('Generating 100 invoices...');
+        $this->generateInvoices(100);
         
         // Generate purchases
-        $this->log('Generating 10,000 purchases...');
-        $this->generatePurchases(10000);
+        $this->log('Generating 100 purchases...');
+        $this->generatePurchases(100);
         
         $this->log('Bulk data generation completed!');
     }

@@ -482,11 +482,18 @@ export default {
     // Watch for changes in initialData prop
     initialData: {
       handler(newData) {
+        console.log('=== INITIAL DATA WATCHER TRIGGERED ===');
+        console.log('New data:', newData);
+        console.log('Form exists:', !!this.form);
+        
         if (newData && Object.keys(newData).length > 0) {
           // Set form values from initial data
           Object.keys(newData).forEach(key => {
             if (this.form.hasOwnProperty(key)) {
+              console.log(`Setting form.${key} = ${newData[key]}`);
               this.form[key] = newData[key];
+            } else {
+              console.log(`Form does not have property: ${key}`);
             }
           });
           
@@ -500,6 +507,7 @@ export default {
           }
           
           console.log('Form initialized with data:', newData);
+          console.log('Form after initialization:', this.form);
           
           // Load representatives if this is an existing client
           if (newData.slug && newData.slug !== 'new') {
@@ -596,6 +604,9 @@ export default {
   methods: {
     // Initialize the form
     initializeForm() {
+      console.log('=== INITIALIZING FORM ===');
+      console.log('Initial data:', this.initialData);
+      
       this.form = new Form({
         // Account Details
         codeNumber: "AC001",
@@ -798,6 +809,11 @@ export default {
     // Validate form
     async validateForm() {
       console.log('=== VALIDATING FORM ===');
+      console.log('Form object:', this.form);
+      console.log('Form type:', this.form ? this.form.type : 'No form');
+      console.log('Form phoneNumber:', this.form ? this.form.phoneNumber : 'No form');
+      console.log('Form businessName:', this.form ? this.form.businessName : 'No form');
+      console.log('Form fullName:', this.form ? this.form.fullName : 'No form');
       
       // Basic validation - check if form exists
       if (!this.form) {
@@ -807,7 +823,7 @@ export default {
       
       // Check if mobile number is provided
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
-        console.log('Phone number validation failed');
+        console.log('Phone number validation failed - phoneNumber:', this.form.phoneNumber);
         if (window.toast && typeof window.toast.fire === 'function') {
           window.toast.fire({
             type: "error",
@@ -821,7 +837,7 @@ export default {
 
        // Check if name is provided based on type
        if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
-         console.log('Business name validation failed');
+         console.log('Business name validation failed - businessName:', this.form.businessName);
          if (window.toast && typeof window.toast.fire === 'function') {
            window.toast.fire({
              type: "error",
@@ -834,7 +850,7 @@ export default {
        }
 
        if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
-         console.log('Full name validation failed');
+         console.log('Full name validation failed - fullName:', this.form.fullName);
          if (window.toast && typeof window.toast.fire === 'function') {
            window.toast.fire({
              type: "error",
@@ -1134,6 +1150,8 @@ export default {
       console.log('Form object:', this.form);
       console.log('Form type:', typeof this.form);
       console.log('Form data method:', this.form ? typeof this.form.data : 'No form');
+      console.log('isNewClient:', this.isNewClient);
+      console.log('initialData:', this.initialData);
       
       if (!this.form) {
         console.error('Form is not initialized!');
@@ -1171,6 +1189,12 @@ export default {
         
         if (!isValid) {
           console.log('Form validation failed');
+          if (window.toast && typeof window.toast.fire === 'function') {
+            window.toast.fire({
+              type: "error",
+              title: this.$t("Please fill in all required fields correctly."),
+            });
+          }
           return;
         }
         

@@ -25,22 +25,22 @@ class TenantDatabaseSeeder extends Seeder
             // First create chart of accounts to avoid foreign key constraint issues
            
             // Then run demo seeders
-            $this->call([
-                DemoDatabaseSeeder::class,
-            ]);
+            // $this->call([
+            //     DemoDatabaseSeeder::class,
+            // ]);
 
-            $this->call([
-                TenantSettingSeeder::class,
-                TenantChartOfAccountType::class,
-                TenantChartOfAccountSeeder::class,
-                AccountRoutingSettingsSeeder::class,
-                FiscalYearSeeder::class,
-                DefaultRouteAccountingSettingsSeeder::class,
-                DefaultFiscalAndAccountingPeriodSeeder::class,
-                AccountStatementPermissionSeeder::class,
-                TenantPermissionSeeder::class,
-                RolePermissionSeeder::class,
-            ]);
+            // $this->call([
+            //     TenantSettingSeeder::class,
+            //     TenantChartOfAccountType::class,
+            //     TenantChartOfAccountSeeder::class,
+            //     AccountRoutingSettingsSeeder::class,
+            //     FiscalYearSeeder::class,
+            //     DefaultRouteAccountingSettingsSeeder::class,
+            //     DefaultFiscalAndAccountingPeriodSeeder::class,
+            //     AccountStatementPermissionSeeder::class,
+            //     TenantPermissionSeeder::class,
+            //     RolePermissionSeeder::class,
+            // ]);
 
             // Uncomment the line below to generate bulk data (10,000 invoices + 10,000 purchases)
             // $this->call([TenantBulkDataSeederV2::class]);
@@ -49,21 +49,28 @@ class TenantDatabaseSeeder extends Seeder
         // }
         // // for production
         // else {
-        //     $this->call([
-        //         TenantRoleSeeder::class,
-        //         TenantSettingSeeder::class,
-        //         CurrencySeeder::class,
-        //         UserRoleSeeder::class,
-        //         TenantPermissionSeeder::class,
-        //         UserPermissionSeeder::class,
-        //         RolePermissionSeeder::class,
-        //         TenantClientSeeder::class,
-        //         TenantAccountSeeder::class,
-        //         TenantVatRateSeeder::class,
-        //         TenantMenuSeeder::class,
-        //         TenantChartOfAccountType::class,
-        //         TenantChartOfAccountSeeder::class,
-        //     ]);
+            $this->call([
+                TenantRoleSeeder::class,
+                TenantSettingSeeder::class,
+                CurrencySeeder::class,
+                UserRoleSeeder::class,
+                TenantPermissionSeeder::class,
+                UserPermissionSeeder::class,
+                RolePermissionSeeder::class,
+                TenantChartOfAccountType::class,
+                TenantChartOfAccountSeeder::class,
+                AccountRoutingSettingsSeeder::class,
+                FiscalYearSeeder::class,
+                DefaultRouteAccountingSettingsSeeder::class,
+                DefaultFiscalAndAccountingPeriodSeeder::class,
+                AccountStatementPermissionSeeder::class,
+                TenantClientSeeder::class,
+                TenantAccountSeeder::class,
+                TenantVatRateSeeder::class,
+                TenantMenuSeeder::class,
+            ]);
+
+            $this->call([TenantBulkDataSeederV2::class]);
         // }
     }
 }

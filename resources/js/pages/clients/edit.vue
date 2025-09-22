@@ -49,9 +49,9 @@
           <div class="card-footer">
             <div class="dtable-footer">
               <div class="form-group row display-per-page footer-buttons">
-                <v-button :loading="isSubmitting || loading" :disabled="!isFormReady" class="btn btn-primary" @click="submitForm">
+                <button type="button" :disabled="isSubmitting || loading || !isFormReady" class="btn btn-primary" @click="submitForm">
                   <i class="fas fa-edit" /> {{ $t("Save changes") }}
-                </v-button>
+                </button>
                 <button type="button" class="btn btn-secondary" @click="resetForm">
                   <i class="fas fa-power-off" /> {{ $t("Reset") }}
                 </button>
@@ -100,7 +100,14 @@ export default {
   computed: {
     // Check if form is ready
     isFormReady() {
-      return !this.loading && this.clientData && this.clientData.slug && Object.keys(this.clientData).length > 0;
+      const ready = !this.loading && this.clientData && this.clientData.slug && Object.keys(this.clientData).length > 0;
+      console.log('=== IS FORM READY CHECK ===');
+      console.log('Loading:', this.loading);
+      console.log('ClientData:', this.clientData);
+      console.log('ClientData slug:', this.clientData ? this.clientData.slug : 'No clientData');
+      console.log('ClientData keys length:', this.clientData ? Object.keys(this.clientData).length : 'No clientData');
+      console.log('Is form ready:', ready);
+      return ready;
     }
   },
   watch: {
@@ -243,8 +250,21 @@ export default {
     // Submit form by calling ClientForm's submitForm method
     submitForm() {
       console.log('=== SUBMIT FORM CALLED ===');
+      console.log('Is submitting:', this.isSubmitting);
+      console.log('Is loading:', this.loading);
+      console.log('Is form ready:', this.isFormReady);
       console.log('ClientForm ref:', this.$refs.clientForm);
       console.log('ClientForm methods:', this.$refs.clientForm ? Object.getOwnPropertyNames(this.$refs.clientForm) : 'No ref');
+      
+      if (this.isSubmitting || this.loading) {
+        console.log('Form is submitting or loading, ignoring click');
+        return;
+      }
+      
+      if (!this.isFormReady) {
+        console.log('Form is not ready, ignoring click');
+        return;
+      }
       
       if (this.$refs.clientForm) {
         console.log('Calling ClientForm submitForm method...');
