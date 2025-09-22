@@ -238,6 +238,7 @@ export default {
       await this.form
         .post(window.location.origin + '/api/accounts')
         .then(() => {
+          // Clear temporary data after successful save
           this.clearTemporaryData()
           toast.fire({
             type: 'success',
