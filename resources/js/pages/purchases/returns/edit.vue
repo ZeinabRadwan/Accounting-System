@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'purchaseReturns.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -232,7 +235,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -482,6 +485,7 @@ export default {
             type: 'success',
             title: this.$t('Purchase return updated successfully'),
           })
+          this.clearTemporaryData()
           this.$router.push({ name: 'purchaseReturns.show', params: { slug: data.data.slug }, })
         })
         .catch(() => {
@@ -491,11 +495,66 @@ export default {
           })
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        returnReason: this.form.returnReason,
+        returnAmount: this.form.returnAmount,
+        returnDate: this.form.returnDate,
+        note: this.form.note,
+        status: this.form.status,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('purchaseReturnEditTempData', JSON.stringify(tempData))
+      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('purchaseReturnEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.returnReason = data.returnReason || this.form.returnReason
+          this.form.returnAmount = data.returnAmount || this.form.returnAmount
+          this.form.returnDate = data.returnDate || this.form.returnDate
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('purchaseReturnEditTempData')
+    },
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
 }
 </script>
 
 <style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;

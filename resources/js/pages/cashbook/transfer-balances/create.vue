@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'transferBalances.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -113,7 +116,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-save" /> {{ $t('Save') }}
                   </v-button>
@@ -218,6 +221,7 @@ export default {
             type: 'success',
             title: this.$t('Balance transfer added successfully'),
           })
+          this.clearTemporaryData()
           this.$router.push({ name: 'transferBalances.index' })
         })
         .catch((error) => {
@@ -263,11 +267,68 @@ export default {
           });
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        transferReason: this.form.transferReason,
+        fromAccount: this.form.fromAccount,
+        toAccount: this.form.toAccount,
+        amount: this.form.amount,
+        date: this.form.date,
+        note: this.form.note,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('transferBalanceTempData', JSON.stringify(tempData))
+      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('transferBalanceTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.transferReason = data.transferReason || this.form.transferReason
+          this.form.fromAccount = data.fromAccount || this.form.fromAccount
+          this.form.toAccount = data.toAccount || this.form.toAccount
+          this.form.amount = data.amount || this.form.amount
+          this.form.date = data.date || this.form.date
+          this.form.note = data.note || this.form.note
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('transferBalanceTempData')
+    },
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
 }
 </script>
 
 <style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;

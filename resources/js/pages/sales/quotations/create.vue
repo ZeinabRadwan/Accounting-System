@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'quotations.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -386,7 +389,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-save" /> {{ $t("Save") }}
                   </v-button>
@@ -864,6 +867,7 @@ export default {
             type: "success",
             title: this.$t("Quotation added successfully"),
           });
+          this.clearTemporaryData()
           this.$router.push({
             name: "quotations.show",
             params: { slug: data.data.slug },
@@ -873,11 +877,106 @@ export default {
           toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
         });
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        client: this.form.client,
+        reference: this.form.reference,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        transportCost: this.form.transportCost,
+        orderTax: this.form.orderTax,
+        totalProductTax: this.form.totalProductTax,
+        totalTax: this.form.totalTax,
+        discount: this.form.discount,
+        discountType: this.form.discountType,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        addPayment: this.form.addPayment,
+        account: this.form.account,
+        paidAmount: this.form.paidAmount,
+        paymentMethod: this.form.paymentMethod,
+        chequeNo: this.form.chequeNo,
+        receiptNo: this.form.receiptNo,
+        deliveryPlace: this.form.deliveryPlace,
+        date: this.form.date,
+        note: this.form.note,
+        status: this.form.status,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('quotationTempData', JSON.stringify(tempData))
+      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('quotationTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.client = data.client || this.form.client
+          this.form.reference = data.reference || this.form.reference
+          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
+          this.form.subTotal = data.subTotal || this.form.subTotal
+          this.form.netTotal = data.netTotal || this.form.netTotal
+          this.form.transportCost = data.transportCost || this.form.transportCost
+          this.form.orderTax = data.orderTax || this.form.orderTax
+          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
+          this.form.totalTax = data.totalTax || this.form.totalTax
+          this.form.discount = data.discount || this.form.discount
+          this.form.discountType = data.discountType || this.form.discountType
+          this.form.poReference = data.poReference || this.form.poReference
+          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
+          this.form.addPayment = data.addPayment || this.form.addPayment
+          this.form.account = data.account || this.form.account
+          this.form.paidAmount = data.paidAmount || this.form.paidAmount
+          this.form.paymentMethod = data.paymentMethod || this.form.paymentMethod
+          this.form.chequeNo = data.chequeNo || this.form.chequeNo
+          this.form.receiptNo = data.receiptNo || this.form.receiptNo
+          this.form.deliveryPlace = data.deliveryPlace || this.form.deliveryPlace
+          this.form.date = data.date || this.form.date
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
+          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('quotationTempData')
+    },
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
 };
 </script>
 
 <style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 .create-btn {
   padding: 11px;
 }

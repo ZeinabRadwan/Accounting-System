@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -136,7 +139,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -431,6 +434,9 @@ export default {
             timer: 2000
           });
           
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
+          
           // Wait a moment for the toast to show, then redirect
           setTimeout(() => {
             this.$router.push({ name: 'chart-of-accounts.index' });
@@ -456,11 +462,70 @@ export default {
         });
       }
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        name: this.form.name,
+        code: this.form.code,
+        type_id: this.form.type_id,
+        parent_id: this.form.parent_id,
+        code_generation: this.form.code_generation,
+        is_system: this.form.is_system,
+        enabled: this.form.enabled,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('chartOfAccountEditTempData', JSON.stringify(tempData))
+      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('chartOfAccountEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.name = data.name || this.form.name
+          this.form.code = data.code || this.form.code
+          this.form.type_id = data.type_id || this.form.type_id
+          this.form.parent_id = data.parent_id || this.form.parent_id
+          this.form.code_generation = data.code_generation || this.form.code_generation
+          this.form.is_system = data.is_system !== undefined ? data.is_system : this.form.is_system
+          this.form.enabled = data.enabled !== undefined ? data.enabled : this.form.enabled
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('chartOfAccountEditTempData')
+    },
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
 }
 </script>
 
 <style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 /* Code Generation Toggle */
 .code-generation-toggle {
   margin-bottom: 0.5rem;

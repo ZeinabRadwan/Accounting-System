@@ -3,6 +3,21 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
+    
+    <!-- Header with temporary save button -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="float-right header-buttons">
+              <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                <i class="fas fa-save" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="row sm-col-reverse">
       <!-- pos left area start -->
@@ -1157,6 +1172,7 @@ export default {
         .then(({ data }) => {
           this.form.invoice_id = data.data.invoice_id;
           this.form.invoice_slug = data.data.invoice_slug;
+          this.clearTemporaryData();
           if (isDirect) {
             this.showInvoiceAndPrint();
           }
@@ -1252,11 +1268,83 @@ export default {
       this.showModal = false;
       this.generateOrder = false;
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        client: this.form.client,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        transportCost: this.form.transportCost,
+        orderTax: this.form.orderTax,
+        totalProductTax: this.form.productTotalTax,
+        totalTax: this.form.totalTax,
+        discount: this.form.discount,
+        discountType: this.form.discountType,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        addPayment: this.form.addPayment,
+        account: this.form.account,
+        totalPaid: this.form.totalPaid,
+        deliveryPlace: this.form.deliveryPlace,
+        date: this.form.date,
+        note: this.form.note,
+        status: this.form.status,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('posTempData', JSON.stringify(tempData))
+      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('posTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.client = data.client || this.form.client
+          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
+          this.form.subTotal = data.subTotal || this.form.subTotal
+          this.form.netTotal = data.netTotal || this.form.netTotal
+          this.form.transportCost = data.transportCost || this.form.transportCost
+          this.form.orderTax = data.orderTax || this.form.orderTax
+          this.form.productTotalTax = data.totalProductTax || this.form.productTotalTax
+          this.form.totalTax = data.totalTax || this.form.totalTax
+          this.form.discount = data.discount || this.form.discount
+          this.form.discountType = data.discountType || this.form.discountType
+          this.form.poReference = data.poReference || this.form.poReference
+          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
+          this.form.addPayment = data.addPayment || this.form.addPayment
+          this.form.account = data.account || this.form.account
+          this.form.totalPaid = data.totalPaid || this.form.totalPaid
+          this.form.deliveryPlace = data.deliveryPlace || this.form.deliveryPlace
+          this.form.date = data.date || this.form.date
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
+          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('posTempData')
+    },
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
 };
 </script>
 
 <style lang="scss" scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
 
 .table-price-counter-nowrap {
     display: flex;

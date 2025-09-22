@@ -38,12 +38,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li v-tooltip="'POS'" class="nav-item" style="margin-right: 8px;">
-        <router-link :to="{ name: 'pos.create' }" class="btn pos-btn">
-          <i class="fas fa-cash-register"></i>
-          {{ this.$t("POS") }}</router-link>
-      </li>
-
       <li v-if="$can('today-profit')" v-tooltip="'Today Report'" class="nav-item">
         <a class="nav-link custom-nav-btn" :href="`#${$route.name === 'reports.todayReport' ? '' : 'reports.todayReport'}`" @click.prevent="$router.push({ name: 'reports.todayReport' })">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"

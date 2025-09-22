@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'productCats.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -48,7 +51,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons">
                   <v-button :loading="form.busy" class="btn btn-primary">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
@@ -130,6 +133,7 @@ export default {
             type: 'success',
             title: this.$t('Category updated successfully'),
           })
+          this.clearTemporaryData()
           this.$router.push({ name: 'productCats.index' })
         })
         .catch(() => {
@@ -139,11 +143,62 @@ export default {
           })
         })
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        name: this.form.name,
+        status: this.form.status,
+        note: this.form.note,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('productCategoryEditTempData', JSON.stringify(tempData))
+      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('productCategoryEditTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.name = data.name || this.form.name
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+          this.form.note = data.note || this.form.note
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('productCategoryEditTempData')
+    },
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
 }
 </script>
 
 <style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;

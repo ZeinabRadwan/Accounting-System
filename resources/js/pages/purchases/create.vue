@@ -1158,6 +1158,7 @@ export default {
           title: this.$t("Purchase added successfully"),
         });
         
+        this.clearTemporaryData()
         this.$router.push({
           name: "purchases.show",
           params: { slug: response.data.data.slug },
@@ -1302,6 +1303,68 @@ export default {
         }
       }
     },
+    // save form data temporarily
+    saveTemporary() {
+      const tempData = {
+        supplier: this.form.supplier,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        transportCost: this.form.transportCost,
+        orderTax: this.form.orderTax,
+        totalProductTax: this.form.totalProductTax,
+        totalTax: this.form.totalTax,
+        discount: this.form.discount,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        poDate: this.form.poDate,
+        purchaseDate: this.form.purchaseDate,
+        addPayment: this.form.addPayment,
+        account: this.form.account,
+        totalPaid: this.form.totalPaid,
+        note: this.form.note,
+        status: this.form.status,
+        timestamp: new Date().toISOString()
+      }
+      localStorage.setItem('purchaseTempData', JSON.stringify(tempData))
+      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+    },
+    // load temporary data
+    loadTemporaryData() {
+      const tempData = localStorage.getItem('purchaseTempData')
+      if (tempData) {
+        try {
+          const data = JSON.parse(tempData)
+          this.form.supplier = data.supplier || this.form.supplier
+          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
+          this.form.subTotal = data.subTotal || this.form.subTotal
+          this.form.netTotal = data.netTotal || this.form.netTotal
+          this.form.transportCost = data.transportCost || this.form.transportCost
+          this.form.orderTax = data.orderTax || this.form.orderTax
+          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
+          this.form.totalTax = data.totalTax || this.form.totalTax
+          this.form.discount = data.discount || this.form.discount
+          this.form.poReference = data.poReference || this.form.poReference
+          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
+          this.form.poDate = data.poDate || this.form.poDate
+          this.form.purchaseDate = data.purchaseDate || this.form.purchaseDate
+          this.form.addPayment = data.addPayment || this.form.addPayment
+          this.form.account = data.account || this.form.account
+          this.form.totalPaid = data.totalPaid || this.form.totalPaid
+          this.form.note = data.note || this.form.note
+          this.form.status = data.status !== undefined ? data.status : this.form.status
+        } catch (e) {
+          console.error('Error loading temporary data:', e)
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData() {
+      localStorage.removeItem('purchaseTempData')
+    },
+  },
+  mounted() {
+    this.loadTemporaryData()
   },
 };
 </script>
