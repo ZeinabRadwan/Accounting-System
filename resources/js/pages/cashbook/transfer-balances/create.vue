@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'transferBalances.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTransfer" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -216,15 +216,33 @@ export default {
     async saveTransfer() {
       await this.form
         .post(window.location.origin + '/api/balance-transfers')
-        .then(() => {
+        .then((response) => {
           toast.fire({
             type: 'success',
-            title: this.$t('Balance transfer added successfully'),
+            title: response?.data?.message || this.$t('Balance transfer added successfully'),
           })
           this.clearTemporaryData()
           this.$router.push({ name: 'transferBalances.index' })
         })
         .catch((error) => {
+          // If validation error (422), aggregate and show all messages in a toast
+          if (error.response?.status === 422 && error.response?.data?.errors) {
+            const fieldErrors = error.response.data.errors;
+            const messages = Object.values(fieldErrors)
+              .flat()
+              .filter(Boolean);
+
+            // Clear custom account errors for generic validation case
+            this.fromAccountError = null;
+            this.toAccountError = null;
+
+            // Show each validation error as its own toast (single-line), like other toasts
+            messages.forEach((msg) => {
+              toast.fire({ type: 'error', title: msg });
+            });
+            return;
+          }
+
           // Display the specific error message from the server
           const errorMessage = error.response?.data?.message || this.$t('Opps...something went wrong');
           
