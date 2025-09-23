@@ -403,10 +403,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('employeeTempData', JSON.stringify(tempData))
-      toast.fire({
-        type: 'success',
-        title: this.$t('Form saved temporarily'),
-      })
+      
     },
     // load temporary data
     loadTemporaryData() {

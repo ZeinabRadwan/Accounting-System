@@ -443,7 +443,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('journalEntryEditTempData', JSON.stringify(tempData))
-      window.toast.success('Form saved temporarily')
+      
     },
     // load temporary data
     loadTemporaryData() {

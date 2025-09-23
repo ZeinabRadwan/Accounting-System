@@ -1,7 +1,7 @@
 <template>
   <div class="mb-50">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-xl-12">
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <!-- breadcrumbs Start -->
@@ -19,13 +19,14 @@
             </div>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <SupplierForm 
-            ref="supplierForm"
-            :showCardBody="true"
-            @submit="saveSupplier"
-          />
-          
+          <div class="card-body">
+            <!-- form start -->
+            <SupplierForm 
+              ref="supplierForm"
+              :showCardBody="false"
+              @submit="saveSupplier"
+            />
+          </div>
           <!-- /.card-body -->
           <div class="card-footer">
             <div class="dtable-footer">
@@ -161,7 +162,7 @@ export default {
           timestamp: new Date().toISOString()
         }
         localStorage.setItem('supplierTempData', JSON.stringify(tempData))
-        toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+         
       }
     },
     // load temporary data

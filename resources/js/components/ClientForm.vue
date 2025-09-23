@@ -436,20 +436,16 @@
 
 <script>
 import Form from "vform";
-import { VueTelInput } from "vue-tel-input";
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
-import VSelect from "vue-select";
 
 import axios from 'axios';
 
 export default {
   name: "ClientForm",
   components: {
-    VueTelInput,
     ToggleButton,
     RepresentativesList,
-    VSelect,
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -489,7 +485,7 @@ export default {
         if (newData && Object.keys(newData).length > 0) {
           // Set form values from initial data
           Object.keys(newData).forEach(key => {
-            if (this.form.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(this.form, key)) {
               console.log(`Setting form.${key} = ${newData[key]}`);
               this.form[key] = newData[key];
             } else {
@@ -1077,58 +1073,55 @@ export default {
     },
 
     // Search chart of accounts (for v-select search)
-    searchChartOfAccounts(search, loading) {
+    async searchChartOfAccounts(search) {
       console.log('Searching for:', search);
       
       if (!search || search.length < 2) {
         console.log('Search too short, returning first 50 accounts');
-        return Promise.resolve(this.chartOfAccounts.slice(0, 50)); // Return first 50 for initial display
+        return this.chartOfAccounts.slice(0, 50); // Return first 50 for initial display
       }
       
-      return new Promise(async (resolve) => {
-        try {
-          // Filter locally first for better performance
-          const filtered = this.chartOfAccounts.filter(account => 
-            account.name.toLowerCase().includes(search.toLowerCase()) ||
-            account.code.toLowerCase().includes(search.toLowerCase())
-          );
-          
-          console.log('Local filtered results:', filtered.length);
-          
-          // If we have enough results locally, return them
-          if (filtered.length >= 10) {
-            console.log('Enough local results, returning filtered');
-            resolve(filtered.slice(0, 50));
-            return;
-          }
-          
-          // Otherwise, search from API
-          console.log('Searching from API...');
-          const response = await this.$http.get('/api/chart-of-accounts/search', {
-            params: { term: search }
-          });
-          
-          console.log('API search response:', response);
-          
-          if (response.data && (response.data.data || response.data)) {
-            console.log('API returned data, returning results');
-            const apiData = response.data.data || response.data;
-            resolve(apiData.slice(0, 50));
-          } else {
-            console.log('No API data, returning local filtered');
-            resolve(filtered);
-          }
-        } catch (error) {
-          console.error('Error searching chart of accounts:', error);
-          // Fallback to local filtering
-          const fallbackFiltered = this.chartOfAccounts.filter(account => 
-            account.name.toLowerCase().includes(search.toLowerCase()) ||
-            account.code.toLowerCase().includes(search.toLowerCase())
-          );
-          console.log('Fallback filtered results:', fallbackFiltered.length);
-          resolve(fallbackFiltered.slice(0, 50));
+      try {
+        // Filter locally first for better performance
+        const filtered = this.chartOfAccounts.filter(account => 
+          account.name.toLowerCase().includes(search.toLowerCase()) ||
+          account.code.toLowerCase().includes(search.toLowerCase())
+        );
+        
+        console.log('Local filtered results:', filtered.length);
+        
+        // If we have enough results locally, return them
+        if (filtered.length >= 10) {
+          console.log('Enough local results, returning filtered');
+          return filtered.slice(0, 50);
         }
-      });
+        
+        // Otherwise, search from API
+        console.log('Searching from API...');
+        const response = await this.$http.get('/api/chart-of-accounts/search', {
+          params: { term: search }
+        });
+        
+        console.log('API search response:', response);
+        
+        if (response.data && (response.data.data || response.data)) {
+          console.log('API returned data, returning results');
+          const apiData = response.data.data || response.data;
+          return apiData.slice(0, 50);
+        } else {
+          console.log('No API data, returning local filtered');
+          return filtered;
+        }
+      } catch (error) {
+        console.error('Error searching chart of accounts:', error);
+        // Fallback to local filtering
+        const fallbackFiltered = this.chartOfAccounts.filter(account => 
+          account.name.toLowerCase().includes(search.toLowerCase()) ||
+          account.code.toLowerCase().includes(search.toLowerCase())
+        );
+        console.log('Fallback filtered results:', fallbackFiltered.length);
+        return fallbackFiltered.slice(0, 50);
+      }
     },
 
     // Auto-create chart of account for new client
@@ -1298,550 +1291,146 @@ export default {
 };
 </script>
 
-
 <style scoped>
-/* Form Card Styling */
+/* Section cards */
 .form-card {
-  background: #ffffff;
-  border: 1px solid #e3e6f0;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.form-card:hover {
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.25);
-  transform: translateY(-2px);
+  margin-top: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+  background: #fff;
 }
 
 .form-card .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 0.75rem 0.75rem 0 0;
+  background-color: #33a0d9;
+  color: #ffffff;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 16px;
   border-bottom: none;
 }
 
-.form-card .card-header .section-title {
-  color: white;
+.form-card .section-title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 14px;
   font-weight: 600;
-  border: none;
-  padding: 0;
-}
-
-.form-card .card-header .section-title::after {
-  display: none;
-}
-
-.form-card .card-header .section-title i {
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
 }
 
 .form-card .card-body {
-  padding: 1.5rem;
+  padding: 16px;
 }
 
-/* Enhanced Section Title Styling */
-.section-title {
-  color: #495057;
-  font-weight: 600;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
+/* Inputs (match invoices create look and feel) */
+.form-control {
+  background: #fff !important;
 }
 
-.section-subtitle {
-  color: #495057;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #dee2e6;
+.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
 
+/* Radio group horizontal styling */
 .radio-group {
   display: flex;
-  gap: 20px;
-}
-
-.radio-inline {
-  display: flex;
+  gap: 16px;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
 }
 
-.radio-inline input[type="radio"] {
+.radio-group .radio-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin: 0;
 }
 
-.checkbox-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+/* v-select tweaks */
+.v-select .vs__dropdown-toggle {
+  border-radius: 6px;
+  border-color: #CED4DA;
 }
 
-.checkbox-inline input[type="checkbox"] {
-  margin: 0;
+.v-select .vs__dropdown-toggle:focus,
+.v-select .vs__dropdown-toggle.vs__open {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
 
-.chart-of-account-field {
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #f8f9fa;
-  margin-bottom: 20px;
+.v-select .vs__search,
+.v-select .vs__selected,
+.v-select .vs__dropdown-menu {
+  font-size: 0.95rem;
 }
 
-.chart-of-account-field label {
-  font-weight: 600;
-  color: #495057;
-  margin-bottom: 10px;
+/* Custom file input */
+.custom-file-input:focus ~ .custom-file-label {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
 
-.chart-of-account-field .required {
-  color: #dc3545;
-  font-weight: bold;
-}
-
-.auto-assign-btn {
-  min-width: 120px;
-  white-space: nowrap;
-}
-
-.auto-assign-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.auto-assign-btn:disabled:hover {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.form-text {
-  font-size: 0.875rem;
-  color: #6c757d;
-  margin-top: 5px;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.required {
-  color: #dc3545;
-  font-weight: bold;
-}
-
-.required-field {
-  font-weight: 600;
-  color: #495057;
-}
-
-.required-input {
-  border-left: 3px solid #dc3545;
-}
-
-/* Question mark icon styling */
-.fa-question-circle {
-  cursor: help;
-  opacity: 0.7;
-}
-
-.fa-question-circle:hover {
-  opacity: 1;
-}
-
-/* File upload area styling */
 .custom-file-label {
-  border: 2px dashed #dee2e6;
-  background-color: #f8f9fa;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 6px;
 }
 
-.custom-file-label:hover {
-  border-color: #007bff;
-  background-color: #e3f2fd;
-}
-
-.custom-file-label .text-primary {
-  text-decoration: underline;
-}
-
-.custom-file-label .fa-cloud-upload-alt {
-  font-size: 1.2em;
-  color: #6c757d;
-}
-
-/* Improved file upload area */
+/* File upload drop area */
 .file-upload-area {
   position: relative;
-  border: 2px dashed #dee2e6;
-  border-radius: 8px;
-  background-color: #f8f9fa;
-  padding: 30px;
+  border: 2px dashed #33a0d9;
+  border-radius: 12px;
+  padding: 20px;
   text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.file-upload-area:hover {
-  border-color: #007bff;
-  background-color: #e3f2fd;
+  background: #f8fdfe;
 }
 
 .file-upload-area .file-input {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
   cursor: pointer;
 }
 
-.file-upload-content {
-  pointer-events: none;
+.file-upload-area .file-upload-content {
+  color: #33a0d9;
 }
 
-.file-upload-content i {
-  font-size: 2.5em;
-  color: #6c757d;
-  margin-bottom: 10px;
-}
-
-.file-upload-content p {
-  margin: 10px 0 5px 0;
-  font-weight: 500;
-  color: #495057;
-}
-
-.file-upload-content small {
-  color: #6c757d;
-}
-
-/* Selected files styling */
-.selected-files {
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.selected-file-item {
-  display: flex;
+/* Selected files list */
+.selected-files .selected-file-item {
+  display: inline-flex;
   align-items: center;
-  padding: 8px 12px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background: #f5faff;
+  border: 1px solid #e3f3f7;
   border-radius: 6px;
+  padding: 6px 10px;
+  margin-right: 8px;
   margin-bottom: 8px;
 }
 
-.selected-file-item i {
-  color: #6c757d;
-  margin-right: 8px;
-}
-
-.selected-file-item span {
-  flex-grow: 1;
-  font-size: 0.9em;
-}
-
-/* Image preview styling */
-.image-preview {
-  text-align: center;
-}
-
-.image-preview img {
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Improved form layout */
-.section-title {
-  color: #495057;
-  font-weight: 600;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
-  position: relative;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 50px;
-  height: 2px;
-  background-color: #007bff;
-}
-
-/* Better spacing between sections */
-.row.mt-4 {
-  margin-top: 2rem !important;
-}
-
-/* Improved form groups */
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  font-weight: 500;
-  color: #495057;
-  margin-bottom: 0.5rem;
-}
-
-/* Better radio and checkbox styling */
-.radio-group {
-  display: flex;
-  gap: 20px;
-  margin-top: 0.5rem;
-}
-
-.radio-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.radio-inline:hover {
-  background-color: #f8f9fa;
-}
-
-.radio-inline input[type="radio"] {
-  margin: 0;
-}
-
-.checkbox-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.checkbox-inline:hover {
-  background-color: #f8f9fa;
-}
-
-.checkbox-inline input[type="checkbox"] {
-  margin: 0;
-}
-
-/* Account Option Styling (from account routing page) */
-.account-option {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.5rem 0;
-}
-
-.account-name {
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-.account-code {
-  font-size: 0.8rem;
-  color: #7f8c8d;
-  font-family: monospace;
-}
-
-.account-type {
-  font-size: 0.8rem;
-  color: #3498db;
-  text-transform: uppercase;
+/* Toggle labels spacing */
+.d-flex.align-items-center span.ml-3 {
   font-weight: 500;
 }
 
-.selected-account-name {
-  font-weight: 600;
-  color: #2c3e50;
+/* Required asterisk */
+.required {
+  color: #dc3545;
 }
 
-/* Create Account Button Styling */
-.create-account-btn {
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border: 2px solid #007bff;
-  background-color: transparent;
-  color: #007bff;
+/* RTL adjustments */
+[dir="rtl"] .form-card .card-header {
+  border-radius: 20px 20px 0 0;
 }
 
-.create-account-btn:hover {
-  background-color: #007bff;
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+/* Button brand alignment if used inside the component */
+.btn-primary {
+  background: #33a0d9 !important;
+  border-color: #33a0d9 !important;
 }
 
-.create-account-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
-}
-
-.create-account-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-  background-color: #6c757d;
-  border-color: #6c757d;
-  color: white;
-}
-
-.create-account-btn:disabled:hover {
-  background-color: #6c757d;
-  border-color: #6c757d;
-  color: white;
-  transform: none;
-  box-shadow: none;
-}
-
-/* Vue Select Z-Index Fix - Global */
-.vs__dropdown-menu {
-  z-index: 99999 !important;
-  position: absolute !important;
-  top: 100% !important;
-  left: 0 !important;
-  right: 0 !important;
-  background: white !important;
-  border: 1px solid #ccc !important;
-  border-radius: 4px !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-  max-height: 200px !important;
-  overflow-y: auto !important;
-}
-
-.vs__dropdown-toggle {
-  z-index: 1 !important;
-  position: relative !important;
-}
-
-/* Chart of Account dropdown specific styling */
-.chart-of-account-field .vs__dropdown-menu {
-  z-index: 99999 !important;
-  position: absolute !important;
-  top: 100% !important;
-  left: 0 !important;
-  right: 0 !important;
-  background: white !important;
-  border: 1px solid #007bff !important;
-  border-radius: 6px !important;
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15) !important;
-  max-height: 250px !important;
-  overflow-y: auto !important;
-}
-
-/* Ensure the form card doesn't clip the dropdown */
-.form-card {
-  overflow: visible !important;
-}
-
-/* Chart of Account field container */
-.chart-of-account-field {
-  position: relative !important;
-  z-index: 1 !important;
-}
-
-/* Vue Select container positioning */
-.vue-select {
-  position: relative !important;
-  z-index: 1 !important;
-}
-
-/* Ensure the dropdown menu is properly positioned */
-.vue-select .vs__dropdown-menu {
-  z-index: 99999 !important;
-  position: absolute !important;
-  top: 100% !important;
-  left: 0 !important;
-  right: 0 !important;
-  background: white !important;
-  border: 1px solid #007bff !important;
-  border-radius: 6px !important;
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15) !important;
-  max-height: 250px !important;
-  overflow-y: auto !important;
-  margin-top: 2px !important;
-}
-
-/* Account option styling within dropdown */
-.vue-select .vs__dropdown-option {
-  padding: 8px 12px !important;
-  cursor: pointer !important;
-  border-bottom: 1px solid #f0f0f0 !important;
-}
-
-.vue-select .vs__dropdown-option:hover {
-  background-color: #f8f9fa !important;
-}
-
-.vue-select .vs__dropdown-option:last-child {
-  border-bottom: none !important;
-}
-
-/* Additional z-index fixes for common UI elements */
-.vs__dropdown-menu {
-  z-index: 99999 !important;
-}
-
-/* Ensure dropdown appears above Bootstrap modals (z-index: 1050) */
-.modal .vs__dropdown-menu {
-  z-index: 99999 !important;
-}
-
-/* Ensure dropdown appears above Bootstrap dropdowns (z-index: 1000) */
-.dropdown .vs__dropdown-menu {
-  z-index: 99999 !important;
-}
-
-/* Ensure dropdown appears above any sticky elements */
-.sticky .vs__dropdown-menu {
-  z-index: 99999 !important;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .radio-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .section-title {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-  }
-  
-  .file-upload-area {
-    padding: 20px;
-    min-height: 100px;
-  }
-  
-  .file-upload-content i {
-    font-size: 2em;
-  }
+.btn-primary:hover {
+  filter: brightness(0.95);
 }
 </style>

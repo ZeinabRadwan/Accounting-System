@@ -1070,7 +1070,7 @@ export default {
 
 /* View Button */
 .view-btn {
-  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  background: linear-gradient(135deg, #33a0d9 0%, #138496 100%);
   color: white;
 }
 

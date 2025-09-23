@@ -760,7 +760,7 @@ export default {
 }
 
 .btn-info {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
+  background-color: #33a0d9;
+  border-color: #33a0d9;
 }
 </style>
