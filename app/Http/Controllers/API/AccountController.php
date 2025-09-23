@@ -196,30 +196,39 @@ class AccountController extends Controller
     {
         try {
             $account = Account::where('slug', $slug)->first();
-            if (isset($account->balanceTransactions) && count($account->balanceTransactions) > 0) {
-                return $this->responseWithError('Sorry you can\'t remove this account!');
-            } else {
-                //delete asset image
-                if ($account->image_path) {
-                    @unlink(public_path('images/accounts/' . $account->image_path));
-                }
-
-                // add activity log
-                activity()
-                    ->causedBy(Auth::user())
-                    ->performedOn($account)
-                    ->withProperties([
-                        'name' => "",
-                        'code' => '[' . $account->account_number . ']',
-                        'event' => 'Delete'
-                    ])
-                    ->useLog('Account Deleted')
-                    ->log('Account Deleted');
-
-                $account->delete();
-
-                return $this->responseWithSuccess('Account deleted successfully');
+            
+            // Check for any transactions linked to this account
+            $transactionCount = AccountTransaction::where('account_id', $account->id)->count();
+            if ($transactionCount > 0) {
+                return $this->responseWithError('This account has transactions and cannot be deleted.', 422);
             }
+
+            // Check for second account transactions (where this account is used as second_account_id)
+            $secondAccountTransactionCount = AccountTransaction::where('second_account_id', $account->id)->count();
+            if ($secondAccountTransactionCount > 0) {
+                return $this->responseWithError('This account is used in other transactions and cannot be deleted.', 422);
+            }
+
+            //delete asset image
+            if ($account->image_path) {
+                @unlink(public_path('images/accounts/' . $account->image_path));
+            }
+
+            // add activity log
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($account)
+                ->withProperties([
+                    'name' => "",
+                    'code' => '[' . $account->account_number . ']',
+                    'event' => 'Delete'
+                ])
+                ->useLog('Account Deleted')
+                ->log('Account Deleted');
+
+            $account->delete();
+
+            return $this->responseWithSuccess('Account deleted successfully');
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }

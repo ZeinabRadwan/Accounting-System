@@ -136,10 +136,15 @@ try {
      */
     public function update(UpdateBalanceRequest $request, $slug)
     {
-        $transaction = AccountTransaction::where('slug', $slug)->first();
+        $transaction = AccountTransaction::with('journalEntry')->where('slug', $slug)->first();
 
         try {
-            // update transaction
+            // Block editing if a related journal entry exists (draft or posted)
+            if ($transaction && $transaction->journalEntry) {
+                return $this->responseWithError('This balance adjustment is linked to a journal entry and cannot be edited.');
+            }
+
+            // update transaction when no journal entry exists
             $transaction->update([
                 'amount' => $request->amount,
                 'transaction_date' => $request->date,
@@ -176,20 +181,37 @@ try {
     public function destroy($slug)
     {
         try {
-            $transaction = AccountTransaction::with('cashbookAccount')->where('slug', $slug)->first();
-            if ($transaction->amount <= $transaction->cashbookAccount->availableBalance()) {
+            $transaction = AccountTransaction::with('cashbookAccount', 'journalEntry')->where('slug', $slug)->first();
 
-            // add activity log
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($transaction)
-                ->withProperties([
-                    'name' => $transaction->reason,
-                    'code' => '[' . $transaction->reason . ']',
-                    'event' => 'Delete'
-                ])
-                ->useLog('Balance Adjustment Deleted')
-                ->log('Balance Adjustment Deleted');
+            if (!$transaction) {
+                return $this->responseWithError('Transaction not found');
+            }
+
+            // If related journal exists
+            if ($transaction->journalEntry) {
+                if ($transaction->journalEntry->status === 'posted') {
+                    return $this->responseWithError('This transaction is linked to a posted journal entry and cannot be deleted.');
+                }
+                // status is draft: allow delete and cascade delete the journal entry
+                // Also ensure we remove any linkage to avoid orphan reference
+                $transaction->journalEntry->delete();
+                $transaction->journal_entry_id = null;
+                $transaction->save();
+            }
+
+            // Maintain existing balance guard
+            if ($transaction->amount <= $transaction->cashbookAccount->availableBalance()) {
+                // add activity log
+                activity()
+                    ->causedBy(Auth::user())
+                    ->performedOn($transaction)
+                    ->withProperties([
+                        'name' => $transaction->reason,
+                        'code' => '[' . $transaction->reason . ']',
+                        'event' => 'Delete'
+                    ])
+                    ->useLog('Balance Adjustment Deleted')
+                    ->log('Balance Adjustment Deleted');
 
                 $transaction->delete();
 

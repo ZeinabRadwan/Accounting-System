@@ -156,12 +156,12 @@
                             </button>
                           </div>
                           <ul>
-                            <li v-if="$can('account-balance-edit')">
+                            <!-- <li v-if="$can('account-balance-edit')">
                               <router-link :to="{ name: 'balances.edit', params: { slug: data.slug } }">
                                 <i class="fas fa-edit"></i>
                                 {{ $t('Edit') }}
                               </router-link>
-                            </li>
+                            </li> -->
                             <li v-if="$can('account-balance-delete')">
                               <a href="#" @click.prevent="deleteData(data.slug)">
                                 <i class="fas fa-trash"></i>
@@ -361,28 +361,32 @@ export default {
         confirmButtonText: this.$t("Confirm"),
       }).then((result) => {
         // Send request to the server
-        if (result.value) {
-          this.$store
-            .dispatch("operations/deleteData", {
-              path: "/api/balances/",
-              slug: slug,
-            })
-            .then((response) => {
-              if (response === true) {
-                Swal.fire(
-                  this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
-                );
-              } else {
-                Swal.fire(
-                  this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this transaction"),
-                  "warning"
-                );
-              }
-            });
-        }
+        if (!result.value) return;
+
+        this.$store
+          .dispatch("operations/deleteData", {
+            path: "/api/balances/",
+            slug: slug,
+          })
+          .then((response) => {
+            const isSuccess = response === true || response?.success === true;
+            if (isSuccess) {
+              this.getData && this.getData();
+              toast.fire({ type: 'success', title: this.$t('Deleted successfully.') });
+              return;
+            }
+
+            const backendMsg = response?.response?.data?.message || response?.message;
+            if (backendMsg) {
+              toast.fire({ type: 'error', title: backendMsg });
+            } else {
+              toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') });
+            }
+          })
+          .catch((error) => {
+            const msg = error?.response?.data?.message || error?.message || this.$t('Opps...something went wrong');
+            toast.fire({ type: 'error', title: msg });
+          });
       });
     },
   },

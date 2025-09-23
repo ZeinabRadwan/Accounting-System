@@ -184,14 +184,14 @@
                                 {{ $t('View') }}
                               </router-link>
                             </li>
-                            <li v-if="$can('account-transfer-balance-edit')">
+                            <!-- <li v-if="$can('account-transfer-balance-edit')">
                               <router-link :to="{ name: 'transferBalances.edit', params: { slug: data.slug } }">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                   <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 {{ $t('Edit') }}
                               </router-link>
-                            </li>
+                            </li> -->
                             <li v-if="$can('account-transfer-balance-delete')">
                               <a href="#" @click.prevent="deleteData(data.slug)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -454,7 +454,7 @@ export default {
       await this.$htmlToPaper("printMe");
     },
 
-    // delete data
+    // delete data: keep confirmation via SweetAlert, use toast for results
     async deleteData(slug) {
       Swal.fire({
         title: this.$t("Are you sure?"),
@@ -463,29 +463,33 @@ export default {
         showCancelButton: true,
         confirmButtonText: this.$t("Confirm"),
       }).then((result) => {
-        // Send request to the server
-        if (result.value) {
-          this.$store
-            .dispatch("operations/deleteData", {
-              path: "/api/balance-transfers/",
-              slug: slug,
-            })
-            .then((response) => {
-              if (response === true) {
-                Swal.fire(
-                  this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
-                );
-              } else {
-                Swal.fire(
-                  this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this transfer!"),
-                  "warning"
-                );
-              }
-            });
-        }
+        if (!result.value) return;
+
+        this.$store
+          .dispatch("operations/deleteData", {
+            path: "/api/balance-transfers/",
+            slug: slug,
+          })
+          .then((response) => {
+            const isSuccess = response === true || response?.success === true;
+            if (isSuccess) {
+              this.getData && this.getData();
+              this.openActionIndex = null;
+              toast.fire({ type: 'success', title: this.$t('Deleted successfully.') });
+              return;
+            }
+
+            const backendMsg = response?.response?.data?.message || response?.message;
+            if (backendMsg) {
+              toast.fire({ type: 'error', title: backendMsg });
+            } else {
+              toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') });
+            }
+          })
+          .catch((error) => {
+            const msg = error?.response?.data?.message || error?.message || this.$t('Opps...something went wrong');
+            toast.fire({ type: 'error', title: msg });
+          });
       });
     },
   },

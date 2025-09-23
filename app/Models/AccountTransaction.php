@@ -84,6 +84,6 @@ class AccountTransaction extends Model
      */
     public function journalEntry()
     {
-        return $this->belongsTo(JournalEntry::class);
+        return $this->belongsTo(JournalEntry::class, 'journal_entry_id');
     }
 }

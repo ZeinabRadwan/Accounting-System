@@ -1441,7 +1441,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $balanceTransfer->date,
                 'reference' => $balanceTransfer->slug,
-                'description' => "Balance Transfer: {$balanceTransfer->reason}",
+                'description' => $balanceTransfer->note ?? "Balance Transfer: {$balanceTransfer->reason}",
                 'total_debit' => $balanceTransfer->amount,
                 'total_credit' => $balanceTransfer->amount,
                 'status' => 'posted',
@@ -1543,8 +1543,9 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $accountTransaction->transaction_date,
-                'reference' => $accountTransaction->slug,
-                'description' => "Balance Adjustment: {$accountTransaction->reason}",
+                // Ensure reference is unique to avoid duplicate key violations
+                'reference' => $accountTransaction->slug . '-' . $accountTransaction->id,
+                'description' => $accountTransaction->note ?? "Balance Adjustment: {$accountTransaction->reason}",
                 'total_debit' => $accountTransaction->amount,
                 'total_credit' => $accountTransaction->amount,
                 'status' => 'posted',

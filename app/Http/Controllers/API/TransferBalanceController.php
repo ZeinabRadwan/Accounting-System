@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Models\BalanceTansfer;
 use App\Models\AccountTransaction;
+use App\Models\JournalEntry;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -232,6 +233,28 @@ try {
             $canDelete = true;
             if ($transfer->creditTransaction->cashbookAccount->availableBalance() < $transfer->amount) {
                 $canDelete = false;
+            }
+
+            // Check for related journal entry
+            $journalEntry = JournalEntry::where('source_type', BalanceTansfer::class)
+                                        ->where('source_id', $transfer->id)
+                                        ->first();
+
+            if ($journalEntry) {
+                // Block deletion if journal entry is draft or posted
+                if (in_array($journalEntry->status, ['draft', 'posted'])) {
+                    DB::rollBack();
+                    return $this->responseWithError('This transfer is linked to a journal entry (draft/posted) and cannot be deleted.');
+                }
+
+                // If journal entry is void, allow deletion and also delete the journal entry
+                if ($journalEntry->status === 'void') {
+                    // Delete journal entry lines first, then the entry (soft delete)
+                    foreach ($journalEntry->lines as $line) {
+                        $line->delete();
+                    }
+                    $journalEntry->delete();
+                }
             }
 
             if ($canDelete) {

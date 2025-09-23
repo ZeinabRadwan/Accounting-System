@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'accounts.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="submit" class="btn btn-success" title="Save Temporarily" form="accountEditForm">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -20,7 +20,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="updateAccount" @keydown="form.onKeydown($event)">
+          <form id="accountEditForm" role="form" @submit.prevent="updateAccount" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-12">
@@ -74,12 +74,12 @@
                     </template>
                   </v-select>
                   <!-- Debug information -->
-                  <div v-if="selectedChartOfAccount" class="mt-2 text-muted small">
+                  <!-- <div v-if="selectedChartOfAccount" class="mt-2 text-muted small">
                     Selected: {{ selectedChartOfAccount.name }} (ID: {{ selectedChartOfAccount.id }})
                   </div>
                   <div v-else class="mt-2 text-muted small">
                     No chart of account selected. Current value: {{ formattedChartOfAccountId }}
-                  </div>
+                  </div> -->
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>
                 <div class="form-group col-md-6">
@@ -297,11 +297,24 @@ export default {
           })
           this.$router.push({ name: 'accounts.index' })
         })
-        .catch(() => {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Opps...something went wrong'),
-          })
+        .catch((error) => {
+          if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+            const errors = error.response.data.errors
+            if (this.form && this.form.errors && typeof this.form.errors.set === 'function') {
+              this.form.errors.set(errors)
+            }
+            const messages = Object.values(errors).flat()
+            const firstMessage = messages && messages.length ? messages[0] : this.$t('Validation Error')
+            const backendMessage = (error.response.data.message && error.response.data.message !== 'Validation Error')
+              ? error.response.data.message
+              : firstMessage
+            toast.fire({ type: 'error', title: backendMessage })
+          } else if (error.response && (error.response.data?.message || error.response.data?.error)) {
+            const msg = error.response.data.message || error.response.data.error
+            toast.fire({ type: 'error', title: msg })
+          } else {
+            toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
+          }
         })
     },
     // save form data temporarily
@@ -436,12 +449,6 @@ export default {
   border: none !important;
 }
 </style>
-
-    },
-  },
-}
-</script>
-
 <style scoped>
 /* Space between action buttons */
 .btn-group.c-w-100 {
