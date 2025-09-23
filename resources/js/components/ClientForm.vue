@@ -415,14 +415,26 @@
             <div class="row">
           <div class="form-group col-md-6">
             <div class="d-flex align-items-center">
-              <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
+              <toggle-button 
+                v-model="form.isSendEmail" 
+                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
               <span class="ml-3">{{ $t("Send Welcome Email") }}</span>
+              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                    class="ml-2 text-muted small">
+                ({{ $t("Email not configured") }})
+              </span>
             </div>
           </div>
           <div class="form-group col-md-6">
             <div class="d-flex align-items-center">
-              <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
+              <toggle-button 
+                v-model="form.isSendSMS" 
+                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
               <span class="ml-3">{{ $t("Send Welcome SMS") }}</span>
+              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                    class="ml-2 text-muted small">
+                ({{ $t("SMS not configured") }})
+              </span>
             </div>
           </div>
             </div>
@@ -471,6 +483,13 @@ export default {
       chartOfAccountsError: null,
       chartOfAccounts: [],
       isCreatingAccount: false,
+      
+      // Communication configuration status
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true,
+      },
     };
   },
   watch: {
@@ -585,6 +604,9 @@ export default {
     // Load next code number for new clients
     this.loadNextCodeNumber();
     
+    // Load communication configuration status
+    this.loadCommunicationConfigStatus();
+    
     // Load routing settings first, then chart of accounts
     this.loadRoutingSettings().then(() => {
       console.log('Routing settings loaded, now loading chart of accounts...');
@@ -680,6 +702,29 @@ export default {
         // Fallback to default
         this.form.codeNumber = 'AC001';
         console.log('Using fallback code number due to error:', this.form.codeNumber);
+      }
+    },
+
+    // Load communication configuration status
+    async loadCommunicationConfigStatus() {
+      try {
+        console.log('=== LOADING COMMUNICATION CONFIG STATUS ===');
+        this.communicationConfig.loading = true;
+        
+        const response = await axios.get('/api/communication-config-status');
+        console.log('Communication config response:', response.data);
+        
+        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.sms_configured = response.data.sms_configured;
+        this.communicationConfig.loading = false;
+        
+        console.log('Communication config loaded:', this.communicationConfig);
+      } catch (error) {
+        console.error('Error loading communication config status:', error);
+        // Default to false if there's an error
+        this.communicationConfig.email_configured = false;
+        this.communicationConfig.sms_configured = false;
+        this.communicationConfig.loading = false;
       }
     },
 

@@ -151,7 +151,7 @@
                                 )
                                 " />
 
-                            <input type="number" step="any" :id="`Qty-${i}`" :value="formatToTwoDecimals(item.qty)" name="quantity"
+                            <input type="number" step="any" :id="`Qty-${i}`" v-model="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`) }"
                               @change="
@@ -161,7 +161,7 @@
                                   i - 1,
                                   ''
                                 )
-                                " @keyup="generateItemTotal($event.target.value, 'qty', i - 1, '')"
+                                "
                               :placeholder="$t('Quantity')" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
@@ -186,7 +186,7 @@
                                   'decrement'
                                 )
                                 " />
-                            <input type="number" step="any" min="0" :id="`unitPrice-${i}`" :value="formatToTwoDecimals(item.unitPrice)"
+                            <input type="number" step="any" min="0" :id="`unitPrice-${i}`" v-model="item.unitPrice"
                               name="unitPrice" class="quantity-field border-0 incrementor" required @change="
                                 generateItemTotal(
                                   $event.target.value,
@@ -194,7 +194,7 @@
                                   i - 1,
                                   ''
                                 )
-                                " @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
+                                " />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
                               data-field="quantity" @click="
@@ -229,8 +229,7 @@
                               :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discount`) }"
                               placeholder="0"
-                              @change="calculateProductDiscount(i - 1)"
-                              @keyup="calculateProductDiscount(i - 1)" />
+                              @change="calculateProductDiscount(i - 1)" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${i-1}.discount`) || form.errors.has(`selectedProducts.${i-1}.discountType`)" class="invalid-feedback d-block">
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discount`) }}</span>
@@ -304,8 +303,7 @@
                     $t("Discount Type")
                   }}</label>
                   <select id="discountType" v-model="form.discountType" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum"
-                    @keyup="calculateSum">
+                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum">
                     <option value="0">{{ $t("Fixed") }}</option>
                     <option value="1">{{ $t("Percentage") }}(%)</option>
                   </select>
@@ -317,7 +315,7 @@
                   <input id="discount" v-model="form.discount" type="number" step="any" min="1"
                     :max="form.discountType == 1 ? 100 : form.netTotal" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                    :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
+                    :placeholder="$t('Enter discount')" @change="calculateSum" />
                   <has-error :form="form" field="discount" />
                 </div>
                 <div v-if="form.discountType == 1" class="form-group col-md-2">
@@ -334,7 +332,7 @@
                   }}</label>
                   <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                    :placeholder="$t('Enter transport cost')" @change="calculateSum" />
                   <has-error :form="form" field="transportCost" />
                 </div>
               </div>

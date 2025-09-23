@@ -45,32 +45,103 @@ export default {
       this.isSubmitting = true;
       
       try {
-        // Get the form from the ClientForm component
-        this.form = this.$refs.clientForm.getFormData();
-        
         // Validate the form
         if (!this.$refs.clientForm.validateForm()) {
           this.isSubmitting = false;
           return;
         }
 
-        await this.form
-          .post(window.location.origin + "/api/clients")
-          .then(() => {
-            toast.fire({
-              type: "success",
-              title: this.$t("Client added successfully"),
-            });
-            this.$emit("reloadClients");
-            this.$refs.clientForm.resetForm();
-            this.showClientCreateModal = false;
-            this.form = null; // Reset form reference
-          })
-          .catch((error) => {
-            console.error("Error creating client:", error);
-            const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
-            toast.fire({ type: "error", title: errorMessage });
+        // Get the form data from the ClientForm component
+        const formData = this.$refs.clientForm.getFormData();
+        
+        // Build multipart/form-data to properly send files and handle boolean conversion
+        const fd = new FormData();
+
+        const appendIfDefined = (key, value) => {
+          if (value !== undefined && value !== null && value !== '') {
+            fd.append(key, value);
+          }
+        };
+
+        // Simple scalar fields
+        appendIfDefined('codeNumber', formData.codeNumber);
+        appendIfDefined('notes', formData.notes);
+        appendIfDefined('displayLanguage', formData.displayLanguage);
+        appendIfDefined('type', formData.type);
+        appendIfDefined('fullName', formData.fullName);
+        appendIfDefined('businessName', formData.businessName);
+        appendIfDefined('firstName', formData.firstName);
+        appendIfDefined('lastName', formData.lastName);
+        appendIfDefined('phone', formData.phone);
+        appendIfDefined('phoneNumber', formData.phoneNumber);
+        appendIfDefined('email', formData.email);
+        appendIfDefined('streetAddress1', formData.streetAddress1);
+        appendIfDefined('streetAddress2', formData.streetAddress2);
+        appendIfDefined('city', formData.city);
+        appendIfDefined('state', formData.state);
+        appendIfDefined('postalCode', formData.postalCode);
+        appendIfDefined('country', formData.country);
+        appendIfDefined('neighbourhood', formData.neighbourhood);
+        appendIfDefined('commercialRegister', formData.commercialRegister);
+        appendIfDefined('taxCard', formData.taxCard);
+        appendIfDefined('status', formData.status);
+        
+        // Convert boolean values to integers for Laravel validation
+        appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+        appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+
+        // Chart of account id (number or object)
+        if (formData.chartOfAccountId && typeof formData.chartOfAccountId === 'object' && formData.chartOfAccountId.id) {
+          appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
+        } else {
+          appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
+        }
+
+        // Image file
+        if (formData.image instanceof File) {
+          fd.append('image', formData.image);
+        }
+
+        // Attachments as files
+        if (Array.isArray(formData.attachments)) {
+          formData.attachments.forEach((file, idx) => {
+            if (file instanceof File) {
+              fd.append(`attachments[${idx}]`, file);
+            }
           });
+        }
+
+        // Representatives array (as nested fields)
+        if (Array.isArray(formData.representatives)) {
+          formData.representatives.forEach((rep, i) => {
+            if (!rep) return;
+            if (rep.name !== undefined && rep.name !== null) fd.append(`representatives[${i}][name]`, rep.name);
+            if (rep.email) fd.append(`representatives[${i}][email]`, rep.email);
+            if (rep.phone) fd.append(`representatives[${i}][phone]`, rep.phone);
+            if (rep.position) fd.append(`representatives[${i}][position]`, rep.position);
+            if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append(`representatives[${i}][is_primary]`, rep.is_primary ? 1 : 0);
+            if (rep.notes) fd.append(`representatives[${i}][notes]`, rep.notes);
+          });
+        }
+
+        const response = await this.$http.post("/api/clients", fd, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        
+        if (response.data.success) {
+          toast.fire({
+            type: "success",
+            title: this.$t("Client added successfully"),
+          });
+          this.$emit("reloadClients");
+          this.$refs.clientForm.resetForm();
+          this.showClientCreateModal = false;
+          this.form = null; // Reset form reference
+        }
+      } catch (error) {
+        console.error("Error creating client:", error);
+        const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+        toast.fire({ type: "error", title: errorMessage });
       } finally {
         this.isSubmitting = false;
       }

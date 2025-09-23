@@ -474,6 +474,8 @@
   "Per": "لكل",
   "Day": "يوم",
   "Daily": "يومي",
+  "Email not configured": "البريد الإلكتروني غير مُعد",
+  "SMS not configured": "الرسائل النصية غير مُعدة",
   "Employee": "الموظف",
   "Select an employee": "اختر موظفاً",
   "Designation": "المنصب",
