@@ -691,10 +691,13 @@ label:not(.form-check-label):not(.custom-file-label) {
   left: 15px;
 }
 
-.vs__dropdown-toggle {
+.vs__dropdown-toggle, .create-btn {
   height: auto;
   min-height: 50px; /* match input visual height */
 }
+
+.vs__dropdown-option--highlight {background: #33a0d9 !important;}
+
 
 /* Global v-select styling to match input appearance */
 .v-select {

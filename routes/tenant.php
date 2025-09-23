@@ -181,6 +181,9 @@ Route::middleware([
         // SMS routes
         Route::get('sms-configuration', [GeneralController::class, 'getSMSforTenant']);
         Route::post('update-sms-configuration', [GeneralController::class, 'updateSMSforTenant']);
+        
+        // Communication configuration status
+        Route::get('communication-config-status', [GeneralController::class, 'getCommunicationConfigStatus']);
 
         // ZATCA routes
         Route::get('zatca-settings', [GeneralController::class, 'getZatcaSettings']);

@@ -8,16 +8,8 @@
     <VModal v-model="showProductEditModal" @close="closeModal" size="lg">
       <template v-slot:title>{{ $t("Edit Product") }}</template>
       <div class="w-100">
-        <!-- Loading spinner -->
-        <div v-if="isLoading" class="text-center py-5">
-          <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">{{ $t('Loading...') }}</span>
-          </div>
-          <p class="mt-3 text-muted">{{ $t('Loading product data...') }}</p>
-        </div>
-
         <!-- form start -->
-        <form v-else role="form" @submit.prevent="updateProduct" @keydown="form.onKeydown($event)">
+        <form role="form" @submit.prevent="updateProduct" @keydown="form.onKeydown($event)">
           <!-- Item Type Selection Section -->
           <div class="form-card">
             <div class="card-header">
@@ -179,6 +171,18 @@
                   </div>
                 </div>
               </div>
+              <!-- Alert Quantity moved here to be in warehouse section -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="alertQuantity">{{ $t("Alert Quantity") }}</label>
+                    <input id="alertQuantity" v-model="form.alertQuantity" type="number" min="0" max="1000"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('alertQuantity') }" name="alertQuantity"
+                      :placeholder="$t('Enter alert quantity')" />
+                    <has-error :form="form" field="alertQuantity" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -288,25 +292,9 @@
               </h5>
             </div>
             <div class="card-body">
+              <!-- Status and Image in one row -->
               <div class="row">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="note">{{ $t("Notes") }}</label>
-                    <textarea id="note" v-model="form.note" class="form-control" rows="3"
-                      :class="{ 'is-invalid': form.errors.has('note') }" name="note"
-                      :placeholder="$t('Add any additional notes...')"></textarea>
-                    <has-error :form="form" field="note" />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="alertQuantity">{{ $t("Alert Quantity") }}</label>
-                    <input id="alertQuantity" v-model="form.alertQuantity" type="number" min="0" max="1000"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('alertQuantity') }" name="alertQuantity"
-                      :placeholder="$t('Enter alert quantity')" />
-                    <has-error :form="form" field="alertQuantity" />
-                  </div>
-
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="status">{{ $t("Status") }}</label>
                     <select id="status" v-model="form.status" class="form-control"
@@ -316,7 +304,9 @@
                     </select>
                     <has-error :form="form" field="status" />
                   </div>
-
+                </div>
+                
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="image">{{ $t("Image") }}</label>
                     <div class="custom-file">
@@ -332,6 +322,19 @@
                     <div class="image-preview mt-2" v-if="url">
                       <img :src="url" class="img-fluid rounded" :alt="$t('Product Image')" style="max-height: 80px;" />
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Notes take full row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="note">{{ $t("Notes") }}</label>
+                    <textarea id="note" v-model="form.note" class="form-control" rows="3"
+                      :class="{ 'is-invalid': form.errors.has('note') }" name="note"
+                      :placeholder="$t('Add any additional notes...')"></textarea>
+                    <has-error :form="form" field="note" />
                   </div>
                 </div>
               </div>
@@ -374,7 +377,6 @@ export default {
   data() {
     return {
       showProductEditModal: false,
-      isLoading: false,
       url: null,
       currentProduct: null, // Store the product being edited
       form: new Form({
@@ -412,6 +414,15 @@ export default {
       isPurchaseAccountAutomatic: false,
     };
   },
+  created() {
+    // Pre-load dropdown data so it's available immediately when modal opens
+    this.getSubCategories();
+    this.getUnits();
+    // this.getBrands(); // Temporarily commented out
+    this.getTaxes();
+    this.loadChartOfAccounts();
+    this.loadAccountRoutingSettings();
+  },
   methods: {
     async openModal(product = null) {
       // If product is passed as parameter, use it; otherwise use the prop
@@ -424,47 +435,29 @@ export default {
       // Store the product being edited in component data
       this.currentProduct = productToEdit;
 
-      this.isLoading = true;
+      // Show modal immediately
       this.showProductEditModal = true;
 
-      try {
-        // Load all required data first
-        await Promise.all([
-          this.getSubCategories(),
-          this.getUnits(),
-          // this.getBrands(), // Temporarily commented out
-          this.getTaxes(),
-          this.loadChartOfAccounts(),
-          this.loadAccountRoutingSettings()
-        ]);
+      // Load product data immediately with available data
+      this.loadProductData(productToEdit);
 
-        // Check if we need to fetch complete product data
-        // If the product object is missing related data (like unit, tax objects), fetch from API
-        const needsFullData = !productToEdit.itemUnit || !productToEdit.itemTax || 
-                             !productToEdit.subCategory || !productToEdit.brand ||
-                             typeof productToEdit.itemUnit === 'string' ||
-                             typeof productToEdit.itemTax === 'string';
+      // Check if we need to fetch complete product data in background
+      const needsFullData = !productToEdit.itemUnit || !productToEdit.itemTax || 
+                           !productToEdit.subCategory || !productToEdit.brand ||
+                           typeof productToEdit.itemUnit === 'string' ||
+                           typeof productToEdit.itemTax === 'string';
 
-        if (needsFullData && (productToEdit.slug || productToEdit.id)) {
-          console.log('Fetching complete product data from API...');
-          try {
-            const identifier = productToEdit.slug || productToEdit.id;
-            const { data } = await axios.get(`/api/products/${identifier}`);
-            // Use the complete product data from API
-            this.loadProductData(data.data);
-          } catch (error) {
-            console.warn('Failed to fetch complete product data, using provided data:', error);
-            // Fallback to using the provided product data
-            this.loadProductData(productToEdit);
-          }
-        } else {
-          // Use the provided product data if it already has all required fields
-          this.loadProductData(productToEdit);
+      if (needsFullData && (productToEdit.slug || productToEdit.id)) {
+        console.log('Fetching complete product data from API...');
+        const identifier = productToEdit.slug || productToEdit.id;
+        try {
+          const { data } = await axios.get(`/api/products/${identifier}`);
+          // Update with complete product data from API
+          this.loadProductData(data.data);
+        } catch (error) {
+          console.warn('Failed to fetch complete product data, using provided data:', error);
+          // Keep using the initially loaded product data
         }
-      } catch (error) {
-        console.error('Error loading modal data:', error);
-      } finally {
-        this.isLoading = false;
       }
     },
 

@@ -19,7 +19,8 @@ class ClientListResource extends JsonResource
             'clientID' => $this->client_id,
             'slug' => $this->slug,
             'email' => $this->email,
-            'phoneNumber' => $this->phone,
+            'phoneNumber' => $this->phone_number ?: $this->phone,
+            'phone' => $this->phone,
             'companyName' => $this->company_name,
             'address' => $this->address,
             'type' => $this->type ?? 'Company',
@@ -36,6 +37,21 @@ class ClientListResource extends JsonResource
             'commercialName' => $this->commercial_name,
             'city' => $this->city,
             'country' => $this->country,
+            
+            // Additional fields for better edit modal fallback
+            'firstName' => $this->first_name,
+            'lastName' => $this->last_name,
+            'state' => $this->state,
+            'neighbourhood' => $this->neighbourhood,
+            'streetAddress1' => $this->street_address1,
+            'streetAddress2' => $this->street_address2,
+            'postalCode' => $this->postal_code,
+            'commercialRegister' => $this->commercial_register,
+            'taxCard' => $this->tax_card,
+            'displayLanguage' => $this->display_language,
+            'notes' => $this->notes,
+            'isSendEmail' => (bool) $this->is_send_email,
+            'isSendSMS' => (bool) $this->is_send_sms,
         ];
     }
 }

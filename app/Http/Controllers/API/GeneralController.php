@@ -355,6 +355,69 @@ class GeneralController extends Controller
     }
 
     /**
+     * Get communication configuration status
+     * Check if email (SMTP) and SMS (Twilio) are properly configured
+     */
+    public function getCommunicationConfigStatus()
+    {
+        $emailConfigured = $this->isEmailConfigured();
+        $smsConfigured = $this->isSMSConfigured();
+        
+        return response()->json([
+            'email_configured' => $emailConfigured,
+            'sms_configured' => $smsConfigured,
+        ]);
+    }
+
+    /**
+     * Check if email SMTP is properly configured
+     */
+    private function isEmailConfigured()
+    {
+        $smtp = tenant()->smtp ?? [];
+        
+        // Check if all required SMTP settings are present and not empty
+        $requiredFields = ['mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address'];
+        
+        foreach ($requiredFields as $field) {
+            if (empty($smtp[$field])) {
+                return false;
+            }
+        }
+        
+        // Check for common default/placeholder values
+        $defaultHosts = ['smtp.mailgun.org', 'smtp.mailtrap.io', 'localhost', '127.0.0.1'];
+        $defaultUsernames = ['null', 'your-username', 'your_email@gmail.com', 'test@example.com'];
+        $defaultPasswords = ['null', 'your-password', 'your_password', 'password'];
+        
+        if (in_array($smtp['mail_host'], $defaultHosts) && 
+            (in_array($smtp['mail_username'], $defaultUsernames) || in_array($smtp['mail_password'], $defaultPasswords))) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Check if SMS Twilio is properly configured
+     */
+    private function isSMSConfigured()
+    {
+        $sms = tenant()->sms ?? [];
+        
+        // Check if all required Twilio settings are present and not empty
+        $requiredFields = ['twilio_account_sid', 'twilio_auth_token', 'twilio_from'];
+        
+        foreach ($requiredFields as $field) {
+            if (empty($sms[$field])) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    /**
      * Get current fiscal year from general settings
      */
     private function getCurrentFiscalYear()

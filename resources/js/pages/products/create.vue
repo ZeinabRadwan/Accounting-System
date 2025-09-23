@@ -187,6 +187,17 @@
                   </div>
                 </div>
 
+                <!-- Alert Quantity moved here to be in warehouse section -->
+                <div v-if="form.itemType == 'product'" class="form-group col-md-6 col-xl-4">
+                  <label for="alertQuantity">{{ $t('Alert Quantity') }}
+                  </label>
+                  <input id="alertQuantity" v-model="form.alertQuantity" type="number" min="0" max="1000"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('alertQuantity') }" name="alertQuantity"
+                    :placeholder="$t('Enter alert quantity')
+                      " />
+                  <has-error :form="form" field="alertQuantity" />
+                </div>
+
 
                 
                 <div v-if="!isSalesAccountAutomatic" class="form-group col-md-6">
@@ -261,24 +272,8 @@
                     </small>
                   </div>
                 </div>
-                <div class="form-group col-md-12">
-                  <label for="note">{{ $t('Note') }}</label>
-                  <textarea id="note" v-model="form.note" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('note') }" name="companyName"
-                    :placeholder="$t('Write your note here!')"></textarea>
-                  <has-error :form="form" field="note" />
-                </div>
-
-                <div v-if="form.itemType == 'product'" class="form-group col-md-6 col-xl-4">
-                  <label for="alertQuantity">{{ $t('Alert Quantity') }}
-                  </label>
-                  <input id="alertQuantity" v-model="form.alertQuantity" type="number" min="0" max="1000"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('alertQuantity') }" name="alertQuantity"
-                    :placeholder="$t('Enter alert quantity')
-                      " />
-                  <has-error :form="form" field="alertQuantity" />
-                </div>
-                <div class="form-group col-md-6 col-xl-4">
+                <!-- Status and Image in one row -->
+                <div class="form-group col-md-6">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -292,7 +287,7 @@
                   <has-error :form="form" field="status" />
                 </div>
                 
-                <div class="form-group col-md-6 col-xl-4">
+                <div class="form-group col-md-6">
                   <label for="image">{{ $t('Image') }}</label>
                   <div class="custom-file">
                     <input id="image" type="file" class="custom-file-input" name="image"
@@ -305,6 +300,15 @@
                   <div class="bg-light mt-4 w-25">
                     <img v-if="url" :src="url" class="img-fluid" :alt="$t('Attached Image')" />
                   </div>
+                </div>
+
+                <!-- Notes take full row -->
+                <div class="form-group col-md-12">
+                  <label for="note">{{ $t('Note') }}</label>
+                  <textarea id="note" v-model="form.note" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('note') }" name="companyName"
+                    :placeholder="$t('Write your note here!')"></textarea>
+                  <has-error :form="form" field="note" />
                 </div>
 
               </div>

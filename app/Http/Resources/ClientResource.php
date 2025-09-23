@@ -20,7 +20,8 @@ class ClientResource extends JsonResource
             'clientID' => $this->client_id,
             'slug' => $this->slug,
             'email' => $this->email,
-            'phoneNumber' => $this->phone,
+            'phoneNumber' => $this->phone_number ?: $this->phone,
+            'phone' => $this->phone,
             'phoneSecondary' => $this->phone_secondary,
             'companyName' => $this->business_name ?: $this->commercial_name ?: $this->company_name,
             'taxRegistrationNumber' => $this->tax_card ?: $this->tax_registration_number,
@@ -51,6 +52,7 @@ class ClientResource extends JsonResource
             'state' => $this->state,
             'postalCode' => $this->postal_code,
             'country' => $this->country,
+            'neighbourhood' => $this->neighbourhood,
             
             // Business-specific fields
             'commercialRegister' => $this->commercial_register,
