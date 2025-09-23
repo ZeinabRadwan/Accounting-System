@@ -10,7 +10,7 @@
             <h3 class="card-title">
               {{ $t('Generate Barcode') }}
             </h3>
-            <router-link :to="{ name: 'products.index' }" class="btn btn-dark float-right">
+            <router-link :to="{ name: 'products.index' }" class="btn btn-info float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
             </router-link>
           </div>

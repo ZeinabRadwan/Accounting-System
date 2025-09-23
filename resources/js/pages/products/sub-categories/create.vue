@@ -9,7 +9,7 @@
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <router-link :to="{ name: 'productSubCats.index' }" class="btn btn-primary">
+                <router-link :to="{ name: 'productSubCats.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
               </div>

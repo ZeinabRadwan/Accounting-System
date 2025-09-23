@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">{{ $t('Create tenant') }}</h3>
-            <router-link :to="{ name: 'tenants.index' }" class="btn btn-dark float-right">
+            <router-link :to="{ name: 'tenants.index' }" class="btn btn-info float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
             </router-link>
           </div>
@@ -67,7 +67,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
+              <v-button :loading="form.busy" class="btn btn-success">
                 <i class="fas fa-save" /> {{ $t('Save') }}
               </v-button>
               <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">

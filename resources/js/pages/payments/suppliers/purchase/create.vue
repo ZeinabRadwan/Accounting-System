@@ -9,7 +9,7 @@
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <router-link :to="{ name: 'purchasePayments.index' }" class="btn btn-primary">
+                <router-link :to="{ name: 'purchasePayments.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
               </div>
@@ -189,7 +189,7 @@
             <div class="card-footer">
               <div class="dtable-footer">
                 <div class="form-group row display-per-page">
-                  <v-button :loading="form.busy" class="btn btn-primary">
+                  <v-button :loading="form.busy" class="btn btn-success">
                     <i class="fas fa-save" /> {{ $t("Save") }}
                   </v-button>
                   <button type="reset" class="btn btn-secondary" @click="form.reset()">

@@ -12,7 +12,7 @@
                         </h3>
                         <router-link
                             :to="{ name: 'plans.index' }"
-                            class="btn btn-dark float-right"
+                            class="btn btn-info float-right"
                         >
                             <i class="fas fa-long-arrow-alt-left" />
                             {{ $t('Back') }}

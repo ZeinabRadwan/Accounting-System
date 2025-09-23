@@ -48,7 +48,7 @@
               class="btn btn-success"
               ><i class="fas fa-paper-plane"></i> {{ $t("email") }}</a
             >
-            <a @click="generatePDF()" href="#" class="btn btn-primary">
+            <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <a @click="printWindow()" href="#" class="btn btn-secondary">
@@ -66,7 +66,7 @@
             </router-link>
             <router-link
               :to="{ name: 'purchases.index' }"
-              class="btn btn-dark float-right"
+              class="btn btn-info float-right"
             >
               <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
             </router-link>

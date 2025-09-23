@@ -12,7 +12,7 @@
               {{ $t("Edit Invoice") }}
             </h3>
             <div class="float-right header-buttons">
-              <router-link :to="{ name: 'invoices.index' }" class="btn btn-dark">
+              <router-link :to="{ name: 'invoices.index' }" class="btn btn-info">
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </router-link>
               <button type="button" class="btn btn-success ml-2" @click="saveTemporary" title="Save Temporarily">

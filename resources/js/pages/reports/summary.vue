@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
+              <v-button :loading="form.busy" class="btn btn-info">
                 <i class="fas fa-eye" /> {{ $t("View Report") }}
               </v-button>
               <button type="reset" class="btn btn-secondary float-right" @click="form.reset()">
@@ -248,7 +248,7 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print mt-5">
           <div class="col-12">
-            <router-link :to="{ name: 'home' }" class="btn btn-dark float-right">
+            <router-link :to="{ name: 'home' }" class="btn btn-info float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
             </router-link>
             <a 

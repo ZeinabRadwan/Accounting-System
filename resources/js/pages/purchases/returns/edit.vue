@@ -9,7 +9,7 @@
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
-                <router-link :to="{ name: 'purchaseReturns.index' }" class="btn btn-primary">
+                <router-link :to="{ name: 'purchaseReturns.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
                 <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
@@ -236,7 +236,7 @@
             <div class="card-footer">
               <div class="dtable-footer">
                 <div class="form-group row display-per-page footer-buttons">
-                  <v-button :loading="form.busy" class="btn btn-primary">
+                  <v-button :loading="form.busy" class="btn btn-success">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
                   <button type="reset" class="btn btn-secondary" @click="form.reset()">

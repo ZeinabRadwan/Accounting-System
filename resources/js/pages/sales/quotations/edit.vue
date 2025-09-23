@@ -11,10 +11,10 @@
               {{ $t("Edit Quotation") }}
             </h3>
             <div class="float-right header-buttons">
-              <router-link :to="{ name: 'quotations.index' }" class="btn btn-dark">
+              <router-link :to="{ name: 'quotations.index' }" class="btn btn-info">
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </router-link>
-              <button type="button" class="btn btn-primary ml-2" @click="saveTemporary" title="Save Temporarily">
+              <button type="button" class="btn btn-success ml-2" @click="saveTemporary" title="Save Temporarily">
                 <i class="fas fa-save" />
               </button>
             </div>
@@ -284,7 +284,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="footer-buttons">
-                <v-button :loading="form.busy" class="btn btn-primary">
+                <v-button :loading="form.busy" class="btn btn-success">
                   <i class="fas fa-edit" /> {{ $t("Save changes") }}
                 </v-button>
                 <button type="reset" class="btn btn-secondary" @click="form.reset()">

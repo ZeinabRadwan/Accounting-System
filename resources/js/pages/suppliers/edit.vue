@@ -11,7 +11,7 @@
             <h3 class="card-title">{{ $t('Edit Supplier') }}</h3>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
-                <router-link :to="{ name: 'suppliers.index' }" class="btn btn-primary">
+                <router-link :to="{ name: 'suppliers.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
                 <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">

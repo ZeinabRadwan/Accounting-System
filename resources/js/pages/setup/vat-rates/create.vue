@@ -23,7 +23,7 @@
               <div class="col-xl-8 col-8 float-right text-right">
                 <router-link
                   :to="{ name: 'vatRates.index' }"
-                  class="btn btn-dark float-right"
+                  class="btn btn-info float-right"
                 >
                   <i class="fas fa-long-arrow-alt-left" />
                   {{ $t("Back") }}
@@ -194,7 +194,7 @@
               </div>
             </div>
             <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-primary">
+              <v-button :loading="form.busy" class="btn btn-success">
                 <i class="fas fa-save" /> {{ $t("Save") }}
               </v-button>
               <button

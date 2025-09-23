@@ -13,7 +13,7 @@
         <button @click="showSupplierCreateModal = false" class="btn btn-secondary mr-2">
           <i class="fas fa-times" /> {{ $t("Cancel") }}
         </button>
-        <button @click="createSupplier" :disabled="loading" class="btn btn-primary">
+        <button @click="createSupplier" :disabled="loading" class="btn btn-success">
           <i class="fas fa-save" /> {{ $t("Save") }}
         </button>
       </div>

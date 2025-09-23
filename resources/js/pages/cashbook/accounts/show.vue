@@ -7,12 +7,12 @@
       <div class="w-100 text-right float-right">
         <div class="btn-group" v-if="allData">
           <a :href="'/account-transactions/pdf/' + allData.slug" v-tooltip="$t('Export Table')"
-            class="btn btn-primary">
+            class="btn btn-info">
             <i class="fas fa-download"></i> {{ $t("Download") }}
           </a>
 
           <a href="#" @click="printWindow" class="btn btn-info"><i class="fas fa-print"></i> {{ $t("Print") }}</a>
-          <router-link :to="{ name: 'accounts.index' }" class="btn btn-dark float-right">
+          <router-link :to="{ name: 'accounts.index' }" class="btn btn-info float-right">
             <i class="fas fa-long-arrow-alt-left" />
             {{ $t("Back") }}
           </router-link>

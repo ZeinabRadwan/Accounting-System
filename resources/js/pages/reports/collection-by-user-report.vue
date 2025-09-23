@@ -53,7 +53,7 @@
             <a @click="printWindow()" href="#" class="btn btn-secondary">
               <i class="fas fa-print"></i> {{ $t("Print") }}
             </a>
-            <router-link :to="{ name: 'home' }" class="btn btn-dark float-right">
+            <router-link :to="{ name: 'home' }" class="btn btn-info float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
             </router-link>
           </div>

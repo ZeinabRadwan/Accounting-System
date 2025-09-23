@@ -6,13 +6,13 @@
     <div class="row no-print mb-2">
       <div class="w-100 text-right float-right">
         <div class="btn-group" v-if="allData">
-          <a @click="generatePDF()" href="#" class="btn btn-primary">
+          <a @click="generatePDF()" href="#" class="btn btn-info">
             <i class="fas fa-download"></i> {{ $t("Download") }}
           </a>
           <a @click="printWindow()" href="#" class="btn btn-secondary">
             <i class="fas fa-print"></i> {{ $t("Print") }}
           </a>
-          <router-link :to="{ name: 'inventory.index' }" class="btn btn-dark float-right">
+          <router-link :to="{ name: 'inventory.index' }" class="btn btn-info float-right">
             <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
           </router-link>
         </div>

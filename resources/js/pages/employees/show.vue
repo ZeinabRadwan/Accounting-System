@@ -207,7 +207,7 @@
                   <div class="col-md-4">
                     <router-link
                       :to="{ name: 'employees.index' }"
-                      class="btn btn-dark float-right"
+                      class="btn btn-info float-right"
                     >
                       <i class="fas fa-long-arrow-alt-left" />
                       {{ $t("Back") }}

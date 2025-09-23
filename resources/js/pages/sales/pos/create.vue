@@ -10,7 +10,7 @@
         <div class="card">
           <div class="card-header">
             <div class="float-right header-buttons">
-              <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+              <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
                 <i class="fas fa-save" />
               </button>
             </div>
