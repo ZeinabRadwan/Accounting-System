@@ -229,6 +229,60 @@ class ChartOfAccountController extends Controller
     {
         try {
             $chartOfAccount = ChartOfAccount::where('code', $slug)->firstOrFail();
+
+            // Guard: prevent deletion if account has child accounts
+            if ($chartOfAccount->children()->exists()) {
+                return response()->json([
+                    'message' => 'This account has child accounts and cannot be deleted.',
+                    'errors' => [ 'chart_of_account' => ['Has child accounts'] ]
+                ], 422);
+            }
+
+            // Guard: prevent deletion if linked in system
+            $linkedClientCount = \App\Models\Client::where('chart_of_account_id', $chartOfAccount->id)->count();
+            if ($linkedClientCount > 0) {
+                return response()->json([
+                    'message' => 'This account is linked to one or more customers and cannot be deleted.',
+                    'errors' => [ 'chart_of_account' => ['Linked to customers'] ]
+                ], 422);
+            }
+
+            $linkedSupplierCount = \App\Models\Supplier::where('chart_of_account_id', $chartOfAccount->id)->count();
+            if ($linkedSupplierCount > 0) {
+                return response()->json([
+                    'message' => 'This account is linked to one or more vendors and cannot be deleted.',
+                    'errors' => [ 'chart_of_account' => ['Linked to vendors'] ]
+                ], 422);
+            }
+
+            $linkedCashbookAccountCount = \App\Models\Account::where('chart_of_account_id', $chartOfAccount->id)->count();
+            if ($linkedCashbookAccountCount > 0) {
+                return response()->json([
+                    'message' => 'This account is linked to one or more bank/cash accounts and cannot be deleted.',
+                    'errors' => [ 'chart_of_account' => ['Linked to bank/cash accounts'] ]
+                ], 422);
+            }
+
+            $linkedVatCount = \App\Models\VatRate::where('sales_vat_account_id', $chartOfAccount->id)
+                ->orWhere('purchase_vat_account_id', $chartOfAccount->id)
+                ->count();
+            if ($linkedVatCount > 0) {
+                return response()->json([
+                    'message' => 'This account is linked in VAT settings and cannot be deleted.',
+                    'errors' => [ 'chart_of_account' => ['Linked to VAT settings'] ]
+                ], 422);
+            }
+
+            $linkedRoutingCount = \App\Models\AccountRoutingSetting::where('main_account_id', $chartOfAccount->id)
+                ->orWhere('main_account_id', $chartOfAccount->id)
+                ->count();
+            if ($linkedRoutingCount > 0) {
+                return response()->json([
+                    'message' => 'This account is used in Accounting Settings and cannot be deleted.',
+                    'errors' => [ 'chart_of_account' => ['Linked to Accounting Settings'] ]
+                ], 422);
+            }
+
             $chartOfAccount->delete();
             return $this->responseWithSuccess('Account deleted successfully');
         } catch (Exception $e) {

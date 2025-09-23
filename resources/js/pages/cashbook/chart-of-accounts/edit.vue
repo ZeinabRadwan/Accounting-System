@@ -35,23 +35,7 @@
                   <label for="code">{{ $t('Account Code') }}
                     <span class="required">*</span></label>
                   
-                  <!-- Code Generation Toggle -->
-                  <div class="code-generation-toggle mb-2">
-                    <div class="btn-group btn-group-sm" role="group">
-                      <button type="button" 
-                              :class="['btn', form.code_generation === 'manual' ? 'btn-primary' : 'btn-outline-primary']"
-                              @click="setCodeGeneration('manual')">
-                        <i class="fas fa-edit mr-1"></i>
-                        {{ $t('Manual') }}
-                      </button>
-                      <button type="button" 
-                              :class="['btn', form.code_generation === 'automatic' ? 'btn-primary' : 'btn-outline-primary']"
-                              @click="setCodeGeneration('automatic')">
-                        <i class="fas fa-magic mr-1"></i>
-                        {{ $t('Regenerate') }}
-                      </button>
-                    </div>
-                  </div>
+                
 
                   <!-- Code Input Field -->
                   <div class="code-input-container">
@@ -61,29 +45,14 @@
                            class="form-control"
                            :class="{ 'is-invalid': form.errors.has('code') }" 
                            name="code"
-                           :placeholder="form.code_generation === 'automatic' ? $t('Code will be regenerated') : $t('Enter account code')"
+                           :placeholder="$t('Enter account code')"
                            :readonly="form.code_generation === 'automatic'"
                            :style="form.code_generation === 'automatic' ? 'background-color: #f8f9fa;' : ''" />
                     
-                    <!-- Regenerate Button -->
-                    <div v-if="form.code_generation === 'automatic'" class="code-generate-btn">
-                      <button type="button" 
-                              class="btn btn-outline-secondary btn-sm"
-                              @click="generateCode"
-                              :disabled="!form.parent_id">
-                        <i class="fas fa-sync-alt mr-1"></i>
-                        {{ $t('Generate') }}
-                      </button>
-                    </div>
+                  
                   </div>
                   
-                  <!-- Code Preview -->
-                  <div v-if="form.code_generation === 'automatic' && form.code" class="code-preview mt-2">
-                    <small class="text-muted">
-                      <i class="fas fa-info-circle mr-1"></i>
-                      {{ $t('Generated Code') }}: <strong>{{ form.code }}</strong>
-                    </small>
-                  </div>
+                
                   
                   <!-- Warning when switching to regenerate mode -->
                   <div v-if="form.code_generation === 'automatic' && originalCode && form.code !== originalCode" class="code-warning mt-2">
@@ -127,11 +96,14 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="is_active">{{ $t('Status') }}</label>
-                  <select id="is_active" v-model="form.is_active" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('is_active') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
-                  </select>
+                  <v-select
+                    v-model="form.is_active"
+                    :options="statusOptions"
+                    label="label"
+                    :reduce="opt => opt.value"
+                    :class="{ 'is-invalid': form.errors.has('is_active') }"
+                    :placeholder="$t('Select status')"
+                  />
                   <has-error :form="form" field="is_active" />
                 </div>
               </div>
@@ -199,6 +171,10 @@ export default {
     codeGenerationTimeout: null, // For debouncing
     isGeneratingCode: false, // Prevent multiple simultaneous generations
     originalCode: '', // Store original code for comparison
+    statusOptions: [
+      { label: 'Active', value: 1 },
+      { label: 'Inactive', value: 0 }
+    ],
   }),
 
   async created() {
@@ -528,17 +504,59 @@ export default {
 
 /* Code Generation Toggle */
 .code-generation-toggle {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem !important;
 }
 
 .code-generation-toggle .btn-group {
-  width: 100%;
+  width: 125%;
+  display: inline-flex;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .code-generation-toggle .btn {
   flex: 1;
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  line-height: 1.3;
+  border-radius: 5px;
+  background: transparent !important;
+  border: none !important;
+  color: #64748b;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+}
+
+.code-generation-toggle .btn-outline-primary {
+  border: none !important;
+  color: #64748b;
+}
+
+.code-generation-toggle .btn-outline-primary:hover {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: #475569;
+  transform: none;
+  box-shadow: none !important;
+}
+
+/* Active state - primary in this toggle only */
+.code-generation-toggle .btn.btn-primary {
+  background: #ffffff !important;
+  color: #2AB930 !important;
+  border: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  transform: none !important;
+}
+
+.code-generation-toggle .btn.btn-primary:hover {
+  background: #ffffff !important;
+  color: #229A26 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+  transform: none !important;
 }
 
 /* Code Input Container */
@@ -628,53 +646,6 @@ export default {
 
 /* Disabled State */
 .btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Space between action buttons */
-.btn-group.c-w-100 {
-  gap: 10px;
-}
-
-
-
-.card {
-  margin-top: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA
-}
-
-.card-footer {
-  background-color: white;
-  border-top: 1px solid #CED4DA;
-  padding: 0 1.25rem 0.625rem 1.25rem;
-  border-radius: 0 0 20px 20px;
-}
-
-/* Search Input Background Override */
-.form-control{
-  background: #fff !important;
-}
-
-.btn-primary {
-  background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
-}
-
-.btn-secondary {
-  background: #33a0d9 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
-}
-</style>
-
   opacity: 0.6;
   cursor: not-allowed;
 }
