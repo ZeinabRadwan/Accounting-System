@@ -78,9 +78,9 @@
                                         <td>{{ data.phoneNumber }}</td>
                                         <td>{{ data.email }}</td>
                                         <td>{{ data.companyName }}</td>
-                                        <td>{{ data.purchaseTotalDue | withCurrency }}</td>
-                                        <td>{{ data.nonPurchaseCurrentDue | withCurrency }}</td>
-                                        <td>{{ data.purchaseTotalDue + data.nonPurchaseCurrentDue | withCurrency }}</td>
+                                        <td>{{ data.purchaseTotalDue  }} <span class="saudi-riyal">ê</span></td>
+                                        <td>{{ data.nonPurchaseCurrentDue  }} <span class="saudi-riyal">ê</span></td>
+                                        <td>{{ data.purchaseTotalDue + data.nonPurchaseCurrentDue  }} <span class="saudi-riyal">ê</span></td>
                                         <td>
                                             <span v-if="data.status === 1" class="badge bg-success">{{
                                                 $t("Active")

@@ -117,7 +117,7 @@
                         data.account.accountNumber
                       }}</span>
                     </td>
-                    <td>{{ data.amount | withCurrency }}</td>
+                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.type == 1" class="badge bg-success">{{
                         $t("Add Balance")

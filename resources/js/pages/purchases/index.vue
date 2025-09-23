@@ -141,9 +141,9 @@
                       }}</span>
                     </td>
                     <td>{{ data.supplierName }}</td>
-                    <td>{{ data.purchaseTotal | withCurrency }}</td>
-                    <td>{{ data.totalPaid | withCurrency }}</td>
-                    <td>{{ data.due | withCurrency }}</td>
+                    <td>{{ data.purchaseTotal  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.totalPaid  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")

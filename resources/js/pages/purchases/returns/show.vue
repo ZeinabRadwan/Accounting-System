@@ -217,7 +217,7 @@
                             data.product.itemUnit.code
                           }}</span>
                         </td>
-                        <td>{{ data.purchasePrice | withCurrency }}</td>
+                        <td>{{ data.purchasePrice  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           {{
                             (data.purchasePrice * data.purchasedQty)
@@ -235,10 +235,10 @@
                           <strong>{{ $t("Subtotal") }}</strong>
                         </td>
                         <td>
-                          <strong>{{ purchaseSubTotal | withCurrency }}</strong>
+                          <strong>{{ purchaseSubTotal  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td class="text-right">
-                          <strong>{{ purchaseReturn | withCurrency }}</strong>
+                          <strong>{{ purchaseReturn  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -255,27 +255,27 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.purchase.subTotal | withCurrency }}</td>
+                        <td>{{ allData.purchase.subTotal  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ purchaseReturn | withCurrency }}
+                          {{ purchaseReturn  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Discount") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.purchase.totalDiscount | withCurrency }}
+                          {{ allData.purchase.totalDiscount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.purchase.transport | withCurrency }}
+                          {{ allData.purchase.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -285,26 +285,26 @@
                         </th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.purchase.tax | withCurrency }}
+                          {{ allData.purchase.tax  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ allData.purchase.purchaseTotal | withCurrency }}
+                          {{ allData.purchase.purchaseTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.purchase.totalPaid | withCurrency }}
+                          {{ allData.purchase.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.purchase.due | withCurrency }}</td>
+                        <td>{{ allData.purchase.due  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr
                         class="bg-green-light"
@@ -312,7 +312,7 @@
                       >
                         <th>{{ $t("Account Receivable") }}:</th>
                         <td>
-                          {{ allData.accountReceivable.amount | withCurrency }}
+                          {{ allData.accountReceivable.amount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>

@@ -138,9 +138,9 @@
                           }}
                         </td>
                         <td>
-                          {{ allData.invoice.invoiceTotal | withCurrency }}
+                          {{ allData.invoice.invoiceTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td>{{ allData.amount | withCurrency }}</td>
+                        <td>{{ allData.amount  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="allData.account">{{
                             allData.account.label
@@ -232,13 +232,13 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.invoice.subTotal | withCurrency }}</td>
+                        <td>{{ allData.invoice.subTotal  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr v-if="allData.costOfReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.costOfReturn | withCurrency }}
+                          {{ allData.costOfReturn  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -251,14 +251,14 @@
                         </th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.invoice.discount | withCurrency }}
+                          {{ allData.invoice.discount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.invoice.transport | withCurrency }}
+                          {{ allData.invoice.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -270,7 +270,7 @@
                         </th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.invoice.tax | withCurrency }}
+                          {{ allData.invoice.tax  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
@@ -292,19 +292,19 @@
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.invoice.totalPaid | withCurrency }}
+                          {{ allData.invoice.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.invoice.due | withCurrency }}</td>
+                        <td>{{ allData.invoice.due  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr
                         class="bg-green-light"
                         v-if="allData.accountPayable > 0"
                       >
                         <th>{{ $t("Account Payable") }}:</th>
-                        <td>{{ allData.accountPayable | withCurrency }}</td>
+                        <td>{{ allData.accountPayable  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                     </tbody>
                   </table>

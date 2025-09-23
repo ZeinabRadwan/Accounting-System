@@ -51,42 +51,42 @@
                                                     <th>{{ $t("Opening Stock") }} <br><small
                                                             class="text-muted">{{ $t("By purchase price")
                                                             }}</small>:</th>
-                                                    <td>{{ reportInfo.openingStockByPurchasePrice | withCurrency }}</td>
+                                                    <td>{{ reportInfo.openingStockByPurchasePrice  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Opening Stock") }} <br><small
                                                             class="text-muted">{{ $t("By sale price")
                                                             }}</small>:
                                                     </th>
-                                                    <td>{{ reportInfo.openingStockBySalePrice | withCurrency }}</td>
+                                                    <td>{{ reportInfo.openingStockBySalePrice  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Purchase") }}:</th>
-                                                    <td>{{ reportInfo.totalPurchase | withCurrency }}</td>
+                                                    <td>{{ reportInfo.totalPurchase  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Expense") }}:</th>
-                                                    <td>{{ reportInfo.expenses | withCurrency }}</td>
+                                                    <td>{{ reportInfo.expenses  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Payroll") }}:</th>
-                                                    <td>{{ reportInfo.payrolls | withCurrency }}</td>
+                                                    <td>{{ reportInfo.payrolls  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Loan Interest") }}:</th>
-                                                    <td>{{ reportInfo.loanInterest | withCurrency }}</td>
+                                                    <td>{{ reportInfo.loanInterest  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Asset Depreciation") }}:</th>
-                                                    <td>{{ reportInfo.assetDepriciation | withCurrency }}</td>
+                                                    <td>{{ reportInfo.assetDepriciation  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Sell Discount") }}:</th>
-                                                    <td>{{ reportInfo.invoiceDiscount | withCurrency }}</td>
+                                                    <td>{{ reportInfo.invoiceDiscount  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Sell Return") }}:</th>
-                                                    <td>{{ reportInfo.invoiceReturn | withCurrency }}</td>
+                                                    <td>{{ reportInfo.invoiceReturn  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -105,27 +105,27 @@
                                                     <th>{{ $t("Closing Stock") }} <br><small
                                                             class="text-muted">{{ $t("By purchase price")
                                                             }}</small>:</th>
-                                                    <td>{{ reportInfo.closingStockByPurchasePrice | withCurrency }}</td>
+                                                    <td>{{ reportInfo.closingStockByPurchasePrice  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Closing Stock") }}<br><small
                                                             class="text-muted">{{ $t("By sale price")
                                                             }}</small>:
                                                     </th>
-                                                    <td>{{ reportInfo.closingStockBySalePrice | withCurrency }}</td>
+                                                    <td>{{ reportInfo.closingStockBySalePrice  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Sales") }}:
                                                     </th>
-                                                    <td>{{ reportInfo.invoiceSales | withCurrency }}</td>
+                                                    <td>{{ reportInfo.invoiceSales  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Purchase Return") }}:</th>
-                                                    <td>{{ reportInfo.purchaseReturn | withCurrency }}</td>
+                                                    <td>{{ reportInfo.purchaseReturn  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ $t("Total Purchase Discount") }}:</th>
-                                                    <td>{{ reportInfo.todayPurchaseDiscount | withCurrency }}</td>
+                                                    <td>{{ reportInfo.todayPurchaseDiscount  }} <span class="saudi-riyal">ê</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">

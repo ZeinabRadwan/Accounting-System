@@ -112,16 +112,16 @@
                                 " />
                           </div>
                         </td>
-                        <td>{{ item.unitCost | withCurrency }}</td>
+                        <td>{{ item.unitCost  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="item.productDiscount && item.productDiscount > 0" class="badge badge-info">
-                            {{ item.discountType === 'percentage' ? item.productDiscount + '%' : item.productDiscount | withCurrency }}
+                            {{ item.discountType === 'percentage' ? item.productDiscount + '%' : item.productDiscount  }} <span class="saudi-riyal">ê</span>
                           </span>
                           <span v-else class="text-muted">-</span>
                         </td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
-                          {{ item.returnTotal | withCurrency }}
+                          {{ item.returnTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="form.invoice">
@@ -134,7 +134,7 @@
                           }}</strong>
                         </td>
                         <td class="text-right">
-                          <strong>{{ form.totalReturn | withCurrency }}</strong>
+                          <strong>{{ form.totalReturn  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>

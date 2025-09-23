@@ -142,10 +142,10 @@
                           <td>{{ allData.loan.reference }}</td>
                           <td>{{ allData.reference }}</td>
                           <td v-if="allData.loan">
-                            {{ allData.loan.payable | withCurrency }}
+                            {{ allData.loan.payable  }} <span class="saudi-riyal">ê</span>
                           </td>
-                          <td>{{ allData.amount | withCurrency }}</td>
-                          <td>{{ allData.interest | withCurrency }}</td>
+                          <td>{{ allData.amount  }} <span class="saudi-riyal">ê</span></td>
+                          <td>{{ allData.interest  }} <span class="saudi-riyal">ê</span></td>
                           <td v-if="allData.account">
                             {{ allData.account.label }}
                           </td>
@@ -182,7 +182,7 @@
                         <tr class="bg-sub-light text-bold">
                           <th>{{ $t("Loan Amount") }}:</th>
                           <td>
-                            {{ allData.loan.transaction.amount | withCurrency }}
+                            {{ allData.loan.transaction.amount  }} <span class="saudi-riyal">ê</span>
                           </td>
                         </tr>
                         <tr>
@@ -194,14 +194,14 @@
                           </th>
                           <td>
                             <span class="plus-sign">+</span>
-                            {{ allData.loan.interestAmount | withCurrency }}
+                            {{ allData.loan.interestAmount  }} <span class="saudi-riyal">ê</span>
                           </td>
                         </tr>
                         <tr class="bg-indigo-light">
                           <th>{{ $t("Payable") }}:</th>
                           <td v-if="allData.loan.loanType == 1">
                             <span class="equal-sign">=</span>
-                            {{ allData.loan.payable | withCurrency }}
+                            {{ allData.loan.payable  }} <span class="saudi-riyal">ê</span>
                           </td>
                           <td v-else>
                             <span class="equal-sign">=</span>
@@ -228,7 +228,7 @@
                         </tr>
                         <tr class="bg-red-light">
                           <th>{{ $t("Total Due") }}:</th>
-                          <td>{{ allData.loan.due | withCurrency }}</td>
+                          <td>{{ allData.loan.due  }} <span class="saudi-riyal">ê</span></td>
                         </tr>
                       </tbody>
                     </table>

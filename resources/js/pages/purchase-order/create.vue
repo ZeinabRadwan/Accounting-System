@@ -29,7 +29,7 @@
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.supplier" :options="items" label="name"
+                        <v-select class="flex-grow-1" v-model="form.supplier" :options="items" label="name" :clearable="false"
                           :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier"
                           :placeholder="$t('Select a supplier')" @input="onSupplierChange" />
                         <SupplierCreateModal @reloadSuppliers="getSuppliers">
@@ -41,7 +41,7 @@
                       
                       <!-- Supplier Chart of Account Status -->
                       <div class="supplier-status mt-2" v-if="form.supplier">
-                        <div v-if="!form.supplier.chart_of_account_id" class="supplier-warning">
+                        <div v-if="!form.supplier.chart_of_account_id" class="warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
                           <span class="ml-2">{{ $t('Supplier needs Chart of Account') }}</span>
                           <button 
@@ -54,10 +54,7 @@
                             {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        <div v-else class="supplier-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Supplier Chart of Account ready') }}</span>
-                        </div>
+                        
                       </div>
                       
                       <has-error :form="form" field="supplier" />
@@ -70,7 +67,7 @@
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select v-model="form.product" :options="products" label="label" class="flex-grow-1" :class="{
+                        <v-select v-model="form.product" :options="products" label="label" class="flex-grow-1" :clearable="false" :class="{
                           'is-invalid': form.errors.has('selectedProducts'),
                         }" name="product" :placeholder="$t('Search products')"
                           @input="storeProduct(form.product)" />
@@ -96,10 +93,7 @@
                             {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        <div v-else class="product-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Purchase Account ready') }}</span>
-                        </div>
+                        
                       </div>
                       
                       <has-error :form="form" field="selectedProducts" />
@@ -212,7 +206,7 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ ((item.originalPrice || item.unitPrice) * item.qty) | withCurrency }}</td>
+                        <td>{{ ((item.originalPrice || item.unitPrice) * item.qty) }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -242,7 +236,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ getTotalAfterDiscount(item) | withCurrency }}</td>
+                        <td>{{ getTotalAfterDiscount(item)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -264,10 +258,10 @@
                           </td>
                         <td>
                           <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax | withCurrency }}
+                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ getTotalWithVAT(item) | withCurrency }}</td>
+                        <td>{{ getTotalWithVAT(item)  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -280,22 +274,22 @@
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                          <strong>{{ totalUnitPrice  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalDiscountSum() | withCurrency }}</strong>
+                          <strong>{{ getTotalDiscountSum()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getSubTotalAfterDiscount() | withCurrency }}</strong>
+                          <strong>{{ getSubTotalAfterDiscount()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalVATSum() | withCurrency }}</strong>
+                          <strong>{{ getTotalVATSum()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalWithVATSum() | withCurrency }}</strong>
+                          <strong>{{ getTotalWithVATSum()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>
@@ -326,7 +320,7 @@
                   <label for="orderTax">{{ $t("Purchase Tax") }}
                     <span class="required">*</span></label>
                   <!-- Debug: isSaudiArabia = {{ isSaudiArabia }}, taxes = {{ taxes ? 'exists' : 'null' }} -->
-                  <v-select v-model="form.orderTax" :options="taxes" label="code"
+                  <v-select v-model="form.orderTax" :options="taxes" label="code" :clearable="false"
                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" :placeholder="$t('Select a tax type')
                       " @input="updateTax" />
                   <has-error :form="form" field="orderTax" />
@@ -443,6 +437,7 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ProductCreateModal from '~/components/ProductCreateModal'
 import SupplierCreateModal from '~/components/SupplierCreateModal'
+import ErrorHandler from '~/utils/errorHandler'
 
 import { ToWords } from 'to-words';
 
@@ -665,8 +660,15 @@ export default {
       );
       let quantity = 1;
       if (index === -1) {
-        let purchasePrice =
-          product.avgPurchasePrice > 0 ? product.avgPurchasePrice : 1;
+        // Prefer sellingPrice from API payload; fallback to regularPrice then avgPurchasePrice then 1
+        let purchasePrice = 1;
+        if (product && Number(product.sellingPrice) > 0) {
+          purchasePrice = Number(product.sellingPrice);
+        } else if (product && Number(product.regularPrice) > 0) {
+          purchasePrice = Number(product.regularPrice);
+        } else if (product && Number(product.avgPurchasePrice) > 0) {
+          purchasePrice = Number(product.avgPurchasePrice);
+        }
         // store product
         this.form.selectedProducts.unshift({
           id: product.id,
@@ -1078,7 +1080,6 @@ export default {
         this.loading = false;
         
         // Use centralized error handler
-        const ErrorHandler = require('~/utils/errorHandler').default;
         ErrorHandler.handleApiError(error, {
           showValidationErrors: true
         });
@@ -1108,7 +1109,10 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('purchaseOrderTempData', JSON.stringify(tempData))
-      
+      toast.fire({
+        type: 'success',
+        title: this.$t('Form saved temporarily'),
+      })
     },
     // load temporary data
     loadTemporaryData() {
@@ -1280,17 +1284,17 @@ export default {
   margin-right: 0;
 }
 
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
+.create-btn {
+  padding: 11px;
 }
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
+
+/* Improved warning and success styles */
+.chart-account-warning,
+.chart-account-success {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .chart-account-warning {
@@ -1363,14 +1367,13 @@ export default {
   flex-shrink: 0;
 }
 
-/* Button Styling */
+/* Remove padding for button-plus icon-shape icon-sm btn-primary elements */
+.button-plus.icon-shape.icon-sm.btn-primary {
+  padding: 0;
+}
+
 .btn-primary {
   background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
-  font-weight: 500;
 }
 
 .btn-primary:hover {
@@ -1379,20 +1382,11 @@ export default {
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
 
-.btn-secondary {
-  background: #33a0d9 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-  border-radius: 10px !important;
-  border: none !important;
-  font-weight: 500;
-  margin-right: 10px;
-}
-
-.btn-secondary:hover {
-  background: #2a8bc4 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* Responsive design */
@@ -1418,8 +1412,8 @@ export default {
   font-size: 13px;
 }
 
-.client-warning,
-.client-success {
+.warning,
+.success {
   display: flex;
   align-items: center;
   padding: 8px 12px;
@@ -1427,7 +1421,7 @@ export default {
   font-weight: 500;
 }
 
-.client-warning {
+.warning {
   background-color: #fff3cd;
   color: #856404;
   border: 1px solid #ffeaa7;
@@ -1592,18 +1586,7 @@ export default {
   gap: 10px;
 }
 
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
-}
+
 
 .card {
   margin-top: 30px;
@@ -1641,10 +1624,7 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
-}
-.create-btn {
-  padding: 11px;
 }
 </style>

@@ -138,10 +138,10 @@
                         </div>
                         <div class="col-6 text-right">
                           <h6 class="text-white">
-                            {{ allData.clientInvoiceTotal | withCurrency }}
+                            {{ allData.clientInvoiceTotal  }} <span class="saudi-riyal">ê</span>
                           </h6>
                           <h6 class="text-white">
-                            {{ allData.nonInvoiceDue | withCurrency }}
+                            {{ allData.nonInvoiceDue  }} <span class="saudi-riyal">ê</span>
                           </h6>
                           <hr />
                           <h4 class="text-white mb-1">
@@ -176,10 +176,10 @@
                         </div>
                         <div class="col-6 text-right">
                           <h6 class="text-white">
-                            {{ allData.clientDue | withCurrency }}
+                            {{ allData.clientDue  }} <span class="saudi-riyal">ê</span>
                           </h6>
                           <h6 class="text-white">
-                            {{ allData.nonInvoiceCurrentDue | withCurrency }}
+                            {{ allData.nonInvoiceCurrentDue  }} <span class="saudi-riyal">ê</span>
                           </h6>
                           <hr />
                           <h4 class="text-white mb-1">
@@ -446,9 +446,9 @@
                               }}</span>
                             </td>
                             <td>{{ data.client }}</td>
-                            <td>{{ data.invoiceTotal | withCurrency }}</td>
-                            <td>{{ data.totalPaid | withCurrency }}</td>
-                            <td>{{ data.due | withCurrency }}</td>
+                            <td>{{ data.invoiceTotal  }} <span class="saudi-riyal">ê</span></td>
+                            <td>{{ data.totalPaid  }} <span class="saudi-riyal">ê</span></td>
+                            <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               <span
                                 v-if="data.status === 1"
@@ -647,7 +647,7 @@
                             </td>
                             <td>{{ data.clientName }}</td>
                             <td>{{ data.reason }}</td>
-                            <td>{{ data.totalReturn | withCurrency }}</td>
+                            <td>{{ data.totalReturn  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               <span v-if="data.returnDate">{{
                                 data.returnDate | moment("Do MMM, YYYY")
@@ -853,9 +853,9 @@
                               }}</span>
                             </td>
                             <td v-if="data.invoice">
-                              {{ data.invoice.invoiceTotal | withCurrency }}
+                              {{ data.invoice.invoiceTotal  }} <span class="saudi-riyal">ê</span>
                             </td>
-                            <td>{{ data.amount | withCurrency }}</td>
+                            <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               <span v-if="data.account">{{
                                 data.account.label
@@ -1059,7 +1059,7 @@
                                 $t("Due Added")
                               }}</span>
                             </td>
-                            <td>{{ data.amount | withCurrency }}</td>
+                            <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               <span v-if="data.account">{{
                                 data.account.label
@@ -1218,20 +1218,20 @@
                                 {{ data.particulars }}
                               </router-link>
                             </td>
-                            <td>{{ data.credit | withCurrency }}</td>
-                            <td>{{ data.debit | withCurrency }}</td>
-                            <td>{{ data.discount | withCurrency }}</td>
-                            <td>{{ data.balance | withCurrency }}</td>
+                            <td>{{ data.credit  }} <span class="saudi-riyal">ê</span></td>
+                            <td>{{ data.debit  }} <span class="saudi-riyal">ê</span></td>
+                            <td>{{ data.discount  }} <span class="saudi-riyal">ê</span></td>
+                            <td>{{ data.balance  }} <span class="saudi-riyal">ê</span></td>
                           </tr>
                           <tr v-if="ledgerItems[ledgerItems.length - 1]">
                             <td>{{ ledgerItems.length + 1 }}</td>
                             <td>{{ date | moment("Do MMM, YYYY") }}</td>
                             <td>{{ $t("Non Invoice Due") }}</td>
-                            <td>{{ 0 | withCurrency }}</td>
+                            <td>{{ 0  }} <span class="saudi-riyal">ê</span></td>
                             <td>
-                              {{ allData.nonInvoiceCurrentDue | withCurrency }}
+                              {{ allData.nonInvoiceCurrentDue  }} <span class="saudi-riyal">ê</span>
                             </td>
-                            <td>{{ 0 | withCurrency }}</td>
+                            <td>{{ 0  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
                                 (ledgerItems[ledgerItems.length - 1].balance +
@@ -1244,7 +1244,7 @@
                         <tfoot>
                           <tr v-if="ledgerItems[ledgerItems.length - 1]">
                             <td colspan="3">{{ $t("Summery") }}</td>
-                            <td>{{ ledgerTotalCredit | withCurrency }}</td>
+                            <td>{{ ledgerTotalCredit  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
                                 (ledgerTotalDebit +
@@ -1252,7 +1252,7 @@
                                   | withCurrency
                               }}
                             </td>
-                            <td>{{ ledgerTotalDiscount | withCurrency }}</td>
+                            <td>{{ ledgerTotalDiscount  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
                                 (ledgerItems[ledgerItems.length - 1].balance +

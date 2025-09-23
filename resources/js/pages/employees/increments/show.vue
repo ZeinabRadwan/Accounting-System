@@ -121,10 +121,10 @@
                       <tr>
                         <td v-if="allData.reason">{{ allData.reason }}</td>
                         <td v-if="allData.employee.salary">
-                          {{ allData.employee.salary | withCurrency }}
+                          {{ allData.employee.salary  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="allData.incrementAmount">
-                          {{ allData.incrementAmount | withCurrency }}
+                          {{ allData.incrementAmount  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td>
                           {{
@@ -133,7 +133,7 @@
                           }}
                         </td>
                         <td>
-                          {{ allData.employee.totalSalary | withCurrency }}
+                          {{ allData.employee.totalSalary  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="allData.incrementDate">
                           {{ allData.incrementDate | moment("Do MMM, YYYY") }}

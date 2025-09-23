@@ -62,10 +62,7 @@
                             {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        <div v-else class="client-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
-                        </div>
+                        
                       </div>
                       
                       <has-error :form="form" field="client" />
@@ -241,7 +238,7 @@
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ item.totalBeforeDiscount | withCurrency }}</td>
+                        <td>{{ item.totalBeforeDiscount  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -271,7 +268,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ item.totalAfterDiscount | withCurrency }}</td>
+                        <td>{{ item.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -293,10 +290,10 @@
                         </td>
                         <td>
                           <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax | withCurrency }}
+                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -309,22 +306,22 @@
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalUnitPrice() | withCurrency }}</strong>
+                          <strong>{{ getTotalUnitPrice()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalDiscount() | withCurrency }}</strong>
+                          <strong>{{ getTotalDiscount()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalAfterDiscount() | withCurrency }}</strong>
+                          <strong>{{ getTotalAfterDiscount()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ getProductTotalTax() | withCurrency }}</strong>
+                          <strong>{{ getProductTotalTax()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getSubTotal() | withCurrency }}</strong>
+                          <strong>{{ getSubTotal()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>
@@ -503,7 +500,7 @@
                   <!-- Due Amount Display -->
                   <div class="mt-2" v-if="form.addPayment == 1 && form.paidAmount">
                     <small class="text-muted">
-                      {{ $t("Due Amount") }}: <strong>{{ dueAmount | withCurrency }}</strong>
+                      {{ $t("Due Amount") }}: <strong>{{ dueAmount  }} <span class="saudi-riyal">ê</span></strong>
                     </small>
                   </div>
                 </div>

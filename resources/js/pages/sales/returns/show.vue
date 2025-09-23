@@ -216,15 +216,15 @@
                         <td>{{ data.productName }}</td>
                         <td>{{ data.invoiceQty }} {{ data.productUnit }}</td>
                         <td>{{ data.returnQty }} {{ data.productUnit }}</td>
-                        <td>{{ data.salePrice | withCurrency }}</td>
+                        <td>{{ data.salePrice  }} <span class="saudi-riyal">ê</span></td>
                         <td>
-                          {{ calculateUnitDiscount(data) | withCurrency }}
+                          {{ calculateUnitDiscount(data)  }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td>{{ calculateUnitNet(data) | withCurrency }}</td>
-                        <td>{{ calculateUnitVat(data) | withCurrency }}</td>
-                        <td>{{ calculateUnitTotal(data) | withCurrency }}</td>
+                        <td>{{ calculateUnitNet(data)  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ calculateUnitVat(data)  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ calculateUnitTotal(data)  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
-                          {{ calculateReturnTotal(data) | withCurrency }}
+                          {{ calculateReturnTotal(data)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -237,7 +237,7 @@
                           }}</strong>
                         </td>
                         <td class="text-right">
-                          <strong>{{ invoiceReturn | withCurrency }}</strong>
+                          <strong>{{ invoiceReturn  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -271,7 +271,7 @@
                             <span class="info-box-icon bg-secondary"><i class="fas fa-tag"></i></span>
                             <div class="info-box-content">
                               <span class="info-box-text">{{ $t('Subtotal') }}</span>
-                              <span class="info-box-number">{{ calculateReturnSubtotal(product) | withCurrency }}</span>
+                              <span class="info-box-number">{{ calculateReturnSubtotal(product)  }} <span class="saudi-riyal">ê</span></span>
                             </div>
                           </div>
                         </div>
@@ -280,7 +280,7 @@
                             <span class="info-box-icon bg-warning"><i class="fas fa-percentage"></i></span>
                             <div class="info-box-content">
                               <span class="info-box-text">{{ $t('Discount') }}</span>
-                              <span class="info-box-number">{{ calculateReturnDiscount(product) | withCurrency }}</span>
+                              <span class="info-box-number">{{ calculateReturnDiscount(product)  }} <span class="saudi-riyal">ê</span></span>
                             </div>
                           </div>
                         </div>
@@ -289,7 +289,7 @@
                             <span class="info-box-icon bg-success"><i class="fas fa-calculator"></i></span>
                             <div class="info-box-content">
                               <span class="info-box-text">{{ $t('Net Sale') }}</span>
-                              <span class="info-box-number">{{ calculateReturnNet(product) | withCurrency }}</span>
+                              <span class="info-box-number">{{ calculateReturnNet(product)  }} <span class="saudi-riyal">ê</span></span>
                             </div>
                           </div>
                         </div>
@@ -298,7 +298,7 @@
                             <span class="info-box-icon bg-primary"><i class="fas fa-receipt"></i></span>
                             <div class="info-box-content">
                               <span class="info-box-text">{{ $t('VAT') }} ({{ getVatRate(product) }}%)</span>
-                              <span class="info-box-number">{{ calculateReturnVat(product) | withCurrency }}</span>
+                              <span class="info-box-number">{{ calculateReturnVat(product)  }} <span class="saudi-riyal">ê</span></span>
                             </div>
                           </div>
                         </div>
@@ -307,7 +307,7 @@
                             <span class="info-box-icon bg-danger"><i class="fas fa-undo"></i></span>
                             <div class="info-box-content">
                               <span class="info-box-text">{{ $t('Total Refund') }}</span>
-                              <span class="info-box-number">{{ calculateReturnTotal(product) | withCurrency }}</span>
+                              <span class="info-box-number">{{ calculateReturnTotal(product)  }} <span class="saudi-riyal">ê</span></span>
                             </div>
                           </div>
                         </div>
@@ -354,15 +354,15 @@
                               <tr v-for="product in productsWithReturns" :key="product.id">
                                 <td>{{ product.productName }}</td>
                                 <td>{{ getVatRate(product) }}%</td>
-                                <td>{{ product.taxAmount | withCurrency }}</td>
-                                <td>{{ calculateReturnVat(product) | withCurrency }}</td>
+                                <td>{{ product.taxAmount  }} <span class="saudi-riyal">ê</span></td>
+                                <td>{{ calculateReturnVat(product)  }} <span class="saudi-riyal">ê</span></td>
                               </tr>
                             </tbody>
                             <tfoot>
                               <tr class="bg-light">
                                 <th colspan="2">{{ $t('Total') }}</th>
-                                <th>{{ calculateTotalInvoiceTax() | withCurrency }}</th>
-                                <th>{{ calculateTotalReturnTax() | withCurrency }}</th>
+                                <th>{{ calculateTotalInvoiceTax()  }} <span class="saudi-riyal">ê</span></th>
+                                <th>{{ calculateTotalReturnTax()  }} <span class="saudi-riyal">ê</span></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -406,7 +406,7 @@
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
                         <td>
-                          {{ allData.invoice.subTotal | withCurrency }}
+                          {{ allData.invoice.subTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -432,7 +432,7 @@
                         <th>{{ $t("Return VAT") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ calculateTotalReturnTax() | withCurrency }}
+                          {{ calculateTotalReturnTax()  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -448,33 +448,33 @@
                         <th>{{ $t("Remaining Tax") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ calculateTotalRemainingTax() | withCurrency }}
+                          {{ calculateTotalRemainingTax()  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.invoice.transport | withCurrency }}
+                          {{ allData.invoice.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ calculateFinalTotal() | withCurrency }}
+                          {{ calculateFinalTotal()  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.invoice.totalPaid | withCurrency }}
+                          {{ allData.invoice.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.invoice.due | withCurrency }}</td>
+                        <td>{{ allData.invoice.due  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr
                         v-if="allData.accountPayable"
@@ -482,7 +482,7 @@
                       >
                         <th>{{ $t("Account Payable") }}:</th>
                         <td>
-                          {{ allData.accountPayable.amount | withCurrency }}
+                          {{ allData.accountPayable.amount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -738,10 +738,10 @@
                           {{ $t("Total") }}:
                         </th>
                         <th class="text-right">
-                          {{ journalEntry.total_debit | withCurrency }}
+                          {{ journalEntry.total_debit  }} <span class="saudi-riyal">ê</span>
                         </th>
                         <th class="text-right">
-                          {{ journalEntry.total_credit | withCurrency }}
+                          {{ journalEntry.total_credit  }} <span class="saudi-riyal">ê</span>
                         </th>
                       </tr>
                       <tr>

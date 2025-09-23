@@ -105,10 +105,10 @@
                               data-field="quantity" @click="updateItem(item.returnQty + 1, i - 1)" />
                           </div>
                         </td>
-                        <td>{{ item.sellingPrice | withCurrency }}</td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ item.sellingPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
-                          {{ item.returnTotal | withCurrency }}
+                          {{ item.returnTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="form.invoice">
@@ -121,7 +121,7 @@
                           }}</strong>
                         </td>
                         <td class="text-right">
-                          <strong>{{ form.totalReturn | withCurrency }}</strong>
+                          <strong>{{ form.totalReturn  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>

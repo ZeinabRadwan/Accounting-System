@@ -114,7 +114,7 @@
                     </td>
                     <td>{{ data.email }}</td>
                     <td>{{ data.contactNumber }}</td>
-                    <td>{{ data.ccLimit | withCurrency }}</td>
+                    <td>{{ data.ccLimit  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")

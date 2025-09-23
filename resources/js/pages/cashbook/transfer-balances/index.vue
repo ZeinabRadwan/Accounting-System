@@ -142,7 +142,7 @@
                         data.toAccount.label
                       }}</span>
                     </td>
-                    <td>{{ data.amount | withCurrency }}</td>
+                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.date">{{
                         data.date | moment("Do MMM, YYYY")

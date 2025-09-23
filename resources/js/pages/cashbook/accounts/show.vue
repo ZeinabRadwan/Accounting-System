@@ -61,7 +61,7 @@
           <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
               <div class="inner">
-                <h4>{{ allData.totalCredits | withCurrency }}</h4>
+                <h4>{{ allData.totalCredits  }} <span class="saudi-riyal">ê</span></h4>
                 <p>{{ $t("Credit Amount") }}</p>
               </div>
               <div class="icon">
@@ -72,7 +72,7 @@
           <div class="col-lg-3 col-6">
             <div class="small-box bg-secondary">
               <div class="inner">
-                <h4>{{ allData.totalDebits | withCurrency }}</h4>
+                <h4>{{ allData.totalDebits  }} <span class="saudi-riyal">ê</span></h4>
                 <p>{{ $t("Debit Amount") }}</p>
               </div>
               <div class="icon">
@@ -83,7 +83,7 @@
           <div class="col-lg-3 col-6">
             <div class="small-box bg-primary">
               <div class="inner">
-                <h4>{{ allData.availableBalance | withCurrency }}</h4>
+                <h4>{{ allData.availableBalance  }} <span class="saudi-riyal">ê</span></h4>
                 <p>{{ $t("Available Balance") }}</p>
               </div>
               <div class="icon">
@@ -120,14 +120,14 @@
                     <span v-if="data.type === 1">{{
                       data.amount | withCurrency
                     }}</span>
-                    <span v-else>{{ 0 | withCurrency }}</span>
+                    <span v-else>{{ 0  }} <span class="saudi-riyal">ê</span></span>
                   </td>
 
                   <td>
-                    <span v-if="data.type === 1">{{ 0 | withCurrency }}</span>
-                    <span v-else>{{ data.amount | withCurrency }}</span>
+                    <span v-if="data.type === 1">{{ 0  }} <span class="saudi-riyal">ê</span></span>
+                    <span v-else>{{ data.amount  }} <span class="saudi-riyal">ê</span></span>
                   </td>
-                  <td>{{ data.balance | withCurrency }}</td>
+                  <td>{{ data.balance  }} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr v-show="!loading && !transactions.length">
                   <td colspan="8">

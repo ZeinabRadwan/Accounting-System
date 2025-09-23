@@ -119,9 +119,9 @@
                                 " />
                           </div>
                         </td>
-                        <td>{{ item.purchasePrice | withCurrency }}</td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
-                        <td>{{ item.returnTotal | withCurrency }}</td>
+                        <td>{{ item.purchasePrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ item.returnTotal  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr v-if="form.purchase">
                         <td colspan="7" class="text-right">
@@ -133,7 +133,7 @@
                           }}</strong>
                         </td>
                         <td>
-                          <strong>{{ form.totalReturn | withCurrency }}</strong>
+                          <strong>{{ form.totalReturn  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>

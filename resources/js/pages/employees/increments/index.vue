@@ -150,12 +150,12 @@
                       </router-link>
                     </td>
                     <td>
-                      <span v-if="data.employee">{{ data.employee.salary | withCurrency }}
+                      <span v-if="data.employee">{{ data.employee.salary  }} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
-                    <td>{{ data.incrementAmount | withCurrency }}</td>
+                    <td>{{ data.incrementAmount  }} <span class="saudi-riyal">ê</span></td>
                     <td>
-                      <span v-if="data.employee">{{ data.employee.totalSalary | withCurrency }}
+                      <span v-if="data.employee">{{ data.employee.totalSalary  }} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
                     <td>

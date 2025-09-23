@@ -144,11 +144,11 @@
                       }}</span>
                     </td>
                     <td>
-                      {{ data.interestAmount | withCurrency }}
+                      {{ data.interestAmount  }} <span class="saudi-riyal">ê</span>
                       <span v-if="data.loanType == 1">({{ data.interestRate }}%)</span>
                     </td>
-                    <td>{{ data.payable | withCurrency }}</td>
-                    <td>{{ data.due | withCurrency }}</td>
+                    <td>{{ data.payable  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.installment }}</td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{

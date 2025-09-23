@@ -28,7 +28,7 @@
             <p class="client-company">{{ client.client.company_name || 'No Company' }}</p>
           </div>
           <div class="client-metrics">
-            <div class="revenue">{{ client.invoice_total | withCurrency }}</div>
+            <div class="revenue">{{ client.invoice_total  }} <span class="saudi-riyal">ê</span></div>
             <div class="sales-count">{{ client.total_invoice }} {{ $t('Sales') }}</div>
           </div>
         </div>

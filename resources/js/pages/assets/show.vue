@@ -141,12 +141,12 @@
                         <td v-if="allData.date">
                           {{ allData.date | moment("Do MMM, YYYY") }}
                         </td>
-                        <td>{{ allData.amount | withCurrency }}</td>
+                        <td>{{ allData.amount  }} <span class="saudi-riyal">ê</span></td>
                         <td v-if="allData.depreciation">
                           {{ allData.depreciationExpenseTxt }}
                         </td>
                         <td v-if="allData.depreciation">
-                          {{ allData.salvageValue | withCurrency }}
+                          {{ allData.salvageValue  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="allData.depreciation">
                           {{ allData.usefulLife }}
@@ -161,7 +161,7 @@
                         >
                           {{ allData.expireDate | moment("Do MMM, YYYY") }}
                         </td>
-                        <td>{{ allData.currentValue | withCurrency }}</td>
+                        <td>{{ allData.currentValue  }} <span class="saudi-riyal">ê</span></td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td class="text-right">
                           <span

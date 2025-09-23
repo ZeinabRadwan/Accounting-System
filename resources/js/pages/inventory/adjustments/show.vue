@@ -159,7 +159,7 @@
                           {{ data.productCode | withPrefix(productPrefix) }}
                         </td>
                         <td>{{ data.productName }}</td>
-                        <td>{{ data.avgPurchasePrice | withCurrency }}</td>
+                        <td>{{ data.avgPurchasePrice  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.type == 1">+</span>
                           <span v-else>-</span>

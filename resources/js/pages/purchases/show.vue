@@ -228,17 +228,17 @@
                           {{ data.returnQty > 0 ? data.returnQty : 0 }}
                           {{ data.productUnit }}
                         </td>
-                        <td>{{ data.purchasePrice | withCurrency }}</td>
-                        <td>{{ data.grossTotal | withCurrency }}</td>
-                        <td>{{ data.discountAmount | withCurrency }}</td>
-                        <td>{{ data.totalAfterDiscount | withCurrency }}</td>
-                        <td>{{ data.taxAmount | withCurrency }}</td>
-                        <td>{{ data.lineTotal | withCurrency }}</td>
+                        <td>{{ data.purchasePrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.grossTotal  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.discountAmount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.taxAmount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.lineTotal  }} <span class="saudi-riyal">ê</span></td>
                         <td
                           v-if="allData.purchaseReturn"
                           :class="allData.purchaseReturn ? 'text-right' : ''"
                         >
-                          {{ (data.unitCost * data.returnQty) | withCurrency }}
+                          {{ (data.unitCost * data.returnQty)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -356,7 +356,7 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.subTotal | withCurrency }}</td>
+                        <td>{{ allData.subTotal  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr v-if="allData.purchaseReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
@@ -371,7 +371,7 @@
                         <th>{{ $t("Total") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ allData.purchaseTotal | withCurrency }}
+                          {{ allData.purchaseTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
@@ -381,40 +381,40 @@
                         <th>{{ $t("Product Discounts") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.totalDiscount | withCurrency }}
+                          {{ allData.totalDiscount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.transport | withCurrency }}
+                          {{ allData.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Tax") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.tax | withCurrency }}
+                          {{ allData.tax  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.totalPaid | withCurrency }}
+                          {{ allData.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.due | withCurrency }}</td>
+                        <td>{{ allData.due  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr
                         class="bg-green-light"
                         v-if="allData.accountReceivable"
                       >
                         <th>{{ $t("Account Receivable") }}:</th>
-                        <td>{{ allData.accountReceivable | withCurrency }}</td>
+                        <td>{{ allData.accountReceivable  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                     </tbody>
                   </table>

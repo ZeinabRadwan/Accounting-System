@@ -123,7 +123,7 @@
                       }}</span>
                     </td>
                     <td v-if="data.account">{{ data.account.label }}</td>
-                    <td>{{ data.amount | withCurrency }}</td>
+                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")

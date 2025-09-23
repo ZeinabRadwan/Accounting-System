@@ -218,8 +218,8 @@
                               }}
                             </span>
                           </td>
-                          <td>{{ data.amount | withCurrency }}</td>
-                          <td>{{ data.interest | withCurrency }}</td>
+                          <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
+                          <td>{{ data.interest  }} <span class="saudi-riyal">ê</span></td>
                           <td>
                             <span
                               v-if="data.status === 1"
@@ -255,7 +255,7 @@
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Loan Amount") }}:</th>
                         <td v-if="allData.transaction">
-                          {{ allData.transaction.amount | withCurrency }}
+                          {{ allData.transaction.amount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -267,14 +267,14 @@
                         </th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.interestAmount | withCurrency }}
+                          {{ allData.interestAmount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Payable") }}:</th>
                         <td v-if="allData.loanType == 1">
                           <span class="equal-sign">=</span>
-                          {{ allData.payable | withCurrency }}
+                          {{ allData.payable  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-else>
                           <span class="equal-sign">=</span>
@@ -299,7 +299,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.due | withCurrency }}</td>
+                        <td>{{ allData.due  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                     </tbody>
                   </table>

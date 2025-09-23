@@ -111,9 +111,9 @@
                     }}</span>
                   </td>
                   <td>{{ data.client }}</td>
-                  <td>{{ data.subTotal | withCurrency }}</td>
-                  <td>{{ data.invoiceTotal | withCurrency }}</td>
-                  <td>{{ data.due | withCurrency }}</td>
+                  <td>{{ data.subTotal  }} <span class="saudi-riyal">ê</span></td>
+                  <td>{{ data.invoiceTotal  }} <span class="saudi-riyal">ê</span></td>
+                  <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                   <td>
                     <span v-if="data.status === 1" class="badge bg-success">{{
                       $t("Active")
@@ -167,9 +167,9 @@
                     }}</span>
                   </td>
                   <td>{{ data.supplierName }}</td>
-                  <td>{{ data.subTotal | withCurrency }}</td>
-                  <td>{{ data.purchaseTotal | withCurrency }}</td>
-                  <td>{{ data.due | withCurrency }}</td>
+                  <td>{{ data.subTotal  }} <span class="saudi-riyal">ê</span></td>
+                  <td>{{ data.purchaseTotal  }} <span class="saudi-riyal">ê</span></td>
+                  <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                   <td>
                     <span v-if="data.status === 1" class="badge bg-success">{{
                       $t("Active")
@@ -287,7 +287,7 @@
                     }}</span>
                   </td>
                   <td v-if="data.account">{{ data.account.label }}</td>
-                  <td>{{ data.amount | withCurrency }}</td>
+                  <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                   <td class="text-right">
                     <span v-if="data.status === 1" class="badge bg-success">{{
                       $t("Active")

@@ -161,14 +161,14 @@
                         {{ data.availableQty }} {{ data.itemUnit.code }}
                       </span>
                     </td>
-                    <td>{{ data.avgPurchasePrice | withCurrency }}</td>
+                    <td>{{ data.avgPurchasePrice  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.discount > 0">
-                        <del>{{ data.regularPrice | withCurrency }}</del>{{ data.sellingPrice | withCurrency }} ({{
+                        <del>{{ data.regularPrice  }} <span class="saudi-riyal">ê</span></del>{{ data.sellingPrice  }} <span class="saudi-riyal">ê</span> ({{
                           data.discount
                         }}%)
                       </span>
-                      <span v-else>{{ data.regularPrice | withCurrency }}
+                      <span v-else>{{ data.regularPrice  }} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
                     <td>

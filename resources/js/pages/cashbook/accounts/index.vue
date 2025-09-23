@@ -150,7 +150,7 @@
                     </td>
                     <td>{{ data.branchName }}</td>
                     <td>{{ data.accountNumber }}</td>
-                    <td>{{ data.availableBalance | withCurrency }}</td>
+                    <td>{{ data.availableBalance  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")

@@ -473,11 +473,11 @@
                                 </td>
                                 <td>
                                   <span v-if="data.employee"
-                                    >{{ data.employee.salary | withCurrency }}
+                                    >{{ data.employee.salary  }} <span class="saudi-riyal">ê</span>
                                   </span>
                                 </td>
                                 <td>
-                                  {{ data.incrementAmount | withCurrency }}
+                                  {{ data.incrementAmount  }} <span class="saudi-riyal">ê</span>
                                 </td>
                                 <td>
                                   <span v-if="data.employee">

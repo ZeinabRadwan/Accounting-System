@@ -134,8 +134,8 @@
                     <td>{{ data.phoneNumber }}</td>
                     <td>{{ data.email }}</td>
                     <td>{{ data.companyName }}</td>
-                    <td>{{ data.clientDue | withCurrency }}</td>
-                    <td>{{ data.nonInvoiceCurrentDue | withCurrency }}</td>
+                    <td>{{ data.clientDue  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.nonInvoiceCurrentDue  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       {{
                         (data.clientDue + data.nonInvoiceCurrentDue)

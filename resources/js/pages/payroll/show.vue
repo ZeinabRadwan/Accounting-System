@@ -160,7 +160,7 @@
                           {{ allData.salaryMonth }}
                         </td>
                         <td v-if="allData.transaction">
-                          {{ allData.transaction.amount | withCurrency }}
+                          {{ allData.transaction.amount  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td
                           v-if="
@@ -216,77 +216,77 @@
                       <tr class="bg-gray-light">
                         <th>{{ $t("Present Salary") }}:</th>
                         <td>
-                          {{ allData.employee.totalSalary | withCurrency }}
+                          {{ allData.employee.totalSalary  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Deduction Amount") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.deductionAmount | withCurrency }}
+                          {{ allData.deductionAmount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Mobile Bill") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.mobileBill | withCurrency }}
+                          {{ allData.mobileBill  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Food Bill") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.foodBill | withCurrency }}
+                          {{ allData.foodBill  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Bonus") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.bonus | withCurrency }}
+                          {{ allData.bonus  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Commission") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.commission | withCurrency }}
+                          {{ allData.commission  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Advance") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.advance | withCurrency }}
+                          {{ allData.advance  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Festival Bonus") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.festivalBonus | withCurrency }}
+                          {{ allData.festivalBonus  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Travel Allowance(TA)") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.travelAllowance | withCurrency }}
+                          {{ allData.travelAllowance  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Others") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.others | withCurrency }}
+                          {{ allData.others  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="allData.transaction" class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ allData.transaction.amount | withCurrency }}
+                          {{ allData.transaction.amount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>

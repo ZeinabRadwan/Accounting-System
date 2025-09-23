@@ -89,7 +89,7 @@
                       </router-link>
                     </td>
                     <td>{{ data.client }}</td>
-                    <td>{{ data.invoiceTotal | withCurrency }}</td>
+                    <td>{{ data.invoiceTotal  }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.invoiceDate | moment("Do MMM, YYYY") }}</td>
                   </tr>
                 </tbody>

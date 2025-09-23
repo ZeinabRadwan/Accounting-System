@@ -207,7 +207,7 @@
                                 " />
                           </div>
                         </td>
-                        <td class="no-currency">{{ formatToTwoDecimals(item.unitPrice * item.qty) }}</td>
+                        <td class="no-currency">{{ formatToTwoDecimals(item.unitPrice * item.qty) }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -237,7 +237,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td class="no-currency">{{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }}</td>
+                        <td class="no-currency">{{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -261,8 +261,9 @@
                           <span class="form-control-plaintext form-control-sm text-center no-currency">
                             {{ formatToTwoDecimals(item.productTax) }}
                           </span>
+                          <span class="saudi-riyal">ê</span>
                         </td>
-                        <td class="no-currency">{{ formatToTwoDecimals(item.totalPrice) }}</td>
+                        <td class="no-currency">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -274,22 +275,22 @@
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(totalUnitPrice) }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalUnitPrice) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(totalProductDiscount) }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalProductDiscount) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(totalAfterDiscount) }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalAfterDiscount) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(totalProductTax) }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalProductTax) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(subtotal) }}</strong>
+                          <strong>{{ formatToTwoDecimals(subtotal) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td></td>
                       </tr>
@@ -335,6 +336,7 @@
                   <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
                     :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                  <span class="saudi-riyal">ê</span>
                   <has-error :form="form" field="transportCost" />
                 </div>
               </div>
@@ -356,12 +358,14 @@
                   <label for="totalTax">{{ $t("Total Tax") }}</label>
                   <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
+                  <span class="saudi-riyal">ê</span>
                   <has-error :form="form" field="totalTax" />
                 </div>
                 <div class="form-group" :class="'col-md-4'">
                   <label for="netTotal">{{ $t("Net Total") }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
+                  <span class="saudi-riyal">ê</span>
                   <has-error :form="form" field="netTotal" />
                 </div> 
                 <div class="form-group col-md-4">

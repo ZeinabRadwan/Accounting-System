@@ -89,7 +89,7 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{ data.date | moment("Do MMM, YYYY") }}</td>
                     <td>{{ data.quantity }}</td>
-                    <td>{{ data.price | withCurrency }}</td>
+                    <td>{{ data.price  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span class="badge bg-success">{{ data.type }}</span>
                     </td>
@@ -135,7 +135,7 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{ data.date | moment("Do MMM, YYYY") }}</td>
                     <td>-{{ data.quantity }}</td>
-                    <td>{{ data.price | withCurrency }}</td>
+                    <td>{{ data.price  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span class="badge bg-success">{{ data.type }}</span>
                     </td>

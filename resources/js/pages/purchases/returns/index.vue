@@ -132,7 +132,7 @@
                     <td>{{ data.purchaseNo | withPrefix(purPrefix) }}</td>
                     <td>{{ data.supplierName }}</td>
                     <td>{{ data.reason }}</td>
-                    <td>{{ data.totalReturn | withCurrency }}</td>
+                    <td>{{ data.totalReturn  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.returnDate">{{
                         data.returnDate | moment("Do MMM, YYYY")

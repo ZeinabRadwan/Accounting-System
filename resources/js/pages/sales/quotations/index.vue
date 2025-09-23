@@ -138,11 +138,11 @@
                       }}</span>
                     </td>
                     <td>{{ data.clientName }}</td>
-                    <td>{{ data.subTotal | withCurrency }}</td>
-                    <td>{{ data.transport | withCurrency }}</td>
-                    <td>{{ data.discount | withCurrency }}</td>
-                    <td>{{ data.totalTax | withCurrency }}</td>
-                    <td>{{ data.total | withCurrency }}</td>
+                    <td>{{ data.subTotal  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.transport  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.discount  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.totalTax  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.total  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")

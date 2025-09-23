@@ -1609,7 +1609,7 @@ export default {
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link {
-  padding: 8px;
+  padding: 0.5rem 0.25rem;
   margin: 10px 0;
   color: #6b7280;
   font-size: 13px;
@@ -1684,7 +1684,7 @@ export default {
   background-color: #33a0d9 !important;
   color: #fff !important;
   border-radius: 10px;
-  padding: 10px;
+  padding-bottom: 1px;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
@@ -1721,7 +1721,6 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 /* Lower the submenu arrow to align with text */
 [dir="rtl"] .main-sidebar .nav-sidebar .nav-link .fa-angle-left {
   left: 0px;
-  top: 16px;
 }
 
 /* Remove all borders for nav items */

@@ -123,7 +123,7 @@
                             " />
                       </div>
                      </td>
-                     <td>{{ (product.unitPrice * product.qty) | withCurrency }}</td>
+                     <td>{{ (product.unitPrice * product.qty)  }} <span class="saudi-riyal">ê</span></td>
                      <td>
                        <div class="d-flex align-items-center gap-1">
                         <select 
@@ -153,7 +153,7 @@
                         <span v-if="form.errors.has(`selectedProducts.${i}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i}.discountType`) }}</span>
                       </div>
                     </td>
-                    <td>{{ ((product.unitPrice * product.qty) - (product.discountAmount || 0)) | withCurrency }}</td>
+                    <td>{{ ((product.unitPrice * product.qty) - (product.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <select 
                         v-model="product.selectedVatRate" 
@@ -175,10 +175,10 @@
                     </td>
                     <td>
                       <span class="form-control-plaintext form-control-sm text-center">
-                        {{ product.productTax | withCurrency }}
+                        {{ product.productTax  }} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
-                    <td>{{ product.totalPrice | withCurrency }}</td>
+                    <td>{{ product.totalPrice  }} <span class="saudi-riyal">ê</span></td>
                     <td class="text-right">
                       <button type="button" class="btn btn-danger" @click="removeItem(product)">
                         <i class="fas fa-times"></i>
@@ -248,7 +248,7 @@
                       <span v-if="form.orderTax">{{
                         form.totalTax | withCurrency
                       }}</span>
-                      <span v-else>{{ 0 | withCurrency }}</span>
+                      <span v-else>{{ 0  }} <span class="saudi-riyal">ê</span></span>
                     </div>
                   </div>
                 </div>
@@ -256,7 +256,7 @@
             </div>
 
             <div class="pos-net-total noi-print">
-              {{ $t("Net Total") }}: {{ form.netTotal | withCurrency }}
+              {{ $t("Net Total") }}: {{ form.netTotal  }} <span class="saudi-riyal">ê</span>
             </div>
           </div>
         </div>
@@ -495,30 +495,30 @@
                     <span>
                       {{ data.productName }}<br />
                       <span class="pqty">{{ data.quantity }} {{ data.productUnit }} x
-                        {{ data.unitCost | withCurrency }}</span>
+                        {{ data.unitCost  }} <span class="saudi-riyal">ê</span></span>
                     </span>
                   </td>
                   <td style="text-align: right; vertical-align: bottom">
-                    {{ (data.unitCost * data.quantity) | withCurrency }}
+                    {{ (data.unitCost * data.quantity)  }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
 
                 <tr style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Subtotal") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.subTotal | withCurrency }}
+                    {{ allData.subTotal  }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr v-if="allData.discount" style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Discount") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.discount | withCurrency }}
+                    {{ allData.discount  }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr v-if="allData.tax" style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Tax") }}(%)</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.tax | withCurrency }}
+                    {{ allData.tax  }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr style="margin-top: 10px">
@@ -537,13 +537,13 @@
                 <tr>
                   <td colspan="3" class="total">{{ $t("Paid") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.totalPaid | withCurrency }}
+                    {{ allData.totalPaid  }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="3" class="total">{{ $t("Due") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.due | withCurrency }}
+                    {{ allData.due  }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
               </tbody>

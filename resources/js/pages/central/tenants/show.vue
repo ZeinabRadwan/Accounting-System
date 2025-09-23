@@ -152,7 +152,7 @@
                           <td>{{ tenant_invoice.system_trx_id }}</td>
                           <td>
                             {{ tenant_invoice.default_amount_rate *
-      tenant_invoice.quantity | withCurrency }}
+      tenant_invoice.quantity  }} <span class="saudi-riyal">ê</span>
                             <br>
                             (${{ tenant_invoice.amount * tenant_invoice.quantity }})
                           </td>

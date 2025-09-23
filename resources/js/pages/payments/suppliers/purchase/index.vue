@@ -129,9 +129,9 @@
                     </td>
                     <td v-if="data.supplier">{{ data.supplier.name }}</td>
                     <td v-if="data.purchase">
-                      {{ data.purchase.purchaseTotal | withCurrency }}
+                      {{ data.purchase.purchaseTotal  }} <span class="saudi-riyal">ê</span>
                     </td>
-                    <td>{{ data.amount | withCurrency }}</td>
+                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.account">{{ data.account.label }}</span>
                     </td>

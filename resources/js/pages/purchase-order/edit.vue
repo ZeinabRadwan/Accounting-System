@@ -161,7 +161,7 @@
                               @click="generateItemTotal(item.unitPrice, 'price', i - 1, 'increment')" />
                           </div>
                         </td>
-                        <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
+                        <td>{{ (item.unitPrice * item.qty)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -185,7 +185,7 @@
                               @keyup="calculateProductDiscount(i - 1)" />
                           </div>
                         </td>
-                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -203,10 +203,10 @@
                           </td>
                         <td>
                           <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax | withCurrency }}
+                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -219,22 +219,22 @@
                           <strong>{{ $t('Total') }}:</strong>
                         </td>
                         <td>
-                          <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                          <strong>{{ totalUnitPrice  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ form.totalDiscount | withCurrency }}</strong>
+                          <strong>{{ form.totalDiscount  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ (totalUnitPrice - form.totalDiscount) | withCurrency }}</strong>
+                          <strong>{{ (totalUnitPrice - form.totalDiscount)  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ form.totalProductTax | withCurrency }}</strong>
+                          <strong>{{ form.totalProductTax  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ form.subTotal | withCurrency }}</strong>
+                          <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>

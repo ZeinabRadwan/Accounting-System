@@ -139,9 +139,9 @@
                               @click="generateItemTotal(item.unitPrice, 'price', i - 1, 'increment')" />
                           </div>
                         </td>
-                        <td>{{ item.unitCost | withCurrency }}</td>
-                        <td>{{ item.totalTax | withCurrency }}</td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ item.unitCost  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ item.totalTax  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -158,7 +158,7 @@
                           }}</strong>
                         </td>
                         <td colspan="2">
-                          <strong>{{ form.subTotal | withCurrency }}</strong>
+                          <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>

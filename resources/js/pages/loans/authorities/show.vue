@@ -120,17 +120,17 @@
                         <td>
                           {{ data.transaction.cashbook_account.account_number }}
                         </td>
-                        <td>{{ data.transaction.amount | withCurrency }}</td>
-                        <td>{{ data.payable | withCurrency }}</td>
+                        <td>{{ data.transaction.amount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.payable  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.loanType == 1">
-                            {{ data.interestAmount | withCurrency }} ({{
+                            {{ data.interestAmount  }} <span class="saudi-riyal">ê</span> ({{
                               data.interestRate
                             }}%)
                           </span>
-                          <span v-else>{{ 0 | withCurrency }}</span>
+                          <span v-else>{{ 0  }} <span class="saudi-riyal">ê</span></span>
                         </td>
-                        <td>{{ data.due | withCurrency }}</td>
+                        <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ data.installment }}</td>
                         <td>
                           <span
@@ -198,20 +198,20 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("CC Limit") }}:</th>
-                        <td>{{ allData.ccLimit | withCurrency }}</td>
+                        <td>{{ allData.ccLimit  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("CC Loan Taken") }}:</th>
                         <td>
                           <span class="minus-sign">-</span
-                          >{{ allData.ccLoanTaken | withCurrency }}
+                          >{{ allData.ccLoanTaken  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Available CC Loan") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ allData.availableAmount | withCurrency }}
+                          {{ allData.availableAmount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -219,26 +219,26 @@
                           {{ $t("Total Loan") }}:<br />
                           <small>({{ $t("CC + Term") }})</small>
                         </th>
-                        <td>{{ allData.totalLoan | withCurrency }}</td>
+                        <td>{{ allData.totalLoan  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Total Payable") }}:</th>
-                        <td>{{ allData.totalPayable | withCurrency }}</td>
+                        <td>{{ allData.totalPayable  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Interest Paid") }}:</th>
-                        <td>{{ allData.interestPaid | withCurrency }}</td>
+                        <td>{{ allData.interestPaid  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.totalPaid | withCurrency }}
+                          {{ allData.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Total Due") }}:</th>
-                        <td>{{ allData.totalDue | withCurrency }}</td>
+                        <td>{{ allData.totalDue  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                     </tbody>
                   </table>

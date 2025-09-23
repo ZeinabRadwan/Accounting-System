@@ -202,12 +202,12 @@
                         </td>
                         <td>{{ data.product.name }}</td>
                         <td>{{ data.quantity }}</td>
-                        <td>{{ data.purchase_price | withCurrency }}</td>
-                        <td>{{ (data.quantity * data.purchase_price) | withCurrency }}</td>
-                        <td>{{ data.discount_amount | withCurrency }}</td>
-                        <td>{{ ((data.quantity * data.purchase_price) - parseFloat(data.discount_amount)) | withCurrency }}</td>
-                        <td>{{ data.tax_amount | withCurrency }}</td>
-                        <td>{{ ((data.quantity * data.purchase_price) - parseFloat(data.discount_amount) + parseFloat(data.tax_amount)) | withCurrency }}</td>
+                        <td>{{ data.purchase_price  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ (data.quantity * data.purchase_price)  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.discount_amount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ ((data.quantity * data.purchase_price) - parseFloat(data.discount_amount))  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.tax_amount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ ((data.quantity * data.purchase_price) - parseFloat(data.discount_amount) + parseFloat(data.tax_amount))  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <td
@@ -250,13 +250,13 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ (allData.sub_total || 0) | withCurrency }}</td>
+                        <td>{{ (allData.sub_total || 0)  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ (allData.net_total || allData.calculated_total || 0) | withCurrency }}
+                          {{ (allData.net_total || allData.calculated_total || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
@@ -266,21 +266,21 @@
                         <th>{{ $t("Product Discounts") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ (allData.discount || 0) | withCurrency }}
+                          {{ (allData.discount || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ (allData.transport || 0) | withCurrency }}
+                          {{ (allData.transport || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Tax") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ (allData.total_tax || allData.calculated_tax || 0) | withCurrency }}
+                          {{ (allData.total_tax || allData.calculated_tax || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>

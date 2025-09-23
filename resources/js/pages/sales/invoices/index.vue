@@ -135,9 +135,9 @@
                       }}</span>
                     </td>
                     <td>{{ data.client }}</td>
-                    <td>{{ data.invoiceTotal | withCurrency }}</td>
-                    <td>{{ data.totalPaid | withCurrency }}</td>
-                    <td>{{ data.due | withCurrency }}</td>
+                    <td>{{ data.invoiceTotal  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.totalPaid  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")

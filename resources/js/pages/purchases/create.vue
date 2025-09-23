@@ -214,7 +214,7 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ ((item.originalPrice || item.unitPrice) * item.qty) | withCurrency }}</td>
+                        <td>{{ ((item.originalPrice || item.unitPrice) * item.qty)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -244,7 +244,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ getTotalAfterDiscount(item) | withCurrency }}</td>
+                        <td>{{ getTotalAfterDiscount(item)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -266,10 +266,10 @@
                         </td>
                         <td>
                           <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax | withCurrency }}
+                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ getTotalWithVAT(item) | withCurrency }}</td>
+                        <td>{{ getTotalWithVAT(item)  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -282,22 +282,22 @@
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                          <strong>{{ totalUnitPrice  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalDiscountSum() | withCurrency }}</strong>
+                          <strong>{{ getTotalDiscountSum()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getSubTotalAfterDiscount() | withCurrency }}</strong>
+                          <strong>{{ getSubTotalAfterDiscount()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalVATSum() | withCurrency }}</strong>
+                          <strong>{{ getTotalVATSum()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalWithVATSum() | withCurrency }}</strong>
+                          <strong>{{ getTotalWithVATSum()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>

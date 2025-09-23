@@ -90,10 +90,10 @@
                     </td>
                     <td>
                       <span v-if="data.discount > 0"><del>{{ data.regularPrice }}</del>
-                        {{ data.sellingPrice | withCurrency }} ({{
+                        {{ data.sellingPrice  }} <span class="saudi-riyal">ê</span> ({{
                           data.discount
                         }}%)</span>
-                      <span v-else>{{ data.regularPrice | withCurrency }} </span>
+                      <span v-else>{{ data.regularPrice  }} <span class="saudi-riyal">ê</span> </span>
                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{

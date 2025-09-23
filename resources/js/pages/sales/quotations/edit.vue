@@ -152,13 +152,13 @@
                           </div>
                         </td>
                         <td class="text-center">
-                          {{ item.unitCost | withCurrency }}
+                          {{ item.unitCost  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="text-center">
-                          {{ item.totalTax | withCurrency }}
+                          {{ item.totalTax  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="text-center">
-                          {{ item.totalPrice | withCurrency }}
+                          {{ item.totalPrice  }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
@@ -176,7 +176,7 @@
                           }}</strong>
                         </td>
                         <td>
-                          <strong>{{ form.subTotal | withCurrency }}</strong>
+                          <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>

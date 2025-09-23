@@ -142,7 +142,7 @@
                     <td>
                       {{ data.invoice ? (data.invoice.invoiceTotal | withCurrency) : '' }}
                     </td>
-                    <td>{{ data.amount | withCurrency }}</td>
+                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.account">{{ data.account.label }}</span>
                     </td>

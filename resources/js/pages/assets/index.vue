@@ -138,8 +138,8 @@
                     <td>
                       <span v-if="data.type">{{ data.type.name }} </span>
                     </td>
-                    <td>{{ data.amount | withCurrency }}</td>
-                    <td>{{ data.currentValue | withCurrency }}</td>
+                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.currentValue  }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.date | moment("Do MMM, YYYY") }}</td>
                     <td>
                       <span v-if="data.status === 1 && data.currentValue > 0" class="badge bg-success">{{

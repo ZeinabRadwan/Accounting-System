@@ -143,7 +143,7 @@
                       </span>
                     </td>
                     <td>{{ data.designation }}</td>
-                    <td>{{ data.totalSalary | withCurrency }}</td>
+                    <td>{{ data.totalSalary  }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.mobileNumber }}</td>
                     <td>
                       <span v-if="data.birthDate">{{

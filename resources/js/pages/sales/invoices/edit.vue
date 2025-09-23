@@ -244,7 +244,7 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ (item.unitPrice * item.qty) | withCurrency }}</td>
+                        <td>{{ (item.unitPrice * item.qty)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -274,7 +274,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) | withCurrency }}</td>
+                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -296,10 +296,10 @@
                         </td>
                         <td>
                           <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax | withCurrency }}
+                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ item.totalPrice | withCurrency }}</td>
+                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -312,22 +312,22 @@
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ totalUnitPrice | withCurrency }}</strong>
+                          <strong>{{ totalUnitPrice  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ form.totalDiscount | withCurrency }}</strong>
+                          <strong>{{ form.totalDiscount  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ (totalUnitPrice - form.totalDiscount) | withCurrency }}</strong>
+                          <strong>{{ (totalUnitPrice - form.totalDiscount)  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ form.productTotalTax | withCurrency }}</strong>
+                          <strong>{{ form.productTotalTax  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ form.subTotal | withCurrency }}</strong>
+                          <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>
@@ -506,7 +506,7 @@
                   <!-- Due Amount Display -->
                   <div class="mt-2" v-if="form.addPayment == 1 && form.paidAmount">
                     <small class="text-muted">
-                      {{ $t("Due Amount") }}: <strong>{{ dueAmount | withCurrency }}</strong>
+                      {{ $t("Due Amount") }}: <strong>{{ dueAmount  }} <span class="saudi-riyal">ê</span></strong>
                     </small>
                   </div>
                 </div>

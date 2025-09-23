@@ -233,23 +233,23 @@
                         <td v-if="allData.totalInvoiceReturn">
                           {{ data.returnQty }} {{ data.productUnit }}
                         </td>
-                        <td>{{ data.salePrice | withCurrency }}</td>
-                        <td>{{ (data.salePrice * data.quantity) | withCurrency }}</td>
+                        <td>{{ data.salePrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ (data.salePrice * data.quantity)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.discountType === 'percentage'">
-                            {{ data.discountPercentage }}% ({{ calculateProductDiscountAmount(data) | withCurrency }})
+                            {{ data.discountPercentage }}% ({{ calculateProductDiscountAmount(data)  }} <span class="saudi-riyal">ê</span>)
                           </span>
                           <span v-else-if="data.productDiscount > 0">
-                            {{ calculateProductDiscountAmount(data) | withCurrency }}
+                            {{ calculateProductDiscountAmount(data)  }} <span class="saudi-riyal">ê</span>
                           </span>
                           <span v-else class="text-muted">
                             {{ $t('No Discount') }}
                           </span>
                         </td>
-                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data)) | withCurrency }}</td>
+                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data))  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.productTax > 0">
-                            {{ data.productTax | withCurrency }}
+                            {{ data.productTax  }} <span class="saudi-riyal">ê</span>
                             <small v-if="data.vatRate" class="text-muted d-block">
                               ({{ data.vatRate.rate }}%)
                             </small>
@@ -258,13 +258,13 @@
                             {{ $t('No VAT') }}
                           </span>
                         </td>
-                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.productTax || 0)) | withCurrency }}</td>
-                        <!-- <td>{{ data.unitCost | withCurrency }}</td>
+                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.productTax || 0))  }} <span class="saudi-riyal">ê</span></td>
+                        <!-- <td>{{ data.unitCost  }} <span class="saudi-riyal">ê</span></td>
                         <td
                           v-if="allData.totalInvoiceReturn"
                           class="text-right"
                         >
-                          {{ (data.unitCost * data.returnQty) | withCurrency }}
+                          {{ (data.unitCost * data.returnQty)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -276,7 +276,7 @@
                         </td>
                         <td class="text-right">
                           <strong>
-                            {{ allData.subTotal | withCurrency }}
+                            {{ allData.subTotal  }} <span class="saudi-riyal">ê</span>
                           </strong>
                         </td> -->
                         <!-- <td
@@ -297,7 +297,7 @@
                         </td>
                         <td class="text-center">
                           <strong>
-                            {{ allData.subTotal | withCurrency }}
+                            {{ allData.subTotal  }} <span class="saudi-riyal">ê</span>
                           </strong>
                         </td>
                       </tr>
@@ -326,9 +326,9 @@
                      <tbody>
                        <tr class="bg-light">
                          <th>{{ $t('Total Product VAT') }}:</th>
-                         <td>{{ totalProductVat | withCurrency }}</td>
+                         <td>{{ totalProductVat  }} <span class="saudi-riyal">ê</span></td>
                          <th>{{ $t('Total Product Discount') }}:</th>
-                         <td>{{ totalProductDiscount | withCurrency }}</td>
+                         <td>{{ totalProductDiscount  }} <span class="saudi-riyal">ê</span></td>
                        </tr>
                        <tr class="bg-light">
                          <th>{{ $t('Products with VAT') }}:</th>
@@ -396,7 +396,7 @@
                           <td>
                             <span v-if="data.date">{{ data.date }}</span>
                           </td>
-                          <td>{{ data.amount | withCurrency }}</td>
+                          <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                           <td>
                             <span v-if="data.account">{{
                               data.account.label
@@ -476,7 +476,7 @@
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.totalInvoiceReturn | withCurrency }}
+                          {{ allData.totalInvoiceReturn  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr> -->
                       <tr v-if="!isSaudiArabia && allData.discount > 0">
@@ -489,14 +489,14 @@
                         </th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ globalDiscountAmount | withCurrency }}
+                          {{ globalDiscountAmount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="!isSaudiArabia && allData.transport > 0">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.transport | withCurrency }}
+                          {{ allData.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="!isSaudiArabia && allData.tax > 0">

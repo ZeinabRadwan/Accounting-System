@@ -172,19 +172,19 @@
                     </tr>
                     <tr>
                       <th>{{ $t("Regular Price") }}</th>
-                      <td>{{ allData.regularPrice | withCurrency }}</td>
+                      <td>{{ allData.regularPrice  }} <span class="saudi-riyal">ê</span></td>
                     </tr>
                     <tr>
                       <th>{{ $t("Selling Price") }}</th>
                       <td>
                         <span v-if="allData.discount > 0">
-                          <del>{{ allData.regularPrice | withCurrency }}</del>
-                          {{ allData.sellingPrice | withCurrency }} ({{
+                          <del>{{ allData.regularPrice  }} <span class="saudi-riyal">ê</span></del>
+                          {{ allData.sellingPrice  }} <span class="saudi-riyal">ê</span> ({{
                             allData.discount
                           }}%)
                         </span>
                         <span v-else
-                          >{{ allData.regularPrice | withCurrency }}
+                          >{{ allData.regularPrice  }} <span class="saudi-riyal">ê</span>
                         </span>
                       </td>
                     </tr>
@@ -192,7 +192,7 @@
                       <th>
                         {{ $t("Avg. Purchase Price") }}
                       </th>
-                      <td>{{ allData.avgPurchasePrice | withCurrency }}</td>
+                      <td>{{ allData.avgPurchasePrice  }} <span class="saudi-riyal">ê</span></td>
                     </tr>
                     <tr v-if="allData.itemUnit">
                       <th>{{ $t("Stock") }}</th>
@@ -229,7 +229,7 @@
                     <tr v-if="allData.openingStockUnitPrice">
                       <th>{{ $t("Opening Stock Unit Price") }}</th>
                       <td>
-                        {{ allData.openingStockUnitPrice | withCurrency }}
+                        {{ allData.openingStockUnitPrice  }} <span class="saudi-riyal">ê</span>
                       </td>
                     </tr>
                     <tr>

@@ -132,12 +132,12 @@
                     <td v-if="data.loan">{{ data.loan.reference }}</td>
                     <td>{{ data.authority.name }}</td>
                     <td>
-                      <span v-if="data.loan">{{ data.loan.payable | withCurrency }}
+                      <span v-if="data.loan">{{ data.loan.payable  }} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
-                    <td>{{ data.amount | withCurrency }}</td>
+                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>
-                      <span v-if="data.interest">{{ data.interest | withCurrency }}
+                      <span v-if="data.interest">{{ data.interest  }} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
                     <td>
