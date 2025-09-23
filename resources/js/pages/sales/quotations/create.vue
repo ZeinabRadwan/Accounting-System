@@ -393,15 +393,27 @@
                 <has-error :form="form" field="note" />
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode"/>
-                  {{ $t("Send To Email") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendEmail" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+                  <span class="ml-3">{{ $t("Send To Email") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("Email not configured") }})
+                  </span>
                 </div>
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode"/>
-                  {{ $t("Send To SMS") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendSMS" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("SMS not configured") }})
+                  </span>
                 </div>
               </div>
             </div>
@@ -504,6 +516,13 @@ export default {
     products: "",
     taxes: "",
     prefix: "",
+    
+    // Communication configuration status
+    communicationConfig: {
+      email_configured: false,
+      sms_configured: false,
+      loading: true,
+    },
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -554,6 +573,7 @@ export default {
     this.getClients();
     this.getProducts();
     this.getTaxes();
+    this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
   },
@@ -610,6 +630,25 @@ export default {
         );
       }
       this.calculateSum();
+    },
+
+    // Load communication configuration status
+    async loadCommunicationConfigStatus() {
+      try {
+        this.communicationConfig.loading = true;
+        
+        const response = await axios.get('/api/communication-config-status');
+        
+        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.sms_configured = response.data.sms_configured;
+        this.communicationConfig.loading = false;
+      } catch (error) {
+        console.error('Error loading communication config status:', error);
+        // Default to false if there's an error
+        this.communicationConfig.email_configured = false;
+        this.communicationConfig.sms_configured = false;
+        this.communicationConfig.loading = false;
+      }
     },
 
     // store item in array

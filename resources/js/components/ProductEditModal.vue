@@ -151,23 +151,60 @@
               </h5>
             </div>
             <div class="card-body">
+              <!-- Current Stock Information (Read-only) -->
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="openingStockCount">{{ $t("Opening Stock") }}</label>
+                    <label for="openingStockCount">{{ $t("Current Opening Stock") }}</label>
                     <input id="openingStockCount" v-model="form.openingStockCount" type="number" step="any" min="0" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('openingStockCount') }" name="openingStockCount" 
-                      :placeholder="$t('Enter opening stock')" />
+                      :placeholder="$t('Current opening stock')" readonly />
                     <has-error :form="form" field="openingStockCount" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="openingStockUnitPrice">{{ $t("Stock Unit Price") }}</label>
+                    <label for="openingStockUnitPrice">{{ $t("Current Stock Unit Price") }}</label>
                     <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
-                      :placeholder="$t('Enter unit price')" />
+                      :placeholder="$t('Current unit price')" readonly />
                     <has-error :form="form" field="openingStockUnitPrice" />
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Add New Opening Stock -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" v-model="form.isOpeningStock" id="isOpeningStock">
+                      <label class="form-check-label" for="isOpeningStock">
+                        {{ $t("Add New Opening Stock") }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- New Opening Stock Fields (only show when checkbox is checked) -->
+              <div class="row" v-if="form.isOpeningStock">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="newOpeningStockCount">{{ $t("New Opening Stock Count") }} <span class="required">*</span></label>
+                    <input id="newOpeningStockCount" v-model="form.newOpeningStockCount" type="number" step="any" min="0" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('newOpeningStockCount') }" name="newOpeningStockCount" 
+                      :placeholder="$t('Enter new opening stock count')" />
+                    <has-error :form="form" field="newOpeningStockCount" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="newOpeningStockUnitPrice">{{ $t("New Stock Unit Price") }} <span class="required">*</span></label>
+                    <input id="newOpeningStockUnitPrice" v-model="form.newOpeningStockUnitPrice" type="number" step="any" min="0" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('newOpeningStockUnitPrice') }" name="newOpeningStockUnitPrice" 
+                      :placeholder="$t('Enter new unit price')" />
+                    <has-error :form="form" field="newOpeningStockUnitPrice" />
                   </div>
                 </div>
               </div>
@@ -394,6 +431,9 @@ export default {
         servicePurchasePrice: "",
         openingStockCount: "",
         openingStockUnitPrice: "",
+        newOpeningStockCount: "",
+        newOpeningStockUnitPrice: "",
+        isOpeningStock: false,
         discount: "",
         sellingPrice: "",
         note: "",
@@ -636,6 +676,24 @@ export default {
             title: this.$t("Service Purchase Price is required for services")
           });
           return;
+        }
+
+        // Validate new opening stock fields if checkbox is checked
+        if (this.form.isOpeningStock) {
+          if (!this.form.newOpeningStockCount || this.form.newOpeningStockCount <= 0) {
+            toast.fire({
+              type: "error",
+              title: this.$t("New Opening Stock Count is required and must be greater than 0")
+            });
+            return;
+          }
+          if (!this.form.newOpeningStockUnitPrice || this.form.newOpeningStockUnitPrice <= 0) {
+            toast.fire({
+              type: "error",
+              title: this.$t("New Opening Stock Unit Price is required and must be greater than 0")
+            });
+            return;
+          }
         }
 
         // Validate sales account if not automatic
