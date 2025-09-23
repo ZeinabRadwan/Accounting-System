@@ -39,7 +39,8 @@ export default {
     // Client data to edit
     client: {
       type: Object,
-      required: true
+      required: false,
+      default: () => ({})
     }
   },
   data: () => ({
@@ -64,6 +65,10 @@ export default {
     // Map client data to form structure
     mapClientData(clientData) {
       this.clientData = {
+        // Preserve ID and slug for API calls
+        id: clientData.id,
+        slug: clientData.slug,
+        
         // Account Details
         codeNumber: clientData.codeNumber || clientData.clientID || '000001',
         billingMethod: clientData.billingMethod || 'print',
@@ -127,8 +132,9 @@ export default {
           return;
         }
 
-        // Update the client
-        await this.form.put(`/api/clients/${this.client.slug}`);
+        // Update the client - use the client data passed to the modal
+        const clientSlug = this.clientData.slug || this.client.slug;
+        await this.form.put(`/api/clients/${clientSlug}`);
         
         toast.fire({
           type: "success",
@@ -160,6 +166,20 @@ export default {
     closeModal() {
       this.showClientEditModal = false;
       this.$emit('close');
+    },
+
+    // Open modal with client data (similar to ProductEditModal)
+    openModal(client = null) {
+      const clientToEdit = client || this.client;
+      if (!clientToEdit) {
+        console.error('No client data provided for editing');
+        return;
+      }
+      
+      this.mapClientData(clientToEdit);
+      this.showClientEditModal = true;
+      this.form = null;
+      this.isSubmitting = false;
     },
   },
 };
