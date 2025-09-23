@@ -1920,6 +1920,21 @@ img.circle-img.circle-img--small {
   min-height: 50px;
 }
 
+/* Ensure custom file inputs match standard input height */
+.custom-file-input,
+.custom-file-label {
+  min-height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Ensure the trailing button of custom file inputs matches height (LTR/RTL) */
+.custom-file-input:lang(en) ~ .custom-file-label::after,
+.custom-file-input:lang(ar) ~ .custom-file-label::after {
+  min-height: 50px;
+  line-height: 30px; /* approximate to vertically center text within 50px total with padding */
+}
+
 /* Global input rounding and border to ensure consistency across pages */
 .form-control {
   background: #fff !important;
