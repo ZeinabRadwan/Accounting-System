@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'quotations.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -390,7 +390,7 @@
             <div class="card-footer">
               <div class="dtable-footer">
                 <div class="form-group row display-per-page footer-buttons">
-                  <v-button :loading="form.busy" class="btn btn-primary">
+                  <v-button :loading="form.busy" class="btn btn-success">
                     <i class="fas fa-save" /> {{ $t("Save") }}
                   </v-button>
                   <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">

@@ -330,7 +330,7 @@
               {{ $t("Send SMS Notification") }}
             </div>
           </div>
-          <v-button :loading="form.busy" class="btn btn-primary">
+          <v-button :loading="form.busy" class="btn btn-success">
             <i class="fas fa-save" /> {{ $t("Save") }}
           </v-button>
         </form>

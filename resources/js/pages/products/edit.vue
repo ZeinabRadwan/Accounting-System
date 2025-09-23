@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'products.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
                   <i class="fas fa-save" />
                 </button>
               </div>

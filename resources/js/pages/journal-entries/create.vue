@@ -202,7 +202,7 @@
               <div class="card-footer">
                 <div class="dtable-footer">
                   <div class="form-group row display-per-page footer-buttons">
-                    <button type="submit" class="btn btn-primary" :disabled="!isBalanced || loading">
+                    <button type="submit" class="btn btn-success" :disabled="!isBalanced || loading">
                       <i v-if="loading" class="fa fa-spinner fa-spin"></i>
                       <i v-else class="fa fa-save"></i>
                       {{ loading ? $t('Saving...') : $t('Save') }}

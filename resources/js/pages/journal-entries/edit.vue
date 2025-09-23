@@ -209,7 +209,7 @@
               <div class="card-footer">
                 <div class="dtable-footer">
                   <div class="form-group row display-per-page footer-buttons">
-                    <button type="submit" class="btn btn-primary" :disabled="!isBalanced || saving">
+                    <button type="submit" class="btn btn-success" :disabled="!isBalanced || saving">
                       <i v-if="saving" class="fa fa-spinner fa-spin"></i>
                       <i v-else class="fa fa-save"></i>
                       {{ saving ? $t('Updating...') : $t('Update') }}

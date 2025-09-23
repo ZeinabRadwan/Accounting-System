@@ -57,7 +57,7 @@
             <div class="card-footer">
               <div class="dtable-footer">
                 <div class="form-group row display-per-page">
-                  <v-button :loading="form.busy" class="btn btn-primary">
+                  <v-button :loading="form.busy" class="btn btn-success">
                     <i class="fas fa-save" /> {{ $t('Save') }}
                   </v-button>
                   <button type="reset" class="btn btn-secondary" @click="form.reset()">

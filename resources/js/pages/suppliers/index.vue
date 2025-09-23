@@ -283,7 +283,7 @@
             </span>
           </div>
           <div class="row mt-3">
-            <v-button :loading="form.busy" class="btn btn-primary">
+            <v-button :loading="form.busy" class="btn btn-success">
               <i class="fas fa-save" /> {{ $t("Save") }}
             </v-button>
             <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">

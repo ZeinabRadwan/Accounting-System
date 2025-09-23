@@ -15,7 +15,7 @@
               <router-link :to="{ name: 'invoices.index' }" class="btn btn-dark">
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </router-link>
-              <button type="button" class="btn btn-primary ml-2" @click="saveTemporary" title="Save Temporarily">
+              <button type="button" class="btn btn-success ml-2" @click="saveTemporary" title="Save Temporarily">
                 <i class="fas fa-save" />
               </button>
             </div>

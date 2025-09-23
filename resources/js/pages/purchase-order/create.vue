@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-primary">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -421,7 +421,7 @@
             <div class="card-footer">
               <div class="dtable-footer">
                 <div class="form-group row display-per-page footer-buttons">
-                  <button type="submit" :disabled="form.busy" class="btn btn-primary" @click="savePurchaseOrder">
+                  <button type="submit" :disabled="form.busy" class="btn btn-success" @click="savePurchaseOrder">
                     <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
                     {{ form.busy ? $t("Saving...") : $t("Save") }}
                   </button>
