@@ -1257,7 +1257,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 
 /* Professional hover for submenu items */
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover {
-  background-color: #F1F5FB !important;
+  background-color: #fff !important;
   color: #33a0d9 !important;
   transform: translateX(4px);
   transition: all 0.3s ease;

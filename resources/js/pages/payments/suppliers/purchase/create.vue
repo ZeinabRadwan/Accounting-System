@@ -435,7 +435,7 @@ export default {
 
 /* Form Control Styling */
 .form-control {
-  background: #F1F5FB !important;
+  background: #fff !important;
   border: 1px solid #E5E7EB;
   border-radius: 10px;
   padding: 10px 16px;
@@ -520,11 +520,11 @@ textarea.form-control {
 
 /* V-Select Styling */
 .v-select {
-  background: #F1F5FB !important;
+  background: #fff !important;
 }
 
 .v-select .vs__dropdown-toggle {
-  background: #F1F5FB !important;
+  background: #fff !important;
   border: 1px solid #E5E7EB !important;
   border-radius: 10px !important;
   padding: 10px 16px !important;

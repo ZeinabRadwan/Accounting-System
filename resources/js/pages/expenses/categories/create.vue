@@ -205,7 +205,7 @@ export default {
 
 /* Form Control Styling */
 .form-control {
-  background: #F1F5FB !important;
+  background: #fff !important;
   border: 1px solid #E5E7EB;
   border-radius: 10px;
   padding: 10px 16px;
@@ -269,14 +269,14 @@ export default {
 
 /* Vue Editor Styling */
 #editor {
-  background: #F1F5FB !important;
+  background: #fff !important;
   border: 1px solid #E5E7EB;
   border-radius: 10px;
   min-height: 200px;
 }
 
 #editor .ql-editor {
-  background: #F1F5FB !important;
+  background: #fff !important;
   border-radius: 10px;
   font-size: 14px;
   padding: 12px 16px;

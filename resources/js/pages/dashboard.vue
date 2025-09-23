@@ -1304,7 +1304,7 @@ export default {
 
 /* Search Input Background Override */
 .form-control {
-  background: #f1f5fb !important;
+  background: #fff !important;
 }
 
 /* Create Button Styling */

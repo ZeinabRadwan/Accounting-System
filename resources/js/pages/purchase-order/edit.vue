@@ -1044,7 +1044,7 @@ export default {
 
 /* Search Input Background Override */
 .form-control{
-  background: #F1F5FB !important;
+  background: #fff !important;
 }
 
 .btn-primary {

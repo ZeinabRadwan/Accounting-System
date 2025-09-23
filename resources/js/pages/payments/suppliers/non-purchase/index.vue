@@ -730,7 +730,7 @@ export default {
 }
 
 .non-purchase-payments-table .badge.bg-primary {
-  background: #F1F5FB !important;
+  background: #fff !important;
   color: #33a0d9 !important;
   font-size: 12px !important;
   font-weight: 500 !important;
@@ -739,7 +739,7 @@ export default {
 
 /* Search Input Background Override */
 .form-control{
-  background: #F1F5FB !important;
+  background: #fff !important;
 }
 
 /* Create Button Styling */
