@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-50">
+  <div>
     <div class="row">
       <div class="col-lg-12">
         <div class="card custom-card w-100">
@@ -23,7 +23,7 @@
             <!-- form start -->
             <form role="form" @submit.prevent="savePurchaseOrder" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items && products">
-                <div class="form-group col-md-12 col-xl-3">
+                <div class="form-group col-md-6">
                   <label for="supplier">{{ $t("Supplier") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -64,7 +64,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-md-12 col-xl-6">
+                <div class="form-group col-md-6">
                   <label for="product">{{ $t("Select Products") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -109,9 +109,8 @@
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
                 <div class="table-responsive table-custom w-100 m-auto">
-                  <table class="table table-hover table-sm text-center">
-                      <thead>
-                        <tr>
+                  <table class="table table-hover table-sm text-center invoices-create-table">
+                    <thead>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Name") }}</th>
@@ -124,7 +123,6 @@
                         <th>{{ $t("VAT") }}</th>
                         <th>{{ $t("Total with VAT") }}</th>
                         <th class="text-right">{{ $t("Action") }}</th>
-                        </tr>
                       </thead>
                       <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
@@ -306,7 +304,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-md-6 col-xl-3">
+                <div class="form-group col-md-4">
                   <label for="poReference">{{
                     $t("PO Reference")
                   }}</label>
@@ -315,7 +313,7 @@
                       " />
                   <has-error :form="form" field="poReference" />
                 </div>
-                <div class="form-group col-md-6 col-xl-3">
+                <div class="form-group col-md-4">
                   <label for="paymentTerms">{{
                     $t("Payment Terms")
                   }}</label>
@@ -1266,11 +1264,6 @@ export default {
 </script>
 
 <style scoped>
-/* Space between action buttons */
-.btn-group.c-w-100 {
-  gap: 10px;
-}
-
 /* Header buttons styling */
 .header-buttons {
   margin-bottom: 15px;
@@ -1290,58 +1283,87 @@ export default {
   margin-right: 0;
 }
 
-
-
-.card {
-  margin-top: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA;
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
 }
 
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid #CED4DA;
-  padding: 1.25rem 1.25rem 0 1.25rem;
-  border-radius: 20px 20px 0 0;
+.chart-account-warning {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #ffc107;
 }
 
-.card-body {
-  padding: 1.25rem;
+.chart-account-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border: 1px solid #28a745;
 }
 
-.card-footer {
-  background-color: white;
-  border-top: 1px solid #CED4DA;
-  padding: 0 1.25rem 0.625rem 1.25rem;
-  border-radius: 0 0 20px 20px;
+.warning-content,
+.success-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-/* Form Control Styling */
-.form-control {
-  background: #fff !important;
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-  padding: 10px 16px;
+.warning-icon,
+.success-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.warning-icon {
+  color: #856404;
+}
+
+.success-icon {
+  color: #155724;
+}
+
+.warning-text,
+.success-text {
+  flex-grow: 1;
+}
+
+.warning-title,
+.success-title {
+  margin: 0 0 4px 0;
+  font-weight: 600;
   font-size: 14px;
 }
 
-.form-control:focus {
-  border-color: #33a0d9;
-  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+.warning-title {
+  color: #856404;
 }
 
-/* Form Group Labels */
-.form-group label {
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 8px;
-  display: block;
+.success-title {
+  color: #155724;
 }
 
-.required {
-  color: #DC3545;
-  font-weight: bold;
+.warning-description,
+.success-description {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.warning-description {
+  color: #856404;
+}
+
+.success-description {
+  color: #155724;
+}
+
+.warning-action {
+  flex-shrink: 0;
 }
 
 /* Button Styling */
@@ -1349,7 +1371,7 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-
+  border-radius: 10px !important;
   border: none !important;
   font-weight: 500;
 }
@@ -1364,7 +1386,7 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-
+  border-radius: 10px !important;
   border: none !important;
   font-weight: 500;
   margin-right: 10px;
@@ -1376,143 +1398,31 @@ export default {
   box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 
-/* Invalid Form Control */
-.is-invalid {
-  border-color: #DC3545 !important;
+/* Responsive design */
+@media (max-width: 768px) {
+  .warning-content,
+  .success-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .warning-action {
+    width: 100%;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
 }
 
-/* Textarea Styling */
-textarea.form-control {
-  min-height: 100px;
-  resize: vertical;
-}
-
-/* V-Select Styling */
-.v-select {
-  background: #fff !important;
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-}
-
-.v-select .vs__dropdown-toggle {
-  background: #fff !important;
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-  padding: 10px 16px;
-}
-
-.v-select .vs__search::placeholder {
-  color: #6B7280;
-}
-
-.v-select .vs__selected {
-  color: #374151;
-}
-
-.v-select .vs__dropdown-menu {
-  border-radius: 10px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-/* Table Styling */
-.table-custom {
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table-custom thead th {
-  background-color: #F8F9FA;
-  border-bottom: 2px solid #E5E7EB;
-  font-weight: 600;
-  color: #374151;
-  padding: 12px 8px;
-  text-align: center;
-}
-
-.table-custom tbody td {
-  padding: 12px 8px;
-  border-bottom: 1px solid #E5E7EB;
-  vertical-align: middle;
-}
-
-.table-custom tbody tr:hover {
-  background-color: #F8F9FA;
-}
-
-/* Custom Quantity Input Styling */
-.custom-qty-input {
-  display: flex;
-  align-items: center;
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.custom-qty-input .button-minus,
-.custom-qty-input .button-plus {
-  background: #6C757D;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.custom-qty-input .button-minus:hover {
-  background: #DC3545;
-}
-
-.custom-qty-input .button-plus:hover {
-  background: #2AB930;
-}
-
-.custom-qty-input .quantity-field {
-  border: none;
-  background: transparent;
-  text-align: center;
-  width: 60px;
-  padding: 8px 4px;
-  font-weight: 500;
-}
-
-.custom-qty-input .quantity-field:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-/* Toggle Button Styling */
-.toggle-button {
-  margin-right: 10px;
-}
-
-/* Create Button Styling */
-.create-btn {
-  padding: 11px;
-  background: #2AB930;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.create-btn:hover {
-  background: #229A26;
-}
-
-/* Supplier/Product Status Styles */
-.supplier-status,
-.product-status {
+/* Client status styles */
+.client-status {
   font-size: 13px;
 }
 
-.supplier-warning,
-.supplier-success,
-.product-warning,
-.product-success {
+.client-warning,
+.client-success {
   display: flex;
   align-items: center;
   padding: 8px 12px;
@@ -1520,15 +1430,13 @@ textarea.form-control {
   font-weight: 500;
 }
 
-.supplier-warning,
-.product-warning {
+.client-warning {
   background-color: #fff3cd;
   color: #856404;
   border: 1px solid #ffeaa7;
 }
 
-.supplier-success,
-.product-success {
+.client-success {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
@@ -1539,7 +1447,6 @@ textarea.form-control {
   color: #856404;
   font-size: 12px;
   padding: 4px 8px;
-  border-radius: 6px;
 }
 
 .btn-outline-warning:hover {
@@ -1553,47 +1460,194 @@ textarea.form-control {
   cursor: not-allowed;
 }
 
-/* Row Spacing */
-.row {
-  margin-bottom: 1rem;
+/* Product status styles */
+.product-status {
+  font-size: 13px;
 }
 
-/* Form Text Styling */
-.form-text {
-  color: #6B7280;
-  font-size: 0.875rem;
+.product-warning,
+.product-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
 }
 
-.text-muted {
-  color: #6B7280 !important;
+.product-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .card-footer {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .card-footer .btn {
-    width: 100%;
-    margin-right: 0 !important;
-  }
-  
-  .card-footer div {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .table-custom {
-    font-size: 12px;
-  }
-  
-  .table-custom thead th,
-  .table-custom tbody td {
-    padding: 8px 4px;
-  }
+.product-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Account status styles */
+.account-status {
+  font-size: 13px;
+}
+
+.account-warning,
+.account-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.account-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.account-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Horizontal radio button group */
+.radio-group-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check-input {
+  margin-right: 8px;
+}
+
+.radio-group-horizontal .form-check-label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* Payment validation warning styles */
+.text-warning {
+  color: #856404 !important;
+}
+
+.text-warning small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.text-warning i {
+  margin-right: 4px;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.invoices-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-create-table thead tr {
+  border: none !important;
+}
+
+.invoices-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Custom Status Badge Styling */
+.invoices-create-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #fff !important;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+}
+.create-btn {
+  padding: 11px;
 }
 </style>
