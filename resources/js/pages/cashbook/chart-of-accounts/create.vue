@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="submit" class="btn btn-success" :form="'chartAccountForm'" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -20,7 +20,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="saveAccount" @keydown="form.onKeydown($event)">
+          <form id="chartAccountForm" role="form" @submit.prevent="saveAccount" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-6">
@@ -67,7 +67,7 @@
                            :style="[{ direction: 'ltr', textAlign: 'left' }, form.code_generation === 'automatic' ? { backgroundColor: '#f8f9fa' } : {}]" />
                     
                     <!-- Auto-generate Button -->
-                    <div v-if="form.code_generation === 'automatic'" class="code-generate-btn">
+                    <!-- <div v-if="form.code_generation === 'automatic'" class="code-generate-btn">
                       <button type="button" 
                               class="btn btn-outline-secondary btn-sm"
                               @click="generateCode"
@@ -75,16 +75,16 @@
                         <i class="fas fa-sync-alt mr-1"></i>
                         {{ $t('Generate') }}
                       </button>
-                    </div>
+                    </div> -->
                   </div>
                   
                   <!-- Code Preview -->
-                  <div v-if="form.code_generation === 'automatic' && form.code" class="code-preview mt-2">
+                  <!-- <div v-if="form.code_generation === 'automatic' && form.code" class="code-preview">
                     <small class="text-muted">
                       <i class="fas fa-info-circle mr-1"></i>
                       {{ $t('Generated Code') }}: <strong>{{ form.code }}</strong>
                     </small>
-                  </div>
+                  </div> -->
                   
                   <has-error :form="form" field="code" />
                 </div>
@@ -120,11 +120,14 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="is_active">{{ $t('Status') }}</label>
-                  <select id="is_active" v-model="form.is_active" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('is_active') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
-                  </select>
+                  <v-select
+                    v-model="form.is_active"
+                    :options="statusOptions"
+                    label="label"
+                    :reduce="opt => opt.value"
+                    :class="{ 'is-invalid': form.errors.has('is_active') }"
+                    :placeholder="$t('Select status')"
+                  />
                   <has-error :form="form" field="is_active" />
                 </div>
               </div>
@@ -191,6 +194,10 @@ export default {
     allParentAccounts: [], // Store all accounts for filtering
     codeGenerationTimeout: null, // For debouncing
     isGeneratingCode: false, // Prevent multiple simultaneous generations
+    statusOptions: [
+      { label: 'Active', value: 1 },
+      { label: 'Inactive', value: 0 }
+    ],
   }),
 
   async created() {
@@ -384,7 +391,29 @@ export default {
         })
         .catch((error) => {
           console.error('Error saving:', error);
-          toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
+          if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+            const errors = error.response.data.errors
+            // Set inline errors for form fields
+            if (this.form && this.form.errors && typeof this.form.errors.set === 'function') {
+              this.form.errors.set(errors)
+            }
+            // Show first validation message in toast
+            const messages = Object.values(errors).flat()
+            const firstMessage = messages && messages.length ? messages[0] : this.$t('Validation Error')
+            const backendMessage = error.response.data.message || firstMessage
+            toast.fire({
+              type: 'error',
+              title: backendMessage
+            })
+          } else if (error.response && (error.response.data?.message || error.response.data?.error)) {
+            const msg = error.response.data.message || error.response.data.error
+            toast.fire({
+              type: 'error',
+              title: msg
+            })
+          } else {
+            toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
+          }
         })
     },
     // save form data temporarily
@@ -426,6 +455,10 @@ export default {
   },
   mounted() {
     this.loadTemporaryData()
+    // Auto-generate code on initial load when in automatic mode
+    if (this.form.code_generation === 'automatic' && !this.form.code) {
+      this.generateCode()
+    }
   },
   computed: {
     localizedBreadcrumbsCurrent() {
@@ -577,28 +610,61 @@ export default {
 
 /* Code Generation Toggle */
 .code-generation-toggle {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem !important;
+  display: inline-block;
 }
 
 .code-generation-toggle .btn-group {
-  width: 100%;
+  width: 125%;
+  display: inline-flex;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .code-generation-toggle .btn {
   flex: 1;
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  line-height: 1.3;
+  border-radius: 5px;
+  background: transparent !important;
+  border: none !important;
+  color: #64748b;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .code-generation-toggle .btn-outline-primary {
-  border-color: #33a0d9;
-  color: #33a0d9;
+  border: none !important;
+  color: #64748b;
 }
 
 .code-generation-toggle .btn-outline-primary:hover {
-  background-color: #33a0d9;
-  border-color: #33a0d9;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: #475569;
+  transform: none;
+  box-shadow: none !important;
+}
+
+/* Active state - primary in this toggle only */
+.code-generation-toggle .btn.btn-primary {
+  background: #ffffff !important;
+  color: #2AB930 !important;
+  border: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  transform: none !important;
+}
+
+.code-generation-toggle .btn.btn-primary:hover {
+  background: #ffffff !important;
+  color: #229A26 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+  transform: none !important;
 }
 
 /* Code Input Container */

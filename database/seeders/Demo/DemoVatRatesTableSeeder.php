@@ -22,7 +22,7 @@ class DemoVatRatesTableSeeder extends Seeder
                 'slug' => 'vat-15',
                 'code' => 'VAT@15',
                 'rate' => 15.0,
-                'note' => 'This is a note!',
+                'note' => '',
                 'status' => 1,
                 'created_at' => '2022-04-30 22:14:59',
                 'updated_at' => '2022-04-30 22:14:59',

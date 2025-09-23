@@ -570,22 +570,112 @@
 }
 
 /* Vue Select RTL adjustments */
+[dir="rtl"] .v-select .vs__dropdown-toggle {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .v-select .vs__selected-options {
+  direction: rtl;
+}
+
+[dir="rtl"] .v-select .vs__selected {
+  text-align: right;
+}
+
+[dir="rtl"] .v-select .vs__search {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .v-select .vs__search::placeholder {
+  text-align: right;
+}
+
 [dir="rtl"] .v-select .vs__actions {
-  padding: 0 3px 0 6px;
+  padding: 0 6px 0 3px;
+  position: absolute;
+  right: auto;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+[dir="rtl"] .v-select .vs__open-indicator {
+  position: relative;
+  right: auto;
+  left: 0;
 }
 
 [dir="rtl"] .v-select .vs__clear {
-  margin-left: 6px;
-  margin-right: 0;
+  position: relative;
+  right: auto;
+  left: 0;
+  margin-left: 0;
+  margin-right: 6px;
 }
 
 [dir="rtl"] .v-select .vs__deselect {
+  position: relative;
+  right: auto;
+  left: 0;
   margin-left: 0;
   margin-right: 2px;
 }
 
 [dir="rtl"] .v-select .vs__dropdown-menu {
   text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .v-select .vs__dropdown-option {
+  text-align: right;
+}
+
+/* Enhanced RTL styling for specific RTL select components */
+[dir="rtl"] .rtl-select .vs__dropdown-toggle {
+  padding-left: 30px;
+  padding-right: 8px;
+  position: relative;
+}
+
+[dir="rtl"] .rtl-select .vs__selected-options {
+  padding-left: 30px;
+  padding-right: 8px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+[dir="rtl"] .rtl-select .vs__search {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Ensure dropdown arrow appears on the left in RTL */
+[dir="rtl"] .rtl-select .vs__actions {
+  position: absolute;
+  right: auto;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+[dir="rtl"] .rtl-select .vs__open-indicator {
+  position: static;
+  right: auto;
+  left: auto;
+}
+
+[dir="rtl"] .rtl-select .vs__clear {
+  position: static;
+  right: auto;
+  left: auto;
+  margin-left: 4px;
+  margin-right: 0;
 }
 
 /* Custom RTL utility classes */

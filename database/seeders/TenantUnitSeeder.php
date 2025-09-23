@@ -1,171 +1,154 @@
 <?php
 
-namespace Database\Seeders\Demo;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class DemoUnitsTableSeeder extends Seeder
+class TenantUnitSeeder extends Seeder
 {
     /**
-     * Auto generated seed file
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        DB::table('units')->delete();
-
         DB::table('units')->insert([
-            0 => [
-                'id' => 1,
+            [
                 'name' => 'Piece',
                 'slug' => 'piece',
                 'code' => 'Pcs',
                 'note' => 'Individual items or units',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:16:48',
-                'updated_at' => '2022-04-30 22:18:07',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            1 => [
-                'id' => 2,
+            [
                 'name' => 'Kilogram',
                 'slug' => 'kilogram',
                 'code' => 'Kg',
                 'note' => 'Unit of mass',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:17:43',
-                'updated_at' => '2022-04-30 22:17:43',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            2 => [
-                'id' => 3,
+            [
                 'name' => 'Gram',
                 'slug' => 'gram',
                 'code' => 'g',
                 'note' => 'Unit of mass',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:18:00',
-                'updated_at' => '2022-04-30 22:18:00',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            3 => [
-                'id' => 4,
+            [
                 'name' => 'Liter',
                 'slug' => 'liter',
                 'code' => 'L',
                 'note' => 'Unit of volume',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:18:15',
-                'updated_at' => '2022-04-30 22:18:15',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            4 => [
-                'id' => 5,
+            [
                 'name' => 'Meter',
                 'slug' => 'meter',
                 'code' => 'm',
                 'note' => 'Unit of length',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:18:30',
-                'updated_at' => '2022-04-30 22:18:30',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            5 => [
-                'id' => 6,
+            [
                 'name' => 'Centimeter',
                 'slug' => 'centimeter',
                 'code' => 'cm',
                 'note' => 'Unit of length',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:18:45',
-                'updated_at' => '2022-04-30 22:18:45',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            6 => [
-                'id' => 7,
+            [
                 'name' => 'Square Meter',
                 'slug' => 'square-meter',
                 'code' => 'm²',
                 'note' => 'Unit of area',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:19:00',
-                'updated_at' => '2022-04-30 22:19:00',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            7 => [
-                'id' => 8,
+            [
                 'name' => 'Cubic Meter',
                 'slug' => 'cubic-meter',
                 'code' => 'm³',
                 'note' => 'Unit of volume',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:19:15',
-                'updated_at' => '2022-04-30 22:19:15',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            8 => [
-                'id' => 9,
+            [
                 'name' => 'Pack',
                 'slug' => 'pack',
                 'code' => 'Pack',
                 'note' => 'Packaged items',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:19:30',
-                'updated_at' => '2022-04-30 22:19:30',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            9 => [
-                'id' => 10,
+            [
                 'name' => 'Box',
                 'slug' => 'box',
                 'code' => 'Box',
                 'note' => 'Boxed items',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:19:45',
-                'updated_at' => '2022-04-30 22:19:45',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            10 => [
-                'id' => 11,
+            [
                 'name' => 'Dozen',
                 'slug' => 'dozen',
                 'code' => 'Dz',
                 'note' => '12 pieces',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:20:00',
-                'updated_at' => '2022-04-30 22:20:00',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            11 => [
-                'id' => 12,
+            [
                 'name' => 'Pair',
                 'slug' => 'pair',
                 'code' => 'Pair',
                 'note' => 'Two matching items',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:20:15',
-                'updated_at' => '2022-04-30 22:20:15',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            12 => [
-                'id' => 13,
+            [
                 'name' => 'Set',
                 'slug' => 'set',
                 'code' => 'Set',
                 'note' => 'Collection of items',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:20:30',
-                'updated_at' => '2022-04-30 22:20:30',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            13 => [
-                'id' => 14,
+            [
                 'name' => 'Bottle',
                 'slug' => 'bottle',
                 'code' => 'Btl',
                 'note' => 'Bottled items',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:20:45',
-                'updated_at' => '2022-04-30 22:20:45',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-            14 => [
-                'id' => 15,
+            [
                 'name' => 'Carton',
                 'slug' => 'carton',
                 'code' => 'Ctn',
                 'note' => 'Carton packaging',
                 'status' => 1,
-                'created_at' => '2022-04-30 22:21:00',
-                'updated_at' => '2022-04-30 22:21:00',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

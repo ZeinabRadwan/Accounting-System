@@ -48,6 +48,7 @@ class DemoDatabaseSeeder extends Seeder
         $this->call(DemoProductSubCategoriesTableSeeder::class);
         $this->call(DemoSuppliersTableSeeder::class);
         $this->call(DemoVatRatesTableSeeder::class);
+        $this->call(DemoUnitsTableSeeder::class);
         $this->call(DemoPurchasesTableSeeder::class);
         $this->call(DemoPurchasePaymentsTableSeeder::class);
         $this->call(DemoPurchaseReturnsTableSeeder::class);

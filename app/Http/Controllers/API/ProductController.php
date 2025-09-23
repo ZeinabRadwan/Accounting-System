@@ -248,10 +248,18 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($identifier)
     {
         try {
-            $product = Product::where('slug', $slug)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
+            // Try to find product by slug first, then by ID if slug lookup fails
+            $product = Product::where('slug', $identifier)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
+            if (!$product && is_numeric($identifier)) {
+                $product = Product::where('id', $identifier)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
+            }
+            
+            if (!$product) {
+                return $this->responseWithError('Product not found');
+            }
 
             return new ProductResource($product);
         } catch (Exception $e) {
@@ -266,10 +274,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, $identifier)
     {
-
-        $product = Product::where('slug', $slug)->first();
+        // Try to find product by slug first, then by ID if slug lookup fails
+        $product = Product::where('slug', $identifier)->first();
+        if (!$product && is_numeric($identifier)) {
+            $product = Product::find($identifier);
+        }
+        
+        if (!$product) {
+            return $this->responseWithError('Product not found');
+        }
         // validate request
         $this->validate($request, [
             'itemType' => 'required|string',

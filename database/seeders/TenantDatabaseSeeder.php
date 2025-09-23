@@ -67,6 +67,7 @@ class TenantDatabaseSeeder extends Seeder
                 TenantClientSeeder::class,
                 TenantAccountSeeder::class,
                 TenantVatRateSeeder::class,
+                TenantUnitSeeder::class,
                 TenantMenuSeeder::class,
             ]);
 

@@ -189,12 +189,7 @@ export default {
   border: 1px solid #CED4DA;
 }
 
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid #CED4DA;
-  padding: 1.25rem 1.25rem 0 1.25rem;
-  border-radius: 20px 20px 0 0;
-}
+/* Removed card-header override to match client pages styling */
 
 .card-body {
   padding: 1.25rem;

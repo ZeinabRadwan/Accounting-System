@@ -22,6 +22,15 @@
           <!-- form start -->
           <form role="form" @submit.prevent="saveQuotation" @keydown="form.onKeydown($event)">
             <div class="card-body">
+              <!-- Date Field - Standalone Row -->
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="date">{{ $t("Date") }}</label>
+                  <input id="date" v-model="form.date" type="date" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
+                  <has-error :form="form" field="date" />
+                </div>
+              </div>
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
@@ -30,13 +39,23 @@
                     <div class="col">
                       <div class="d-flex w-100">
                         <v-select class="flex-grow-1" v-model="form.client" :options="items" label="name"
-                          :class="{ 'is-invalid': form.errors.has('client') }" name="client"
+                          :class="{ 
+                            'is-invalid': form.errors.has('client'),
+                            'rtl-select': isRTL
+                          }" 
+                          name="client"
                           :placeholder="$t('Select a client')" />
-                        <ClientCreateModal @reloadClients="getClients('latest')">
+                        <!-- Show create button when no client selected -->
+                        <ClientCreateModal v-if="!form.client" @reloadClients="getClients('latest')">
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
                         </ClientCreateModal>
+                        
+                        <!-- Show edit button when client is selected -->
+                        <div v-if="form.client" class="input-group-text create-btn edit-btn" @click="editSelectedClient">
+                          <i class="fas fa-edit"></i>
+                        </div>
                       </div>
                       <has-error :form="form" field="client" />
                     </div>
@@ -59,6 +78,7 @@
                       <div class="d-flex w-100">
                         <v-select v-model="form.product" :options="products" label="label" class="flex-grow-1" :class="{
                           'is-invalid': form.errors.has('selectedProducts'),
+                          'rtl-select': isRTL
                         }" name="product" :placeholder="$t('Search Items')"
                           @input="storeProduct(form.product)" />
                         <ProductCreateModal @reloadProducts="getProducts">
@@ -131,7 +151,7 @@
                                 )
                                 " />
 
-                            <input type="number" step="any" :id="`Qty-${i}`" :value="item.qty" name="quantity"
+                            <input type="number" step="any" :id="`Qty-${i}`" :value="formatToTwoDecimals(item.qty)" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`) }"
                               @change="
@@ -166,7 +186,7 @@
                                   'decrement'
                                 )
                                 " />
-                            <input type="number" step="any" min="0" :id="`unitPrice-${i}`" :value="item.unitPrice"
+                            <input type="number" step="any" min="0" :id="`unitPrice-${i}`" :value="formatToTwoDecimals(item.unitPrice)"
                               name="unitPrice" class="quantity-field border-0 incrementor" required @change="
                                 generateItemTotal(
                                   $event.target.value,
@@ -187,7 +207,7 @@
                                 " />
                           </div>
                         </td>
-                        <td class="no-currency">{{ (item.unitPrice * item.qty) }}</td>
+                        <td class="no-currency">{{ formatToTwoDecimals(item.unitPrice * item.qty) }}</td>
                         <td>
                           <div class="input-group">
                             <select 
@@ -217,7 +237,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td class="no-currency">{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0)) }}</td>
+                        <td class="no-currency">{{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }}</td>
                         <td>
                           <select 
                             v-model="item.selectedVatRate" 
@@ -239,10 +259,10 @@
                         </td>
                         <td class="no-currency">
                           <span class="form-control-plaintext form-control-sm text-center no-currency">
-                            {{ item.productTax }}
+                            {{ formatToTwoDecimals(item.productTax) }}
                           </span>
                         </td>
-                        <td class="no-currency">{{ item.totalPrice }}</td>
+                        <td class="no-currency">{{ formatToTwoDecimals(item.totalPrice) }}</td>
                         <td class="text-right">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -254,22 +274,22 @@
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ totalUnitPrice }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalUnitPrice) }}</strong>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ totalProductDiscount }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalProductDiscount) }}</strong>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ totalAfterDiscount }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalAfterDiscount) }}</strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ totalProductTax }}</strong>
+                          <strong>{{ formatToTwoDecimals(totalProductTax) }}</strong>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ subtotal }}</strong>
+                          <strong>{{ formatToTwoDecimals(subtotal) }}</strong>
                         </td>
                         <td></td>
                       </tr>
@@ -324,7 +344,11 @@
                   <label for="orderTax">{{ $t("Quotation Tax") }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
-                    :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax"
+                    :class="{ 
+                      'is-invalid': form.errors.has('orderTax'),
+                      'rtl-select': isRTL
+                    }" 
+                    name="orderTax"
                     :placeholder="$t('Select a tax type')" @input="calculateSum" />
                   <has-error :form="form" field="orderTax" />
                 </div>
@@ -334,14 +358,12 @@
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group" :class="isSaudiArabia ? 'col-md-12' : 'col-md-4'">
+                <div class="form-group" :class="'col-md-4'">
                   <label for="netTotal">{{ $t("Net Total") }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
                   <has-error :form="form" field="netTotal" />
-                </div>
-              </div>
-              <div class="row">
+                </div> 
                 <div class="form-group col-md-4">
                   <label for="deliveryPlace">{{
                     $t("Delivery Place")
@@ -350,12 +372,6 @@
                     :class="{ 'is-invalid': form.errors.has('deliveryPlace') }" name="deliveryPlace"
                     :placeholder="$t('Enter a delivery place')" />
                   <has-error :form="form" field="deliveryPlace" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="date">{{ $t("Date") }}</label>
-                  <input id="date" v-model="form.date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
-                  <has-error :form="form" field="date" />
                 </div>
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="status">{{ $t("Status") }}</label>
@@ -403,10 +419,17 @@
         </div>
       </div>
     </div>
+    <!-- Client Edit Modal -->
+    <ClientEditModal 
+      ref="clientEditModal"
+      @reloadClients="getClients"
+    />
+    
     <!-- Product Edit Modal -->
     <ProductEditModal 
       ref="productEditModal"
       @reloadProducts="getProducts"
+      @productUpdated="handleProductUpdated"
     />
   </div>
 </template>
@@ -417,8 +440,10 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
+import ClientEditModal from '~/components/ClientEditModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
 import ProductEditModal from '~/components/ProductEditModal'
+import RTLMixin from '~/mixins/RTLMixin'
 
 import { ToWords } from 'to-words';
 
@@ -427,9 +452,11 @@ export default {
   metaInfo() {
     return { title: this.$t("Create Quotation") };
   },
+  mixins: [RTLMixin],
   components: {
     ToggleButton,
     ClientCreateModal,
+    ClientEditModal,
     ProductCreateModal,
     ProductEditModal
   },
@@ -485,35 +512,39 @@ export default {
     
     // Calculate total unit price (sum of all unit prices * quantities)
     totalUnitPrice() {
-      return this.form.selectedProducts.reduce((total, item) => {
+      const total = this.form.selectedProducts.reduce((total, item) => {
         return total + (item.unitPrice * item.qty);
       }, 0);
+      return this.roundToTwoDecimals(total);
     },
     
     // Calculate total discount from all products (reactive)
     totalProductDiscount() {
-      return this.form.selectedProducts.reduce((total, item) => {
+      const total = this.form.selectedProducts.reduce((total, item) => {
         return total + (item.discountAmount || 0);
       }, 0);
+      return this.roundToTwoDecimals(total);
     },
     
     // Calculate total after discount (reactive)
     totalAfterDiscount() {
-      return this.totalUnitPrice - this.totalProductDiscount;
+      return this.roundToTwoDecimals(this.totalUnitPrice - this.totalProductDiscount);
     },
     
     // Calculate total product tax (reactive)
     totalProductTax() {
-      return this.form.selectedProducts.reduce((total, item) => {
+      const total = this.form.selectedProducts.reduce((total, item) => {
         return total + (item.totalTax || 0);
       }, 0);
+      return this.roundToTwoDecimals(total);
     },
     
     // Calculate subtotal (reactive)
     subtotal() {
-      return this.form.selectedProducts.reduce((total, item) => {
+      const total = this.form.selectedProducts.reduce((total, item) => {
         return total + (item.totalPrice || 0);
       }, 0);
+      return this.roundToTwoDecimals(total);
     },
   },
   created() {
@@ -681,6 +712,18 @@ export default {
       return Math.round((value + Number.EPSILON) * 100) / 100;
     },
 
+    // Format number to display with exactly 2 decimal places
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+
     // Find matching VAT rate based on product tax
     findMatchingVatRate(productTax) {
       if (!this.taxes || !productTax) return null;
@@ -834,6 +877,33 @@ export default {
       return;
     },
 
+    // edit selected client
+    editSelectedClient() {
+      // Check if a client is selected
+      if (!this.form.client) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Warning"),
+          text: this.$t("Please select a client first."),
+        });
+        return;
+      }
+
+      // Check if the modal component is available
+      if (!this.$refs.clientEditModal) {
+        console.error('ClientEditModal component not found');
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("Edit modal not available. Please refresh the page."),
+        });
+        return;
+      }
+      
+      // Open the client edit modal with the selected client
+      this.$refs.clientEditModal.openModal(this.form.client);
+    },
+
     // edit product from table row
     editProductFromTable(product) {
       // Check if the modal component is available
@@ -849,6 +919,56 @@ export default {
       
       // Open the product edit modal with the specific product from the table
       this.$refs.productEditModal.openModal(product);
+    },
+
+    // handle product updated event
+    handleProductUpdated(eventData) {
+      const { originalProduct, updatedData } = eventData;
+      
+      console.log('Product updated event received:', eventData);
+      
+      // Find and update the product in selectedProducts array
+      const productIndex = this.form.selectedProducts.findIndex(p => 
+        p.id === originalProduct.id || p.slug === originalProduct.slug
+      );
+      
+      if (productIndex !== -1) {
+        // Update the product data in the selected products array
+        const updatedProduct = { ...this.form.selectedProducts[productIndex] };
+        
+        // Update relevant fields from the form data
+        updatedProduct.name = updatedData.itemName || updatedProduct.name;
+        updatedProduct.item_name = updatedData.itemName || updatedProduct.item_name;
+        updatedProduct.regular_price = updatedData.regularPrice || updatedProduct.regular_price;
+        updatedProduct.price = updatedData.regularPrice || updatedProduct.price;
+        updatedProduct.discount = updatedData.discount || updatedProduct.discount;
+        updatedProduct.selling_price = updatedData.sellingPrice || updatedProduct.selling_price;
+        
+        // Update related objects if they have IDs
+        if (updatedData.subCategory) {
+          updatedProduct.sub_category_id = updatedData.subCategory;
+        }
+        if (updatedData.itemUnit) {
+          updatedProduct.unit_id = updatedData.itemUnit;
+        }
+        if (updatedData.productTax) {
+          updatedProduct.tax_id = updatedData.productTax;
+          updatedProduct.vat_rate_id = updatedData.productTax;
+        }
+        if (updatedData.brand) {
+          updatedProduct.brand_id = updatedData.brand;
+        }
+        
+        // Replace the product in the array
+        this.$set(this.form.selectedProducts, productIndex, updatedProduct);
+        
+        console.log('Updated product in selectedProducts array:', updatedProduct);
+        
+        // Recalculate totals
+        this.calculateTotal();
+      } else {
+        console.warn('Could not find product to update in selectedProducts array');
+      }
     },
 
     // return number to word
@@ -979,6 +1099,23 @@ export default {
 
 .create-btn {
   padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.create-btn:hover {
+  background-color: #e9ecef;
+}
+
+.edit-btn {
+  background-color: #17a2b8 !important;
+  color: white !important;
+  border-color: #17a2b8 !important;
+}
+
+.edit-btn:hover {
+  background-color: #138496 !important;
+  border-color: #117a8b !important;
 }
 
 .table-custom {
@@ -1123,5 +1260,36 @@ export default {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* RTL-specific adjustments for this component */
+[dir="rtl"] .d-flex {
+  direction: rtl;
+}
+
+[dir="rtl"] .create-btn {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .create-btn {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* RTL adjustments for v-select in this component */
+[dir="rtl"] .rtl-select .vs__dropdown-toggle {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .rtl-select .vs__dropdown-toggle {
+  border-radius: 0.25rem;
+}
+
+/* Ensure proper RTL layout for the select and button combination */
+[dir="rtl"] .flex-grow-1.rtl-select {
+  border-right: none;
+}
+
+[dir="ltr"] .flex-grow-1.rtl-select {
+  border-right: 1px solid #ced4da;
 }
 </style>
