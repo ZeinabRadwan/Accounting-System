@@ -113,13 +113,14 @@
                     <has-error :form="form" field="itemModel" />
                   </div>
 
-                  <div class="form-group">
+                  <!-- Brand field temporarily commented out -->
+                  <!-- <div class="form-group">
                     <label for="brand">{{ $t("Brand") }}</label>
                     <v-select v-model="form.brand" :options="brands" label="name"
                       :class="{ 'is-invalid': form.errors.has('brand') }" name="brand"
                       :placeholder="$t('Select a brand')" />
                     <has-error :form="form" field="brand" />
-                  </div>
+                  </div> -->
 
                   <div class="form-group">
                     <label for="regularPrice">{{ $t("Price") }} <span class="required">*</span></label>
@@ -357,7 +358,6 @@ import VModal from "./VModal.vue";
 import Form from "vform";
 import { HasError } from "vform/src/components/bootstrap5";
 import axios from "axios";
-import toast from "sweetalert2";
 
 export default {
   name: "ProductEditModal",
@@ -432,14 +432,35 @@ export default {
         await Promise.all([
           this.getSubCategories(),
           this.getUnits(),
-          this.getBrands(),
+          // this.getBrands(), // Temporarily commented out
           this.getTaxes(),
           this.loadChartOfAccounts(),
           this.loadAccountRoutingSettings()
         ]);
 
-        // Now load product data after all dropdown data is available
-        this.loadProductData(productToEdit);
+        // Check if we need to fetch complete product data
+        // If the product object is missing related data (like unit, tax objects), fetch from API
+        const needsFullData = !productToEdit.itemUnit || !productToEdit.itemTax || 
+                             !productToEdit.subCategory || !productToEdit.brand ||
+                             typeof productToEdit.itemUnit === 'string' ||
+                             typeof productToEdit.itemTax === 'string';
+
+        if (needsFullData && (productToEdit.slug || productToEdit.id)) {
+          console.log('Fetching complete product data from API...');
+          try {
+            const identifier = productToEdit.slug || productToEdit.id;
+            const { data } = await axios.get(`/api/products/${identifier}`);
+            // Use the complete product data from API
+            this.loadProductData(data.data);
+          } catch (error) {
+            console.warn('Failed to fetch complete product data, using provided data:', error);
+            // Fallback to using the provided product data
+            this.loadProductData(productToEdit);
+          }
+        } else {
+          // Use the provided product data if it already has all required fields
+          this.loadProductData(productToEdit);
+        }
       } catch (error) {
         console.error('Error loading modal data:', error);
       } finally {
@@ -448,7 +469,18 @@ export default {
     },
 
     loadProductData(product) {
-      console.log('Loading product data:', product); // Debug log
+      console.log('=== LOADING PRODUCT DATA DEBUG ===');
+      console.log('Full product object:', product);
+      console.log('Product keys:', Object.keys(product));
+      console.log('Product structure:');
+      console.log('- itemType/item_type:', product.itemType, '/', product.item_type);
+      console.log('- name/item_name:', product.name, '/', product.item_name);
+      console.log('- price/regular_price/regularPrice:', product.price, '/', product.regular_price, '/', product.regularPrice);
+      console.log('- subCategory/sub_category_id:', product.subCategory, '/', product.sub_category_id);
+      console.log('- itemUnit/unit_id/item_unit:', product.itemUnit, '/', product.unit_id, '/', product.item_unit);
+      console.log('- itemTax/tax_id/vat_rate_id:', product.itemTax, '/', product.tax_id, '/', product.vat_rate_id);
+      console.log('- brand/brand_id/itemBrand:', product.brand, '/', product.brand_id, '/', product.itemBrand);
+      console.log('===================================');
 
       this.form.itemType = product.item_type || product.itemType || "product";
       this.form.itemName = product.name || product.item_name || "";
@@ -633,22 +665,67 @@ export default {
 
         console.log('Using identifier for API call:', identifier);
         
-        const response = await this.form.put(`/api/products/${identifier}`);
+        // Transform object fields to IDs before sending
+        const formData = this.form.data();
+        
+        // Transform v-select objects to IDs
+        if (formData.subCategory && typeof formData.subCategory === 'object') {
+          formData.subCategory = formData.subCategory.id;
+        }
+        if (formData.brand && typeof formData.brand === 'object') {
+          formData.brand = formData.brand.id;
+        }
+        if (formData.itemUnit && typeof formData.itemUnit === 'object') {
+          formData.itemUnit = formData.itemUnit.id;
+        }
+        if (formData.productTax && typeof formData.productTax === 'object') {
+          formData.productTax = formData.productTax.id;
+        }
+        
+        // Debug: Log each field transformation
+        console.log('Field transformations:');
+        console.log('- subCategory:', this.form.subCategory, '→', formData.subCategory);
+        console.log('- brand:', this.form.brand, '→', formData.brand);
+        console.log('- itemUnit:', this.form.itemUnit, '→', formData.itemUnit);
+        console.log('- productTax:', this.form.productTax, '→', formData.productTax);
+        
+        console.log('Form data being sent:', formData);
+        
+        const response = await axios.put(`/api/products/${identifier}`, formData);
         if (response.data.success) {
-          // Show success message
+          // Show success message with system notification style
           toast.fire({
             type: "success",
             title: this.$t("Product updated successfully")
           });
           this.showProductEditModal = false;
+          
+          // Emit event with updated product data so parent can update its arrays
           this.$emit("reloadProducts");
+          this.$emit("productUpdated", { 
+            originalProduct: this.currentProduct, 
+            updatedData: formData 
+          });
+          
           this.form.reset();
           this.url = null;
           this.currentProduct = null; // Clear the stored product
         }
       } catch (error) {
         if (error.response && error.response.data) {
-          this.form.errors.set(error.response.data.errors);
+          if (error.response.data.errors) {
+            this.form.errors.set(error.response.data.errors);
+          } else {
+            toast.fire({
+              type: "error",
+              title: error.response.data.message || this.$t("Error updating product")
+            });
+          }
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Error updating product")
+          });
         }
         console.error('Error updating product:', error);
       }
@@ -802,12 +879,13 @@ export default {
 </script>
 
 <style scoped>
-/* Form Card Styling - Compact and Modern */
+/* Form Card Styling - Match Client Form */
 .form-card {
-  background: #ffffff;
-  border: 1px solid #e3e6f0;
-  border-radius: 0.6rem;
-  box-shadow: 0 0.1rem 0.5rem 0 rgba(58, 59, 69, 0.1);
+  margin-top: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+  background: #fff;
   margin-bottom: 1.25rem;
   transition: all 0.2s ease;
 }
@@ -817,18 +895,18 @@ export default {
 }
 
 .form-card .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.875rem 1.25rem;
-  border-radius: 0.6rem 0.6rem 0 0;
+  background-color: #33a0d9;
+  color: #ffffff;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 16px;
   border-bottom: none;
 }
 
 .form-card .card-header .section-title {
-  color: white;
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 14px;
   font-weight: 600;
+  color: #ffffff;
   border: none;
   padding: 0;
 }
@@ -842,7 +920,7 @@ export default {
 }
 
 .form-card .card-body {
-  padding: 1.25rem;
+  padding: 16px;
 }
 
 /* Enhanced Section Title Styling */
@@ -990,17 +1068,17 @@ export default {
 }
 
 .item-type-option:hover .option-content {
-  border-color: #667eea;
+  border-color: #33a0d9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 2px 6px rgba(51, 160, 217, 0.15);
 }
 
 .item-type-option.active .option-content {
-  border-color: #667eea;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #33a0d9;
+  background: #33a0d9;
   color: white;
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.25);
+  box-shadow: 0 3px 10px rgba(51, 160, 217, 0.25);
 }
 
 .option-content i {

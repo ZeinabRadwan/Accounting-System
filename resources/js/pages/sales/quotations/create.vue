@@ -22,6 +22,15 @@
           <!-- form start -->
           <form role="form" @submit.prevent="saveQuotation" @keydown="form.onKeydown($event)">
             <div class="card-body">
+              <!-- Date Field - Standalone Row -->
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="date">{{ $t("Date") }}</label>
+                  <input id="date" v-model="form.date" type="date" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
+                  <has-error :form="form" field="date" />
+                </div>
+              </div>
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
@@ -349,14 +358,12 @@
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group" :class="isSaudiArabia ? 'col-md-12' : 'col-md-4'">
+                <div class="form-group" :class="'col-md-4'">
                   <label for="netTotal">{{ $t("Net Total") }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
                   <has-error :form="form" field="netTotal" />
-                </div>
-              </div>
-              <div class="row">
+                </div> 
                 <div class="form-group col-md-4">
                   <label for="deliveryPlace">{{
                     $t("Delivery Place")
@@ -365,12 +372,6 @@
                     :class="{ 'is-invalid': form.errors.has('deliveryPlace') }" name="deliveryPlace"
                     :placeholder="$t('Enter a delivery place')" />
                   <has-error :form="form" field="deliveryPlace" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="date">{{ $t("Date") }}</label>
-                  <input id="date" v-model="form.date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
-                  <has-error :form="form" field="date" />
                 </div>
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="status">{{ $t("Status") }}</label>
@@ -428,6 +429,7 @@
     <ProductEditModal 
       ref="productEditModal"
       @reloadProducts="getProducts"
+      @productUpdated="handleProductUpdated"
     />
   </div>
 </template>
@@ -917,6 +919,56 @@ export default {
       
       // Open the product edit modal with the specific product from the table
       this.$refs.productEditModal.openModal(product);
+    },
+
+    // handle product updated event
+    handleProductUpdated(eventData) {
+      const { originalProduct, updatedData } = eventData;
+      
+      console.log('Product updated event received:', eventData);
+      
+      // Find and update the product in selectedProducts array
+      const productIndex = this.form.selectedProducts.findIndex(p => 
+        p.id === originalProduct.id || p.slug === originalProduct.slug
+      );
+      
+      if (productIndex !== -1) {
+        // Update the product data in the selected products array
+        const updatedProduct = { ...this.form.selectedProducts[productIndex] };
+        
+        // Update relevant fields from the form data
+        updatedProduct.name = updatedData.itemName || updatedProduct.name;
+        updatedProduct.item_name = updatedData.itemName || updatedProduct.item_name;
+        updatedProduct.regular_price = updatedData.regularPrice || updatedProduct.regular_price;
+        updatedProduct.price = updatedData.regularPrice || updatedProduct.price;
+        updatedProduct.discount = updatedData.discount || updatedProduct.discount;
+        updatedProduct.selling_price = updatedData.sellingPrice || updatedProduct.selling_price;
+        
+        // Update related objects if they have IDs
+        if (updatedData.subCategory) {
+          updatedProduct.sub_category_id = updatedData.subCategory;
+        }
+        if (updatedData.itemUnit) {
+          updatedProduct.unit_id = updatedData.itemUnit;
+        }
+        if (updatedData.productTax) {
+          updatedProduct.tax_id = updatedData.productTax;
+          updatedProduct.vat_rate_id = updatedData.productTax;
+        }
+        if (updatedData.brand) {
+          updatedProduct.brand_id = updatedData.brand;
+        }
+        
+        // Replace the product in the array
+        this.$set(this.form.selectedProducts, productIndex, updatedProduct);
+        
+        console.log('Updated product in selectedProducts array:', updatedProduct);
+        
+        // Recalculate totals
+        this.calculateTotal();
+      } else {
+        console.warn('Could not find product to update in selectedProducts array');
+      }
     },
 
     // return number to word

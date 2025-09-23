@@ -594,6 +594,7 @@
     <ProductEditModal 
       ref="productEditModal"
       @reloadProducts="getProducts"
+      @productUpdated="handleProductUpdated"
     />
   </div>
 </template>
@@ -1123,6 +1124,76 @@ export default {
       
       // Open the product edit modal with the specific product from the table
       this.$refs.productEditModal.openModal(product);
+    },
+
+    // handle product updated event
+    handleProductUpdated(eventData) {
+      const { originalProduct, updatedData } = eventData;
+      
+      console.log('Product updated event received:', eventData);
+      
+      // Find and update the product in selectedProducts array
+      const productIndex = this.form.selectedProducts.findIndex(p => 
+        p.id === originalProduct.id || p.slug === originalProduct.slug
+      );
+      
+      if (productIndex !== -1) {
+        // Update the product data in the selected products array
+        const updatedProduct = { ...this.form.selectedProducts[productIndex] };
+        
+        // Update relevant fields from the form data
+        updatedProduct.name = updatedData.itemName || updatedProduct.name;
+        updatedProduct.item_name = updatedData.itemName || updatedProduct.item_name;
+        updatedProduct.regular_price = updatedData.regularPrice || updatedProduct.regular_price;
+        updatedProduct.price = updatedData.regularPrice || updatedProduct.price;
+        updatedProduct.discount = updatedData.discount || updatedProduct.discount;
+        updatedProduct.selling_price = updatedData.sellingPrice || updatedProduct.selling_price;
+        
+        // Update related objects if they have IDs
+        if (updatedData.subCategory) {
+          updatedProduct.sub_category_id = updatedData.subCategory;
+        }
+        if (updatedData.itemUnit) {
+          updatedProduct.unit_id = updatedData.itemUnit;
+        }
+        if (updatedData.productTax) {
+          updatedProduct.tax_id = updatedData.productTax;
+          updatedProduct.vat_rate_id = updatedData.productTax;
+        }
+        if (updatedData.brand) {
+          updatedProduct.brand_id = updatedData.brand;
+        }
+        
+        // Replace the product in the array
+        this.$set(this.form.selectedProducts, productIndex, updatedProduct);
+        
+        console.log('Updated product in selectedProducts array:', updatedProduct);
+        
+        // Recalculate totals
+        this.calculateTotal();
+      } else {
+        console.warn('Could not find product to update in selectedProducts array');
+      }
+      
+      // Also update the product in the main products array if it exists
+      const mainProductIndex = this.products.findIndex(p => 
+        p.id === originalProduct.id || p.slug === originalProduct.slug
+      );
+      
+      if (mainProductIndex !== -1) {
+        const updatedMainProduct = { ...this.products[mainProductIndex] };
+        
+        // Update relevant fields from the form data
+        updatedMainProduct.name = updatedData.itemName || updatedMainProduct.name;
+        updatedMainProduct.regular_price = updatedData.regularPrice || updatedMainProduct.regular_price;
+        updatedMainProduct.discount = updatedData.discount || updatedMainProduct.discount;
+        updatedMainProduct.selling_price = updatedData.sellingPrice || updatedMainProduct.selling_price;
+        
+        // Replace the product in the main products array
+        this.$set(this.products, mainProductIndex, updatedMainProduct);
+        
+        console.log('Updated product in main products array:', updatedMainProduct);
+      }
     },
 
     // sort products

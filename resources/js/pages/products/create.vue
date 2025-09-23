@@ -70,20 +70,6 @@
                     <has-error :form="form" field="itemCode" />
                   </div>
                 </div>
-                <div class="form-group col-md-6 col-xl-4">
-                  <label for="barcodeSymbology">{{ $t('Barcode Symbology') }}
-                    <span class="required">*</span></label>
-                  <select id="barcodeSymbology" v-model="form.barcodeSymbology" class="form-control" :class="{
-                    'is-invalid': form.errors.has('barcodeSymbology'),
-                  }">
-                    <option value="CODE128">CODE128</option>
-                    <option value="CODE39">CODE39</option>
-                    <option value="EAN8">EAN8</option>
-                    <option value="EAN13">EAN13</option>
-                    <option value="UPC">UPC</option>
-                  </select>
-                  <has-error :form="form" field="barcodeSymbology" />
-                </div>
                 <div v-if="items" class="form-group col-md-6 col-xl-4">
                   <label for="subCategory">{{ $t('Sub Category') }}
                     <span class="required">*</span></label>
@@ -92,13 +78,14 @@
                     :placeholder="$t('Select a category')" />
                   <has-error :form="form" field="subCategory" />
                 </div>
-                <div v-if="brands" class="form-group col-md-6 col-xl-4">
+                <!-- Brand field temporarily commented out -->
+                <!-- <div v-if="brands" class="form-group col-md-6 col-xl-4">
                   <label for="brand">{{ $t('Brand') }}</label>
                   <v-select v-model="form.brand" :options="brands" label="name" :reduce="option => option.id"
                     :class="{ 'is-invalid': form.errors.has('brand') }" name="brand"
                     :placeholder="$t('Select a brand')" />
                   <has-error :form="form" field="brand" />
-                </div>
+                </div> -->
                 <div v-if="units" class="form-group col-md-6 col-xl-4">
                   <label for="itemUnit">{{ $t('Unit') }}
                     <span class="required">*</span></label>
@@ -114,6 +101,20 @@
                     :class="{ 'is-invalid': form.errors.has('productTax') }" name="productTax"
                     :placeholder="$t('Select a tax')" @input="calculatePrice" />
                   <has-error :form="form" field="productTax" />
+                </div>
+                <div class="form-group col-md-6 col-xl-4">
+                  <label for="barcodeSymbology">{{ $t('Barcode Symbology') }}
+                    <span class="required">*</span></label>
+                  <select id="barcodeSymbology" v-model="form.barcodeSymbology" class="form-control" :class="{
+                    'is-invalid': form.errors.has('barcodeSymbology'),
+                  }">
+                    <option value="CODE128">CODE128</option>
+                    <option value="CODE39">CODE39</option>
+                    <option value="EAN8">EAN8</option>
+                    <option value="EAN13">EAN13</option>
+                    <option value="UPC">UPC</option>
+                  </select>
+                  <has-error :form="form" field="barcodeSymbology" />
                 </div>
                 <!-- Tax Type field hidden - always Exclusive -->
                 <div class="form-group col-md-6" :class="form.itemType === 'service' ? 'col-xl-3' : 'col-xl-4'">
@@ -397,7 +398,7 @@ export default {
   created() {
     this.getSubCategories()
     this.getUnits()
-    this.getBrands()
+    // this.getBrands() // Temporarily commented out
     this.getTaxes()
     this.getItemCode()
     this.loadChartOfAccounts()
@@ -755,12 +756,7 @@ export default {
   border: 1px solid #CED4DA;
 }
 
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid #CED4DA;
-  padding: 1.25rem 1.25rem 0 1.25rem;
-  border-radius: 20px 20px 0 0;
-}
+/* Removed card-header override to match client pages styling */
 
 .card-body {
   padding: 1.25rem;

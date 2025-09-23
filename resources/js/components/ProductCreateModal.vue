@@ -100,13 +100,14 @@
                     <has-error :form="form" field="itemModel" />
                   </div>
 
-                  <div class="form-group">
+                  <!-- Brand field temporarily commented out -->
+                  <!-- <div class="form-group">
                     <label for="brand">{{ $t("Brand") }}</label>
                     <v-select v-model="form.brand" :options="brands" label="name"
                       :class="{ 'is-invalid': form.errors.has('brand') }" name="brand"
                       :placeholder="$t('Select a brand')" />
                     <has-error :form="form" field="brand" />
-                  </div>
+                  </div> -->
 
                   <div class="form-group">
                     <label for="regularPrice">{{ $t("Price") }} <span class="required">*</span></label>
@@ -395,7 +396,7 @@ export default {
   created() {
     this.getSubCategories();
     this.getUnits();
-    this.getBrands();
+    // this.getBrands(); // Temporarily commented out
     this.getTaxes();
     this.getItemCode();
     this.loadChartOfAccounts();
@@ -761,12 +762,13 @@ export default {
 </script>
 
 <style scoped>
-/* Form Card Styling - Compact and Modern */
+/* Form Card Styling - Match Client Form */
 .form-card {
-  background: #ffffff;
-  border: 1px solid #e3e6f0;
-  border-radius: 0.6rem;
-  box-shadow: 0 0.1rem 0.5rem 0 rgba(58, 59, 69, 0.1);
+  margin-top: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+  background: #fff;
   margin-bottom: 1.25rem;
   transition: all 0.2s ease;
 }
@@ -776,18 +778,18 @@ export default {
 }
 
 .form-card .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.875rem 1.25rem;
-  border-radius: 0.6rem 0.6rem 0 0;
+  background-color: #33a0d9;
+  color: #ffffff;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 16px;
   border-bottom: none;
 }
 
 .form-card .card-header .section-title {
-  color: white;
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 14px;
   font-weight: 600;
+  color: #ffffff;
   border: none;
   padding: 0;
 }
@@ -801,7 +803,7 @@ export default {
 }
 
 .form-card .card-body {
-  padding: 1.25rem;
+  padding: 16px;
 }
 
 /* Enhanced Section Title Styling */
@@ -972,17 +974,17 @@ export default {
 }
 
 .item-type-option:hover .option-content {
-  border-color: #667eea;
+  border-color: #33a0d9;
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 2px 6px rgba(51, 160, 217, 0.15);
 }
 
 .item-type-option.active .option-content {
-  border-color: #667eea;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #33a0d9;
+  background: #33a0d9;
   color: white;
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.25);
+  box-shadow: 0 3px 10px rgba(51, 160, 217, 0.25);
 }
 
 .option-content i {

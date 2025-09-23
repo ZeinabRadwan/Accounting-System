@@ -174,7 +174,7 @@
   "Delete": "حذف",
   "Import Clients": "استيراد العملاء",
   "Billing History": "سجل الفواتير",
-  "Net Total": "الإجمالي الصافي",
+  "Net Total": "الإجمالي",
   "Transaction Type": "نوع العملية",
   "Transaction Description": "وصف العملية",
   "Amount": "المبلغ",
@@ -2560,7 +2560,7 @@
   "No VAT": "لا توجد ضريبة",
   "VAT Type": "نوع الضريبة",
   "Select VAT": "اختر الضريبة",
-  "Model": "الموديل",
+  "Model": "الماركة",
   "Enter opening stock count" : "أدخل كمية المخزون الافتتاحي",
   "Item Code": "كود الصنف",
   "Discount": "الخصم",
@@ -2626,5 +2626,6 @@
   "Opening Stock Count" : "كمية المخزون الافتتاحي",
   "Automatically assigned from account routing settings" : "يتم تعيينه تلقائياً حسب إعدادات توجيه الحسابات",
   "Account ID" : "رمز الحساب",
+  "Product updated successfully" : "تم تحديث المنتج بنجاح",
   "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }
