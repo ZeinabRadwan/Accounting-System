@@ -251,7 +251,7 @@
                 </li>
                 
                 <li class="nav-item">
-                  <a href="https://docs.codeshaper.tech/acculance/" class="nav-link" target="__blank">
+                  <a href="https://docs.codeshaper.tech/websoft/" class="nav-link" target="__blank">
                     <i class="nav-icon fas fa-book" />
                     <p>{{ $t("Documentation") }}</p>
                   </a>

@@ -24,9 +24,9 @@ class TenantSeeder extends Seeder
             'company' => 'Codeshaper',
             'name' => 'John Doe',
             'domain' => 'john',
-            'email' => 'john@acculance.top',
+            'email' => 'john@websoft.top',
             'email_verified_at' => now(),
-            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // acculance2024
+            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // websoft2024
             'ready' => false,
             // some other stuff, if you need. like cashier trials
             'trial_ends_at' => now()->addDays(1000),
@@ -55,9 +55,9 @@ class TenantSeeder extends Seeder
             'company' => 'Codeshaper',
             'name' => 'Jane Doe',
             'domain' => 'jane',
-            'email' => 'jane@acculance.top',
+            'email' => 'jane@websoft.top',
             'email_verified_at' => now(),
-            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // acculance2024
+            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // websoft2024
             'ready' => false,
             // some other stuff, if you need. like cashier trials
             'trial_ends_at' => now()->addDays(1000),

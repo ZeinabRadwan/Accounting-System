@@ -7,7 +7,7 @@ return [
      * Shared translations.
      *
      */
-    'title' => 'Acculance SaaS Installer',
+    'title' => 'websoft SaaS Installer',
     'next' => 'Next Step',
     'back' => 'Previous',
     'finish' => 'Install',
@@ -40,7 +40,7 @@ return [
      */
     'welcome' => [
         'templateTitle' => 'Welcome',
-        'title' => 'Acculance SaaS Installer',
+        'title' => 'websoft SaaS Installer',
         'message' => 'Easy Installation and Setup Wizard.',
         'next' => 'Check Requirements',
     ],

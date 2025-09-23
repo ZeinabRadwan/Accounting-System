@@ -18,10 +18,12 @@ class TenantVatRateSeeder extends Seeder
         if (DB::table('vat_rates')->count() == 0) {
             DB::table('vat_rates')->insert([
                 [
-                    'name' => 'VAT 0%',
-                    'slug' => 'vat-0',
-                    'code' => 'VAT@0',
-                    'rate' => '0.00',
+                    'name' => 'VAT 15%',
+                    'slug' => 'vat-15',
+                    'code' => 'VAT@15',
+                    'rate' => '15.00',
+                    'sales_vat_account_id' => 27,
+                    'purchase_vat_account_id' => 21,
                 ],
             ]);
         }
