@@ -1,8 +1,8 @@
-# Acculance SAAS
+# websoft SAAS
 
-Acculance SAAS - Mulitenancy Based Ultimate Sales, Inventory, Accounting Management System
+websoft SAAS - Mulitenancy Based Ultimate Sales, Inventory, Accounting Management System
 
-> Acculance is an all-in-one management system that enables you to manage expenses, purchases, sales, payments, accounting, loans, assets, payroll, and many more.
+> websoft is an all-in-one management system that enables you to manage expenses, purchases, sales, payments, accounting, loans, assets, payroll, and many more.
 
 ## Setup Instructions
 
@@ -17,8 +17,8 @@ cp .env.example .env
 > **REQUIRED FIELDS [DEV]**
 
 ```dotenv
-APP_URL=http://acculance-saas.test
-CENTRAL_DOMAIN=acculance-saas.test
+APP_URL=http://websoft-saas.test
+CENTRAL_DOMAIN=websoft-saas.test
 
 STRIPE_KEY=required
 STRIPE_SECRET=required
@@ -28,7 +28,7 @@ STRIPE_SECRET=required
 > **REQUIRED FIELDS [PROD]**
 
 ```dotenv
-MAIL_FROM_ADDRESS=noreply@acculance-saas.test
+MAIL_FROM_ADDRESS=noreply@websoft-saas.test
 ```
 
 > **INSTALL COMMANDS [DEV]**

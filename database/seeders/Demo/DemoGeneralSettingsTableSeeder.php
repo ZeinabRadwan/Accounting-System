@@ -44,7 +44,7 @@ class DemoGeneralSettingsTableSeeder extends Seeder
                 'logo_black' => 'black_logo.png',
                 'small_logo' => 'small_logo.png',
                 'favicon' => 'favicon.png',
-                'copyright' => '© Copyright 2024 Acculance SaaS. Developed by Codeshaper',
+                'copyright' => '© Copyright 2024 websoft SaaS. Developed by Codeshaper',
                 'invoice_thank_you_message' => 'Thank you for your business',
                 'default_client_slug' => 'walking-customer',
                 'default_account_slug' => 'cash-0001',
