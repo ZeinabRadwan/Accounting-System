@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'purchaseReturns.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -59,6 +59,23 @@
                     :class="{ 'is-invalid': form.errors.has('purchase') }" name="purchase"
                     :placeholder="$t('Select a purchase')" @input="storeProducts" />
                   <has-error :form="form" field="purchase" />
+                  <!-- Product Chart of Account Status -->
+                  <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                    <div v-if="!form.selectedProducts[0].purchase_account_id" class="product-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs Purchase Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignProductChartOfAccount && autoAssignProductChartOfAccount(form.selectedProducts[0])"
+                        :disabled="isAutoAssigningProduct === (form.selectedProducts[0] && form.selectedProducts[0].id)"
+                        v-if="typeof autoAssignProductChartOfAccount === 'function'"
+                      >
+                        <i :class="isAutoAssigningProduct === (form.selectedProducts[0] && form.selectedProducts[0].id) ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningProduct === (form.selectedProducts[0] && form.selectedProducts[0].id) ? $t('Assigning...') : $t('Auto-Assign') }}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">

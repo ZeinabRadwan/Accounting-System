@@ -31,7 +31,7 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
@@ -40,7 +40,7 @@
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
-                    title="Export to Excel"
+                    :title="$t('Export to Excel')"
                   >
                     <svg
                       width="18"
@@ -59,7 +59,7 @@
                     href="/purchase-order/pdf"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
-                    title="Export to PDF"
+                    :title="$t('Export to PDF')"
                   >
                     <svg
                       width="24"
@@ -158,7 +158,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <span class="action-menu-title">Actions</span>
+                            <span class="action-menu-title">{{ $t('Actions') }}</span>
                             <button type="button" class="action-menu-close" @click="toggleAction(i)">
                               <i class="fas fa-times"></i>
                             </button>

@@ -93,7 +93,6 @@
                             {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        
                       </div>
                       
                       <has-error :form="form" field="selectedProducts" />

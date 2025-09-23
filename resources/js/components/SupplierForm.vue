@@ -14,7 +14,6 @@
             <div class="form-group">
               <label for="codeNumber">
                 {{ $t("Supplier Number") }}
-                <i class="fas fa-question-circle text-muted ml-1" :title="$t('Auto-generated unique identifier for the supplier')"></i>
               </label>
               <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control" 
                 :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
@@ -286,7 +285,7 @@
     </div>
 
     <!-- Additional Fields Section -->
-    <div class="row mt-4">
+    <div class="row mt-4 equal-height">
       <div class="col-md-6">
         <div class="form-card">
           <div class="card-header">
@@ -347,7 +346,7 @@
     </div>
 
     <!-- Chart of Account Section -->
-    <div v-if="routingSetting && routingSetting.routing_type !== 'automatic'" class="row mt-4">
+    <div v-if="routingSetting && routingSetting.routing_type !== 'automatic'" class="row mt-4" style="display: none;">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -372,7 +371,7 @@
     </div>
 
     <!-- Automatic Routing Info Section -->
-    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4">
+    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4" style="display: none;">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -1385,5 +1384,21 @@ textarea.form-control:focus {
 
 .btn-primary:hover {
   filter: brightness(0.95);
+}
+
+/* Equal height for Additional Information and Documents & Settings */
+.equal-height > [class^="col-"],
+.equal-height > [class*=" col-"] {
+  display: flex;
+}
+
+.equal-height .form-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.equal-height .form-card .card-body {
+  flex: 1 1 auto;
 }
 </style>

@@ -45,10 +45,6 @@
                             {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        <div v-else class="supplier-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Supplier Chart of Account ready') }}</span>
-                        </div>
                       </div>
                       
                       <has-error :form="form" field="supplier" />
@@ -81,10 +77,6 @@
                             <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
                             {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
-                        </div>
-                        <div v-else class="product-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Purchase Account ready') }}</span>
                         </div>
                       </div>
                       
@@ -415,15 +407,11 @@ export default {
     this.prefix = this.appInfo.productPrefix;
     this.poPrefix = this.appInfo.poPrefix;
     
-    // Load data in proper order
-    await Promise.all([
-      this.getSuppliers(),
-      this.getProducts(),
-      this.getTaxes()
-    ]);
-    
-    // Load purchase order after other data is ready
+    // Align data fetching steps with purchases/edit.vue
     await this.getPurchaseOrder();
+    this.getSuppliers();
+    this.getProducts();
+    this.getTaxes();
   },
   mounted() {
     // Load temporary data after component is mounted
@@ -464,23 +452,27 @@ export default {
 
     // get products
     async getProducts() {
-      // Store the current selected products IDs
+      // Match purchases/edit.vue behavior: fetch, sort, then refresh selected items
       const currentProductIds = this.form.selectedProducts ? this.form.selectedProducts.map(p => p.id) : [];
-      
       const { data } = await axios.get(
         window.location.origin + '/api/all-products-not-service'
       );
-      this.products = data.data.map((product) => ({
-        ...product,
-        label: `${product.name} (${product.code})`,
-      }));
-      
-      // Update selected products with fresh data if they exist
+      this.products = data.data;
+      // sort by numeric code if possible
+      this.products.sort((a, b) => {
+        const na = Number(a.code);
+        const nb = Number(b.code);
+        if (na < nb) return -1;
+        if (na > nb) return 1;
+        return 0;
+      });
+      // ensure label exists for v-select
+      this.products = this.products.map(p => ({ ...p, label: `${p.name} (${p.code})` }));
+
       if (currentProductIds.length > 0 && this.form.selectedProducts) {
         this.form.selectedProducts.forEach(selectedProduct => {
           const freshProduct = this.products.find(p => p.id === selectedProduct.id);
           if (freshProduct) {
-            // Update the product with fresh data while preserving user input
             Object.assign(selectedProduct, freshProduct);
           }
         });

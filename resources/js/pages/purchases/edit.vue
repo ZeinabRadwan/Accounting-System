@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'purchases.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -44,10 +44,6 @@
                         <i :class="isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
                         {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
-                    </div>
-                    <div v-else class="supplier-success">
-                      <i class="fas fa-check-circle text-success"></i>
-                      <span class="ml-2">{{ $t('Supplier Chart of Account ready') }}</span>
                     </div>
                   </div>
                   
@@ -89,10 +85,6 @@
                         <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
                         {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
                       </button>
-                    </div>
-                    <div v-else class="product-success">
-                      <i class="fas fa-check-circle text-success"></i>
-                      <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Purchase Account ready') }}</span>
                     </div>
                   </div>
                   

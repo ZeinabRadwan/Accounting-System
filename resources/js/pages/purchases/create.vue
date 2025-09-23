@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'purchases.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -54,10 +54,6 @@
                             {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-                        <div v-else class="supplier-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Supplier Chart of Account ready') }}</span>
-                        </div>
                       </div>
                       
                       <has-error :form="form" field="supplier" />
@@ -95,10 +91,6 @@
                             <i :class="isAutoAssigningProduct === form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
                             {{ isAutoAssigningProduct === form.selectedProducts[0].id ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
-                        </div>
-                        <div v-else class="product-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Purchase Account ready') }}</span>
                         </div>
                       </div>
                       
@@ -1712,9 +1704,7 @@ textarea.form-control {
 }
 
 .supplier-warning,
-.supplier-success,
-.product-warning,
-.product-success {
+.product-warning {
   display: flex;
   align-items: center;
   padding: 8px 12px;
@@ -1727,13 +1717,6 @@ textarea.form-control {
   background-color: #fff3cd;
   color: #856404;
   border: 1px solid #ffeaa7;
-}
-
-.supplier-success,
-.product-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
 }
 
 .btn-outline-warning {

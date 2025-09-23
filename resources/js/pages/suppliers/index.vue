@@ -1001,4 +1001,7 @@ export default {
   font-size: 10px;
   color: #6c757d;
 }
+[dir=rtl] .text-right {
+  text-align: right !important;
+}
 </style>
