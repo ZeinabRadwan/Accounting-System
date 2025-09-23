@@ -44,9 +44,14 @@ export default {
   border-radius: 5px;
 }
 
-.search-btn {
+[dir="ltr"] .search-btn {
   position: absolute;
-  left: 18px;
-  top: 6px;
+  left: 95%;
+  top: 25%;
+}
+[dir="rtl"] .search-btn {
+  position: absolute;
+  right: 95%;
+  top: 25%;
 }
 </style>
