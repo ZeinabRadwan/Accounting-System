@@ -1,5 +1,5 @@
 <template>
-  <div class="card-body">
+  <div :class="{ 'card-body': showCardBody }">
     <!-- Supplier Details Section - Now First -->
     <div class="row">
       <div class="col-md-6">
@@ -346,8 +346,8 @@
       </div>
     </div>
 
-    <!-- Chart of Account Section (match ClientForm: show info only, no dropdown) -->
-    <div v-if="routingSetting" class="row mt-4">
+    <!-- Chart of Account Section -->
+    <div v-if="routingSetting && routingSetting.routing_type !== 'automatic'" class="row mt-4">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -362,15 +362,34 @@
          <div class="alert alert-info">
            <i class="fas fa-info-circle mr-2"></i>
            <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
-           <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span>
+           <!-- <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span> -->
          </div>
-         <!-- Align to client form: no dropdowns shown here -->
+
+         <!-- Specify Per Each - Placeholder like ClientForm (no dropdown rendered here) -->
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Automatic Routing Info handled in the info alert above -->
+    <!-- Automatic Routing Info Section -->
+    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-chart-line mr-2"></i>
+              {{ $t("Chart of Account") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle mr-2"></i>
+              {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Toggle Buttons Section -->
     <div class="row mt-4">
@@ -407,7 +426,6 @@
 
 <script>
 import Form from "vform";
-import VSelect from "vue-select";
 
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
@@ -419,7 +437,6 @@ export default {
   components: {
     ToggleButton,
     RepresentativesList,
-    VSelect,
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -465,7 +482,7 @@ export default {
           
           // Set form values from initial data
           Object.keys(newData).forEach(key => {
-            if (this.form && this.form.hasOwnProperty(key)) {
+            if (this.form && Object.prototype.hasOwnProperty.call(this.form, key)) {
               console.log(`Setting form.${key} =`, newData[key]);
               this.form[key] = newData[key];
             } else {
@@ -1014,10 +1031,12 @@ export default {
       
       if (!search || search.length < 2) {
         console.log('Search too short, returning first 50 accounts');
-        return Promise.resolve(this.chartOfAccounts.slice(0, 50)); // Return first 50 for initial display
+        const result = this.chartOfAccounts.slice(0, 50);
+        loading(false);
+        return Promise.resolve(result);
       }
       
-      return new Promise(async (resolve) => {
+      return (async () => {
         try {
           // Filter locally first for better performance
           const filtered = this.chartOfAccounts.filter(account => 
@@ -1030,8 +1049,7 @@ export default {
           // If we have enough results locally, return them
           if (filtered.length >= 10) {
             console.log('Enough local results, returning filtered');
-            resolve(filtered.slice(0, 50));
-            return;
+            return filtered.slice(0, 50);
           }
           
           // Otherwise, search from API
@@ -1045,10 +1063,10 @@ export default {
           if (response.data && (response.data.data || response.data)) {
             console.log('API returned data, returning results');
             const apiData = response.data.data || response.data;
-            resolve(apiData.slice(0, 50));
+            return apiData.slice(0, 50);
           } else {
             console.log('API returned no data, returning local filtered');
-            resolve(filtered.slice(0, 50));
+            return filtered.slice(0, 50);
           }
         } catch (error) {
           console.error('Search error:', error);
@@ -1057,11 +1075,11 @@ export default {
             account.name.toLowerCase().includes(search.toLowerCase()) ||
             account.code.toLowerCase().includes(search.toLowerCase())
           );
-          resolve(filtered.slice(0, 50));
+          return filtered.slice(0, 50);
         } finally {
           loading(false);
         }
-      });
+      })();
     },
 
     // Create new chart of account
@@ -1209,413 +1227,146 @@ export default {
 };
 </script>
 
-
 <style scoped>
-/* Form Card Styling */
+/* Section cards */
 .form-card {
-  background: #ffffff;
-  border: 1px solid #e3e6f0;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.form-card:hover {
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.25);
-  transform: translateY(-2px);
+  margin-top: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+  background: #fff;
 }
 
 .form-card .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 0.75rem 0.75rem 0 0;
+  background-color: #33a0d9;
+  color: #ffffff;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 16px;
   border-bottom: none;
 }
 
-.form-card .card-header .section-title {
-  color: white;
+.form-card .section-title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 14px;
   font-weight: 600;
-  border: none;
-  padding: 0;
-}
-
-.form-card .card-header .section-title::after {
-  display: none;
-}
-
-.form-card .card-header .section-title i {
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
 }
 
 .form-card .card-body {
-  padding: 1.5rem;
+  padding: 16px;
 }
 
-/* Enhanced Section Title Styling */
-.section-title {
-  color: #495057;
-  font-weight: 600;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
+/* Inputs (match invoices create look and feel) */
+.form-control {
+  background: #fff !important;
 }
 
-.section-subtitle {
-  color: #495057;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #dee2e6;
+.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
 
+/* Radio group horizontal styling */
 .radio-group {
   display: flex;
-  gap: 20px;
-}
-
-.radio-inline {
-  display: flex;
+  gap: 16px;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
 }
 
-.radio-inline input[type="radio"] {
+.radio-group .radio-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin: 0;
 }
 
-.checkbox-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+/* v-select tweaks */
+.v-select .vs__dropdown-toggle {
+  border-radius: 6px;
+  border-color: #CED4DA;
 }
 
-.checkbox-inline input[type="checkbox"] {
-  margin: 0;
+.v-select .vs__dropdown-toggle:focus,
+.v-select .vs__dropdown-toggle.vs__open {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
 
-.form-text {
-  font-size: 0.875rem;
-  color: #6c757d;
-  margin-top: 5px;
+.v-select .vs__search,
+.v-select .vs__selected,
+.v-select .vs__dropdown-menu {
+  font-size: 0.95rem;
 }
 
-.form-group {
-  margin-bottom: 1rem;
+/* Custom file input */
+.custom-file-input:focus ~ .custom-file-label {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
 
-.required {
-  color: #dc3545;
-  font-weight: bold;
-}
-
-.required-field {
-  font-weight: 600;
-  color: #495057;
-}
-
-.required-input {
-  border-left: 3px solid #dc3545;
-}
-
-/* Question mark icon styling */
-.fa-question-circle {
-  cursor: help;
-  opacity: 0.7;
-}
-
-.fa-question-circle:hover {
-  opacity: 1;
-}
-
-/* File upload area styling */
 .custom-file-label {
-  border: 2px dashed #dee2e6;
-  background-color: #f8f9fa;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 6px;
 }
 
-.custom-file-label:hover {
-  border-color: #007bff;
-  background-color: #e3f2fd;
-}
-
-.custom-file-label .text-primary {
-  text-decoration: underline;
-}
-
-.custom-file-label .fa-cloud-upload-alt {
-  font-size: 1.2em;
-  color: #6c757d;
-}
-
-/* Improved file upload area */
+/* File upload drop area */
 .file-upload-area {
   position: relative;
-  border: 2px dashed #dee2e6;
-  border-radius: 8px;
-  background-color: #f8f9fa;
-  padding: 30px;
+  border: 2px dashed #33a0d9;
+  border-radius: 12px;
+  padding: 20px;
   text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.file-upload-area:hover {
-  border-color: #007bff;
-  background-color: #e3f2fd;
+  background: #f8fdfe;
 }
 
 .file-upload-area .file-input {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
   cursor: pointer;
 }
 
-.file-upload-content {
-  pointer-events: none;
+.file-upload-area .file-upload-content {
+  color: #33a0d9;
 }
 
-.file-upload-content i {
-  font-size: 2.5em;
-  color: #6c757d;
-  margin-bottom: 10px;
-}
-
-.file-upload-content p {
-  margin: 10px 0 5px 0;
-  font-weight: 500;
-  color: #495057;
-}
-
-.file-upload-content small {
-  color: #6c757d;
-}
-
-/* Selected files styling */
-.selected-files {
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.selected-file-item {
-  display: flex;
+/* Selected files list */
+.selected-files .selected-file-item {
+  display: inline-flex;
   align-items: center;
-  padding: 8px 12px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background: #f5faff;
+  border: 1px solid #e3f3f7;
   border-radius: 6px;
+  padding: 6px 10px;
+  margin-right: 8px;
   margin-bottom: 8px;
 }
 
-.selected-file-item i {
-  color: #6c757d;
-  margin-right: 8px;
-}
-
-.selected-file-item span {
-  flex-grow: 1;
-  font-size: 0.9em;
-}
-
-/* Image preview styling */
-.image-preview {
-  text-align: center;
-}
-
-.image-preview img {
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Improved form layout */
-.section-title {
-  color: #495057;
-  font-weight: 600;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
-  position: relative;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 50px;
-  height: 2px;
-  background-color: #007bff;
-}
-
-/* Better spacing between sections */
-.row.mt-4 {
-  margin-top: 2rem !important;
-}
-
-/* Improved form groups */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  font-weight: 500;
-  color: #495057;
-  margin-bottom: 0.5rem;
-}
-
-/* Better radio and checkbox styling */
-.radio-group {
-  display: flex;
-  gap: 20px;
-  margin-top: 0.5rem;
-}
-
-.radio-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.radio-inline:hover {
-  background-color: #f8f9fa;
-}
-
-.radio-inline input[type="radio"] {
-  margin: 0;
-}
-
-.checkbox-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.checkbox-inline:hover {
-  background-color: #f8f9fa;
-}
-
-.checkbox-inline input[type="checkbox"] {
-  margin: 0;
-}
-
-.is-invalid {
-  border-color: #dc3545;
-}
-
-.text-muted {
-  color: #6c757d !important;
-}
-
-.btn {
-  border-radius: 0.375rem;
+/* Toggle labels spacing */
+.d-flex.align-items-center span.ml-3 {
   font-weight: 500;
 }
 
+/* Required asterisk */
+.required {
+  color: #dc3545;
+}
+
+/* RTL adjustments */
+[dir="rtl"] .form-card .card-header {
+  border-radius: 20px 20px 0 0;
+}
+
+/* Button brand alignment if used inside the component */
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background: #33a0d9 !important;
+  border-color: #33a0d9 !important;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-  background-color: #545b62;
-  border-color: #545b62;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
-  border-color: #c82333;
-}
-
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-}
-
-.btn-outline-danger {
-  color: #dc3545;
-  border-color: #dc3545;
-  background-color: transparent;
-}
-
-.btn-outline-danger:hover {
-  color: #fff;
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.custom-file-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.custom-file-input:lang(en)~.custom-file-label::after {
-  content: "Browse";
-}
-
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .radio-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .section-title {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-  }
-  
-  .file-upload-area {
-    padding: 20px;
-    min-height: 100px;
-  }
-  
-  .file-upload-content i {
-    font-size: 2em;
-  }
-  
-  .col-md-3 {
-    margin-bottom: 1rem;
-  }
+  filter: brightness(0.95);
 }
 </style>

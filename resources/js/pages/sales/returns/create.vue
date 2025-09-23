@@ -1072,7 +1072,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('salesReturnTempData', JSON.stringify(tempData))
-      toast.fire({ type: 'success', title: this.$t('Form saved temporarily') })
+       
     },
     // load temporary data
     loadTemporaryData() {
@@ -1137,7 +1137,7 @@ export default {
 
 .badge-info {
   color: #fff;
-  background-color: #17a2b8;
+  background-color: #33a0d9;
 }
 
 .text-muted {
@@ -1259,7 +1259,7 @@ export default {
 }
 
 .btn-info {
-  background: #17a2b8 !important;
+  background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
 

@@ -1097,12 +1097,12 @@ export default {
   padding: 0.75rem;
   font-size: 0.9rem;
   text-align: left;
-  border-left: 4px solid #17a2b8;
+  border-left: 4px solid #33a0d9;
 }
 
 .setting-card .alert-info i {
   margin-right: 0.5rem;
-  color: #17a2b8;
+  color: #33a0d9;
 }
 
 .loading-container {

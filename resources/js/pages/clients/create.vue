@@ -14,7 +14,7 @@
     </div>
     
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-xl-12">
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <!-- breadcrumbs Start -->
@@ -32,13 +32,14 @@
             </div>
           </div>
           <!-- /.card-header -->
-          <!-- form start -->
-          <ClientForm 
-            ref="clientForm"
-            :showCardBody="true"
-            @submit="saveClient"
-          />
-          
+          <div class="card-body">
+            <!-- form start -->
+            <ClientForm 
+              ref="clientForm"
+              :showCardBody="false"
+              @submit="saveClient"
+            />
+          </div>
           <!-- /.card-body -->
           <div class="card-footer">
             <div class="dtable-footer">
@@ -167,10 +168,7 @@ export default {
           timestamp: new Date().toISOString()
         }
         localStorage.setItem('clientTempData', JSON.stringify(tempData))
-        toast.fire({
-          type: 'success',
-          title: this.$t('Form saved temporarily'),
-        })
+        
       }
     },
     // load temporary data
@@ -214,3 +212,368 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
+.create-btn {
+  padding: 11px;
+}
+
+/* Improved warning and success styles */
+.chart-account-warning,
+.chart-account-success {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart-account-warning {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #ffc107;
+}
+
+.chart-account-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border: 1px solid #28a745;
+}
+
+.warning-content,
+.success-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.warning-icon,
+.success-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.warning-icon {
+  color: #856404;
+}
+
+.success-icon {
+  color: #155724;
+}
+
+.warning-text,
+.success-text {
+  flex-grow: 1;
+}
+
+.warning-title,
+.success-title {
+  margin: 0 0 4px 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.warning-title {
+  color: #856404;
+}
+
+.success-title {
+  color: #155724;
+}
+
+.warning-description,
+.success-description {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.warning-description {
+  color: #856404;
+}
+
+.success-description {
+  color: #155724;
+}
+
+.warning-action {
+  flex-shrink: 0;
+}
+
+/* Remove padding for button-plus icon-shape icon-sm btn-primary elements */
+.button-plus.icon-shape.icon-sm.btn-primary {
+  padding: 0;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+}
+
+.btn-primary:hover {
+  background: #229A26 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .warning-content,
+  .success-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .warning-action {
+    width: 100%;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* Client status styles */
+.client-status {
+  font-size: 13px;
+}
+
+.client-warning,
+.client-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.client-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.client-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.btn-outline-warning {
+  border-color: #ffc107;
+  color: #856404;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-outline-warning:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Product status styles */
+.product-status {
+  font-size: 13px;
+}
+
+.product-warning,
+.product-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.product-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.product-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Account status styles */
+.account-status {
+  font-size: 13px;
+}
+
+.account-warning,
+.account-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.account-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.account-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Horizontal radio button group */
+.radio-group-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check-input {
+  margin-right: 8px;
+}
+
+.radio-group-horizontal .form-check-label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* Payment validation warning styles */
+.text-warning {
+  color: #856404 !important;
+}
+
+.text-warning small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.text-warning i {
+  margin-right: 4px;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.invoices-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-create-table thead tr {
+  border: none !important;
+}
+
+.invoices-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Custom Status Badge Styling */
+.invoices-create-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #fff !important;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+
+  border: none !important;
+}
+</style>

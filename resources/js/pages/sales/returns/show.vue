@@ -1363,7 +1363,7 @@ export default {
 }
 
 .bg-info {
-  background-color: #17a2b8 !important;
+  background-color: #33a0d9 !important;
 }
 
 .bg-warning {
