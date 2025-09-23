@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'chart-of-accounts.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="submit" class="btn btn-success" :form="'chartAccountEditForm'" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -20,7 +20,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="updateAccount" @keydown="form.onKeydown($event)">
+          <form id="chartAccountEditForm" role="form" @submit.prevent="updateAccount" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-6">
