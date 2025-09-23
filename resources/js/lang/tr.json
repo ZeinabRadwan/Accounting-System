@@ -914,6 +914,7 @@
   "Edit Client": "İstemciyi Düzenle",
   "Client updated successfully": "İstemci başarıyla güncellendi",
   "Client Details": "Müşteri Detayları",
+  "Client Representative Info": "Müşteri Temsilcisi Bilgisi",
   "Non Purchase Transactions": "Satın Alma Dışı İşlemler",
   "Supplier Payable Report": "Tedarikçi Borç Raporu",
   "Suppliers": "Tedarikçiler",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "Ek notlar ekleyin...",
   "Enter price": "Fiyat girin",
   "Discount (%)": "İndirim (%)",
-  "Additional Details": "Ek Detaylar"
+  "Additional Details": "Ek Detaylar",
+  "Supplier Number": "Tedarikçi Numarası",
+  "Client Number": "Müşteri Numarası",
+  "This client number is automatically generated and cannot be changed": "Bu müşteri numarası otomatik olarak oluşturulur ve değiştirilemez",
+  "This supplier number is automatically generated and cannot be changed": "Bu tedarikçi numarası otomatik olarak oluşturulur ve değiştirilemez"
 }

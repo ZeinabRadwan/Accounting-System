@@ -914,6 +914,7 @@
   "Edit Client": "编辑客户",
   "Client updated successfully": "客户端更新成功",
   "Client Details": "客户详情",
+  "Client Representative Info": "客户代表信息",
   "Non Purchase Transactions": "非购买交易",
   "Supplier Payable Report": "供应商应付账款报告",
   "Suppliers": "供应商",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "添加任何其他备注...",
   "Enter price": "输入价格",
   "Discount (%)": "折扣 (%)",
-  "Additional Details": "附加详情"
+  "Additional Details": "附加详情",
+  "Supplier Number": "供应商编号",
+  "Client Number": "客户编号",
+  "This client number is automatically generated and cannot be changed": "此客户编号为系统自动生成，无法更改",
+  "This supplier number is automatically generated and cannot be changed": "此供应商编号为系统自动生成，无法更改"
 }

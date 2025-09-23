@@ -914,6 +914,7 @@
   "Edit Client": "ক্লায়েন্ট সম্পাদনা করুন",
   "Client updated successfully": "ক্লায়েন্ট সফলভাবে আপডেট করা হয়েছে",
   "Client Details": "ক্লায়েন্ট বিবরণ",
+  "Client Representative Info": "ক্লায়েন্ট প্রতিনিধি তথ্য",
   "Non Purchase Transactions": "অ ক্রয় লেনদেন",
   "Supplier Payable Report": "সরবরাহকারী প্রদেয় রিপোর্ট",
   "Suppliers": "সরবরাহকারী",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "কোনো অতিরিক্ত নোট যোগ করুন...",
   "Enter price": "মূল্য লিখুন",
   "Discount (%)": "ছাড় (%)",
-  "Additional Details": "অতিরিক্ত বিবরণ"
+  "Additional Details": "অতিরিক্ত বিবরণ",
+  "Supplier Number": "সরবরাহকারী নম্বর",
+  "Client Number": "ক্লায়েন্ট নম্বর",
+  "This client number is automatically generated and cannot be changed": "এই ক্লায়েন্ট নম্বরটি স্বয়ংক্রিয়ভাবে তৈরি হয় এবং পরিবর্তন করা যায় না",
+  "This supplier number is automatically generated and cannot be changed": "এই সরবরাহকারী নম্বরটি স্বয়ংক্রিয়ভাবে তৈরি হয় এবং পরিবর্তন করা যায় না"
 }

@@ -1082,6 +1082,12 @@ export default {
   padding: 0.5rem 0.25rem;
 }
 
+/* Slightly lower icons to align better with text */
+.main-sidebar .nav-sidebar .nav-link i.nav-icon {
+  position: relative;
+  top: 5px;
+}
+
 /* Add border-top to nav headers except the first one */
 .main-sidebar .nav-sidebar .nav-header:not(:first-child) {
   border-top: 1px solid #E6EAED;
@@ -1138,7 +1144,7 @@ export default {
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link i {
-  margin-right: 10px;
+  margin-top: 2px;
   width: 14px;
   text-align: center;
   font-size: 12px;
@@ -1221,6 +1227,12 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .fa-angle-left {
 html[dir="ltr"] .main-sidebar .nav-sidebar .menu-open > a .fa-angle-left,
 html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   transform: scaleX(-1) rotate(-90deg);
+}
+
+/* Lower the submenu arrow to align with text */
+.main-sidebar .nav-sidebar .nav-link .fa-angle-left {
+  position: relative;
+  top: 5px;
 }
 
 /* Remove all borders for nav items */

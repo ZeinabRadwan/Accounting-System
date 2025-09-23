@@ -13,14 +13,14 @@
           <div class="card-body">
             <div class="form-group">
               <label for="codeNumber">
-                {{ $t("Code Number") }}
+                {{ $t("Supplier Number") }}
                 <i class="fas fa-question-circle text-muted ml-1" :title="$t('Auto-generated unique identifier for the supplier')"></i>
               </label>
               <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control" 
                 :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
-                :placeholder="$t('Loading...')" disabled />
+                :placeholder="$t('Loading...')" readonly aria-readonly="true" />
               <small class="form-text text-muted">
-                {{ $t("This code number is automatically generated and cannot be changed") }}
+                {{ $t("This supplier number is automatically generated and cannot be changed") }}
               </small>
               <has-error :form="form" field="codeNumber" />
             </div>
@@ -1241,7 +1241,7 @@ export default {
   background-color: #33a0d9;
   color: #ffffff;
   border-radius: 20px 20px 0 0;
-  padding: 12px 16px;
+  padding: 22px 16px;
   border-bottom: none;
 }
 
@@ -1259,6 +1259,14 @@ export default {
 /* Inputs (match invoices create look and feel) */
 .form-control {
   background: #fff !important;
+}
+
+/* Readonly input visual style (match ClientForm) */
+input[readonly] {
+  background-color: #f8f9fa !important;
+  color: #6c757d;
+  border-color: #CED4DA;
+  cursor: not-allowed;
 }
 
 .form-control:focus,
@@ -1358,6 +1366,15 @@ textarea.form-control:focus {
 /* RTL adjustments */
 [dir="rtl"] .form-card .card-header {
   border-radius: 20px 20px 0 0;
+}
+
+/* Force file input label to stay on left even in RTL (match ClientForm) */
+.custom-file-label {
+  text-align: left !important;
+}
+
+[dir="rtl"] .custom-file-label {
+  text-align: left !important;
 }
 
 /* Button brand alignment if used inside the component */

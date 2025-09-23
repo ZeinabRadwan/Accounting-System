@@ -913,6 +913,7 @@
   "Edit Client": "Client bearbeiten",
   "Client updated successfully": "Client wurde erfolgreich aktualisiert",
   "Client Details": "Kundendaten",
+  "Client Representative Info": "Informationen zum Kundenvertreter",
   "Non Purchase Transactions": "Nicht-Kauftransaktionen",
   "Supplier Payable Report": "Bericht über Lieferantenverbindlichkeiten",
   "Suppliers": "Lieferanten",
@@ -1523,5 +1524,9 @@
   "Add any additional notes...": "Zusätzliche Notizen hinzufügen...",
   "Enter price": "Preis eingeben",
   "Discount (%)": "Rabatt (%)",
-  "Additional Details": "Zusätzliche Details"
+  "Additional Details": "Zusätzliche Details",
+  "Supplier Number": "Lieferantennummer",
+  "Client Number": "Kundennummer",
+  "This client number is automatically generated and cannot be changed": "Diese Kundennummer wird automatisch generiert und kann nicht geändert werden",
+  "This supplier number is automatically generated and cannot be changed": "Diese Lieferantennummer wird automatisch generiert und kann nicht geändert werden"
 }

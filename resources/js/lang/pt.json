@@ -914,6 +914,7 @@
   "Edit Client": "Editar cliente",
   "Client updated successfully": "Cliente atualizado com sucesso",
   "Client Details": "Detalhes do cliente",
+  "Client Representative Info": "Informações do representante do cliente",
   "Non Purchase Transactions": "Transações que não são de compra",
   "Supplier Payable Report": "Relatório de contas a pagar do fornecedor",
   "Suppliers": "Fornecedores",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "Adicionar notas adicionais...",
   "Enter price": "Digite preço",
   "Discount (%)": "Desconto (%)",
-  "Additional Details": "Detalhes Adicionais"
+  "Additional Details": "Detalhes Adicionais",
+  "Supplier Number": "Número do fornecedor",
+  "Client Number": "Número do cliente",
+  "This client number is automatically generated and cannot be changed": "Este número de cliente é gerado automaticamente e não pode ser alterado",
+  "This supplier number is automatically generated and cannot be changed": "Este número de fornecedor é gerado automaticamente e não pode ser alterado"
 }

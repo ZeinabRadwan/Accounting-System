@@ -13,14 +13,13 @@
           <div class="card-body">
             <div class="form-group">
               <label for="codeNumber">
-                {{ $t("Code Number") }}
-                <i class="fas fa-question-circle text-muted ml-1" :title="$t('Auto-generated unique identifier for the client')"></i>
+                {{ $t("Client Number") }}
               </label>
               <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control" 
                 :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
-                :placeholder="$t('Loading...')" disabled />
+                :placeholder="$t('Loading...')" readonly aria-readonly="true" />
               <small class="form-text text-muted">
-                {{ $t("This code number is automatically generated and cannot be changed") }}
+                {{ $t("This client number is automatically generated and cannot be changed") }}
               </small>
               <has-error :form="form" field="codeNumber" />
             </div>
@@ -321,11 +320,11 @@
               <div class="file-upload-area">
                 <input id="attachments" type="file" class="file-input" name="attachments"
                   :class="{ 'is-invalid': form.errors.has('attachments') }" @change="onFileChange" multiple 
-                  accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif" />
+                  accept="image/jpeg,image/png,image/gif" />
                 <div class="file-upload-content">
                   <i class="fas fa-cloud-upload-alt"></i>
                   <p>{{ $t("Drop files here or click to browse") }}</p>
-                  <small class="text-muted">{{ $t("Supported formats: PDF, DOC, XLS, TXT, Images") }}</small>
+                  <small class="text-muted">{{ $t("Supported formats: JPEG, PNG, GIF") }}</small>
                 </div>
               </div>
               <has-error :form="form" field="attachments" />
@@ -383,7 +382,7 @@
     </div>
 
     <!-- Automatic Routing Info Section -->
-    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4">
+    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4" style="display: none;">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -704,14 +703,8 @@ export default {
               );
             }
           } else {
-            // For attachments, allow various document types
+            // For attachments, only allow images to match backend validation
             const allowedTypes = [
-              'application/pdf',
-              'application/msword',
-              'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-              'application/vnd.ms-excel',
-              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-              'text/plain',
               'image/jpeg',
               'image/png',
               'image/gif'
@@ -722,7 +715,7 @@ export default {
             } else {
               Swal.fire(
                 this.$t("Error!"),
-                this.$t("Please select a valid file type"),
+                this.$t("Only JPEG, PNG, and GIF files are allowed."),
                 "error"
               );
             }
@@ -1305,7 +1298,7 @@ export default {
   background-color: #33a0d9;
   color: #ffffff;
   border-radius: 20px 20px 0 0;
-  padding: 12px 16px;
+  padding: 22px 16px;
   border-bottom: none;
 }
 
@@ -1323,6 +1316,14 @@ export default {
 /* Inputs (match invoices create look and feel) */
 .form-control {
   background: #fff !important;
+}
+
+/* Readonly input visual style */
+input[readonly] {
+  background-color: #f8f9fa !important;
+  color: #6c757d;
+  border-color: #CED4DA;
+  cursor: not-allowed;
 }
 
 .form-control:focus,
@@ -1422,6 +1423,15 @@ textarea.form-control:focus {
 /* RTL adjustments */
 [dir="rtl"] .form-card .card-header {
   border-radius: 20px 20px 0 0;
+}
+
+/* Force file input label to stay on left even in RTL */
+.custom-file-label {
+  text-align: left !important;
+}
+
+[dir="rtl"] .custom-file-label {
+  text-align: left !important;
 }
 
 /* Button brand alignment if used inside the component */

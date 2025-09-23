@@ -12,7 +12,7 @@
           class="form-control"
           :class="{ 'is-invalid': form.errors.has('name') }" 
           name="name"
-          :placeholder="$t('Enter representative name')" 
+          :placeholder="$t('Enter company representative name')" 
         />
         <has-error :form="form" field="name" />
       </div>
@@ -231,5 +231,17 @@ export default {
 
 .btn {
   margin-top: 10px;
+}
+
+/* Make primary action button green (same as create button styling elsewhere) */
+.btn-primary {
+  background-color: rgb(40, 167, 69) !important;
+  border-color: rgb(40, 167, 69) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: rgb(33, 136, 56) !important;
+  border-color: rgb(33, 136, 56) !important;
 }
 </style>

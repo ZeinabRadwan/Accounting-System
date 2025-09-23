@@ -914,6 +914,7 @@
   "Edit Client": "Sunting Klien",
   "Client updated successfully": "Klien berhasil diperbarui",
   "Client Details": "Detail Klien",
+  "Client Representative Info": "Informasi Perwakilan Klien",
   "Non Purchase Transactions": "Transaksi Non Pembelian",
   "Supplier Payable Report": "Laporan Hutang Pemasok",
   "Suppliers": "Pemasok",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "Tambahkan catatan tambahan...",
   "Enter price": "Masukkan harga",
   "Discount (%)": "Diskon (%)",
-  "Additional Details": "Detail Tambahan"
+  "Additional Details": "Detail Tambahan",
+  "Supplier Number": "Nomor Pemasok",
+  "Client Number": "Nomor Klien",
+  "This client number is automatically generated and cannot be changed": "Nomor klien ini dibuat otomatis dan tidak dapat diubah",
+  "This supplier number is automatically generated and cannot be changed": "Nomor pemasok ini dibuat otomatis dan tidak dapat diubah"
 }

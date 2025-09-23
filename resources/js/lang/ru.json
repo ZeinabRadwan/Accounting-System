@@ -914,6 +914,7 @@
   "Edit Client": "Редактировать клиента",
   "Client updated successfully": "Клиент обновлен успешно",
   "Client Details": "Детали клиента",
+  "Client Representative Info": "Информация о представителе клиента",
   "Non Purchase Transactions": "Сделки, не связанные с покупкой",
   "Supplier Payable Report": "Отчет о кредиторской задолженности поставщика",
   "Suppliers": "Поставщики",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "Добавить дополнительные заметки...",
   "Enter price": "Введите цену",
   "Discount (%)": "Скидка (%)",
-  "Additional Details": "Дополнительные Детали"
+  "Additional Details": "Дополнительные Детали",
+  "Supplier Number": "Номер поставщика",
+  "Client Number": "Номер клиента",
+  "This client number is automatically generated and cannot be changed": "Этот номер клиента создаётся автоматически и не может быть изменён",
+  "This supplier number is automatically generated and cannot be changed": "Этот номер поставщика создаётся автоматически и не может быть изменён"
 }

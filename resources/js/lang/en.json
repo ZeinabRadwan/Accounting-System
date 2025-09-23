@@ -1036,6 +1036,7 @@
   "Edit Client": "Edit Client",
   "Client updated successfully": "Client updated successfully",
   "Client Details": "Client Details",
+  "Client Representative Info": "Client Representative Info",
   "Non Purchase Transactions": "Non Purchase Transactions",
   "Supplier Payable Report": "Supplier Payable Report",
   "Suppliers": "Suppliers",
@@ -1641,6 +1642,8 @@
   "Delete a chart of account": "Delete a chart of account",
   
   "Code Number": "Code Number",
+  "Client Number": "Client Number",
+  "Supplier Number": "Supplier Number",
   "Enter code number": "Enter code number",
   "Billing Method": "Billing Method",
   "Both": "Both",
@@ -1721,6 +1724,8 @@
   "Client Chart of Account ready": "Client Chart of Account ready",
   "Loading...": "Loading...",
   "This code number is automatically generated and cannot be changed": "This code number is automatically generated and cannot be changed",
+  "This client number is automatically generated and cannot be changed": "This client number is automatically generated and cannot be changed",
+  "This supplier number is automatically generated and cannot be changed": "This supplier number is automatically generated and cannot be changed",
   "Auto-generated unique identifier for the client": "Auto-generated unique identifier for the client",
   "Supplier Details": "Supplier Details",
   "Supplier Type": "Supplier Type",
@@ -1988,5 +1993,7 @@
   "Select parent account (optional)": "Select parent account (optional)",
   "Order": "Order",
   "Enter display order": "Enter display order",
-  "Error generating code": "Error generating code"
+  "Error generating code": "Error generating code",
+  "Enter company representative name": "Enter company representative name"
+  ,"Only JPEG, PNG, and GIF files are allowed.": "Only JPEG, PNG, and GIF files are allowed."
 }

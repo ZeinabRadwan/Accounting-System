@@ -914,6 +914,7 @@
   "Edit Client": "Chỉnh sửa khách hàng",
   "Client updated successfully": "Khách hàng được cập nhật thành công",
   "Client Details": "Chi tiết khách hàng",
+  "Client Representative Info": "Thông tin đại diện khách hàng",
   "Non Purchase Transactions": "Giao dịch không mua",
   "Supplier Payable Report": "Báo cáo phải trả của nhà cung cấp",
   "Suppliers": "Nhà cung cấp",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "Thêm ghi chú bổ sung...",
   "Enter price": "Nhập giá",
   "Discount (%)": "Giảm giá (%)",
-  "Additional Details": "Chi tiết Bổ sung"
+  "Additional Details": "Chi tiết Bổ sung",
+  "Supplier Number": "Mã nhà cung cấp",
+  "Client Number": "Mã khách hàng",
+  "This client number is automatically generated and cannot be changed": "Mã khách hàng này được tạo tự động và không thể thay đổi",
+  "This supplier number is automatically generated and cannot be changed": "Mã nhà cung cấp này được tạo tự động và không thể thay đổi"
 }

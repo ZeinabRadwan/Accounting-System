@@ -914,6 +914,7 @@
   "Edit Client": "클라이언트 편집",
   "Client updated successfully": "클라이언트가 성공적으로 업데이트되었습니다.",
   "Client Details": "클라이언트 세부정보",
+  "Client Representative Info": "고객 담당자 정보",
   "Non Purchase Transactions": "비구매 거래",
   "Supplier Payable Report": "공급자 지급 보고서",
   "Suppliers": "공급자",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "추가 메모를 입력하세요...",
   "Enter price": "가격을 입력하세요",
   "Discount (%)": "할인 (%)",
-  "Additional Details": "추가 세부사항"
+  "Additional Details": "추가 세부사항",
+  "Supplier Number": "공급업체 번호",
+  "Client Number": "고객 번호",
+  "This client number is automatically generated and cannot be changed": "이 고객 번호는 자동으로 생성되며 변경할 수 없습니다",
+  "This supplier number is automatically generated and cannot be changed": "이 공급업체 번호는 자동으로 생성되며 변경할 수 없습니다"
 }

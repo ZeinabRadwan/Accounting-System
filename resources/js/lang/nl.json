@@ -914,6 +914,7 @@
   "Edit Client": "Klant bewerken",
   "Client updated successfully": "Klant is succesvol bijgewerkt",
   "Client Details": "Klantgegevens",
+  "Client Representative Info": "Informatie vertegenwoordiger van klant",
   "Non Purchase Transactions": "Niet-aankooptransacties",
   "Supplier Payable Report": "Leveranciersrapport",
   "Suppliers": "Leveranciers",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "Voeg extra notities toe...",
   "Enter price": "Voer prijs in",
   "Discount (%)": "Korting (%)",
-  "Additional Details": "Aanvullende Details"
+  "Additional Details": "Aanvullende Details",
+  "Supplier Number": "Leveranciersnummer",
+  "Client Number": "Klantnummer",
+  "This client number is automatically generated and cannot be changed": "Dit klantnummer wordt automatisch gegenereerd en kan niet worden gewijzigd",
+  "This supplier number is automatically generated and cannot be changed": "Dit leveranciersnummer wordt automatisch gegenereerd en kan niet worden gewijzigd"
 }

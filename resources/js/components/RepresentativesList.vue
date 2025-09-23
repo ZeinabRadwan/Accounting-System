@@ -267,4 +267,16 @@ export default {
 .table-primary {
   background-color: #e3f2fd !important;
 }
+
+/* Make the primary button green within this component */
+.btn-primary {
+  background-color: rgb(40, 167, 69) !important;
+  border-color: rgb(40, 167, 69) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: rgb(33, 136, 56) !important; /* slightly darker */
+  border-color: rgb(33, 136, 56) !important;
+}
 </style>

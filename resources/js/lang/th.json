@@ -914,6 +914,7 @@
   "Edit Client": "แก้ไขลูกค้า",
   "Client updated successfully": "อัปเดตไคลเอ็นต์สำเร็จแล้ว",
   "Client Details": "รายละเอียดลูกค้า",
+  "Client Representative Info": "ข้อมูลตัวแทนลูกค้า",
   "Non Purchase Transactions": "ธุรกรรมที่ไม่ใช่การซื้อ",
   "Supplier Payable Report": "รายงานเจ้าหนี้ของซัพพลายเออร์",
   "Suppliers": "ซัพพลายเออร์",
@@ -1524,5 +1525,9 @@
   "Add any additional notes...": "เพิ่มหมายเหตุเพิ่มเติม...",
   "Enter price": "ใส่ราคา",
   "Discount (%)": "ส่วนลด (%)",
-  "Additional Details": "รายละเอียดเพิ่มเติม"
+  "Additional Details": "รายละเอียดเพิ่มเติม",
+  "Supplier Number": "รหัสผู้จัดจำหน่าย",
+  "Client Number": "รหัสลูกค้า",
+  "This client number is automatically generated and cannot be changed": "รหัสลูกค้านี้สร้างขึ้นโดยอัตโนมัติและไม่สามารถเปลี่ยนแปลงได้",
+  "This supplier number is automatically generated and cannot be changed": "รหัสผู้จัดจำหน่ายนี้สร้างขึ้นโดยอัตโนมัติและไม่สามารถเปลี่ยนแปลงได้"
 }
