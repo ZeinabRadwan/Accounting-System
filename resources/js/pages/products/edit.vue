@@ -63,7 +63,7 @@
                     <div class="input-group-prepend">
                       <span v-if="prefix" class="input-group-text" id="basic-addon1">{{ prefix }}</span>
                     </div>
-                    <input v-model="form.itemCode" type="text" class="form-control"
+                    <input v-model="form.itemCode" readonly type="text" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('itemCode') }" name="itemCode"
                       :placeholder="$t('Enter item code')" aria-label="itemCode"
                       aria-describedby="basic-addon1" />
