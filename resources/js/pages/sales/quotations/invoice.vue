@@ -360,7 +360,7 @@
                   <i v-else :class="isFormReady ? 'fas fa-save' : 'fas fa-exclamation-triangle'" /> 
                   {{ form.busy ? $t('Saving...') : (isFormReady ? $t('Save') : $t('Complete Required Fields')) }}
                 </button>
-                <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">
+                <button type="reset" class="btn btn-info ml-2" @click="form.reset()">
                   <i class="fas fa-power-off" /> {{ $t('Reset') }}
                 </button>
               </div>

@@ -132,11 +132,11 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page footer-buttons">
-                  <v-button :loading="form.busy" class="btn btn-success">
+                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+                  <v-button :loading="form.busy" type="success">
                     <i class="fas fa-save" /> {{ $t('Save') }}
                   </v-button>
-                  <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                  <button type="reset" class="btn btn-info" @click="form.reset()">
                     <i class="fas fa-power-off" /> {{ $t('Reset') }}
                   </button>
                 </div>
@@ -464,18 +464,7 @@ export default {
   gap: 10px;
 }
 
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
-}
+
 
 .card {
   margin-top: 30px;
@@ -534,7 +523,7 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
   font-weight: 500;
 }
@@ -549,7 +538,7 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
   font-weight: 500;
   margin-right: 10px;
@@ -574,7 +563,7 @@ export default {
 .v-select .vs__dropdown-toggle {
   background: #fff !important;
   border: 1px solid #E5E7EB !important;
-  border-radius: 10px !important;
+
   padding: 10px 16px !important;
 }
 

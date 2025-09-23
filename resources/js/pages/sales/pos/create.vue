@@ -274,7 +274,7 @@
             </button>
           </div>
           <div class="col-12 col-lg-2">
-            <button type="reset" class="btn btn-secondary float-right btn-block" @click="form.reset()">
+            <button type="reset" class="btn btn-info float-right btn-block" @click="form.reset()">
               <i class="fas fa-power-off" /> {{ $t("Reset") }}
             </button>
           </div>

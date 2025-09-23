@@ -48,7 +48,7 @@
           <!-- Card footer with action buttons -->
           <div class="card-footer">
             <div class="dtable-footer">
-              <div class="form-group row display-per-page footer-buttons">
+              <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
                 <button type="button" :disabled="isSubmitting || loading || !isFormReady" class="btn btn-primary" @click="submitForm">
                   <i class="fas fa-edit" /> {{ $t("Save changes") }}
                 </button>
@@ -430,18 +430,7 @@ export default {
   margin-right: 0;
 }
 
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
-}
+
 
 .card {
   margin-top: 30px;
@@ -466,7 +455,7 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
 }
 
@@ -474,7 +463,7 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
 }
 </style>
@@ -506,18 +495,7 @@ export default {
   margin-right: 0;
 }
 
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
-}
+
 
 .card {
   margin-top: 30px;
@@ -542,7 +520,7 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
 }
 
@@ -550,7 +528,7 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
 }
 </style>

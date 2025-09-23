@@ -54,7 +54,7 @@
                   <v-button :loading="form.busy" class="btn btn-success">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
-                  <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                  <button type="reset" class="btn btn-info" @click="form.reset()">
                     <i class="fas fa-power-off" /> {{ $t('Reset') }}
                   </button>
                 </div>
@@ -186,18 +186,7 @@ export default {
   gap: 10px;
 }
 
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
-}
+
 
 .card {
   margin-top: 30px;
@@ -222,7 +211,7 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
 }
 
@@ -230,7 +219,7 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
 }
 

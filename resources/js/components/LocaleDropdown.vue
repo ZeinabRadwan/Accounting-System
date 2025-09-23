@@ -202,7 +202,7 @@ export default {
   color: #33A0D9 !important;
   width: 48px !important;
   height: 48px !important;
-  border-radius: 10px !important;
+
   padding: 12px !important;
   display: flex !important;
   align-items: center !important;
