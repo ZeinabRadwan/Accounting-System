@@ -1994,6 +1994,7 @@
   "Order": "Order",
   "Enter display order": "Enter display order",
   "Error generating code": "Error generating code",
-  "Enter company representative name": "Enter company representative name"
-  ,"Only JPEG, PNG, and GIF files are allowed.": "Only JPEG, PNG, and GIF files are allowed."
+  "Enter company representative name": "Enter company representative name",
+  ,"Only JPEG, PNG, and GIF files are allowed.": "Only JPEG, PNG, and GIF files are allowed.",
+  "Loading product data...": "Loading product data..."
 }

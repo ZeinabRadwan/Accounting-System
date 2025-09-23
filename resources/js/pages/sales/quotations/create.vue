@@ -24,7 +24,7 @@
             <div class="card-body">
               <!-- Date Field - Standalone Row -->
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="date">{{ $t("Date") }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
