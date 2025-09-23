@@ -299,8 +299,10 @@ class ProductController extends Controller
             'taxType' => 'required',
             'regularPrice' => 'required|numeric|min:0',
             'servicePurchasePrice' => $request->itemType == 'service' ? 'required|numeric|min:0' : 'nullable',
-            'openingStockCount' => $request->isOpeningStock == true ? 'required|numeric|min:1' : 'nullable',
-            'openingStockUnitPrice' => $request->isOpeningStock == true ? 'required|numeric|min:1' : 'nullable',
+            'openingStockCount' => 'nullable|numeric|min:0',
+            'openingStockUnitPrice' => 'nullable|numeric|min:0',
+            'newOpeningStockCount' => $request->isOpeningStock == true ? 'required|numeric|min:1' : 'nullable',
+            'newOpeningStockUnitPrice' => $request->isOpeningStock == true ? 'required|numeric|min:1' : 'nullable',
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
             'alertQuantity' => 'nullable|numeric|min:1|max:1000',
@@ -336,24 +338,33 @@ class ProductController extends Controller
                 $discount = $request->discount;
             }
 
-            $newOpeningStockCount = null;
-            $newOpeningStockUnitPrice = null;
+            $newOpeningStockCount = $product->opening_stock_count;
+            $newOpeningStockUnitPrice = $product->opening_stock_unit_price;
             $newInventoryCount = $product->inventory_count;
             $purchasePrice = $product->purchase_price;
 
             if ($request->isOpeningStock == true) {
-                $newOpeningStockCount = $request->openingStockCount;
-                $newOpeningStockUnitPrice = $request->openingStockUnitPrice;
+                // Get the new opening stock values from the request
+                $additionalStockCount = $request->newOpeningStockCount;
+                $additionalStockUnitPrice = $request->newOpeningStockUnitPrice;
 
-                $newInventoryCount = $product->inventory_count + ($request->openingStockCount - $product->opening_stock_count);
+                // Update the total opening stock count and inventory
+                $newOpeningStockCount = $product->opening_stock_count + $additionalStockCount;
+                $newInventoryCount = $product->inventory_count + $additionalStockCount;
 
+                // Calculate weighted average purchase price
                 $totalValueOldStock = $product->inventory_count * $product->purchase_price;
-                $totalValueNewStock = $newOpeningStockCount * $newOpeningStockUnitPrice;
+                $totalValueNewStock = $additionalStockCount * $additionalStockUnitPrice;
 
                 $totalStockValue = $totalValueOldStock + $totalValueNewStock;
-                $totalStockCount = $product->inventory_count + $newOpeningStockCount;
+                $totalStockCount = $product->inventory_count + $additionalStockCount;
 
-                $purchasePrice = $totalStockValue / $totalStockCount;
+                if ($totalStockCount > 0) {
+                    $purchasePrice = $totalStockValue / $totalStockCount;
+                }
+                
+                // Update the opening stock unit price to the new weighted average
+                $newOpeningStockUnitPrice = $purchasePrice;
             }
 
             // Safely extract account IDs
