@@ -513,17 +513,16 @@ export default {
             .then((response) => {
               if (response === true) {
                 this.getData();
-                Swal.fire(
-                  this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
-                );
+                toast.fire({
+                  type: 'success',
+                  title: this.$t('Deleted successfully.')
+                })
               } else {
-                Swal.fire(
-                  this.$t("Failed!"),
-                  this.$t("Sorry you can't remove this account!"),
-                  "warning"
-                );
+                const backendMessage = response?.response?.data?.message || this.$t("Opps...something went wrong")
+                toast.fire({
+                  type: 'error',
+                  title: backendMessage
+                })
               }
             });
         }

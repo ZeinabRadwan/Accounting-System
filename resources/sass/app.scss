@@ -692,7 +692,34 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .vs__dropdown-toggle {
-  height: 40px;
+  height: auto;
+  min-height: 50px; /* match input visual height */
+}
+
+/* Global v-select styling to match input appearance */
+.v-select {
+  background: #fff !important;
+}
+
+.v-select .vs__dropdown-toggle {
+  background: #fff !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
+}
+
+/* Ensure inner content vertically centers to match inputs */
+.v-select .vs__selected-options { align-items: center; }
+.v-select .vs__actions { align-items: center; }
+
+.v-select .vs__dropdown-toggle:focus {
+  border-color: #33a0d9 !important;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25) !important;
+}
+
+.v-select.is-invalid .vs__dropdown-toggle,
+.is-invalid .vs__dropdown-toggle {
+  border-color: #dc3545 !important;
 }
 
 .modal-wrapper .modal-body {
@@ -1886,6 +1913,34 @@ img.circle-img.circle-img--small {
 /* Override form-control height to remove calc(2.25rem + 2px) */
 .form-control {
   height: auto !important;
+}
+
+/* Ensure all inputs (not textareas) visually match v-select height */
+.form-control:not(textarea) {
+  min-height: 50px;
+}
+
+/* Ensure custom file inputs match standard input height */
+.custom-file-input,
+.custom-file-label {
+  min-height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Ensure the trailing button of custom file inputs matches height (LTR/RTL) */
+.custom-file-input:lang(en) ~ .custom-file-label::after,
+.custom-file-input:lang(ar) ~ .custom-file-label::after {
+  min-height: 50px;
+  line-height: 30px; /* approximate to vertically center text within 50px total with padding */
+}
+
+/* Global input rounding and border to ensure consistency across pages */
+.form-control {
+  background: #fff !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
 }
 
 [dir="rtl"] .card-title {

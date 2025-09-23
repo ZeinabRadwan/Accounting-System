@@ -186,6 +186,7 @@ export default {
 
   mounted() {
     this.loadChartOfAccounts()
+    this.loadTemporaryData()
   },
 
   watch: {
@@ -214,9 +215,7 @@ export default {
     }
   },
 
-  mounted() {
-    this.loadTemporaryData()
-  },
+  
 
   methods: {
     // load chart of accounts
