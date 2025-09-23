@@ -1647,4 +1647,7 @@ export default {
   border-radius: 10px !important;
   border: none !important;
 }
+.create-btn {
+  padding: 11px;
+}
 </style>
