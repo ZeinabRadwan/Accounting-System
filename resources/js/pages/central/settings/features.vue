@@ -99,7 +99,7 @@
 
                 </div>
                 <div class="card-footer">
-                    <v-button :loading="form.busy" class="btn btn-primary">
+                    <v-button :loading="form.busy" class="btn btn-success">
                         <i class="fas fa-edit" />
                         {{ $t('Save changes') }}
                     </v-button>

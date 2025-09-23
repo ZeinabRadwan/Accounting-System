@@ -49,7 +49,7 @@
                                         registration feature for the demo. You
                                         can access the Tenant panel
                                         <a
-                                            href="https://john.acculance.top/login"
+                                            href="https://john.websoft.top/login"
                                             >here</a
                                         >
                                     </div>

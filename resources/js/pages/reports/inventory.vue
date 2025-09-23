@@ -9,7 +9,7 @@
           <div class="card-header">
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
-                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Filter Settings">
+                <button type="button" class="btn btn-info" @click="saveTemporary" title="Save Filter Settings">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -125,7 +125,7 @@
           </div>
           <div class="row no-print mt-5">
             <div class="col-12">
-              <router-link :to="{ name: 'inventory.index' }" class="btn btn-dark float-right">
+              <router-link :to="{ name: 'inventory.index' }" class="btn btn-info float-right">
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </router-link>
               <a :href="exportExcelUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">

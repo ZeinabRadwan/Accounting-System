@@ -154,7 +154,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                        <v-button :loading="form.busy" class="btn btn-primary">
+                        <v-button :loading="form.busy" class="btn btn-success">
                             <i class="fas fa-edit" />
                             {{ $t('Save changes') }}
                         </v-button>

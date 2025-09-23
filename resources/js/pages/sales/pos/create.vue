@@ -10,7 +10,7 @@
         <div class="card">
           <div class="card-header">
             <div class="float-right header-buttons">
-              <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+              <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
                 <i class="fas fa-save" />
               </button>
             </div>
@@ -274,7 +274,7 @@
             </button>
           </div>
           <div class="col-12 col-lg-2">
-            <button type="reset" class="btn btn-secondary float-right btn-block" @click="form.reset()">
+            <button type="reset" class="btn btn-info float-right btn-block" @click="form.reset()">
               <i class="fas fa-power-off" /> {{ $t("Reset") }}
             </button>
           </div>

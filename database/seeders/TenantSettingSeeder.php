@@ -30,7 +30,7 @@ class TenantSettingSeeder extends Seeder
             'zatca_address' => '',
             'zatca_environment' => 'developer',
             'zatca_otp' => '',
-            'zatca_solution_name' => 'Acculance SaaS',
+            'zatca_solution_name' => 'Websoft',
             'zatca_common_name' => '',
             'zatca_organizational_unit' => '',
             'zatca_invoice_type' => 'both',
@@ -42,11 +42,11 @@ class TenantSettingSeeder extends Seeder
             'zatca_integration_complete' => '0',
             
             // Company Information with professional defaults
-            'company_name' => 'Your Company Name',
-            'company_tagline' => 'Your Business Slogan',
-            'email_address' => 'email@gmail.com',
-            'phone_number' => '0170000000',
-            'address' => 'Your address',
+            'company_name' => 'Websoft',
+            'company_tagline' => 'Websoft',
+            'email_address' => 'info@websoft.com',
+            'phone_number' => '0555555555',
+            'address' => 'Websoft',
             'client_prefix' => 'AC',
             
             // Additional Basic Settings

@@ -170,7 +170,7 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                 {{ $t('Cancel') }}
                             </button>
-                            <v-button :loading="form.busy" class="btn btn-primary">
+                            <v-button :loading="form.busy" class="btn btn-success">
                                 {{ isEditMode ? $t('Update') : $t('Save') }}
                             </v-button>
                         </div>

@@ -9,7 +9,7 @@
           :initialData="clientData"
         />
         <div slot="modal-footer">
-          <button @click="submitItem($event)" :disabled="isSubmitting" class="btn btn-primary">
+          <button @click="submitItem($event)" :disabled="isSubmitting" class="btn btn-success">
             <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
             <i v-else class="fas fa-save"></i> 
             {{ isSubmitting ? $t("Saving...") : $t("Save") }}

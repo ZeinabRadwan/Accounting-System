@@ -321,7 +321,7 @@
           <div class="row no-print mt-5">
             <div class="col-12">
               <div class="btn-group float-right">
-                <router-link :to="{ name: 'inventory.index' }" class="btn btn-dark">
+                <router-link :to="{ name: 'inventory.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
                 <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">

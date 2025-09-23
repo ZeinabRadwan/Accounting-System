@@ -94,7 +94,7 @@
                 <div class="col-12">
                   <button
                     @click="generateReport"
-                    class="btn btn-primary"
+                    class="btn btn-info"
                     :disabled="loading"
                   >
                     <i class="fas fa-sync-alt" :class="{ 'fa-spin': loading }"></i>
@@ -123,7 +123,7 @@
           <a :href="printTemplateUrl" target="_blank" class="btn btn-primary">
             <i class="fas fa-print"></i> {{ $t("Print with Template") }}
           </a>
-          <router-link :to="{ name: 'home' }" class="btn btn-dark float-right">
+          <router-link :to="{ name: 'home' }" class="btn btn-info float-right">
             <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
           </router-link>
         </div>

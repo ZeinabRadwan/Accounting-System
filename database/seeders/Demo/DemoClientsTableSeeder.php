@@ -22,7 +22,7 @@ class DemoClientsTableSeeder extends Seeder
                 'client_id' => '1',
                 'slug' => 'walking-customer',
                 'type' => 'Individual',
-                'email' => 'acculance@example.com',
+                'email' => 'websoft@example.com',
                 'phone_number' => '017000000',
                 'company_name' => 'Codeshaper',
                 'address' => 'Mohakhali DOHS, Dhaka',

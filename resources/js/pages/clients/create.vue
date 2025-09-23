@@ -22,10 +22,10 @@
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
-                <router-link :to="{ name: 'clients.index' }" class="btn btn-primary">
+                <router-link :to="{ name: 'clients.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-primary" @click="saveTemporary" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -42,13 +42,13 @@
           <!-- /.card-body -->
           <div class="card-footer">
             <div class="dtable-footer">
-              <div class="form-group row display-per-page footer-buttons">
-                <button @click="submitForm" :disabled="isSubmitting" class="btn btn-primary">
+              <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+                <button @click="submitForm" :disabled="isSubmitting" class="btn btn-success">
                   <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
                   <i v-else class="fas fa-save"></i> 
                   {{ isSubmitting ? $t("Saving...") : $t("Save") }}
                 </button>
-                <button type="reset" class="btn btn-secondary" @click="resetForm">
+                <button type="reset" class="btn btn-info" @click="resetForm">
                   <i class="fas fa-power-off" /> {{ $t("Reset") }}
                 </button>
               </div>
@@ -240,18 +240,7 @@ export default {
   margin-right: 0;
 }
 
-/* Restore full border radius for buttons inside the group */
-.btn-group.c-w-100 > .btn {
-  border-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-}
-.btn-group.c-w-100 > .btn:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
-}
+
 
 .card {
   margin-top: 30px;
@@ -283,7 +272,7 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
   font-weight: 500;
 }
@@ -306,7 +295,7 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-  border-radius: 10px !important;
+
   border: none !important;
   font-weight: 500;
   margin-right: 10px;

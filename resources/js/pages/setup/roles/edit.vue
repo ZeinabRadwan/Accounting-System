@@ -27,7 +27,7 @@
                             <div class="col-xl-8 col-8 float-right text-right">
                                 <router-link
                                     :to="{ name: 'roles.index' }"
-                                    class="btn btn-dark float-right"
+                                    class="btn btn-info float-right"
                                 >
                                     <i class="fas fa-long-arrow-alt-left" />
                                     {{ $t('Back') }}

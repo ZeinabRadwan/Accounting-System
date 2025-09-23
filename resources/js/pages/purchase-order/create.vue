@@ -9,7 +9,7 @@
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
-                <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-primary">
+                <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
                 <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
@@ -418,12 +418,12 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page footer-buttons">
+                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
                   <button type="submit" :disabled="form.busy" class="btn btn-success" @click="savePurchaseOrder">
                     <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
                     {{ form.busy ? $t("Saving...") : $t("Save") }}
                   </button>
-                  <button type="reset" class="btn btn-secondary" @click="form.reset()">
+                  <button type="reset" class="btn btn-info" @click="form.reset()">
                     <i class="fas fa-power-off" /> {{ $t("Reset") }}
                   </button>
                 </div>
@@ -1283,17 +1283,17 @@ export default {
   margin-right: 0;
 }
 
-.create-btn {
-  padding: 11px;
+/* Restore full border radius for buttons inside the group */
+.btn-group.c-w-100 > .btn {
+  border-radius: 10px !important;
 }
-
-/* Improved warning and success styles */
-.chart-account-warning,
-.chart-account-success {
-  margin-bottom: 20px;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.btn-group.c-w-100 > .btn:first-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+.btn-group.c-w-100 > .btn:last-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
 }
 
 .chart-account-warning {
@@ -1366,13 +1366,14 @@ export default {
   flex-shrink: 0;
 }
 
-/* Remove padding for button-plus icon-shape icon-sm btn-primary elements */
-.button-plus.icon-shape.icon-sm.btn-primary {
-  padding: 0;
-}
-
+/* Button Styling */
 .btn-primary {
   background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
 }
 
 .btn-primary:hover {
@@ -1381,11 +1382,20 @@ export default {
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
 
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #2a8bc4 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 
 /* Responsive design */

@@ -328,7 +328,7 @@
         </form>
       </div>
       <div slot="modal-footer">
-        <button @click="submitItem($event)" :loading="form.busy" class="btn btn-primary">
+        <button @click="submitItem($event)" :loading="form.busy" class="btn btn-success">
           <i class="fas fa-save" /> {{ $t("Save") }}
         </button>
       </div>

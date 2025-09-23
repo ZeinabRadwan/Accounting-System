@@ -17,7 +17,7 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group">
-                <router-link :to="{ name: 'brands.index' }" class="btn btn-dark float-right">
+                <router-link :to="{ name: 'brands.index' }" class="btn btn-info float-right">
                   <i class="fas fa-long-arrow-alt-left" />
                   {{ $t("Back") }}
                 </router-link>

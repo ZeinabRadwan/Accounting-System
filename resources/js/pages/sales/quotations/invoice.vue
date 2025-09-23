@@ -10,7 +10,7 @@
             <h3 class="card-title">
               {{ $t('Create quotation to invoice') }}
             </h3>
-            <router-link :to="{ name: 'quotations.index' }" class="btn btn-dark float-right">
+            <router-link :to="{ name: 'quotations.index' }" class="btn btn-info float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
             </router-link>
           </div>
@@ -360,7 +360,7 @@
                   <i v-else :class="isFormReady ? 'fas fa-save' : 'fas fa-exclamation-triangle'" /> 
                   {{ form.busy ? $t('Saving...') : (isFormReady ? $t('Save') : $t('Complete Required Fields')) }}
                 </button>
-                <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">
+                <button type="reset" class="btn btn-info ml-2" @click="form.reset()">
                   <i class="fas fa-power-off" /> {{ $t('Reset') }}
                 </button>
               </div>

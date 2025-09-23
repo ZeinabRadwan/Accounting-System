@@ -288,7 +288,7 @@
                       <a
                         @click="generatePDF()"
                         href="#"
-                        class="btn btn-primary"
+                        class="btn btn-info"
                         v-tooltip="$t('download')"
                       >
                         <i class="fas fa-download"></i>
@@ -311,7 +311,7 @@
                       </a>
                       <router-link
                         :to="{ name: 'suppliers.index' }"
-                        class="btn btn-dark float-right"
+                        class="btn btn-info float-right"
                         v-tooltip="$t('Back')"
                       >
                         <i class="fas fa-long-arrow-alt-left" />

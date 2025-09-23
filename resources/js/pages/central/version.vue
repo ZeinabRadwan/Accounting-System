@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">{{ $t('Version') }}</h3>
-            <router-link :to="{ name: 'home' }" class="btn btn-dark float-right">
+            <router-link :to="{ name: 'home' }" class="btn btn-info float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
             </router-link>
           </div>
