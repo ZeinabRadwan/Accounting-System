@@ -87,7 +87,7 @@
               </div>
               <!-- /.col -->
               <div
-                class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right"
+                class="col-sm-8  invoice-col float-right text-md-right"
               >
                 <h5>{{ $t("Client Details") }}</h5>
                 <div v-if="allData.client">
