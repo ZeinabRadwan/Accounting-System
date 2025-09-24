@@ -2571,7 +2571,7 @@
   "Price": "السعر",
   "Total": "الإجمالي",
   "Discount": "الخصم",
-  "Total After Discount": "بعد الخصم",
+  "Total After Discount": "الاجمالي بعد الخصم",
   "VAT": "الضريبة",
   "Total with Tax": "الإجمالي مع الضريبة",
   "No Discount": "لا يوجد خصم",
@@ -2667,5 +2667,10 @@
   "An error occurred while sending the invoice to ZATCA" : "حدث خطأ أثناء إرسال الفاتورة إلى هيئة الزكاة والضريبة",
   "Failed to create journal entries" : "فشل في إنشاء المدفوعات",
   "Failed to create journal entries: " : "فشل في إنشاء المدفوعات: ",
+  "Actions" : "الإجراءات",
+  "download" : "تحميل",
+  "Product Discount" : "خصم الأصناف",
+  "Product VAT" : "ضريبة الأصناف",
+  "Qty" : "الكمية",
   "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }

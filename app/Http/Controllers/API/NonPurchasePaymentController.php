@@ -13,6 +13,8 @@ use App\Http\Resources\NonPurchasePaymentResource;
 use App\Http\Resources\NonPurchasePaymentListResource;
 use App\Http\Requests\NonPurchasePayment\StoreNonPurchasePaymentRequest;
 use App\Http\Requests\NonPurchasePayment\UpdateNonPurchasePaymentRequest;
+use App\Services\BusinessTransactionJournalService;
+use Illuminate\Support\Facades\Log;
 
 class NonPurchasePaymentController extends Controller
 {
@@ -72,6 +74,18 @@ class NonPurchasePaymentController extends Controller
                 'status' => $request->status,
                 'created_by' => $userId,
             ]);
+
+            // Load the supplier relationship with chart of account for journal entry creation
+            $NonPurchasePayment->load(['supplier.chartOfAccount']);
+
+            // Create journal entry for non-purchase payment
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalService->createNonPurchasePaymentJournal($NonPurchasePayment, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the payment creation
+                Log::error('Failed to create payment journal entry for non-purchase payment: ' . $e->getMessage());
+            }
 
             // add activity log
             activity()

@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'nonPurchasePayments.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="submit" class="btn btn-success" :form="'supplierNonPurchasePaymentEditForm'" title="Save">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -138,8 +141,8 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
-                  <v-button :loading="form.busy" class="btn btn-success">
+                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+                  <v-button :loading="form.busy" type="success">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
                   <button type="reset" class="btn btn-info" @click="form.reset()">
@@ -313,6 +316,11 @@ export default {
   gap: 10px;
 }
 
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
 
 
 .card {
@@ -327,6 +335,20 @@ export default {
   border-top: 1px solid #CED4DA;
   padding: 0 1.25rem 0.625rem 1.25rem;
   border-radius: 0 0 20px 20px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Search Input Background Override */
