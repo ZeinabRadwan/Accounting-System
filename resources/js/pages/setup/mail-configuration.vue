@@ -413,3 +413,75 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+/* Card styling to match ClientForm */
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+  background: #fff;
+}
+
+.card-header.setings-header {
+  background-color: #33a0d9;
+  color: #ffffff;
+  border-radius: 20px 20px 0 0;
+  padding: 22px 16px;
+  border-bottom: none;
+}
+
+/* Inputs styling to match ClientForm */
+.form-control {
+  background: #fff !important;
+}
+
+input[readonly] {
+  background-color: #f8f9fa !important;
+  color: #6c757d;
+  border-color: #CED4DA;
+  cursor: not-allowed;
+}
+
+.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
+}
+
+.required {
+  color: #dc3545;
+}
+
+/* Keep file inputs consistent if used */
+.custom-file-input:focus ~ .custom-file-label {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
+}
+
+.custom-file-label {
+  border-radius: 6px;
+  text-align: left !important;
+}
+
+[dir="rtl"] .custom-file-label {
+  text-align: left !important;
+}
+
+/* Project-standard buttons */
+.btn-primary {
+  background: #2AB930 !important;
+  color: #fff !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: #fff !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+</style>

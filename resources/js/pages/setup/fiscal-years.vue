@@ -15,7 +15,7 @@
                     <!-- /.card-header -->
                     <div class="card-body position-relative">
                         <div class="row">
-                            <div class="col-xl-8 col-8 float-right text-right">
+                            <div class="col-xl-8 col-8 float-right">
                                 <div class="btn-group c-w-100">
                                     <button
                                         class="btn btn-primary"

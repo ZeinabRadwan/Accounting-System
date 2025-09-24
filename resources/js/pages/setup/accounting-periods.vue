@@ -14,9 +14,9 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body position-relative">
-                        <!-- Filters -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
+                        <!-- Filters and Action Inline -->
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-6 col-lg-4 mb-2 mb-md-0">
                                 <select
                                     v-model="selectedFiscalYear"
                                     class="form-control"
@@ -32,9 +32,7 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-8 col-8 float-right text-right">
+                            <div class="col-md-6 col-lg-8 text-right">
                                 <div class="btn-group c-w-100">
                                     <button
                                         class="btn btn-primary"

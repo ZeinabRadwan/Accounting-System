@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-12 col-xl-3">
-                <SettingsSidebar />
+                    <SettingsSidebar />
             </div>
             <div class="col-12 col-xl-9">
                 <form
@@ -1838,5 +1838,29 @@ textarea.form-control:focus {
 
 [dir="rtl"] .custom-file-label {
     text-align: left !important;
+}
+
+// Primary button color
+.btn-primary {
+    background: #2AB930 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* Match page/card border look like fiscal-years */
+.card {
+    margin-top: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px 0px #00000014;
+    border: 1px solid #CED4DA;
+    overflow: visible;
+}
+
+.settings-sidebar-wrapper {
+    border: 1px solid #CED4DA;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px 0px #00000014;
+    background: #fff;
+    padding: 10px;
 }
 </style>
