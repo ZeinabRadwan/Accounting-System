@@ -655,7 +655,7 @@ export default {
           .then(() => {
             toast.fire({
               type: "success",
-              title: this.$t("Notification sent successfully."),
+              title: this.$t("Notification sent successfully"),
             });
           })
           .catch(() => {
