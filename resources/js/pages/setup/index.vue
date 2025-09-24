@@ -390,4 +390,9 @@ export default {
 .card-cta:hover i {
   color: inherit !important;
 }
+
+/* Ensure all setup cards have equal height without altering other styles */
+.set-up-page .card.card-large-icons {
+  min-height: 200px;
+}
 </style>
