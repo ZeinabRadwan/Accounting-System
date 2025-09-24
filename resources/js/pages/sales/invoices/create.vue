@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'invoices.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="submit" class="btn btn-success" :form="'invoiceCreateForm'" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -21,7 +21,7 @@
           
           <div class="card-body">
             <!-- Add the missing form element with submit handler -->
-            <form @submit.prevent="handleFormSubmit">
+            <form id="invoiceCreateForm" @submit.prevent="handleFormSubmit">
               <!-- Client Selection with Auto-Assign -->
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
@@ -419,31 +419,19 @@
                     :placeholder="$t('Enter payment terms')" @input="clearFieldError('paymentTerms')" />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
-                                 <div class="form-group col-md-4">
-                   <label for="addPayment">{{ $t("Add Payment?") }}</label>
-                   <div class="radio-group-horizontal">
-                     <div class="form-check">
-                       <input class="form-check-input" type="radio" name="addPayment" id="addPaymentYes" 
-                              value="1" v-model="form.addPayment" 
-                              @change="onAddPaymentChange"
-                              :class="{ 'is-invalid': form.errors.has('addPayment') }">
-                       <label class="form-check-label" for="addPaymentYes">
-                         {{ $t("Yes") }}
-                       </label>
-                     </div>
-                     <div class="form-check">
-                       <input class="form-check-input" type="radio" name="addPayment" id="addPaymentNo" 
-                              value="0" v-model="form.addPayment" 
-                              @change="onAddPaymentChange"
-                              :class="{ 'is-invalid': form.errors.has('addPayment') }">
-                       <label class="form-check-label" for="addPaymentNo">
-                         {{ $t("No") }}
-                       </label>
-                     </div>
-                   </div>
-
-                   <has-error :form="form" field="addPayment" />
-                 </div>
+                <div class="form-group col-md-4">
+                  <label for="addPayment">{{ $t("Add Payment?") }}</label>
+                  <select id="addPayment" 
+                          v-model="form.addPayment" 
+                          class="form-control"
+                          :class="{ 'is-invalid': form.errors.has('addPayment') }"
+                          @change="onAddPaymentChange">
+                    <option value="">{{ $t("Select") }}</option>
+                    <option value="1">{{ $t("Yes") }}</option>
+                    <option value="0">{{ $t("No") }}</option>
+                  </select>
+                  <has-error :form="form" field="addPayment" />
+                </div>
               </div>
               <div class="row" v-if="paymentFieldsVisible">
                 <div class="form-group col-md-4">
@@ -554,15 +542,27 @@
               </div>
 
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode"/>
-                  {{ $t("Send To Email") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendEmail" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+                  <span class="ml-3">{{ $t("Send To Email") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("Email not configured") }})
+                  </span>
                 </div>
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode"/>
-                  {{ $t("Send To SMS") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendSMS" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("SMS not configured") }})
+                  </span>
                 </div>
               </div>
               
@@ -675,6 +675,13 @@ export default {
 
       isAutoAssigningClient: false, // Add this back for the auto-assign button
       isAutoAssigningProduct: null, // Track which product is being auto-assigned
+      
+      // Communication configuration status
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true,
+      },
       
       // Reactive totals for the table
       reactiveTotals: {
@@ -802,10 +809,7 @@ export default {
 
     // Check payment fields visibility conditions
     paymentFieldsVisible() {
-      return this.form.addPayment == 1 && 
-             this.accounts && 
-             this.form.selectedProducts && 
-             this.form.selectedProducts.length > 0;
+      return this.form.addPayment == 1;
     },
     
     
@@ -930,6 +934,7 @@ export default {
     this.getProducts();
     this.getAccounts();
     this.getTaxes();
+    this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
   },
@@ -972,6 +977,26 @@ export default {
         }
       } catch (e) {}
     },
+
+    // Load communication configuration status
+    async loadCommunicationConfigStatus() {
+      try {
+        this.communicationConfig.loading = true;
+        
+        const response = await axios.get('/api/communication-config-status');
+        
+        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.sms_configured = response.data.sms_configured;
+        this.communicationConfig.loading = false;
+      } catch (error) {
+        console.error('Error loading communication config status:', error);
+        // Default to false if there's an error
+        this.communicationConfig.email_configured = false;
+        this.communicationConfig.sms_configured = false;
+        this.communicationConfig.loading = false;
+      }
+    },
+
     // get all clients
     async getClients(selectedClient = 'default') {
       try {
@@ -3077,7 +3102,7 @@ export default {
       this.$router.push({ name: 'accounts.index' });
     },
 
-    // Handle add payment radio button change
+    // Handle add payment change
     onAddPaymentChange() {
       this.clearFieldError('addPayment');
       
@@ -3097,15 +3122,6 @@ export default {
         this.clearFieldError('paidAmount');
         this.clearFieldError('chequeNo');
         this.clearFieldError('receiptNo');
-        
-        // Show helpful message about required payment fields
-        toast.fire({
-          type: "info",
-          title: this.$t("Payment Information Required"),
-          text: this.$t("Please select a bank account and enter the paid amount."),
-          timer: 4000,
-          timerProgressBar: true,
-        });
       }
     },
 
@@ -3574,5 +3590,6 @@ export default {
 
   border: none !important;
 }
+
 </style>
 

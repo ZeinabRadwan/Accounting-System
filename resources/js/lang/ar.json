@@ -2644,5 +2644,13 @@
   "Automatically assigned from account routing settings" : "يتم تعيينه تلقائياً حسب إعدادات توجيه الحسابات",
   "Account ID" : "رمز الحساب",
   "Product updated successfully" : "تم تحديث الصنف بنجاح",
+  "At least one product must be selected" : "يجب أن يتم اختيار على الأقل صنف واحد",
+  "Client Chart of Account ready" : "دليل الحسابات الخاص بالعميل جاهز",
+  "Please choose a bank account" : "يرجى اختيار حساب بنكي",
+  "Paid amount must be greater than 0": "يجب أن يكون المبلغ المدفوع أكبر من 0",
+  "Paid amount cannot exceed the net total" : "المبلغ المدفوع لا يمكن أن يتجاوز الإجمالي",
+  "Due Amount" :"المستحق",
+  "Bank Account needs Chart of Account" : "يحتاج الحساب البنكي إلى دليل الحسابات",
+  "Select" : "اختر",
   "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }

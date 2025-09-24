@@ -14,14 +14,14 @@
               <router-link :to="{ name: 'quotations.index' }" class="btn btn-info">
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </router-link>
-              <button type="button" class="btn btn-success ml-2" @click="saveTemporary" title="Save Temporarily">
+              <button type="submit" class="btn btn-success ml-2" :form="'quotationEditForm'" title="Save">
                 <i class="fas fa-save" />
               </button>
             </div>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="updateQuotation" @keydown="form.onKeydown($event)">
+          <form id="quotationEditForm" role="form" @submit.prevent="updateQuotation" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">

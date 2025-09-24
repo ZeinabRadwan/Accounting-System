@@ -17,7 +17,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="savePayment" @keydown="form.onKeydown($event)">
+          <form id="supplierPurchasePaymentCreateForm" role="form" @submit.prevent="savePayment" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row" v-if="items">
                 <div class="form-group col-md-12">
