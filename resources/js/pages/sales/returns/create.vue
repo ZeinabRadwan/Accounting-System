@@ -86,9 +86,9 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>{{ item.code | withPrefix(prefix) }}</td>
-                        <td>
+                        <td style="min-width: 50px;">{{ ++i }}</td>
+                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 200px;">
                           <router-link v-if="$can('product-view')" :to="{
                             name: 'products.show',
                             params: { slug: item.slug },
@@ -97,9 +97,9 @@
                           </router-link>
                           <span v-else>{{ item.name }}</span>
                         </td>
-                        <td>{{ item.qty }} {{ item.unit }}</td>
-                        <td>{{ item.totalReturnQty }} {{ item.unit }}</td>
-                        <td>
+                        <td style="min-width: 120px;">{{ item.qty }} {{ item.unit }}</td>
+                        <td style="min-width: 120px;">{{ item.totalReturnQty }} {{ item.unit }}</td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), i - 1)" />
@@ -112,15 +112,15 @@
                                 " />
                           </div>
                         </td>
-                        <td>{{ item.unitCost  }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td style="min-width: 100px;">{{ item.unitCost  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">
                           <span v-if="item.productDiscount && item.productDiscount > 0" class="badge badge-info">
                             {{ item.discountType === 'percentage' ? item.productDiscount + '%' : item.productDiscount  }} <span class="saudi-riyal">ê</span>
                           </span>
                           <span v-else class="text-muted">-</span>
                         </td>
-                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right">
+                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 120px;">
                           {{ item.returnTotal  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>

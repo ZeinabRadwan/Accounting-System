@@ -319,15 +319,27 @@
             <has-error :form="form" field="note" />
           </div>
           <div class="form-group col-12 d-flex flex-wrap">
-            <div class="pr-5">
-              <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode"/>
-              {{ $t("Send Email Notification") }}
+            <div class="pr-5 d-flex align-items-center">
+              <toggle-button 
+                v-model="form.isSendEmail" 
+                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+              <span class="ml-3">{{ $t("Send Email Notification") }}</span>
+              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                    class="ml-2 text-muted small">
+                ({{ $t("Email not configured") }})
+              </span>
             </div>
           </div>
           <div class="form-group col-12 d-flex flex-wrap">
-            <div class="pr-5">
-              <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode"/>
-              {{ $t("Send SMS Notification") }}
+            <div class="pr-5 d-flex align-items-center">
+              <toggle-button 
+                v-model="form.isSendSMS" 
+                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+              <span class="ml-3">{{ $t("Send SMS Notification") }}</span>
+              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                    class="ml-2 text-muted small">
+                ({{ $t("SMS not configured") }})
+              </span>
             </div>
           </div>
           <v-button :loading="form.busy" class="btn btn-success">
@@ -414,6 +426,13 @@ export default {
       isSendSMS: false,
     }),
     openActionIndex: null,
+    
+    // Communication configuration status
+    communicationConfig: {
+      email_configured: false,
+      sms_configured: false,
+      loading: true,
+    },
   }),
   filters: {
     startDate(val) {
@@ -454,6 +473,7 @@ export default {
   created() {
     this.getData();
     this.getAccounts();
+    this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.invoicePrefix;
   },
   mounted() {
@@ -467,6 +487,25 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    // Load communication configuration status
+    async loadCommunicationConfigStatus() {
+      try {
+        this.communicationConfig.loading = true;
+        
+        const response = await axios.get('/api/communication-config-status');
+        
+        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.sms_configured = response.data.sms_configured;
+        this.communicationConfig.loading = false;
+      } catch (error) {
+        console.error('Error loading communication config status:', error);
+        // Default to false if there's an error
+        this.communicationConfig.email_configured = false;
+        this.communicationConfig.sms_configured = false;
+        this.communicationConfig.loading = false;
+      }
+    },
+
     // get accounts
     async getAccounts() {
       const { data } = await axios.get(

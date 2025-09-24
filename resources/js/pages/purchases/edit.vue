@@ -119,9 +119,9 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i" class="text-center">
-                        <td>{{ ++i }}</td>
-                        <td>{{ item.code | withPrefix(prefix) }}</td>
-                        <td>
+                        <td style="min-width: 50px;">{{ ++i }}</td>
+                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 200px;">
                           <router-link v-if="$can('product-view')" :to="{
                             name: 'products.show',
                             params: { slug: item.slug },
@@ -130,7 +130,7 @@
                           </router-link>
                           <span v-else>{{ item.name }}</span>
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i - 1, 'decrement')" />
@@ -144,10 +144,10 @@
                               data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i - 1, 'increment')" />
                           </div>
                         </td>
-                        <td v-if="form.purchaseReturnData">
+                        <td v-if="form.purchaseReturnData" style="min-width: 100px;">
                           {{ item.returnQty }}
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="unitPrice"
@@ -163,8 +163,8 @@
                               @click="generateItemTotal(item.unitPrice, 'price', i - 1, 'increment')" />
                           </div>
                         </td>
-                        <td>{{ (item.unitPrice * item.qty)  }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td style="min-width: 120px;">{{ (item.unitPrice * item.qty)  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 180px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
@@ -187,8 +187,8 @@
                               @keyup="calculateProductDiscount(i - 1)" />
                           </div>
                         </td>
-                        <td>{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td style="min-width: 120px;">{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 150px;">
                           <select 
                             v-model="item.selectedVatRate" 
                             class="form-control form-control-sm"
@@ -203,16 +203,16 @@
                             </option>
                           </select>
                         </td>
-                        <td>
+                        <td style="min-width: 100px;">
                           <span class="form-control-plaintext form-control-sm text-center">
                             {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td v-if="form.purchaseReturnData">
+                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td v-if="form.purchaseReturnData" style="min-width: 100px;">
                           {{ item.totalReturn  }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" style="min-width: 80px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>

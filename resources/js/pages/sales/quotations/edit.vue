@@ -73,11 +73,11 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td class="text-center">
+                        <td style="min-width: 50px;">{{ ++i }}</td>
+                        <td class="text-center" style="min-width: 100px;">
                           {{ item.code | withPrefix(prefix) }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="min-width: 200px;">
                           <router-link :to="{
                             name: 'products.show',
                             params: { slug: item.slug },
@@ -85,7 +85,7 @@
                             {{ item.name }}
                           </router-link>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -119,7 +119,7 @@
                                 " />
                           </div>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="min-width: 140px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -151,16 +151,16 @@
                                 " />
                           </div>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="min-width: 120px;">
                           {{ item.unitCost  }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="min-width: 100px;">
                           {{ item.totalTax  }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="min-width: 120px;">
                           {{ item.totalPrice  }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" style="min-width: 80px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>

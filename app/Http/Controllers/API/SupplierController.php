@@ -1173,7 +1173,7 @@ ORDER BY `date`");
                 
                 return response()->json([
                     'success' => true,
-                    'message' => 'Chart of Account assigned successfully',
+                    'message' => __('Chart of Account assigned successfully'),
                     'chart_of_account_id' => $supplierData['chart_of_account_id']
                 ]);
             } else {

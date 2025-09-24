@@ -415,6 +415,13 @@ export default {
       isSendSMS: false,
     }),
     openActionIndex: null,
+    
+    // Communication configuration status
+    communicationConfig: {
+      email_configured: false,
+      sms_configured: false,
+      loading: true,
+    },
   }),
   filters: {
     startDate(val) {

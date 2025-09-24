@@ -2652,5 +2652,7 @@
   "Due Amount" :"المستحق",
   "Bank Account needs Chart of Account" : "يحتاج الحساب البنكي إلى دليل الحسابات",
   "Select" : "اختر",
+  "Chart of Account assigned successfully" : "تم تعيين دليل الحسابات بنجاح",
+  "Assigning...": "جاري التعيين...",
   "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }
