@@ -24,9 +24,9 @@ class TenantSeeder extends Seeder
             'company' => 'Codeshaper',
             'name' => 'John Doe',
             'domain' => 'john',
-            'email' => 'john@websoft.top',
+            'email' => 'john@arqam.sa',
             'email_verified_at' => now(),
-            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // websoft2024
+            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // arqam2024
             'ready' => false,
             // some other stuff, if you need. like cashier trials
             'trial_ends_at' => now()->addDays(1000),
@@ -55,9 +55,9 @@ class TenantSeeder extends Seeder
             'company' => 'Codeshaper',
             'name' => 'Jane Doe',
             'domain' => 'jane',
-            'email' => 'jane@websoft.top',
+            'email' => 'jane@arqam.sa',
             'email_verified_at' => now(),
-            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // websoft2024
+            'password' => '$2y$10$hdbEMjqcQPr6a4b0/mfWMOEqiG1uaEtWsYmLdf8vtchCrxksFYieK', // arqam2024
             'ready' => false,
             // some other stuff, if you need. like cashier trials
             'trial_ends_at' => now()->addDays(1000),

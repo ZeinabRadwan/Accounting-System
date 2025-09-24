@@ -62,7 +62,7 @@ return new class extends Migration
             [
                 'key' => 'zatca_solution_name',
                 'display_name' => 'Solution Name',
-                'value' => 'WebSoft',
+                'value' => 'arqam',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

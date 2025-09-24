@@ -173,7 +173,7 @@
                       name="zatca_solution_name"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_solution_name') }"
-                      placeholder="WebSoft"
+                      placeholder="Arqam"
                     />
                     <has-error :form="form" field="zatca_solution_name" />
                   </div>
@@ -394,7 +394,7 @@ export default {
       zatca_address: '',
       zatca_environment: 'developer',
       zatca_otp: '',
-      zatca_solution_name: 'WebSoft',
+      zatca_solution_name: 'Arqam',
       zatca_common_name: '',
       zatca_organizational_unit: '',
       zatca_invoice_type: 'both',

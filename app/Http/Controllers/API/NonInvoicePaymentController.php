@@ -288,6 +288,71 @@ class NonInvoicePaymentController extends Controller
     }
 
     /**
+     * Cancel the specified non-invoice payment.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel($slug)
+    {
+        try {
+            DB::beginTransaction();
+
+            $payment = NonInvoicePayment::where('slug', $slug)->first();
+
+            if (!$payment) {
+                return $this->responseWithError('Payment not found.');
+            }
+
+            // If already cancelled
+            if ($payment->status === 2) {
+                return $this->responseWithError('Payment is already cancelled.');
+            }
+
+            // Only active payments can be cancelled
+            if ($payment->status !== 1) {
+                return $this->responseWithError('Only active payments can be cancelled.');
+            }
+
+            // Update payment status to cancelled
+            $payment->update([
+                'status' => 2,
+            ]);
+
+            // Delete related journal entries created for this non-invoice payment
+            $journalEntries = \App\Models\JournalEntry::where('source_type', \App\Models\NonInvoicePayment::class)
+                ->where('source_id', $payment->id)
+                ->get();
+
+            foreach ($journalEntries as $journalEntry) {
+                $journalEntry->lines()->delete();
+                $journalEntry->delete();
+            }
+
+            // Add activity log
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($payment)
+                ->withProperties([
+                    'name' => "",
+                    'code' => '[' . ($payment->client->name ?? '') . ']',
+                    'event' => 'Cancel',
+                    'slug' => $payment->slug,
+                    'routeName' => ''
+                ])
+                ->useLog('Client Non Invoice Payment Cancelled')
+                ->log('Client Non Invoice Payment Cancelled');
+
+            DB::commit();
+
+            return $this->responseWithSuccess('Payment cancelled successfully');
+        } catch (Exception $e) {
+            DB::rollback();
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
      * search resource from storage.
      *
      * @param  int  $id

@@ -70,27 +70,27 @@ class CentralSettingSeeder extends Seeder
                 // new setting for landing page
                 // hero section
                 'hero_tagline' => 'Our Platform, Your Business',
-                'hero_title' => 'websoft SaaS',
-                'hero_description' => 'websoft SaaS is a multitenancy-based SaaS application that enables tenants to manage their expenses, purchases, sales, payments, accounting, inventory, and many more.',
+                'hero_title' => 'Arqam',
+                'hero_description' => 'Arqam is a multitenancy-based SaaS application that enables tenants to manage their expenses, purchases, sales, payments, accounting, inventory, and many more.',
                 'hero_demo_button_text' => 'Try Demo',
                 'hero_demo_button_link' => '/admin/login',
                 'hero_get_started_button_text' => 'Get Started',
                 'hero_get_started_button_link' => '/register',
 
                 // about us section
-                'about_us_tagline' => 'About websoft SaaS',
+                'about_us_tagline' => 'About Arqam',
                 'about_us_title' => 'Ultimate Sales, Inventory, Accounting Management SaaS Application',
-                'about_us_description' => 'websoft SaaS is an all in one management system that helps business owners to manage and operate their businesses. websoft SaaS is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more.',
+                'about_us_description' => 'Arqam is an all in one management system that helps business owners to manage and operate their businesses. Arqam is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more.',
 
                 // why us section
-                'why_us_tagline' => 'Why websoft SaaS?',
+                'why_us_tagline' => 'Why Arqam?',
                 'why_us_title' => 'Manage All Your Businesses in one place',
-                'why_us_description' => 'websoft SaaS is one of the best Sales, Inventory, and Accounting Management software available in the market. websoft SaaS is specially built to grow small businesses by adding digitalization to their business.',
+                'why_us_description' => 'Arqam is one of the best Sales, Inventory, and Accounting Management software available in the market. Arqam is specially built to grow small businesses by adding digitalization to their business.',
 
                 // business start section
                 'business_start_section_tagline' => 'Give It a Try',
                 'business_start_section_title' => 'Move Your Business & Grow With Us',
-                'business_start_section_description' => 'We understand that ideal software can assist you to grow your business on a larger scale. That\'s why websoft SaaS can be a perfect solution for you. If you are already using any software then you can easily move to websoftSaaS. So don\'t hesitate to give it a try today!',
+                'business_start_section_description' => 'We understand that ideal software can assist you to grow your business on a larger scale. That\'s why arqam SaaS can be a perfect solution for you. If you are already using any software then you can easily move to arqam. So don\'t hesitate to give it a try today!',
                 'business_start_support_list' => json_encode([
                     '14 Days Free Support',
                     '24 Hours Support',
@@ -99,7 +99,7 @@ class CentralSettingSeeder extends Seeder
                 // features section
                 'features_section_tagline' => 'Awesome Features',
                 'features_section_title' => 'Discover Our Awesome Features',
-                'features_section_description' => 'websoft is an all-in-one management system manage expenses, purchases, sales, payments, accounting, loans, assets, payroll, and many more..',
+                'features_section_description' => 'Arqam is an all-in-one management system manage expenses, purchases, sales, payments, accounting, loans, assets, payroll, and many more..',
 
                 // all feature section
                 'all_features_section_tagline' => 'Core Modules',
@@ -107,7 +107,7 @@ class CentralSettingSeeder extends Seeder
 
                 // get started box
                 'get_started_box_title' => 'Managing Business Has Never Been So Easy.',
-                'get_started_box_description' => 'websoft is an all-in-one management system manage expenses, purchases, sales, payments, accounting.',
+                'get_started_box_description' => 'Arqam is an all-in-one management system manage expenses, purchases, sales, payments, accounting.',
                 'get_started_box_button_text' => 'Get Started',
                 'get_started_box_button_link' => '/register',
 
@@ -124,28 +124,28 @@ class CentralSettingSeeder extends Seeder
                 'testimonial_section_title' => 'What Our Clients Say',
 
                 // newsletter section
-                'newsletter_section_title' => 'Try websoft SaaS',
-                'newsletter_section_description' => 'Access all websoft SaaS for 14 days, then decide which plan best suits your business.',
+                'newsletter_section_title' => 'Try Arqam',
+                'newsletter_section_description' => 'Access all Arqam for 14 days, then decide which plan best suits your business.',
 
                 // custom html section
                 'custom_html' => <<<HTML
                 <!-- Primary Meta Tags -->
-                <meta name="title" content="websoft SaaS - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
-                <meta name="description" content="websoft SaaS is an all in one management system that helps business owners to manage and operate their businesses. websoft SaaS is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. websoft SaaS is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
+                <meta name="title" content="Arqam - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
+                <meta name="description" content="Arqam is an all in one management system that helps business owners to manage and operate their businesses. Arqam is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. Arqam is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
     
                 <!-- Open Graph / Facebook -->
                 <meta property="og:type" content="website">
-                <meta property="og:url" content="https://websoft.top/">
-                <meta property="og:title" content="websoft SaaS - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
-                <meta property="og:description" content="websoft SaaS is an all in one management system that helps business owners to manage and operate their businesses. websoft SaaS is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. websoft SaaS is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
+                <meta property="og:url" content="https://arqam.sa/">
+                <meta property="og:title" content="Arqam - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
+                <meta property="og:description" content="Arqam is an all in one management system that helps business owners to manage and operate their businesses. Arqam is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. Arqam is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
                 <meta property="og:image" content="https://i.ibb.co/fDC0L8h/2-1.png">
     
                 <!-- Twitter -->
                 <meta name="twitter:card" content="summary">
                 <meta name="twitter:card" content="summary_large_image">
-                <meta property="twitter:url" content="https://websoft.top/">
-                <meta property="twitter:title" content="websoft SaaS - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
-                <meta property="twitter:description" content="websoft SaaS is an all in one management system that helps business owners to manage and operate their businesses. websoft SaaS is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. websoft SaaS is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
+                <meta property="twitter:url" content="https://arqam.sa/">
+                <meta property="twitter:title" content="Arqam - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
+                <meta property="twitter:description" content="Arqam is an all in one management system that helps business owners to manage and operate their businesses. Arqam is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. Arqam is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
                 <meta property="twitter:image" content="https://i.ibb.co/fDC0L8h/2-1.png">
                 HTML,
             ]);

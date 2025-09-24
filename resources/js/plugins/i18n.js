@@ -6,6 +6,7 @@ Vue.use(VueI18n)
 
 const i18n = new VueI18n({
   locale: 'en',
+  fallbackLocale: 'en',
   messages: {}
 })
 
@@ -13,10 +14,16 @@ const i18n = new VueI18n({
  * @param {String} locale
  */
 export async function loadMessages (locale) {
-  if (Object.keys(i18n.getLocaleMessage(locale)).length === 0) {
-    const messages = await import(/* webpackChunkName: '' */ `~/lang/${locale}`)
-    i18n.setLocaleMessage(locale, messages)
-  }
+  const loadedMessages = i18n.getLocaleMessage(locale)
+  const mod = await import(/* webpackChunkName: '' */ `~/lang/${locale}`)
+  const incomingMessages = mod && (mod.default || mod)
+
+  // Merge to ensure new keys added during development are picked up
+  const nextMessages = Object.keys(loadedMessages).length
+    ? { ...loadedMessages, ...incomingMessages }
+    : incomingMessages
+
+  i18n.setLocaleMessage(locale, nextMessages)
 
   if (i18n.locale !== locale) {
     i18n.locale = locale

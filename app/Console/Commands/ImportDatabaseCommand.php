@@ -24,7 +24,7 @@ class ImportDatabaseCommand extends Command
 
     public function getFilePath()
     {
-        return storage_path().'//import/'.'websoft.sql';
+        return storage_path().'//import/'.'arqam.sql';
     }
 
     /**

@@ -250,7 +250,7 @@
                   </router-link>
                 </li>
                 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="https://docs.codeshaper.tech/websoft/" class="nav-link" target="__blank">
                     <i class="nav-icon fas fa-book" />
                     <p>{{ $t("Documentation") }}</p>
@@ -262,7 +262,7 @@
                     <i class="nav-icon fas fa-ticket-alt" />
                     <p>{{ $t("Support") }}</p>
                   </a>
-                </li>
+                </li> -->
               </ul>
           </li>
 

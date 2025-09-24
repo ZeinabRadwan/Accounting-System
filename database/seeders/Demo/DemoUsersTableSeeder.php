@@ -45,9 +45,9 @@ class DemoUsersTableSeeder extends Seeder
              2=> [
                 'id' => 3,
                 'name' => 'Sales',
-                'email' => 'sales@websoft.top',
+                'email' => 'sales@arqam.sa',
                 'email_verified_at' => null,
-                'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // websoft2024
+                'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // arqam
                 'remember_token' => null,
                 'account_role' => 0,
                 'is_active' => 1,
@@ -58,9 +58,9 @@ class DemoUsersTableSeeder extends Seeder
             3 => [
                 'id' => 4,
                 'name' => 'Manager',
-                'email' => 'manager@websoft.top',
+                'email' => 'manager@arqam.sa',
                 'email_verified_at' => null,
-                'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // websoft2024
+                'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // arqam
                 'remember_token' => null,
                 'account_role' => 0,
                 'is_active' => 1,
@@ -71,9 +71,9 @@ class DemoUsersTableSeeder extends Seeder
             4 => [
                 'id' => 5,
                 'name' => 'Alamin',
-                'email' => 'developer@websoft.top',
+                'email' => 'developer@arqam.sa',
                 'email_verified_at' => null,
-                'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // websoft2024
+                'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // arqam
                 'remember_token' => null,
                 'account_role' => 1,
                 'is_active' => 1,

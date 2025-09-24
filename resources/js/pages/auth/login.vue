@@ -76,13 +76,13 @@
                           <tr>
                             <th>Owner</th>
                             <th>Central Admin</th>
-                            <td>superadmin@websoft.top</td>
-                            <td>websoft2024</td>
+                            <td>superadmin@arqam.sa</td>
+                            <td>arqam2024</td>
                             <td scope="row">
                               <button v-tooltip="$t('Central Admin')" class="btn" @click="
                       loginCredential(
-                        'superadmin@websoft.top',
-                        'websoft2024'
+                        'superadmin@arqam.sa',
+                        'arqam2024'
                       )
                       ">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -98,13 +98,13 @@
                           <tr v-if="checkSubdomain('john')">
                             <th scope="row">Tenant(Subscriber)</th>
                             <th scope="row">Admin</th>
-                            <td>john@websoft.top</td>
-                            <td>websoft2024</td>
+                            <td>john@arqam.sa</td>
+                            <td>arqam2024</td>
                             <td scope="row">
                               <button v-tooltip="$t('Central Admin')" class="btn" @click="
                       loginCredential(
-                        'john@websoft.top',
-                        'websoft2024'
+                        'john@arqam.sa',
+                        'arqam2024'
                       )
                       ">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -118,13 +118,13 @@
                           <tr v-if="checkSubdomain('jane')">
                             <th scope="row">Tenant(Subscriber)</th>
                             <th scope="row">Admin</th>
-                            <td>jane@websoft.top</td>
-                            <td>websoft2024</td>
+                            <td>jane@arqam.sa</td>
+                            <td>arqam2024</td>
                             <td scope="row">
                               <button v-tooltip="$t('Central Admin')" class="btn" @click="
                       loginCredential(
-                        'jane@websoft.top',
-                        'websoft2024'
+                        'jane@arqam.sa',
+                        'arqam2024'
                       )
                       ">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -138,13 +138,13 @@
                           <tr>
                             <th scope="row">Tenant Employee</th>
                             <th scope="row">Manager</th>
-                            <td>manager@websoft.top</td>
-                            <td>websoft2024</td>
+                            <td>manager@arqam.sa</td>
+                            <td>arqam2024</td>
                             <td scope="row">
                               <button v-tooltip="$t('Login as super manager')" class="btn" @click="
                       loginCredential(
-                        'manager@websoft.top',
-                        'websoft2024'
+                        'manager@arqam.sa',
+                        'arqam2024'
                       )
                       ">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -158,13 +158,13 @@
                           <tr>
                             <th scope="row">Tenant Employee</th>
                             <th scope="row">Salesman</th>
-                            <td>sales@websoft.top</td>
-                            <td>websoft2024</td>
+                            <td>sales@arqam.sa</td>
+                            <td>arqam2024</td>
                             <td scope="row">
                               <button v-tooltip="$t('Login as super salesman')" class="btn" @click="
                       loginCredential(
-                        'sales@websoft.top',
-                        'websoft2024'
+                        'sales@arqam.sa',
+                        'arqam2024'
                       )
                       ">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"

@@ -911,6 +911,7 @@ import VueBarcode from "vue-barcode";
 import sound from "../../../audio/beep.wav";
 import ClientCreateModal from "~/components/ClientCreateModal";
 import ProductCreateModal from "~/components/ProductCreateModal";
+import html2canvas from "html2canvas";
 
 export default {
   middleware: ["auth"],
@@ -1014,7 +1015,7 @@ export default {
           if (this.clickCount == 1) {
             this.addPayment();
           } else {
-            this.printInvoice();
+            // intentionally do not auto-print; user will click Print in the receipt modal
           }
         }
       }
@@ -1584,21 +1585,56 @@ export default {
       this.getProducts();
 
       this.showSmallInvoiceModal = true;
-      setTimeout(() => this.printInvoice(), 500);
     },
 
     // print invoice
-    printInvoice() {
-      var divContents = document.getElementById("invoice-POS").innerHTML;
-      var a = window.open("", "", "height=500, width=500");
-      a.document.write(
-        '<link rel="stylesheet" href="/css/pos_print.css"><html>'
-      );
-      a.document.write("<body >");
-      a.document.write(divContents);
-      a.document.write("</body></html>");
-      a.document.close();
-      a.print();
+    async printInvoice() {
+      try {
+        const element = document.getElementById("invoice-POS");
+        if (!element) return;
+
+        // Ensure fonts/images are rendered before snapshot
+        await new Promise((resolve) => setTimeout(resolve, 50));
+
+        const canvas = await html2canvas(element, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: "#ffffff",
+          logging: false,
+          windowWidth: element.scrollWidth,
+          windowHeight: element.scrollHeight,
+        });
+        const imgData = canvas.toDataURL("image/png");
+
+        const printWindow = window.open("", "_blank");
+        if (!printWindow) return;
+
+        // Minimal document with only the snapshot image
+        printWindow.document.write(
+          `<!DOCTYPE html><html><head><meta charset="utf-8"/>
+            <title>Receipt</title>
+            <style>
+              html, body { margin: 0; padding: 0; background: #fff; }
+              img { display: block; margin: 0 auto; max-width: 100%; }
+              @page { size: auto; margin: 10mm; }
+            </style>
+          </head><body>
+            <img id="receipt-img" src="${imgData}"/>
+            <script>
+              const img = document.getElementById('receipt-img');
+              img.onload = function(){
+                window.focus();
+                window.print();
+                setTimeout(() => window.close(), 200);
+              };
+            <\/script>
+          </body></html>`
+        );
+        printWindow.document.close();
+      } catch (err) {
+        console.error("Print failed", err);
+      }
     },
     // again default settings
     againDefaultSettings() {

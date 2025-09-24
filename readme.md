@@ -1,8 +1,8 @@
-# websoft SAAS
+# Arqam
 
-websoft SAAS - Mulitenancy Based Ultimate Sales, Inventory, Accounting Management System
+Arqam SAAS - Mulitenancy Based Ultimate Sales, Inventory, Accounting Management System
 
-> websoft is an all-in-one management system that enables you to manage expenses, purchases, sales, payments, accounting, loans, assets, payroll, and many more.
+> Arqam is an all-in-one management system that enables you to manage expenses, purchases, sales, payments, accounting, loans, assets, payroll, and many more.
 
 ## Setup Instructions
 
@@ -17,8 +17,8 @@ cp .env.example .env
 > **REQUIRED FIELDS [DEV]**
 
 ```dotenv
-APP_URL=http://websoft-saas.test
-CENTRAL_DOMAIN=websoft-saas.test
+APP_URL=http://arqam.sa
+CENTRAL_DOMAIN=arqam.sa
 
 STRIPE_KEY=required
 STRIPE_SECRET=required
@@ -28,7 +28,7 @@ STRIPE_SECRET=required
 > **REQUIRED FIELDS [PROD]**
 
 ```dotenv
-MAIL_FROM_ADDRESS=noreply@websoft-saas.test
+MAIL_FROM_ADDRESS=noreply@arqam.sa
 ```
 
 > **INSTALL COMMANDS [DEV]**

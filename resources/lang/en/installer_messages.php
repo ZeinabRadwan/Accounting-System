@@ -7,7 +7,7 @@ return [
      * Shared translations.
      *
      */
-    'title' => 'websoft SaaS Installer',
+    'title' => 'Arqam Installer',
     'next' => 'Next Step',
     'back' => 'Previous',
     'finish' => 'Install',
@@ -40,7 +40,7 @@ return [
      */
     'welcome' => [
         'templateTitle' => 'Welcome',
-        'title' => 'websoft SaaS Installer',
+        'title' => 'Arqam Installer',
         'message' => 'Easy Installation and Setup Wizard.',
         'next' => 'Check Requirements',
     ],
