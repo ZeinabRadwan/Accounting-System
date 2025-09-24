@@ -8,10 +8,13 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'purchasePayments.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
+                <button type="submit" class="btn btn-success" :form="'supplierPurchasePaymentCreateForm'" title="Save">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
@@ -24,7 +27,7 @@
                   <label for="supplier">{{ $t("Supplier")
                   }}<span class="required">*</span></label>
                   <v-select v-model="form.supplier" :options="items" label="name"
-                    :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier" placeholder="Select a supplier"
+                    :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier" :placeholder="$t('Select a supplier')"
                     @input="getPurchases" />
                   <has-error :form="form" field="supplier" />
                 </div>
@@ -172,15 +175,27 @@
                 <has-error :form="form" field="note" />
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode" />
-                  {{ $t("Send Email Notification") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendEmail" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+                  <span class="ml-3">{{ $t("Send To Email") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("Email not configured") }})
+                  </span>
                 </div>
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode" />
-                  {{ $t("Send SMS Notification") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendSMS" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("SMS not configured") }})
+                  </span>
                 </div>
               </div>
             </div>
@@ -188,11 +203,11 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
-                  <v-button :loading="form.busy" class="btn btn-success">
+                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+                  <v-button :loading="form.busy" type="success">
                     <i class="fas fa-save" /> {{ $t("Save") }}
                   </v-button>
-                  <button type="reset" class="btn btn-info" @click="form.reset()">
+                  <button type="reset" class="btn btn-info ml-2" @click="form.reset()">
                     <i class="fas fa-power-off" /> {{ $t("Reset") }}
                   </button>
                 </div>
@@ -258,6 +273,12 @@ export default {
     }),
     accounts: "",
     purchases: "",
+    // Communication configuration status
+    communicationConfig: {
+      email_configured: false,
+      sms_configured: false,
+      loading: true,
+    },
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -265,6 +286,7 @@ export default {
   created() {
     this.getSuppliers();
     this.getAccounts();
+    this.loadCommunicationConfigStatus();
   },
   methods: {
     // get all suppliers
@@ -272,6 +294,22 @@ export default {
       await this.$store.dispatch("operations/allData", {
         path: "/api/all-suppliers",
       });
+    },
+
+    // Load communication configuration status
+    async loadCommunicationConfigStatus() {
+      try {
+        this.communicationConfig.loading = true;
+        const response = await axios.get('/api/communication-config-status');
+        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.sms_configured = response.data.sms_configured;
+        this.communicationConfig.loading = false;
+      } catch (error) {
+        console.error('Error loading communication config status:', error);
+        this.communicationConfig.email_configured = false;
+        this.communicationConfig.sms_configured = false;
+        this.communicationConfig.loading = false;
+      }
     },
 
     // get purchases
@@ -395,6 +433,11 @@ export default {
   gap: 10px;
 }
 
+/* Header buttons styling */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
 
 
 .card {
@@ -420,6 +463,20 @@ export default {
   border-top: 1px solid #CED4DA;
   padding: 0 1.25rem 0.625rem 1.25rem;
   border-radius: 0 0 20px 20px;
+}
+
+/* Footer buttons styling */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
 }
 
 /* Form Control Styling */

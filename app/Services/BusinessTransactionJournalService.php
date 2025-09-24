@@ -615,11 +615,11 @@ class BusinessTransactionJournalService
             $bankAccount = null;
             $cashbookAccount = null;
             $purchasePayment = $purchase->purchasePayments()->latest()->first();
-            if ($purchasePayment && $purchasePayment->account_id) {
-                $account = \App\Models\Account::find($purchasePayment->account_id);
-                if ($account && $account->chartOfAccount) {
-                    $cashbookAccount = $account;
-                    $bankAccount = $account->chartOfAccount;
+            if ($purchasePayment && $purchasePayment->transaction_id) {
+                $transaction = \App\Models\AccountTransaction::find($purchasePayment->transaction_id);
+                if ($transaction && $transaction->account) {
+                    $cashbookAccount = $transaction->account;
+                    $bankAccount = $transaction->account->chartOfAccount;
                     
                     // Validate that the cashbook account is connected to a chart of account
                     if (!$cashbookAccount->isChartOfAccountConnected()) {

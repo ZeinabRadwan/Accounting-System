@@ -2655,5 +2655,17 @@
   "Select" : "اختر",
   "Chart of Account assigned successfully" : "تم تعيين دليل الحسابات بنجاح",
   "Assigning...": "جاري التعيين...",
+  "send" : "إرسال",
+  "Send Invoice" : "إرسال الفاتورة",
+  "Send Invoice to ZATCA" : "إرسال الفاتورة إلى هيئة الزكاة والضريبة",
+  "Do you want to send this invoice to ZATCA?" : "هل تريد إرسال هذه الفاتورة إلى هيئة الزكاة والضريبة؟",
+  "Sending..." :"جاري الإرسال...",
+  "Please wait while we send the invoice to ZATCA" : "يرجى الإنتظار أثناء إرسال الفاتورة إلى هيئة الزكاة والضريبة",
+  "Invoice has been sent to ZATCA and journal entries have been created." : "تم إرسال الفاتورة إلى هيئة الزكاة والضريبة وتم إنشاء المدفوعات.",
+  "Sent Successfully!" : "تم الإرسال بنجاح!",
+  "Failed to send invoice to ZATCA" : "فشل في إرسال الفاتورة إلى هيئة الزكاة والضريبة",
+  "An error occurred while sending the invoice to ZATCA" : "حدث خطأ أثناء إرسال الفاتورة إلى هيئة الزكاة والضريبة",
+  "Failed to create journal entries" : "فشل في إنشاء المدفوعات",
+  "Failed to create journal entries: " : "فشل في إنشاء المدفوعات: ",
   "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }
