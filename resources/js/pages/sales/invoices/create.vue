@@ -147,11 +147,11 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}-${item.totalPrice}-${item.totalAfterDiscount}`">
-                        <td>{{ index + 1 }}</td>
-                        <td>
+                        <td style="min-width: 50px;">{{ index + 1 }}</td>
+                        <td style="min-width: 100px;">
                           {{ item.code | withPrefix(prefix) }}
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="d-flex align-items-center">
                             <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
                               " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2 mr-2">
@@ -176,7 +176,7 @@
                             </button>
                           </div>
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -208,7 +208,7 @@
                             {{ form.errors.get(`selectedProducts.${index}.qty`) }}
                           </div>
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="unitPrice" @click="
@@ -238,8 +238,8 @@
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ item.totalBeforeDiscount  }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td style="min-width: 120px;">{{ item.totalBeforeDiscount  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 180px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
@@ -268,8 +268,8 @@
                             <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ item.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td style="min-width: 120px;">{{ item.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 150px;">
                           <select 
                             v-model="item.selectedVatRate" 
                             class="form-control form-control-sm"
@@ -288,13 +288,13 @@
                             {{ form.errors.get(`selectedProducts.${index}.selectedVatRate`) }}
                           </div>
                         </td>
-                        <td>
+                        <td style="min-width: 100px;">
                           <span class="form-control-plaintext form-control-sm text-center">
                             {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right">
+                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 80px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>

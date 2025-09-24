@@ -112,9 +112,9 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>{{ item.code | withPrefix(prefix) }}</td>
-                        <td>
+                        <td style="min-width: 50px;">{{ ++i }}</td>
+                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 200px;">
                           <div class="d-flex align-items-center">
                             <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
                               " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2 mr-2">
@@ -139,7 +139,7 @@
                             </button>
                           </div>
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -175,7 +175,7 @@
                                 " />
                           </div>
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -207,8 +207,8 @@
                                 " />
                           </div>
                         </td>
-                        <td class="no-currency">{{ formatToTwoDecimals(item.unitPrice * item.qty) }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.unitPrice * item.qty) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 180px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
@@ -236,8 +236,8 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td class="no-currency">{{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 150px;">
                           <select 
                             v-model="item.selectedVatRate" 
                             class="form-control form-control-sm"
@@ -256,14 +256,14 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.selectedVatRate`) }}
                           </div>
                         </td>
-                        <td class="no-currency">
+                        <td class="no-currency" style="min-width: 100px;">
                           <span class="form-control-plaintext form-control-sm text-center no-currency">
                             {{ formatToTwoDecimals(item.productTax) }}
                           </span>
                           <span class="saudi-riyal">ê</span>
                         </td>
-                        <td class="no-currency">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right">
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 80px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>

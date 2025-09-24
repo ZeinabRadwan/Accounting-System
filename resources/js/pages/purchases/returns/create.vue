@@ -102,9 +102,9 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>{{ item.code | withPrefix(prefix) }}</td>
-                        <td>
+                        <td style="min-width: 50px;">{{ ++i }}</td>
+                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 200px;">
                           <router-link v-if="$can('product-view')" :to="{
                             name: 'products.show',
                             params: { slug: item.slug },
@@ -113,9 +113,9 @@
                           </router-link>
                           <span v-else>{{ item.name }}</span>
                         </td>
-                        <td>{{ item.purchaseQty }} {{ item.unit }}</td>
-                        <td>{{ item.totalReturnQty }} {{ item.unit }}</td>
-                        <td>
+                        <td style="min-width: 120px;">{{ item.purchaseQty }} {{ item.unit }}</td>
+                        <td style="min-width: 120px;">{{ item.totalReturnQty }} {{ item.unit }}</td>
+                        <td style="min-width: 140px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -136,9 +136,9 @@
                                 " />
                           </div>
                         </td>
-                        <td>{{ item.purchasePrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ item.returnTotal  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">{{ item.purchasePrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">{{ item.returnTotal  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr v-if="form.purchase">
                         <td colspan="7" class="text-right">

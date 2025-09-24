@@ -119,9 +119,9 @@
                       </thead>
                       <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>{{ item.code | withPrefix(prefix) }}</td>
-                        <td>
+                        <td style="min-width: 50px;">{{ ++i }}</td>
+                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 200px;">
                           <router-link v-if="$can('product-view')" :to="{
                             name: 'products.show',
                             params: { slug: item.slug },
@@ -130,7 +130,7 @@
                           </router-link>
                           <span v-else>{{ item.name }}</span>
                         </td>
-                        <td>
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -168,7 +168,7 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.qty`) }}
                           </div>
                           </td>
-                          <td>
+                          <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="unitPrice" @click="
@@ -205,8 +205,8 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
                           </div>
                         </td>
-                        <td>{{ ((item.originalPrice || item.unitPrice) * item.qty) }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td style="min-width: 120px;">{{ ((item.originalPrice || item.unitPrice) * item.qty) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 180px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
@@ -235,8 +235,8 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td>{{ getTotalAfterDiscount(item)  }} <span class="saudi-riyal">ê</span></td>
-                        <td>
+                        <td style="min-width: 120px;">{{ getTotalAfterDiscount(item)  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 150px;">
                           <select 
                             v-model="item.selectedVatRate" 
                             class="form-control form-control-sm"
@@ -255,13 +255,13 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.selectedVatRate`) }}
                           </div>
                           </td>
-                        <td>
+                        <td style="min-width: 100px;">
                           <span class="form-control-plaintext form-control-sm text-center">
                             {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td>{{ getTotalWithVAT(item)  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right">
+                        <td style="min-width: 120px;">{{ getTotalWithVAT(item)  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 80px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                             </button>
@@ -396,15 +396,27 @@
                 </div>
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendEmail" :disabled="isDemoMode"/>
-                  {{ $t("Send To Email") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendEmail" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+                  <span class="ml-3">{{ $t("Send To Email") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("Email not configured") }})
+                  </span>
                 </div>
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5">
-                  <toggle-button v-model="form.isSendSMS" :disabled="isDemoMode"/>
-                  {{ $t("Send To SMS") }}
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendSMS" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("SMS not configured") }})
+                  </span>
                 </div>
               </div>
             </form>
@@ -491,6 +503,13 @@ export default {
     }),
     products: "",
     taxes: "",
+    
+    // Communication configuration status
+    communicationConfig: {
+      email_configured: false,
+      sms_configured: false,
+      loading: true,
+    },
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -561,12 +580,32 @@ export default {
     this.getSuppliers();
     this.getProducts();
     this.getTaxes();
+    this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
   },
   mounted() {
     this.loadTemporaryData()
   },
   methods: {
+    // Load communication configuration status
+    async loadCommunicationConfigStatus() {
+      try {
+        this.communicationConfig.loading = true;
+        
+        const response = await axios.get('/api/communication-config-status');
+        
+        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.sms_configured = response.data.sms_configured;
+        this.communicationConfig.loading = false;
+      } catch (error) {
+        console.error('Error loading communication config status:', error);
+        // Default to false if there's an error
+        this.communicationConfig.email_configured = false;
+        this.communicationConfig.sms_configured = false;
+        this.communicationConfig.loading = false;
+      }
+    },
+
     // get all local suppliers
     async getSuppliers() {
       // Store the current supplier ID if one is selected
