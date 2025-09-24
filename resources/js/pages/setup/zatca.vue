@@ -536,12 +536,37 @@ export default {
   margin: 0 auto;
 }
 
+/* Match card look from general.vue */
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+  overflow: visible;
+}
+
+.inner-card {
+  margin-top: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+  background: #fff;
+}
+
+.inner-card .card-header {
+  background-color: #33a0d9;
+  color: #ffffff;
+  border-radius: 20px 20px 0 0;
+  padding: 22px 16px;
+  border-bottom: none;
+}
+
 .wizard-steps {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
   padding: 1rem 0;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #CED4DA;
 }
 
 .step {
@@ -559,7 +584,7 @@ export default {
   left: 100%;
   width: 4rem;
   height: 2px;
-  background-color: #e9ecef;
+  background-color: #CED4DA;
   z-index: 1;
 }
 
@@ -583,13 +608,13 @@ export default {
 }
 
 .step.active .step-number {
-  background-color: #dc3545;
-  color: white;
+  background-color: #33a0d9;
+  color: #ffffff;
 }
 
 .step.completed .step-number {
   background-color: #28a745;
-  color: white;
+  color: #ffffff;
 }
 
 .step-title {
@@ -600,7 +625,7 @@ export default {
 }
 
 .step.active .step-title {
-  color: #dc3545;
+  color: #33a0d9;
   font-weight: 600;
 }
 
@@ -613,13 +638,13 @@ export default {
 }
 
 .step-header {
-  color: #dc3545;
+  color: #33a0d9;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
 .step-description {
-  color: #6c757d;
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
@@ -627,7 +652,7 @@ export default {
   text-align: center;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid #CED4DA;
 }
 
 .compliance-tests {
@@ -698,7 +723,7 @@ export default {
 }
 
 .integration-details {
-  background-color: white;
+  background-color: #ffffff;
   padding: 1rem;
   border-radius: 4px;
   border: 1px solid #c3e6cb;
@@ -726,16 +751,18 @@ export default {
   margin-bottom: 0.5rem;
 }
 
+/* Inputs styling to match general.vue */
 .form-control {
   border-radius: 6px;
   border: 1px solid #ced4da;
   padding: 0.75rem;
   font-size: 0.9rem;
+  background: #fff !important;
 }
 
 .form-control:focus {
-  border-color: #dc3545;
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
 
 .btn-lg {
@@ -744,14 +771,11 @@ export default {
   border-radius: 6px;
 }
 
+/* Primary button color to match general.vue */
 .btn-primary {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.btn-primary:hover {
-  background-color: #c82333;
-  border-color: #bd2130;
+  background: #2AB930 !important;
+  color: #fff !important;
+  border: none !important;
 }
 
 .btn-success {

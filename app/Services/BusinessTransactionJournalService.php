@@ -929,6 +929,83 @@ class BusinessTransactionJournalService
     }
 
     /**
+     * Create journal entry for supplier non-purchase payment
+     */
+    public function createNonPurchasePaymentJournal(\App\Models\NonPurchasePayment $nonPurchasePayment, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Validate supplier has chart of account
+            if (!$nonPurchasePayment->supplier || !$nonPurchasePayment->supplier->isChartOfAccountConnected()) {
+                throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
+            }
+
+            // Get supplier-specific accounts payable account
+            $supplierAccountsPayableAccount = $nonPurchasePayment->supplier->chartOfAccount;
+            
+            if (!$supplierAccountsPayableAccount) {
+                throw new Exception('Supplier Chart of Account not found.');
+            }
+
+            // Try to get the bank account from the non-purchase payment transaction
+            $bankAccount = null;
+            $cashbookAccount = null;
+            if ($nonPurchasePayment->transaction_id) {
+                $transaction = \App\Models\AccountTransaction::find($nonPurchasePayment->transaction_id);
+                if ($transaction && $transaction->account) {
+                    $cashbookAccount = $transaction->account;
+                    $bankAccount = $transaction->account->chartOfAccount;
+                    
+                    // Validate that the cashbook account is connected to a chart of account
+                    if (!$cashbookAccount->isChartOfAccountConnected()) {
+                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+                    }
+                }
+            }
+            
+            // If no specific bank account found, throw error - we need a specific account
+            if (!$bankAccount) {
+                throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
+            }
+
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => $nonPurchasePayment->date,
+                'reference' => 'NPP-' . $nonPurchasePayment->id . '-PAY-' . time(),
+                'description' => 'Supplier Non-Purchase Payment',
+                'total_debit' => $nonPurchasePayment->amount,
+                'total_credit' => $nonPurchasePayment->amount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => \App\Models\NonPurchasePayment::class,
+                'source_id' => $nonPurchasePayment->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
+            ]);
+
+            // Create journal entry lines
+            // Line 1: Debit to Supplier's Accounts Payable (reducing liability)
+            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $nonPurchasePayment->amount, 0, 1, 'Reduction in Accounts Payable');
+            // Line 2: Credit to Bank Account (Cash/Bank payment)
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonPurchasePayment->amount, 2, 'Cash/Bank payment for non-purchase');
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
      * Create a journal entry line
      */
     private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description): JournalEntryLine

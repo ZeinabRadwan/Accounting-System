@@ -23,3 +23,39 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(359deg); }
 }
+
+// Shared header button group spacing
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+// Header buttons wrapper (top area controls under breadcrumbs)
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+// Shared footer buttons layout and spacing
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
+// Apply consistent spacing/layout to common button containers across pages
+.card-header .btn-group {
+  margin-bottom: 15px;
+}
+
+.card-footer .form-group.row.display-per-page {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}

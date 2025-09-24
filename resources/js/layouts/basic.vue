@@ -1,5 +1,6 @@
 <template>
   <div>
+    <GlobalSaveButton />
     <child />
   </div>
 </template>
@@ -7,6 +8,15 @@
 <script>
 export default {
   name: 'BasicLayout',
+}
+</script>
+
+<script>
+import GlobalSaveButton from '~/components/GlobalSaveButton'
+
+export default {
+  name: 'BasicLayout',
+  components: { GlobalSaveButton },
 }
 </script>
 
