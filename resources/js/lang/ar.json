@@ -2672,5 +2672,11 @@
   "Product Discount" : "خصم الأصناف",
   "Product VAT" : "ضريبة الأصناف",
   "Qty" : "الكمية",
+  "Filters" : "الفلاتر",
+  "Sub Chart of Account" : "دليل الحسابات الفرعي",
+  "Fiscal Year" : "السنة المالية",
+  "Accounting Period" : "الفترة المحاسبية",
+  "Date Range" : "التاريخ",
+  "Select Sub Account" : "اختر الحساب الفرعي",
   "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }
