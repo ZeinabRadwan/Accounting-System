@@ -1,30 +1,39 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-
-
+  <div class="mb-50">
     <div class="row">
-      <div class="col-md-3">
-        <card :title="$t('Billing Settings')" class="settings-card">
-          <ul class="nav flex-column nav-pills m-1">
-            <li v-for="tab in tabs" :key="tab.route" class="nav-item">
-              <router-link :to="{ name: tab.route }" class="nav-link" active-class="active" v-if="$can(tab.permission)">
-                <i class="mr-2" :class="tab.icon"></i>
-                {{ tab.name }}
-              </router-link>
-            </li>
-          </ul>
-        </card>
-      </div>
-      <div class="col-md-9">
-        <transition name="fade" mode="out-in">
-          <router-view />
-        </transition>
+      <div class="col-lg-12">
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
+          </div>
+          <div class="card-body position-relative">
+            <div class="row">
+              <div class="col-md-3">
+                <card :title="$t('Billing Settings')" class="settings-card">
+                  <ul class="nav flex-column nav-pills m-1">
+                    <li v-for="tab in tabs" :key="tab.route" class="nav-item">
+                      <router-link :to="{ name: tab.route }" class="nav-link" active-class="active" v-if="$can(tab.permission)">
+                        <i class="mr-2" :class="tab.icon"></i>
+                        {{ tab.name }}
+                      </router-link>
+                    </li>
+                  </ul>
+                </card>
+              </div>
+              <div class="col-md-9">
+                <transition name="fade" mode="out-in">
+                  <router-view />
+                </transition>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -32,7 +41,7 @@ export default {
   middleware: ['auth', 'check-permissions'],
 
   metaInfo() {
-    return { title: this.$t('Update Profile') }
+    return { title: this.$t('Billing Settings') }
   },
 
   data: () => ({
@@ -83,6 +92,31 @@ export default {
 </script>
 
 <style>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
 .settings-card .card-header {
   border-bottom: 1px solid#ddd;
 

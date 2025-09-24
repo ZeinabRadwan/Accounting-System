@@ -1,8 +1,5 @@
 <template>
   <div class="mb-50">
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
     <div class="row">
       <div
         class="col-lg-12"
@@ -15,6 +12,9 @@
       >
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
             <div class="col-xl-4 col-4">
               <h3 class="card-title">
                 {{ $t("Activity log") }}
@@ -388,3 +388,30 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+</style>

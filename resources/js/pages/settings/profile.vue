@@ -1,166 +1,172 @@
 <template>
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">{{ $t('Update your profile') }}</h3>
-        </div>
-        <div class="card-body">
-            <form
-                class="form-horizontal"
-                @submit.prevent="updateProfile"
-                @keydown="form.onKeydown($event)"
-            >
-                <div class="form-group row">
-                    <label for="profile_image" class="col-sm-2 col-form-label text-right"
-                        >{{ $t('Profile Image') }}</label
-                    >
-                    <div class="col-sm-10">
-                        <div class="d-flex align-items-center">
-                            <div class="mr-3">
-                                <img
-                                    v-if="profileImagePreview"
-                                    :src="profileImagePreview"
-                                    alt="Profile Preview"
-                                    class="rounded-circle"
-                                    style="width: 80px; height: 80px; object-fit: cover;"
-                                />
-                                <div
-                                    v-else
-                                    class="rounded-circle bg-light d-flex align-items-center justify-content-center"
-                                    style="width: 80px; height: 80px;"
+    <div class="mb-50">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card custom-card w-100">
+                    <div class="card-header setings-header">
+                        <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+                    </div>
+                    <div class="card-body position-relative">
+                        <form
+                            class="form-horizontal"
+                            @submit.prevent="updateProfile"
+                            @keydown="form.onKeydown($event)"
+                        >
+                            <div class="form-group row">
+                                <label for="profile_image" class="col-sm-2 col-form-label text-right"
+                                    >{{ $t('Profile Image') }}</label
                                 >
-                                    <i class="fas fa-user fa-2x text-muted"></i>
+                                <div class="col-sm-10">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-3">
+                                            <img
+                                                v-if="profileImagePreview"
+                                                :src="profileImagePreview"
+                                                alt="Profile Preview"
+                                                class="rounded-circle"
+                                                style="width: 80px; height: 80px; object-fit: cover;"
+                                            />
+                                            <div
+                                                v-else
+                                                class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                                                style="width: 80px; height: 80px;"
+                                            >
+                                                <i class="fas fa-user fa-2x text-muted"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input
+                                                type="file"
+                                                ref="profileImageInput"
+                                                @change="handleImageChange"
+                                                accept="image/*"
+                                                class="form-control-file"
+                                                :class="{ 'is-invalid': form.errors.has('profile_image') }"
+                                                id="profile_image"
+                                            />
+                                            <small class="form-text text-muted">
+                                                {{ $t('Select an image (JPEG, PNG, JPG, GIF) - Max 2MB') }}
+                                            </small>
+                                            <has-error :form="form" field="profile_image" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <input
-                                    type="file"
-                                    ref="profileImageInput"
-                                    @change="handleImageChange"
-                                    accept="image/*"
-                                    class="form-control-file"
-                                    :class="{ 'is-invalid': form.errors.has('profile_image') }"
-                                    id="profile_image"
-                                />
-                                <small class="form-text text-muted">
-                                    {{ $t('Select an image (JPEG, PNG, JPG, GIF) - Max 2MB') }}
-                                </small>
-                                <has-error :form="form" field="profile_image" />
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-2 col-form-label text-right"
+                                    >{{ $t('Name') }}
+                                    <span class="required">*</span></label
+                                >
+                                <div class="col-sm-10">
+                                    <input
+                                        type="text"
+                                        v-model="form.name"
+                                        class="form-control"
+                                        :class="{ 'is-invalid': form.errors.has('name') }"
+                                        id="name"
+                                        :placeholder="$t('Enter a name')"
+                                    />
+                                    <has-error :form="form" field="name" />
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group row">
+                                <label
+                                    for="email"
+                                    class="col-sm-2 col-form-label text-right"
+                                    >{{ $t('Email') }}
+                                    <span class="required">*</span></label
+                                >
+                                <div class="col-sm-10">
+                                    <input
+                                        type="email"
+                                        v-model="form.email"
+                                        class="form-control"
+                                        :class="{ 'is-invalid': form.errors.has('email') }"
+                                        id="email"
+                                        readonly
+                                        :placeholder="$t('Enter your email address')"
+                                    />
+                                    <has-error :form="form" field="email" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label
+                                    for="currentPassword"
+                                    class="col-sm-2 col-form-label text-right"
+                                    >{{ $t('Current Password') }}</label
+                                >
+                                <div class="col-sm-10">
+                                    <input
+                                        type="password"
+                                        v-model="form.currentPassword"
+                                        class="form-control"
+                                        :class="{
+                                            'is-invalid':
+                                                form.errors.has('currentPassword'),
+                                        }"
+                                        id="currentPassword"
+                                        :placeholder="$t('Current Password')"
+                                    />
+                                    <has-error :form="form" field="currentPassword" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label
+                                    for="newPassword"
+                                    class="col-sm-2 col-form-label text-right"
+                                    >{{ $t('New Password') }}</label
+                                >
+                                <div class="col-sm-10">
+                                    <input
+                                        type="password"
+                                        v-model="form.newPassword"
+                                        class="form-control"
+                                        :class="{
+                                            'is-invalid': form.errors.has('newPassword'),
+                                        }"
+                                        id="newPassword"
+                                        :placeholder="
+                                            $t('Enter new password')
+                                        "
+                                    />
+                                    <has-error :form="form" field="newPassword" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label
+                                    for="confirmPassword"
+                                    class="col-sm-2 col-form-label text-right"
+                                    >{{ $t('Confirm Password') }}</label
+                                >
+                                <div class="col-sm-10">
+                                    <input
+                                        type="password"
+                                        v-model="form.confirmPassword"
+                                        class="form-control"
+                                        :class="{
+                                            'is-invalid':
+                                                form.errors.has('confirmPassword'),
+                                        }"
+                                        id="confirmPassword"
+                                        :placeholder="
+                                            $t('Enter confirm password')
+                                        "
+                                    />
+                                    <has-error :form="form" field="confirmPassword" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <v-button :loading="form.busy" class="btn btn-success">
+                                        <i class="fas fa-edit" />
+                                        {{ $t('Save changes') }}
+                                    </v-button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label text-right"
-                        >{{ $t('Name') }}
-                        <span class="required">*</span></label
-                    >
-                    <div class="col-sm-10">
-                        <input
-                            type="text"
-                            v-model="form.name"
-                            class="form-control"
-                            :class="{ 'is-invalid': form.errors.has('name') }"
-                            id="name"
-                            :placeholder="$t('Enter a name')"
-                        />
-                        <has-error :form="form" field="name" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label
-                        for="email"
-                        class="col-sm-2 col-form-label text-right"
-                        >{{ $t('Email') }}
-                        <span class="required">*</span></label
-                    >
-                    <div class="col-sm-10">
-                        <input
-                            type="email"
-                            v-model="form.email"
-                            class="form-control"
-                            :class="{ 'is-invalid': form.errors.has('email') }"
-                            id="email"
-                            readonly
-                            :placeholder="$t('Enter your email address')"
-                        />
-                        <has-error :form="form" field="email" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label
-                        for="currentPassword"
-                        class="col-sm-2 col-form-label text-right"
-                        >{{ $t('Current Password') }}</label
-                    >
-                    <div class="col-sm-10">
-                        <input
-                            type="password"
-                            v-model="form.currentPassword"
-                            class="form-control"
-                            :class="{
-                                'is-invalid':
-                                    form.errors.has('currentPassword'),
-                            }"
-                            id="currentPassword"
-                            :placeholder="$t('Current Password')"
-                        />
-                        <has-error :form="form" field="currentPassword" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label
-                        for="newPassword"
-                        class="col-sm-2 col-form-label text-right"
-                        >{{ $t('New Password') }}</label
-                    >
-                    <div class="col-sm-10">
-                        <input
-                            type="password"
-                            v-model="form.newPassword"
-                            class="form-control"
-                            :class="{
-                                'is-invalid': form.errors.has('newPassword'),
-                            }"
-                            id="newPassword"
-                            :placeholder="
-                                $t('Enter new password')
-                            "
-                        />
-                        <has-error :form="form" field="newPassword" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label
-                        for="confirmPassword"
-                        class="col-sm-2 col-form-label text-right"
-                        >{{ $t('Confirm Password') }}</label
-                    >
-                    <div class="col-sm-10">
-                        <input
-                            type="password"
-                            v-model="form.confirmPassword"
-                            class="form-control"
-                            :class="{
-                                'is-invalid':
-                                    form.errors.has('confirmPassword'),
-                            }"
-                            id="confirmPassword"
-                            :placeholder="
-                                $t('Enter confirm password')
-                            "
-                        />
-                        <has-error :form="form" field="confirmPassword" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
-                        <v-button :loading="form.busy" class="btn btn-success">
-                            <i class="fas fa-edit" />
-                            {{ $t('Save changes') }}
-                        </v-button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </template>
@@ -303,4 +309,77 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card {
+    margin-top: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px 0px #00000014;
+    border: 1px solid #CED4DA;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid #CED4DA;
+    padding: 1.25rem 1.25rem 0 1.25rem;
+    border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-footer {
+    background-color: white;
+    border-top: 1px solid #CED4DA;
+    padding: 0 1.25rem 0.625rem 1.25rem;
+    border-radius: 0 0 20px 20px;
+}
+
+/* Button styles to match invoices page */
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+</style>

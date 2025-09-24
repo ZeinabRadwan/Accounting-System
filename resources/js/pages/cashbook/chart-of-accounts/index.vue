@@ -36,7 +36,7 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
@@ -86,7 +86,7 @@
                   >
                     <i class="fas fa-print"></i>
                   </a>
-                  <router-link v-if="$can('chart-of-account-tree')" :to="{ name: 'chart-of-accounts.tree' }" class="btn tree-btn" v-tooltip="$t('Tree View')" title="Tree View">
+                  <router-link v-if="$can('chart-of-account-tree')" :to="{ name: 'chart-of-accounts.tree' }" class="btn tree-btn" v-tooltip="$t('Tree View')" :title="$t('Tree View')">
                     <i class="fas fa-tree" />
                   </router-link>
                   <router-link v-if="$can('chart-of-account-create')" :to="{ name: 'chart-of-accounts.create' }" class="btn btn-primary">

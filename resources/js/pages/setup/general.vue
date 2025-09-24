@@ -1773,10 +1773,70 @@ export default {
 
 <style lang="scss" scoped>
 .inner-card {
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px 0px #00000014;
+    border: 1px solid #CED4DA;
+    background: #fff;
 }
 
 .inner-card .card-header {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #33a0d9;
+    color: #ffffff;
+    border-radius: 20px 20px 0 0;
+    padding: 22px 16px;
+    border-bottom: none;
+}
+
+/* Inputs styling to match ClientForm */
+.form-control {
+    background: #fff !important;
+}
+
+input[readonly] {
+    background-color: #f8f9fa !important;
+    color: #6c757d;
+    border-color: #CED4DA;
+    cursor: not-allowed;
+}
+
+.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+    border-color: #33a0d9;
+    box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
+}
+
+/* v-select tweaks */
+.v-select .vs__dropdown-toggle {
+    border-radius: 6px;
+    border-color: #CED4DA;
+}
+
+.v-select .vs__dropdown-toggle:focus,
+.v-select .vs__dropdown-toggle.vs__open {
+    border-color: #33a0d9;
+    box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
+}
+
+.v-select .vs__search,
+.v-select .vs__selected,
+.v-select .vs__dropdown-menu {
+    font-size: 0.95rem;
+}
+
+/* Custom file input */
+.custom-file-input:focus ~ .custom-file-label {
+    border-color: #33a0d9;
+    box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
+}
+
+.custom-file-label {
+    border-radius: 6px;
+    text-align: left !important;
+}
+
+[dir="rtl"] .custom-file-label {
+    text-align: left !important;
 }
 </style>

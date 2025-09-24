@@ -15,7 +15,7 @@
         <div class="col-xl-8 col-8 float-right text-right">
           <div class="btn-group c-w-100">
           
-            <a @click="refreshTree()" href="#" v-tooltip="'Refresh'" class="btn refresh-btn">
+            <a @click="refreshTree()" href="#" v-tooltip="$t('Refresh')" class="btn refresh-btn">
               <i class="fas fa-sync"></i>
             </a>
             <router-link v-if="$can('chart-of-account-list')" :to="{ name: 'chart-of-accounts.index' }" class="btn tree-btn">
@@ -216,7 +216,7 @@
                           </button>
                           <div class="action-menu" v-if="openActionIndex === child.id">
                             <div class="action-menu-header">
-                              <span class="action-menu-title">Actions</span>
+                              <span class="action-menu-title">{{ $t('Actions') }}</span>
                               <button type="button" class="action-menu-close" @click="toggleAction(child.id)">
                                 <i class="fas fa-times"></i>
                               </button>
