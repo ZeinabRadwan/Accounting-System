@@ -941,14 +941,13 @@ textarea.form-control {
 }
 
 .btn-outline-custom:hover {
-  background-color: #1B3C71;
-  color: #fff;
-  border-color: #1B3C71;
+  background-color: #072350;
+  border-color: #072350
 }
 
 .btn-custom-active {
-  background-color: #fff;
-  color: #1B3C71;
+  background-color: #1B3C71;
+  color: #fff;
   border-color: #1B3C71;
 }
 
