@@ -3802,6 +3802,10 @@ input[type="submit"].btn-block {
     margin-bottom: 0;
     padding-left: 0;
 }
+html[dir="rtl"] .navbar-nav {
+    padding-right: 0;
+    padding-left: unset; 
+}
 .navbar-nav .nav-link {
     padding-left: 0;
     padding-right: 0;

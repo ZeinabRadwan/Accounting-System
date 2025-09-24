@@ -3,14 +3,19 @@
     <!-- breadcrumbs Start -->
     <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
     <!-- breadcrumbs end -->
-    
+
     <!-- Header with temporary save button -->
     <div class="row mb-3">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
             <div class="float-right header-buttons">
-              <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+              <button
+                type="button"
+                class="btn btn-success"
+                @click="saveTemporary"
+                title="Save Temporarily"
+              >
                 <i class="fas fa-save" />
               </button>
             </div>
@@ -26,9 +31,15 @@
           <div class="card-body-l p-0">
             <div class="form-group pl-3 pt-3 pr-3">
               <div class="d-flex w-100">
-                <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name"
-                  :class="{ 'is-invalid': form.errors.has('client') }" name="client"
-                  :placeholder="$t('Select a client')" />
+                <v-select
+                  class="flex-grow-1"
+                  v-model="form.client"
+                  :options="clients"
+                  label="name"
+                  :class="{ 'is-invalid': form.errors.has('client') }"
+                  name="client"
+                  :placeholder="$t('Select a client')"
+                />
                 <ClientCreateModal @reloadClients="getClients('latest')">
                   <div class="input-group-text create-btn">
                     <i class="fas fa-solid fa-plus-circle"></i>
@@ -60,127 +71,256 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody v-if="form.selectedProducts && form.selectedProducts.length > 0  
-                  ">
+                <tbody
+                  v-if="
+                    form.selectedProducts && form.selectedProducts.length > 0
+                  "
+                >
                   <tr v-for="(product, i) in form.selectedProducts" :key="i">
-                    <td class="table-product-title" v-tooltip="product.name">{{ product.name }}</td>
+                    <td class="table-product-title" v-tooltip="product.name">
+                      {{ product.name }}
+                    </td>
                     <td>
-                      <div class="input-group custom-qty-input table-price-counter-nowrap">
-                        <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                          data-field="unitPrice" @click="
+                      <div
+                        class="input-group custom-qty-input table-price-counter-nowrap"
+                      >
+                        <input
+                          type="button"
+                          value="-"
+                          class="button-minus icon-shape icon-sm btn-danger"
+                          data-field="unitPrice"
+                          @click="
                             generateItemTotal(
                               product.unitPrice,
                               'price',
                               i,
                               'decrement'
                             )
-                            " />
-                        <input type="unitPrice" step="any" :id="`unitPrice-${i}`" :value="product.unitPrice"
-                          name="unitPrice" class="quantity-field border-0 incrementor" required min="0" @change="
+                          "
+                        />
+                        <input
+                          type="unitPrice"
+                          step="any"
+                          :id="`unitPrice-${i}`"
+                          :value="product.unitPrice"
+                          name="unitPrice"
+                          class="quantity-field border-0 incrementor"
+                          required
+                          min="0"
+                          @change="
                             generateItemTotal(
                               $event.target.value,
                               'price',
                               i,
                               ''
                             )
-                            " @keyup="generateItemTotal($event.target.value, 'price', i, '')" />
+                          "
+                          @keyup="
+                            generateItemTotal(
+                              $event.target.value,
+                              'price',
+                              i,
+                              ''
+                            )
+                          "
+                        />
 
-                        <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                          data-field="unitPrice" @click="
+                        <input
+                          type="button"
+                          value="+"
+                          class="button-plus icon-shape icon-sm btn-primary"
+                          data-field="unitPrice"
+                          @click="
                             generateItemTotal(
                               product.unitPrice,
                               'price',
                               i,
                               'increment'
                             )
-                            " />
+                          "
+                        />
                       </div>
                     </td>
                     <td>
                       <div class="d-flex custom-qty-input">
-                        <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                          data-field="quantity" @click="
+                        <input
+                          type="button"
+                          value="-"
+                          class="button-minus icon-shape icon-sm btn-danger"
+                          data-field="quantity"
+                          @click="
                             generateItemTotal(
                               product.qty,
                               'qty',
                               i,
                               'decrement'
                             )
-                            " />
-                        <input type="number" step="any" :id="`Qty-${i}`" :value="product.qty" name="quantity"
-                          class="quantity-field border-0 incrementor" required min="1" :max="product.inventoryCount"
+                          "
+                        />
+                        <input
+                          type="number"
+                          step="any"
+                          :id="`Qty-${i}`"
+                          :value="product.qty"
+                          name="quantity"
+                          class="quantity-field border-0 incrementor"
+                          required
+                          min="1"
+                          :max="product.inventoryCount"
                           @change="
                             generateItemTotal($event.target.value, 'qty', i, '')
-                            " @keyup="generateItemTotal($event.target.value, 'qty', i, '')" placeholder="Quantity" />
-                        <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                          data-field="quantity" @click="
+                          "
+                          @keyup="
+                            generateItemTotal($event.target.value, 'qty', i, '')
+                          "
+                          placeholder="Quantity"
+                        />
+                        <input
+                          type="button"
+                          value="+"
+                          class="button-plus icon-shape icon-sm btn-primary"
+                          data-field="quantity"
+                          @click="
                             generateItemTotal(
                               product.qty,
                               'qty',
                               i,
                               'increment'
                             )
-                            " />
+                          "
+                        />
                       </div>
-                     </td>
-                     <td>{{ (product.unitPrice * product.qty)  }} <span class="saudi-riyal">ê</span></td>
-                     <td>
-                       <div class="d-flex align-items-center gap-1">
-                        <select 
-                          v-model="product.discountType" 
-                          class="form-control form-control-sm" 
-                          style="width: 70px; flex-shrink: 0;"
-                          :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.discountType`) }"
-                          @change="calculateProductDiscount(i)">
+                    </td>
+                    <td>
+                      {{ product.unitPrice * product.qty }}
+                      <span class="saudi-riyal">ê</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-1">
+                        <select
+                          v-model="product.discountType"
+                          class="form-control form-control-sm"
+                          style="width: 70px; flex-shrink: 0"
+                          :class="{
+                            'is-invalid': form.errors.has(
+                              `selectedProducts.${i}.discountType`
+                            ),
+                          }"
+                          @change="calculateProductDiscount(i)"
+                        >
                           <option value="fixed">{{ $t("Fixed") }}</option>
                           <option value="percentage">{{ $t("%") }}</option>
                         </select>
-                        <input 
-                          type="number" 
-                          v-model="product.discount" 
-                          class="form-control form-control-sm" 
-                          style="width: 90px; flex-shrink: 0;"
-                          step="any" 
-                          min="0" 
-                          :max="product.discountType == 'percentage' ? 100 : (product.unitPrice * product.qty)"
-                          :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.discount`) }"
+                        <input
+                          type="number"
+                          v-model="product.discount"
+                          class="form-control form-control-sm"
+                          style="width: 90px; flex-shrink: 0"
+                          step="any"
+                          min="0"
+                          :max="
+                            product.discountType == 'percentage'
+                              ? 100
+                              : product.unitPrice * product.qty
+                          "
+                          :class="{
+                            'is-invalid': form.errors.has(
+                              `selectedProducts.${i}.discount`
+                            ),
+                          }"
                           placeholder="0"
                           @change="calculateProductDiscount(i)"
-                          @keyup="calculateProductDiscount(i)" />
+                          @keyup="calculateProductDiscount(i)"
+                        />
                       </div>
-                      <div v-if="form.errors.has(`selectedProducts.${i}.discount`) || form.errors.has(`selectedProducts.${i}.discountType`)" class="invalid-feedback d-block">
-                        <span v-if="form.errors.has(`selectedProducts.${i}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${i}.discount`) }}</span>
-                        <span v-if="form.errors.has(`selectedProducts.${i}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i}.discountType`) }}</span>
+                      <div
+                        v-if="
+                          form.errors.has(`selectedProducts.${i}.discount`) ||
+                          form.errors.has(`selectedProducts.${i}.discountType`)
+                        "
+                        class="invalid-feedback d-block"
+                      >
+                        <span
+                          v-if="
+                            form.errors.has(`selectedProducts.${i}.discount`)
+                          "
+                          class="d-block"
+                          >{{
+                            form.errors.get(`selectedProducts.${i}.discount`)
+                          }}</span
+                        >
+                        <span
+                          v-if="
+                            form.errors.has(
+                              `selectedProducts.${i}.discountType`
+                            )
+                          "
+                          class="d-block"
+                          >{{
+                            form.errors.get(
+                              `selectedProducts.${i}.discountType`
+                            )
+                          }}</span
+                        >
                       </div>
                     </td>
-                    <td>{{ ((product.unitPrice * product.qty) - (product.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
                     <td>
-                      <select 
-                        v-model="product.selectedVatRate" 
+                      {{
+                        product.unitPrice * product.qty -
+                        (product.discountAmount || 0)
+                      }}
+                      <span class="saudi-riyal">ê</span>
+                    </td>
+                    <td>
+                      <select
+                        v-model="product.selectedVatRate"
                         class="form-control form-control-sm"
-                        :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.selectedVatRate`) }"
+                        :class="{
+                          'is-invalid': form.errors.has(
+                            `selectedProducts.${i}.selectedVatRate`
+                          ),
+                        }"
                         @change="calculateProductVat(i)"
-                        style="min-width: 120px;">
-                        <option value="">{{ $t('Select VAT') }}</option>
-                        <option 
-                          v-for="tax in taxes" 
-                          :key="tax.id" 
-                          :value="tax">
+                        style="min-width: 120px"
+                      >
+                        <option value="">{{ $t("Select VAT") }}</option>
+                        <option v-for="tax in taxes" :key="tax.id" :value="tax">
                           {{ tax.code }} ({{ tax.rate }}%)
                         </option>
                       </select>
-                      <div v-if="form.errors.has(`selectedProducts.${i}.selectedVatRate`)" class="invalid-feedback d-block">
-                        {{ form.errors.get(`selectedProducts.${i}.selectedVatRate`) }}
+                      <div
+                        v-if="
+                          form.errors.has(
+                            `selectedProducts.${i}.selectedVatRate`
+                          )
+                        "
+                        class="invalid-feedback d-block"
+                      >
+                        {{
+                          form.errors.get(
+                            `selectedProducts.${i}.selectedVatRate`
+                          )
+                        }}
                       </div>
                     </td>
                     <td>
-                      <span class="form-control-plaintext form-control-sm text-center">
-                        {{ product.productTax  }} <span class="saudi-riyal">ê</span>
+                      <span
+                        class="form-control-plaintext form-control-sm text-center"
+                      >
+                        {{ product.productTax }}
+                        <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
-                    <td>{{ product.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                    <td>
+                      {{ product.totalPrice }}
+                      <span class="saudi-riyal">ê</span>
+                    </td>
                     <td class="text-right">
-                      <button type="button" class="btn btn-danger" @click="removeItem(product)">
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        @click="removeItem(product)"
+                      >
                         <i class="fas fa-times"></i>
                       </button>
                     </td>
@@ -200,25 +340,42 @@
           <div>
             <div class="row pt-3 pl-3 pr-3">
               <div class="form-group col-md-6 col-lg-6">
-                <label for="discountType">{{
-                  $t("Discount Type")
-                }}</label>
-                <select id="discountType" v-model="form.discountType" step="any" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum"
-                  @keyup="calculateSum">
+                <label for="discountType">{{ $t("Discount Type") }}</label>
+                <select
+                  id="discountType"
+                  v-model="form.discountType"
+                  step="any"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('discountType') }"
+                  name="discountType"
+                  @change="calculateSum"
+                  @keyup="calculateSum"
+                >
                   <option value="0">{{ $t("Fixed") }}</option>
                   <option value="1">{{ $t("Percentage") }}(%)</option>
                 </select>
                 <has-error :form="form" field="discountType" />
               </div>
               <div class="form-group col-md-6 col-lg-6">
-                <label for="discount">{{ $t("Discount") }}
-                  <span v-if="form.discountType == 1">(%)</span></label>
+                <label for="discount"
+                  >{{ $t("Discount") }}
+                  <span v-if="form.discountType == 1">(%)</span></label
+                >
                 <div class="input-group">
-                  <input id="discount" v-model="form.discount" type="number" step="any" min="1"
-                    :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                    :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
+                  <input
+                    id="discount"
+                    v-model="form.discount"
+                    type="number"
+                    step="any"
+                    min="1"
+                    :max="form.discountType == 1 ? 100 : form.subTotal"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('discount') }"
+                    name="discount"
+                    :placeholder="$t('Enter discount')"
+                    @change="calculateSum"
+                    @keyup="calculateSum"
+                  />
                   <div v-if="form.discountType == 1" class="input-group-append">
                     <span class="input-group-text">{{
                       form.totalDiscount | withCurrency
@@ -228,27 +385,44 @@
                 <has-error :form="form" field="discount" />
               </div>
               <div class="form-group col-md-6 col-lg-6">
-                <label for="transportCost">{{
-                  $t("Transport Cost")
-                }}</label>
-                <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                  :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                <label for="transportCost">{{ $t("Transport Cost") }}</label>
+                <input
+                  id="transportCost"
+                  v-model="form.transportCost"
+                  type="number"
+                  step="any"
+                  min="1"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('transportCost') }"
+                  name="transportCost"
+                  :placeholder="$t('Enter transport cost')"
+                  @change="calculateSum"
+                  @keyup="calculateSum"
+                />
                 <has-error :form="form" field="transportCost" />
               </div>
 
               <div v-if="taxes" class="form-group col-md-6 col-lg-6">
                 <label for="orderTax">{{ $t("Invoice Tax") }} </label>
                 <div class="input-group select-input-group">
-                  <v-select class="w-85" v-model="form.orderTax" :options="taxes" label="code"
-                    :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax"
-                    :placeholder="$t('Select a tax type')" @input="calculateSum" />
+                  <v-select
+                    class="w-85"
+                    v-model="form.orderTax"
+                    :options="taxes"
+                    label="code"
+                    :class="{ 'is-invalid': form.errors.has('orderTax') }"
+                    name="orderTax"
+                    :placeholder="$t('Select a tax type')"
+                    @input="calculateSum"
+                  />
                   <div class="input-group-prepend input-c-margin">
                     <div class="input-group-text">
                       <span v-if="form.orderTax">{{
                         form.totalTax | withCurrency
                       }}</span>
-                      <span v-else>{{ 0  }} <span class="saudi-riyal">ê</span></span>
+                      <span v-else
+                        >{{ 0 }} <span class="saudi-riyal">ê</span></span
+                      >
                     </div>
                   </div>
                 </div>
@@ -256,25 +430,37 @@
             </div>
 
             <div class="pos-net-total noi-print">
-              {{ $t("Net Total") }}: {{ form.netTotal  }} <span class="saudi-riyal">ê</span>
+              {{ $t("Net Total") }}: {{ form.netTotal }}
+              <span class="saudi-riyal">ê</span>
             </div>
           </div>
         </div>
 
         <div class="row no-print">
           <div class="col-12 col-lg-5 mb-1">
-            <button class="btn btn-primary btn-block" @click="saveInvoice" @keydown="form.onKeydown($event)">
+            <button
+              class="btn btn-primary btn-block"
+              @click="saveInvoice"
+              @keydown="form.onKeydown($event)"
+            >
               <i class="fas fa-save" /> {{ $t("Save") }}
             </button>
           </div>
           <div class="col-12 col-lg-5 mb-1">
-            <button class="btn btn-primary btn-block" @click="completeOrderAndAddPayment">
+            <button
+              class="btn btn-primary btn-block"
+              @click="completeOrderAndAddPayment"
+            >
               <i class="fas fa-credit-card" />
               {{ $t("Save & Payment") }}
             </button>
           </div>
           <div class="col-12 col-lg-2">
-            <button type="reset" class="btn btn-info float-right btn-block" @click="form.reset()">
+            <button
+              type="reset"
+              class="btn btn-info float-right btn-block"
+              @click="form.reset()"
+            >
               <i class="fas fa-power-off" /> {{ $t("Reset") }}
             </button>
           </div>
@@ -288,21 +474,38 @@
           <div class="pos-r-head bg-white">
             <div class="row">
               <div v-if="categories" class="form-group col-md-6">
-                <v-select v-model="form.category" :options="categories" label="name"
-                  :class="{ 'is-invalid': form.errors.has('category') }" name="category"
-                  :placeholder="$t('Select a category')" @input="getSubCategoriesByCategory" />
+                <v-select
+                  v-model="form.category"
+                  :options="categories"
+                  label="name"
+                  :class="{ 'is-invalid': form.errors.has('category') }"
+                  name="category"
+                  :placeholder="$t('Select a category')"
+                  @input="getSubCategoriesByCategory"
+                />
                 <has-error :form="form" field="category" />
               </div>
               <div v-if="subCategories" class="form-group col-md-6">
-                <v-select v-model="form.subCategory" :options="subCategories" label="name"
-                  :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
-                  :placeholder="$t('Select a category')" @input="getProductsBySubCategory" />
+                <v-select
+                  v-model="form.subCategory"
+                  :options="subCategories"
+                  label="name"
+                  :class="{ 'is-invalid': form.errors.has('subCategory') }"
+                  name="subCategory"
+                  :placeholder="$t('Select a category')"
+                  @input="getProductsBySubCategory"
+                />
                 <has-error :form="form" field="subCategory" />
               </div>
               <div v-if="products" class="col-md-12 form-group">
                 <div class="d-flex w-100">
-                  <search class="flex-grow-1" :isPosSearch="true" v-model="query" @reset-pagination="resetPagination()"
-                    @reload="reload" />
+                  <search
+                    class="flex-grow-1"
+                    :isPosSearch="true"
+                    v-model="query"
+                    @reset-pagination="resetPagination()"
+                    @reload="reload"
+                  />
                   <ProductCreateModal @reloadProducts="getProducts">
                     <div class="input-group-text create-btn-2">
                       <i class="fas fa-solid fa-plus-circle"></i>
@@ -316,18 +519,33 @@
 
           <div class="card-body bg-white mt-3 pos-body">
             <div class="pos-item-grid">
-              <div v-for="product in products" :key="product.id" @click="storeProduct(product)" :class="Number(product.inventoryCount) < 1 ? 'pos-item-grid-red' : ''
-                ">
+              <div
+                v-for="product in products"
+                :key="product.id"
+                @click="storeProduct(product)"
+                :class="
+                  Number(product.inventoryCount) < 1 ? 'pos-item-grid-red' : ''
+                "
+              >
                 <div class="pos-box">
                   <div class="relative">
                     <div class="pos-box-img">
                       <div v-if="product.image">
-                        <img class="pos-box-icon" :src="product.image" alt="product image" />
+                        <img
+                          class="pos-box-icon"
+                          :src="product.image"
+                          alt="product image"
+                        />
                       </div>
                       <div v-else>{{ $t("No Preview") }}</div>
                     </div>
-                    <span class="box-qty" :class="Number(product.inventoryCount) < 1 ? 'qty-red' : ''
-                      ">{{ product.inventoryCount }}</span>
+                    <span
+                      class="box-qty"
+                      :class="
+                        Number(product.inventoryCount) < 1 ? 'qty-red' : ''
+                      "
+                      >{{ product.inventoryCount }}</span
+                    >
                   </div>
                   <div class="pos-box-content">
                     <span>{{ product.code | withPrefix(productPrefix) }}</span>
@@ -340,8 +558,13 @@
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
                 <!-- pagination-start -->
-                <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
-                  class="justify-flex-end mt-3" @paginate="paginate" />
+                <pagination
+                  v-if="pagination && pagination.last_page > 1"
+                  :pagination="pagination"
+                  :offset="5"
+                  class="justify-flex-end mt-3"
+                  @paginate="paginate"
+                />
                 <!-- pagination-end -->
               </div>
             </div>
@@ -356,92 +579,160 @@
       <h5 slot="header">{{ $t("Add Payment") }}</h5>
       <div class="w-100" slot="body">
         <div>
-          <div class="row" v-if="accounts &&
-            form.selectedProducts &&
-            form.selectedProducts.length > 0
-            ">
+          <div
+            class="row"
+            v-if="
+              accounts &&
+              form.selectedProducts &&
+              form.selectedProducts.length > 0
+            "
+          >
             <div class="form-group col-md-8">
-              <label for="account">{{ $t("Account") }}
-                <span class="required">*</span></label>
-              <v-select v-model="form.account" :options="accounts" label="label"
-                :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                :placeholder="$t('Select an account')">
-                 <template slot="option" slot-scope="option">
-                    <img :src="option.image" style="width: 30px; height: 30px;" />
-                    {{ option.label }}
+              <label for="account"
+                >{{ $t("Account") }} <span class="required">*</span></label
+              >
+              <v-select
+                v-model="form.account"
+                :options="accounts"
+                label="label"
+                :class="{ 'is-invalid': form.errors.has('account') }"
+                name="account"
+                :placeholder="$t('Select an account')"
+              >
+                <template slot="option" slot-scope="option">
+                  <img :src="option.image" style="width: 30px; height: 30px" />
+                  {{ option.label }}
                 </template>
               </v-select>
               <has-error :form="form" field="account" />
             </div>
             <div class="form-group col-md-4">
-              <label for="paidAmount">{{ $t("Amount") }}<span class="required">*</span></label>
-              <input ref="paidAmountInput" id="paidAmount" v-model="form.paidAmount" type="number" step="any"
-                class="form-control" :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
-                :max="form.netTotal" :placeholder="$t('Enter an amount')" />
+              <label for="paidAmount"
+                >{{ $t("Amount") }}<span class="required">*</span></label
+              >
+              <input
+                ref="paidAmountInput"
+                id="paidAmount"
+                v-model="form.paidAmount"
+                type="number"
+                step="any"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('paidAmount') }"
+                name="paidAmount"
+                min="1"
+                :max="form.netTotal"
+                :placeholder="$t('Enter an amount')"
+              />
               <has-error :form="form" field="paidAmount" />
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="chequeNo">{{ $t("Cheque No") }}</label>
-              <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
-                :placeholder="$t('Enter a cheque number')" />
+              <input
+                id="chequeNo"
+                v-model="form.chequeNo"
+                type="text"
+                step="any"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('chequeNo') }"
+                name="chequeNo"
+                :placeholder="$t('Enter a cheque number')"
+              />
               <has-error :form="form" field="chequeNo" />
             </div>
             <div class="form-group col-md-6">
               <label for="receiptNo">{{ $t("Receipt No") }}</label>
-              <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
-                :placeholder="$t('Enter a receipt no')" />
+              <input
+                id="receiptNo"
+                v-model="form.receiptNo"
+                type="text"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('receiptNo') }"
+                name="receiptNo"
+                :placeholder="$t('Enter a receipt no')"
+              />
               <has-error :form="form" field="receiptNo" />
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="poReference">{{ $t("PO Reference") }}</label>
-              <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference"
-                :placeholder="$t('Enter PO reference')" />
+              <input
+                id="poReference"
+                v-model="form.poReference"
+                type="text"
+                step="any"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('poReference') }"
+                name="poReference"
+                :placeholder="$t('Enter PO reference')"
+              />
               <has-error :form="form" field="poReference" />
             </div>
             <div class="form-group col-md-6">
               <label for="paymentTerms">{{ $t("Payment Terms") }}</label>
-              <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms"
-                :placeholder="$t('Enter payment terms')" />
+              <input
+                id="paymentTerms"
+                v-model="form.paymentTerms"
+                type="text"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('paymentTerms') }"
+                name="paymentTerms"
+                :placeholder="$t('Enter payment terms')"
+              />
               <has-error :form="form" field="paymentTerms" />
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="reference">{{ $t("Reference") }}</label>
-              <input id="reference" v-model="form.reference" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
-                :placeholder="$t('Enter reference')" />
+              <input
+                id="reference"
+                v-model="form.reference"
+                type="text"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('reference') }"
+                name="reference"
+                :placeholder="$t('Enter reference')"
+              />
               <has-error :form="form" field="reference" />
             </div>
             <div class="form-group col-md-6">
-              <label for="deliveryPlace">{{
-                $t("Delivery Place")
-              }}</label>
-              <input id="deliveryPlace" v-model="form.deliveryPlace" type="text" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('deliveryPlace') }" name="deliveryPlace"
-                :placeholder="$t('Enter a delivery place')" />
+              <label for="deliveryPlace">{{ $t("Delivery Place") }}</label>
+              <input
+                id="deliveryPlace"
+                v-model="form.deliveryPlace"
+                type="text"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('deliveryPlace') }"
+                name="deliveryPlace"
+                :placeholder="$t('Enter a delivery place')"
+              />
               <has-error :form="form" field="deliveryPlace" />
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="date">{{ $t("Date") }}</label>
-              <input id="date" v-model="form.date" type="date" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
+              <input
+                id="date"
+                v-model="form.date"
+                type="date"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('date') }"
+                name="date"
+              />
               <has-error :form="form" field="date" />
             </div>
             <div class="form-group col-md-6">
               <label for="status">{{ $t("Status") }}</label>
-              <select id="status" v-model="form.status" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('status') }">
+              <select
+                id="status"
+                v-model="form.status"
+                class="form-control"
+                :class="{ 'is-invalid': form.errors.has('status') }"
+              >
                 <option value="1">{{ $t("Active") }}</option>
                 <option value="0">{{ $t("Inactive") }}</option>
               </select>
@@ -450,18 +741,30 @@
           </div>
           <div class="form-group">
             <label for="note">{{ $t("Note") }}</label>
-            <textarea id="note" v-model="form.note" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+            <textarea
+              id="note"
+              v-model="form.note"
+              class="form-control"
+              :class="{ 'is-invalid': form.errors.has('note') }"
+              :placeholder="$t('Write your note here!')"
+            />
             <has-error :form="form" field="note" />
           </div>
         </div>
       </div>
       <div class="payment-modal-footer" slot="modal-footer">
         <div class="pos-modal-footer no-print">
-          <button class="btn btn-primary" @click="addPayment" @keydown="form.onKeydown($event)">
+          <button
+            class="btn btn-primary"
+            @click="addPayment"
+            @keydown="form.onKeydown($event)"
+          >
             <i class="fas fa-save" /> {{ $t("Save") }}
           </button>
-          <button class="modal-default-button btn btn-danger" @click="closeModalAndClearFormData">
+          <button
+            class="modal-default-button btn btn-danger"
+            @click="closeModalAndClearFormData"
+          >
             {{ $t("Close") }}
           </button>
         </div>
@@ -480,11 +783,21 @@
               <h2 v-else class="text-center">{{ appInfo.companyName }}</h2>
               <p>
                 <span>{{ $t("Date") }} : {{ allData.invoiceDate }} <br /></span>
-                <span v-show="appInfo.address">{{ $t("Address") }} : {{ appInfo.address }} <br /></span>
-                <span v-show="appInfo.email">{{ $t("Email") }} : {{ appInfo.email }} <br /></span>
-                <span v-show="appInfo.phone">{{ $t("Phone") }} : {{ appInfo.phone }} <br /></span>
-                <span v-show="allData.client.name">{{ $t("Client") }} : {{ allData.client.name }} <br /></span>
-                <span v-show="allData.createdBy">{{ $t("Sold By") }} : {{ allData.createdBy }} <br /></span>
+                <span v-show="appInfo.address"
+                  >{{ $t("Address") }} : {{ appInfo.address }} <br
+                /></span>
+                <span v-show="appInfo.email"
+                  >{{ $t("Email") }} : {{ appInfo.email }} <br
+                /></span>
+                <span v-show="appInfo.phone"
+                  >{{ $t("Phone") }} : {{ appInfo.phone }} <br
+                /></span>
+                <span v-show="allData.client.name"
+                  >{{ $t("Client") }} : {{ allData.client.name }} <br
+                /></span>
+                <span v-show="allData.createdBy"
+                  >{{ $t("Sold By") }} : {{ allData.createdBy }} <br
+                /></span>
               </p>
             </div>
 
@@ -494,31 +807,35 @@
                   <td colspan="3">
                     <span>
                       {{ data.productName }}<br />
-                      <span class="pqty">{{ data.quantity }} {{ data.productUnit }} x
-                        {{ data.unitCost  }} <span class="saudi-riyal">ê</span></span>
+                      <span class="pqty"
+                        >{{ data.quantity }} {{ data.productUnit }} x
+                        {{ data.unitCost }}
+                        <span class="saudi-riyal">ê</span></span
+                      >
                     </span>
                   </td>
                   <td style="text-align: right; vertical-align: bottom">
-                    {{ (data.unitCost * data.quantity)  }} <span class="saudi-riyal">ê</span>
+                    {{ data.unitCost * data.quantity }}
+                    <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
 
                 <tr style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Subtotal") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.subTotal  }} <span class="saudi-riyal">ê</span>
+                    {{ allData.subTotal }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr v-if="allData.discount" style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Discount") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.discount  }} <span class="saudi-riyal">ê</span>
+                    {{ allData.discount }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr v-if="allData.tax" style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Tax") }}(%)</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.tax  }} <span class="saudi-riyal">ê</span>
+                    {{ allData.tax }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr style="margin-top: 10px">
@@ -530,20 +847,20 @@
                         allData.discount +
                         allData.transport +
                         allData.tax)
-                      | withCurrency
+                        | withCurrency
                     }}
                   </td>
                 </tr>
                 <tr>
                   <td colspan="3" class="total">{{ $t("Paid") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.totalPaid  }} <span class="saudi-riyal">ê</span>
+                    {{ allData.totalPaid }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="3" class="total">{{ $t("Due") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.due  }} <span class="saudi-riyal">ê</span>
+                    {{ allData.due }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
               </tbody>
@@ -553,7 +870,12 @@
                 <strong>{{ appInfo.invoiceThankYouMessage }}</strong>
               </p>
               <div id="bar">
-                <barcode width="2" height="25" fontSize="15" :value="allData.invoiceNo | withPrefix(invoicePrefix)">
+                <barcode
+                  width="2"
+                  height="25"
+                  fontSize="15"
+                  :value="allData.invoiceNo | withPrefix(invoicePrefix)"
+                >
                   {{ $t("Rendering fails.") }}
                 </barcode>
               </div>
@@ -563,11 +885,17 @@
       </div>
       <div class="pos-modal-footer no-print" slot="modal-footer">
         <div>
-          <button @click="printInvoice()" class="modal-default-button btn btn-info">
+          <button
+            @click="printInvoice()"
+            class="modal-default-button btn btn-info"
+          >
             {{ $t("Print") }}
           </button>
         </div>
-        <button class="modal-default-button btn btn-danger" @click="closeReceiptModal">
+        <button
+          class="modal-default-button btn btn-danger"
+          @click="closeReceiptModal"
+        >
           {{ $t("Close") }}
         </button>
       </div>
@@ -581,8 +909,8 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import VueBarcode from "vue-barcode";
 import sound from "../../../audio/beep.wav";
-import ClientCreateModal from '~/components/ClientCreateModal'
-import ProductCreateModal from '~/components/ProductCreateModal'
+import ClientCreateModal from "~/components/ClientCreateModal";
+import ProductCreateModal from "~/components/ProductCreateModal";
 
 export default {
   middleware: ["auth"],
@@ -592,7 +920,7 @@ export default {
   components: {
     barcode: VueBarcode,
     ClientCreateModal,
-    ProductCreateModal
+    ProductCreateModal,
   },
   data: () => ({
     breadcrumbsCurrent: "Create Sale",
@@ -716,7 +1044,7 @@ export default {
   },
   methods: {
     // get all clients
-    async getClients(selectedClient = 'default') {
+    async getClients(selectedClient = "default") {
       await axios
         .get("/api/all-clients")
         .then(({ data }) => {
@@ -730,7 +1058,7 @@ export default {
           }
         })
         .catch((error) => console.log(error));
-      if (selectedClient == 'latest') {
+      if (selectedClient == "latest") {
         this.form.client = this.clients[0];
       }
     },
@@ -800,8 +1128,8 @@ export default {
       let currentPage = this.pagination ? this.pagination.current_page : 1;
       const { data } = await axios.get(
         window.location.origin +
-        "/api/all-products-paginated?page=" +
-        currentPage
+          "/api/all-products-paginated?page=" +
+          currentPage
       );
       this.products = data.data;
       this.products.sort(this.sortProducts);
@@ -830,10 +1158,10 @@ export default {
       if (slug) {
         const { data } = await axios.get(
           window.location.origin +
-          "/api/all-pro-sub-categories-by-category/" +
-          slug +
-          "?page=" +
-          currentPage
+            "/api/all-pro-sub-categories-by-category/" +
+            slug +
+            "?page=" +
+            currentPage
         );
         this.subCategories = data.cats;
         this.products = data.products;
@@ -853,12 +1181,12 @@ export default {
       if (catSlug && subCatSlug) {
         const { data } = await axios.get(
           window.location.origin +
-          "/api/all-products-by-sub-categories/" +
-          catSlug +
-          "/" +
-          subCatSlug +
-          "?page=" +
-          currentPage
+            "/api/all-products-by-sub-categories/" +
+            catSlug +
+            "/" +
+            subCatSlug +
+            "?page=" +
+            currentPage
         );
         this.products = data.data;
         this.pagination = data.meta;
@@ -895,17 +1223,17 @@ export default {
       let currentPage = this.pagination ? this.pagination.current_page : 1;
       const { data } = await axios.get(
         window.location.origin +
-        "/api/products/search-from-pos" +
-        "?term=" +
-        this.query +
-        "&page=" +
-        currentPage +
-        "&perPage=" +
-        this.perPage +
-        "&catSlug=" +
-        catSlug +
-        "&SubCatSlug=" +
-        subCatSlug
+          "/api/products/search-from-pos" +
+          "?term=" +
+          this.query +
+          "&page=" +
+          currentPage +
+          "&perPage=" +
+          this.perPage +
+          "&catSlug=" +
+          catSlug +
+          "&SubCatSlug=" +
+          subCatSlug
       );
       this.products = data.data;
       this.products.sort(this.sortProducts);
@@ -925,13 +1253,13 @@ export default {
         (x) => x.id == product.id
       );
       let quantity = 1;
-      if (product.itemType == 'service' || product.inventoryCount >= quantity) {
+      if (product.itemType == "service" || product.inventoryCount >= quantity) {
         if (index === -1) {
           let productTax =
             product.taxType == "Exclusive"
               ? product.priceWithDiscount * (product.taxRate / 100)
               : product.priceWithDiscount -
-              product.priceWithDiscount / (1 + product.taxRate / 100);
+                product.priceWithDiscount / (1 + product.taxRate / 100);
           let totalTax = productTax * quantity;
 
           this.form.selectedProducts.unshift({
@@ -959,7 +1287,10 @@ export default {
             discount: 0,
             discountType: "fixed",
             discountAmount: 0,
-            selectedVatRate: this.findMatchingVatRate(product.productTax) || this.form.orderTax || this.taxes?.[0],
+            selectedVatRate:
+              this.findMatchingVatRate(product.productTax) ||
+              this.form.orderTax ||
+              this.taxes?.[0],
           });
           // play sound if added
           this.audio.play();
@@ -988,7 +1319,7 @@ export default {
       if (item) {
         if (type == "qty") {
           item.qty = value;
-          if (item.itemType == 'service' || item.inventoryCount >= value) {
+          if (item.itemType == "service" || item.inventoryCount >= value) {
             if (action == "increment") {
               item.qty = Number(item.qty) + 1;
             } else if (action == "decrement") {
@@ -1001,11 +1332,10 @@ export default {
               title: this.$t("Not enough items!"),
             });
           }
-        } else if (type == "price" && action == "noIncrement"){
+        } else if (type == "price" && action == "noIncrement") {
           item.unitPrice = value;
           item.unitPrice = Number(item.unitPrice);
-        }
-        else {
+        } else {
           item.unitPrice = value;
           if (action == "increment") {
             item.unitPrice = Number(item.unitPrice) + 1;
@@ -1015,7 +1345,7 @@ export default {
             }
           }
         }
-        
+
         // Use the new calculation method that handles discount and VAT
         this.generateItemTotalPrice(index);
       }
@@ -1038,11 +1368,15 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         if (item.discountType === "percentage") {
-          item.discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
+          item.discountAmount = this.roundToTwoDecimals(
+            (item.unitPrice * item.qty * item.discount) / 100
+          );
         } else {
-          item.discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+          item.discountAmount = this.roundToTwoDecimals(
+            Number(item.discount || 0)
+          );
         }
-        
+
         // Recalculate totals
         this.generateItemTotalPrice(index);
         this.calculateSum();
@@ -1059,13 +1393,13 @@ export default {
           if (item.productTax) {
             item.selectedVatRate = this.findMatchingVatRate(item.productTax);
           }
-          
+
           // If no match found or no productTax, fall back to available taxes
           if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
             item.selectedVatRate = this.taxes[0];
           }
         }
-        
+
         // Recalculate totals with new VAT rate
         this.generateItemTotalPrice(index);
         this.calculateSum();
@@ -1075,17 +1409,17 @@ export default {
     // find matching VAT rate
     findMatchingVatRate(productTax) {
       if (!productTax || !this.taxes) return null;
-      
+
       // If productTax is a number, find matching rate
-      if (typeof productTax === 'number') {
-        return this.taxes.find(tax => tax.rate === productTax);
+      if (typeof productTax === "number") {
+        return this.taxes.find((tax) => tax.rate === productTax);
       }
-      
+
       // If productTax is an object, return it directly
-      if (typeof productTax === 'object') {
+      if (typeof productTax === "object") {
         return productTax;
       }
-      
+
       return null;
     },
 
@@ -1099,20 +1433,25 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         // Calculate subtotal after discount
-        let subtotalAfterDiscount = (item.unitPrice * item.qty) - (item.discountAmount || 0);
-        
+        let subtotalAfterDiscount =
+          item.unitPrice * item.qty - (item.discountAmount || 0);
+
         // Calculate VAT on the discounted amount
         if (item.selectedVatRate && item.selectedVatRate.rate > 0) {
-          item.productTax = this.roundToTwoDecimals(subtotalAfterDiscount * (item.selectedVatRate.rate / 100));
+          item.productTax = this.roundToTwoDecimals(
+            subtotalAfterDiscount * (item.selectedVatRate.rate / 100)
+          );
         } else {
           item.productTax = 0;
         }
-        
+
         item.totalTax = item.productTax;
-        
+
         // Calculate final total with VAT
-        item.totalPrice = this.roundToTwoDecimals(subtotalAfterDiscount + item.productTax);
-        
+        item.totalPrice = this.roundToTwoDecimals(
+          subtotalAfterDiscount + item.productTax
+        );
+
         this.form.selectedProducts[index] = item;
       }
     },
@@ -1126,7 +1465,7 @@ export default {
       ) {
         return Number((prev + cur.totalPrice).toFixed(2));
       },
-        0);
+      0);
 
       // calculate product tax
       this.form.productTotalTax = this.form.selectedProducts.reduce(function (
@@ -1135,7 +1474,7 @@ export default {
       ) {
         return Number((prev + cur.totalTax).toFixed(2));
       },
-        0);
+      0);
 
       this.form.netTotal = this.form.subTotal;
 
@@ -1152,7 +1491,8 @@ export default {
       }
 
       // calculate net amount (after discount)
-      let netAmount = this.form.subTotal - discount + Number(this.form.transportCost);
+      let netAmount =
+        this.form.subTotal - discount + Number(this.form.transportCost);
 
       // calculate invoice tax on net amount
       this.form.totalTax = 0;
@@ -1178,9 +1518,9 @@ export default {
           }
         })
         .catch((error) => {
-          const ErrorHandler = require('~/utils/errorHandler').default;
+          const ErrorHandler = require("~/utils/errorHandler").default;
           ErrorHandler.handleApiError(error, {
-            showValidationErrors: false
+            showValidationErrors: false,
           });
         });
     },
@@ -1197,13 +1537,13 @@ export default {
             this.againDefaultSettings();
           })
           .catch((error) => {
-            const ErrorHandler = require('~/utils/errorHandler').default;
+            const ErrorHandler = require("~/utils/errorHandler").default;
             ErrorHandler.handleApiError(error, {
-              showValidationErrors: false
+              showValidationErrors: false,
             });
           });
       } else {
-        const ErrorHandler = require('~/utils/errorHandler').default;
+        const ErrorHandler = require("~/utils/errorHandler").default;
         ErrorHandler.showError(this.$t("Error"), this.$t("Please try again"));
       }
     },
@@ -1292,50 +1632,54 @@ export default {
         status: this.form.status,
         isSendEmail: this.form.isSendEmail,
         isSendSMS: this.form.isSendSMS,
-        timestamp: new Date().toISOString()
-      }
-      localStorage.setItem('posTempData', JSON.stringify(tempData))
-       
+        timestamp: new Date().toISOString(),
+      };
+      localStorage.setItem("posTempData", JSON.stringify(tempData));
     },
     // load temporary data
     loadTemporaryData() {
-      const tempData = localStorage.getItem('posTempData')
+      const tempData = localStorage.getItem("posTempData");
       if (tempData) {
         try {
-          const data = JSON.parse(tempData)
-          this.form.client = data.client || this.form.client
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
-          this.form.subTotal = data.subTotal || this.form.subTotal
-          this.form.netTotal = data.netTotal || this.form.netTotal
-          this.form.transportCost = data.transportCost || this.form.transportCost
-          this.form.orderTax = data.orderTax || this.form.orderTax
-          this.form.productTotalTax = data.totalProductTax || this.form.productTotalTax
-          this.form.totalTax = data.totalTax || this.form.totalTax
-          this.form.discount = data.discount || this.form.discount
-          this.form.discountType = data.discountType || this.form.discountType
-          this.form.poReference = data.poReference || this.form.poReference
-          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
-          this.form.addPayment = data.addPayment || this.form.addPayment
-          this.form.account = data.account || this.form.account
-          this.form.totalPaid = data.totalPaid || this.form.totalPaid
-          this.form.deliveryPlace = data.deliveryPlace || this.form.deliveryPlace
-          this.form.date = data.date || this.form.date
-          this.form.note = data.note || this.form.note
-          this.form.status = data.status !== undefined ? data.status : this.form.status
-          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
-          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
+          const data = JSON.parse(tempData);
+          this.form.client = data.client || this.form.client;
+          this.form.selectedProducts =
+            data.selectedProducts || this.form.selectedProducts;
+          this.form.subTotal = data.subTotal || this.form.subTotal;
+          this.form.netTotal = data.netTotal || this.form.netTotal;
+          this.form.transportCost =
+            data.transportCost || this.form.transportCost;
+          this.form.orderTax = data.orderTax || this.form.orderTax;
+          this.form.productTotalTax =
+            data.totalProductTax || this.form.productTotalTax;
+          this.form.totalTax = data.totalTax || this.form.totalTax;
+          this.form.discount = data.discount || this.form.discount;
+          this.form.discountType = data.discountType || this.form.discountType;
+          this.form.poReference = data.poReference || this.form.poReference;
+          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms;
+          this.form.addPayment = data.addPayment || this.form.addPayment;
+          this.form.account = data.account || this.form.account;
+          this.form.totalPaid = data.totalPaid || this.form.totalPaid;
+          this.form.deliveryPlace =
+            data.deliveryPlace || this.form.deliveryPlace;
+          this.form.date = data.date || this.form.date;
+          this.form.note = data.note || this.form.note;
+          this.form.status =
+            data.status !== undefined ? data.status : this.form.status;
+          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail;
+          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS;
         } catch (e) {
-          console.error('Error loading temporary data:', e)
+          console.error("Error loading temporary data:", e);
         }
       }
     },
     // clear temporary data
     clearTemporaryData() {
-      localStorage.removeItem('posTempData')
+      localStorage.removeItem("posTempData");
     },
   },
   mounted() {
-    this.loadTemporaryData()
+    this.loadTemporaryData();
   },
 };
 </script>
@@ -1347,11 +1691,10 @@ export default {
 }
 
 .table-price-counter-nowrap {
-    display: flex;
-    flex-wrap: nowrap;
-  
+  display: flex;
+  flex-wrap: nowrap;
 }
-.table-product-title{
+.table-product-title {
   max-width: 200px;
   overflow: hidden;
   white-space: nowrap;
@@ -1375,7 +1718,7 @@ export default {
   grid-gap: 10px;
 }
 
-.pos-item-grid>div {
+.pos-item-grid > div {
   border: 0;
   border-radius: 10px;
   box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
@@ -1385,16 +1728,16 @@ export default {
   position: relative;
 }
 
-.pos-item-grid>div:hover {
-  border-color: #1B3C71;
+.pos-item-grid > div:hover {
+  border-color: #1b3c71;
 }
 
-.pos-item-grid>div .box-qty {
+.pos-item-grid > div .box-qty {
   position: absolute;
   width: 50px;
   height: 30px;
   display: block;
-  background: #1B3C71;
+  background: #1b3c71;
   top: 0;
   left: 0px;
   text-align: center;
@@ -1459,13 +1802,13 @@ export default {
   padding: 15px;
 }
 
-.table-responsive.table-wrap>table {
+.table-responsive.table-wrap > table {
   border: 1px solid #ddd;
 }
 
 .table-wrap .table thead tr {
   border-bottom: 0;
-  background: #1B3C711f !important;
+  background: #1b3c711f !important;
 }
 
 .table-wrap .incrementor {
@@ -1502,7 +1845,7 @@ export default {
 }
 
 .pos-net-total {
-  background: #1B3C7133;
+  background: #1b3c7133;
   width: 100%;
   padding: 10px 10px;
   text-align: center;
@@ -1526,7 +1869,7 @@ export default {
   border-color: #000;
 }
 
-.dark-mode .pos-item-grid>div {
+.dark-mode .pos-item-grid > div {
   border-color: #6c757d !important;
 }
 
@@ -1535,7 +1878,7 @@ export default {
   color: #fff;
 }
 
-.dark-mode .pos-item-grid>div.pos-item-grid-red {
+.dark-mode .pos-item-grid > div.pos-item-grid-red {
   border-color: red !important;
 }
 
@@ -1547,7 +1890,7 @@ export default {
   background-color: #1f2937;
 }
 
-.dark-mode .table-responsive.table-wrap>table {
+.dark-mode .table-responsive.table-wrap > table {
   border: 1px solid #6c757d;
 }
 
@@ -1592,7 +1935,7 @@ export default {
   margin-bottom: 20px;
 }
 
-#invoice-POS .info>p {
+#invoice-POS .info > p {
   margin-top: 20px;
 }
 
@@ -1652,11 +1995,11 @@ span.pqty {
 }
 
 .btn-primary {
-  background: #2AB930 !important;
+  background: #2ab930 !important;
 }
 
 .btn-primary:hover {
-  background: #229A26 !important;
+  background: #229a26 !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }

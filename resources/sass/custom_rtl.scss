@@ -59,9 +59,9 @@
   [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
   [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
   [dir="rtl"] body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
-    transition: margin-right 0.3s ease-in-out !important;
-    margin-left: 0 !important;
-    margin-right: 250px !important;
+    transition: margin-left 0.3s ease-in-out !important;
+    margin-right: 0 !important;
+    margin-left: 250px !important;
   }
 }
 
@@ -70,17 +70,17 @@
   [dir="rtl"] .sidebar-mini-md .content-wrapper,
   [dir="rtl"] .sidebar-mini-md .main-footer,
   [dir="rtl"] .sidebar-mini-md .main-header {
-    transition: margin-right 0.3s ease-in-out !important;
-    margin-left: 0 !important;
-    margin-right: 250px !important;
+    transition: margin-left 0.3s ease-in-out !important;
+    margin-right: 0 !important;
+    margin-left: 250px !important;
   }
   
   [dir="rtl"] .sidebar-mini-xs .content-wrapper,
   [dir="rtl"] .sidebar-mini-xs .main-footer,
   [dir="rtl"] .sidebar-mini-xs .main-header {
-    transition: margin-right 0.3s ease-in-out !important;
-    margin-left: 0 !important;
-    margin-right: 250px !important;
+    transition: margin-left 0.3s ease-in-out !important;
+    margin-right: 0 !important;
+    margin-left: 250px !important;
   }
 }
 
@@ -91,6 +91,7 @@
   [dir="rtl"] .sidebar-collapse body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
     margin-left: 0 !important;
     margin-right: 0 !important;
+    transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out !important;
   }
   
   [dir="rtl"] .sidebar-collapse .sidebar-mini-md .content-wrapper,
@@ -98,6 +99,7 @@
   [dir="rtl"] .sidebar-collapse .sidebar-mini-md .main-header {
     margin-left: 0 !important;
     margin-right: 4.6rem !important;
+    transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out !important;
   }
   
   [dir="rtl"] .sidebar-collapse .sidebar-mini-xs .content-wrapper,
@@ -105,6 +107,7 @@
   [dir="rtl"] .sidebar-collapse .sidebar-mini-xs .main-header {
     margin-left: 0 !important;
     margin-right: 4.6rem !important;
+    transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out !important;
   }
 }
 
