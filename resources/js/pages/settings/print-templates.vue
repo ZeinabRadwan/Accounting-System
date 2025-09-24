@@ -30,366 +30,371 @@
             <div v-if="!isEditing" class="template-list-section">
               <div class="row">
                 <div class="col-12">
-            <!-- Module Filter -->
-            <div class="module-filter mb-4">
-              <div class="btn-group" role="group">
-                <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'invoice' }" 
-                        @click="selectModule('invoice')" type="button">
-                  {{ $t('Invoices') }}
-                </button>
-                <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'purchase' }" 
-                        @click="selectModule('purchase')" type="button">
-                  {{ $t('Purchases') }}
-                </button>
-                <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'quotation' }" 
-                        @click="selectModule('quotation')" type="button">
-                  {{ $t('Quotations') }}
-                </button>
-                <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'expense' }" 
-                        @click="selectModule('expense')" type="button">
-                  {{ $t('Expenses') }}
-                </button>
-                <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'reports' }" 
-                        @click="selectModule('reports')" type="button">
-                  {{ $t('Reports') }}
-                </button>
-              </div>
-            </div>
+                  <!-- Module Filter -->
+                  <div class="module-filter mb-4">
+                    <div class="btn-group" role="group">
+                      <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'invoice' }" 
+                              @click="selectModule('invoice')" type="button">
+                        {{ $t('Invoices') }}
+                      </button>
+                      <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'purchase' }" 
+                              @click="selectModule('purchase')" type="button">
+                        {{ $t('Purchases') }}
+                      </button>
+                      <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'quotation' }" 
+                              @click="selectModule('quotation')" type="button">
+                        {{ $t('Quotations') }}
+                      </button>
+                      <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'expense' }" 
+                              @click="selectModule('expense')" type="button">
+                        {{ $t('Expenses') }}
+                      </button>
+                      <button class="btn btn-outline-primary" :class="{ active: selectedModule === 'reports' }" 
+                              @click="selectModule('reports')" type="button">
+                        {{ $t('Reports') }}
+                      </button>
+                    </div>
+                  </div>
 
-            <!-- Templates Grid -->
-            <div class="templates-grid">
-              <div class="row">
-                <div v-for="template in filteredTemplates" :key="template.id" class="col-xl-4 col-lg-6 col-md-6 mb-4">
-                  <div class="template-card" :class="{ 'is-default': template.is_default }">
-                    <!-- Template Header -->
-                    <div class="template-header">
-                      <div class="template-title">
-                        <h5 class="template-name">{{ template.display_name }}</h5>
-                        <span class="template-module">{{ template.module }}</span>
-                      </div>
-                      <div class="template-status">
-                        <span v-if="template.is_default" class="badge badge-default">
-                          <i class="fas fa-star me-1"></i>{{ $t('Default') }}
-                        </span>
+                  <!-- Templates Grid -->
+                  <div class="templates-grid">
+                    <div class="row">
+                      <div v-for="template in filteredTemplates" :key="template.id" class="col-xl-4 col-lg-6 col-md-6 mb-4">
+                        <div class="template-card" :class="{ 'is-default': template.is_default }">
+                          <!-- Template Header -->
+                          <div class="template-header">
+                            <div class="template-title">
+                              <h5 class="template-name">{{ template.display_name }}</h5>
+                              <span class="template-module">{{ template.module }}</span>
+                            </div>
+                            <div class="template-status">
+                              <span v-if="template.is_default" class="badge badge-default">
+                                <i class="fas fa-star me-1"></i>{{ $t('Default') }}
+                              </span>
+                            </div>
+                          </div>
+
+                          <!-- Template Description -->
+                          <div class="template-description">
+                            <p>{{ template.description || $t('No description provided') }}</p>
+                          </div>
+
+                          <!-- Template Actions -->
+                          <div class="template-actions">
+                            <button class="btn btn-primary btn-sm" @click="editTemplate(template)">
+                              <i class="fas fa-edit me-1"></i>
+                              {{ $t('Edit') }}
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm" @click="previewTemplate(template)">
+                              <i class="fas fa-eye me-1"></i>
+                              {{ $t('Preview') }}
+                            </button>
+                            <button class="btn btn-outline-success btn-sm" @click="setAsDefault(template)"
+                              v-if="!template.is_default" :disabled="saving">
+                              <i class="fas fa-star me-1" v-if="!saving"></i>
+                              <i class="fas fa-spinner fa-spin me-1" v-if="saving"></i>
+                              {{ saving ? $t('Setting...') : $t('Set Default') }}
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <!-- Template Description -->
-                    <div class="template-description">
-                      <p>{{ template.description || $t('No description provided') }}</p>
-                    </div>
-
-                    <!-- Template Actions -->
-                    <div class="template-actions">
-                      <button class="btn btn-primary btn-sm" @click="editTemplate(template)">
-                        <i class="fas fa-edit me-1"></i>
-                        {{ $t('Edit') }}
-                      </button>
-                      <button class="btn btn-outline-secondary btn-sm" @click="previewTemplate(template)">
-                        <i class="fas fa-eye me-1"></i>
-                        {{ $t('Preview') }}
-                      </button>
-                      <button class="btn btn-outline-success btn-sm" @click="setAsDefault(template)"
-                        v-if="!template.is_default" :disabled="saving">
-                        <i class="fas fa-star me-1" v-if="!saving"></i>
-                        <i class="fas fa-spinner fa-spin me-1" v-if="saving"></i>
-                        {{ saving ? $t('Setting...') : $t('Set Default') }}
-                      </button>
+                    <!-- Empty State -->
+                    <div v-if="filteredTemplates.length === 0" class="empty-state">
+                      <div class="empty-state-content">
+                        <i class="fas fa-file-alt empty-state-icon"></i>
+                        <h4 class="empty-state-title">{{ $t('No Templates Found') }}</h4>
+                        <p class="empty-state-description">
+                          {{ $t('No templates found for') }} {{ $t(selectedModule.charAt(0).toUpperCase() + selectedModule.slice(1) + 's') }}
+                        </p>
+                        <button class="btn btn-primary" @click="createNewTemplate" v-if="$can('print-templates-create')">
+                          <i class="fas fa-plus me-2"></i>
+                          {{ $t('Create First Template') }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- Empty State -->
-              <div v-if="filteredTemplates.length === 0" class="empty-state">
-                <div class="empty-state-content">
-                  <i class="fas fa-file-alt empty-state-icon"></i>
-                  <h4 class="empty-state-title">{{ $t('No Templates Found') }}</h4>
-                  <p class="empty-state-description">
-                    {{ $t('No templates found for') }} {{ $t(selectedModule.charAt(0).toUpperCase() + selectedModule.slice(1) + 's') }}
-                  </p>
-                  <button class="btn btn-primary" @click="createNewTemplate" v-if="$can('print-templates-create')">
-                    <i class="fas fa-plus me-2"></i>
-                    {{ $t('Create First Template') }}
-                  </button>
-                </div>
-              </div>
-                </div>
-              </div>
             </div>
 
-    <!-- Template Editor -->
-    <div v-if="isEditing" class="template-editor-section">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <!-- Editor Header -->
-            <div class="editor-header mb-4">
-              <div class="row align-items-center">
-                <div class="col-md-8">
-                  <h2 class="editor-title">
-                    <i class="fas fa-edit me-2"></i>
-                    {{ editingTemplate.display_name || $t('New Template') }}
-                  </h2>
-                  <span class="badge badge-primary">{{ editingTemplate.module }}</span>
-                </div>
-                <div class="col-md-4 text-end">
-                  <button class="btn btn-outline-secondary me-2" @click="cancelEdit">
-                    <i class="fas fa-times me-1"></i>
-                    {{ $t('Cancel') }}
-                  </button>
-                  <button class="btn btn-outline-primary me-2" @click="previewCurrentTemplate">
-                    <i class="fas fa-eye me-1"></i>
-                    {{ $t('Preview') }}
-                  </button>
-                  <button class="btn btn-success" @click="saveTemplate" :disabled="saving">
-                    <i class="fas fa-save" v-if="!saving"></i>
-                    <i class="fas fa-spinner fa-spin" v-else></i>
-                    {{ saving ? $t('Saving...') : $t('Save') }}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Editor Content -->
-            <div class="editor-content">
-              <div class="row g-4">
-                <!-- Left Panel - Template Settings -->
-                <div class="col-xl-4 col-lg-5 col-md-12">
-                  <div class="editor-controls">
-                    <!-- Basic Information Card -->
-                    <div class="card settings-card mb-4">
-                      <div class="card-header">
-                        <h5 class="card-title mb-0">
-                          <i class="fas fa-info-circle me-2"></i>
-                          {{ $t('Basic Information') }}
-                        </h5>
-                      </div>
-                      <div class="card-body">
-                        <div class="form-group mb-3">
-                          <label class="form-label">{{ $t('Template Name') }} <span class="text-danger">*</span></label>
-                          <input v-model="editingTemplate.display_name" type="text" class="form-control form-control-lg"
-                            :placeholder="$t('Enter template name')" @input="generateLivePreview">
-                          <div v-if="!editingTemplate.display_name" class="invalid-feedback d-block">
-                            {{ $t('Template name is required') }}
-                          </div>
+            <!-- Template Editor -->
+            <div v-if="isEditing" class="template-editor-section">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-12">
+                    <!-- Editor Header -->
+                    <div class="editor-header mb-4">
+                      <div class="row align-items-center">
+                        <div class="col-md-8">
+                          <h2 class="editor-title">
+                            <i class="fas fa-edit me-2"></i>
+                            {{ editingTemplate.display_name || $t('New Template') }}
+                          </h2>
+                          <span class="badge badge-primary">{{ editingTemplate.module }}</span>
                         </div>
-                        
-                        <div class="form-group mb-0">
-                          <label class="form-label">{{ $t('Description') }}</label>
-                          <textarea v-model="editingTemplate.description" class="form-control" rows="3"
-                            :placeholder="$t('Enter template description')" @input="generateLivePreview"></textarea>
+                        <div class="col-md-4 text-end">
+                          <button class="btn btn-outline-secondary me-2" @click="cancelEdit">
+                            <i class="fas fa-times me-1"></i>
+                            {{ $t('Cancel') }}
+                          </button>
+                          <button class="btn btn-outline-primary me-2" @click="previewCurrentTemplate">
+                            <i class="fas fa-eye me-1"></i>
+                            {{ $t('Preview') }}
+                          </button>
+                          <button class="btn btn-success" @click="saveTemplate" :disabled="saving">
+                            <i class="fas fa-save" v-if="!saving"></i>
+                            <i class="fas fa-spinner fa-spin" v-else></i>
+                            {{ saving ? $t('Saving...') : $t('Save') }}
+                          </button>
                         </div>
                       </div>
                     </div>
 
-                    <!-- Design Settings Card -->
-                    <div class="card settings-card mb-4">
-                      <div class="card-header">
-                        <h5 class="card-title mb-0">
-                          <i class="fas fa-palette me-2"></i>
-                          {{ $t('Design Settings') }}
-                        </h5>
-                      </div>
-                      <div class="card-body">
-                        <div class="form-group mb-3">
-                          <label class="form-label">{{ $t('Primary Color') }}</label>
-                          <div class="color-input-group">
-                            <input v-model="templateConfig.colors.primary" type="color" class="color-picker" @input="generateLivePreview">
-                            <input v-model="templateConfig.colors.primary" type="text" class="form-control color-text-input" @input="generateLivePreview">
-                          </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                          <label class="form-label">{{ $t('Secondary Color') }}</label>
-                          <div class="color-input-group">
-                            <input v-model="templateConfig.colors.secondary" type="color" class="color-picker" @input="generateLivePreview">
-                            <input v-model="templateConfig.colors.secondary" type="text" class="form-control color-text-input" @input="generateLivePreview">
-                          </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                          <label class="form-label">{{ $t('Paper Size') }}</label>
-                          <select v-model="templateConfig.layout.paperSize" class="form-select" @change="generateLivePreview">
-                            <option value="A4">A4 (210 × 297 mm)</option>
-                            <option value="Letter">Letter (8.5 × 11 in)</option>
-                            <option value="Legal">Legal (8.5 × 14 in)</option>
-                          </select>
-                        </div>
-
-                        <div class="form-group mb-0">
-                          <label class="form-label">{{ $t('Margins') }} (mm)</label>
-                          <input v-model.number="templateConfig.layout.margins" type="number" class="form-control" min="5" max="50" @input="generateLivePreview">
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Logo Settings Card -->
-                    <div class="card settings-card mb-4">
-                      <div class="card-header">
-                        <h5 class="card-title mb-0">
-                          <i class="fas fa-image me-2"></i>
-                          {{ $t('Logo Settings') }}
-                        </h5>
-                      </div>
-                      <div class="card-body">
-                        <div class="form-group mb-3">
-                          <label class="form-label">{{ $t('Template Logo') }}</label>
-                          <div class="logo-upload-container">
-                            <div v-if="editingTemplate.custom_logo || editingTemplate.logo_url" class="current-logo">
-                              <img :src="editingTemplate.logo_url || editingTemplate.custom_logo" alt="Current Logo" class="logo-preview">
-                              <div class="logo-actions">
-                                <button type="button" class="btn btn-sm btn-outline-primary" @click="triggerLogoUpload">
-                                  <i class="fas fa-edit me-1"></i>
-                                  {{ $t('Change Logo') }}
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" @click="removeCustomLogo" :disabled="saving">
-                                  <i class="fas fa-trash me-1"></i>
-                                  {{ $t('Remove') }}
-                                </button>
+                    <!-- Editor Content -->
+                    <div class="editor-content">
+                      <div class="row g-4">
+                        <!-- Left Panel - Template Settings -->
+                        <div class="col-xl-4 col-lg-5 col-md-12">
+                          <div class="editor-controls">
+                            <!-- Basic Information Card -->
+                            <div class="card settings-card mb-4">
+                              <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                  <i class="fas fa-info-circle me-2"></i>
+                                  {{ $t('Basic Information') }}
+                                </h5>
+                              </div>
+                              <div class="card-body">
+                                <div class="form-group mb-3">
+                                  <label class="form-label">{{ $t('Template Name') }} <span class="text-danger">*</span></label>
+                                  <input v-model="editingTemplate.display_name" type="text" class="form-control form-control-lg"
+                                    :placeholder="$t('Enter template name')" @input="generateLivePreview">
+                                  <div v-if="!editingTemplate.display_name" class="invalid-feedback d-block">
+                                    {{ $t('Template name is required') }}
+                                  </div>
+                                </div>
+                                
+                                <div class="form-group mb-0">
+                                  <label class="form-label">{{ $t('Description') }}</label>
+                                  <textarea v-model="editingTemplate.description" class="form-control" rows="3"
+                                    :placeholder="$t('Enter template description')" @input="generateLivePreview"></textarea>
+                                </div>
                               </div>
                             </div>
-                            <div v-else class="logo-upload-placeholder" @click="triggerLogoUpload">
-                              <i class="fas fa-cloud-upload-alt"></i>
-                              <p>{{ $t('Upload Custom Logo') }}</p>
-                              <small>{{ $t('Click to browse or drag and drop') }}</small>
-                            </div>
-                            <input ref="logoInput" type="file" @change="handleLogoUpload" accept="image/*" style="display: none;">
-                          </div>
-                          <div class="form-text">
-                            <i class="fas fa-info-circle me-1"></i>
-                            {{ $t('Upload a custom logo for this template. If no custom logo is uploaded, the system will use the logo from general settings.') }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
-                    <!-- Template Elements Card -->
-                    <div class="card settings-card">
-                      <div class="card-header">
-                        <h5 class="card-title mb-0">
-                          <i class="fas fa-cogs me-2"></i>
-                          {{ $t('Template Elements') }}
-                        </h5>
-                      </div>
-                      <div class="card-body">
-                        <div class="elements-grid">
-                          <div class="element-item">
-                            <div class="form-check">
-                              <input v-model="templateConfig.elements.showLogo" type="checkbox" class="form-check-input" id="showLogo" @change="generateLivePreview">
-                              <label class="form-check-label" for="showLogo">
-                                <i class="fas fa-image element-icon"></i>
-                                <div class="element-content">
-                                  <div class="element-title">{{ $t('Company Logo') }}</div>
-                                  <div class="element-description">{{ $t('Display company logo in header') }}</div>
+                            <!-- Design Settings Card -->
+                            <div class="card settings-card mb-4">
+                              <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                  <i class="fas fa-palette me-2"></i>
+                                  {{ $t('Design Settings') }}
+                                </h5>
+                              </div>
+                              <div class="card-body">
+                                <div class="form-group mb-3">
+                                  <label class="form-label">{{ $t('Primary Color') }}</label>
+                                  <div class="color-input-group">
+                                    <input v-model="templateConfig.colors.primary" type="color" class="color-picker" @input="generateLivePreview">
+                                    <input v-model="templateConfig.colors.primary" type="text" class="form-control color-text-input" @input="generateLivePreview">
+                                  </div>
                                 </div>
-                              </label>
-                            </div>
-                          </div>
-                          
-                          <div class="element-item">
-                            <div class="form-check">
-                              <input v-model="templateConfig.elements.showCompanyInfo" type="checkbox" class="form-check-input" id="showCompanyInfo" @change="generateLivePreview">
-                              <label class="form-check-label" for="showCompanyInfo">
-                                <i class="fas fa-building element-icon"></i>
-                                <div class="element-content">
-                                  <div class="element-title">{{ $t('Company Information') }}</div>
-                                  <div class="element-description">{{ $t('Show company name, address, contact') }}</div>
-                                </div>
-                              </label>
-                            </div>
-                          </div>
-                          
-                          <div class="element-item">
-                            <div class="form-check">
-                              <input v-model="templateConfig.elements.showClientInfo" type="checkbox" class="form-check-input" id="showClientInfo" @change="generateLivePreview">
-                              <label class="form-check-label" for="showClientInfo">
-                                <i class="fas fa-user element-icon"></i>
-                                <div class="element-content">
-                                  <div class="element-title">{{ $t('Client Information') }}</div>
-                                  <div class="element-description">{{ $t('Show client/customer details') }}</div>
-                                </div>
-                              </label>
-                            </div>
-                          </div>
-                          
-                          <div class="element-item">
-                            <div class="form-check">
-                              <input v-model="templateConfig.elements.showItemsTable" type="checkbox" class="form-check-input" id="showItemsTable" @change="generateLivePreview">
-                              <label class="form-check-label" for="showItemsTable">
-                                <i class="fas fa-table element-icon"></i>
-                                <div class="element-content">
-                                  <div class="element-title">{{ $t('Items Table') }}</div>
-                                  <div class="element-description">{{ $t('Display products/services table') }}</div>
-                                </div>
-                              </label>
-                            </div>
-                          </div>
-                          
-                          <div class="element-item">
-                            <div class="form-check">
-                              <input v-model="templateConfig.elements.showTotals" type="checkbox" class="form-check-input" id="showTotals" @change="generateLivePreview">
-                              <label class="form-check-label" for="showTotals">
-                                <i class="fas fa-calculator element-icon"></i>
-                                <div class="element-content">
-                                  <div class="element-title">{{ $t('Totals Section') }}</div>
-                                  <div class="element-description">{{ $t('Show subtotal, tax, and total') }}</div>
-                                </div>
-                              </label>
-                            </div>
-                          </div>
-                          
-                          <div class="element-item">
-                            <div class="form-check">
-                              <input v-model="templateConfig.elements.showFooter" type="checkbox" class="form-check-input" id="showFooter" @change="generateLivePreview">
-                              <label class="form-check-label" for="showFooter">
-                                <i class="fas fa-align-center element-icon"></i>
-                                <div class="element-content">
-                                  <div class="element-title">{{ $t('Footer') }}</div>
-                                  <div class="element-description">{{ $t('Show footer text and notes') }}</div>
-                                </div>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
-                <!-- Right Panel - Live Preview -->
-                <div class="col-xl-8 col-lg-7 col-md-12">
-                  <div class="editor-preview">
-                    <div class="card preview-card">
-                      <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <h5 class="card-title mb-0">
-                            <i class="fas fa-eye me-2"></i>
-                            {{ $t('Live Preview') }}
-                          </h5>
-                          <div class="preview-actions">
-                            <button class="btn btn-sm btn-outline-primary me-2" @click="refreshPreview">
-                              <i class="fas fa-sync me-1"></i>
-                              {{ $t('Refresh') }}
-                            </button>
-                            <button class="btn btn-sm btn-outline-success" @click="downloadPreview">
-                              <i class="fas fa-external-link-alt me-1"></i>
-                              {{ $t('Open Preview') }}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card-body p-0">
-                        <div class="preview-container">
-                          <div v-if="!livePreview" class="preview-placeholder">
-                            <div class="preview-placeholder-content">
-                              <i class="fas fa-file-alt preview-icon"></i>
-                              <h6 class="preview-title">{{ $t('Preview will appear here') }}</h6>
-                              <p class="preview-description">{{ $t('Start editing your template to see the live preview') }}</p>
+                                <div class="form-group mb-3">
+                                  <label class="form-label">{{ $t('Secondary Color') }}</label>
+                                  <div class="color-input-group">
+                                    <input v-model="templateConfig.colors.secondary" type="color" class="color-picker" @input="generateLivePreview">
+                                    <input v-model="templateConfig.colors.secondary" type="text" class="form-control color-text-input" @input="generateLivePreview">
+                                  </div>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                  <label class="form-label">{{ $t('Paper Size') }}</label>
+                                  <select v-model="templateConfig.layout.paperSize" class="form-select" @change="generateLivePreview">
+                                    <option value="A4">A4 (210 × 297 mm)</option>
+                                    <option value="Letter">Letter (8.5 × 11 in)</option>
+                                    <option value="Legal">Legal (8.5 × 14 in)</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group mb-0">
+                                  <label class="form-label">{{ $t('Margins') }} (mm)</label>
+                                  <input v-model.number="templateConfig.layout.margins" type="number" class="form-control" min="5" max="50" @input="generateLivePreview">
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Logo Settings Card -->
+                            <div class="card settings-card mb-4">
+                              <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                  <i class="fas fa-image me-2"></i>
+                                  {{ $t('Logo Settings') }}
+                                </h5>
+                              </div>
+                              <div class="card-body">
+                                <div class="form-group mb-3">
+                                  <label class="form-label">{{ $t('Template Logo') }}</label>
+                                  <div class="logo-upload-container">
+                                    <div v-if="editingTemplate.custom_logo || editingTemplate.logo_url" class="current-logo">
+                                      <img :src="editingTemplate.logo_url || editingTemplate.custom_logo" alt="Current Logo" class="logo-preview">
+                                      <div class="logo-actions">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" @click="triggerLogoUpload">
+                                          <i class="fas fa-edit me-1"></i>
+                                          {{ $t('Change Logo') }}
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" @click="removeCustomLogo" :disabled="saving">
+                                          <i class="fas fa-trash me-1"></i>
+                                          {{ $t('Remove') }}
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div v-else class="logo-upload-placeholder" @click="triggerLogoUpload">
+                                      <i class="fas fa-cloud-upload-alt"></i>
+                                      <p>{{ $t('Upload Custom Logo') }}</p>
+                                      <small>{{ $t('Click to browse or drag and drop') }}</small>
+                                    </div>
+                                    <input ref="logoInput" type="file" @change="handleLogoUpload" accept="image/*" style="display: none;">
+                                  </div>
+                                  <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    {{ $t('Upload a custom logo for this template. If no custom logo is uploaded, the system will use the logo from general settings.') }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Template Elements Card -->
+                            <div class="card settings-card">
+                              <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                  <i class="fas fa-cogs me-2"></i>
+                                  {{ $t('Template Elements') }}
+                                </h5>
+                              </div>
+                              <div class="card-body">
+                                <div class="elements-grid">
+                                  <div class="element-item">
+                                    <div class="form-check">
+                                      <input v-model="templateConfig.elements.showLogo" type="checkbox" class="form-check-input" id="showLogo" @change="generateLivePreview">
+                                      <label class="form-check-label" for="showLogo">
+                                        <i class="fas fa-image element-icon"></i>
+                                        <div class="element-content">
+                                          <div class="element-title">{{ $t('Company Logo') }}</div>
+                                          <div class="element-description">{{ $t('Display company logo in header') }}</div>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="element-item">
+                                    <div class="form-check">
+                                      <input v-model="templateConfig.elements.showCompanyInfo" type="checkbox" class="form-check-input" id="showCompanyInfo" @change="generateLivePreview">
+                                      <label class="form-check-label" for="showCompanyInfo">
+                                        <i class="fas fa-building element-icon"></i>
+                                        <div class="element-content">
+                                          <div class="element-title">{{ $t('Company Information') }}</div>
+                                          <div class="element-description">{{ $t('Show company name, address, contact') }}</div>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="element-item">
+                                    <div class="form-check">
+                                      <input v-model="templateConfig.elements.showClientInfo" type="checkbox" class="form-check-input" id="showClientInfo" @change="generateLivePreview">
+                                      <label class="form-check-label" for="showClientInfo">
+                                        <i class="fas fa-user element-icon"></i>
+                                        <div class="element-content">
+                                          <div class="element-title">{{ $t('Client Information') }}</div>
+                                          <div class="element-description">{{ $t('Show client/customer details') }}</div>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="element-item">
+                                    <div class="form-check">
+                                      <input v-model="templateConfig.elements.showItemsTable" type="checkbox" class="form-check-input" id="showItemsTable" @change="generateLivePreview">
+                                      <label class="form-check-label" for="showItemsTable">
+                                        <i class="fas fa-table element-icon"></i>
+                                        <div class="element-content">
+                                          <div class="element-title">{{ $t('Items Table') }}</div>
+                                          <div class="element-description">{{ $t('Display products/services table') }}</div>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="element-item">
+                                    <div class="form-check">
+                                      <input v-model="templateConfig.elements.showTotals" type="checkbox" class="form-check-input" id="showTotals" @change="generateLivePreview">
+                                      <label class="form-check-label" for="showTotals">
+                                        <i class="fas fa-calculator element-icon"></i>
+                                        <div class="element-content">
+                                          <div class="element-title">{{ $t('Totals Section') }}</div>
+                                          <div class="element-description">{{ $t('Show subtotal, tax, and total') }}</div>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="element-item">
+                                    <div class="form-check">
+                                      <input v-model="templateConfig.elements.showFooter" type="checkbox" class="form-check-input" id="showFooter" @change="generateLivePreview">
+                                      <label class="form-check-label" for="showFooter">
+                                        <i class="fas fa-align-center element-icon"></i>
+                                        <div class="element-content">
+                                          <div class="element-title">{{ $t('Footer') }}</div>
+                                          <div class="element-description">{{ $t('Show footer text and notes') }}</div>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                          <div v-else class="preview-frame-container">
-                            <div class="preview-frame" v-html="livePreview"></div>
+                        </div>
+
+                        <!-- Right Panel - Live Preview -->
+                        <div class="col-xl-8 col-lg-7 col-md-12">
+                          <div class="editor-preview">
+                            <div class="card preview-card">
+                              <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h5 class="card-title mb-0">
+                                    <i class="fas fa-eye me-2"></i>
+                                    {{ $t('Live Preview') }}
+                                  </h5>
+                                  <div class="preview-actions">
+                                    <button class="btn btn-sm btn-outline-primary me-2" @click="refreshPreview">
+                                      <i class="fas fa-sync me-1"></i>
+                                      {{ $t('Refresh') }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" @click="downloadPreview">
+                                      <i class="fas fa-external-link-alt me-1"></i>
+                                      {{ $t('Open Preview') }}
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card-body p-0">
+                                <div class="preview-container">
+                                  <div v-if="!livePreview" class="preview-placeholder">
+                                    <div class="preview-placeholder-content">
+                                      <i class="fas fa-file-alt preview-icon"></i>
+                                      <h6 class="preview-title">{{ $t('Preview will appear here') }}</h6>
+                                      <p class="preview-description">{{ $t('Start editing your template to see the live preview') }}</p>
+                                    </div>
+                                  </div>
+                                  <div v-else class="preview-frame-container">
+                                    <div class="preview-frame" v-html="livePreview"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -398,36 +403,36 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Preview Modal -->
-    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content preview-modal">
-          <div class="modal-header">
-            <h5 class="modal-title" id="previewModalLabel">
-              <i class="fas fa-eye me-2"></i>
-              {{ $t('Template Preview') }}
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="preview-modal-content" v-html="modalPreview"></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" @click="closeModal">
-              <i class="fas fa-times me-1"></i>
-              {{ $t('Close') }}
-            </button>
-            <button type="button" class="btn btn-primary" @click="downloadPreview">
-              <i class="fas fa-external-link-alt me-1"></i> 
-              {{ $t('Open Preview') }}
-            </button>
+            <!-- Preview Modal -->
+            <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content preview-modal">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="previewModalLabel">
+                      <i class="fas fa-eye me-2"></i>
+                      {{ $t('Template Preview') }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="preview-modal-content" v-html="modalPreview"></div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" @click="closeModal">
+                      <i class="fas fa-times me-1"></i>
+                      {{ $t('Close') }}
+                    </button>
+                    <button type="button" class="btn btn-primary" @click="downloadPreview">
+                      <i class="fas fa-external-link-alt me-1"></i> 
+                      {{ $t('Open Preview') }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

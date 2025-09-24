@@ -115,7 +115,7 @@
                         </td>
                         <td style="min-width: 120px;">{{ item.purchaseQty }} {{ item.unit }}</td>
                         <td style="min-width: 120px;">{{ item.totalReturnQty }} {{ item.unit }}</td>
-                        <td style="min-width: 140px;">
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
