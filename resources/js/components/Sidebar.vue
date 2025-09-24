@@ -1671,7 +1671,7 @@ export default {
 
 /* Custom navigation padding */
 .custom-nav-padding {
-  padding: 24px;
+  padding: 12px;
 }
 
 /* Keep link labels' original casing; header capitalization handled separately */
