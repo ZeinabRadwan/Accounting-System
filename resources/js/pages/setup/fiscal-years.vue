@@ -1,12 +1,16 @@
 <template>
-    <div class="mb-50">
+    <div>
+        <!-- breadcrumbs Start -->
+        <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+        <!-- breadcrumbs end -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-12 col-xl-3">
+                <SettingsSidebar />
+            </div>
+            <div class="col-12 col-xl-9">
                 <div class="card custom-card w-100">
                     <div class="card-header setings-header">
-                        <!-- breadcrumbs Start -->
-                        <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-                        <!-- breadcrumbs end -->
+                        <h3 class="card-title">{{ $t('Fiscal Years') }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body position-relative">
@@ -94,7 +98,7 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- Fiscal Year Modal -->
         <div class="modal fade" id="fiscalYearModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
