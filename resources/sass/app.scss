@@ -1799,6 +1799,18 @@ img.circle-img.circle-img--small {
   margin-left: 0;
 }
 
+/* ================= RTL SIDEBAR-COLLAPSE FINAL OVERRIDE ================= */
+@media (min-width: 768px) {
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini):not(.layout-top-nav) .content-wrapper,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini):not(.layout-top-nav) .content-wrapper::before,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini):not(.layout-top-nav) .main-footer,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini):not(.layout-top-nav) .main-footer::before,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini):not(.layout-top-nav) .main-header,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini):not(.layout-top-nav) .main-header::before {
+    margin-right: 0 !important;
+  }
+}
+
 /* Fix arrow icon spacing in RTL - match LTR spacing */
 [dir="rtl"] .nav-sidebar .nav-item .nav-link .right {
   float: left !important;

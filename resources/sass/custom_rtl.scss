@@ -99,7 +99,6 @@
   [dir="rtl"] .sidebar-collapse .sidebar-mini-md .main-header {
     margin-left: 0 !important;
     margin-right: 4.6rem !important;
-    transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out !important;
   }
   
   [dir="rtl"] .sidebar-collapse .sidebar-mini-xs .content-wrapper,
@@ -107,7 +106,25 @@
   [dir="rtl"] .sidebar-collapse .sidebar-mini-xs .main-header {
     margin-left: 0 !important;
     margin-right: 4.6rem !important;
-    transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out !important;
+  }
+}
+
+/* RTL-only: when body has sidebar-collapse (excluding mini variants), remove right margins */
+@media (min-width: 768px) {
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) .content-wrapper,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) .content-wrapper::before,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) .main-footer,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) .main-footer::before,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) .main-header,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) .main-header::before {
+    margin-right: 0 !important;
+  }
+  
+  /* Override the base RTL rule that sets margin-right: 250px when sidebar-collapse is present */
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+  [dir="rtl"] body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-right: 0 !important;
   }
 }
 
