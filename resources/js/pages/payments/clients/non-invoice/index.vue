@@ -113,7 +113,7 @@
                   </th>
                 </thead>
                 <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
+                  <tr v-show="items.length" v-for="(data, i) in items" :key="i" :class="{ 'cancelled-row': data.status === 2 }">
                     <td>
                       <span v-if="pagination && pagination.current_page > 1">
                         {{
@@ -142,6 +142,9 @@
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
                       }}</span>
+                      <span v-else-if="data.status === 2" class="badge bg-danger">{{
+                        $t("Cancelled")
+                      }}</span>
                       <span v-else class="badge bg-danger">{{
                         $t("Inactive")
                       }}</span>
@@ -166,7 +169,15 @@
                             </button>
                           </div>
                           <ul>
-                            <li v-if="$can('non-invoice-payment-edit')">
+                            <li v-if="$can('non-invoice-payment-view')">
+                              <router-link :to="{ name: 'nonInvoicePayments.show', params: { slug: data.slug } }">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z" fill="#6B7280"/>
+                                </svg>
+                                {{ $t('View') }}
+                              </router-link>
+                            </li>
+                            <li v-if="$can('non-invoice-payment-edit') && data.status !== 2">
                               <router-link :to="{ name: 'nonInvoicePayments.edit', params: { slug: data.slug } }">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                   <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -174,12 +185,20 @@
                                 {{ $t('Edit') }}
                               </router-link>
                             </li>
-                            <li v-if="$can('non-invoice-payment-delete')">
+                            <li v-if="$can('non-invoice-payment-delete') && data.status === 1">
                               <a href="#" @click.prevent="cancelPayment(data.slug)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                   <path d="M8 1.33331C4.324 1.33331 1.33334 4.32398 1.33334 7.99998C1.33334 11.676 4.324 14.6666 8 14.6666C11.676 14.6666 14.6667 11.676 14.6667 7.99998C14.6667 4.32398 11.676 1.33331 8 1.33331ZM10.6667 10L10 10.6666L8 8.66665L6 10.6666L5.33334 10L7.33334 8L5.33334 6L6 5.33331L8 7.33331L10 5.33331L10.6667 6L8.66667 8L10.6667 10Z" stroke="#F59E0B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                {{ $t('Cancel') }}
+                                {{ $t('Cancel Payment') }}
+                              </a>
+                            </li>
+                            <li v-if="$can('non-invoice-payment-delete') && data.status === 0">
+                              <a href="#" @click.prevent="deleteData(data.slug)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                {{ $t('Delete') }}
                               </a>
                             </li>
                           </ul>
@@ -746,5 +765,17 @@ export default {
   padding: 10px 20px !important;
 
   border: none !important;
+}
+
+/* Cancelled row styling */
+.cancelled-row {
+  text-decoration: line-through;
+  opacity: 0.7;
+  background-color: #f8f9fa;
+}
+
+.cancelled-row td {
+  text-decoration: line-through;
+  color: #6c757d;
 }
 </style>

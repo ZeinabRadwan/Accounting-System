@@ -27,6 +27,7 @@ class TenantAccountSeeder extends Seeder
                     'updated_at' => now(),
                     'date' => now(),
                     'note' => null,
+                    'chart_of_account_id' => 18,
                 ],
             ]);
         }
