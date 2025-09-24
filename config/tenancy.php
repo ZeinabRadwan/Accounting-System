@@ -17,7 +17,7 @@ return [
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
     'central_domains' => [
-        env('CENTRAL_DOMAIN', 'websoft-saas.test'),
+        env('CENTRAL_DOMAIN', 'arqam.test'),
     ],
 
     /**

@@ -88,6 +88,7 @@ use App\Exports\ExportInvoiceSummary;
 use App\Exports\ExportPurchaseSummary;
 use App\Exports\ExportVatReport;
 use App\Exports\ExportChartOfAccounts;
+use App\Exports\ExportJournalEntries;
 
 
 class TableExportController extends Controller
@@ -1853,4 +1854,69 @@ class TableExportController extends Controller
 
 
     // Note: Other missing PDF methods (invoiceSummaryPDF, etc.) already exist in the codebase
+
+    /**
+     * Export journal entries to Excel
+     */
+    public function journalEntriesExportExcel(Request $request)
+    {
+        try {
+            $filters = [
+                'status' => $request->input('status'),
+                'from_date' => $request->input('from_date'),
+                'to_date' => $request->input('to_date'),
+            ];
+
+            return Excel::download(new ExportJournalEntries($filters), 'journal-entries-' . date('Y-m-d') . '.xlsx');
+        } catch (\Exception $e) {
+            Log::error('Journal Entries Excel Export Error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to export journal entries: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Export journal entries to PDF
+     */
+    public function journalEntriesExportPDF(Request $request)
+    {
+        try {
+            $query = \App\Models\JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster']);
+
+            // Apply filters
+            if ($request->input('status')) {
+                $query->where('status', $request->input('status'));
+            }
+
+            if ($request->input('from_date')) {
+                $query->where('entry_date', '>=', $request->input('from_date'));
+            }
+
+            if ($request->input('to_date')) {
+                $query->where('entry_date', '<=', $request->input('to_date'));
+            }
+
+            $journalEntries = $query->orderBy('entry_date', 'desc')->get();
+
+            $data = [
+                'journalEntries' => $journalEntries,
+                'filters' => [
+                    'status' => $request->input('status'),
+                    'from_date' => $request->input('from_date'),
+                    'to_date' => $request->input('to_date'),
+                ],
+                'company' => \App\Models\GeneralSetting::first(),
+            ];
+
+            return $this->generatePDF('pdf.journal-entries', $data, 'journal-entries-' . date('Y-m-d') . '.pdf');
+        } catch (\Exception $e) {
+            Log::error('Journal Entries PDF Export Error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to export journal entries: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

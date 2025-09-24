@@ -75,7 +75,7 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
-                    href="/journal-entries/export/excel"
+                    :href="exportExcelUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
@@ -94,7 +94,7 @@
                     </svg>
                   </a>
                   <a
-                    href="/journal-entries/export/pdf"
+                    :href="exportPdfUrl"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -300,6 +300,20 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters('operations', ['items', 'loading', 'pagination']),
+    exportExcelUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.status) params.append('status', this.filters.status);
+      if (this.filters.from_date) params.append('from_date', this.filters.from_date);
+      if (this.filters.to_date) params.append('to_date', this.filters.to_date);
+      return `/journal-entries/export/excel?${params.toString()}`;
+    },
+    exportPdfUrl() {
+      const params = new URLSearchParams();
+      if (this.filters.status) params.append('status', this.filters.status);
+      if (this.filters.from_date) params.append('from_date', this.filters.from_date);
+      if (this.filters.to_date) params.append('to_date', this.filters.to_date);
+      return `/journal-entries/export/pdf?${params.toString()}`;
+    },
   },
   watch: {
     // watch search data

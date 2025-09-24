@@ -49,7 +49,7 @@
                                         registration feature for the demo. You
                                         can access the Tenant panel
                                         <a
-                                            href="https://john.websoft.top/login"
+                                            href="https://john.arqam.sa/login"
                                             >here</a
                                         >
                                     </div>

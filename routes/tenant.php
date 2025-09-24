@@ -350,6 +350,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
 
         // Client non invoice payment routes
         Route::get('/payments/non-invoice/search', [NonInvoicePaymentController::class, 'search']);
+        Route::post('/payments/non-invoice/cancel/{slug}', [NonInvoicePaymentController::class, 'cancel']);
         Route::apiResource('/payments/non-invoice', NonInvoicePaymentController::class);
 
         // Supplier payment routes
@@ -770,7 +771,11 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/items-report/pdf', [TableExportController::class, 'itemsReportPDF'])->name('itemsReport.pdf');
     Route::get('/items-report/export', [TableExportController::class, 'itemsReportExportExcel'])->name('itemsReport.export.excel');
     Route::get('/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('expensesReport.pdf');
-    Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
+        Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
+
+        // Journal Entries export routes
+        Route::get('/journal-entries/export/excel', [TableExportController::class, 'journalEntriesExportExcel'])->name('journalEntries.export.excel');
+        Route::get('/journal-entries/export/pdf', [TableExportController::class, 'journalEntriesExportPDF'])->name('journalEntries.export.pdf');
     Route::get('/client-receivable-report/pdf', [TableExportController::class, 'clientReceivableReportPDF'])->name('clientReceivableReport.pdf');
     Route::get('/supplier-payable-report/pdf', [TableExportController::class, 'supplierPayableReportPDF'])->name('supplierPayableReport.pdf');
 

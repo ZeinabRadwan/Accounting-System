@@ -1,6 +1,6 @@
 <div>
 
-    <h2>websoft Multi tenancy</h2>
+    <h2>Arqam Multi tenancy</h2>
     <ul>
         <li><a href="{{ route('central.show-login-form') }}">Login</a></li>
         <li><a href="/register">Register</a></li>

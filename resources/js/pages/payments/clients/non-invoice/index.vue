@@ -175,11 +175,11 @@
                               </router-link>
                             </li>
                             <li v-if="$can('non-invoice-payment-delete')">
-                              <a href="#" @click.prevent="deleteData(data.slug)">
+                              <a href="#" @click.prevent="cancelPayment(data.slug)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                  <path d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M8 1.33331C4.324 1.33331 1.33334 4.32398 1.33334 7.99998C1.33334 11.676 4.324 14.6666 8 14.6666C11.676 14.6666 14.6667 11.676 14.6667 7.99998C14.6667 4.32398 11.676 1.33331 8 1.33331ZM10.6667 10L10 10.6666L8 8.66665L6 10.6666L5.33334 10L7.33334 8L5.33334 6L6 5.33331L8 7.33331L10 5.33331L10.6667 6L8.66667 8L10.6667 10Z" stroke="#F59E0B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                {{ $t('Delete') }}
+                                {{ $t('Cancel') }}
                               </a>
                             </li>
                           </ul>
@@ -437,36 +437,43 @@ export default {
       await this.$htmlToPaper("printMe");
     },
 
-    // delete data
-    async deleteData(slug) {
+    // cancel payment
+    async cancelPayment(slug) {
       Swal.fire({
-        title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this!"),
+        title: this.$t("Cancel Payment"),
+        text: this.$t("Are you sure you want to cancel this payment? This will delete the related journal entries."),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Yes, Cancel"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#f39c12",
+        cancelButtonColor: "#6c757d",
       }).then((result) => {
-        // Send request to the server
         if (result.value) {
-          this.$store
-            .dispatch("operations/deleteData", {
-              path: "/api/payments/non-invoice/",
-              slug: slug,
-            })
+          this.$axios
+            .post(`/api/payments/non-invoice/cancel/${slug}`)
             .then((response) => {
-              if (response === true) {
+              if (response.data.success) {
                 Swal.fire(
-                  this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
+                  this.$t("Cancelled!"),
+                  this.$t("Payment has been cancelled successfully."),
                   "success"
                 );
+                this.getData();
               } else {
                 Swal.fire(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this payment!"),
-                  "warning"
+                  this.$t("Sorry, couldn't cancel this payment!"),
+                  "error"
                 );
               }
+            })
+            .catch(() => {
+              Swal.fire(
+                this.$t("Failed!"),
+                this.$t("Sorry, couldn't cancel this payment!"),
+                "error"
+              );
             });
         }
       });

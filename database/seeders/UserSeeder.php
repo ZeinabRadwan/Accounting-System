@@ -21,9 +21,9 @@ class UserSeeder extends Seeder
             DB::table('users')->insert([
                 [
                     'name' => 'Super Admin',
-                    'email' => 'superadmin@websoft.top',
+                    'email' => 'superadmin@arqam.sa',
                     'email_verified_at' => Carbon::now(),
-                    'password' => Hash::make('websoft2024'),
+                    'password' => Hash::make('arqam2024'),
                     'account_role' => 1,
                     'is_active' => 1,
                 ],
