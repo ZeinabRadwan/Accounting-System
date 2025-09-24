@@ -940,7 +940,11 @@ textarea.form-control {
   font-weight: 500;
 }
 
-.btn-outline-custom:hover,
+.btn-outline-custom:hover {
+  background-color: #072350;
+  border-color: #072350
+}
+
 .btn-custom-active {
   background-color: #1B3C71;
   color: #fff;

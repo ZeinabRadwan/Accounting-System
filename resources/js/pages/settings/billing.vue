@@ -1,9 +1,13 @@
 <template>
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title">{{ $t("Billing Settings") }}</h3>
-    </div>
-    <div class="card-body">
+  <div class="mb-50">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <h3 class="card-title">{{ $t("Billing Settings") }}</h3>
+          </div>
+          <div class="card-body position-relative">
       <!-- active-subscription start -->
       <div>
         <!-- subscribed block -->
@@ -202,6 +206,9 @@
         </div>
       </form>
       <!-- subscription-form-end -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -392,6 +399,79 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Button styles to match invoices page */
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+
 .pricing-wrap h2 {
   font-size: 15px;
   color: #4c4e51;
@@ -439,5 +519,64 @@ export default {
 
 .small-text {
   font-size: 10px;
+}
+
+/* Brand color variations to match setup page */
+.card-icon.bg-brand-primary {
+  background: linear-gradient(135deg, #33a0d9 0%, #2a8bc7 100%) !important;
+  border: 1px solid rgba(51, 160, 217, 0.3);
+  border-radius: 20px;
+}
+
+.card-icon.bg-brand-light-blue {
+  background: linear-gradient(135deg, #ebf6fc 0%, #d6edf7 100%) !important;
+  color: #1b3c71 !important;
+  border: 1px solid rgba(235, 246, 252, 0.5);
+  border-radius: 20px;
+}
+
+.card-icon.bg-brand-light-green {
+  background: linear-gradient(135deg, #f6fef4 0%, #e8f5e8 100%) !important;
+  color: #1b3c71 !important;
+  border: 1px solid rgba(246, 254, 244, 0.5);
+  border-radius: 20px;
+}
+
+.card-icon.bg-brand-green {
+  background: linear-gradient(135deg, #2ab930 0%, #239a26 100%) !important;
+  border: 1px solid rgba(42, 185, 48, 0.3);
+  border-radius: 20px;
+}
+
+.card-icon.bg-brand-dark-blue {
+  background: linear-gradient(135deg, #1b3c71 0%, #152a4a 100%) !important;
+  border: 1px solid rgba(27, 60, 113, 0.3);
+  border-radius: 20px;
+}
+
+.card-icon.bg-brand-teal {
+  background: linear-gradient(135deg, #449eae 0%, #3a8a98 100%) !important;
+  border: 1px solid rgba(68, 158, 174, 0.3);
+  border-radius: 20px;
+}
+
+.card-icon.bg-brand-dark-teal {
+  background: linear-gradient(135deg, #377578 0%, #2d5f61 100%) !important;
+  border: 1px solid rgba(55, 117, 120, 0.3);
+  border-radius: 20px;
+}
+
+/* Icon color adjustments for light backgrounds */
+.card-icon.bg-brand-light-blue i,
+.card-icon.bg-brand-light-green i {
+  color: #1b3c71 !important;
+}
+
+.card-icon.bg-brand-primary i,
+.card-icon.bg-brand-green i,
+.card-icon.bg-brand-dark-blue i,
+.card-icon.bg-brand-teal i,
+.card-icon.bg-brand-dark-teal i {
+  color: white !important;
 }
 </style>

@@ -1,35 +1,35 @@
 <template>
-  <div class="print-templates-page">
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-
-    <!-- Header Section -->
-    <div class="page-header">
-      <div class="container-fluid">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <h1 class="page-title">
-              <i class="fas fa-print me-2"></i>
-              {{ $t('Print Templates') }} - {{ $t(selectedModule.charAt(0).toUpperCase() + selectedModule.slice(1) + 's') }}
-            </h1>
-            <p class="page-subtitle">{{ $t('Manage your') }} {{ $t(selectedModule.charAt(0).toUpperCase() + selectedModule.slice(1) + 's') }} {{ $t('templates') }}</p>
+  <div class="mb-50">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
-          <div class="col-md-4 text-end">
-            <button class="btn btn-primary" @click="createNewTemplate" v-if="!isEditing">
-              <i class="fas fa-plus me-2"></i>
-              {{ $t('New Template') }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+          <div class="card-body position-relative">
+            <!-- Header Section -->
+            <div class="row align-items-center mb-4">
+              <div class="col-md-8">
+                <h1 class="page-title m-0">
+                  <i class="fas fa-print me-2"></i>
+                  {{ $t('Print Templates') }} - {{ $t(selectedModule.charAt(0).toUpperCase() + selectedModule.slice(1) + 's') }}
+                </h1>
+                <p class="page-subtitle">{{ $t('Manage your') }} {{ $t(selectedModule.charAt(0).toUpperCase() + selectedModule.slice(1) + 's') }} {{ $t('templates') }}</p>
+              </div>
+              <div class="col-md-4 text-end">
+                <button class="btn btn-primary" @click="createNewTemplate" v-if="!isEditing">
+                  <i class="fas fa-plus me-2"></i>
+                  {{ $t('New Template') }}
+                </button>
+              </div>
+            </div>
 
-    <!-- Template List View -->
-    <div v-if="!isEditing" class="template-list-section">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
+            <!-- Template List View -->
+            <div v-if="!isEditing" class="template-list-section">
+              <div class="row">
+                <div class="col-12">
             <!-- Module Filter -->
             <div class="module-filter mb-4">
               <div class="btn-group" role="group">
@@ -114,11 +114,9 @@
                   </button>
                 </div>
               </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Template Editor -->
     <div v-if="isEditing" class="template-editor-section">
@@ -1383,19 +1381,78 @@ export default {
 </script>
 
 <style scoped>
-/* Main Page Container */
-.print-templates-page {
-  min-height: 100vh;
-  background: #f8fafc;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* Card branding to match setup page */
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA;
 }
 
-/* Page Header */
-.page-header {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #CED4DA;
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Button styles to match invoices page */
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
 }
 
 .page-title {
