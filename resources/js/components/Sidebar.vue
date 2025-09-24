@@ -79,7 +79,7 @@
               <i class="nav-icon fas fa-shopping-bag" />
               <p>
                 {{ $t("Sales") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -215,7 +215,7 @@
               <i class="nav-icon fas fa-shopping-basket" />
               <p>
                 {{ $t("Purchases") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -332,7 +332,7 @@
               <i class="nav-icon fas fa-users-cog" />
               <p>
                 {{ $t("Employees") }}
-                <i class="fas fa-angle-left right" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -438,7 +438,7 @@
               <i class="nav-icon fas fa-book" />
               <p>
                 {{ $t("Cashbook & Accounts") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -547,7 +547,7 @@
               <i class="fas fa-book nav-icon" />
               <p>
                 {{ $t("Journal Entries") }}
-                <i class="fas fa-angle-left right" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -607,7 +607,7 @@
               <i class="nav-icon fas fa-calculator" />
               <p>
                 {{ $t("Expenses") }}
-                <i class="fas fa-angle-left right" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -700,7 +700,7 @@
               <i class="nav-icon fas fa-receipt" />
               <p>
                 {{ $t("Payments") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -738,7 +738,7 @@
                   <i class="nav-icon fas fa-users" />
                   <p>
                     {{ $t("Clients") }}
-                    <i class="fas fa-angle-left right" />
+                    <span class="toggle-icon"></span>
                   </p>
                 </a>
                 <ul
@@ -812,7 +812,7 @@
                   <i class="nav-icon fas fa-people-carry" />
                   <p>
                     {{ $t("Suppliers") }}
-                    <i class="fas fa-angle-left right" />
+                    <span class="toggle-icon"></span>
                   </p>
                 </a>
                 <ul
@@ -895,7 +895,7 @@
               <i class="nav-icon fas fa-piggy-bank" />
               <p>
                 {{ $t("Loan Management") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -984,7 +984,7 @@
               <i class="nav-icon fas fa-couch" />
               <p>
                 {{ $t("Asset Management") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -1076,7 +1076,7 @@
               <i class="nav-icon fas fa-boxes" />
               <p>
                 {{ $t("Items") }}
-                <i class="fas fa-angle-left right" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -1165,7 +1165,7 @@
               <i class="nav-icon fas fa-warehouse" />
               <p>
                 {{ $t("Inventory") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -1224,7 +1224,7 @@
               <i class="nav-icon fas fa-chart-bar" />
               <p>
                 {{ $t("Reports") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -1396,7 +1396,7 @@
               <i class="nav-icon fas fa-user" />
               <p>
                 {{ $t("Account") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -1445,7 +1445,7 @@
               <i class="nav-icon fas fa-database" />
               <p>
                 {{ $t("Domain") }}
-                <i class="fas fa-angle-left right" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -1483,7 +1483,7 @@
               <i class="nav-icon fas fa-user" />
               <p>
                 {{ $t("Resources") }}
-                <i class="right fas fa-angle-left" />
+                <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
@@ -1565,13 +1565,28 @@ export default {
 }
 
 .nav-link {
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.75rem;
 }
 
-/* Slightly lower icons to align better with text */
-.main-sidebar .nav-sidebar .nav-link i.nav-icon {
+/* Icon alignment (FA <i> and inline <svg>) consistent for LTR/RTL */
+.main-sidebar .nav-sidebar .nav-link i.nav-icon,
+.main-sidebar .nav-sidebar .nav-link svg {
   position: relative;
-  top: 5px;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir="rtl"] .main-sidebar .nav-sidebar .nav-link i.nav-icon,
+[dir="rtl"] .main-sidebar .nav-sidebar .nav-link svg {
+  margin-right: 0;
+  margin-left: 8px;
 }
 
 /* Add border-top to nav headers except the first one */
@@ -1586,11 +1601,10 @@ export default {
   font-size: 16px;
 }
 
-/* Make only first character uppercase for all nav headers */
+/* Make only first character uppercase for nav headers */
 .main-sidebar .nav-sidebar .nav-header {
   text-transform: lowercase;
 }
-
 .main-sidebar .nav-sidebar .nav-header::first-letter {
   text-transform: uppercase;
 }
@@ -1599,8 +1613,19 @@ export default {
 .main-sidebar .nav-sidebar .nav-treeview {
   background-color: transparent;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 12px;
   margin-left: 20px;
+  border-left: 1px solid #e6eaed;
+}
+
+/* RTL: place the separator on the right side */
+[dir="rtl"] .main-sidebar .nav-sidebar .nav-treeview {
+  margin-left: 0;
+  margin-right: 20px;
+  padding-left: 0;
+  padding-right: 12px;
+  border-left: 0;
+  border-right: 1px solid #e6eaed;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-item {
@@ -1609,7 +1634,7 @@ export default {
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link {
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.75rem;
   margin: 10px 0;
   color: #6b7280;
   font-size: 13px;
@@ -1636,19 +1661,6 @@ export default {
   font-size: 12px;
 }
 
-/* Add a small dot indicator for submenu items */
-.main-sidebar .nav-sidebar .nav-treeview .nav-link::before {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 3px;
-  background-color: #d1d5db;
-  border-radius: 50%;
-}
-
 .main-sidebar
   .nav-sidebar
   .nav-treeview
@@ -1662,16 +1674,7 @@ export default {
   padding: 24px;
 }
 
-/* Make only first character uppercase for all nav links except POS */
-.main-sidebar .nav-sidebar .nav-link p,
-.main-sidebar .nav-sidebar .nav-treeview .nav-link p {
-  text-transform: lowercase;
-}
-
-.main-sidebar .nav-sidebar .nav-link p::first-letter,
-.main-sidebar .nav-sidebar .nav-treeview .nav-link p::first-letter {
-  text-transform: uppercase;
-}
+/* Keep link labels' original casing; header capitalization handled separately */
 
 /* Keep POS in all uppercase */
 .main-sidebar .nav-sidebar .pos-link p {
@@ -1683,7 +1686,7 @@ export default {
 .main-sidebar .nav-sidebar .nav-link.active {
   background-color: #33a0d9 !important;
   color: #fff !important;
-  border-radius: 10px;
+  border-radius: 25px;
   padding-bottom: 1px;
 }
 
@@ -1691,8 +1694,17 @@ export default {
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
   background-color: #33a0d9 !important;
   color: #fff !important;
-  border-radius: 6px;
-  padding: 4px 16px;
+  border-radius: 25px;
+  padding: 6px 16px;
+}
+
+/* Ensure all links (parents and children) have the same height */
+.main-sidebar .nav-sidebar .nav-link,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
 }
 
 /* Ensure icon/text remain visible on active */
@@ -1723,6 +1735,36 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   left: 0px;
 }
 
+/* Plus/Minus toggle icon */
+.main-sidebar .nav-sidebar .toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #6b7280;
+}
+
+.main-sidebar .nav-sidebar .nav-item.has-treeview > a .toggle-icon::before {
+  content: "+";
+}
+
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open > a .toggle-icon::before,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening > a .toggle-icon::before {
+  content: "-";
+}
+
+/* Make toggle icon white on active/open headers */
+.main-sidebar .nav-sidebar .menu-open > a .toggle-icon,
+.main-sidebar .nav-sidebar .menu-is-opening > a .toggle-icon {
+  color: #fff !important;
+}
+
 /* Remove all borders for nav items */
 .main-sidebar .nav-sidebar .nav-item,
 .main-sidebar .nav-sidebar .nav-link,
@@ -1739,7 +1781,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 .main-sidebar .nav-sidebar .nav-link:hover {
   background-color: #f8fafc !important;
   color: #374151 !important;
-  border-radius: 8px;
+  border-radius: 25px;
   transition: all 0.3s ease;
   transform: translateX(2px);
 }
@@ -1805,7 +1847,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 .main-sidebar .nav-sidebar .menu-is-opening > a {
   background-color: #33a0d9 !important;
   color: #fff !important;
-  border-radius: 8px;
+  border-radius: 25px;
   border: none !important;
   border-left: none !important;
   border-right: none !important;
@@ -1820,6 +1862,52 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 .main-sidebar .nav-sidebar .menu-open > a p,
 .main-sidebar .nav-sidebar .menu-is-opening > a p {
   color: #fff !important;
+}
+
+/* Keep parent <a> content (icon + title + +/-) aligned on one line */
+.main-sidebar .nav-sidebar .nav-item.has-treeview > a.nav-link {
+  display: flex;
+  align-items: baseline;
+}
+.main-sidebar .nav-sidebar .nav-item.has-treeview > a.nav-link > p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Ensure alignment persists when parent is active/open */
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open > a.nav-link,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening > a.nav-link {
+  display: flex;
+  align-items: center;
+}
+
+/* Keep parent header in default active style (blue bg, white content) */
+
+/* Active child under an open parent: light bg + blue content (override any defaults) */
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active,
+.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active {
+  background-color: #d7dbdd59 !important;
+  color: #33a0d9 !important;
+}
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active i,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active svg,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active p,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active .toggle-icon,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active i,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active svg,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active p,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active .toggle-icon,
+.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active i,
+.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active svg,
+.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active p,
+.main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active .toggle-icon {
+  color: #33a0d9 !important;
 }
 
 .nav-sidebar .nav-header {
