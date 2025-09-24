@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'quotations.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="submit" class="btn btn-success" :form="'quotationCreateForm'" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -20,7 +20,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="saveQuotation" @keydown="form.onKeydown($event)">
+          <form id="quotationCreateForm" role="form" @submit.prevent="saveQuotation" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <!-- Date Field - Standalone Row -->
               <div class="row">

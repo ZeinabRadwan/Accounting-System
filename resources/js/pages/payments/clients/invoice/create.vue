@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'invoicePayments.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="submit" class="btn btn-success" :form="'clientInvoicePaymentCreateForm'" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -20,7 +20,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="savePayment" @keydown="form.onKeydown($event)">
+          <form id="clientInvoicePaymentCreateForm" role="form" @submit.prevent="savePayment" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row" v-if="items">
                 <div class="form-group col-md-12">

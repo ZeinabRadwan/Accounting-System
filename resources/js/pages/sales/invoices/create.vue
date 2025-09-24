@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'invoices.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Temporarily">
+                <button type="submit" class="btn btn-success" :form="'invoiceCreateForm'" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -21,7 +21,7 @@
           
           <div class="card-body">
             <!-- Add the missing form element with submit handler -->
-            <form @submit.prevent="handleFormSubmit">
+            <form id="invoiceCreateForm" @submit.prevent="handleFormSubmit">
               <!-- Client Selection with Auto-Assign -->
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
