@@ -284,10 +284,34 @@ export default {
           })
           this.$router.push({ name: 'invoicePayments.index' })
         })
-        .catch(() => {
+        .catch((error) => {
+          // Show all validation messages when present
+          if (error?.response?.status === 422 && error?.response?.data?.errors) {
+            const errorsMap = error.response.data.errors
+            this.form.errors.set(errorsMap)
+
+            const messages = Object.values(errorsMap).flat()
+            const combined = messages.join('\n')
+
+            toast.fire({
+              type: 'error',
+              title: this.$t('Validation Error'),
+              text: combined,
+              timer: 8000,
+              timerProgressBar: true,
+            })
+            return
+          }
+
+          const backendMessage =
+            error?.response?.data?.message ||
+            error?.response?.data?.error ||
+            error?.message
+
           toast.fire({
             type: 'error',
-            title: this.$t('Opps...something went wrong'),
+            title: this.$t('Error'),
+            text: backendMessage || this.$t('Opps...something went wrong'),
           })
         })
     },

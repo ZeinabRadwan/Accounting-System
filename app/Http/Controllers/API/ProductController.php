@@ -633,14 +633,28 @@ class ProductController extends Controller
     {
         // Initialize variables
         $prefix = '';
-        $code = '';
+        $nextCode = null;
 
-        // Get the latest product
-        $product = Product::latest()->first();
+        // Strategy 1: Find the highest purely numeric code and increment it
+        $lastNumericCode = Product::whereRaw('code REGEXP "^[0-9]+$"')
+            ->orderBy(DB::raw('CAST(code AS UNSIGNED)'), 'desc')
+            ->value('code');
 
-        // Check if the previous code is numeric
-        if ($product && is_numeric($product->code)) {
-            $code = $product->code + 1;
+        if ($lastNumericCode !== null) {
+            $nextCode = (int) $lastNumericCode + 1;
+        } else {
+            // Strategy 2: Fallback - try to extract trailing digits from the very latest product code
+            $latestProduct = Product::latest()->first();
+            if ($latestProduct && is_string($latestProduct->code)) {
+                if (preg_match('/(\d+)(?!.*\d)/', $latestProduct->code, $matches)) {
+                    $nextCode = ((int) $matches[1]) + 1;
+                }
+            }
+        }
+
+        // If nothing worked, start from 1
+        if ($nextCode === null) {
+            $nextCode = 1;
         }
 
         // Get the product prefix setting
@@ -649,10 +663,10 @@ class ProductController extends Controller
             $prefix = $setting->value;
         }
 
-        // Return prefix and code
+        // Return prefix and zero-padded code
         return [
             'prefix' => $prefix,
-            'code' => $code !== '' ? str_pad($code, 6, '0', STR_PAD_LEFT) : '',
+            'code' => str_pad((string) $nextCode, 6, '0', STR_PAD_LEFT),
         ];
     }
 
