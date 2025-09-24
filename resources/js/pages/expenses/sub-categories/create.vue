@@ -8,16 +8,19 @@
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
             <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
+              <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'expenseSubCats.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
+                <button type="submit" class="btn btn-success" :form="'expenseSubCategoryCreateForm'" title="Save">
+                  <i class="fas fa-save" />
+                </button>
               </div>
             </div>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="saveSubCategory" @keydown="form.onKeydown($event)">
+          <form id="expenseSubCategoryCreateForm" role="form" @submit.prevent="saveSubCategory" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-12">
@@ -58,7 +61,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
+                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
                   <v-button :loading="form.busy" class="btn btn-success">
                     <i class="fas fa-save" /> {{ $t('Save') }}
                   </v-button>
@@ -140,6 +143,25 @@ export default {
 </script>
 
 <style scoped>
+/* Header buttons styling to match invoices page */
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+/* Footer buttons styling to match invoices page */
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
