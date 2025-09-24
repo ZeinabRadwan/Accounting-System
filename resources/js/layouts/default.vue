@@ -30,6 +30,7 @@
           {{ subscription_limit_message }}
         </div>
         <div class="container-fluid page-padding">
+          <GlobalSaveButton />
           <child />
         </div>
         <!-- /.container-fluid -->
@@ -55,6 +56,7 @@ import { mapGetters } from 'vuex'
 import Navbar from '~/components/Navbar'
 import Sidebar from '~/components/Sidebar'
 import SidebarControll from '~/components/SidebarControll'
+import GlobalSaveButton from '~/components/GlobalSaveButton'
 
 export default {
   name: 'MainLayout',
@@ -65,6 +67,7 @@ export default {
     Navbar,
     Sidebar,
     SidebarControll,
+    GlobalSaveButton,
   },
   // Map Getters
   computed: {
