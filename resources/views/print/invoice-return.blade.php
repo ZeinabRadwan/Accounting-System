@@ -43,17 +43,17 @@
             </div>
             <div class="document-info">
                 <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;">
-                    @lang('print.Invoice')
+                    @lang('print.Invoice Return')
                 </h2>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    @lang('print.Invoice #'): {{ $invoice->invoice_no }}
+                    @lang('print.Return #'): {{ $invoiceReturn->return_no }}
                 </p>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    @lang('print.Date'): {{ \Carbon\Carbon::parse($invoice->invoice_date)->format('M d, Y') }}
+                    @lang('print.Date'): {{ \Carbon\Carbon::parse($invoiceReturn->date)->format('M d, Y') }}
                 </p>
-                @if($invoice->dueDate)
+                @if($invoiceReturn->invoice)
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    @lang('print.Due Date'): {{ \Carbon\Carbon::parse($invoice->dueDate)->format('M d, Y') }}
+                    @lang('print.Original Invoice #'): {{ $invoiceReturn->invoice->invoice_no }}
                 </p>
                 @endif
             </div>
@@ -64,14 +64,37 @@
     @if($elements['showClientInfo'] ?? true)
     <!-- Client Info -->
     <div class="client-info">
-        <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Bill To'):</h3>
-        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $invoice->client->name ?? __('print.N/A') }}</p>
+        <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Return From'):</h3>
+        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $invoiceReturn->invoice->client->name ?? __('print.N/A') }}</p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            {{ $invoice->client->address ?? __('print.N/A') }}
+            {{ $invoiceReturn->invoice->client->address ?? __('print.N/A') }}
         </p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            {{ $invoice->client->email ?? __('print.N/A') }} • {{ $invoice->client->phone ?? __('print.N/A') }}
+            {{ $invoiceReturn->invoice->client->email ?? __('print.N/A') }} • {{ $invoiceReturn->invoice->client->phone ?? __('print.N/A') }}
         </p>
+    </div>
+    @endif
+
+    @if($elements['showReturnInfo'] ?? true)
+    <!-- Return Information -->
+    <div class="return-info" style="margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+        <h4 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Return Details')</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+                <strong>@lang('print.Reason'):</strong> {{ $invoiceReturn->reason ?? __('print.N/A') }}
+            </div>
+            <div>
+                <strong>@lang('print.Status'):</strong> 
+                <span style="color: {{ $invoiceReturn->status ? '#28a745' : '#dc3545' }};">
+                    {{ $invoiceReturn->status ? __('print.Active') : __('print.Inactive') }}
+                </span>
+            </div>
+            @if($invoiceReturn->note)
+            <div style="grid-column: 1 / -1;">
+                <strong>@lang('print.Note'):</strong> {{ $invoiceReturn->note }}
+            </div>
+            @endif
+        </div>
     </div>
     @endif
     
@@ -84,18 +107,18 @@
                     <th class="text-center">@lang('print.Row Number')</th>
                     <th class="text-center">@lang('print.Product Code')</th>
                     <th class="text-center">@lang('print.Product Name')</th>
-                    <th class="text-center">@lang('print.Quantity')</th>
+                    <th class="text-center">@lang('print.Invoice Quantity')</th>
                     <th class="text-center">@lang('print.Return Quantity')</th>
                     <th class="text-right">@lang('print.Price')</th>
                     <th class="text-right">@lang('print.Total')</th>
                     <th class="text-center">@lang('print.Discount')</th>
                     <th class="text-right">@lang('print.Total After Discount')</th>
                     <th class="text-right">@lang('print.VAT')</th>
-                    <th class="text-right">@lang('print.Total with Tax')</th>
+                    <th class="text-right">@lang('print.Return Total')</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($invoice->invoiceProducts as $index => $product)
+                @foreach($invoiceReturn->invoiceReturnProducts as $index => $product)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td class="text-center">{{ $product->product->code ?? __('print.N/A') }}</td>
@@ -105,30 +128,40 @@
                         <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">{{ $product->product->description }}</small>
                         @endif
                     </td>
-                    <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
-                    <td class="text-center">{{ $product->invoiceReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
-                    <td class="text-right">${{ number_format($product->sale_price, 2) }}</td>
-                    <td class="text-right">${{ number_format($product->quantity * $product->sale_price, 2) }}</td>
+                    <td class="text-center">{{ $product->invoiceQty }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                    <td class="text-center">{{ $product->returnQty }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                    <td class="text-right">${{ number_format($product->salePrice, 2) }}</td>
+                    <td class="text-right">${{ number_format($product->invoiceQty * $product->salePrice, 2) }}</td>
                     <td class="text-center">
-                        @if($product->discount > 0)
-                            @if($product->discount_type === 'percentage')
-                                {{ $product->discount }}%
-                            @else
-                                ${{ number_format($product->discount, 2) }}
-                            @endif
+                        @if($product->discountAmount > 0)
+                            ${{ number_format($product->discountAmount, 2) }}
                         @else
                             @lang('print.No Discount')
                         @endif
                     </td>
-                    <td class="text-right">${{ number_format($product->getTotalAfterDiscountAttribute(), 2) }}</td>
                     <td class="text-right">
-                        @if($product->tax_amount > 0)
-                            ${{ number_format($product->tax_amount, 2) }}
+                        @php
+                            $unitDiscount = $product->invoiceQty > 0 ? $product->discountAmount / $product->invoiceQty : 0;
+                            $unitNet = $product->salePrice - $unitDiscount;
+                            $totalAfterDiscount = $unitNet * $product->invoiceQty;
+                        @endphp
+                        ${{ number_format($totalAfterDiscount, 2) }}
+                    </td>
+                    <td class="text-right">
+                        @if($product->taxAmount > 0)
+                            ${{ number_format($product->taxAmount, 2) }}
                         @else
                             @lang('print.No VAT')
                         @endif
                     </td>
-                    <td class="text-right">${{ number_format($product->getTotalAfterDiscountAttribute() + $product->tax_amount, 2) }}</td>
+                    <td class="text-right">
+                        @php
+                            $returnTotal = $unitNet * $product->returnQty;
+                            $returnVat = $product->taxAmount > 0 ? ($product->taxAmount / $product->invoiceQty) * $product->returnQty : 0;
+                            $totalWithVat = $returnTotal + $returnVat;
+                        @endphp
+                        ${{ number_format($totalWithVat, 2) }}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -141,24 +174,28 @@
     <div class="totals-section">
         <div class="totals-table">
             <div class="total-row">
-                <span>@lang('print.Subtotal'):</span>
-                <span>${{ number_format($invoice->sub_total, 2) }}</span>
+                <span>@lang('print.Original Invoice Subtotal'):</span>
+                <span>${{ number_format($invoiceReturn->invoice->subTotal ?? 0, 2) }}</span>
             </div>
-            @if($invoice->discount > 0)
             <div class="total-row">
-                <span>@lang('print.Discount'):</span>
-                <span>-${{ number_format($invoice->discount, 2) }}</span>
+                <span>@lang('print.Return Amount'):</span>
+                <span style="color: #dc3545;">-${{ number_format($invoiceReturn->totalReturn ?? 0, 2) }}</span>
+            </div>
+            @if($invoiceReturn->invoice->discount > 0)
+            <div class="total-row">
+                <span>@lang('print.Original Discount'):</span>
+                <span>-${{ number_format($invoiceReturn->invoice->discount ?? 0, 2) }}</span>
             </div>
             @endif
-            @if($invoice->calculated_tax > 0)
+            @if($invoiceReturn->invoice->calculatedTax > 0)
             <div class="total-row">
-                <span>@lang('print.Tax'):</span>
-                <span>${{ number_format($invoice->calculated_tax, 2) }}</span>
+                <span>@lang('print.Original Tax'):</span>
+                <span>${{ number_format($invoiceReturn->invoice->calculatedTax ?? 0, 2) }}</span>
             </div>
             @endif
             <div class="total-row total-final">
-                <span>@lang('print.Total'):</span>
-                <span>${{ number_format($invoice->calculated_total, 2) }}</span>
+                <span>@lang('print.Net Amount After Return'):</span>
+                <span>${{ number_format(($invoiceReturn->invoice->calculatedTotal ?? 0) - ($invoiceReturn->totalReturn ?? 0), 2) }}</span>
             </div>
         </div>
     </div>

@@ -214,4 +214,53 @@ return [
     'Invoice Date' => 'تاريخ الفاتورة',
     'No sales data found for the selected period.' => 'لم يتم العثور على بيانات مبيعات للفترة المحددة.',
     'No collection data found for the selected period.' => 'لم يتم العثور على بيانات تحصيل للفترة المحددة.',
+    
+    // Invoice Print Template
+    'Invoice' => 'فاتورة',
+    'Invoice #' => 'رقم الفاتورة',
+    'Date' => 'التاريخ',
+    'Due Date' => 'تاريخ الاستحقاق',
+    'Bill To' => 'فاتورة إلى',
+    'Subtotal' => 'المجموع الفرعي',
+    'Discount' => 'الخصم',
+    'Tax' => 'الضريبة',
+    'Total' => 'الإجمالي',
+    'Thank you for your business!' => 'شكراً لتعاملكم معنا!',
+    'Print Document' => 'طباعة المستند',
+    'Download PDF' => 'تحميل PDF',
+    'Company Logo' => 'شعار الشركة',
+    'N/A' => 'غير متوفر',
+    'Pcs' => 'قطعة',
+    
+    // Purchase Print Template
+    'Purchase' => 'شراء',
+    'Purchase #' => 'رقم الشراء',
+    'Supplier' => 'المورد',
+    'Thank you for your service!' => 'شكراً لخدمتكم!',
+
+    // Quotation Print Template
+    'Quotation' => 'عرض سعر',
+    'Quotation #' => 'رقم عرض السعر',
+    'Quote For' => 'موجه إلى',
+    'Valid Until' => 'صالح حتى',
+    'Thank you for considering our services!' => 'شكراً لاهتمامكم بخدماتنا!',
+
+    // Invoice Return Template
+    'Invoice Return' => 'مرتجع فاتورة',
+    'Return #' => 'رقم المرتجع',
+    'Original Invoice #' => 'رقم الفاتورة الأصلية',
+    'Return From' => 'مرتجع من',
+    'Return Details' => 'تفاصيل المرتجع',
+    'Reason' => 'السبب',
+    'Status' => 'الحالة',
+    'Active' => 'نشط',
+    'Inactive' => 'غير نشط',
+    'Note' => 'ملاحظة',
+    'Invoice Quantity' => 'كمية الفاتورة',
+    'Return Total' => 'إجمالي المرتجع',
+    'Original Invoice Subtotal' => 'الإجمالي الفرعي للفاتورة الأصلية',
+    'Return Amount' => 'مبلغ المرتجع',
+    'Original Discount' => 'الخصم الأصلي',
+    'Original Tax' => 'الضريبة الأصلية',
+    'Net Amount After Return' => 'صافي المبلغ بعد المرتجع',
 ];

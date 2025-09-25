@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice - {{ $invoice->invoice_no }}</title>
+    <title>Invoice Return - {{ $invoiceReturn->return_no }}</title>
     <style>
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,30 +19,12 @@
             background: #ffffff; 
             margin: 0; 
             padding: 20mm;
-            direction: {{ $isRTL ? 'rtl' : 'ltr' }};
         }
-        
-        /* Arabic text support */
-        .arabic-text {
-            font-family: 'DejaVu Sans', 'Arial Unicode MS', 'Tahoma', sans-serif;
-            direction: rtl;
-            text-align: right;
-        }
-        
-        /* RTL Support */
+        body { direction: {{ $isRTL ? 'rtl' : 'ltr' }}; }
+        .arabic-text { font-family: 'DejaVu Sans', 'Arial Unicode MS', 'Tahoma', sans-serif; direction: rtl; text-align: right; }
         @if($isRTL)
-        .document-header > div {
-            flex-direction: row-reverse;
-        }
-        
-        .items-table th,
-        .items-table td {
-            text-align: {{ $isRTL ? 'right' : 'left' }};
-        }
-        
-        .items-table .text-right {
-            text-align: {{ $isRTL ? 'left' : 'right' }} !important;
-        }
+        .items-table th, .items-table td { text-align: right; }
+        .items-table .text-right { text-align: left !important; }
         @endif
         .document-container { max-width: 800px; margin: 0 auto; }
         h1, h2, h3 { color: #2563eb; }
@@ -72,6 +54,9 @@
         .totals-table .total-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6; }
         .totals-table .total-final { font-weight: 700; font-size: 16px; border-top: 2px solid #e5e7eb; border-bottom: 2px solid #e5e7eb; padding: 12px 0; }
         .document-footer { text-align: center; padding-top: 20px; border-top: 1px solid #e5e7eb; font-style: italic; }
+        .return-info { margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px; }
+        .return-info h4 { margin-bottom: 10px; color: #2563eb; }
+        .return-info div { margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -96,11 +81,11 @@
                     <p style="margin: 0;">{{ $companyPhone }} • {{ $companyEmail }}</p>
                 </div>
                 <div style="text-align: right;">
-                    <h2 style="font-size: 24px; margin: 0 0 15px 0;">@lang('print.Invoice')</h2>
-                    <p style="margin: 0;">@lang('print.Invoice #'): {{ $invoice->invoice_no }}</p>
-                    <p style="margin: 0;">@lang('print.Date'): {{ \Carbon\Carbon::parse($invoice->invoice_date)->format('M d, Y') }}</p>
-                    @if($invoice->dueDate)
-                    <p style="margin: 0;">@lang('print.Due Date'): {{ \Carbon\Carbon::parse($invoice->dueDate)->format('M d, Y') }}</p>
+                    <h2 style="font-size: 24px; margin: 0 0 15px 0;">@lang('print.Invoice Return')</h2>
+                    <p style="margin: 0;">@lang('print.Return #'): {{ $invoiceReturn->return_no }}</p>
+                    <p style="margin: 0;">@lang('print.Date'): {{ \Carbon\Carbon::parse($invoiceReturn->date)->format('M d, Y') }}</p>
+                    @if($invoiceReturn->invoice)
+                    <p style="margin: 0;">@lang('print.Original Invoice #'): {{ $invoiceReturn->invoice->invoice_no }}</p>
                     @endif
                 </div>
             </div>
@@ -108,10 +93,29 @@
         
         <!-- Client Info -->
         <div style="margin-bottom: 30px;">
-            <h3 style="margin-bottom: 10px;">@lang('print.Bill To'):</h3>
-            <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $invoice->client->name ?? __('print.N/A') }}</p>
-            <p style="margin: 0;">{{ $invoice->client->address ?? __('print.N/A') }}</p>
-            <p style="margin: 0;">{{ $invoice->client->email ?? __('print.N/A') }} • {{ $invoice->client->phone ?? __('print.N/A') }}</p>
+            <h3 style="margin-bottom: 10px;">@lang('print.Return From'):</h3>
+            <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $invoiceReturn->invoice->client->name ?? __('print.N/A') }}</p>
+            <p style="margin: 0;">{{ $invoiceReturn->invoice->client->address ?? __('print.N/A') }}</p>
+            <p style="margin: 0;">{{ $invoiceReturn->invoice->client->email ?? __('print.N/A') }} • {{ $invoiceReturn->invoice->client->phone ?? __('print.N/A') }}</p>
+        </div>
+
+        <!-- Return Information -->
+        <div class="return-info">
+            <h4>@lang('print.Return Details')</h4>
+            <div>
+                <strong>@lang('print.Reason'):</strong> {{ $invoiceReturn->reason ?? __('print.N/A') }}
+            </div>
+            <div>
+                <strong>@lang('print.Status'):</strong> 
+                <span style="color: {{ $invoiceReturn->status ? '#28a745' : '#dc3545' }};">
+                    {{ $invoiceReturn->status ? __('print.Active') : __('print.Inactive') }}
+                </span>
+            </div>
+            @if($invoiceReturn->note)
+            <div>
+                <strong>@lang('print.Note'):</strong> {{ $invoiceReturn->note }}
+            </div>
+            @endif
         </div>
         
         <!-- Items Table -->
@@ -120,13 +124,14 @@
                 <thead>
                     <tr>
                         <th>@lang('print.Product Name')</th>
-                        <th class="text-right">@lang('print.Quantity')</th>
+                        <th class="text-right">@lang('print.Invoice Quantity')</th>
+                        <th class="text-right">@lang('print.Return Quantity')</th>
                         <th class="text-right">@lang('print.Price')</th>
-                        <th class="text-right">@lang('print.Total')</th>
+                        <th class="text-right">@lang('print.Return Total')</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($invoice->invoiceProducts as $product)
+                    @foreach($invoiceReturn->invoiceReturnProducts as $product)
                     <tr>
                         <td>
                             <strong>{{ $product->product->name ?? __('print.N/A') }}</strong>
@@ -134,9 +139,19 @@
                             <br><small>{{ $product->product->description }}</small>
                             @endif
                         </td>
-                        <td class="text-right">{{ $product->quantity }}</td>
+                        <td class="text-right">{{ $product->invoiceQty }}</td>
+                        <td class="text-right">{{ $product->returnQty }}</td>
                         <td class="text-right">${{ number_format($product->salePrice, 2) }}</td>
-                        <td class="text-right">${{ number_format($product->quantity * $product->salePrice, 2) }}</td>
+                        <td class="text-right">
+                            @php
+                                $unitDiscount = $product->invoiceQty > 0 ? $product->discountAmount / $product->invoiceQty : 0;
+                                $unitNet = $product->salePrice - $unitDiscount;
+                                $returnTotal = $unitNet * $product->returnQty;
+                                $returnVat = $product->taxAmount > 0 ? ($product->taxAmount / $product->invoiceQty) * $product->returnQty : 0;
+                                $totalWithVat = $returnTotal + $returnVat;
+                            @endphp
+                            ${{ number_format($totalWithVat, 2) }}
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -147,24 +162,28 @@
         <div class="totals-section">
             <div class="totals-table">
                 <div class="total-row">
-                    <span>@lang('print.Subtotal'):</span>
-                    <span>${{ number_format($invoice->sub_total, 2) }}</span>
+                    <span>@lang('print.Original Invoice Subtotal'):</span>
+                    <span>${{ number_format($invoiceReturn->invoice->subTotal ?? 0, 2) }}</span>
                 </div>
-                @if($invoice->discount > 0)
                 <div class="total-row">
-                    <span>@lang('print.Discount'):</span>
-                    <span>-${{ number_format($invoice->discount, 2) }}</span>
+                    <span>@lang('print.Return Amount'):</span>
+                    <span style="color: #dc3545;">-${{ number_format($invoiceReturn->totalReturn ?? 0, 2) }}</span>
+                </div>
+                @if($invoiceReturn->invoice->discount > 0)
+                <div class="total-row">
+                    <span>@lang('print.Original Discount'):</span>
+                    <span>-${{ number_format($invoiceReturn->invoice->discount ?? 0, 2) }}</span>
                 </div>
                 @endif
-                @if($invoice->calculated_tax > 0)
+                @if($invoiceReturn->invoice->calculatedTax > 0)
                 <div class="total-row">
-                    <span>@lang('print.Tax'):</span>
-                    <span>${{ number_format($invoice->calculated_tax, 2) }}</span>
+                    <span>@lang('print.Original Tax'):</span>
+                    <span>${{ number_format($invoiceReturn->invoice->calculatedTax ?? 0, 2) }}</span>
                 </div>
                 @endif
                 <div class="total-row total-final">
-                    <span>@lang('print.Total'):</span>
-                    <span>${{ number_format($invoice->calculated_total, 2) }}</span>
+                    <span>@lang('print.Net Amount After Return'):</span>
+                    <span>${{ number_format(($invoiceReturn->invoice->calculatedTotal ?? 0) - ($invoiceReturn->totalReturn ?? 0), 2) }}</span>
                 </div>
             </div>
         </div>
@@ -175,6 +194,14 @@
         </div>
     </div>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        // Auto-print when page loads
+        window.onload = function() {
+            // Small delay to ensure content is fully loaded
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        };
+    </script>
 </body>
 </html>

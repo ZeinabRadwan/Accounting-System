@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\InvoiceReturn;
 use App\Models\Purchase;
 use App\Models\Quotation;
 use App\Models\PrintTemplate;
@@ -88,6 +89,29 @@ class PrintController extends Controller
         }
 
         return view('print.quotation', compact('quotation', 'template'));
+    }
+
+    /**
+     * Print invoice return using selected template
+     */
+    public function printInvoiceReturn($slug)
+    {
+        // Set locale for translations - force Arabic for print templates
+        app()->setLocale('ar');
+        
+        $invoiceReturn = InvoiceReturn::where('slug', $slug)
+            ->with('invoice.client', 'invoiceReturnProducts.product.productUnit', 'invoiceReturnProducts.product.productTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for invoice returns
+        $template = PrintTemplate::byModule('invoice-return')->default()->first();
+        
+        if (!$template) {
+            // Fallback to basic template if no print template is set
+            return view('print.invoice-return-basic', compact('invoiceReturn'));
+        }
+
+        return view('print.invoice-return', compact('invoiceReturn', 'template'));
     }
 
     /**
@@ -1169,6 +1193,139 @@ class PrintController extends Controller
         }
 
         return $this->generatePDF($html, 'Quotation-' . $quotation->quotation_no . '.pdf');
+    }
+
+    /**
+     * Download invoice return as PDF using selected template
+     */
+    public function downloadInvoiceReturnPDF($slug)
+    {
+        // Set locale for translations - force Arabic for print templates
+        app()->setLocale('ar');
+        
+        $invoiceReturn = InvoiceReturn::where('slug', $slug)
+            ->with('invoice.client', 'invoiceReturnProducts.product.productUnit', 'invoiceReturnProducts.product.productTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for invoice returns
+        $template = PrintTemplate::byModule('invoice-return')->default()->first();
+        
+        if (!$template) {
+            // Fallback to basic template if no print template is set
+            if (view()->exists('print.invoice-return-basic')) {
+                $html = view('print.invoice-return-basic', compact('invoiceReturn'))->render();
+            } else {
+                // Use regular template without template config
+                $template = new PrintTemplate();
+                $template->template_config = $this->getTemplateConfig('invoice-return');
+                $html = view('print.invoice-return', compact('invoiceReturn', 'template'))->render();
+            }
+        } else {
+            $html = view('print.invoice-return', compact('invoiceReturn', 'template'))->render();
+        }
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $this->getLogoAsBase64($template);
+        
+        // Hide buttons in PDF and add Arabic support
+        $html = str_replace('<head>', '<head>
+            <style>
+                .action-buttons { display: none !important; }
+                body { 
+                    font-family: Arial, "DejaVu Sans", sans-serif; 
+                    direction: ltr;
+                }
+                .arabic-text { 
+                    direction: rtl; 
+                    text-align: right; 
+                    font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
+                }
+                * { 
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+                
+                /* Fix layout issues for PDF */
+                .document-header > div {
+                    display: table !important;
+                    width: 100% !important;
+                }
+                .document-header .company-info,
+                .document-header .client-info {
+                    display: table-cell !important;
+                    vertical-align: top !important;
+                }
+                
+                /* Ensure proper spacing */
+                .invoice-header {
+                    margin-bottom: 20px;
+                }
+                
+                /* Table styling for PDF */
+                .invoice-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                }
+                
+                .invoice-table th,
+                .invoice-table td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                
+                .invoice-table th {
+                    background-color: #f5f5f5;
+                    font-weight: bold;
+                }
+                
+                /* Summary table styling */
+                .summary-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                }
+                
+                .summary-table th,
+                .summary-table td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: right;
+                }
+                
+                .summary-table th {
+                    background-color: #f8f9fa;
+                    font-weight: bold;
+                }
+                
+                /* Hide print-specific elements */
+                .no-print {
+                    display: none !important;
+                }
+                
+                /* Ensure proper page breaks */
+                .page-break {
+                    page-break-before: always;
+                }
+                
+                /* Logo styling */
+                .company-logo {
+                    max-width: 150px;
+                    max-height: 80px;
+                    object-fit: contain;
+                }
+            </style>', $html);
+
+        // Replace logo placeholder with base64 if available
+        if ($logoBase64) {
+            $html = str_replace('{{LOGO_BASE64}}', $logoBase64, $html);
+            Log::info('Logo converted to base64 successfully');
+        } else {
+            Log::warning('Logo base64 conversion failed - no logo will be displayed');
+        }
+
+        return $this->generatePDF($html, 'Invoice-Return-' . $invoiceReturn->return_no . '.pdf');
     }
 
     /**
