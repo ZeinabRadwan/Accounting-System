@@ -85,26 +85,12 @@
                         class="input-group custom-qty-input table-price-counter-nowrap"
                       >
                         <input
-                          type="button"
-                          value="-"
-                          class="button-minus icon-shape icon-sm btn-danger"
-                          data-field="unitPrice"
-                          @click="
-                            generateItemTotal(
-                              product.unitPrice,
-                              'price',
-                              i,
-                              'decrement'
-                            )
-                          "
-                        />
-                        <input
                           type="unitPrice"
                           step="any"
                           :id="`unitPrice-${i}`"
                           :value="product.unitPrice"
                           name="unitPrice"
-                          class="quantity-field border-0 incrementor"
+                          class="quantity-field border-0"
                           required
                           min="0"
                           @change="
@@ -121,21 +107,6 @@
                               'price',
                               i,
                               ''
-                            )
-                          "
-                        />
-
-                        <input
-                          type="button"
-                          value="+"
-                          class="button-plus icon-shape icon-sm btn-primary"
-                          data-field="unitPrice"
-                          @click="
-                            generateItemTotal(
-                              product.unitPrice,
-                              'price',
-                              i,
-                              'increment'
                             )
                           "
                         />

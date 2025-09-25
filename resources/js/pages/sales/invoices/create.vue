@@ -210,29 +210,10 @@
                         </td>
                         <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="unitPrice" @click="
-                                generateItemTotal(
-                                  item.unitPrice,
-                                  'price',
-                                  index,
-                                  'decrement'
-                                )
-                                " />
                             <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
-                              name="unitPrice" class="quantity-field border-0 incrementor" required min="0" 
+                              name="unitPrice" class="quantity-field border-0" required min="0" 
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.unitPrice`) }"
                               @input="generateItemTotal(item.unitPrice, 'price', index, '')" />
-
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="unitPrice" @click="
-                                generateItemTotal(
-                                  item.unitPrice,
-                                  'price',
-                                  index,
-                                  'increment'
-                                )
-                                " />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.unitPrice`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}

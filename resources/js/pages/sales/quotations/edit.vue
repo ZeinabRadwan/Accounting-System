@@ -121,17 +121,8 @@
                         </td>
                         <td class="text-center" style="min-width: 140px;">
                           <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="
-                                generateItemTotal(
-                                  item.unitPrice,
-                                  'price',
-                                  i - 1,
-                                  'decrement'
-                                )
-                                " />
                             <input type="number" step="any" min="0" :id="`unitPrice-${i}`" :value="item.unitPrice"
-                              name="unitPrice" class="quantity-field border-0 incrementor" required @change="
+                              name="unitPrice" class="quantity-field border-0" required @change="
                                 generateItemTotal(
                                   $event.target.value,
                                   'price',
@@ -139,16 +130,6 @@
                                   ''
                                 )
                                 " @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
-
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="
-                                generateItemTotal(
-                                  item.unitPrice,
-                                  'price',
-                                  i - 1,
-                                  'increment'
-                                )
-                                " />
                           </div>
                         </td>
                         <td class="text-center" style="min-width: 120px;">
