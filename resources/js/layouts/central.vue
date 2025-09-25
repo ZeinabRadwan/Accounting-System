@@ -9,7 +9,7 @@
           {{ demo_message }}
         </div>
         <div class="container-fluid page-padding">
-          <GlobalSaveButton />
+          <GlobalSaveButton v-if="!$route.path.includes('/sales/pos')" />
           <child />
         </div>
         <!-- /.container-fluid -->
