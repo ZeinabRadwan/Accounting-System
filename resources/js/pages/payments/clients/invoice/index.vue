@@ -759,25 +759,22 @@ export default {
             .post(`/api/payments/invoice/cancel/${slug}`)
             .then((response) => {
               if (response.data.success) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Cancelled!"),
-                  this.$t("Payment has been cancelled successfully."),
-                  "success"
+                  this.$t("Payment has been cancelled successfully.")
                 );
                 this.getData(); // Refresh the table
               } else {
-                Swal.fire(
+                this.$toast.error(
                   this.$t("Failed!"),
-                  this.$t("Sorry, couldn't cancel this payment!"),
-                  "error"
+                  this.$t("Sorry, couldn't cancel this payment!")
                 );
               }
             })
             .catch(() => {
-              Swal.fire(
+              this.$toast.error(
                 this.$t("Failed!"),
-                this.$t("Sorry, couldn't cancel this payment!"),
-                "error"
+                this.$t("Sorry, couldn't cancel this payment!")
               );
             });
         }
@@ -802,16 +799,14 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this payment!"),
-                  "warning"
+                  this.$t("Sorry you can't delete this payment!")
                 );
               }
             });

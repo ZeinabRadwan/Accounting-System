@@ -528,33 +528,29 @@ export default {
             .then((response) => {
               if (response === true) {
                 this.getData();
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
               } else {
                 if (response && response.deletable === false) {
-                  Swal.fire(
+                  this.$toast.warning(
                     this.$t("Cannot Delete"),
-                    response.message || this.$t("Sorry you can't remove this chart of account!"),
-                    "warning"
+                    response.message || this.$t("Sorry you can't remove this chart of account!")
                   );
                 } else {
-                  Swal.fire(
+                  this.$toast.warning(
                     this.$t("Failed!"),
-                    this.$t("Sorry you can't remove this chart of account!"),
-                    "warning"
+                    this.$t("Sorry you can't remove this chart of account!")
                   );
                 }
               }
             })
             .catch((error) => {
               console.error('Delete error:', error);
-              Swal.fire(
+              this.$toast.warning(
                 this.$t("Failed!"),
-                this.$t("Sorry you can't remove this chart of account!"),
-                "warning"
+                this.$t("Sorry you can't remove this chart of account!")
               );
             });
         }

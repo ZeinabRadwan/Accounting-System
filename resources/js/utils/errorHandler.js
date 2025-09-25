@@ -1,4 +1,3 @@
-import Swal from 'sweetalert2'
 import i18n from '~/plugins/i18n'
 
 /**
@@ -194,46 +193,52 @@ export class ErrorHandler {
    * Show error using SweetAlert2
    */
   static showError(title, message, timer = 6000, showTimerProgressBar = true) {
-    Swal.fire({
-      type: 'error',
-      title: title,
-      text: message,
-      timer: timer,
-      timerProgressBar: showTimerProgressBar,
-      reverseButtons: true,
-      confirmButtonText: i18n.t('ok'),
-      cancelButtonText: i18n.t('cancel')
-    })
+    if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+      window.toast.fire({
+        type: 'error',
+        title: `${title ?? i18n.t('Error')}${message ? ': ' + message : ''}`,
+        timer: timer,
+        timerProgressBar: showTimerProgressBar,
+      })
+      return
+    }
+    // Fallback to console if toast not available
+    // eslint-disable-next-line no-console
+    console.error(title, message)
   }
 
   /**
    * Show success message
    */
   static showSuccess(title, message, timer = 3000) {
-    Swal.fire({
-      type: 'success',
-      title: title,
-      text: message,
-      timer: timer,
-      timerProgressBar: true,
-      showConfirmButton: false
-    })
+    if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+      window.toast.fire({
+        type: 'success',
+        title: `${title ?? i18n.t('Success')}${message ? ': ' + message : ''}`,
+        timer: timer,
+        timerProgressBar: true,
+      })
+      return
+    }
+    // eslint-disable-next-line no-console
+    console.log(title, message)
   }
 
   /**
    * Show warning message
    */
   static showWarning(title, message, timer = 5000) {
-    Swal.fire({
-      type: 'warning',
-      title: title,
-      text: message,
-      timer: timer,
-      timerProgressBar: true,
-      reverseButtons: true,
-      confirmButtonText: i18n.t('ok'),
-      cancelButtonText: i18n.t('cancel')
-    })
+    if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+      window.toast.fire({
+        type: 'warning',
+        title: `${title ?? i18n.t('Warning')}${message ? ': ' + message : ''}`,
+        timer: timer,
+        timerProgressBar: true,
+      })
+      return
+    }
+    // eslint-disable-next-line no-console
+    console.warn(title, message)
   }
 }
 

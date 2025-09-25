@@ -328,10 +328,10 @@ export default {
           window.location.replace(data.data.redirect_url);
         })
         .catch((error) => {
-          Swal.fire({
-            icon: "error",
-            title: error.response.data.message,
-          });
+          this.$toast.error(
+            this.$t("Error!"),
+            error.response.data.message
+          );
         });
     },
 
@@ -396,27 +396,24 @@ export default {
               console.log('Delete response:', response);
               
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted"),
-                  this.$t("Tenant deleted successfully"),
-                  "success"
+                  this.$t("Tenant deleted successfully")
                 );
                 this.getData();
               } else {
                 console.error('Delete failed with response:', response);
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed"),
-                  this.$t("Delete failed"),
-                  "warning"
+                  this.$t("Delete failed")
                 );
               }
             })
             .catch((error) => {
               console.error('Delete request error:', error);
-              Swal.fire(
+              this.$toast.warning(
                 this.$t("Failed"),
-                this.$t("Delete failed"),
-                "warning"
+                this.$t("Delete failed")
               );
             });
         }
@@ -429,17 +426,15 @@ export default {
         .post(window.location.origin + "/api/tenants/" + id + "/ban")
         .then((response) => {
           if (response.data.success === true) {
-            Swal.fire(
+            this.$toast.success(
               this.$t(response.data.message),
-              this.$t(response.data.message + "_success"),
-              "success"
+              this.$t(response.data.message + "_success")
             );
             this.getData();
           } else {
-            Swal.fire(
+            this.$toast.warning(
               this.$t("Failed"),
-              this.$t("Ban failed"),
-              "warning"
+              this.$t("Ban failed")
             );
           }
         });

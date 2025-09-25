@@ -348,16 +348,14 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("There was something wrong."),
-                  "warning"
+                  this.$t("There was something wrong.")
                 );
               }
             });

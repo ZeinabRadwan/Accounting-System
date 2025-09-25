@@ -324,16 +324,14 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("There was something wrong."),
-                  "warning"
+                  this.$t("There was something wrong.")
                 );
               }
             });
@@ -367,24 +365,20 @@ export default {
         
         message += `</div>`;
         
-        Swal.fire({
-          title: this.$t("VAT Chart of Account Connections"),
-          html: message,
-          icon: percentage === 100 ? 'success' : percentage > 50 ? 'warning' : 'error',
-          confirmButtonText: this.$t("OK"),
-        });
+        this.$toast.info(
+          this.$t("VAT Chart of Account Connections"),
+          message.replace(/<[^>]*>/g, '') // Remove HTML tags for toast
+        );
         
         // Refresh data to show updated connections
         this.getData();
         
       } catch (error) {
         console.error('Error checking connections:', error);
-        Swal.fire({
-          title: this.$t("Error"),
-          text: this.$t("Failed to check VAT connections"),
-          icon: 'error',
-          confirmButtonText: this.$t("OK"),
-        });
+        this.$toast.error(
+          this.$t("Error"),
+          this.$t("Failed to check VAT connections")
+        );
       }
     },
   },

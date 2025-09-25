@@ -774,10 +774,9 @@ export default {
                 reader.readAsDataURL(file);
                 this.logo = URL.createObjectURL(file);
             } else {
-                Swal.fire(
+                this.$toast.error(
                     this.$t('Error!'),
-                    this.$t('Please select a valid thumbnail with size less than 2 MB'),
-                    'error'
+                    this.$t('Please select a valid thumbnail with size less than 2 MB')
                 );
             }
         },
@@ -800,10 +799,9 @@ export default {
                 reader.readAsDataURL(file);
                 this.blackLogo = URL.createObjectURL(file);
             } else {
-                Swal.fire(
+                this.$toast.error(
                     this.$t('Error!'),
-                    this.$t('Please select a valid thumbnail with size less than 2 MB'),
-                    'error'
+                    this.$t('Please select a valid thumbnail with size less than 2 MB')
                 );
             }
         },
@@ -826,10 +824,9 @@ export default {
                 reader.readAsDataURL(file);
                 this.smallLogo = URL.createObjectURL(file);
             } else {
-                Swal.fire(
+                this.$toast.error(
                     this.$t('Error!'),
-                    this.$t('Please select a valid thumbnail with size less than 2 MB'),
-                    'error'
+                    this.$t('Please select a valid thumbnail with size less than 2 MB')
                 );
             }
         },
@@ -852,10 +849,9 @@ export default {
                 reader.readAsDataURL(file);
                 this.favicon = URL.createObjectURL(file);
             } else {
-                Swal.fire(
+                this.$toast.error(
                     this.$t('Error!'),
-                    this.$t('Please select a valid thumbnail with size less than 2 MB'),
-                    'error'
+                    this.$t('Please select a valid thumbnail with size less than 2 MB')
                 );
             }
         },

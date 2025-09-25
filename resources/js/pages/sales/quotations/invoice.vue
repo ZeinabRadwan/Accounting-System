@@ -867,15 +867,10 @@ export default {
       } else {
         // Multiple errors - show as alert with list
         const errorList = errors.map(err => `• ${err.message}`).join('\n');
-        Swal.fire({
-          type: 'warning',
-          title: this.$t('Validation Errors'),
-          text: this.$t('Please fix the following issues:'),
-          html: `<div style="text-align: left; margin-top: 10px;">${errorList}</div>`,
-          confirmButtonText: this.$t('OK'),
-          timer: 10000,
-          timerProgressBar: true
-        });
+        this.$toast.warning(
+          this.$t('Validation Errors'),
+          this.$t('Please fix the following issues:') + '\n' + errorList
+        );
       }
     },
 

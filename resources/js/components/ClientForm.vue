@@ -741,10 +741,9 @@ export default {
             if (file.type.startsWith('image/')) {
               validFiles.push(file);
             } else {
-              Swal.fire(
+              this.$toast.error(
                 this.$t("Error!"),
-                this.$t("Please select a valid image file"),
-                "error"
+                this.$t("Please select a valid image file")
               );
             }
           } else {
@@ -758,18 +757,16 @@ export default {
             if (allowedTypes.includes(file.type)) {
               validFiles.push(file);
             } else {
-              Swal.fire(
+              this.$toast.error(
                 this.$t("Error!"),
-                this.$t("Only JPEG, PNG, and GIF files are allowed."),
-                "error"
+                this.$t("Only JPEG, PNG, and GIF files are allowed.")
               );
             }
           }
         } else {
-          Swal.fire(
+          this.$toast.error(
             this.$t("Error!"),
-            this.$t("Please select a file with size less than 2 MB"),
-            "error"
+            this.$t("Please select a file with size less than 2 MB")
           );
         }
       });

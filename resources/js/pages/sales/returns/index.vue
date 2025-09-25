@@ -497,26 +497,23 @@ export default {
             const response = await axios.post(`/api/invoice-returns/${data.slug}/send-to-zatca`);
             
             if (response.data.success) {
-              Swal.fire(
+              this.$toast.success(
                 this.$t("Sent Successfully!"),
-                this.$t("Credit note has been sent to ZATCA and journal entries have been created."),
-                "success"
+                this.$t("Credit note has been sent to ZATCA and journal entries have been created.")
               );
               // Refresh the table to update the status
               this.getData();
             } else {
-              Swal.fire(
+              this.$toast.error(
                 this.$t("Failed!"),
-                response.data.message || this.$t("Failed to send credit note to ZATCA"),
-                "error"
+                response.data.message || this.$t("Failed to send credit note to ZATCA")
               );
             }
           } catch (error) {
             console.error('Error sending credit note:', error);
-            Swal.fire(
+            this.$toast.error(
               this.$t("Error!"),
-              error.response?.data?.message || this.$t("An error occurred while sending the credit note"),
-              "error"
+              error.response?.data?.message || this.$t("An error occurred while sending the credit note")
             );
           }
         }
@@ -541,16 +538,14 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("There was something wrong."),
-                  "warning"
+                  this.$t("There was something wrong.")
                 );
               }
             });

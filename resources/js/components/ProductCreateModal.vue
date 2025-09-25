@@ -570,7 +570,7 @@ export default {
         this.url = URL.createObjectURL(file);
       }
       else {
-        Swal.fire(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"), "error");
+        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
       }
     },
     // save product

@@ -572,10 +572,9 @@ export default {
         reader.readAsDataURL(file)
         this.url = URL.createObjectURL(file)
       } else {
-        Swal.fire(
+        this.$toast.error(
           'error!',
-          'Please select a valid thumbnail with size less than 2 MB',
-          'error'
+          'Please select a valid thumbnail with size less than 2 MB'
         )
       }
     },

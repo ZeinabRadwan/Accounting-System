@@ -473,25 +473,22 @@ export default {
             .post(`/api/payments/non-invoice/cancel/${slug}`)
             .then((response) => {
               if (response.data.success) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Cancelled!"),
-                  this.$t("Payment has been cancelled successfully."),
-                  "success"
+                  this.$t("Payment has been cancelled successfully.")
                 );
                 this.getData();
               } else {
-                Swal.fire(
+                this.$toast.error(
                   this.$t("Failed!"),
-                  this.$t("Sorry, couldn't cancel this payment!"),
-                  "error"
+                  this.$t("Sorry, couldn't cancel this payment!")
                 );
               }
             })
             .catch(() => {
-              Swal.fire(
+              this.$toast.error(
                 this.$t("Failed!"),
-                this.$t("Sorry, couldn't cancel this payment!"),
-                "error"
+                this.$t("Sorry, couldn't cancel this payment!")
               );
             });
         }

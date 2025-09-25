@@ -669,10 +669,9 @@ export default {
             if (file.type.startsWith('image/')) {
               validFiles.push(file);
                           } else {
-                Swal.fire(
+                this.$toast.error(
                   "Error!",
-                  "Please select a valid image file",
-                  "error"
+                  "Please select a valid image file"
                 );
               }
           } else {
@@ -692,18 +691,16 @@ export default {
             if (allowedTypes.includes(file.type)) {
               validFiles.push(file);
             } else {
-              Swal.fire(
+              this.$toast.error(
                 "Error!",
-                "Please select a valid file type",
-                "error"
+                "Please select a valid file type"
               );
             }
           }
         } else {
-          Swal.fire(
+          this.$toast.error(
             "Error!",
-            "Please select a file with size less than 2 MB",
-            "error"
+            "Please select a file with size less than 2 MB"
           );
         }
       });
@@ -745,17 +742,15 @@ export default {
           if (allowedTypes.includes(file.type)) {
             validFiles.push(file);
           } else {
-            Swal.fire(
+            this.$toast.error(
               this.$t("Error!"),
-              this.$t("Please select a valid file type"),
-              "error"
+              this.$t("Please select a valid file type")
             );
           }
         } else {
-          Swal.fire(
+          this.$toast.error(
             this.$t("Error!"),
-            this.$t("Please select a file with size less than 2 MB"),
-            "error"
+            this.$t("Please select a file with size less than 2 MB")
           );
         }
       });
@@ -1177,10 +1172,9 @@ export default {
           // Set as selected
           this.form.chartOfAccountId = newAccount.id;
           
-          Swal.fire(
+          this.$toast.success(
             "Success!",
-            "New chart of account created successfully.",
-            "success"
+            "New chart of account created successfully."
           );
         } else {
           throw new Error(response.data.message || "Failed to create new chart of account.");
@@ -1199,10 +1193,9 @@ export default {
           errorMessage = error.message;
         }
         
-        Swal.fire(
+        this.$toast.error(
           "Error!",
-          errorMessage,
-          "error"
+          errorMessage
         );
       } finally {
         this.isCreatingAccount = false;

@@ -468,10 +468,9 @@ export default {
         .post("/api/supplier-import")
         .then(() => {
           this.showUploadCsvModal = false;
-          Swal.fire(
+          this.$toast.success(
             this.$t("Success"),
-            this.$t("CSV file imported successfully!"),
-            "success"
+            this.$t("CSV file imported successfully!")
           );
           this.getData();
           this.form.reset();
@@ -480,16 +479,13 @@ export default {
           // this.showUploadCsvModal = false
           if (response.data.row_number) {
             this.showUploadCsvModal = false;
-            Swal.fire({
-              title: "Error",
-              text:
-                "Row Number " +
+            this.$toast.error(
+              "Error",
+              "Row Number " +
                 response.data.row_number +
                 " has error. " +
-                response.data.message,
-              icon: "error",
-              button: "Ok",
-            });
+                response.data.message
+            );
             this.form.reset();
           }
         });
@@ -662,16 +658,14 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this supplier."),
-                  "warning"
+                  this.$t("Sorry you can't delete this supplier.")
                 );
               }
             });

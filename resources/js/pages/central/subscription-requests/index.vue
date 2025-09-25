@@ -244,19 +244,17 @@ export default {
               status: status,
             })
             .then(() => {
-              Swal.fire(
+              this.$toast.success(
                 this.$t("Updated successfully!"),
-                this.$t("Updated successfully."),
-                "success"
+                this.$t("Updated successfully.")
               );
               this.getData();
               location.reload();
             })
             .catch((e) => {
-              Swal.fire(
+              this.$toast.warning(
                 this.$t("Failed!"),
-                this.$t("There was something wrong."),
-                "warning"
+                this.$t("There was something wrong.")
               );
 
               console.log(e)
@@ -283,17 +281,15 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
                 this.getData();
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("subscription-requests.index.delete_failed"),
-                  "warning"
+                  this.$t("subscription-requests.index.delete_failed")
                 );
               }
             });

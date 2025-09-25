@@ -2051,17 +2051,15 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
                 Fire.$emit("AfterDelete");
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this invoice!"),
-                  "warning"
+                  this.$t("Sorry you can't delete this invoice!")
                 );
               }
             });
@@ -2087,17 +2085,15 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
                 Fire.$emit("AfterDelete");
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("There was something wrong."),
-                  "warning"
+                  this.$t("There was something wrong.")
                 );
               }
             });
@@ -2123,17 +2119,15 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
                 Fire.$emit("AfterDelete");
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this payment!"),
-                  "warning"
+                  this.$t("Sorry you can't delete this payment!")
                 );
               }
             });
@@ -2159,17 +2153,15 @@ export default {
             })
             .then((response) => {
               if (response === true) {
-                Swal.fire(
+                this.$toast.success(
                   this.$t("Deleted!"),
-                  this.$t("Deleted successfully."),
-                  "success"
+                  this.$t("Deleted successfully.")
                 );
                 Fire.$emit("AfterDelete");
               } else {
-                Swal.fire(
+                this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this payment!"),
-                  "warning"
+                  this.$t("Sorry you can't delete this payment!")
                 );
               }
             });
@@ -2182,11 +2174,10 @@ export default {
       // This would open a payment modal - you can implement this based on your needs
       console.log('Payment modal for invoice:', data);
       // For now, just show an alert
-      Swal.fire({
-        title: this.$t("Add Payment"),
-        text: this.$t("Payment functionality would be implemented here"),
-        type: "info"
-      });
+      this.$toast.info(
+        this.$t("Add Payment"),
+        this.$t("Payment functionality would be implemented here")
+      );
     },
 
     // Send invoice to ZATCA
@@ -2222,26 +2213,23 @@ export default {
             const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
             
             if (response.data.success) {
-              Swal.fire(
+              this.$toast.success(
                 this.$t("Sent Successfully!"),
-                this.$t("Invoice has been sent to ZATCA and journal entries have been created."),
-                "success"
+                this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
               );
               // Refresh the table to update the status
               this.getInvoices();
             } else {
-              Swal.fire(
+              this.$toast.error(
                 this.$t("Failed!"),
-                response.data.message || this.$t("Failed to send invoice to ZATCA"),
-                "error"
+                response.data.message || this.$t("Failed to send invoice to ZATCA")
               );
             }
           } catch (error) {
             console.error('Error sending invoice to ZATCA:', error);
-            Swal.fire(
+            this.$toast.error(
               this.$t("Error!"),
-              this.$t("An error occurred while sending the invoice to ZATCA"),
-              "error"
+              this.$t("An error occurred while sending the invoice to ZATCA")
             );
           }
         }
@@ -2281,26 +2269,23 @@ export default {
             const response = await axios.post(`/api/invoice-returns/${data.slug}/send-to-zatca`);
             
             if (response.data.success) {
-              Swal.fire(
+              this.$toast.success(
                 this.$t("Sent Successfully!"),
-                this.$t("Credit note has been sent to ZATCA and journal entries have been created."),
-                "success"
+                this.$t("Credit note has been sent to ZATCA and journal entries have been created.")
               );
               // Refresh the table to update the status
               this.getInvoiceReturns();
             } else {
-              Swal.fire(
+              this.$toast.error(
                 this.$t("Failed!"),
-                response.data.message || this.$t("Failed to send credit note to ZATCA"),
-                "error"
+                response.data.message || this.$t("Failed to send credit note to ZATCA")
               );
             }
           } catch (error) {
             console.error('Error sending credit note:', error);
-            Swal.fire(
+            this.$toast.error(
               this.$t("Error!"),
-              error.response?.data?.message || this.$t("An error occurred while sending the credit note"),
-              "error"
+              error.response?.data?.message || this.$t("An error occurred while sending the credit note")
             );
           }
         }
