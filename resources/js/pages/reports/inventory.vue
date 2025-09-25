@@ -124,7 +124,7 @@
             <div class="col-sm-4 invoice-col">
               <CompanyInfo />
             </div>
-            <div class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right">
+            <div class="col-sm-8 invoice-col float-right text-md-right">
               <h5>{{ $t("Inventory Report") }}</h5>
               <br />
               <span><strong>{{ $t("Date") }}:</strong>

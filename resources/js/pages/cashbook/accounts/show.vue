@@ -27,7 +27,7 @@
             <CompanyInfo />
           </div>
           <!-- /.col -->
-          <div v-if="allData" class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right">
+          <div v-if="allData" class="col-sm-8 invoice-col float-right text-md-right">
             <h5 v-if="allData.date">
               {{ $t("Account Details") }}
             </h5>

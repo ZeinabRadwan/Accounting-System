@@ -79,7 +79,7 @@
               </div>
               <!-- /.col -->
               <div
-                class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right"
+                class="col-sm-8 invoice-col float-right text-md-right"
               >
                 <h5>{{ $t("Client Details") }}</h5>
                 <div v-if="allData.client">
@@ -474,7 +474,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.invoice.due  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ Number(allData.invoice.due).toFixed(2)  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr
                         v-if="allData.accountPayable"
@@ -1225,24 +1225,16 @@ export default {
 
     // print
     printWindow() {
-      window.print();
+      // Open print page in new window
+      const printUrl = `/print/invoice-return/${this.$route.params.slug}`;
+      window.open(printUrl, '_blank');
     },
 
     // download pdf
     generatePDF() {
-      // Get the HTML content to be converted
-      const element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      const options = {
-        margin: 5,
-        filename: "Invoice Return -" + this.$route.params.slug + ".pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        pagebreak: { mode: "avoid-all", before: "#page-break" },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
-      };
-      // Generate PDF from HTML content
-      html2pdf().from(element).set(options).save();
+      // Download PDF using the new route
+      const downloadUrl = `/print/invoice-return/${this.$route.params.slug}/pdf`;
+      window.open(downloadUrl, '_blank');
     },
 
     // print table

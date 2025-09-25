@@ -25,7 +25,7 @@
                 @if($elements['showLogo'] ?? true)
                 <div style="margin-bottom: 15px;">
                     <img src="{{ $template->logo_url }}" 
-                         alt="Company Logo" class="company-logo">
+                         alt="@lang('print.Company Logo')" class="company-logo">
                 </div>
                 @endif
                 
@@ -43,17 +43,17 @@
             </div>
             <div class="document-info">
                 <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;">
-                    PURCHASE
+                    @lang('print.Purchase')
                 </h2>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    Purchase #: {{ $purchase->purchase_no }}
+                    @lang('print.Purchase #'): {{ $purchase->purchase_no }}
                 </p>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    Date: {{ \Carbon\Carbon::parse($purchase->purchase_date)->format('M d, Y') }}
+                    @lang('print.Date'): {{ \Carbon\Carbon::parse($purchase->purchase_date)->format('M d, Y') }}
                 </p>
                 @if($purchase->dueDate)
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    Due Date: {{ \Carbon\Carbon::parse($purchase->dueDate)->format('M d, Y') }}
+                    @lang('print.Due Date'): {{ \Carbon\Carbon::parse($purchase->dueDate)->format('M d, Y') }}
                 </p>
                 @endif
             </div>
@@ -64,13 +64,13 @@
     @if($elements['showClientInfo'] ?? true)
     <!-- Supplier Info -->
     <div class="supplier-info">
-        <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">Supplier:</h3>
-        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $purchase->supplier->name ?? 'N/A' }}</p>
+        <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Supplier'):</h3>
+        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $purchase->supplier->name ?? __('print.N/A') }}</p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            {{ $purchase->supplier->address ?? 'N/A' }}
+            {{ $purchase->supplier->address ?? __('print.N/A') }}
         </p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            {{ $purchase->supplier->email ?? 'N/A' }} • {{ $purchase->supplier->phone ?? 'N/A' }}
+            {{ $purchase->supplier->email ?? __('print.N/A') }} • {{ $purchase->supplier->phone ?? __('print.N/A') }}
         </p>
     </div>
     @endif
@@ -98,15 +98,15 @@
                 @foreach($purchase->purchaseProducts as $index => $product)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td class="text-center">{{ $product->product->code ?? 'N/A' }}</td>
+                    <td class="text-center">{{ $product->product->code ?? __('print.N/A') }}</td>
                     <td>
-                        <strong>{{ $product->product->name ?? 'N/A' }}</strong>
+                        <strong>{{ $product->product->name ?? __('print.N/A') }}</strong>
                         @if($product->product->description)
                         <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">{{ $product->product->description }}</small>
                         @endif
                     </td>
-                    <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? 'Pcs' }}</td>
-                    <td class="text-center">{{ $product->purchaseReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? 'Pcs' }}</td>
+                    <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                    <td class="text-center">{{ $product->purchaseReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
                     <td class="text-right">${{ number_format($product->purchase_price, 2) }}</td>
                     <td class="text-right">${{ number_format($product->quantity * $product->purchase_price, 2) }}</td>
                     <td class="text-center">
@@ -141,23 +141,23 @@
     <div class="totals-section">
         <div class="totals-table">
             <div class="total-row">
-                <span>Subtotal:</span>
+                <span>@lang('print.Subtotal'):</span>
                 <span>${{ number_format($purchase->sub_total, 2) }}</span>
             </div>
             @if($purchase->discount > 0)
             <div class="total-row">
-                <span>Discount:</span>
+                <span>@lang('print.Discount'):</span>
                 <span>-${{ number_format($purchase->discount, 2) }}</span>
             </div>
             @endif
             @if($purchase->calculated_tax > 0)
             <div class="total-row">
-                <span>Tax:</span>
+                <span>@lang('print.Tax'):</span>
                 <span>${{ number_format($purchase->calculated_tax, 2) }}</span>
             </div>
             @endif
             <div class="total-row total-final">
-                <span>Total:</span>
+                <span>@lang('print.Total'):</span>
                 <span>${{ number_format($purchase->calculated_total, 2) }}</span>
             </div>
         </div>
@@ -168,7 +168,7 @@
     <!-- Footer -->
     <div class="document-footer">
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            Thank you for your service!
+            @lang('print.Thank you for your service!')
         </p>
         @if($purchaseFooterText)
         <p style="margin: 10px 0 0 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">

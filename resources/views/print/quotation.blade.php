@@ -25,7 +25,7 @@
                 @if($elements['showLogo'] ?? true)
                 <div style="margin-bottom: 15px;">
                     <img src="{{ $template->logo_url }}" 
-                         alt="Company Logo" class="company-logo">
+                         alt="@lang('print.Company Logo')" class="company-logo">
                 </div>
                 @endif
                 
@@ -43,17 +43,17 @@
             </div>
             <div class="document-info">
                 <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;">
-                    QUOTATION
+                    @lang('print.Quotation')
                 </h2>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    Quotation #: {{ $quotation->quotation_no }}
+                    @lang('print.Quotation #'): {{ $quotation->quotation_no }}
                 </p>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    Date: {{ \Carbon\Carbon::parse($quotation->quotation_date)->format('M d, Y') }}
+                    @lang('print.Date'): {{ \Carbon\Carbon::parse($quotation->quotation_date)->format('M d, Y') }}
                 </p>
                 @if($quotation->validUntil)
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    Valid Until: {{ \Carbon\Carbon::parse($quotation->validUntil)->format('M d, Y') }}
+                    @lang('print.Valid Until'): {{ \Carbon\Carbon::parse($quotation->validUntil)->format('M d, Y') }}
                 </p>
                 @endif
             </div>
@@ -64,13 +64,13 @@
     @if($elements['showClientInfo'] ?? true)
     <!-- Client Info -->
     <div class="client-info">
-        <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">Quote For:</h3>
-        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $quotation->client->name ?? 'N/A' }}</p>
+        <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Quote For'):</h3>
+        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $quotation->client->name ?? __('print.N/A') }}</p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            {{ $quotation->client->address ?? 'N/A' }}
+            {{ $quotation->client->address ?? __('print.N/A') }}
         </p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            {{ $quotation->client->email ?? 'N/A' }} • {{ $quotation->client->phone ?? 'N/A' }}
+            {{ $quotation->client->email ?? __('print.N/A') }} • {{ $quotation->client->phone ?? __('print.N/A') }}
         </p>
     </div>
     @endif
@@ -98,15 +98,15 @@
                 @foreach($quotation->quotationProducts as $index => $product)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td class="text-center">{{ $product->product->code ?? 'N/A' }}</td>
+                    <td class="text-center">{{ $product->product->code ?? __('print.N/A') }}</td>
                     <td>
-                        <strong>{{ $product->product->name ?? 'N/A' }}</strong>
+                        <strong>{{ $product->product->name ?? __('print.N/A') }}</strong>
                         @if($product->product->description)
                         <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">{{ $product->product->description }}</small>
                         @endif
                     </td>
-                    <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? 'Pcs' }}</td>
-                    <td class="text-center">{{ $product->quotationReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? 'Pcs' }}</td>
+                    <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                    <td class="text-center">{{ $product->quotationReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
                     <td class="text-right">${{ number_format($product->sale_price, 2) }}</td>
                     <td class="text-right">${{ number_format($product->quantity * $product->sale_price, 2) }}</td>
                     <td class="text-center">
@@ -141,23 +141,23 @@
     <div class="totals-section">
         <div class="totals-table">
             <div class="total-row">
-                <span>Subtotal:</span>
+                <span>@lang('print.Subtotal'):</span>
                 <span>${{ number_format($quotation->sub_total, 2) }}</span>
             </div>
             @if($quotation->discount > 0)
             <div class="total-row">
-                <span>Discount:</span>
+                <span>@lang('print.Discount'):</span>
                 <span>-${{ number_format($quotation->discount, 2) }}</span>
             </div>
             @endif
             @if($quotation->total_tax > 0)
             <div class="total-row">
-                <span>Tax:</span>
+                <span>@lang('print.Tax'):</span>
                 <span>${{ number_format($quotation->total_tax, 2) }}</span>
             </div>
             @endif
             <div class="total-row total-final">
-                <span>Total:</span>
+                <span>@lang('print.Total'):</span>
                 <span>${{ number_format($quotation->quotationTotal(), 2) }}</span>
             </div>
         </div>
@@ -168,7 +168,7 @@
     <!-- Footer -->
     <div class="document-footer">
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-            Thank you for considering our services!
+            @lang('print.Thank you for considering our services!')
         </p>
         @if($quotationFooterText)
         <p style="margin: 10px 0 0 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">

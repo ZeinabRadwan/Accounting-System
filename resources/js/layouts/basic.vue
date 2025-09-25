@@ -1,6 +1,6 @@
 <template>
   <div>
-    <GlobalSaveButton />
+    <GlobalSaveButton v-if="!$route.path.includes('/sales/pos')" />
     <child />
   </div>
 </template>
