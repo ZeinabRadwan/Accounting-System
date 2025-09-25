@@ -1,142 +1,165 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-
-    <!-- Filters Card -->
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">{{ $t('Filters') }}</h3>
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-        </div>
-      </div>
-      <div class="card-body">
-        <form @submit.prevent="generateReport" class="row">
-          <!-- Fiscal Year -->
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>{{ $t('Fiscal Year') }}</label>
-              <v-select
-                v-model="filters.fiscalYear"
-                :options="fiscalYears"
-                :reduce="year => year.id"
-                label="name"
-                :placeholder="$t('Select Fiscal Year')"
-                :searchable="true"
-                :clearable="true"
-                :loading="loadingFiscalYears"
-                @search="searchFiscalYears"
-              />
-            </div>
+  <div class="mb-50">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
           </div>
-
-          <!-- Accounting Period -->
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>{{ $t('Accounting Period') }}</label>
-              <v-select
-                v-model="filters.accountingPeriod"
-                :options="accountingPeriods"
-                :reduce="period => period.id"
-                label="name"
-                :placeholder="$t('Select Period')"
-                :searchable="true"
-                :clearable="true"
-                :loading="loadingAccountingPeriods"
-                :disabled="!filters.fiscalYear"
-                @search="searchAccountingPeriods"
-              />
-            </div>
-          </div>
-
-          <!-- Date Range -->
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>{{ $t('Date Range') }}</label>
-              <div class="input-group">
-                <input
-                  type="date"
-                  v-model="filters.fromDate"
-                  class="form-control"
-                  :placeholder="$t('From Date')"
-                  :disabled="filters.fiscalYear || filters.accountingPeriod"
-                />
-                <div class="input-group-append">
-                  <span class="input-group-text">{{ $t('to') }}</span>
+          <!-- /.card-header -->
+          <div class="card-body position-relative">
+            <!-- Filters Card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ $t('Filters') }}</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
                 </div>
-                <input
-                  type="date"
-                  v-model="filters.toDate"
-                  class="form-control"
-                  :placeholder="$t('To Date')"
-                  :disabled="filters.fiscalYear || filters.accountingPeriod"
-                />
+              </div>
+              <div class="card-body">
+                <form @submit.prevent="generateReport" class="row">
+                  <!-- Fiscal Year -->
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>{{ $t('Fiscal Year') }}</label>
+                      <v-select
+                        v-model="filters.fiscalYear"
+                        :options="fiscalYears"
+                        :reduce="year => year.id"
+                        label="name"
+                        :placeholder="$t('Select Fiscal Year')"
+                        :searchable="true"
+                        :clearable="true"
+                        :loading="loadingFiscalYears"
+                        @search="searchFiscalYears"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Accounting Period -->
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>{{ $t('Accounting Period') }}</label>
+                      <v-select
+                        v-model="filters.accountingPeriod"
+                        :options="accountingPeriods"
+                        :reduce="period => period.id"
+                        label="name"
+                        :placeholder="$t('Select Period')"
+                        :searchable="true"
+                        :clearable="true"
+                        :loading="loadingAccountingPeriods"
+                        :disabled="!filters.fiscalYear"
+                        @search="searchAccountingPeriods"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Date Range -->
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>{{ $t('Date Range') }}</label>
+                      <div class="input-group">
+                        <input
+                          type="date"
+                          v-model="filters.fromDate"
+                          class="form-control"
+                          :placeholder="$t('From Date')"
+                          :disabled="filters.fiscalYear || filters.accountingPeriod"
+                        />
+                        <div class="input-group-append">
+                          <span class="input-group-text">{{ $t('to') }}</span>
+                        </div>
+                        <input
+                          type="date"
+                          v-model="filters.toDate"
+                          class="form-control"
+                          :placeholder="$t('To Date')"
+                          :disabled="filters.fiscalYear || filters.accountingPeriod"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="col-12">
+                    <div class="form-group d-flex align-items-center">
+                      <button 
+                        type="submit" 
+                        class="btn btn-primary"
+                        :disabled="loading"
+                      >
+                        <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+                        <i v-else class="fas fa-search"></i>
+                        {{ $t('Generate Report') }}
+                      </button>
+                      <button type="button" @click="resetFilters" class="btn btn-secondary ml-2">
+                        <i class="fas fa-undo"></i>
+                        {{ $t('Reset') }}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-          </div>
 
-          <!-- Action Buttons -->
-          <div class="col-12">
-            <div class="form-group">
-              <button 
-                type="submit" 
-                class="btn btn-primary"
-                :disabled="loading"
-              >
-                <i v-if="loading" class="fas fa-spinner fa-spin"></i>
-                <i v-else class="fas fa-search"></i>
-                {{ $t('Generate Report') }}
-              </button>
-              <button type="button" @click="resetFilters" class="btn btn-secondary ml-2">
-                <i class="fas fa-undo"></i>
-                {{ $t('Reset') }}
-              </button>
-              <a 
-                v-if="reportData && reportData.summary" 
-                :href="exportExcelUrl" 
-                v-tooltip="$t('Export to Excel')" 
-                class="btn btn-info ml-2"
-              >
-                <i class="fa fa-arrow-circle-down"></i>
-              </a>
-              <a 
-                v-if="reportData && reportData.summary" 
-                :href="exportPdfUrl" 
-                v-tooltip="$t('Export to PDF')" 
-                class="btn btn-success ml-2"
-              >
-                <i class="fas fa-file-export"></i>
-              </a>
-              <a 
-                v-if="reportData && reportData.summary" 
-                :href="printTemplateUrl" 
-                target="_blank" 
-                class="btn btn-primary ml-2"
-              >
-                <i class="fas fa-print"></i> {{ $t("Print with Template") }}
-              </a>
+            <!-- Top Actions -->
+            <div class="row mt-2">
+              <div class="col-xl-12 text-right">
+                <div class="btn-group c-w-100">
+                  <a
+                    @click.prevent="refreshTable"
+                    href="#"
+                    v-tooltip="'Refresh'"
+                    class="btn btn-success refresh-btn"
+                  >
+                    <i class="fas fa-sync"></i>
+                  </a>
+                  <a
+                    v-if="reportData && reportData.summary"
+                    :href="exportExcelUrl"
+                    v-tooltip="$t('Export to Excel')"
+                    class="btn export-excel-btn"
+                    title="Export to Excel"
+                  >
+                    <i class="fas fa-file-excel"></i>
+                  </a>
+                  <a
+                    v-if="reportData && reportData.summary"
+                    :href="exportPdfUrl"
+                    v-tooltip="$t('Export to PDF')"
+                    class="btn export-pdf-btn"
+                    title="Export to PDF"
+                  >
+                    <i class="fas fa-file-pdf"></i>
+                  </a>
+                  <a
+                    @click="printReport"
+                    v-tooltip="$t('Print Table')"
+                    class="btn print-btn"
+                  >
+                    <i class="fas fa-print"></i>
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-    </div>
 
-    <!-- Report Results -->
-    <div v-if="reportData" class="card">
-      <div class="card-header">
-        <h3 class="card-title">
-          {{ $t('Purchase Summary Report') }}
-        </h3>
-        <div class="card-tools">
-          <span class="badge badge-info">{{ $t('Total Purchases') }}: {{ reportData.summary.total_purchases }}</span>
-          <span class="badge badge-success ml-2">{{ $t('Net Purchases') }}: {{ reportData.summary.net_purchases }}</span>
-        </div>
-      </div>
-      <div class="card-body">
+            <!-- Report Results -->
+            <div v-if="reportData" class="card mt-3">
+              <div class="card-header">
+                <h3 class="card-title">
+                  {{ $t('Purchase Summary Report') }}
+                </h3>
+                <div class="card-tools">
+                  <span class="badge badge-info">{{ $t('Total Purchases') }}: {{ reportData.summary.total_purchases }}</span>
+                  <span class="badge badge-success ml-2">{{ $t('Net Purchases') }}: {{ reportData.summary.net_purchases }}</span>
+                </div>
+              </div>
+              <div class="card-body">
         <!-- Summary Cards -->
         <div class="row mb-4">
           <div class="col-md-3">
@@ -247,19 +270,17 @@
                 </select>
               </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="table-responsive table-custom">
+              <table class="table purchase-summary-table">
                 <thead>
-                  <tr>
-                    <th>{{ $t('Supplier Name') }}</th>
-                    <th>{{ $t('Phone') }}</th>
-                    <th class="text-center">{{ $t('Purchase Count') }}</th>
-                    <th class="text-right">{{ $t('Total Amount') }}</th>
-                    <th class="text-right">{{ $t('Paid Amount') }}</th>
-                    <th class="text-right">{{ $t('Due Amount') }}</th>
-                    <th class="text-right">{{ $t('Discount') }}</th>
-                    <th class="text-right">{{ $t('Tax') }}</th>
-                  </tr>
+                  <th>{{ $t('Supplier Name') }}</th>
+                  <th>{{ $t('Phone') }}</th>
+                  <th class="text-center">{{ $t('Purchase Count') }}</th>
+                  <th class="text-right">{{ $t('Total Amount') }}</th>
+                  <th class="text-right">{{ $t('Paid Amount') }}</th>
+                  <th class="text-right">{{ $t('Due Amount') }}</th>
+                  <th class="text-right">{{ $t('Discount') }}</th>
+                  <th class="text-right">{{ $t('Tax') }}</th>
                 </thead>
                 <tbody>
                   <tr v-if="loadingSuppliers">
@@ -272,16 +293,18 @@
                       {{ $t('No supplier data available') }}
                     </td>
                   </tr>
-                  <tr v-else v-for="supplier in reportData.supplier_summary" :key="supplier.supplier_id">
-                    <td>{{ supplier.supplier_name }}</td>
-                    <td>{{ supplier.supplier_phone || '-' }}</td>
-                    <td class="text-center">{{ supplier.purchase_count }}</td>
-                    <td class="text-right">{{ supplier.total_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ supplier.paid_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ supplier.due_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ supplier.discount_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ supplier.tax_amount | withAbsoluteCurrency }}</td>
-                  </tr>
+                  <template v-else>
+                    <tr v-for="supplier in reportData.supplier_summary" :key="supplier.supplier_id">
+                      <td>{{ supplier.supplier_name }}</td>
+                      <td>{{ supplier.supplier_phone || '-' }}</td>
+                      <td class="text-center">{{ supplier.purchase_count }}</td>
+                      <td class="text-right">{{ supplier.total_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ supplier.paid_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ supplier.due_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ supplier.discount_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ supplier.tax_amount | withAbsoluteCurrency }}</td>
+                    </tr>
+                  </template>
                 </tbody>
               </table>
             </div>
@@ -325,16 +348,14 @@
         <div class="row mb-4">
           <div class="col-12">
             <h5>{{ $t('Monthly Summary') }}</h5>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="table-responsive table-custom">
+              <table class="table purchase-summary-table">
                 <thead>
-                  <tr>
-                    <th>{{ $t('Month') }}</th>
-                    <th class="text-center">{{ $t('Purchase Count') }}</th>
-                    <th class="text-right">{{ $t('Total Amount') }}</th>
-                    <th class="text-right">{{ $t('Paid Amount') }}</th>
-                    <th class="text-right">{{ $t('Due Amount') }}</th>
-                  </tr>
+                  <th>{{ $t('Month') }}</th>
+                  <th class="text-center">{{ $t('Purchase Count') }}</th>
+                  <th class="text-right">{{ $t('Total Amount') }}</th>
+                  <th class="text-right">{{ $t('Paid Amount') }}</th>
+                  <th class="text-right">{{ $t('Due Amount') }}</th>
                 </thead>
                 <tbody>
                   <tr v-if="reportData.monthly_summary.length === 0">
@@ -342,13 +363,15 @@
                       {{ $t('No monthly data available') }}
                     </td>
                   </tr>
-                  <tr v-else v-for="month in reportData.monthly_summary" :key="month.month">
-                    <td>{{ month.month_name }}</td>
-                    <td class="text-center">{{ month.purchase_count }}</td>
-                    <td class="text-right">{{ month.total_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ month.paid_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ month.due_amount | withAbsoluteCurrency }}</td>
-                  </tr>
+                  <template v-else>
+                    <tr v-for="month in reportData.monthly_summary" :key="month.month">
+                      <td>{{ month.month_name }}</td>
+                      <td class="text-center">{{ month.purchase_count }}</td>
+                      <td class="text-right">{{ month.total_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ month.paid_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ month.due_amount | withAbsoluteCurrency }}</td>
+                    </tr>
+                  </template>
                 </tbody>
               </table>
             </div>
@@ -359,17 +382,15 @@
         <div v-if="reportData.return_purchases && reportData.return_purchases.length > 0" class="row mb-4">
           <div class="col-12">
             <h5>{{ $t('Purchase Returns Summary') }}</h5>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="table-responsive table-custom">
+              <table class="table purchase-summary-table">
                 <thead>
-                  <tr>
-                    <th>{{ $t('Purchase #') }}</th>
-                    <th>{{ $t('Supplier') }}</th>
-                    <th>{{ $t('Purchase Date') }}</th>
-                    <th class="text-right">{{ $t('Original Amount') }}</th>
-                    <th class="text-right">{{ $t('Return Amount') }}</th>
-                    <th class="text-center">{{ $t('Return Count') }}</th>
-                  </tr>
+                  <th>{{ $t('Purchase #') }}</th>
+                  <th>{{ $t('Supplier') }}</th>
+                  <th>{{ $t('Purchase Date') }}</th>
+                  <th class="text-right">{{ $t('Original Amount') }}</th>
+                  <th class="text-right">{{ $t('Return Amount') }}</th>
+                  <th class="text-center">{{ $t('Return Count') }}</th>
                 </thead>
                 <tbody>
                   <tr v-for="returnData in reportData.return_purchases" :key="returnData.purchase.id">
@@ -385,12 +406,16 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+              </div>
+            </div>
 
-    <!-- Loading Overlay -->
-    <div v-if="loading" class="overlay">
-      <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+            <!-- Loading Overlay -->
+            <div v-if="loading" class="overlay">
+              <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -415,10 +440,10 @@ export default {
       breadcrumbs: [
         {
           name: 'Dashboard',
-          url: '/'
+          url: 'home'
         },
         {
-          name: 'Reports',
+          name: 'Purchase Summary',
           url: ''
         }
       ],
@@ -659,11 +684,124 @@ export default {
         this.loadingSuppliers = false;
       }
     },
+
+    refreshTable() {
+      this.generateReport();
+    },
+
+    printReport() {
+      window.print();
+    },
   },
 };
 </script>
 
 <style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.purchase-summary-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.purchase-summary-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.purchase-summary-table thead tr {
+  border: none !important;
+}
+
+.purchase-summary-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.purchase-summary-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .purchase-summary-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .purchase-summary-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+
 .overlay {
   position: fixed;
   top: 0;

@@ -1,26 +1,20 @@
 <template>
   <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
 
     <!-- Filters Card -->
     <div class="row no-print mb-3">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h5 class="card-title mb-0">
-              <button
-                class="btn btn-link p-0"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#filtersCollapse"
-                aria-expanded="true"
-                aria-controls="filtersCollapse"
-              >
-                <i class="fas fa-filter"></i> {{ $t("Filters") }}
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
+            <h3 class="card-title">{{ $t('Filters') }}</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
               </button>
-            </h5>
+            </div>
           </div>
           <div class="collapse show" id="filtersCollapse">
             <div class="card-body">
@@ -149,7 +143,7 @@
                   <a
                     :href="printTemplateUrl"
                     target="_blank"
-                    class="btn btn-info"
+                    class="btn print-btn"
                     :disabled="!reportData"
                   >
                     <i class="fas fa-print me-1"></i>
@@ -175,7 +169,7 @@
                   </button>
                   <button
                     @click="exportToExcel"
-                    class="btn btn-info"
+                    class="btn export-excel-btn"
                     :disabled="!reportData"
                   >
                     <i class="fas fa-file-excel me-1"></i>
@@ -1229,6 +1223,102 @@ export default {
 </script>
 
 <style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.account-statement-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.account-statement-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.account-statement-table thead tr {
+  border: none !important;
+}
+
+.account-statement-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.account-statement-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .account-statement-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .account-statement-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  border-radius: 10px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  border-radius: 10px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  border-radius: 10px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  border-radius: 10px;
+  border: none;
+}
+
+.btn-group.c-w-100 { gap: 10px; }
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
 .table-responsive {
   overflow-y: auto;
   border: 1px solid #dee2e6;

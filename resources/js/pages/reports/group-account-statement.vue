@@ -1,11 +1,14 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-
-    <!-- Filters Card -->
-    <div class="card">
+  <div class="mb-50">
+    <div class="row">
+      <div class="col-12">
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+          </div>
+          <div class="card-body position-relative">
+            <!-- Filters Card -->
+            <div class="card">
       <div class="card-header">
         <h3 class="card-title">{{ $t('Filters') }}</h3>
         <div class="card-tools">
@@ -148,7 +151,7 @@
                 v-if="reportData && reportData.entries && reportData.entries.length > 0" 
                 :href="exportExcelUrl" 
                 v-tooltip="$t('Export to Excel')" 
-                class="btn btn-info ml-2"
+                class="btn export-excel-btn ml-2"
               >
                 <i class="fa fa-arrow-circle-down"></i>
               </a>
@@ -156,7 +159,7 @@
                 v-if="reportData && reportData.entries && reportData.entries.length > 0" 
                 :href="exportPdfUrl" 
                 v-tooltip="$t('Export to PDF')" 
-                class="btn btn-success ml-2"
+                class="btn export-pdf-btn ml-2"
               >
                 <i class="fas fa-file-export"></i>
               </a>
@@ -164,7 +167,7 @@
                 v-if="reportData && reportData.entries && reportData.entries.length > 0" 
                 :href="printTemplateUrl" 
                 target="_blank" 
-                class="btn btn-primary ml-2"
+                class="btn print-btn ml-2"
               >
                 <i class="fas fa-print"></i> {{ $t("Print with Template") }}
               </a>
@@ -266,21 +269,19 @@
         </div>
 
         <!-- Entries Table -->
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
+        <div class="table-responsive table-custom">
+          <table class="table group-account-statement-table">
             <thead>
-              <tr>
-                <th>{{ $t('Date') }}</th>
-                <th>{{ $t('Entry #') }}</th>
-                <th>{{ $t('Reference') }}</th>
-                <th>{{ $t('Description') }}</th>
-                <th>{{ $t('Account Name') }}</th>
-                <th class="text-right">{{ $t('Debit') }}</th>
-                <th class="text-right">{{ $t('Credit') }}</th>
-                <th class="text-right">{{ $t('Net Amount') }}</th>
-                <th class="text-right">{{ $t('Running Balance') }}</th>
-                <th class="text-center">{{ $t('Balance Type') }}</th>
-              </tr>
+              <th>{{ $t('Date') }}</th>
+              <th>{{ $t('Entry #') }}</th>
+              <th>{{ $t('Reference') }}</th>
+              <th>{{ $t('Description') }}</th>
+              <th>{{ $t('Account Name') }}</th>
+              <th class="text-right">{{ $t('Debit') }}</th>
+              <th class="text-right">{{ $t('Credit') }}</th>
+              <th class="text-right">{{ $t('Net Amount') }}</th>
+              <th class="text-right">{{ $t('Running Balance') }}</th>
+              <th class="text-center">{{ $t('Balance Type') }}</th>
             </thead>
             <tbody>
               <tr v-if="loading">
@@ -364,6 +365,10 @@
     <div v-if="loading" class="overlay">
       <i class="fas fa-2x fa-sync-alt fa-spin"></i>
     </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -388,10 +393,10 @@ export default {
       breadcrumbs: [
         {
           name: 'Dashboard',
-          url: '/'
+          url: 'home'
         },
         {
-          name: 'Reports',
+          name: 'Group Account Statement',
           url: ''
         }
       ],
@@ -826,6 +831,104 @@ export default {
 </script>
 
 <style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.group-account-statement-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.group-account-statement-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.group-account-statement-table thead tr {
+  border: none !important;
+}
+
+.group-account-statement-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.group-account-statement-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .group-account-statement-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .group-account-statement-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -875,5 +978,12 @@ export default {
   font-size: 1.25rem;
   font-weight: 600;
   color: #495057;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
 }
 </style>

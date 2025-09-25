@@ -1,82 +1,93 @@
 <template>
   <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-    <div class="row no-print">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100 header-buttons">
-                <button type="button" class="btn btn-success" @click="saveTemporary" title="Save Filter Settings">
-                  <i class="fas fa-save" />
+    <div class="card">
+      <div class="card-header">
+        <!-- breadcrumbs Start -->
+        <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+        <!-- breadcrumbs end -->
+        <h3 class="card-title">{{ $t('Filters') }}</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- form start -->
+      <form role="form" @submit.prevent="getReportData" @keydown="form.onKeydown($event)">
+        <div class="card-body">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="month"> {{ $t('Month') }} </label>
+              <select id="month" v-model="form.month" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('month') }">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+               <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <has-error :form="form" field="month" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="year">{{ $t('Year') }}</label>
+              <select id="year" v-model="form.year" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('year') }">
+                <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+              </select>
+              <has-error :form="form" field="year" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group btn-group c-w-100">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-search"></i>
+                  {{ $t('View Report') }}
                 </button>
+                <button type="button" class="btn btn-secondary ml-2" @click="saveTemporary">
+                  <i class="fas fa-save"></i> {{ $t('Save Filters') }}
+                </button>
+                <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">
+                  <i class="fas fa-undo"></i> {{ $t('Reset') }}
+                </button>
+                <a 
+                  v-if="reportInfo" 
+                  :href="printTemplateUrl" 
+                  target="_blank" 
+                  v-tooltip="$t('Print with Template')" 
+                  class="btn print-btn ml-2"
+                >
+                  <i class="fas fa-print"></i> {{ $t('Print with Template') }}
+                </a>
               </div>
             </div>
           </div>
-          <!-- form start -->
-          <form role="form" @submit.prevent="getReportData" @keydown="form.onKeydown($event)">
-            <div class="card-body">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="month"> {{ $t("Month") }} </label>
-                  <select id="month" v-model="form.month" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('month') }">
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                  </select>
-                  <has-error :form="form" field="month" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="year">{{ $t("Year") }}</label>
-                  <select id="year" v-model="form.year" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('year') }">
-                    <option v-for="year in years" :key="year" :value="year">
-                      {{ year }}
-                    </option>
-                  </select>
-                  <has-error :form="form" field="year" />
-                </div>
-              </div>
-            </div>
-            <div class="card-footer">
-              <v-button :loading="form.busy" class="btn btn-info">
-                <i class="fas fa-eye" /> {{ $t("View Report") }}
-              </v-button>
-              <button type="reset" class="btn btn-info float-right" @click="form.reset()">
-                <i class="fas fa-power-off" /> {{ $t("Reset") }}
-              </button>
-            </div>
-          </form>
         </div>
-      </div>
+      </form>
     </div>
-    <div v-if="reportInfo" class="row">
-      <div class="col-lg-12 invoice p-3 mb-3">
-        <!-- info row -->
+    <div v-if="reportInfo" class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ $t('Summary Report') }}</h3>
+      </div>
+      <div class="card-body position-relative">
+        <div v-if="loading" class="overlay">
+          <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+        </div>
         <div class="row invoice-info">
           <div class="m-auto invoice-col">
             <CompanyInfo class="text-center" />
           </div>
         </div>
-        <!-- /.row -->
-
-        <!-- Table row -->
         <div class="row mt-3 position-relative">
-          <table-loading v-show="loading" />
-          <div class="table-responsive col-xl-10 m-auto">
-            <table class="table table-bordered table-striped table-sm">
+          <div class="table-responsive table-custom col-xl-10 m-auto">
+            <table class="table account-statement-table">
               <thead>
                 <tr class="success text-center">
                   <th colspan="3">
@@ -243,27 +254,6 @@
             </table>
           </div>
         </div>
-        <!-- /.row -->
-
-        <!-- this row will not appear when printing -->
-        <div class="row no-print mt-5">
-          <div class="col-12">
-            <router-link :to="{ name: 'home' }" class="btn btn-info float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-            </router-link>
-            <a 
-              v-if="reportInfo" 
-              :href="printTemplateUrl" 
-              target="_blank" 
-              v-tooltip="$t('Print with Template')" 
-              class="btn btn-success mr-2"
-            >
-              <i class="fas fa-print"></i> {{ $t("Print with Template") }}
-            </a>
-            <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{ $t("Print")
-            }}</a>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -423,8 +413,25 @@ export default {
 </script>
 
 <style scoped>
-/* Header buttons styling */
-.header-buttons {
-  margin-bottom: 15px;
+.table-custom { border: none !important; }
+
+.account-statement-table { border-collapse: separate; border-spacing: 0; }
+.account-statement-table thead th {
+  background-color: #33a0d9; color: #ffffff; padding: 8px; border: none !important; border-color: inherit !important; font-weight: 400;
 }
+.account-statement-table thead tr { border: none !important; }
+.account-statement-table thead th:first-child { border-top-left-radius: 10px; }
+.account-statement-table thead th:last-child { border-top-right-radius: 10px; }
+[dir="rtl"] .account-statement-table thead th:first-child { border-top-left-radius: 0; border-top-right-radius: 10px; }
+[dir="rtl"] .account-statement-table thead th:last-child { border-top-right-radius: 0; border-top-left-radius: 10px; }
+
+.refresh-btn { background: #33a0d91a !important; color: #33a0d9 !important; border-radius: 10px; border: none; }
+.export-excel-btn { background: #f6fef4 !important; color: #2ab930 !important; border-radius: 10px; border: none; }
+.export-pdf-btn { background: #f6fef4 !important; color: #2ab930 !important; border-radius: 10px; border: none; }
+.print-btn { background: #33a0d91a !important; color: #33a0d9 !important; border-radius: 10px; border: none; }
+.btn-group.c-w-100 { gap: 10px; }
+.card { margin-top: 30px; border-radius: 20px; box-shadow: 0px 8px 20px 0px #00000014; border: 1px solid #CED4DA }
+.card-footer { background-color: white; border-top: 1px solid #CED4DA; padding: 0 1.25rem 0.625rem 1.25rem; border-radius: 0 0 20px 20px; }
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+.btn-primary { background: #2AB930 !important; color: white !important; padding: 10px 20px !important; border: none !important; }
 </style>

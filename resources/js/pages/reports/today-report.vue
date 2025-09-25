@@ -1,13 +1,13 @@
 <template>
     <div class="mb-50">
-        <!-- breadcrumbs Start -->
-        <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-        <!-- breadcrumbs end -->
         <div class="row">
             <div class="col-lg-12">
                 <table-loading v-show="loading" />
                 <div class="card custom-card w-100">
                     <div class="card-header setings-header">
+                    <!-- breadcrumbs Start -->
+                    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+                    <!-- breadcrumbs end -->
                         <div class="col-xl-4 col-4">
                             <h3 class="card-title">
                                 {{ $t("Todays Report") }}
@@ -15,13 +15,13 @@
                         </div>
                         <div class="col-xl-8 col-8 float-right text-right">
                             <div class="btn-group c-w-100">
-                                <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success">
+                                <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success refresh-btn">
                                     <i class="fas fa-sync"></i>
                                 </a>
-                                <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
+                                <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn">
                                     <i class="fa fa-arrow-circle-down"></i>
                                 </a>
-                                <a href="/reports/today-report/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
+                                <a href="/reports/today-report/pdf" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn">
                                     <i class="fas fa-file-export"></i>
                                 </a>
                                 <a 
@@ -29,12 +29,9 @@
                                     :href="printTemplateUrl" 
                                     target="_blank" 
                                     v-tooltip="$t('Print with Template')" 
-                                    class="btn btn-tool"
+                                    class="btn print-btn"
                                 >
                                     <i class="fas fa-print"></i>
-                                </a>
-                                <a @click="printWindow()" href="#" v-tooltip="'Print'" class="btn btn-secondary">
-                                    <i class="fas fa-print"></i> {{ $t("Print") }}
                                 </a>
                             </div>
                         </div>
@@ -239,3 +236,77 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+.table-striped th,
+.table-striped td {
+  vertical-align: middle;
+}
+
+/* Search/Input background consistency */
+.form-control{
+  background: #fff !important;
+}
+</style>

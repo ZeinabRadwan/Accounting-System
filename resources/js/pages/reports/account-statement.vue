@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-        <!-- Filters Card -->
-        <div class="card">
-          <div class="card-header">
+    <!-- Filters Card -->
+    <div class="card">
+      <div class="card-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
             <h3 class="card-title">{{ $t('Filters') }}</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -136,7 +136,7 @@
                     v-if="reportData && entriesCount > 0" 
                     :href="exportExcelUrl" 
                     v-tooltip="$t('Export to Excel')" 
-                    class="btn btn-info ml-2"
+                    class="btn export-excel-btn ml-2"
                   >
                     <i class="fa fa-arrow-circle-down"></i>
                   </a>
@@ -144,7 +144,7 @@
                     v-if="reportData && entriesCount > 0" 
                     :href="exportPdfUrl" 
                     v-tooltip="$t('Export to PDF')" 
-                    class="btn btn-success ml-2"
+                    class="btn export-pdf-btn ml-2"
                   >
                     <i class="fas fa-file-export"></i>
                   </a>
@@ -152,7 +152,7 @@
                     v-if="reportData && entriesCount > 0" 
                     :href="printTemplateUrl" 
                     target="_blank" 
-                    class="btn btn-primary ml-2"
+                    class="btn print-btn ml-2"
                   >
                     <i class="fas fa-print"></i> {{ $t("Print with Template") }}
                   </a>
@@ -237,20 +237,18 @@
             </div>
 
             <!-- Entries Table -->
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="table-responsive table-custom">
+              <table class="table account-statement-table">
                 <thead>
-                  <tr>
-                    <th>{{ $t('Date') }}</th>
-                    <th>{{ $t('Entry #') }}</th>
-                    <th>{{ $t('Reference') }}</th>
-                    <th>{{ $t('Description') }}</th>
-                    <th class="text-right">{{ $t('Debit') }}</th>
-                    <th class="text-right">{{ $t('Credit') }}</th>
-                    <th class="text-right">{{ $t('Net Amount') }}</th>
-                    <th class="text-right">{{ $t('Running Balance') }}</th>
-                    <th class="text-center">{{ $t('Balance Type') }}</th>
-                  </tr>
+                  <th>{{ $t('Date') }}</th>
+                  <th>{{ $t('Entry #') }}</th>
+                  <th>{{ $t('Reference') }}</th>
+                  <th>{{ $t('Description') }}</th>
+                  <th class="text-right">{{ $t('Debit') }}</th>
+                  <th class="text-right">{{ $t('Credit') }}</th>
+                  <th class="text-right">{{ $t('Net Amount') }}</th>
+                  <th class="text-right">{{ $t('Running Balance') }}</th>
+                  <th class="text-center">{{ $t('Balance Type') }}</th>
                 </thead>
                 <tbody>
                   <tr v-if="loadingEntries">
@@ -351,11 +349,11 @@ export default {
       breadcrumbs: [
         {
           name: 'Dashboard',
-          url: '/'
+          url: 'home'
         },
         {
-          name: 'Reports',
-          url: '/reports'
+          name: 'Account Statement',
+          url: ''
         }
       ],
       breadcrumbsCurrent: 'Account Statement',
@@ -482,7 +480,11 @@ export default {
       if (this.filters.chartOfAccount && newValue !== oldValue && !this.loading) {
         this.generateReport();
       }
-    }
+    },
+    'filters.fiscalYear'() {
+      this.filters.accountingPeriod = null;
+      this.loadAccountingPeriods();
+    },
   },
    
   methods: {
@@ -764,17 +766,107 @@ export default {
     },
     
   },
-  
-  watch: {
-    'filters.fiscalYear'() {
-      this.filters.accountingPeriod = null;
-      this.loadAccountingPeriods();
-    },
-  },
 };
 </script>
 
 <style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.account-statement-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.account-statement-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.account-statement-table thead tr {
+  border: none !important;
+}
+
+.account-statement-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.account-statement-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .account-statement-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .account-statement-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -826,8 +918,8 @@ export default {
   color: #495057;
 }
 
+/* maintain spacing */
 .table th {
-  background-color: #f8f9fa;
   border-top: 1px solid #dee2e6;
 }
 
@@ -843,5 +935,12 @@ export default {
 
 .dataTables_paginate {
   text-align: right;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
 }
 </style>

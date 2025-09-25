@@ -1,288 +1,253 @@
 <template>
   <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-     
-    <!-- Filters Card -->
-    <div class="row no-print mb-3">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">
-              <button
-                class="btn btn-link p-0"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#filtersCollapse"
-                aria-expanded="true"
-                aria-controls="filtersCollapse"
-              >
-                <i class="fas fa-filter"></i> {{ $t("Filters") }}
+    <div class="card">
+      <div class="card-header">
+        <!-- breadcrumbs Start -->
+        <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+        <!-- breadcrumbs end -->
+        <h3 class="card-title">{{ $t('Filters') }}</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="generateReport" class="row">
+          <!-- Fiscal Year -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Fiscal Year') }}</label>
+              <v-select
+                v-model="filters.fiscalYearId"
+                :options="fiscalYears"
+                :reduce="year => year.id"
+                label="name"
+                :placeholder="$t('Select Fiscal Year')"
+                :searchable="true"
+                :clearable="true"
+                :loading="loadingFiscalYears"
+                @search="searchFiscalYears"
+                @input="onFiscalYearChange"
+              />
+            </div>
+          </div>
+
+          <!-- Accounting Period -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Accounting Period') }}</label>
+              <v-select
+                v-model="filters.accountingPeriodId"
+                :options="accountingPeriods"
+                :reduce="period => period.id"
+                label="name"
+                :placeholder="$t('Select Accounting Period')"
+                :searchable="true"
+                :clearable="true"
+                :loading="loadingAccountingPeriods"
+                :disabled="!filters.fiscalYearId"
+                @search="searchAccountingPeriods"
+                @input="onAccountingPeriodChange"
+              />
+            </div>
+          </div>
+
+          <!-- Date Range -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Date Range') }}</label>
+              <div class="input-group">
+                <input
+                  type="date"
+                  v-model="filters.fromDate"
+                  class="form-control"
+                  :placeholder="$t('From Date')"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">{{ $t('to') }}</span>
+                </div>
+                <input
+                  type="date"
+                  v-model="filters.toDate"
+                  class="form-control"
+                  :placeholder="$t('To Date')"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="col-12">
+            <div class="form-group btn-group c-w-100">
+              <button type="submit" class="btn btn-primary" :disabled="loading">
+                <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+                <i v-else class="fas fa-search"></i>
+                {{ $t('Generate Report') }}
               </button>
-            </h5>
-          </div>
-          <div class="collapse show" id="filtersCollapse">
-            <div class="card-body">
-              <div class="row">
-                <!-- Fiscal Year Filter -->
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="fiscal_year_id">{{ $t("Fiscal Year") }}</label>
-                    <v-select
-                      v-model="filters.fiscalYearId"
-                      :options="fiscalYears"
-                      :reduce="year => year.id"
-                      label="name"
-                      :placeholder="$t('Select Fiscal Year')"
-                      :searchable="true"
-                      :clearable="true"
-                      :loading="loadingFiscalYears"
-                      @search="searchFiscalYears"
-                      @input="onFiscalYearChange"
-                    />
-                  </div>
-                </div>
-
-                <!-- Accounting Period Filter -->
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="accounting_period_id">{{ $t("Accounting Period") }}</label>
-                    <v-select
-                      v-model="filters.accountingPeriodId"
-                      :options="accountingPeriods"
-                      :reduce="period => period.id"
-                      label="name"
-                      :placeholder="$t('Select Accounting Period')"
-                      :searchable="true"
-                      :clearable="true"
-                      :loading="loadingAccountingPeriods"
-                      :disabled="!filters.fiscalYearId"
-                      @search="searchAccountingPeriods"
-                      @input="onAccountingPeriodChange"
-                    />
-                  </div>
-                </div>
-
-                <!-- Date Range Filter -->
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="from_date">{{ $t("From Date") }}</label>
-                    <input
-                      type="date"
-                      v-model="filters.fromDate"
-                      class="form-control"
-                      :placeholder="$t('From Date')"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="to_date">{{ $t("To Date") }}</label>
-                    <input
-                      type="date"
-                      v-model="filters.toDate"
-                      class="form-control"
-                      :placeholder="$t('To Date')"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12">
-                  <button
-                    @click="generateReport"
-                    class="btn btn-info"
-                    :disabled="loading"
-                  >
-                    <i class="fas fa-sync-alt" :class="{ 'fa-spin': loading }"></i>
-                    {{ $t("Generate Report") }}
-                  </button>
-                  <button @click="resetFilters" class="btn btn-secondary ml-2">
-                    <i class="fas fa-undo"></i> {{ $t("Reset") }}
-                  </button>
-                </div>
-              </div>
+              <button type="button" @click="resetFilters" class="btn btn-secondary ml-2">
+                <i class="fas fa-undo"></i>
+                {{ $t('Reset') }}
+              </button>
+              <a 
+                v-if="balanceData" 
+                :href="exportUrl" 
+                v-tooltip="$t('Export to Excel')" 
+                class="btn export-excel-btn ml-2"
+              >
+                <i class="fa fa-arrow-circle-down"></i>
+              </a>
+              <a 
+                v-if="balanceData" 
+                href="/reports/balance-sheet/pdf" 
+                v-tooltip="$t('Export to PDF')" 
+                class="btn export-pdf-btn ml-2"
+              >
+                <i class="fas fa-file-export"></i>
+              </a>
+              <a 
+                v-if="balanceData" 
+                :href="printTemplateUrl" 
+                target="_blank" 
+                class="btn print-btn ml-2"
+              >
+                <i class="fas fa-print"></i> {{ $t('Print with Template') }}
+              </a>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
 
-    <div class="row no-print mb-2">
-      <div class="w-100 text-right float-right">
-        <div class="btn-group">
-          <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn btn-info">
-            <i class="fa fa-arrow-circle-down"></i>
-          </a>
-          <a href="/reports/balance-sheet/pdf" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
-            <i class="fas fa-file-export"></i>
-          </a>
-          <a :href="printTemplateUrl" target="_blank" class="btn btn-primary">
-            <i class="fas fa-print"></i> {{ $t("Print with Template") }}
-          </a>
-          <router-link :to="{ name: 'home' }" class="btn btn-info float-right">
-            <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-          </router-link>
-        </div>
+    <!-- Report Results -->
+    <div v-if="balanceData" class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ $t('Balance Sheet') }}</h3>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="invoice p-3 mb-3 w-100" id="content-to-pdf">
-        <!-- info row -->
-        <div class="row invoice-info">
-          <div class="col-sm-4 m-auto invoice-col">
-            <CompanyInfo class="text-center" />
-          </div>
-        </div>
-        <!-- /.row -->
-
+      <div class="card-body position-relative">
         <!-- Date Range Info -->
-        <div class="row mt-3" v-if="balanceData && balanceData.filters">
+        <div class="row mb-3" v-if="balanceData && balanceData.filters">
           <div class="col-12 text-center">
-            <h6 class="text-muted">
-              {{ $t("Period") }}: {{ dateRangeDisplayName }}
-            </h6>
+            <h6 class="text-muted">{{ $t('Period') }}: {{ dateRangeDisplayName }}</h6>
           </div>
         </div>
 
-        <!-- Table row -->
-        <div class="row mt-3 position-relative">
-          <div v-if="loading" class="overlay">
-            <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">{{ $t("Loading") }}...</span>
-            </div>
-          </div>
-          <div class="table-responsive w-100">
-            <table class="table table-striped table-bordered">
-              <thead>
-                <tr class="text-center">
-                  <th colspan="2">
-                    <h5>{{ $t("Assets") }}</h5>
-                  </th>
-                  <th class="red" colspan="2">
-                    <h5>{{ $t("Liabilities & Equity") }}</h5>
-                  </th>
-                </tr>
-              </thead>
-              <tbody v-if="balanceData && balanceData.accounts && balanceData.totals">
-                <!-- Assets Section -->
-                <tr v-for="account in balanceData.accounts.assets" :key="'asset-' + account.id">
-                  <th>{{ account.name }} ({{ account.code }})</th>
-                  <th class="text-right">
-                    <span v-if="account.balance_type === 'Debit'" class="text-success">
-                      {{ account.absolute_balance | withAbsoluteCurrency }}
-                    </span>
-                    <span v-else class="text-danger">
-                      ({{ account.absolute_balance | withAbsoluteCurrency }})
-                    </span>
-                  </th>
-                  <th></th>
-                  <th></th>
-                </tr>
-
-                <!-- Liabilities Section -->
-                <tr v-for="account in balanceData.accounts.liabilities" :key="'liability-' + account.id">
-                  <th></th>
-                  <th></th>
-                  <th>{{ account.name }} ({{ account.code }})</th>
-                  <th class="text-right">
-                    <span v-if="account.balance_type === 'Credit'" class="text-danger">
-                      {{ account.absolute_balance | withAbsoluteCurrency }}
-                    </span>
-                    <span v-else class="text-success">
-                      ({{ account.absolute_balance | withAbsoluteCurrency }})
-                    </span>
-                  </th>
-                </tr>
-
-                <!-- Equity Section -->
-                <tr v-for="account in balanceData.accounts.equity" :key="'equity-' + account.id">
-                  <th></th>
-                  <th></th>
-                  <th>{{ account.name }} ({{ account.code }})</th>
-                  <th class="text-right">
-                    <span v-if="account.balance_type === 'Credit'" class="text-danger">
-                      {{ account.absolute_balance | withAbsoluteCurrency }}
-                    </span>
-                    <span v-else class="text-success">
-                      ({{ account.absolute_balance | withAbsoluteCurrency }})
-                    </span>
-                  </th>
-                </tr>
-
-                <!-- Net Income Row -->
-                <tr v-if="balanceData.totals.net_income !== 0">
-                  <th></th>
-                  <th></th>
-                  <th>{{ $t("Net Income") }}</th>
-                  <th class="text-right">
-                    <span v-if="balanceData.totals.net_income > 0" class="text-danger">
-                      {{ balanceData.totals.net_income | withAbsoluteCurrency }}
-                    </span>
-                    <span v-else class="text-success">
-                      ({{ Math.abs(balanceData.totals.net_income) | withAbsoluteCurrency }})
-                    </span>
-                  </th>
-                </tr>
-
-                <!-- Totals Row -->
-                <tr class="text-right font-weight-bold">
-                  <th>{{ $t("Total Assets") }}</th>
-                  <th class="text-success">
-                    {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
-                  </th>
-                  <th>{{ $t("Total Liabilities & Equity") }}</th>
-                  <th class="text-danger">
-                    {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
-                  </th>
-                </tr>
-              </tbody>
-              <tbody v-else>
-                <tr>
-                  <td colspan="4" class="text-center">
-                    <p class="text-muted">{{ $t("No data available. Please generate a report.") }}</p>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot v-if="balanceData && balanceData.totals">
-                <tr>
-                  <td colspan="4" class="text-center">
-                    <strong>{{ $t("Balance Sheet Summary") }}</strong><br />
-                    <h4 class="mt-2">
-                      {{ $t("Total Assets") }}:
-                      <span v-if="balanceData.totals.total_assets > balanceData.totals.total_liabilities_and_equity" class="text-success">
-                        {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
-                      </span>
-                      <span v-else-if="balanceData.totals.total_assets < balanceData.totals.total_liabilities_and_equity" class="text-danger">
-                        {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
-                      </span>
-                      <span v-else class="text-success">
-                        {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
-                      </span>
-                    </h4>
-                    <h4>
-                      {{ $t("Total Liabilities & Equity") }}:
-                      <span v-if="balanceData.totals.total_liabilities_and_equity > balanceData.totals.total_assets" class="text-danger">
-                        {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
-                      </span>
-                      <span v-else-if="balanceData.totals.total_liabilities_and_equity < balanceData.totals.total_assets" class="text-success">
-                        {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
-                      </span>
-                      <span v-else class="text-success">
-                        {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
-                      </span>
-                    </h4>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+        <div v-if="loading" class="overlay">
+          <i class="fas fa-2x fa-sync-alt fa-spin"></i>
         </div>
-        <!-- /.row -->
+
+        <div class="table-responsive table-custom">
+          <table class="table account-statement-table">
+            <thead>
+              <tr class="text-center">
+                <th colspan="2"><h5>{{ $t('Assets') }}</h5></th>
+                <th class="red" colspan="2"><h5>{{ $t('Liabilities & Equity') }}</h5></th>
+              </tr>
+            </thead>
+            <tbody v-if="balanceData && balanceData.accounts && balanceData.totals">
+              <tr v-for="account in balanceData.accounts.assets" :key="'asset-' + account.id">
+                <th>{{ account.name }} ({{ account.code }})</th>
+                <th class="text-right">
+                  <span v-if="account.balance_type === 'Debit'" class="text-success">
+                    {{ account.absolute_balance | withAbsoluteCurrency }}
+                  </span>
+                  <span v-else class="text-danger">
+                    ({{ account.absolute_balance | withAbsoluteCurrency }})
+                  </span>
+                </th>
+                <th></th>
+                <th></th>
+              </tr>
+
+              <tr v-for="account in balanceData.accounts.liabilities" :key="'liability-' + account.id">
+                <th></th>
+                <th></th>
+                <th>{{ account.name }} ({{ account.code }})</th>
+                <th class="text-right">
+                  <span v-if="account.balance_type === 'Credit'" class="text-danger">
+                    {{ account.absolute_balance | withAbsoluteCurrency }}
+                  </span>
+                  <span v-else class="text-success">
+                    ({{ account.absolute_balance | withAbsoluteCurrency }})
+                  </span>
+                </th>
+              </tr>
+
+              <tr v-for="account in balanceData.accounts.equity" :key="'equity-' + account.id">
+                <th></th>
+                <th></th>
+                <th>{{ account.name }} ({{ account.code }})</th>
+                <th class="text-right">
+                  <span v-if="account.balance_type === 'Credit'" class="text-danger">
+                    {{ account.absolute_balance | withAbsoluteCurrency }}
+                  </span>
+                  <span v-else class="text-success">
+                    ({{ account.absolute_balance | withAbsoluteCurrency }})
+                  </span>
+                </th>
+              </tr>
+
+              <tr v-if="balanceData.totals.net_income !== 0">
+                <th></th>
+                <th></th>
+                <th>{{ $t('Net Income') }}</th>
+                <th class="text-right">
+                  <span v-if="balanceData.totals.net_income > 0" class="text-danger">
+                    {{ balanceData.totals.net_income | withAbsoluteCurrency }}
+                  </span>
+                  <span v-else class="text-success">
+                    ({{ Math.abs(balanceData.totals.net_income) | withAbsoluteCurrency }})
+                  </span>
+                </th>
+              </tr>
+
+              <tr class="text-right font-weight-bold">
+                <th>{{ $t('Total Assets') }}</th>
+                <th class="text-success">{{ balanceData.totals.total_assets | withAbsoluteCurrency }}</th>
+                <th>{{ $t('Total Liabilities & Equity') }}</th>
+                <th class="text-danger">{{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}</th>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr>
+                <td colspan="4" class="text-center">
+                  <p class="text-muted">{{ $t('No data available. Please generate a report.') }}</p>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot v-if="balanceData && balanceData.totals">
+              <tr>
+                <td colspan="4" class="text-center">
+                  <strong>{{ $t('Balance Sheet Summary') }}</strong><br />
+                  <h4 class="mt-2">
+                    {{ $t('Total Assets') }}:
+                    <span v-if="balanceData.totals.total_assets > balanceData.totals.total_liabilities_and_equity" class="text-success">
+                      {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
+                    </span>
+                    <span v-else-if="balanceData.totals.total_assets < balanceData.totals.total_liabilities_and_equity" class="text-danger">
+                      {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
+                    </span>
+                    <span v-else class="text-success">
+                      {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
+                    </span>
+                  </h4>
+                  <h4>
+                    {{ $t('Total Liabilities & Equity') }}:
+                    <span v-if="balanceData.totals.total_liabilities_and_equity > balanceData.totals.total_assets" class="text-danger">
+                      {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
+                    </span>
+                    <span v-else-if="balanceData.totals.total_liabilities_and_equity < balanceData.totals.total_assets" class="text-success">
+                      {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
+                    </span>
+                    <span v-else class="text-success">
+                      {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
+                    </span>
+                  </h4>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -547,8 +512,105 @@ export default {
 </script>
 
 <style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.account-statement-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.account-statement-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.account-statement-table thead tr {
+  border: none !important;
+}
+
+.account-statement-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.account-statement-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .account-statement-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .account-statement-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -557,14 +619,45 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
 }
 
-.red {
-  color: #dc3545;
+.info-box {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
 }
 
-.font-weight-bold {
-  font-weight: bold;
+.info-box-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 1rem;
 }
+
+.info-box-content { flex: 1; }
+.info-box-text { font-size: 0.875rem; color: #6c757d; margin-bottom: 0.25rem; }
+.info-box-number { font-size: 1.25rem; font-weight: 700; color: #495057; }
+
+.table th { border-top: 1px solid #dee2e6; }
+.pagination { margin-bottom: 0; }
+.dataTables_info { padding-top: 0.75rem; padding-bottom: 0.75rem; color: #6c757d; }
+.dataTables_paginate { text-align: right; }
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+
+.red { color: #dc3545; }
+.font-weight-bold { font-weight: bold; }
 </style>

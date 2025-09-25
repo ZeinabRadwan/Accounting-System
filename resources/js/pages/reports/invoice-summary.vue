@@ -1,21 +1,26 @@
 <template>
-  <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
-
-    <!-- Filters Card -->
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">{{ $t('Filters') }}</h3>
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-        </div>
-      </div>
-      <div class="card-body">
-        <form @submit.prevent="generateReport" class="row">
+  <div class="mb-50">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
+          </div>
+          <div class="card-body position-relative">
+            <!-- Filters Card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ $t('Filters') }}</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <form @submit.prevent="generateReport" class="row">
           <!-- Fiscal Year -->
           <div class="col-md-3">
             <div class="form-group">
@@ -81,7 +86,7 @@
 
           <!-- Action Buttons -->
           <div class="col-12">
-            <div class="form-group">
+            <div class="form-group d-flex align-items-center">
               <button 
                 type="submit" 
                 class="btn btn-primary"
@@ -95,38 +100,55 @@
                 <i class="fas fa-undo"></i>
                 {{ $t('Reset') }}
               </button>
-              <a 
-                v-if="reportData && reportData.summary" 
-                :href="exportExcelUrl" 
-                v-tooltip="$t('Export to Excel')" 
-                class="btn btn-info ml-2"
-              >
-                <i class="fa fa-arrow-circle-down"></i>
-              </a>
-              <a 
-                v-if="reportData && reportData.summary" 
-                :href="exportPdfUrl" 
-                v-tooltip="$t('Export to PDF')" 
-                class="btn btn-success ml-2"
-              >
-                <i class="fas fa-file-export"></i>
-              </a>
-              <a 
-                v-if="reportData && reportData.summary" 
-                :href="printTemplateUrl" 
-                target="_blank" 
-                class="btn btn-primary ml-2"
-              >
-                <i class="fas fa-print"></i> {{ $t("Print with Template") }}
-              </a>
             </div>
           </div>
         </form>
-      </div>
-    </div>
+              </div>
+            </div>
 
-    <!-- Report Results -->
-    <div v-if="reportData" class="card">
+            <!-- Top Actions -->
+            <div class="row mt-2">
+              <div class="col-xl-12 text-right">
+                <div class="btn-group c-w-100">
+                  <a
+                    @click.prevent="refreshTable"
+                    href="#"
+                    v-tooltip="'Refresh'"
+                    class="btn btn-success refresh-btn"
+                  >
+                    <i class="fas fa-sync"></i>
+                  </a>
+                  <a
+                    v-if="reportData && reportData.summary"
+                    :href="exportExcelUrl"
+                    v-tooltip="$t('Export to Excel')"
+                    class="btn export-excel-btn"
+                    title="Export to Excel"
+                  >
+                    <i class="fas fa-file-excel"></i>
+                  </a>
+                  <a
+                    v-if="reportData && reportData.summary"
+                    :href="exportPdfUrl"
+                    v-tooltip="$t('Export to PDF')"
+                    class="btn export-pdf-btn"
+                    title="Export to PDF"
+                  >
+                    <i class="fas fa-file-pdf"></i>
+                  </a>
+                  <a
+                    @click="printReport"
+                    v-tooltip="$t('Print Table')"
+                    class="btn print-btn"
+                  >
+                    <i class="fas fa-print"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Report Results -->
+            <div v-if="reportData" class="card mt-3">
       <div class="card-header">
         <h3 class="card-title">
           {{ $t('Invoice Summary Report') }}
@@ -247,19 +269,17 @@
                 </select>
               </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="table-responsive table-custom">
+              <table class="table invoice-summary-table">
                 <thead>
-                  <tr>
-                    <th>{{ $t('Client Name') }}</th>
-                    <th>{{ $t('Phone') }}</th>
-                    <th class="text-center">{{ $t('Invoice Count') }}</th>
-                    <th class="text-right">{{ $t('Total Amount') }}</th>
-                    <th class="text-right">{{ $t('Paid Amount') }}</th>
-                    <th class="text-right">{{ $t('Due Amount') }}</th>
-                    <th class="text-right">{{ $t('Discount') }}</th>
-                    <th class="text-right">{{ $t('Tax') }}</th>
-                  </tr>
+                  <th>{{ $t('Client Name') }}</th>
+                  <th>{{ $t('Phone') }}</th>
+                  <th class="text-center">{{ $t('Invoice Count') }}</th>
+                  <th class="text-right">{{ $t('Total Amount') }}</th>
+                  <th class="text-right">{{ $t('Paid Amount') }}</th>
+                  <th class="text-right">{{ $t('Due Amount') }}</th>
+                  <th class="text-right">{{ $t('Discount') }}</th>
+                  <th class="text-right">{{ $t('Tax') }}</th>
                 </thead>
                 <tbody>
                   <tr v-if="loadingClients">
@@ -272,16 +292,18 @@
                       {{ $t('No client data available') }}
                     </td>
                   </tr>
-                  <tr v-else v-for="client in reportData.client_summary" :key="client.client_id">
-                    <td>{{ client.client_name }}</td>
-                    <td>{{ client.client_phone || '-' }}</td>
-                    <td class="text-center">{{ client.invoice_count }}</td>
-                    <td class="text-right">{{ client.total_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ client.paid_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ client.due_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ client.discount_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ client.tax_amount | withAbsoluteCurrency }}</td>
-                  </tr>
+                  <template v-else>
+                    <tr v-for="client in reportData.client_summary" :key="client.client_id">
+                      <td>{{ client.client_name }}</td>
+                      <td>{{ client.client_phone || '-' }}</td>
+                      <td class="text-center">{{ client.invoice_count }}</td>
+                      <td class="text-right">{{ client.total_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ client.paid_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ client.due_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ client.discount_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ client.tax_amount | withAbsoluteCurrency }}</td>
+                    </tr>
+                  </template>
                 </tbody>
               </table>
             </div>
@@ -325,16 +347,14 @@
         <div class="row mb-4">
           <div class="col-12">
             <h5>{{ $t('Monthly Summary') }}</h5>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="table-responsive table-custom">
+              <table class="table invoice-summary-table">
                 <thead>
-                  <tr>
-                    <th>{{ $t('Month') }}</th>
-                    <th class="text-center">{{ $t('Invoice Count') }}</th>
-                    <th class="text-right">{{ $t('Total Amount') }}</th>
-                    <th class="text-right">{{ $t('Paid Amount') }}</th>
-                    <th class="text-right">{{ $t('Due Amount') }}</th>
-                  </tr>
+                  <th>{{ $t('Month') }}</th>
+                  <th class="text-center">{{ $t('Invoice Count') }}</th>
+                  <th class="text-right">{{ $t('Total Amount') }}</th>
+                  <th class="text-right">{{ $t('Paid Amount') }}</th>
+                  <th class="text-right">{{ $t('Due Amount') }}</th>
                 </thead>
                 <tbody>
                   <tr v-if="reportData.monthly_summary.length === 0">
@@ -342,13 +362,15 @@
                       {{ $t('No monthly data available') }}
                     </td>
                   </tr>
-                  <tr v-else v-for="month in reportData.monthly_summary" :key="month.month">
-                    <td>{{ month.month_name }}</td>
-                    <td class="text-center">{{ month.invoice_count }}</td>
-                    <td class="text-right">{{ month.total_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ month.paid_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ month.due_amount | withAbsoluteCurrency }}</td>
-                  </tr>
+                  <template v-else>
+                    <tr v-for="month in reportData.monthly_summary" :key="month.month">
+                      <td>{{ month.month_name }}</td>
+                      <td class="text-center">{{ month.invoice_count }}</td>
+                      <td class="text-right">{{ month.total_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ month.paid_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ month.due_amount | withAbsoluteCurrency }}</td>
+                    </tr>
+                  </template>
                 </tbody>
               </table>
             </div>
@@ -359,17 +381,15 @@
         <div v-if="reportData.return_invoices && reportData.return_invoices.length > 0" class="row mb-4">
           <div class="col-12">
             <h5>{{ $t('Invoice Returns Summary') }}</h5>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="table-responsive table-custom">
+              <table class="table invoice-summary-table">
                 <thead>
-                  <tr>
-                    <th>{{ $t('Invoice #') }}</th>
-                    <th>{{ $t('Client') }}</th>
-                    <th>{{ $t('Invoice Date') }}</th>
-                    <th class="text-right">{{ $t('Original Amount') }}</th>
-                    <th class="text-right">{{ $t('Return Amount') }}</th>
-                    <th class="text-center">{{ $t('Return Count') }}</th>
-                  </tr>
+                  <th>{{ $t('Invoice #') }}</th>
+                  <th>{{ $t('Client') }}</th>
+                  <th>{{ $t('Invoice Date') }}</th>
+                  <th class="text-right">{{ $t('Original Amount') }}</th>
+                  <th class="text-right">{{ $t('Return Amount') }}</th>
+                  <th class="text-center">{{ $t('Return Count') }}</th>
                 </thead>
                 <tbody>
                   <tr v-for="returnData in reportData.return_invoices" :key="returnData.invoice.id">
@@ -386,11 +406,15 @@
           </div>
         </div>
       </div>
-    </div>
+            </div>
 
-    <!-- Loading Overlay -->
-    <div v-if="loading" class="overlay">
-      <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+            <!-- Loading Overlay -->
+            <div v-if="loading" class="overlay">
+              <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -659,11 +683,122 @@ export default {
         this.loadingClients = false;
       }
     },
+    refreshTable() {
+      this.generateReport();
+    },
+    printReport() {
+      window.print();
+    },
   },
 };
 </script>
 
 <style scoped>
+.table-custom {
+  border: none !important;
+}
+
+.invoice-summary-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoice-summary-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoice-summary-table thead tr {
+  border: none !important;
+}
+
+.invoice-summary-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoice-summary-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoice-summary-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoice-summary-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+
 .overlay {
   position: fixed;
   top: 0;
