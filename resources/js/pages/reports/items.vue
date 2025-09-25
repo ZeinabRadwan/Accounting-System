@@ -48,7 +48,7 @@
               allData.product.category &&
               allData.product.subCategory &&
               allData.product.itemUnit
-              " class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right">
+              " class="col-sm-8 invoice-col float-right text-md-right">
               <h5>
                 {{ $t("Date") }}: {{ date | moment("Do MMM, YYYY") }}
               </h5>

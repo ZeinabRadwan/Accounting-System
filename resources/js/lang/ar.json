@@ -2678,5 +2678,10 @@
   "Accounting Period" : "الفترة المحاسبية",
   "Date Range" : "التاريخ",
   "Select Sub Account" : "اختر الحساب الفرعي",
+  "Cost of Returned Products" : "تكلفة المنتجات المرتجعه",
+  "Return Discount" :"خصم المرتجع",
+  "Return VAT" : "ضريبة المرتجع",
+  "Remaining Discount" : "الخصم المتبقي",
+  "Remaining Tax" : "الضريبة المتبقية",
   "Error generating code": "حدث خطأ أثناء توليد الرمز"
 }

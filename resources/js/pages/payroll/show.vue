@@ -73,7 +73,7 @@
               </div>
               <!-- /.col -->
               <div
-                class="col-sm-6 offset-sm-2 invoice-col float-right text-md-right"
+                class="col-sm-8 invoice-col float-right text-md-right"
               >
                 <div v-if="allData.employee && allData.employee.department">
                   <h5>{{ $t("Employee Details") }}</h5>
