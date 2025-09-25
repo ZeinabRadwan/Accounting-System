@@ -13,6 +13,7 @@ use App\Http\Controllers\Central\DomainController;
 use App\Http\Controllers\Central\TenantController;
 use App\Http\Controllers\TenantRegisterController;
 use App\Http\Controllers\API\ActivityLogController;
+use App\Http\Controllers\API\ErrorLogController;
 use App\Http\Controllers\Central\FeatureController;
 use App\Http\Controllers\Central\PaymentController;
 use App\Http\Controllers\Central\CurrencyController;
@@ -49,6 +50,9 @@ Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEm
 Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 
 Route::post('email/resend', [VerificationController::class, 'resend']);
+
+// Error logging endpoint
+Route::post('/log-frontend-error', [ErrorLogController::class, 'logFrontendError']);
 
 Route::get('general-settings', [CentralGeneralController::class, 'getGeneralSettings']);
 

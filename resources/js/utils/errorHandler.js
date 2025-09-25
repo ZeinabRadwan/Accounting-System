@@ -20,6 +20,9 @@ export class ErrorHandler {
       showTimerProgressBar = true
     } = options
 
+    // Log detailed error information for debugging
+    this.logErrorDetails(error, options.context || 'API Error')
+
     // If custom message is provided, show it
     if (customMessage) {
       this.showError(title || i18n.t('Error'), customMessage, timer, showTimerProgressBar)
@@ -239,6 +242,87 @@ export class ErrorHandler {
     }
     // eslint-disable-next-line no-console
     console.warn(title, message)
+  }
+
+  /**
+   * Log detailed error information for debugging
+   * @param {Object} error - The error object
+   * @param {String} context - Context where the error occurred
+   */
+  static logErrorDetails(error, context = 'Unknown') {
+    const errorInfo = {
+      context: context,
+      timestamp: new Date().toISOString(),
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      error: {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      }
+    }
+
+    // Add response details if available
+    if (error.response) {
+      errorInfo.response = {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        data: error.response.data,
+        headers: error.response.headers,
+        config: {
+          url: error.response.config?.url,
+          method: error.response.config?.method,
+          params: error.response.config?.params,
+          data: error.response.config?.data
+        }
+      }
+    }
+
+    // Add request details if available
+    if (error.request) {
+      errorInfo.request = {
+        readyState: error.request.readyState,
+        status: error.request.status,
+        responseText: error.request.responseText
+      }
+    }
+
+    // Log to console with detailed information
+    console.group(`🚨 Error in ${context}`)
+    console.error('Full Error Object:', error)
+    console.error('Error Details:', errorInfo)
+    
+    if (error.response?.data?.message) {
+      console.error('Backend Error Message:', error.response.data.message)
+    }
+    
+    if (error.response?.data?.errors) {
+      console.error('Backend Validation Errors:', error.response.data.errors)
+    }
+    
+    console.groupEnd()
+
+    // Send to backend logging endpoint if available
+    this.sendErrorToBackend(errorInfo)
+  }
+
+  /**
+   * Send error details to backend for logging
+   * @param {Object} errorInfo - Error information to log
+   */
+  static async sendErrorToBackend(errorInfo) {
+    try {
+      // Only send if we have a backend endpoint for error logging
+      if (window.axios && process.env.NODE_ENV === 'production') {
+        await window.axios.post('/api/log-frontend-error', {
+          ...errorInfo,
+          user_id: window.auth?.user?.id || null,
+          tenant_id: window.auth?.tenant?.id || null
+        })
+      }
+    } catch (loggingError) {
+      console.warn('Failed to send error to backend:', loggingError)
+    }
   }
 }
 
