@@ -26,9 +26,8 @@ class UpdateSettingCommand extends Command
             $fileContents = file_get_contents($filePath);
             $settings = json_decode($fileContents, true);
             if ($settings !== null) {
-                $upgUpdate = $settings['upg_update'];
-                $cssUpdate = $settings['css_update'];
-                $jsUpdate = $settings['js_update'];
+                $upgUpdate = $settings['upg_update']; 
+                $publicUpdate = $settings['public_update'];
                 $runMigration = $settings['run_migration'];
                 $runMigrationRollBack = $settings['run_migration_rollback'];
                 $runComposer = $settings['run_composer'];
@@ -50,35 +49,16 @@ class UpdateSettingCommand extends Command
                     }
                 }
 
-                if ($cssUpdate) {
-                    $result = $this->updateCss();
-                    $manifestResult = $this->updateManifest();
-                    $vendorResult = $this->updateVendor();
+                if ($publicUpdate) {
+                    $result = $this->updatePublic();
                     if (strpos($result, 'Error') !== false) {
                         $errors[] = $result;
                     } else {
                         $final_text .= ' <br> ' . $result;
                     }
-                    if (strpos($manifestResult, 'Error') !== false) {
-                        $errors[] = $manifestResult;
-                    } else {
-                        $final_text .= ' <br> ' . $manifestResult;
-                    }
-                    if (strpos($vendorResult, 'Error') !== false) {
-                        $errors[] = $vendorResult;
-                    } else {
-                        $final_text .= ' <br> ' . $vendorResult;
-                    }
+                   
                 }
-                
-                if ($jsUpdate) {
-                    $result = $this->updateJs();
-                    if (strpos($result, 'Error') !== false) {
-                        $errors[] = $result;
-                    } else {
-                        $final_text .= ' <br> ' . $result;
-                    }
-                }
+                 
 
                 if ($runMigration) {
                     $result = $this->runMigrate();
@@ -174,46 +154,60 @@ class UpdateSettingCommand extends Command
     }
 
 
-    private function updateManifest() {
-        // mix-manifest.json
-        $work_folder = $this->working_folder;
+    // private function updateManifest() {
+    //     // mix-manifest.json
+    //     $work_folder = $this->working_folder;
 
-        $manifest_command = 'cp -R "' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json" "' . $work_folder . '/public_html/mix-manifest.json"';
+    //     $manifest_command = 'cp -R "' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json" "' . $work_folder . '/public_html/mix-manifest.json"';
 
 
-        exec($manifest_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $manifest_command;
-        }
+    //     exec($manifest_command, $output, $return_var);
+    //     if ($return_var !== 0) {
+    //         return $manifest_command;
+    //     }
 
-        return 'Manifest Updated Successfully';
-    }
+    //     return 'Manifest Updated Successfully';
+    // }
 
-    private function updateVendor() {
-        $work_folder = $this->working_folder;
+    // private function updateVendor() {
+    //     $work_folder = $this->working_folder;
 
-        $vendor_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/vendor/ ' . $work_folder . '/public_html/';
-        exec($vendor_command, $output, $return_var);
-        if ($return_var !== 0) {
-            return $vendor_command;
-            return 'Error updating vendor files: ' . implode("\n", $output);
-        }
+    //     $vendor_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/vendor/ ' . $work_folder . '/public_html/';
+    //     exec($vendor_command, $output, $return_var);
+    //     if ($return_var !== 0) {
+    //         return $vendor_command;
+    //         return 'Error updating vendor files: ' . implode("\n", $output);
+    //     }
  
-        return 'CSS files updated successfully';
-    }
+    //     return 'CSS files updated successfully';
+    // }
 
-    private function updateCss()
+    // private function updateCss()
+    // {
+    //     $work_folder = $this->working_folder;
+
+    //     $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
+    //     exec($css_command, $output, $return_var);
+    //     if ($return_var !== 0) {
+    //         return $css_command;
+    //         return 'Error updating CSS files: ' . implode("\n", $output);
+    //     }
+ 
+    //     return 'CSS files updated successfully';
+    // } 
+
+    private function updatePublic()
     {
         $work_folder = $this->working_folder;
 
-        $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
-        exec($css_command, $output, $return_var);
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/* ' . $work_folder . '/public_html/';
+        exec($public_command, $output, $return_var);
         if ($return_var !== 0) {
-            return $css_command;
-            return 'Error updating CSS files: ' . implode("\n", $output);
+            return $public_command;
+            return 'Error updating Public files: ' . implode("\n", $output);
         }
  
-        return 'CSS files updated successfully';
+        return 'Public files updated successfully';
     }
 
 
