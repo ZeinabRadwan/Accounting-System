@@ -41,27 +41,25 @@
                   <has-error :form="form" field="selectedProducts" />
                 </div>
               </div>
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-2">
-                <div class="table-responsive table-custom w-95 m-auto table-sm">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Name") }}</th>
-                        <th>{{ $t("Stock") }}</th>
-                        <th class="w-200px">
-                          {{ $t("Adjustment Type") }}
-                        </th>
-                        <th class="w-250px">{{ $t("Quantity") }}</th>
-                        <th class="text-right">{{ $t("Action") }}</th>
-                      </tr>
-                    </thead>
+              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
+                    <table class="table table-hover table-sm text-center invoices-create-table">
+                      <thead>
+                          <th>{{ $t("#") }}</th>
+                          <th>{{ $t("Code") }}</th>
+                          <th>{{ $t("Name") }}</th>
+                          <th>{{ $t("Stock") }}</th>
+                          <th class="w-200px">
+                            {{ $t("Adjustment Type") }}
+                          </th>
+                          <th class="w-250px">{{ $t("Quantity") }}</th>
+                          <th class="text-right">{{ $t("Action") }}</th>
+                      </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>{{ item.itemCode | withPrefix(prefix) }}</td>
-                        <td>{{ item.name }}</td>
+                        <td style="min-width: 30px;">{{ ++i }}</td>
+                        <td style="min-width: 60px;">{{ item.itemCode | withPrefix(prefix) }}</td>
+                        <td style="min-width: 120px;">{{ item.name }}</td>
                         <td>
                           <span class="btn btn-warning btn-sm">{{
                             item.stockQty
@@ -420,8 +418,6 @@ export default {
 .btn-primary {
   background: #2AB930 !important;
   color: white !important;
-  padding: 10px 20px !important;
-
   border: none !important;
 }
 
@@ -429,6 +425,19 @@ export default {
   background: #229A26 !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.btn-danger {
+  background: #DC3545 !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-danger:hover {
+  background: #C82333 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
 }
 
 .btn-secondary {
@@ -445,21 +454,6 @@ export default {
   background: #2a8bc4 !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
-}
-
-.btn-danger {
-  background: #DC3545 !important;
-  color: white !important;
-  padding: 8px 12px !important;
-  border-radius: 8px !important;
-  border: none !important;
-  font-weight: 500;
-}
-
-.btn-danger:hover {
-  background: #C82333 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
 }
 
 .btn-warning {
@@ -505,27 +499,44 @@ textarea.form-control {
 
 /* Table Styling */
 .table-custom {
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: none !important;
 }
 
-.table-custom thead th {
-  background-color: #F8F9FA;
-  border-bottom: 2px solid #E5E7EB;
-  font-weight: 600;
-  color: #374151;
-  padding: 12px 16px;
+.invoices-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.table-custom tbody td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #E5E7EB;
-  vertical-align: middle;
+.invoices-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
 }
 
-.table-custom tbody tr:hover {
-  background-color: #F8F9FA;
+.invoices-create-table thead tr {
+  border: none !important;
+}
+
+.invoices-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
 }
 
 /* Custom Quantity Input Styling */
@@ -540,25 +551,20 @@ textarea.form-control {
 
 .custom-qty-input .button-minus,
 .custom-qty-input .button-plus {
-  background: #6C757D;
-  color: white;
   border: none;
-  padding: 8px 12px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s;
 }
 
-.custom-qty-input .button-minus:hover {
-  background: #5A6268;
+/* Remove padding for button-plus icon-shape icon-sm btn-primary elements */
+.button-plus.icon-shape.icon-sm.btn-primary {
+  padding: 0;
 }
 
-.custom-qty-input .button-plus {
-  background: #33a0d9;
-}
-
-.custom-qty-input .button-plus:hover {
-  background: #2a8bc7;
+/* Remove padding for button-minus icon-shape icon-sm btn-danger elements */
+.button-minus.icon-shape.icon-sm.btn-danger {
+  padding: 0;
 }
 
 .custom-qty-input .quantity-field {
@@ -573,6 +579,13 @@ textarea.form-control {
 .custom-qty-input .quantity-field:focus {
   outline: none;
   background: white;
+}
+
+/* Additional Quantity Field Styling for invoices-create-table */
+.invoices-create-table .quantity-field {
+  border-radius: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
 }
 
 /* Row Spacing */

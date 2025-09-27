@@ -52,10 +52,9 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm">
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
+                  <table class="table table-hover table-sm text-center invoices-create-table">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th class="text-center">{{ $t("Code") }}</th>
                         <th class="text-center">
@@ -69,7 +68,6 @@
                         <th class="text-center">{{ $t("Tax") }}</th>
                         <th class="text-center">{{ $t("Subtotal") }}</th>
                         <th class="text-right">{{ $t("Action") }}</th>
-                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
@@ -655,7 +653,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 /* Header buttons styling */
 .header-buttons {
   margin-bottom: 15px;
@@ -675,9 +673,92 @@ export default {
   margin-right: 0;
 }
 
-.custom-qty-input{
-    display: flex;
-    flex-wrap: nowrap;
+.create-btn {
+  padding: 11px;
+}
+
+/* Improved warning and success styles */
+.chart-account-warning,
+.chart-account-success {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart-account-warning {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #ffc107;
+}
+
+.chart-account-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border: 1px solid #28a745;
+}
+
+.warning-content,
+.success-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.warning-icon,
+.success-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.warning-icon {
+  color: #856404;
+}
+
+.success-icon {
+  color: #155724;
+}
+
+.warning-text,
+.success-text {
+  flex-grow: 1;
+}
+
+.warning-title,
+.success-title {
+  margin: 0 0 4px 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.warning-title {
+  color: #856404;
+}
+
+.success-title {
+  color: #155724;
+}
+
+.warning-description,
+.success-description {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.warning-description {
+  color: #856404;
+}
+
+.success-description {
+  color: #155724;
+}
+
+.warning-action {
+  flex-shrink: 0;
+}
+
+/* Remove padding for button-plus icon-shape icon-sm btn-primary elements */
+.button-plus.icon-shape.icon-sm.btn-primary {
+  padding: 0;
 }
 
 .btn-primary {
@@ -689,4 +770,371 @@ export default {
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
 }
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .warning-content,
+  .success-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .warning-action {
+    width: 100%;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* Client status styles */
+.client-status {
+  font-size: 13px;
+}
+
+.client-warning,
+.client-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.client-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.client-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.btn-outline-warning {
+  border-color: #ffc107;
+  color: #856404;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-outline-warning:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Product status styles */
+.product-status {
+  font-size: 13px;
+}
+
+.product-warning,
+.product-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.product-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.product-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Account status styles */
+.account-status {
+  font-size: 13px;
+}
+
+.account-warning,
+.account-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.account-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.account-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Horizontal radio button group */
+.radio-group-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.radio-group-horizontal .form-check-input {
+  margin-right: 8px;
+}
+
+.radio-group-horizontal .form-check-label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* Payment validation warning styles */
+.text-warning {
+  color: #856404 !important;
+}
+
+.text-warning small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.text-warning i {
+  margin-right: 4px;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.invoices-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-create-table thead tr {
+  border: none !important;
+}
+
+.invoices-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Custom Status Badge Styling */
+.invoices-create-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #fff !important;
+}
+
+/* Quantity Field Styling */
+.quantity-field {
+  border-radius: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+
+  border: none !important;
+}
+
+/* Stock Warning Alert Styling */
+.stock-warning-alert {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.stock-warning-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.stock-warning-icon {
+  font-size: 24px;
+  color: #856404;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.stock-warning-text {
+  flex-grow: 1;
+}
+
+.stock-warning-title {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: #856404;
+}
+
+.stock-warning-description {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #856404;
+  opacity: 0.9;
+}
+
+.stock-warning-list {
+  margin: 0;
+  padding-left: 20px;
+  list-style: none;
+}
+
+.stock-warning-item {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  border-left: 3px solid #ffc107;
+  font-size: 14px;
+  color: #856404;
+}
+
+.stock-warning-item:last-child {
+  margin-bottom: 0;
+}
+
+.product-name {
+  font-weight: 600;
+  color: #856404;
+  margin-right: 8px;
+}
+
+.stock-details {
+  color: #856404;
+  opacity: 0.8;
+}
+
+.stock-details strong {
+  color: #856404;
+  font-weight: 600;
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .stock-warning-list {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+[dir="rtl"] .stock-warning-item {
+  border-left: none;
+  border-right: 3px solid #ffc107;
+}
+
+[dir="rtl"] .product-name {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stock-warning-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .stock-warning-icon {
+    align-self: center;
+  }
+  
+  .stock-warning-list {
+    padding-left: 0;
+    text-align: left;
+  }
+  
+  [dir="rtl"] .stock-warning-list {
+    text-align: right;
+  }
+}
+
 </style>
