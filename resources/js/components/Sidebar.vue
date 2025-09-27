@@ -1750,6 +1750,12 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   color: #6b7280;
 }
 
+/* RTL override */
+:dir(rtl) .main-sidebar .nav-sidebar .toggle-icon {
+  right: auto;
+  left: 10px;
+}
+
 .main-sidebar .nav-sidebar .nav-item.has-treeview > a .toggle-icon::before {
   content: "+";
 }
