@@ -31,9 +31,9 @@ class InvoiceReturnProductResource extends JsonResource
             'productModel' => $this->product->model,
             'inventoryCount' => $this->product->inventory_count,
             'avgPurchasePrice' => $this->product->purchase_price,
-            'productUnit' => $this->product->productUnit->code,
+            'productUnit' => $this->product->productUnit?->code,
             'taxType' => $this->product->tax_type,
-            'taxRate' => $this->product->productTax->rate,
+            'taxRate' => $this->product->productTax?->rate,
             // Add VAT information from invoice_products table
             'vatRateId' => $invoiceProduct->vat_rate_id,
             'vatRate' => $invoiceProduct->vatRate ? $invoiceProduct->vatRate->rate : 0,

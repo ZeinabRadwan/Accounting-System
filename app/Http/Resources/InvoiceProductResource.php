@@ -48,9 +48,9 @@ class InvoiceProductResource extends JsonResource
             'productModel' => $this->product->model,
             'inventoryCount' => $this->product->inventory_count,
             'avgPurchasePrice' => $this->product->purchase_price,
-            'productUnit' => $this->product->productUnit->code,
+            'productUnit' => $this->product->productUnit?->code,
             'taxType' => $this->product->tax_type,
-            'taxRate' => $this->product->productTax->rate,
+            'taxRate' => $this->product->productTax?->rate,
             'vatRate' => $this->vatRate ? [
                 'id' => $this->vatRate->id,
                 'rate' => $this->vatRate->rate,

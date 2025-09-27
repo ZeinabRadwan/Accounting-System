@@ -27,7 +27,7 @@ class ProductSelectReource extends JsonResource
             'sellingPrice' => $this->sellingPrice(),
             'taxAmount' => $this->taxAmount(),
             'taxType' => $this->tax_type,
-            'taxRate' => $this->productTax->rate,
+            'taxRate' => $this->productTax?->rate,
             'inventoryCount' => $this->inventory_count > 0 ? $this->inventory_count : 0,
             'image' => $this->image_path ? $this->image_path : '',
         ];

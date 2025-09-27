@@ -25,7 +25,7 @@ class AdjustmentProductsResource extends JsonResource
             'productName' => $this->product->name,
             'productModel' => $this->product->model,
             'avgPurchasePrice' => round($this->product->purchase_price, 2),
-            'productUnit' => $this->product->productUnit->code,
+            'productUnit' => $this->product->productUnit?->code,
             'productStock' => $this->product->inventory_count,
         ];
     }

@@ -2719,6 +2719,7 @@
   "No products found": "لم يتم العثور على منتجات",
   "This purchase order doesn't have any products yet.": "هذا أمر الشراء لا يحتوي على أي منتجات بعد.",
   "Purchase Order Information": "معلومات أمر الشراء",
+  "Quantity Adjusted" : "تم تعديل الكمية",
   "This is a purchase order document. No payments are required at this stage.": "هذا مستند أمر شراء. لا توجد مدفوعات مطلوبة في هذه المرحلة.",
   "Breakdown": "التفصيل"
 }

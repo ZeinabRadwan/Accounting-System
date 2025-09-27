@@ -53,9 +53,9 @@ class PurchaseProductResource extends JsonResource
             'productName' => $this->product->name,
             'productModel' => $this->product->model,
             'avgPurchasePrice' => $this->product->purchase_price,
-            'productUnit' => $this->product->productUnit->code,
+            'productUnit' => $this->product->productUnit?->code,
             'taxType' => $this->product->tax_type,
-            'taxRate' => $this->product->productTax->rate,
+            'taxRate' => $this->product->productTax?->rate,
             'stockQty' => $this->product->inventory_count,
         ];
     }

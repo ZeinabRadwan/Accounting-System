@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+  <div v-if="isOpen" class="modal-overlay" @click.self="closeModal">
     <div class="modal-content" @click.stop>
       <div class="modal-header">
         <h5 class="modal-title">
@@ -45,7 +45,7 @@
           <h6>{{ $t("How to increase stock?") }}</h6>
           <div class="row">
             <div class="col-md-6">
-              <div class="option-card" @click="openInventoryAdjustment">
+              <div class="option-card" @click.stop="openInventoryAdjustment">
                 <div class="option-icon">
                   <i class="fas fa-plus-circle text-success"></i>
                 </div>
@@ -56,7 +56,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="option-card" @click="openPurchaseOrder">
+              <div class="option-card" @click.stop="openPurchaseOrder">
                 <div class="option-icon">
                   <i class="fas fa-shopping-cart text-primary"></i>
                 </div>
@@ -213,13 +213,29 @@ export default {
     },
     
     openInventoryAdjustment() {
-      this.$router.push({ name: "adjustments.create" });
+      console.log("Opening inventory adjustment...");
+      // Close modal first
       this.closeModal();
+      // Then navigate with a small delay
+      setTimeout(() => {
+        console.log("Navigating to adjustments.create");
+        this.$router.push({ name: "adjustments.create" }).catch(err => {
+          console.error("Navigation error:", err);
+        });
+      }, 300);
     },
     
     openPurchaseOrder() {
-      this.$router.push({ name: "purchases.create" });
+      console.log("Opening purchase order...");
+      // Close modal first
       this.closeModal();
+      // Then navigate with a small delay
+      setTimeout(() => {
+        console.log("Navigating to purchases.create");
+        this.$router.push({ name: "purchases.create" }).catch(err => {
+          console.error("Navigation error:", err);
+        });
+      }, 300);
     },
     
     async submitQuickAdjustment() {
