@@ -12,8 +12,8 @@
         "jwt:secret"
     ],
     "run_composer": false,
-    "APP_DEBUG": true,
     "clear_logs": true,
+    "APP_DEBUG": true,
     "run_migration_rollback": false,
     "app_version": "1.0.18"
 }
