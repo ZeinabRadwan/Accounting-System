@@ -63,11 +63,11 @@
                   </div>
                   
                   <!-- Submit Button -->
-                  <!-- <v-button :loading="form.busy"
+                  <v-button :loading="form.busy"
                     class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
                     <i class="fas fa-sign-in-alt" />
                     <strong>{{ $t('login') }}</strong>
-                  </v-button> -->
+                  </v-button>
                 </form>
                 <div class="row text-center">
                   <router-link :to="{ name: 'register' }" class="ml-auto my-auto">
