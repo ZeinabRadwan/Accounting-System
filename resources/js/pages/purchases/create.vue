@@ -111,7 +111,7 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-100 m-auto">
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
                   <table class="table table-hover table-sm text-center invoices-create-table">
                     <thead>
                         <th>{{ $t("#") }}</th>
@@ -129,9 +129,9 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td style="min-width: 50px;">{{ ++i }}</td>
-                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 30px;">{{ ++i }}</td>
+                        <td style="min-width: 60px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 120px;">
                           <router-link v-if="$can('product-view')" :to="{
                             name: 'products.show',
                             params: { slug: item.slug },
@@ -140,7 +140,7 @@
                           </router-link>
                           <span v-else>{{ item.name }}</span>
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -178,7 +178,7 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.qty`) }}
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="number" step="any" :id="`unitPrice-${i}`" :value="item.originalPrice || item.unitPrice"
                               name="unitPrice" class="quantity-field border-0" required min="0" 
@@ -196,8 +196,8 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
                           </div>
                         </td>
-                        <td style="min-width: 120px;">{{ ((item.originalPrice || item.unitPrice) * item.qty)  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 180px;">
+                        <td style="min-width: 80px;">{{ ((item.originalPrice || item.unitPrice) * item.qty)  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
@@ -226,14 +226,14 @@
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td style="min-width: 120px;">{{ getTotalAfterDiscount(item)  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 150px;">
+                        <td style="min-width: 80px;">{{ getTotalAfterDiscount(item)  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">
                           <select 
                             v-model="item.selectedVatRate" 
                             class="form-control form-control-sm"
                             :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.selectedVatRate`) }"
                             @change="calculateProductVat(i - 1)"
-                            style="min-width: 120px;">
+                            style="min-width: 80px;">
                             <option value="">{{ $t('Select VAT') }}</option>
                             <option 
                               v-for="tax in taxes" 
@@ -246,13 +246,13 @@
                             {{ form.errors.get(`selectedProducts.${i-1}.selectedVatRate`) }}
                           </div>
                         </td>
-                        <td style="min-width: 100px;">
+                        <td style="min-width: 60px;">
                           <span class="form-control-plaintext form-control-sm text-center">
                             {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td style="min-width: 120px;">{{ getTotalWithVAT(item)  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right" style="min-width: 80px;">
+                        <td style="min-width: 80px;">{{ getTotalWithVAT(item)  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 50px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>
@@ -1779,5 +1779,68 @@ textarea.form-control {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Quantity Field Styling */
+.quantity-field {
+  border-radius: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+}
+
+/* Table Custom Styling */
+.table-custom {
+  border: none !important;
+}
+
+.invoices-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-create-table thead tr {
+  border: none !important;
+}
+
+.invoices-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Custom Status Badge Styling */
+.invoices-create-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+/* Search Input Background Override */
+.form-control{
+  background: #fff !important;
 }
 </style>

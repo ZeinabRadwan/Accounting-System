@@ -129,7 +129,7 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-100 m-auto">
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
                   <table class="table table-hover table-sm text-center invoices-create-table">
                     <thead>
                       <th>{{ $t("#") }}</th>
@@ -147,11 +147,11 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}-${item.totalPrice}-${item.totalAfterDiscount}`">
-                        <td style="min-width: 50px;">{{ index + 1 }}</td>
-                        <td style="min-width: 100px;">
+                        <td style="min-width: 30px;">{{ index + 1 }}</td>
+                        <td style="min-width: 60px;">
                           {{ item.code | withPrefix(prefix) }}
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="d-flex align-items-center">
                             <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
                               " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2 mr-2">
@@ -176,7 +176,7 @@
                             </button>
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -208,7 +208,7 @@
                             {{ form.errors.get(`selectedProducts.${index}.qty`) }}
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
                               name="unitPrice" class="quantity-field border-0" required min="0" 
@@ -219,8 +219,8 @@
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
                           </div>
                         </td>
-                        <td style="min-width: 120px;">{{ item.totalBeforeDiscount  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 180px;">
+                        <td style="min-width: 80px;">{{ item.totalBeforeDiscount  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
@@ -249,14 +249,14 @@
                             <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td style="min-width: 120px;">{{ item.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 150px;">
+                        <td style="min-width: 80px;">{{ item.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">
                           <select 
                             v-model="item.selectedVatRate" 
                             class="form-control form-control-sm"
                             :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.selectedVatRate`) }"
                             @change="calculateProductVat(index)"
-                            style="min-width: 120px;">
+                            style="min-width: 80px;">
                             <option value="">{{ $t('Select VAT') }}</option>
                             <option 
                               v-for="tax in taxes" 
@@ -269,13 +269,13 @@
                             {{ form.errors.get(`selectedProducts.${index}.selectedVatRate`) }}
                           </div>
                         </td>
-                        <td style="min-width: 100px;">
+                        <td style="min-width: 60px;">
                           <span class="form-control-plaintext form-control-sm text-center">
                             {{ item.productTax  }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right" style="min-width: 80px;">
+                        <td style="min-width: 80px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 50px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>
@@ -310,6 +310,32 @@
                   </table>
                 </div>
               </div>
+                              
+                <!-- Stock Warning Message -->
+                <div v-if="hasInsufficientStock" class="stock-warning-alert mt-3" role="alert">
+                  <div class="stock-warning-content">
+                    <div class="stock-warning-icon">
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stock-warning-text">
+                      <div class="stock-warning-title">
+                        {{ $t('Warning') }}: {{ $t('Insufficient Stock') }}
+                      </div>
+                      <div class="stock-warning-description">
+                        {{ $t('The following products have insufficient stock') }}:
+                      </div>
+                      <ul class="stock-warning-list">
+                        <li v-for="product in insufficientStockProducts" :key="product.id" class="stock-warning-item">
+                          <span class="product-name">"{{ product.name }}"</span>
+                          <span class="stock-details">
+                            ({{ $t('Available') }}: <strong>{{ product.inventoryCount }}</strong>, 
+                            {{ $t('Required') }}: <strong>{{ product.qty }}</strong>)
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               <!-- Discount and Tax Section -->
               <div class="row">
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
@@ -791,6 +817,26 @@ export default {
     // Check payment fields visibility conditions
     paymentFieldsVisible() {
       return this.form.addPayment == 1;
+    },
+
+    // Check if there are any products with insufficient stock
+    hasInsufficientStock() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return false;
+      }
+      return this.form.selectedProducts.some(item => 
+        item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty)
+      );
+    },
+
+    // Get products with insufficient stock
+    insufficientStockProducts() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return [];
+      }
+      return this.form.selectedProducts.filter(item => 
+        item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty)
+      );
     },
     
     
@@ -3557,6 +3603,13 @@ export default {
   background: #fff !important;
 }
 
+/* Quantity Field Styling */
+.quantity-field {
+  border-radius: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+}
+
 .btn-primary {
   background: #2AB930 !important;
 }
@@ -3567,6 +3620,121 @@ export default {
   padding: 10px 20px !important;
 
   border: none !important;
+}
+
+/* Stock Warning Alert Styling */
+.stock-warning-alert {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.stock-warning-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.stock-warning-icon {
+  font-size: 24px;
+  color: #856404;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.stock-warning-text {
+  flex-grow: 1;
+}
+
+.stock-warning-title {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: #856404;
+}
+
+.stock-warning-description {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #856404;
+  opacity: 0.9;
+}
+
+.stock-warning-list {
+  margin: 0;
+  padding-left: 20px;
+  list-style: none;
+}
+
+.stock-warning-item {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  border-left: 3px solid #ffc107;
+  font-size: 14px;
+  color: #856404;
+}
+
+.stock-warning-item:last-child {
+  margin-bottom: 0;
+}
+
+.product-name {
+  font-weight: 600;
+  color: #856404;
+  margin-right: 8px;
+}
+
+.stock-details {
+  color: #856404;
+  opacity: 0.8;
+}
+
+.stock-details strong {
+  color: #856404;
+  font-weight: 600;
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .stock-warning-list {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+[dir="rtl"] .stock-warning-item {
+  border-left: none;
+  border-right: 3px solid #ffc107;
+}
+
+[dir="rtl"] .product-name {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stock-warning-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .stock-warning-icon {
+    align-self: center;
+  }
+  
+  .stock-warning-list {
+    padding-left: 0;
+    text-align: left;
+  }
+  
+  [dir="rtl"] .stock-warning-list {
+    text-align: right;
+  }
 }
 
 </style>

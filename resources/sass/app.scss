@@ -893,8 +893,9 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .icon-sm {
-  width: 2rem;
-  height: 2rem;
+  margin-top: 5px;
+  width: 40px;
+  height: 40px;
 }
 
 
@@ -1219,8 +1220,10 @@ label:not(.form-check-label):not(.custom-file-label) {
 }
 
 .quantity-field {
-  margin: 0px 7px;
-  border-radius: 50px;
+  border-radius: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+  width: 60px;
 }
 
 .dark-mode .custom-qty-input .quantity-field {
