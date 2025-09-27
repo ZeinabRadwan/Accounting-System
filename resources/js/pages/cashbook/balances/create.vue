@@ -261,7 +261,7 @@ export default {
           }
 
           // Prefer first validation message, fallback to server message, then generic
-          const errorMessage = firstValidationMessage || resp?.message || this.$t("Opps...something went wrong");
+          const errorMessage = firstValidationMessage || resp?.message || this.$t("Please check your input and try again.");
 
           // Bank account COA validation shown inline when applicable
           if (typeof errorMessage === 'string' && errorMessage.includes("not connected to any Chart of Account")) {

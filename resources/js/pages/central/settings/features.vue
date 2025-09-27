@@ -538,7 +538,7 @@ export default {
                 .catch(() => {
                     toast.fire({
                         type: 'error',
-                        title: this.$t('Opps...something went wrong'),
+                        title: this.$t('Please check your input and try again.'),
                     });
                 });
         },
@@ -589,7 +589,7 @@ export default {
                 .catch(() => {
                     toast.fire({
                         type: 'error',
-                        title: this.$t('Opps...something went wrong'),
+                        title: this.$t('Please check your input and try again.'),
                     });
                 });
         },

@@ -320,10 +320,10 @@ export default {
         if (window.toast && typeof window.toast.fire === 'function') {
           window.toast.fire({ 
             type: "error", 
-            title: this.$t("Opps...something went wrong") 
+            title: this.$t("Please check your input and try again.") 
           });
         } else {
-          alert(this.$t("Opps...something went wrong"));
+          alert(this.$t("Please check your input and try again."));
         }
       } finally {
         console.log('Setting isSubmitting to false');

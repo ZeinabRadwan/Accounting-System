@@ -236,7 +236,7 @@ export default {
         } else {
           toast.fire({ 
             type: "error", 
-            title: this.$t("Opps...something went wrong") 
+            title: this.$t("Please check your input and try again.") 
           });
         }
       } finally {

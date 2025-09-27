@@ -425,7 +425,7 @@ export default {
           toast.fire({
             type: 'error',
             title: this.$t('Error'),
-            text: backendMessage || this.$t('Opps...something went wrong'),
+            text: backendMessage || this.$t('Please check your input and try again.'),
           })
         });
     },

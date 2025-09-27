@@ -87,7 +87,7 @@ export default {
         console.error("Error creating supplier:", error);
         toast.fire({
           type: "error",
-          title: this.$t("Opps...something went wrong"),
+          title: this.$t("Please check your input and try again."),
         });
       } finally {
         this.loading = false;

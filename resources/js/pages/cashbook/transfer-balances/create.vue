@@ -244,7 +244,7 @@ export default {
           }
 
           // Display the specific error message from the server
-          const errorMessage = error.response?.data?.message || this.$t('Opps...something went wrong');
+          const errorMessage = error.response?.data?.message || this.$t('Please check your input and try again.');
           
           // Check if it's a bank account validation error
           if (errorMessage.includes("not connected to any Chart of Account")) {

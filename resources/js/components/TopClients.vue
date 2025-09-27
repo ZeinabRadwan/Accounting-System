@@ -28,8 +28,8 @@
             <p class="client-company">{{ client.client.company_name || 'No Company' }}</p>
           </div>
           <div class="client-metrics">
-            <div class="revenue">{{ client.invoice_total  }} <span class="saudi-riyal">ê</span></div>
-            <div class="sales-count">{{ client.total_invoice }} {{ $t('Sales') }}</div>
+            <div class="revenue">{{ parseFloat(client.invoice_total).toFixed(2) }} <span class="saudi-riyal">ê</span></div>
+            <div class="sales-count">{{ parseFloat(client.total_invoice).toFixed(2) }} {{ $t('Sales') }}</div>
           </div>
         </div>
       </div>
@@ -69,8 +69,8 @@ export default {
       if (!client || !client.client) return ''
       
       const clientData = client.client
-      const revenue = client.invoice_total
-      const salesCount = client.total_invoice
+      const revenue = parseFloat(client.invoice_total).toFixed(2)
+      const salesCount = parseFloat(client.total_invoice).toFixed(2)
       
       // Create a branded tooltip matching Sales vs Purchases style
       const clientName = clientData.name

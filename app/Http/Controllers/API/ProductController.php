@@ -211,7 +211,10 @@ class ProductController extends Controller
 
             DB::commit();
 
-            return $this->responseWithSuccess('Product added successfully');
+            // Load the created product with relationships for the response
+            $product->load('proSubCategory.category', 'productUnit', 'productTax', 'productBrand', 'salesAccount', 'purchaseAccount');
+
+            return $this->responseWithSuccess('Product added successfully', new ProductSelectResource($product));
         } catch (Exception $e) {
             DB::rollback();
             return $this->responseWithError($e->getMessage());

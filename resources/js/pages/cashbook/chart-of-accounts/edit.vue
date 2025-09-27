@@ -432,7 +432,7 @@ export default {
         // Show error message
         toast.fire({
           icon: 'error',
-          title: error.response?.data?.message || this.$t('Opps...something went wrong'),
+          title: error.response?.data?.message || this.$t('Please check your input and try again.'),
           showConfirmButton: false,
           timer: 3000
         });

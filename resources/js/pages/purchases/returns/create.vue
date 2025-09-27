@@ -537,7 +537,7 @@ export default {
           this.$router.push({ name: 'purchaseReturns.show', params: { slug: data.data.slug }, })
         })
         .catch(() => {
-          toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') })
+          toast.fire({ type: 'error', title: this.$t('Please check your input and try again.') })
         })
     },
     // save form data temporarily

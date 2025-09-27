@@ -419,7 +419,7 @@ export default {
             toast.fire({
               type: 'error',
               title: this.$t('Error'),
-              text: response.data.message || this.$t('Opps...something went wrong')
+              text: response.data.message || this.$t('Please check your input and try again.')
             })
           }
         })
@@ -441,7 +441,7 @@ export default {
             toast.fire({ 
               type: 'error', 
               title: this.$t('Error'),
-              text: error.response?.data?.message || this.$t('Opps...something went wrong')
+              text: error.response?.data?.message || this.$t('Please check your input and try again.')
             })
           }
         })

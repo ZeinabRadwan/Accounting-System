@@ -76,10 +76,36 @@ class ClientController extends Controller
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
-                $imageName = time() . '.' . explode(
-                    '/',
-                    explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
-                )[1];
+                // SAFE IMAGE PROCESSING - Handle different image formats
+                if (strpos($request->image, 'data:image/') === 0) {
+                    // Base64 image data
+                    $imageData = explode(',', $request->image);
+                    if (count($imageData) > 1) {
+                        $imageInfo = explode(';', $imageData[0]);
+                        if (count($imageInfo) > 0) {
+                            $mimeType = explode(':', $imageInfo[0]);
+                            if (count($mimeType) > 1) {
+                                $extension = explode('/', $mimeType[1]);
+                                if (count($extension) > 1) {
+                                    $fileExtension = $extension[1];
+                                } else {
+                                    $fileExtension = 'png'; // fallback
+                                }
+                            } else {
+                                $fileExtension = 'png'; // fallback
+                            }
+                        } else {
+                            $fileExtension = 'png'; // fallback
+                        }
+                    } else {
+                        $fileExtension = 'png'; // fallback
+                    }
+                } else {
+                    // Direct file upload or other format
+                    $fileExtension = 'png'; // fallback
+                }
+                
+                $imageName = time() . '.' . $fileExtension;
                 Image::make($request->image)->save(public_path('images/clients/') . $imageName);
             }
 

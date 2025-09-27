@@ -92,7 +92,7 @@
                           'is-invalid': form.errors.has('selectedProducts'),
                         }" name="product" :placeholder="$t('Search Items')"
                           @input="storeProduct(form.product)" />
-                        <ProductCreateModal @reloadProducts="getProducts">
+                        <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
@@ -1130,6 +1130,22 @@ export default {
       }
     },
 
+    // handle newly created product
+    handleProductCreated(newProduct) {
+      // Add the new product to the products list
+      this.products.unshift(newProduct);
+      this.products.sort(this.sortProducts);
+      
+      // Automatically select the newly created product
+      this.form.product = newProduct;
+      
+      // Automatically add it to the selected products list
+      this.storeProduct(newProduct);
+      
+      // Show success message
+      // this.$toast.success(this.$t("Product created and added to invoice successfully!"));
+    },
+
     // edit product
     editProduct() {
       // Check if any product is selected
@@ -2124,10 +2140,10 @@ export default {
           
         } else if (error.response?.status === 422) {
           // Handle other unprocessable entity errors
-          const errorMessage = error.response.data.message || this.$t("Data Processing Error");
+          const errorMessage = error.response.data.message || this.$t("Please check your input and try again.");
           toast.fire({
             type: "error",
-            title: this.$t("Data Error"),
+            title: this.$t("Validation Error"),
             text: errorMessage,
             timer: 6000,
             timerProgressBar: true,
@@ -2696,7 +2712,7 @@ export default {
       toast.fire({
         type: "error",
         title: this.$t("Unexpected Error"),
-        text: this.$t("An unexpected error occurred. Please try again or contact support."),
+        text: this.$t("Please check your input and try again."),
         timer: 6000,
         timerProgressBar: true,
       });

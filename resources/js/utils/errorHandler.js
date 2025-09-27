@@ -148,8 +148,9 @@ export class ErrorHandler {
       // Backend validation errors
       this.showBackendValidationErrors(data.validation_errors, data.message)
     } else {
-      const errorMessage = data?.message || i18n.t('Data Processing Error')
-      this.showError(i18n.t('Data Error'), errorMessage)
+      // Show specific error message if available, otherwise show generic message
+      const errorMessage = data?.message || i18n.t('Please check your input and try again.')
+      this.showError(i18n.t('Validation Error'), errorMessage)
     }
   }
 
@@ -170,7 +171,7 @@ export class ErrorHandler {
    * Handle generic errors
    */
   static handleGenericError(data, fallbackMessage) {
-    const errorMessage = data?.message || fallbackMessage || i18n.t('An unexpected error occurred')
+    const errorMessage = data?.message || fallbackMessage || i18n.t('Please check your input and try again.')
     this.showError(i18n.t('Error'), errorMessage)
   }
 

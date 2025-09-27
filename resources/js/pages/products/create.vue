@@ -636,7 +636,7 @@ export default {
         })
         .catch((error) => {
           console.error("Error creating product:", error);
-          const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
           toast.fire({ type: "error", title: errorMessage });
         });
     },

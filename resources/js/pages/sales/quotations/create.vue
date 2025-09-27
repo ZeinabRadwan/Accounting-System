@@ -81,7 +81,7 @@
                           'rtl-select': isRTL
                         }" name="product" :placeholder="$t('Search Items')"
                           @input="storeProduct(form.product)" />
-                        <ProductCreateModal @reloadProducts="getProducts">
+                        <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
@@ -93,6 +93,25 @@
                   <has-error :form="form" field="selectedProducts" />
                 </div>
               </div>
+              <!-- Insufficient Stock Warning -->
+              <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
+                <div class="col-12">
+                  <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <i class="fas fa-exclamation-triangle mr-3" style="font-size: 1.5rem;"></i>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1">{{ $t("Insufficient Stock Alert") }}</h6>
+                      <p class="mb-0">
+                        {{ $t("Some products have insufficient stock. Click on the red badges to manage stock levels.") }}
+                        <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="showAllInsufficientStock">
+                          <i class="fas fa-list mr-1"></i>
+                          {{ $t("View All") }}
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
                 <div class="table-responsive table-custom w-95 m-auto">
                   <table class="table table-hover table-sm text-center quotations-create-table">
@@ -117,7 +136,9 @@
                         <td style="min-width: 200px;">
                           <div class="d-flex align-items-center">
                             <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
-                              " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2 mr-2">
+                              " v-tooltip="$t('Click to manage stock')" 
+                              class="badge badge-danger p-2 mr-2 clickable-badge" 
+                              @click="openStockAdjustmentModal(item)">
                               <i class="fas fa-exclamation"></i>
                             </span>
                             <div class="flex-grow-1">
@@ -153,7 +174,10 @@
 
                             <input type="number" step="any" :id="`Qty-${i}`" v-model="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`) }"
+                              :class="{ 
+                                'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`),
+                                'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
+                              }"
                               @change="
                                 generateItemTotal(
                                   $event.target.value,
@@ -427,6 +451,15 @@
       @reloadProducts="getProducts"
       @productUpdated="handleProductUpdated"
     />
+    
+    <!-- Stock Adjustment Modal -->
+    <StockAdjustmentModal 
+      :is-open="showStockAdjustmentModal"
+      :product="selectedProductForStockAdjustment"
+      @close="closeStockAdjustmentModal"
+      @adjust-quantity="adjustProductQuantity"
+      @stock-updated="handleStockUpdated"
+    />
   </div>
 </template>
 
@@ -439,6 +472,7 @@ import ClientCreateModal from '~/components/ClientCreateModal'
 import ClientEditModal from '~/components/ClientEditModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
 import ProductEditModal from '~/components/ProductEditModal'
+import StockAdjustmentModal from '~/components/StockAdjustmentModal'
 import RTLMixin from '~/mixins/RTLMixin'
 
 import { ToWords } from 'to-words';
@@ -454,7 +488,8 @@ export default {
     ClientCreateModal,
     ClientEditModal,
     ProductCreateModal,
-    ProductEditModal
+    ProductEditModal,
+    StockAdjustmentModal
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -504,6 +539,10 @@ export default {
       sms_configured: false,
       loading: true,
     },
+    
+    // Stock adjustment modal
+    showStockAdjustmentModal: false,
+    selectedProductForStockAdjustment: null,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -549,6 +588,22 @@ export default {
       }, 0);
       return this.roundToTwoDecimals(total);
     },
+    
+    // Check if there are any products with insufficient stock
+    hasInsufficientStock() {
+      return this.form.selectedProducts.some(item => 
+        item.itemType === 'product' && 
+        Number(item.inventoryCount) < Number(item.qty)
+      );
+    },
+    
+    // Get all products with insufficient stock
+    insufficientStockProducts() {
+      return this.form.selectedProducts.filter(item => 
+        item.itemType === 'product' && 
+        Number(item.inventoryCount) < Number(item.qty)
+      );
+    },
   },
   created() {
     this.getClients();
@@ -584,6 +639,22 @@ export default {
       );
       this.products = data.data;
       this.products.sort(this.sortProducts);
+    },
+
+    // handle newly created product
+    handleProductCreated(newProduct) {
+      // Add the new product to the products list
+      this.products.unshift(newProduct);
+      this.products.sort(this.sortProducts);
+      
+      // Automatically select the newly created product
+      this.form.product = newProduct;
+      
+      // Automatically add it to the selected products list
+      this.storeProduct(newProduct);
+      
+      // Show success message
+      // this.$toast.success(this.$t("Product created and added to quotation successfully!"));
     },
 
     // sort products
@@ -1017,7 +1088,7 @@ export default {
           });
         })
         .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Opps...something went wrong") });
+          toast.fire({ type: "error", title: this.$t("Please check your input and try again.") });
         });
     },
     // save form data temporarily
@@ -1092,6 +1163,73 @@ export default {
     // clear temporary data
     clearTemporaryData() {
       localStorage.removeItem('quotationTempData')
+    },
+
+    // Stock adjustment modal methods
+    openStockAdjustmentModal(product) {
+      this.selectedProductForStockAdjustment = product;
+      this.showStockAdjustmentModal = true;
+    },
+
+    closeStockAdjustmentModal() {
+      this.showStockAdjustmentModal = false;
+      this.selectedProductForStockAdjustment = null;
+    },
+
+    adjustProductQuantity(product) {
+      // Find the product in the selected products array and adjust its quantity
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        // Set quantity to available stock
+        this.$set(this.form.selectedProducts[index], 'qty', product.inventoryCount);
+        this.generateItemTotal(product.inventoryCount, "qty", index, "");
+        
+        toast.fire({
+          type: "info",
+          title: this.$t("Quantity Adjusted"),
+          text: this.$t("Product quantity has been adjusted to available stock.")
+        });
+      }
+      this.closeStockAdjustmentModal();
+    },
+
+    handleStockUpdated(eventData) {
+      // Refresh products to get updated stock levels
+      this.getProducts();
+      
+      // Update the specific product in selectedProducts if it exists
+      const { product, newQuantity } = eventData;
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'inventoryCount', 
+          (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
+        
+        // Recalculate totals
+        this.calculateSum();
+      }
+    },
+
+    showAllInsufficientStock() {
+      // Show a summary of all insufficient stock products
+      const insufficientProducts = this.insufficientStockProducts;
+      if (insufficientProducts.length === 0) return;
+      
+      let message = this.$t("Products with insufficient stock:") + "\n\n";
+      insufficientProducts.forEach((product, index) => {
+        const shortage = Number(product.qty) - Number(product.inventoryCount);
+        message += `${index + 1}. ${product.name}\n`;
+        message += `   ${this.$t("Required")}: ${product.qty}, ${this.$t("Available")}: ${product.inventoryCount}, ${this.$t("Shortage")}: ${shortage}\n\n`;
+      });
+      
+      message += this.$t("Click on the red badges next to each product to manage stock levels.");
+      
+      toast.fire({
+        type: "warning",
+        title: this.$t("Insufficient Stock Summary"),
+        text: message,
+        timer: 10000,
+        showConfirmButton: true
+      });
     },
   },
   mounted() {
@@ -1314,5 +1452,34 @@ export default {
 
 [dir="ltr"] .flex-grow-1.rtl-select {
   border-right: 1px solid #ced4da;
+}
+
+/* Clickable badge styling */
+.clickable-badge {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.clickable-badge:hover {
+  background-color: #c82333 !important;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.clickable-badge:active {
+  transform: scale(0.95);
+}
+
+/* Insufficient stock input styling */
+.insufficient-stock-input {
+  border: 2px solid #dc3545 !important;
+  background-color: #fff5f5 !important;
+  color: #dc3545 !important;
+}
+
+.insufficient-stock-input:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
 }
 </style>
