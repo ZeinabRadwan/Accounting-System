@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-xl-12">
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <!-- breadcrumbs Start -->
@@ -191,7 +191,7 @@
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
-                              class="form-control form-control-sm" 
+                              class="form-control form-control-sm border-0" 
                               style="width: 60px;"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discountType`) }"
                               @change="calculateProductDiscount(i - 1)">
@@ -201,7 +201,7 @@
                             <input 
                               type="number" 
                               v-model="item.discount" 
-                              class="form-control form-control-sm" 
+                              class="form-control form-control-sm border-0" 
                               style="width: 80px;"
                               step="any" 
                               min="0" 
@@ -220,7 +220,7 @@
                         <td style="min-width: 150px;">
                           <select 
                             v-model="item.selectedVatRate" 
-                            class="form-control form-control-sm"
+                            class="form-control form-control-sm border-0"
                             :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.selectedVatRate`) }"
                             @change="calculateProductVat(i - 1)"
                             style="min-width: 120px;">
@@ -1643,7 +1643,10 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-
   border: none !important;
+}
+
+.form-control {
+  border-radius: 0px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-50">
+  <div>
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-xl-12">
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <!-- breadcrumbs Start -->
@@ -23,7 +23,7 @@
               <!-- form start -->
               <form role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items && products">
-                <div class="form-group col-md-12 col-xl-3">
+                <div class="form-group col-md-6">
                   <label for="supplier">{{ $t("Supplier") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -60,7 +60,18 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-md-12 col-xl-6">
+                <div class="form-group col-md-6">
+                  <label for="poReference">{{
+                    $t("PO Reference")
+                  }}</label>
+                  <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference" :placeholder="$t('Enter PO reference')
+                      " />
+                  <has-error :form="form" field="poReference" />
+                </div>
+              </div>
+              <div class="row" v-if="items && products">
+                <div class="form-group col-md-6">
                   <label for="product">{{ $t("Select Products") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -101,9 +112,8 @@
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
                 <div class="table-responsive table-custom w-100 m-auto">
-                  <table class="table table-hover table-sm text-center">
+                  <table class="table table-hover table-sm text-center invoices-create-table">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Name") }}</th>
@@ -116,7 +126,6 @@
                         <th>{{ $t("VAT") }}</th>
                         <th>{{ $t("Total with VAT") }}</th>
                         <th class="text-right">{{ $t("Action") }}</th>
-                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i">
@@ -279,15 +288,6 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-md-6 col-xl-3">
-                  <label for="poReference">{{
-                    $t("PO Reference")
-                  }}</label>
-                  <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference" :placeholder="$t('Enter PO reference')
-                      " />
-                  <has-error :form="form" field="poReference" />
-                </div>
                 <div class="form-group col-md-6 col-xl-3">
                   <label for="paymentTerms">{{
                     $t("Payment Terms")
@@ -1654,67 +1654,9 @@ textarea.form-control {
   background-color: #F8F9FA;
 }
 
-/* Custom Quantity Input Styling */
-.custom-qty-input {
-  display: flex;
-  align-items: center;
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.custom-qty-input .button-minus,
-.custom-qty-input .button-plus {
-  background: #6C757D;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.custom-qty-input .button-minus:hover {
-  background: #DC3545;
-}
-
-.custom-qty-input .button-plus:hover {
-  background: #2AB930;
-}
-
-.custom-qty-input .quantity-field {
-  border: none;
-  background: transparent;
-  text-align: center;
-  width: 60px;
-  padding: 8px 4px;
-  font-weight: 500;
-}
-
-.custom-qty-input .quantity-field:focus {
-  outline: none;
-  box-shadow: none;
-}
-
 /* Toggle Button Styling */
 .toggle-button {
   margin-right: 10px;
-}
-
-/* Create Button Styling */
-.create-btn {
-  padding: 11px;
-  background: #2AB930;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.create-btn:hover {
-  background: #229A26;
 }
 
 /* Supplier/Product Status Styles */
@@ -1800,5 +1742,47 @@ textarea.form-control {
   .table-custom tbody td {
     padding: 8px 4px;
   }
+}
+
+.invoices-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-create-table thead tr {
+  border: none !important;
+}
+
+.invoices-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
 }
 </style>
