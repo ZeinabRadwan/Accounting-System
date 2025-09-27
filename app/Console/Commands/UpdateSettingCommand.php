@@ -200,7 +200,7 @@ class UpdateSettingCommand extends Command
     {
         $work_folder = $this->working_folder;
 
-        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/* ' . $work_folder . '/public_html/';
+        $public_command = 'find ' . $work_folder . '/repositories/Accounting-System/public -type f ! -name "index.php" -exec cp {} ' . $work_folder . '/public_html/ \;';
         exec($public_command, $output, $return_var);
         if ($return_var !== 0) {
             return $public_command;
