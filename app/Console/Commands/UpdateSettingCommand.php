@@ -200,8 +200,18 @@ class UpdateSettingCommand extends Command
     {
         $work_folder = $this->working_folder;
 
-        $public_command = 'find ' . $work_folder . '/repositories/Accounting-System/public -type f ! -name "index.php" -exec cp {} ' . $work_folder . '/public_html/ \;';
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
         exec($public_command, $output, $return_var);
+
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
+        exec($public_command, $output, $return_var);
+
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json' . $work_folder . '/public_html/';
+        exec($public_command, $output, $return_var);
+
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/fonts' . $work_folder . '/public_html/';
+        exec($public_command, $output, $return_var);
+
         if ($return_var !== 0) {
             return $public_command;
             return 'Error updating Public files: ' . implode("\n", $output);
