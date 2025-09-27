@@ -3529,8 +3529,6 @@ export default {
   gap: 10px;
 }
 
-
-
 .card {
   margin-top: 30px;
   border-radius: 20px;

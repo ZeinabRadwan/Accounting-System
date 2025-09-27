@@ -302,7 +302,6 @@ export default {
 .form-control {
   background: #fff !important;
   border: 1px solid #E5E7EB;
-  border-radius: 10px;
   padding: 10px 16px;
   font-size: 14px;
 }
@@ -390,7 +389,6 @@ textarea.form-control {
 .v-select .vs__dropdown-toggle {
   background: #fff !important;
   border: 1px solid #E5E7EB !important;
-
   padding: 10px 16px !important;
 }
 

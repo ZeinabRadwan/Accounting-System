@@ -1805,7 +1805,6 @@ textarea.form-control:focus {
 
 /* v-select tweaks */
 .v-select .vs__dropdown-toggle {
-    border-radius: 6px;
     border-color: #CED4DA;
 }
 
