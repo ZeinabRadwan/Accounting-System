@@ -41,7 +41,7 @@ class TenantClientSeeder extends Seeder
                     'commercial_register' => null,
                     'tax_card' => null,
                     // Additional columns that might exist in the schema
-                    'phone' => null,
+                    'phone' => '017000000',
                     'company_name' => null,
                     'address' => null,
                     'tax_registration_number' => null,
@@ -54,8 +54,8 @@ class TenantClientSeeder extends Seeder
                     'notes' => null,
                     'display_language' => null,
                     'commercial_name' => null,
-                    'is_send_email' => null,
-                    'is_send_sms' => null,
+                    'is_send_email' => true,
+                    'is_send_sms' => true,
                     'attachments' => null,
                    
                 ],
