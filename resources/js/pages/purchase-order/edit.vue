@@ -340,18 +340,18 @@ export default {
     return { title: this.$t("Edit Purchase Order") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Edit Purchase Order",
+    breadcrumbsCurrent: "",
     breadcrumbs: [
       {
-        name: "Dashboard",
+        name: "",
         url: "home",
       },
       {
-        name: "Purchase Orders",
+        name: "",
         url: "purchase-order.index",
       },
       {
-        name: "Edit",
+        name: "",
         url: "",
       },
     ],
@@ -398,6 +398,12 @@ export default {
   async created() {
     this.prefix = this.appInfo.productPrefix;
     this.poPrefix = this.appInfo.poPrefix;
+    
+    // Set localized breadcrumbs
+    this.breadcrumbsCurrent = this.$t("Edit Purchase Order");
+    this.breadcrumbs[0].name = this.$t("Dashboard");
+    this.breadcrumbs[1].name = this.$t("Purchase Orders");
+    this.breadcrumbs[2].name = this.$t("Edit");
     
     // Align data fetching steps with purchases/edit.vue
     await this.getPurchaseOrder();

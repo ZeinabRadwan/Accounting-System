@@ -2009,5 +2009,17 @@
   "Error generating code": "Error generating code",
   "Enter company representative name": "Enter company representative name",
   "Only JPEG, PNG, and GIF files are allowed.": "Only JPEG, PNG, and GIF files are allowed.",
-  "Loading product data...": "Loading product data..."
+  "Loading product data...": "Loading product data...",
+  "Purchase Order": "Purchase Order",
+  "Purchase Order Details": "Purchase Order Details",
+  "Edit Purchase Order": "Edit Purchase Order",
+  "PO Number": "PO Number",
+  "Enter PO number": "Enter PO number",
+  "Purchase Order Products": "Purchase Order Products",
+  "Ordered Qty": "Ordered Qty",
+  "No products found": "No products found",
+  "This purchase order doesn't have any products yet.": "This purchase order doesn't have any products yet.",
+  "Purchase Order Information": "Purchase Order Information",
+  "This is a purchase order document. No payments are required at this stage.": "This is a purchase order document. No payments are required at this stage.",
+  "Breakdown": "Breakdown"
 }

@@ -431,18 +431,18 @@ export default {
     return { title: this.$t("Purchase Order Details") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Purchase Order Details",
+    breadcrumbsCurrent: "",
     breadcrumbs: [
       {
-        name: "Dashboard",
+        name: "",
         url: "home",
       },
       {
-        name: "Purchase Orders",
+        name: "",
         url: "purchase-order.index",
       },
       {
-        name: "Details",
+        name: "",
         url: "",
       },
     ],
@@ -480,6 +480,10 @@ export default {
     this.productPrefix = this.appInfo.productPrefix;
     this.purchaseOrderPrefix = this.appInfo.purchaseOrderPrefix;
     this.supplierPrefix = this.appInfo.supplierPrefix;
+    this.breadcrumbsCurrent = this.$t("Purchase Order Details");
+    this.breadcrumbs[0].name = this.$t("Dashboard");
+    this.breadcrumbs[1].name = this.$t("Purchase Orders");
+    this.breadcrumbs[2].name = this.$t("Details");
   },
   methods: {
     // get the purchase order
@@ -512,7 +516,7 @@ export default {
       // Options for PDF generation
       const options = {
         margin: 5,
-        filename: "Purchase Order-" + this.$route.params.slug + ".pdf",
+        filename: this.$t("Purchase Order") + "-" + this.$route.params.slug + ".pdf",
         image: { type: "jpeg", quality: 0.98 },
         pagebreak: { mode: "avoid-all", before: "#page-break" },
         html2canvas: { scale: 2 },

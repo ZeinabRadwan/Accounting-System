@@ -635,12 +635,10 @@ export default {
             .then((response) => {
               if (response === true) {
                 this.$toast.success(
-                  this.$t("Deleted!"),
                   this.$t("Deleted successfully.")
                 );
               } else {
                 this.$toast.warning(
-                  this.$t("Failed!"),
                   this.$t("Sorry you can't delete this purchase order!")
                 );
               }
@@ -683,21 +681,18 @@ export default {
             
             if (response.data.success) {
               this.$toast.success(
-                this.$t("Sent Successfully!"),
                 this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
               );
               // Refresh the table to update the status
               this.getData();
             } else {
               this.$toast.error(
-                this.$t("Failed!"),
                 response.data.message || this.$t("Failed to send invoice to ZATCA")
               );
             }
           } catch (error) {
             console.error('Error sending invoice to ZATCA:', error);
             this.$toast.error(
-              this.$t("Error!"),
               this.$t("An error occurred while sending the invoice to ZATCA")
             );
           }
