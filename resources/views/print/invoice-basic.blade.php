@@ -135,8 +135,8 @@
                             @endif
                         </td>
                         <td class="text-right">{{ $product->quantity }}</td>
-                        <td class="text-right">${{ number_format($product->salePrice, 2) }}</td>
-                        <td class="text-right">${{ number_format($product->quantity * $product->salePrice, 2) }}</td>
+                        <td class="text-right">{!! centralCurrencySymbolFormat($product->salePrice) !!}</td>
+                        <td class="text-right">{!! centralCurrencySymbolFormat($product->quantity * $product->salePrice) !!}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -148,23 +148,23 @@
             <div class="totals-table">
                 <div class="total-row">
                     <span>@lang('print.Subtotal'):</span>
-                    <span>${{ number_format($invoice->sub_total, 2) }}</span>
+                    <span>{!! centralCurrencySymbolFormat($invoice->sub_total) !!}</span>
                 </div>
                 @if($invoice->discount > 0)
                 <div class="total-row">
                     <span>@lang('print.Discount'):</span>
-                    <span>-${{ number_format($invoice->discount, 2) }}</span>
+                    <span>-{!! centralCurrencySymbolFormat($invoice->discount) !!}</span>
                 </div>
                 @endif
                 @if($invoice->calculated_tax > 0)
                 <div class="total-row">
                     <span>@lang('print.Tax'):</span>
-                    <span>${{ number_format($invoice->calculated_tax, 2) }}</span>
+                    <span>{!! centralCurrencySymbolFormat($invoice->calculated_tax) !!}</span>
                 </div>
                 @endif
                 <div class="total-row total-final">
                     <span>@lang('print.Total'):</span>
-                    <span>${{ number_format($invoice->calculated_total, 2) }}</span>
+                    <span>{!! centralCurrencySymbolFormat($invoice->calculated_total) !!}</span>
                 </div>
             </div>
         </div>

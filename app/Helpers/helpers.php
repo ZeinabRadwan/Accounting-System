@@ -117,6 +117,13 @@ function centralCurrencySymbolFormat($amount){
      $isRTL = session('locale') === 'ar' || 
               (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
 
+     // Handle Saudi Riyal currency symbol with proper CSS class
+     $currencySymbol = $centralActiveCurrency->symbol;
+     if (($centralActiveCurrency->code === 'SAR' || $centralActiveCurrency->code === 'RY') && 
+         $currencySymbol && str_contains($currencySymbol, 'ê')) {
+         $currencySymbol = '<span class="saudi-riyal">ê</span>'; // Wrap ê with Saudi Riyal font class
+     }
+
      // Format the amount based on the central currency position
      $currencyPosition = $centralActiveCurrency->position;
      
@@ -127,9 +134,9 @@ function centralCurrencySymbolFormat($amount){
      }
      
      if ($effectivePosition === 'left') {
-         $formattedPendingAmount = $centralActiveCurrency->symbol . number_format($amount, 2);
+         $formattedPendingAmount = $currencySymbol . number_format($amount, 2);
      } else {
-         $formattedPendingAmount = number_format($amount, 2) . $centralActiveCurrency->symbol;
+         $formattedPendingAmount = number_format($amount, 2) . $currencySymbol;
      }
      return $formattedPendingAmount;
 }
@@ -143,6 +150,12 @@ function centralCurrencyCodeFormat($amount){
      $isRTL = session('locale') === 'ar' || 
               (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
 
+     // Handle Saudi Riyal currency code replacement
+     $currencyCode = $centralActiveCurrency->code;
+     if ($centralActiveCurrency->code === 'SAR' || $centralActiveCurrency->code === 'RY') {
+         $currencyCode = 'ر.س'; // Use Arabic Riyal symbol instead of code
+     }
+
      // Format the amount based on the central currency position
      $currencyPosition = $centralActiveCurrency->position;
      
@@ -153,9 +166,9 @@ function centralCurrencyCodeFormat($amount){
      }
      
      if ($effectivePosition === 'left') {
-         $formattedPendingAmount = $centralActiveCurrency->code . ' ' . number_format($amount, 2);
+         $formattedPendingAmount = $currencyCode . ' ' . number_format($amount, 2);
      } else {
-         $formattedPendingAmount = number_format($amount, 2) . ' ' . $centralActiveCurrency->code;
+         $formattedPendingAmount = number_format($amount, 2) . ' ' . $currencyCode;
      }
      return $formattedPendingAmount;
 }

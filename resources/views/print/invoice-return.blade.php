@@ -130,11 +130,11 @@
                     </td>
                     <td class="text-center">{{ $product->invoiceQty }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
                     <td class="text-center">{{ $product->returnQty }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
-                    <td class="text-right">${{ number_format($product->salePrice, 2) }}</td>
-                    <td class="text-right">${{ number_format($product->invoiceQty * $product->salePrice, 2) }}</td>
+                    <td class="text-right">{!! centralCurrencySymbolFormat($product->salePrice) !!}</td>
+                    <td class="text-right">{!! centralCurrencySymbolFormat($product->invoiceQty * $product->salePrice) !!}</td>
                     <td class="text-center">
                         @if($product->discountAmount > 0)
-                            ${{ number_format($product->discountAmount, 2) }}
+                            {!! centralCurrencySymbolFormat($product->discountAmount) !!}
                         @else
                             @lang('print.No Discount')
                         @endif
@@ -145,11 +145,11 @@
                             $unitNet = $product->salePrice - $unitDiscount;
                             $totalAfterDiscount = $unitNet * $product->invoiceQty;
                         @endphp
-                        ${{ number_format($totalAfterDiscount, 2) }}
+                        {!! centralCurrencySymbolFormat($totalAfterDiscount) !!}
                     </td>
                     <td class="text-right">
                         @if($product->taxAmount > 0)
-                            ${{ number_format($product->taxAmount, 2) }}
+                            {!! centralCurrencySymbolFormat($product->taxAmount) !!}
                         @else
                             @lang('print.No VAT')
                         @endif
@@ -160,7 +160,7 @@
                             $returnVat = $product->taxAmount > 0 ? ($product->taxAmount / $product->invoiceQty) * $product->returnQty : 0;
                             $totalWithVat = $returnTotal + $returnVat;
                         @endphp
-                        ${{ number_format($totalWithVat, 2) }}
+                        {!! centralCurrencySymbolFormat($totalWithVat) !!}
                     </td>
                 </tr>
                 @endforeach
@@ -175,27 +175,27 @@
         <div class="totals-table">
             <div class="total-row">
                 <span>@lang('print.Original Invoice Subtotal'):</span>
-                <span>${{ number_format($invoiceReturn->invoice->subTotal ?? 0, 2) }}</span>
+                <span>{!! centralCurrencySymbolFormat($invoiceReturn->invoice->subTotal ?? 0) !!}</span>
             </div>
             <div class="total-row">
                 <span>@lang('print.Return Amount'):</span>
-                <span style="color: #dc3545;">-${{ number_format($invoiceReturn->totalReturn ?? 0, 2) }}</span>
+                <span style="color: #dc3545;">-{!! centralCurrencySymbolFormat($invoiceReturn->totalReturn ?? 0) !!}</span>
             </div>
             @if($invoiceReturn->invoice->discount > 0)
             <div class="total-row">
                 <span>@lang('print.Original Discount'):</span>
-                <span>-${{ number_format($invoiceReturn->invoice->discount ?? 0, 2) }}</span>
+                <span>-{!! centralCurrencySymbolFormat($invoiceReturn->invoice->discount ?? 0) !!}</span>
             </div>
             @endif
             @if($invoiceReturn->invoice->calculatedTax > 0)
             <div class="total-row">
                 <span>@lang('print.Original Tax'):</span>
-                <span>${{ number_format($invoiceReturn->invoice->calculatedTax ?? 0, 2) }}</span>
+                <span>{!! centralCurrencySymbolFormat($invoiceReturn->invoice->calculatedTax ?? 0) !!}</span>
             </div>
             @endif
             <div class="total-row total-final">
                 <span>@lang('print.Net Amount After Return'):</span>
-                <span>${{ number_format(($invoiceReturn->invoice->calculatedTotal ?? 0) - ($invoiceReturn->totalReturn ?? 0), 2) }}</span>
+                <span>{!! centralCurrencySymbolFormat(($invoiceReturn->invoice->calculatedTotal ?? 0) - ($invoiceReturn->totalReturn ?? 0)) !!}</span>
             </div>
         </div>
     </div>

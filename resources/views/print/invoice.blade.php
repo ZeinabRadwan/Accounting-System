@@ -107,28 +107,28 @@
                     </td>
                     <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
                     <td class="text-center">{{ $product->invoiceReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
-                    <td class="text-right">${{ number_format($product->sale_price, 2) }}</td>
-                    <td class="text-right">${{ number_format($product->quantity * $product->sale_price, 2) }}</td>
+                    <td class="text-right">{!! centralCurrencySymbolFormat($product->sale_price) !!}</td>
+                    <td class="text-right">{!! centralCurrencySymbolFormat($product->quantity * $product->sale_price) !!}</td>
                     <td class="text-center">
                         @if($product->discount > 0)
                             @if($product->discount_type === 'percentage')
                                 {{ $product->discount }}%
                             @else
-                                ${{ number_format($product->discount, 2) }}
+                                {!! centralCurrencySymbolFormat($product->discount) !!}
                             @endif
                         @else
                             @lang('print.No Discount')
                         @endif
                     </td>
-                    <td class="text-right">${{ number_format($product->getTotalAfterDiscountAttribute(), 2) }}</td>
+                    <td class="text-right">{!! centralCurrencySymbolFormat($product->getTotalAfterDiscountAttribute()) !!}</td>
                     <td class="text-right">
                         @if($product->tax_amount > 0)
-                            ${{ number_format($product->tax_amount, 2) }}
+                            {!! centralCurrencySymbolFormat($product->tax_amount) !!}
                         @else
                             @lang('print.No VAT')
                         @endif
                     </td>
-                    <td class="text-right">${{ number_format($product->getTotalAfterDiscountAttribute() + $product->tax_amount, 2) }}</td>
+                    <td class="text-right">{!! centralCurrencySymbolFormat($product->getTotalAfterDiscountAttribute() + $product->tax_amount) !!}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -142,23 +142,23 @@
         <div class="totals-table">
             <div class="total-row">
                 <span>@lang('print.Subtotal'):</span>
-                <span>${{ number_format($invoice->sub_total, 2) }}</span>
+                <span>{!! centralCurrencySymbolFormat($invoice->sub_total) !!}</span>
             </div>
             @if($invoice->discount > 0)
             <div class="total-row">
                 <span>@lang('print.Discount'):</span>
-                <span>-${{ number_format($invoice->discount, 2) }}</span>
+                <span>-{!! centralCurrencySymbolFormat($invoice->discount) !!}</span>
             </div>
             @endif
             @if($invoice->calculated_tax > 0)
             <div class="total-row">
                 <span>@lang('print.Tax'):</span>
-                <span>${{ number_format($invoice->calculated_tax, 2) }}</span>
+                <span>{!! centralCurrencySymbolFormat($invoice->calculated_tax) !!}</span>
             </div>
             @endif
             <div class="total-row total-final">
                 <span>@lang('print.Total'):</span>
-                <span>${{ number_format($invoice->calculated_total, 2) }}</span>
+                <span>{!! centralCurrencySymbolFormat($invoice->calculated_total) !!}</span>
             </div>
         </div>
     </div>

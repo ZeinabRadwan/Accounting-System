@@ -12,6 +12,9 @@
     
     <!-- Print-specific styles -->
     <style>
+        /* Load Saudi Riyal new symbol font (same package used in app.scss) */
+        @import url('https://unpkg.com/@abdulrysr/saudi-riyal-new-symbol-font/style.css');
+        
         
         * {
             margin: 0;
@@ -73,6 +76,13 @@
         
         h1, h2, h3 {
             color: {{ $template->template_config['colors']['primary'] ?? '#2563eb' }};
+        }
+        
+        /* Ensure ê renders as the new Saudi Riyal symbol where wrapped */
+        .saudi-riyal {
+            font-family: SaudiRiyalSymbol, sans-serif !important;
+            font-weight: normal;
+            padding: 0 3px;
         }
         
         .document-header {
