@@ -228,7 +228,7 @@ export default {
                     this.reportInfo = response.data
                     this.loading = false;
                 }).catch(() => {
-                    toast.fire({ type: 'error', title: 'Opps...something went wrong 😔' })
+                    toast.fire({ type: 'error', title: 'Please check your input and try again. 😔' })
                     this.loading = false;
                 })
         },

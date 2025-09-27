@@ -81,7 +81,7 @@
                           'is-invalid': form.errors.has('selectedProducts'),
                         }" name="product" :placeholder="$t('Search products')"
                           @input="storeProduct(form.product)" />
-                        <ProductCreateModal @reloadProducts="getProducts">
+                        <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
@@ -700,6 +700,23 @@ export default {
         });
       }
     },
+
+    // handle newly created product
+    handleProductCreated(newProduct) {
+      // Add the new product to the products list
+      this.products.unshift(newProduct);
+      this.products.sort(this.sortProducts);
+      
+      // Automatically select the newly created product
+      this.form.product = newProduct;
+      
+      // Automatically add it to the selected products list
+      this.storeProduct(newProduct);
+      
+      // Show success message
+      // this.$toast.success(this.$t("Product created and added to purchase successfully!"));
+    },
+
     // sort products
     sortProducts(a, b) {
       if (Number(a.code) < Number(b.code)) {

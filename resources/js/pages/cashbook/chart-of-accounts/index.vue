@@ -518,7 +518,7 @@ export default {
                   title: this.$t('Deleted successfully.')
                 })
               } else {
-                const backendMessage = response?.response?.data?.message || this.$t("Opps...something went wrong")
+                const backendMessage = response?.response?.data?.message || this.$t("Please check your input and try again.")
                 toast.fire({
                   type: 'error',
                   title: backendMessage

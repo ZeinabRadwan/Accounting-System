@@ -149,10 +149,12 @@ export default {
           timerProgressBar: true
         })
       } else {
+        // Show specific error message if available, otherwise show generic message
+        const errorMessage = data?.message || this.$t('Please check your input and try again.')
         this.$toast.fire({
           type: 'error',
           title: this.$t('Validation Error'),
-          text: data?.message || this.$t('Please check your input and try again.'),
+          text: errorMessage,
           timer: 6000,
           timerProgressBar: true
         })
@@ -177,7 +179,7 @@ export default {
      * Handle generic errors
      */
     handleGenericError(data, errorMessage, customMessage, title, timer, showTimerProgressBar) {
-      const message = customMessage || data?.message || errorMessage || this.$t('Opps...something went wrong')
+      const message = customMessage || data?.message || errorMessage || this.$t('Please check your input and try again.')
       this.$toast.fire({
         type: 'error',
         title: title || this.$t('Error'),

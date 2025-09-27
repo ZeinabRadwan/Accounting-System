@@ -483,11 +483,11 @@ export default {
             if (backendMsg) {
               toast.fire({ type: 'error', title: backendMsg });
             } else {
-              toast.fire({ type: 'error', title: this.$t('Opps...something went wrong') });
+              toast.fire({ type: 'error', title: this.$t('Please check your input and try again.') });
             }
           })
           .catch((error) => {
-            const msg = error?.response?.data?.message || error?.message || this.$t('Opps...something went wrong');
+            const msg = error?.response?.data?.message || error?.message || this.$t('Please check your input and try again.');
             toast.fire({ type: 'error', title: msg });
           });
       });

@@ -624,11 +624,39 @@ export default {
 
       await this.form
         .post(window.location.origin + "/api/products")
-        .then(() => {
+        .then((response) => {
           toast.fire({
             type: "success",
             title: this.$t("Product added successfully"),
           });
+          
+          // Emit the newly created product data
+          if (response.data && response.data.data) {
+            const newProduct = response.data.data;
+            // Format the product data to match the expected structure for v-select
+            const formattedProduct = {
+              id: newProduct.id,
+              slug: newProduct.slug,
+              name: newProduct.name,
+              code: newProduct.code,
+              label: `${newProduct.name} [${newProduct.code}]`,
+              itemType: newProduct.itemType,
+              itemModel: newProduct.itemModel || '',
+              avgPurchasePrice: newProduct.avgPurchasePrice || 0,
+              regularPrice: newProduct.regularPrice || 0,
+              priceWithDiscount: newProduct.sellingPrice,
+              sellingPrice: newProduct.sellingPrice,
+              taxAmount: newProduct.taxAmount || 0,
+              taxType: newProduct.taxType,
+              taxRate: newProduct.taxRate,
+              productTax: newProduct.productTax,
+              inventoryCount: newProduct.inventoryCount || 0,
+              image: newProduct.image || '',
+              sales_account_id: newProduct.sales_account_id,
+              purchase_account_id: newProduct.purchase_account_id
+            };
+            this.$emit('productCreated', formattedProduct);
+          }
           
           // Store auto-assigned account IDs before reset
           const autoAssignedSalesAccountId = this.isSalesAccountAutomatic ? this.form.salesAccountId : null;
@@ -650,7 +678,7 @@ export default {
         })
         .catch((error) => {
           console.error("Error creating product:", error);
-          const errorMessage = error.response?.data?.message || this.$t("Opps...something went wrong");
+          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
           toast.fire({ type: "error", title: errorMessage });
         });
     },

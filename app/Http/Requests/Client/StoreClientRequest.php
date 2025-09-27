@@ -52,7 +52,7 @@ class StoreClientRequest extends BaseRequest
             'taxCard' => ['nullable', 'string', 'max:100'],
             
             // Additional Fields
-            'image' => ['nullable', 'string'],
+            // 'image' => ['nullable', 'string'],
             'attachments' => ['nullable', 'array'],
             'attachments.*' => ['nullable', 'file', 'mimes:jpeg,png,gif', 'max:2048'],
             'status' => ['nullable', 'boolean'],
