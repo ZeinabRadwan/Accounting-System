@@ -57,7 +57,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <h3 class="text-center font-bold font-up danger-text">
-                          Login Credentials
+                          {{ $t('Login Credentials') }}
                         </h3>
                       </div>
                     </div>
@@ -65,17 +65,17 @@
                       <table class="table table-bordered red-border text-center">
                         <thead>
                           <tr>
-                            <th>Type</th>
-                            <th>Role</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Action</th>
+                            <th>{{ $t('Type') }}</th>
+                            <th>{{ $t('Role') }}</th>
+                            <th>{{ $t('Email') }}</th>
+                            <th>{{ $t('Password') }}</th>
+                            <th>{{ $t('Action') }}</th>
                           </tr>
                         </thead>
                         <tbody v-if="!isSubdomain">
                           <tr>
-                            <th>Owner</th>
-                            <th>Central Admin</th>
+                            <th>{{ $t('Owner') }}</th>
+                            <th>{{ $t('Central Admin') }}</th>
                             <td>superadmin@arqam.sa</td>
                             <td>arqam2024</td>
                             <td scope="row">
@@ -96,8 +96,8 @@
                         </tbody>
                         <tbody v-else>
                           <tr v-if="checkSubdomain('john')">
-                            <th scope="row">Tenant(Subscriber)</th>
-                            <th scope="row">Admin</th>
+                            <th scope="row">{{ $t('Tenant(Subscriber)') }}</th>
+                            <th scope="row">{{ $t('Admin') }}</th>
                             <td>john@arqam.sa</td>
                             <td>arqam2024</td>
                             <td scope="row">
@@ -116,8 +116,8 @@
                             </td>
                           </tr>
                           <tr v-if="checkSubdomain('jane')">
-                            <th scope="row">Tenant(Subscriber)</th>
-                            <th scope="row">Admin</th>
+                            <th scope="row">{{ $t('Tenant(Subscriber)') }}</th>
+                            <th scope="row">{{ $t('Admin') }}</th>
                             <td>jane@arqam.sa</td>
                             <td>arqam2024</td>
                             <td scope="row">
@@ -136,8 +136,8 @@
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">Tenant Employee</th>
-                            <th scope="row">Manager</th>
+                            <th scope="row">{{ $t('Tenant Employee') }}</th>
+                            <th scope="row">{{ $t('Manager') }}</th>
                             <td>manager@arqam.sa</td>
                             <td>arqam2024</td>
                             <td scope="row">
@@ -156,8 +156,8 @@
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">Tenant Employee</th>
-                            <th scope="row">Salesman</th>
+                            <th scope="row">{{ $t('Tenant Employee') }}</th>
+                            <th scope="row">{{ $t('Salesman') }}</th>
                             <td>sales@arqam.sa</td>
                             <td>arqam2024</td>
                             <td scope="row">

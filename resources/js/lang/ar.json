@@ -3472,5 +3472,14 @@
   "Department deleted successfully": "تم حذف القسم بنجاح",
   "Product VAT Rate Required" : "معدل ضريبة القيمة المضافة للمنتج مطلوب",
   "Product needs VAT rate assigned"  : "المنتج يحتاج إلى معدل ضريبة القيمة المضافة",
-  "Oops...something went wrong": "عذراً... حدث خطأ ما"
+  "Oops...something went wrong": "عذراً... حدث خطأ ما",
+  "Locale changed successfully": "تم تغيير اللغة بنجاح",
+  "Failed to change locale": "فشل في تغيير اللغة",
+  "Login Credentials": "بيانات تسجيل الدخول",
+  "Owner": "المالك",
+  "Tenant(Subscriber)": "العميل (مشترك)",
+  "Tenant Employee": "موظف العميل",
+  "Admin": "مدير",
+  "Manager": "مدير",
+  "Salesman": "بائع"
 }

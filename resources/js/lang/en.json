@@ -2786,5 +2786,14 @@
   
   "Department Create Page Additional Messages": "Department Create Page Additional Messages",
   "Department deleted successfully": "Department deleted successfully",
-  "Oops...something went wrong": "Oops...something went wrong"
+  "Oops...something went wrong": "Oops...something went wrong",
+  "Locale changed successfully": "Locale changed successfully",
+  "Failed to change locale": "Failed to change locale",
+  "Login Credentials": "Login Credentials",
+  "Owner": "Owner",
+  "Tenant(Subscriber)": "Tenant(Subscriber)",
+  "Tenant Employee": "Tenant Employee",
+  "Admin": "Admin",
+  "Manager": "Manager",
+  "Salesman": "Salesman"
 }

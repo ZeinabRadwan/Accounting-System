@@ -104,6 +104,9 @@ Route::get('razorpay/success', [RazorpayController::class, 'success'])->name('ra
 
 Route::get('/newsletter-confirm', [NewsletterSubscriptionController::class, 'confirm'])->name('newsletter-confirm');
 
+// Public set-locale endpoint for central auth pages (no authentication required)
+Route::post('api/set-locale-public', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale.public');
+
 Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
     Route::get('email/verify/{tenant}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::get('/tenants/pdf', [ExportController::class, 'tenantsPdf'])->name('tenants.pdf');
