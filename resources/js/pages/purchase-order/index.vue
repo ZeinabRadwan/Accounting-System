@@ -135,9 +135,9 @@
                       }}</span>
                     </td>
                     <td>{{ data.supplierName || (data.supplier && data.supplier.name) }}</td>
-                    <td>{{ (data.netTotal || data.calculated_total)  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.totalPaid  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.netTotal || data.calculated_total).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.totalPaid).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.due).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -240,20 +240,20 @@
               <label for="clientInvoiceTotal">{{
                 $t("Invoice Total")
               }}</label>
-              <input type="text" class="form-control" readonly v-model="form.selectedInvoice.invoiceTotal" />
+              <input type="text" class="form-control" readonly :value="parseFloat(form.selectedInvoice.invoiceTotal).toFixed(2)" />
             </div>
             <div class="form-group col-md-6">
               <label for="clientInvoiceDue">{{
                 $t("Invoice Due")
               }}</label>
-              <input type="text" class="form-control" readonly v-model="form.selectedInvoice.due" />
+              <input type="text" class="form-control" readonly :value="parseFloat(form.selectedInvoice.due).toFixed(2)" />
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-4">
               <label for="paidAmount">{{ $t("Paid Amount") }}</label>
-              <input type="number" step="any" class="form-control" :placeholder="$t('Enter an amount')"
-                required min="1" v-model="form.paidAmount" :max="form.selectedInvoice.due" />
+              <input type="number" step="0.01" class="form-control" :placeholder="$t('Enter an amount')"
+                required min="0.01" v-model="form.paidAmount" :max="form.selectedInvoice.due" />
             </div>
             <div class="form-group col-md-8">
               <label for="account">{{ $t("Account") }}

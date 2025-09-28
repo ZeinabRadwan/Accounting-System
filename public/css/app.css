@@ -52706,7 +52706,7 @@ a.text-muted:hover {
 }
 /*# sourceMappingURL=adminlte.css.map */
 /*!
- * Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2025 Fonticons, Inc.
  */
@@ -52742,10 +52742,21 @@ a.text-muted:hover {
 .fa-brands,
 .fa-classic,
 .fa)::before {
-  content: var(--fa);
   content: var(--fa)/"";
 }
 
+@supports not (content: ""/"") {
+  :is(.fas,
+  .far,
+  .fab,
+  .fa-solid,
+  .fa-regular,
+  .fa-brands,
+  .fa-classic,
+  .fa)::before {
+    content: var(--fa);
+  }
+}
 .fa-1x {
   font-size: 1em;
 }
@@ -53097,10 +53108,11 @@ a.text-muted:hover {
 
 .fa-stack-1x,
 .fa-stack-2x {
-  left: 0;
+  --fa-width: 100%;
+  inset: 0;
   position: absolute;
   text-align: center;
-  width: 100%;
+  width: var(--fa-width);
   z-index: var(--fa-stack-z-index, auto);
 }
 
@@ -61056,7 +61068,7 @@ a.text-muted:hover {
 }
 
 /*!
- * Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2025 Fonticons, Inc.
  */
@@ -61072,7 +61084,7 @@ a.text-muted:hover {
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?f54756da1f3d1b88887f5182ce25d21c);
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?0ae4e6254fc19607c79e29e57b63c234);
 }
 .fas {
   --fa-family: var(--fa-family-classic);
@@ -61087,7 +61099,7 @@ a.text-muted:hover {
   --fa-style: 900;
 }
 /*!
- * Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2025 Fonticons, Inc.
  */
@@ -61103,7 +61115,7 @@ a.text-muted:hover {
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2?5632c43107f4d3fa48064b6e1e71b52c);
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2?1f38a564cd9eae27ebc3e20be51c8fb9);
 }
 .far {
   --fa-family: var(--fa-family-classic);
@@ -61118,7 +61130,7 @@ a.text-muted:hover {
   --fa-style: 400;
 }
 /*!
- * Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2025 Fonticons, Inc.
  */
@@ -61132,7 +61144,7 @@ a.text-muted:hover {
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2?1f6bad931d92a0a52c45f89e90890179);
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2?e7461d69dbbff1310a5c81e4113522fc);
 }
 .fab,
 .fa-brands,
