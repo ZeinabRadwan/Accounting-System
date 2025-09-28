@@ -2808,5 +2808,14 @@
   "September": "September",
   "October": "October",
   "November": "November",
-  "December": "December"
+  "December": "December",
+  "Locale changed successfully": "Locale changed successfully",
+  "Failed to change locale": "Failed to change locale",
+  "Login Credentials": "Login Credentials",
+  "Owner": "Owner",
+  "Tenant(Subscriber)": "Tenant(Subscriber)",
+  "Tenant Employee": "Tenant Employee",
+  "Admin": "Admin",
+  "Manager": "Manager",
+  "Salesman": "Salesman"
 }

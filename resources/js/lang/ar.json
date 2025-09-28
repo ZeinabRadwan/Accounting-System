@@ -2767,7 +2767,6 @@
   "Please enter a valid note.": "يرجى إدخال ملاحظة صحيحة.",
   "Write your note here!": "اكتب ملاحظتك هنا!",
   "Please check your input and try again.": "يرجى التحقق من المدخلات والمحاولة مرة أخرى.",
-  
   "Loan Creation Validation Messages": "رسائل التحقق من إنشاء القرض",
   "The reason field is required.": "حقل السبب مطلوب.",
   "The reason field must not exceed 191 characters.": "حقل السبب يجب ألا يتجاوز 191 حرف.",
@@ -2794,7 +2793,6 @@
   "Please enter a valid duration.": "يرجى إدخال مدة صحيحة.",
   "Please enter a valid date.": "يرجى إدخال تاريخ صحيح.",
   "Please enter a valid note.": "يرجى إدخال ملاحظة صحيحة.",
-  
   "Loan Edit Validation Messages": "رسائل التحقق من تعديل القرض",
   "The reason field is required for loan updates.": "حقل السبب مطلوب لتحديث القرض.",
   "The reference number field is required for loan updates.": "حقل رقم المرجع مطلوب لتحديث القرض.",
@@ -2813,7 +2811,6 @@
   "Please enter a valid duration for the loan update.": "يرجى إدخال مدة صحيحة لتحديث القرض.",
   "Please enter a valid date for the loan update.": "يرجى إدخال تاريخ صحيح لتحديث القرض.",
   "Please enter a valid note for the loan update.": "يرجى إدخال ملاحظة صحيحة لتحديث القرض.",
-  
   "Purchase Payment Validation Messages": "رسائل التحقق من دفع المشتريات",
   "The supplier field is required.": "حقل المورد مطلوب.",
   "The selected purchases field is required.": "حقل المشتريات المحددة مطلوب.",
@@ -2843,7 +2840,6 @@
   "Cancelled!": "تم الإلغاء!",
   "Payment has been cancelled successfully.": "تم إلغاء الدفع بنجاح.",
   "Sorry, couldn't cancel this payment!": "عذراً، لا يمكن إلغاء هذا الدفع!",
-  
   "Non Invoice Payment Validation Messages": "رسائل التحقق من الدفع غير المرتبط بفاتورة",
   "The client field is required.": "حقل العميل مطلوب.",
   "The type field is required.": "حقل النوع مطلوب.",
@@ -2874,7 +2870,6 @@
   "Send Email Notification": "إرسال إشعار بالبريد الإلكتروني",
   "Send SMS Notification": "إرسال إشعار بالرسائل النصية",
   "Cannot be changed when invoice is inactive": "لا يمكن تغييرها عندما تكون الفاتورة غير نشطة",
-  
   "Invoice Payment Validation Messages": "رسائل التحقق من دفع الفاتورة",
   "The client field is required for invoice payments.": "حقل العميل مطلوب لدفعات الفواتير.",
   "At least one invoice must be selected.": "يجب اختيار فاتورة واحدة على الأقل.",
@@ -2901,7 +2896,6 @@
   "Please select a sub category": "يرجى اختيار فئة فرعية",
   "Expense account routing is not configured. Please configure it in Accounting Settings.": "توجيه حساب المصروفات غير مُكوَّن. يرجى تكوينه في إعدادات المحاسبة.",
   "Expense account routing is not properly configured. Please set a main account.": "توجيه حساب المصروفات غير مُكوَّن بشكل صحيح. يرجى تعيين حساب رئيسي.",
-  
   "Expense Category Validation Messages": "رسائل التحقق من فئة المصروفات",
   "The name field is required for expense categories.": "حقل الاسم مطلوب لفئات المصروفات.",
   "The name field must not exceed 50 characters.": "حقل الاسم يجب ألا يتجاوز 50 حرف.",
@@ -2914,7 +2908,6 @@
   "Please select a valid status for the category.": "يرجى اختيار حالة صحيحة للفئة.",
   "Category name cannot be empty.": "اسم الفئة لا يمكن أن يكون فارغاً.",
   "Category name must contain only letters, numbers, and spaces.": "اسم الفئة يجب أن يحتوي على أحرف وأرقام ومسافات فقط.",
-  
   "Expense Sub Category Validation Messages": "رسائل التحقق من الفئة الفرعية للمصروفات",
   "The name field is required for expense sub-categories.": "حقل الاسم مطلوب للفئات الفرعية للمصروفات.",
   "The name field must not exceed 50 characters.": "حقل الاسم يجب ألا يتجاوز 50 حرف.",
@@ -2931,7 +2924,6 @@
   "Please select a valid status for the sub-category.": "يرجى اختيار حالة صحيحة للفئة الفرعية.",
   "The selected category must be active.": "الفئة المختارة يجب أن تكون نشطة.",
   "Please select an active category.": "يرجى اختيار فئة نشطة.",
-  
   "Journal Entry Validation Messages": "رسائل التحقق من قيود اليومية",
   "Optional reference number": "رقم مرجعي اختياري",
   "Leave blank if no reference is needed": "اتركه فارغاً إذا لم تكن هناك حاجة لمرجع",
@@ -2968,7 +2960,6 @@
   "Please add at least 2 lines to the journal entry.": "يرجى إضافة سطرين على الأقل لقيود اليومية.",
   "Journal entry created successfully!": "تم إنشاء قيود اليومية بنجاح!",
   "Error loading chart of accounts.": "خطأ في تحميل دليل الحسابات.",
-  
   "Journal Entry Index Toast Messages": "رسائل التنبيهات لصفحة قيود اليومية",
   "Error searching journal entries": "خطأ في البحث عن قيود اليومية",
   "Are you sure you want to post this journal entry?": "هل أنت متأكد من أنك تريد نشر قيود اليومية هذه؟",
@@ -2991,7 +2982,6 @@
   "Operation completed successfully.": "تمت العملية بنجاح.",
   "Operation failed. Please try again.": "فشلت العملية. يرجى المحاولة مرة أخرى.",
   "Error creating journal entry": "خطأ في إنشاء قيود اليومية",
-  
   "Journal Entry Create Form Messages": "رسائل نموذج إنشاء قيود اليومية",
   "Journal entry must be balanced": "قيود اليومية يجب أن تكون متوازنة",
   "Please select chart of accounts for all lines": "يرجى اختيار دليل الحسابات لجميع الأسطر",
@@ -3022,7 +3012,6 @@
   "Changes saved successfully!": "تم حفظ التغييرات بنجاح!",
   "Form reset successfully!": "تم إعادة تعيين النموذج بنجاح!",
   "All changes have been discarded.": "تم تجاهل جميع التغييرات.",
-  
   "Balance Controller Messages": "رسائل تحكم في الرصيد",
   "Bank account not found.": "حساب البنك غير موجود.",
   "Failed to create journal entry: ": "فشل في إنشاء قيود اليومية: ",
@@ -3061,13 +3050,11 @@
   "Session expired. Please refresh the page and try again.": "انتهت صلاحية الجلسة. يرجى تحديث الصفحة والمحاولة مرة أخرى.",
   "Network error. Please check your connection and try again.": "خطأ في الشبكة. يرجى التحقق من الاتصال والمحاولة مرة أخرى.",
   "Server error occurred. Please try again later.": "حدث خطأ في الخادم. يرجى المحاولة لاحقاً.",
-  
   "Cashbook Messages": "رسائل دفتر النقدية",
   "cashbook.Failed to load chart of accounts": "فشل في تحميل دليل الحسابات",
   "cashbook.Please select a second account": "يرجى اختيار حساب ثاني",
   "cashbook.Adjustment added successfully": "تم إضافة التعديل بنجاح",
   "cashbook.Opps...something went wrong": "عذراً... حدث خطأ ما",
-  
   "Cashbook Balance Create Form Messages": "رسائل نموذج إنشاء تعديل الرصيد في دفتر النقدية",
   "Bank Account": "حساب البنك",
   "Select a bank account": "اختر حساب بنك",
@@ -3124,7 +3111,6 @@
   "Please select different accounts for the transaction.": "يرجى اختيار حسابات مختلفة للمعاملة.",
   "Insufficient permissions to perform this action.": "صلاحيات غير كافية لتنفيذ هذا الإجراء.",
   "Oops...something went wrong": "عذراً... حدث خطأ ما",
-  
   "Cashbook Account Create Form Messages": "رسائل نموذج إنشاء الحساب في دفتر النقدية",
   "Write your note here!": "اكتب ملاحظتك هنا!",
   "Please check your input and try again.": "يرجى التحقق من إدخالك والمحاولة مرة أخرى.",
@@ -3182,7 +3168,6 @@
   "Please use a different account number.": "يرجى استخدام رقم حساب مختلف.",
   "Insufficient permissions to perform this action.": "صلاحيات غير كافية لتنفيذ هذا الإجراء.",
   "Oops...something went wrong": "عذراً... حدث خطأ ما",
-  
   "Chart of Accounts Show Page Messages": "رسائل صفحة عرض دليل الحسابات",
   "Back to Tree": "العودة إلى الشجرة",
   "Account Information": "معلومات الحساب",
@@ -3248,7 +3233,6 @@
   "Search is taking longer than expected.": "البحث يستغرق وقتاً أطول من المتوقع.",
   "Please be patient while searching.": "يرجى التحلي بالصبر أثناء البحث.",
   "Oops...something went wrong": "عذراً... حدث خطأ ما",
-  
   "Chart of Accounts Create Form Messages": "رسائل نموذج إنشاء دليل الحسابات",
   "Enter account code": "أدخل رمز الحساب",
   "Select parent account (optional)": "اختر الحساب الأب (اختياري)",
@@ -3470,8 +3454,18 @@
   
   "Department Create Page Additional Messages": "رسائل إضافية لصفحة إنشاء القسم",
   "Department deleted successfully": "تم حذف القسم بنجاح",
+  "Product VAT Rate Required" : "معدل ضريبة القيمة المضافة للمنتج مطلوب",
+  "Product needs VAT rate assigned"  : "المنتج يحتاج إلى معدل ضريبة القيمة المضافة",
   "Oops...something went wrong": "عذراً... حدث خطأ ما",
-  
+  "Locale changed successfully": "تم تغيير اللغة بنجاح",
+  "Failed to change locale": "فشل في تغيير اللغة",
+  "Login Credentials": "بيانات تسجيل الدخول",
+  "Owner": "المالك",
+  "Tenant(Subscriber)": "العميل (مشترك)",
+  "Tenant Employee": "موظف العميل",
+  "Admin": "مدير",
+  "Manager": "مدير",
+  "Salesman": "بائع",
   "Recent Activities No Data Messages": "رسائل عدم وجود بيانات في الأنشطة الأخيرة",
   "No Invoices Found": "لا توجد فواتير",
   "There are no recent invoices to display.": "لا توجد فواتير حديثة للعرض.",
