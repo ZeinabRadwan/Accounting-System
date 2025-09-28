@@ -62,7 +62,7 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: left;
-            background-color: #1B3C71;
+            background-color: #33a0d9;
             color: white;
         }
 

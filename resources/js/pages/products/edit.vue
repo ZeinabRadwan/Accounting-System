@@ -773,8 +773,8 @@ export default {
 }
 
 .btn-outline-custom {
-  color: #1B3C71;
-  border-color: #1B3C71;
+  color: #33a0d9;
+  border-color: #33a0d9;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   border-radius: 10px;
   padding: 8px 16px;
@@ -783,9 +783,9 @@ export default {
 
 .btn-outline-custom:hover,
 .btn-custom-active {
-  background-color: #1B3C71;
+  background-color: #33a0d9;
   color: #fff;
-  border-color: #1B3C71;
+  border-color: #33a0d9;
 }
 
 h1, h2 {

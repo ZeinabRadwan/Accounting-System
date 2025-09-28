@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[1138],{
 
-/***/ 41138:
+/***/ 51138:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -9,227 +9,143 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ advanced)
+  "default": () => (/* binding */ edit)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/setup/advanced.vue?vue&type=template&id=4960901e&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=template&id=a4e5b09c&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('breadcrumbs', {
+  return _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "page-header"
+  }, [_c('div', {
+    staticClass: "row align-items-center"
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('h3', {
+    staticClass: "page-title"
+  }, [_vm._v(_vm._s(_vm.$t('Edit Journal Entry')))]), _vm._v(" "), _c('ul', {
+    staticClass: "breadcrumb"
+  }, [_c('li', {
+    staticClass: "breadcrumb-item"
+  }, [_c('router-link', {
     attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
+      "to": "/home"
     }
-  }), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('Dashboard')))])], 1), _vm._v(" "), _c('li', {
+    staticClass: "breadcrumb-item"
+  }, [_c('router-link', {
+    attrs: {
+      "to": "/journal-entries"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Journal Entries')))])], 1), _vm._v(" "), _c('li', {
+    staticClass: "breadcrumb-item active"
+  }, [_vm._v(_vm._s(_vm.$t('Edit')))])])])])]), _vm._v(" "), _vm.loading ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-12 col-xl-3"
-  }, [_c('SettingsSidebar')], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-xl-9"
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.updateSettings.apply(null, arguments);
-      },
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      }
-    }
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-body text-center"
+  }, [_c('i', {
+    staticClass: "fa fa-spinner fa-spin fa-3x text-primary"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "mt-3"
+  }, [_vm._v(_vm._s(_vm.$t('Loading journal entry...')))])])])])]) : _vm.journalEntry ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
   }, [_c('div', {
     staticClass: "card"
   }, [_c('div', {
     staticClass: "card-header"
-  }, [_c('h3', {
+  }, [_c('h4', {
     staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Payment Methods")) + "\n            ")]), _vm._v(" "), _c('router-link', {
-    staticClass: "btn btn-info float-right",
-    attrs: {
-      "to": {
-        name: 'setup.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Back")) + "\n            ")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('Edit Journal Entry')) + " - " + _vm._s(_vm.journalEntry.formatted_entry_number))])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "card inner-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Manual")) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('checkbox', {
-    attrs: {
-      "name": "MANUAL_PAYMENT_IS_ACTIVE"
-    },
-    model: {
-      value: _vm.form.MANUAL_PAYMENT_IS_ACTIVE,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "MANUAL_PAYMENT_IS_ACTIVE", $$v);
-      },
-      expression: "form.MANUAL_PAYMENT_IS_ACTIVE"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Enable")) + "\n                    ")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "MANUAL_PAYMENT_NOTE"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Manual Payment Note")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.MANUAL_PAYMENT_NOTE,
-      expression: "form.MANUAL_PAYMENT_NOTE"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('MANUAL_PAYMENT_NOTE')
-    },
-    attrs: {
-      "id": "MANUAL_PAYMENT_NOTE",
-      "name": "MANUAL_PAYMENT_NOTE",
-      "placeholder": _vm.$t('Manual Payment Note')
-    },
-    domProps: {
-      "value": _vm.form.MANUAL_PAYMENT_NOTE
-    },
+  }, [_c('form', {
     on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "MANUAL_PAYMENT_NOTE", $event.target.value);
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.updateJournalEntry.apply(null, arguments);
       }
     }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "MANUAL_PAYMENT_NOTE"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "card inner-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Stripe")) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('checkbox', {
-    attrs: {
-      "name": "STRIPE_IS_ACTIVE"
-    },
-    model: {
-      value: _vm.form.STRIPE_IS_ACTIVE,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "STRIPE_IS_ACTIVE", $$v);
-      },
-      expression: "form.STRIPE_IS_ACTIVE"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Enable")) + "\n                    ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "STRIPE_IS_ACTIVE"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "STRIPE_SECRET"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Stripe Secret")) + "\n                      "), _c('span', {
-    staticClass: "required"
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Entry Date')) + " "), _c('span', {
+    staticClass: "text-danger"
   }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.STRIPE_SECRET,
-      expression: "form.STRIPE_SECRET"
+      value: _vm.form.entry_date,
+      expression: "form.entry_date"
     }],
     staticClass: "form-control",
     "class": {
-      'is-invalid': _vm.form.errors.has('STRIPE_SECRET')
+      'is-invalid': _vm.errors.entry_date
     },
     attrs: {
-      "id": "STRIPE_SECRET",
-      "type": "password",
-      "name": "STRIPE_SECRET",
-      "placeholder": _vm.$t('Stripe Secret')
+      "type": "date",
+      "required": ""
     },
     domProps: {
-      "value": _vm.form.STRIPE_SECRET
+      "value": _vm.form.entry_date
     },
     on: {
       "input": function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.form, "STRIPE_SECRET", $event.target.value);
+        _vm.$set(_vm.form, "entry_date", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "STRIPE_SECRET"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "card inner-card"
+  }), _vm._v(" "), _vm.errors.entry_date ? _c('div', {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.entry_date[0]) + "\n                  ")]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
   }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Paypal")) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('checkbox', {
-    attrs: {
-      "name": "PAYPAL_IS_ACTIVE"
-    },
-    model: {
-      value: _vm.form.PAYPAL_IS_ACTIVE,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "PAYPAL_IS_ACTIVE", $$v);
-      },
-      expression: "form.PAYPAL_IS_ACTIVE"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Enable")) + "\n                    ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "PAYPAL_IS_ACTIVE"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "PAYPAL_MODE"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Paypal Mode")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('select', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Reference')))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.PAYPAL_MODE,
-      expression: "form.PAYPAL_MODE"
+      value: _vm.form.reference,
+      expression: "form.reference"
     }],
     staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('PAYPAL_MODE')
-    },
     attrs: {
-      "id": "PAYPAL_MODE",
-      "type": "password",
-      "name": "PAYPAL_MODE"
+      "type": "text",
+      "placeholder": _vm.$t('Optional reference number')
+    },
+    domProps: {
+      "value": _vm.form.reference
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "reference", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "disabled": ""
     },
     on: {
       "change": function change($event) {
@@ -239,593 +155,552 @@ var render = function render() {
           var val = "_value" in o ? o._value : o.value;
           return val;
         });
-        _vm.$set(_vm.form, "PAYPAL_MODE", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c('option', {
     attrs: {
-      "value": "sandbox"
+      "value": "draft"
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Sandbox")) + "\n                      ")]), _vm._v(" "), _c('option', {
+  }, [_vm._v(_vm._s(_vm.$t('Draft')))]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "live"
+      "value": "posted"
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Live")) + "\n                      ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "PAYPAL_MODE"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "PAYPAL_CLIENT_ID"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Paypal Client ID")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.PAYPAL_CLIENT_ID,
-      expression: "form.PAYPAL_CLIENT_ID"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('PAYPAL_CLIENT_ID')
-    },
-    attrs: {
-      "id": "PAYPAL_CLIENT_ID",
-      "type": "text",
-      "name": "PAYPAL_CLIENT_ID",
-      "placeholder": _vm.$t('Paypal Client ID')
-    },
-    domProps: {
-      "value": _vm.form.PAYPAL_CLIENT_ID
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "PAYPAL_CLIENT_ID", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "PAYPAL_CLIENT_ID"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "PAYPAL_CLIENT_SECRET"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Paypal Client Secret")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.PAYPAL_CLIENT_SECRET,
-      expression: "form.PAYPAL_CLIENT_SECRET"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('PAYPAL_CLIENT_SECRET')
-    },
-    attrs: {
-      "id": "PAYPAL_CLIENT_SECRET",
-      "type": "password",
-      "name": "PAYPAL_CLIENT_SECRET",
-      "placeholder": _vm.$t('Paypal Client Secret')
-    },
-    domProps: {
-      "value": _vm.form.PAYPAL_CLIENT_SECRET
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "PAYPAL_CLIENT_SECRET", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "PAYPAL_CLIENT_SECRET"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "card inner-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Paystack")) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('Posted')))])]), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v(_vm._s(_vm.$t('Status cannot be changed after creation')))])])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('checkbox', {
-    attrs: {
-      "name": "PAYSTACK_IS_ACTIVE"
-    },
-    model: {
-      value: _vm.form.PAYSTACK_IS_ACTIVE,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "PAYSTACK_IS_ACTIVE", $$v);
-      },
-      expression: "form.PAYSTACK_IS_ACTIVE"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Enable")) + "\n                    ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "PAYSTACK_IS_ACTIVE"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "MERCHANT_EMAIL"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Merchant Email")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.MERCHANT_EMAIL,
-      expression: "form.MERCHANT_EMAIL"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('MERCHANT_EMAIL')
-    },
-    attrs: {
-      "id": "MERCHANT_EMAIL",
-      "type": "text",
-      "name": "MERCHANT_EMAIL",
-      "placeholder": _vm.$t('Merchant Email')
-    },
-    domProps: {
-      "value": _vm.form.MERCHANT_EMAIL
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "MERCHANT_EMAIL", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "MERCHANT_EMAIL"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "PAYSTACK_PUBLIC_KEY"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Paystack Public Key")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.PAYSTACK_PUBLIC_KEY,
-      expression: "form.PAYSTACK_PUBLIC_KEY"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('PAYSTACK_PUBLIC_KEY')
-    },
-    attrs: {
-      "id": "PAYSTACK_PUBLIC_KEY",
-      "type": "text",
-      "name": "PAYSTACK_PUBLIC_KEY",
-      "placeholder": _vm.$t('Paystack Public Key')
-    },
-    domProps: {
-      "value": _vm.form.PAYSTACK_PUBLIC_KEY
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "PAYSTACK_PUBLIC_KEY", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "PAYSTACK_PUBLIC_KEY"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "PAYSTACK_SECRET_KEY"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Paystack Secret Key")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.PAYSTACK_SECRET_KEY,
-      expression: "form.PAYSTACK_SECRET_KEY"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('PAYSTACK_SECRET_KEY')
-    },
-    attrs: {
-      "id": "PAYSTACK_SECRET_KEY",
-      "type": "password",
-      "name": "PAYSTACK_SECRET_KEY",
-      "placeholder": _vm.$t('Paystack Secret Key')
-    },
-    domProps: {
-      "value": _vm.form.PAYSTACK_SECRET_KEY
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "PAYSTACK_SECRET_KEY", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "PAYSTACK_SECRET_KEY"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "card inner-card"
+    staticClass: "col-md-12"
   }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Razorpay")) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Description')) + " "), _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.description,
+      expression: "form.description"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.errors.description
+    },
+    attrs: {
+      "rows": "3",
+      "placeholder": _vm.$t('Enter description for this journal entry'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.form.description
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "description", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _vm.errors.description ? _c('div', {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.description[0]) + "\n                  ")]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('checkbox', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header d-flex justify-content-between align-items-center"
+  }, [_c('h5', {
+    staticClass: "mb-0"
+  }, [_vm._v(_vm._s(_vm.$t('Journal Entry Lines')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-primary",
     attrs: {
-      "name": "RAZORPAY_IS_ACTIVE"
-    },
-    model: {
-      value: _vm.form.RAZORPAY_IS_ACTIVE,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "RAZORPAY_IS_ACTIVE", $$v);
-      },
-      expression: "form.RAZORPAY_IS_ACTIVE"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Enable")) + "\n                    ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "RAZORPAY_IS_ACTIVE"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "RAZORPAY_KEY_ID"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Razopay Key ID")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.RAZORPAY_KEY_ID,
-      expression: "form.RAZORPAY_KEY_ID"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('RAZORPAY_KEY_ID')
-    },
-    attrs: {
-      "id": "RAZORPAY_KEY_ID",
-      "type": "text",
-      "name": "RAZORPAY_KEY_ID",
-      "placeholder": _vm.$t('Razopay Key ID')
-    },
-    domProps: {
-      "value": _vm.form.RAZORPAY_KEY_ID
+      "type": "button"
     },
     on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "RAZORPAY_KEY_ID", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "RAZORPAY_KEY_ID"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "RAZORPAY_KEY_SECRET"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Razopay Secret Key")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.RAZORPAY_KEY_SECRET,
-      expression: "form.RAZORPAY_KEY_SECRET"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('RAZORPAY_KEY_SECRET')
-    },
-    attrs: {
-      "id": "RAZORPAY_KEY_SECRET",
-      "type": "password",
-      "name": "RAZORPAY_KEY_SECRET",
-      "placeholder": _vm.$t('Razopay Secret Key')
-    },
-    domProps: {
-      "value": _vm.form.RAZORPAY_KEY_SECRET
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "RAZORPAY_KEY_SECRET", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "RAZORPAY_KEY_SECRET"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "card inner-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Live Currency Exchange")) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('checkbox', {
-    attrs: {
-      "name": "EXCHANGE_LIVE_CURRENCY"
-    },
-    model: {
-      value: _vm.form.EXCHANGE_LIVE_CURRENCY,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "EXCHANGE_LIVE_CURRENCY", $$v);
-      },
-      expression: "form.EXCHANGE_LIVE_CURRENCY"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Enable")) + "\n                    ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "EXCHANGE_LIVE_CURRENCY"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "EXCHANGE_RATES_API_KEY"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Exchange API Key")) + "\n                      "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.EXCHANGE_RATES_API_KEY,
-      expression: "form.EXCHANGE_RATES_API_KEY"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('EXCHANGE_RATES_API_KEY')
-    },
-    attrs: {
-      "id": "EXCHANGE_RATES_API_KEY",
-      "type": "password",
-      "name": "EXCHANGE_RATES_API_KEY",
-      "placeholder": _vm.$t('Exchange API Key')
-    },
-    domProps: {
-      "value": _vm.form.EXCHANGE_RATES_API_KEY
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "EXCHANGE_RATES_API_KEY", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted",
-    attrs: {
-      "id": "emailHelp"
-    }
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Get your API key on")) + "\n                      "), _c('a', {
-    attrs: {
-      "href": "https://exchangerate.host/documentation",
-      "target": "__blank"
-    }
-  }, [_vm._v("Exchangerate")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "EXCHANGE_RATES_API_KEY"
-    }
-  })], 1)])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('v-button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "loading": _vm.form.busy
+      "click": _vm.addLine
     }
   }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Save changes")) + "\n            ")])], 1)])])])])], 1);
+    staticClass: "fa fa-plus"
+  }), _vm._v(" " + _vm._s(_vm.$t('Add Line')) + "\n                    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_vm._l(_vm.form.lines, function (line, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "row mb-3"
+    }, [_c('div', {
+      staticClass: "col-md-3"
+    }, [_c('div', {
+      staticClass: "form-group"
+    }, [_c('label', [_vm._v(_vm._s(_vm.$t('Chart of Account')) + " "), _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+      "class": {
+        'is-invalid': _vm.errors["lines.".concat(index, ".chart_of_account_id")]
+      },
+      attrs: {
+        "options": _vm.chartOfAccounts,
+        "label": "name",
+        "reduce": function reduce(option) {
+          return option.id;
+        },
+        "placeholder": _vm.$t('Select a Chart of Account'),
+        "required": ""
+      },
+      on: {
+        "input": function input(value) {
+          return _vm.onChartOfAccountChange(index, value);
+        }
+      },
+      scopedSlots: _vm._u([{
+        key: "option",
+        fn: function fn(_ref) {
+          var name = _ref.name,
+            code = _ref.code,
+            type = _ref.type;
+          return [_c('div', [_c('strong', [_vm._v(_vm._s(name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+            staticClass: "text-muted"
+          }, [_vm._v(_vm._s(code) + " - " + _vm._s(type))])])];
+        }
+      }], null, true),
+      model: {
+        value: line.chart_of_account_id,
+        callback: function callback($$v) {
+          _vm.$set(line, "chart_of_account_id", $$v);
+        },
+        expression: "line.chart_of_account_id"
+      }
+    }), _vm._v(" "), _vm.errors["lines.".concat(index, ".chart_of_account_id")] ? _c('div', {
+      staticClass: "invalid-feedback"
+    }, [_vm._v("\n                            " + _vm._s(_vm.errors["lines.".concat(index, ".chart_of_account_id")][0]) + "\n                          ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('div', {
+      staticClass: "form-group"
+    }, [_c('label', [_vm._v(_vm._s(_vm.$t('Debit Amount')))]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: line.debit_amount,
+        expression: "line.debit_amount"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        "type": "number",
+        "step": "0.01",
+        "min": "0",
+        "placeholder": _vm.$t('Enter an amount')
+      },
+      domProps: {
+        "value": line.debit_amount
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(line, "debit_amount", $event.target.value);
+        }, function ($event) {
+          return _vm.calculateLineAmount(index);
+        }]
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('div', {
+      staticClass: "form-group"
+    }, [_c('label', [_vm._v(_vm._s(_vm.$t('Credit Amount')))]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: line.credit_amount,
+        expression: "line.credit_amount"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        "type": "number",
+        "step": "0.01",
+        "min": "0",
+        "placeholder": _vm.$t('Enter an amount')
+      },
+      domProps: {
+        "value": line.credit_amount
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(line, "credit_amount", $event.target.value);
+        }, function ($event) {
+          return _vm.calculateLineAmount(index);
+        }]
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-2"
+    }, [_c('div', {
+      staticClass: "form-group"
+    }, [_c('label', [_vm._v(_vm._s(_vm.$t('Description')))]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: line.description,
+        expression: "line.description"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        "type": "text",
+        "placeholder": _vm.$t('Line description')
+      },
+      domProps: {
+        "value": line.description
+      },
+      on: {
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(line, "description", $event.target.value);
+        }
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-1"
+    }, [_c('div', {
+      staticClass: "form-group"
+    }, [_c('label', [_vm._v(" ")]), _vm._v(" "), _vm.form.lines.length > 2 ? _c('button', {
+      staticClass: "btn btn-danger btn-sm",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeLine(index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-trash"
+    })]) : _vm._e()])])]);
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "alert",
+    "class": _vm.getBalanceAlertClass()
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Balance Status')) + ":")]), _vm._v(" "), _vm.isBalanced ? _c('span', {
+    staticClass: "text-success"
+  }, [_vm._v(_vm._s(_vm.$t('Balanced')))]) : _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.$t('Unbalanced')))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('Total Debit')) + ":")]), _vm._v(" "), _c('CurrencyDisplay', {
+    attrs: {
+      "amount": _vm.totalDebit
+    }
+  }), _vm._v(" |\n                          "), _c('strong', [_vm._v(_vm._s(_vm.$t('Total Credit')) + ":")]), _vm._v(" "), _c('CurrencyDisplay', {
+    attrs: {
+      "amount": _vm.totalCredit
+    }
+  }), _vm._v(" "), !_vm.isBalanced ? _c('span', [_c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('Balance Difference')) + ":")]), _vm._v(" "), _c('CurrencyDisplay', {
+    attrs: {
+      "amount": _vm.balanceDifference
+    }
+  })], 1) : _vm._e()], 1)])])], 2)])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit",
+      "disabled": !_vm.isBalanced || _vm.loading
+    }
+  }, [_vm.loading ? _c('i', {
+    staticClass: "fa fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fa fa-save"
+  }), _vm._v("\n                    " + _vm._s(_vm.loading ? _vm.$t('Updating...') : _vm.$t('Update')) + "\n                  ")]), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-secondary ml-2",
+    attrs: {
+      "to": "/journal-entries"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-times"
+  }), _vm._v(" " + _vm._s(_vm.$t('Cancel')) + "\n                  ")])], 1)])])])])])])]) : _vm.error ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-body text-center"
+  }, [_c('i', {
+    staticClass: "fa fa-exclamation-triangle fa-3x text-danger"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "mt-3"
+  }, [_vm._v(_vm._s(_vm.error))]), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": "/journal-entries"
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('Back to Journal Entries')) + "\n          ")])], 1)])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./resources/js/components/central/SettingsSidebar.vue + 3 modules
-var SettingsSidebar = __webpack_require__(49741);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/setup/advanced.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-
-
-
-/* harmony default export */ const advancedvue_type_script_lang_js = ({
-  layout: "central",
-  middleware: ["auth", "check-permissions"],
+/* harmony default export */ const editvue_type_script_lang_js = ({
+  name: 'EditJournalEntry',
+  middleware: ['auth', 'check-permissions'],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Payment Methods")
+      title: this.$t('Edit Journal Entry')
     };
   },
   components: {
-    SettingsSidebar: SettingsSidebar/* default */.A
+    CurrencyDisplay: function CurrencyDisplay() {
+      return __webpack_require__.e(/* import() */ 6887).then(__webpack_require__.bind(__webpack_require__, 96887));
+    }
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: "Payment Settings",
-      breadcrumbs: [{
-        name: "Setup",
-        url: "setup.index"
-      }, {
-        name: "Payment Settings",
-        url: ""
-      }],
-      form: new vform_es/* default */.Ay({
-        MANUAL_PAYMENT_IS_ACTIVE: false,
-        MANUAL_PAYMENT_NOTE: false,
-        STRIPE_IS_ACTIVE: false,
-        STRIPE_KEY: "",
-        STRIPE_SECRET: "",
-        STRIPE_WEBHOOK_SECRET: "",
-        PAYPAL_IS_ACTIVE: false,
-        PAYPAL_MODE: "sandbox",
-        PAYPAL_CLIENT_ID: "",
-        PAYPAL_CLIENT_SECRET: "",
-        PAYSTACK_IS_ACTIVE: false,
-        PAYSTACK_PUBLIC_KEY: "",
-        PAYSTACK_SECRET_KEY: "",
-        MERCHANT_EMAIL: "",
-        RAZORPAY_IS_ACTIVE: false,
-        RAZORPAY_KEY_ID: "",
-        RAZORPAY_KEY_SECRET: "",
-        EXCHANGE_RATES_API_KEY: "",
-        EXCHANGE_LIVE_CURRENCY: false
-      }),
-      logo: "",
-      blackLogo: "",
-      smallLogo: "",
-      favicon: "",
-      isDemoMode: window.config.isDemoMode
+      journalEntry: null,
+      form: {
+        entry_date: '',
+        reference: '',
+        description: '',
+        status: 'draft',
+        lines: []
+      },
+      chartOfAccounts: [],
+      errors: {},
+      loading: true,
+      saving: false
     };
   },
-  computed: (0,vuex_esm/* mapGetters */.L8)({
-    appInfo: "operations/appInfo",
-    items: "operations/items"
-  }),
+  computed: {
+    totalDebit: function totalDebit() {
+      return this.form.lines.reduce(function (sum, line) {
+        return sum + (parseFloat(line.debit_amount) || 0);
+      }, 0);
+    },
+    totalCredit: function totalCredit() {
+      return this.form.lines.reduce(function (sum, line) {
+        return sum + (parseFloat(line.credit_amount) || 0);
+      }, 0);
+    },
+    balanceDifference: function balanceDifference() {
+      return Math.abs(this.totalDebit - this.totalCredit);
+    },
+    isBalanced: function isBalanced() {
+      return this.balanceDifference === 0;
+    }
+  },
   created: function created() {
-    this.getSettings();
+    var _this = this;
+    return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            _context.n = 1;
+            return Promise.all([_this.loadJournalEntry(), _this.loadChartOfAccounts()]);
+          case 1:
+            return _context.a(2);
+        }
+      }, _callee);
+    }))();
   },
   methods: {
-    // get settings
-    getSettings: function getSettings() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _context.n = 1;
-              return axios_default().get(window.location.origin + "/api/payment-methods");
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data.data;
-              _this.form.MANUAL_PAYMENT_IS_ACTIVE = data.MANUAL_PAYMENT_IS_ACTIVE.value == 1;
-              _this.form.MANUAL_PAYMENT_NOTE = data.MANUAL_PAYMENT_NOTE.value;
-              _this.form.STRIPE_IS_ACTIVE = data.STRIPE_IS_ACTIVE.value == 1;
-              _this.form.STRIPE_KEY = data.STRIPE_KEY.value;
-              _this.form.STRIPE_SECRET = data.STRIPE_SECRET.value;
-              _this.form.STRIPE_WEBHOOK_SECRET = data.STRIPE_WEBHOOK_SECRET.value;
-              _this.form.PAYPAL_IS_ACTIVE = data.PAYPAL_IS_ACTIVE.value == 1;
-              _this.form.PAYPAL_MODE = data.PAYPAL_MODE.value;
-              _this.form.PAYPAL_CLIENT_ID = data.PAYPAL_CLIENT_ID.value;
-              _this.form.PAYPAL_CLIENT_SECRET = data.PAYPAL_CLIENT_SECRET.value;
-              _this.form.PAYSTACK_IS_ACTIVE = data.PAYSTACK_IS_ACTIVE.value == 1;
-              _this.form.PAYSTACK_PUBLIC_KEY = data.PAYSTACK_PUBLIC_KEY.value;
-              _this.form.PAYSTACK_SECRET_KEY = data.PAYSTACK_SECRET_KEY.value;
-              _this.form.MERCHANT_EMAIL = data.MERCHANT_EMAIL.value;
-              _this.form.RAZORPAY_IS_ACTIVE = data.RAZORPAY_IS_ACTIVE.value == 1;
-              _this.form.RAZORPAY_KEY_ID = data.RAZORPAY_KEY_ID.value;
-              _this.form.RAZORPAY_KEY_SECRET = data.RAZORPAY_KEY_SECRET.value;
-              _this.form.EXCHANGE_LIVE_CURRENCY = data.EXCHANGE_LIVE_CURRENCY.value == 1;
-              _this.form.EXCHANGE_RATES_API_KEY = data.EXCHANGE_RATES_API_KEY.value;
-            case 2:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    // update settings
-    updateSettings: function updateSettings() {
+    loadJournalEntry: function loadJournalEntry() {
       var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t;
         return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
-              if (!_this2.isDemoMode) {
-                _context2.n = 1;
-                break;
-              }
-              return _context2.a(2, toast.fire({
-                type: "warning",
-                title: _this2.$t("You are not allowed to do this in demo version.")
-              }));
+              _context2.p = 0;
+              _this2.loading = true;
+              _context2.n = 1;
+              return _this2.$axios.get("/api/journal-entries/".concat(_this2.$route.params.id));
             case 1:
-              _context2.n = 2;
-              return _this2.form.post(window.location.origin + "/api/payment-methods").then(function () {
-                toast.fire({
-                  type: "success",
-                  title: _this2.$t("Created successfully!")
-                });
-                _this2.getSettings();
-              })["catch"](function () {
-                toast.fire({
-                  type: "error",
-                  title: _this2.$t("Please check your input and try again.")
-                });
-              });
+              response = _context2.v;
+              _this2.journalEntry = response.data.data;
+
+              // Populate form with existing data
+              _this2.form = {
+                entry_date: _this2.journalEntry.entry_date,
+                reference: _this2.journalEntry.reference || '',
+                description: _this2.journalEntry.description,
+                status: _this2.journalEntry.status,
+                lines: _this2.journalEntry.lines.map(function (line) {
+                  return {
+                    chart_of_account_id: line.chart_of_account_id,
+                    description: line.description || '',
+                    reference: line.reference || '',
+                    debit_amount: line.debit_amount > 0 ? line.debit_amount : '',
+                    credit_amount: line.credit_amount > 0 ? line.credit_amount : '',
+                    line_number: line.line_number
+                  };
+                })
+              };
+              _context2.n = 3;
+              break;
             case 2:
+              _context2.p = 2;
+              _t = _context2.v;
+              console.error('Error loading journal entry:', _t);
+              window.toast.error('Error loading journal entry');
+            case 3:
+              _context2.p = 3;
+              _this2.loading = false;
+              return _context2.f(3);
+            case 4:
               return _context2.a(2);
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 2, 3, 4]]);
       }))();
+    },
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, _t2;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _context3.p = 0;
+              _context3.n = 1;
+              return _this3.$axios.get('/api/journal-entries/chart-of-accounts');
+            case 1:
+              response = _context3.v;
+              _this3.chartOfAccounts = response.data.data || [];
+              console.log('Loaded chart of accounts:', _this3.chartOfAccounts);
+              console.log('First account structure:', _this3.chartOfAccounts[0]);
+              _context3.n = 3;
+              break;
+            case 2:
+              _context3.p = 2;
+              _t2 = _context3.v;
+              console.error('Error loading chart of accounts:', _t2);
+              window.toast.error('Error loading chart of accounts');
+            case 3:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[0, 2]]);
+      }))();
+    },
+    onChartOfAccountChange: function onChartOfAccountChange(index, value) {
+      console.log("Chart of account changed for line ".concat(index, ":"), value);
+      console.log("Line ".concat(index, " data:"), this.form.lines[index]);
+    },
+    addLine: function addLine() {
+      var lineNumber = this.form.lines.length + 1;
+      this.form.lines.push({
+        chart_of_account_id: '',
+        description: '',
+        reference: '',
+        debit_amount: '',
+        credit_amount: '',
+        line_number: lineNumber
+      });
+    },
+    removeLine: function removeLine(index) {
+      if (this.form.lines.length > 2) {
+        this.form.lines.splice(index, 1);
+        // Update line numbers
+        this.form.lines.forEach(function (line, idx) {
+          line.line_number = idx + 1;
+        });
+      }
+    },
+    calculateLineAmount: function calculateLineAmount(index) {
+      var line = this.form.lines[index];
+      if (parseFloat(line.debit_amount) > 0) {
+        line.credit_amount = '';
+      } else if (parseFloat(line.credit_amount) > 0) {
+        line.debit_amount = '';
+      }
+    },
+    getLineError: function getLineError(index, field) {
+      if (this.errors.lines && this.errors.lines[index] && this.errors.lines[index][field]) {
+        return this.errors.lines[index][field][0];
+      }
+      return null;
+    },
+    updateJournalEntry: function updateJournalEntry() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var data, _t3;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
+            case 0:
+              _context4.p = 0;
+              _this4.saving = true;
+              _this4.errors = {};
+
+              // Validate balance
+              if (_this4.isBalanced) {
+                _context4.n = 1;
+                break;
+              }
+              window.toast.warning('Journal entry must be balanced');
+              return _context4.a(2);
+            case 1:
+              // Prepare data
+              data = _objectSpread(_objectSpread({}, _this4.form), {}, {
+                lines: _this4.form.lines.map(function (line) {
+                  return _objectSpread(_objectSpread({}, line), {}, {
+                    debit_amount: parseFloat(line.debit_amount) || 0,
+                    credit_amount: parseFloat(line.credit_amount) || 0
+                  });
+                })
+              });
+              _context4.n = 2;
+              return _this4.$axios.put("/api/journal-entries/".concat(_this4.journalEntry.id), data);
+            case 2:
+              window.toast.success('Journal entry updated successfully!');
+              _this4.$router.push("/journal-entries/".concat(_this4.journalEntry.id));
+              _context4.n = 4;
+              break;
+            case 3:
+              _context4.p = 3;
+              _t3 = _context4.v;
+              console.error('Error updating journal entry:', _t3);
+              if (_t3.response && _t3.response.data && _t3.response.data.errors) {
+                _this4.errors = _t3.response.data.errors;
+              } else {
+                window.toast.error('Error updating journal entry');
+              }
+            case 4:
+              _context4.p = 4;
+              _this4.saving = false;
+              return _context4.f(4);
+            case 5:
+              return _context4.a(2);
+          }
+        }, _callee4, null, [[0, 3, 4, 5]]);
+      }))();
+    },
+    formatCurrency: function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(amount);
+    },
+    getBalanceAlertClass: function getBalanceAlertClass() {
+      return this.isBalanced ? 'alert-success' : 'alert-warning';
     }
   }
 });
-;// ./resources/js/pages/central/setup/advanced.vue?vue&type=script&lang=js
- /* harmony default export */ const setup_advancedvue_type_script_lang_js = (advancedvue_type_script_lang_js); 
+;// ./resources/js/pages/journal-entries/edit.vue?vue&type=script&lang=js
+ /* harmony default export */ const journal_entries_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/setup/advanced.vue?vue&type=style&index=0&id=4960901e&prod&lang=scss&scoped=true
-var advancedvue_type_style_index_0_id_4960901e_prod_lang_scss_scoped_true = __webpack_require__(89900);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/setup/advanced.vue?vue&type=style&index=0&id=4960901e&prod&lang=scss&scoped=true
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=style&index=0&id=a4e5b09c&prod&scoped=true&lang=css
+var editvue_type_style_index_0_id_a4e5b09c_prod_scoped_true_lang_css = __webpack_require__(67976);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=style&index=0&id=a4e5b09c&prod&scoped=true&lang=css
 
             
 
@@ -834,16 +709,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(advancedvue_type_style_index_0_id_4960901e_prod_lang_scss_scoped_true/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_a4e5b09c_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const setup_advancedvue_type_style_index_0_id_4960901e_prod_lang_scss_scoped_true = (advancedvue_type_style_index_0_id_4960901e_prod_lang_scss_scoped_true/* default */.A.locals || {});
-;// ./resources/js/pages/central/setup/advanced.vue?vue&type=style&index=0&id=4960901e&prod&lang=scss&scoped=true
+/* harmony default export */ const journal_entries_editvue_type_style_index_0_id_a4e5b09c_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_a4e5b09c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/journal-entries/edit.vue?vue&type=style&index=0&id=a4e5b09c&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/central/setup/advanced.vue
+;// ./resources/js/pages/journal-entries/edit.vue
 
 
 
@@ -853,174 +728,21 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  setup_advancedvue_type_script_lang_js,
+  journal_entries_editvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "4960901e",
+  "a4e5b09c",
   null
   
 )
 
-/* harmony default export */ const advanced = (component.exports);
+/* harmony default export */ const edit = (component.exports);
 
 /***/ }),
 
-/***/ 49741:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ SettingsSidebar)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/central/SettingsSidebar.vue?vue&type=template&id=96b9adb8
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "card settings-card no-print"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v(_vm._s(_vm.$t("Settings")))]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('ul', {
-    staticClass: "nav flex-column nav-pills m-1"
-  }, [_vm.$can('general-settings') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link thumb",
-    attrs: {
-      "to": {
-        name: 'setup.general'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-cog"
-  }), _vm._v("\n          " + _vm._s(_vm.$t('General Settings')) + "\n        ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('general-settings') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link thumb",
-    attrs: {
-      "to": {
-        name: 'setup.mailConfiguration'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-envelope"
-  }), _vm._v("\n          " + _vm._s(_vm.$t('Mail Configurations')) + "\n        ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('general-settings') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link thumb",
-    attrs: {
-      "to": {
-        name: 'setup.smsConfiguration'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sms"
-  }), _vm._v("\n          " + _vm._s(_vm.$t('SMS Configurations')) + "\n        ")])], 1) : _vm._e(), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link thumb",
-    attrs: {
-      "to": {
-        name: 'setup.centralCurrency.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-money-check-alt"
-  }), _vm._v("\n          " + _vm._s(_vm.$t("Currency Settings")) + "\n        ")])], 1), _vm._v(" "), _vm.$can('payment-settings') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link thumb",
-    attrs: {
-      "to": {
-        name: 'advanced-settings'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-wallet"
-  }), _vm._v("\n          " + _vm._s(_vm.$t('Payment Settings')) + "\n        ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('user-role') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link thumb",
-    attrs: {
-      "to": {
-        name: 'roles.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-user-lock"
-  }), _vm._v("\n          " + _vm._s(_vm.$t('Role & Permissions')) + "\n        ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('user-management') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('router-link', {
-    staticClass: "nav-link thumb",
-    attrs: {
-      "to": {
-        name: 'user.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-user-cog"
-  }), _vm._v("\n          " + _vm._s(_vm.$t('User Management')) + "\n        ")])], 1) : _vm._e()])])]);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/central/SettingsSidebar.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-/* harmony default export */ const SettingsSidebarvue_type_script_lang_js = ({
-  name: "SettingsSidebar",
-  data: function data() {
-    return {
-      developer: ""
-    };
-  },
-  // Map Getters
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("auth", ["user"])),
-  created: function created() {
-    this.developer = this.user.roles.includes("developer");
-  },
-  methods: {}
-});
-;// ./resources/js/components/central/SettingsSidebar.vue?vue&type=script&lang=js
- /* harmony default export */ const central_SettingsSidebarvue_type_script_lang_js = (SettingsSidebarvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/central/SettingsSidebar.vue
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,componentNormalizer/* default */.A)(
-  central_SettingsSidebarvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const SettingsSidebar = (component.exports);
-
-/***/ }),
-
-/***/ 89900:
+/***/ 67976:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -1032,7 +754,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".inner-card[data-v-4960901e]{box-shadow:0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2)}.inner-card .card-header[data-v-4960901e]{background-color:rgba(0,0,0,.03)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".page-header[data-v-a4e5b09c]{margin-bottom:20px}.breadcrumb[data-v-a4e5b09c]{background:none;margin:0;padding:0}.breadcrumb-item+.breadcrumb-item[data-v-a4e5b09c]:before{content:\">\"}.table th[data-v-a4e5b09c]{background-color:#f8f9fa;font-weight:600}.invalid-feedback[data-v-a4e5b09c]{display:block}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

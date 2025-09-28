@@ -185,13 +185,13 @@ export default {
 
       if (!this.form.product) {
         this.form.errors.set({
-          product: 'This product field is required',
+          product: this.$t('This product field is required'),
         })
         hasError = true
       }
       if (!this.form.paperSize) {
         this.form.errors.set({
-          paperSize: 'This paper size field is required',
+          paperSize: this.$t('This paper size field is required'),
         })
         hasError = true
       }

@@ -571,13 +571,13 @@ export default {
         borderColor: "#33A0D9",
         borderWidth: 2,
         textStyle: {
-          color: "#1b3c71",
+          color: "#33a0d9",
           fontSize: 13,
           fontWeight: "600",
         },
         formatter: function (params) {
           return `<div style="padding: 8px;">
-            <div style="font-weight: 700; color: #1b3c71; margin-bottom: 4px;">${params.name}</div>
+            <div style="font-weight: 700; color: #33a0d9; margin-bottom: 4px;">${params.name}</div>
             <div style="color: #33A0D9; font-size: 16px; font-weight: 600;">${params.value}</div>
             <div style="color: #666; font-size: 12px;">${params.percent}% of total</div>
           </div>`;
@@ -591,7 +591,7 @@ export default {
         top: "center",
         itemGap: 16,
         textStyle: {
-          color: "#1b3c71",
+          color: "#33a0d9",
           fontSize: 12,
           fontWeight: "600",
           lineHeight: 18,
@@ -634,7 +634,7 @@ export default {
               show: true,
               fontSize: 14,
               fontWeight: "700",
-              color: "#1b3c71",
+              color: "#33a0d9",
               formatter: "{b}\n{d}%",
             },
           },
@@ -648,7 +648,7 @@ export default {
       color: [
         "#33A0D9", // Primary blue
         "#2AB930", // Green
-        "#1B3C71", // Dark blue
+        "#33a0d9", // Dark blue
         "#449EAE", // Teal
         "#377578", // Dark teal
         "#EBF6FC", // Light blue
@@ -669,12 +669,12 @@ export default {
         borderColor: "#33A0D9",
         borderWidth: 2,
         textStyle: {
-          color: "#1b3c71",
+          color: "#33a0d9",
           fontSize: 13,
           fontWeight: "600",
         },
         formatter: function (params) {
-          let result = `<div style="padding: 12px; font-weight: 600; color: #1b3c71; margin-bottom: 8px;">${params[0].axisValue}</div>`;
+          let result = `<div style="padding: 12px; font-weight: 600; color: #33a0d9; margin-bottom: 8px;">${params[0].axisValue}</div>`;
           params.forEach(function (item) {
             const color = item.color;
             const value = item.value;
@@ -682,7 +682,7 @@ export default {
             result += `<div style="display: flex; align-items: center; margin-bottom: 6px;">
               <span style="display: inline-block; width: 12px; height: 12px; background: ${color}; border-radius: 50%; margin-right: 8px;"></span>
               <span style="color: #64748b; font-size: 12px; margin-right: 8px;">${name}:</span>
-              <span style="color: #1b3c71; font-weight: 700; font-size: 14px;">${value}</span>
+              <span style="color: #33a0d9; font-weight: 700; font-size: 14px;">${value}</span>
             </div>`;
           });
           return result;
@@ -696,7 +696,7 @@ export default {
         left: "center",
         itemGap: 30,
         textStyle: {
-          color: "#1b3c71",
+          color: "#33a0d9",
           fontSize: 13,
           fontWeight: "600",
         },
@@ -775,7 +775,7 @@ export default {
             shadowColor: "rgba(27, 60, 113, 0.3)",
           },
           itemStyle: {
-            color: "#1B3C71",
+            color: "#33a0d9",
             borderColor: "#ffffff",
             borderWidth: 3,
             shadowBlur: 4,
@@ -843,7 +843,7 @@ export default {
           },
         },
       ],
-      color: ["#1B3C71", "#33A0D9"],
+      color: ["#33a0d9", "#33A0D9"],
       animation: true,
       animationDuration: 1000,
       animationEasing: "cubicOut",
@@ -859,12 +859,12 @@ export default {
         borderColor: "#33A0D9",
         borderWidth: 2,
         textStyle: {
-          color: "#1b3c71",
+          color: "#33a0d9",
           fontSize: 13,
           fontWeight: "600",
         },
         formatter: function (params) {
-          let result = `<div style="padding: 12px; font-weight: 600; color: #1b3c71; margin-bottom: 8px;">${params[0].axisValue}</div>`;
+          let result = `<div style="padding: 12px; font-weight: 600; color: #33a0d9; margin-bottom: 8px;">${params[0].axisValue}</div>`;
           params.forEach(function (item) {
             const color = item.color;
             const value = item.value;
@@ -876,7 +876,7 @@ export default {
             result += `<div style="display: flex; align-items: center; margin-bottom: 6px;">
               <span style="display: inline-block; width: 12px; height: 12px; background: ${color}; border-radius: 50%; margin-right: 8px;"></span>
               <span style="color: #64748b; font-size: 12px; margin-right: 8px;">${name}:</span>
-              <span style="color: #1b3c71; font-weight: 700; font-size: 14px;">${value}</span>
+              <span style="color: #33a0d9; font-weight: 700; font-size: 14px;">${value}</span>
               <span style="color: #33A0D9; font-size: 11px; margin-left: 8px;">(${percentage}%)</span>
             </div>`;
           });
@@ -891,7 +891,7 @@ export default {
         left: "center",
         itemGap: 30,
         textStyle: {
-          color: "#1b3c71",
+          color: "#33a0d9",
           fontSize: 13,
           fontWeight: "600",
         },
@@ -970,7 +970,7 @@ export default {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: "#1B3C71" },
+                { offset: 0, color: "#33a0d9" },
                 { offset: 1, color: "#2a4a6b" },
               ],
             },
@@ -1022,7 +1022,7 @@ export default {
           },
         },
       ],
-      color: ["#1B3C71", "#33A0D9"],
+      color: ["#33a0d9", "#33A0D9"],
       animation: true,
       animationDuration: 1000,
       animationEasing: "cubicOut",
@@ -1637,7 +1637,7 @@ export default {
 
 .small-box.bg-brand-light-blue {
   background: linear-gradient(135deg, #ebf6fc 0%, #d6edf7 100%);
-  color: #1b3c71;
+  color: #33a0d9;
   border: 1px solid rgba(235, 246, 252, 0.5);
 }
 
@@ -1647,7 +1647,7 @@ export default {
 
 .small-box.bg-brand-light-blue .inner h3,
 .small-box.bg-brand-light-blue .inner p {
-  color: #1b3c71;
+  color: #33a0d9;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
@@ -1679,7 +1679,7 @@ export default {
 
 .small-box.bg-brand-light-green {
   background: linear-gradient(135deg, #f6fef4 0%, #e8f5e8 100%);
-  color: #1b3c71;
+  color: #33a0d9;
   border: 1px solid rgba(246, 254, 244, 0.5);
 }
 
@@ -1689,7 +1689,7 @@ export default {
 
 .small-box.bg-brand-light-green .inner h3,
 .small-box.bg-brand-light-green .inner p {
-  color: #1b3c71;
+  color: #33a0d9;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
@@ -1699,7 +1699,7 @@ export default {
 }
 
 .small-box.bg-brand-dark-blue {
-  background: linear-gradient(135deg, #1b3c71 0%, #152a4a 100%);
+  background: linear-gradient(135deg, #33a0d9 0%, #152a4a 100%);
   color: white;
   border: 1px solid rgba(27, 60, 113, 0.3);
 }

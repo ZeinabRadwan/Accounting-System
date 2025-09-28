@@ -343,7 +343,7 @@ module.exports = NATIVE_SYMBOL &&
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var call = __webpack_require__(69565);
 var aCallable = __webpack_require__(79306);
 var newPromiseCapabilityModule = __webpack_require__(36043);
@@ -447,7 +447,7 @@ module.exports = {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var IS_PURE = __webpack_require__(96395);
 var IS_NODE = __webpack_require__(16193);
 var globalThis = __webpack_require__(44576);
@@ -846,7 +846,7 @@ module.exports = {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var uncurryThis = __webpack_require__(27476);
 var getOwnPropertyDescriptor = (__webpack_require__(77347).f);
 var toLength = __webpack_require__(18014);
@@ -973,7 +973,7 @@ module.exports = ENVIRONMENT === 'NODE';
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var call = __webpack_require__(69565);
 var aCallable = __webpack_require__(79306);
 var newPromiseCapabilityModule = __webpack_require__(36043);
@@ -1209,7 +1209,7 @@ module.exports = getBuiltIn('document', 'documentElement');
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var uncurryThis = __webpack_require__(79504);
 var notARegExp = __webpack_require__(60511);
 var requireObjectCoercible = __webpack_require__(67750);
@@ -1335,6 +1335,69 @@ if (!IS_PURE && DESCRIPTORS && values.name !== 'values') try {
 
 /***/ }),
 
+/***/ 24137:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var globalThis = __webpack_require__(44576);
+var getOwnPropertyDescriptor = (__webpack_require__(77347).f);
+var createNonEnumerableProperty = __webpack_require__(66699);
+var defineBuiltIn = __webpack_require__(36840);
+var defineGlobalProperty = __webpack_require__(39433);
+var copyConstructorProperties = __webpack_require__(77740);
+var isForced = __webpack_require__(92796);
+
+/*
+  options.target         - name of the target object
+  options.global         - target is the global object
+  options.stat           - export as static methods of target
+  options.proto          - export as prototype methods of target
+  options.real           - real prototype method for the `pure` version
+  options.forced         - export even if the native feature is available
+  options.bind           - bind methods to the target, required for the `pure` version
+  options.wrap           - wrap constructors to preventing global pollution, required for the `pure` version
+  options.unsafe         - use the simple assignment of property instead of delete + defineProperty
+  options.sham           - add a flag to not completely full polyfills
+  options.enumerable     - export as enumerable property
+  options.dontCallGetSet - prevent calling a getter on target
+  options.name           - the .name of the function if it does not match the key
+*/
+module.exports = function (options, source) {
+  var TARGET = options.target;
+  var GLOBAL = options.global;
+  var STATIC = options.stat;
+  var FORCED, target, key, targetProperty, sourceProperty, descriptor;
+  if (GLOBAL) {
+    target = globalThis;
+  } else if (STATIC) {
+    target = globalThis[TARGET] || defineGlobalProperty(TARGET, {});
+  } else {
+    target = globalThis[TARGET] && globalThis[TARGET].prototype;
+  }
+  if (target) for (key in source) {
+    sourceProperty = source[key];
+    if (options.dontCallGetSet) {
+      descriptor = getOwnPropertyDescriptor(target, key);
+      targetProperty = descriptor && descriptor.value;
+    } else targetProperty = target[key];
+    FORCED = isForced(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
+    // contained in target
+    if (!FORCED && targetProperty !== undefined) {
+      if (typeof sourceProperty == typeof targetProperty) continue;
+      copyConstructorProperties(sourceProperty, targetProperty);
+    }
+    // add a flag to not completely full polyfills
+    if (options.sham || (targetProperty && targetProperty.sham)) {
+      createNonEnumerableProperty(sourceProperty, 'sham', true);
+    }
+    defineBuiltIn(target, key, sourceProperty, options);
+  }
+};
+
+
+/***/ }),
+
 /***/ 24913:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -1393,7 +1456,7 @@ exports.f = DESCRIPTORS ? V8_PROTOTYPE_DEFINE_BUG ? function defineProperty(O, P
 "use strict";
 
 /* eslint-disable es/no-array-prototype-indexof -- required for testing */
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var uncurryThis = __webpack_require__(27476);
 var $indexOf = (__webpack_require__(19617).indexOf);
 var arrayMethodIsStrict = __webpack_require__(34598);
@@ -1649,7 +1712,7 @@ module.exports = function (fn) {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var exec = __webpack_require__(57323);
 
 // `RegExp.prototype.exec` method
@@ -2212,7 +2275,7 @@ module.exports = version;
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var getBuiltIn = __webpack_require__(97751);
 var IS_PURE = __webpack_require__(96395);
 var NativePromiseConstructor = __webpack_require__(80550);
@@ -2279,7 +2342,7 @@ module.exports = function (METHOD_NAME) {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var $trim = (__webpack_require__(43802).trim);
 var forcedStringTrimMethod = __webpack_require__(60706);
 
@@ -2418,69 +2481,6 @@ module.exports =
   check(typeof this == 'object' && this) ||
   // eslint-disable-next-line no-new-func -- fallback
   (function () { return this; })() || Function('return this')();
-
-
-/***/ }),
-
-/***/ 46518:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var globalThis = __webpack_require__(44576);
-var getOwnPropertyDescriptor = (__webpack_require__(77347).f);
-var createNonEnumerableProperty = __webpack_require__(66699);
-var defineBuiltIn = __webpack_require__(36840);
-var defineGlobalProperty = __webpack_require__(39433);
-var copyConstructorProperties = __webpack_require__(77740);
-var isForced = __webpack_require__(92796);
-
-/*
-  options.target         - name of the target object
-  options.global         - target is the global object
-  options.stat           - export as static methods of target
-  options.proto          - export as prototype methods of target
-  options.real           - real prototype method for the `pure` version
-  options.forced         - export even if the native feature is available
-  options.bind           - bind methods to the target, required for the `pure` version
-  options.wrap           - wrap constructors to preventing global pollution, required for the `pure` version
-  options.unsafe         - use the simple assignment of property instead of delete + defineProperty
-  options.sham           - add a flag to not completely full polyfills
-  options.enumerable     - export as enumerable property
-  options.dontCallGetSet - prevent calling a getter on target
-  options.name           - the .name of the function if it does not match the key
-*/
-module.exports = function (options, source) {
-  var TARGET = options.target;
-  var GLOBAL = options.global;
-  var STATIC = options.stat;
-  var FORCED, target, key, targetProperty, sourceProperty, descriptor;
-  if (GLOBAL) {
-    target = globalThis;
-  } else if (STATIC) {
-    target = globalThis[TARGET] || defineGlobalProperty(TARGET, {});
-  } else {
-    target = globalThis[TARGET] && globalThis[TARGET].prototype;
-  }
-  if (target) for (key in source) {
-    sourceProperty = source[key];
-    if (options.dontCallGetSet) {
-      descriptor = getOwnPropertyDescriptor(target, key);
-      targetProperty = descriptor && descriptor.value;
-    } else targetProperty = target[key];
-    FORCED = isForced(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
-    // contained in target
-    if (!FORCED && targetProperty !== undefined) {
-      if (typeof sourceProperty == typeof targetProperty) continue;
-      copyConstructorProperties(sourceProperty, targetProperty);
-    }
-    // add a flag to not completely full polyfills
-    if (options.sham || (targetProperty && targetProperty.sham)) {
-      createNonEnumerableProperty(sourceProperty, 'sham', true);
-    }
-    defineBuiltIn(target, key, sourceProperty, options);
-  }
-};
 
 
 /***/ }),
@@ -2690,7 +2690,7 @@ module.exports = function (it) {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var call = __webpack_require__(69565);
 var IS_PURE = __webpack_require__(96395);
 var FunctionName = __webpack_require__(10350);
@@ -2800,7 +2800,7 @@ module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, I
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var newPromiseCapabilityModule = __webpack_require__(36043);
 var FORCED_PROMISE_CONSTRUCTOR = (__webpack_require__(10916).CONSTRUCTOR);
 
@@ -3923,7 +3923,7 @@ module.exports = function (iterable, unboundFunction, options) {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var $reduce = (__webpack_require__(80926).left);
 var arrayMethodIsStrict = __webpack_require__(34598);
 var CHROME_VERSION = __webpack_require__(39519);
@@ -4288,7 +4288,7 @@ module.exports = {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var IS_PURE = __webpack_require__(96395);
 var FORCED_PROMISE_CONSTRUCTOR = (__webpack_require__(10916).CONSTRUCTOR);
 var NativePromiseConstructor = __webpack_require__(80550);
@@ -12806,7 +12806,7 @@ module.exports = function (C, x) {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var uncurryThis = __webpack_require__(79504);
 var isArray = __webpack_require__(34376);
 
@@ -12911,7 +12911,7 @@ module.exports = function (namespace, method) {
 
 "use strict";
 
-var $ = __webpack_require__(46518);
+var $ = __webpack_require__(24137);
 var uncurryThis = __webpack_require__(27476);
 var getOwnPropertyDescriptor = (__webpack_require__(77347).f);
 var toLength = __webpack_require__(18014);

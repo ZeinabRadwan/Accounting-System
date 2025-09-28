@@ -440,9 +440,9 @@ export default {
 }
 
 .pos-btn {
-  background: #1B3C71;
+  background: #33a0d9;
   color: #ffffff;
-  border: 2px solid #1B3C71;
+  border: 2px solid #33a0d9;
   border-radius: 8px;
   padding: 8px 16px;
   font-weight: 500;
@@ -461,7 +461,7 @@ export default {
 .btn-pos {
   background: transparent;
   color: #111;
-  border: 2px solid #1B3C71;
+  border: 2px solid #33a0d9;
   border-radius: 34px;
   padding: 4px 15px;
 }

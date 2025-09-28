@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-xl-8 col-8 float-right text-right">
                             <div class="btn-group c-w-100">
-                                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success refresh-btn">
+                                <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success refresh-btn">
                                     <i class="fas fa-sync"></i>
                                 </a>
                                 <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn">
@@ -140,20 +140,16 @@
 
                                     <div class="box-body">
                                         <h3 v-if="reportInfo.grossProfit >= 0" class="text-success">
-                                            {{ $t("Gross Profit") }}: {{ reportInfo.grossProfit |
-            withAbsoluteCurrency }}
+                                            {{ $t("Gross Profit") }}: {{ reportInfo.grossProfit }}<span class="saudi-riyal">ê</span>
                                         </h3>
                                         <h3 v-else-if="reportInfo.grossProfit < 0" class="text-danger">
-                                            {{ $t("Gross Loss") }}: {{ reportInfo.grossProfit |
-            withAbsoluteCurrency }}
+                                            {{ $t("Gross Loss") }}: {{ reportInfo.grossProfit }}<span class="saudi-riyal">ê</span>
                                         </h3>
                                         <h3 v-if="reportInfo.netProfit >= 0" class="text-success">
-                                            {{ $t("Net Profit") }}: {{ reportInfo.netProfit |
-            withAbsoluteCurrency }}
+                                            {{ $t("Net Profit") }}: {{ reportInfo.netProfit  }}<span class="saudi-riyal">ê</span>
                                         </h3>
                                         <h3 v-else-if="reportInfo.netProfit < 0" class="text-danger">
-                                            {{ $t("Net Loss") }}: {{ reportInfo.netProfit | withAbsoluteCurrency
-                                            }}
+                                            {{ $t("Net Loss") }}: {{ reportInfo.netProfit }}<span class="saudi-riyal">ê</span>
                                         </h3>
                                     </div>
                                     <!-- /.box-body -->

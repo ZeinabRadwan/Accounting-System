@@ -247,6 +247,7 @@
 <script>
 import Form from "vform";
 import { mapGetters } from "vuex";
+import Swal from "sweetalert2";
 import "vue-mj-daterangepicker/dist/vue-mj-daterangepicker.css";
 
 export default {
@@ -255,21 +256,13 @@ export default {
     return { title: this.$t("Item Report") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Item Report",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Reports",
-        url: "",
-      },
-      {
-        name: "Item Report",
-        url: "",
-      },
-    ],
+    toast: Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true
+    }),
     form: new Form({
       fromDate: String(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)),
       toDate: String(new Date()),
@@ -283,6 +276,25 @@ export default {
 
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+    breadcrumbs() {
+      return [
+        {
+          name: this.$t("Dashboard"),
+          url: "home",
+        },
+        {
+          name: this.$t("Reports"),
+          url: "",
+        },
+        {
+          name: this.$t("Item Report"),
+          url: "",
+        },
+      ];
+    },
+    breadcrumbsCurrent() {
+      return this.$t("Item Report");
+    },
     exportExcelUrl() {
       const params = new URLSearchParams();
       if (this.form.productName && this.form.productName.slug) {
@@ -351,8 +363,36 @@ export default {
           this.allData = response.data;
           this.loading = false;
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("There was something wrong.") });
+        .catch((error) => {
+          this.loading = false;
+          
+          // Handle validation errors
+          if (error.response?.status === 422 && error.response?.data?.errors) {
+            // Translate validation errors
+            const translatedErrors = {};
+            Object.keys(error.response.data.errors).forEach(field => {
+              translatedErrors[field] = error.response.data.errors[field].map(message => {
+                // Try to translate the message
+                const translationKey = message;
+                return this.$t(translationKey) !== translationKey ? this.$t(translationKey) : message;
+              });
+            });
+            
+            // Set the translated errors back to the form
+            this.form.errors.set(translatedErrors);
+            
+            // Show a general validation error message
+            this.toast.fire({ 
+              type: "error", 
+              title: this.$t("Please check your input and try again.") 
+            });
+          } else {
+            // Handle other errors
+            this.toast.fire({ 
+              type: "error", 
+              title: this.$t("There was something wrong.") 
+            });
+          }
         });
     },
 
