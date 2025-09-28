@@ -70,17 +70,57 @@ class TenantDomainFindController extends Controller
             'email=' . urlencode($encryptedEmail) .
             '&password=' . urlencode($encryptedPassword);
 
-
-        $token = (string) $user->createToken(Str::random(10))->plainTextToken;
-
-
-
-        return $this->responseWithSuccess('Login successful', [
+        return $this->responseWithSuccess('Domain found successfully', [
             'domain' => $tenantDomain,
             'login_url' => $loginUrl,
+            'tenant_id' => $tenant->id,
+            'tenant_name' => $tenant->name,
+        ]);
+    }
+
+    /**
+     * Login user in tenant context via AJAX
+     */
+    public function tenantLogin(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:6'],
+            'tenant_id' => ['required', 'exists:tenants,id'],
+        ]);
+
+        // Find tenant
+        $tenant = Tenant::find($request->tenant_id);
+        if (!$tenant) {
+            return $this->responseWithError('Tenant not found.', [], 404);
+        }
+
+        // Switch to tenant context
+        tenancy()->initialize($tenant);
+
+        // Find user in tenant database
+        $user = User::where('email', $request->input('email'))->first();
+
+        if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            return $this->responseWithError('The provided credentials are incorrect.', [], 401);
+        }
+
+        // Set user locale
+        app()->setLocale($user->locale);
+
+        // Create token
+        $token = (string) $user->createToken(Str::random(10))->plainTextToken;
+
+        return $this->responseWithSuccess('Login successful', [
             'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => null,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'locale' => $user->locale,
+            ],
         ]);
     }
 }

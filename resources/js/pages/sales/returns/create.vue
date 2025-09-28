@@ -304,7 +304,7 @@ import { mapGetters } from 'vuex'
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: this.isSaudiArabia ? this.$t('Create Invoice Return KSA') : this.$t('Create Invoice Return') }
+    return { title: this.isSaudiArabia ? this.$t('Create Credit Note') : this.$t('Create Invoice Return') }
   },
   data: () => ({
     breadcrumbsCurrent: '',
