@@ -192,7 +192,7 @@ export default {
         text: this.$t("Do you really want to delete this Domain Request?"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {

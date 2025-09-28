@@ -451,7 +451,6 @@
                       <tr>
                         <th>{{ $t("Product Discount") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ totalProductDiscount  }} 
                         </td>
                       </tr>
@@ -464,7 +463,6 @@
                       <tr v-if="isSaudiArabia && totalProductVat > 0">
                         <th>{{ $t("Product VAT") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ totalProductVat  }} 
                         </td>
                       </tr>
@@ -488,14 +486,12 @@
                           :
                         </th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ globalDiscountAmount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="!isSaudiArabia && allData.transport > 0">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ allData.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -529,7 +525,6 @@
                           </span>
                         </th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ allData.tax  }}
                         </td>
                       </tr>
@@ -543,7 +538,6 @@
                       <tr v-if="allData.invoicePayments">
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ allData.totalPaid  }}
                         </td>
                       </tr>
@@ -580,7 +574,7 @@
                 <a
                   @click="refreshTable()"
                   href="#"
-                  v-tooltip="'Refresh'"
+                  v-tooltip="$t('Refresh')"
                   class="btn btn-success"
                 >
                   <i class="fas fa-sync"></i>

@@ -412,7 +412,6 @@
                       <tr>
                         <th>{{ $t("Cost of Returned Products") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{
                             calculateTotalReturnedProductCost()
                               | withCurrency
@@ -422,7 +421,6 @@
                       <tr>
                         <th>{{ $t("Return Discount") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{
                             calculateTotalReturnDiscount() | withCurrency
                           }}
@@ -431,14 +429,12 @@
                       <tr>
                         <th>{{ $t("Return VAT") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ calculateTotalReturnTax()  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Remaining Discount") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{
                             calculateTotalRemainingDiscount() | withCurrency
                           }}
@@ -447,14 +443,12 @@
                       <tr>
                         <th>{{ $t("Remaining Tax") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ calculateTotalRemainingTax()  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ allData.invoice.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -468,7 +462,6 @@
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ allData.invoice.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -526,7 +519,7 @@
                 <a
                   @click="refreshTable()"
                   href="#"
-                  v-tooltip="'Refresh'"
+                  v-tooltip="$t('Refresh')"
                   class="btn btn-success"
                 >
                   <i class="fas fa-sync"></i>
@@ -1379,17 +1372,6 @@ export default {
 }
 
 /* Calculation Summary Styles */
-.minus-sign {
-  color: #dc3545;
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-.plus-sign {
-  color: #28a745;
-  font-weight: bold;
-  margin-right: 5px;
-}
 
 .equal-sign {
   color: #007bff;

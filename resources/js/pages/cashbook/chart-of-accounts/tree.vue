@@ -517,7 +517,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         if (result.value) {
           this.$store

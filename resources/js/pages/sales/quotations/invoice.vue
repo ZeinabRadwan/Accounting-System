@@ -208,21 +208,21 @@
               </div>
 
               <div class="row">
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
+                <div v-if="taxes" class="form-group col-md-4">
                   <label for="orderTax">{{ $t('Invoice Tax') }}
-                    <span class="required">*</span></label>
+                    <span v-if="!isSaudiArabia" class="required">*</span></label>
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax"
                     :placeholder="$t('Select a tax type')" @input="calculateSum" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
+                <div v-if="taxes" class="form-group col-md-4">
                   <label for="totalTax">{{ $t('Total Tax') }}</label>
                   <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group" :class="isSaudiArabia ? 'col-md-12' : 'col-md-4'">
+                <div class="form-group col-md-4">
                   <label for="netTotal">{{ $t('Net Total') }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
@@ -570,6 +570,9 @@ export default {
       }
       this.form.selectedProducts = this.assignProducts(data.data.products)
       
+      // Set default tax if needed (for Saudi Arabia or if quotation has no tax)
+      this.setDefaultTax()
+      
       // Recalculate totals after loading data
       this.calculateSum()
       
@@ -605,6 +608,20 @@ export default {
         window.location.origin + '/api/all-vat-rates'
       )
       this.taxes = data.data
+      
+      // Set default tax for Saudi Arabia if no tax is selected
+      this.setDefaultTax()
+    },
+
+    // set default tax for Saudi Arabia or when no tax is assigned
+    setDefaultTax() {
+      if (this.taxes && this.taxes.length > 0 && !this.form.orderTax) {
+        // Find a 0% tax rate or the first available tax
+        const zeroTax = this.taxes.find(tax => tax.rate === 0)
+        const defaultTax = zeroTax || this.taxes[0]
+        this.form.orderTax = defaultTax
+        console.log('Default tax set:', defaultTax)
+      }
     },
 
     // get accounts

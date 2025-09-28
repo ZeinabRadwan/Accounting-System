@@ -19,7 +19,7 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                   <i class="fas fa-sync"></i>
@@ -355,7 +355,7 @@ export default {
         text: this.$t("All products for this category will be deleted!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {

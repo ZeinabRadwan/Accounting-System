@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'balances.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveAdjustment" title="Save Temporarily">
+                <button type="button" class="btn btn-success" @click="saveAdjustment" :title="$t('Save Temporarily')">
                   <i class="fas fa-save" />
                 </button>
               </div>

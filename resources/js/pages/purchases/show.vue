@@ -361,7 +361,6 @@
                       <tr v-if="allData.purchaseReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{
                             allData.purchaseReturn.totalReturn | withCurrency
                           }}
@@ -380,28 +379,24 @@
                       <tr class="text-muted small">
                         <th>{{ $t("Product Discounts") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ allData.totalDiscount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ allData.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Tax") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ allData.tax  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ allData.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>

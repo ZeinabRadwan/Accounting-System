@@ -31,7 +31,7 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
@@ -162,7 +162,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <span class="action-menu-title">Actions</span>
+                            <span class="action-menu-title">{{ $t('Actions') }}</span>
                             <button type="button" class="action-menu-close" @click="toggleAction(i)">
                               <i class="fas fa-times"></i>
                             </button>
@@ -460,10 +460,10 @@ export default {
     async deleteData(slug) {
       Swal.fire({
         title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this!"),
+        text: this.$t("You will not be able to return to this! This will delete the asset permanently."),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {

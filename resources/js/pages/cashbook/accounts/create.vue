@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'accounts.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="submit" class="btn btn-success" title="Save Temporarily" form="accountCreateForm">
+                <button type="submit" class="btn btn-success" :title="$t('Save Temporarily')" form="accountCreateForm">
                   <i class="fas fa-save" />
                 </button>
               </div>

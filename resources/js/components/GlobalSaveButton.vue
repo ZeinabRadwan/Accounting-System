@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <button
     v-if="isVisible"
     class="btn btn-success global-save-btn"
@@ -101,5 +101,3 @@ export default {
   }
 }
 </style>
-
- -->

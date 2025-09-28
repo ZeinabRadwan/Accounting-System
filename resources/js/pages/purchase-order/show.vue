@@ -265,21 +265,18 @@
                       <tr class="text-muted small">
                         <th>{{ $t("Product Discounts") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ (allData.discount || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ (allData.transport || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="text-muted small">
                         <th>{{ $t("Tax") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ (allData.total_tax || allData.calculated_tax || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -309,7 +306,7 @@
                 <a
                   @click="refreshTable()"
                   href="#"
-                  v-tooltip="'Refresh'"
+                  v-tooltip="$t('Refresh')"
                   class="btn btn-success"
                 >
                   <i class="fas fa-sync"></i>

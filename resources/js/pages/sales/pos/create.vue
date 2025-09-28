@@ -14,7 +14,7 @@
                 type="button"
                 class="btn btn-success"
                 @click="saveTemporary"
-                title="Save Temporarily"
+                :title="$t('Save Temporarily')"
               >
                 <i class="fas fa-save" />
               </button>

@@ -113,7 +113,7 @@
                   <a
                     @click.prevent="refreshTable"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>

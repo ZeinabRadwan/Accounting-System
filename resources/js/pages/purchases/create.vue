@@ -493,6 +493,7 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ProductCreateModal from '~/components/ProductCreateModal'
 import SupplierCreateModal from '~/components/SupplierCreateModal'
+import RTLMixin from '~/mixins/RTLMixin'
 
 import { ToWords } from 'to-words';
 
@@ -501,6 +502,7 @@ export default {
   metaInfo() {
     return { title: this.$t("Create Purchase") };
   },
+  mixins: [RTLMixin],
   components: {
     ToggleButton,
     ProductCreateModal,
@@ -1023,11 +1025,192 @@ export default {
       return null;
     },
 
-    // return number to word
+    // return number to word with language support
     toWord(){
+      const amount = this.totalUnitPrice || 0;
+      
+      // Handle edge cases
+      if (isNaN(amount) || amount < 0) {
+        return this.isRTL && this.currentLocale === 'ar' ? 'مبلغ غير صحيح' : 'Invalid Amount';
+      }
+      
+      if (amount === 0) {
+        return this.isRTL && this.currentLocale === 'ar' ? 'صفر ريال فقط' : 'Zero Only';
+      }
+      
+      if (this.isRTL && this.currentLocale === 'ar') {
+        return this.convertToArabicWords(amount);
+      } else {
+        return this.convertToEnglishWords(amount);
+      }
+    },
+
+    // Convert number to Arabic words
+    convertToArabicWords(amount) {
+      const currencyInfo = this.getCurrencyInfo();
+      if (amount === 0) return `صفر ${currencyInfo.main} فقط`;
+      
+      const integerPart = Math.floor(amount);
+      const decimalPart = Math.round((amount - integerPart) * 100);
+      
+      let result = '';
+      
+      if (integerPart > 0) {
+        const arabicNumber = this.convertIntegerToArabic(integerPart);
+        result += arabicNumber + ' ' + currencyInfo.main;
+        
+        // Add proper pluralization for main currency
+        if (integerPart === 1) {
+          // Keep singular form
+        } else if (integerPart === 2) {
+          result = result.replace(currencyInfo.main, currencyInfo.main + 'ان');
+        } else if (integerPart >= 3 && integerPart <= 10) {
+          result = result.replace(currencyInfo.main, currencyInfo.main + 'ات');
+        } else {
+          // Keep plural form for larger numbers
+        }
+      }
+      
+      if (decimalPart > 0) {
+        if (result) result += ' و ';
+        const arabicDecimal = this.convertIntegerToArabic(decimalPart);
+        result += arabicDecimal + ' ' + currencyInfo.sub;
+        
+        // Add proper pluralization for sub currency
+        if (decimalPart === 1) {
+          // Keep singular form
+        } else if (decimalPart === 2) {
+          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ان');
+        } else if (decimalPart >= 3 && decimalPart <= 10) {
+          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ات');
+        } else {
+          // Keep plural form for larger numbers
+        }
+      }
+      
+      return result + ' فقط';
+    },
+
+    // Get currency information based on locale and app settings
+    getCurrencyInfo() {
+      const currency = this.appInfo?.currency || 'SAR';
+      const isArabic = this.isRTL && this.currentLocale === 'ar';
+      
+      const currencyMap = {
+        'SAR': {
+          en: { main: 'Riyal', sub: 'Halala', symbol: 'ê' },
+          ar: { main: 'ريال', sub: 'هللة', symbol: 'ê' }
+        },
+        'USD': {
+          en: { main: 'Dollar', sub: 'Cent', symbol: '$' },
+          ar: { main: 'دولار', sub: 'سنت', symbol: '$' }
+        },
+        'EUR': {
+          en: { main: 'Euro', sub: 'Cent', symbol: '€' },
+          ar: { main: 'يورو', sub: 'سنت', symbol: '€' }
+        },
+        'EGP': {
+          en: { main: 'Pound', sub: 'Piastre', symbol: '£' },
+          ar: { main: 'جنيه', sub: 'قرش', symbol: '£' }
+        }
+      };
+      
+      return currencyMap[currency]?.[isArabic ? 'ar' : 'en'] || currencyMap['SAR'][isArabic ? 'ar' : 'en'];
+    },
+
+    // Convert number to English words
+    convertToEnglishWords(amount) {
+      const currencyInfo = this.getCurrencyInfo();
       const toWords = new ToWords();
-      let words = toWords.convert(this.totalUnitPrice);
-      return words + ' Only';
+      let words = toWords.convert(amount);
+      
+      // Add currency information
+      const integerPart = Math.floor(amount);
+      const decimalPart = Math.round((amount - integerPart) * 100);
+      
+      let result = words;
+      
+      if (integerPart > 0) {
+        result += ' ' + currencyInfo.main;
+        if (integerPart !== 1) result += 's';
+      }
+      
+      if (decimalPart > 0) {
+        if (result) result += ' and ';
+        result += this.convertIntegerToEnglish(decimalPart) + ' ' + currencyInfo.sub;
+        if (decimalPart !== 1) result += 's';
+      }
+      
+      return result + ' Only';
+    },
+
+    // Convert integer to English words (for decimal parts)
+    convertIntegerToEnglish(num) {
+      if (num === 0) return 'zero';
+      
+      const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+      const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+      const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+      
+      if (num < 10) return ones[num];
+      if (num < 20) return teens[num - 10];
+      if (num < 100) {
+        const ten = Math.floor(num / 10);
+        const one = num % 10;
+        if (one === 0) return tens[ten];
+        return tens[ten] + '-' + ones[one];
+      }
+      
+      return 'number';
+    },
+
+    // Convert integer to Arabic words
+    convertIntegerToArabic(num) {
+      if (num === 0) return 'صفر';
+      
+      const ones = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
+      const tens = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
+      const teens = ['عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
+      const hundreds = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
+      
+      if (num < 10) return ones[num];
+      if (num < 20) return teens[num - 10];
+      if (num < 100) {
+        const ten = Math.floor(num / 10);
+        const one = num % 10;
+        if (one === 0) return tens[ten];
+        return ones[one] + ' و ' + tens[ten];
+      }
+      if (num < 1000) {
+        const hundred = Math.floor(num / 100);
+        const remainder = num % 100;
+        if (remainder === 0) return hundreds[hundred];
+        return hundreds[hundred] + ' و ' + this.convertIntegerToArabic(remainder);
+      }
+      if (num < 1000000) {
+        const thousand = Math.floor(num / 1000);
+        const remainder = num % 1000;
+        if (remainder === 0) {
+          if (thousand === 1) return 'ألف';
+          if (thousand === 2) return 'ألفان';
+          if (thousand >= 3 && thousand <= 10) return this.convertIntegerToArabic(thousand) + ' آلاف';
+          return this.convertIntegerToArabic(thousand) + ' ألف';
+        }
+        return this.convertIntegerToArabic(thousand) + ' ألف و ' + this.convertIntegerToArabic(remainder);
+      }
+      if (num < 1000000000) {
+        const million = Math.floor(num / 1000000);
+        const remainder = num % 1000000;
+        if (remainder === 0) {
+          if (million === 1) return 'مليون';
+          if (million === 2) return 'مليونان';
+          if (million >= 3 && million <= 10) return this.convertIntegerToArabic(million) + ' ملايين';
+          return this.convertIntegerToArabic(million) + ' مليون';
+        }
+        return this.convertIntegerToArabic(million) + ' مليون و ' + this.convertIntegerToArabic(remainder);
+      }
+      
+      return 'رقم كبير جداً';
     },
     
     // remove item from array

@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-xl-8 col-8 float-right text-right">
                             <div class="btn-group c-w-100">
-                                <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success refresh-btn">
+                                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success refresh-btn">
                                     <i class="fas fa-sync"></i>
                                 </a>
                                 <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn">

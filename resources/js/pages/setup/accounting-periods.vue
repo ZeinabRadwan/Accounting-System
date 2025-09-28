@@ -78,7 +78,7 @@
                                                 </button>
                                                 <div class="action-menu" v-if="openActionIndex === period.id">
                                                     <div class="action-menu-header">
-                                                        <span class="action-menu-title">Actions</span>
+                                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
                                                         <button type="button" class="action-menu-close" @click="toggleAction(period.id)">
                                                             <i class="fas fa-times"></i>
                                                         </button>

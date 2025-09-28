@@ -252,7 +252,6 @@
                           >:
                         </th>
                         <td class="no-currency">
-                          <span class="minus-sign">-</span>
                           {{ calculatedTotalDiscount }}
                         </td>
                       </tr>
@@ -265,7 +264,6 @@
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td class="no-currency">
-                          <span class="plus-sign">+</span>
                           {{ allData.transport }}
                         </td>
                       </tr>
@@ -301,7 +299,6 @@
                           </span>
                         </th>
                         <td class="no-currency">
-                          <span class="plus-sign">+</span>
                           {{ allData.totalTax }}
                         </td>
                       </tr>
@@ -337,7 +334,7 @@
                 <a
                   @click="refreshTable()"
                   href="#"
-                  v-tooltip="'Refresh'"
+                  v-tooltip="$t('Refresh')"
                   class="btn btn-success"
                 >
                   <i class="fas fa-sync"></i>

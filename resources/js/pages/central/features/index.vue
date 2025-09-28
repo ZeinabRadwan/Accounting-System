@@ -14,7 +14,7 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success">
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
                 </a>
                 <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">

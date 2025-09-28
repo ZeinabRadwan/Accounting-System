@@ -304,7 +304,7 @@
                       <a
                         @click="refreshTable(activeTab)"
                         href="#"
-                        v-tooltip="'Refresh'"
+                        v-tooltip="$t('Refresh')"
                         class="btn btn-success"
                       >
                         <i class="fas fa-sync"></i>
@@ -1391,7 +1391,7 @@
                 <a
                   @click="refreshActivityTable()"
                   href="#"
-                  v-tooltip="'Refresh'"
+                  v-tooltip="$t('Refresh')"
                   class="btn btn-success"
                 >
                   <i class="fas fa-sync"></i>
@@ -2136,7 +2136,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -2170,7 +2170,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -2204,7 +2204,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -2238,7 +2238,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {

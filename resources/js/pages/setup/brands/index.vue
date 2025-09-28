@@ -79,7 +79,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <span class="action-menu-title">Actions</span>
+                            <span class="action-menu-title">{{ $t('Actions') }}</span>
                             <button type="button" class="action-menu-close" @click="toggleAction(i)">
                               <i class="fas fa-times"></i>
                             </button>

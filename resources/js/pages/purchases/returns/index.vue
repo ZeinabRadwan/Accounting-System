@@ -132,7 +132,7 @@
                     <td>{{ data.purchaseNo | withPrefix(purPrefix) }}</td>
                     <td>{{ data.supplierName }}</td>
                     <td>{{ data.reason }}</td>
-                    <td>{{ data.totalReturn  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.totalReturn).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.returnDate">{{
                         data.returnDate | moment("Do MMM, YYYY")
@@ -158,7 +158,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <span class="action-menu-title">Actions</span>
+                            <span class="action-menu-title">{{ $t('Actions') }}</span>
                             <button type="button" class="action-menu-close" @click="toggleAction(i)">
                               <i class="fas fa-times"></i>
                             </button>
@@ -470,7 +470,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {

@@ -51,7 +51,7 @@ export default {
 }
 [dir="rtl"] .search-btn {
   position: absolute;
-  right: 95%;
+  right: 93%;
   top: 25%;
 }
 </style>

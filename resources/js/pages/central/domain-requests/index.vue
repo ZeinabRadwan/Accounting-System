@@ -14,7 +14,7 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a @click="refreshTable()" href="#" v-tooltip="'Refresh'" class="btn btn-success">
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
                 </a>
                 <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
@@ -219,7 +219,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -253,7 +253,7 @@ export default {
         text: this.$t("Do you really want to delete this Domain Request?"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {

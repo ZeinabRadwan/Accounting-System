@@ -31,7 +31,7 @@
                   <a
                     @click="refreshTable()"
                     href="#"
-                    v-tooltip="'Refresh'"
+                    v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"
                   >
                     <i class="fas fa-sync"></i>
@@ -138,11 +138,11 @@
                       }}</span>
                     </td>
                     <td>{{ data.clientName }}</td>
-                    <td>{{ data.subTotal  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.transport  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.discount  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.totalTax  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.total  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.subTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.transport || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.totalTax || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.total || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -164,7 +164,7 @@
                         </button>
                         <div class="action-menu" v-if="openActionIndex === i">
                           <div class="action-menu-header">
-                            <span class="action-menu-title">Actions</span>
+                            <span class="action-menu-title">{{ $t('Actions') }}</span>
                             <button type="button" class="action-menu-close" @click="toggleAction(i)">
                               <i class="fas fa-times"></i>
                             </button>
@@ -455,7 +455,7 @@ export default {
     async deleteData(slug) {
       Swal.fire({
         title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this!"),
+        text: this.$t("You will not be able to return to this! This will delete the quotation permanently."),
         type: "warning",
         showCancelButton: true,
         confirmButtonText: this.$t("Confirm"),

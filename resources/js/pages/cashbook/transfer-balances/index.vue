@@ -458,10 +458,10 @@ export default {
     async deleteData(slug) {
       Swal.fire({
         title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this!"),
+        text: this.$t("You will not be able to return to this! This will delete the transfer balance permanently."),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         if (!result.value) return;
 

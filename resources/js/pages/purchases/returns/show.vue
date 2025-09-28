@@ -260,21 +260,18 @@
                       <tr>
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ purchaseReturn  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Discount") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ allData.purchase.totalDiscount  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ allData.purchase.transport  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -284,7 +281,6 @@
                           <span>({{ allData.purchase.taxRate }}%):</span>
                         </th>
                         <td>
-                          <span class="plus-sign">+</span>
                           {{ allData.purchase.tax  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
@@ -298,7 +294,6 @@
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          <span class="minus-sign">-</span>
                           {{ allData.purchase.totalPaid  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>

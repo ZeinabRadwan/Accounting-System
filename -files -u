@@ -7,7 +7,7 @@
                           </button>[m
                           <div class="action-menu" v-if="openActionIndex === i" @click.stop>[m
 [32m +                          <div class="action-menu-header">[m
-[32m +                            <span class="action-menu-title">Actions</span>[m
+[32m +                            <span class="action-menu-title">{{ $t('Actions') }}</span>[m
 [32m +                            <button type="button" class="action-menu-close" @click="toggleAction(i)">[m
 [32m +                              <i class="fas fa-times"></i>[m
 [32m +                            </button>[m

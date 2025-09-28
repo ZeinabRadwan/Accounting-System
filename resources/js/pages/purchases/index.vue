@@ -141,9 +141,9 @@
                       }}</span>
                     </td>
                     <td>{{ data.supplierName }}</td>
-                    <td>{{ data.purchaseTotal  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.totalPaid  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.purchaseTotal).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.totalPaid).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.due).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -251,19 +251,19 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="total">{{ $t("Total") }}</label>
-              <input type="text" class="form-control" readonly v-model="form.selectedPurchase.purchaseTotal" />
+              <input type="text" class="form-control" readonly :value="parseFloat(form.selectedPurchase.purchaseTotal).toFixed(2)" />
             </div>
             <div class="form-group col-md-6">
               <label for="due">{{ $t("Due") }}</label>
-              <input type="text" class="form-control" readonly v-model="form.selectedPurchase.due" />
+              <input type="text" class="form-control" readonly :value="parseFloat(form.selectedPurchase.due).toFixed(2)" />
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-4">
               <label for="paidAmount">{{ $t("Paid Amount") }}</label>
-              <input type="number" step="any" class="form-control"
+              <input type="number" step="0.01" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('paidAmount') }"
-                :placeholder="$t('Enter an amount')" required min="1" v-model="form.paidAmount"
+                :placeholder="$t('Enter an amount')" required min="0.01" v-model="form.paidAmount"
                 :max="form.selectedPurchase.due" />
               <has-error :form="form" field="paidAmount" />
             </div>
@@ -632,10 +632,10 @@ export default {
     async deleteData(slug) {
       Swal.fire({
         title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this!"),
+        text: this.$t("You will not be able to return to this! This will delete the purchase permanently."),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),
+        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
