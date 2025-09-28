@@ -20,7 +20,7 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
                   <a
-                    @click="refreshTable()"
+                    @click="getData()"
                     href="#"
                     v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"

@@ -1330,7 +1330,6 @@ export default {
       localStorage.setItem('purchaseOrderTempData', JSON.stringify(tempData))
       toast.fire({
         type: 'success',
-        title: this.$t('Form saved temporarily'),
       })
     },
     // load temporary data
