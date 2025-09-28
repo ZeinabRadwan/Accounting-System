@@ -187,8 +187,8 @@ export default {
         
         if (domainResponse && domainResponse.data.success) {
           // Update loading text for redirect
-          this.loadingText = 'Redirecting to your dashboard...'
-          this.subText = 'Please wait while we take you to your account'
+          this.loadingText = this.$t('Redirecting to your dashboard...')
+          this.subText = this.$t('Please wait while we take you to your account')
           
           // Small delay to show loading state before redirect
           setTimeout(() => {
