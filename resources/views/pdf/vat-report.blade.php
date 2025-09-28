@@ -20,25 +20,13 @@
 
 @section('content-area')
     @php
-        // Custom currency formatter for PDF to fix riyal symbol display
+        // Custom currency formatter for PDF - no currency symbols as requested
         if (!function_exists('formatPdfCurrency')) {
             function formatPdfCurrency($amount) {
-            $currencySymbol = config('config.currencySymbol');
-            $currencyPosition = config('config.currencyPosition');
-            $formattedAmount = number_format($amount, 2, '.', ',');
-            
-            // Replace the problematic 'ê' with proper riyal symbol
-            if ($currencySymbol === 'ê') {
-                $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
-            }
-            
-            if ($currencyPosition == 'left') {
-                return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
-            } else {
-                return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
+                $formattedAmount = number_format($amount, 2, '.', ',');
+                return $formattedAmount; // Return only the amount without currency symbol
             }
         }
-    }
     @endphp
     
     <h3>@lang('print.VAT Report')</h3>

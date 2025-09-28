@@ -56,7 +56,7 @@ class ExportPayroll implements FromCollection,  WithHeadings, ShouldAutoSize, Wi
         });
 
         $payrolls = PayrollResource::collection($query->latest()->get())->map(function ($payroll) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $payroll->employee?->name,
                 date('jS M, Y', strtotime($payroll->salary_date)),
@@ -70,12 +70,12 @@ class ExportPayroll implements FromCollection,  WithHeadings, ShouldAutoSize, Wi
         });
 
         $totalPaid = $payrolls->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[7] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[7] ?? 0));
         });
 
         // Add the total paid as a new row
         $payrolls->push([
-            '', '', '', '',  '', '', '', 'Total Paid = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalPaid,
+            '', '', '', '',  '', '', '', 'Total Paid = ' . getExcelCompatibleCurrencySymbol() . $totalPaid,
         ]);
 
         return $payrolls;

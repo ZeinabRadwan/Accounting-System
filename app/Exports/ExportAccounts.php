@@ -44,7 +44,7 @@ class ExportAccounts implements FromCollection,  WithHeadings, ShouldAutoSize, W
 
         // Retrieve accounts
         $accounts = $query->latest()->get()->map(function ($account) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $account->bank_name ?? 'N/A',
                 date('jS M, Y', strtotime($account->date)),
@@ -56,13 +56,15 @@ class ExportAccounts implements FromCollection,  WithHeadings, ShouldAutoSize, W
         });
 
         // Calculate the total of the amount related columns
-        $totalAvailableBalance = $accounts->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[5]  ?? 0));
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
+        
+        $totalAvailableBalance = $accounts->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[5]  ?? 0));
         });
 
         // Add the total Available Balance as a new row
         $accounts->push([
-            '', '', '', '', '', 'Total Available Balance = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalAvailableBalance,
+            '', '', '', '', '', 'Total Available Balance = ' . $currencySymbol . $totalAvailableBalance,
         ]);
 
         return $accounts;

@@ -47,7 +47,7 @@ class ExportAsset implements FromCollection,  WithHeadings, ShouldAutoSize, With
         });
 
         $assets = AssetResource::collection($query->latest()->get())->map(function ($asset) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $asset->name,
                 date('jS M, Y', strtotime($asset->date)),
@@ -58,17 +58,19 @@ class ExportAsset implements FromCollection,  WithHeadings, ShouldAutoSize, With
             ];
         });
 
-        $totalCost = $assets->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[4] ?? 0));
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
+        
+        $totalCost = $assets->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '',  $row[4] ?? 0));
         });
 
-        $currentValue = $assets->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[5]  ?? 0));
+        $currentValue = $assets->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[5]  ?? 0));
         });
 
         // Add the total paid as a new row
         $assets->push([
-            '', '', '', '', 'Total Cost = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalCost, 'Total Value = ' . getGeneralSettingsInfo()['currency']['symbol'] . $currentValue,
+            '', '', '', '', 'Total Cost = ' . $currencySymbol . $totalCost, 'Total Value = ' . $currencySymbol . $currentValue,
         ]);
 
         return $assets;

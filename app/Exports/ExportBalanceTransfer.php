@@ -55,7 +55,7 @@ class ExportBalanceTransfer implements FromCollection,  WithHeadings, ShouldAuto
 
         // Retrieve balance transfers
         $transfers = $query->latest()->get()->map(function ($transfer) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $transfer->reason ?? 'N/A',
                 date('jS M, Y', strtotime($transfer->date)),
@@ -67,12 +67,12 @@ class ExportBalanceTransfer implements FromCollection,  WithHeadings, ShouldAuto
         });
 
         $totalAmount = $transfers->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[5] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[5] ?? 0));
         });
 
         // Add the total paid as a new row
         $transfers->push([
-            '', '', '', '', '', 'Total Amount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalAmount,
+            '', '', '', '', '', 'Total Amount = ' . getExcelCompatibleCurrencySymbol() . $totalAmount,
         ]);
 
         return $transfers;

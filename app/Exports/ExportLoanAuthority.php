@@ -32,7 +32,7 @@ class ExportLoanAuthority implements FromCollection,  WithHeadings, ShouldAutoSi
 
         // Retrieve Loan Authorities
         return  $query->latest()->get()->map(function ($LoanAuthority) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $LoanAuthority->name ?? 'N/A',
                 $LoanAuthority->email,

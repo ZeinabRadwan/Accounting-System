@@ -50,7 +50,7 @@ class ExportInvoiceReturn implements FromCollection,  WithHeadings, ShouldAutoSi
         });
 
         $invoiceReturns = InvoiceReturnListResource::collection($query->latest()->get())->map(function ($invoiceReturn) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.invoiceReturnPrefix') . ' - ' . $invoiceReturn->return_no,
                 date('jS M, Y', strtotime($invoiceReturn->date)),
@@ -63,12 +63,12 @@ class ExportInvoiceReturn implements FromCollection,  WithHeadings, ShouldAutoSi
         });
 
         $totalReturnPrice = $invoiceReturns->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[6]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[6]  ?? 0));
         });
 
         // Add the total total return price as a new row
         $invoiceReturns->push([
-            '', '', '', '',  '', '', 'Total Return = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalReturnPrice,
+            '', '', '', '',  '', '', 'Total Return = ' . getExcelCompatibleCurrencySymbol() . $totalReturnPrice,
         ]);
 
         return $invoiceReturns;

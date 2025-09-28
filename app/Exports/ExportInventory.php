@@ -41,7 +41,7 @@ class ExportInventory implements FromCollection,  WithHeadings, ShouldAutoSize, 
             });
 
         $products = ProductResource::collection($query->latest()->get())->map(function ($product) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.productPrefix') . ' - ' . $product->code,
                 $product->status ? 'Active' : 'Inactive',
@@ -55,12 +55,12 @@ class ExportInventory implements FromCollection,  WithHeadings, ShouldAutoSize, 
         });
 
         $totalInventoryValue = $products->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[7] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[7] ?? 0));
         });
 
         // Add the total salary as a new row
         $products->push([
-            '', '', '', '', '', '', '', 'Total Inventory Value = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalInventoryValue,
+            '', '', '', '', '', '', '', 'Total Inventory Value = ' . getExcelCompatibleCurrencySymbol() . $totalInventoryValue,
         ]);
 
         return $products;

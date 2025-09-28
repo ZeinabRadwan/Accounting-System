@@ -48,7 +48,7 @@ class ExportEmployee implements FromCollection,  WithHeadings, ShouldAutoSize, W
         });
 
         $employees = EmployeeResource::collection($query->latest()->get())->map(function ($employee) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $employee->name,
                 date('jS M, Y', strtotime($employee->birth_date)),
@@ -63,12 +63,12 @@ class ExportEmployee implements FromCollection,  WithHeadings, ShouldAutoSize, W
         });
 
         $totalSalary = $employees->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[8]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[8]  ?? 0));
         });
 
         // Add the total salary as a new row
         $employees->push([
-            '', '', '', '', '', '', '', '', 'Total Salary = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalSalary,
+            '', '', '', '', '', '', '', '', 'Total Salary = ' . getExcelCompatibleCurrencySymbol() . $totalSalary,
         ]);
 
         return $employees;

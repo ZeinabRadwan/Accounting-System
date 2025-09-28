@@ -49,7 +49,7 @@ class ExportChartOfAccounts implements FromCollection, WithHeadings, ShouldAutoS
 
         // Retrieve chart of accounts
         $chartOfAccounts = $query->orderBy('code')->get()->map(function ($account) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             $balance = $account->getBalance();
             $balanceType = $account->getBalanceType();
             
@@ -69,11 +69,11 @@ class ExportChartOfAccounts implements FromCollection, WithHeadings, ShouldAutoS
         // Calculate totals
         $totalBalance = $chartOfAccounts->sum(function ($row) {
             // Extract numeric value from formatted balance (remove currency symbol and commas)
-            $balance = str_replace([getGeneralSettingsInfo()['currency']['symbol'], ','], '', $row[5]);
+            $balance = str_replace([getExcelCompatibleCurrencySymbol(), ','], '', $row[5]);
             return floatval($balance);
         });
 
-        $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
         
         // Add total row
         $chartOfAccounts->push([

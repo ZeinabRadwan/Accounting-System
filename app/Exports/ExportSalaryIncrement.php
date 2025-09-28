@@ -49,7 +49,7 @@ class ExportSalaryIncrement implements FromCollection,  WithHeadings, ShouldAuto
         });
 
         $increments = SalaryIncrementResource::collection($query->latest()->get())->map(function ($increment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $increment->employee?->name,
                 date('jS M, Y', strtotime($increment->increment_date)),
@@ -63,12 +63,12 @@ class ExportSalaryIncrement implements FromCollection,  WithHeadings, ShouldAuto
         });
 
         $totalIncrementSalary = $increments->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[7]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[7]  ?? 0));
         });
 
         // Add the total salary as a new row
         $increments->push([
-            '', '', '', '', '', '', '', 'Total Increment = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalIncrementSalary,
+            '', '', '', '', '', '', '', 'Total Increment = ' . getExcelCompatibleCurrencySymbol() . $totalIncrementSalary,
         ]);
 
         return $increments;

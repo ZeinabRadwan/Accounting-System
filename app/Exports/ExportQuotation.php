@@ -52,8 +52,7 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
         });
 
         $salesQuotations = QuotationListResource::collection($query->latest()->get())->map(function ($salesQuotation) {
-            $generalSettings = getGeneralSettingsInfo();
-            $currencySymbol = $generalSettings['currency']?->symbol ?? '$';
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.quotationPrefix') . ' - ' . $salesQuotation->quotation_no,
                 date('jS M, Y', strtotime($salesQuotation->quotation_date)),
@@ -67,8 +66,7 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
             ];
         });
 
-        $generalSettings = getGeneralSettingsInfo();
-        $currencySymbol = $generalSettings['currency']?->symbol ?? '$';
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
         
         $totalSub_Total = $salesQuotations->sum(function ($row) use ($currencySymbol) {
             return floatval(str_replace($currencySymbol, '', $row[4]  ?? 0));

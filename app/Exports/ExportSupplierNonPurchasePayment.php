@@ -53,7 +53,7 @@ class ExportSupplierNonPurchasePayment implements FromCollection,  WithHeadings,
 
         // Retrieve balance supplierNonInvoicePayments
         return  $query->latest()->get()->map(function ($supplierNonInvoicePayment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $supplierNonInvoicePayment->supplier?->name ?? 'N/A',
                 date('jS M, Y', strtotime($supplierNonInvoicePayment->date)),

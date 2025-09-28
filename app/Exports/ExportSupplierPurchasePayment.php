@@ -60,7 +60,7 @@ class ExportSupplierPurchasePayment implements FromCollection,  WithHeadings, Sh
         });
 
         $purchasePayments = PurchasePaymentResource::collection($query->latest()->get())->map(function ($purchasePayment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.purchasePrefix') . ' - ' . $purchasePayment->purchase?->purchase_no,
                 date('jS M, Y', strtotime($purchasePayment->date)),
@@ -73,12 +73,12 @@ class ExportSupplierPurchasePayment implements FromCollection,  WithHeadings, Sh
         });
 
         $totalPaidAmount = $purchasePayments->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[6] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[6] ?? 0));
         });
 
         // Add the total salary as a new row
         $purchasePayments->push([
-            '', '', '', '', '', '', 'Total Paid Amount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalPaidAmount,
+            '', '', '', '', '', '', 'Total Paid Amount = ' . getExcelCompatibleCurrencySymbol() . $totalPaidAmount,
         ]);
 
         return $purchasePayments;

@@ -55,7 +55,7 @@ class ExportClientNonInvoicePayment implements FromCollection,  WithHeadings, Sh
 
         // Retrieve balance clientNonInvoicePayments
         return  $query->latest()->get()->map(function ($clientNonInvoicePayment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $clientNonInvoicePayment->client?->name ?? 'N/A',
                 date('jS M, Y', strtotime($clientNonInvoicePayment->date)),
