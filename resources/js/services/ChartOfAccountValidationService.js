@@ -72,7 +72,7 @@ class ChartOfAccountValidationService {
       if (!product.sales_account_id) {
         errors.push({
           field: 'sales_account_id',
-          message: 'Product must have a Sales Account assigned for journal entries'
+          message: this.$t ? this.$t('Product must have a Sales Account assigned for journal entries') : 'Product must have a Sales Account assigned for journal entries'
         })
       }
     }

@@ -18,6 +18,7 @@ class DemoTenantMenuSeeder extends Seeder
         $menus = [
             [
                 'name' => 'Dashboard',
+                'name_ar' => 'لوحة التحكم',
                 'route' => 'home',
                 'text' => 'Dashboard',
                 'icon' => 'nav-icon fas fa-home',
@@ -25,6 +26,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Categories',
+                'name_ar' => 'الفئات',
                 'route' => 'expenseCats.index',
                 'text' => 'Categories',
                 'icon' => 'fas fa-tags nav-icon',
@@ -32,6 +34,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Sub Categories',
+                'name_ar' => 'الفئات الفرعية',
                 'route' => 'expenseSubCats.index',
                 'text' => 'Sub Categories',
                 'icon' => 'fas fa-code-branch nav-icon',
@@ -39,6 +42,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Expenses List',
+                'name_ar' => 'قائمة المصروفات',
                 'route' => 'expenses.index',
                 'text' => 'Expenses List',
                 'icon' => 'fas fa-list-ul nav-icon',
@@ -46,6 +50,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Purchases List',
+                'name_ar' => 'قائمة المشتريات',
                 'route' => 'purchases.index',
                 'text' => 'Purchases List',
                 'icon' => 'fas fa-truck-loading nav-icon',
@@ -53,6 +58,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Return List',
+                'name_ar' => 'قائمة المرتجعات',
                 'route' => 'purchaseReturns.index',
                 'text' => 'Returns List',
                 'icon' => 'fas fa-undo-alt nav-icon',
@@ -60,6 +66,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Quotations List',
+                'name_ar' => 'قائمة عروض الأسعار',
                 'route' => 'quotations.index',
                 'text' => 'Quotations List',
                 'icon' => 'fas fa-th-list nav-icon',
@@ -67,6 +74,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Invoices List',
+                'name_ar' => 'قائمة الفواتير',
                 'route' => 'invoices.index',
                 'text' => 'Invoices List',
                 'icon' => 'fas fa-file-invoice nav-icon',
@@ -74,6 +82,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'POS',
+                'name_ar' => 'نقطة البيع',
                 'route' => 'pos.create',
                 'text' => 'POS',
                 'icon' => 'fas fa-cash-register nav-icon',
@@ -81,6 +90,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Returns List',
+                'name_ar' => 'قائمة المرتجعات',
                 'route' => 'invoiceReturns.index',
                 'text' => 'Returns List',
                 'icon' => 'fas fa-undo-alt nav-icon',
@@ -88,6 +98,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Accounts',
+                'name_ar' => 'الحسابات',
                 'route' => 'accounts.index',
                 'text' => 'Accounts',
                 'icon' => 'fas fa-grip-horizontal nav-icon',
@@ -95,6 +106,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Balance Adjustments',
+                'name_ar' => 'تعديلات الرصيد',
                 'route' => 'balances.index',
                 'text' => 'Balance Adjustments',
                 'icon' => 'fas fa-sliders-h nav-icon',
@@ -102,6 +114,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Balance Transfers',
+                'name_ar' => 'تحويلات الأرصدة',
                 'route' => 'transferBalances.index',
                 'text' => 'Balance Transfers',
                 'icon' => 'fas fa-exchange-alt nav-icon',
@@ -109,6 +122,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Transaction History',
+                'name_ar' => 'سجل المعاملات',
                 'route' => 'transactions.index',
                 'text' => 'Transaction History',
                 'icon' => 'fas fa-history nav-icon',
@@ -116,6 +130,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Invoice',
+                'name_ar' => 'الفاتورة',
                 'route' => 'invoicePayments.index',
                 'text' => 'Invoice',
                 'icon' => 'fas fa-file-invoice nav-icon',
@@ -123,6 +138,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Non Invoice',
+                'name_ar' => 'غير الفواتير',
                 'route' => 'nonInvoicePayments.index',
                 'text' => 'Non Invoice',
                 'icon' => 'fas fa-file-alt nav-icon',
@@ -130,6 +146,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Purchase',
+                'name_ar' => 'المشتريات',
                 'route' => 'purchasePayments.index',
                 'text' => 'Purchase',
                 'icon' => 'fas fa-plane-departure nav-icon',
@@ -137,6 +154,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Non Purchase',
+                'name_ar' => 'غير المشتريات',
                 'route' => 'nonPurchasePayments.index',
                 'text' => 'Non Purchase',
                 'icon' => 'fas fa-truck-pickup nav-icon',
@@ -144,6 +162,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Authorities',
+                'name_ar' => 'الجهات',
                 'route' => 'authorities.index',
                 'text' => 'Authorities',
                 'icon' => 'fas fa-building nav-icon',
@@ -151,6 +170,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Loans',
+                'name_ar' => 'القروض',
                 'route' => 'loans.index',
                 'text' => 'Loans',
                 'icon' => 'fas fa-list-ul nav-icon',
@@ -158,6 +178,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Payments',
+                'name_ar' => 'المدفوعات',
                 'route' => 'loanPayments.index',
                 'text' => 'Payments',
                 'icon' => 'fas fa-receipt nav-icon',
@@ -165,6 +186,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Types',
+                'name_ar' => 'الأنواع',
                 'route' => 'assetTypes.index',
                 'text' => 'Types',
                 'icon' => 'fas fa-tags nav-icon',
@@ -172,6 +194,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Assets',
+                'name_ar' => 'الأصول',
                 'route' => 'assets.index',
                 'text' => 'Assets',
                 'icon' => 'fas fa-list-ul nav-icon',
@@ -179,6 +202,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Payroll',
+                'name_ar' => 'كشوف الرواتب',
                 'route' => 'payroll.index',
                 'text' => 'Payroll',
                 'icon' => 'nav-icon fas fa-clipboard-list',
@@ -186,6 +210,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Clients',
+                'name_ar' => 'العملاء',
                 'route' => 'clients.index',
                 'text' => 'Clients',
                 'icon' => 'nav-icon fas fa-users',
@@ -193,6 +218,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Suppliers',
+                'name_ar' => 'الموردون',
                 'route' => 'suppliers.index',
                 'text' => 'Suppliers',
                 'icon' => 'nav-icon fas fa-people-carry',
@@ -200,6 +226,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Departments',
+                'name_ar' => 'الأقسام',
                 'route' => 'departments.index',
                 'text' => 'Departments',
                 'icon' => 'fas fa-server nav-icon',
@@ -207,6 +234,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Employees List',
+                'name_ar' => 'قائمة الموظفين',
                 'route' => 'employees.index',
                 'text' => 'Employees List',
                 'icon' => 'fas fa-list-ul nav-icon',
@@ -214,6 +242,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Increments',
+                'name_ar' => 'الزيادات',
                 'route' => 'Increments',
                 'text' => 'Employees List',
                 'icon' => 'fas fa-list-ul nav-icon',
@@ -221,6 +250,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Categories',
+                'name_ar' => 'الفئات',
                 'route' => 'productCats.index',
                 'text' => 'Categories',
                 'icon' => 'fas fa-tags nav-icon',
@@ -228,6 +258,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Sub Categories',
+                'name_ar' => 'الفئات الفرعية',
                 'route' => 'productSubCats.index',
                 'text' => 'Sub Categories',
                 'icon' => 'fas fa-code-branch nav-icon',
@@ -235,6 +266,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Products List',
+                'name_ar' => 'قائمة الأصناف',
                 'route' => 'products.index',
                 'text' => 'Products List',
                 'icon' => 'fas fa-list-ul nav-icon',
@@ -242,6 +274,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Barcode',
+                'name_ar' => 'الباركود',
                 'route' => 'Barcode',
                 'text' => 'Products List',
                 'icon' => 'fas fa-barcode nav-icon',
@@ -249,6 +282,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'View Inventory',
+                'name_ar' => 'عرض المخزون',
                 'route' => 'inventory.index',
                 'text' => 'View Inventory',
                 'icon' => 'fas fa-pallet nav-icon',
@@ -256,6 +290,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Inventory Adjustment',
+                'name_ar' => 'تعديل المخزون',
                 'route' => 'adjustments.index',
                 'text' => 'Inventory Adjustment',
                 'icon' => 'fas fa-sliders-h nav-icon',
@@ -263,6 +298,7 @@ class DemoTenantMenuSeeder extends Seeder
             ],
             [
                 'name' => 'Balance Sheet',
+                'name_ar' => 'الميزانية العمومية',
                 'route' => 'reports.balanceSheet',
                 'text' => 'Balance Sheet',
                 'icon' => 'fas fa-file-invoice-dollar nav-icon',

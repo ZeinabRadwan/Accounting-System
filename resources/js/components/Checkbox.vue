@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-control custom-checkbox d-flex">
+  <div class="custom-control custom-checkbox d-flex checkbox-container">
     <input
       :id="id || name"
       :name="name"
@@ -66,3 +66,40 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+/* Checkbox container layout */
+.checkbox-container {
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.checkbox-container .custom-control-input {
+  position: static;
+  margin-top: 0.25rem;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.checkbox-container .custom-control-label {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* RTL support for checkbox positioning */
+[dir="rtl"] .checkbox-container {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .checkbox-container .custom-control-input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+[dir="rtl"] .checkbox-container .custom-control-label {
+  padding-right: 21px;
+}
+</style>

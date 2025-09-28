@@ -503,13 +503,13 @@
                     </small>
                   </div>
                 </div>
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                   <label for="chequeNo">{{ $t("Cheque No") }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
                     :placeholder="$t('Enter a cheque number')" @input="clearFieldError('chequeNo')" />
                   <has-error :form="form" field="chequeNo" />
-                </div>
+                </div> -->
                 <div class="form-group col-md-3">
                   <label for="receiptNo">{{ $t("Receipt No") }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"

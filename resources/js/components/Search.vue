@@ -1,6 +1,6 @@
 <template>
   <div class="search-area">
-    <div class="search-btn" :class="[query !== '' ? 'd-none' : 'd-inline-block']">
+    <div class="search-btn search-icon" :class="[query !== '' ? 'd-none' : 'd-inline-block']">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
         stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -8,7 +8,7 @@
     </div>
     <input ref="autoFocusInput" type="text" :value="query" class="search-input form-control"
       :placeholder="$t('Search')" @input="$emit('reset-pagination', $event.target.value)" />
-    <label class="search-btn" :class="[query !== '' ? 'd-inline-block' : 'd-none']" @click="$emit('reload')">
+    <label class="search-btn search-clear" :class="[query !== '' ? 'd-inline-block' : 'd-none']" @click="$emit('reload')">
       <i class="fas fa-times" />
     </label>
   </div>
@@ -40,18 +40,46 @@ export default {
 
 <style>
 .search-area input {
-  padding: 5px 11px 5px 35px;
   border-radius: 5px;
 }
 
-[dir="ltr"] .search-btn {
+[dir="ltr"] .search-area input {
+  padding: 5px 35px 5px 35px;
+}
+
+[dir="rtl"] .search-area input {
+  padding: 5px 35px 5px 35px;
+}
+
+/* Search icon positioning */
+[dir="ltr"] .search-icon {
   position: absolute;
-  left: 95%;
+  left: 5%;
   top: 25%;
 }
-[dir="rtl"] .search-btn {
+
+[dir="rtl"] .search-icon {
   position: absolute;
-  right: 93%;
+  right: 5%;
   top: 25%;
+}
+
+/* Clear button positioning */
+[dir="ltr"] .search-clear {
+  position: absolute !important;
+  right: 5% !important;
+  top: 25% !important;
+}
+
+[dir="rtl"] .search-clear {
+  position: absolute !important;
+  left: 5% !important;
+  top: 25% !important;
+}
+
+/* Additional RTL specific positioning */
+[dir="rtl"] .search-area .search-clear {
+  left: 5% !important;
+  right: auto !important;
 }
 </style>

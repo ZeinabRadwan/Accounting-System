@@ -38,6 +38,15 @@
                     <div v-if="!form.client.chart_of_account_id" class="client-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignClientChartOfAccount"
+                        :disabled="isAutoAssigningClient"
+                      >
+                        <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
+                      </button>
                     </div>
                     <div v-else class="client-success">
                       <i class="fas fa-check-circle text-success"></i>
@@ -69,6 +78,15 @@
                     <div v-if="!allProductsHaveSalesAccounts" class="product-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Some products need Sales Accounts assigned') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignAllProductsChartOfAccount"
+                        :disabled="isAutoAssigningProduct"
+                      >
+                        <i :class="isAutoAssigningProduct ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningProduct ? $t('Assigning...') : $t('Auto-Assign All') }}
+                      </button>
                     </div>
                     <div v-else class="product-success">
                       <i class="fas fa-check-circle text-success"></i>
@@ -80,86 +98,193 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm">
-                    <thead class="thead-light">
-                      <tr>
-                        <th>{{ $t('#') }}</th>
-                        <th>{{ $t('Code') }}</th>
-                        <th>{{ $t('Item Name') }}</th>
-                        <th>{{ $t('Quantity') }}</th>
-                        <th>{{ $t('Price') }}</th>
-                        <th>{{ $t('Unit Cost') }}</th>
-                        <th>{{ $t('Tax') }}</th>
-                        <th>{{ $t('Subtotal') }}</th>
-                        <th class="text-right">{{ $t('Action') }}</th>
-                      </tr>
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
+                  <table class="table table-hover table-sm text-center invoices-create-table">
+                    <thead>
+                      <th>{{ $t("#") }}</th>
+                      <th>{{ $t("Code") }}</th>
+                      <th>{{ $t("Item Name") }}</th>
+                      <th>{{ $t("Qty") }}</th>
+                      <th>{{ $t("Price") }}</th>
+                      <th>{{ $t("Total") }}</th>
+                      <th>{{ $t("Discount") }}</th>
+                      <th>{{ $t("Total After Discount") }}</th>
+                      <th>{{ $t("VAT Type") }}</th>
+                      <th>{{ $t("VAT") }}</th>
+                      <th>{{ $t("Total with VAT") }}</th>
+                      <th class="text-right">{{ $t("Action") }}</th>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>{{ item.code | withPrefix(prefix) }}</td>
-                        <td>
-                          <span v-if="Number(item.inventoryCount) < Number(item.qty)
-                            " v-tooltip="'Insufficient Stock'" class="badge badge-danger p-2">
-                            <i class="fas fa-exclamation"></i>
-                          </span>
-                          <router-link :to="{
-                            name: 'products.show',
-                            params: { slug: item.slug },
-                          }">
-                            {{ item.name }}
-                          </router-link>
+                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}-${item.totalPrice}-${item.totalAfterDiscount}`">
+                        <td style="min-width: 30px;">{{ index + 1 }}</td>
+                        <td style="min-width: 60px;">
+                          {{ item.code | withPrefix(prefix) }}
                         </td>
-                        <td>
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i - 1, 'decrement')" />
-                            <input type="number" step="1" :id="`Qty-${i}`" :value="item.qty" name="quantity"
-                              class="quantity-field border-0 incrementor" required min="1" :max="item.inventoryCount"
-                              @change="generateItemTotal($event.target.value, 'qty', i - 1, '')"
-                              @keyup="generateItemTotal($event.target.value, 'qty', i - 1, '')"
-                              :placeholder="$t('Quantity')" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i - 1, 'increment')" />
+                        <td style="min-width: 120px;">
+                          <div class="d-flex align-items-center">
+                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
+                              " v-tooltip="$t('Click to manage stock')" 
+                              class="badge badge-danger p-2 mr-2 clickable-badge" 
+                              @click="openStockAdjustmentModal(item)">
+                              <i class="fas fa-exclamation"></i>
+                            </span>
+                            <div class="flex-grow-1">
+                              <router-link v-if="$can('product-view')" :to="{
+                                name: 'products.show',
+                                params: { slug: item.slug },
+                              }">
+                                {{ item.name }}
+                              </router-link>
+                              <span v-else>{{ item.name }}</span>
+                            </div>
+                            <button 
+                              type="button" 
+                              class="btn btn-sm btn-outline-primary ml-2" 
+                              @click="editProductFromTable(item)"
+                              v-tooltip="$t('Edit Product')"
+                            >
+                              <i class="fas fa-edit"></i>
+                            </button>
                           </div>
                         </td>
-                        <td>
+                        <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity"
-                              @click="generateItemTotal(item.unitPrice, 'price', i - 1, 'decrement')" />
-                            <input type="number" step="1" :id="`unitPrice-${i}`" :value="item.unitPrice" name="unitPrice"
-                              class="quantity-field border-0 incrementor" required min="1" @change="
-                                generateItemTotal($event.target.value, 'price', i - 1, '')"
-                              @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
+                              data-field="quantity" @click="
+                                generateItemTotal(
+                                  item.qty,
+                                  'qty',
+                                  index,
+                                  'decrement'
+                                )
+                                " />
+
+                            <input type="number" step="any" :id="`Qty-${index+1}`" v-model.number="item.qty" name="quantity"
+                              class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
+                              :class="{ 
+                                'is-invalid': form.errors.has(`selectedProducts.${index}.qty`),
+                                'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
+                              }"
+                              @input="generateItemTotal(item.qty, 'qty', index, '')"
+                              placeholder="Quantity" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity"
-                              @click="generateItemTotal(item.unitPrice, 'price', i - 1, 'increment')" />
+                              data-field="quantity" @click="
+                                generateItemTotal(
+                                  item.qty,
+                                  'qty',
+                                  index,
+                                  'increment'
+                                )
+                                " />
+                          </div>
+                          <div v-if="form.errors.has(`selectedProducts.${index}.qty`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${index}.qty`) }}
                           </div>
                         </td>
-                        <td>{{ item.unitCost  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ item.totalTax  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right">
+                        <td style="min-width: 120px;">
+                          <div class="input-group custom-qty-input">
+                            <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
+                              name="unitPrice" class="quantity-field border-0" required min="0" 
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.unitPrice`) }"
+                              @input="generateItemTotal(item.unitPrice, 'price', index, '')" />
+                          </div>
+                          <div v-if="form.errors.has(`selectedProducts.${index}.unitPrice`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
+                          </div>
+                        </td>
+                        <td style="min-width: 80px;">{{ item.totalBeforeDiscount }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">
+                          <div class="input-group">
+                            <select 
+                              v-model="item.discountType" 
+                              class="form-control form-control-sm" 
+                              style="width: 60px;"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discountType`) }"
+                              @change="calculateProductDiscount(index)">
+                              <option value="fixed">{{ $t("Fixed") }}</option>
+                              <option value="percentage">{{ $t("%") }}</option>
+                            </select>
+                            <input 
+                              type="number" 
+                              v-model="item.discount" 
+                              class="form-control form-control-sm" 
+                              style="width: 80px;"
+                              step="any" 
+                              min="0" 
+                              :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discount`) }"
+                              placeholder="0"
+                              @change="calculateProductDiscount(index)"
+                              @keyup="calculateProductDiscount(index)" />
+                          </div>
+                          <div v-if="form.errors.has(`selectedProducts.${index}.discount`) || form.errors.has(`selectedProducts.${index}.discountType`)" class="invalid-feedback d-block">
+                            <span v-if="form.errors.has(`selectedProducts.${index}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discount`) }}</span>
+                            <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
+                          </div>
+                        </td>
+                        <td style="min-width: 80px;">{{ item.totalAfterDiscount }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">
+                          <div class="d-flex align-items-center">
+                            <select 
+                              v-model="item.selectedVatRate" 
+                              class="form-control form-control-sm flex-grow-1"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.selectedVatRate`) }"
+                              @change="calculateProductVat(index)"
+                              style="min-width: 80px;">
+                              <option value="">{{ $t('Select VAT') }}</option>
+                              <option 
+                                v-for="tax in taxes" 
+                                :key="tax.id" 
+                                :value="tax">
+                                {{ tax.code }} ({{ tax.rate }}%)
+                              </option>
+                            </select>
+                            <i v-if="!item.productTax || !item.productTax.id" 
+                               class="fas fa-exclamation-triangle text-warning ml-1" 
+                               v-tooltip="$t('Product needs VAT rate assigned')"
+                               style="font-size: 14px;"></i>
+                          </div>
+                          <div v-if="form.errors.has(`selectedProducts.${index}.selectedVatRate`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${index}.selectedVatRate`) }}
+                          </div>
+                        </td>
+                        <td style="min-width: 60px;">
+                          <span class="form-control-plaintext form-control-sm text-center">
+                            {{ item.productTax }} <span class="saudi-riyal">ê</span>
+                          </span>
+                        </td>
+                        <td style="min-width: 80px;">{{ item.totalPrice }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 50px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>
                         </td>
                       </tr>
-                      <tr>
-                        <td colspan="6" class="text-right">
-                          <strong> {{ $t('Total') }}: </strong>
+                      <!-- Totals Row -->
+                      <tr :key="`totals-${getSubTotal()}-${getTotalUnitPrice()}`">
+                        <td colspan="5" class="text-right">
+                          <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{
-                            form.productTotalTax | withCurrency
-                          }}</strong>
+                          <strong>{{ getTotalUnitPrice() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
-                        <td colspan="2">
-                          <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>
+                        <td>
+                          <strong>{{ getTotalDiscount() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
+                        <td>
+                          <strong>{{ getTotalAfterDiscount() }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td>
+                          <strong></strong>
+                        </td>
+                        <td>
+                          <strong>{{ getProductTotalTax() }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td>
+                          <strong>{{ getSubTotal() }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td></td>
                       </tr>
                     </tbody>
                   </table>
@@ -282,15 +407,29 @@
                   <div class="account-status mt-2" v-if="form.account">
                     <div v-if="!form.account.chartOfAccountId" class="account-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
-                      <span class="ml-2">{{ $t('Account needs Chart of Account') }}</span>
+                      <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignBankAccountChartOfAccount"
+                        :disabled="isAutoAssigningAccount"
+                      >
+                        <i :class="isAutoAssigningAccount ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningAccount ? $t('Assigning...') : $t('Auto-Assign') }}
+                      </button>
                     </div>
                     <div v-else class="account-success">
                       <i class="fas fa-check-circle text-success"></i>
-                      <span class="ml-2">{{ $t('Account Chart of Account ready') }}</span>
+                      <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
                     </div>
                   </div>
                   
                   <has-error :form="form" field="account" />
+                  
+                  <!-- Payment validation hint -->
+                  <div v-if="form.addPayment == 1 && !form.account" class="text-warning mt-1">
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Please choose a bank account") }}</small>
+                  </div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="paidAmount">{{ $t('Paid Amount')
@@ -299,14 +438,26 @@
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
                     :max="form.netTotal" :placeholder="$t('Enter an amount')" />
                   <has-error :form="form" field="paidAmount" />
+                  
+                  <!-- Payment validation hint -->
+                  <div v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)" class="text-warning mt-1">
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Paid amount must be greater than 0") }}</small>
+                  </div>
+                  
+                  <!-- Due Amount Display -->
+                  <div class="mt-2" v-if="form.addPayment == 1 && form.paidAmount">
+                    <small class="text-muted">
+                      {{ $t("Due Amount") }}: <strong>{{ dueAmount  }} <span class="saudi-riyal">ê</span></strong>
+                    </small>
+                  </div>
                 </div>
-                <div class="form-group col-md-6">
+                <!-- <div class="form-group col-md-6">
                   <label for="chequeNo">{{ $t('Cheque No') }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
                     :placeholder="$t('Enter a cheque number')" />
                   <has-error :form="form" field="chequeNo" />
-                </div>
+                </div> -->
                 <div class="form-group col-md-6">
                   <label for="receiptNo">{{ $t('Receipt No') }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
@@ -432,6 +583,11 @@ export default {
     accounts: '',
     taxes: '',
     prefix: '',
+    isAutoAssigningClient: false,
+    isAutoAssigningProduct: false,
+    isAutoAssigningAccount: false,
+    isRTL: false,
+    currentLocale: 'en',
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -454,6 +610,14 @@ export default {
       return this.form.selectedProducts.every(product => product.sales_account_id);
     },
 
+    // Check if all products have VAT rates assigned
+    allProductsHaveVatRates() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return true; // No products selected, so no validation needed
+      }
+      return this.form.selectedProducts.every(product => product.selectedVatRate && product.selectedVatRate.id);
+    },
+
     // Check if bank account has chart of account assigned (when payment is being added)
     hasBankAccountChartOfAccount() {
       if (this.form.addPayment != 1) {
@@ -474,6 +638,7 @@ export default {
     isFormReady() {
       const basicRequirements = this.hasChartOfAccount && 
                                this.allProductsHaveSalesAccounts && 
+                               this.allProductsHaveVatRates &&
                                this.hasBankAccountChartOfAccount &&
                                this.form.selectedProducts && 
                                this.form.selectedProducts.length > 0;
@@ -482,6 +647,7 @@ export default {
       console.log('Form validation debug:', {
         hasChartOfAccount: this.hasChartOfAccount,
         allProductsHaveSalesAccounts: this.allProductsHaveSalesAccounts,
+        allProductsHaveVatRates: this.allProductsHaveVatRates,
         hasBankAccountChartOfAccount: this.hasBankAccountChartOfAccount,
         selectedProducts: this.form.selectedProducts?.length || 0,
         addPayment: this.form.addPayment,
@@ -669,6 +835,12 @@ export default {
           totalTax: totalTax,
           sales_account_id: product.sales_account_id || null,
           selectedVatRate: product.selectedVatRate || null,
+          itemType: product.itemType || 'product',
+          discountType: 'fixed',
+          discount: 0,
+          discountAmount: 0,
+          totalBeforeDiscount: product.priceWithDiscount * qunatity,
+          totalAfterDiscount: product.priceWithDiscount * qunatity,
         })
       }
       this.generateItemTotal(qunatity, 'qty', index, '')
@@ -688,7 +860,7 @@ export default {
               item.qty = Number(item.qty) - 1
             }
           }
-        } else {
+        } else if (type == 'price') {
           item.unitPrice = value
           if (action == 'increment') {
             item.unitPrice = Number(item.unitPrice) + 1
@@ -698,23 +870,25 @@ export default {
             }
           }
         }
-        // Calculate VAT based on tax type
-        if (item.taxType == 'Exclusive') {
-          // For exclusive tax: calculate VAT on unit price
-          item.productTax = item.unitPrice * (item.taxRate / 100)
-          item.totalTax = item.productTax * item.qty
-          item.totalPrice = item.qty * item.unitPrice + item.totalTax
+        
+        // Update calculated fields
+        item.totalBeforeDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty)
+        item.totalAfterDiscount = this.roundToTwoDecimals(item.totalBeforeDiscount - (item.discountAmount || 0))
+        
+        // Calculate VAT based on selected VAT rate
+        if (item.selectedVatRate && item.selectedVatRate.rate) {
+          const vatRate = item.selectedVatRate.rate
+          item.productTax = this.roundToTwoDecimals((item.totalAfterDiscount * vatRate) / 100)
+          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty)
+          item.totalPrice = this.roundToTwoDecimals(item.totalAfterDiscount + item.totalTax)
         } else {
-          // For inclusive tax: VAT is already included in unit price
-          // Calculate VAT amount from the unit price
-          item.productTax = item.unitPrice - item.unitPrice / (1 + item.taxRate / 100)
-          item.totalTax = item.productTax * item.qty
-          item.totalPrice = item.qty * item.unitPrice
+          // No VAT rate selected
+          item.productTax = 0
+          item.totalTax = 0
+          item.totalPrice = item.totalAfterDiscount
         }
-        item.unitCost =
-          item.taxType == 'Exclusive'
-            ? Number(item.unitPrice) + Number(item.productTax)
-            : item.unitPrice
+        
+        item.unitCost = this.roundToTwoDecimals(item.unitPrice)
         this.form.selectedProducts[index] = item
       }
       this.calculateSum()
@@ -813,6 +987,12 @@ export default {
           totalTax: quotationProduct.taxAmount * quotationProduct.quantity,
           sales_account_id: quotationProduct.sales_account_id || null,
           selectedVatRate: quotationProduct.selectedVatRate || null,
+          itemType: quotationProduct.itemType || 'product',
+          discountType: 'fixed',
+          discount: 0,
+          discountAmount: 0,
+          totalBeforeDiscount: quotationProduct.salePrice * quotationProduct.quantity,
+          totalAfterDiscount: quotationProduct.salePrice * quotationProduct.quantity,
         })
       }
       this.calculateSum()
@@ -958,7 +1138,7 @@ export default {
         }
 
         // Validate that all products have VAT rates assigned
-        const productsWithoutVatRate = this.form.selectedProducts.filter(product => !product.productTax || !product.productTax.id);
+        const productsWithoutVatRate = this.form.selectedProducts.filter(product => !product.selectedVatRate || !product.selectedVatRate.id);
         if (productsWithoutVatRate.length > 0) {
           const productNames = productsWithoutVatRate.map(p => p.name || 'Unknown').join(', ');
           validationErrors.push({
@@ -1028,6 +1208,309 @@ export default {
         this.getProducts();
       }
     },
+
+    // Auto-assign client chart of account
+    async autoAssignClientChartOfAccount() {
+      if (!this.form.client) return;
+      
+      if (!this.form.client.slug) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Client missing required information. Please refresh and try again.'),
+        });
+        return;
+      }
+      
+      this.isAutoAssigningClient = true;
+      try {
+        const response = await axios.post(
+          window.location.origin + '/api/clients/' + this.form.client.slug + '/auto-assign-chart-of-account'
+        );
+        
+        if (response && response.data && response.data.success) {
+          // Update the client data with new chart of account
+          const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null;
+          if (newAccountId) {
+            this.form.client.chart_of_account_id = newAccountId;
+            // Also update the option in items list to keep state consistent when switching clients
+            const idx = this.items.findIndex(i => i.slug === this.form.client.slug);
+            if (idx !== -1) {
+              this.$set(this.items[idx], 'chart_of_account_id', newAccountId);
+            }
+          }
+          
+          toast.fire({
+            type: 'success',
+            title: this.$t('Chart of Account assigned successfully'),
+          });
+        } else {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Failed to assign Chart of Account'),
+            text: (response && response.data && response.data.message) || this.$t('Please try again'),
+          });
+        }
+      } catch (error) {
+        console.error('Error assigning client chart of account:', error);
+        let errorMessage = this.$t('Failed to assign Chart of Account. Please try again.');
+        
+        if (error && error.response) {
+          errorMessage = error.response.data?.message || error.message || errorMessage;
+        } else if (error && error.message) {
+          errorMessage = error.message;
+        }
+        
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: errorMessage,
+        });
+      } finally {
+        this.isAutoAssigningClient = false;
+      }
+    },
+
+    // Auto-assign all products chart of account
+    async autoAssignAllProductsChartOfAccount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) return;
+      
+      this.isAutoAssigningProduct = true;
+      try {
+        const productsWithoutSalesAccount = this.form.selectedProducts.filter(product => !product.sales_account_id);
+        
+        if (productsWithoutSalesAccount.length === 0) {
+          toast.fire({
+            type: 'info',
+            title: this.$t('All products already have sales accounts assigned'),
+          });
+          return;
+        }
+        
+        for (const product of productsWithoutSalesAccount) {
+          if (!product.slug) {
+            console.warn('Product missing slug:', product);
+            continue;
+          }
+          
+          const response = await axios.post(
+            window.location.origin + '/api/products/' + product.slug + '/sales/auto-assign-chart-of-account'
+          );
+          
+          if (response.data && response.data.success) {
+            // Update the product data with new chart of account
+            product.sales_account_id = response.data.sales_account_id;
+            
+            // Update the product in the products list
+            const productIndex = this.products.findIndex(p => p.id === product.id);
+            if (productIndex !== -1) {
+              this.$set(this.products[productIndex], 'sales_account_id', response.data.sales_account_id);
+            }
+          }
+        }
+        
+        toast.fire({
+          type: 'success',
+          title: this.$t('Chart of Accounts assigned successfully'),
+        });
+      } catch (error) {
+        console.error('Error assigning product chart of accounts:', error);
+        let errorMessage = this.$t('Failed to assign Chart of Accounts. Please try again.');
+        
+        if (error && error.response) {
+          errorMessage = error.response.data?.message || error.message || errorMessage;
+        } else if (error && error.message) {
+          errorMessage = error.message;
+        }
+        
+        toast.fire({
+          type: 'error',
+          title: this.$t('Error'),
+          text: errorMessage,
+        });
+      } finally {
+        this.isAutoAssigningProduct = false;
+      }
+    },
+
+    // Auto-assign bank account chart of account
+    async autoAssignBankAccountChartOfAccount() {
+      if (!this.form.account) return;
+      
+      // For now, show a message that this feature is not available
+      toast.fire({
+        type: 'info',
+        title: this.$t('Feature Not Available'),
+        text: this.$t('Auto-assign for bank accounts is not yet available. Please assign Chart of Account manually.'),
+      });
+    },
+
+    // Edit product from table
+    editProductFromTable(item) {
+      // Open product edit modal or navigate to product edit page
+      this.$router.push({
+        name: 'products.edit',
+        params: { slug: item.slug }
+      });
+    },
+
+    // Open stock adjustment modal
+    openStockAdjustmentModal(item) {
+      // This would open a stock adjustment modal
+      // For now, we'll show an alert with instructions
+      Swal.fire({
+        title: this.$t('Insufficient Stock'),
+        text: `Product "${item.name}" has insufficient stock. Current: ${item.inventoryCount}, Required: ${item.qty}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.$t('Adjust Stock'),
+        cancelButtonText: this.$t('Cancel')
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Navigate to stock adjustment or open modal
+          this.$router.push({
+            name: 'products.stock-adjustment',
+            params: { slug: item.slug }
+          });
+        }
+      });
+    },
+
+    // calculate product discount
+    calculateProductDiscount(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        // Calculate discount amount based on type
+        let discountAmount;
+        if (item.discountType === "percentage") {
+          discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
+        } else {
+          discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+        }
+        
+        // Update item properties
+        item.discountAmount = discountAmount;
+        item.totalBeforeDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        item.totalAfterDiscount = this.roundToTwoDecimals(item.totalBeforeDiscount - discountAmount);
+        
+        // Recalculate VAT on the discounted amount
+        this.calculateProductVat(index);
+      }
+    },
+
+    // calculate product VAT
+    calculateProductVat(index) {
+      let item = this.form.selectedProducts[index];
+      if (item) {
+        let updatedItem = { ...item };
+        
+        // Ensure the selectedVatRate is properly set
+        if (!updatedItem.selectedVatRate) {
+          // First try to use the product's default VAT rate, then fall back to available taxes
+          if (updatedItem.productTax) {
+            updatedItem.selectedVatRate = this.findMatchingVatRate(updatedItem.productTax);
+          } else if (this.taxes && this.taxes.length > 0) {
+            updatedItem.selectedVatRate = this.taxes[0];
+          }
+        }
+        
+        if (updatedItem.selectedVatRate) {
+          // Calculate VAT based on the total after discount
+          const vatRate = updatedItem.selectedVatRate.rate || 0;
+          updatedItem.productTax = this.roundToTwoDecimals((updatedItem.totalAfterDiscount * vatRate) / 100);
+          updatedItem.totalTax = this.roundToTwoDecimals(updatedItem.productTax * updatedItem.qty);
+          updatedItem.totalPrice = this.roundToTwoDecimals(updatedItem.totalAfterDiscount + updatedItem.totalTax);
+        } else {
+          // No VAT rate selected
+          updatedItem.productTax = 0;
+          updatedItem.totalTax = 0;
+          updatedItem.totalPrice = updatedItem.totalAfterDiscount;
+        }
+        
+        // Update the item in the array
+        this.$set(this.form.selectedProducts, index, updatedItem);
+        this.calculateSum();
+      }
+    },
+
+    // find matching VAT rate
+    findMatchingVatRate(productTax) {
+      if (!this.taxes || !productTax) return null;
+      return this.taxes.find(tax => tax.rate === productTax.rate) || null;
+    },
+
+    // round to two decimals
+    roundToTwoDecimals(value) {
+      return Math.round((value + Number.EPSILON) * 100) / 100;
+    },
+
+    // Methods to get totals on-demand (forces reactivity)
+    getTotalUnitPrice() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.unitPrice * item.qty);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getTotalAfterDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalAfterDiscount || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getTotalDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.discountAmount || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getProductTotalTax() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalTax || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    getSubTotal() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalPrice || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    // return number to word with language support
+    toWord() {
+      const amount = this.form.subTotal || 0;
+      
+      // Handle edge cases
+      if (isNaN(amount) || amount < 0) {
+        return this.isRTL && this.currentLocale === 'ar' ? 'مبلغ غير صحيح' : 'Invalid Amount';
+      }
+      
+      if (amount === 0) {
+        return this.isRTL && this.currentLocale === 'ar' ? 'صفر ريال فقط' : 'Zero Only';
+      }
+      
+      // For now, return a simple representation
+      return `${amount.toFixed(2)} SAR`;
+    },
   },
 }
 </script>
@@ -1081,5 +1564,84 @@ export default {
   background: #229A26 !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+.clickable-badge {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clickable-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.invoices-create-table {
+  font-size: 0.875rem;
+}
+
+.invoices-create-table th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  padding: 0.75rem 0.5rem;
+}
+
+.invoices-create-table td {
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+
+.insufficient-stock-input {
+  border-color: #dc3545 !important;
+  background-color: #fff5f5 !important;
+}
+
+.custom-qty-input {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.custom-qty-input .button-minus,
+.custom-qty-input .button-plus {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ced4da;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.custom-qty-input .button-minus {
+  border-radius: 0.25rem 0 0 0.25rem;
+  border-right: none;
+}
+
+.custom-qty-input .button-plus {
+  border-radius: 0 0.25rem 0.25rem 0;
+  border-left: none;
+}
+
+.custom-qty-input .quantity-field {
+  flex: 1;
+  text-align: center;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+
+.custom-qty-input .quantity-field:focus {
+  box-shadow: none;
+  border-color: #80bdff;
+}
+
+.saudi-riyal {
+  font-weight: bold;
+  color: #28a745;
 }
 </style>

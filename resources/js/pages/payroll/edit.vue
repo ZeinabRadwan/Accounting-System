@@ -198,13 +198,13 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-md-4">
+                <!-- <div class="form-group col-md-4">
                   <label for="chequeNo">{{ $t('Cheque No') }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
                     :placeholder="$t('Enter a cheque number')" />
                   <has-error :form="form" field="chequeNo" />
-                </div>
+                </div> -->
                 <div class="form-group col-md-4">
                   <label for="salaryDate">{{
                     $t('Salary Date')

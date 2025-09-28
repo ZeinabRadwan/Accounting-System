@@ -590,6 +590,9 @@
   "Plan Features": "ميزات الخطة",
   "Billing": "الفواتير",
   "Today Report": "تقرير اليوم",
+  "Quick Add": "إضافة سريعة",
+  "Toggle Full Screen Mode": "تبديل وضع الشاشة الكاملة",
+  "Theme Settings": "إعدادات المظهر",
   "Purchase": "المشتريات",
   "Purchase Return": "مردودات المشتريات",
   "Sales Return": "مردودات المبيعات",
@@ -3493,6 +3496,7 @@
   "September": "سبتمبر",
   "October": "أكتوبر",
   "November": "نوفمبر",
+<<<<<<< HEAD
   "December": "ديسمبر",
   "40 per sheet (a4) (1.799 * 1.003)": "40 لكل ورقة (a4) (1.799 * 1.003)",
   "30 per sheet (2.625 * 1)": "30 لكل ورقة (2.625 * 1)",
@@ -3590,4 +3594,15 @@
       "Client": "العميل",
       "Stock": "المخزن",
       "Select a product": "اختر منتج"
+=======
+  "Stock Shortage" : "نقص المخزون",
+  "Click to manage stock" : "انقر لإدارة المخزون",
+  "Chart of Account Validation Required" : "تحقق من الحسابات المحاسبية",
+  "Some products need Sales Accounts assigned" : "بعض المنتجات تحتاج إلى حسابات مبيعات معينة",
+  "Client must have a Chart of Account assigned for journal entries" : "يجب أن يكون للعميل حساب محاسبي معين للقيود اليومية",
+  "Product must have a Sales Account assigned for journal entries" : "يجب أن يكون للمنتج حساب مبيعات معين للقيود اليومية",
+  "Current Opening Stock" : "رصيد المخزون الافتتاحي الحالي",
+  "Current Stock Unit Price" : "سعر وحدة المخزون الحالي",
+  "December": "ديسمبر"
+>>>>>>> 76aa30f9eea60cda89692b0162e8c9184b24ed30
 }

@@ -392,13 +392,13 @@
                     :placeholder="$t('Enter an amount')" />
                   <has-error :form="form" field="totalPaid" />
                 </div>
-                <div class="form-group col-md-4">
+                <!-- <div class="form-group col-md-4">
                   <label for="chequeNo">{{ $t("Cheque No") }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
                     :placeholder="$t('Enter a cheque number')" />
                   <has-error :form="form" field="chequeNo" />
-                </div>
+                </div> -->
                 <div class="form-group col-md-4">
                   <label for="receiptNo">{{ $t("Receipt No") }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"

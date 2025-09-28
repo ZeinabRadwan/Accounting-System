@@ -38,7 +38,7 @@
                             px-4
                             text-primary
                           " type="text" :placeholder="$t('domain')" />
-                        <span>{{ host }}</span>
+                        <span style="height: 100%; line-height: 2">{{ host }}</span>
                       </div>
                       <has-error :form="form" :style="[form.errors.has('domain') ? 'block' : 'none']" field="domain" />
                     </div>
@@ -187,8 +187,8 @@ export default {
         
         if (domainResponse && domainResponse.data.success) {
           // Update loading text for redirect
-          this.loadingText = 'Redirecting to your dashboard...'
-          this.subText = 'Please wait while we take you to your account'
+          this.loadingText = this.$t('Redirecting to your dashboard...')
+          this.subText = this.$t('Please wait while we take you to your account')
           
           // Small delay to show loading state before redirect
           setTimeout(() => {
