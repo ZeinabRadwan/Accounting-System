@@ -1612,6 +1612,16 @@ img.circle-img.circle-img--small {
   right: 2px;
 }
 
+// RTL support for domain input
+[dir="rtl"] .url>span:last-child {
+  right: auto;
+  left: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
 .invalid-feedback {
   display: block;
 }

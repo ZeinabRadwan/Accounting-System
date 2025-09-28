@@ -107,4 +107,33 @@ export default {
     order: -1 !important;
   }
 }
+
+// Debug and force RTL for domain input
+[dir="rtl"] .d-flex.url {
+  flex-direction: row-reverse !important;
+  display: flex !important;
+  
+  span {
+    order: -1 !important;
+    margin-left: 0 !important;
+    margin-right: 8px !important;
+  }
+  
+  input {
+    order: 1 !important;
+  }
+}
+
+// Even more specific targeting
+[dir="rtl"] .form-group .d-flex.url {
+  flex-direction: row-reverse !important;
+  
+  span {
+    order: -1 !important;
+  }
+  
+  input {
+    order: 1 !important;
+  }
+}
 </style>
