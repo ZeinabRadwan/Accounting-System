@@ -2743,8 +2743,8 @@
   "Please select a date.": "يرجى اختيار تاريخ.",
   "Some products have insufficient stock. Please adjust quantities.": "بعض المنتجات لديها مخزون غير كافٍ. يرجى تعديل الكميات.",
   "Percentage discount cannot exceed 100%.": "لا يمكن أن يتجاوز الخصم النسبي 100%.",
+  "needs Sales Account" : "يحتاج إلى حساب مبيعات",
   "Fixed discount cannot exceed subtotal amount.": "لا يمكن أن يتجاوز الخصم الثابت مبلغ المجموع الفرعي.",
-  
   "Loan Authority Validation Messages": "رسائل التحقق من جهة القرض",
   "The name field is required.": "حقل الاسم مطلوب.",
   "The name field must not exceed 150 characters.": "حقل الاسم يجب ألا يتجاوز 150 حرف.",

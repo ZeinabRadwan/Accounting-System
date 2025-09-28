@@ -1,5 +1,6 @@
 <template>
-  <li v-if="Object.keys(locales).length > 1" class="nav-item dropdown">
+  <div>
+    <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle custom-nav-btn" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
       aria-expanded="false" v-tooltip="$t('Language')">
       <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +17,8 @@
         {{ $t(`languages.${key}`) }}
       </a>
     </div>
-  </li>
+    </li>
+  </div>
 </template>
 
 <script>
@@ -30,6 +32,10 @@ export default {
     locale: 'lang/locale',
     locales: 'lang/locales',
   }),
+
+  mounted() {
+    // Component mounted successfully
+  },
 
   components: {
     LangFlag,
@@ -89,13 +95,10 @@ export default {
       this.isLoading = true
 
       try {
-        // Debug: Log the request details
-        console.log('Setting locale to:', locale)
-        console.log('Current URL:', window.location.href)
-        console.log('CSRF token:', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'))
-        
-        // Make an API call to Laravel
-        const response = await axios.post('/api/set-locale', { locale })
+        // Make an API call to Laravel - use public endpoint for unauthenticated users
+        const isAuthenticated = this.$store.getters['auth/check']
+        const endpoint = isAuthenticated ? '/api/set-locale' : '/api/set-locale-public'
+        const response = await axios.post(endpoint, { locale })
 
         // Check if response exists and has data
         if (response && response.data && response.data.success) {

@@ -1,10 +1,13 @@
 <template>
-  <div class="minimal-login-page">
-    <div v-if="loading" class="loading-container">
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
+  <div>
+    <!-- White screen loader -->
+    <WhiteScreenLoader 
+      v-if="loading" 
+      :loading-text="loadingText"
+      :sub-text="subText"
+    />
+    
+    <!-- Error state -->
     <div v-else-if="error" class="error-container">
       <div class="alert alert-danger">
         {{ error }}
@@ -15,10 +18,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import WhiteScreenLoader from '../../components/WhiteScreenLoader.vue'
 
 export default {
   layout: 'blank',
   middleware: 'guest',
+  components: {
+    WhiteScreenLoader
+  },
   metaInfo() {
     return { title: 'Logging in...' }
   },
@@ -26,6 +33,8 @@ export default {
     loading: true,
     error: null,
     appName: window.config.appName,
+    loadingText: 'Authenticating...',
+    subText: 'Please wait while we verify your credentials'
   }),
   // Map Getters
   computed: {
@@ -57,19 +66,27 @@ export default {
         })
 
         if (response.data && response.data.token) {
+          // Update loading text
+          this.loadingText = 'Setting up your session...'
+          this.subText = 'Almost there! Preparing your dashboard'
+          
           // Save the token to the store
           await this.$store.dispatch('auth/saveToken', {
             token: response.data.token,
             remember: false,
           })
 
+          // Update loading text again
+          this.loadingText = 'Loading your dashboard...'
+          this.subText = 'Finalizing your login process'
+
           // Fetch the user
           await this.$store.dispatch('auth/fetchUser')
 
-          // Quick redirect to dashboard without showing success message
+          // Quick redirect to dashboard
           setTimeout(() => {
             this.$router.push({ name: 'home' })
-          }, 100)
+          }, 500)
         } else {
           this.error = 'Login failed. Please try again.'
         }
@@ -85,7 +102,7 @@ export default {
 </script>
 
 <style scoped>
-.minimal-login-page {
+.error-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -96,18 +113,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.loading-container {
-  text-align: center;
-}
-
-.loading-container .spinner-border {
-  width: 3rem;
-  height: 3rem;
-}
-
-.error-container {
   text-align: center;
   padding: 2rem;
 }

@@ -543,6 +543,9 @@ class TenantBulkDataSeederV2 extends Seeder
         // First create product categories and subcategories
         $this->createSampleProductCategories();
         
+        // Create VAT rates first
+        $this->createSampleVatRates();
+        
         $products = [
             ['name' => 'Office Chair', 'code' => 'CHR-001', 'regular_price' => 299.99, 'purchase_price' => 199.99],
             ['name' => 'Desk Lamp', 'code' => 'LMP-001', 'regular_price' => 89.99, 'purchase_price' => 59.99],
@@ -559,6 +562,9 @@ class TenantBulkDataSeederV2 extends Seeder
         // Get a random subcategory
         $subCategory = \App\Models\ProductSubCategory::first();
         
+        // Get the 15% VAT rate
+        $vatRate = \App\Models\VatRate::where('rate', 15.0)->first();
+        
         foreach ($products as $productData) {
             Product::create([
                 'name' => $productData['name'],
@@ -568,6 +574,7 @@ class TenantBulkDataSeederV2 extends Seeder
                 'status' => 1,
                 'is_service' => 0,
                 'tax_type' => 'Exclusive',
+                'tax_id' => $vatRate ? $vatRate->id : null,
                 'sub_cat_id' => $subCategory ? $subCategory->id : null,
             ]);
         }
