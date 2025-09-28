@@ -3496,7 +3496,6 @@
   "September": "سبتمبر",
   "October": "أكتوبر",
   "November": "نوفمبر",
-<<<<<<< HEAD
   "December": "ديسمبر",
   "40 per sheet (a4) (1.799 * 1.003)": "40 لكل ورقة (a4) (1.799 * 1.003)",
   "30 per sheet (2.625 * 1)": "30 لكل ورقة (2.625 * 1)",
@@ -3593,8 +3592,7 @@
       "Supplier": "المورد",
       "Client": "العميل",
       "Stock": "المخزن",
-      "Select a product": "اختر منتج"
-=======
+      "Select a product": "اختر منتج",
   "Stock Shortage" : "نقص المخزون",
   "Click to manage stock" : "انقر لإدارة المخزون",
   "Chart of Account Validation Required" : "تحقق من الحسابات المحاسبية",
@@ -3604,5 +3602,4 @@
   "Current Opening Stock" : "رصيد المخزون الافتتاحي الحالي",
   "Current Stock Unit Price" : "سعر وحدة المخزون الحالي",
   "December": "ديسمبر"
->>>>>>> 76aa30f9eea60cda89692b0162e8c9184b24ed30
 }
