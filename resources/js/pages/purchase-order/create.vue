@@ -287,16 +287,8 @@
                       " />
                   <has-error :form="form" field="poReference" />
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="paymentTerms">{{
-                    $t("Payment Terms")
-                  }}</label>
-                  <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms" :placeholder="$t('Enter payment terms')
-                      " />
-                  <has-error :form="form" field="paymentTerms" />
-                </div>
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
+
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
                   <label for="orderTax">{{ $t("Purchase Tax") }}
                     <span class="required">*</span></label>
                   <!-- Debug: isSaudiArabia = {{ isSaudiArabia }}, taxes = {{ taxes ? 'exists' : 'null' }} -->
@@ -305,7 +297,15 @@
                       " @input="updateTax" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-xl-3">
+
+                <div class="form-group col-md-4">
+                  <label for="netTotal">{{ $t("Net Total") }}</label>
+                  <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
+                  <has-error :form="form" field="netTotal" />
+                </div>
+
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
                   <label for="totalTax">{{
                     $t("Total Tax")
                   }}</label>
@@ -313,8 +313,7 @@
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-              </div>
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
+
                 <div class="form-group col-md-6 col-xl-3" v-if="!isSaudiArabia">
                   <label for="discount">{{
                     $t("Discount")
@@ -326,7 +325,7 @@
                       " @change="calculateSum" @keyup="calculateSum" />
                   <has-error :form="form" field="discount" />
                 </div>
-                <div class="form-group col-md-6 col-xl-3">
+                <div class="form-group col-md-4">
                   <label for="transportCost">{{
                     $t("Transport Cost")
                   }}</label>
@@ -336,12 +335,20 @@
                         " @change="calculateSum" @keyup="calculateSum" />
                   <has-error :form="form" field="transportCost" />
                 </div>
-                <div class="form-group col-md-6 col-xl-3">
-                  <label for="netTotal">{{ $t("Net Total") }}</label>
-                  <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
-                  <has-error :form="form" field="netTotal" />
+
+                <div class="form-group col-md-6">
+                  <label for="paymentTerms">{{
+                    $t("Payment Terms")
+                  }}</label>
+                  <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms" :placeholder="$t('Enter payment terms')
+                      " />
+                  <has-error :form="form" field="paymentTerms" />
                 </div>
+              </div>
+              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
+               
+               
               </div>
               <div class="form-group">
                 <label for="note">{{ $t("Note") }}</label>

@@ -235,7 +235,7 @@
                           <strong>{{ $t("Subtotal") }}</strong>
                         </td>
                         <td>
-                          <strong>{{ purchaseSubTotal  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ Number(purchaseSubTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td class="text-right">
                           <strong>{{ purchaseReturn  }} <span class="saudi-riyal">ê</span></strong>
@@ -255,24 +255,24 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ Number(allData.purchase.subTotal).toFixed(2) | withCurrency }}</td>
+                        <td>{{ Number(allData.purchase.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
                       </tr>
                       <tr>
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
-                          {{ Number(purchaseReturn).toFixed(2) | withCurrency }}
+                          {{ Number(purchaseReturn).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Discount") }}:</th>
                         <td>
-                          {{ Number(allData.purchase.totalDiscount).toFixed(2) | withCurrency }}
+                          {{ Number(allData.purchase.totalDiscount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          {{ Number(allData.purchase.transport).toFixed(2) | withCurrency }}
+                          {{ Number(allData.purchase.transport).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr>
@@ -281,7 +281,7 @@
                           <span>({{ allData.purchase.taxRate }}%):</span>
                         </th>
                         <td>
-                          {{ Number(allData.purchase.tax).toFixed(2) | withCurrency }}
+                          {{ Number(allData.purchase.tax).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
@@ -294,12 +294,12 @@
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          {{ Number(allData.purchase.totalPaid).toFixed(2) | withCurrency }}
+                          {{ Number(allData.purchase.totalPaid).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ Number(allData.purchase.due).toFixed(2) | withCurrency }}</td>
+                        <td>{{ Number(allData.purchase.due).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
                       </tr>
                       <tr
                         class="bg-green-light"
@@ -307,7 +307,7 @@
                       >
                         <th>{{ $t("Account Receivable") }}:</th>
                         <td>
-                          {{ Number(allData.accountReceivable.amount).toFixed(2) | withCurrency }}
+                          {{ Number(allData.accountReceivable.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                     </tbody>

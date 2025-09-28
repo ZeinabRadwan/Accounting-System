@@ -17,32 +17,60 @@ class TenantChartOfAccountType extends Seeder
     {
         // check if table is empty
         if (DB::table('chart_of_account_types')->count() == 0) {
+            // DB::table('chart_of_account_types')->insert([
+            //     [
+            //         'name' => 'Asset',
+            //         'order' => 1,
+            //     ],
+            //     [
+            //         'name' => 'Liability',
+            //         'order' => 2,
+            //     ],
+            //     [
+            //         'name' => 'Equity',
+            //         'order' => 3,
+            //     ],
+            //     [
+            //         'name' => 'Revenue',
+            //         'order' => 4,
+            //     ],
+            //     [
+            //         'name' => 'Expense',
+            //         'order' => 5,
+            //     ],
+            //     [
+            //         'name' => 'Other',
+            //         'order' => 6,
+            //     ],
+            // ]);
+
             DB::table('chart_of_account_types')->insert([
                 [
-                    'name' => 'Asset',
+                    'name' => 'الأصول', // Assets
                     'order' => 1,
                 ],
                 [
-                    'name' => 'Liability',
+                    'name' => 'الخصوم', // Liabilities
                     'order' => 2,
                 ],
                 [
-                    'name' => 'Equity',
+                    'name' => 'حقوق الملكية', // Equity / Owner’s Equity
                     'order' => 3,
                 ],
                 [
-                    'name' => 'Revenue',
+                    'name' => 'الإيرادات', // Revenue / Income
                     'order' => 4,
                 ],
                 [
-                    'name' => 'Expense',
+                    'name' => 'المصروفات', // Expenses
                     'order' => 5,
                 ],
                 [
-                    'name' => 'Other',
+                    'name' => 'أخرى', // Other
                     'order' => 6,
                 ],
             ]);
+            
         }
     }
 }

@@ -274,7 +274,7 @@
                             @click="toggleNode(account.id)"
                             class="expand-btn"
                           >
-                            <i :class="account.expanded ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
+                            <i :class="account.expanded ? 'fas fa-chevron-down' : (isRTL ? 'fas fa-chevron-left' : 'fas fa-chevron-right')"></i>
                           </button>
                           <span v-else-if="!account.isTotalRow" class="expand-spacer"></span>
                           <i v-if="account.hasChildren && !account.isTotalRow" class="account-icon" :class="account.expanded ? 'fa-folder-open' : 'fa-folder'"></i>
@@ -563,6 +563,9 @@ export default {
       }
       
       return `/print/reports/trial-balance?${params.toString()}`;
+    },
+    isRTL() {
+      return document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
     },
   },
   created() {

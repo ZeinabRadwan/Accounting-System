@@ -112,16 +112,16 @@
                                 " />
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ Number(item.unitCost).toFixed(2) | withCurrency }}</td>
+                        <td style="min-width: 100px;">{{ Number(item.unitCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
                         <td style="min-width: 120px;">
                           <span v-if="item.productDiscount && item.productDiscount > 0" class="badge badge-info">
-                            {{ item.discountType === 'percentage' ? item.productDiscount + '%' : Number(item.productDiscount).toFixed(2) | withCurrency }}
+                            {{ item.discountType === 'percentage' ? item.productDiscount + '%' : Number(item.productDiscount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                           </span>
                           <span v-else class="text-muted">-</span>
                         </td>
-                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toFixed(2) | withCurrency }}</td>
+                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
                         <td class="text-right" style="min-width: 120px;">
-                          {{ Number(item.returnTotal).toFixed(2) | withCurrency }}
+                          {{ Number(item.returnTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr v-if="form.invoice">
@@ -130,11 +130,11 @@
                         </td>
                         <td class="text-center">
                           <strong>{{
-                            form.invoice.subTotal | withCurrency
-                          }}</strong>
+                            Number(form.invoice.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td class="text-right">
-                          <strong>{{ Number(form.totalReturn).toFixed(2) | withCurrency }}</strong>
+                          <strong>{{ Number(form.totalReturn).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</strong>
                         </td>
                       </tr>
                     </tbody>

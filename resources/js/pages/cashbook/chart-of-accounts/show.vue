@@ -94,7 +94,7 @@
                   <span class="balance-label">{{ $t("Current Balance") }}</span>
                   <span class="balance-value total-value" 
                         :class="accountData.balance_type === 'Debit' ? 'debit-total' : 'credit-total'">
-                    {{ accountData.formatted_balance_with_type || '0.00 Debit' }}
+                    {{ accountData.formatted_balance_with_type || '0.00 ' + $t('Debit') }}
                   </span>
                 </div>
               </div>
@@ -187,7 +187,7 @@
                 <td class="balance-cell">
                   <span class="balance-badge" 
                         :class="entry.balance_type === 'Debit' ? 'balance-debit' : 'balance-credit'">
-                    {{ entry.formatted_balance_with_type || '0.00 Debit' }}
+                    {{ entry.formatted_balance_with_type || '0.00 ' + $t('Debit') }}
                   </span>
                 </td>
                 <td class="status-cell">
