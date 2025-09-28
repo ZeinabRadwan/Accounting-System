@@ -140,13 +140,13 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                   <label for="chequeNo">{{ $t("Cheque No") }}</label>
                   <input type="text" v-model="form.chequeNo" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" id="chequeNo"
                     :placeholder="$t('Enter a cheque number')" />
                   <has-error :form="form" field="chequeNo" />
-                </div>
+                </div> -->
                 <div class="form-group col-md-3">
                   <label for="receiptNo">{{ $t("Receipt No") }}</label>
                   <input type="text" v-model="form.receiptNo" class="form-control"
