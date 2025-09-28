@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[7384],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[794],{
 
 /***/ 144:
 /***/ ((__unused_webpack_module, exports) => {
@@ -253,118 +253,7 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 10982:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'تومان',
-                plural: '',
-                singular: '',
-                symbol: 'تومان',
-                fractionalUnit: {
-                    name: '',
-                    singular: 'ریال',
-                    plural: 'تومان',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'و',
-                minus: 'منفی',
-                only: '',
-                point: 'و',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'کوادریلیون' },
-                { number: 1000000000000, value: 'تیلیارد' },
-                { number: 1000000000, value: 'میلیارد' },
-                { number: 1000000, value: 'میلیون' },
-                { number: 1000, value: 'هزار' },
-                { number: 900, value: 'نهصد' },
-                { number: 800, value: 'هشتصد' },
-                { number: 700, value: 'هفتصد' },
-                { number: 600, value: 'ششصد' },
-                { number: 500, value: 'پانصد' },
-                { number: 400, value: 'چهارصد' },
-                { number: 300, value: 'سیصد' },
-                { number: 200, value: 'دویست' },
-                { number: 100, value: 'صد' },
-                { number: 90, value: 'نود' },
-                { number: 80, value: 'هشتاد' },
-                { number: 70, value: 'هفتاد' },
-                { number: 60, value: 'شصت' },
-                { number: 50, value: 'پنجاه' },
-                { number: 40, value: 'چهل' },
-                { number: 30, value: 'سی' },
-                { number: 20, value: 'بیست' },
-                { number: 19, value: 'نوزده' },
-                { number: 18, value: 'هجده' },
-                { number: 17, value: 'هفده' },
-                { number: 16, value: 'شانزده' },
-                { number: 15, value: 'پانزده' },
-                { number: 14, value: 'چهارده' },
-                { number: 13, value: 'سیزده' },
-                { number: 12, value: 'دوازده' },
-                { number: 11, value: 'یازده' },
-                { number: 10, value: 'ده' },
-                { number: 9, value: 'نه' },
-                { number: 8, value: 'هشت' },
-                { number: 7, value: 'هفت' },
-                { number: 6, value: 'شش' },
-                { number: 5, value: 'پنج' },
-                { number: 4, value: 'چهار' },
-                { number: 3, value: 'سه' },
-                { number: 2, value: 'دو' },
-                { number: 1, value: 'یک' },
-                { number: 0, value: 'صفر' },
-            ],
-            namedLessThan1000: true,
-            splitWord: 'و',
-            ignoreZeroInDecimals: true,
-            decimalLengthWordMapping: {
-                1: 'دهم',
-                2: 'صدم',
-                3: 'هزارم',
-                4: 'ده‌هزارم',
-                5: 'صد‌هزارم',
-                6: 'میلیونیوم',
-                7: 'ده‌میلیونیوم',
-                8: 'صد‌میلیونیوم',
-                9: 'میلیاردیوم',
-            },
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 16706:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-bc0cd620]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1050}.modal-content[data-v-bc0cd620]{background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-bc0cd620]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #dee2e6;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;padding:20px}.modal-title[data-v-bc0cd620]{font-size:1.25rem;font-weight:600;margin:0}.close[data-v-bc0cd620]{background:none;border:none;color:#6c757d;cursor:pointer;font-size:1.5rem}.close[data-v-bc0cd620]:hover{color:#000}.modal-body[data-v-bc0cd620]{padding:20px}.modal-footer[data-v-bc0cd620]{background-color:#f8f9fa;border-radius:0 0 10px 10px;border-top:1px solid #dee2e6;display:flex;gap:10px;justify-content:flex-end;padding:20px}.option-card[data-v-bc0cd620]{align-items:center;border:2px solid #e9ecef;border-radius:8px;cursor:pointer;display:flex;margin-bottom:15px;padding:15px;transition:all .3s ease}.option-card[data-v-bc0cd620]:hover{background-color:#f8f9fa;border-color:#007bff;box-shadow:0 4px 8px rgba(0,0,0,.1);transform:translateY(-2px)}.option-icon[data-v-bc0cd620]{font-size:2rem;margin-right:15px;min-width:50px;text-align:center}.option-content h6[data-v-bc0cd620]{font-weight:600;margin:0 0 5px}.option-content p[data-v-bc0cd620]{font-size:.9rem;margin:0}.product-info[data-v-bc0cd620]{background-color:#f8f9fa;border-left:4px solid #007bff;border-radius:8px;padding:15px}.quick-adjustment .card[data-v-bc0cd620]{border:1px solid #dee2e6;border-radius:8px}.quick-adjustment .card-header[data-v-bc0cd620]{background-color:#e9ecef;border-bottom:1px solid #dee2e6;padding:15px}.form-actions[data-v-bc0cd620]{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.required[data-v-bc0cd620]{color:#dc3545}.badge[data-v-bc0cd620]{font-size:.875em;padding:.375rem .75rem}.alert[data-v-bc0cd620]{border:none;border-radius:8px}.alert-warning[data-v-bc0cd620]{background-color:#fff3cd;border-left:4px solid #ffc107;color:#856404}[dir=rtl] .option-card[data-v-bc0cd620]{flex-direction:row-reverse}[dir=rtl] .option-icon[data-v-bc0cd620]{margin-left:15px;margin-right:0}[dir=rtl] .product-info[data-v-bc0cd620]{border-left:none;border-right:4px solid #007bff}[dir=rtl] .alert-warning[data-v-bc0cd620]{border-left:none;border-right:4px solid #ffc107}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 17384:
+/***/ 10794:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -375,7 +264,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ create)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=template&id=49a6d624&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/create.vue?vue&type=template&id=32ed5d0e&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -400,7 +289,7 @@ var render = function render() {
     staticClass: "btn btn-info",
     attrs: {
       "to": {
-        name: 'quotations.index'
+        name: 'invoices.index'
       }
     }
   }, [_c('i', {
@@ -409,66 +298,24 @@ var render = function render() {
     staticClass: "btn btn-success",
     attrs: {
       "type": "submit",
-      "form": 'quotationCreateForm',
+      "form": 'invoiceCreateForm',
       "title": "Save"
     }
   }, [_c('i', {
     staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('form', {
+  })])], 1)])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('form', {
     attrs: {
-      "id": "quotationCreateForm",
-      "role": "form"
+      "id": "invoiceCreateForm"
     },
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.saveQuotation.apply(null, arguments);
-      },
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
+        return _vm.handleFormSubmit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "date"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.date,
-      expression: "form.date"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('date')
-    },
-    attrs: {
-      "id": "date",
-      "type": "date",
-      "name": "date"
-    },
-    domProps: {
-      "value": _vm.form.date
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "date", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "date"
-    }
-  })], 1)]), _vm._v(" "), _vm.items ? _c('div', {
+  }, [_vm.items ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "form-group col-md-6"
@@ -487,14 +334,16 @@ var render = function render() {
   }, [_c('v-select', {
     staticClass: "flex-grow-1",
     "class": {
-      'is-invalid': _vm.form.errors.has('client'),
-      'rtl-select': _vm.isRTL
+      'is-invalid': _vm.form.errors.has('client')
     },
     attrs: {
       "options": _vm.items,
       "label": "name",
       "name": "client",
       "placeholder": _vm.$t('Select a client')
+    },
+    on: {
+      "input": _vm.onClientChange
     },
     model: {
       value: _vm.form.client,
@@ -503,7 +352,7 @@ var render = function render() {
       },
       expression: "form.client"
     }
-  }), _vm._v(" "), !_vm.form.client ? _c('ClientCreateModal', {
+  }), _vm._v(" "), _c('ClientCreateModal', {
     on: {
       "reloadClients": function reloadClients($event) {
         return _vm.getClients('latest');
@@ -513,14 +362,26 @@ var render = function render() {
     staticClass: "input-group-text create-btn"
   }, [_c('i', {
     staticClass: "fas fa-solid fa-plus-circle"
-  })])]) : _vm._e(), _vm._v(" "), _vm.form.client ? _c('div', {
-    staticClass: "input-group-text create-btn edit-btn",
+  })])])], 1), _vm._v(" "), _vm.form.client ? _c('div', {
+    staticClass: "client-status mt-2"
+  }, [!_vm.form.client.chart_of_account_id ? _c('div', {
+    staticClass: "client-warning"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Client needs Chart of Account')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-outline-warning ml-2",
+    attrs: {
+      "type": "button",
+      "disabled": _vm.isAutoAssigningClient
+    },
     on: {
-      "click": _vm.editSelectedClient
+      "click": _vm.autoAssignClientChartOfAccount
     }
   }, [_c('i', {
-    staticClass: "fas fa-edit"
-  })]) : _vm._e()], 1), _vm._v(" "), _c('has-error', {
+    "class": _vm.isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
+  }), _vm._v("\n                          " + _vm._s(_vm.isAutoAssigningClient ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "client"
@@ -531,7 +392,7 @@ var render = function render() {
     attrs: {
       "for": "reference"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Reference")))]), _vm._v(" "), _c('input', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Reference")) + "\n                  ")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -552,10 +413,12 @@ var render = function render() {
       "value": _vm.form.reference
     },
     on: {
-      "input": function input($event) {
+      "input": [function ($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "reference", $event.target.value);
-      }
+      }, function ($event) {
+        return _vm.clearFieldError('reference');
+      }]
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
@@ -565,7 +428,7 @@ var render = function render() {
   })], 1)]) : _vm._e(), _vm._v(" "), _vm.products ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group col-md-12"
+    staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
       "for": "product"
@@ -581,8 +444,7 @@ var render = function render() {
   }, [_c('v-select', {
     staticClass: "flex-grow-1",
     "class": {
-      'is-invalid': _vm.form.errors.has('selectedProducts'),
-      'rtl-select': _vm.isRTL
+      'is-invalid': _vm.form.errors.has('selectedProducts')
     },
     attrs: {
       "options": _vm.products,
@@ -611,68 +473,73 @@ var render = function render() {
     staticClass: "input-group-text create-btn"
   }, [_c('i', {
     staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "selectedProducts"
-    }
-  })], 1)]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "selectedProducts"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.hasInsufficientStock ? _c('div', {
-    staticClass: "row mt-3 mb-3"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "alert alert-warning d-flex align-items-center",
-    attrs: {
-      "role": "alert"
-    }
+  })])])], 1), _vm._v(" "), _vm.form.product ? _c('div', {
+    staticClass: "product-status mt-2"
+  }, [!_vm.form.product.sales_account_id ? _c('div', {
+    staticClass: "product-warning"
   }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle mr-3",
-    staticStyle: {
-      "font-size": "1.5rem"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "flex-grow-1"
-  }, [_c('h6', {
-    staticClass: "mb-1"
-  }, [_vm._v(_vm._s(_vm.$t("Insufficient Stock Alert")))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-0"
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Some products have insufficient stock. Click on the red badges to manage stock levels.")) + "\n                      "), _c('button', {
+    staticClass: "fas fa-exclamation-triangle text-warning"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(_vm.form.product.name) + "\" " + _vm._s(_vm.$t('needs Sales Account')))]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-sm btn-outline-warning ml-2",
     attrs: {
-      "type": "button"
+      "type": "button",
+      "disabled": _vm.isAutoAssigningProduct === _vm.form.product.id
     },
     on: {
-      "click": _vm.showAllInsufficientStock
+      "click": function click($event) {
+        return _vm.autoAssignProductChartOfAccount(_vm.form.product, 'sales');
+      }
     }
   }, [_c('i', {
-    staticClass: "fas fa-list mr-1"
-  }), _vm._v("\n                        " + _vm._s(_vm.$t("View All")) + "\n                      ")])])])])])]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    "class": _vm.isAutoAssigningProduct === _vm.form.product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
+  }), _vm._v("\n                          " + _vm._s(_vm.isAutoAssigningProduct === _vm.form.product.id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                        ")])]) : !_vm.form.product.productTax || !_vm.form.product.productTax.id ? _c('div', {
+    staticClass: "product-warning"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(_vm.form.product.name) + "\" " + _vm._s(_vm.$t('needs VAT Rate')))])]) : _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 && _vm.form.selectedProducts[0].sales_account_id ? _c('div', {
+    staticClass: "product-success"
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle text-success"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(_vm.form.selectedProducts[0].name) + "\" " + _vm._s(_vm.$t('Sales Account ready')))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "selectedProducts"
+    }
+  }), _vm._v(" "), !_vm.form.selectedProducts || _vm.form.selectedProducts.length === 0 ? _c('div', {
+    staticClass: "text-warning mt-1"
+  }, [_c('small', [_c('i', {
+    staticClass: "fas fa-exclamation-triangle"
+  }), _vm._v(" " + _vm._s(_vm.$t('At least one product must be selected')))])]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
     staticClass: "row mt-3 mb-4"
   }, [_c('div', {
-    staticClass: "table-responsive table-custom w-95 m-auto"
+    staticClass: "table-responsive table-custom w-100 m-auto",
+    staticStyle: {
+      "max-width": "100%"
+    }
   }, [_c('table', {
-    staticClass: "table table-hover table-sm text-center quotations-create-table"
+    staticClass: "table table-hover table-sm text-center invoices-create-table"
   }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]), _vm._v(" "), _c('th', {
     staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Action")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.form.selectedProducts, function (item, i) {
+  }, [_vm._v(_vm._s(_vm.$t("Action")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.form.selectedProducts, function (item, index) {
     return _c('tr', {
-      key: i
+      key: "item-".concat(index, "-").concat(item.totalPrice, "-").concat(item.totalAfterDiscount)
     }, [_c('td', {
       staticStyle: {
-        "min-width": "50px"
+        "min-width": "30px"
       }
-    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "100px"
+        "min-width": "60px"
       }
-    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)) + "\n                      ")]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "200px"
+        "min-width": "120px"
       }
     }, [_c('div', {
       staticClass: "d-flex align-items-center"
@@ -722,7 +589,7 @@ var render = function render() {
       staticClass: "fas fa-edit"
     })])])]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "200px"
+        "min-width": "120px"
       }
     }, [_c('div', {
       staticClass: "input-group custom-qty-input"
@@ -735,41 +602,46 @@ var render = function render() {
       },
       on: {
         "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'decrement');
+          return _vm.generateItemTotal(item.qty, 'qty', index, 'decrement');
         }
       }
     }), _vm._v(" "), _c('input', {
       directives: [{
         name: "model",
-        rawName: "v-model",
+        rawName: "v-model.number",
         value: item.qty,
-        expression: "item.qty"
+        expression: "item.qty",
+        modifiers: {
+          "number": true
+        }
       }],
       staticClass: "quantity-field border-0 incrementor",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".qty")),
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(index, ".qty")),
         'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
       },
       attrs: {
         "type": "number",
         "step": "any",
-        "id": "Qty-".concat(i),
+        "id": "Qty-".concat(index + 1),
         "name": "quantity",
         "required": "",
         "min": "1",
         "max": item.itemType == 'product' ? item.inventoryCount : null,
-        "placeholder": _vm.$t('Quantity')
+        "placeholder": "Quantity"
       },
       domProps: {
         "value": item.qty
       },
       on: {
-        "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
-        },
-        "input": function input($event) {
+        "input": [function ($event) {
           if ($event.target.composing) return;
-          _vm.$set(item, "qty", $event.target.value);
+          _vm.$set(item, "qty", _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.generateItemTotal(item.qty, 'qty', index, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
         }
       }
     }), _vm._v(" "), _c('input', {
@@ -781,53 +653,64 @@ var render = function render() {
       },
       on: {
         "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'increment');
+          return _vm.generateItemTotal(item.qty, 'qty', index, 'increment');
         }
       }
-    })])]), _vm._v(" "), _c('td', {
+    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(index, ".qty")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(index, ".qty"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "200px"
+        "min-width": "120px"
       }
     }, [_c('div', {
       staticClass: "input-group custom-qty-input"
     }, [_c('input', {
       directives: [{
         name: "model",
-        rawName: "v-model",
+        rawName: "v-model.number",
         value: item.unitPrice,
-        expression: "item.unitPrice"
+        expression: "item.unitPrice",
+        modifiers: {
+          "number": true
+        }
       }],
       staticClass: "quantity-field border-0",
+      "class": {
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(index, ".unitPrice"))
+      },
       attrs: {
         "type": "number",
         "step": "any",
-        "min": "0",
-        "id": "unitPrice-".concat(i),
+        "id": "unitPrice-".concat(index + 1),
         "name": "unitPrice",
-        "required": ""
+        "required": "",
+        "min": "0"
       },
       domProps: {
         "value": item.unitPrice
       },
       on: {
-        "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
-        },
-        "input": function input($event) {
+        "input": [function ($event) {
           if ($event.target.composing) return;
-          _vm.$set(item, "unitPrice", $event.target.value);
+          _vm.$set(item, "unitPrice", _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.generateItemTotal(item.unitPrice, 'price', index, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
         }
       }
-    })])]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency",
+    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(index, ".unitPrice")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(index, ".unitPrice"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "120px"
+        "min-width": "80px"
       }
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.unitPrice * item.qty)) + " "), _c('span', {
+    }, [_vm._v(_vm._s(item.totalBeforeDiscount) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "180px"
+        "min-width": "120px"
       }
     }, [_c('div', {
       staticClass: "input-group"
@@ -840,7 +723,7 @@ var render = function render() {
       }],
       staticClass: "form-control form-control-sm",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType"))
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(index, ".discountType"))
       },
       staticStyle: {
         "width": "60px"
@@ -855,7 +738,7 @@ var render = function render() {
           });
           _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
         }, function ($event) {
-          return _vm.calculateProductDiscount(i - 1);
+          return _vm.calculateProductDiscount(index);
         }]
       }
     }, [_c('option', {
@@ -875,7 +758,7 @@ var render = function render() {
       }],
       staticClass: "form-control form-control-sm",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount"))
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(index, ".discount"))
       },
       staticStyle: {
         "width": "80px"
@@ -892,30 +775,34 @@ var render = function render() {
       },
       on: {
         "change": function change($event) {
-          return _vm.calculateProductDiscount(i - 1);
+          return _vm.calculateProductDiscount(index);
+        },
+        "keyup": function keyup($event) {
+          return _vm.calculateProductDiscount(index);
         },
         "input": function input($event) {
           if ($event.target.composing) return;
           _vm.$set(item, "discount", $event.target.value);
         }
       }
-    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) || _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
+    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(index, ".discount")) || _vm.form.errors.has("selectedProducts.".concat(index, ".discountType")) ? _c('div', {
       staticClass: "invalid-feedback d-block"
-    }, [_vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
+    }, [_vm.form.errors.has("selectedProducts.".concat(index, ".discount")) ? _c('span', {
       staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
+    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(index, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(index, ".discountType")) ? _c('span', {
       staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency",
+    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(index, ".discountType"))))]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "120px"
+        "min-width": "80px"
       }
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.unitPrice * item.qty - (item.discountAmount || 0))) + " "), _c('span', {
+    }, [_vm._v(_vm._s(item.totalAfterDiscount) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "150px"
+        "min-width": "100px"
       }
+    }, [_c('div', {
+      staticClass: "d-flex align-items-center"
     }, [_c('select', {
       directives: [{
         name: "model",
@@ -923,12 +810,12 @@ var render = function render() {
         value: item.selectedVatRate,
         expression: "item.selectedVatRate"
       }],
-      staticClass: "form-control form-control-sm",
+      staticClass: "form-control form-control-sm flex-grow-1",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate"))
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(index, ".selectedVatRate"))
       },
       staticStyle: {
-        "min-width": "120px"
+        "min-width": "80px"
       },
       on: {
         "change": [function ($event) {
@@ -940,7 +827,7 @@ var render = function render() {
           });
           _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
         }, function ($event) {
-          return _vm.calculateProductVat(i - 1);
+          return _vm.calculateProductVat(index);
         }]
       }
     }, [_c('option', {
@@ -953,29 +840,38 @@ var render = function render() {
         domProps: {
           "value": tax
         }
-      }, [_vm._v("\n                            " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                          ")]);
-    })], 2), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency",
+      }, [_vm._v("\n                              " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
+    })], 2), _vm._v(" "), !item.productTax || !item.productTax.id ? _c('i', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Product needs VAT rate assigned'),
+        expression: "$t('Product needs VAT rate assigned')"
+      }],
+      staticClass: "fas fa-exclamation-triangle text-warning ml-1",
       staticStyle: {
-        "min-width": "100px"
+        "font-size": "14px"
+      }
+    }) : _vm._e()]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(index, ".selectedVatRate")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(index, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "60px"
       }
     }, [_c('span', {
-      staticClass: "form-control-plaintext form-control-sm text-center no-currency"
-    }, [_vm._v("\n                          " + _vm._s(_vm.formatToTwoDecimals(item.productTax)) + "\n                        ")]), _vm._v(" "), _c('span', {
+      staticClass: "form-control-plaintext form-control-sm text-center"
+    }, [_vm._v("\n                          " + _vm._s(item.productTax) + " "), _c('span', {
       staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency",
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "min-width": "120px"
+        "min-width": "80px"
       }
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + " "), _c('span', {
+    }, [_vm._v(_vm._s(item.totalPrice) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
       staticClass: "text-right",
       staticStyle: {
-        "min-width": "80px"
+        "min-width": "50px"
       }
     }, [_c('button', {
       staticClass: "btn btn-danger",
@@ -990,34 +886,56 @@ var render = function render() {
     }, [_c('i', {
       staticClass: "fas fa-times"
     })])])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
+  }), _vm._v(" "), _c('tr', {
+    key: "totals-".concat(_vm.getSubTotal(), "-").concat(_vm.getTotalUnitPrice())
+  }, [_c('td', {
     staticClass: "text-right",
     attrs: {
       "colspan": "5"
     }
-  }, [_c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.toWord()) + " ")])]), _vm._v(" "), _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+  }, [_c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.toWord()) + " ")])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalUnitPrice()) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('span', {
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalDiscount()) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalAfterDiscount()) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
+  }, [_vm._v("ê")])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getProductTotalTax()) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('span', {
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getSubTotal()) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]), _vm._v(" "), _c('td')])], 2)])])]) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
-    staticClass: "row"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td')])], 2)])])]) : _vm._e(), _vm._v(" "), _vm.hasInsufficientStock ? _c('div', {
+    staticClass: "row mt-3 mb-3"
   }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "alert alert-warning d-flex align-items-center",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle mr-3",
+    staticStyle: {
+      "font-size": "1.5rem"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "flex-grow-1"
+  }, [_c('h6', {
+    staticClass: "mb-1"
+  }, [_vm._v(_vm._s(_vm.$t("Insufficient Stock Alert")))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-0"
+  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Some products have insufficient stock. Click on the red badges to manage stock levels.")) + "\n                      "), _c('button', {
+    staticClass: "btn btn-sm btn-outline-warning ml-2",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.showAllInsufficientStock
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-list mr-1"
+  }), _vm._v("\n                        " + _vm._s(_vm.$t("View All")) + "\n                      ")])])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [!_vm.isSaudiArabia ? _c('div', {
     staticClass: "form-group col-md-4"
   }, [_c('label', {
     attrs: {
@@ -1036,7 +954,6 @@ var render = function render() {
     },
     attrs: {
       "id": "discountType",
-      "step": "any",
       "name": "discountType"
     },
     on: {
@@ -1048,7 +965,11 @@ var render = function render() {
           return val;
         });
         _vm.$set(_vm.form, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }, _vm.calculateSum]
+      }, function ($event) {
+        _vm.calculateSum;
+        _vm.clearFieldError('discountType');
+      }],
+      "keyup": _vm.calculateSum
     }
   }, [_c('option', {
     attrs: {
@@ -1063,14 +984,15 @@ var render = function render() {
       "form": _vm.form,
       "field": "discountType"
     }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group",
-    "class": _vm.form.discountType == 1 ? 'col-md-2' : 'col-md-4'
+  })], 1) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-4"
   }, [_c('label', {
     attrs: {
       "for": "discount"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Discount")) + "\n                  "), _vm.form.discountType == 1 ? _c('span', [_vm._v("(%)")]) : _vm._e()]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t("Discount")) + "\n                  "), _vm.form.discountType == 1 ? _c('span', [_vm._v("(%)")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -1085,8 +1007,8 @@ var render = function render() {
       "id": "discount",
       "type": "number",
       "step": "any",
-      "min": "1",
-      "max": _vm.form.discountType == 1 ? 100 : _vm.form.netTotal,
+      "min": "0",
+      "max": _vm.form.discountType == 1 ? 100 : _vm.form.subTotal,
       "name": "discount",
       "placeholder": _vm.$t('Enter discount')
     },
@@ -1095,23 +1017,103 @@ var render = function render() {
     },
     on: {
       "change": _vm.calculateSum,
-      "input": function input($event) {
+      "keyup": _vm.calculateSum,
+      "input": [function ($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "discount", $event.target.value);
-      }
+      }, function ($event) {
+        return _vm.clearFieldError('discount');
+      }]
     }
-  }), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _vm.form.discountType == 1 ? _c('div', {
+    staticClass: "input-group-append"
+  }, [_c('span', {
+    staticClass: "input-group-text"
+  }, [_vm._v(_vm._s(_vm._f("withCurrency")(_vm.form.totalDiscount)))])]) : _vm._e()]), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "discount"
     }
-  })], 1), _vm._v(" "), _vm.form.discountType == 1 ? _c('div', {
+  })], 1) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "transportCost"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Transport Cost")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.transportCost,
+      expression: "form.transportCost"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "transportCost",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "transportCost",
+      "placeholder": _vm.$t('Enter transport cost')
+    },
+    domProps: {
+      "value": _vm.form.transportCost
+    },
+    on: {
+      "change": _vm.calculateSum,
+      "keyup": _vm.calculateSum,
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "transportCost", $event.target.value);
+      }, function ($event) {
+        return _vm.clearFieldError('transportCost');
+      }]
+    }
+  })]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm.taxes && !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-2"
+  }, [_c('label', {
+    attrs: {
+      "for": "orderTax"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Invoice Tax")) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('orderTax')
+    },
+    attrs: {
+      "options": _vm.taxes,
+      "label": "code",
+      "name": "orderTax",
+      "placeholder": "Select a tax type"
+    },
+    on: {
+      "input": function input($event) {
+        _vm.calculateSum();
+        _vm.clearFieldError('orderTax');
+      }
+    },
+    model: {
+      value: _vm.form.orderTax,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "orderTax", $$v);
+      },
+      expression: "form.orderTax"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "orderTax"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
     staticClass: "form-group col-md-2"
   }, [_c('label', {
     attrs: {
       "for": "totalDiscount"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Total discount")))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t("Product Discounts")))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -1124,8 +1126,7 @@ var render = function render() {
     },
     attrs: {
       "id": "totalDiscount",
-      "type": "number",
-      "step": "any",
+      "type": "text",
       "name": "totalDiscount",
       "readonly": ""
     },
@@ -1143,86 +1144,36 @@ var render = function render() {
       "form": _vm.form,
       "field": "totalDiscount"
     }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
+  })], 1) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-2"
   }, [_c('label', {
     attrs: {
-      "for": "transportCost"
+      "for": "globalDiscount"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Transport Cost")))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t("Global Discount")))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.transportCost,
-      expression: "form.transportCost"
+      value: _vm.globalDiscountDisplay,
+      expression: "globalDiscountDisplay"
     }],
     staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('transportCost')
-    },
     attrs: {
-      "id": "transportCost",
-      "type": "number",
-      "step": "any",
-      "min": "1",
-      "name": "transportCost",
-      "placeholder": _vm.$t('Enter transport cost')
+      "id": "globalDiscount",
+      "type": "text",
+      "readonly": ""
     },
     domProps: {
-      "value": _vm.form.transportCost
+      "value": _vm.globalDiscountDisplay
     },
     on: {
-      "change": _vm.calculateSum,
       "input": function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.form, "transportCost", $event.target.value);
+        _vm.globalDiscountDisplay = $event.target.value;
       }
     }
-  }), _vm._v("\n                  :placeholder=\"$t('Enter transport cost')\" @change=\"calculateSum\" @keyup=\"calculateSum\" />\n                "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "transportCost"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm.taxes && !_vm.isSaudiArabia ? _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "orderTax"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Quotation Tax")) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('orderTax'),
-      'rtl-select': _vm.isRTL
-    },
-    attrs: {
-      "options": _vm.taxes,
-      "label": "code",
-      "name": "orderTax",
-      "placeholder": _vm.$t('Select a tax type')
-    },
-    on: {
-      "input": _vm.calculateSum
-    },
-    model: {
-      value: _vm.form.orderTax,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "orderTax", $$v);
-      },
-      expression: "form.orderTax"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "orderTax"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.taxes && !_vm.isSaudiArabia ? _c('div', {
-    staticClass: "form-group col-md-4"
+  })]) : _vm._e(), _vm._v(" "), _vm.taxes && !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-3"
   }, [_c('label', {
     attrs: {
       "for": "totalTax"
@@ -1253,16 +1204,13 @@ var render = function render() {
         _vm.$set(_vm.form, "totalTax", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")]), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "totalTax"
     }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group",
-    "class": 'col-md-4'
+  })], 1) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-3"
   }, [_c('label', {
     attrs: {
       "for": "netTotal"
@@ -1294,14 +1242,311 @@ var render = function render() {
         _vm.$set(_vm.form, "netTotal", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")]), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "netTotal"
     }
+  })], 1) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "poReference"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("PO Reference")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.poReference,
+      expression: "form.poReference"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('poReference')
+    },
+    attrs: {
+      "id": "poReference",
+      "type": "text",
+      "step": "any",
+      "name": "poReference",
+      "placeholder": _vm.$t('Enter PO reference')
+    },
+    domProps: {
+      "value": _vm.form.poReference
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "poReference", $event.target.value);
+      }, function ($event) {
+        return _vm.clearFieldError('poReference');
+      }]
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "poReference"
+    }
   })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "paymentTerms"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Payment Terms")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.paymentTerms,
+      expression: "form.paymentTerms"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('paymentTerms')
+    },
+    attrs: {
+      "id": "paymentTerms",
+      "type": "text",
+      "name": "paymentTerms",
+      "placeholder": _vm.$t('Enter payment terms')
+    },
+    domProps: {
+      "value": _vm.form.paymentTerms
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "paymentTerms", $event.target.value);
+      }, function ($event) {
+        return _vm.clearFieldError('paymentTerms');
+      }]
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "paymentTerms"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "addPayment"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Add Payment?")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.addPayment,
+      expression: "form.addPayment"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('addPayment')
+    },
+    attrs: {
+      "id": "addPayment"
+    },
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "addPayment", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, _vm.onAddPaymentChange]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Select")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Yes")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("No")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "addPayment"
+    }
+  })], 1)]), _vm._v(" "), _vm.paymentFieldsVisible ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "account"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Account")) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('account')
+    },
+    attrs: {
+      "options": _vm.accounts,
+      "label": "label",
+      "name": "account",
+      "placeholder": _vm.$t('Select an account')
+    },
+    on: {
+      "input": _vm.onAccountChange
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(option) {
+        return [_c('img', {
+          staticStyle: {
+            "width": "30px",
+            "height": "30px"
+          },
+          attrs: {
+            "src": option.image
+          }
+        }), _vm._v("\n                      " + _vm._s(option.label) + "\n                  ")];
+      }
+    }], null, false, 3023951659),
+    model: {
+      value: _vm.form.account,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "account", $$v);
+      },
+      expression: "form.account"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "account"
+    }
+  }), _vm._v(" "), _vm.form.addPayment == 1 && !_vm.form.account ? _c('div', {
+    staticClass: "text-warning mt-1"
+  }, [_c('small', [_c('i', {
+    staticClass: "fas fa-exclamation-triangle"
+  }), _vm._v(" " + _vm._s(_vm.$t("Please choose a bank account")))])]) : _vm._e(), _vm._v(" "), _vm.form.account ? _c('div', {
+    staticClass: "account-status mt-2"
+  }, [!_vm.form.account.chartOfAccountId ? _c('div', {
+    staticClass: "account-warning"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Bank Account needs Chart of Account')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-outline-warning ml-2",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.goToBankAccounts
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-external-link-alt"
+  }), _vm._v("\n                      " + _vm._s(_vm.$t('Go to Bank Accounts')) + "\n                    ")])]) : _c('div', {
+    staticClass: "account-success"
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle text-success"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Bank Account Chart of Account ready')))])])]) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-2"
+  }, [_c('label', {
+    attrs: {
+      "for": "paidAmount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Paid Amount"))), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.paidAmount,
+      expression: "form.paidAmount"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('paidAmount')
+    },
+    attrs: {
+      "id": "paidAmount",
+      "type": "number",
+      "step": "any",
+      "name": "paidAmount",
+      "min": "1",
+      "max": _vm.form.netTotal,
+      "placeholder": _vm.$t('Enter an amount')
+    },
+    domProps: {
+      "value": _vm.form.paidAmount
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "paidAmount", $event.target.value);
+      }, _vm.onPaidAmountChange]
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "paidAmount"
+    }
+  }), _vm._v(" "), _vm.form.addPayment == 1 && (!_vm.form.paidAmount || Number(_vm.form.paidAmount) <= 0) ? _c('div', {
+    staticClass: "text-warning mt-1"
+  }, [_c('small', [_c('i', {
+    staticClass: "fas fa-exclamation-triangle"
+  }), _vm._v(" " + _vm._s(_vm.$t("Paid amount must be greater than 0")))])]) : _vm._e(), _vm._v(" "), _vm.form.addPayment == 1 && _vm.form.paidAmount ? _c('div', {
+    staticClass: "mt-2"
+  }, [_c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Due Amount")) + ": "), _c('strong', [_vm._v(_vm._s(_vm.dueAmount) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])]) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "receiptNo"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Receipt No")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.receiptNo,
+      expression: "form.receiptNo"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('receiptNo')
+    },
+    attrs: {
+      "id": "receiptNo",
+      "type": "text",
+      "name": "receiptNo",
+      "placeholder": _vm.$t('Enter a receipt no')
+    },
+    domProps: {
+      "value": _vm.form.receiptNo
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "receiptNo", $event.target.value);
+      }, function ($event) {
+        return _vm.clearFieldError('receiptNo');
+      }]
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "receiptNo"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
     staticClass: "form-group col-md-4"
   }, [_c('label', {
     attrs: {
@@ -1328,15 +1573,56 @@ var render = function render() {
       "value": _vm.form.deliveryPlace
     },
     on: {
-      "input": function input($event) {
+      "input": [function ($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "deliveryPlace", $event.target.value);
-      }
+      }, function ($event) {
+        return _vm.clearFieldError('deliveryPlace');
+      }]
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "deliveryPlace"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "date"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.date,
+      expression: "form.date"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('date')
+    },
+    attrs: {
+      "id": "date",
+      "type": "date",
+      "name": "date"
+    },
+    domProps: {
+      "value": _vm.form.date
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.clearFieldError('date');
+      },
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "date"
     }
   })], 1), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
     staticClass: "form-group col-md-4"
@@ -1359,7 +1645,7 @@ var render = function render() {
       "id": "status"
     },
     on: {
-      "change": function change($event) {
+      "change": [function ($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
           return o.selected;
         }).map(function (o) {
@@ -1367,7 +1653,9 @@ var render = function render() {
           return val;
         });
         _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
+      }, function ($event) {
+        return _vm.clearFieldError('status');
+      }]
     }
   }, [_c('option', {
     attrs: {
@@ -1407,10 +1695,12 @@ var render = function render() {
       "value": _vm.form.note
     },
     on: {
-      "input": function input($event) {
+      "input": [function ($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "note", $event.target.value);
-      }
+      }, function ($event) {
+        return _vm.clearFieldError('note');
+      }]
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
@@ -1455,37 +1745,33 @@ var render = function render() {
     staticClass: "ml-3"
   }, [_vm._v(_vm._s(_vm.$t("Send To SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
     staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
     staticClass: "card-footer"
   }, [_c('div', {
     staticClass: "dtable-footer"
   }, [_c('div', {
     staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('v-button', {
+  }, [_c('button', {
+    staticClass: "btn btn-success",
     attrs: {
-      "loading": _vm.form.busy,
-      "type": "success"
+      "disabled": _vm.form.busy || !_vm.isFormReady,
+      "type": "submit"
     }
-  }, [_c('i', {
+  }, [_vm.form.busy ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
     staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info ml-2",
+  }), _vm._v("\n                    " + _vm._s(_vm.form.busy ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n                  ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary ml-2",
     attrs: {
-      "type": "reset"
+      "type": "button"
     },
     on: {
-      "click": function click($event) {
-        return _vm.form.reset();
-      }
+      "click": _vm.resetForm
     }
   }, [_c('i', {
     staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n                ")])], 1)])])])])])]), _vm._v(" "), _c('ClientEditModal', {
-    ref: "clientEditModal",
-    on: {
-      "reloadClients": _vm.getClients
-    }
-  }), _vm._v(" "), _c('ProductEditModal', {
+  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n                  ")])])])])])])])])]), _vm._v(" "), _c('ProductEditModal', {
     ref: "productEditModal",
     on: {
       "reloadProducts": _vm.getProducts,
@@ -1509,7 +1795,7 @@ var staticRenderFns = [function () {
   return _c('td', [_c('strong')]);
 }];
 
-;// ./resources/js/pages/sales/quotations/create.vue?vue&type=template&id=49a6d624&scoped=true
+;// ./resources/js/pages/sales/invoices/create.vue?vue&type=template&id=32ed5d0e&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -1522,8 +1808,6 @@ var vuex_esm = __webpack_require__(95353);
 var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(52021);
-// EXTERNAL MODULE: ./resources/js/components/ClientEditModal.vue + 5 modules
-var ClientEditModal = __webpack_require__(37665);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 5 modules
 var ProductCreateModal = __webpack_require__(63545);
 // EXTERNAL MODULE: ./resources/js/components/ProductEditModal.vue + 18 modules
@@ -1534,8 +1818,14 @@ var StockAdjustmentModal = __webpack_require__(28199);
 var RTLMixin = __webpack_require__(64744);
 // EXTERNAL MODULE: ./node_modules/to-words/dist/ToWords.js
 var ToWords = __webpack_require__(54923);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/create.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -1555,19 +1845,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
-
 /* harmony default export */ const createvue_type_script_lang_js = ({
   middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Create Quotation")
+      title: this.$t("Create Invoice")
     };
   },
   mixins: [RTLMixin/* default */.A],
   components: {
     ToggleButton: dist.ToggleButton,
     ClientCreateModal: ClientCreateModal/* default */.A,
-    ClientEditModal: ClientEditModal/* default */.A,
     ProductCreateModal: ProductCreateModal/* default */.A,
     ProductEditModal: ProductEditModal/* default */.A,
     StockAdjustmentModal: StockAdjustmentModal/* default */.A
@@ -1575,41 +1863,64 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   data: function data() {
     return {
       isDemoMode: window.config.isDemoMode,
-      breadcrumbsCurrent: "Create Quotation",
+      breadcrumbsCurrent: "Create Invoice",
+      isSubmitting: false,
+      // Flag to track form submission state
       breadcrumbs: [{
         name: "Dashboard",
         url: "home"
       }, {
-        name: "Quotations",
-        url: "quotations.index"
+        name: "Invoices",
+        url: "invoices.index"
       }, {
         name: "Create",
         url: ""
       }],
       form: new vform_es/* default */.Ay({
+        invoiceNo: "",
         client: "",
         reference: "",
         selectedProducts: [],
         subTotal: 0,
         netTotal: 0,
-        discountType: 0,
-        discount: "",
-        totalDiscount: 0,
+        transportCost: "",
         orderTax: "",
         totalTax: 0,
-        invoiceTax: 0,
         productTotalTax: 0,
-        transportCost: "",
-        date: new Date().toISOString().slice(0, 10),
+        invoiceTax: 0,
+        // Add this field for Invoice Tax calculation
+        account: "",
+        totalPaid: "",
+        dueAmount: "",
+        poReference: "",
+        paymentTerms: "",
         deliveryPlace: "",
+        addPayment: 0,
+        // Initialize to 0 (No) by default
+        chequeNo: "",
+        receiptNo: "",
+        date: new Date().toISOString().slice(0, 10),
         note: "",
         status: 1,
         isSendEmail: false,
-        isSendSMS: false
+        isSendSMS: false,
+        discountType: 0,
+        // 0 for fixed, 1 for percentage
+        discount: 0,
+        totalDiscount: 0
       }),
-      products: "",
-      taxes: "",
+      products: [],
+      accounts: [],
+      taxes: [],
       prefix: "",
+      isUpdatingChartOfAccount: false,
+      // Flag to prevent form submission during chart of account updates
+
+      isAutoAssigningClient: false,
+      // Add this back for the auto-assign button
+      isAutoAssigningProduct: null,
+      // Track which product is being auto-assigned
+
       // Communication configuration status
       communicationConfig: {
         email_configured: false,
@@ -1618,7 +1929,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       },
       // Stock adjustment modal
       showStockAdjustmentModal: false,
-      selectedProductForStockAdjustment: null
+      selectedProductForStockAdjustment: null,
+      // Reactive totals for the table
+      reactiveTotals: {
+        totalUnitPrice: 0,
+        totalAfterDiscount: 0,
+        totalDiscount: 0,
+        productTotalTax: 0,
+        subTotal: 0
+      }
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
@@ -1627,110 +1946,438 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var _this$appInfo;
       return !((_this$appInfo = this.appInfo) !== null && _this$appInfo !== void 0 && _this$appInfo.country) || this.appInfo.country === 'SA';
     },
-    // Calculate total unit price (sum of all unit prices * quantities)
+    // Display the calculated global discount amount
+    globalDiscountDisplay: function globalDiscountDisplay() {
+      if (this.form.discount > 0) {
+        if (this.form.discountType == 1) {
+          // Percentage
+          return (this.form.discount / 100 * this.form.subTotal).toFixed(2);
+        } else {
+          // Fixed
+          return this.form.discount.toFixed(2);
+        }
+      }
+      return '0.00';
+    },
+    // Calculate total unit price (sum of all unit prices)
     totalUnitPrice: function totalUnitPrice() {
-      var total = this.form.selectedProducts.reduce(function (total, item) {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (total, item) {
         return total + item.unitPrice * item.qty;
       }, 0);
-      return this.roundToTwoDecimals(total);
     },
-    // Calculate total discount from all products (reactive)
-    totalProductDiscount: function totalProductDiscount() {
-      var total = this.form.selectedProducts.reduce(function (total, item) {
-        return total + (item.discountAmount || 0);
-      }, 0);
-      return this.roundToTwoDecimals(total);
-    },
-    // Calculate total after discount (reactive)
+    // Calculate total after discount (sum of all totalAfterDiscount values)
     totalAfterDiscount: function totalAfterDiscount() {
-      return this.roundToTwoDecimals(this.totalUnitPrice - this.totalProductDiscount);
-    },
-    // Calculate total product tax (reactive)
-    totalProductTax: function totalProductTax() {
-      var total = this.form.selectedProducts.reduce(function (total, item) {
-        return total + (item.totalTax || 0);
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.totalAfterDiscount || 0);
       }, 0);
-      return this.roundToTwoDecimals(total);
     },
-    // Calculate subtotal (reactive)
-    subtotal: function subtotal() {
-      var total = this.form.selectedProducts.reduce(function (total, item) {
-        return total + (item.totalPrice || 0);
-      }, 0);
-      return this.roundToTwoDecimals(total);
+    // Add computed property to check if chart of account is assigned
+    hasChartOfAccount: function hasChartOfAccount() {
+      return !!this.form.client && !!this.form.client.chart_of_account_id;
+    },
+    // Check if all products have sales accounts assigned
+    allProductsHaveSalesAccounts: function allProductsHaveSalesAccounts() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return true; // No products selected, so no validation needed
+      }
+      return this.form.selectedProducts.every(function (product) {
+        return product.sales_account_id;
+      });
+    },
+    // Check if bank account has chart of account assigned (when payment is being added)
+    hasBankAccountChartOfAccount: function hasBankAccountChartOfAccount() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment being added, so no validation needed
+      }
+      return this.form.account && this.form.account.chartOfAccountId;
+    },
+    // Calculate due amount when payment is being added
+    dueAmount: function dueAmount() {
+      if (this.form.addPayment != 1 || !this.form.paidAmount) {
+        return this.form.netTotal;
+      }
+      return Math.max(0, this.form.netTotal - Number(this.form.paidAmount));
+    },
+    // Check if form is ready for submission
+    isFormReady: function isFormReady() {
+      var basicRequirements = this.hasChartOfAccount && this.allProductsHaveSalesAccounts && this.hasBankAccountChartOfAccount && this.form.selectedProducts && this.form.selectedProducts.length > 0;
+
+      // If basic requirements are not met, form is not ready
+      if (!basicRequirements) {
+        return false;
+      }
+
+      // If payment is enabled, check payment fields
+      if (this.form.addPayment == 1) {
+        return this.isPaymentValid;
+      }
+
+      // If no payment required, form is ready
+      return true;
+    },
+    // Check if payment fields are valid when payment is enabled
+    isPaymentValid: function isPaymentValid() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment required
+      }
+
+      // Check if both fields have values and paid amount is greater than 0
+      return this.form.account && this.form.paidAmount && Number(this.form.paidAmount) > 0;
+    },
+    // Check if payment fields are filled (for warning hints)
+    arePaymentFieldsFilled: function arePaymentFieldsFilled() {
+      if (this.form.addPayment != 1) {
+        return true; // No payment required
+      }
+
+      // Only check if fields have values, not their validity
+      return this.form.account && this.form.paidAmount;
+    },
+    // Check payment fields visibility conditions
+    paymentFieldsVisible: function paymentFieldsVisible() {
+      return this.form.addPayment == 1;
     },
     // Check if there are any products with insufficient stock
     hasInsufficientStock: function hasInsufficientStock() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return false;
+      }
       return this.form.selectedProducts.some(function (item) {
         return item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty);
       });
     },
-    // Get all products with insufficient stock
+    // Get products with insufficient stock
     insufficientStockProducts: function insufficientStockProducts() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return [];
+      }
       return this.form.selectedProducts.filter(function (item) {
         return item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty);
       });
     }
   }),
+  watch: {
+    // Watch for changes in addPayment to reset account when payment is disabled
+    'form.addPayment': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal != 1 && oldVal == 1) {
+          // Payment was disabled, reset account selection
+          this.form.account = "";
+          this.clearFieldError('account');
+          this.clearFieldError('paidAmount');
+          this.clearFieldError('chequeNo');
+          this.clearFieldError('receiptNo');
+        }
+      }
+    },
+    // Watch for changes in discount to reset payment fields when discount changes
+    'form.discount': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
+          this.clearFieldError('paidAmount');
+        }
+      }
+    },
+    // Watch for changes in transport cost to reset payment fields when transport cost changes
+    'form.transportCost': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
+          this.clearFieldError('paidAmount');
+        }
+      }
+    },
+    // Watch for changes in order tax to reset payment fields when order tax changes
+    'form.orderTax': {
+      handler: function handler(newVal, oldVal) {
+        var _this = this;
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
+          this.clearFieldError('paidAmount');
+        } else if (newVal !== oldVal && this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+          // Update all products that don't have a specific VAT rate selected
+          this.form.selectedProducts.forEach(function (item, index) {
+            if (!item.selectedVatRate || item.selectedVatRate.id === (oldVal === null || oldVal === void 0 ? void 0 : oldVal.id)) {
+              item.selectedVatRate = newVal;
+              _this.generateItemTotalPrice(index);
+            }
+          });
+          this.calculateSum();
+        }
+      },
+      deep: true
+    },
+    // Watch for changes in discount type to reset payment fields when discount type changes
+    'form.discountType': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
+          this.clearFieldError('paidAmount');
+        }
+      }
+    },
+    // Watch for changes in selectedProducts to reset payment fields when products change
+    'form.selectedProducts': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
+          this.clearFieldError('paidAmount');
+        }
+
+        // Update reactive totals when products change
+        this.updateReactiveTotals();
+      },
+      deep: true
+    },
+    // Watch for changes in client to reset payment fields when client changes
+    'form.client': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal && this.form.addPayment == 1 && !this.isSubmitting) {
+          // Only clear errors, don't reset the actual values
+          this.clearFieldError('paidAmount');
+        }
+      },
+      deep: true
+    },
+    // Watch for changes in payment fields to clear errors when they become valid
+    'form.account': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal && this.form.addPayment == 1) {
+          this.clearFieldError('account');
+        }
+      }
+    },
+    'form.paidAmount': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal && Number(newVal) > 0 && this.form.addPayment == 1) {
+          this.clearFieldError('paidAmount');
+        }
+      }
+    }
+  },
   created: function created() {
     this.getClients();
     this.getProducts();
+    this.getAccounts();
     this.getTaxes();
     this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
   },
+  mounted: function mounted() {
+    var _this2 = this;
+    // Set up global error handling
+    this.setupGlobalErrorHandling();
+    // Load temporary data
+    this.loadTemporaryData();
+
+    // Ensure VAT calculations are up to date after component is mounted
+    this.$nextTick(function () {
+      if (_this2.form.selectedProducts && _this2.form.selectedProducts.length > 0) {
+        _this2.form.selectedProducts.forEach(function (item, index) {
+          _this2.generateItemTotalPrice(index);
+        });
+        _this2.calculateSum();
+      }
+
+      // Initialize reactive totals
+      _this2.updateReactiveTotals();
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up global error handlers
+    this.cleanupGlobalErrorHandling();
+  },
   methods: {
+    // Debug helpers
+    logDebug: function logDebug(label, payload) {
+      try {
+        // Toggle with window.__INVOICE_DEBUG (true by default)
+        if (typeof window === 'undefined' || window.__INVOICE_DEBUG === false) return;
+        console.log("[InvoiceCreate] ".concat(label), payload);
+      } catch (e) {}
+    },
+    debugBreak: function debugBreak() {
+      try {
+        if (typeof window !== 'undefined' && window.__INVOICE_DEBUGGER) {
+          debugger; // eslint-disable-line no-debugger
+        }
+      } catch (e) {}
+    },
+    // Load communication configuration status
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              _this3.communicationConfig.loading = true;
+              _context.n = 1;
+              return axios_default().get('/api/communication-config-status');
+            case 1:
+              response = _context.v;
+              _this3.communicationConfig.email_configured = response.data.email_configured;
+              _this3.communicationConfig.sms_configured = response.data.sms_configured;
+              _this3.communicationConfig.loading = false;
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error('Error loading communication config status:', _t);
+              // Default to false if there's an error
+              _this3.communicationConfig.email_configured = false;
+              _this3.communicationConfig.sms_configured = false;
+              _this3.communicationConfig.loading = false;
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }))();
+    },
     // get all clients
     getClients: function getClients() {
       var _arguments = arguments,
-        _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var selectedClient, defaultClientSlug;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+        _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var selectedClient, defaultClientSlug, _error$response, _error$response2, _error$response3, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
               selectedClient = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 'default';
-              _context.n = 1;
-              return _this.$store.dispatch("operations/allData", {
+              _context2.p = 1;
+              _context2.n = 2;
+              return _this4.$store.dispatch("operations/allData", {
                 path: "/api/all-clients"
               });
-            case 1:
+            case 2:
               // assign default client
-              if (_this.items && _this.items.length > 0) {
-                defaultClientSlug = _this.appInfo.defaultClientSlug;
-                _this.form.client = _this.items.find(function (item) {
+              if (_this4.items && _this4.items.length > 0) {
+                defaultClientSlug = _this4.appInfo.defaultClientSlug;
+                _this4.form.client = _this4.items.find(function (item) {
                   return item.slug === defaultClientSlug;
                 });
               }
               if (selectedClient == 'latest') {
-                _this.form.client = _this.items[0];
+                _this4.form.client = _this4.items[0];
               }
-            case 2:
-              return _context.a(2);
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t2 = _context2.v;
+              console.error('Error getting clients:', _t2);
+
+              // Show error toast for client loading failures
+              if (((_error$response = _t2.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 401) {
+                toast.fire({
+                  type: "error",
+                  title: _this4.$t("Authentication Error"),
+                  text: _this4.$t("You are not authorized to view clients. Please log in again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response2 = _t2.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 403) {
+                toast.fire({
+                  type: "error",
+                  title: _this4.$t("Permission Error"),
+                  text: _this4.$t("You don't have permission to view clients."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response3 = _t2.response) === null || _error$response3 === void 0 ? void 0 : _error$response3.status) >= 500) {
+                toast.fire({
+                  type: "error",
+                  title: _this4.$t("Server Error"),
+                  text: _this4.$t("Unable to load clients. Please try again later."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (_t2.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this4.$t("Client Loading Error"),
+                  text: _t2.message,
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              }
+            case 4:
+              return _context2.a(2);
           }
-        }, _callee);
+        }, _callee2, null, [[1, 3]]);
       }))();
     },
     // get products
     getProducts: function getProducts() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _yield$axios$get, data, _error$response4, _error$response5, _error$response6, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
-              _context2.n = 1;
+              _context3.p = 0;
+              _context3.n = 1;
               return axios_default().get(window.location.origin + "/api/all-products");
             case 1:
-              _yield$axios$get = _context2.v;
+              _yield$axios$get = _context3.v;
               data = _yield$axios$get.data;
-              _this2.products = data.data;
-              _this2.products.sort(_this2.sortProducts);
+              _this5.products = data.data;
+              _this5.products.sort(_this5.sortProducts);
+              _context3.n = 3;
+              break;
             case 2:
-              return _context2.a(2);
+              _context3.p = 2;
+              _t3 = _context3.v;
+              console.error('Error getting products:', _t3);
+
+              // Show error toast for product loading failures
+              if (((_error$response4 = _t3.response) === null || _error$response4 === void 0 ? void 0 : _error$response4.status) === 401) {
+                toast.fire({
+                  type: "error",
+                  title: _this5.$t("Authentication Error"),
+                  text: _this5.$t("You are not authorized to view products. Please log in again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response5 = _t3.response) === null || _error$response5 === void 0 ? void 0 : _error$response5.status) === 403) {
+                toast.fire({
+                  type: "error",
+                  title: _this5.$t("Permission Error"),
+                  text: _this5.$t("You don't have permission to view products."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response6 = _t3.response) === null || _error$response6 === void 0 ? void 0 : _error$response6.status) >= 500) {
+                toast.fire({
+                  type: "error",
+                  title: _this5.$t("Server Error"),
+                  text: _this5.$t("Unable to load products. Please try again later."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (_t3.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this5.$t("Product Loading Error"),
+                  text: _t3.message,
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              }
+            case 3:
+              return _context3.a(2);
           }
-        }, _callee2);
+        }, _callee3, null, [[0, 2]]);
       }))();
     },
     // handle newly created product
@@ -1746,334 +2393,24 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.storeProduct(newProduct);
 
       // Show success message
-      // this.$toast.success(this.$t("Product created and added to quotation successfully!"));
+      // this.$toast.success(this.$t("Product created and added to invoice successfully!"));
     },
-    // sort products
-    sortProducts: function sortProducts(a, b) {
-      if (Number(a.code) < Number(b.code)) {
-        return -1;
-      }
-      if (Number(a.code) > Number(b.code)) {
-        return 1;
-      }
-      return 0;
-    },
-    // get taxes
-    getTaxes: function getTaxes() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var _yield$axios$get2, data, defaultVatRateSlug;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              _context3.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get2 = _context3.v;
-              data = _yield$axios$get2.data;
-              _this3.taxes = data.data;
-              // assign default vat rate
-              if (_this3.taxes && _this3.taxes.length > 0) {
-                defaultVatRateSlug = _this3.appInfo.defaultVatRateSlug;
-                _this3.form.orderTax = _this3.taxes.find(function (tax) {
-                  return tax.slug === defaultVatRateSlug;
-                });
-              }
-              _this3.calculateSum();
-            case 2:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var response, _t;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
-            case 0:
-              _context4.p = 0;
-              _this4.communicationConfig.loading = true;
-              _context4.n = 1;
-              return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context4.v;
-              _this4.communicationConfig.email_configured = response.data.email_configured;
-              _this4.communicationConfig.sms_configured = response.data.sms_configured;
-              _this4.communicationConfig.loading = false;
-              _context4.n = 3;
-              break;
-            case 2:
-              _context4.p = 2;
-              _t = _context4.v;
-              console.error('Error loading communication config status:', _t);
-              // Default to false if there's an error
-              _this4.communicationConfig.email_configured = false;
-              _this4.communicationConfig.sms_configured = false;
-              _this4.communicationConfig.loading = false;
-            case 3:
-              return _context4.a(2);
-          }
-        }, _callee4, null, [[0, 2]]);
-      }))();
-    },
-    // store item in array
-    storeProduct: function storeProduct(product) {
-      var index = this.form.selectedProducts.findIndex(function (x) {
-        return x.id == product.id;
-      });
-      var qunatity = 1;
-      if (index === -1) {
-        var _this$taxes;
-        var productTax = product.taxType == "Exclusive" ? product.priceWithDiscount * (product.taxRate / 100) : product.priceWithDiscount - product.priceWithDiscount / (1 + product.taxRate / 100);
-        var totalTax = productTax * qunatity;
-        this.form.selectedProducts.unshift({
-          id: product.id,
-          slug: product.slug,
-          name: product.name,
-          code: product.code,
-          taxType: product.taxType,
-          taxRate: product.taxRate,
-          qty: qunatity,
-          avgPurchasePrice: product.avgPurchasePrice,
-          unitPrice: product.priceWithDiscount,
-          unitCost: product.taxType == "Exclusive" ? product.priceWithDiscount + productTax : product.priceWithDiscount,
-          totalPrice: product.taxType == "Exclusive" ? 1 * (product.priceWithDiscount + totalTax) : 1 * product.priceWithDiscount,
-          productTax: productTax,
-          totalTax: totalTax,
-          itemType: product.itemType,
-          inventoryCount: product.inventoryCount,
-          discount: 0,
-          discountType: "fixed",
-          discountAmount: 0,
-          selectedVatRate: this.findMatchingVatRate(product.taxRate) || this.form.orderTax || ((_this$taxes = this.taxes) === null || _this$taxes === void 0 ? void 0 : _this$taxes[0])
-        });
-      }
-      this.generateItemTotal(qunatity, "qty", index, "");
-      return;
-    },
-    // update array
-    generateItemTotal: function generateItemTotal(value, type, index, action) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        if (type == "qty") {
-          var newQty = value;
-          if (action == "increment") {
-            newQty = Number(item.qty) + 1;
-          } else if (action == "decrement") {
-            if (item.qty > 0) {
-              newQty = Number(item.qty) - 1;
-            }
-          }
-          this.$set(item, 'qty', newQty);
-        } else if (type == "price") {
-          var newPrice = value;
-          if (action == "increment") {
-            newPrice = Number(item.unitPrice) + 1;
-          } else if (action == "decrement") {
-            if (item.unitPrice > 0) {
-              newPrice = Number(item.unitPrice) - 1;
-            }
-          }
-          this.$set(item, 'unitPrice', newPrice);
-        }
-
-        // Recalculate discount amount when quantity or price changes
-        if (item.discount > 0) {
-          if (item.discountType === "percentage") {
-            this.$set(item, 'discountAmount', this.roundToTwoDecimals(item.unitPrice * item.qty * item.discount / 100));
-          } else {
-            this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
-          }
-        }
-
-        // Use the new method to calculate totals with discount and VAT
-        this.generateItemTotalPrice(index);
-      }
-      this.calculateSum();
-      return;
-    },
-    // remove item from array
-    removeItem: function removeItem(item) {
-      var index = this.form.selectedProducts.indexOf(item);
-      if (index > -1) {
-        this.form.selectedProducts.splice(index, 1);
-      }
-      this.calculateSum();
-      return;
-    },
-    // Helper function to round to two decimals
-    roundToTwoDecimals: function roundToTwoDecimals(value) {
-      return Math.round((value + Number.EPSILON) * 100) / 100;
-    },
-    // Format number to display with exactly 2 decimal places
-    formatToTwoDecimals: function formatToTwoDecimals(value) {
-      if (value === null || value === undefined || value === '') {
-        return '0.00';
-      }
-      var numValue = Number(value);
-      if (isNaN(numValue)) {
-        return '0.00';
-      }
-      return numValue.toFixed(2);
-    },
-    // Find matching VAT rate based on product tax
-    findMatchingVatRate: function findMatchingVatRate(productTax) {
-      if (!this.taxes || !productTax) return null;
-      return this.taxes.find(function (tax) {
-        return Math.abs(tax.rate - productTax) < 0.01;
-      });
-    },
-    // Ensure all products have discount and VAT properties
-    ensureDiscountProperties: function ensureDiscountProperties() {
-      var _this5 = this;
-      this.form.selectedProducts.forEach(function (item) {
-        if (typeof item.discount === 'undefined') {
-          item.discount = 0;
-        }
-        if (typeof item.discountType === 'undefined') {
-          item.discountType = 'fixed';
-        }
-        if (typeof item.discountAmount === 'undefined') {
-          item.discountAmount = 0;
-        }
-        if (typeof item.selectedVatRate === 'undefined') {
-          // First try to use the product's default VAT rate, then fall back to quotation default
-          if (item.taxRate) {
-            item.selectedVatRate = _this5.findMatchingVatRate(item.taxRate);
-          }
-
-          // If no match found or no taxRate, fall back to quotation default
-          if (!item.selectedVatRate) {
-            if (_this5.form.orderTax) {
-              item.selectedVatRate = _this5.form.orderTax;
-            } else if (_this5.taxes && _this5.taxes.length > 0) {
-              item.selectedVatRate = _this5.taxes[0];
-            }
-          }
-        }
-      });
-    },
-    // Calculate product discount
-    calculateProductDiscount: function calculateProductDiscount(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        if (item.discountType === "percentage") {
-          this.$set(item, 'discountAmount', this.roundToTwoDecimals(item.unitPrice * item.qty * item.discount / 100));
-        } else {
-          this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
-        }
-
-        // Recalculate totals
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
-      }
-    },
-    // Calculate product VAT
-    calculateProductVat: function calculateProductVat(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        // Ensure the selectedVatRate is properly set
-        if (!item.selectedVatRate) {
-          if (item.taxRate) {
-            item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
-          }
-          if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
-            item.selectedVatRate = this.taxes[0];
-          }
-        }
-
-        // Recalculate totals with new VAT rate
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
-      }
-    },
-    // Generate item total price with discount and VAT (aligned with invoice logic)
-    generateItemTotalPrice: function generateItemTotalPrice(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        // Calculate price after discount
-        var priceAfterDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty - (item.discountAmount || 0));
-
-        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
-        var vatRate = 0;
-        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
-          vatRate = Number(item.selectedVatRate.rate);
-        } else if (item.taxRate !== undefined && item.taxRate !== null) {
-          vatRate = Number(item.taxRate);
-        }
-
-        // Ensure vatRate is a valid number
-        if (isNaN(vatRate) || vatRate < 0) {
-          vatRate = 0;
-        }
-        if (item.taxType == "Exclusive") {
-          // VAT on discounted amount
-          item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-          item.totalTax = this.roundToTwoDecimals(item.productTax);
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
-        } else {
-          // Inclusive: VAT is included in unit price; derive VAT from discounted price
-          var discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
-          item.unitPrice = discountedUnitPrice;
-          item.productTax = this.roundToTwoDecimals(discountedUnitPrice - discountedUnitPrice / (1 + vatRate / 100));
-          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
-        }
-        this.form.selectedProducts[index] = item;
-      }
-    },
-    // calculate sum (aligned with invoice logic)
-    calculateSum: function calculateSum() {
-      // Update form values for consistency with computed properties
-      this.$set(this.form, 'subTotal', this.roundToTwoDecimals(this.subtotal));
-      this.$set(this.form, 'productTotalTax', this.roundToTwoDecimals(this.totalProductTax));
-      this.$set(this.form, 'totalDiscount', this.roundToTwoDecimals(this.totalProductDiscount));
-
-      // Global discount
-      var globalDiscount = 0;
-      if (!this.isSaudiArabia && this.form.discount > 0) {
-        if (this.form.discountType == 1) {
-          globalDiscount = this.roundToTwoDecimals(this.form.discount / 100 * this.form.subTotal);
-        } else {
-          globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
-        }
-      }
-
-      // Quotation-level tax computed on (subTotal - globalDiscount)
-      this.$set(this.form, 'invoiceTax', 0);
-      if (!this.isSaudiArabia && this.form.orderTax && this.form.orderTax.rate) {
-        this.$set(this.form, 'invoiceTax', this.roundToTwoDecimals(this.form.orderTax.rate / 100 * (this.form.subTotal - globalDiscount)));
-      }
-
-      // Total tax = product VAT + quotation-level tax
-      this.$set(this.form, 'totalTax', this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax));
-
-      // Net total
-      if (this.isSaudiArabia) {
-        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.form.subTotal));
-      } else {
-        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.form.subTotal - globalDiscount + this.form.invoiceTax + Number(this.form.transportCost || 0)));
-      }
-      return;
-    },
-    // edit selected client
-    editSelectedClient: function editSelectedClient() {
-      // Check if a client is selected
-      if (!this.form.client) {
+    // edit product
+    editProduct: function editProduct() {
+      // Check if any product is selected
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        // Show message that no product is selected
         toast.fire({
           type: "warning",
-          title: this.$t("Warning"),
-          text: this.$t("Please select a client first.")
+          title: this.$t("No Product Selected"),
+          text: this.$t("Please select a product first to edit")
         });
         return;
       }
 
       // Check if the modal component is available
-      if (!this.$refs.clientEditModal) {
-        console.error('ClientEditModal component not found');
+      if (!this.$refs.productEditModal) {
+        console.error('ProductEditModal component not found');
         toast.fire({
           type: "error",
           title: this.$t("Error"),
@@ -2082,8 +2419,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         return;
       }
 
-      // Open the client edit modal with the selected client
-      this.$refs.clientEditModal.openModal(this.form.client);
+      // Open the product edit modal with the first selected product
+      this.$refs.productEditModal.openModal(this.form.selectedProducts[0]);
     },
     // edit product from table row
     editProductFromTable: function editProductFromTable(product) {
@@ -2147,10 +2484,614 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       } else {
         console.warn('Could not find product to update in selectedProducts array');
       }
+
+      // Also update the product in the main products array if it exists
+      var mainProductIndex = this.products.findIndex(function (p) {
+        return p.id === originalProduct.id || p.slug === originalProduct.slug;
+      });
+      if (mainProductIndex !== -1) {
+        var updatedMainProduct = _objectSpread({}, this.products[mainProductIndex]);
+
+        // Update relevant fields from the form data
+        updatedMainProduct.name = updatedData.itemName || updatedMainProduct.name;
+        updatedMainProduct.regular_price = updatedData.regularPrice || updatedMainProduct.regular_price;
+        updatedMainProduct.discount = updatedData.discount || updatedMainProduct.discount;
+        updatedMainProduct.selling_price = updatedData.sellingPrice || updatedMainProduct.selling_price;
+
+        // Replace the product in the main products array
+        this.$set(this.products, mainProductIndex, updatedMainProduct);
+        console.log('Updated product in main products array:', updatedMainProduct);
+      }
+    },
+    // sort products
+    sortProducts: function sortProducts(a, b) {
+      if (Number(a.code) < Number(b.code)) {
+        return -1;
+      }
+      if (Number(a.code) > Number(b.code)) {
+        return 1;
+      }
+      return 0;
+    },
+    // get accounts
+    getAccounts: function getAccounts() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get2, data, defaultAccountSlug, _error$response7, _error$response8, _error$response9, _t4;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
+            case 0:
+              _context4.p = 0;
+              _context4.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-accounts");
+            case 1:
+              _yield$axios$get2 = _context4.v;
+              data = _yield$axios$get2.data;
+              _this6.accounts = data.data;
+              // assign default account
+              if (_this6.accounts && _this6.accounts.length > 0) {
+                defaultAccountSlug = _this6.appInfo.defaultAccountSlug;
+                _this6.form.account = _this6.accounts.find(function (item) {
+                  return item.slug === defaultAccountSlug;
+                });
+              }
+              _context4.n = 3;
+              break;
+            case 2:
+              _context4.p = 2;
+              _t4 = _context4.v;
+              console.error('Error getting accounts:', _t4);
+
+              // Show error toast for account loading failures
+              if (((_error$response7 = _t4.response) === null || _error$response7 === void 0 ? void 0 : _error$response7.status) === 401) {
+                toast.fire({
+                  type: "error",
+                  title: _this6.$t("Authentication Error"),
+                  text: _this6.$t("You are not authorized to view accounts. Please log in again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response8 = _t4.response) === null || _error$response8 === void 0 ? void 0 : _error$response8.status) === 403) {
+                toast.fire({
+                  type: "error",
+                  title: _this6.$t("Permission Error"),
+                  text: _this6.$t("You don't have permission to view accounts."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response9 = _t4.response) === null || _error$response9 === void 0 ? void 0 : _error$response9.status) >= 500) {
+                toast.fire({
+                  type: "error",
+                  title: _this6.$t("Server Error"),
+                  text: _this6.$t("Unable to load accounts. Please try again later."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (_t4.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this6.$t("Account Loading Error"),
+                  text: _t4.message,
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              }
+            case 3:
+              return _context4.a(2);
+          }
+        }, _callee4, null, [[0, 2]]);
+      }))();
+    },
+    // get taxes
+    getTaxes: function getTaxes() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var _yield$axios$get3, data, defaultVatRateSlug, _error$response0, _error$response1, _error$response10, _t5;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
+            case 0:
+              _context5.p = 0;
+              _context5.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+            case 1:
+              _yield$axios$get3 = _context5.v;
+              data = _yield$axios$get3.data;
+              _this7.taxes = data.data;
+
+              // assign default vat rate
+              if (_this7.taxes && _this7.taxes.length > 0) {
+                defaultVatRateSlug = _this7.appInfo.defaultVatRateSlug;
+                _this7.form.orderTax = _this7.taxes.find(function (tax) {
+                  return tax.slug === defaultVatRateSlug;
+                }) || _this7.taxes[0]; // Fallback to first available tax if default not found
+
+                // Update any existing products with the default VAT rate if they don't have one
+                if (_this7.form.selectedProducts && _this7.form.selectedProducts.length > 0) {
+                  _this7.form.selectedProducts.forEach(function (item, index) {
+                    if (!item.selectedVatRate) {
+                      // First try to use the product's default VAT rate, then fall back to invoice default
+                      if (item.productTax) {
+                        item.selectedVatRate = _this7.findMatchingVatRate(item.productTax);
+                      }
+
+                      // If no match found or no productTax, fall back to invoice default
+                      if (!item.selectedVatRate) {
+                        item.selectedVatRate = _this7.form.orderTax;
+                      }
+                      _this7.generateItemTotalPrice(index);
+                    }
+                  });
+                }
+              }
+              _this7.calculateSum();
+              _context5.n = 3;
+              break;
+            case 2:
+              _context5.p = 2;
+              _t5 = _context5.v;
+              console.error('Error getting taxes:', _t5);
+
+              // Show error toast for tax loading failures
+              if (((_error$response0 = _t5.response) === null || _error$response0 === void 0 ? void 0 : _error$response0.status) === 401) {
+                toast.fire({
+                  type: "error",
+                  title: _this7.$t("Authentication Error"),
+                  text: _this7.$t("You are not authorized to view tax rates. Please log in again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response1 = _t5.response) === null || _error$response1 === void 0 ? void 0 : _error$response1.status) === 403) {
+                toast.fire({
+                  type: "error",
+                  title: _this7.$t("Permission Error"),
+                  text: _this7.$t("You don't have permission to view tax rates."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response10 = _t5.response) === null || _error$response10 === void 0 ? void 0 : _error$response10.status) >= 500) {
+                toast.fire({
+                  type: "error",
+                  title: _this7.$t("Server Error"),
+                  text: _this7.$t("Unable to load tax rates. Please try again later."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (_t5.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this7.$t("Tax Loading Error"),
+                  text: _t5.message,
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              }
+            case 3:
+              return _context5.a(2);
+          }
+        }, _callee5, null, [[0, 2]]);
+      }))();
+    },
+    // ensure all products have discount and VAT properties
+    ensureDiscountProperties: function ensureDiscountProperties() {
+      var _this8 = this;
+      this.form.selectedProducts.forEach(function (item) {
+        if (typeof item.discount === 'undefined') {
+          item.discount = 0;
+        }
+        if (typeof item.discountType === 'undefined') {
+          item.discountType = 'fixed';
+        }
+        if (typeof item.discountAmount === 'undefined') {
+          item.discountAmount = 0;
+        }
+        if (typeof item.selectedVatRate === 'undefined') {
+          // First try to use the product's default VAT rate, then fall back to invoice default
+          if (item.productTax) {
+            item.selectedVatRate = _this8.findMatchingVatRate(item.productTax);
+          }
+
+          // If no match found or no productTax, fall back to invoice default
+          if (!item.selectedVatRate) {
+            if (_this8.form.orderTax) {
+              item.selectedVatRate = _this8.form.orderTax;
+            } else if (_this8.taxes && _this8.taxes.length > 0) {
+              item.selectedVatRate = _this8.taxes[0];
+            }
+          }
+        }
+      });
+    },
+    // store product
+    storeProduct: function storeProduct(product) {
+      if (product) {
+        var _this$taxes;
+        // Skip adding items without a Sales Account
+        if (!product.sales_account_id) {
+          // Keep it selected in dropdown and show auto-assign UI below
+          return;
+        }
+        // Clear selectedProducts validation errors when adding a product
+        this.clearFieldError('selectedProducts');
+
+        // Clear payment field errors when products change (but don't reset addPayment selection)
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+        this.form.selectedProducts.unshift({
+          id: product.id,
+          slug: product.slug,
+          name: product.name,
+          code: product.code,
+          taxType: product.taxType,
+          taxRate: product.taxRate,
+          qty: 1,
+          inventoryCount: product.inventoryCount,
+          avgPurchasePrice: product.avgPurchasePrice,
+          unitPrice: product.regularPrice,
+          unitCost: product.regularPrice,
+          totalPrice: product.regularPrice,
+          productTax: product.productTax,
+          // Store the product's default VAT rate object
+          totalTax: 0,
+          // Will be calculated below
+          totalBeforeDiscount: product.regularPrice,
+          // Will be calculated below
+          totalAfterDiscount: product.regularPrice,
+          // Will be calculated below
+          itemType: product.itemType,
+          discount: 0,
+          discountType: "fixed",
+          discountAmount: 0,
+          selectedVatRate: this.findMatchingVatRate(product.productTax) || this.form.orderTax || ((_this$taxes = this.taxes) === null || _this$taxes === void 0 ? void 0 : _this$taxes[0]),
+          // Use product's default VAT rate, fallback to invoice VAT rate or first available tax
+          // Add chart of account information for validation
+          sales_account_id: product.sales_account_id,
+          purchase_account_id: product.purchase_account_id
+        });
+
+        // Calculate initial VAT and totals for the newly added product
+        var index = 0; // Since we're adding to the beginning of the array
+        this.generateItemTotalPrice(index);
+        this.form.product = "";
+        this.calculateSum();
+
+        // Update reactive totals
+        this.updateReactiveTotals();
+      }
+    },
+    // update array
+    generateItemTotal: function generateItemTotal(value, field, index, type) {
+      this.debugBreak();
+      var item = this.form.selectedProducts[index];
+      this.logDebug('generateItemTotal:start', {
+        value: value,
+        field: field,
+        index: index,
+        type: type,
+        before: item ? JSON.parse(JSON.stringify(item)) : null
+      });
+      if (item) {
+        var updatedItem = _objectSpread({}, item);
+        if (type === "increment") {
+          if (field === "qty") {
+            updatedItem.qty = item.qty + 1;
+          } else if (field === "price") {
+            updatedItem.unitPrice = this.roundToTwoDecimals(item.unitPrice + 1);
+          }
+        } else if (type === "decrement") {
+          if (field === "qty" && item.qty > 1) {
+            updatedItem.qty = item.qty - 1;
+          } else if (field === "price" && item.unitPrice > 0) {
+            updatedItem.unitPrice = this.roundToTwoDecimals(item.unitPrice - 1);
+          }
+        } else {
+          if (field === "qty") {
+            updatedItem.qty = Number(value);
+            // Clear quantity validation error when value changes
+            this.clearProductErrors(index);
+          } else if (field === "price") {
+            updatedItem.unitPrice = this.roundToTwoDecimals(Number(value));
+            // Clear unit price validation error when value changes
+            this.clearProductErrors(index);
+          }
+        }
+
+        // Ensure discount amount doesn't exceed the new total before discount
+        if (updatedItem.discountAmount > updatedItem.unitPrice * updatedItem.qty) {
+          updatedItem.discountAmount = this.roundToTwoDecimals(updatedItem.unitPrice * updatedItem.qty);
+        }
+        this.logDebug('generateItemTotal:after-mutate', {
+          index: index,
+          item: JSON.parse(JSON.stringify(updatedItem))
+        });
+
+        // Recalculate totals
+        // persist row change so Vue updates the row immediately
+        this.$set(this.form.selectedProducts, index, updatedItem);
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+
+        // Update reactive totals
+        this.updateReactiveTotals();
+
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+
+        // Force update totals row specifically
+        this.forceUpdateTotals();
+        this.logDebug('generateItemTotal:end', {
+          index: index,
+          row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
+        });
+      }
+    },
+    // Helper method to round to 2 decimal places
+    roundToTwoDecimals: function roundToTwoDecimals(value) {
+      return Math.round((value + Number.EPSILON) * 100) / 100;
+    },
+    // calculate product discount
+    calculateProductDiscount: function calculateProductDiscount(index) {
+      this.debugBreak();
+      var item = this.form.selectedProducts[index];
+      if (item) {
+        this.logDebug('calculateProductDiscount:start', {
+          index: index,
+          before: JSON.parse(JSON.stringify(item))
+        });
+        // Clear discount validation errors when values change
+        this.clearProductErrors(index);
+
+        // Calculate discount amount based on type
+        var discountAmount;
+        if (item.discountType === "percentage") {
+          discountAmount = this.roundToTwoDecimals(item.unitPrice * item.qty * item.discount / 100);
+        } else {
+          discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+        }
+
+        // Ensure discount amount doesn't exceed the total before discount
+        if (discountAmount > item.unitPrice * item.qty) {
+          discountAmount = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        }
+
+        // Create updated item with new discount amount
+        var updatedItem = _objectSpread(_objectSpread({}, item), {}, {
+          discountAmount: discountAmount
+        });
+
+        // Persist reactive change and recalc
+        this.$set(this.form.selectedProducts, index, updatedItem);
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+
+        // Update reactive totals
+        this.updateReactiveTotals();
+
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+        this.logDebug('calculateProductDiscount:end', {
+          index: index,
+          row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
+        });
+      }
+    },
+    // calculate product VAT
+    calculateProductVat: function calculateProductVat(index) {
+      this.debugBreak();
+      var item = this.form.selectedProducts[index];
+      if (item) {
+        this.logDebug('calculateProductVat:start', {
+          index: index,
+          before: JSON.parse(JSON.stringify(item))
+        });
+        // Clear VAT validation errors when values change
+        this.clearProductErrors(index);
+        var updatedItem = _objectSpread({}, item);
+
+        // Ensure the selectedVatRate is properly set
+        if (!updatedItem.selectedVatRate) {
+          // First try to use the product's default VAT rate, then fall back to available taxes
+          if (updatedItem.productTax) {
+            updatedItem.selectedVatRate = this.findMatchingVatRate(updatedItem.productTax);
+          }
+
+          // If no match found or no productTax, fall back to available taxes
+          if (!updatedItem.selectedVatRate && this.taxes && this.taxes.length > 0) {
+            updatedItem.selectedVatRate = this.taxes[0];
+          }
+        }
+
+        // Persist reactive change and recalc
+        this.$set(this.form.selectedProducts, index, updatedItem);
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+
+        // Update reactive totals
+        this.updateReactiveTotals();
+
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+        this.logDebug('calculateProductVat:end', {
+          index: index,
+          row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
+        });
+      }
+    },
+    // generate item total price
+    generateItemTotalPrice: function generateItemTotalPrice(index) {
+      this.debugBreak();
+      var item = this.form.selectedProducts[index];
+      if (item) {
+        this.logDebug('generateItemTotalPrice:start', {
+          index: index,
+          before: JSON.parse(JSON.stringify(item))
+        });
+
+        // Calculate total before discount
+        var totalBeforeDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty);
+
+        // Calculate price after discount
+        var totalAfterDiscount = this.roundToTwoDecimals(totalBeforeDiscount - (item.discountAmount || 0));
+
+        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
+        var vatRate = 0;
+        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+          vatRate = Number(item.selectedVatRate.rate);
+        } else if (item.taxRate !== undefined && item.taxRate !== null) {
+          vatRate = Number(item.taxRate);
+        }
+
+        // Ensure vatRate is a valid number
+        if (isNaN(vatRate) || vatRate < 0) {
+          vatRate = 0;
+        }
+
+        // Calculate tax based on discounted price
+        var productTax, totalTax, totalPrice;
+        if (item.taxType == "Exclusive") {
+          // For exclusive tax: calculate VAT on the discounted amount
+          productTax = this.roundToTwoDecimals(totalAfterDiscount * (vatRate / 100));
+          totalTax = this.roundToTwoDecimals(productTax);
+          totalPrice = this.roundToTwoDecimals(totalAfterDiscount + totalTax);
+        } else {
+          // For inclusive tax: VAT is already included in the unit price
+          // Calculate the VAT amount from the discounted price
+          var discountedUnitPrice = this.roundToTwoDecimals(totalAfterDiscount / item.qty);
+
+          // Calculate VAT amount from the inclusive price
+          productTax = this.roundToTwoDecimals(discountedUnitPrice - discountedUnitPrice / (1 + vatRate / 100));
+          totalTax = this.roundToTwoDecimals(productTax * item.qty);
+          totalPrice = this.roundToTwoDecimals(totalAfterDiscount);
+        }
+
+        // Create a new object with all the calculated values to ensure reactivity
+        var updatedItem = _objectSpread(_objectSpread({}, item), {}, {
+          totalBeforeDiscount: totalBeforeDiscount,
+          totalAfterDiscount: totalAfterDiscount,
+          productTax: productTax,
+          totalTax: totalTax,
+          totalPrice: totalPrice
+        });
+
+        // Use Vue.set to ensure reactivity
+        this.$set(this.form.selectedProducts, index, updatedItem);
+
+        // Force update to ensure template re-renders
+        this.$forceUpdate();
+        this.logDebug('generateItemTotalPrice:end', {
+          index: index,
+          row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
+        });
+      }
+    },
+    // remove item from array
+    removeItem: function removeItem(item) {
+      var index = this.form.selectedProducts.indexOf(item);
+      if (index > -1) {
+        this.form.selectedProducts.splice(index, 1);
+      }
+
+      // Reset payment fields when products are removed
+      if (this.form.selectedProducts.length === 0) {
+        this.form.addPayment = 0; // Reset to 0 (No) by default
+        this.form.account = "";
+        this.form.paidAmount = "";
+        this.form.chequeNo = "";
+        this.form.receiptNo = "";
+        this.clearFieldError('addPayment');
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+      }
+
+      // Recalculate totals after removing item
+      this.calculateSum();
+
+      // Update reactive totals
+      this.updateReactiveTotals();
+      return;
+    },
+    // calculate sum
+    calculateSum: function calculateSum() {
+      this.debugBreak();
+      // Update products with default VAT rate if needed
+      this.updateProductsWithDefaultVatRate();
+
+      // calculate subtotal with proper decimal precision
+      this.form.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (prev, cur) {
+        return prev + cur.totalPrice;
+      }, 0));
+
+      // calculate product tax with proper decimal precision
+      this.form.productTotalTax = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (prev, cur) {
+        return prev + cur.totalTax;
+      }, 0));
+
+      // calculate total product discount with proper decimal precision
+      this.form.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (prev, cur) {
+        return prev + (cur.discountAmount || 0);
+      }, 0));
+
+      // calculate global discount with proper decimal precision
+      var globalDiscount = 0;
+      if (!this.isSaudiArabia && this.form.discount > 0) {
+        if (this.form.discountType == 1) {
+          // Percentage
+          globalDiscount = this.roundToTwoDecimals(this.form.discount / 100 * this.form.subTotal);
+        } else {
+          // Fixed
+          globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
+        }
+      }
+
+      // Calculate Invoice Tax based on selected tax rate (skip for Saudi Arabia)
+      this.form.invoiceTax = 0;
+      if (!this.isSaudiArabia && this.form.orderTax && this.form.orderTax.rate) {
+        // Calculate invoice tax on the subtotal after global discount
+        this.form.invoiceTax = this.roundToTwoDecimals(this.form.orderTax.rate / 100 * (this.form.subTotal - globalDiscount));
+      }
+
+      // Total tax is the sum of individual product VATs PLUS invoice tax
+      this.form.totalTax = this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax);
+
+      // calculate final total with proper decimal precision
+      // For Saudi Arabia: Net Total = SubTotal (no global discount, no invoice tax, no transport cost)
+      // For other countries: Net Total = SubTotal - Global Discount + Invoice Tax + Transport Cost
+      if (this.isSaudiArabia) {
+        this.form.netTotal = this.roundToTwoDecimals(this.form.subTotal);
+      } else {
+        this.form.netTotal = this.roundToTwoDecimals(this.form.subTotal - globalDiscount + this.form.invoiceTax + Number(this.form.transportCost || 0));
+      }
+
+      // Update reactive totals for the table
+      this.updateReactiveTotals();
+      this.logDebug('calculateSum', {
+        subTotal: this.form.subTotal,
+        productTotalTax: this.form.productTotalTax,
+        invoiceTax: this.form.invoiceTax,
+        totalTax: this.form.totalTax,
+        netTotal: this.form.netTotal,
+        totalDiscount: this.form.totalDiscount,
+        reactiveTotals: this.reactiveTotals,
+        selectedProducts: this.form.selectedProducts.map(function (p, i) {
+          return {
+            i: i,
+            qty: p.qty,
+            unitPrice: p.unitPrice,
+            discountAmount: p.discountAmount || 0,
+            productTax: p.productTax,
+            totalTax: p.totalTax,
+            totalPrice: p.totalPrice
+          };
+        })
+      });
+      return;
     },
     // return number to word with language support
     toWord: function toWord() {
-      var amount = this.subtotal || 0;
+      var amount = this.form.subTotal || 0;
 
       // Handle edge cases
       if (isNaN(amount) || amount < 0) {
@@ -2344,110 +3285,1062 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
       return 'رقم كبير جداً';
     },
-    // save quotation
-    saveQuotation: function saveQuotation() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
+    // Update reactive totals for the table
+    updateReactiveTotals: function updateReactiveTotals() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        this.reactiveTotals.totalUnitPrice = 0;
+        this.reactiveTotals.totalAfterDiscount = 0;
+        this.reactiveTotals.totalDiscount = 0;
+        this.reactiveTotals.productTotalTax = 0;
+        this.reactiveTotals.subTotal = 0;
+        return;
+      }
+
+      // Calculate totals
+      this.reactiveTotals.totalUnitPrice = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (total, item) {
+        return total + item.unitPrice * item.qty;
+      }, 0));
+      this.reactiveTotals.totalAfterDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.totalAfterDiscount || 0);
+      }, 0));
+      this.reactiveTotals.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.discountAmount || 0);
+      }, 0));
+      this.reactiveTotals.productTotalTax = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.totalTax || 0);
+      }, 0));
+      this.reactiveTotals.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.totalPrice || 0);
+      }, 0));
+      console.log('[InvoiceCreate] updateReactiveTotals called:', this.reactiveTotals);
+
+      // Force update to ensure template re-renders
+      this.$forceUpdate();
+    },
+    // Methods to get totals on-demand (forces reactivity)
+    getTotalUnitPrice: function getTotalUnitPrice() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      var total = this.form.selectedProducts.reduce(function (total, item) {
+        return total + item.unitPrice * item.qty;
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+    getTotalAfterDiscount: function getTotalAfterDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      var total = this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.totalAfterDiscount || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+    getTotalDiscount: function getTotalDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      var total = this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.discountAmount || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+    getProductTotalTax: function getProductTotalTax() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      var total = this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.totalTax || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+    getSubTotal: function getSubTotal() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      var total = this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.totalPrice || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+    // Force update totals row
+    forceUpdateTotals: function forceUpdateTotals() {
+      this.$forceUpdate();
+    },
+    // vue file upload
+    onFileChange: function onFileChange(e) {
+      var _this9 = this;
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
+        reader.onloadend = function () {
+          _this9.formClient.image = reader.result;
+        };
+        reader.readAsDataURL(file);
+        this.url = URL.createObjectURL(file);
+      } else {
+        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
+      }
+    },
+    // save invoice
+    saveInvoice: function saveInvoice() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var validationErrors, productsWithoutSalesAccount, productNames, productsWithoutVatRate, _productNames, paymentValidation, _yield$_this0$form$po, data, _error$response11, _error$response12, _error$response13, _error$response14, _error$response15, _error$response16, _error$response17, _error$response18, _error$response19, _error$response20, _validationErrors, errorMessage, _validationErrors2, errorCount, _errorMessage, _errorMessage2, _errorMessage3, ErrorHandler, _t6;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
-              _context5.n = 1;
-              return _this6.form.post(window.location.origin + "/api/quotations").then(function (_ref) {
-                var data = _ref.data;
+              _context6.p = 0;
+              // Ensure all monetary values are properly formatted to 2 decimal places before submission
+              _this0.formatFormValues();
+
+              // Don't clear payment fields here - let the backend handle validation
+              // The backend will ignore payment fields if addPayment is 0
+
+              // Collect all validation errors before submission
+              validationErrors = [];
+              if (!_this0.form.client || !_this0.form.client.chart_of_account_id) {
+                validationErrors.push({
+                  type: "warning",
+                  title: _this0.$t("Chart of Account Required"),
+                  message: _this0.$t("Client must have a Chart of Account assigned before creating an invoice."),
+                  field: "client"
+                });
+              }
+              if (!_this0.form.selectedProducts || _this0.form.selectedProducts.length === 0) {
+                validationErrors.push({
+                  type: "warning",
+                  title: _this0.$t("No Products Selected"),
+                  message: _this0.$t("Please select at least one product to create an invoice."),
+                  field: "selectedProducts"
+                });
+              }
+
+              // Validate that all products have sales accounts assigned
+              productsWithoutSalesAccount = _this0.form.selectedProducts.filter(function (product) {
+                return !product.sales_account_id;
+              });
+              if (productsWithoutSalesAccount.length > 0) {
+                productNames = productsWithoutSalesAccount.map(function (p) {
+                  return p.name || 'Unknown';
+                }).join(', ');
+                validationErrors.push({
+                  type: "warning",
+                  title: _this0.$t("Product Chart of Account Required"),
+                  message: _this0.$t("The following products must have Sales Accounts assigned: ") + productNames,
+                  field: "products",
+                  timer: 8000,
+                  timerProgressBar: true
+                });
+              }
+
+              // Validate that all products have VAT rates assigned
+              productsWithoutVatRate = _this0.form.selectedProducts.filter(function (product) {
+                return !product.productTax || !product.productTax.id;
+              });
+              if (productsWithoutVatRate.length > 0) {
+                _productNames = productsWithoutVatRate.map(function (p) {
+                  return p.name || 'Unknown';
+                }).join(', ');
+                validationErrors.push({
+                  type: "warning",
+                  title: _this0.$t("Product VAT Rate Required"),
+                  message: _this0.$t("The following products must have a VAT rate assigned: ") + _productNames,
+                  field: "products",
+                  timer: 8000,
+                  timerProgressBar: true
+                });
+              }
+
+              // Validate payment fields when "Add Payment" is set to "Yes"
+              paymentValidation = _this0.validatePaymentFields();
+              if (!paymentValidation.isValid) {
+                validationErrors.push.apply(validationErrors, _toConsumableArray(paymentValidation.errors));
+              }
+
+              // Validate that all calculations are correct
+              if (!_this0.validateCalculations()) {
+                validationErrors.push({
+                  type: "error",
+                  title: _this0.$t("Calculation Error"),
+                  message: _this0.$t("There was an error in the calculations. Please refresh the page and try again."),
+                  field: "calculations"
+                });
+              }
+
+              // If there are validation errors, show them all and return
+              if (!(validationErrors.length > 0)) {
+                _context6.n = 1;
+                break;
+              }
+              _this0.showMultipleValidationErrors(validationErrors);
+              return _context6.a(2);
+            case 1:
+              _this0.loading = true;
+              _context6.n = 2;
+              return _this0.form.post(window.location.origin + "/api/invoices");
+            case 2:
+              _yield$_this0$form$po = _context6.v;
+              data = _yield$_this0$form$po.data;
+              _this0.loading = false;
+              if (data.success) {
                 toast.fire({
                   type: "success",
-                  title: _this6.$t("Quotation added successfully")
+                  title: _this0.$t("Success"),
+                  text: _this0.$t("Invoice created successfully")
                 });
-                _this6.clearTemporaryData();
-                _this6.$router.push({
-                  name: "quotations.show",
+                _this0.clearTemporaryData();
+                _this0.$router.push({
+                  name: "invoices.show",
                   params: {
                     slug: data.data.slug
                   }
                 });
-              })["catch"](function () {
+              } else {
                 toast.fire({
                   type: "error",
-                  title: _this6.$t("Please check your input and try again.")
+                  title: _this0.$t("Error"),
+                  text: data.message
+                });
+              }
+              _context6.n = 8;
+              break;
+            case 3:
+              _context6.p = 3;
+              _t6 = _context6.v;
+              _this0.loading = false;
+              console.error('Invoice creation error:', _t6);
+
+              // Handle validation errors specifically
+              if (!(((_error$response11 = _t6.response) === null || _error$response11 === void 0 ? void 0 : _error$response11.status) === 422 && (_error$response12 = _t6.response) !== null && _error$response12 !== void 0 && (_error$response12 = _error$response12.data) !== null && _error$response12 !== void 0 && _error$response12.errors)) {
+                _context6.n = 4;
+                break;
+              }
+              _validationErrors = _t6.response.data.errors; // Show validation errors in toast
+              Object.keys(_validationErrors).forEach(function (field) {
+                var fieldErrors = _validationErrors[field];
+                if (Array.isArray(fieldErrors) && fieldErrors.length > 0) {
+                  // Show first error for each field
+                  toast.fire({
+                    type: "error",
+                    title: _this0.$t("Validation Error"),
+                    text: "".concat(_this0.getFieldLabel(field), ": ").concat(fieldErrors[0]),
+                    timer: 5000,
+                    timerProgressBar: true
+                  });
+                }
+              });
+
+              // Also set form errors for inline validation display
+              _this0.form.errors.set(_validationErrors);
+              _context6.n = 7;
+              break;
+            case 4:
+              if (!(((_error$response13 = _t6.response) === null || _error$response13 === void 0 ? void 0 : _error$response13.status) === 400)) {
+                _context6.n = 6;
+                break;
+              }
+              // Handle bad request errors (business logic errors)
+              errorMessage = _t6.response.data.message || _t6.response.data.error || _this0.$t("Bad Request Error");
+              _validationErrors2 = _t6.response.data.validation_errors;
+              errorCount = _t6.response.data.error_count; // If we have multiple validation errors from the backend, show them all
+              if (!(_validationErrors2 && Array.isArray(_validationErrors2) && _validationErrors2.length > 0)) {
+                _context6.n = 5;
+                break;
+              }
+              _this0.showBackendValidationErrors(_validationErrors2, errorMessage);
+              return _context6.a(2);
+            case 5:
+              // Try to handle as business logic error first
+              if (!_this0.handleBusinessLogicError(_t6.response.data)) {
+                // If not handled by business logic handler, show generic bad request error
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Business Logic Error"),
+                  text: errorMessage,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              }
+              _context6.n = 7;
+              break;
+            case 6:
+              if (((_error$response14 = _t6.response) === null || _error$response14 === void 0 ? void 0 : _error$response14.status) === 401) {
+                // Handle unauthorized errors
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Authentication Error"),
+                  text: _this0.$t("You are not authorized to perform this action. Please log in again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response15 = _t6.response) === null || _error$response15 === void 0 ? void 0 : _error$response15.status) === 403) {
+                // Handle forbidden errors
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Permission Error"),
+                  text: _this0.$t("You don't have permission to perform this action."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response16 = _t6.response) === null || _error$response16 === void 0 ? void 0 : _error$response16.status) === 404) {
+                // Handle not found errors
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Resource Not Found"),
+                  text: _this0.$t("The requested resource was not found. Please check your data and try again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response17 = _t6.response) === null || _error$response17 === void 0 ? void 0 : _error$response17.status) === 409) {
+                // Handle conflict errors
+                _errorMessage = _t6.response.data.message || _this0.$t("Data Conflict Error");
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Data Conflict"),
+                  text: _errorMessage,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response18 = _t6.response) === null || _error$response18 === void 0 ? void 0 : _error$response18.status) === 422) {
+                // Handle other unprocessable entity errors
+                _errorMessage2 = _t6.response.data.message || _this0.$t("Please check your input and try again.");
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Validation Error"),
+                  text: _errorMessage2,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response19 = _t6.response) === null || _error$response19 === void 0 ? void 0 : _error$response19.status) >= 500) {
+                // Handle server errors
+                _errorMessage3 = _t6.response.data.message || _this0.$t("Server Error");
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Server Error"),
+                  text: "".concat(_errorMessage3, " (").concat(_this0.$t("Please try again later or contact support"), ")"),
+                  timer: 8000,
+                  timerProgressBar: true
+                });
+              } else if ((_error$response20 = _t6.response) !== null && _error$response20 !== void 0 && (_error$response20 = _error$response20.data) !== null && _error$response20 !== void 0 && _error$response20.message) {
+                // Handle other API error messages
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("API Error"),
+                  text: _t6.response.data.message,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (_t6.message) {
+                // Handle JavaScript errors
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("JavaScript Error"),
+                  text: _t6.message,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (_t6.code === 'NETWORK_ERROR' || _t6.code === 'ECONNABORTED') {
+                // Handle network errors
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Network Error"),
+                  text: _this0.$t("Unable to connect to the server. Please check your internet connection and try again."),
+                  timer: 8000,
+                  timerProgressBar: true
+                });
+              } else {
+                // Use centralized error handler for any remaining errors
+                ErrorHandler = (__webpack_require__(36694)/* ["default"] */ .A);
+                ErrorHandler.handleApiError(_t6, {
+                  showValidationErrors: false
+                });
+              }
+            case 7:
+              // Log detailed error information for debugging
+              console.group('Detailed Error Information');
+              console.error('Error object:', _t6);
+              console.error('Error response:', _t6.response);
+              console.error('Error message:', _t6.message);
+              console.error('Error stack:', _t6.stack);
+              console.groupEnd();
+            case 8:
+              return _context6.a(2);
+          }
+        }, _callee6, null, [[0, 3]]);
+      }))();
+    },
+    // Format all form values to ensure proper decimal precision
+    formatFormValues: function formatFormValues() {
+      var _this1 = this;
+      // Format selected products
+      this.form.selectedProducts.forEach(function (item) {
+        item.unitPrice = _this1.roundToTwoDecimals(Number(item.unitPrice));
+        item.qty = Number(item.qty);
+        item.productTax = _this1.roundToTwoDecimals(Number(item.productTax));
+        item.totalTax = _this1.roundToTwoDecimals(Number(item.totalTax));
+        item.totalPrice = _this1.roundToTwoDecimals(Number(item.totalPrice));
+        item.unitCost = _this1.roundToTwoDecimals(Number(item.unitCost));
+        item.discount = _this1.roundToTwoDecimals(Number(item.discount || 0));
+        item.discountAmount = _this1.roundToTwoDecimals(Number(item.discountAmount || 0));
+      });
+
+      // Format form totals
+      this.form.subTotal = this.roundToTwoDecimals(Number(this.form.subTotal));
+      this.form.productTotalTax = this.roundToTwoDecimals(Number(this.form.productTotalTax));
+      this.form.invoiceTax = this.roundToTwoDecimals(Number(this.form.invoiceTax || 0));
+      this.form.totalDiscount = this.roundToTwoDecimals(Number(this.form.totalDiscount));
+      this.form.totalTax = this.roundToTwoDecimals(Number(this.form.totalTax));
+      this.form.netTotal = this.roundToTwoDecimals(Number(this.form.netTotal));
+      this.form.transportCost = this.roundToTwoDecimals(Number(this.form.transportCost || 0));
+      this.form.discount = this.roundToTwoDecimals(Number(this.form.discount || 0));
+
+      // Only format payment-related fields if addPayment is 1
+      if (this.form.addPayment == 1) {
+        this.form.paidAmount = this.roundToTwoDecimals(Number(this.form.paidAmount || 0));
+        this.form.account = this.form.account || "";
+        this.form.chequeNo = this.form.chequeNo || "";
+        this.form.receiptNo = this.form.receiptNo || "";
+      }
+      // Don't clear payment fields here - let the backend handle validation
+    },
+    // Validate that all calculations are mathematically correct
+    validateCalculations: function validateCalculations() {
+      try {
+        // Validate subtotal
+        var calculatedSubTotal = this.form.selectedProducts.reduce(function (total, item) {
+          return total + Number(item.totalPrice);
+        }, 0);
+        if (Math.abs(calculatedSubTotal - this.form.subTotal) > 0.01) {
+          console.error('Subtotal validation failed:', calculatedSubTotal, 'vs', this.form.subTotal);
+          return false;
+        }
+
+        // Validate product tax total
+        var calculatedProductTax = this.form.selectedProducts.reduce(function (total, item) {
+          return total + Number(item.totalTax);
+        }, 0);
+        if (Math.abs(calculatedProductTax - this.form.productTotalTax) > 0.01) {
+          console.error('Product tax validation failed:', calculatedProductTax, 'vs', this.form.productTotalTax);
+          return false;
+        }
+
+        // Validate total discount
+        var calculatedTotalDiscount = this.form.selectedProducts.reduce(function (total, item) {
+          return total + Number(item.discountAmount || 0);
+        }, 0);
+        if (Math.abs(calculatedTotalDiscount - this.form.totalDiscount) > 0.01) {
+          console.error('Total discount validation failed:', calculatedTotalDiscount, 'vs', this.form.totalDiscount);
+          return false;
+        }
+
+        // Validate invoice tax (skip for Saudi Arabia)
+        if (!this.isSaudiArabia) {
+          var calculatedInvoiceTax = this.form.orderTax && this.form.orderTax.rate ? this.roundToTwoDecimals(this.form.orderTax.rate / 100 * (this.form.subTotal - globalDiscount)) : 0;
+          if (Math.abs(calculatedInvoiceTax - this.form.invoiceTax) > 0.01) {
+            console.error('Invoice tax validation failed:', calculatedInvoiceTax, 'vs', this.form.invoiceTax);
+            return false;
+          }
+        }
+
+        // Validate net total
+        var globalDiscount = this.form.discount > 0 ? this.form.discountType == 1 ? this.roundToTwoDecimals(this.form.discount / 100 * this.form.subTotal) : this.roundToTwoDecimals(Number(this.form.discount)) : 0;
+
+        // For Saudi Arabia, skip global discount and invoice tax in net total calculation
+        var calculatedNetTotal = this.isSaudiArabia ? this.roundToTwoDecimals(this.form.subTotal) : this.roundToTwoDecimals(this.form.subTotal - globalDiscount + this.form.invoiceTax + Number(this.form.transportCost || 0));
+        if (Math.abs(calculatedNetTotal - this.form.netTotal) > 0.01) {
+          console.error('Net total validation failed:', calculatedNetTotal, 'vs', this.form.netTotal);
+          return false;
+        }
+        return true;
+      } catch (error) {
+        console.error('Validation error:', error);
+        return false;
+      }
+    },
+    // Validate payment fields when "Add Payment" is set to "Yes"
+    validatePaymentFields: function validatePaymentFields() {
+      if (this.form.addPayment != 1) {
+        return {
+          isValid: true,
+          errors: []
+        };
+      }
+      var errors = [];
+
+      // Check if bank account is selected
+      if (!this.form.account) {
+        errors.push({
+          type: "warning",
+          title: this.$t("Bank Account Required"),
+          message: this.$t("Please choose a bank account for the payment."),
+          field: "account"
+        });
+      }
+
+      // Check if paid amount is entered and greater than 0
+      if (!this.form.paidAmount || Number(this.form.paidAmount) <= 0) {
+        errors.push({
+          type: "warning",
+          title: this.$t("Paid Amount Required"),
+          message: this.$t("Paid amount must be greater than 0."),
+          field: "paidAmount"
+        });
+      }
+
+      // Validate bank account chart of account if account is selected
+      if (this.form.account && !this.form.account.chartOfAccountId) {
+        errors.push({
+          type: "warning",
+          title: this.$t("Bank Account Chart of Account Required"),
+          message: this.$t("Bank Account must have a Chart of Account assigned for journal entries."),
+          field: "account",
+          timer: 8000,
+          timerProgressBar: true
+        });
+      }
+      return {
+        isValid: errors.length === 0,
+        errors: errors
+      };
+    },
+    // save client
+    saveClient: function saveClient() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
+            case 0:
+              _context7.n = 1;
+              return _this10.formClient.post(window.location.origin + "/api/clients").then(function () {
+                toast.fire({
+                  type: "success",
+                  title: _this10.$t("Client added successfully")
+                });
+                _this10.showClientCreateModal = false;
+                _this10.getClients();
+                _this10.formClient.reset();
+                _this10.url = null;
+              })["catch"](function (error) {
+                var ErrorHandler = (__webpack_require__(36694)/* ["default"] */ .A);
+                ErrorHandler.handleApiError(error, {
+                  showValidationErrors: false
                 });
               });
             case 1:
-              return _context5.a(2);
+              return _context7.a(2);
           }
-        }, _callee5);
+        }, _callee7);
       }))();
     },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      var tempData = {
-        client: this.form.client,
-        reference: this.form.reference,
-        selectedProducts: this.form.selectedProducts,
-        subTotal: this.form.subTotal,
-        netTotal: this.form.netTotal,
-        transportCost: this.form.transportCost,
-        orderTax: this.form.orderTax,
-        totalProductTax: this.form.totalProductTax,
-        totalTax: this.form.totalTax,
-        discount: this.form.discount,
-        discountType: this.form.discountType,
-        poReference: this.form.poReference,
-        paymentTerms: this.form.paymentTerms,
-        addPayment: this.form.addPayment,
-        account: this.form.account,
-        paidAmount: this.form.paidAmount,
-        paymentMethod: this.form.paymentMethod,
-        chequeNo: this.form.chequeNo,
-        receiptNo: this.form.receiptNo,
-        deliveryPlace: this.form.deliveryPlace,
-        date: this.form.date,
-        note: this.form.note,
-        status: this.form.status,
-        isSendEmail: this.form.isSendEmail,
-        isSendSMS: this.form.isSendSMS,
-        timestamp: new Date().toISOString()
-      };
-      localStorage.setItem('quotationTempData', JSON.stringify(tempData));
+    // on client change
+    onClientChange: function onClientChange() {
+      // Don't process client changes during form submission
+      if (this.isSubmitting) {
+        return;
+      }
+
+      // Clear client validation errors when client changes
+      this.clearFieldError('client');
+
+      // Do not override user selection; keep current client even if missing chart_of_account_id
+      // Validation UI will prompt auto-assign if needed
+
+      // Reset payment fields when client changes
+      this.form.addPayment = 0; // Reset to 0 (No) by default
+      this.form.account = "";
+      this.form.paidAmount = "";
+      this.form.chequeNo = "";
+      this.form.receiptNo = "";
+      this.clearFieldError('addPayment');
+      this.clearFieldError('account');
+      this.clearFieldError('paidAmount');
+      this.clearFieldError('chequeNo');
+      this.clearFieldError('receiptNo');
     },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('quotationTempData');
-      if (tempData) {
-        try {
-          var data = JSON.parse(tempData);
-          this.form.client = data.client || this.form.client;
-          this.form.reference = data.reference || this.form.reference;
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts;
-          this.form.subTotal = data.subTotal || this.form.subTotal;
-          this.form.netTotal = data.netTotal || this.form.netTotal;
-          this.form.transportCost = data.transportCost || this.form.transportCost;
-          this.form.orderTax = data.orderTax || this.form.orderTax;
-          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax;
-          this.form.totalTax = data.totalTax || this.form.totalTax;
-          this.form.discount = data.discount || this.form.discount;
-          this.form.discountType = data.discountType || this.form.discountType;
-          this.form.poReference = data.poReference || this.form.poReference;
-          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms;
-          this.form.addPayment = data.addPayment || this.form.addPayment;
-          this.form.account = data.account || this.form.account;
-          this.form.paidAmount = data.paidAmount || this.form.paidAmount;
-          this.form.paymentMethod = data.paymentMethod || this.form.paymentMethod;
-          this.form.chequeNo = data.chequeNo || this.form.chequeNo;
-          this.form.receiptNo = data.receiptNo || this.form.receiptNo;
-          this.form.deliveryPlace = data.deliveryPlace || this.form.deliveryPlace;
-          this.form.date = data.date || this.form.date;
-          this.form.note = data.note || this.form.note;
-          this.form.status = data.status !== undefined ? data.status : this.form.status;
-          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail;
-          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS;
-        } catch (e) {
-          console.error('Error loading temporary data:', e);
-        }
+    // Add back the autoAssignClientChartOfAccount method
+    autoAssignClientChartOfAccount: function autoAssignClientChartOfAccount() {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        var currentClientSlug, response, newAccountId, idx, _error$response21, _error$response22, _error$response23, _error$response24, _error$response25, _error$response26, errorMessage, _errorMessage4, _t7;
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.p = _context8.n) {
+            case 0:
+              if (!(!_this11.form.client || _this11.isAutoAssigningClient)) {
+                _context8.n = 1;
+                break;
+              }
+              return _context8.a(2);
+            case 1:
+              _this11.isAutoAssigningClient = true;
+              _context8.p = 2;
+              // Store the current client slug before making the API call
+              currentClientSlug = _this11.form.client.slug;
+              _context8.n = 3;
+              return _this11.$http.post("/api/clients/".concat(_this11.form.client.slug, "/auto-assign-chart-of-account"));
+            case 3:
+              response = _context8.v;
+              if (response.data.success) {
+                // Update the client data with new chart of account
+                newAccountId = response.data.chart_of_account_id || response.data.data && response.data.data.chart_of_account_id || null;
+                if (newAccountId) {
+                  _this11.form.client.chart_of_account_id = newAccountId;
+                  // Also update the option in items list to keep state consistent when switching clients
+                  idx = _this11.items.findIndex(function (i) {
+                    return i.slug === currentClientSlug;
+                  });
+                  if (idx !== -1) {
+                    _this11.$set(_this11.items[idx], 'chart_of_account_id', newAccountId);
+                  }
+                }
+
+                // Force Vue to re-render the component to update the UI
+                _this11.$nextTick(function () {
+                  _this11.$forceUpdate();
+                });
+
+                // Show success message
+                toast.fire({
+                  type: "success",
+                  title: _this11.$t("Chart of Account assigned successfully")
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this11.$t("Please try again or assign manually")
+                });
+              }
+              _context8.n = 5;
+              break;
+            case 4:
+              _context8.p = 4;
+              _t7 = _context8.v;
+              console.error('Error auto-assigning chart of account:', _t7);
+
+              // Handle different types of errors
+              if (((_error$response21 = _t7.response) === null || _error$response21 === void 0 ? void 0 : _error$response21.status) === 400) {
+                errorMessage = _t7.response.data.message || _this11.$t("Bad request error");
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Assignment Failed"),
+                  text: errorMessage,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response22 = _t7.response) === null || _error$response22 === void 0 ? void 0 : _error$response22.status) === 401) {
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Authentication Error"),
+                  text: _this11.$t("You are not authorized to perform this action. Please log in again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response23 = _t7.response) === null || _error$response23 === void 0 ? void 0 : _error$response23.status) === 403) {
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Permission Error"),
+                  text: _this11.$t("You don't have permission to assign Chart of Accounts."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response24 = _t7.response) === null || _error$response24 === void 0 ? void 0 : _error$response24.status) === 404) {
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Client Not Found"),
+                  text: _this11.$t("The client was not found. Please refresh the page and try again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response25 = _t7.response) === null || _error$response25 === void 0 ? void 0 : _error$response25.status) >= 500) {
+                _errorMessage4 = _t7.response.data.message || _this11.$t("Server error");
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Server Error"),
+                  text: "".concat(_errorMessage4, " (").concat(_this11.$t("Please try again later"), ")"),
+                  timer: 8000,
+                  timerProgressBar: true
+                });
+              } else if ((_error$response26 = _t7.response) !== null && _error$response26 !== void 0 && (_error$response26 = _error$response26.data) !== null && _error$response26 !== void 0 && _error$response26.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Assignment Failed"),
+                  text: _t7.response.data.message,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (_t7.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Assignment Failed"),
+                  text: _t7.message,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this11.$t("Failed to assign Chart of Account"),
+                  text: _this11.$t("Please try again or assign manually"),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              }
+            case 5:
+              _context8.p = 5;
+              _this11.isAutoAssigningClient = false;
+              return _context8.f(5);
+            case 6:
+              return _context8.a(2);
+          }
+        }, _callee8, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    // Helper method to get human-readable field labels
+    getFieldLabel: function getFieldLabel(field) {
+      var fieldLabels = {
+        'client': this.$t('Client'),
+        'selectedProducts': this.$t('Products'),
+        'orderTax': this.$t('Order Tax'),
+        'netTotal': this.$t('Net Total'),
+        'poReference': this.$t('PO Reference'),
+        'paymentTerms': this.$t('Payment Terms'),
+        'deliveryPlace': this.$t('Delivery Place'),
+        'account': this.$t('Account'),
+        'paidAmount': this.$t('Paid Amount'),
+        'chequeNo': this.$t('Cheque Number'),
+        'receiptNo': this.$t('Receipt Number'),
+        'date': this.$t('Date'),
+        'note': this.$t('Note'),
+        'status': this.$t('Status'),
+        'addPayment': this.$t('Add Payment'),
+        'isSendEmail': this.$t('Send Email'),
+        'isSendSMS': this.$t('Send SMS'),
+        'discountType': this.$t('Discount Type'),
+        'discount': this.$t('Discount'),
+        'transportCost': this.$t('Transport Cost'),
+        'reference': this.$t('Reference')
+      };
+      return fieldLabels[field] || this.$t(field.charAt(0).toUpperCase() + field.slice(1));
+    },
+    // Helper method to handle specific business logic errors
+    handleBusinessLogicError: function handleBusinessLogicError(errorData) {
+      var _this12 = this;
+      var message = errorData.message,
+        errors = errorData.errors,
+        details = errorData.details;
+
+      // Handle specific error types with more detailed matching
+      if (message && message.includes('Bank Account must have a Chart of Account assigned for journal entries')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Bank Account Chart of Account Required"),
+          text: this.$t("The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account."),
+          timer: 10000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: this.$t("Go to Bank Accounts"),
+          showCancelButton: true,
+          cancelButtonText: this.$t("Close")
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            // Navigate to bank accounts page
+            _this12.$router.push({
+              name: 'accounts.index'
+            });
+          }
+        });
+        return true;
+      }
+      if (message && message.includes('Chart of Account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Chart of Account Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true
+        });
+        return true;
+      }
+      if (message && message.includes('Sales Account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Sales Account Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true
+        });
+        return true;
+      }
+      if (message && message.includes('VAT Account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("VAT Account Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true
+        });
+        return true;
+      }
+      if (message && message.includes('Discount Allowed account')) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Account Configuration Required"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true
+        });
+        return true;
+      }
+
+      // Handle other business logic errors
+      if (message) {
+        toast.fire({
+          type: "error",
+          title: this.$t("Business Rule Violation"),
+          text: message,
+          timer: 8000,
+          timerProgressBar: true
+        });
+        return true;
+      }
+      return false;
+    },
+    // Reset form
+    resetForm: function resetForm() {
+      this.form.reset();
+      this.form.errors.clear();
+      this.form.selectedProducts = [];
+      this.form.subTotal = 0;
+      this.form.netTotal = 0;
+      this.form.totalTax = 0;
+      this.form.productTotalTax = 0;
+      this.form.invoiceTax = 0;
+      this.form.totalDiscount = 0;
+      this.form.discount = 0;
+      this.form.transportCost = "";
+      this.form.orderTax = "";
+      this.form.account = "";
+      this.form.totalPaid = "";
+      this.form.dueAmount = "";
+      this.form.poReference = "";
+      this.form.paymentTerms = "";
+      this.form.deliveryPlace = "";
+      this.form.addPayment = 0; // Reset to 0 (No) by default
+      this.form.chequeNo = "";
+      this.form.receiptNo = "";
+      this.form.date = new Date().toISOString().slice(0, 10);
+      this.form.note = "";
+      this.form.status = 1;
+      this.form.isSendEmail = false;
+      this.form.isSendSMS = false;
+      this.form.discountType = 0;
+      this.form.reference = "";
+
+      // Ensure calculations are reset
+      this.calculateSum();
+    },
+    // Clear validation errors for a specific field
+    clearFieldError: function clearFieldError(field) {
+      if (this.form.errors.has(field)) {
+        this.form.errors.clear(field);
       }
     },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('quotationTempData');
+    // Clear all payment-related validation errors
+    clearPaymentErrors: function clearPaymentErrors() {
+      this.clearFieldError('account');
+      this.clearFieldError('paidAmount');
+      this.clearFieldError('chequeNo');
+      this.clearFieldError('receiptNo');
+    },
+    // Clear validation errors for product fields
+    clearProductErrors: function clearProductErrors(index) {
+      var _this13 = this;
+      var fields = ['qty', 'unitPrice', 'discount', 'discountType', 'productTax'];
+      fields.forEach(function (field) {
+        var errorKey = "selectedProducts.".concat(index, ".").concat(field);
+        if (_this13.form.errors.has(errorKey)) {
+          _this13.form.errors.clear(errorKey);
+        }
+      });
+    },
+    // Global error handler for any unhandled errors
+    handleGlobalError: function handleGlobalError(error) {
+      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Unknown operation';
+      console.error("Global error in ".concat(context, ":"), error);
+
+      // Show a generic error toast
+      toast.fire({
+        type: "error",
+        title: this.$t("Unexpected Error"),
+        text: this.$t("Please check your input and try again."),
+        timer: 6000,
+        timerProgressBar: true
+      });
+    },
+    // Set up global error handling
+    setupGlobalErrorHandling: function setupGlobalErrorHandling() {
+      var _this14 = this;
+      // Handle unhandled promise rejections
+      this.unhandledRejectionHandler = function (event) {
+        console.error('Unhandled promise rejection:', event.reason);
+        _this14.handleGlobalError(event.reason, 'Promise rejection');
+      };
+
+      // Handle unhandled errors
+      this.unhandledErrorHandler = function (event) {
+        console.error('Unhandled error:', event.error);
+        _this14.handleGlobalError(event.error, 'JavaScript error');
+      };
+
+      // Add event listeners
+      window.addEventListener('unhandledrejection', this.unhandledRejectionHandler);
+      window.addEventListener('error', this.unhandledErrorHandler);
+    },
+    // Clean up global error handlers
+    cleanupGlobalErrorHandling: function cleanupGlobalErrorHandling() {
+      if (this.unhandledRejectionHandler) {
+        window.removeEventListener('unhandledrejection', this.unhandledRejectionHandler);
+      }
+      if (this.unhandledErrorHandler) {
+        window.removeEventListener('error', this.unhandledErrorHandler);
+      }
+    },
+    // Auto-assign Chart of Account for a specific product
+    autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
+      var _arguments2 = arguments,
+        _this15 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var type, response, exists, _error$response27, _error$response28, _error$response29, _error$response30, _error$response31, _error$response32, errorMessage, _errorMessage5, _t8;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
+            case 0:
+              type = _arguments2.length > 1 && _arguments2[1] !== undefined ? _arguments2[1] : 'sales';
+              if (!(!product || _this15.isAutoAssigningProduct === product.id)) {
+                _context9.n = 1;
+                break;
+              }
+              return _context9.a(2);
+            case 1:
+              _this15.isAutoAssigningProduct = product.id;
+              _context9.p = 2;
+              _context9.n = 3;
+              return _this15.$http.post("/api/products/".concat(product.slug, "/").concat(type, "/auto-assign-chart-of-account"));
+            case 3:
+              response = _context9.v;
+              if (response.data.success) {
+                // Update the product data with new chart of account
+                product.sales_account_id = response.data.sales_account_id;
+
+                // If item not yet in table, add it now
+                exists = _this15.form.selectedProducts && _this15.form.selectedProducts.some(function (p) {
+                  return p.id === product.id;
+                });
+                if (!exists) {
+                  _this15.storeProduct(product);
+                }
+
+                // Force Vue to re-render the component to update the UI
+                _this15.$nextTick(function () {
+                  _this15.$forceUpdate();
+                });
+
+                // Show success message
+                toast.fire({
+                  type: "success",
+                  title: _this15.$t("Chart of Account assigned successfully")
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this15.$t("Please try again or assign manually")
+                });
+              }
+              _context9.n = 5;
+              break;
+            case 4:
+              _context9.p = 4;
+              _t8 = _context9.v;
+              console.error('Error auto-assigning chart of account for product:', _t8);
+
+              // Handle different types of errors
+              if (((_error$response27 = _t8.response) === null || _error$response27 === void 0 ? void 0 : _error$response27.status) === 400) {
+                errorMessage = _t8.response.data.message || _this15.$t("Bad request error");
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Assignment Failed"),
+                  text: errorMessage,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response28 = _t8.response) === null || _error$response28 === void 0 ? void 0 : _error$response28.status) === 401) {
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Authentication Error"),
+                  text: _this15.$t("You are not authorized to perform this action. Please log in again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response29 = _t8.response) === null || _error$response29 === void 0 ? void 0 : _error$response29.status) === 403) {
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Permission Error"),
+                  text: _this15.$t("You don't have permission to assign Chart of Accounts."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response30 = _t8.response) === null || _error$response30 === void 0 ? void 0 : _error$response30.status) === 404) {
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Product Not Found"),
+                  text: _this15.$t("The product was not found. Please refresh the page and try again."),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              } else if (((_error$response31 = _t8.response) === null || _error$response31 === void 0 ? void 0 : _error$response31.status) >= 500) {
+                _errorMessage5 = _t8.response.data.message || _this15.$t("Server error");
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Server Error"),
+                  text: "".concat(_errorMessage5, " (").concat(_this15.$t("Please try again later"), ")"),
+                  timer: 8000,
+                  timerProgressBar: true
+                });
+              } else if ((_error$response32 = _t8.response) !== null && _error$response32 !== void 0 && (_error$response32 = _error$response32.data) !== null && _error$response32 !== void 0 && _error$response32.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Please try again or assign manually"),
+                  text: _t8.response.data.message,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else if (_t8.message) {
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Please try again or assign manually"),
+                  text: _t8.message,
+                  timer: 6000,
+                  timerProgressBar: true
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this15.$t("Failed to assign Chart of Account"),
+                  text: _this15.$t("Please try again or assign manually"),
+                  timer: 5000,
+                  timerProgressBar: true
+                });
+              }
+            case 5:
+              _context9.p = 5;
+              _this15.isAutoAssigningProduct = null;
+              return _context9.f(5);
+            case 6:
+              return _context9.a(2);
+          }
+        }, _callee9, null, [[2, 4, 5, 6]]);
+      }))();
     },
     // Stock adjustment modal methods
     openStockAdjustmentModal: function openStockAdjustmentModal(product) {
@@ -2493,7 +4386,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
     },
     showAllInsufficientStock: function showAllInsufficientStock() {
-      var _this7 = this;
+      var _this16 = this;
       // Show a summary of all insufficient stock products
       var insufficientProducts = this.insufficientStockProducts;
       if (insufficientProducts.length === 0) return;
@@ -2501,7 +4394,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       insufficientProducts.forEach(function (product, index) {
         var shortage = Number(product.qty) - Number(product.inventoryCount);
         message += "".concat(index + 1, ". ").concat(product.name, "\n");
-        message += "   ".concat(_this7.$t("Required"), ": ").concat(product.qty, ", ").concat(_this7.$t("Available"), ": ").concat(product.inventoryCount, ", ").concat(_this7.$t("Shortage"), ": ").concat(shortage, "\n\n");
+        message += "   ".concat(_this16.$t("Required"), ": ").concat(product.qty, ", ").concat(_this16.$t("Available"), ": ").concat(product.inventoryCount, ", ").concat(_this16.$t("Shortage"), ": ").concat(shortage, "\n\n");
       });
       message += this.$t("Click on the red badges next to each product to manage stock levels.");
       toast.fire({
@@ -2511,20 +4404,416 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         timer: 10000,
         showConfirmButton: true
       });
+    },
+    // Update all products with default VAT rate if they don't have one selected
+    updateProductsWithDefaultVatRate: function updateProductsWithDefaultVatRate() {
+      var _this17 = this;
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach(function (item, index) {
+          if (!item.selectedVatRate) {
+            // First try to use the product's default VAT rate, then fall back to invoice default
+            if (item.productTax) {
+              item.selectedVatRate = item.productTax;
+            } else if (_this17.form.orderTax) {
+              item.selectedVatRate = _this17.form.orderTax;
+            } else if (_this17.taxes && _this17.taxes.length > 0) {
+              item.selectedVatRate = _this17.taxes[0];
+            }
+            _this17.generateItemTotalPrice(index);
+          }
+        });
+      }
+    },
+    // Recalculate all VAT amounts for all products
+    recalculateAllVatAmounts: function recalculateAllVatAmounts() {
+      var _this18 = this;
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach(function (item, index) {
+          _this18.generateItemTotalPrice(index);
+        });
+        this.calculateSum();
+      }
+    },
+    // Find matching VAT rate from taxes array
+    findMatchingVatRate: function findMatchingVatRate(productTax) {
+      if (!productTax || !this.taxes || this.taxes.length === 0) {
+        return null;
+      }
+
+      // Try to find by ID first (most reliable)
+      if (productTax.id) {
+        var matchById = this.taxes.find(function (tax) {
+          return tax.id === productTax.id;
+        });
+        if (matchById) {
+          return matchById;
+        }
+      }
+
+      // Try to find by slug
+      if (productTax.slug) {
+        var matchBySlug = this.taxes.find(function (tax) {
+          return tax.slug === productTax.slug;
+        });
+        if (matchBySlug) {
+          return matchBySlug;
+        }
+      }
+
+      // Try to find by code
+      if (productTax.code) {
+        var matchByCode = this.taxes.find(function (tax) {
+          return tax.code === productTax.code;
+        });
+        if (matchByCode) {
+          return matchByCode;
+        }
+      }
+
+      // Try to find by rate (least reliable but fallback)
+      if (productTax.rate !== undefined) {
+        var matchByRate = this.taxes.find(function (tax) {
+          return tax.rate === productTax.rate;
+        });
+        if (matchByRate) {
+          return matchByRate;
+        }
+      }
+      return null;
+    },
+    // Show multiple validation errors in a comprehensive way
+    showMultipleValidationErrors: function showMultipleValidationErrors(validationErrors) {
+      if (validationErrors.length === 0) return;
+
+      // If there's only one error, show it normally
+      if (validationErrors.length === 1) {
+        var error = validationErrors[0];
+        toast.fire({
+          type: error.type,
+          title: error.title,
+          text: error.message,
+          timer: error.timer || 6000,
+          timerProgressBar: error.timerProgressBar || false
+        });
+        return;
+      }
+
+      // For multiple errors, show the comprehensive summary
+      this.showValidationSummary(validationErrors.map(function (error) {
+        return error.message;
+      }));
+    },
+    // Show detailed validation errors one by one
+    showDetailedValidationErrors: function showDetailedValidationErrors(validationErrors) {
+      validationErrors.forEach(function (error, index) {
+        setTimeout(function () {
+          toast.fire({
+            type: error.type,
+            title: error.title,
+            text: error.message,
+            timer: error.timer || 6000,
+            timerProgressBar: error.timerProgressBar || false
+          });
+        }, index * 1000); // Show each error with 1 second delay
+      });
+    },
+    // Show backend validation errors
+    showBackendValidationErrors: function showBackendValidationErrors(validationErrors, mainMessage) {
+      if (validationErrors.length === 0) return;
+
+      // If there's only one error, show it normally
+      if (validationErrors.length === 1) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Validation Error"),
+          text: validationErrors[0],
+          timer: 8000,
+          timerProgressBar: true
+        });
+        return;
+      }
+
+      // For multiple errors, show the comprehensive summary
+      this.showValidationSummary(validationErrors);
+    },
+    // Show comprehensive validation summary
+    showValidationSummary: function showValidationSummary(validationErrors) {
+      if (validationErrors.length === 0) return;
+
+      // Create a formatted error list
+      var errorList = validationErrors.map(function (error, index) {
+        return "".concat(index + 1, ". ").concat(error);
+      }).join('\n');
+
+      // Show a comprehensive error message
+      toast.fire({
+        type: "warning",
+        title: this.$t("Validation Summary"),
+        html: "\n          <div style=\"text-align: left;\">\n            <p><strong>".concat(this.$t("Please fix the following issues:"), "</strong></p>\n            <div style=\"max-height: 200px; overflow-y: auto; background: #f8f9fa; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-line;\">\n              ").concat(errorList, "\n            </div>\n          </div>\n        "),
+        timer: 15000,
+        timerProgressBar: true,
+        showConfirmButton: true,
+        confirmButtonText: this.$t("Got it"),
+        showCancelButton: false,
+        width: '500px'
+      });
+    },
+    // Show payment-specific validation errors
+    showPaymentValidationErrors: function showPaymentValidationErrors() {
+      if (this.form.addPayment != 1) {
+        return;
+      }
+      var errors = [];
+      if (!this.form.account) {
+        errors.push(this.$t("Please choose a bank account for the payment."));
+      }
+      if (!this.form.paidAmount || Number(this.form.paidAmount) <= 0) {
+        errors.push(this.$t("Paid amount must be greater than 0."));
+      }
+      if (errors.length > 0) {
+        toast.fire({
+          type: "warning",
+          title: this.$t("Payment Information Required"),
+          html: "\n            <div style=\"text-align: left;\">\n              <p><strong>".concat(this.$t("Please provide the following payment information:"), "</strong></p>\n              <ul style=\"margin: 10px 0; padding-left: 20px;\">\n                ").concat(errors.map(function (error) {
+            return "<li>".concat(error, "</li>");
+          }).join(''), "\n              </ul>\n            </div>\n          "),
+          timer: 8000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: this.$t("Got it"),
+          showCancelButton: false,
+          width: '450px'
+        });
+      }
+    },
+    // Validate form before submission to show payment errors in toast
+    validateFormBeforeSubmit: function validateFormBeforeSubmit(event) {
+      // If payment is enabled, validate payment fields first
+      if (this.form.addPayment == 1) {
+        var paymentValidation = this.validatePaymentFields();
+        if (!paymentValidation.isValid) {
+          event.preventDefault();
+          this.showPaymentValidationErrors();
+          return false;
+        }
+      }
+
+      // If all validations pass, allow form submission
+      return true;
+    },
+    // Handle form submission with payment validation
+    handleFormSubmit: function handleFormSubmit(event) {
+      var _this19 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        var paymentValidation;
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.p = _context0.n) {
+            case 0:
+              // Set submitting flag to prevent field resets
+              _this19.isSubmitting = true;
+              _context0.p = 1;
+              if (!(_this19.form.addPayment == 1)) {
+                _context0.n = 2;
+                break;
+              }
+              paymentValidation = _this19.validatePaymentFields();
+              if (paymentValidation.isValid) {
+                _context0.n = 2;
+                break;
+              }
+              event.preventDefault();
+              _this19.showPaymentValidationErrors();
+              return _context0.a(2);
+            case 2:
+              _context0.n = 3;
+              return _this19.saveInvoice();
+            case 3:
+              _context0.p = 3;
+              // Reset submitting flag
+              _this19.isSubmitting = false;
+              return _context0.f(3);
+            case 4:
+              return _context0.a(2);
+          }
+        }, _callee0, null, [[1,, 3, 4]]);
+      }))();
+    },
+    // on account change
+    onAccountChange: function onAccountChange() {
+      var _this20 = this;
+      // Don't process account changes during form submission
+      if (this.isSubmitting) {
+        return;
+      }
+
+      // Clear any previous validation errors
+      this.clearFieldError('account');
+
+      // If an account is selected, clear any existing errors
+      if (this.form.account) {
+        this.form.errors.clear('account');
+      }
+
+      // Only reset payment fields if this is a genuine account change (not during form submission)
+      // Check if the account actually changed to a different one
+      if (this.form.account && this.form.addPayment == 1) {
+        // Validate that the selected bank account has a chart of account assigned
+        if (!this.form.account.chartOfAccountId) {
+          toast.fire({
+            type: "warning",
+            title: this.$t("Bank Account Chart of Account Required"),
+            text: this.$t("The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account."),
+            timer: 8000,
+            timerProgressBar: true,
+            showConfirmButton: true,
+            confirmButtonText: this.$t("Go to Bank Accounts"),
+            showCancelButton: true,
+            cancelButtonText: this.$t("Close")
+          }).then(function (result) {
+            if (result.isConfirmed) {
+              // Navigate to bank accounts page
+              _this20.$router.push({
+                name: 'accounts.index'
+              });
+            }
+          });
+        }
+      }
+      this.calculateSum();
+    },
+    // Navigate to bank accounts page
+    goToBankAccounts: function goToBankAccounts() {
+      this.$router.push({
+        name: 'accounts.index'
+      });
+    },
+    // Handle add payment change
+    onAddPaymentChange: function onAddPaymentChange() {
+      this.clearFieldError('addPayment');
+      if (this.form.addPayment != 1) {
+        // Payment was disabled, clear related field errors and reset payment fields
+        this.form.paidAmount = "";
+        this.form.account = "";
+        this.form.chequeNo = "";
+        this.form.receiptNo = "";
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+      } else {
+        // Payment was enabled, clear any previous payment field errors
+        this.clearFieldError('account');
+        this.clearFieldError('paidAmount');
+        this.clearFieldError('chequeNo');
+        this.clearFieldError('receiptNo');
+      }
+    },
+    // Handle paid amount change
+    onPaidAmountChange: function onPaidAmountChange() {
+      // Clear any previous validation errors immediately
+      this.clearFieldError('paidAmount');
+
+      // If user is typing and the amount is valid, clear any errors
+      if (this.form.paidAmount && Number(this.form.paidAmount) > 0) {
+        // Clear any existing errors since the field is now valid
+        this.form.errors.clear('paidAmount');
+      }
+
+      // Validate that paid amount is greater than 0
+      if (this.form.paidAmount && Number(this.form.paidAmount) <= 0) {
+        this.form.errors.set('paidAmount', this.$t('Paid amount must be greater than 0'));
+        return;
+      }
+
+      // Validate that paid amount doesn't exceed net total
+      if (this.form.paidAmount && Number(this.form.paidAmount) > Number(this.form.netTotal)) {
+        this.form.errors.set('paidAmount', this.$t('Paid amount cannot exceed the net total'));
+      }
+    },
+    // save form data temporarily
+    saveTemporary: function saveTemporary() {
+      var tempData = {
+        invoiceNo: this.form.invoiceNo,
+        client: this.form.client,
+        reference: this.form.reference,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        transportCost: this.form.transportCost,
+        orderTax: this.form.orderTax,
+        totalProductTax: this.form.totalProductTax,
+        totalTax: this.form.totalTax,
+        discount: this.form.discount,
+        discountType: this.form.discountType,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        addPayment: this.form.addPayment,
+        account: this.form.account,
+        paidAmount: this.form.paidAmount,
+        paymentMethod: this.form.paymentMethod,
+        chequeNo: this.form.chequeNo,
+        receiptNo: this.form.receiptNo,
+        deliveryPlace: this.form.deliveryPlace,
+        date: this.form.date,
+        note: this.form.note,
+        status: this.form.status,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('invoiceTempData', JSON.stringify(tempData));
+    },
+    // load temporary data
+    loadTemporaryData: function loadTemporaryData() {
+      var tempData = localStorage.getItem('invoiceTempData');
+      if (tempData) {
+        try {
+          var data = JSON.parse(tempData);
+          this.form.invoiceNo = data.invoiceNo || '';
+          this.form.client = data.client || '';
+          this.form.reference = data.reference || '';
+          this.form.selectedProducts = data.selectedProducts || [];
+          this.form.subTotal = data.subTotal || 0;
+          this.form.netTotal = data.netTotal || 0;
+          this.form.transportCost = data.transportCost || '';
+          this.form.orderTax = data.orderTax || '';
+          this.form.totalProductTax = data.totalProductTax || 0;
+          this.form.totalTax = data.totalTax || 0;
+          this.form.discount = data.discount || 0;
+          this.form.discountType = data.discountType || 1;
+          this.form.poReference = data.poReference || '';
+          this.form.paymentTerms = data.paymentTerms || '';
+          this.form.addPayment = data.addPayment || 0;
+          this.form.account = data.account || '';
+          this.form.paidAmount = data.paidAmount || '';
+          this.form.paymentMethod = data.paymentMethod || '';
+          this.form.chequeNo = data.chequeNo || '';
+          this.form.receiptNo = data.receiptNo || '';
+          this.form.deliveryPlace = data.deliveryPlace || '';
+          this.form.date = data.date || '';
+          this.form.note = data.note || '';
+          this.form.status = data.status !== undefined ? data.status : 1;
+          this.form.isSendEmail = data.isSendEmail || false;
+          this.form.isSendSMS = data.isSendSMS || false;
+        } catch (error) {
+          console.error('Error loading temporary data:', error);
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData: function clearTemporaryData() {
+      localStorage.removeItem('invoiceTempData');
     }
-  },
-  mounted: function mounted() {
-    this.loadTemporaryData();
   }
 });
-;// ./resources/js/pages/sales/quotations/create.vue?vue&type=script&lang=js
- /* harmony default export */ const quotations_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+;// ./resources/js/pages/sales/invoices/create.vue?vue&type=script&lang=js
+ /* harmony default export */ const invoices_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=style&index=0&id=49a6d624&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_49a6d624_prod_scoped_true_lang_css = __webpack_require__(81475);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=style&index=0&id=49a6d624&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/create.vue?vue&type=style&index=0&id=32ed5d0e&prod&scoped=true&lang=css
+var createvue_type_style_index_0_id_32ed5d0e_prod_scoped_true_lang_css = __webpack_require__(54856);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/create.vue?vue&type=style&index=0&id=32ed5d0e&prod&scoped=true&lang=css
 
             
 
@@ -2533,16 +4822,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_49a6d624_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_32ed5d0e_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const quotations_createvue_type_style_index_0_id_49a6d624_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_49a6d624_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/sales/quotations/create.vue?vue&type=style&index=0&id=49a6d624&prod&scoped=true&lang=css
+/* harmony default export */ const invoices_createvue_type_style_index_0_id_32ed5d0e_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_32ed5d0e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/sales/invoices/create.vue?vue&type=style&index=0&id=32ed5d0e&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/sales/quotations/create.vue
+;// ./resources/js/pages/sales/invoices/create.vue
 
 
 
@@ -2552,17 +4841,128 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  quotations_createvue_type_script_lang_js,
+  invoices_createvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "49a6d624",
+  "32ed5d0e",
   null
   
 )
 
 /* harmony default export */ const create = (component.exports);
+
+/***/ }),
+
+/***/ 10982:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'تومان',
+                plural: '',
+                singular: '',
+                symbol: 'تومان',
+                fractionalUnit: {
+                    name: '',
+                    singular: 'ریال',
+                    plural: 'تومان',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'و',
+                minus: 'منفی',
+                only: '',
+                point: 'و',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'کوادریلیون' },
+                { number: 1000000000000, value: 'تیلیارد' },
+                { number: 1000000000, value: 'میلیارد' },
+                { number: 1000000, value: 'میلیون' },
+                { number: 1000, value: 'هزار' },
+                { number: 900, value: 'نهصد' },
+                { number: 800, value: 'هشتصد' },
+                { number: 700, value: 'هفتصد' },
+                { number: 600, value: 'ششصد' },
+                { number: 500, value: 'پانصد' },
+                { number: 400, value: 'چهارصد' },
+                { number: 300, value: 'سیصد' },
+                { number: 200, value: 'دویست' },
+                { number: 100, value: 'صد' },
+                { number: 90, value: 'نود' },
+                { number: 80, value: 'هشتاد' },
+                { number: 70, value: 'هفتاد' },
+                { number: 60, value: 'شصت' },
+                { number: 50, value: 'پنجاه' },
+                { number: 40, value: 'چهل' },
+                { number: 30, value: 'سی' },
+                { number: 20, value: 'بیست' },
+                { number: 19, value: 'نوزده' },
+                { number: 18, value: 'هجده' },
+                { number: 17, value: 'هفده' },
+                { number: 16, value: 'شانزده' },
+                { number: 15, value: 'پانزده' },
+                { number: 14, value: 'چهارده' },
+                { number: 13, value: 'سیزده' },
+                { number: 12, value: 'دوازده' },
+                { number: 11, value: 'یازده' },
+                { number: 10, value: 'ده' },
+                { number: 9, value: 'نه' },
+                { number: 8, value: 'هشت' },
+                { number: 7, value: 'هفت' },
+                { number: 6, value: 'شش' },
+                { number: 5, value: 'پنج' },
+                { number: 4, value: 'چهار' },
+                { number: 3, value: 'سه' },
+                { number: 2, value: 'دو' },
+                { number: 1, value: 'یک' },
+                { number: 0, value: 'صفر' },
+            ],
+            namedLessThan1000: true,
+            splitWord: 'و',
+            ignoreZeroInDecimals: true,
+            decimalLengthWordMapping: {
+                1: 'دهم',
+                2: 'صدم',
+                3: 'هزارم',
+                4: 'ده‌هزارم',
+                5: 'صد‌هزارم',
+                6: 'میلیونیوم',
+                7: 'ده‌میلیونیوم',
+                8: 'صد‌میلیونیوم',
+                9: 'میلیاردیوم',
+            },
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 16706:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-bc0cd620]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1050}.modal-content[data-v-bc0cd620]{background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-bc0cd620]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #dee2e6;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;padding:20px}.modal-title[data-v-bc0cd620]{font-size:1.25rem;font-weight:600;margin:0}.close[data-v-bc0cd620]{background:none;border:none;color:#6c757d;cursor:pointer;font-size:1.5rem}.close[data-v-bc0cd620]:hover{color:#000}.modal-body[data-v-bc0cd620]{padding:20px}.modal-footer[data-v-bc0cd620]{background-color:#f8f9fa;border-radius:0 0 10px 10px;border-top:1px solid #dee2e6;display:flex;gap:10px;justify-content:flex-end;padding:20px}.option-card[data-v-bc0cd620]{align-items:center;border:2px solid #e9ecef;border-radius:8px;cursor:pointer;display:flex;margin-bottom:15px;padding:15px;transition:all .3s ease}.option-card[data-v-bc0cd620]:hover{background-color:#f8f9fa;border-color:#007bff;box-shadow:0 4px 8px rgba(0,0,0,.1);transform:translateY(-2px)}.option-icon[data-v-bc0cd620]{font-size:2rem;margin-right:15px;min-width:50px;text-align:center}.option-content h6[data-v-bc0cd620]{font-weight:600;margin:0 0 5px}.option-content p[data-v-bc0cd620]{font-size:.9rem;margin:0}.product-info[data-v-bc0cd620]{background-color:#f8f9fa;border-left:4px solid #007bff;border-radius:8px;padding:15px}.quick-adjustment .card[data-v-bc0cd620]{border:1px solid #dee2e6;border-radius:8px}.quick-adjustment .card-header[data-v-bc0cd620]{background-color:#e9ecef;border-bottom:1px solid #dee2e6;padding:15px}.form-actions[data-v-bc0cd620]{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.required[data-v-bc0cd620]{color:#dc3545}.badge[data-v-bc0cd620]{font-size:.875em;padding:.375rem .75rem}.alert[data-v-bc0cd620]{border:none;border-radius:8px}.alert-warning[data-v-bc0cd620]{background-color:#fff3cd;border-left:4px solid #ffc107;color:#856404}[dir=rtl] .option-card[data-v-bc0cd620]{flex-direction:row-reverse}[dir=rtl] .option-icon[data-v-bc0cd620]{margin-left:15px;margin-right:0}[dir=rtl] .product-info[data-v-bc0cd620]{border-left:none;border-right:4px solid #007bff}[dir=rtl] .alert-warning[data-v-bc0cd620]{border-left:none;border-right:4px solid #ffc107}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -3981,6 +6381,400 @@ exports["default"] = Locale;
 
 /***/ }),
 
+/***/ 36694:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* unused harmony export ErrorHandler */
+/* harmony import */ var _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37225);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+/**
+ * Centralized error handling utility
+ * Provides consistent error display across the application
+ */
+var ErrorHandler = /*#__PURE__*/function () {
+  function ErrorHandler() {
+    _classCallCheck(this, ErrorHandler);
+  }
+  return _createClass(ErrorHandler, null, [{
+    key: "handleApiError",
+    value:
+    /**
+     * Handle API errors with proper error messages
+     * @param {Object} error - The error object from axios
+     * @param {Object} options - Additional options for error handling
+     * @returns {void}
+     */
+    function handleApiError(error) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var _options$showValidati = options.showValidationErrors,
+        showValidationErrors = _options$showValidati === void 0 ? true : _options$showValidati,
+        _options$customMessag = options.customMessage,
+        customMessage = _options$customMessag === void 0 ? null : _options$customMessag,
+        _options$title = options.title,
+        title = _options$title === void 0 ? null : _options$title,
+        _options$timer = options.timer,
+        timer = _options$timer === void 0 ? 6000 : _options$timer,
+        _options$showTimerPro = options.showTimerProgressBar,
+        showTimerProgressBar = _options$showTimerPro === void 0 ? true : _options$showTimerPro;
+
+      // Log detailed error information for debugging
+      this.logErrorDetails(error, options.context || 'API Error');
+
+      // If custom message is provided, show it
+      if (customMessage) {
+        this.showError(title || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error'), customMessage, timer, showTimerProgressBar);
+        return;
+      }
+
+      // Handle different error types
+      if (error.response) {
+        var _error$response = error.response,
+          status = _error$response.status,
+          data = _error$response.data;
+        switch (status) {
+          case 400:
+            this.handleBadRequest(data, showValidationErrors);
+            break;
+          case 401:
+            this.handleUnauthorized();
+            break;
+          case 403:
+            this.handleForbidden(data);
+            break;
+          case 404:
+            this.handleNotFound(data);
+            break;
+          case 409:
+            this.handleConflict(data);
+            break;
+          case 422:
+            this.handleValidationErrors(data, showValidationErrors);
+            break;
+          case 499:
+            // Demo version message - handled by interceptors
+            break;
+          default:
+            if (status >= 500) {
+              this.handleServerError(data);
+            } else {
+              this.handleGenericError(data, error.message);
+            }
+        }
+      } else if (error.request) {
+        // Network error
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Network Error'), _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Unable to connect to server. Please check your internet connection.'), 8000, true);
+      } else {
+        // Other errors
+        this.handleGenericError(null, error.message);
+      }
+    }
+
+    /**
+     * Handle 400 Bad Request errors
+     */
+  }, {
+    key: "handleBadRequest",
+    value: function handleBadRequest(data) {
+      var showValidationErrors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Bad Request Error');
+      if (showValidationErrors && data !== null && data !== void 0 && data.validation_errors && Array.isArray(data.validation_errors)) {
+        this.showBackendValidationErrors(data.validation_errors, errorMessage);
+      } else {
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Bad Request'), errorMessage);
+      }
+    }
+
+    /**
+     * Handle 401 Unauthorized errors
+     */
+  }, {
+    key: "handleUnauthorized",
+    value: function handleUnauthorized() {
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Authentication Error'), _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('You are not authorized to perform this action. Please log in again.'), 5000);
+    }
+
+    /**
+     * Handle 403 Forbidden errors
+     */
+  }, {
+    key: "handleForbidden",
+    value: function handleForbidden(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t("You don't have permission to perform this action.");
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Permission Error'), errorMessage);
+    }
+
+    /**
+     * Handle 404 Not Found errors
+     */
+  }, {
+    key: "handleNotFound",
+    value: function handleNotFound(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('The requested resource was not found. Please check your data and try again.');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Resource Not Found'), errorMessage);
+    }
+
+    /**
+     * Handle 409 Conflict errors
+     */
+  }, {
+    key: "handleConflict",
+    value: function handleConflict(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Data Conflict Error');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Data Conflict'), errorMessage);
+    }
+
+    /**
+     * Handle 422 Validation errors
+     */
+  }, {
+    key: "handleValidationErrors",
+    value: function handleValidationErrors(data) {
+      var showValidationErrors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      if (!showValidationErrors) return;
+      if (data !== null && data !== void 0 && data.errors) {
+        // Laravel validation errors
+        var validationErrors = data.errors;
+        var errorMessages = Object.values(validationErrors).flat();
+        if (errorMessages.length > 0) {
+          var errorList = errorMessages.map(function (error) {
+            return "\u2022 ".concat(error);
+          }).join('\n');
+          this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), errorList, 8000, true);
+        }
+      } else if (data !== null && data !== void 0 && data.validation_errors && Array.isArray(data.validation_errors)) {
+        // Backend validation errors
+        this.showBackendValidationErrors(data.validation_errors, data.message);
+      } else {
+        // Show specific error message if available, otherwise show generic message
+        var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please check your input and try again.');
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), errorMessage);
+      }
+    }
+
+    /**
+     * Handle server errors (5xx)
+     */
+  }, {
+    key: "handleServerError",
+    value: function handleServerError(data) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Server Error');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Server Error'), "".concat(errorMessage, " (").concat(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please try again later or contact support'), ")"), 8000, true);
+    }
+
+    /**
+     * Handle generic errors
+     */
+  }, {
+    key: "handleGenericError",
+    value: function handleGenericError(data, fallbackMessage) {
+      var errorMessage = (data === null || data === void 0 ? void 0 : data.message) || fallbackMessage || _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Please check your input and try again.');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error'), errorMessage);
+    }
+
+    /**
+     * Show backend validation errors
+     */
+  }, {
+    key: "showBackendValidationErrors",
+    value: function showBackendValidationErrors(validationErrors, mainMessage) {
+      if (!Array.isArray(validationErrors) || validationErrors.length === 0) {
+        this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), mainMessage);
+        return;
+      }
+      var errorList = validationErrors.map(function (error) {
+        return "\u2022 ".concat(error);
+      }).join('\n');
+      this.showError(_plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Validation Error'), "".concat(mainMessage, "\n\n").concat(errorList), 10000, true);
+    }
+
+    /**
+     * Show error using SweetAlert2
+     */
+  }, {
+    key: "showError",
+    value: function showError(title, message) {
+      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 6000;
+      var showTimerProgressBar = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+        window.toast.fire({
+          type: 'error',
+          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Error')).concat(message ? ': ' + message : ''),
+          timer: timer,
+          timerProgressBar: showTimerProgressBar
+        });
+        return;
+      }
+      // Fallback to console if toast not available
+      // eslint-disable-next-line no-console
+      console.error(title, message);
+    }
+
+    /**
+     * Show success message
+     */
+  }, {
+    key: "showSuccess",
+    value: function showSuccess(title, message) {
+      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3000;
+      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+        window.toast.fire({
+          type: 'success',
+          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Success')).concat(message ? ': ' + message : ''),
+          timer: timer,
+          timerProgressBar: true
+        });
+        return;
+      }
+      // eslint-disable-next-line no-console
+      console.log(title, message);
+    }
+
+    /**
+     * Show warning message
+     */
+  }, {
+    key: "showWarning",
+    value: function showWarning(title, message) {
+      var timer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5000;
+      if (typeof window !== 'undefined' && window.toast && typeof window.toast.fire === 'function') {
+        window.toast.fire({
+          type: 'warning',
+          title: "".concat(title !== null && title !== void 0 ? title : _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__["default"].t('Warning')).concat(message ? ': ' + message : ''),
+          timer: timer,
+          timerProgressBar: true
+        });
+        return;
+      }
+      // eslint-disable-next-line no-console
+      console.warn(title, message);
+    }
+
+    /**
+     * Log detailed error information for debugging
+     * @param {Object} error - The error object
+     * @param {String} context - Context where the error occurred
+     */
+  }, {
+    key: "logErrorDetails",
+    value: function logErrorDetails(error) {
+      var _error$response2, _error$response3;
+      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Unknown';
+      var errorInfo = {
+        context: context,
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        error: {
+          message: error.message,
+          stack: error.stack,
+          name: error.name
+        }
+      };
+
+      // Add response details if available
+      if (error.response) {
+        var _error$response$confi, _error$response$confi2, _error$response$confi3, _error$response$confi4;
+        errorInfo.response = {
+          status: error.response.status,
+          statusText: error.response.statusText,
+          data: error.response.data,
+          headers: error.response.headers,
+          config: {
+            url: (_error$response$confi = error.response.config) === null || _error$response$confi === void 0 ? void 0 : _error$response$confi.url,
+            method: (_error$response$confi2 = error.response.config) === null || _error$response$confi2 === void 0 ? void 0 : _error$response$confi2.method,
+            params: (_error$response$confi3 = error.response.config) === null || _error$response$confi3 === void 0 ? void 0 : _error$response$confi3.params,
+            data: (_error$response$confi4 = error.response.config) === null || _error$response$confi4 === void 0 ? void 0 : _error$response$confi4.data
+          }
+        };
+      }
+
+      // Add request details if available
+      if (error.request) {
+        errorInfo.request = {
+          readyState: error.request.readyState,
+          status: error.request.status,
+          responseText: error.request.responseText
+        };
+      }
+
+      // Log to console with detailed information
+      console.group("\uD83D\uDEA8 Error in ".concat(context));
+      console.error('Full Error Object:', error);
+      console.error('Error Details:', errorInfo);
+      if ((_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.message) {
+        console.error('Backend Error Message:', error.response.data.message);
+      }
+      if ((_error$response3 = error.response) !== null && _error$response3 !== void 0 && (_error$response3 = _error$response3.data) !== null && _error$response3 !== void 0 && _error$response3.errors) {
+        console.error('Backend Validation Errors:', error.response.data.errors);
+      }
+      console.groupEnd();
+
+      // Send to backend logging endpoint if available
+      this.sendErrorToBackend(errorInfo);
+    }
+
+    /**
+     * Send error details to backend for logging
+     * @param {Object} errorInfo - Error information to log
+     */
+  }, {
+    key: "sendErrorToBackend",
+    value: (function () {
+      var _sendErrorToBackend = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(errorInfo) {
+        var _window$auth, _window$auth2, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              if (!(window.axios && "production" === 'production')) {
+                _context.n = 1;
+                break;
+              }
+              _context.n = 1;
+              return window.axios.post('/api/log-frontend-error', _objectSpread(_objectSpread({}, errorInfo), {}, {
+                user_id: ((_window$auth = window.auth) === null || _window$auth === void 0 || (_window$auth = _window$auth.user) === null || _window$auth === void 0 ? void 0 : _window$auth.id) || null,
+                tenant_id: ((_window$auth2 = window.auth) === null || _window$auth2 === void 0 || (_window$auth2 = _window$auth2.tenant) === null || _window$auth2 === void 0 ? void 0 : _window$auth2.id) || null
+              }));
+            case 1:
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.warn('Failed to send error to backend:', _t);
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }));
+      function sendErrorToBackend(_x) {
+        return _sendErrorToBackend.apply(this, arguments);
+      }
+      return sendErrorToBackend;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ErrorHandler);
+
+/***/ }),
+
 /***/ 37460:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -4118,414 +6912,6 @@ class Locale {
 }
 exports["default"] = Locale;
 
-
-/***/ }),
-
-/***/ 37665:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ClientEditModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=template&id=6c8eb752&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": _vm.closeModal
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Edit Client")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showClientEditModal,
-      callback: function callback($$v) {
-        _vm.showClientEditModal = $$v;
-      },
-      expression: "showClientEditModal"
-    }
-  }, [_vm._v(" "), [_c('ClientForm', {
-    ref: "clientForm",
-    attrs: {
-      "showCardBody": false,
-      "initialData": _vm.clientData
-    }
-  }), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "disabled": _vm.isSubmitting
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.submitItem($event);
-      }
-    }
-  }, [_vm.isSubmitting ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" \n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary ml-2",
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("Cancel")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
-    staticClass: "edit-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 5 modules
-var ClientForm = __webpack_require__(12904);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=script&lang=js
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-/* harmony default export */ const ClientEditModalvue_type_script_lang_js = ({
-  name: "ClientEditModal",
-  middleware: ["auth", "check-permissions"],
-  components: {
-    ClientForm: ClientForm/* default */.A
-  },
-  props: {
-    // Client data to edit
-    client: {
-      type: Object,
-      required: false,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      showClientEditModal: false,
-      form: null,
-      isSubmitting: false,
-      clientData: {}
-    };
-  },
-  watch: {
-    // Watch for changes in client prop
-    client: {
-      handler: function handler(newClient) {
-        if (newClient && Object.keys(newClient).length > 0) {
-          this.mapClientData(newClient);
-        }
-      },
-      immediate: true,
-      deep: true
-    }
-  },
-  methods: {
-    // Map client data to form structure
-    mapClientData: function mapClientData(clientData) {
-      console.log('=== MAPPING CLIENT DATA IN EDIT MODAL ===');
-      console.log('Original client data:', clientData);
-      console.log('Phone fields in client data:');
-      console.log('- clientData.phone:', clientData.phone);
-      console.log('- clientData.phoneNumber:', clientData.phoneNumber);
-      console.log('- clientData.phone_number:', clientData.phone_number);
-      console.log('- clientData.mobile:', clientData.mobile);
-      this.clientData = {
-        // Preserve ID and slug for API calls
-        id: clientData.id,
-        slug: clientData.slug,
-        // Account Details
-        codeNumber: clientData.codeNumber || clientData.clientID || clientData.code_number || '000001',
-        billingMethod: clientData.billingMethod || 'print',
-        currency: clientData.currency || 'EGP',
-        classification: clientData.classification || '',
-        notes: clientData.notes || '',
-        displayLanguage: clientData.displayLanguage || clientData.display_language || '',
-        // Client Details
-        type: clientData.type || 'Company',
-        fullName: clientData.fullName || (clientData.type === 'Individual' ? clientData.name : ''),
-        businessName: clientData.businessName || clientData.companyName || clientData.company_name || (clientData.type === 'Company' ? clientData.name : ''),
-        firstName: clientData.firstName || clientData.first_name || '',
-        lastName: clientData.lastName || clientData.last_name || '',
-        phone: clientData.phone || '',
-        phoneNumber: clientData.phoneNumber || clientData.phone_number || clientData.phone || clientData.mobile || '',
-        email: clientData.email || '',
-        // Address Information (make sure all fields are mapped)
-        streetAddress1: clientData.streetAddress1 || clientData.street_address_1 || clientData.address || '',
-        streetAddress2: clientData.streetAddress2 || clientData.street_address_2 || '',
-        city: clientData.city || '',
-        state: clientData.state || '',
-        postalCode: clientData.postalCode || clientData.postal_code || '',
-        country: clientData.country || 'SA',
-        neighbourhood: clientData.neighbourhood || '',
-        // Business Information
-        commercialRegister: clientData.commercialRegister || clientData.commercial_register || clientData.taxRegistrationNumber || clientData.tax_registration_number || '',
-        taxCard: clientData.taxCard || clientData.tax_card || '',
-        addSecondaryAddress: clientData.addSecondaryAddress || false,
-        // Additional Fields
-        image: clientData.image || '',
-        image_path: clientData.image_path || '',
-        attachments: Array.isArray(clientData.attachments) ? clientData.attachments : [],
-        status: clientData.status !== undefined ? clientData.status : 1,
-        isSendEmail: Boolean(clientData.isSendEmail || clientData.is_send_email),
-        isSendSMS: Boolean(clientData.isSendSMS || clientData.is_send_sms),
-        // Representatives (ensure this is included)
-        representatives: Array.isArray(clientData.representatives) ? clientData.representatives : [],
-        // Chart of Account
-        chartOfAccountId: clientData.chartOfAccountId || clientData.chart_of_account_id || null,
-        // Legacy fields for backward compatibility
-        name: clientData.name || '',
-        companyName: clientData.companyName || clientData.company_name || '',
-        taxRegistrationNumber: clientData.taxRegistrationNumber || clientData.tax_registration_number || '',
-        address: clientData.address || ''
-      };
-      console.log('Mapped client data for form:', this.clientData);
-      console.log('=== END MAPPING CLIENT DATA ===');
-    },
-    // Edit client
-    submitItem: function submitItem(evt) {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              evt.preventDefault();
-              _context.n = 1;
-              return _this.editClient();
-            case 1:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    editClient: function editClient() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var clientSlug, _error$response, errorMessage, _t;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
-            case 0:
-              if (!_this2.isSubmitting) {
-                _context2.n = 1;
-                break;
-              }
-              return _context2.a(2);
-            case 1:
-              _this2.isSubmitting = true;
-              _context2.p = 2;
-              // Get the form from the ClientForm component
-              _this2.form = _this2.$refs.clientForm.getFormData();
-
-              // Validate the form
-              if (_this2.$refs.clientForm.validateForm()) {
-                _context2.n = 3;
-                break;
-              }
-              _this2.isSubmitting = false;
-              return _context2.a(2);
-            case 3:
-              // Update the client - use the client data passed to the modal
-              clientSlug = _this2.clientData.slug || _this2.client.slug;
-              _context2.n = 4;
-              return _this2.form.put("/api/clients/".concat(clientSlug));
-            case 4:
-              toast.fire({
-                type: "success",
-                title: _this2.$t("Client updated successfully")
-              });
-              _this2.$emit("reloadClients");
-              _this2.closeModal();
-              _this2.form = null; // Reset form reference
-              _context2.n = 6;
-              break;
-            case 5:
-              _context2.p = 5;
-              _t = _context2.v;
-              console.error("Error updating client:", _t);
-              errorMessage = ((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this2.$t("Please check your input and try again.");
-              toast.fire({
-                type: "error",
-                title: errorMessage
-              });
-            case 6:
-              _context2.p = 6;
-              _this2.isSubmitting = false;
-              return _context2.f(6);
-            case 7:
-              return _context2.a(2);
-          }
-        }, _callee2, null, [[2, 5, 6, 7]]);
-      }))();
-    },
-    toggleModal: function toggleModal() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var response, fullClientData, _t2;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.p = _context3.n) {
-            case 0:
-              _this3.showClientEditModal = !_this3.showClientEditModal;
-              // Reset form when opening modal
-              if (!_this3.showClientEditModal) {
-                _context3.n = 4;
-                break;
-              }
-              _this3.form = null;
-              _this3.isSubmitting = false;
-
-              // If we have a client prop and it has a slug, fetch full data
-              if (!(_this3.client && _this3.client.slug)) {
-                _context3.n = 4;
-                break;
-              }
-              _context3.p = 1;
-              console.log('Fetching full client data for toggle modal...');
-              _context3.n = 2;
-              return _this3.$http.get("/api/clients/".concat(_this3.client.slug));
-            case 2:
-              response = _context3.v;
-              fullClientData = response.data.data || response.data;
-              console.log('Full client data received via toggle:', fullClientData);
-              _this3.mapClientData(fullClientData);
-              _context3.n = 4;
-              break;
-            case 3:
-              _context3.p = 3;
-              _t2 = _context3.v;
-              console.error('Error fetching full client data via toggle:', _t2);
-              // Fallback to existing data
-              if (_this3.client && Object.keys(_this3.client).length > 0) {
-                _this3.mapClientData(_this3.client);
-              }
-            case 4:
-              return _context3.a(2);
-          }
-        }, _callee3, null, [[1, 3]]);
-      }))();
-    },
-    closeModal: function closeModal() {
-      this.showClientEditModal = false;
-      this.$emit('close');
-    },
-    // Open modal with client data (fetch full data from API)
-    openModal: function openModal() {
-      var _arguments = arguments,
-        _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var client, clientToEdit, response, fullClientData, _t3;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
-            case 0:
-              client = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : null;
-              clientToEdit = client || _this4.client;
-              if (clientToEdit) {
-                _context4.n = 1;
-                break;
-              }
-              console.error('No client data provided for editing');
-              return _context4.a(2);
-            case 1:
-              if (!clientToEdit.slug) {
-                _context4.n = 6;
-                break;
-              }
-              _context4.p = 2;
-              console.log('Fetching full client data for edit modal...');
-              // Fetch complete client data from API
-              _context4.n = 3;
-              return _this4.$http.get("/api/clients/".concat(clientToEdit.slug));
-            case 3:
-              response = _context4.v;
-              fullClientData = response.data.data || response.data;
-              console.log('Full client data received:', fullClientData);
-              _this4.mapClientData(fullClientData);
-              _context4.n = 5;
-              break;
-            case 4:
-              _context4.p = 4;
-              _t3 = _context4.v;
-              console.error('Error fetching full client data:', _t3);
-              // Fallback to partial data if API call fails
-              _this4.mapClientData(clientToEdit);
-            case 5:
-              _context4.n = 7;
-              break;
-            case 6:
-              // Fallback to partial data if no slug
-              _this4.mapClientData(clientToEdit);
-            case 7:
-              _this4.showClientEditModal = true;
-              _this4.form = null;
-              _this4.isSubmitting = false;
-            case 8:
-              return _context4.a(2);
-          }
-        }, _callee4, null, [[2, 4]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/ClientEditModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ClientEditModalvue_type_script_lang_js = (ClientEditModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=6c8eb752&prod&scoped=true&lang=css
-var ClientEditModalvue_type_style_index_0_id_6c8eb752_prod_scoped_true_lang_css = __webpack_require__(88130);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=6c8eb752&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ClientEditModalvue_type_style_index_0_id_6c8eb752_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ClientEditModalvue_type_style_index_0_id_6c8eb752_prod_scoped_true_lang_css = (ClientEditModalvue_type_style_index_0_id_6c8eb752_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ClientEditModal.vue?vue&type=style&index=0&id=6c8eb752&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ClientEditModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ClientEditModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "6c8eb752",
-  null
-  
-)
-
-/* harmony default export */ const ClientEditModal = (component.exports);
 
 /***/ }),
 
@@ -5382,6 +7768,25 @@ class Locale {
     }
 }
 exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 54856:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-32ed5d0e]{margin-bottom:15px}.footer-buttons[data-v-32ed5d0e]{display:flex;gap:10px}.footer-buttons .btn[data-v-32ed5d0e]{margin-right:10px}.footer-buttons .btn[data-v-32ed5d0e]:last-child{margin-right:0}.create-btn[data-v-32ed5d0e]{padding:11px}.chart-account-success[data-v-32ed5d0e],.chart-account-warning[data-v-32ed5d0e]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-32ed5d0e]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-32ed5d0e]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-32ed5d0e],.warning-content[data-v-32ed5d0e]{align-items:center;display:flex;gap:16px}.success-icon[data-v-32ed5d0e],.warning-icon[data-v-32ed5d0e]{flex-shrink:0;font-size:24px}.warning-icon[data-v-32ed5d0e]{color:#856404}.success-icon[data-v-32ed5d0e]{color:#155724}.success-text[data-v-32ed5d0e],.warning-text[data-v-32ed5d0e]{flex-grow:1}.success-title[data-v-32ed5d0e],.warning-title[data-v-32ed5d0e]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-32ed5d0e]{color:#856404}.success-title[data-v-32ed5d0e]{color:#155724}.success-description[data-v-32ed5d0e],.warning-description[data-v-32ed5d0e]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-32ed5d0e]{color:#856404}.success-description[data-v-32ed5d0e]{color:#155724}.warning-action[data-v-32ed5d0e]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-32ed5d0e]{padding:0}.btn-primary[data-v-32ed5d0e]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-32ed5d0e]:disabled{box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}@media (max-width:768px){.success-content[data-v-32ed5d0e],.warning-content[data-v-32ed5d0e]{flex-direction:column;gap:12px;text-align:center}.btn-primary[data-v-32ed5d0e],.warning-action[data-v-32ed5d0e]{width:100%}}.client-status[data-v-32ed5d0e]{font-size:13px}.client-success[data-v-32ed5d0e],.client-warning[data-v-32ed5d0e]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.client-warning[data-v-32ed5d0e]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.client-success[data-v-32ed5d0e]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.btn-outline-warning[data-v-32ed5d0e]{border-color:#ffc107;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-32ed5d0e]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-32ed5d0e]:disabled{cursor:not-allowed;opacity:.6}.product-status[data-v-32ed5d0e]{font-size:13px}.product-success[data-v-32ed5d0e],.product-warning[data-v-32ed5d0e]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.product-warning[data-v-32ed5d0e]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.product-success[data-v-32ed5d0e]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.account-status[data-v-32ed5d0e]{font-size:13px}.account-success[data-v-32ed5d0e],.account-warning[data-v-32ed5d0e]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.account-warning[data-v-32ed5d0e]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.account-success[data-v-32ed5d0e]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.radio-group-horizontal[data-v-32ed5d0e]{align-items:center;display:flex;flex-direction:row;gap:20px}.radio-group-horizontal .form-check[data-v-32ed5d0e]{align-items:center;display:flex;margin-bottom:0}.radio-group-horizontal .form-check-input[data-v-32ed5d0e]{margin-right:8px}.radio-group-horizontal .form-check-label[data-v-32ed5d0e]{cursor:pointer;margin-bottom:0}.text-warning[data-v-32ed5d0e]{color:#856404!important}.text-warning small[data-v-32ed5d0e]{font-size:12px;font-weight:500}.text-warning i[data-v-32ed5d0e]{margin-right:4px}.table-custom[data-v-32ed5d0e]{border:none!important}.invoices-create-table[data-v-32ed5d0e]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-32ed5d0e]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-32ed5d0e]{border:none!important}.invoices-create-table thead th[data-v-32ed5d0e]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-32ed5d0e]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-32ed5d0e]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-32ed5d0e]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-32ed5d0e]{gap:10px}.card[data-v-32ed5d0e]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-32ed5d0e]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.invoices-create-table .badge.badge-danger[data-v-32ed5d0e]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-32ed5d0e]{background:#fff!important}.quantity-field[data-v-32ed5d0e]{border-radius:0!important;margin:0!important;min-height:50px!important}.btn-primary[data-v-32ed5d0e]{background:#2ab930!important}.btn-secondary[data-v-32ed5d0e]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.stock-warning-alert[data-v-32ed5d0e]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.stock-warning-content[data-v-32ed5d0e]{align-items:flex-start;display:flex;gap:16px}.stock-warning-icon[data-v-32ed5d0e]{color:#856404;flex-shrink:0;font-size:24px;margin-top:2px}.stock-warning-text[data-v-32ed5d0e]{flex-grow:1}.stock-warning-title[data-v-32ed5d0e]{color:#856404;font-size:16px;font-weight:600;margin:0 0 8px}.stock-warning-description[data-v-32ed5d0e]{color:#856404;font-size:14px;margin:0 0 12px;opacity:.9}.stock-warning-list[data-v-32ed5d0e]{list-style:none;margin:0;padding-left:20px}.stock-warning-item[data-v-32ed5d0e]{background-color:hsla(0,0%,100%,.5);border-left:3px solid #ffc107;border-radius:6px;color:#856404;font-size:14px;margin-bottom:8px;padding:8px 12px}.stock-warning-item[data-v-32ed5d0e]:last-child{margin-bottom:0}.product-name[data-v-32ed5d0e]{color:#856404;font-weight:600;margin-right:8px}.stock-details[data-v-32ed5d0e]{color:#856404;opacity:.8}.stock-details strong[data-v-32ed5d0e]{color:#856404;font-weight:600}[dir=rtl] .stock-warning-list[data-v-32ed5d0e]{padding-left:0;padding-right:20px}[dir=rtl] .stock-warning-item[data-v-32ed5d0e]{border-left:none;border-right:3px solid #ffc107}[dir=rtl] .product-name[data-v-32ed5d0e]{margin-left:8px;margin-right:0}@media (max-width:768px){.stock-warning-content[data-v-32ed5d0e]{flex-direction:column;gap:12px;text-align:center}.stock-warning-icon[data-v-32ed5d0e]{align-self:center}.stock-warning-list[data-v-32ed5d0e]{padding-left:0;text-align:left}[dir=rtl] .stock-warning-list[data-v-32ed5d0e]{text-align:right}}.clickable-badge[data-v-32ed5d0e]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-32ed5d0e]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-32ed5d0e]:active{transform:scale(.95)}.insufficient-stock-input[data-v-32ed5d0e]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-32ed5d0e]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -8375,25 +10780,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 81475:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-49a6d624]{margin-bottom:15px}.footer-buttons[data-v-49a6d624]{display:flex;gap:10px}.footer-buttons .btn[data-v-49a6d624]{margin-right:10px}.footer-buttons .btn[data-v-49a6d624]:last-child{margin-right:0}.create-btn[data-v-49a6d624]{cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-49a6d624]:hover{background-color:#e9ecef}.edit-btn[data-v-49a6d624]{background-color:#17a2b8!important;border-color:#17a2b8!important;color:#fff!important}.edit-btn[data-v-49a6d624]:hover{background-color:#138496!important;border-color:#117a8b!important}.table-custom[data-v-49a6d624]{border:none!important}.quotations-create-table[data-v-49a6d624]{border-collapse:separate;border-spacing:0}.quotations-create-table thead th[data-v-49a6d624]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.quotations-create-table thead tr[data-v-49a6d624]{border:none!important}.quotations-create-table thead th[data-v-49a6d624]:first-child{border-top-left-radius:10px}.quotations-create-table thead th[data-v-49a6d624]:last-child{border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-49a6d624]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-49a6d624]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-49a6d624]{gap:10px}.card[data-v-49a6d624]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-49a6d624]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.quotations-create-table .badge.badge-danger[data-v-49a6d624]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-49a6d624]{background:#fff!important}.btn-primary[data-v-49a6d624]{background:#2ab930!important}.btn-secondary[data-v-49a6d624]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.custom-qty-input[data-v-49a6d624]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-49a6d624],.button-plus[data-v-49a6d624]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-49a6d624]{background-color:#dc3545;color:#fff}.button-plus[data-v-49a6d624]{background-color:#007bff;color:#fff}.button-minus[data-v-49a6d624]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-49a6d624]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-49a6d624]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-49a6d624]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}[dir=rtl] .d-flex[data-v-49a6d624]{direction:rtl}[dir=rtl] .create-btn[data-v-49a6d624]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .create-btn[data-v-49a6d624]{border-radius:0 .25rem .25rem 0}[dir=rtl] .rtl-select .vs__dropdown-toggle[data-v-49a6d624]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .rtl-select .vs__dropdown-toggle[data-v-49a6d624]{border-radius:.25rem}[dir=rtl] .flex-grow-1.rtl-select[data-v-49a6d624]{border-right:none}[dir=ltr] .flex-grow-1.rtl-select[data-v-49a6d624]{border-right:1px solid #ced4da}.clickable-badge[data-v-49a6d624]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-49a6d624]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-49a6d624]:active{transform:scale(.95)}.insufficient-stock-input[data-v-49a6d624]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-49a6d624]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 82689:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -8672,25 +11058,6 @@ class Locale {
     }
 }
 exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 88130:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".edit-button[data-v-6c8eb752]{cursor:pointer;text-decoration:none}.modal-content[data-v-6c8eb752]{margin:1.75rem auto;max-width:1000px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
