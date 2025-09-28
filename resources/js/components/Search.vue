@@ -66,14 +66,20 @@ export default {
 
 /* Clear button positioning */
 [dir="ltr"] .search-clear {
-  position: absolute;
-  right: 5%;
-  top: 25%;
+  position: absolute !important;
+  right: 5% !important;
+  top: 25% !important;
 }
 
 [dir="rtl"] .search-clear {
-  position: absolute;
-  left: 5%;
-  top: 25%;
+  position: absolute !important;
+  left: 5% !important;
+  top: 25% !important;
+}
+
+/* Additional RTL specific positioning */
+[dir="rtl"] .search-area .search-clear {
+  left: 5% !important;
+  right: auto !important;
 }
 </style>

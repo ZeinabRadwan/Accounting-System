@@ -422,8 +422,8 @@ export default {
 }
 
 [dir="rtl"] .clear-btn {
-  left: auto;
-  right: 8px;
+  left: 8px;
+  right: auto;
 }
 
 .clear-btn:hover {
