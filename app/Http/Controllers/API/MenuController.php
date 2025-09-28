@@ -11,8 +11,11 @@ class MenuController extends Controller
     public function searchMenu(Request $request)
     {
         $menuSearchQuery = $request->query('menuSearchQuery');
-        $result = Menu::where('name', 'LIKE', '%' . $menuSearchQuery . '%')
-            ->where('status', true)->get();
+        $result = Menu::where(function ($query) use ($menuSearchQuery) {
+            $query->where('name', 'LIKE', '%' . $menuSearchQuery . '%')
+                  ->orWhere('name_ar', 'LIKE', '%' . $menuSearchQuery . '%');
+        })
+        ->where('status', true)->get();
 
         return response()->json([
             'result' => $result

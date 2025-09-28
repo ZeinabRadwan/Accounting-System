@@ -123,7 +123,7 @@
                                                 type="text"
                                                 :placeholder="$t('domain')"
                                             />
-                                            <span>{{ host }}</span>
+                                            <span style="height: 100%; line-height: 2">{{ host }}</span>
                                         </div>
                                         <has-error
                                             :form="form"

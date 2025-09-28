@@ -38,7 +38,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li v-if="$can('today-profit')" v-tooltip="'Today Report'" class="nav-item">
+      <li v-if="$can('today-profit')" v-tooltip="$t('Today Report')" class="nav-item">
         <a class="nav-link custom-nav-btn" :href="`#${$route.name === 'reports.todayReport' ? '' : 'reports.todayReport'}`" @click.prevent="$router.push({ name: 'reports.todayReport' })">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
@@ -52,7 +52,7 @@
         $can('invoice-create') ||
         $can('expense-create') ||
         $can('international-purchase-create')
-        " class="nav-item dropdown" v-tooltip="'Quick Add'">
+        " class="nav-item dropdown" v-tooltip="$t('Quick Add')">
         <a class="nav-link custom-nav-btn" data-toggle="dropdown" href="#" aria-expanded="true">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
@@ -102,7 +102,7 @@
       </li>
 
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown" v-tooltip="'Notifications'">
+      <li class="nav-item dropdown" v-tooltip="$t('Notifications')">
         <a class="nav-link custom-nav-btn" data-toggle="dropdown" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
@@ -127,7 +127,7 @@
       <!-- Language Dropdown Menu -->
       <locale-dropdown />
 
-      <li class="nav-item" v-tooltip="'Toggle Full Screen Mode'">
+      <li class="nav-item" v-tooltip="$t('Toggle Full Screen Mode')">
         <a class="nav-link custom-nav-btn" data-widget="fullscreen" href="#" role="button">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
@@ -136,7 +136,7 @@
           </svg>
         </a>
       </li>
-      <li class="nav-item" v-tooltip="'Theme Settings'">
+      <!-- <li class="nav-item" v-tooltip="$t('Theme Settings')">
         <a class="nav-link custom-nav-btn" @click.prevent="sideBarControl" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
@@ -144,7 +144,7 @@
               d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
           </svg>
         </a>
-      </li>
+      </li> -->
 
       <!-- User Dropdown Menu -->
       <li v-if="user" class="nav-item dropdown">

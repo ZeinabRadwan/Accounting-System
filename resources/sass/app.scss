@@ -3767,4 +3767,26 @@ img.circle-img.circle-img--small {
   }
 }
 
+/* Custom Control RTL Support */
+[dir="rtl"] .custom-control {
+  padding-right: 0;
+  padding-left: 1.5rem;
+}
+
+[dir="rtl"] .custom-control-input {
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] .custom-control-label::before,
+[dir="rtl"] .custom-control-label::after {
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] .custom-control-label {
+  padding-right: 0.5rem;
+  padding-left: 0;
+}
+
 /* Padding direction RTL overrides */
