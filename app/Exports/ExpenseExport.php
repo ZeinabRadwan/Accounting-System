@@ -53,7 +53,7 @@ class ExpenseExport implements FromCollection,  WithHeadings, ShouldAutoSize, Wi
 
         // Retrieve expenses
         $expenses = $expensesQuery->get()->map(function ($expense) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $expense->reason ?? 'N/A',
                 date('jS M, Y', strtotime($expense->date)),
@@ -66,12 +66,13 @@ class ExpenseExport implements FromCollection,  WithHeadings, ShouldAutoSize, Wi
         });
 
         // Calculate total amount
-        $totalAmount = $expenses->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[6] ?? 0));
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
+        $totalAmount = $expenses->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '',  $row[6] ?? 0));
         });
 
         // Add total amount as a new row
-        $expenses->push(['', '', '', '', '', '', 'Total Amount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalAmount,]);
+        $expenses->push(['', '', '', '', '', '', 'Total Amount = ' . $currencySymbol . $totalAmount,]);
 
         return $expenses;
     }

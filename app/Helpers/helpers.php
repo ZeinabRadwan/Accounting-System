@@ -142,6 +142,25 @@ function centralCurrencySymbolFormat($amount){
 }
 
 
+/**
+ * Get Excel-compatible currency symbol for exports
+ * Replaces problematic symbols like 'ê' with currency codes
+ */
+function getExcelCompatibleCurrencySymbol()
+{
+    $currency = getGeneralSettingsInfo()['currency'];
+    $currencySymbol = $currency['symbol'];
+    $currencyCode = $currency['code'];
+    
+    // Use currency code instead of symbol for Excel compatibility
+    // Check if it's Saudi Riyal with the problematic ê symbol
+    if (($currencyCode === 'SAR' || $currencyCode === 'RY') && str_contains($currencySymbol, 'ê')) {
+        return 'SAR'; // Use currency code instead
+    }
+    
+    return $currencySymbol;
+}
+
 function centralCurrencyCodeFormat($amount){
     $paymentController = new PaymentController();
     $centralActiveCurrency = $paymentController->centralActiveCurrency();

@@ -52,7 +52,7 @@ Vue.filter('withCurrency', function (number) {
     // Apply toLocaleString() to the number first, then format with max 2 decimal places
     let numValue = Number(number)
     let newNumber = numValue.toLocaleString('en-US', { 
-      minimumFractionDigits: 0, 
+      minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
     
@@ -64,7 +64,7 @@ Vue.filter('withCurrency', function (number) {
     // Wrap the symbol in saudi-riyal class for proper display
     let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
     
-    return effectivePosition == 'left' ? symbolWithClass + '0' : '0' + symbolWithClass
+    return effectivePosition == 'left' ? symbolWithClass + '0.00' : '0.00' + symbolWithClass
   }
 })
 
@@ -89,7 +89,7 @@ Vue.filter('withCentralAdminCurrency', function (number) {
     // Apply toLocaleString() to the number first, then format with max 2 decimal places
     let numValue = Number(number)
     let newNumber = numValue.toLocaleString('en-US', { 
-      minimumFractionDigits: 0, 
+      minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
     
@@ -101,7 +101,7 @@ Vue.filter('withCentralAdminCurrency', function (number) {
     // Wrap the symbol in saudi-riyal class for proper display
     let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
     
-    return effectivePosition == 'left' ? symbolWithClass + '0' : '0' + symbolWithClass
+    return effectivePosition == 'left' ? symbolWithClass + '0.00' : '0.00' + symbolWithClass
   }
 })
 
@@ -127,7 +127,7 @@ Vue.filter('withAbsoluteCurrency', function (number) {
     // Apply toLocaleString() to the number first, then format with max 2 decimal places
     let numValue = Number(number)
     let newNumber = numValue.toLocaleString('en-US', { 
-      minimumFractionDigits: 0, 
+      minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
     
@@ -140,7 +140,7 @@ Vue.filter('withAbsoluteCurrency', function (number) {
     let numValue = Number(number)
     let absValue = Math.abs(numValue)
     let newNumber = absValue.toLocaleString('en-US', { 
-      minimumFractionDigits: 0, 
+      minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
     

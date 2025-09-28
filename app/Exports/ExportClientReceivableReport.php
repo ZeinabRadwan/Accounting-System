@@ -37,7 +37,7 @@ class ExportClientReceivableReport implements FromCollection,  WithHeadings, Sho
         });
 
         $clientReceivableReports = ClientResource::collection($query->latest()->get())->map(function ($clientReceivableReport) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.clientPrefix') . ' - ' . $clientReceivableReport->client_id,
                 $clientReceivableReport->status ? 'Active' : 'Inactive',
@@ -51,19 +51,21 @@ class ExportClientReceivableReport implements FromCollection,  WithHeadings, Sho
             ];
         });
 
-        $totalInvoiceDue = $clientReceivableReports->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[6]  ?? 0));
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
+        
+        $totalInvoiceDue = $clientReceivableReports->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[6]  ?? 0));
         });
-        $totalNonInvoiceDue = $clientReceivableReports->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[7]  ?? 0));
+        $totalNonInvoiceDue = $clientReceivableReports->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[7]  ?? 0));
         });
-        $totalDue = $clientReceivableReports->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[8]  ?? 0));
+        $totalDue = $clientReceivableReports->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[8]  ?? 0));
         });
 
         // Add the total salary as a new row
         $clientReceivableReports->push([
-            '', '', '', '', '', '', 'Total Invoice Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalInvoiceDue, 'Total Non Invoice Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalNonInvoiceDue, 'Total Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalDue,
+            '', '', '', '', '', '', 'Total Invoice Due = ' . $currencySymbol . $totalInvoiceDue, 'Total Non Invoice Due = ' . $currencySymbol . $totalNonInvoiceDue, 'Total Due = ' . $currencySymbol . $totalDue,
         ]);
 
         return $clientReceivableReports;

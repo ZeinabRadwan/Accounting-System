@@ -50,7 +50,8 @@ class InvoiceExport implements FromCollection, WithHeadings, WithEvents
         });
 
         $invoices = InvoiceListResource::collection($query->latest()->get())->map(function ($invoice) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
+            
             return [
                 config('config.invoicePrefix') . ' - ' . $invoice->invoice_no,
                 date('jS M, Y', strtotime($invoice->invoice_date)),
@@ -63,21 +64,23 @@ class InvoiceExport implements FromCollection, WithHeadings, WithEvents
         });
 
         // Calculate the total of the amount related columns
-        $netTotal = $invoices->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[4]  ?? 0));
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
+        
+        $netTotal = $invoices->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[4]  ?? 0));
         });
 
-        $paidTotal = $invoices->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[5]  ?? 0));
+        $paidTotal = $invoices->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[5]  ?? 0));
         });
 
-        $totalDue = $invoices->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[6]  ?? 0));
+        $totalDue = $invoices->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[6]  ?? 0));
         });
 
         // Add the total paid as a new row
         $invoices->push([
-            '', '', '', '', 'Net Total = ' . getGeneralSettingsInfo()['currency']['symbol'] . $netTotal, 'Total Paid = ' . getGeneralSettingsInfo()['currency']['symbol'] . $paidTotal, 'Total Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalDue,
+            '', '', '', '', 'Net Total = ' . $currencySymbol . $netTotal, 'Total Paid = ' . $currencySymbol . $paidTotal, 'Total Due = ' . $currencySymbol . $totalDue,
         ]);
 
         return $invoices;
