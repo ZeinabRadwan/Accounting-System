@@ -122,8 +122,8 @@
                         </td>
                         <td style="min-width: 120px;">
                           <div class="d-flex align-items-center">
-                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'" 
-                              v-tooltip="$t('Click to manage stock')" 
+                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
+                              " v-tooltip="$t('Click to manage stock')" 
                               class="badge badge-danger p-2 mr-2 clickable-badge" 
                               @click="openStockAdjustmentModal(item)">
                               <i class="fas fa-exclamation"></i>
@@ -150,7 +150,14 @@
                         <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', index, 'decrement')" />
+                              data-field="quantity" @click="
+                                generateItemTotal(
+                                  item.qty,
+                                  'qty',
+                                  index,
+                                  'decrement'
+                                )
+                                " />
 
                             <input type="number" step="any" :id="`Qty-${index+1}`" v-model.number="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
@@ -162,7 +169,14 @@
                               placeholder="Quantity" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', index, 'increment')" />
+                              data-field="quantity" @click="
+                                generateItemTotal(
+                                  item.qty,
+                                  'qty',
+                                  index,
+                                  'increment'
+                                )
+                                " />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.qty`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.qty`) }}
@@ -170,16 +184,10 @@
                         </td>
                         <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity"
-                              @click="generateItemTotal(item.unitPrice, 'price', index, 'decrement')" />
                             <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
                               name="unitPrice" class="quantity-field border-0" required min="0" 
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.unitPrice`) }"
                               @input="generateItemTotal(item.unitPrice, 'price', index, '')" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity"
-                              @click="generateItemTotal(item.unitPrice, 'price', index, 'increment')" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.unitPrice`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}

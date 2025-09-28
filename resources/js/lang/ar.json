@@ -3487,7 +3487,8 @@
   "October": "أكتوبر",
   "November": "نوفمبر",
   "Chart of Account Validation Required" : "تحقق من الحسابات المحاسبية",
-  "Client must have a Chart of Account assigned for journal entries " : "يجب أن يكون للعميل حساب محاسبي معين للقيود اليومية",
-  " Product must have a Sales Account assigned for journal entries" : "يجب أن يكون للمنتج حساب مبيعات معين للقيود اليومية",
+  "Some products need Sales Accounts assigned" : "بعض المنتجات تحتاج إلى حسابات مبيعات معينة",
+  "Client must have a Chart of Account assigned for journal entries" : "يجب أن يكون للعميل حساب محاسبي معين للقيود اليومية",
+  "Product must have a Sales Account assigned for journal entries" : "يجب أن يكون للمنتج حساب مبيعات معين للقيود اليومية",
   "December": "ديسمبر"
 }
