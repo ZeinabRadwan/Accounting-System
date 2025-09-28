@@ -406,7 +406,7 @@
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
                         <td>
-                          {{ allData.invoice.subTotal  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(allData.invoice.subTotal).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                       <tr>
@@ -429,7 +429,7 @@
                       <tr>
                         <th>{{ $t("Return VAT") }}:</th>
                         <td>
-                          {{ calculateTotalReturnTax()  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(calculateTotalReturnTax()).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                       <tr>
@@ -443,13 +443,13 @@
                       <tr>
                         <th>{{ $t("Remaining Tax") }}:</th>
                         <td>
-                          {{ calculateTotalRemainingTax()  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(calculateTotalRemainingTax()).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          {{ allData.invoice.transport  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(allData.invoice.transport).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
@@ -462,12 +462,12 @@
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          {{ allData.invoice.totalPaid  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(allData.invoice.totalPaid).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ Number(allData.invoice.due).toFixed(2)  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ Number(allData.invoice.due).toFixed(2) | withCurrency }}</td>
                       </tr>
                       <tr
                         v-if="allData.accountPayable"
@@ -475,7 +475,7 @@
                       >
                         <th>{{ $t("Account Payable") }}:</th>
                         <td>
-                          {{ allData.accountPayable.amount  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(allData.accountPayable.amount).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                     </tbody>

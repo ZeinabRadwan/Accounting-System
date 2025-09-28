@@ -112,16 +112,16 @@
                                 " />
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ item.unitCost  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">{{ Number(item.unitCost).toFixed(2) | withCurrency }}</td>
                         <td style="min-width: 120px;">
                           <span v-if="item.productDiscount && item.productDiscount > 0" class="badge badge-info">
-                            {{ item.discountType === 'percentage' ? item.productDiscount + '%' : item.productDiscount  }} <span class="saudi-riyal">ê</span>
+                            {{ item.discountType === 'percentage' ? item.productDiscount + '%' : Number(item.productDiscount).toFixed(2) | withCurrency }}
                           </span>
                           <span v-else class="text-muted">-</span>
                         </td>
-                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toFixed(2) | withCurrency }}</td>
                         <td class="text-right" style="min-width: 120px;">
-                          {{ item.returnTotal  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(item.returnTotal).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                       <tr v-if="form.invoice">
@@ -134,7 +134,7 @@
                           }}</strong>
                         </td>
                         <td class="text-right">
-                          <strong>{{ form.totalReturn  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ Number(form.totalReturn).toFixed(2) | withCurrency }}</strong>
                         </td>
                       </tr>
                     </tbody>

@@ -105,10 +105,10 @@
                               data-field="quantity" @click="updateItem(item.returnQty + 1, i - 1)" />
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ item.sellingPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">{{ Number(item.sellingPrice).toFixed(2) | withCurrency }}</td>
+                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toFixed(2) | withCurrency }}</td>
                         <td class="text-right" style="min-width: 120px;">
-                          {{ item.returnTotal  }} <span class="saudi-riyal">ê</span>
+                          {{ Number(item.returnTotal).toFixed(2) | withCurrency }}
                         </td>
                       </tr>
                       <tr v-if="form.invoice">
@@ -121,7 +121,7 @@
                           }}</strong>
                         </td>
                         <td class="text-right">
-                          <strong>{{ form.totalReturn  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ Number(form.totalReturn).toFixed(2) | withCurrency }}</strong>
                         </td>
                       </tr>
                     </tbody>
