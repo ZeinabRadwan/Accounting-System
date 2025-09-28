@@ -114,6 +114,10 @@
                             {{ isAutoAssigningProduct === form.product.id ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
+                        <div v-else-if="!form.product.productTax || !form.product.productTax.id" class="product-warning">
+                          <i class="fas fa-exclamation-triangle text-warning"></i>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate') }}</span>
+                        </div>
                         <div v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id" class="product-success">
                           <i class="fas fa-check-circle text-success"></i>
                           <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
@@ -256,20 +260,26 @@
                         </td>
                         <td style="min-width: 80px;">{{ item.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
                         <td style="min-width: 100px;">
-                          <select 
-                            v-model="item.selectedVatRate" 
-                            class="form-control form-control-sm"
-                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.selectedVatRate`) }"
-                            @change="calculateProductVat(index)"
-                            style="min-width: 80px;">
-                            <option value="">{{ $t('Select VAT') }}</option>
-                            <option 
-                              v-for="tax in taxes" 
-                              :key="tax.id" 
-                              :value="tax">
-                              {{ tax.code }} ({{ tax.rate }}%)
-                            </option>
-                          </select>
+                          <div class="d-flex align-items-center">
+                            <select 
+                              v-model="item.selectedVatRate" 
+                              class="form-control form-control-sm flex-grow-1"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.selectedVatRate`) }"
+                              @change="calculateProductVat(index)"
+                              style="min-width: 80px;">
+                              <option value="">{{ $t('Select VAT') }}</option>
+                              <option 
+                                v-for="tax in taxes" 
+                                :key="tax.id" 
+                                :value="tax">
+                                {{ tax.code }} ({{ tax.rate }}%)
+                              </option>
+                            </select>
+                            <i v-if="!item.productTax || !item.productTax.id" 
+                               class="fas fa-exclamation-triangle text-warning ml-1" 
+                               v-tooltip="$t('Product needs VAT rate assigned')"
+                               style="font-size: 14px;"></i>
+                          </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.selectedVatRate`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.selectedVatRate`) }}
                           </div>
@@ -2193,6 +2203,20 @@ export default {
             type: "warning",
             title: this.$t("Product Chart of Account Required"),
             message: this.$t("The following products must have Sales Accounts assigned: ") + productNames,
+            field: "products",
+            timer: 8000,
+            timerProgressBar: true
+          });
+        }
+
+        // Validate that all products have VAT rates assigned
+        const productsWithoutVatRate = this.form.selectedProducts.filter(product => !product.productTax || !product.productTax.id);
+        if (productsWithoutVatRate.length > 0) {
+          const productNames = productsWithoutVatRate.map(p => p.name || 'Unknown').join(', ');
+          validationErrors.push({
+            type: "warning",
+            title: this.$t("Product VAT Rate Required"),
+            message: this.$t("The following products must have a VAT rate assigned: ") + productNames,
             field: "products",
             timer: 8000,
             timerProgressBar: true

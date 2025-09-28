@@ -279,7 +279,13 @@
                                     </p>
                                     <div class="mt-3">
                                         <router-link
-                                            :to="{ name: 'find-domain' }"
+                                            :to="{ 
+                                                name: 'find-domain', 
+                                                query: { 
+                                                    email: verificationForm.email,
+                                                    domain: form.domain 
+                                                } 
+                                            }"
                                             class="btn btn-outline-primary btn-sm"
                                         >
                                             <i class="fas fa-sign-in-alt mr-1"></i>

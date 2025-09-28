@@ -957,6 +957,20 @@ export default {
           });
         }
 
+        // Validate that all products have VAT rates assigned
+        const productsWithoutVatRate = this.form.selectedProducts.filter(product => !product.productTax || !product.productTax.id);
+        if (productsWithoutVatRate.length > 0) {
+          const productNames = productsWithoutVatRate.map(p => p.name || 'Unknown').join(', ');
+          validationErrors.push({
+            type: "warning",
+            title: this.$t("Product VAT Rate Required"),
+            message: this.$t("The following products must have a VAT rate assigned: ") + productNames,
+            field: "products",
+            timer: 8000,
+            timerProgressBar: true
+          });
+        }
+
         // Validate payment fields when "Add Payment" is set to "Yes"
         const paymentValidation = this.validatePaymentFields();
         if (!paymentValidation.isValid) {

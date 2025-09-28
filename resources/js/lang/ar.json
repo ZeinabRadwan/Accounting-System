@@ -3470,5 +3470,7 @@
   
   "Department Create Page Additional Messages": "رسائل إضافية لصفحة إنشاء القسم",
   "Department deleted successfully": "تم حذف القسم بنجاح",
+  "Product VAT Rate Required" : "معدل ضريبة القيمة المضافة للمنتج مطلوب",
+  "Product needs VAT rate assigned"  : "المنتج يحتاج إلى معدل ضريبة القيمة المضافة",
   "Oops...something went wrong": "عذراً... حدث خطأ ما"
 }

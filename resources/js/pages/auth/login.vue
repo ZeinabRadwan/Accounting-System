@@ -1,54 +1,54 @@
 <template>
   <div class="container-fluid">
-    <div class="row no-gutter">
-      <!-- The image half -->
-      <div class="col-md-6 d-none d-md-flex bg-image"></div>
-      <!-- The content half -->
-      <div class="col-md-6 bg-light">
-        <div class="auth-wrapper d-flex align-items-center py-5">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-10 col-xl-7 mx-auto">
-                <div class="text-center">
-                  <router-link to="/">
-                    <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
-                      class="lg-logo img-fluid logo-width" />
-                  </router-link>
-                  <p class="text-22 mb-4 mt-2">{{ $t("login_txt") }}</p>
-                </div>
+      <div class="row no-gutter">
+        <!-- The image half -->
+        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+        <!-- The content half -->
+        <div class="col-md-6 bg-light">
+          <div class="auth-wrapper d-flex align-items-center py-5">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-10 col-xl-7 mx-auto">
+                  <div class="text-center">
+                    <router-link to="/">
+                      <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
+                        class="lg-logo img-fluid logo-width" />
+                    </router-link>
+                    <p class="text-22 mb-4 mt-2">{{ $t("login_txt") }}</p>
+                  </div>
 
-                <form @submit.prevent="login" @keydown="form.onKeydown($event)">
-                  <div class="form-group mb-3">
-                    <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }"
-                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="email" name="email"
-                      :placeholder="$t('email_placeholder')" />
-                    <has-error :form="form" field="email" />
-                  </div>
-                  <div class="form-group mb-3">
-                    <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }"
-                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="password"
-                      name="password" :placeholder="$t('password_placeholder')" />
-                    <has-error :form="form" field="password" />
-                  </div>
-                  <div class="row mb-5">
-                    <div class="col-md-6">
-                      <checkbox v-model="remember" name="remember">
-                        {{ $t("remember_me") }}
-                      </checkbox>
+                  <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+                    <div class="form-group mb-3">
+                      <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }"
+                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="email" name="email"
+                        :placeholder="$t('email_placeholder')" />
+                      <has-error :form="form" field="email" />
                     </div>
-                    <div class="col-md-6 text-right">
-                      <router-link :to="{ name: 'password.request' }" class="ml-auto my-auto">
-                        {{ $t("forgot_password") }}
-                      </router-link>
+                    <div class="form-group mb-3">
+                      <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }"
+                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="password"
+                        name="password" :placeholder="$t('password_placeholder')" />
+                      <has-error :form="form" field="password" />
                     </div>
-                  </div>
-                  <!-- Submit Button -->
-                  <v-button :loading="form.busy"
-                    class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
-                    <i class="fas fa-sign-in-alt" />
-                    <strong>{{ $t("login") }}</strong>
-                  </v-button>
-                </form>
+                    <div class="row mb-5">
+                      <div class="col-md-6">
+                        <checkbox v-model="remember" name="remember">
+                          {{ $t("remember_me") }}
+                        </checkbox>
+                      </div>
+                      <div class="col-md-6 text-right">
+                        <router-link :to="{ name: 'password.request' }" class="ml-auto my-auto">
+                          {{ $t("forgot_password") }}
+                        </router-link>
+                      </div>
+                    </div>
+                    <!-- Submit Button -->
+                    <v-button :loading="form.busy"
+                      class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
+                      <i class="fas fa-sign-in-alt" />
+                      <strong>{{ $t("login") }}</strong>
+                    </v-button>
+                  </form>
               </div>
               <!-- Login  Credentials For Demo -->
               <div class="col-12 mt-4" v-if="isDemoMode">
@@ -180,6 +180,7 @@
                     </div>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
           </div>
@@ -188,7 +189,6 @@
       </div>
       <!-- End -->
     </div>
-  </div>
 </template>
 <script>
 import Form from "vform";
@@ -225,32 +225,49 @@ export default {
 
   methods: {
     async login() {
-      // Submit the form.
-      const loginRequest = await this.form.post("/api/login");
-      if (loginRequest.status !== 200) {
+      try {
+        // Submit the form.
+        const loginRequest = await this.form.post("/api/login");
+        if (loginRequest.status !== 200) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Something went wrong, please try again!"),
+          });
+          Object.keys(Cookies.get()).forEach(function (cookieName) {
+            var neededAttributes = {
+              // Here you pass the same attributes that were used when the cookie was created
+              // and are required when removing the cookie
+            };
+            Cookies.remove(cookieName, neededAttributes);
+          });
+          return;
+        }
+        const { data } = loginRequest;
+        
+        // Save the token.
+        this.$store.dispatch("auth/saveToken", {
+          token: data.token,
+          remember: this.remember,
+        });
+        
+        // Fetch the user.
+        await this.$store.dispatch("auth/fetchUser");
+        
+        // Show success toast
+        toast.fire({
+          type: "success",
+          title: "Login successful! Redirecting...",
+        });
+        
+        // Quick redirect without delay
+        this.redirect();
+      } catch (error) {
+        console.error('Login error:', error);
         toast.fire({
           type: "error",
           title: this.$t("Something went wrong, please try again!"),
         });
-        Object.keys(Cookies.get()).forEach(function (cookieName) {
-          var neededAttributes = {
-            // Here you pass the same attributes that were used when the cookie was created
-            // and are required when removing the cookie
-          };
-          Cookies.remove(cookieName, neededAttributes);
-        });
-        return;
       }
-      const { data } = loginRequest;
-      // Save the token.
-      this.$store.dispatch("auth/saveToken", {
-        token: data.token,
-        remember: this.remember,
-      });
-      // Fetch the user.
-      await this.$store.dispatch("auth/fetchUser");
-      // Redirect home.
-      this.redirect();
     },
     redirect() {
       const intendedUrl = Cookies.get("intended_url");
