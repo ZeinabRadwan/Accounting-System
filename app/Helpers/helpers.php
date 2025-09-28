@@ -56,13 +56,8 @@ if (! function_exists('store_in_tenant')) {
 if (! function_exists('formatCurrency')) {
     function formatCurrency($value)
     {
-        $currencyPosition = config('config.currencyPosition');
-        $currencySymbol = config('config.currencySymbol');
-        if ($currencyPosition == 'left') {
-            return $currencySymbol . number_format($value, 2, '.', ',');
-        }else{
-            return number_format($value, 2, '.', ',') .  $currencySymbol;
-        }
+        // Return only the formatted number without currency symbol as requested
+        return number_format($value, 2, '.', ',');
     }
 
 }
@@ -110,35 +105,8 @@ function getGeneralSettingsInfo()
 
 
 function centralCurrencySymbolFormat($amount){
-    $paymentController = new PaymentController();
-    $centralActiveCurrency = $paymentController->centralActiveCurrency();
-
-     // Check if we're in RTL mode
-     $isRTL = session('locale') === 'ar' || 
-              (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
-
-     // Handle Saudi Riyal currency symbol with proper CSS class
-     $currencySymbol = $centralActiveCurrency->symbol;
-     if (($centralActiveCurrency->code === 'SAR' || $centralActiveCurrency->code === 'RY') && 
-         $currencySymbol && str_contains($currencySymbol, 'ê')) {
-         $currencySymbol = '<span class="saudi-riyal">ê</span>'; // Wrap ê with Saudi Riyal font class
-     }
-
-     // Format the amount based on the central currency position
-     $currencyPosition = $centralActiveCurrency->position;
-     
-     // RTL-aware position logic
-     $effectivePosition = $currencyPosition;
-     if ($isRTL) {
-         $effectivePosition = $currencyPosition === 'left' ? 'right' : 'left';
-     }
-     
-     if ($effectivePosition === 'left') {
-         $formattedPendingAmount = $currencySymbol . number_format($amount, 2);
-     } else {
-         $formattedPendingAmount = number_format($amount, 2) . $currencySymbol;
-     }
-     return $formattedPendingAmount;
+    // Return only the formatted number without currency symbol as requested
+    return number_format($amount, 2);
 }
 
 
@@ -163,34 +131,8 @@ function getPdfCompatibleCurrencySymbol()
 }
 
 function centralCurrencyCodeFormat($amount){
-    $paymentController = new PaymentController();
-    $centralActiveCurrency = $paymentController->centralActiveCurrency();
-
-     // Check if we're in RTL mode
-     $isRTL = session('locale') === 'ar' || 
-              (request()->hasHeader('Accept-Language') && str_contains(request()->header('Accept-Language'), 'ar'));
-
-     // Handle Saudi Riyal currency code replacement
-     $currencyCode = $centralActiveCurrency->code;
-     if ($centralActiveCurrency->code === 'SAR' || $centralActiveCurrency->code === 'RY') {
-         $currencyCode = 'ر.س'; // Use Arabic Riyal symbol instead of code
-     }
-
-     // Format the amount based on the central currency position
-     $currencyPosition = $centralActiveCurrency->position;
-     
-     // RTL-aware position logic
-     $effectivePosition = $currencyPosition;
-     if ($isRTL) {
-         $effectivePosition = $currencyPosition === 'left' ? 'right' : 'left';
-     }
-     
-     if ($effectivePosition === 'left') {
-         $formattedPendingAmount = $currencyCode . ' ' . number_format($amount, 2);
-     } else {
-         $formattedPendingAmount = number_format($amount, 2) . ' ' . $currencyCode;
-     }
-     return $formattedPendingAmount;
+    // Return only the formatted number without currency code as requested
+    return number_format($amount, 2);
 }
 
 function getPrefix(){

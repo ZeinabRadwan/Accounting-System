@@ -61,22 +61,10 @@
         $currentLocale = app()->getLocale();
         $isRTL = $currentLocale === 'ar';
         
-        // Custom currency formatter for PDF to fix riyal symbol display
+        // Custom currency formatter for PDF - no currency symbols as requested
         function formatPdfCurrency($amount) {
-            $currencySymbol = config('config.currencySymbol');
-            $currencyPosition = config('config.currencyPosition');
             $formattedAmount = number_format($amount, 2, '.', ',');
-            
-            // Replace the problematic 'ê' with proper riyal symbol
-            if ($currencySymbol === 'ê') {
-                $currencySymbol = '﷼'; // Proper Saudi Riyal symbol
-            }
-            
-            if ($currencyPosition == 'left') {
-                return '<span class="currency-symbol">' . $currencySymbol . '</span>' . $formattedAmount;
-            } else {
-                return $formattedAmount . '<span class="currency-symbol">' . $currencySymbol . '</span>';
-            }
+            return $formattedAmount; // Return only the amount without currency symbol
         }
         
         // Get colors from template configuration
