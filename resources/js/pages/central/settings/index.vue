@@ -145,8 +145,8 @@ export default {
 
 .settings-card .nav-pills .nav-link.active,
 .settings-card .nav-pills .show>.nav-link {
-  color: #1B3C71;
-  background-color: #1B3C7159;
+  color: #33a0d9;
+  background-color: #33a0d959;
 }
 
 .settings-card {

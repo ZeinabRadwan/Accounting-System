@@ -133,8 +133,8 @@ export default {
 
 .settings-card .nav-pills .nav-link.active,
 .settings-card .nav-pills .show>.nav-link {
-  color: #1B3C71;
-  background-color: #1B3C7159;
+  color: #33a0d9;
+  background-color: #33a0d959;
 }
 
 
@@ -155,10 +155,9 @@ export default {
 
 .setings-header {
   padding: 13px 20px;
-  background: #ddd;
   border-bottom: 0px;
-  display: flex;
   align-items: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .setings-header h3 {
@@ -168,7 +167,7 @@ export default {
 .trial-block {
   display: flex;
   align-items: center;
-  background: #1B3C71;
+  background: #33a0d9;
   padding: 15px;
   border-radius: 5px;
   color: #fff;

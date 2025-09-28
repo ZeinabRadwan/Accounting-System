@@ -338,6 +338,7 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
   middleware: ['auth', 'check-permissions'],
@@ -345,6 +346,13 @@ export default {
     return { title: this.$t('Create Item') }
   },
   data: () => ({
+    toast: Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true
+    }),
     breadcrumbsCurrent: 'Create Item',
     breadcrumbs: [
       {
@@ -636,8 +644,32 @@ export default {
         })
         .catch((error) => {
           console.error("Error creating product:", error);
-          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
-          toast.fire({ type: "error", title: errorMessage });
+          
+          // Handle validation errors
+          if (error.response?.status === 422 && error.response?.data?.errors) {
+            // Translate validation errors
+            const translatedErrors = {};
+            Object.keys(error.response.data.errors).forEach(field => {
+              translatedErrors[field] = error.response.data.errors[field].map(message => {
+                // Try to translate the message
+                const translationKey = message;
+                return this.$t(translationKey) !== translationKey ? this.$t(translationKey) : message;
+              });
+            });
+            
+            // Set the translated errors back to the form
+            this.form.errors.set(translatedErrors);
+            
+            // Show a general validation error message
+            toast.fire({ 
+              type: "error", 
+              title: this.$t("Please check your input and try again.") 
+            });
+          } else {
+            // Handle other errors
+            const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
+            toast.fire({ type: "error", title: errorMessage });
+          }
         });
     },
     // save form data temporarily
@@ -789,7 +821,7 @@ export default {
 .form-group label {
   font-weight: 500;
   color: #374151;
-  margin-bottom: 8px;
+  margin: 0 20px;
   display: block;
 }
 
@@ -929,8 +961,8 @@ textarea.form-control {
 
 /* Button Group Toggle Styling */
 .btn-outline-custom {
-  color: #1B3C71;
-  border-color: #1B3C71;
+  color: #33a0d9;
+  border-color: #33a0d9;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   border-radius: 10px;
   padding: 8px 16px;
@@ -939,21 +971,21 @@ textarea.form-control {
 
 .btn-outline-custom:hover,
 .btn-custom-active {
-  background-color: #1B3C71;
+  background-color: #33a0d9;
   color: #fff;
-  border-color: #1B3C71;
+  border-color: #33a0d9;
 }
 
 /* Ensure toggle labels override the generic .form-group label color */
 .form-group .btn-outline-custom {
-  color: #1B3C71;
-  border-color: #1B3C71;
+  color: #33a0d9;
+  border-color: #33a0d9;
 }
 
 .form-group .btn-custom-active {
-  background-color: #1B3C71;
+  background-color: #33a0d9;
   color: #fff;
-  border-color: #1B3C71;
+  border-color: #33a0d9;
 }
 
 /* Row Spacing */

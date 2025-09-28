@@ -275,10 +275,6 @@
                                 {{ tax.code }} ({{ tax.rate }}%)
                               </option>
                             </select>
-                            <i v-if="!item.productTax || !item.productTax.id" 
-                               class="fas fa-exclamation-triangle text-warning ml-1" 
-                               v-tooltip="$t('Product needs VAT rate assigned')"
-                               style="font-size: 14px;"></i>
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.selectedVatRate`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.selectedVatRate`) }}
@@ -4062,6 +4058,7 @@ export default {
   border: 2px solid #dc3545 !important;
   background-color: #fff5f5 !important;
   color: #dc3545 !important;
+  margin: 0 5px;
 }
 
 .insufficient-stock-input:focus {
@@ -4069,5 +4066,9 @@ export default {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
 }
 
+.custom-qty-input input.button-plus,
+.custom-qty-input input.button-minus {
+  margin: 0 5px;
+}
 </style>
 

@@ -530,14 +530,14 @@ export default {
 
 .card-icon.bg-brand-light-blue {
   background: linear-gradient(135deg, #ebf6fc 0%, #d6edf7 100%) !important;
-  color: #1b3c71 !important;
+  color: #33a0d9 !important;
   border: 1px solid rgba(235, 246, 252, 0.5);
   border-radius: 20px;
 }
 
 .card-icon.bg-brand-light-green {
   background: linear-gradient(135deg, #f6fef4 0%, #e8f5e8 100%) !important;
-  color: #1b3c71 !important;
+  color: #33a0d9 !important;
   border: 1px solid rgba(246, 254, 244, 0.5);
   border-radius: 20px;
 }
@@ -549,7 +549,7 @@ export default {
 }
 
 .card-icon.bg-brand-dark-blue {
-  background: linear-gradient(135deg, #1b3c71 0%, #152a4a 100%) !important;
+  background: linear-gradient(135deg, #33a0d9 0%, #152a4a 100%) !important;
   border: 1px solid rgba(27, 60, 113, 0.3);
   border-radius: 20px;
 }
@@ -569,7 +569,7 @@ export default {
 /* Icon color adjustments for light backgrounds */
 .card-icon.bg-brand-light-blue i,
 .card-icon.bg-brand-light-green i {
-  color: #1b3c71 !important;
+  color: #33a0d9 !important;
 }
 
 .card-icon.bg-brand-primary i,

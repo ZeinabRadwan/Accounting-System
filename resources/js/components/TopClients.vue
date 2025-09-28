@@ -79,7 +79,7 @@ export default {
       const salesText = this.$t('Sales')
       
       return `
-        <div style="padding: 12px; font-weight: 600; color: #1b3c71; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0;">
+        <div style="padding: 12px; font-weight: 600; color: #33a0d9; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0;">
           ${clientName}
         </div>
         <div style="margin-bottom: 8px;">
@@ -87,12 +87,12 @@ export default {
           <div style="display: flex; align-items: center; margin-bottom: 6px;">
             <span style="display: inline-block; width: 12px; height: 12px; background: #16a34a; border-radius: 50%; margin-right: 8px;"></span>
             <span style="color: #64748b; font-size: 12px; margin-right: 8px;">${revenueText}:</span>
-            <span style="color: #1b3c71; font-weight: 700; font-size: 14px;">${revenue}</span>
+            <span style="color: #33a0d9; font-weight: 700; font-size: 14px;">${revenue}</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span style="display: inline-block; width: 12px; height: 12px; background: #33A0D9; border-radius: 50%; margin-right: 8px;"></span>
             <span style="color: #64748b; font-size: 12px; margin-right: 8px;">${salesText}:</span>
-            <span style="color: #1b3c71; font-weight: 700; font-size: 14px;">${salesCount}</span>
+            <span style="color: #33a0d9; font-weight: 700; font-size: 14px;">${salesCount}</span>
           </div>
         </div>
       `
@@ -354,7 +354,7 @@ export default {
 /* Custom branded tooltip styling */
 .tooltip-vue .tooltip-vue-inner {
   background: rgba(255, 255, 255, 0.95) !important;
-  color: #1b3c71 !important;
+  color: #33a0d9 !important;
   border: 2px solid #33A0D9 !important;
   border-radius: 12px !important;
   padding: 0 !important;
