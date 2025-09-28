@@ -2786,5 +2786,27 @@
   
   "Department Create Page Additional Messages": "Department Create Page Additional Messages",
   "Department deleted successfully": "Department deleted successfully",
-  "Oops...something went wrong": "Oops...something went wrong"
+  "Oops...something went wrong": "Oops...something went wrong",
+  
+  "Recent Activities No Data Messages": "Recent Activities No Data Messages",
+  "No Invoices Found": "No Invoices Found",
+  "There are no recent invoices to display.": "There are no recent invoices to display.",
+  "No Purchases Found": "No Purchases Found",
+  "There are no recent purchases to display.": "There are no recent purchases to display.",
+  "No Expenses Found": "No Expenses Found",
+  "There are no recent expenses to display.": "There are no recent expenses to display.",
+  "No Transactions Found": "No Transactions Found",
+  "There are no recent transactions to display.": "There are no recent transactions to display.",
+  "January": "January",
+  "February": "February",
+  "March": "March",
+  "April": "April",
+  "May": "May",
+  "June": "June",
+  "July": "July",
+  "August": "August",
+  "September": "September",
+  "October": "October",
+  "November": "November",
+  "December": "December"
 }

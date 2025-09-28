@@ -64775,13 +64775,6 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   margin-bottom: 15px;
 }
 
-.card-footer .form-group.row.display-per-page {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 10px;
-}
-
 .page-enter-active,
 .page-leave-active {
   transition: opacity 0.2s;

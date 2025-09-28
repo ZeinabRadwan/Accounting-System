@@ -1,13 +1,5 @@
 <template>
-  <div
-    v-if="
-      (invoices && invoices.length) ||
-      (purchases && purchases.length) ||
-      (expenses && expenses.length) ||
-      (transactions && transactions.length)
-    "
-    class="card"
-  >
+  <div class="card">
     <div class="card-header">
       <h3 class="card-title">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -93,7 +85,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(data, i) in invoices" :key="i">
+                <tr v-if="invoices && invoices.length" v-for="(data, i) in invoices" :key="i">
                   <td>{{ ++i }}</td>
                   <td>
                     <router-link
@@ -123,6 +115,15 @@
                     }}</span>
                   </td>
                 </tr>
+                <tr v-if="!invoices || !invoices.length">
+                  <td colspan="8" class="text-center no-data-message">
+                    <div class="no-data-content">
+                      <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                      <h5 class="text-muted">{{ $t("No Invoices Found") }}</h5>
+                      <p class="text-muted">{{ $t("There are no recent invoices to display.") }}</p>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -149,7 +150,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(data, i) in purchases" :key="i">
+                <tr v-if="purchases && purchases.length" v-for="(data, i) in purchases" :key="i">
                   <td>{{ ++i }}</td>
                   <td>
                     <router-link
@@ -179,6 +180,15 @@
                     }}</span>
                   </td>
                 </tr>
+                <tr v-if="!purchases || !purchases.length">
+                  <td colspan="8" class="text-center no-data-message">
+                    <div class="no-data-content">
+                      <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                      <h5 class="text-muted">{{ $t("No Purchases Found") }}</h5>
+                      <p class="text-muted">{{ $t("There are no recent purchases to display.") }}</p>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -204,7 +214,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(data, i) in expenses" :key="i">
+                <tr v-if="expenses && expenses.length" v-for="(data, i) in expenses" :key="i">
                   <td>{{ ++i }}</td>
                   <td>
                     <span v-if="data.subCategory">
@@ -245,6 +255,15 @@
                     }}</span>
                   </td>
                 </tr>
+                <tr v-if="!expenses || !expenses.length">
+                  <td colspan="7" class="text-center no-data-message">
+                    <div class="no-data-content">
+                      <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
+                      <h5 class="text-muted">{{ $t("No Expenses Found") }}</h5>
+                      <p class="text-muted">{{ $t("There are no recent expenses to display.") }}</p>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -270,7 +289,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(data, i) in transactions" :key="i">
+                <tr v-if="transactions && transactions.length" v-for="(data, i) in transactions" :key="i">
                   <td>{{ ++i }}</td>
                   <td>{{ data.reason }}</td>
                   <td>
@@ -295,6 +314,15 @@
                     <span v-else class="badge bg-danger">{{
                       $t("Inactive")
                     }}</span>
+                  </td>
+                </tr>
+                <tr v-if="!transactions || !transactions.length">
+                  <td colspan="7" class="text-center no-data-message">
+                    <div class="no-data-content">
+                      <i class="fas fa-exchange-alt fa-3x text-muted mb-3"></i>
+                      <h5 class="text-muted">{{ $t("No Transactions Found") }}</h5>
+                      <p class="text-muted">{{ $t("There are no recent transactions to display.") }}</p>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -686,6 +714,59 @@ export default {
   
   .invoices-table thead th:last-child {
     border-top-right-radius: 8px;
+  }
+}
+
+/* No Data Message Styling */
+.no-data-message {
+  padding: 3rem 1rem !important;
+  background: #f8fafc;
+  border: none !important;
+}
+
+.no-data-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.no-data-content i {
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.no-data-content h5 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.no-data-content p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments for no data messages */
+@media (max-width: 768px) {
+  .no-data-message {
+    padding: 2rem 0.5rem !important;
+  }
+  
+  .no-data-content {
+    padding: 1.5rem;
+  }
+  
+  .no-data-content i {
+    font-size: 2rem !important;
+  }
+  
+  .no-data-content h5 {
+    font-size: 1.1rem;
+  }
+  
+  .no-data-content p {
+    font-size: 0.85rem;
   }
 }
 </style>

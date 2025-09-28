@@ -64793,7 +64793,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 
 .card-footer .form-group.row.display-per-page {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   gap: 10px;
 }

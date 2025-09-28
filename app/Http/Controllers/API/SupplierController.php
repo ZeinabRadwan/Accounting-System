@@ -428,8 +428,9 @@ class SupplierController extends Controller
         $query->where(function ($query) use ($term) {
             $query->where('name', 'Like', '%' . $term . '%')
                 ->orWhere('email', 'Like', '%' . $term . '%')
+                ->orWhere('phone', 'Like', '%' . $term . '%')
                 ->orWhere('phone_number', 'Like', '%' . $term . '%')
-                ->orWhere('phone_legacy', 'Like', '%' . $term . '%')
+                ->orWhere('phone_secondary', 'Like', '%' . $term . '%')
                 ->orWhere('company_name', 'Like', '%' . $term . '%');
         });
 
@@ -613,8 +614,9 @@ class SupplierController extends Controller
                             ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
                             ->orWhereHas('supplier', function ($anotherQuery) use ($term) {
                                 $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
+                                    ->orWhere('phone', 'LIKE', '%' . $term . '%')
                                     ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone_legacy', 'LIKE', '%' . $term . '%');
+                                    ->orWhere('phone_secondary', 'LIKE', '%' . $term . '%');
                             });
                     });
             });

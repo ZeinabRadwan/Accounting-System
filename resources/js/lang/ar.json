@@ -3470,5 +3470,27 @@
   
   "Department Create Page Additional Messages": "رسائل إضافية لصفحة إنشاء القسم",
   "Department deleted successfully": "تم حذف القسم بنجاح",
-  "Oops...something went wrong": "عذراً... حدث خطأ ما"
+  "Oops...something went wrong": "عذراً... حدث خطأ ما",
+  
+  "Recent Activities No Data Messages": "رسائل عدم وجود بيانات في الأنشطة الأخيرة",
+  "No Invoices Found": "لا توجد فواتير",
+  "There are no recent invoices to display.": "لا توجد فواتير حديثة للعرض.",
+  "No Purchases Found": "لا توجد مشتريات",
+  "There are no recent purchases to display.": "لا توجد مشتريات حديثة للعرض.",
+  "No Expenses Found": "لا توجد مصروفات",
+  "There are no recent expenses to display.": "لا توجد مصروفات حديثة للعرض.",
+  "No Transactions Found": "لا توجد معاملات",
+  "There are no recent transactions to display.": "لا توجد معاملات حديثة للعرض.",
+  "January": "يناير",
+  "February": "فبراير",
+  "March": "مارس",
+  "April": "أبريل",
+  "May": "مايو",
+  "June": "يونيو",
+  "July": "يوليو",
+  "August": "أغسطس",
+  "September": "سبتمبر",
+  "October": "أكتوبر",
+  "November": "نوفمبر",
+  "December": "ديسمبر"
 }
