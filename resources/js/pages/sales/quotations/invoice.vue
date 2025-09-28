@@ -122,8 +122,8 @@
                         </td>
                         <td style="min-width: 120px;">
                           <div class="d-flex align-items-center">
-                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
-                              " v-tooltip="$t('Click to manage stock')" 
+                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'" 
+                              v-tooltip="$t('Click to manage stock')" 
                               class="badge badge-danger p-2 mr-2 clickable-badge" 
                               @click="openStockAdjustmentModal(item)">
                               <i class="fas fa-exclamation"></i>
@@ -150,14 +150,7 @@
                         <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="
-                                generateItemTotal(
-                                  item.qty,
-                                  'qty',
-                                  index,
-                                  'decrement'
-                                )
-                                " />
+                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', index, 'decrement')" />
 
                             <input type="number" step="any" :id="`Qty-${index+1}`" v-model.number="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
@@ -169,14 +162,7 @@
                               placeholder="Quantity" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="
-                                generateItemTotal(
-                                  item.qty,
-                                  'qty',
-                                  index,
-                                  'increment'
-                                )
-                                " />
+                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', index, 'increment')" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.qty`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.qty`) }}
@@ -184,16 +170,22 @@
                         </td>
                         <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
+                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
+                              data-field="quantity"
+                              @click="generateItemTotal(item.unitPrice, 'price', index, 'decrement')" />
                             <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
                               name="unitPrice" class="quantity-field border-0" required min="0" 
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.unitPrice`) }"
                               @input="generateItemTotal(item.unitPrice, 'price', index, '')" />
+                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
+                              data-field="quantity"
+                              @click="generateItemTotal(item.unitPrice, 'price', index, 'increment')" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.unitPrice`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
                           </div>
                         </td>
-                        <td style="min-width: 80px;">{{ item.totalBeforeDiscount  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 80px;">{{ item.totalBeforeDiscount }} <span class="saudi-riyal">ê</span></td>
                         <td style="min-width: 120px;">
                           <div class="input-group">
                             <select 
@@ -223,7 +215,7 @@
                             <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td style="min-width: 80px;">{{ item.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 80px;">{{ item.totalAfterDiscount }} <span class="saudi-riyal">ê</span></td>
                         <td style="min-width: 100px;">
                           <div class="d-flex align-items-center">
                             <select 
@@ -251,10 +243,10 @@
                         </td>
                         <td style="min-width: 60px;">
                           <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
+                            {{ item.productTax }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
-                        <td style="min-width: 80px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 80px;">{{ item.totalPrice }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right" style="min-width: 50px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
@@ -267,22 +259,22 @@
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalUnitPrice()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getTotalUnitPrice() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalDiscount()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getTotalDiscount() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalAfterDiscount()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getTotalAfterDiscount() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ getProductTotalTax()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getProductTotalTax() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getSubTotal()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getSubTotal() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>
@@ -860,7 +852,7 @@ export default {
               item.qty = Number(item.qty) - 1
             }
           }
-        } else {
+        } else if (type == 'price') {
           item.unitPrice = value
           if (action == 'increment') {
             item.unitPrice = Number(item.unitPrice) + 1
@@ -870,23 +862,25 @@ export default {
             }
           }
         }
-        // Calculate VAT based on tax type
-        if (item.taxType == 'Exclusive') {
-          // For exclusive tax: calculate VAT on unit price
-          item.productTax = item.unitPrice * (item.taxRate / 100)
-          item.totalTax = item.productTax * item.qty
-          item.totalPrice = item.qty * item.unitPrice + item.totalTax
+        
+        // Update calculated fields
+        item.totalBeforeDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty)
+        item.totalAfterDiscount = this.roundToTwoDecimals(item.totalBeforeDiscount - (item.discountAmount || 0))
+        
+        // Calculate VAT based on selected VAT rate
+        if (item.selectedVatRate && item.selectedVatRate.rate) {
+          const vatRate = item.selectedVatRate.rate
+          item.productTax = this.roundToTwoDecimals((item.totalAfterDiscount * vatRate) / 100)
+          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty)
+          item.totalPrice = this.roundToTwoDecimals(item.totalAfterDiscount + item.totalTax)
         } else {
-          // For inclusive tax: VAT is already included in unit price
-          // Calculate VAT amount from the unit price
-          item.productTax = item.unitPrice - item.unitPrice / (1 + item.taxRate / 100)
-          item.totalTax = item.productTax * item.qty
-          item.totalPrice = item.qty * item.unitPrice
+          // No VAT rate selected
+          item.productTax = 0
+          item.totalTax = 0
+          item.totalPrice = item.totalAfterDiscount
         }
-        item.unitCost =
-          item.taxType == 'Exclusive'
-            ? Number(item.unitPrice) + Number(item.productTax)
-            : item.unitPrice
+        
+        item.unitCost = this.roundToTwoDecimals(item.unitPrice)
         this.form.selectedProducts[index] = item
       }
       this.calculateSum()
@@ -1226,7 +1220,7 @@ export default {
           window.location.origin + '/api/clients/' + this.form.client.slug + '/auto-assign-chart-of-account'
         );
         
-        if (response.data && response.data.success) {
+        if (response && response.data && response.data.success) {
           // Update the client data with new chart of account
           const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null;
           if (newAccountId) {
@@ -1246,12 +1240,19 @@ export default {
           toast.fire({
             type: 'error',
             title: this.$t('Failed to assign Chart of Account'),
-            text: (response.data && response.data.message) || this.$t('Please try again'),
+            text: (response && response.data && response.data.message) || this.$t('Please try again'),
           });
         }
       } catch (error) {
         console.error('Error assigning client chart of account:', error);
-        const errorMessage = error.response?.data?.message || error.message || this.$t('Failed to assign Chart of Account. Please try again.');
+        let errorMessage = this.$t('Failed to assign Chart of Account. Please try again.');
+        
+        if (error && error.response) {
+          errorMessage = error.response.data?.message || error.message || errorMessage;
+        } else if (error && error.message) {
+          errorMessage = error.message;
+        }
+        
         toast.fire({
           type: 'error',
           title: this.$t('Error'),
@@ -1306,7 +1307,14 @@ export default {
         });
       } catch (error) {
         console.error('Error assigning product chart of accounts:', error);
-        const errorMessage = error.response?.data?.message || error.message || this.$t('Failed to assign Chart of Accounts. Please try again.');
+        let errorMessage = this.$t('Failed to assign Chart of Accounts. Please try again.');
+        
+        if (error && error.response) {
+          errorMessage = error.response.data?.message || error.message || errorMessage;
+        } else if (error && error.message) {
+          errorMessage = error.message;
+        }
+        
         toast.fire({
           type: 'error',
           title: this.$t('Error'),
@@ -1622,5 +1630,10 @@ export default {
 .custom-qty-input .quantity-field:focus {
   box-shadow: none;
   border-color: #80bdff;
+}
+
+.saudi-riyal {
+  font-weight: bold;
+  color: #28a745;
 }
 </style>
