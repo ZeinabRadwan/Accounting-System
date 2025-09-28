@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[6453],{
 
-/***/ 76453:
+/***/ 86453:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -9,10 +9,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
+  "default": () => (/* binding */ payments)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/brands/show.vue?vue&type=template&id=769befb4&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/payments/index.vue?vue&type=template&id=a687980a
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -24,83 +24,16 @@ var render = function render() {
   }), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-12 col-xl-3"
-  }, [_c('SettingsSidebar')], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-xl-9"
+    staticClass: "col-lg-12"
   }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header setings-header no-print"
-  }, [_c('div', {
-    staticClass: "col-xl-4 col-4"
-  }, [_c('h3', {
-    staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Brand Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info float-right",
-    attrs: {
-      "to": {
-        name: 'brands.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Back")) + "\n              ")]), _vm._v(" "), _c('a', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": _vm.printWindow
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t("Print")))])], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "invoice p-3 mb-3"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_c('table', {
-    staticClass: "table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Preview")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Brand Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Short Code")))]), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Created At")) + "\n                    ")])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm.allData.image ? _c('a', {
-    attrs: {
-      "href": "#",
-      "id": "show-modal"
-    },
-    on: {
-      "click": function click($event) {
-        _vm.showModal = true;
-      }
-    }
-  }, [_c('img', {
-    staticClass: "rounded preview-sm",
-    attrs: {
-      "src": _vm.allData.image,
-      "loading": "lazy"
-    }
-  })]) : _c('div', {
-    staticClass: "bg-secondary rounded no-preview-sm"
-  }, [_c('small', [_vm._v(_vm._s(_vm.$t("No Preview")))])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.code))]), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
-    staticClass: "badge bg-success"
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-    staticClass: "badge bg-danger"
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('td', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                      " + _vm._s(_vm._f("moment")(_vm.allData.createdAt, "Do MMM, YYYY")) + "\n                    ")])])])])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card custom-card w-100 mt-5"
+    staticClass: "card custom-card w-100"
   }, [_c('div', {
     staticClass: "card-header setings-header"
   }, [_c('div', {
     staticClass: "col-xl-4 col-4"
   }, [_c('h3', {
     staticClass: "card-title"
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("Activity log")) + "\n        ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Payments")) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-8 col-8 float-right text-right"
   }, [_c('div', {
     staticClass: "btn-group c-w-100"
@@ -108,8 +41,8 @@ var render = function render() {
     directives: [{
       name: "tooltip",
       rawName: "v-tooltip",
-      value: 'Refresh',
-      expression: "'Refresh'"
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
     }],
     staticClass: "btn btn-success",
     attrs: {
@@ -135,7 +68,9 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-print"
-  })])])])]), _vm._v(" "), _c('table-loading', {
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('table-loading', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -143,94 +78,76 @@ var render = function render() {
       expression: "loading"
     }]
   }), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "table-responsive table-custom mt-3",
     attrs: {
       "id": "printMe"
     }
-  }, [_vm._l(_vm.items, function (data, i) {
-    return _c('div', {
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t('ID')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Plan')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Month')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Transaction Type')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Trx ID')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Amount')) + "\n                    "), _c('span', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: 'Base Currency  <br/><small>(Converted USD)</small>',
+      expression: "'Base Currency  <br/><small>(Converted USD)</small>'"
+    }],
+    staticClass: "badge badge-info"
+  }, [_c('i', {
+    staticClass: "fas fa-info"
+  })])]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Payment Status')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Created At')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t('Action')))])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (payment, i) {
+    return _c('tr', {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: _vm.items.length > 0,
-        expression: "items.length > 0"
+        value: _vm.items.length,
+        expression: "items.length"
       }],
       key: i
-    }, [_c('div', {
-      staticClass: "card mb-0 border border-gray"
-    }, [_c('div', {
-      staticClass: "card-body py-1"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-1 d-flex justify-content-center align-items-center"
-    }, [data.event == 'Update' ? _c('i', {
-      staticClass: "fa fa-magic",
+    }, [_c('td', [_vm._v(_vm._s(payment.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(payment.plan.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(payment.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(payment.method))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(payment.system_trx_id))]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm._f("withCurrency")(payment.default_amount_rate * payment.quantity))), _c('br'), _vm._v("\n                    ($" + _vm._s(payment.amount * payment.quantity) + ")\n                  ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(payment.status))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(payment.created_at, "Do MMM, YYYY HH:mm:A")))]), _vm._v(" "), _c('td', {
+      staticClass: "text-center no-print"
+    }, [payment.status == 'success' ? _c('div', {
+      staticClass: "btn-group"
+    }, [_c('button', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Download'),
+        expression: "$t('Download')"
+      }],
+      staticClass: "btn btn-info btn-sm",
       attrs: {
-        "aria-hidden": "true"
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.download(payment.id);
+        }
       }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
-      staticClass: "fa fa-plus-circle",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
-      staticClass: "fa fa-trash",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e()]), _vm._v(" "), _c('div', {
-      staticClass: "col-11"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "text-bold mb-0"
-    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v("\n                        " + _vm._s(data.description) + "\n                      ")])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
-  }), _vm._v(" "), _c('div', {
+    }, [_c('i', {
+      staticClass: "fas fa-file-download"
+    })])]) : _c('div', {
+      staticClass: "text-center"
+    }, [_c('p', [_vm._v("N/A")])])])]);
+  }), _vm._v(" "), _c('tr', {
     directives: [{
       name: "show",
       rawName: "v-show",
       value: !_vm.loading && !_vm.items.length,
       expression: "!loading && !items.length"
-    }],
-    staticClass: "text-center"
-  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
+    }]
+  }, [_c('td', {
+    attrs: {
+      "colspan": "12"
+    }
+  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
     staticClass: "card-footer"
   }, [_c('div', {
     staticClass: "dtable-footer"
   }, [_c('div', {
     staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('per_page')) + " ")]), _vm._v(" "), _c('div', [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -274,39 +191,13 @@ var render = function render() {
     on: {
       "paginate": _vm.paginate
     }
-  }) : _vm._e()], 1)])], 1), _vm._v(" "), _vm.showModal ? _c('Modal', {
-    on: {
-      "close": function close($event) {
-        _vm.showModal = false;
-      }
-    }
-  }, [_c('h5', {
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_vm._v(_vm._s(_vm.$t("Attached Image Preview")))]), _vm._v(" "), _c('div', {
-    staticClass: "w-100",
-    attrs: {
-      "slot": "body"
-    },
-    slot: "body"
-  }, [_c('img', {
-    staticClass: "rounded img-fluid",
-    attrs: {
-      "src": _vm.allData.image,
-      "loading": "lazy"
-    }
-  })])]) : _vm._e()], 1);
+  }) : _vm._e()], 1)])])])])], 1);
 };
 var staticRenderFns = [];
 
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/brands/show.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/payments/index.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
@@ -318,201 +209,171 @@ function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
-
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
+/* harmony default export */ const paymentsvue_type_script_lang_js = ({
+  layout: 'central',
+  middleware: ['auth', 'check-permissions'],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Brand Details")
+      title: this.$t('Payments')
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: "Brand Details",
+      breadcrumbsCurrent: 'Payments',
       breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
+        name: 'Dashboard',
+        url: 'home'
       }, {
-        name: "Setup",
-        url: "setup.index"
-      }, {
-        name: "Brands",
-        url: "brands.index"
-      }, {
-        name: "Details",
-        url: ""
+        name: 'Payments',
+        url: ''
       }],
-      url: null,
-      showModal: false,
-      allData: "",
+      query: '',
       perPage: 10,
-      query: ""
+      billingHistory: []
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])),
-  watch: {
-    // watch search data
-    query: function query(newQ, oldQ) {
-      if (newQ === "") {
-        this.getActivity();
-      } else {
-        this.searchData();
-      }
-    }
-  },
+  // Map Getters
+  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items', 'loading', 'pagination', 'appInfo', 'tenant'])),
   created: function created() {
-    this.getBrand();
-    this.getActivity();
+    this.getData();
   },
   methods: {
-    // get the brand
-    getBrand: function getBrand() {
+    // get data
+    getData: function getData() {
       var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
+        var currentPage;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.n) {
             case 0:
+              _this.$store.state.operations.loading = true;
+              currentPage = _this.pagination ? _this.pagination.current_page : 1;
               _context.n = 1;
-              return axios_default().get(window.location.origin + "/api/brands/" + _this.$route.params.slug);
+              return _this.$store.dispatch('operations/fetchData', {
+                path: '/api/payments?page=',
+                currentPage: currentPage + '&perPage=' + _this.perPage
+              });
             case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this.allData = data.data;
-            case 2:
               return _context.a(2);
           }
         }, _callee);
       }))();
     },
-    // get activity logs
-    getActivity: function getActivity() {
+    // update per page count
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === '' ? this.getData() : this.searchData();
+    },
+    // Pagination
+    paginate: function paginate() {
       var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var currentPage, slug, modelName;
         return _regenerator().w(function (_context2) {
           while (1) switch (_context2.n) {
             case 0:
-              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
-              _this2.$store.state.operations.loading = true;
-              slug = _this2.$route.params.slug;
-              modelName = "Brand";
+              if (!(_this2.query === '')) {
+                _context2.n = 2;
+                break;
+              }
               _context2.n = 1;
-              return _this2.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: currentPage + "&perPage=" + _this2.perPage,
-                slug: slug,
-                modelName: modelName
-              });
+              return _this2.getData();
             case 1:
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.n = 3;
+              return _this2.searchData();
+            case 3:
               return _context2.a(2);
           }
         }, _callee2);
       }))();
     },
-    // search data
-    searchData: function searchData() {
+    // Reset pagination
+    resetPagination: function resetPagination() {
       var _this3 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var slug, modelName;
         return _regenerator().w(function (_context3) {
           while (1) switch (_context3.n) {
             case 0:
-              _this3.$store.state.operations.loading = true;
-              slug = _this3.$route.params.slug;
-              modelName = "Brand";
-              _context3.n = 1;
-              return _this3.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: _this3.pagination.current_page + "&perPage=" + _this3.perPage,
-                term: _this3.query,
-                slug: slug,
-                modelName: modelName
-              });
+              _this3.pagination.current_page = 1;
             case 1:
               return _context3.a(2);
           }
         }, _callee3);
       }))();
     },
-    // update per page count
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // print table
-    print: function print() {
+    // Reload after search
+    reload: function reload() {
       var _this4 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
         return _regenerator().w(function (_context4) {
           while (1) switch (_context4.n) {
             case 0:
-              _context4.n = 1;
-              return _this4.$htmlToPaper("printMe");
+              _this4.query = '';
             case 1:
               return _context4.a(2);
           }
         }, _callee4);
       }))();
     },
-    // refresh table
-    refreshTable: function refreshTable() {
-      this.query = "";
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // reset pagination
-    resetPagination: function resetPagination() {
+    // print table
+    print: function print() {
       var _this5 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
         return _regenerator().w(function (_context5) {
           while (1) switch (_context5.n) {
             case 0:
-              _this5.pagination.current_page = 1;
+              _context5.n = 1;
+              return _this5.$htmlToPaper('printMe');
             case 1:
               return _context5.a(2);
           }
         }, _callee5);
       }))();
     },
-    // reload after search
-    reload: function reload() {
+    // refresh table
+    refreshTable: function refreshTable() {
+      this.query = "";
+      this.query === "" ? this.getData() : this.searchData();
+    },
+    // download invoice
+    download: function download(id) {
       var _this6 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
         return _regenerator().w(function (_context6) {
           while (1) switch (_context6.n) {
             case 0:
-              _this6.query = "";
+              _context6.n = 1;
+              return _this6.$axios.post(window.location.origin + "/api/payments/download", {
+                payment_id: id
+              }, {
+                responseType: "blob"
+              }).then(function (response) {
+                toast.fire({
+                  type: "success",
+                  title: _this6.$t("Successfully created")
+                });
+                window.open(URL.createObjectURL(response.data));
+              })["catch"](function () {
+                toast.fire({
+                  type: "error",
+                  title: _this6.$t("Please check your input and try again.")
+                });
+              });
             case 1:
               return _context6.a(2);
           }
         }, _callee6);
       }))();
-    },
-    // pagination
-    paginate: function paginate() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
-            case 0:
-              _this7.getActivity();
-            case 1:
-              return _context7.a(2);
-          }
-        }, _callee7);
-      }))();
-    },
-    // print
-    printWindow: function printWindow() {
-      window.print();
     }
   }
 });
-;// ./resources/js/pages/setup/brands/show.vue?vue&type=script&lang=js
- /* harmony default export */ const brands_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+;// ./resources/js/pages/central/payments/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const central_paymentsvue_type_script_lang_js = (paymentsvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/setup/brands/show.vue
+;// ./resources/js/pages/central/payments/index.vue
 
 
 
@@ -521,17 +382,17 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 ;
 var component = (0,componentNormalizer/* default */.A)(
-  brands_showvue_type_script_lang_js,
+  central_paymentsvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "769befb4",
+  null,
   null
   
 )
 
-/* harmony default export */ const show = (component.exports);
+/* harmony default export */ const payments = (component.exports);
 
 /***/ })
 
