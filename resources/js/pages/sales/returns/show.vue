@@ -233,8 +233,8 @@
                         </td>
                         <td>
                           <strong>{{
-                            allData.invoice.subTotal | withCurrency
-                          }}</strong>
+                            Number(allData.invoice.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td class="text-right">
                           <strong>{{ invoiceReturn  }} <span class="saudi-riyal">ê</span></strong>
@@ -406,15 +406,14 @@
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
                         <td>
-                          {{ Number(allData.invoice.subTotal).toFixed(2) | withCurrency }}
+                          {{ Number(allData.invoice.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Cost of Returned Products") }}:</th>
                         <td>
                           {{
-                            calculateTotalReturnedProductCost()
-                              | withCurrency
+                            Number(calculateTotalReturnedProductCost()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                           }}
                         </td>
                       </tr>
@@ -422,34 +421,34 @@
                         <th>{{ $t("Return Discount") }}:</th>
                         <td>
                           {{
-                            calculateTotalReturnDiscount() | withCurrency
+                            Number(calculateTotalReturnDiscount()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                           }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Return VAT") }}:</th>
                         <td>
-                          {{ Number(calculateTotalReturnTax()).toFixed(2) | withCurrency }}
+                          {{ Number(calculateTotalReturnTax()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Remaining Discount") }}:</th>
                         <td>
                           {{
-                            calculateTotalRemainingDiscount() | withCurrency
+                            Number(calculateTotalRemainingDiscount()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                           }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Remaining Tax") }}:</th>
                         <td>
-                          {{ Number(calculateTotalRemainingTax()).toFixed(2) | withCurrency }}
+                          {{ Number(calculateTotalRemainingTax()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          {{ Number(allData.invoice.transport).toFixed(2) | withCurrency }}
+                          {{ Number(allData.invoice.transport).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
@@ -462,12 +461,12 @@
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          {{ Number(allData.invoice.totalPaid).toFixed(2) | withCurrency }}
+                          {{ Number(allData.invoice.totalPaid).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ Number(allData.invoice.due).toFixed(2) | withCurrency }}</td>
+                        <td>{{ Number(allData.invoice.due).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
                       </tr>
                       <tr
                         v-if="allData.accountPayable"
@@ -475,7 +474,7 @@
                       >
                         <th>{{ $t("Account Payable") }}:</th>
                         <td>
-                          {{ Number(allData.accountPayable.amount).toFixed(2) | withCurrency }}
+                          {{ Number(allData.accountPayable.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
                         </td>
                       </tr>
                     </tbody>

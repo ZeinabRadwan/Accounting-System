@@ -121,9 +121,9 @@
                               data-field="quantity" @click="updateItem(item.returnQty + 1, i - 1)" />
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ Number(item.price).toFixed(2) | withCurrency }}</td>
-                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toFixed(2) | withCurrency }}</td>
-                        <td style="min-width: 120px;">{{ Number(item.returnTotal).toFixed(2) | withCurrency }}</td>
+                        <td style="min-width: 100px;">{{ Number(item.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
+                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
+                        <td style="min-width: 120px;">{{ Number(item.returnTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
                       </tr>
                       <tr v-if="form.purchase">
                         <td colspan="7" class="text-right">
@@ -131,11 +131,11 @@
                         </td>
                         <td>
                           <strong>{{
-                            form.purchase.subTotal | withCurrency
-                          }}</strong>
+                            Number(form.purchase.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ Number(form.totalReturn).toFixed(2) | withCurrency }}</strong>
+                          <strong>{{ Number(form.totalReturn).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</strong>
                         </td>
                       </tr>
                     </tbody>
