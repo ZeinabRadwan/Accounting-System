@@ -372,8 +372,9 @@ class InvoicePaymentController extends Controller
                         ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
                         ->orWhereHas('client', function ($anotherQuery) use ($term) {
                             $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
+                                ->orWhere('phone', 'LIKE', '%' . $term . '%')
                                 ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
-                                ->orWhere('phone_legacy', 'LIKE', '%' . $term . '%');
+                                ->orWhere('phone_secondary', 'LIKE', '%' . $term . '%');
                         })->orWhereHas('user', function ($anotherQuery) use ($term) {
                             $anotherQuery->where('name', 'LIKE', '%' . $term . '%');
                         });

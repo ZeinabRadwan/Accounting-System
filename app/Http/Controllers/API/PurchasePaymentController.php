@@ -302,9 +302,9 @@ class PurchasePaymentController extends Controller
                         ->orWhere('po_reference', 'LIKE', '%'.$term.'%')
                         ->orWhereHas('supplier', function ($newQuery) use ($term) {
                             $newQuery->where('name', 'LIKE', '%'.$term.'%')
-                                ->orWhere('name', 'LIKE', '%'.$term.'%')
+                                ->orWhere('phone', 'LIKE', '%'.$term.'%')
                                 ->orWhere('phone_number', 'LIKE', '%'.$term.'%')
-                        ->orWhere('phone_legacy', 'LIKE', '%'.$term.'%');
+                                ->orWhere('phone_secondary', 'LIKE', '%'.$term.'%');
                         });
                 })
                 ->orWhereHas('purchasePaymentTransaction', function ($newQuery) use ($term) {

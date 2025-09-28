@@ -19,8 +19,16 @@
             </div>
           </div>
           <!-- /.card-header -->
+          <!-- Loading indicator -->
+          <div v-if="loading" class="card-body text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">{{ $t('Loading...') }}</span>
+            </div>
+            <p class="mt-2">{{ $t('Loading category data...') }}</p>
+          </div>
+
           <!-- form start -->
-          <form role="form" @submit.prevent="updateCategory" @keydown="form.onKeydown($event)">
+          <form v-else role="form" @submit.prevent="updateCategory" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-6">
@@ -28,13 +36,13 @@
                     <span class="required">*</span></label>
                   <input id="name" v-model="form.name" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter a name')" />
+                    :placeholder="$t('Enter a name')" :disabled="loading" />
                   <has-error :form="form" field="name" />
                 </div>
                 <div class="form-group col-md-6">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
+                    :class="{ 'is-invalid': form.errors.has('status') }" :disabled="loading">
                     <option value="1">{{ $t('Active') }}</option>
                     <option value="0">{{ $t('Inactive') }}</option>
                   </select>
@@ -44,7 +52,8 @@
               <div class="form-group">
                 <label for="note">{{ $t('Note') }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" 
+                  :disabled="loading" />
                 <has-error :form="form" field="note" />
               </div>
             </div>
@@ -52,10 +61,10 @@
             <div class="card-footer">
               <div class="dtable-footer">
                 <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-                  <v-button :loading="form.busy" type="success">
+                  <v-button :loading="form.busy || loading" type="success" :disabled="loading">
                     <i class="fas fa-edit" /> {{ $t('Save changes') }}
                   </v-button>
-                  <button type="reset" class="btn btn-info" @click="form.reset()">
+                  <button type="reset" class="btn btn-info" @click="form.reset()" :disabled="loading">
                     <i class="fas fa-power-off" /> {{ $t('Reset') }}
                   </button>
                 </div>
@@ -71,6 +80,7 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   middleware: ['auth', 'check-permissions'],
@@ -104,21 +114,37 @@ export default {
     }),
     loading: true,
   }),
-
+  computed: {
+    ...mapGetters('operations', ['items', 'loading']),
+  },
+  async created() {
+    await this.getCategory()
+  },
   mounted() {
-    this.getCategory()
+    this.loadTemporaryData()
   },
   methods: {
     // get category
     async getCategory() {
-      const { data } = await axios.get(
-        window.location.origin +
-        '/api/product-categories/' +
-        this.$route.params.slug
-      )
-      this.form.name = data.name
-      this.form.note = data.note
-      this.form.status = data.status
+      this.loading = true
+      try {
+        const { data } = await axios.get(
+          window.location.origin +
+          '/api/product-categories/' +
+          this.$route.params.slug
+        )
+        this.form.name = data.name
+        this.form.note = data.note
+        this.form.status = data.status
+      } catch (error) {
+        console.error('Error fetching category:', error)
+        window.toast.fire({
+          type: 'error',
+          title: this.$t('Error loading category data'),
+        })
+      } finally {
+        this.loading = false
+      }
     },
     // update category
     async updateCategory() {
@@ -129,7 +155,7 @@ export default {
           this.$route.params.slug
         )
         .then(() => {
-          toast.fire({
+          window.toast.fire({
             type: 'success',
             title: this.$t('Category updated successfully'),
           })
@@ -137,7 +163,7 @@ export default {
           this.$router.push({ name: 'productCats.index' })
         })
         .catch(() => {
-          toast.fire({
+          window.toast.fire({
             type: 'error',
             title: this.$t('Please check your input and try again.'),
           })
@@ -172,9 +198,6 @@ export default {
     clearTemporaryData() {
       localStorage.removeItem('productCategoryEditTempData')
     },
-  },
-  mounted() {
-    this.loadTemporaryData()
   },
 }
 </script>
