@@ -26,7 +26,7 @@ class DashboardService implements IDashboardService
 
     public function getSummery($summeryType)
     {
-        $to = Carbon::today();
+        $to = Carbon::now();
         $from = Carbon::today();
 
         if ($summeryType == 'today') {
@@ -51,7 +51,6 @@ class DashboardService implements IDashboardService
 
     public function getSummeryBetweenDates($from, $to)
     {
-
         $invoicePayment = InvoicePayment::where('status', 1)->whereBetween('date', [$from, $to])->sum('amount');
         $nonInvoicePayment = NonInvoicePayment::where('type', 1)->where('status', 1)->whereBetween('date', [$from, $to])->sum('amount');
 

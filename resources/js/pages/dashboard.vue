@@ -55,7 +55,7 @@
                         <div class="card-tools">
                           <select
                             v-model="form.summeryType"
-                            @change="getSummery($event)"
+                            @change="getSummery()"
                             class="form-control"
                             id="summeryType"
                             name="summeryType"
@@ -78,13 +78,13 @@
                     </div>
                     <div class="card-body summary-cards">
                       <div class="row">
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.purchaseAmount | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.purchaseAmount || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>{{ $t("Purchase") }}</p>
                             </div>
@@ -100,14 +100,13 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-light-green">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.purchaseReturnAmount
-                                    | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.purchaseReturnAmount || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>{{ $t("Debit Notes") }}</p>
                             </div>
@@ -123,13 +122,13 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-light-blue">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.salesAmount | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.salesAmount || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>{{ $t("Sales") }}</p>
                             </div>
@@ -145,14 +144,13 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-green">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.salesReturnAmount
-                                    | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.salesReturnAmount || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>{{ $t("Credit Notes") }}</p>
                             </div>
@@ -168,14 +166,13 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-dark-blue">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.paymentReceived
-                                    | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.paymentReceived || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>
                                 {{ $t("Client Payment") }}
@@ -193,13 +190,13 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-teal">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.paymentSent | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.paymentSent || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>{{ $t("Supplier Payment") }}</p>
                             </div>
@@ -215,13 +212,13 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-dark-teal">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.expenseAmount | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.expenseAmount || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>{{ $t("Expense") }}</p>
                             </div>
@@ -237,14 +234,13 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
-                                {{
-                                  dashboardSummery.balanceTransfer
-                                    | withCurrency
-                                }}
+                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                                {{ formatNumber(dashboardSummery.balanceTransfer || 0) }}
+                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
                               </h3>
                               <p>
                                 {{ $t("Balance Transfers") }}
@@ -262,11 +258,11 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-green">
                             <div class="inner">
                               <h3>
-                                {{ dashboardSummery.totalStockQuantity }}
+                                {{ dashboardSummery.totalStockQuantity || 0 }}
                               </h3>
                               <p>
                                 {{ $t("Total Stock Quantity") }}
@@ -287,11 +283,11 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-4 col-6">
+                        <div class="col-md-4 col-6">
                           <div class="small-box bg-brand-light-green">
                             <div class="inner">
                               <h3>
-                                {{ dashboardSummery.totalStockValue }}
+                                {{ dashboardSummery.totalStockValue || 0 }}
                               </h3>
                               <p>
                                 {{ $t("Total Stock Value") }}
@@ -325,8 +321,8 @@
                 <div
                   v-if="
                     $can('top-selling-products') &&
-                    pieChartOptions.legend.data &&
-                    pieChartOptions.legend.data.length > 0
+                    translatedPieChartOptions.legend.data &&
+                    translatedPieChartOptions.legend.data.length > 0
                   "
                   class="col-md-12 col-lg-4"
                 >
@@ -351,7 +347,7 @@
                     </div>
                     <div class="card-body">
                       <template>
-                        <v-chart class="chart" :option="pieChartOptions" />
+                        <v-chart class="chart" :option="translatedPieChartOptions" />
                       </template>
                     </div>
                   </div>
@@ -361,8 +357,8 @@
                   class="col-md-12"
                   :class="
                     $can('top-selling-products') &&
-                    pieChartOptions.legend.data &&
-                    pieChartOptions.legend.data.length > 0
+                    translatedPieChartOptions.legend.data &&
+                    translatedPieChartOptions.legend.data.length > 0
                       ? 'col-lg-8'
                       : 'col-lg-12'
                   "
@@ -443,8 +439,8 @@
                 <div
                   v-if="
                     $can('sales-vs-purchases') &&
-                    barChartOptions.series[0].data &&
-                    barChartOptions.series[0].data.length > 0
+                    translatedBarChartOptions.series[0].data &&
+                    translatedBarChartOptions.series[0].data.length > 0
                   "
                   class="col-md-12 col-lg-8"
                 >
@@ -480,7 +476,7 @@
                     </div>
                     <div class="card-body">
                       <template>
-                        <v-chart class="chart" :option="barChartOptions" />
+                        <v-chart class="chart" :option="translatedBarChartOptions" />
                       </template>
                     </div>
                   </div>
@@ -562,7 +558,7 @@ export default {
     className: "col-lg-4",
     allData: "",
     topClients: "",
-    dashboardSummery: "",
+    dashboardSummery: {},
     loading: false,
 
     // options for pie chart(Top selling products)
@@ -1087,9 +1083,75 @@ export default {
         ],
       };
     },
+    
+    // Currency properties
+    currencySymbol() {
+      return this.$store.state.operations.appInfo.currency.symbol;
+    },
+    
+    currencyPosition() {
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl' || 
+                   document.body.classList.contains('rtl');
+      const position = this.$store.state.operations.appInfo.currency.position;
+      return isRTL ? (position === 'left' ? 'right' : 'left') : position;
+    },
+
+    // Computed properties for chart options with translations
+    translatedPieChartOptions() {
+      return {
+        ...this.pieChartOptions,
+        series: [
+          {
+            ...this.pieChartOptions.series[0],
+            name: this.$t("Top Selling Products")
+          }
+        ]
+      };
+    },
+
+    translatedBarChartOptions() {
+      return {
+        ...this.barChartOptions,
+        legend: {
+          ...this.barChartOptions.legend,
+          data: [this.$t("Purchases"), this.$t("Sales")]
+        },
+        series: [
+          {
+            ...this.barChartOptions.series[0],
+            name: this.$t("Purchases")
+          },
+          {
+            ...this.barChartOptions.series[1],
+            name: this.$t("Sales")
+          }
+        ]
+      };
+    },
   },
 
+
   methods: {
+    // Translate English month abbreviations to Arabic
+    translateMonths(months) {
+      const monthTranslations = {
+        'Jan': 'يناير',
+        'Feb': 'فبراير', 
+        'Mar': 'مارس',
+        'Apr': 'أبريل',
+        'May': 'مايو',
+        'Jun': 'يونيو',
+        'Jul': 'يوليو',
+        'Aug': 'أغسطس',
+        'Sep': 'سبتمبر',
+        'Oct': 'أكتوبر',
+        'Nov': 'نوفمبر',
+        'Dec': 'ديسمبر'
+      };
+      
+      return months.map(month => monthTranslations[month] || month);
+    },
+
     showPaymentNotification(status, message) {
       if (status === "success") {
         toast.fire({
@@ -1104,16 +1166,29 @@ export default {
       }
     },
 
+    formatNumber(number) {
+      if (number > 0) {
+        return Number(number).toLocaleString('en-US', { 
+          minimumFractionDigits: 0, 
+          maximumFractionDigits: 2 
+        });
+      } else {
+        return '0';
+      }
+    },
+
     // get summery
     async getSummery(event) {
-      let summerType = "Today";
-      if (event) {
-        summerType = event.target.value;
+      let summerType = this.form.summeryType || "today";
+      
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/dashboard-summery/" + summerType
+        );
+        this.dashboardSummery = data;
+      } catch (error) {
+        console.error('Error fetching dashboard summary:', error);
       }
-      const { data } = await axios.get(
-        window.location.origin + "/api/dashboard-summery/" + summerType
-      );
-      this.dashboardSummery = data;
     },
 
     // get top-selling products
@@ -1138,7 +1213,7 @@ export default {
       const { data } = await axios.get(
         window.location.origin + "/api/dashboard/monthly-payment-sent-received"
       );
-      this.lineChartOptions.xAxis.data = data.months;
+      this.lineChartOptions.xAxis.data = this.translateMonths(data.months);
       this.lineChartOptions.series[0].data = data.sent;
       this.lineChartOptions.series[1].data = data.received;
     },
@@ -1148,7 +1223,7 @@ export default {
       const { data } = await axios.get(
         window.location.origin + "/api/dashboard/monthly-sales-purchases"
       );
-      this.barChartOptions.xAxis.data = data.months;
+      this.barChartOptions.xAxis.data = this.translateMonths(data.months);
       this.barChartOptions.series[0].data = data.purchase;
       this.barChartOptions.series[1].data = data.sales;
     },
