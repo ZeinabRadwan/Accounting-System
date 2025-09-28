@@ -59,6 +59,7 @@ Route::get('general-settings', [CentralGeneralController::class, 'getGeneralSett
 // Tenant Register and Find Domain and Login API
 Route::post('/register', [TenantRegisterController::class, 'store']);
 Route::post('/find-domain', [TenantDomainFindController::class, 'findDomain'])->name('central.find-domain');
+Route::post('/tenant-login', [TenantDomainFindController::class, 'tenantLogin'])->name('central.tenant-login');
 Route::post('/login', [LoginController::class, 'login'])->name('central.login');
 
 

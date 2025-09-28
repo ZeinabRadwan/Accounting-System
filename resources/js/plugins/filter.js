@@ -35,7 +35,7 @@ Vue.filter('shortText', function (str) {
 Vue.filter('withCurrency', function (number) {
   let currency = store.state.operations.appInfo.currency
   
-  // Keep the original symbol - the SaudiRiyalSymbol font will handle the 'ê' character display
+  // Use the original symbol from the store - the SaudiRiyalSymbol font will handle the 'ê' character display
   let displaySymbol = currency.symbol
   
   // Check if we're in RTL mode
@@ -49,15 +49,22 @@ Vue.filter('withCurrency', function (number) {
   }
   
   if (number > 0) {
-    // Fix: Apply toLocaleString() to the number first, then format
+    // Apply toLocaleString() to the number first, then format with max 2 decimal places
     let numValue = Number(number)
     let newNumber = numValue.toLocaleString('en-US', { 
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? displaySymbol + newNumber : newNumber + displaySymbol
+    
+    // Wrap the symbol in saudi-riyal class for proper display
+    let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
+    
+    return effectivePosition == 'left' ? symbolWithClass + newNumber : newNumber + symbolWithClass
   } else {
-    return effectivePosition == 'left' ? displaySymbol + '0.00' : '0.00' + displaySymbol
+    // Wrap the symbol in saudi-riyal class for proper display
+    let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
+    
+    return effectivePosition == 'left' ? symbolWithClass + '0.00' : '0.00' + symbolWithClass
   }
 })
 
@@ -65,7 +72,7 @@ Vue.filter('withCurrency', function (number) {
 Vue.filter('withCentralAdminCurrency', function (number) {
   let currency = store.state.operations.appInfo.centralAdminCurrency
   
-  // Keep the original symbol - the SaudiRiyalSymbol font will handle the 'ê' character display
+  // Use the original symbol from the store - the SaudiRiyalSymbol font will handle the 'ê' character display
   let displaySymbol = currency.symbol
   
   // Check if we're in RTL mode
@@ -79,15 +86,22 @@ Vue.filter('withCentralAdminCurrency', function (number) {
   }
   
   if (number > 0) {
-    // Fix: Apply toLocaleString() to the number first, then format
+    // Apply toLocaleString() to the number first, then format with max 2 decimal places
     let numValue = Number(number)
     let newNumber = numValue.toLocaleString('en-US', { 
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? displaySymbol + newNumber : newNumber + displaySymbol
+    
+    // Wrap the symbol in saudi-riyal class for proper display
+    let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
+    
+    return effectivePosition == 'left' ? symbolWithClass + newNumber : newNumber + symbolWithClass
   } else {
-    return effectivePosition == 'left' ? displaySymbol + '0.00' : '0.00' + displaySymbol
+    // Wrap the symbol in saudi-riyal class for proper display
+    let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
+    
+    return effectivePosition == 'left' ? symbolWithClass + '0.00' : '0.00' + symbolWithClass
   }
 })
 
@@ -96,7 +110,7 @@ Vue.filter('withCentralAdminCurrency', function (number) {
 Vue.filter('withAbsoluteCurrency', function (number) {
   let currency = store.state.operations.appInfo.currency
   
-  // Keep the original symbol - the SaudiRiyalSymbol font will handle the 'ê' character display
+  // Use the original symbol from the store - the SaudiRiyalSymbol font will handle the 'ê' character display
   let displaySymbol = currency.symbol
   
   // Check if we're in RTL mode
@@ -110,22 +124,30 @@ Vue.filter('withAbsoluteCurrency', function (number) {
   }
   
   if (number > 0) {
-    // Fix: Apply toLocaleString() to the number first, then format
+    // Apply toLocaleString() to the number first, then format with max 2 decimal places
     let numValue = Number(number)
     let newNumber = numValue.toLocaleString('en-US', { 
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? displaySymbol + newNumber : newNumber + displaySymbol
+    
+    // Wrap the symbol in saudi-riyal class for proper display
+    let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
+    
+    return effectivePosition == 'left' ? symbolWithClass + newNumber : newNumber + symbolWithClass
   } else {
-    // Fix: Format negative numbers properly
+    // Format negative numbers properly with max 2 decimal places
     let numValue = Number(number)
     let absValue = Math.abs(numValue)
     let newNumber = absValue.toLocaleString('en-US', { 
       minimumFractionDigits: 2, 
       maximumFractionDigits: 2 
     })
-    return effectivePosition == 'left' ? '-' + displaySymbol + newNumber : '-' + newNumber + displaySymbol
+    
+    // Wrap the symbol in saudi-riyal class for proper display
+    let symbolWithClass = `<span class="saudi-riyal">${displaySymbol}</span>`
+    
+    return effectivePosition == 'left' ? '-' + symbolWithClass + newNumber : '-' + newNumber + symbolWithClass
   }
 })
 

@@ -53,7 +53,7 @@ class ExportLoan implements FromCollection,  WithHeadings, ShouldAutoSize, WithE
         });
 
         $loans = LoanResource::collection($query->latest()->get())->map(function ($loan) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $loan['reference_no'],
                 date('jS M, Y', strtotime($loan->date)),
@@ -69,18 +69,18 @@ class ExportLoan implements FromCollection,  WithHeadings, ShouldAutoSize, WithE
         });
 
         $totalAmount = $loans->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[7]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[7]  ?? 0));
         });
         $totalPayable = $loans->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[8]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[8]  ?? 0));
         });
         $totalDue = $loans->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[9]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[9]  ?? 0));
         });
 
         // Add the total paid as a new row
         $loans->push([
-            '', '', '', '', '', '', '', 'Total Amount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalAmount,  'Total Payable = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalPayable, 'Total Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalDue,
+            '', '', '', '', '', '', '', 'Total Amount = ' . getExcelCompatibleCurrencySymbol() . $totalAmount,  'Total Payable = ' . getExcelCompatibleCurrencySymbol() . $totalPayable, 'Total Due = ' . getExcelCompatibleCurrencySymbol() . $totalDue,
         ]);
 
         return $loans;

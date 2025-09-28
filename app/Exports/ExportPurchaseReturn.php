@@ -53,7 +53,7 @@ class ExportPurchaseReturn implements FromCollection,  WithHeadings, ShouldAutoS
         });
 
         $purchaseReturns = PurchaseReturnListResource::collection($query->latest()->get())->map(function ($purchaseReturns) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.purchaseReturnPrefix') . ' - ' . $purchaseReturns->code,
                 date('jS M, Y', strtotime($purchaseReturns->date)),
@@ -66,12 +66,12 @@ class ExportPurchaseReturn implements FromCollection,  WithHeadings, ShouldAutoS
         });
 
         $totalPaid = $purchaseReturns->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[6] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[6] ?? 0));
         });
 
         // Add the total paid as a new row
         $purchaseReturns->push([
-            '', '', '', '', '', '', 'Total Return = ' . getGeneralSettingsInfo()['currency']['symbol']  . $totalPaid,
+            '', '', '', '', '', '', 'Total Return = ' . getExcelCompatibleCurrencySymbol()  . $totalPaid,
         ]);
 
         return $purchaseReturns;

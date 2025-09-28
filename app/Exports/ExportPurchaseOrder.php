@@ -48,7 +48,7 @@ class ExportPurchaseOrder implements FromCollection, WithHeadings, ShouldAutoSiz
         });
 
         $orders = $query->latest()->get()->map(function ($order) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $order->purchase_no ? config('config.purchaseOrderPrefix') . '-' . $order->purchase_no : 'N/A',
                 $order->po_date ? date('jS M, Y', strtotime($order->po_date)) : 'N/A',
@@ -59,11 +59,11 @@ class ExportPurchaseOrder implements FromCollection, WithHeadings, ShouldAutoSiz
         });
 
         $netTotal = $orders->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[4] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[4] ?? 0));
         });
 
         $orders->push([
-            '', '', '', '', 'Net Total = ' . getGeneralSettingsInfo()['currency']['symbol'] . $netTotal,
+            '', '', '', '', 'Net Total = ' . getExcelCompatibleCurrencySymbol() . $netTotal,
         ]);
 
         return $orders;

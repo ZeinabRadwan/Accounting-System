@@ -57,7 +57,7 @@ class ExportClientInvoicePayment implements FromCollection,  WithHeadings, Shoul
 
         // Retrieve balance clientInvoicePayments
         $clientInvoicePayments = $query->latest()->get()->map(function ($clientInvoicePayment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.invoicePrefix') . ' - ' . $clientInvoicePayment->invoice_id ?? 'N/A',
                 date('jS M, Y', strtotime($clientInvoicePayment->date)),
@@ -70,15 +70,15 @@ class ExportClientInvoicePayment implements FromCollection,  WithHeadings, Shoul
         });
 
         $totalAmount = $clientInvoicePayments->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[4] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[4] ?? 0));
         });
         $totalPaidAmount = $clientInvoicePayments->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[6]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[6]  ?? 0));
         });
 
         // Add the total paid as a new row
         $clientInvoicePayments->push([
-            '', '', '', '', 'Total Amount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalAmount,  '', 'Total Paid Amount =' . getGeneralSettingsInfo()['currency']['symbol'] . $totalPaidAmount,
+            '', '', '', '', 'Total Amount = ' . getExcelCompatibleCurrencySymbol() . $totalAmount,  '', 'Total Paid Amount =' . getExcelCompatibleCurrencySymbol() . $totalPaidAmount,
         ]);
 
         return $clientInvoicePayments;

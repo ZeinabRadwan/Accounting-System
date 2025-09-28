@@ -316,15 +316,15 @@
                 <div class="summary-card">
                     <div>
                         <div class="summary-label">المجموع الفرعي للفواتير:</div>
-                        <div class="summary-value">{{ $data['currencySymbol'] }}{{ number_format($data['totalInvoiceDue'], 2) }}</div>
+                        <div class="summary-value">{{ number_format($data['totalInvoiceDue'], 2) }}</div>
                     </div>
                     <div>
                         <div class="summary-label">المجموع الفرعي للمدفوعات:</div>
-                        <div class="summary-value">{{ $data['currencySymbol'] }}{{ number_format($data['totalNonInvoiceDue'], 2) }}</div>
+                        <div class="summary-value">{{ number_format($data['totalNonInvoiceDue'], 2) }}</div>
                     </div>
                     <div class="summary-total">
                         <div class="summary-label">المجموع الكلي:</div>
-                        <div class="summary-value">{{ $data['currencySymbol'] }}{{ number_format($data['totalDue'], 2) }}</div>
+                        <div class="summary-value">{{ number_format($data['totalDue'], 2) }}</div>
                     </div>
                 </div>
             </div>
@@ -354,9 +354,9 @@
                                 <td>{{ $client->phone }}</td>
                                 <td class="client-email">{{ $client->email }}</td>
                                 <td>{{ $client->company_name }}</td>
-                                <td class="amount-cell">{{ $data['currencySymbol'] }}{{ number_format($client->clientDue() ?: 0, 2) }}</td>
-                                <td class="amount-cell">{{ $data['currencySymbol'] }}{{ number_format($client->nonInvoiceCurrentDue() ?: 0, 2) }}</td>
-                                <td class="amount-cell">{{ $data['currencySymbol'] }}{{ number_format(($client->clientDue() ?: 0) + ($client->nonInvoiceCurrentDue() ?: 0), 2) }}</td>
+                                <td class="amount-cell">{{ number_format($client->clientDue() ?: 0, 2) }}</td>
+                                <td class="amount-cell">{{ number_format($client->nonInvoiceCurrentDue() ?: 0, 2) }}</td>
+                                <td class="amount-cell">{{ number_format(($client->clientDue() ?: 0) + ($client->nonInvoiceCurrentDue() ?: 0), 2) }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -368,15 +368,15 @@
                     <div class="totals-card">
                         <div class="total-row">
                             <span class="total-label">إجمالي مستحقات الفواتير:</span>
-                            <span class="total-value">{{ $data['currencySymbol'] }}{{ number_format($data['totalInvoiceDue'], 2) }}</span>
+                            <span class="total-value">{{ number_format($data['totalInvoiceDue'], 2) }}</span>
                         </div>
                         <div class="total-row">
                             <span class="total-label">إجمالي مستحقات المدفوعات:</span>
-                            <span class="total-value">{{ $data['currencySymbol'] }}{{ number_format($data['totalNonInvoiceDue'], 2) }}</span>
+                            <span class="total-value">{{ number_format($data['totalNonInvoiceDue'], 2) }}</span>
                         </div>
                         <div class="total-row total-final">
                             <span class="total-label">المجموع الكلي:</span>
-                            <span class="total-value">{{ $data['currencySymbol'] }}{{ number_format($data['totalDue'], 2) }}</span>
+                            <span class="total-value">{{ number_format($data['totalDue'], 2) }}</span>
                         </div>
                     </div>
                 </div>

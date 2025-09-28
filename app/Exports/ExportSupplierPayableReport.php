@@ -38,7 +38,7 @@ class ExportSupplierPayableReport implements FromCollection,  WithHeadings, Shou
         });
 
         $supplierPayableReports = SupplierResource::collection($query->latest()->get())->map(function ($supplierPayableReport) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 config('config.supplierPrefix') . ' - ' . $supplierPayableReport->supplier_id,
                 $supplierPayableReport->status ? 'Active' : 'Inactive',
@@ -53,18 +53,18 @@ class ExportSupplierPayableReport implements FromCollection,  WithHeadings, Shou
         });
 
         $totalInvoiceDue = $supplierPayableReports->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[6] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[6] ?? 0));
         });
         $totalNonInvoiceDue = $supplierPayableReports->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[7] ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[7] ?? 0));
         });
         $totalDue = $supplierPayableReports->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[8]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '',  $row[8]  ?? 0));
         });
 
         // Add the total salary as a new row
         $supplierPayableReports->push([
-            '', '', '', '', '', '', 'Total Invoice Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalInvoiceDue, 'Total Non Invoice Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalNonInvoiceDue, 'Total Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalDue,
+            '', '', '', '', '', '', 'Total Invoice Due = ' . getExcelCompatibleCurrencySymbol() . $totalInvoiceDue, 'Total Non Invoice Due = ' . getExcelCompatibleCurrencySymbol() . $totalNonInvoiceDue, 'Total Due = ' . getExcelCompatibleCurrencySymbol() . $totalDue,
         ]);
 
         return $supplierPayableReports;

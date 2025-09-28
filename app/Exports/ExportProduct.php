@@ -41,7 +41,7 @@ class ExportProduct implements FromCollection,  WithHeadings, ShouldAutoSize, Wi
             });
 
         $products = ProductListingResource::collection($query->latest()->get())->map(function ($product) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $product->proSubCategory?->name . '[' . config('config.proSubCatPrefix') . ' - ' . $product->proSubCategory?->code . ']',
                 $product->status ? 'Active' : 'Inactive',

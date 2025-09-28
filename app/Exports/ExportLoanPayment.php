@@ -51,7 +51,7 @@ class ExportLoanPayment implements FromCollection,  WithHeadings, ShouldAutoSize
         });
 
         $loanPayments = LoanPaymentResource::collection($query->latest()->get())->map(function ($loanPayment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $loanPayment['reference_no'],
                 date('jS M, Y', strtotime($loanPayment->date)),
@@ -66,12 +66,12 @@ class ExportLoanPayment implements FromCollection,  WithHeadings, ShouldAutoSize
         });
 
         $totalPaid = $loanPayments->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[8]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[8]  ?? 0));
         });
 
         // Add the total paid as a new row
         $loanPayments->push([
-            '', '', '', '', '', '',  '', '', 'Total Paid = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalPaid,
+            '', '', '', '', '', '',  '', '', 'Total Paid = ' . getExcelCompatibleCurrencySymbol() . $totalPaid,
         ]);
 
         return $loanPayments;

@@ -41,7 +41,7 @@ class ExportAccountTransaction implements FromCollection,  WithHeadings, ShouldA
 
         // Retrieve adjustments
         $adjustments = $query->latest()->get()->map(function ($adjustment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $adjustment->cashbookAccount->bank_name ?? 'N/A',
                 date('jS M, Y', strtotime($adjustment->transaction_date)),

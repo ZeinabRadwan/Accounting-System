@@ -48,7 +48,7 @@ class ExportAccountTransactionHistory implements FromCollection,  WithHeadings, 
 
         // Retrieve balance transactions
         $transactions = $query->latest()->get()->map(function ($transaction) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $transaction->user?->name ?? 'N?A',
                 date('jS M, Y', strtotime($transaction->transaction_date)),
@@ -61,12 +61,12 @@ class ExportAccountTransactionHistory implements FromCollection,  WithHeadings, 
         });
 
         $totalAmount = $transactions->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[6]  ?? 0));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[6]  ?? 0));
         });
 
         // Add the total paid as a new row
         $transactions->push([
-            '', '', '', '', '', '', 'Total Amount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalAmount,
+            '', '', '', '', '', '', 'Total Amount = ' . getExcelCompatibleCurrencySymbol() . $totalAmount,
         ]);
 
         return $transactions;

@@ -44,7 +44,7 @@ class ExportSalesByUserReport implements FromCollection,  WithHeadings, ShouldAu
         }
 
         $invoices = InvoiceListResource::collection($query->latest()->get())->map(function ($invoice) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $invoice->user->name . '[' . ($invoice->user?->employee?->designation ?? 'Super Admin') . ']',
                 date('jS M, Y', strtotime($invoice->invoice_date)),
@@ -56,12 +56,12 @@ class ExportSalesByUserReport implements FromCollection,  WithHeadings, ShouldAu
 
         // Calculate the total of the amount related columns
         $netTotal = $invoices->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[4]));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[4]));
         });
 
         // Add the total paid as a new row
         $invoices->push([
-            '', '', '', '', 'Sum = ' . getGeneralSettingsInfo()['currency']['symbol'] . $netTotal,
+            '', '', '', '', 'Sum = ' . getExcelCompatibleCurrencySymbol() . $netTotal,
         ]);
 
         return $invoices;

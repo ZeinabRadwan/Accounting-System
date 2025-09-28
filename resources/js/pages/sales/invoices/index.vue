@@ -135,9 +135,9 @@
                       }}</span>
                     </td>
                     <td>{{ data.client }}</td>
-                    <td>{{ data.invoiceTotal  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.totalPaid  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
+                    <td v-html="formatCurrency(data.invoiceTotal)"></td>
+                    <td v-html="formatCurrency(data.totalPaid)"></td>
+                    <td v-html="formatCurrency(data.due)"></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -752,6 +752,21 @@ export default {
           }
         }
       });
+    },
+
+    // Format currency with 2 decimal places
+    formatCurrency(amount) {
+      if (amount === null || amount === undefined) {
+        return '0.00';
+      }
+      
+      const numValue = Number(amount);
+      const formatted = numValue.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      
+      return formatted + ' <span class="saudi-riyal">ê</span>';
     },
   },
 };

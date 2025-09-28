@@ -16,7 +16,7 @@
                   </router-link>
                 </div>
 
-                <form @submit.prevent="findDomain" @keydown="form.onKeydown($event)">
+                <form @submit.prevent="handleSubmit" @keydown="handleKeydown">
                   <!-- domain -->
                   <div class="form-group mb-3 ">
                     <div class="d-flex url">
@@ -63,11 +63,14 @@
                   </div>
                   
                   <!-- Submit Button -->
-                  <v-button :loading="form.busy"
+                  <button type="button" 
+                    :disabled="isLoading || form.busy"
+                    @click="handleSubmit"
                     class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
-                    <i class="fas fa-sign-in-alt" />
+                    <i v-if="isLoading || form.busy" class="fas fa-spinner fa-spin"></i>
+                    <i v-else class="fas fa-sign-in-alt"></i>
                     <strong>{{ $t('login') }}</strong>
-                  </v-button>
+                  </button>
                 </form>
                 <div class="row text-center">
                   <router-link :to="{ name: 'register' }" class="ml-auto my-auto">
@@ -101,31 +104,80 @@ export default {
       password: '',
     }),
     appName: window.config.appName,
-    host: location.host
+    host: location.host,
+    isLoading: false
   }),
   // Map Getters
   computed: {
     ...mapGetters('operations', ['appInfo']),
   },
+
+  created() {
+    console.log('Component created, form object:', this.form);
+  },
   methods: {
+    handleSubmit(event) {
+      event.preventDefault()
+      event.stopPropagation()
+      console.log('Button clicked, calling findDomain')
+      this.findDomain()
+    },
+
+    handleKeydown(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault()
+        this.findDomain()
+      }
+    },
+
     async findDomain() {
+      // Prevent multiple submissions
+      if (this.isLoading) {
+        console.log('Already processing, ignoring duplicate submission')
+        return
+      }
+      
+      console.log('findDomain method called')
+      console.log('Form data:', this.form.data())
+      
+      // Validate form before submission
+      if (!this.form.domain || !this.form.email || !this.form.password) {
+        this.$toast.error('Please fill in all fields')
+        return
+      }
+      
+      this.isLoading = true
+      
       try {
-        // find the domain and login with credentials
-        const data = await this.form.post('/api/find-domain')
-        if (data && data.data.success) {
+        // First, find the domain and get tenant info
+        console.log('Calling /api/find-domain...')
+        
+        // Use axios directly instead of form.post to avoid form validation issues
+        const domainResponse = await this.$axios.post('/api/find-domain', {
+          domain: this.form.domain,
+          email: this.form.email,
+          password: this.form.password
+        })
+        
+        console.log('Domain response:', domainResponse)
+        
+        if (domainResponse && domainResponse.data.success) {
           // Show success message
           this.$toast.success('Login successful! Redirecting...')
           
           // Small delay to show success message
           setTimeout(() => {
             // Redirect to the tenant domain using the special login URL
-            window.location.href = data.data.data.login_url
+            window.location.href = domainResponse.data.data.login_url
           }, 1000)
         }
       } catch (error) {
+        console.error('Error in findDomain:', error)
+        
         // Handle validation errors or login failures
         if (error.response && error.response.status === 422) {
           // Validation errors are handled by the form component
+          console.log('Validation errors:', error.response.data)
           return
         }
         
@@ -135,6 +187,8 @@ export default {
         } else {
           this.$toast.error('Login failed. Please check your credentials.')
         }
+      } finally {
+        this.isLoading = false
       }
     },
   }

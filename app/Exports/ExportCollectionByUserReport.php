@@ -44,7 +44,7 @@ class ExportCollectionByUserReport implements FromCollection,  WithHeadings, Sho
         }
 
         $invoicePayments = InvoicePaymentResource::collection($query->latest()->get())->map(function ($invoicePayment) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             return [
                 $invoicePayment->user->name . '[' . ($invoicePayment->user?->employee?->designation ?? 'Super Admin') . ']',
                 date('jS M, Y', strtotime($invoicePayment?->invoicePaymentTransaction->transaction_date)),
@@ -56,12 +56,12 @@ class ExportCollectionByUserReport implements FromCollection,  WithHeadings, Sho
 
         // Calculate the total of the amount related columns
         $totalAmount = $invoicePayments->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[4]));
+            return floatval(str_replace(getExcelCompatibleCurrencySymbol(), '', $row[4]));
         });
 
         // Add the total paid as a new row
         $invoicePayments->push([
-            '', '', '', '', 'Total Amount = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalAmount,
+            '', '', '', '', 'Total Amount = ' . getExcelCompatibleCurrencySymbol() . $totalAmount,
         ]);
 
         return $invoicePayments;

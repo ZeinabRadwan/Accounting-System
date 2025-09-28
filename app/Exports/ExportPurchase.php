@@ -52,7 +52,7 @@ class ExportPurchase implements FromCollection,  WithHeadings, ShouldAutoSize, W
 
         // Retrieve purchases
         $purchases = $query->latest()->get()->map(function ($purchase) {
-            $currencySymbol = getGeneralSettingsInfo()['currency']['symbol'];
+            $currencySymbol = getExcelCompatibleCurrencySymbol();
             $totalPaid = $purchase?->purchasePayments?->sum('amount') ?? 0;
             return [
                 $purchase->purchase_no ? config('config.purchasePrefix') . '-' . $purchase->purchase_no : 'N/A',
@@ -67,21 +67,23 @@ class ExportPurchase implements FromCollection,  WithHeadings, ShouldAutoSize, W
 
 
         // Calculate the total of the amount related columns
-        $netTotal = $purchases->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[4]  ?? 0));
+        $currencySymbol = getExcelCompatibleCurrencySymbol();
+        
+        $netTotal = $purchases->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[4]  ?? 0));
         });
 
-        $totalPaid = $purchases->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '', $row[5]  ?? 0));
+        $totalPaid = $purchases->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '', $row[5]  ?? 0));
         });
 
-        $totalDue = $purchases->sum(function ($row) {
-            return floatval(str_replace(getGeneralSettingsInfo()['currency']['symbol'], '',  $row[6] ?? 0));
+        $totalDue = $purchases->sum(function ($row) use ($currencySymbol) {
+            return floatval(str_replace($currencySymbol, '',  $row[6] ?? 0));
         });
 
         // Add the total paid as a new row
         $purchases->push([
-            '', '', '', '', 'Net Total = ' . getGeneralSettingsInfo()['currency']['symbol'] . $netTotal, 'Total Paid = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalPaid, 'Total Due = ' . getGeneralSettingsInfo()['currency']['symbol'] . $totalDue,
+            '', '', '', '', 'Net Total = ' . $currencySymbol . $netTotal, 'Total Paid = ' . $currencySymbol . $totalPaid, 'Total Due = ' . $currencySymbol . $totalDue,
         ]);
 
         return $purchases;

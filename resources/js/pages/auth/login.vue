@@ -257,11 +257,8 @@ export default {
       if (intendedUrl) {
         Cookies.remove("intended_url");
         this.$router.push({ path: intendedUrl });
-        window.location.reload();
       } else {
         this.$router.push({ name: "home" });
-        // window reload
-        window.location.reload();
       }
     },
     loginCredential(email, pass) {
