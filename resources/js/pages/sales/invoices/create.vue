@@ -154,7 +154,9 @@
                         <td style="min-width: 120px;">
                           <div class="d-flex align-items-center">
                             <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
-                              " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2 mr-2">
+                              " v-tooltip="$t('Click to manage stock')" 
+                              class="badge badge-danger p-2 mr-2 clickable-badge" 
+                              @click="openStockAdjustmentModal(item)">
                               <i class="fas fa-exclamation"></i>
                             </span>
                             <div class="flex-grow-1">
@@ -190,7 +192,10 @@
 
                             <input type="number" step="any" :id="`Qty-${index+1}`" v-model.number="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.qty`) }"
+                              :class="{ 
+                                'is-invalid': form.errors.has(`selectedProducts.${index}.qty`),
+                                'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
+                              }"
                               @input="generateItemTotal(item.qty, 'qty', index, '')"
                               placeholder="Quantity" />
 
@@ -311,31 +316,24 @@
                 </div>
               </div>
                               
-                <!-- Stock Warning Message -->
-                <div v-if="hasInsufficientStock" class="stock-warning-alert mt-3" role="alert">
-                  <div class="stock-warning-content">
-                    <div class="stock-warning-icon">
-                      <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="stock-warning-text">
-                      <div class="stock-warning-title">
-                        {{ $t('Warning') }}: {{ $t('Insufficient Stock') }}
-                      </div>
-                      <div class="stock-warning-description">
-                        {{ $t('The following products have insufficient stock') }}:
-                      </div>
-                      <ul class="stock-warning-list">
-                        <li v-for="product in insufficientStockProducts" :key="product.id" class="stock-warning-item">
-                          <span class="product-name">"{{ product.name }}"</span>
-                          <span class="stock-details">
-                            ({{ $t('Available') }}: <strong>{{ product.inventoryCount }}</strong>, 
-                            {{ $t('Required') }}: <strong>{{ product.qty }}</strong>)
-                          </span>
-                        </li>
-                      </ul>
+              <!-- Insufficient Stock Warning -->
+              <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
+                <div class="col-12">
+                  <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <i class="fas fa-exclamation-triangle mr-3" style="font-size: 1.5rem;"></i>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1">{{ $t("Insufficient Stock Alert") }}</h6>
+                      <p class="mb-0">
+                        {{ $t("Some products have insufficient stock. Click on the red badges to manage stock levels.") }}
+                        <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="showAllInsufficientStock">
+                          <i class="fas fa-list mr-1"></i>
+                          {{ $t("View All") }}
+                        </button>
+                      </p>
                     </div>
                   </div>
                 </div>
+              </div>
               <!-- Discount and Tax Section -->
               <div class="row">
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
@@ -600,6 +598,15 @@
       @reloadProducts="getProducts"
       @productUpdated="handleProductUpdated"
     />
+    
+    <!-- Stock Adjustment Modal -->
+    <StockAdjustmentModal 
+      :is-open="showStockAdjustmentModal"
+      :product="selectedProductForStockAdjustment"
+      @close="closeStockAdjustmentModal"
+      @adjust-quantity="adjustProductQuantity"
+      @stock-updated="handleStockUpdated"
+    />
   </div>
 </template>
 
@@ -611,6 +618,7 @@ import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
 import ProductEditModal from '~/components/ProductEditModal'
+import StockAdjustmentModal from '~/components/StockAdjustmentModal'
 import RTLMixin from '~/mixins/RTLMixin'
 
 import { ToWords } from 'to-words';
@@ -626,6 +634,7 @@ export default {
     ClientCreateModal,
     ProductCreateModal,
     ProductEditModal,
+    StockAdjustmentModal,
   },
   data() {
     return {
@@ -691,6 +700,10 @@ export default {
         sms_configured: false,
         loading: true,
       },
+      
+      // Stock adjustment modal
+      showStockAdjustmentModal: false,
+      selectedProductForStockAdjustment: null,
       
       // Reactive totals for the table
       reactiveTotals: {
@@ -3046,6 +3059,73 @@ export default {
       }
     },
 
+    // Stock adjustment modal methods
+    openStockAdjustmentModal(product) {
+      this.selectedProductForStockAdjustment = product;
+      this.showStockAdjustmentModal = true;
+    },
+
+    closeStockAdjustmentModal() {
+      this.showStockAdjustmentModal = false;
+      this.selectedProductForStockAdjustment = null;
+    },
+
+    adjustProductQuantity(product) {
+      // Find the product in the selected products array and adjust its quantity
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        // Set quantity to available stock
+        this.$set(this.form.selectedProducts[index], 'qty', product.inventoryCount);
+        this.generateItemTotal(product.inventoryCount, "qty", index, "");
+        
+        toast.fire({
+          type: "info",
+          title: this.$t("Quantity Adjusted"),
+          text: this.$t("Product quantity has been adjusted to available stock.")
+        });
+      }
+      this.closeStockAdjustmentModal();
+    },
+
+    handleStockUpdated(eventData) {
+      // Refresh products to get updated stock levels
+      this.getProducts();
+      
+      // Update the specific product in selectedProducts if it exists
+      const { product, newQuantity } = eventData;
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'inventoryCount', 
+          (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
+        
+        // Recalculate totals
+        this.calculateSum();
+      }
+    },
+
+    showAllInsufficientStock() {
+      // Show a summary of all insufficient stock products
+      const insufficientProducts = this.insufficientStockProducts;
+      if (insufficientProducts.length === 0) return;
+      
+      let message = this.$t("Products with insufficient stock:") + "\n\n";
+      insufficientProducts.forEach((product, index) => {
+        const shortage = Number(product.qty) - Number(product.inventoryCount);
+        message += `${index + 1}. ${product.name}\n`;
+        message += `   ${this.$t("Required")}: ${product.qty}, ${this.$t("Available")}: ${product.inventoryCount}, ${this.$t("Shortage")}: ${shortage}\n\n`;
+      });
+      
+      message += this.$t("Click on the red badges next to each product to manage stock levels.");
+      
+      toast.fire({
+        type: "warning",
+        title: this.$t("Insufficient Stock Summary"),
+        text: message,
+        timer: 10000,
+        showConfirmButton: true
+      });
+    },
+
     // Update all products with default VAT rate if they don't have one selected
     updateProductsWithDefaultVatRate() {
       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
@@ -3934,6 +4014,35 @@ export default {
   [dir="rtl"] .stock-warning-list {
     text-align: right;
   }
+}
+
+/* Clickable badge styling */
+.clickable-badge {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.clickable-badge:hover {
+  background-color: #c82333 !important;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.clickable-badge:active {
+  transform: scale(0.95);
+}
+
+/* Insufficient stock input styling */
+.insufficient-stock-input {
+  border: 2px solid #dc3545 !important;
+  background-color: #fff5f5 !important;
+  color: #dc3545 !important;
+}
+
+.insufficient-stock-input:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
 }
 
 </style>
