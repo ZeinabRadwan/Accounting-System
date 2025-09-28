@@ -3489,9 +3489,13 @@
   "September": "سبتمبر",
   "October": "أكتوبر",
   "November": "نوفمبر",
+  "Stock Shortage" : "نقص المخزون",
+  "Click to manage stock" : "انقر لإدارة المخزون",
   "Chart of Account Validation Required" : "تحقق من الحسابات المحاسبية",
   "Some products need Sales Accounts assigned" : "بعض المنتجات تحتاج إلى حسابات مبيعات معينة",
   "Client must have a Chart of Account assigned for journal entries" : "يجب أن يكون للعميل حساب محاسبي معين للقيود اليومية",
   "Product must have a Sales Account assigned for journal entries" : "يجب أن يكون للمنتج حساب مبيعات معين للقيود اليومية",
+  "Current Opening Stock" : "رصيد المخزون الافتتاحي الحالي",
+  "Current Stock Unit Price" : "سعر وحدة المخزون الحالي",
   "December": "ديسمبر"
 }

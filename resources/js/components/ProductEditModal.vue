@@ -143,7 +143,7 @@
           </div>
 
           <!-- Conditional Fields Section -->
-          <div class="form-card" v-if="form.itemType === 'product'">
+       <!--   <div class="form-card" v-if="form.itemType === 'product'">
             <div class="card-header">
               <h5 class="section-title">
                 <i class="fas fa-warehouse mr-2"></i>
@@ -151,14 +151,14 @@
               </h5>
             </div>
             <div class="card-body">
-              <!-- Current Stock Information (Read-only) -->
+               Current Stock Information (Read-only)  
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="openingStockCount">{{ $t("Current Opening Stock") }}</label>
                     <input id="openingStockCount" v-model="form.openingStockCount" type="number" step="any" min="0" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('openingStockCount') }" name="openingStockCount" 
-                      :placeholder="$t('Current opening stock')" readonly />
+                       readonly />
                     <has-error :form="form" field="openingStockCount" />
                   </div>
                 </div>
@@ -167,14 +167,14 @@
                     <label for="openingStockUnitPrice">{{ $t("Current Stock Unit Price") }}</label>
                     <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
-                      :placeholder="$t('Current unit price')" readonly />
+                      readonly />
                     <has-error :form="form" field="openingStockUnitPrice" />
                   </div>
                 </div>
               </div>
               
-              <!-- Add New Opening Stock -->
-              <div class="row">
+                Add New Opening Stock  
+                <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="form-check">
@@ -185,9 +185,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              
-              <!-- New Opening Stock Fields (only show when checkbox is checked) -->
+              </div> 
+               New Opening Stock Fields (only show when checkbox is checked)  
               <div class="row" v-if="form.isOpeningStock">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -208,7 +207,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Alert Quantity moved here to be in warehouse section -->
+               Alert Quantity moved here to be in warehouse section  
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -221,7 +220,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-card" v-if="form.itemType === 'service'">
             <div class="card-header">
