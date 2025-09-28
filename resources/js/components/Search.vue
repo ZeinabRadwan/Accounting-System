@@ -60,7 +60,7 @@ export default {
 
 [dir="rtl"] .search-icon {
   position: absolute;
-  right: 5%;
+  right: 93%;
   top: 25%;
 }
 

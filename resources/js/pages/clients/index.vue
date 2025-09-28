@@ -157,7 +157,7 @@
                     <td>{{ data.email }}</td>
                     <td>{{ data.companyName }}</td>
                     <td>
-                      <span class="badge bg-info">{{ data.type || 'Company' }}</span>
+                      <span class="badge bg-info">{{ $t(data.type || 'Company') }}</span>
                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{

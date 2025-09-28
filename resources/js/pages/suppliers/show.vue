@@ -8,12 +8,16 @@
       <div class="w-100 text-right float-right">
         <div class="d-flex justify-content-between" v-if="allData">
           <div class="btn-group">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-tabs" id="supplier-main-tabs" role="tablist">
               <li class="nav-item">
                 <a
                   class="nav-link active"
+                  id="details-tab"
+                  data-toggle="pill"
                   href="#details"
-                  data-toggle="tab"
+                  role="tab"
+                  aria-controls="details-tab"
+                  aria-selected="true"
                   @click="loadInitialData"
                 >
                   <i class="fa fa-info"></i>
@@ -24,8 +28,12 @@
                 <a
                   @click="getActivity"
                   class="nav-link"
+                  id="activity-log-tab"
+                  data-toggle="pill"
                   href="#activity-log"
-                  data-toggle="tab"
+                  role="tab"
+                  aria-controls="activity-log-tab"
+                  aria-selected="false"
                 >
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
                   {{ $t("Activity log") }}</a
@@ -37,11 +45,11 @@
       </div>
     </div>
 
-    <div class="tab-content">
-      <div class="tab-pane active" id="details">
+    <div class="tab-content" id="supplier-main-tabContent">
+      <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">
         <div class="row">
           <div class="col-md-12 col-lg-3">
-            <div class="card">
+            <div>
               <div class="card-body box-profile">
                 <div class="text-center mb-2">
                   <a
@@ -50,7 +58,7 @@
                     @click="previewModal(allData.image || '')"
                   >
                     <img
-                      v-bind="getAvatarProps(allData.image, 'suppliers')"
+                      :src="allData.image || 'http://zeinab.localhost:8000/images/default-avatar.jpeg'"
                       class="profile-user-img img-fluid img-circle"
                       loading="lazy"
                     />
@@ -74,7 +82,7 @@
                   </li>
                   <li class="list-group-item">
                     <strong>{{ $t("Contact Number") }}</strong>
-                    <span class="float-right">{{ allData.phoneNumber }}</span>
+                    <span class="float-right" dir="ltr">{{ formatPhoneNumber(allData.phoneNumber) }}</span>
                   </li>
                   <li class="list-group-item">
                     <strong>{{ $t("Company Name") }}</strong>
@@ -82,7 +90,7 @@
                   </li>
                   <li class="list-group-item">
                     <strong>{{ $t("Type") }}</strong>
-                    <span class="float-right">{{ allData.type }}</span>
+                    <span class="float-right">{{ $t(allData.type || 'Company') }}</span>
                   </li>
                   <li
                     v-if="allData.taxRegistrationNumber"
@@ -114,7 +122,7 @@
           <div class="col-md-12 col-lg-9">
             <div class="row">
               <div class="col-lg-6 col-md-6 col-12">
-                <div class="card bg-info">
+                <div class="bg-info card-gradient-1">
                   <div class="card-content">
                     <div class="card-body pb-1">
                       <div class="row">
@@ -132,18 +140,14 @@
                         </div>
                         <div class="col-6 text-right">
                           <h6 class="text-white">
-                            {{ allData.purchaseTotal  }} <span class="saudi-riyal">ê</span>
+                            {{ parseFloat(allData.purchaseTotal || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
                           </h6>
                           <h6 class="text-white">
-                            {{ allData.nonPurchaseTotalDue  }} <span class="saudi-riyal">ê</span>
+                            {{ parseFloat(allData.nonPurchaseTotalDue || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
                           </h6>
                           <hr />
                           <h4 class="text-white mb-1">
-                            {{
-                              (allData.purchaseTotal +
-                                allData.nonPurchaseTotalDue)
-                                | withCurrency
-                            }}
+                            {{ parseFloat((allData.purchaseTotal || 0) + (allData.nonPurchaseTotalDue || 0)).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
                           </h4>
                         </div>
                       </div>
@@ -152,7 +156,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
-                <div class="card bg-danger">
+                <div class="bg-danger card-gradient-2">
                   <div class="card-content">
                     <div class="card-body pb-1">
                       <div class="row">
@@ -170,18 +174,14 @@
                         </div>
                         <div class="col-6 text-right">
                           <h6 class="text-white">
-                            {{ allData.purchaseTotalDue  }} <span class="saudi-riyal">ê</span>
+                            {{ parseFloat(allData.purchaseTotalDue || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
                           </h6>
                           <h6 class="text-white">
-                            {{ allData.nonPurchaseCurrentDue  }} <span class="saudi-riyal">ê</span>
+                            {{ parseFloat(allData.nonPurchaseCurrentDue || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
                           </h6>
                           <hr />
                           <h4 class="text-white mb-1">
-                            {{
-                              (allData.purchaseTotalDue +
-                                allData.nonPurchaseCurrentDue)
-                                | withCurrency
-                            }}
+                            {{ parseFloat((allData.purchaseTotalDue || 0) + (allData.nonPurchaseCurrentDue || 0)).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
                           </h4>
                         </div>
                       </div>
@@ -197,17 +197,20 @@
                 $can('purchase-payment-list') ||
                 $can('non-purchase-payment-list')
               "
-              class="card"
             >
               <div class="card-header p-2">
                 <div class="row">
                   <div class="col-md-10">
-                    <ul class="nav nav-pills">
+                    <ul class="nav nav-tabs" id="supplier-content-below-tab" role="tablist">
                       <li v-if="$can('purchase-list')" class="nav-item">
                         <a
                           class="nav-link active"
+                          id="purchases-tab"
+                          data-toggle="pill"
                           href="#purchases"
-                          data-toggle="tab"
+                          role="tab"
+                          aria-controls="purchases-tab"
+                          aria-selected="true"
                           @click="activeTab = 'purchases'"
                         >
                           <i class="fas fa-shopping-basket"></i>
@@ -221,8 +224,12 @@
                         <a
                           @click="getSupplierReturns"
                           class="nav-link"
+                          id="purchase-returns-tab"
+                          data-toggle="pill"
                           href="#purchase-returns"
-                          data-toggle="tab"
+                          role="tab"
+                          aria-controls="purchase-returns-tab"
+                          aria-selected="false"
                         >
                           <i class="fas fa-undo-alt"></i>
                           {{ $t("Purchase Returns") }}
@@ -237,8 +244,12 @@
                         <a
                           @click="getSupplierPayments"
                           class="nav-link"
+                          id="purchase-payments-tab"
+                          data-toggle="pill"
                           href="#purchase-payments"
-                          data-toggle="tab"
+                          role="tab"
+                          aria-controls="purchase-payments-tab"
+                          aria-selected="false"
                         >
                           <i class="fas fa-receipt"></i>
                           {{
@@ -258,8 +269,12 @@
                         <a
                           @click="getNonPurchaseTransactions"
                           class="nav-link"
+                          id="non-purchase-transactions-tab"
+                          data-toggle="pill"
                           href="#non-purchase-transactions"
-                          data-toggle="tab"
+                          role="tab"
+                          aria-controls="non-purchase-transactions-tab"
+                          aria-selected="false"
                         >
                           <i class="fas fa-money-bill"></i>
                           {{ $t("Non Purchase Transactions") }}
@@ -273,8 +288,12 @@
                       <li v-if="$can('invoice-list')" class="nav-item">
                         <a
                           class="nav-link"
+                          id="ledger-tab"
+                          data-toggle="pill"
                           href="#ledger"
-                          data-toggle="tab"
+                          role="tab"
+                          aria-controls="ledger-tab"
+                          aria-selected="false"
                           @click="getLedger"
                         >
                           <i class="fas fa-list-ul"></i>
@@ -283,46 +302,11 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="col-md-2 text-right">
-                    <div class="btn-group">
-                      <a
-                        @click="generatePDF()"
-                        href="#"
-                        class="btn btn-info"
-                        v-tooltip="$t('download')"
-                      >
-                        <i class="fas fa-download"></i>
-                      </a>
-                      <a
-                        @click="print()"
-                        href="#"
-                        class="btn btn-secondary"
-                        v-tooltip="$t('print')"
-                      >
-                        <i class="fas fa-print"></i>
-                      </a>
-                      <a
-                        @click="refreshTable(activeTab)"
-                        href="#"
-                        v-tooltip="$t('Refresh')"
-                        class="btn btn-success"
-                      >
-                        <i class="fas fa-sync"></i>
-                      </a>
-                      <router-link
-                        :to="{ name: 'suppliers.index' }"
-                        class="btn btn-info float-right"
-                        v-tooltip="$t('Back')"
-                      >
-                        <i class="fas fa-long-arrow-alt-left" />
-                      </router-link>
-                    </div>
-                  </div>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <div class="tab-content" id="content-to-pdf">
+                <div class="tab-content" id="supplier-content-below-tabContent">
                   <div class="col-md-12" v-if="headerShow">
                     <h4 class="text-capitalize">
                       {{ activeTab.replace(/-/g, " ") }}
@@ -340,55 +324,102 @@
                   <!-- Purchases -->
                   <div
                     v-if="$can('purchase-list')"
-                    class="tab-pane active"
+                    class="tab-pane fade active show"
                     id="purchases"
+                    role="tabpanel"
+                    aria-labelledby="purchases-tab"
                   >
                     <div>
                       <div class="card-body p-0 position-relative">
-                        <div
-                          class="row no-print"
-                          id="element-to-hide"
-                          data-html2canvas-ignore="true"
-                        >
-                          <div class="col-12 col-md-9 mb-2">
-                            <search
-                              v-model="query"
-                              @reset-pagination="resetPagination"
-                              @reload="reload"
-                            />
-                          </div>
-                          <div class="col-12 col-md-3 pull-right text-right">
-                            <date-range-picker
-                              ref="picker"
-                              opens="left"
-                              :locale-data="locale"
-                              :minDate="minDate"
-                              :maxDate="maxDate"
-                              :singleDatePicker="false"
-                              :showWeekNumbers="false"
-                              :showDropdowns="true"
-                              :autoApply="true"
-                              v-model="dateRange"
-                              @update="updateValues('purchases')"
-                              :linkedCalendars="true"
-                              class="c-w-100"
-                              style="display: none;"
-                            >
-                              <template
-                                v-slot:input="picker"
-                                style="min-width: 350px"
+                          <div class="row">
+                            <div class="col-6 col-xl-8 mb-2 text-right">
+                              <date-range-picker
+                                ref="picker"
+                                opens="left"
+                                :locale-data="locale"
+                                :minDate="minDate"
+                                :maxDate="maxDate"
+                                :singleDatePicker="false"
+                                :showWeekNumbers="false"
+                                :showDropdowns="true"
+                                :autoApply="true"
+                                v-model="dateRange"
+                                @update="updateValues('purchases')"
+                                :linkedCalendars="true"
+                                class="c-w-100"
+                                style="display: none;"
                               >
-                                {{ picker.startDate | startDate }} -
-                                {{ picker.endDate | endDate }}
-                              </template>
-                            </date-range-picker>
+                                <template
+                                  v-slot:input="picker"
+                                  style="min-width: 350px"
+                                >
+                                  {{ picker.startDate | startDate }} -
+                                  {{ picker.endDate | endDate }}
+                                </template>
+                              </date-range-picker>
+                            </div>
                           </div>
-                        </div>
+                          <div class="row">
+                            <div class="col-6 col-xl-4 mb-2">
+                              <search
+                                v-model="query"
+                                @reset-pagination="resetPagination"
+                                @reload="reload"
+                              />
+                            </div>
+                            <div class="col-xl-8 col-8 float-right text-right">
+                              <div class="btn-group c-w-100">
+                                <a
+                                  @click="refreshTable(activeTab)"
+                                  href="#"
+                                  v-tooltip="$t('Refresh')"
+                                  class="btn btn-success refresh-btn"
+                                >
+                                  <i class="fas fa-sync"></i>
+                                </a>
+                                <a
+                                  @click="generatePDF()"
+                                  href="#"
+                                  v-tooltip="$t('Export to PDF')"
+                                  class="btn export-pdf-btn"
+                                  title="Export to PDF"
+                                >
+                                  <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z"
+                                      fill="#2AB930"
+                                    />
+                                  </svg>
+                                </a>
+                                <a
+                                  @click="print()"
+                                  v-tooltip="$t('Print Table')"
+                                  class="btn print-btn"
+                                >
+                                  <i class="fas fa-print"></i>
+                                </a>
+                                <router-link
+                                  :to="{ name: 'suppliers.index' }"
+                                  class="btn btn-primary"
+                                  title="Back"
+                                  v-tooltip="$t('Back')"
+                                >
+                                  <i class="fas fa-long-arrow-alt-left" />
+                                  {{ $t("Back") }}
+                                </router-link>
+                              </div>
+                            </div>
+                          </div>
                         <table-loading v-show="loading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table">
+                          <table class="table invoices-table">
                             <thead>
-                              <tr>
                                 <th>{{ $t("#") }}</th>
                                 <th>
                                   {{ $t("Purchase No") }}
@@ -413,7 +444,6 @@
                                 >
                                   {{ $t("Action") }}
                                 </th>
-                              </tr>
                             </thead>
                             <tbody>
                               <tr
@@ -482,38 +512,40 @@
                                   id="element-to-hide"
                                   data-html2canvas-ignore="true"
                                 >
-                                  <div class="btn-group">
-                                    <router-link
-                                      v-if="$can('purchase-view')"
-                                      v-tooltip="$t('View')"
-                                      :to="{
-                                        name: 'purchases.show',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-primary btn-sm"
-                                    >
-                                      <i class="fas fa-eye" />
+                                  <div class="action-dropdown" :class="{ open: openActionIndex === i }">
+                                    <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                        <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                                      </svg>
+                                    </button>
+                                    <div class="action-menu" v-if="openActionIndex === i">
+                                      <div class="action-menu-header">
+                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
+                                        <button type="button" class="action-menu-close" @click="toggleAction(i)">
+                                          <i class="fas fa-times"></i>
+                                        </button>
+                                      </div>
+                                      <ul>
+                                        <li v-if="$can('purchase-view')">
+                                          <router-link :to="{ name: 'purchases.show', params: { slug: data.slug } }">
+                                            <i class="fas fa-eye"></i>
+                                            {{ $t('View') }}
                                     </router-link>
-                                    <router-link
-                                      v-if="$can('purchase-edit')"
-                                      v-tooltip="$t('Edit')"
-                                      :to="{
-                                        name: 'purchases.edit',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-info btn-sm"
-                                    >
-                                      <i class="fas fa-edit" />
+                                        </li>
+                                        <li v-if="$can('purchase-edit')">
+                                          <router-link :to="{ name: 'purchases.edit', params: { slug: data.slug } }">
+                                            <i class="fas fa-edit"></i>
+                                            {{ $t('Edit') }}
                                     </router-link>
-                                    <a
-                                      v-if="$can('purchase-delete')"
-                                      v-tooltip="$t('Delete')"
-                                      href="#"
-                                      class="btn btn-danger btn-sm"
-                                      @click="deletePurchaseData(data.slug)"
-                                    >
-                                      <i class="fas fa-trash" />
-                                    </a>
+                                        </li>
+                                        <li v-if="$can('purchase-delete')">
+                                          <a href="#" @click.prevent="deletePurchaseData(data.slug)">
+                                            <i class="fas fa-trash"></i>
+                                            {{ $t('Delete') }}
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
@@ -526,13 +558,9 @@
                           </table>
                         </div>
                       </div>
-                      <!-- NEW PAGINATION -->
-                      <div
-                        v-if="pagination && pagination.total > 0"
-                        class="dtable-footer no-print"
-                        id="element-to-hide"
-                        data-html2canvas-ignore="true"
-                      >
+                      <!-- /.card-body -->
+                      <div class="card-footer">
+                        <div class="dtable-footer">
                         <div class="form-group row display-per-page">
                           <label>{{ $t("per_page") }} </label>
                           <div>
@@ -562,15 +590,17 @@
                         />
                         <!-- pagination-end -->
                       </div>
-                      <!-- NEW PAGINATION END -->
+                      </div>
                     </div>
                   </div>
 
                   <!-- purchase-returns -->
                   <div
                     v-if="$can('purchase-return-list')"
-                    class="tab-pane"
+                    class="tab-pane fade"
                     id="purchase-returns"
+                    role="tabpanel"
+                    aria-labelledby="purchase-returns-tab"
                   >
                     <div>
                       <div class="card-body p-0 position-relative">
@@ -615,9 +645,8 @@
                         </div>
                         <table-loading v-show="returnLoading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table">
+                          <table class="table invoices-table">
                             <thead>
-                              <tr>
                                 <th>{{ $t("#") }}</th>
                                 <th>
                                   {{ $t("Return No") }}
@@ -645,7 +674,6 @@
                                 >
                                   {{ $t("Action") }}
                                 </th>
-                              </tr>
                             </thead>
                             <tbody>
                               <tr
@@ -718,40 +746,40 @@
                                   id="element-to-hide"
                                   data-html2canvas-ignore="true"
                                 >
-                                  <div class="btn-group">
-                                    <router-link
-                                      v-if="$can('purchase-return-view')"
-                                      v-tooltip="$t('View')"
-                                      :to="{
-                                        name: 'purchaseReturns.show',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-primary btn-sm"
-                                    >
-                                      <i class="fas fa-eye" />
+                                  <div class="action-dropdown" :class="{ open: openActionIndex === i }">
+                                    <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                        <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                                      </svg>
+                                    </button>
+                                    <div class="action-menu" v-if="openActionIndex === i">
+                                      <div class="action-menu-header">
+                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
+                                        <button type="button" class="action-menu-close" @click="toggleAction(i)">
+                                          <i class="fas fa-times"></i>
+                                        </button>
+                                      </div>
+                                      <ul>
+                                        <li v-if="$can('purchase-return-view')">
+                                          <router-link :to="{ name: 'purchaseReturns.show', params: { slug: data.slug } }">
+                                            <i class="fas fa-eye"></i>
+                                            {{ $t('View') }}
                                     </router-link>
-                                    <router-link
-                                      v-if="$can('purchase-return-edit')"
-                                      v-tooltip="$t('Edit')"
-                                      :to="{
-                                        name: 'purchaseReturns.edit',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-info btn-sm"
-                                    >
-                                      <i class="fas fa-edit" />
+                                        </li>
+                                        <li v-if="$can('purchase-return-edit')">
+                                          <router-link :to="{ name: 'purchaseReturns.edit', params: { slug: data.slug } }">
+                                            <i class="fas fa-edit"></i>
+                                            {{ $t('Edit') }}
                                     </router-link>
-                                    <a
-                                      v-if="$can('purchase-return-delete')"
-                                      v-tooltip="$t('Delete')"
-                                      href="#"
-                                      class="btn btn-danger btn-sm"
-                                      @click="
-                                        deletePurchaseReturnData(data.slug)
-                                      "
-                                    >
-                                      <i class="fas fa-trash" />
-                                    </a>
+                                        </li>
+                                        <li v-if="$can('purchase-return-delete')">
+                                          <a href="#" @click.prevent="deletePurchaseReturnData(data.slug)">
+                                            <i class="fas fa-trash"></i>
+                                            {{ $t('Delete') }}
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
@@ -764,13 +792,9 @@
                           </table>
                         </div>
                       </div>
-                      <!-- NEW PAGINATION -->
-                      <div
-                        v-if="returnPagination && returnPagination.total > 0"
-                        class="dtable-footer no-print"
-                        id="element-to-hide"
-                        data-html2canvas-ignore="true"
-                      >
+                      <!-- /.card-body -->
+                      <div class="card-footer">
+                        <div class="dtable-footer">
                         <div class="form-group row display-per-page">
                           <label>{{ $t("per_page") }} </label>
                           <div>
@@ -802,15 +826,17 @@
                         />
                         <!-- pagination-end -->
                       </div>
-                      <!-- NEW PAGINATION END -->
+                      </div>
                     </div>
                   </div>
 
                   <!-- purchase-payments -->
                   <div
                     v-if="$can('purchase-payment-list')"
-                    class="tab-pane"
+                    class="tab-pane fade"
                     id="purchase-payments"
+                    role="tabpanel"
+                    aria-labelledby="purchase-payments-tab"
                   >
                     <div>
                       <div class="card-body p-0 position-relative">
@@ -855,9 +881,8 @@
                         </div>
                         <table-loading v-show="paymentsLoading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table">
+                          <table class="table invoices-table">
                             <thead>
-                              <tr>
                                 <th>{{ $t("#") }}</th>
                                 <th>
                                   {{ $t("Purchase No") }}
@@ -879,7 +904,6 @@
                                 >
                                   {{ $t("Action") }}
                                 </th>
-                              </tr>
                             </thead>
                             <tbody>
                               <tr
@@ -919,8 +943,8 @@
 
                                 <td v-if="data.purchase">
                                   {{
-                                    data.purchase.purchaseTotal | withCurrency
-                                  }}
+                                    data.purchase.purchaseTotal 
+                                  }} <span class="saudi-riyal">ê</span>
                                 </td>
                                 <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                                 <td>
@@ -953,38 +977,40 @@
                                   id="element-to-hide"
                                   data-html2canvas-ignore="true"
                                 >
-                                  <div class="btn-group">
-                                    <router-link
-                                      v-if="$can('purchase-payment-view')"
-                                      v-tooltip="$t('View')"
-                                      :to="{
-                                        name: 'purchasePayments.show',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-primary btn-sm"
-                                    >
-                                      <i class="fas fa-eye" />
+                                  <div class="action-dropdown" :class="{ open: openActionIndex === i }">
+                                    <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                        <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                                      </svg>
+                                    </button>
+                                    <div class="action-menu" v-if="openActionIndex === i">
+                                      <div class="action-menu-header">
+                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
+                                        <button type="button" class="action-menu-close" @click="toggleAction(i)">
+                                          <i class="fas fa-times"></i>
+                                        </button>
+                                      </div>
+                                      <ul>
+                                        <li v-if="$can('purchase-payment-view')">
+                                          <router-link :to="{ name: 'purchasePayments.show', params: { slug: data.slug } }">
+                                            <i class="fas fa-eye"></i>
+                                            {{ $t('View') }}
                                     </router-link>
-                                    <router-link
-                                      v-if="$can('purchase-payment-edit')"
-                                      v-tooltip="$t('Edit')"
-                                      :to="{
-                                        name: 'purchasePayments.edit',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-info btn-sm"
-                                    >
-                                      <i class="fas fa-edit" />
+                                        </li>
+                                        <li v-if="$can('purchase-payment-edit')">
+                                          <router-link :to="{ name: 'purchasePayments.edit', params: { slug: data.slug } }">
+                                            <i class="fas fa-edit"></i>
+                                            {{ $t('Edit') }}
                                     </router-link>
-                                    <a
-                                      v-if="$can('purchase-payment-delete')"
-                                      v-tooltip="$t('Delete')"
-                                      href="#"
-                                      class="btn btn-danger btn-sm"
-                                      @click="deletePaymentData(data.slug)"
-                                    >
-                                      <i class="fas fa-trash" />
-                                    </a>
+                                        </li>
+                                        <li v-if="$can('purchase-payment-delete')">
+                                          <a href="#" @click.prevent="deletePaymentData(data.slug)">
+                                            <i class="fas fa-trash"></i>
+                                            {{ $t('Delete') }}
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
@@ -997,13 +1023,9 @@
                           </table>
                         </div>
                       </div>
-                      <!-- NEW PAGINATION -->
-                      <div
-                        v-if="paymentPagination && paymentPagination.total > 0"
-                        class="dtable-footer no-print"
-                        id="element-to-hide"
-                        data-html2canvas-ignore="true"
-                      >
+                      <!-- /.card-body -->
+                      <div class="card-footer">
+                        <div class="dtable-footer">
                         <div class="form-group row display-per-page">
                           <label>{{ $t("per_page") }} </label>
                           <div>
@@ -1039,15 +1061,17 @@
                         />
                         <!-- pagination-end -->
                       </div>
-                      <!-- NEW PAGINATION END -->
+                      </div>
                     </div>
                   </div>
 
                   <!-- non-purchase-transactions -->
                   <div
                     v-if="$can('non-purchase-payment-list')"
-                    class="tab-pane"
+                    class="tab-pane fade"
                     id="non-purchase-transactions"
+                    role="tabpanel"
+                    aria-labelledby="non-purchase-transactions-tab"
                   >
                     <div>
                       <div class="card-body p-0 position-relative">
@@ -1094,9 +1118,8 @@
                         </div>
                         <table-loading v-show="transactionLoading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table">
+                          <table class="table invoices-table">
                             <thead>
-                              <tr>
                                 <th>{{ $t("#") }}</th>
                                 <th>{{ $t("Payment Type") }}</th>
                                 <th>{{ $t("Paid Amount") }}</th>
@@ -1115,7 +1138,6 @@
                                 >
                                   {{ $t("Action") }}
                                 </th>
-                              </tr>
                             </thead>
                             <tbody>
                               <tr
@@ -1182,27 +1204,34 @@
                                   id="element-to-hide"
                                   data-html2canvas-ignore="true"
                                 >
-                                  <div class="btn-group">
-                                    <router-link
-                                      v-if="$can('non-purchase-payment-edit')"
-                                      v-tooltip="$t('Edit')"
-                                      :to="{
-                                        name: 'nonPurchasePayments.edit',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-info btn-sm"
-                                    >
-                                      <i class="fas fa-edit" />
+                                  <div class="action-dropdown" :class="{ open: openActionIndex === i }">
+                                    <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                        <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                                      </svg>
+                                    </button>
+                                    <div class="action-menu" v-if="openActionIndex === i">
+                                      <div class="action-menu-header">
+                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
+                                        <button type="button" class="action-menu-close" @click="toggleAction(i)">
+                                          <i class="fas fa-times"></i>
+                                        </button>
+                                      </div>
+                                      <ul>
+                                        <li v-if="$can('non-purchase-payment-edit')">
+                                          <router-link :to="{ name: 'nonPurchasePayments.edit', params: { slug: data.slug } }">
+                                            <i class="fas fa-edit"></i>
+                                            {{ $t('Edit') }}
                                     </router-link>
-                                    <a
-                                      v-if="$can('non-purchase-payment-delete')"
-                                      v-tooltip="$t('Delete')"
-                                      href="#"
-                                      class="btn btn-danger btn-sm"
-                                      @click="deleteTransactionData(data.slug)"
-                                    >
-                                      <i class="fas fa-trash" />
-                                    </a>
+                                        </li>
+                                        <li v-if="$can('non-purchase-payment-delete')">
+                                          <a href="#" @click.prevent="deleteTransactionData(data.slug)">
+                                            <i class="fas fa-trash"></i>
+                                            {{ $t('Delete') }}
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
@@ -1215,16 +1244,9 @@
                           </table>
                         </div>
                       </div>
-                      <!-- NEW PAGINATION -->
-                      <div
-                        v-if="
-                          transactionPagination &&
-                          transactionPagination.total > 0
-                        "
-                        class="dtable-footer no-print"
-                        id="element-to-hide"
-                        data-html2canvas-ignore="true"
-                      >
+                      <!-- /.card-body -->
+                      <div class="card-footer">
+                        <div class="dtable-footer">
                         <div class="form-group row display-per-page">
                           <label>{{ $t("per_page") }} </label>
                           <div>
@@ -1259,17 +1281,16 @@
                         />
                         <!-- pagination-end -->
                       </div>
-                      <!-- NEW PAGINATION END -->
+                      </div>
                     </div>
                   </div>
 
                   <!--ledger-->
-                  <div class="tab-pane print-area" id="ledger">
+                  <div class="tab-pane fade print-area" id="ledger" role="tabpanel" aria-labelledby="ledger-tab">
                     <table-loading v-show="loading" />
                     <div class="table-responsive table-custom mt-3">
-                      <table class="table">
+                      <table class="table invoices-table">
                         <thead>
-                          <tr>
                             <th>{{ $t("#") }}</th>
                             <th>{{ $t("Date") }}</th>
                             <th>{{ $t("Info") }}</th>
@@ -1340,8 +1361,7 @@
                               {{
                                 (ledgerItems[ledgerItems.length - 1].balance +
                                   allData.nonPurchaseCurrentDue)
-                                  | withCurrency
-                              }}
+                              }}<span class="saudi-riyal">ê</span>
                             </td>
                           </tr>
                         </tbody>
@@ -1353,16 +1373,14 @@
                               {{
                                 (ledgerTotalDebit +
                                   allData.nonPurchaseCurrentDue)
-                                  | withCurrency
-                              }}
+                              }}<span class="saudi-riyal">ê</span>
                             </td>
                             <td>{{ ledgerTotalDiscount  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
                                 (ledgerItems[ledgerItems.length - 1].balance +
                                   allData.nonPurchaseCurrentDue)
-                                  | withCurrency
-                              }}
+                              }}<span class="saudi-riyal">ê</span>
                               [{{ $t("Total Due") }}]
                             </td>
                           </tr>
@@ -1378,32 +1396,13 @@
       </div>
 
       <!--  activity logs -->
-      <div class="tab-pane" id="activity-log">
-        <div class="card custom-card w-100 mt-5 no-print">
+      <div class="tab-pane fade" id="activity-log" role="tabpanel" aria-labelledby="activity-log-tab">
+        <div class="custom-card w-100 mt-5 no-print">
           <div class="card-header setings-header">
-            <div class="col-xl-4 col-4">
+            <div class="col-xl-12">
               <h3 class="card-title">
                 {{ $t("Activity log") }}
               </h3>
-            </div>
-            <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100">
-                <a
-                  @click="refreshActivityTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
-                  <i class="fas fa-sync"></i>
-                </a>
-                <a
-                  @click="printActivityLog"
-                  v-tooltip="$t('Print Table')"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-print"></i>
-                </a>
-              </div>
             </div>
           </div>
           <table-loading v-show="activityLoading" />
@@ -1415,59 +1414,82 @@
                   @reset-pagination="resetActivityPagination()"
                   @reload="activityReload"
                 />
+            </div>
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <a
+                  @click="refreshActivityTable()"
+                  href="#"
+                  v-tooltip="$t('Refresh')"
+                    class="btn btn-success refresh-btn"
+                >
+                  <i class="fas fa-sync"></i>
+                </a>
+                <a
+                  @click="printActivityLog"
+                  v-tooltip="$t('Print Table')"
+                    class="btn print-btn"
+                >
+                  <i class="fas fa-print"></i>
+                </a>
+              </div>
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="allActivityLog.length > 0"
+              <table class="table invoices-table">
+                <thead>
+                    <th>{{ $t("#") }}</th>
+                    <th>{{ $t("Event") }}</th>
+                    <th>{{ $t("User") }}</th>
+                    <th>{{ $t("Description") }}</th>
+                    <th>{{ $t("Date") }}</th>
+                </thead>
+                <tbody>
+                  <tr
+                    v-show="allActivityLog.length"
                 v-for="(data, i) in allActivityLog"
                 :key="i"
               >
-                <div class="card mb-0 border border-gray">
-                  <div class="card-body py-1">
-                    <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
+                    <td>
+                      <span
+                        v-if="allActivityLogPagination && allActivityLogPagination.current_page > 1"
                       >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
-                      </div>
-                      <div class="col-11">
-                        <div class="row">
-                          <div class="col-12">
-                            <p class="text-bold mb-0">{{ data.causer_name }}</p>
-                          </div>
-                          <div class="col-12">
-                            <p class="mb-0">{{ data.description }}</p>
-                          </div>
-                          <div class="col-12">
-                            <p class="mb-0">{{ data.performedAt }}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="text-center"
-                v-show="!activityLoading && !allActivityLog.length"
-              >
+                        {{
+                          allActivityLogPagination.per_page *
+                            (allActivityLogPagination.current_page - 1) +
+                          (i + 1)
+                        }}
+                      </span>
+                      <span v-else>{{ i + 1 }}</span>
+                    </td>
+                    <td>
+                      <span v-if="data.event === 'Update'" class="badge bg-info">
+                        <i class="fa fa-magic mr-1"></i>
+                        {{ $t("Update") }}
+                      </span>
+                      <span v-else-if="data.event === 'Create'" class="badge bg-success">
+                        <i class="fa fa-plus-circle mr-1"></i>
+                        {{ $t("Create") }}
+                      </span>
+                      <span v-else-if="data.event === 'Delete'" class="badge bg-danger">
+                        <i class="fa fa-trash mr-1"></i>
+                        {{ $t("Delete") }}
+                      </span>
+                      <span v-else class="badge bg-secondary">
+                        {{ data.event }}
+                      </span>
+                    </td>
+                    <td>{{ data.causer_name }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>{{ data.performedAt }}</td>
+                  </tr>
+                  <tr v-show="!activityLoading && !allActivityLog.length">
+                    <td colspan="5" class="text-center">
                 <EmptyTable />
-              </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="card-footer">
@@ -1610,6 +1632,7 @@ export default {
     headerShow: false,
     date: new Date().toISOString().slice(0, 10),
     activeTab: "purchases",
+    openActionIndex: null,
   }),
   filters: {
     startDate(val) {
@@ -1682,6 +1705,10 @@ export default {
       this.getSupplierPayments();
       this.getNonPurchaseTransactions();
     });
+    document.addEventListener('click', this.handleClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
   },
   methods: {
     switchTab(tabName) {
@@ -2265,6 +2292,142 @@ export default {
         }
       });
     },
+
+    // Format phone number
+    formatPhoneNumber(phoneNumber) {
+      if (!phoneNumber) return '';
+
+      // Remove all non-digit characters except +
+      let cleaned = phoneNumber.replace(/[^\d+]/g, '');
+
+      // If it starts with +, keep it
+      if (cleaned.startsWith('+')) {
+        // Remove the + for processing
+        let digits = cleaned.substring(1);
+
+        // Format based on country code
+        if (digits.startsWith('1') && digits.length === 11) {
+          // US/Canada format: +1 (XXX) XXX-XXXX
+          return `+1 (${digits.substring(1, 4)}) ${digits.substring(4, 7)}-${digits.substring(7)}`;
+        } else if (digits.startsWith('966') && digits.length === 12) {
+          // Saudi Arabia format: +966 XX XXX XXXX
+          return `+966 ${digits.substring(3, 5)} ${digits.substring(5, 8)} ${digits.substring(8)}`;
+        } else if (digits.startsWith('44') && digits.length === 12) {
+          // UK format: +44 XXXX XXX XXX
+          return `+44 ${digits.substring(2, 6)} ${digits.substring(6, 9)} ${digits.substring(9)}`;
+        } else if (digits.startsWith('33') && digits.length === 11) {
+          // France format: +33 X XX XX XX XX
+          return `+33 ${digits.substring(2, 3)} ${digits.substring(3, 5)} ${digits.substring(5, 7)} ${digits.substring(7, 9)} ${digits.substring(9)}`;
+        } else if (digits.length >= 10) {
+          // Generic format: +XXX XXX XXX XXXX
+          const countryCode = digits.substring(0, digits.length - 10);
+          const number = digits.substring(digits.length - 10);
+          return `+${countryCode} ${number.substring(0, 3)} ${number.substring(3, 6)} ${number.substring(6)}`;
+        } else {
+          // Return as is with + if it's a reasonable length
+          return cleaned;
+        }
+      } else {
+        // No + prefix, add it and format
+        if (cleaned.length === 10) {
+          // Assume US format: (XXX) XXX-XXXX
+          return `+1 (${cleaned.substring(0, 3)}) ${cleaned.substring(3, 6)}-${cleaned.substring(6)}`;
+        } else if (cleaned.length === 11 && cleaned.startsWith('1')) {
+          // US format with country code: +1 (XXX) XXX-XXXX
+          return `+1 (${cleaned.substring(1, 4)}) ${cleaned.substring(4, 7)}-${cleaned.substring(7)}`;
+        } else if (cleaned.length === 12 && cleaned.startsWith('966')) {
+          // Saudi Arabia format: +966 XX XXX XXXX
+          return `+966 ${cleaned.substring(3, 5)} ${cleaned.substring(5, 8)} ${cleaned.substring(8)}`;
+        } else if (cleaned.length >= 10) {
+          // Generic format: +XXX XXX XXX XXXX
+          const countryCode = cleaned.substring(0, cleaned.length - 10);
+          const number = cleaned.substring(cleaned.length - 10);
+          return `+${countryCode} ${number.substring(0, 3)} ${number.substring(3, 6)} ${number.substring(6)}`;
+        } else {
+          // Return as is
+          return phoneNumber;
+        }
+      }
+    },
+
+    // Toggle action menu
+    toggleAction(index) {
+      if (this.openActionIndex === index) {
+        this.openActionIndex = null;
+      } else {
+        this.openActionIndex = index;
+        // Position the menu correctly after it's rendered
+        this.$nextTick(() => {
+          this.positionActionMenu();
+        });
+      }
+    },
+
+    // Position action menu using floating approach to prevent layout issues
+    positionActionMenu() {
+      const menu = document.querySelector('.action-menu');
+      if (!menu) return;
+
+      // Get the trigger button (action icon)
+      const triggerButton = document.querySelector('.action-icon-btn[data-action-index="' + this.openActionIndex + '"]');
+      if (!triggerButton) return;
+
+      const buttonRect = triggerButton.getBoundingClientRect();
+      const menuRect = menu.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Check if RTL layout
+      const isRTL = document.dir === 'rtl' || document.documentElement.dir === 'rtl';
+      
+      // Calculate optimal position
+      let left = buttonRect.left + scrollX;
+      let top = buttonRect.bottom + scrollY + 4; // 4px gap
+
+      // For RTL, position relative to right edge
+      if (isRTL) {
+        left = buttonRect.right + scrollX - menuRect.width;
+      }
+
+      // Adjust if menu would overflow right edge (LTR) or left edge (RTL)
+      if (!isRTL && left + menuRect.width > viewportWidth + scrollX) {
+        left = viewportWidth + scrollX - menuRect.width - 10; // 10px margin
+      } else if (isRTL && left < scrollX + 10) {
+        left = scrollX + 10;
+      }
+
+      // Adjust if menu would overflow bottom edge
+      if (top + menuRect.height > viewportHeight + scrollY) {
+        top = buttonRect.top + scrollY - menuRect.height - 4; // Position above button
+      }
+
+      // Ensure menu doesn't go off-screen on the left (LTR) or right (RTL)
+      if (!isRTL && left < scrollX + 10) {
+        left = scrollX + 10;
+      } else if (isRTL && left + menuRect.width > viewportWidth + scrollX) {
+        left = viewportWidth + scrollX - menuRect.width - 10;
+      }
+
+      // Apply floating position
+      menu.style.position = 'fixed';
+      menu.style.left = left + 'px';
+      menu.style.top = top + 'px';
+      menu.style.right = 'auto';
+      menu.style.bottom = 'auto';
+      menu.style.transform = 'translateZ(0)'; // Hardware acceleration
+    },
+
+    // Close action menu when clicking outside
+    handleClickOutside(event) {
+      if (this.openActionIndex !== null) {
+        const actionDropdown = event.target.closest('.action-dropdown');
+        if (!actionDropdown) {
+          this.openActionIndex = null;
+        }
+      }
+    },
   },
 };
 </script>
@@ -2273,9 +2436,484 @@ export default {
 tfoot {
   font-weight: 700;
 }
-.nav-pills .nav-item {
-  background: #ddd;
-  margin: 2px;
-  border-radius: 0.25rem;
+
+/* Box Profile Styling */
+.card-body.box-profile {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Action dropdown styles */
+.action-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.action-icon-btn {
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.action-menu {
+  position: fixed;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border-radius: 12px;
+  min-width: 200px;
+  z-index: 99999;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideInDown 0.3s ease-out;
+  margin-top: 4px;
+  /* Floating approach - no layout impact */
+  pointer-events: auto;
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+/* RTL Support for Action Menu */
+[dir="rtl"] .action-menu {
+  right: auto !important;
+  left: 0 !important;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.action-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5fb;
+  background: #f8fafc;
+  border-radius: 12px 12px 0 0;
+}
+
+.action-menu-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #023033;
+}
+
+.action-menu-close {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.action-menu-close:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.action-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.action-menu li {
+  border-bottom: 1px solid #f1f5fb;
+}
+
+.action-menu li:last-child {
+  border-bottom: none;
+}
+
+.action-menu li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: #023033;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  gap: 10px;
+}
+
+.action-menu li a i {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.action-menu li a:hover {
+  background: #f8fafc;
+  color: #2AB930;
+  transform: translateX(2px);
+}
+
+.action-menu li a:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #2AB930;
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+}
+
+.action-menu li a:hover:before {
+  transform: scaleY(1);
+}
+
+/* Table action menu positioning - Floating approach */
+.invoices-table td {
+  position: relative;
+  overflow: visible;
+}
+
+.invoices-table .action-dropdown {
+  position: static;
+}
+
+.invoices-table .action-menu {
+  position: fixed;
+  top: auto;
+  right: auto;
+  left: auto;
+  z-index: 1000;
+  /* Floating approach - positioned dynamically via JavaScript */
+  transform: translateZ(0); /* Hardware acceleration for smooth rendering */
+  will-change: transform, opacity; /* Optimize for animations */
+}
+
+/* RTL support for table action menu - Floating approach */
+[dir="rtl"] .invoices-table .action-menu {
+  right: auto;
+  left: auto;
+  /* RTL positioning handled by JavaScript */
+}
+
+/* Card Gradient Styling */
+.card-gradient-1 {
+  background: linear-gradient(135deg, #449eae 0%, #3a8a98 100%) !important;
+}
+
+.card-gradient-2 {
+  background: linear-gradient(135deg, #377578 0%, #2d5f61 100%) !important;
+}
+
+/* Professional Tab Styling - Main Tabs */
+#supplier-main-tabs {
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+  background: transparent;
+}
+
+#supplier-main-tabs .nav-link {
+  border: none;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 20px;
+  margin-right: 8px;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+#supplier-main-tabs .nav-link:hover {
+  color: #33A0D9;
+  background: rgba(51, 160, 217, 0.08);
+  border: none;
+}
+
+#supplier-main-tabs .nav-link.active {
+  color: #33A0D9;
+  background: #ffffff;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 -2px 8px rgba(51, 160, 217, 0.15);
+}
+
+#supplier-main-tabs .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #33A0D9, #2AB930);
+  border-radius: 2px;
+}
+
+/* Supplier Main Tab Content */
+#supplier-main-tabContent {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+}
+
+#supplier-main-tabContent .tab-pane {
+  padding: 0;
+}
+
+/* Professional Tab Styling - Sub Tabs */
+.nav-tabs {
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+  background: transparent;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 20px;
+  margin-right: 8px;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-tabs .nav-link:hover {
+  color: #33A0D9;
+  background: rgba(51, 160, 217, 0.08);
+  border: none;
+}
+
+.nav-tabs .nav-link.active {
+  color: #33A0D9;
+  background: #ffffff;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 -2px 8px rgba(51, 160, 217, 0.15);
+}
+
+.nav-tabs .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #33A0D9, #2AB930);
+  border-radius: 2px;
+}
+
+/* Professional Tab Content */
+.tab-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+}
+
+.tab-pane {
+  padding: 0;
+}
+
+/* Professional Card Body Animations */
+.card-body {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Table Styling */
+.invoices-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-table thead tr {
+  border: none !important;
+}
+
+.invoices-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.invoices-table .badge.bg-success {
+  background-color: #28a745 !important;
+  color: #ffffff !important;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.invoices-table .badge.bg-danger {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+/* Button Styling */
+.refresh-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.print-btn {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+/* Space between action buttons */
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+/* Activity Log Badge Styling */
+.invoices-table .badge.bg-info {
+  background: #33a0d91a !important;
+  color: #33a0d9 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.invoices-table .badge.bg-success {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.invoices-table .badge.bg-danger {
+  background: #fef4f4 !important;
+  color: #dc3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.invoices-table .badge.bg-secondary {
+  background: #f8f9fa !important;
+  color: #6c757d !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+  .nav-tabs .nav-link {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    margin-right: 4px;
+  }
+  
+  #supplier-main-tabs .nav-link {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    margin-right: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-tabs {
+    margin-bottom: 1rem;
+  }
+
+  .nav-tabs .nav-link {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    margin-right: 2px;
+  }
+  
+  #supplier-main-tabs {
+    margin-bottom: 1rem;
+  }
+
+  #supplier-main-tabs .nav-link {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    margin-right: 2px;
+  }
 }
 </style>
