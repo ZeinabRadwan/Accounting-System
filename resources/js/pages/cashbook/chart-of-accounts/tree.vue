@@ -74,7 +74,7 @@
                     <div class="account-code">{{ account.code }}</div>
                   </div>
                   <div class="tree-item-toggle" v-if="account.hasChildren">
-                    <i :class="account.expanded ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
+                    <i :class="account.expanded ? 'fas fa-chevron-down' : (isRTL ? 'fas fa-chevron-left' : 'fas fa-chevron-right')"></i>
                   </div>
                 </div>
               </li>
@@ -88,9 +88,9 @@
             <!-- Empty state when no account is selected -->
             <div v-if="!selectedAccount" class="empty-state">
               <div class="empty-state-content">
-                <i class="fas fa-folder-open text-muted" style="font-size: 48px; margin-bottom: 20px;"></i>
-                <h4 class="text-muted">Select an Account</h4>
-                <p class="text-muted">Click on any account in the tree to view its details and child accounts.</p>
+                <i class="fas fa-box-open" style="font-size: 48px; margin-bottom: 20px;"></i>
+                <h4 class="text-muted">{{ $t('Select an Account') }}</h4>
+                <p class="text-muted">{{ $t('Click on any account in the tree to view its details and child accounts.') }}</p>
               </div>
             </div>
 
@@ -103,9 +103,9 @@
                     <i class="fas fa-folder-open text-primary mr-3" style="font-size: 24px;"></i>
                     <div>
                       <h4 class="mb-1">{{ selectedAccount.name }}</h4>
-                      <p class="text-muted mb-0">Account Code: {{ selectedAccount.code }}</p>
+                      <p class="text-muted mb-0">{{ $t("Account Code") }}: {{ selectedAccount.code }}</p>
                       <p class="text-muted mb-0" v-if="selectedAccount.types">
-                        Type: {{ selectedAccount.types.name }}
+                        {{ $t("Type") }}: {{ selectedAccount.types.name }}
                       </p>
                     </div>
                   </div>
@@ -115,7 +115,7 @@
                     <div class="balance-cards">
                       <!-- Debit Amount -->
                       <div class="balance-card debit-card">
-                        <div class="balance-label">Debit</div>
+                        <div class="balance-label">{{ $t("Debit") }}</div>
                         <div class="balance-amount">
                           {{ selectedAccount.formatted_debit_amount || '0.00' }}
                         </div>
@@ -123,7 +123,7 @@
                       
                       <!-- Credit Amount -->
                       <div class="balance-card credit-card">
-                        <div class="balance-label">Credit</div>
+                        <div class="balance-label">{{ $t("Credit") }}</div>
                         <div class="balance-amount">
                           {{ selectedAccount.formatted_credit_amount || '0.00' }}
                         </div>
@@ -132,9 +132,9 @@
                       <!-- Balance with Type -->
                       <div class="balance-card balance-card-main" 
                            :class="selectedAccount.balance_type === 'Debit' ? 'debit-balance' : 'credit-balance'">
-                        <div class="balance-label">Balance</div>
+                        <div class="balance-label">{{ $t("Balance") }}</div>
                         <div class="balance-amount">
-                          {{ selectedAccount.formatted_balance_with_type || '0.00 Debit' }}
+                          {{ selectedAccount.formatted_balance_with_type || '0.00 ' + $t('Debit') }}
                         </div>
                       </div>
                     </div>
@@ -144,15 +144,15 @@
 
               <!-- Child Accounts Table -->
               <div v-if="childAccounts.length > 0">
-                <h5 class="mb-3">Child Accounts</h5>
+                <h5 class="mb-3">{{ $t("Child Accounts") }}</h5>
                 <table class="list-table table table-hover not-clickable chart-of-accounts-col-9-body-container-table">
                   <thead>
                     <tr>
-                      <th class="border-0">Account</th>
-                      <th class="border-0 text-center">Debit</th>
-                      <th class="border-0 text-center">Credit</th>
-                      <th class="border-0 text-center">Balance</th>
-                      <th class="border-0 text-right" width="50">Actions</th>
+                      <th class="border-0">{{ $t("Account") }}</th>
+                      <th class="border-0 text-center">{{ $t("Debit") }}</th>
+                      <th class="border-0 text-center">{{ $t("Credit") }}</th>
+                      <th class="border-0 text-center">{{ $t("Balance") }}</th>
+                      <th class="border-0 text-right" width="50">{{ $t("Actions") }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -203,7 +203,7 @@
                         <div class="balance-display">
                           <span class="balance-value" 
                                 :class="child.balance_type === 'Debit' ? 'debit-text' : 'credit-text'">
-                            {{ child.formatted_balance_with_type || '0.00 Debit' }}
+                            {{ child.formatted_balance_with_type || '0.00 ' + $t('Debit') }}
                           </span>
                         </div>
                       </td>
@@ -253,8 +253,8 @@
               <div v-else class="no-children-message">
                 <div class="text-center py-4">
                   <i class="fas fa-info-circle text-muted" style="font-size: 32px; margin-bottom: 16px;"></i>
-                  <h5 class="text-muted">No Child Accounts</h5>
-                  <p class="text-muted">This account doesn't have any child accounts.</p>
+                  <h5 class="text-muted">{{ $t("No Child Accounts") }}</h5>
+                  <p class="text-muted">{{ $t("This account doesn't have any child accounts.") }}</p>
                 </div>
               </div>
             </div>
@@ -306,6 +306,9 @@ export default {
     ...mapGetters("operations", ["loading", "appInfo"]),
     exportUrl() {
       return `/chart-of-accounts/export/excel?term=${this.query}`;
+    },
+    isRTL() {
+      return document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
     },
   },
   

@@ -457,7 +457,7 @@ class ChartOfAccountController extends Controller
                     'balance' => $line->debit_amount - $line->credit_amount,
                     'balance_type' => $line->debit_amount >= $line->credit_amount ? 'Debit' : 'Credit',
                     'formatted_balance_with_type' => number_format(abs($line->debit_amount - $line->credit_amount), 2) . 
-                        ' ' . ($line->debit_amount >= $line->credit_amount ? 'Debit' : 'Credit'),
+                        ' ' . ($line->debit_amount >= $line->credit_amount ? __('Debit') : __('Credit')),
                     'status' => $journalEntry->status,
                     'formatted_status' => ucfirst($journalEntry->status),
                     'created_by' => $journalEntry->creator ? $journalEntry->creator->name : 'Unknown',
