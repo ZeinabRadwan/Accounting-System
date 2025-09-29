@@ -93,12 +93,7 @@ class InvoiceController extends Controller
                     $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales Account assigned.';
                 }
                 
-                // Check if product has a VAT rate and if that VAT rate has a sales VAT account (with fallback)
-                if (!$product || !$product->productTax) {
-                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a VAT rate assigned.';
-                } elseif (!$product->productTax->getSalesVatAccount()) {
-                    $validationErrors[] = 'Product ' . ($product->name ?? 'Unknown') . ' must have a Sales VAT Account assigned. Please configure the VAT rate "' . $product->productTax->name . '" with a Sales VAT Account or ensure the default "Sales VAT Payable" account exists.';
-                }
+                // VAT rate validation removed per business request
 
                 if (isset($selectedProduct['discount']) && $selectedProduct['discount'] > 0) {
                     $totalDiscountAmount += $selectedProduct['discount'];

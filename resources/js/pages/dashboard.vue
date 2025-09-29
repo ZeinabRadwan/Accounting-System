@@ -78,7 +78,7 @@
                     </div>
                     <div class="card-body summary-cards">
                       <div class="row">
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
@@ -100,7 +100,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-light-green">
                             <div class="inner">
                               <h3>
@@ -122,7 +122,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-light-blue">
                             <div class="inner">
                               <h3>
@@ -144,7 +144,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-green">
                             <div class="inner">
                               <h3>
@@ -166,7 +166,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-dark-blue">
                             <div class="inner">
                               <h3>
@@ -190,7 +190,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-teal">
                             <div class="inner">
                               <h3>
@@ -212,7 +212,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-dark-teal">
                             <div class="inner">
                               <h3>
@@ -234,7 +234,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
@@ -258,7 +258,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-green">
                             <div class="inner">
                               <h3>
@@ -283,7 +283,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-3 col-6">
                           <div class="small-box bg-brand-light-green">
                             <div class="inner">
                               <h3>
@@ -347,7 +347,11 @@
                     </div>
                     <div class="card-body">
                       <template>
-                        <v-chart class="chart" :option="translatedPieChartOptions" />
+                        <v-chart
+                          class="chart"
+                          :key="$i18n.locale + '-pie'"
+                          :option="translatedPieChartOptions"
+                        />
                       </template>
                     </div>
                   </div>
@@ -418,6 +422,7 @@
                       <template>
                         <v-chart
                           class="chart"
+                          :key="$i18n.locale + '-line'"
                           :option="translatedLineChartOptions"
                         />
                       </template>
@@ -476,7 +481,11 @@
                     </div>
                     <div class="card-body">
                       <template>
-                        <v-chart class="chart" :option="translatedBarChartOptions" />
+                        <v-chart
+                          class="chart"
+                          :key="$i18n.locale + '-bar'"
+                          :option="translatedBarChartOptions"
+                        />
                       </template>
                     </div>
                   </div>
@@ -560,6 +569,8 @@ export default {
     topClients: "",
     dashboardSummery: {},
     loading: false,
+    paymentMonths: [],
+    salesMonths: [],
 
     // options for pie chart(Top selling products)
     pieChartOptions: {
@@ -586,20 +597,21 @@ export default {
           "border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);",
       },
       legend: {
-        orient: "vertical",
-        left: "left",
-        top: "center",
-        itemGap: 16,
+        orient: "horizontal",
+        type: "scroll",
+        bottom: 0,
+        left: "center",
+        itemGap: 12,
         textStyle: {
           color: "#33a0d9",
           fontSize: 12,
           fontWeight: "600",
-          lineHeight: 18,
+          lineHeight: 16,
         },
         itemWidth: 12,
         itemHeight: 12,
         formatter: function (name) {
-          return name.length > 15 ? name.substring(0, 15) + "..." : name;
+          return name.length > 20 ? name.substring(0, 20) + "..." : name;
         },
       },
       series: [
@@ -607,7 +619,7 @@ export default {
           name: "Top Selling Products",
           type: "pie",
           radius: ["40%", "70%"],
-          center: ["65%", "50%"],
+          center: ["50%", "45%"],
           data: [],
           itemStyle: {
             borderRadius: 8,
@@ -1132,24 +1144,28 @@ export default {
 
 
   methods: {
-    // Translate English month abbreviations to Arabic
+    // Localize month labels using i18n files (supports ar/en and others)
     translateMonths(months) {
-      const monthTranslations = {
-        'Jan': 'يناير',
-        'Feb': 'فبراير', 
-        'Mar': 'مارس',
-        'Apr': 'أبريل',
-        'May': 'مايو',
-        'Jun': 'يونيو',
-        'Jul': 'يوليو',
-        'Aug': 'أغسطس',
-        'Sep': 'سبتمبر',
-        'Oct': 'أكتوبر',
-        'Nov': 'نوفمبر',
-        'Dec': 'ديسمبر'
+      // Map common API abbreviations to i18n month keys
+      const monthKeyMap = {
+        Jan: 'January',
+        Feb: 'February',
+        Mar: 'March',
+        Apr: 'April',
+        May: 'May',
+        Jun: 'June',
+        Jul: 'July',
+        Aug: 'August',
+        Sep: 'September',
+        Oct: 'October',
+        Nov: 'November',
+        Dec: 'December'
       };
-      
-      return months.map(month => monthTranslations[month] || month);
+
+      return months.map((month) => {
+        const i18nKey = monthKeyMap[month] || month; // Support both abbreviations and full names
+        return this.$t(i18nKey);
+      });
     },
 
     showPaymentNotification(status, message) {
@@ -1178,7 +1194,7 @@ export default {
     },
 
     // get summery
-    async getSummery(event) {
+    async getSummery() {
       let summerType = this.form.summeryType || "today";
       
       try {
@@ -1213,7 +1229,8 @@ export default {
       const { data } = await axios.get(
         window.location.origin + "/api/dashboard/monthly-payment-sent-received"
       );
-      this.lineChartOptions.xAxis.data = this.translateMonths(data.months);
+      this.paymentMonths = data.months || [];
+      this.lineChartOptions.xAxis.data = this.translateMonths(this.paymentMonths);
       this.lineChartOptions.series[0].data = data.sent;
       this.lineChartOptions.series[1].data = data.received;
     },
@@ -1223,10 +1240,21 @@ export default {
       const { data } = await axios.get(
         window.location.origin + "/api/dashboard/monthly-sales-purchases"
       );
-      this.barChartOptions.xAxis.data = this.translateMonths(data.months);
+      this.salesMonths = data.months || [];
+      this.barChartOptions.xAxis.data = this.translateMonths(this.salesMonths);
       this.barChartOptions.series[0].data = data.purchase;
       this.barChartOptions.series[1].data = data.sales;
     },
+  },
+  watch: {
+    '$i18n.locale'() {
+      if (this.paymentMonths && this.paymentMonths.length) {
+        this.lineChartOptions.xAxis.data = this.translateMonths(this.paymentMonths);
+      }
+      if (this.salesMonths && this.salesMonths.length) {
+        this.barChartOptions.xAxis.data = this.translateMonths(this.salesMonths);
+      }
+    }
   },
 };
 </script>
@@ -1579,7 +1607,7 @@ export default {
 .card .card-header {
   background: white;
   border-bottom: 1px solid #ced4da;
-  padding: 1.25rem 1.25rem 0 1.25rem;
+  padding: 1.25rem 1.25rem;
   border-radius: 20px 20px 0 0;
 }
 
