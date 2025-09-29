@@ -11,12 +11,12 @@ $headers = getallheaders();
 $payload = file_get_contents('php://input');
 $signature = $headers['X-Hub-Signature-256'] ?? '';
 
-//if (!verifyGitHubWebhook($payload, $secret, $signature)) {
-//    http_response_code(403);
-//
-//    echo "Forbidden";
-//    exit;
-//}
+if (!verifyGitHubWebhook($payload, $secret, $signature)) {
+   http_response_code(403);
+
+   echo "Forbidden";
+   exit;
+}
 
 class UpdateSettingCommand
 {
