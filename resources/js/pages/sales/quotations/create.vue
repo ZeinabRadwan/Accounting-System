@@ -1268,9 +1268,70 @@ export default {
             params: { slug: data.data.slug },
           });
         })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Please check your input and try again.") });
+        .catch((error) => {
+          if (error?.response?.status === 422 && error.response?.data?.errors) {
+            const serverErrors = error.response.data.errors || {};
+            const translatedErrors = {};
+            Object.keys(serverErrors).forEach((field) => {
+              const fieldErrors = serverErrors[field] || [];
+              translatedErrors[field] = fieldErrors.map((message) => this.translateValidationMessage(message, field));
+            });
+            this.form.errors.set(translatedErrors);
+            toast.fire({ type: "error", title: this.$t("Please check your input and try again.") });
+          } else {
+            const message = error?.response?.data?.message || this.$t("Please check your input and try again.");
+            toast.fire({ type: "error", title: message });
+          }
         });
+    },
+    // translate common validation messages coming from backend to Arabic (fallback when i18n key missing)
+    translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      const direct = this.$t(message);
+      if (direct && direct !== message) return direct;
+
+      // Normalize field label (try to use translated field names)
+      const fieldLabelMap = {
+        client: this.$t("Client"),
+        reference: this.$t("Reference"),
+        selectedProducts: this.$t("Select Items"),
+        date: this.$t("Date"),
+        deliveryPlace: this.$t("Delivery Place"),
+        note: this.$t("Note"),
+        status: this.$t("Status"),
+        discount: this.$t("Discount"),
+        discountType: this.$t("Discount Type"),
+        totalDiscount: this.$t("Total discount"),
+        orderTax: this.$t("Quotation Tax"),
+        totalTax: this.$t("Total Tax"),
+        netTotal: this.$t("Net Total"),
+        transportCost: this.$t("Transport Cost"),
+      };
+      const fieldLabel = fieldLabelMap[field] || field;
+
+      // Common Laravel validation patterns
+      const patterns = [
+        { re: /The\s+.+?\s+field\s+is\s+required\.?/i, ar: `هذا الحقل مطلوب` },
+        { re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, ar: `القيمة المحددة غير صالحة` },
+        { re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, ar: `يجب أن يكون رقماً` },
+        { re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, ar: `يجب أن يكون عدداً صحيحاً` },
+        { re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, ar: (_, n) => `يجب ألا يقل عن ${n}` },
+        { re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, ar: (_, n) => `يجب ألا يزيد عن ${n}` },
+        { re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, ar: `تنسيق غير صالح` },
+        { re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, ar: `هذه القيمة مستخدمة بالفعل` },
+      ];
+
+      for (const { re, ar } of patterns) {
+        const match = message.match(re);
+        if (match) {
+          const text = typeof ar === 'function' ? ar(...match) : ar;
+          // Prefix with field label where useful
+          return `${fieldLabel}: ${text}`;
+        }
+      }
+
+      // Fallback: return original message if nothing matched
+      return message;
     },
     // save form data temporarily
     saveTemporary() {
