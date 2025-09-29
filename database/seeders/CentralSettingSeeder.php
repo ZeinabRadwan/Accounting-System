@@ -65,6 +65,9 @@ class CentralSettingSeeder extends Seeder
             }
         }
 
+     // truncate
+     DB::table('settings')->truncate();
+
         if (DB::table('settings')->count() == 0) {
             settings()->set([
                 // new setting for landing page
