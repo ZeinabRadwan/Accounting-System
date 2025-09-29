@@ -98,8 +98,8 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
-                  <table class="table table-hover table-sm text-center invoices-create-table">
+                <div class="table-responsive table-custom w-95 m-auto">
+                  <table class="table table-hover table-sm text-center quotations-create-table">
                     <thead>
                       <th>{{ $t("#") }}</th>
                       <th>{{ $t("Code") }}</th>
@@ -1576,20 +1576,42 @@ export default {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.invoices-create-table {
-  font-size: 0.875rem;
+/* Match quotations create table styling */
+.quotations-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.invoices-create-table th {
-  background-color: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
-  font-weight: 600;
-  padding: 0.75rem 0.5rem;
+.quotations-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
 }
 
-.invoices-create-table td {
-  padding: 0.5rem;
-  vertical-align: middle;
+.quotations-create-table thead tr {
+  border: none !important;
+}
+
+.quotations-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.quotations-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .quotations-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .quotations-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
 }
 
 .insufficient-stock-input {

@@ -264,7 +264,7 @@
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td class="no-currency">
-                          {{ allData.transport }}
+                          {{ allData.transport || 0 }}
                         </td>
                       </tr>
                       <tr>
