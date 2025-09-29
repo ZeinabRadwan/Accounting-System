@@ -488,6 +488,29 @@ export default {
 .table-responsive {
   border-radius: 12px;
   background: #ffffff;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #33a0d9 #f1f5f9;
+}
+
+/* Custom scrollbar for webkit browsers */
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #33a0d9;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #2a8bc7;
 }
 
 .invoices-table {
@@ -672,24 +695,89 @@ export default {
 }
 
 /* Responsive Design Enhancements */
+@media (max-width: 1200px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .invoices-table {
+    min-width: 800px;
+  }
+  
+  .invoices-table thead th,
+  .invoices-table tbody td {
+    white-space: nowrap;
+    padding: 8px 6px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .invoices-table {
+    min-width: 700px;
+  }
+  
+  .invoices-table thead th,
+  .invoices-table tbody td {
+    padding: 6px 4px;
+    font-size: 0.85rem;
+  }
+  
+  .nav-tabs .nav-link {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    margin-right: 4px;
+  }
+}
+
 @media (max-width: 768px) {
   .card-body {
     padding: 1.5rem 1rem;
   }
   
+  .nav-tabs {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
   .nav-tabs .nav-link {
-    padding: 10px 16px;
-    font-size: 0.9rem;
-    margin-right: 4px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    margin-right: 2px;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
   }
   
   .table-custom {
     border-radius: 8px;
   }
   
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+  }
+  
+  .invoices-table {
+    min-width: 600px;
+  }
+  
   .invoices-table thead th {
-    padding: 6px;
-    font-size: 0.85rem;
+    padding: 6px 4px;
+    font-size: 0.8rem;
+  }
+  
+  .invoices-table tbody td {
+    padding: 6px 4px;
+    font-size: 0.8rem;
   }
 }
 
@@ -700,20 +788,103 @@ export default {
   
   .nav-tabs {
     margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
   }
   
   .nav-tabs .nav-link {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    margin-right: 2px;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    margin-right: 0;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    border-radius: 6px;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin: 0 -0.75rem;
+  }
+  
+  .invoices-table {
+    min-width: 500px;
+  }
+  
+  .invoices-table thead th {
+    padding: 4px 3px;
+    font-size: 0.75rem;
+  }
+  
+  .invoices-table tbody td {
+    padding: 4px 3px;
+    font-size: 0.75rem;
   }
   
   .invoices-table thead th:first-child {
-    border-top-left-radius: 8px;
+    border-top-left-radius: 6px;
   }
   
   .invoices-table thead th:last-child {
-    border-top-right-radius: 8px;
+    border-top-right-radius: 6px;
+  }
+  
+  /* Make badges smaller on mobile */
+  .invoices-table .badge {
+    font-size: 0.7rem !important;
+    padding: 4px 8px !important;
+  }
+  
+  /* Adjust no-data message for mobile */
+  .no-data-message {
+    padding: 2rem 0.5rem !important;
+  }
+  
+  .no-data-content {
+    padding: 1rem;
+  }
+  
+  .no-data-content i {
+    font-size: 1.5rem !important;
+  }
+  
+  .no-data-content h5 {
+    font-size: 1rem;
+  }
+  
+  .no-data-content p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .card-body {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .nav-tabs .nav-link {
+    padding: 5px 6px;
+    font-size: 0.75rem;
+  }
+  
+  .invoices-table {
+    min-width: 450px;
+  }
+  
+  .invoices-table thead th,
+  .invoices-table tbody td {
+    padding: 3px 2px;
+    font-size: 0.7rem;
+  }
+  
+  .invoices-table .badge {
+    font-size: 0.65rem !important;
+    padding: 3px 6px !important;
   }
 }
 

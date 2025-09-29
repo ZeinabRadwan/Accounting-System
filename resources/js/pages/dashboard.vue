@@ -78,7 +78,7 @@
                     </div>
                     <div class="card-body summary-cards">
                       <div class="row">
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
@@ -100,7 +100,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-light-green">
                             <div class="inner">
                               <h3>
@@ -122,7 +122,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-light-blue">
                             <div class="inner">
                               <h3>
@@ -144,7 +144,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-green">
                             <div class="inner">
                               <h3>
@@ -166,7 +166,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-dark-blue">
                             <div class="inner">
                               <h3>
@@ -190,7 +190,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-teal">
                             <div class="inner">
                               <h3>
@@ -212,7 +212,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-dark-teal">
                             <div class="inner">
                               <h3>
@@ -234,7 +234,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
@@ -258,7 +258,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-green">
                             <div class="inner">
                               <h3>
@@ -283,7 +283,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-light-green">
                             <div class="inner">
                               <h3>
@@ -598,20 +598,19 @@ export default {
       },
       legend: {
         orient: "horizontal",
-        type: "scroll",
-        bottom: 0,
         left: "center",
-        itemGap: 12,
+        bottom: "10px",
+        itemGap: 20,
         textStyle: {
           color: "#33a0d9",
           fontSize: 12,
           fontWeight: "600",
-          lineHeight: 16,
+          lineHeight: 18,
         },
         itemWidth: 12,
         itemHeight: 12,
         formatter: function (name) {
-          return name.length > 20 ? name.substring(0, 20) + "..." : name;
+          return name.length > 15 ? name.substring(0, 15) + "..." : name;
         },
       },
       series: [
@@ -634,22 +633,23 @@ export default {
           labelLine: {
             show: false,
           },
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 15,
-              shadowOffsetX: 0,
-              shadowOffsetY: 4,
-              shadowColor: "rgba(51, 160, 217, 0.4)",
-              scale: 1.05,
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 15,
+                shadowOffsetX: 0,
+                shadowOffsetY: 4,
+                shadowColor: "rgba(51, 160, 217, 0.4)",
+                scale: 1.05,
+              },
+              label: {
+                show: true,
+                fontSize: 12,
+                fontWeight: "600",
+                color: "#33a0d9",
+                formatter: "{b}\n{d}%",
+                position: "center",
+              },
             },
-            label: {
-              show: true,
-              fontSize: 14,
-              fontWeight: "700",
-              color: "#33a0d9",
-              formatter: "{b}\n{d}%",
-            },
-          },
           animationType: "scale",
           animationEasing: "elasticOut",
           animationDelay: function () {
@@ -1456,7 +1456,6 @@ export default {
 }
 
 .small-box .inner h3 {
-  font-size: 2rem;
   font-weight: 700;
   margin: 0 0 8px 0;
   letter-spacing: -0.5px;
@@ -2001,7 +2000,14 @@ export default {
   }
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for 5-column layout */
+@media (max-width: 1400px) {
+  .col-lg-2-4 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
 @media (max-width: 1200px) {
   .col-lg-2-4 {
     flex: 0 0 25%;
