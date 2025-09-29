@@ -141,7 +141,7 @@ class CentralSettingSeeder extends Seeder
                 <meta property="og:url" content="https://arqam.sa/">
                 <meta property="og:title" content="Arqam - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
                 <meta property="og:description" content="Arqam is an all in one management system that helps business owners to manage and operate their businesses. Arqam is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. Arqam is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
-                <meta property="og:image" content="https://i.ibb.co/fDC0L8h/2-1.png">
+                <meta property="og:image" content="https://account.websoft.sa/images/arqam.png">
     
                 <!-- Twitter -->
                 <meta name="twitter:card" content="summary">
@@ -149,7 +149,7 @@ class CentralSettingSeeder extends Seeder
                 <meta property="twitter:url" content="https://arqam.sa/">
                 <meta property="twitter:title" content="Arqam - Ultimate Sales, Inventory, Accounting Management SaaS Application.">
                 <meta property="twitter:description" content="Arqam is an all in one management system that helps business owners to manage and operate their businesses. Arqam is a multitenancy-based subscription system that allows tenants to register for a subscription plan and get access to lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and many more. Arqam is built with core Laravel, Vue JS, Boostrap, and Other modern technologies.">
-                <meta property="twitter:image" content="https://i.ibb.co/fDC0L8h/2-1.png">
+                <meta property="twitter:image" content="https://account.websoft.sa/images/arqam.png">
                 HTML,
             ]);
 
