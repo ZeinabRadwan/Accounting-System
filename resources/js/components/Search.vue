@@ -54,7 +54,7 @@ export default {
 /* Search icon positioning */
 [dir="ltr"] .search-icon {
   position: absolute;
-  left: 5%;
+  left: 93%;
   top: 25%;
 }
 

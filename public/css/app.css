@@ -66532,10 +66532,10 @@ img.circle-img.circle-img--small {
 
 .dtable-footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-top: 30px;
   padding: 0 0 0 10px;
+  flex-direction: column;
 }
 
 @media only screen and (max-width: 767px) {
