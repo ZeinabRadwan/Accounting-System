@@ -30139,26 +30139,6 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/mz.svg?525b13720883d5b9fdd
 
 /***/ }),
 
-/***/ 41707:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".search-area input{border-radius:5px}[dir=ltr] .search-area input,[dir=rtl] .search-area input{padding:5px 35px}[dir=ltr] .search-icon{left:5%;position:absolute;top:25%}[dir=rtl] .search-icon{position:absolute;right:93%;top:25%}[dir=ltr] .search-clear{position:absolute!important;right:5%!important;top:25%!important}[dir=rtl] .search-clear{left:5%!important;position:absolute!important;top:25%!important}[dir=rtl] .search-area .search-clear{left:5%!important;right:auto!important}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 41798:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -80489,6 +80469,26 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/hm.svg?92fcad4fd3aacc9e281
 
 /***/ }),
 
+/***/ 75576:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".search-area input{border-radius:5px}[dir=ltr] .search-area input,[dir=rtl] .search-area input{padding:5px 35px}[dir=ltr] .search-icon{left:93%;position:absolute;top:25%}[dir=rtl] .search-icon{position:absolute;right:93%;top:25%}[dir=ltr] .search-clear{position:absolute!important;right:5%!important;top:25%!important}[dir=rtl] .search-clear{left:5%!important;position:absolute!important;top:25%!important}[dir=rtl] .search-area .search-clear{left:5%!important;right:auto!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 75836:
 /***/ ((module) => {
 
@@ -112811,8 +112811,8 @@ var Modal_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const Modal = (Modal_component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=template&id=3b906cc8
-var Searchvue_type_template_id_3b906cc8_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=template&id=49a54d62
+var Searchvue_type_template_id_49a54d62_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -112862,7 +112862,7 @@ var Searchvue_type_template_id_3b906cc8_render = function render() {
     staticClass: "fas fa-times"
   })])]);
 };
-var Searchvue_type_template_id_3b906cc8_staticRenderFns = [];
+var Searchvue_type_template_id_49a54d62_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=script&lang=js
 /* harmony default export */ const Searchvue_type_script_lang_js = ({
@@ -112889,23 +112889,23 @@ var Searchvue_type_template_id_3b906cc8_staticRenderFns = [];
 });
 ;// ./resources/js/components/Search.vue?vue&type=script&lang=js
  /* harmony default export */ const components_Searchvue_type_script_lang_js = (Searchvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=3b906cc8&prod&lang=css
-var Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css = __webpack_require__(41707);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=3b906cc8&prod&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=49a54d62&prod&lang=css
+var Searchvue_type_style_index_0_id_49a54d62_prod_lang_css = __webpack_require__(75576);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=49a54d62&prod&lang=css
 
             
 
-var Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css_options = {};
+var Searchvue_type_style_index_0_id_49a54d62_prod_lang_css_options = {};
 
-Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css_options.insert = "head";
-Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css_options.singleton = false;
+Searchvue_type_style_index_0_id_49a54d62_prod_lang_css_options.insert = "head";
+Searchvue_type_style_index_0_id_49a54d62_prod_lang_css_options.singleton = false;
 
-var Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css_update = injectStylesIntoStyleTag_default()(Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css/* default */.A, Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css_options);
+var Searchvue_type_style_index_0_id_49a54d62_prod_lang_css_update = injectStylesIntoStyleTag_default()(Searchvue_type_style_index_0_id_49a54d62_prod_lang_css/* default */.A, Searchvue_type_style_index_0_id_49a54d62_prod_lang_css_options);
 
 
 
-/* harmony default export */ const components_Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css = (Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/Search.vue?vue&type=style&index=0&id=3b906cc8&prod&lang=css
+/* harmony default export */ const components_Searchvue_type_style_index_0_id_49a54d62_prod_lang_css = (Searchvue_type_style_index_0_id_49a54d62_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/Search.vue?vue&type=style&index=0&id=49a54d62&prod&lang=css
 
 ;// ./resources/js/components/Search.vue
 
@@ -112918,8 +112918,8 @@ var Searchvue_type_style_index_0_id_3b906cc8_prod_lang_css_update = injectStyles
 
 var Search_component = (0,componentNormalizer/* default */.A)(
   components_Searchvue_type_script_lang_js,
-  Searchvue_type_template_id_3b906cc8_render,
-  Searchvue_type_template_id_3b906cc8_staticRenderFns,
+  Searchvue_type_template_id_49a54d62_render,
+  Searchvue_type_template_id_49a54d62_staticRenderFns,
   false,
   null,
   null,
