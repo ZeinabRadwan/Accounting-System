@@ -2217,7 +2217,7 @@ var getBuiltIn = __webpack_require__(97751);
 var IS_PURE = __webpack_require__(96395);
 var NativePromiseConstructor = __webpack_require__(80550);
 var FORCED_PROMISE_CONSTRUCTOR = (__webpack_require__(10916).CONSTRUCTOR);
-var promiseResolve = __webpack_require__(93438);
+var promiseResolve = __webpack_require__(71057);
 
 var PromiseConstructorWrapper = getBuiltIn('Promise');
 var CHECK_WRAPPER = IS_PURE && !FORCED_PROMISE_CONSTRUCTOR;
@@ -3756,6 +3756,27 @@ module.exports = function (argument, usingIterator) {
   var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
   if (aCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
   throw new $TypeError(tryToString(argument) + ' is not iterable');
+};
+
+
+/***/ }),
+
+/***/ 71057:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var anObject = __webpack_require__(28551);
+var isObject = __webpack_require__(20034);
+var newPromiseCapability = __webpack_require__(36043);
+
+module.exports = function (C, x) {
+  anObject(C);
+  if (isObject(x) && x.constructor === C) return x;
+  var promiseCapability = newPromiseCapability.f(C);
+  var resolve = promiseCapability.resolve;
+  resolve(x);
+  return promiseCapability.promise;
 };
 
 
@@ -12775,27 +12796,6 @@ module.exports = function (name) {
   if (!DESCRIPTORS) return globalThis[name];
   var descriptor = getOwnPropertyDescriptor(globalThis, name);
   return descriptor && descriptor.value;
-};
-
-
-/***/ }),
-
-/***/ 93438:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var anObject = __webpack_require__(28551);
-var isObject = __webpack_require__(20034);
-var newPromiseCapability = __webpack_require__(36043);
-
-module.exports = function (C, x) {
-  anObject(C);
-  if (isObject(x) && x.constructor === C) return x;
-  var promiseCapability = newPromiseCapability.f(C);
-  var resolve = promiseCapability.resolve;
-  resolve(x);
-  return promiseCapability.promise;
 };
 
 
