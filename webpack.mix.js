@@ -5,6 +5,7 @@ const mix = require('laravel-mix')
 mix
   .js('resources/js/central.js', 'public/js')
   .js('resources/js/tenant.js', 'public/js')
+  .js('resources/js/rtl-manager.js', 'public/js')
   .vue()
   .sass('resources/sass/custom_ltr.scss', 'public/css/custom_ltr.css')
   .sass('resources/sass/custom_rtl.scss', 'public/css/custom_rtl.css')
@@ -55,7 +56,8 @@ mix.webpackConfig({
   resolve: {
     extensions: ['.js', '.json', '.vue'],
     alias: {
-      '~': join(__dirname, './resources/js')
+      '~': join(__dirname, './resources/js'),
+      '@': join(__dirname, './resources/js')
     }
   },
   optimization: {

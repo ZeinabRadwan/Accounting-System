@@ -65,6 +65,8 @@ return [
     'The date must be a valid date.' => 'التاريخ يجب أن يكون تاريخاً صحيحاً.',
     'The status field is required.' => 'حقل الحالة مطلوب.',
     'The note field is optional.' => 'حقل الملاحظة اختياري.',
+    'Root Account' => 'الحساب الرئيسي',
+    'Parent Account' => 'الحساب الأب',
 
     // Custom Validation Messages
     'custom' => [

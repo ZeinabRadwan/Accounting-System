@@ -305,6 +305,17 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/chart-of-accounts/dropdown', [ChartOfAccountController::class, 'getDropdown']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::post('/chart-of-accounts/generate-code', [ChartOfAccountController::class, 'generateCode']);
+        
+        // Multilingual Chart of Accounts routes
+        Route::get('/chart-of-accounts/translations', [ChartOfAccountController::class, 'indexWithTranslations']);
+        Route::post('/chart-of-accounts/translations', [ChartOfAccountController::class, 'storeWithTranslations']);
+        Route::put('/chart-of-accounts/{slug}/translations', [ChartOfAccountController::class, 'updateWithTranslations']);
+        Route::get('/chart-of-accounts/{slug}/translations', [ChartOfAccountController::class, 'getTranslations']);
+        Route::put('/chart-of-accounts/{slug}/translations/update', [ChartOfAccountController::class, 'updateTranslations']);
+        Route::get('/chart-of-accounts/translations/search', [ChartOfAccountController::class, 'searchTranslations']);
+        Route::get('/chart-of-accounts/translations/stats', [ChartOfAccountController::class, 'getTranslationStats']);
+        Route::get('/chart-of-accounts/translations/export', [ChartOfAccountController::class, 'exportTranslations']);
+        
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
 
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);

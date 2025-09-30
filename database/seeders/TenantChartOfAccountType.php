@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\ChartOfAccountType;
+use App\Models\ChartOfAccountTypeTranslation;
 
 class TenantChartOfAccountType extends Seeder
 {
@@ -15,62 +17,45 @@ class TenantChartOfAccountType extends Seeder
      */
     public function run()
     {
+        //turn off foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::table('chart_of_account_types')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
         // check if table is empty
         if (DB::table('chart_of_account_types')->count() == 0) {
-            // DB::table('chart_of_account_types')->insert([
-            //     [
-            //         'name' => 'Asset',
-            //         'order' => 1,
-            //     ],
-            //     [
-            //         'name' => 'Liability',
-            //         'order' => 2,
-            //     ],
-            //     [
-            //         'name' => 'Equity',
-            //         'order' => 3,
-            //     ],
-            //     [
-            //         'name' => 'Revenue',
-            //         'order' => 4,
-            //     ],
-            //     [
-            //         'name' => 'Expense',
-            //         'order' => 5,
-            //     ],
-            //     [
-            //         'name' => 'Other',
-            //         'order' => 6,
-            //     ],
-            // ]);
+            $data = [
+                ['name' => 'الأصول', 'order' => 1, 'en' => 'Asset', 'ar' => 'الأصول'],
+                ['name' => 'الخصوم', 'order' => 2, 'en' => 'Liability', 'ar' => 'الخصوم'],
+                ['name' => 'حقوق الملكية', 'order' => 3, 'en' => 'Equity', 'ar' => 'حقوق الملكية'],
+                ['name' => 'الإيرادات', 'order' => 4, 'en' => 'Revenue', 'ar' => 'الإيرادات'],
+                ['name' => 'المصروفات', 'order' => 5, 'en' => 'Expense', 'ar' => 'المصروفات'],
+                ['name' => 'أخرى', 'order' => 6, 'en' => 'Other', 'ar' => 'أخرى'],
+            ];
 
-            DB::table('chart_of_account_types')->insert([
-                [
-                    'name' => 'الأصول', // Assets
-                    'order' => 1,
-                ],
-                [
-                    'name' => 'الخصوم', // Liabilities
-                    'order' => 2,
-                ],
-                [
-                    'name' => 'حقوق الملكية', // Equity / Owner’s Equity
-                    'order' => 3,
-                ],
-                [
-                    'name' => 'الإيرادات', // Revenue / Income
-                    'order' => 4,
-                ],
-                [
-                    'name' => 'المصروفات', // Expenses
-                    'order' => 5,
-                ],
-                [
-                    'name' => 'أخرى', // Other
-                    'order' => 6,
-                ],
-            ]);
-            
+            foreach ($data as $row) {
+                $typeId = DB::table('chart_of_account_types')->insertGetId([
+                    'name' => $row['name'],
+                    'order' => $row['order'],
+                ]);
+
+                // Seed translations into dedicated table
+                DB::table('chart_of_account_type_translations')->insert([
+                    [
+                        'chart_of_account_type_id' => $typeId,
+                        'locale' => 'en',
+                        'name' => $row['en'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ],
+                    [
+                        'chart_of_account_type_id' => $typeId,
+                        'locale' => 'ar',
+                        'name' => $row['ar'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ],
+                ]);
+            }
         }
     }
 }

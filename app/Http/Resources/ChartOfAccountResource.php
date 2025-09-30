@@ -21,7 +21,7 @@ class ChartOfAccountResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => method_exists($this, 'getTranslatedField') ? $this->getTranslatedField('name') : $this->name,
             'code' => $this->code,
             'type_id' => $this->type_id,
             'parent_id' => $this->parent_id,
@@ -67,7 +67,7 @@ class ChartOfAccountResource extends JsonResource
             'parent' => $this->whenLoaded('parent', function() {
                 return [
                     'id' => $this->parent->id,
-                    'name' => $this->parent->name,
+                    'name' => method_exists($this->parent, 'getTranslatedField') ? $this->parent->getTranslatedField('name') : $this->parent->name,
                 ];
             }),
         ];
