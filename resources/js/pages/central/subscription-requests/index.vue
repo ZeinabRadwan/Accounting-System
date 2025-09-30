@@ -64,7 +64,7 @@
                       </div>
                     </td>
                     <td>{{ subscriptionRequest.plan.name }}</td>
-                    <td>{{ subscriptionRequest.plan.amount | withCurrency}}</td>
+                    <td>{{ subscriptionRequest.plan.amount}} <span class="saudi-riyal">ê</span></td>
                     <td>{{ subscriptionRequest.quantity }}</td>
                     <td v-html="subscriptionRequest.status_html" class="text-center"></td>
                     <td>

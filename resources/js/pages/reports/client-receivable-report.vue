@@ -139,8 +139,7 @@
                     <td>
                       {{
                         (data.clientDue + data.nonInvoiceCurrentDue)
-                          | withCurrency
-                      }}
+                          }}<span class="saudi-riyal">ê</span>
                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
