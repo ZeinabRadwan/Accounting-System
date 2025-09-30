@@ -74,13 +74,13 @@
                   >
                     <i class="fas fa-print"></i>
                   </a>
-                  <button
-                    @click="showCreateForm = true"
+                  <router-link
+                    :to="{ name: 'chart-of-accounts.create' }"
                     class="btn btn-primary"
                   >
                     {{ $t("Create") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />
-                  </button>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -165,10 +165,10 @@
                           </div>
                           <ul>
                             <li>
-                              <a href="#" @click.prevent="editAccount(account)">
+                              <router-link :to="{ name: 'chart-of-accounts.edit', params: { slug: account.code } }">
                                 <i class="fas fa-edit"></i>
                                 {{ $t('Edit') }}
-                              </a>
+                              </router-link>
                             </li>
                             <li>
                               <a href="#" @click.prevent="manageTranslations(account)">
@@ -220,43 +220,7 @@
       </div>
     </div>
 
-    <!-- Create/Edit Form Modal -->
-    <div v-if="showCreateForm || editingAccount" class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content account-form-modal">
-          <div class="modal-header">
-            <div class="d-flex align-items-center">
-              <div class="me-3">
-                <i class="fas fa-chart-line text-primary fs-4"></i>
-              </div>
-              <div>
-                <h5 class="modal-title mb-1">
-                  {{ editingAccount ? $t('Edit Account') : $t('Create New Account') }}
-                </h5>
-                <p class="text-muted mb-0 small">
-                  {{ editingAccount ? $t('Update account information') : $t('Add a new account to your chart of accounts') }}
-                </p>
-              </div>
-            </div>
-            <button
-              type="button"
-              class="btn-close"
-              @click="closeForm"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <ChartOfAccountForm
-              :account="editingAccount"
-              :account-types="accountTypes"
-              :parent-accounts="parentAccounts"
-              @saved="onAccountSaved"
-              @cancelled="closeForm"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Create/Edit happen in dedicated routes; only translations uses modal -->
 
     <!-- Translation Management Modal -->
     <Modal v-if="translationAccount" @close="closeTranslationModal">
@@ -275,7 +239,7 @@
       </div>
       <div slot="body" class="translation-content">
         <TranslationManager
-          :model-id="translationAccount.id"
+          :model-id="translationAccount.code"
           model-type="chart-of-accounts"
           :translatable-fields="['name']"
           :initial-translations="translationAccount.translations || {}"
@@ -346,6 +310,7 @@ export default {
       loading: false,
       openActionIndex: null,
       pagination: null,
+      // create/edit are handled via routes
       showCreateForm: false,
       editingAccount: null,
       translationAccount: null,
@@ -434,25 +399,32 @@ export default {
     async loadAccounts() {
       this.loading = true
       try {
+        const currentPage = (this.pagination && this.pagination.current_page) ? this.pagination.current_page : 1
+        const isSearching = !!this.searchTerm
+        const endpoint = isSearching
+          ? '/api/chart-of-accounts/translations/search'
+          : '/api/chart-of-accounts/translations'
+
         const params = {
+          page: currentPage,
+          perPage: this.perPage,
           locale: this.currentLocale,
           include_translations: true,
-          include_available_locales: true
+          include_available_locales: true,
+          include: 'type',
+          include_type_translations: true
         }
-        
-        if (this.searchTerm) {
+
+        if (isSearching) {
           params.search = this.searchTerm
           params.field = this.searchField
         }
-        
+
         if (this.typeFilter) {
           params.type_id = this.typeFilter
         }
-        
-        // Ask backend to include related type translations as well
-        params.include = 'type'
-        params.include_type_translations = true
-        const response = await this.$axios.get('/api/chart-of-accounts/translations', { params })
+
+        const response = await this.$axios.get(endpoint, { params })
         this.accounts = response.data.data
         this.pagination = response.data.meta
       } catch (error) {
@@ -502,6 +474,10 @@ export default {
     debounceSearch() {
       clearTimeout(this.searchTimeout)
       this.searchTimeout = setTimeout(() => {
+        // reset to first page on new search
+        if (this.pagination) {
+          this.pagination.current_page = 1
+        }
         this.loadAccounts()
       }, 500)
     },
@@ -514,6 +490,7 @@ export default {
     
     loadPage(page) {
       if (page >= 1 && page <= this.pagination.last_page) {
+        this.pagination.current_page = page
         this.loadAccounts()
       }
     },
@@ -543,10 +520,6 @@ export default {
       }
     },
     
-    editAccount(account) {
-      this.editingAccount = account
-    },
-    
     manageTranslations(account) {
       this.translationAccount = account
     },
@@ -564,21 +537,10 @@ export default {
       }
     },
     
-    onAccountSaved(account) {
-      this.closeForm()
-      this.loadAccounts()
-      this.loadTranslationStats()
-    },
-    
     onTranslationsSaved() {
       this.closeTranslationModal()
       this.loadAccounts()
       this.loadTranslationStats()
-    },
-    
-    closeForm() {
-      this.showCreateForm = false
-      this.editingAccount = null
     },
     
     closeTranslationModal() {

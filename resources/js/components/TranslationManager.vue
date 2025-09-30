@@ -127,33 +127,49 @@ export default {
   },
   data() {
     return {
-      activeLocale: 'en',
+      activeLocale: (this.$store && this.$store.getters && this.$store.getters['lang/locale']) || (window.config && window.config.locale) || 'en',
       translations: {},
       errors: {},
       isSaving: false,
-      supportedLocales: [
-        { code: 'en', name: 'English', flag: '🇺🇸' },
-        { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-        { code: 'ur', name: 'اردو', flag: '🇵🇰' },
-        { code: 'fr', name: 'Français', flag: '🇫🇷' },
-        { code: 'es', name: 'Español', flag: '🇪🇸' },
-        { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-        { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
-        { code: 'bn', name: 'বাংলা', flag: '🇧🇩' },
-        { code: 'zh', name: '中文', flag: '🇨🇳' },
-        { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-        { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
-        { code: 'th', name: 'ไทย', flag: '🇹🇭' },
-        { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-        { code: 'ko', name: '한국어', flag: '🇰🇷' },
-        { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-        { code: 'pt', name: 'Português', flag: '🇵🇹' },
-        { code: 'nl', name: 'Nederlands', flag: '🇳🇱' }
-      ]
+      supportedLocales: (() => {
+        const systemLocales = (this.$store && this.$store.getters && this.$store.getters['lang/locales']) || (window.config && window.config.locales) || {}
+        const localeFlags = {
+          'en': '🇺🇸', 'hi': '🇮🇳', 'bn': '🇧🇩', 'es': '🇪🇸', 'de': '🇩🇪',
+          'fr': '🇫🇷', 'ar': '🇸🇦', 'id': '🇮🇩', 'nl': '🇳🇱', 'ms': '🇲🇾',
+          'it': '🇮🇹', 'ko': '🇰🇷', 'ru': '🇷🇺', 'th': '🇹🇭', 'tr': '🇹🇷',
+          'vi': '🇻🇳', 'zh': '🇨🇳', 'pt': '🇵🇹'
+        }
+        const localeNames = {
+          'en': 'English', 'hi': 'हिन्दी', 'bn': 'বাংলা', 'es': 'Español', 'de': 'Deutsch',
+          'fr': 'Français', 'ar': 'العربية', 'id': 'Bahasa Indonesia', 'nl': 'Nederlands',
+          'ms': 'Bahasa Melayu', 'it': 'Italiano', 'ko': '한국어', 'ru': 'Русский',
+          'th': 'ไทย', 'tr': 'Türkçe', 'vi': 'Tiếng Việt', 'zh': '中文', 'pt': 'Português'
+        }
+        return Object.keys(systemLocales).map(code => ({
+          code,
+          name: localeNames[code] || code.toUpperCase(),
+          flag: localeFlags[code] || '🌐'
+        }))
+      })()
     }
   },
   mounted() {
     this.initializeTranslations()
+  },
+  watch: {
+    initialTranslations: {
+      handler() {
+        this.initializeTranslations()
+      },
+      deep: true,
+      immediate: false
+    },
+    translatableFields() {
+      this.initializeTranslations()
+    },
+    supportedLocales() {
+      this.initializeTranslations()
+    }
   },
   methods: {
     initializeTranslations() {
