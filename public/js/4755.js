@@ -460,7 +460,7 @@ var setSpecies = __webpack_require__(87633);
 var aCallable = __webpack_require__(79306);
 var isCallable = __webpack_require__(94901);
 var isObject = __webpack_require__(20034);
-var anInstance = __webpack_require__(90679);
+var anInstance = __webpack_require__(13060);
 var speciesConstructor = __webpack_require__(2293);
 var task = (__webpack_require__(59225).set);
 var microtask = __webpack_require__(91955);
@@ -894,6 +894,23 @@ module.exports = !fails(function () {
   // eslint-disable-next-line es/no-object-getprototypeof -- required for testing
   return Object.getPrototypeOf(new F()) !== F.prototype;
 });
+
+
+/***/ }),
+
+/***/ 13060:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var isPrototypeOf = __webpack_require__(1625);
+
+var $TypeError = TypeError;
+
+module.exports = function (it, Prototype) {
+  if (isPrototypeOf(Prototype, it)) return it;
+  throw new $TypeError('Incorrect invocation');
+};
 
 
 /***/ }),
@@ -12311,23 +12328,6 @@ var FORCED_PROMISE_CONSTRUCTOR = (__webpack_require__(10916).CONSTRUCTOR);
 module.exports = FORCED_PROMISE_CONSTRUCTOR || !checkCorrectnessOfIteration(function (iterable) {
   NativePromiseConstructor.all(iterable).then(undefined, function () { /* empty */ });
 });
-
-
-/***/ }),
-
-/***/ 90679:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var isPrototypeOf = __webpack_require__(1625);
-
-var $TypeError = TypeError;
-
-module.exports = function (it, Prototype) {
-  if (isPrototypeOf(Prototype, it)) return it;
-  throw new $TypeError('Incorrect invocation');
-};
 
 
 /***/ }),

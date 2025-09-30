@@ -2757,6 +2757,8 @@
   "Fixed discount cannot exceed subtotal amount.": "لا يمكن أن يتجاوز الخصم الثابت مبلغ المجموع الفرعي.",
   "Loan Authority Validation Messages": "رسائل التحقق من جهة القرض",
   "The name field is required.": "حقل الاسم مطلوب.",
+  "The code field is required.": "حقل الرمز مطلوب.",
+  "The type id field is required.": "حقل نوع الحساب مطلوب.",
   "The name field must not exceed 150 characters.": "حقل الاسم يجب ألا يتجاوز 150 حرف.",
   "The name has already been taken.": "الاسم مستخدم بالفعل.",
   "The contact number field is required.": "حقل رقم الاتصال مطلوب.",

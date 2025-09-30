@@ -425,6 +425,9 @@ class TableExportController extends Controller
     public function accountTransactionsPDF($slug)
     {
         $account = Account::where('slug', $slug)->first();
+        if (!$account) {
+           abort(404);
+        }
         $data = AccountTransaction::with('cashbookAccount', 'user')->where('account_id', $account->id)->orderBy('created_at', 'asc')->get()->toArray();
         // share data to view
         view()->share('transactions', $data);

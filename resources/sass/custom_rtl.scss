@@ -290,6 +290,16 @@
   text-align: right;
 }
 
+/* Ensure v-select placeholder color matches other inputs */
+[dir="rtl"] .v-select .vs__search::placeholder {
+  color: #6c757d; /* Bootstrap placeholder gray to match inputs */
+}
+
+/* vue-select renders a span for placeholder */
+[dir="rtl"] .v-select .vs__placeholder {
+  color: #6c757d;
+}
+
 /* Card RTL adjustments */
 [dir="rtl"] .card-header {
   text-align: right;
