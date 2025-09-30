@@ -362,8 +362,7 @@
                       :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount')" />
                     <div v-if="form.discountType == 1" class="input-group-append">
                       <span class="input-group-text">{{
-                        form.totalDiscount | withCurrency
-                      }}</span>
+                        form.totalDiscount }}<span class="saudi-riyal">ê</span></span>
                     </div>
                   </div>
                   <has-error :form="form" field="discount" />

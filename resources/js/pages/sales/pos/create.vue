@@ -389,8 +389,7 @@
                   <div class="input-group-prepend input-c-margin">
                     <div class="input-group-text">
                       <span v-if="form.orderTax">{{
-                        form.totalTax | withCurrency
-                      }}</span>
+                        form.totalTax }}<span class="saudi-riyal">ê</span></span>
                       <span v-else
                         >{{ 0 }} <span class="saudi-riyal">ê</span></span
                       >

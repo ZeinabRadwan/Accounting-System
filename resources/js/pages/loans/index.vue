@@ -140,8 +140,7 @@
                     </td>
                     <td>
                       <span v-if="data.transaction">{{
-                        data.transaction.amount | withCurrency
-                      }}</span>
+                        data.transaction.amount }}<span class="saudi-riyal">ê</span></span>
                     </td>
                     <td>
                       {{ data.interestAmount  }} <span class="saudi-riyal">ê</span>
