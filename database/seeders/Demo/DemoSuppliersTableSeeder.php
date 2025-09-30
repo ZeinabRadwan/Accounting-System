@@ -3,6 +3,7 @@
 namespace Database\Seeders\Demo;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DemoSuppliersTableSeeder extends Seeder
 {
@@ -13,18 +14,18 @@ class DemoSuppliersTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('suppliers')->delete();
+        DB::table('suppliers')->delete();
 
-        \DB::table('suppliers')->insert([
+        DB::table('suppliers')->insert([
             0 => [
                 'id' => 1,
-                'name' => 'Yvonne Melendez',
-                'slug' => 'yvonne-melendez',
+                'name' => 'سعود العتيبي',
+                'slug' => 'saud-alotaibi',
                 'type' => 'Individual',
                 'supplier_id' => '1',
                 'email' => 'novuty@mailinator.com',
                 'phone_number' => '+1 (654) 921-9435',
-                'company_name' => 'Newton Traders',
+                'company_name' => 'شركة نيوتن للتجارة',
                 'address' => 'Et deleniti alias do',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -33,13 +34,13 @@ class DemoSuppliersTableSeeder extends Seeder
             ],
             1 => [
                 'id' => 2,
-                'name' => 'Carla Bender',
-                'slug' => 'carla-bender',
+                'name' => 'ريم القحطاني',
+                'slug' => 'reem-alqahtani',
                 'type' => 'Company',
                 'supplier_id' => '2',
                 'email' => 'xabexived@mailinator.com',
                 'phone_number' => '+1 (546) 502-6344',
-                'company_name' => 'Richardson Inc',
+                'company_name' => 'شركة ريتشاردسون',
                 'address' => 'Eos perferendis aut',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -48,13 +49,13 @@ class DemoSuppliersTableSeeder extends Seeder
             ],
             2 => [
                 'id' => 3,
-                'name' => 'Quyn Erickson',
-                'slug' => 'quyn-erickson',
+                'name' => 'فهد الدوسري',
+                'slug' => 'fahad-aldosari',
                 'type' => 'Individual',
                 'supplier_id' => '3',
                 'email' => 'qihykiwos@mailinator.com',
                 'phone_number' => '+1 (951) 281-5524',
-                'company_name' => 'Johns & Mcneil Co',
+                'company_name' => 'شركة جونز وماكنيل',
                 'address' => 'Reprehenderit et lib',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -63,13 +64,13 @@ class DemoSuppliersTableSeeder extends Seeder
             ],
             3 => [
                 'id' => 4,
-                'name' => 'Amir Vega',
-                'slug' => 'amir-vega',
+                'name' => 'نواف الشمري',
+                'slug' => 'nawaf-alshammari',
                 'type' => 'Company',
                 'supplier_id' => '4',
                 'email' => 'birevagiv@mailinator.com',
                 'phone_number' => '+1 (115) 102-4307',
-                'company_name' => 'Huber Associates',
+                'company_name' => 'شركة هوبر المتحدة',
                 'address' => 'Omnis adipisicing od',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -78,13 +79,13 @@ class DemoSuppliersTableSeeder extends Seeder
             ],
             4 => [
                 'id' => 5,
-                'name' => 'Jemima Hoffman',
-                'slug' => 'jemima-hoffman',
+                'name' => 'ليان السبيعي',
+                'slug' => 'layan-alsubai',
                 'type' => 'Individual',
                 'supplier_id' => '5',
                 'email' => 'hafyryhica@mailinator.com',
                 'phone_number' => '+1 (403) 725-6412',
-                'company_name' => 'Lawrence Plc',
+                'company_name' => 'شركة لورنس',
                 'address' => 'Voluptatibus esse ex',
                 'status' => 1,
                 'image_path' => 'avatar.png',

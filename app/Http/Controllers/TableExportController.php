@@ -82,6 +82,7 @@ use App\Exports\ExportSupplierNonPurchasePayment;
 use App\Exports\ExportTodayReport;
 use App\Exports\ExportBalanceSheet;
 use App\Exports\ExportProfitLoss;
+use App\Exports\ExportExpensesReport;
 use App\Exports\ExportAccountStatement;
 use App\Exports\ExportGroupAccountStatement;
 use App\Exports\ExportInvoiceSummary;
@@ -1705,6 +1706,13 @@ class TableExportController extends Controller
                 'error' => 'Failed to generate PDF: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    // return expenses report excel
+    public function expensesReportExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportExpensesReport($filters), 'ExpensesReport.xlsx');
     }
 
     // return supplier payable report pdf

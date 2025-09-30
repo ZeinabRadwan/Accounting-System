@@ -18,15 +18,15 @@ class TenantClientSeeder extends Seeder
         if (DB::table('clients')->count() == 0) {
             DB::table('clients')->insert([
                 [
-                    'name' => 'Walking Customer',
+                    'name' => 'عميل زائر',
                     'client_id' => '1',
                     'slug' => 'walking-customer',
                     'type' => 'Individual',
-                    'full_name' => 'Walking Customer',
+                    'full_name' => 'عميل زائر',
                     'email' => 'walking@example.com',
                     'phone_number' => '017000000',
                     'code_number' => '000001',
-                    'country' => 'EG',
+                    'country' => 'SA',
                     'status' => '1',
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -57,8 +57,8 @@ class TenantClientSeeder extends Seeder
                     'is_send_email' => true,
                     'is_send_sms' => true,
                     'attachments' => null,
-                   
                 ],
+                
                 // [
                 //     'name' => 'Sample Company Ltd',
                 //     'client_id' => '2',

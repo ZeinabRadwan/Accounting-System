@@ -964,38 +964,50 @@ export default {
       
       // Check if any products have returns
       if (this.form.totalReturn <= 0) {
-        errors.push('At least one product must have a return quantity greater than 0')
+        errors.push(this.$t('At least one product must have a return quantity greater than 0'))
         isValid = false
       }
       
       // Check if return quantities exceed available quantities
       this.form.selectedProducts.forEach((product) => {
         if (product.returnQty > product.qty) {
-          errors.push(`Return quantity for ${product.name} cannot exceed available quantity`)
+          errors.push(this.$t('Return quantity for {name} cannot exceed available quantity', { name: product.name }))
           isValid = false
         }
-        
+
         if (product.returnQty < 0) {
-          errors.push(`Return quantity for ${product.name} cannot be negative`)
+          errors.push(this.$t('Return quantity for {name} cannot be negative', { name: product.name }))
           isValid = false
         }
       })
       
       // Check if new subtotal is valid
       if (this.form.newSubTotal < 0) {
-        errors.push('New subtotal cannot be negative')
+        errors.push(this.$t('New subtotal cannot be negative'))
         isValid = false
       }
       
       // Check if discount is valid
       if (this.form.invoiceDiscount > this.form.newSubTotal) {
-        errors.push('Total discount cannot exceed new subtotal')
+        errors.push(this.$t('Total discount cannot exceed new subtotal'))
         isValid = false
       }
       
       if (errors.length > 0) {
         console.error('Validation Errors:', errors)
-        alert('Validation Errors:\n' + errors.join('\n'))
+        // Show a toast like other parts of the system
+        if (typeof toast !== 'undefined' && toast.fire) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Validation Errors'),
+            text: errors[0],
+          })
+        }
+
+        // Bind errors to vform so they appear under inputs/section
+        if (this.form && this.form.errors && typeof this.form.errors.set === 'function') {
+          this.form.errors.set({ selectedProducts: errors })
+        }
       }
       
       return isValid

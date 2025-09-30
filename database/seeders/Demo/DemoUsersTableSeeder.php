@@ -3,6 +3,7 @@
 namespace Database\Seeders\Demo;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DemoUsersTableSeeder extends Seeder
 {
@@ -13,9 +14,9 @@ class DemoUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('users')->delete();
+        DB::table('users')->delete();
 
-        \DB::table('users')->insert([
+        DB::table('users')->insert([
             0 => [
                 'id' => 1,
                 'name' => tenant()->name,
@@ -31,7 +32,7 @@ class DemoUsersTableSeeder extends Seeder
             ],
             1 => [
                 'id' => 2,
-                'name' => 'Whilemina Watts',
+                'name' => 'أحمد محمد',
                 'email' => 'Whilemina@mailinator.com',
                 'email_verified_at' => null,
                 'password' => '$2y$10$jn0Si9GEEspQCwBtK1U19e398DDfSw0Iq/UrOobFj1XY9sfn8/R9q',
@@ -44,7 +45,7 @@ class DemoUsersTableSeeder extends Seeder
             ],
              2=> [
                 'id' => 3,
-                'name' => 'Sales',
+                'name' => 'المبيعات',
                 'email' => 'sales@arqam.sa',
                 'email_verified_at' => null,
                 'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // arqam
@@ -57,7 +58,7 @@ class DemoUsersTableSeeder extends Seeder
             ],
             3 => [
                 'id' => 4,
-                'name' => 'Manager',
+                'name' => 'المدير',
                 'email' => 'manager@arqam.sa',
                 'email_verified_at' => null,
                 'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // arqam
@@ -70,7 +71,7 @@ class DemoUsersTableSeeder extends Seeder
             ],
             4 => [
                 'id' => 5,
-                'name' => 'Alamin',
+                'name' => 'سعود',
                 'email' => 'developer@arqam.sa',
                 'email_verified_at' => null,
                 'password' => '$2y$10$fY.rtjOtoLG1pbxBuGVwmOW/vVXmVKm5mVGvhtIP6Yb48PMmsP/Uq', // arqam

@@ -785,6 +785,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/items-report/export', [TableExportController::class, 'itemsReportExportExcel'])->name('itemsReport.export.excel');
     Route::get('/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('expensesReport.pdf');
         Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
+        // Aliases to match frontend URLs
+        Route::get('/reports/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('reports.expensesReport.pdf');
+        Route::get('/reports/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('reports.expensesReport.export.excel');
 
         // Journal Entries export routes
         Route::get('/journal-entries/export/excel', [TableExportController::class, 'journalEntriesExportExcel'])->name('journalEntries.export.excel');

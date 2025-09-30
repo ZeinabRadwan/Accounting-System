@@ -3,6 +3,7 @@
 namespace Database\Seeders\Demo;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DemoClientsTableSeeder extends Seeder
 {
@@ -13,18 +14,18 @@ class DemoClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('clients')->delete();
+        DB::table('clients')->delete();
 
-        \DB::table('clients')->insert([
+        DB::table('clients')->insert([
             0 => [
                 'id' => 1,
-                'name' => 'Walking Customer',
+                'name' => 'عميل زائر',
                 'client_id' => '1',
                 'slug' => 'walking-customer',
                 'type' => 'Individual',
                 'email' => 'arqam@example.com',
                 'phone_number' => '017000000',
-                'company_name' => 'Codeshaper',
+                'company_name' => 'شركة الأكواد',
                 'address' => 'Mohakhali DOHS, Dhaka',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -33,13 +34,13 @@ class DemoClientsTableSeeder extends Seeder
             ],
             1 => [
                 'id' => 2,
-                'name' => 'Ruth Miles',
+                'name' => 'محمد القحطاني',
                 'client_id' => '2',
                 'slug' => 'ruth-miles',
                 'type' => 'Company',
                 'email' => 'diji@mailinator.com',
                 'phone_number' => '+1 (579) 416-3689',
-                'company_name' => 'Woodard Traders',
+                'company_name' => 'تجار الوئام',
                 'address' => 'Dolores eiusmod Nam',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -48,13 +49,13 @@ class DemoClientsTableSeeder extends Seeder
             ],
             2 => [
                 'id' => 3,
-                'name' => 'Reed Montoya',
+                'name' => 'عبدالله الشمري',
                 'client_id' => '3',
                 'slug' => 'reed-montoya',
                 'type' => 'Company',
                 'email' => 'cilegubapo@mailinator.com',
                 'phone_number' => '+1 (857) 968-5584',
-                'company_name' => 'Petersen LLC',
+                'company_name' => 'شركة بترسن المحدودة',
                 'address' => 'Consectetur est sed',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -63,13 +64,13 @@ class DemoClientsTableSeeder extends Seeder
             ],
             3 => [
                 'id' => 4,
-                'name' => 'Ciaran Buck',
+                'name' => 'نورة العتيبي',
                 'client_id' => '4',
                 'slug' => 'ciaran-buck',
                 'type' => 'Company',
                 'email' => 'becubahyfi@mailinator.com',
                 'phone_number' => '+1 (898) 921-8127',
-                'company_name' => 'Ballard Rosa Plc',
+                'company_name' => 'شركة بالارد روزا',
                 'address' => 'Aut odio natus ipsum',
                 'status' => 1,
                 'image_path' => 'avatar.png',
@@ -78,13 +79,13 @@ class DemoClientsTableSeeder extends Seeder
             ],
             4 => [
                 'id' => 5,
-                'name' => 'Troy Walker',
+                'name' => 'تركي الدوسري',
                 'client_id' => '5',
                 'slug' => 'troy-walker',
                 'type' => 'Company',
                 'email' => 'namygyjyxe@mailinator.com',
                 'phone_number' => '+1 (642) 971-4148',
-                'company_name' => 'Velasquez Plc',
+                'company_name' => 'شركة فيلاسكيز',
                 'address' => 'Consequatur voluptat',
                 'status' => 1,
                 'image_path' => 'avatar.png',

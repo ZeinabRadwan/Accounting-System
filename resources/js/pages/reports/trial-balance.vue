@@ -126,7 +126,7 @@
                 <div class="col-md-6" style="margin-top: 32px;">
                   <button
                     @click="generateReport()"
-                    class="btn btn-primary"
+                    class="btn btn-primary mb-3"
                     :disabled="loading"
                   >
                     <i class="fas fa-search me-1"></i>
@@ -134,7 +134,7 @@
                   </button>
                   <button
                     @click="printReport"
-                    class="btn btn-success"
+                    class="btn btn-success mb-3"
                     :disabled="!reportData"
                   >
                     <i class="fas fa-print me-1"></i>
@@ -143,7 +143,7 @@
                   <a
                     :href="printTemplateUrl"
                     target="_blank"
-                    class="btn print-btn"
+                    class="btn print-btn mb-3"
                     :disabled="!reportData"
                   >
                     <i class="fas fa-print me-1"></i>
@@ -152,7 +152,7 @@
                   <button
                     v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
                     @click="expandAll"
-                    class="btn btn-outline-success"
+                    class="btn btn-outline-success mb-3"
                     :disabled="loading"
                   >
                     <i class="fas fa-expand-arrows-alt me-1"></i>
@@ -161,7 +161,7 @@
                   <button
                     v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
                     @click="collapseAll"
-                    class="btn btn-outline-warning"
+                    class="btn btn-outline-warning mb-3"
                     :disabled="loading"
                   >
                     <i class="fas fa-compress-arrows-alt me-1"></i>
@@ -169,7 +169,7 @@
                   </button>
                   <button
                     @click="exportToExcel"
-                    class="btn export-excel-btn"
+                    class="btn export-excel-btn mb-3"
                     :disabled="!reportData"
                   >
                     <i class="fas fa-file-excel me-1"></i>
@@ -178,6 +178,7 @@
                   <button
                     v-if="hasMoreData"
                     @click="toggleAutoLoad"
+                    class="mb-3"
                     :class="['btn', autoLoadMore ? 'btn-success' : 'btn-outline-success']"
                     :disabled="loading || loadingMore"
                   >
@@ -187,7 +188,7 @@
                   <button
                     v-if="hasMoreData && !autoLoadMore"
                     @click="loadMoreData"
-                    class="btn btn-primary"
+                    class="btn btn-primary mb-3"
                     :disabled="loading || loadingMore"
                   >
                     <i class="fas fa-calculator me-1" v-if="!loadingMore"></i>
@@ -262,8 +263,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <template v-for="account in hierarchicalAccounts">
-                    <tr :key="account.id" :class="getAccountRowClass(account)">
+                  <tr v-for="account in hierarchicalAccounts" :key="account.id" :class="getAccountRowClass(account)">
                       <td class="text-center cell-code">
                         <span class="account-code-badge">{{ account.code }}</span>
                       </td>
@@ -339,7 +339,6 @@
                         <span v-else class="amount-empty">-</span>
                       </td>
                     </tr>
-                  </template>
                 </tbody>
                 <tfoot v-if="reportData.grand_totals" class="table-footer">
                   <tr class="grand-total-row">
