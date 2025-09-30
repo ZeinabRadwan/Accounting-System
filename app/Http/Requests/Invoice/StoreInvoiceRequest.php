@@ -36,7 +36,8 @@ class StoreInvoiceRequest extends BaseRequest
             'selectedProducts.*.discountType' => 'nullable|in:fixed,percentage',
             'selectedProducts.*.productTax' => 'required|numeric|min:0',
             'subTotal' => 'required|numeric|min:0',
-            'orderTax' => 'required',
+            // KSA flow may hide invoice-level tax selection; allow null
+            'orderTax' => 'nullable',
             'netTotal' => 'required|numeric|min:0.01',
             'poReference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',

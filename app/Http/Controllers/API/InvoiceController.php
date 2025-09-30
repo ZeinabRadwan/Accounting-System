@@ -195,7 +195,8 @@ class InvoiceController extends Controller
                 'po_reference' => $request->poReference,
                 'payment_terms' => $request->paymentTerms,
                 'delivery_place' => $request->deliveryPlace,
-                'tax_id' => $request->orderTax['id'],
+                // Handle cases where orderTax may be absent (e.g., KSA flow)
+                'tax_id' => $request->orderTax['id'] ?? null,
                 'invoice_date' => $request->date,
                 'note' => clean($request->note),
                 'status' => $invoiceStatus,
