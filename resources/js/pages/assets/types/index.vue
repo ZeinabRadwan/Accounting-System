@@ -369,7 +369,6 @@ export default {
 <style scoped>
 .table-custom {
   border: none !important;
-  overflow: visible !important;
 }
 
 .asset-types-table {

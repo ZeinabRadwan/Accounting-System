@@ -559,7 +559,6 @@ export default {
 <style scoped>
 .table-custom {
   border: none !important;
-  overflow: visible !important;
 }
 
 .invoice-returns-table {
