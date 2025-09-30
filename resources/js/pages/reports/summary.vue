@@ -64,7 +64,7 @@
                   v-tooltip="$t('Print with Template')" 
                   class="btn print-btn ml-2"
                 >
-                  <i class="fas fa-print"></i> {{ $t('Print with Template') }}
+                  <i class="fas fa-print"></i>  
                 </a>
               </div>
             </div>
