@@ -818,4 +818,34 @@ export default {
 
   border: none !important;
 }
+
+/* Responsive Import Modal */
+.pay-modal {
+  width: 95vw;
+  max-width: 1100px;
+}
+
+@media (min-width: 576px) {
+  .pay-modal {
+    width: 90vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .pay-modal {
+    width: 80vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pay-modal {
+    width: 60vw;
+  }
+}
+
+/* Ensure modal content scrolls on small screens */
+.pay-modal .w-100 {
+  max-height: 75vh;
+  overflow-y: auto;
+}
 </style>
