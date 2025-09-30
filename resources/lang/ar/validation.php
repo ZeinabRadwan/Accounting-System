@@ -226,6 +226,8 @@ return [
         'advance' => 'سلفة',
         'totalSalary' => 'إجمالي الراتب',
         'salaryDate' => 'تاريخ الراتب',
+        // Product Sub-Category (Create / Update)
+        'category' => 'الفئة',
     ],
 
 ];

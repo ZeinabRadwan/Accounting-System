@@ -109,9 +109,10 @@
                 v-if="balanceData" 
                 :href="printTemplateUrl" 
                 target="_blank" 
-                class="btn print-btn ml-2"
+                class="btn print-btn ml-2 print-template-btn"
               >
-                <i class="fas fa-print"></i> {{ $t('Print with Template') }}
+                <i class="fas fa-print mr-1"></i>
+                <!-- <span class="print-template-label">{{ $t('Print with Template') }}</span> -->
               </a>
             </div>
           </div>
@@ -149,10 +150,12 @@
                 <th>{{ account.name }} ({{ account.code }})</th>
                 <th class="text-right">
                   <span v-if="account.balance_type === 'Debit'" class="text-success">
-                    {{ account.absolute_balance | withAbsoluteCurrency }}
+                    <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
                   </span>
                   <span v-else class="text-danger">
-                    ({{ account.absolute_balance | withAbsoluteCurrency }})
+                    (
+                      <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                    )
                   </span>
                 </th>
                 <th></th>
@@ -165,10 +168,12 @@
                 <th>{{ account.name }} ({{ account.code }})</th>
                 <th class="text-right">
                   <span v-if="account.balance_type === 'Credit'" class="text-danger">
-                    {{ account.absolute_balance | withAbsoluteCurrency }}
+                    <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
                   </span>
                   <span v-else class="text-success">
-                    ({{ account.absolute_balance | withAbsoluteCurrency }})
+                    (
+                      <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                    )
                   </span>
                 </th>
               </tr>
@@ -179,10 +184,12 @@
                 <th>{{ account.name }} ({{ account.code }})</th>
                 <th class="text-right">
                   <span v-if="account.balance_type === 'Credit'" class="text-danger">
-                    {{ account.absolute_balance | withAbsoluteCurrency }}
+                    <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
                   </span>
                   <span v-else class="text-success">
-                    ({{ account.absolute_balance | withAbsoluteCurrency }})
+                    (
+                      <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                    )
                   </span>
                 </th>
               </tr>
@@ -193,19 +200,21 @@
                 <th>{{ $t('Net Income') }}</th>
                 <th class="text-right">
                   <span v-if="balanceData.totals.net_income > 0" class="text-danger">
-                    {{ balanceData.totals.net_income | withAbsoluteCurrency }}
+                    <span v-html="balanceData.totals.net_income | withAbsoluteCurrency"></span>
                   </span>
                   <span v-else class="text-success">
-                    ({{ Math.abs(balanceData.totals.net_income) | withAbsoluteCurrency }})
+                    (
+                      <span v-html="Math.abs(balanceData.totals.net_income) | withAbsoluteCurrency"></span>
+                    )
                   </span>
                 </th>
               </tr>
 
               <tr class="text-right font-weight-bold">
                 <th>{{ $t('Total Assets') }}</th>
-                <th class="text-success">{{ balanceData.totals.total_assets | withAbsoluteCurrency }}</th>
+                <th class="text-success"><span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span></th>
                 <th>{{ $t('Total Liabilities & Equity') }}</th>
-                <th class="text-danger">{{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}</th>
+                <th class="text-danger"><span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span></th>
               </tr>
             </tbody>
             <tbody v-else>
@@ -222,25 +231,25 @@
                   <h4 class="mt-2">
                     {{ $t('Total Assets') }}:
                     <span v-if="balanceData.totals.total_assets > balanceData.totals.total_liabilities_and_equity" class="text-success">
-                      {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
+                      <span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span>
                     </span>
                     <span v-else-if="balanceData.totals.total_assets < balanceData.totals.total_liabilities_and_equity" class="text-danger">
-                      {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
+                      <span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span>
                     </span>
                     <span v-else class="text-success">
-                      {{ balanceData.totals.total_assets | withAbsoluteCurrency }}
+                      <span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span>
                     </span>
                   </h4>
                   <h4>
                     {{ $t('Total Liabilities & Equity') }}:
                     <span v-if="balanceData.totals.total_liabilities_and_equity > balanceData.totals.total_assets" class="text-danger">
-                      {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
+                      <span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span>
                     </span>
                     <span v-else-if="balanceData.totals.total_liabilities_and_equity < balanceData.totals.total_assets" class="text-success">
-                      {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
+                      <span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span>
                     </span>
                     <span v-else class="text-success">
-                      {{ balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency }}
+                      <span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span>
                     </span>
                   </h4>
                 </td>
@@ -528,6 +537,17 @@ export default {
   border: none !important;
   border-color: inherit !important;
   font-weight: 400;
+}
+
+/* Ensure print with template label has width to avoid vertical stacking in AR */
+.print-template-btn {
+  display: inline-flex;
+  align-items: center;
+}
+.print-template-label {
+  display: inline-block;
+  min-width: 140px;
+  text-align: left;
 }
 
 .account-statement-table thead tr {
