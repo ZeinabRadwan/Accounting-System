@@ -724,7 +724,7 @@ textarea.form-control {
 }
 
 .v-select .vs__search::placeholder {
-  color: #6B7280;
+  color: #6c757d;
 }
 
 .v-select .vs__selected {

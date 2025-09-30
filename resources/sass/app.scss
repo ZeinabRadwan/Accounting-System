@@ -66612,6 +66612,16 @@ label:not(.form-check-label):not(.custom-file-label) {
 .v-select .vs__selected-options {
   align-items: center
 }
+/* Ensure vue-select placeholder matches regular input placeholder */
+.v-select .vs__search::placeholder,
+input.vs__search::placeholder {
+  color: #6c757d !important;
+  opacity: 1; /* ensure consistent tone across browsers */
+}
+
+/* Ensure inner content vertically centers to match inputs */
+.v-select .vs__selected-options { align-items: center; }
+.v-select .vs__actions { align-items: center; }
 
 .v-select .vs__dropdown-toggle:focus {
   border-color: #33a0d9 !important;

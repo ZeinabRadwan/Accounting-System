@@ -26,30 +26,21 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>{{ $t('Entry Date') }} <span class="text-danger">*</span></label>
-                    <input
-                      v-model="form.entry_date"
-                      type="date"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.entry_date }"
-                      required
-                    />
+                    <input v-model="form.entry_date" type="date" class="form-control"
+                      :class="{ 'is-invalid': errors.entry_date }" required />
                     <div v-if="errors.entry_date" class="invalid-feedback">
                       {{ errors.entry_date[0] }}
                     </div>
                   </div>
                 </div>
-                                 <div class="col-md-4">
-                   <div class="form-group">
-                     <label>{{ $t('Reference') }}</label>
-                     <input
-                       v-model="form.reference"
-                       type="text"
-                       class="form-control"
-                       :placeholder="$t('Optional reference number')"
-                     />
-                     <small class="form-text text-muted">{{ $t('Leave blank if no reference is needed') }}</small>
-                   </div>
-                 </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>{{ $t('Reference') }}</label>
+                    <input v-model="form.reference" type="text" class="form-control"
+                      :placeholder="$t('Optional reference number')" />
+                    <small class="form-text text-muted">{{ $t('Leave blank if no reference is needed') }}</small>
+                  </div>
+                </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>{{ $t('Status') }}</label>
@@ -65,14 +56,9 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>{{ $t('Description') }} <span class="text-danger">*</span></label>
-                    <textarea
-                      v-model="form.description"
-                      class="form-control"
-                      rows="3"
+                    <textarea v-model="form.description" class="form-control" rows="3"
                       :placeholder="$t('Enter description for this journal entry')"
-                      :class="{ 'is-invalid': errors.description }"
-                      required
-                    ></textarea>
+                      :class="{ 'is-invalid': errors.description }" required></textarea>
                     <div v-if="errors.description" class="invalid-feedback">
                       {{ errors.description[0] }}
                     </div>
@@ -83,115 +69,96 @@
               <!-- Journal Entry Lines -->
               <div class="row">
                 <div class="col-md-12">
-                 
-                  
-                      <!-- <h5 class="mb-0">{{ $t('Journal Entry Lines') }}</h5> -->
-                      <!-- <button type="button" @click="addLine" class="btn btn-primary add-line-btn header-add-line" :class="isRTL ? 'ml-2' : 'mr-2'">
+
+
+                  <!-- <h5 class="mb-0">{{ $t('Journal Entry Lines') }}</h5> -->
+                  <!-- <button type="button" @click="addLine" class="btn btn-primary add-line-btn header-add-line" :class="isRTL ? 'ml-2' : 'mr-2'">
                         <i class="fa fa-plus"></i> {{ $t('Add Line') }}
                       </button> -->
-                   
-                  
-                      <div class="table-responsive">
-                        <table class="table je-lines-table mb-0">
-                          <thead>
-                            <tr>
-                              <th style="width: 35%">{{ $t('Chart of Account') }}</th>
-                              <th style="width: 15%" class="text-right">{{ $t('Debit') }}</th>
-                              <th style="width: 15%" class="text-right">{{ $t('Credit') }}</th>
-                              <th style="width: 25%">{{ $t('Description') }}</th>
-                              <th style="width: 10%" class="text-center">{{ $t('Actions') }}</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(line, index) in form.lines" :key="index">
-                              <td>
-                                <v-select
-                                  v-model="line.chart_of_account_id"
-                                  :options="chartOfAccounts"
-                                  label="name"
-                                  :reduce="option => option.id"
-                                  :class="{ 'is-invalid': errors[`lines.${index}.chart_of_account_id`] }"
-                                  :placeholder="$t('Select a Chart of Account')"
-                                  required
-                                  @input="(value) => onChartOfAccountChange(index, value)"
-                                >
-                                  <template #option="{ name, code, type }">
-                                    <div>
-                                      <strong>{{ name }}</strong>
-                                      <br>
-                                      <small class="text-muted">{{ code }} - {{ type }}</small>
-                                    </div>
-                                  </template>
-                                </v-select>
-                                <div v-if="errors[`lines.${index}.chart_of_account_id`]" class="invalid-feedback">
-                                  {{ errors[`lines.${index}.chart_of_account_id`][0] }}
+
+
+                  <div class="table-responsive">
+                    <table class="table je-lines-table mb-0">
+                      <thead>
+                        <tr>
+                          <th style="width: 35%">{{ $t('Chart of Account') }}</th>
+                          <th style="width: 15%" class="text-right">{{ $t('Debit') }}</th>
+                          <th style="width: 15%" class="text-right">{{ $t('Credit') }}</th>
+                          <th style="width: 25%">{{ $t('Description') }}</th>
+                          <th style="width: 10%" class="text-center">{{ $t('Actions') }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(line, index) in form.lines" :key="index">
+                          <td>
+                            <v-select v-model="line.chart_of_account_id" :options="chartOfAccounts" label="name"
+                              :reduce="option => option.id"
+                              :class="{ 'is-invalid': errors[`lines.${index}.chart_of_account_id`] }"
+                              :placeholder="$t('Select a Chart of Account')" required
+                              @input="(value) => onChartOfAccountChange(index, value)">
+                              <template #option="{ name, code, type }">
+                                <div>
+                                  <strong>{{ name }}</strong>
+                                  <br>
+                                  <small class="text-muted">{{ code }} - {{ type }}</small>
                                 </div>
-                              </td>
-                              <td class="align-middle">
-                                <input
-                                  v-model="line.debit_amount"
-                                  type="number"
-                                  step="0.01"
-                                  min="0"
-                                  class="form-control text-right"
-                                  :placeholder="$t('0.00')"
-                                  @input="calculateLineAmount(index)"
-                                />
-                              </td>
-                              <td class="align-middle">
-                                <input
-                                  v-model="line.credit_amount"
-                                  type="number"
-                                  step="0.01"
-                                  min="0"
-                                  class="form-control text-right"
-                                  :placeholder="$t('0.00')"
-                                  @input="calculateLineAmount(index)"
-                                />
-                              </td>
-                              <td class="align-middle">
-                                <input
-                                  v-model="line.description"
-                                  type="text"
-                                  class="form-control"
-                                  :placeholder="$t('Line description')"
-                                />
-                              </td>
-                              <td class="text-center align-middle">
-                                <button
-                                  v-if="form.lines.length > 2"
-                                  type="button"
-                                  @click="removeLine(index)"
-                                  class="btn btn-outline-danger btn-sm"
-                                >
-                                  <i class="fa fa-trash"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                          <tfoot>
-                            <tr class="je-summary-row">
-                              <td class="text-right"><strong>{{ $t('Totals') }}:</strong></td>
-                              <td class="text-right"><CurrencyDisplay :amount="totalDebit" /></td>
-                              <td class="text-right"><CurrencyDisplay :amount="totalCredit" /></td>
-                              <td colspan="2">
-                                <div :class="['badge', isBalanced ? 'badge-success' : 'badge-warning']">
-                                  {{ isBalanced ? $t('Balanced') : $t('Unbalanced') }}
-                                  <span v-if="!isBalanced"> - {{ $t('Diff') }}: <CurrencyDisplay :amount="balanceDifference" /></span>
-                                </div>
-                              </td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                      </div>
-                      <!-- Bottom actions: Add Line button aligned by direction -->
-                      <div class="je-lines-actions d-flex" :class="isRTL ? 'justify-content-start' : 'justify-content-end'">
-                        <button type="button" @click="addLine" class="btn btn-primary add-line-btn">
-                          <i class="fa fa-plus"></i> {{ $t('Add Line') }}
-                        </button>
-                      </div>
-                  
-                
+                              </template>
+                            </v-select>
+                            <div v-if="errors[`lines.${index}.chart_of_account_id`]" class="invalid-feedback">
+                              {{ errors[`lines.${index}.chart_of_account_id`][0] }}
+                            </div>
+                          </td>
+                          <td class="align-middle">
+                            <input v-model="line.debit_amount" type="number" step="0.01" min="0"
+                              class="form-control text-right" :placeholder="$t('0.00')"
+                              @input="calculateLineAmount(index)" />
+                          </td>
+                          <td class="align-middle">
+                            <input v-model="line.credit_amount" type="number" step="0.01" min="0"
+                              class="form-control text-right" :placeholder="$t('0.00')"
+                              @input="calculateLineAmount(index)" />
+                          </td>
+                          <td class="align-middle">
+                            <input v-model="line.description" type="text" class="form-control"
+                              :placeholder="$t('Line description')" />
+                          </td>
+                          <td class="text-center align-middle">
+                            <button v-if="form.lines.length > 2" type="button" @click="removeLine(index)"
+                              class="btn btn-outline-danger btn-sm">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr class="je-summary-row">
+                          <td class="text-right"><strong>{{ $t('Totals') }}:</strong></td>
+                          <td class="text-right">
+                            <CurrencyDisplay :amount="totalDebit" />
+                          </td>
+                          <td class="text-right">
+                            <CurrencyDisplay :amount="totalCredit" />
+                          </td>
+                          <td colspan="2">
+                            <div :class="['badge', isBalanced ? 'badge-success' : 'badge-warning']">
+                              {{ isBalanced ? $t('Balanced') : $t('Unbalanced') }}
+                              <span v-if="!isBalanced"> - {{ $t('Diff') }}:
+                                <CurrencyDisplay :amount="balanceDifference" />
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <!-- Bottom actions: Add Line button aligned by direction -->
+                  <div class="je-lines-actions d-flex" :class="isRTL ? 'justify-content-start' : 'justify-content-end'">
+                    <button type="button" @click="addLine" class="btn btn-primary add-line-btn">
+                      <i class="fa fa-plus"></i> {{ $t('Add Line') }}
+                    </button>
+                  </div>
+
+
                 </div>
               </div>
 
@@ -402,13 +369,13 @@ export default {
         console.log('Chart of accounts array:', this.chartOfAccounts)
 
         const response = await this.$axios.post('/api/journal-entries', data)
-        
+
         // Clear temporary data after successful save
         this.clearTemporaryData()
-        
+
         // Show success message
         window.toast.success('Journal entry created successfully!')
-        
+
         // Redirect to journal entries list
         this.$router.push('/journal-entries')
       } catch (error) {
@@ -439,7 +406,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('journalEntryTempData', JSON.stringify(tempData))
-      
+
     },
     // load temporary data
     loadTemporaryData() {
@@ -763,12 +730,12 @@ textarea.form-control {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .card-footer .btn {
     width: 100%;
     margin-right: 0 !important;
   }
-  
+
   .card-footer div {
     width: 100%;
     display: flex;

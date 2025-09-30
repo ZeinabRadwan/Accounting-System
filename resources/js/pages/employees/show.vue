@@ -92,15 +92,11 @@
                   </li>
                   <li v-if="allData.salary" class="list-group-item">
                     <strong>{{ $t("Basic Salary") }}</strong>
-                    <span class="float-right">{{
-                      allData.salary | withCurrency
-                    }}</span>
+                    <span class="float-right">{{ parseFloat(allData.salary).toFixed(2) }} <span class="saudi-riyal">ê</span></span>
                   </li>
                   <li v-if="allData.totalSalary" class="list-group-item">
                     <strong>{{ $t("Current Salary") }}</strong>
-                    <span class="float-right">{{
-                      allData.totalSalary | withCurrency
-                    }}</span>
+                    <span class="float-right">{{ parseFloat(allData.totalSalary).toFixed(2) }} <span class="saudi-riyal">ê</span></span>
                   </li>
                   <li v-if="allData.commission" class="list-group-item">
                     <strong>{{ $t("Commission") }}</strong>
@@ -473,11 +469,11 @@
                                 </td>
                                 <td>
                                   <span v-if="data.employee"
-                                    >{{ data.employee.salary  }} <span class="saudi-riyal">ê</span>
+                                    >{{ data.employee.salary }} <span class="saudi-riyal">ê</span>
                                   </span>
                                 </td>
                                 <td>
-                                  {{ data.incrementAmount  }} <span class="saudi-riyal">ê</span>
+                                  {{ data.incrementAmount }} <span class="saudi-riyal">ê</span>
                                 </td>
                                 <td>
                                   <span v-if="data.employee">

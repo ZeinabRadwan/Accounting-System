@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'employees.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
+                <button type="submit" class="btn btn-success" :form="'employeeEditForm'" :title="$t('Save changes')">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -20,7 +20,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="updateEmployee" @keydown="form.onKeydown($event)">
+          <form role="form" id="employeeEditForm" @submit.prevent="updateEmployee" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-4">
@@ -209,7 +209,7 @@
               </div>
               <div class="form-check">
                 <input v-model="form.allowLogin" type="checkbox" class="form-check-input" id="allowLogin" />
-                <label class="form-check-label" for="allowLogin">{{
+                <label class="form-check-label" for="allowLogin" style="padding: 0 20px">{{
                   $t('Allow Employee Login')
                 }}</label>
               </div>

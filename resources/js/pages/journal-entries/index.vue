@@ -841,7 +841,12 @@ export default {
   background: #fff !important;
 }
 
-.btn-primary {
+/* RTL: align form-group text to right for Arabic */
+[dir="rtl"] .form-group {
+  text-align: right;
+}
+
+ .btn-primary {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
