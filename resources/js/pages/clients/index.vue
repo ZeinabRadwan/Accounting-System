@@ -47,7 +47,7 @@
                   <a
                     href="#"
                     @click="uploadCsvModalShow()"
-                    v-tooltip="'Import'"
+                    v-tooltip="$t('Import')"
                     class="btn btn-dark import-btn"
                   >
                     <i class="fas fa-upload"></i>
