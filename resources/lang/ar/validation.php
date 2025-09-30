@@ -228,6 +228,10 @@ return [
         'salaryDate' => 'تاريخ الراتب',
         // Product Sub-Category (Create / Update)
         'category' => 'الفئة',
+        // Quotations (Create / Update)
+        'client' => 'العميل',
+        'selectedProducts' => 'المنتجات المحددة',
+        'netTotal' => 'الإجمالي الصافي',
     ],
 
 ];
