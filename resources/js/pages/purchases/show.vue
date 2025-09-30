@@ -253,8 +253,8 @@
                           :class="allData.purchaseReturn ? 'text-right' : ''"
                         >
                           <strong>{{
-                            allData.purchaseReturn.totalReturn | withCurrency
-                          }}</strong>
+                            allData.purchaseReturn.totalReturn 
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -293,8 +293,8 @@
                         </td>
                         <td>
                           <span v-if="data.amount">{{
-                            data.amount | withCurrency
-                          }}</span>
+                            data.amount 
+                          }} <span class="saudi-riyal">ê</span></span>
                         </td>
                         <td>
                           <span
@@ -335,8 +335,8 @@
                         </td>
                         <td colspan="5">
                           <strong>{{
-                            allData.totalPaid | withCurrency
-                          }}</strong>
+                            allData.totalPaid 
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -362,8 +362,8 @@
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
                           {{
-                            allData.purchaseReturn.totalReturn | withCurrency
-                          }}
+                            allData.purchaseReturn.totalReturn 
+                          }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">

@@ -151,8 +151,8 @@
                         </td>
                         <td>
                           <strong>{{
-                            form.productTotalTax | withCurrency
-                          }}</strong>
+                            form.productTotalTax 
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>

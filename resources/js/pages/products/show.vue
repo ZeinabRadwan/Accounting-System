@@ -205,8 +205,7 @@
                       <td>
                         {{
                           (allData.avgPurchasePrice * allData.availableQty)
-                            | withCurrency
-                        }}
+                        }} <span class="saudi-riyal">ê</span>
                       </td>
                     </tr>
                     <tr>

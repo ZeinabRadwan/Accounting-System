@@ -54,7 +54,7 @@
                     <td>{{ payment.method }}</td>
                     <td>{{ payment.system_trx_id }}</td>
                     <td>
-                      {{ payment.default_amount_rate * payment.quantity | withCurrency}}<br>
+                      {{ payment.default_amount_rate * payment.quantity}} <span class="saudi-riyal">ê</span><br>
                       (${{ payment.amount * payment.quantity }})
                     </td>
                     <td>{{ payment.status }}</td>

@@ -284,8 +284,7 @@
                               allData.invoice.discount +
                               allData.invoice.transport +
                               allData.invoice.tax)
-                              | withCurrency
-                          }}
+                          }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>

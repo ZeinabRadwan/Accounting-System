@@ -280,8 +280,7 @@
                           <span class="equal-sign">=</span>
                           {{
                             (allData.payable + allData.interestAmount)
-                              | withCurrency
-                          }}
+                          }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -289,12 +288,12 @@
                         <td>
                           <span class="minus-sign">-</span>
                           <span v-if="allData.loanType == 0">{{
-                            allData.loanWithInterest | withCurrency
-                          }}</span>
+                            allData.loanWithInterest
+                          }} <span class="saudi-riyal">ê</span>
+                          </span>
                           <span v-else>{{
                             (allData.totalPaid > 0 ? allData.totalPaid : 0)
-                              | withCurrency
-                          }}</span>
+                          }} <span class="saudi-riyal">ê</span></span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">

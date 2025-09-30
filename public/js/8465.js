@@ -1,6 +1,6 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[3978],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[8465],{
 
-/***/ 73071:
+/***/ 58672:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13,7 +13,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-7aaf05e0]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-6e6737cb]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15899,7 +15899,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
 /***/ }),
 
-/***/ 13978:
+/***/ 28465:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15911,7 +15911,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ show)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=template&id=7aaf05e0&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payments/suppliers/purchase/show.vue?vue&type=template&id=6e6737cb&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -15939,7 +15939,7 @@ var render = function render() {
       "data-toggle": "tab"
     },
     on: {
-      "click": _vm.getInvoiceReturn
+      "click": _vm.getPurchasePayment
     }
   }, [_c('i', {
     staticClass: "fa fa-info"
@@ -15985,11 +15985,11 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('purchase-return-edit') ? _c('router-link', {
+  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('purchase-payment-edit') ? _c('router-link', {
     staticClass: "btn btn-info",
     attrs: {
       "to": {
-        name: 'purchaseReturns.edit',
+        name: 'purchasePayments.edit',
         params: {
           slug: _vm.allData.slug
         }
@@ -16001,7 +16001,7 @@ var render = function render() {
     staticClass: "btn btn-info float-right",
     attrs: {
       "to": {
-        name: 'purchaseReturns.index'
+        name: 'purchasePayments.index'
       }
     }
   }, [_c('i', {
@@ -16026,112 +16026,85 @@ var render = function render() {
     staticClass: "col-sm-4 invoice-col"
   }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
     staticClass: "col-sm-8 invoice-col float-right text-md-right"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Supplier Details")))]), _vm._v(" "), _vm.allData.purchase && _vm.allData.supplier ? _c('div', [_vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Supplier ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.supplier.supplierID, _vm.supplierPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Supplier Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.supplier.name)), _c('br'), _vm._v(" "), _vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.phoneNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.phoneNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Supplier Details")))]), _vm._v(" "), _vm.allData.supplier ? _c('div', [_c('strong', [_vm._v(_vm._s(_vm.$t("Supplier ID")) + ":")]), _vm._v("\n                " + _vm._s(_vm._f("withPrefix")(_vm.allData.supplier.supplierID, _vm.supplierPrefix))), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Supplier Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.supplier.name)), _c('br'), _vm._v(" "), _vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.phoneNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.phoneNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "row mb-2"
+  }, [_c('div', {
+    staticClass: "col-12 table-responsive"
+  }, [_c('strong', {
+    staticClass: "mt-4 d-block mb-2"
+  }, [_vm._v(_vm._s(_vm.$t("Payment Details")) + ":")]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom"
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Purchase No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchase Date")))]), _vm._v(" "), _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Purchase Total")) + "\n                      ")]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Paid Amount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Account")))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Payment Date")) + "\n                      ")])])]), _vm._v(" "), _vm.allData.purchase ? _c('tbody', [_c('tr', [_c('td', [_vm._v(_vm._s(_vm.allData.purchase.purchaseNo))]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.purchase.purchaseDate, "Do MMM, YYYY")) + "\n                      ")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.purchase.purchaseTotal) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.amount) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm.allData.account ? _c('span', [_vm._v(_vm._s(_vm.allData.account.label))]) : _vm._e()]), _vm._v(" "), _c('td', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.date, "Do MMM, YYYY")) + "\n                      ")])])]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
     staticClass: "row mt-3"
   }, [_c('div', {
-    staticClass: "col-12"
+    staticClass: "col-lg-12 col-xl-8"
   }, [_c('div', {
     staticClass: "table-responsive table-custom"
-  }, [_vm.allData.purchase ? _c('table', {
+  }, [_vm.allData.transaction ? _c('table', {
     staticClass: "table"
-  }, [_c('thead', [_c('tr', [_vm.allData.purchase.code ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Purchase No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.purchase.purchaseDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Purchase Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Reason")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', {
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Cheque No")) + "\n                      ")]), _vm._v(" "), _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Receipt No")) + "\n                      ")]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _c('th', {
     staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.purchase.code ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.purchase.code, _vm.purchasePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.returnNo, _vm.returnPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.purchase.purchaseDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.purchase.purchaseDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.returnDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('td', [_vm._v(_vm._s(_vm.allData.reason))]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
+  }, [_vm._v(_vm._s(_vm.$t("Status")))])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm._v(_vm._s(_vm.allData.transaction.cheque_no))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.transaction.receipt_no))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.note))]), _vm._v(" "), _vm.allData.createdBy ? _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")]) : _vm._e(), _vm._v(" "), _c('td', {
+    staticClass: "text-right"
+  }, [_vm.allData.status === 1 ? _c('span', {
     staticClass: "badge bg-success"
   }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
     staticClass: "badge bg-danger"
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.allData.createdBy ? _c('td', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")]) : _vm._e()])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "row position-relative mt-4"
-  }, [_c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _vm.allData.purchase ? _c('div', {
-    staticClass: "col-12 table-responsive"
-  }, [_c('strong', {
-    staticClass: "mb-2 d-block"
-  }, [_vm._v(_vm._s(_vm.$t("Return Products")) + ":")]), _vm._v(" "), _c('div', {
-    staticClass: "table-custom table-responsive text-center"
-  }, [_c('table', {
-    staticClass: "table table-sm"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchased Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Returned Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchase Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total Return")) + "\n                      ")])])]), _vm._v(" "), _vm.returnProducts ? _c('tbody', [_vm._l(_vm.returnProducts, function (data, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.product.code, _vm.productPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v(_vm._s(data.product.name))]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(data.purchasedQty) + "\n                        "), data.product.itemUnit ? _c('span', [_vm._v(_vm._s(data.product.itemUnit.code))]) : _vm._e()]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(data.returnQty) + "\n                        "), data.product.itemUnit ? _c('span', [_vm._v(_vm._s(data.product.itemUnit.code))]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.purchasePrice) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(data.purchasePrice * data.purchasedQty) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-right"
-    }, [_vm._v("\n                        " + _vm._s(data.purchasePrice * data.returnQty) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    staticClass: "text-right",
-    attrs: {
-      "colspan": "6"
-    }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(Number(_vm.purchaseSubTotal).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
-    staticClass: "text-right"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.purchaseReturn) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])])], 2) : _vm._e()])])]) : _vm._e()], 1), _vm._v(" "), _vm.allData.purchase ? _c('div', {
-    staticClass: "row mt-3"
-  }, [_c('div', {
-    staticClass: "offset-xl-8 col-lg-12 col-xl-4 text-xl-right"
-  }, [_c('div', {
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])])])]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-12 col-xl-4 text-lg-right"
+  }, [_vm.allData.purchase ? _c('div', {
     staticClass: "table-responsive table-custom table-border-y-0"
   }, [_c('table', {
     staticClass: "table"
   }, [_c('tbody', [_c('tr', {
     staticClass: "bg-sub-light text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.purchase.subTotal).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Cost of Return Products")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.purchaseReturn).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.totalDiscount).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.transport).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Tax")) + "\n                        "), _c('span', [_vm._v("(" + _vm._s(_vm.allData.purchase.taxRate) + "%):")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.tax).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.purchase.subTotal) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _vm.allData.costOfReturn ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Cost of Return Products")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "minus-sign"
+  }, [_vm._v("-")]), _vm._v("\n                        " + _vm._s(_vm.allData.costOfReturn) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Discount")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "minus-sign"
+  }, [_vm._v("-")]), _vm._v("\n                        " + _vm._s(_vm.allData.purchase.totalDiscount) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "plus-sign"
+  }, [_vm._v("+")]), _vm._v("\n                        " + _vm._s(_vm.allData.purchase.transport) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Tax")) + "\n                        "), _c('span', [_vm._v("(" + _vm._s(_vm.allData.purchase.taxRate) + "%):")])]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "plus-sign"
+  }, [_vm._v("+")]), _vm._v("\n                        " + _vm._s(_vm.allData.purchase.tax) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
     staticClass: "bg-indigo-light"
   }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
     staticClass: "equal-sign"
   }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.allData.purchase.purchaseTotal) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.totalPaid).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "minus-sign"
+  }, [_vm._v("-")]), _vm._v("\n                        " + _vm._s(_vm.allData.purchase.totalPaid) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
     staticClass: "bg-red-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.purchase.due).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })))])]), _vm._v(" "), _vm.allData.accountReceivable ? _c('tr', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total Due")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.purchase.due) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _vm.allData.purchase.accountReceivable ? _c('tr', {
     staticClass: "bg-green-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Account Receivable")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.accountReceivable.amount).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]) : _vm._e()])])])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Account Receivable")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.purchase.accountReceivable) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]) : _vm._e()])])]) : _vm._e()])])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
       "id": "activity-log"
@@ -16330,7 +16303,7 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
 var html2pdf = __webpack_require__(33833);
 var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payments/suppliers/purchase/show.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -16347,35 +16320,33 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Purchase Return Details")
+      title: this.$t("Supplier Purchase Payment Details")
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: "Purchase Return Details",
+      breadcrumbsCurrent: "Purchase Payment Details",
       breadcrumbs: [{
         name: "Dashboard",
         url: "home"
       }, {
-        name: "Purchase Returns",
-        url: "purchaseReturns.index"
+        name: "Payments",
+        url: ""
+      }, {
+        name: "Purchase Payments",
+        url: "purchasePayments.index"
       }, {
         name: "Details",
         url: ""
       }],
       allData: "",
-      purchaseSubTotal: 0,
-      purchaseReturn: 0,
-      returnProducts: [],
-      productPrefix: "",
-      purchasePrefix: "",
-      returnPrefix: "",
       supplierPrefix: "",
-      loading: false,
+      purchasePrefix: "",
       query: "",
       perPage: 10
     };
   },
+  // Map Getters
   computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])),
   watch: {
     // watch search data
@@ -16388,63 +16359,31 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   },
   created: function created() {
-    this.getInvoiceReturn();
-    this.productPrefix = this.appInfo.productPrefix;
-    this.purchasePrefix = this.appInfo.purchasePrefix;
-    this.returnPrefix = this.appInfo.purchaseReturnPrefix;
+    this.getPurchasePayment();
     this.supplierPrefix = this.appInfo.supplierPrefix;
+    this.purchasePrefix = this.appInfo.purchasePrefix;
   },
   methods: {
-    // get the return
-    getInvoiceReturn: function getInvoiceReturn() {
+    // get the purchase payment
+    getPurchasePayment: function getPurchasePayment() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _yield$axios$get, data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this.loading = true;
-              _context.next = 3;
-              return axios_default().get(window.location.origin + "/api/purchase-returns/" + _this.$route.params.slug);
-            case 3:
+              _context.next = 2;
+              return axios_default().get(window.location.origin + "/api/payments/purchase/" + _this.$route.params.slug);
+            case 2:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               _this.allData = data.data;
-              _this.returnProducts = _this.allData.returnProducts;
-              _this.returnProducts.sort(_this.sortProducts);
-              _this.calculateTotalAmount();
-              _this.loading = false;
-            case 10:
+            case 5:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }))();
-    },
-    sortProducts: function sortProducts(a, b) {
-      if (a.product.code < b.product.code) {
-        return -1;
-      }
-      if (a.product.code > b.product.code) {
-        return 1;
-      }
-      return 0;
-    },
-    // calculate total return
-    calculateTotalAmount: function calculateTotalAmount() {
-      var purchaseSubTotal = 0;
-      var purchaseReturn = 0;
-      if (this.returnProducts) {
-        purchaseSubTotal = this.returnProducts.reduce(function (prev, next) {
-          return prev + Number(next.purchasedQty) * Number(next.purchasePrice);
-        }, 0);
-        purchaseReturn = this.returnProducts.reduce(function (prev, next) {
-          return prev + Number(next.returnQty) * Number(next.purchasePrice);
-        }, 0);
-      }
-      this.purchaseSubTotal = purchaseSubTotal;
-      this.purchaseReturn = purchaseReturn;
-      return;
     },
     // print
     printWindow: function printWindow() {
@@ -16457,7 +16396,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       // Options for PDF generation
       var options = {
         margin: 5,
-        filename: "Purchase Return Invoice-" + this.$route.params.slug + ".pdf",
+        filename: "Purchase Payment-" + this.$route.params.slug + ".pdf",
         image: {
           type: "jpeg",
           quality: 0.98
@@ -16505,7 +16444,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               currentPage = _this3.pagination ? _this3.pagination.current_page : 1;
               _this3.$store.state.operations.loading = true;
               slug = _this3.$route.params.slug;
-              modelName = "PurchaseReturn";
+              modelName = "PurchasePayment";
               _context3.next = 6;
               return _this3.$store.dispatch("operations/fetchSpecificLogs", {
                 path: "/api/activity-log-specific?page=",
@@ -16530,7 +16469,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             case 0:
               _this4.$store.state.operations.loading = true;
               slug = _this4.$route.params.slug;
-              modelName = "PurchaseReturn";
+              modelName = "PurchasePayment";
               _context4.next = 5;
               return _this4.$store.dispatch("operations/fetchSpecificLogs", {
                 path: "/api/activity-log-specific?page=",
@@ -16602,14 +16541,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue?vue&type=script&lang=js
- /* harmony default export */ const returns_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/pages/payments/suppliers/purchase/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const purchase_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css = __webpack_require__(73071);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payments/suppliers/purchase/show.vue?vue&type=style&index=0&id=6e6737cb&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_6e6737cb_prod_scoped_true_lang_css = __webpack_require__(58672);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payments/suppliers/purchase/show.vue?vue&type=style&index=0&id=6e6737cb&prod&scoped=true&lang=css
 
             
 
@@ -16618,16 +16557,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_6e6737cb_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const returns_showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
+/* harmony default export */ const purchase_showvue_type_style_index_0_id_6e6737cb_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_6e6737cb_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/payments/suppliers/purchase/show.vue?vue&type=style&index=0&id=6e6737cb&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue
+;// CONCATENATED MODULE: ./resources/js/pages/payments/suppliers/purchase/show.vue
 
 
 
@@ -16637,12 +16576,12 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  returns_showvue_type_script_lang_js,
+  purchase_showvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "7aaf05e0",
+  "6e6737cb",
   null
   
 )

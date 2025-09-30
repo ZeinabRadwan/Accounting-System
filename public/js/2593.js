@@ -1,6 +1,6 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[3978],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[2593],{
 
-/***/ 73071:
+/***/ 32655:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13,7 +13,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-7aaf05e0]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-4a91dbc0]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15899,7 +15899,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
 /***/ }),
 
-/***/ 13978:
+/***/ 22593:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15911,8 +15911,9 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ show)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=template&id=7aaf05e0&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/show.vue?vue&type=template&id=4a91dbc0&scoped=true
 var render = function render() {
+  var _vm$appInfo, _vm$allData, _vm$allData2, _vm$allData3, _vm$allData4, _vm$allData5;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('breadcrumbs', {
@@ -15939,7 +15940,7 @@ var render = function render() {
       "data-toggle": "tab"
     },
     on: {
-      "click": _vm.getInvoiceReturn
+      "click": _vm.getInvoice
     }
   }, [_c('i', {
     staticClass: "fa fa-info"
@@ -15962,6 +15963,30 @@ var render = function render() {
   }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])])])]), _vm._v(" "), _c('div', {
     staticClass: "btn-group"
   }, [_c('a', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        _vm.notify(_vm.form.isSendSMS = true);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sms"
+  }), _vm._v(" " + _vm._s(_vm.$t("SMS")) + "\n          ")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        _vm.notify(_vm.form.isSendEmail = true);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-paper-plane"
+  }), _vm._v(" " + _vm._s(_vm.$t("email")))]), _vm._v(" "), _c('a', {
     staticClass: "btn btn-info",
     attrs: {
       "href": "#"
@@ -15985,11 +16010,11 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('purchase-return-edit') ? _c('router-link', {
+  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('invoice-edit') ? _c('router-link', {
     staticClass: "btn btn-info",
     attrs: {
       "to": {
-        name: 'purchaseReturns.edit',
+        name: 'invoices.edit',
         params: {
           slug: _vm.allData.slug
         }
@@ -16001,7 +16026,7 @@ var render = function render() {
     staticClass: "btn btn-info float-right",
     attrs: {
       "to": {
-        name: 'purchaseReturns.index'
+        name: 'invoices.index'
       }
     }
   }, [_c('i', {
@@ -16020,30 +16045,6 @@ var render = function render() {
     attrs: {
       "id": "content-to-pdf"
     }
-  }, [_c('div', {
-    staticClass: "row invoice-info"
-  }, [_c('div', {
-    staticClass: "col-sm-4 invoice-col"
-  }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-8 invoice-col float-right text-md-right"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Supplier Details")))]), _vm._v(" "), _vm.allData.purchase && _vm.allData.supplier ? _c('div', [_vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Supplier ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.supplier.supplierID, _vm.supplierPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Supplier Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.supplier.name)), _c('br'), _vm._v(" "), _vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.phoneNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.phoneNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-3"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_vm.allData.purchase ? _c('table', {
-    staticClass: "table"
-  }, [_c('thead', [_c('tr', [_vm.allData.purchase.code ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Purchase No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.purchase.purchaseDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Purchase Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Reason")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.purchase.code ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.purchase.code, _vm.purchasePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.returnNo, _vm.returnPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.purchase.purchaseDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.purchase.purchaseDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.returnDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('td', [_vm._v(_vm._s(_vm.allData.reason))]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
-    staticClass: "badge bg-success"
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-    staticClass: "badge bg-danger"
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.allData.createdBy ? _c('td', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")]) : _vm._e()])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "row position-relative mt-4"
   }, [_c('table-loading', {
     directives: [{
       name: "show",
@@ -16051,87 +16052,138 @@ var render = function render() {
       value: _vm.loading,
       expression: "loading"
     }]
-  }), _vm._v(" "), _vm.allData.purchase ? _c('div', {
-    staticClass: "col-12 table-responsive"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row invoice-info"
+  }, [_c('div', {
+    staticClass: "col-sm-4 invoice-col"
+  }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-8 invoice-col float-right text-md-right"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Client Details")))]), _vm._v(" "), _vm.allData.client ? _c('div', [_vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Client ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.client.clientID, _vm.clientPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Client Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.client.name)), _c('br'), _vm._v(" "), _vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.phoneNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.phoneNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "table-responsive table-custom"
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('thead', [_c('tr', [_vm.allData.invoiceNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoiceDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reference ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Reference")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.poReference ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("PO Reference")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.paymentTerms ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Payment Terms")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.deliveryPlace ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Delivery Place")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")])])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.invoiceNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.invoiceNo, _vm.invoicePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoiceDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.invoiceDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reference ? _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.reference) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.poReference ? _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.poReference) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.paymentTerms ? _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.paymentTerms) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.deliveryPlace ? _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.deliveryPlace) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
+    staticClass: "badge bg-success"
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+    staticClass: "badge bg-danger"
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('td', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-12"
   }, [_c('strong', {
     staticClass: "mb-2 d-block"
-  }, [_vm._v(_vm._s(_vm.$t("Return Products")) + ":")]), _vm._v(" "), _c('div', {
-    staticClass: "table-custom table-responsive text-center"
+  }, [_vm._v(_vm._s(_vm.$t("Invoice Products")) + ":")]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom"
   }, [_c('table', {
-    staticClass: "table table-sm"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchased Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Returned Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchase Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total Return")) + "\n                      ")])])]), _vm._v(" "), _vm.returnProducts ? _c('tbody', [_vm._l(_vm.returnProducts, function (data, i) {
+    staticClass: "table table-sm text-center"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _vm.allData.totalInvoiceReturn ? _c('th', [_vm._v("\n                         " + _vm._s(_vm.$t("Return Qty")) + "\n                       ")]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))])])]), _vm._v(" "), _vm.invoiceProducts ? _c('tbody', [_vm._l(_vm.invoiceProducts, function (data, i) {
     return _c('tr', {
       key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.product.code, _vm.productPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v(_vm._s(data.product.name))]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(data.purchasedQty) + "\n                        "), data.product.itemUnit ? _c('span', [_vm._v(_vm._s(data.product.itemUnit.code))]) : _vm._e()]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(data.returnQty) + "\n                        "), data.product.itemUnit ? _c('span', [_vm._v(_vm._s(data.product.itemUnit.code))]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.purchasePrice) + " "), _c('span', {
+    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.productCode, _vm.productPrefix)) + "\n                      ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.productName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.quantity) + " " + _vm._s(data.productUnit))]), _vm._v(" "), _vm.allData.totalInvoiceReturn ? _c('td', [_vm._v("\n                        " + _vm._s(data.returnQty) + " " + _vm._s(data.productUnit) + "\n                      ")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salePrice) + " "), _c('span', {
       staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(data.purchasePrice * data.purchasedQty) + " "), _c('span', {
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salePrice * data.quantity) + " "), _c('span', {
       staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-right"
-    }, [_vm._v("\n                        " + _vm._s(data.purchasePrice * data.returnQty) + " "), _c('span', {
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [data.discountType === 'percentage' ? _c('span', [_vm._v("\n                          " + _vm._s(data.discountPercentage) + "% (" + _vm._s(_vm.calculateProductDiscountAmount(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")]), _vm._v(")\n                        ")]) : data.productDiscount > 0 ? _c('span', [_vm._v("\n                          " + _vm._s(_vm.calculateProductDiscountAmount(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _c('span', {
+      staticClass: "text-muted"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t('No Discount')) + "\n                        ")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salePrice * data.quantity - _vm.calculateProductDiscountAmount(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [data.productTax > 0 ? _c('span', [_vm._v("\n                          " + _vm._s(data.productTax) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")]), _vm._v(" "), data.vatRate ? _c('small', {
+      staticClass: "text-muted d-block"
+    }, [_vm._v("\n                            (" + _vm._s(data.vatRate.rate) + "%)\n                          ")]) : _vm._e()]) : _c('span', {
+      staticClass: "text-muted"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t('No VAT')) + "\n                        ")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salePrice * data.quantity - _vm.calculateProductDiscountAmount(data) + (data.productTax || 0)) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])])]);
   }), _vm._v(" "), _c('tr', [_c('td', {
     staticClass: "text-right",
     attrs: {
-      "colspan": "6"
+      "colspan": _vm.allData.totalInvoiceReturn ? 10 : 9
     }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(Number(_vm.purchaseSubTotal).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + " "), _c('span', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")) + " ")])]), _vm._v(" "), _c('td', {
+    staticClass: "text-center"
+  }, [_c('strong', [_vm._v("\n                          " + _vm._s(_vm.allData.subTotal) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
-    staticClass: "text-right"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.purchaseReturn) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])])], 2) : _vm._e()])])]) : _vm._e()], 1), _vm._v(" "), _vm.allData.purchase ? _c('div', {
-    staticClass: "row mt-3"
+  }, [_vm._v("ê")])])])])], 2) : _vm._e()])])])]), _vm._v(" "),  false ? 0 : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4",
+    attrs: {
+      "id": "page-break"
+    }
   }, [_c('div', {
-    staticClass: "offset-xl-8 col-lg-12 col-xl-4 text-xl-right"
+    staticClass: "col-lg-12 col-xl-8"
+  }, [_vm.allData.invoicePayments && _vm.allData.invoicePayments.length > 0 ? _c('div', [_c('strong', {
+    staticClass: "mb-2 d-block"
+  }, [_vm._v(_vm._s(_vm.$t("Payment History")) + ":")]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom"
+  }, [_c('table', {
+    staticClass: "table table-sm"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Payment Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Paid Amount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Cheque No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Receipt No")))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Status")))])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allData.invoicePayments, function (data, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [data.date ? _c('span', [_vm._v(_vm._s(data.date))]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.amount) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [data.account ? _c('span', [_vm._v(_vm._s(data.account.label))]) : _vm._e()]), _vm._v(" "), data.transaction ? _c('td', [_vm._v("\n                          " + _vm._s(data.transaction.cheque_no) + "\n                        ")]) : _vm._e(), _vm._v(" "), data.transaction ? _c('td', [_vm._v("\n                          " + _vm._s(data.transaction.receipt_no) + "\n                        ")]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [data.status === 1 ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": "2"
+    }
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Paid")))])]), _vm._v(" "), _c('td', {
+    attrs: {
+      "colspan": "5"
+    }
+  }, [_c('strong', [_vm._v(_vm._s(_vm.allData.totalPaid) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])], 2)])])]) : _c('div', {
+    staticClass: "no-print callout callout-danger mt-4 w-100"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("No payments available yet!")))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("You haven/'t add any payment for this purchase. After adding payments you will see the list here.")))])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-12 col-xl-4 text-lg-right mt-4"
   }, [_c('div', {
     staticClass: "table-responsive table-custom table-border-y-0"
   }, [_c('table', {
     staticClass: "table"
   }, [_c('tbody', [_c('tr', {
     staticClass: "bg-sub-light text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.purchase.subTotal).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Cost of Return Products")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.purchaseReturn).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.totalDiscount).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.transport).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Tax")) + "\n                        "), _c('span', [_vm._v("(" + _vm._s(_vm.allData.purchase.taxRate) + "%):")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.tax).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
-    staticClass: "bg-indigo-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
-    staticClass: "equal-sign"
-  }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.allData.purchase.purchaseTotal) + " "), _c('span', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.subTotal) + " ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Product Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.totalProductDiscount) + " \n                      ")])]), _vm._v(" "), _vm.isSaudiArabia ? _c('tr', {
+    staticClass: "bg-green-light text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.subTotal - _vm.totalProductDiscount) + " ")])]) : _vm._e(), _vm._v(" "), _vm.isSaudiArabia && _vm.totalProductVat > 0 ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Product VAT")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.totalProductVat) + " \n                      ")])]) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia && _vm.allData.discount > 0 ? _c('tr', [_c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Discount")) + "\n                        "), _vm.allData.discountType == 1 ? _c('span', [_vm._v("(" + _vm._s(_vm.allData.discount) + "%)")]) : _vm._e(), _vm._v("\n                        :\n                      ")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.globalDiscountAmount) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.totalPaid).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
+  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia && _vm.allData.transport > 0 ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.transport) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia && _vm.allData.tax > 0 ? _c('tr', [_c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Tax")) + "\n                        "), _vm.allData.taxRate ? _c('span', [_vm._v("(" + _vm._s(_vm.allData.taxRate.rate) + "%)")]) : _vm._e(), _vm._v(": "), _c('br'), _vm._v(" "), _vm.allData.taxRate && _vm.allData.taxRate.group_tax_details && _vm.allData.taxRate.group_tax_details.length ? _c('span', [_vm._v("\n                          (                              "), _vm._l(_vm.allData.taxRate.group_tax_details, function (tax, index) {
+    return _c('span', {
+      key: tax.id
+    }, [_vm._v("\n                            " + _vm._s(tax.rate) + "%"), index < _vm.allData.taxRate.group_tax_details.length - 1 ? _c('span', [_vm._v("\n                              +")]) : _vm._e()]);
+  }), _vm._v(")\n                        ")], 2) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.tax) + "\n                      ")])]) : _vm._e(), _vm._v(" "), _c('tr', {
+    staticClass: "bg-indigo-light"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "equal-sign"
+  }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.calculatedTotal) + " \n                      ")])]), _vm._v(" "), _vm.allData.invoicePayments ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.allData.totalPaid) + "\n                      ")])]) : _vm._e(), _vm._v(" "), _c('tr', {
     staticClass: "bg-red-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.purchase.due).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })))])]), _vm._v(" "), _vm.allData.accountReceivable ? _c('tr', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.calculatedTotal - (_vm.allData.totalPaid || 0)))])]), _vm._v(" "), _vm.allData.accountPayable ? _c('tr', {
     staticClass: "bg-green-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Account Receivable")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.accountReceivable.amount).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })) + "\n                      ")])]) : _vm._e()])])])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Account Payable")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.accountPayable))])]) : _vm._e()])])])])])], 1)])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
       "id": "activity-log"
@@ -16322,6 +16374,8 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
@@ -16329,8 +16383,7 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
 var html2pdf = __webpack_require__(33833);
-var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/show.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -16343,43 +16396,108 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
+
 /* harmony default export */ const showvue_type_script_lang_js = ({
   middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Purchase Return Details")
+      title: this.$t("Invoice Details")
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: "Purchase Return Details",
+      allData: "",
+      breadcrumbsCurrent: "Invoice Details",
       breadcrumbs: [{
         name: "Dashboard",
         url: "home"
       }, {
-        name: "Purchase Returns",
-        url: "purchaseReturns.index"
+        name: "Invoices",
+        url: "invoices.index"
       }, {
         name: "Details",
         url: ""
       }],
-      allData: "",
-      purchaseSubTotal: 0,
-      purchaseReturn: 0,
-      returnProducts: [],
+      invoiceProducts: [],
       productPrefix: "",
-      purchasePrefix: "",
-      returnPrefix: "",
-      supplierPrefix: "",
+      clientPrefix: "",
+      invoicePrefix: "",
       loading: false,
+      form: new vform_es/* default */.Ay({
+        isSendEmail: false,
+        isSendSMS: false
+      }),
+      isDemoMode: window.config.isDemoMode,
       query: "",
       perPage: 10
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])),
+  // Map Getters
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "pagination"])), {}, {
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia: function isSaudiArabia() {
+      var _this$appInfo, _this$appInfo2;
+      var result = !((_this$appInfo = this.appInfo) !== null && _this$appInfo !== void 0 && _this$appInfo.country) || this.appInfo.country === 'SA';
+      console.log('[InvoiceDetails] isSaudiArabia:', result, 'appInfo.country:', (_this$appInfo2 = this.appInfo) === null || _this$appInfo2 === void 0 ? void 0 : _this$appInfo2.country);
+      return result;
+    },
+    // Calculate correct total based on Saudi Arabia rules
+    calculatedTotal: function calculatedTotal() {
+      if (!this.allData) return 0;
+      if (this.isSaudiArabia) {
+        // For Saudi Arabia: Subtotal - Product Discount + Product VAT
+        return this.allData.subTotal - this.totalProductDiscount + this.totalProductVat;
+      } else {
+        // For other countries: Subtotal - Returns - Global Discount + Transport + Tax
+        return this.allData.subTotal - (this.allData.totalInvoiceReturn || 0) - this.globalDiscountAmount + (this.allData.transport || 0) + (this.allData.tax || 0);
+      }
+    },
+    // Calculate total product VAT
+    totalProductVat: function totalProductVat() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.reduce(function (total, product) {
+        return total + (product.productTax || 0);
+      }, 0);
+    },
+    // Calculate total product discount
+    totalProductDiscount: function totalProductDiscount() {
+      var _this = this;
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.reduce(function (total, product) {
+        return total + _this.calculateProductDiscountAmount(product);
+      }, 0);
+    },
+    // Count products with VAT
+    productsWithVat: function productsWithVat() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.filter(function (product) {
+        return product.productTax && product.productTax > 0;
+      }).length;
+    },
+    // Count products with discount
+    productsWithDiscount: function productsWithDiscount() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.filter(function (product) {
+        return product.productDiscount && product.productDiscount > 0;
+      }).length;
+    },
+    // Calculate global discount amount (handles both percentage and fixed)
+    globalDiscountAmount: function globalDiscountAmount() {
+      if (!this.allData || !this.allData.discount || this.allData.discount <= 0) return 0;
+
+      // Global invoice discounts use numeric values: 1 for percentage, 0 for fixed
+      if (this.allData.discountType == 1) {
+        // Percentage
+        return this.allData.subTotal * this.allData.discount / 100;
+      } else {
+        // Fixed
+        return this.allData.discount;
+      }
+    }
+  }),
   watch: {
     // watch search data
-    query: function query(newQ, oldQ) {
+    query: function query(newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {
@@ -16388,33 +16506,50 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   },
   created: function created() {
-    this.getInvoiceReturn();
+    this.getInvoice();
     this.productPrefix = this.appInfo.productPrefix;
-    this.purchasePrefix = this.appInfo.purchasePrefix;
-    this.returnPrefix = this.appInfo.purchaseReturnPrefix;
-    this.supplierPrefix = this.appInfo.supplierPrefix;
+    this.clientPrefix = this.appInfo.clientPrefix;
+    this.invoicePrefix = this.appInfo.invoicePrefix;
   },
   methods: {
-    // get the return
-    getInvoiceReturn: function getInvoiceReturn() {
-      var _this = this;
+    // Calculate actual discount amount for a product (handles both percentage and fixed)
+    calculateProductDiscountAmount: function calculateProductDiscountAmount(product) {
+      if (!product.productDiscount || product.productDiscount <= 0) return 0;
+
+      // Product discounts use string values: 'percentage' or 'fixed'
+      if (product.discountType === 'percentage') {
+        return product.salePrice * product.quantity * product.productDiscount / 100;
+      } else {
+        return product.productDiscount;
+      }
+    },
+    // get the invoice
+    getInvoice: function getInvoice() {
+      var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _yield$axios$get, data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this.loading = true;
+              _this2.loading = true;
               _context.next = 3;
-              return axios_default().get(window.location.origin + "/api/purchase-returns/" + _this.$route.params.slug);
+              return axios_default().get(window.location.origin + "/api/invoices/" + _this2.$route.params.slug);
             case 3:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
-              _this.allData = data.data;
-              _this.returnProducts = _this.allData.returnProducts;
-              _this.returnProducts.sort(_this.sortProducts);
-              _this.calculateTotalAmount();
-              _this.loading = false;
-            case 10:
+              _this2.allData = data.data;
+              _this2.invoiceProducts = _this2.allData.invoiceProducts;
+              _this2.invoiceProducts.sort(_this2.sortProducts);
+
+              // Debug: Check what we're getting
+              console.log('[InvoiceDetails] allData.subTotal:', _this2.allData.subTotal);
+              console.log('[InvoiceDetails] totalProductVat:', _this2.totalProductVat);
+              console.log('[InvoiceDetails] totalProductDiscount:', _this2.totalProductDiscount);
+              console.log('[InvoiceDetails] calculatedTotal:', _this2.calculatedTotal);
+              console.log('[InvoiceDetails] isSaudiArabia:', _this2.isSaudiArabia);
+              console.log('[InvoiceDetails] appInfo:', _this2.appInfo);
+              _this2.loading = false;
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -16422,143 +16557,147 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }))();
     },
     sortProducts: function sortProducts(a, b) {
-      if (a.product.code < b.product.code) {
+      if (a.productCode < b.productCode) {
         return -1;
       }
-      if (a.product.code > b.product.code) {
+      if (a.productCode > b.productCode) {
         return 1;
       }
       return 0;
     },
-    // calculate total return
-    calculateTotalAmount: function calculateTotalAmount() {
-      var purchaseSubTotal = 0;
-      var purchaseReturn = 0;
-      if (this.returnProducts) {
-        purchaseSubTotal = this.returnProducts.reduce(function (prev, next) {
-          return prev + Number(next.purchasedQty) * Number(next.purchasePrice);
-        }, 0);
-        purchaseReturn = this.returnProducts.reduce(function (prev, next) {
-          return prev + Number(next.returnQty) * Number(next.purchasePrice);
-        }, 0);
-      }
-      this.purchaseSubTotal = purchaseSubTotal;
-      this.purchaseReturn = purchaseReturn;
-      return;
-    },
-    // print
-    printWindow: function printWindow() {
-      window.print();
-    },
-    // download pdf
+    // download pdf - now opens print page
     generatePDF: function generatePDF() {
-      // Get the HTML content to be converted
-      var element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      var options = {
-        margin: 5,
-        filename: "Purchase Return Invoice-" + this.$route.params.slug + ".pdf",
-        image: {
-          type: "jpeg",
-          quality: 0.98
-        },
-        pagebreak: {
-          mode: "avoid-all",
-          before: "#page-break"
-        },
-        html2canvas: {
-          scale: 2
-        },
-        jsPDF: {
-          unit: "mm",
-          format: "a4",
-          orientation: "landscape"
-        }
-      };
-      // Generate PDF from HTML content
-      html2pdf_default()().from(element).set(options).save();
+      // Open the print page in a new window
+      var printUrl = "/print/invoice/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
     },
-    // print table
-    print: function print() {
-      var _this2 = this;
+    // notify
+    notify: function notify() {
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return _this2.$htmlToPaper("printMe");
-            case 2:
+              if (_this3.isDemoMode) {
+                _context2.next = 7;
+                break;
+              }
+              _this3.loading = true;
+              _context2.next = 4;
+              return _this3.form.post(window.location.origin + "/api/invoice/notify/" + _this3.$route.params.slug).then(function () {
+                toast.fire({
+                  type: "success",
+                  title: _this3.$t("Notification sent successfully")
+                });
+              })["catch"](function () {
+                toast.fire({
+                  type: "error",
+                  title: _this3.$t("Please check your input and try again.")
+                });
+              });
+            case 4:
+              _this3.loading = false;
+              _context2.next = 8;
+              break;
+            case 7:
+              toast.fire({
+                type: "warning",
+                title: _this3.$t("You are not allowed to do this in demo version.")
+              });
+            case 8:
             case "end":
               return _context2.stop();
           }
         }, _callee2);
       }))();
     },
-    // get activity logs
-    getActivity: function getActivity() {
-      var _this3 = this;
+    // print - now opens print page
+    printWindow: function printWindow() {
+      // Open the print page in a new window
+      var printUrl = "/print/invoice/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
+    },
+    // print table
+    print: function print() {
+      var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var currentPage, slug, modelName;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              currentPage = _this3.pagination ? _this3.pagination.current_page : 1;
-              _this3.$store.state.operations.loading = true;
-              slug = _this3.$route.params.slug;
-              modelName = "PurchaseReturn";
-              _context3.next = 6;
-              return _this3.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: currentPage + "&perPage=" + _this3.perPage,
-                slug: slug,
-                modelName: modelName
-              });
-            case 6:
+              _context3.next = 2;
+              return _this4.$htmlToPaper("printMe");
+            case 2:
             case "end":
               return _context3.stop();
           }
         }, _callee3);
       }))();
     },
-    // search data
-    searchData: function searchData() {
-      var _this4 = this;
+    // get activity logs
+    getActivity: function getActivity() {
+      var _this5 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var slug, modelName;
+        var currentPage, slug, modelName;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _this4.$store.state.operations.loading = true;
-              slug = _this4.$route.params.slug;
-              modelName = "PurchaseReturn";
-              _context4.next = 5;
-              return _this4.$store.dispatch("operations/fetchSpecificLogs", {
+              currentPage = _this5.pagination ? _this5.pagination.current_page : 1;
+              _this5.$store.state.operations.loading = true;
+              slug = _this5.$route.params.slug;
+              modelName = "Invoice";
+              _context4.next = 6;
+              return _this5.$store.dispatch("operations/fetchSpecificLogs", {
                 path: "/api/activity-log-specific?page=",
-                currentPage: _this4.pagination.current_page + "&perPage=" + _this4.perPage,
-                term: _this4.query,
+                currentPage: currentPage + "&perPage=" + _this5.perPage,
                 slug: slug,
                 modelName: modelName
               });
-            case 5:
+            case 6:
             case "end":
               return _context4.stop();
           }
         }, _callee4);
       }))();
     },
-    // pagination
-    paginate: function paginate() {
-      var _this5 = this;
+    // search data
+    searchData: function searchData() {
+      var _this6 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var slug, modelName;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              _this5.getActivity();
-            case 1:
+              _this6.$store.state.operations.loading = true;
+              slug = _this6.$route.params.slug;
+              modelName = "Invoice";
+              _context5.next = 5;
+              return _this6.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: _this6.pagination.current_page + "&perPage=" + _this6.perPage,
+                term: _this6.query,
+                slug: slug,
+                modelName: modelName
+              });
+            case 5:
             case "end":
               return _context5.stop();
           }
         }, _callee5);
+      }))();
+    },
+    // pagination
+    paginate: function paginate() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _this7.getActivity();
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
       }))();
     },
     updatePerPager: function updatePerPager() {
@@ -16567,17 +16706,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // reload after search
     reload: function reload() {
-      var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      var _this8 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              _this6.query = "";
+              _this8.query = "";
             case 1:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6);
+        }, _callee7);
       }))();
     },
     // refresh table
@@ -16587,29 +16726,29 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // reset pagination
     resetPagination: function resetPagination() {
-      var _this7 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      var _this9 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              _this7.pagination.current_page = 1;
+              _this9.pagination.current_page = 1;
             case 1:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
-        }, _callee7);
+        }, _callee8);
       }))();
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue?vue&type=script&lang=js
- /* harmony default export */ const returns_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/pages/sales/invoices/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const invoices_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css = __webpack_require__(73071);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/show.vue?vue&type=style&index=0&id=4a91dbc0&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_4a91dbc0_prod_scoped_true_lang_css = __webpack_require__(32655);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/invoices/show.vue?vue&type=style&index=0&id=4a91dbc0&prod&scoped=true&lang=css
 
             
 
@@ -16618,16 +16757,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_4a91dbc0_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const returns_showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
+/* harmony default export */ const invoices_showvue_type_style_index_0_id_4a91dbc0_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_4a91dbc0_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/sales/invoices/show.vue?vue&type=style&index=0&id=4a91dbc0&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue
+;// CONCATENATED MODULE: ./resources/js/pages/sales/invoices/show.vue
 
 
 
@@ -16637,12 +16776,12 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  returns_showvue_type_script_lang_js,
+  invoices_showvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "7aaf05e0",
+  "4a91dbc0",
   null
   
 )

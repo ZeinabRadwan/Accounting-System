@@ -349,8 +349,9 @@
                   />
                   <div v-if="form.discountType == 1" class="input-group-append">
                     <span class="input-group-text">{{
-                      form.totalDiscount | withCurrency
-                    }}</span>
+                      form.totalDiscount 
+                    }}
+                    <span class="saudi-riyal">ê</span></span>
                   </div>
                 </div>
                 <has-error :form="form" field="discount" />
@@ -817,8 +818,9 @@
                         allData.discount +
                         allData.transport +
                         allData.tax)
-                        | withCurrency
+                        
                     }}
+                    <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr>

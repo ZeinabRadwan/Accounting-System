@@ -712,14 +712,16 @@
                         <td>{{ line.description }}</td>
                         <td class="text-right">
                           <span v-if="line.debit_amount > 0">{{
-                            line.debit_amount | withCurrency
-                          }}</span>
+                            line.debit_amount
+                          }}<span class="saudi-riyal">ê</span>
+                          </span>
                           <span v-else class="text-muted">-</span>
                         </td>
                         <td class="text-right">
                           <span v-if="line.credit_amount > 0">{{
-                            line.credit_amount | withCurrency
-                          }}</span>
+                            line.credit_amount 
+                          }} <span class="saudi-riyal">ê</span>
+                          </span>
                           <span v-else class="text-muted">-</span>
                         </td>
                       </tr>

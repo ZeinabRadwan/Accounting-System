@@ -1,6 +1,6 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[3978],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[8326],{
 
-/***/ 73071:
+/***/ 52927:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13,7 +13,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-7aaf05e0]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-6b8f3668]{background:#ddd;border-radius:.25rem;margin:2px}.info-box[data-v-6b8f3668]{background:#fff;border-radius:.25rem;box-shadow:0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);display:flex;margin-bottom:1rem;min-height:80px;width:100%}.info-box-icon[data-v-6b8f3668]{align-items:center;border-radius:.25rem 0 0 .25rem;color:#fff;font-size:1.875rem;font-weight:300;text-align:center;width:70px}.info-box-content[data-v-6b8f3668],.info-box-icon[data-v-6b8f3668]{display:flex;justify-content:center}.info-box-content[data-v-6b8f3668]{flex:1;flex-direction:column;padding:5px 10px}.info-box-text[data-v-6b8f3668]{color:#6c757d;display:block;font-size:.875rem;margin-bottom:.25rem}.info-box-number[data-v-6b8f3668]{color:#495057;display:block;font-size:1.25rem;font-weight:700}.bg-secondary[data-v-6b8f3668]{background-color:#6c757d!important}.bg-info[data-v-6b8f3668]{background-color:#33a0d9!important}.bg-warning[data-v-6b8f3668]{background-color:#ffc107!important}.bg-success[data-v-6b8f3668]{background-color:#28a745!important}.bg-primary[data-v-6b8f3668]{background-color:#007bff!important}.bg-danger[data-v-6b8f3668]{background-color:#dc3545!important}.bg-dark[data-v-6b8f3668]{background-color:#343a40!important}.equal-sign[data-v-6b8f3668]{color:#007bff;font-weight:700;margin-right:5px}.bg-indigo-light[data-v-6b8f3668]{background-color:#e3f2fd!important}.bg-red-light[data-v-6b8f3668]{background-color:#ffebee!important}.bg-green-light[data-v-6b8f3668]{background-color:#e8f5e8!important}.bg-sub-light[data-v-6b8f3668]{background-color:#f8f9fa!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15899,7 +15899,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
 /***/ }),
 
-/***/ 13978:
+/***/ 88326:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15911,7 +15911,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ show)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=template&id=7aaf05e0&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=template&id=6b8f3668&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -15959,7 +15959,20 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#journal-entry",
+      "data-toggle": "tab"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-book",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Journal Entry")))])])])]), _vm._v(" "), _c('div', {
     staticClass: "btn-group"
   }, [_c('a', {
     staticClass: "btn btn-info",
@@ -15985,11 +15998,11 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('purchase-return-edit') ? _c('router-link', {
+  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('invoice-return-edit') && !(_vm.isSaudiArabia && _vm.allData.status === 1) ? _c('router-link', {
     staticClass: "btn btn-info",
     attrs: {
       "to": {
-        name: 'purchaseReturns.edit',
+        name: 'invoiceReturns.edit',
         params: {
           slug: _vm.allData.slug
         }
@@ -16001,7 +16014,7 @@ var render = function render() {
     staticClass: "btn btn-info float-right",
     attrs: {
       "to": {
-        name: 'purchaseReturns.index'
+        name: 'invoiceReturns.index'
       }
     }
   }, [_c('i', {
@@ -16026,24 +16039,24 @@ var render = function render() {
     staticClass: "col-sm-4 invoice-col"
   }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
     staticClass: "col-sm-8 invoice-col float-right text-md-right"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Supplier Details")))]), _vm._v(" "), _vm.allData.purchase && _vm.allData.supplier ? _c('div', [_vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Supplier ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.supplier.supplierID, _vm.supplierPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Supplier Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.supplier.name)), _c('br'), _vm._v(" "), _vm.allData.supplier.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.phoneNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.phoneNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.supplier.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.supplier.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Client Details")))]), _vm._v(" "), _vm.allData.client ? _c('div', [_vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Client ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.client.clientID, _vm.clientPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Client Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.client.name)), _c('br'), _vm._v(" "), _vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.contactNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.contactNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "row mt-3"
   }, [_c('div', {
     staticClass: "col-12"
   }, [_c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_vm.allData.purchase ? _c('table', {
-    staticClass: "table"
-  }, [_c('thead', [_c('tr', [_vm.allData.purchase.code ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Purchase No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.purchase.purchaseDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Purchase Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Reason")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', {
+    staticClass: "table-custom table-responsive"
+  }, [_vm.allData.invoice ? _c('table', {
+    staticClass: "table table-bordered"
+  }, [_c('thead', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Reason")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', {
     staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.purchase.code ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.purchase.code, _vm.purchasePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.returnNo, _vm.returnPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.purchase.purchaseDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.purchase.purchaseDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.returnDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('td', [_vm._v(_vm._s(_vm.allData.reason))]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.invoice.invoiceNo, _vm.invoicePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.returnNo, _vm.returnPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.invoice.invoiceDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.returnDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('td', [_vm._v(_vm._s(_vm.allData.reason))]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
     staticClass: "badge bg-success"
   }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
     staticClass: "badge bg-danger"
   }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.allData.createdBy ? _c('td', {
     staticClass: "text-right"
   }, [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")]) : _vm._e()])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "row position-relative mt-4"
+    staticClass: "row position-relative mt-4 mb-4"
   }, [_c('table-loading', {
     directives: [{
       name: "show",
@@ -16051,87 +16064,127 @@ var render = function render() {
       value: _vm.loading,
       expression: "loading"
     }]
-  }), _vm._v(" "), _vm.allData.purchase ? _c('div', {
-    staticClass: "col-12 table-responsive"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
   }, [_c('strong', {
-    staticClass: "mb-2 d-block"
-  }, [_vm._v(_vm._s(_vm.$t("Return Products")) + ":")]), _vm._v(" "), _c('div', {
+    staticClass: "mt-3"
+  }, [_vm._v(_vm._s(_vm.$t("Return Products")) + ":")]), _vm._v(" "), _vm.allData.invoice ? _c('div', {
     staticClass: "table-custom table-responsive text-center"
   }, [_c('table', {
     staticClass: "table table-sm"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchased Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Returned Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchase Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', {
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Return Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Net")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Total")))]), _vm._v(" "), _c('th', {
     staticClass: "text-right"
   }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total Return")) + "\n                      ")])])]), _vm._v(" "), _vm.returnProducts ? _c('tbody', [_vm._l(_vm.returnProducts, function (data, i) {
     return _c('tr', {
       key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.product.code, _vm.productPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v(_vm._s(data.product.name))]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(data.purchasedQty) + "\n                        "), data.product.itemUnit ? _c('span', [_vm._v(_vm._s(data.product.itemUnit.code))]) : _vm._e()]) : _vm._e(), _vm._v(" "), data.product ? _c('td', [_vm._v("\n                        " + _vm._s(data.returnQty) + "\n                        "), data.product.itemUnit ? _c('span', [_vm._v(_vm._s(data.product.itemUnit.code))]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.purchasePrice) + " "), _c('span', {
+    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.productCode, _vm.productPrefix)) + "\n                      ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.productName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.invoiceQty) + " " + _vm._s(data.productUnit))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.returnQty) + " " + _vm._s(data.productUnit))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salePrice) + " "), _c('span', {
       staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(data.purchasePrice * data.purchasedQty) + " "), _c('span', {
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.calculateUnitDiscount(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.calculateUnitNet(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.calculateUnitVat(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.calculateUnitTotal(data)) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
       staticClass: "text-right"
-    }, [_vm._v("\n                        " + _vm._s(data.purchasePrice * data.returnQty) + " "), _c('span', {
+    }, [_vm._v("\n                        " + _vm._s(_vm.calculateReturnTotal(data)) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])])]);
   }), _vm._v(" "), _c('tr', [_c('td', {
     staticClass: "text-right",
     attrs: {
-      "colspan": "6"
+      "colspan": "9"
     }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(Number(_vm.purchaseSubTotal).toLocaleString('en-US', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(Number(_vm.allData.invoice.subTotal).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })) + " "), _c('span', {
     staticClass: "saudi-riyal"
   }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
     staticClass: "text-right"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.purchaseReturn) + " "), _c('span', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm.invoiceReturn) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])])], 2) : _vm._e()])])]) : _vm._e()], 1), _vm._v(" "), _vm.allData.purchase ? _c('div', {
-    staticClass: "row mt-3"
+  }, [_vm._v("ê")])])])])], 2) : _vm._e()])]) : _vm._e()])], 1), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4",
+    attrs: {
+      "id": "page-break"
+    }
   }, [_c('div', {
-    staticClass: "offset-xl-8 col-lg-12 col-xl-4 text-xl-right"
+    staticClass: "col-lg-12 col-xl-8"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-12 col-xl-4 text-lg-right mt-4"
   }, [_c('div', {
     staticClass: "table-responsive table-custom table-border-y-0"
   }, [_c('table', {
     staticClass: "table"
   }, [_c('tbody', [_c('tr', {
     staticClass: "bg-sub-light text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.purchase.subTotal).toLocaleString('en-US', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.invoice.subTotal).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  })))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Cost of Return Products")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.purchaseReturn).toLocaleString('en-US', {
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Cost of Returned Products")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalReturnedProductCost()).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.totalDiscount).toLocaleString('en-US', {
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Return Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalReturnDiscount()).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.transport).toLocaleString('en-US', {
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Return VAT")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalReturnTax()).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Tax")) + "\n                        "), _c('span', [_vm._v("(" + _vm._s(_vm.allData.purchase.taxRate) + "%):")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.tax).toLocaleString('en-US', {
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Remaining Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalRemainingDiscount()).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Remaining Tax")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalRemainingTax()).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.invoice.transport).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
     staticClass: "bg-indigo-light"
   }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
     staticClass: "equal-sign"
-  }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.allData.purchase.purchaseTotal) + " "), _c('span', {
+  }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.calculateFinalTotal()) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.purchase.totalPaid).toLocaleString('en-US', {
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.invoice.totalPaid).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
     staticClass: "bg-red-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.purchase.due).toLocaleString('en-US', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.invoice.due).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  })))])]), _vm._v(" "), _vm.allData.accountReceivable ? _c('tr', {
+  })))])]), _vm._v(" "), _vm.allData.accountPayable ? _c('tr', {
     staticClass: "bg-green-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Account Receivable")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.accountReceivable.amount).toLocaleString('en-US', {
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Account Payable")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.accountPayable.amount).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  })) + "\n                      ")])]) : _vm._e()])])])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  })) + "\n                      ")])]) : _vm._e()])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row no-print mt-5"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('router-link', {
+    staticClass: "btn btn-info float-right",
+    attrs: {
+      "to": {
+        name: 'invoiceReturns.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Back")) + "\n              ")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": _vm.printWindow
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  }), _vm._v(" " + _vm._s(_vm.$t("Print")))])], 1)])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
       "id": "activity-log"
@@ -16318,7 +16371,114 @@ var render = function render() {
     on: {
       "paginate": _vm.paginate
     }
-  }) : _vm._e()], 1)])], 1)])])], 1);
+  }) : _vm._e()], 1)])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "journal-entry"
+    }
+  }, [_c('div', {
+    staticClass: "card custom-card w-100 mt-5 no-print"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Journal Entry Information")) + "\n            ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_vm.allData.journalEntries && _vm.allData.journalEntries.length > 0 ? _c('div', _vm._l(_vm.sortedJournalEntries, function (journalEntry, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "mb-4"
+    }, [_c('div', {
+      staticClass: "row mb-3"
+    }, [_c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Number")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(journalEntry.formatted_entry_number))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Date")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(_vm._f("formatDate")(journalEntry.entry_date)))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Status")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2 badge",
+      "class": journalEntry.status === 'posted' ? 'badge-success' : 'badge-warning'
+    }, [_vm._v("\n                    " + _vm._s(journalEntry.formatted_status) + "\n                  ")])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Amount")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_c('CurrencyDisplay', {
+      attrs: {
+        "amount": journalEntry.total_debit
+      }
+    })], 1)])]), _vm._v(" "), _c('div', {
+      staticClass: "row mb-3"
+    }, [_c('div', {
+      staticClass: "col-12"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Description")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(journalEntry.description))])])]), _vm._v(" "), _c('div', {
+      staticClass: "table-responsive"
+    }, [_c('table', {
+      staticClass: "table table-bordered table-sm"
+    }, [_c('thead', {
+      staticClass: "bg-light"
+    }, [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Line")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Chart of Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Description")))]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(_vm.$t("Debit")))]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(_vm.$t("Credit")))])])]), _vm._v(" "), _c('tbody', _vm._l(journalEntry.lines, function (line, lineIndex) {
+      return _c('tr', {
+        key: lineIndex
+      }, [_c('td', [_vm._v(_vm._s(line.line_number))]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(line.chart_of_account.name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+        staticClass: "text-muted"
+      }, [_vm._v(_vm._s(line.chart_of_account.type.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(line.description))]), _vm._v(" "), _c('td', {
+        staticClass: "text-right"
+      }, [line.debit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.debit_amount)), _c('span', {
+        staticClass: "saudi-riyal"
+      }, [_vm._v("ê")])]) : _c('span', {
+        staticClass: "text-muted"
+      }, [_vm._v("-")])]), _vm._v(" "), _c('td', {
+        staticClass: "text-right"
+      }, [line.credit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.credit_amount) + " "), _c('span', {
+        staticClass: "saudi-riyal"
+      }, [_vm._v("ê")])]) : _c('span', {
+        staticClass: "text-muted"
+      }, [_vm._v("-")])])]);
+    }), 0), _vm._v(" "), _c('tfoot', {
+      staticClass: "bg-light"
+    }, [_c('tr', [_c('th', {
+      staticClass: "text-right",
+      attrs: {
+        "colspan": "3"
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total")) + ":\n                      ")]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_debit) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_credit) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', {
+      staticClass: "text-right",
+      attrs: {
+        "colspan": "3"
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Balance")) + ":\n                      ")]), _vm._v(" "), _c('th', {
+      staticClass: "text-center",
+      attrs: {
+        "colspan": "2"
+      }
+    }, [_c('span', {
+      staticClass: "badge",
+      "class": journalEntry.is_balanced ? 'badge-success' : 'badge-danger'
+    }, [_vm._v("\n                          " + _vm._s(journalEntry.is_balanced ? _vm.$t("Balanced") : _vm.$t("Unbalanced")) + "\n                        ")])])])])])])]);
+  }), 0) : _c('div', {
+    staticClass: "text-center text-muted"
+  }, [_c('p', [_vm._v("\n              " + _vm._s(_vm.$t("No journal entries found for this invoice return.")) + "\n            ")])])])])])])], 1);
 };
 var staticRenderFns = [];
 
@@ -16329,9 +16489,14 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
 var html2pdf = __webpack_require__(33833);
-var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -16347,39 +16512,70 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Purchase Return Details")
+      title: this.$t("Invoice Return Details")
     };
+  },
+  components: {
+    CurrencyDisplay: function CurrencyDisplay() {
+      return __webpack_require__.e(/* import() */ 150).then(__webpack_require__.bind(__webpack_require__, 90150));
+    }
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: "Purchase Return Details",
+      breadcrumbsCurrent: "Invoice Return Details",
       breadcrumbs: [{
         name: "Dashboard",
         url: "home"
       }, {
-        name: "Purchase Returns",
-        url: "purchaseReturns.index"
+        name: "Invoice Returns",
+        url: "invoiceReturns.index"
       }, {
         name: "Details",
         url: ""
       }],
       allData: "",
-      purchaseSubTotal: 0,
-      purchaseReturn: 0,
+      invoiceSubTotal: 0,
+      invoiceReturn: 0,
       returnProducts: [],
       productPrefix: "",
-      purchasePrefix: "",
+      invoicePrefix: "",
       returnPrefix: "",
-      supplierPrefix: "",
+      clientPrefix: "",
       loading: false,
       query: "",
       perPage: 10
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])),
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])), {}, {
+    // Check if the country is Saudi Arabia
+    isSaudiArabia: function isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
+    // Filter products that have return quantities > 0
+    productsWithReturns: function productsWithReturns() {
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return [];
+      }
+      return this.returnProducts.filter(function (product) {
+        return product.returnQty > 0;
+      });
+    },
+    // Sort journal entry lines with debits first, then credits
+    sortedJournalEntries: function sortedJournalEntries() {
+      var _this = this;
+      if (!this.allData || !this.allData.journalEntries) {
+        return [];
+      }
+      return this.allData.journalEntries.map(function (journalEntry) {
+        return _objectSpread(_objectSpread({}, journalEntry), {}, {
+          lines: _this.sortJournalEntryLines(journalEntry.lines || [])
+        });
+      });
+    }
+  }),
   watch: {
     // watch search data
-    query: function query(newQ, oldQ) {
+    query: function query(newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {
@@ -16390,30 +16586,30 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   created: function created() {
     this.getInvoiceReturn();
     this.productPrefix = this.appInfo.productPrefix;
-    this.purchasePrefix = this.appInfo.purchasePrefix;
-    this.returnPrefix = this.appInfo.purchaseReturnPrefix;
-    this.supplierPrefix = this.appInfo.supplierPrefix;
+    this.invoicePrefix = this.appInfo.invoicePrefix;
+    this.returnPrefix = this.appInfo.invoiceReturnPrefix;
+    this.clientPrefix = this.appInfo.clientPrefix;
   },
   methods: {
-    // get the return
+    // get the invoice
     getInvoiceReturn: function getInvoiceReturn() {
-      var _this = this;
+      var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _yield$axios$get, data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this.loading = true;
+              _this2.loading = true;
               _context.next = 3;
-              return axios_default().get(window.location.origin + "/api/purchase-returns/" + _this.$route.params.slug);
+              return axios_default().get(window.location.origin + "/api/invoice-returns/" + _this2.$route.params.slug);
             case 3:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
-              _this.allData = data.data;
-              _this.returnProducts = _this.allData.returnProducts;
-              _this.returnProducts.sort(_this.sortProducts);
-              _this.calculateTotalAmount();
-              _this.loading = false;
+              _this2.allData = data.data;
+              _this2.returnProducts = _this2.allData.invoiceReturnProducts;
+              _this2.returnProducts.sort(_this2.sortProducts);
+              _this2.calculateTotalAmount();
+              _this2.loading = false;
             case 10:
             case "end":
               return _context.stop();
@@ -16422,71 +16618,293 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }))();
     },
     sortProducts: function sortProducts(a, b) {
-      if (a.product.code < b.product.code) {
+      if (a.productCode < b.productCode) {
         return -1;
       }
-      if (a.product.code > b.product.code) {
+      if (a.productCode > b.productCode) {
         return 1;
       }
       return 0;
     },
-    // calculate total return
+    // Sort journal entry lines: debits first, then credits
+    sortJournalEntryLines: function sortJournalEntryLines(lines) {
+      if (!lines || lines.length === 0) {
+        return [];
+      }
+      return _toConsumableArray(lines).sort(function (a, b) {
+        // If both are debits or both are credits, maintain original order
+        var aIsDebit = a.debit_amount > 0;
+        var bIsDebit = b.debit_amount > 0;
+        if (aIsDebit && !bIsDebit) return -1; // a is debit, b is credit - a comes first
+        if (!aIsDebit && bIsDebit) return 1; // a is credit, b is debit - b comes first
+
+        // If both are same type, maintain original order by line number
+        return a.line_number - b.line_number;
+      });
+    },
+    // Return Invoice Calculation Summary Methods (Based on Updated Formula)
+    // Get VAT rate for a product from database
+    getVatRate: function getVatRate() {
+      var product = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      if (product && product.vatRate) {
+        return product.vatRate;
+      }
+      // Fallback to first product's VAT rate or default 20%
+      if (this.returnProducts && this.returnProducts.length > 0) {
+        return this.returnProducts[0].vatRate || 20;
+      }
+      return 20; // Default VAT rate
+    },
+    // 1. Calculate Subtotal (Original Quantity × Price per Unit)
+    calculateSubtotal: function calculateSubtotal(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 0;
+      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
+      return Number((originalQty * unitPrice).toFixed(2));
+    },
+    // Calculate Subtotal with VAT (Subtotal - Discount + VAT)
+    calculateSubtotalWithVat: function calculateSubtotalWithVat(invoiceProduct) {
+      var subtotal = this.calculateSubtotal(invoiceProduct);
+      var discountAmount = parseFloat(invoiceProduct.discountAmount) || 0;
+      var taxAmount = parseFloat(invoiceProduct.taxAmount) || 0;
+      return Number((subtotal - discountAmount + taxAmount).toFixed(2));
+    },
+    // 2. Calculate Cost of Returned Products
+    // Returned Product Cost = Returned Units × Unit Price
+    calculateReturnedProductCost: function calculateReturnedProductCost(invoiceProduct) {
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
+      return Number((returnedUnits * unitPrice).toFixed(2));
+    },
+    // Returned Product Cost including VAT = (Total Invoice Amount / Original Quantity) × Returned Units
+    calculateReturnedProductCostWithVat: function calculateReturnedProductCostWithVat(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      var totalInvoiceAmount = this.calculateSubtotalWithVat(invoiceProduct);
+      return originalQty > 0 ? Number((totalInvoiceAmount / originalQty * returnedUnits).toFixed(2)) : 0;
+    },
+    // 3. Calculate Return Discount
+    // Per Unit Discount = Total Discount / Original Quantity
+    calculatePerUnitDiscount: function calculatePerUnitDiscount(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var totalDiscount = parseFloat(invoiceProduct.discountAmount) || 0;
+      return originalQty > 0 ? Number((totalDiscount / originalQty).toFixed(2)) : 0;
+    },
+    // Return Discount = Per Unit Discount × Returned Units
+    calculateReturnDiscount: function calculateReturnDiscount(invoiceProduct) {
+      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((perUnitDiscount * returnedUnits).toFixed(2));
+    },
+    // 4. Calculate Return VAT
+    // Per Unit VAT = Total VAT / Original Quantity
+    calculatePerUnitVat: function calculatePerUnitVat(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
+      return originalQty > 0 ? Number((totalVat / originalQty).toFixed(2)) : 0;
+    },
+    // Return VAT = Per Unit VAT × Returned Units
+    calculateReturnVat: function calculateReturnVat(invoiceProduct) {
+      var perUnitVat = this.calculatePerUnitVat(invoiceProduct);
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((perUnitVat * returnedUnits).toFixed(2));
+    },
+    // 5. Calculate Remaining Discount
+    // Remaining Units = Invoice Qty - Return Qty
+    calculateRemainingUnits: function calculateRemainingUnits(invoiceProduct) {
+      var invoiceQty = parseFloat(invoiceProduct.invoiceQty) || 0;
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((invoiceQty - returnQty).toFixed(2));
+    },
+    // Remaining Discount = Per Unit Discount × Remaining Units
+    calculateRemainingDiscount: function calculateRemainingDiscount(invoiceProduct) {
+      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      var remainingUnits = this.calculateRemainingUnits(invoiceProduct);
+      return Number((perUnitDiscount * remainingUnits).toFixed(2));
+    },
+    // 6. Calculate Remaining Tax
+    // Tax = TotalVAT - ReturnVAT
+    calculateRemainingTax: function calculateRemainingTax(invoiceProduct) {
+      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
+      var returnVat = this.calculateReturnVat(invoiceProduct);
+      return Number((totalVat - returnVat).toFixed(2));
+    },
+    // Legacy methods for backward compatibility
+    calculateUnitDiscount: function calculateUnitDiscount(invoiceProduct) {
+      return this.calculatePerUnitDiscount(invoiceProduct);
+    },
+    calculateUnitNet: function calculateUnitNet(invoiceProduct) {
+      var salePrice = parseFloat(invoiceProduct.salePrice) || 0;
+      var unitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      return Number((salePrice - unitDiscount).toFixed(2));
+    },
+    calculateUnitVat: function calculateUnitVat(invoiceProduct) {
+      return this.calculatePerUnitVat(invoiceProduct);
+    },
+    calculateUnitTotal: function calculateUnitTotal(invoiceProduct) {
+      var unitNet = this.calculateUnitNet(invoiceProduct);
+      var unitVat = this.calculatePerUnitVat(invoiceProduct);
+      return Number((unitNet + unitVat).toFixed(2));
+    },
+    calculateReturnTotal: function calculateReturnTotal(invoiceProduct) {
+      var unitTotal = this.calculateUnitTotal(invoiceProduct);
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((unitTotal * returnQty).toFixed(2));
+    },
+    calculateReturnSubtotal: function calculateReturnSubtotal(invoiceProduct) {
+      return this.calculateReturnedProductCost(invoiceProduct);
+    },
+    calculateReturnNet: function calculateReturnNet(invoiceProduct) {
+      var unitNet = this.calculateUnitNet(invoiceProduct);
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((unitNet * returnQty).toFixed(2));
+    },
+    // Calculate total invoice tax (sum of tax_amount from invoice_products)
+    calculateTotalInvoiceTax: function calculateTotalInvoiceTax() {
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + (parseFloat(product.taxAmount) || 0);
+      }, 0);
+    },
+    // Calculate total return tax (sum of return VAT for all products)
+    calculateTotalReturnTax: function calculateTotalReturnTax() {
+      var _this3 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this3.calculateReturnVat(product);
+      }, 0);
+    },
+    // Calculate total return discount (sum of return discount for all products)
+    calculateTotalReturnDiscount: function calculateTotalReturnDiscount() {
+      var _this4 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this4.calculateReturnDiscount(product);
+      }, 0);
+    },
+    // Calculate total remaining discount (sum of remaining discount for all products)
+    calculateTotalRemainingDiscount: function calculateTotalRemainingDiscount() {
+      var _this5 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this5.calculateRemainingDiscount(product);
+      }, 0);
+    },
+    // Calculate total remaining tax (sum of remaining tax for all products)
+    calculateTotalRemainingTax: function calculateTotalRemainingTax() {
+      var _this6 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this6.calculateRemainingTax(product);
+      }, 0);
+    },
+    // Calculate total cost of returned products
+    calculateTotalReturnedProductCost: function calculateTotalReturnedProductCost() {
+      var _this7 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this7.calculateReturnedProductCost(product);
+      }, 0);
+    },
+    // Calculate total subtotal with VAT for all products
+    calculateTotalSubtotalWithVat: function calculateTotalSubtotalWithVat() {
+      var _this8 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this8.calculateSubtotalWithVat(product);
+      }, 0);
+    },
+    // Calculate final total using the new formula
+    calculateFinalTotal: function calculateFinalTotal() {
+      var subtotal = parseFloat(this.allData.invoice.subTotal) || 0;
+      var returnedProductCost = this.calculateTotalReturnedProductCost();
+      var returnDiscount = this.calculateTotalReturnDiscount();
+      var returnVat = this.calculateTotalReturnTax();
+      var remainingDiscount = this.calculateTotalRemainingDiscount();
+      var remainingTax = this.calculateTotalRemainingTax();
+      var transport = parseFloat(this.allData.invoice.transport) || 0;
+
+      // Final Total = Subtotal - Cost of Returned Products - Return Discount - Return VAT - Remaining Discount + Remaining Tax + Transport
+      return Number((subtotal - returnedProductCost - returnDiscount - returnVat - remainingDiscount + remainingTax + transport).toFixed(2));
+    },
+    // calculate total return using the correct formula
     calculateTotalAmount: function calculateTotalAmount() {
-      var purchaseSubTotal = 0;
-      var purchaseReturn = 0;
-      if (this.returnProducts) {
-        purchaseSubTotal = this.returnProducts.reduce(function (prev, next) {
-          return prev + Number(next.purchasedQty) * Number(next.purchasePrice);
+      var _this9 = this;
+      var invoiceSubTotal = 0;
+      var invoiceReturn = 0;
+      if (this.allData.invoiceReturnProducts) {
+        // Calculate invoice subtotal (original calculation)
+        invoiceSubTotal = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
+          return prev + Number(next.invoiceQty) * Number(next.salePrice);
         }, 0);
-        purchaseReturn = this.returnProducts.reduce(function (prev, next) {
-          return prev + Number(next.returnQty) * Number(next.purchasePrice);
+
+        // Calculate return total using the correct formula
+        invoiceReturn = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
+          if (next.returnQty > 0) {
+            // Parse quantities safely and ensure they're numbers
+            var quantity = parseFloat(next.quantity) || 1; // fallback to 1 to avoid division by zero
+            var returnQty = parseFloat(next.returnQty) || 0;
+            var discountAmount = parseFloat(next.discountAmount) || 0;
+            var salePrice = parseFloat(next.salePrice) || 0;
+
+            // unit_discount = round(discount_amount / quantity, 2)
+            var unitDiscount = quantity > 0 ? Number((discountAmount / quantity).toFixed(2)) : 0;
+
+            // unit_net = sale_price - unit_discount
+            var unitNet = Number((salePrice - unitDiscount).toFixed(2));
+
+            // unit_vat = round(unit_net * vat_rate / 100, 2)
+            var vatRate = _this9.getVatRate(next);
+            var unitVat = Number((unitNet * vatRate / 100).toFixed(2));
+
+            // unit_total = unit_net + unit_vat
+            var unitTotal = Number((unitNet + unitVat).toFixed(2));
+
+            // return_total = round(unit_total * return_qty, 2)
+            var returnTotal = Number((unitTotal * returnQty).toFixed(2));
+            return prev + returnTotal;
+          }
+          return prev;
         }, 0);
       }
-      this.purchaseSubTotal = purchaseSubTotal;
-      this.purchaseReturn = purchaseReturn;
+      this.invoiceSubTotal = invoiceSubTotal;
+      this.invoiceReturn = invoiceReturn;
       return;
     },
     // print
     printWindow: function printWindow() {
-      window.print();
+      // Open print page in new window
+      var printUrl = "/print/invoice-return/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
     },
     // download pdf
     generatePDF: function generatePDF() {
-      // Get the HTML content to be converted
-      var element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      var options = {
-        margin: 5,
-        filename: "Purchase Return Invoice-" + this.$route.params.slug + ".pdf",
-        image: {
-          type: "jpeg",
-          quality: 0.98
-        },
-        pagebreak: {
-          mode: "avoid-all",
-          before: "#page-break"
-        },
-        html2canvas: {
-          scale: 2
-        },
-        jsPDF: {
-          unit: "mm",
-          format: "a4",
-          orientation: "landscape"
-        }
-      };
-      // Generate PDF from HTML content
-      html2pdf_default()().from(element).set(options).save();
+      // Download PDF using the new route
+      var downloadUrl = "/print/invoice-return/".concat(this.$route.params.slug, "/pdf");
+      window.open(downloadUrl, '_blank');
     },
     // print table
     print: function print() {
-      var _this2 = this;
+      var _this10 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this2.$htmlToPaper("printMe");
+              return _this10.$htmlToPaper("printMe");
             case 2:
             case "end":
               return _context2.stop();
@@ -16496,20 +16914,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // get activity logs
     getActivity: function getActivity() {
-      var _this3 = this;
+      var _this11 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var currentPage, slug, modelName;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              currentPage = _this3.pagination ? _this3.pagination.current_page : 1;
-              _this3.$store.state.operations.loading = true;
-              slug = _this3.$route.params.slug;
-              modelName = "PurchaseReturn";
+              currentPage = _this11.pagination ? _this11.pagination.current_page : 1;
+              _this11.$store.state.operations.loading = true;
+              slug = _this11.$route.params.slug;
+              modelName = "InvoiceReturn";
               _context3.next = 6;
-              return _this3.$store.dispatch("operations/fetchSpecificLogs", {
+              return _this11.$store.dispatch("operations/fetchSpecificLogs", {
                 path: "/api/activity-log-specific?page=",
-                currentPage: currentPage + "&perPage=" + _this3.perPage,
+                currentPage: currentPage + "&perPage=" + _this11.perPage,
                 slug: slug,
                 modelName: modelName
               });
@@ -16522,20 +16940,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // search data
     searchData: function searchData() {
-      var _this4 = this;
+      var _this12 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var slug, modelName;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _this4.$store.state.operations.loading = true;
-              slug = _this4.$route.params.slug;
-              modelName = "PurchaseReturn";
+              _this12.$store.state.operations.loading = true;
+              slug = _this12.$route.params.slug;
+              modelName = "InvoiceReturn";
               _context4.next = 5;
-              return _this4.$store.dispatch("operations/fetchSpecificLogs", {
+              return _this12.$store.dispatch("operations/fetchSpecificLogs", {
                 path: "/api/activity-log-specific?page=",
-                currentPage: _this4.pagination.current_page + "&perPage=" + _this4.perPage,
-                term: _this4.query,
+                currentPage: _this12.pagination.current_page + "&perPage=" + _this12.perPage,
+                term: _this12.query,
                 slug: slug,
                 modelName: modelName
               });
@@ -16548,12 +16966,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // pagination
     paginate: function paginate() {
-      var _this5 = this;
+      var _this13 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              _this5.getActivity();
+              _this13.getActivity();
             case 1:
             case "end":
               return _context5.stop();
@@ -16567,12 +16985,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // reload after search
     reload: function reload() {
-      var _this6 = this;
+      var _this14 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _this6.query = "";
+              _this14.query = "";
             case 1:
             case "end":
               return _context6.stop();
@@ -16587,12 +17005,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // reset pagination
     resetPagination: function resetPagination() {
-      var _this7 = this;
+      var _this15 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              _this7.pagination.current_page = 1;
+              _this15.pagination.current_page = 1;
             case 1:
             case "end":
               return _context7.stop();
@@ -16602,14 +17020,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
  /* harmony default export */ const returns_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css = __webpack_require__(73071);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=6b8f3668&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_6b8f3668_prod_scoped_true_lang_css = __webpack_require__(52927);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=6b8f3668&prod&scoped=true&lang=css
 
             
 
@@ -16618,16 +17036,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_6b8f3668_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const returns_showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_7aaf05e0_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue?vue&type=style&index=0&id=7aaf05e0&prod&scoped=true&lang=css
+/* harmony default export */ const returns_showvue_type_style_index_0_id_6b8f3668_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_6b8f3668_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=6b8f3668&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/show.vue
+;// CONCATENATED MODULE: ./resources/js/pages/sales/returns/show.vue
 
 
 
@@ -16642,7 +17060,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "7aaf05e0",
+  "6b8f3668",
   null
   
 )
