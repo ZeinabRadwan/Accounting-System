@@ -181,7 +181,6 @@
                 <div class="table-custom table-responsive">
                   <table class="table table-sm text-center">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Product Name") }}</th>
@@ -192,7 +191,6 @@
                         <th>{{ $t("Total After Discount") }}</th>
                         <th>{{ $t("VAT") }}</th>
                         <th>{{ $t("Total with VAT") }}</th>
-                      </tr>
                     </thead>
                     <tbody v-if="purchaseOrderProducts && purchaseOrderProducts.length > 0">
                       <tr v-for="(data, i) in purchaseOrderProducts" :key="i">

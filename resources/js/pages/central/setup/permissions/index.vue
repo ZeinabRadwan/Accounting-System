@@ -233,3 +233,22 @@ export default {
 <style>
 
 </style>
+
+<style>
+.dtable-footer {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 0 0 0 10px;
+    flex-direction: column;
+}
+.card-footer .form-group.row.display-per-page {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+}
+</style>
+

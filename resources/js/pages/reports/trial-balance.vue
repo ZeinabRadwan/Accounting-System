@@ -248,7 +248,6 @@
             <div class="table-responsive">
               <table class="table table-bordered table-striped table-sm trial-balance-table">
                 <thead class="table-header">
-                  <tr>
                     <th class="text-center header-code">{{ $t("Code") }}</th>
                     <th class="header-account">{{ $t("Account Name") }}</th>
                     <th class="text-right header-amount">{{ $t("Opening Balance") }} {{ $t("Debit") }}</th>
@@ -259,7 +258,6 @@
                     <th class="text-right header-amount">{{ $t("Net Movement") }} {{ $t("Credit") }}</th>
                     <th class="text-right header-amount">{{ $t("Closing Balance") }} {{ $t("Debit") }}</th>
                     <th class="text-right header-amount">{{ $t("Closing Balance") }} {{ $t("Credit") }}</th>
-                  </tr>
                 </thead>
                 <tbody>
                   <template v-for="account in hierarchicalAccounts">

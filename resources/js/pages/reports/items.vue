@@ -137,7 +137,6 @@
                   </h4>
                   <table class="table table-bordered table-sm">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Date") }}</th>
                         <th>{{ $t("Stock In") }}</th>
@@ -147,7 +146,6 @@
                         <th class="text-right">
                           {{ $t("Supplier") }}/{{ $t("Client") }}
                         </th>
-                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(data, i) in allData.stockIns" :key="i">
@@ -185,7 +183,6 @@
                   </h4>
                   <table class="table table-bordered table-sm">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Date") }}</th>
                         <th>{{ $t("Stock Out") }}</th>
@@ -193,7 +190,6 @@
                         <th>{{ $t("Type") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th class="text-right">{{ $t("Client") }}</th>
-                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(data, i) in allData.stockOuts" :key="i">

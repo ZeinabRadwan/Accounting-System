@@ -104,14 +104,12 @@
             <div class="table-responsive table-custom">
               <table class="table table-sm">
                 <thead>
-                  <tr>
                     <th>{{ $t("#") }}</th>
                     <th>{{ $t("Sales By") }}</th>
                     <th>{{ $t("Invoice No") }}</th>
                     <th>{{ $t("Client") }}</th>
                     <th>{{ $t("Net Total") }}</th>
                     <th>{{ $t("Invoice Date") }}</th>
-                  </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(data, i) in items" :key="i">

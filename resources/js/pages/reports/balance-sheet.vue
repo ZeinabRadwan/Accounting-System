@@ -139,11 +139,9 @@
 
         <div class="table-responsive table-custom">
           <table class="table account-statement-table">
-            <thead>
-              <tr class="text-center">
+            <thead class="text-center">
                 <th colspan="2"><h5>{{ $t('Assets') }}</h5></th>
                 <th class="red" colspan="2"><h5>{{ $t('Liabilities & Equity') }}</h5></th>
-              </tr>
             </thead>
             <tbody v-if="balanceData && balanceData.accounts && balanceData.totals">
               <tr v-for="account in balanceData.accounts.assets" :key="'asset-' + account.id">

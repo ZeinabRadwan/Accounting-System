@@ -66,7 +66,7 @@
 
               <div v-if="form.errors.errors && form.errors.errors.selectedInvoices" class="col-md-11 m-auto">
                 <div v-for="(msg, i) in form.errors.errors.selectedInvoices" :key="i" class="callout callout-danger">
-                  <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
+                  <p><i class="icon fas fa-ban"></i> {{ $te(msg) ? $t(msg) : msg }}</p>
                 </div>
               </div>
 

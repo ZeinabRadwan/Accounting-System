@@ -194,7 +194,6 @@
                 <div class="table-custom table-responsive">
                   <table class="table table-sm text-center">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Product Name") }}</th>
@@ -214,7 +213,6 @@
                         >
                           {{ $t("Total Return") }}
                         </th>
-                      </tr>
                     </thead>
                     <tbody v-if="purchaseProducts">
                       <tr v-for="(data, i) in purchaseProducts" :key="i">
@@ -275,7 +273,6 @@
                 >
                   <table class="table table-sm">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Payment Date") }}</th>
                         <th>{{ $t("Paid Amount") }}</th>
@@ -283,7 +280,6 @@
                         <th>{{ $t("Cheque No") }}</th>
                         <th>{{ $t("Receipt No") }}</th>
                         <th class="text-right">{{ $t("Status") }}</th>
-                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(data, i) in allData.payments" :key="i">

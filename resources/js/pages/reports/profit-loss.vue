@@ -116,7 +116,6 @@
             <div class="table-responsive table-custom" v-if="loading == false">
               <table class="table table-sm">
                 <thead>
-                  <tr>
                     <th>{{ $t("#") }}</th>
                     <th>{{ $t("Code") }}</th>
                     <th>{{ $t("Name") }}</th>
@@ -129,7 +128,6 @@
                         <span class="red">{{ $t("Loss") }}</span>
                       </strong>
                     </th>
-                  </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(data, i) in grossItems" :key="i">

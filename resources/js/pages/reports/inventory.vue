@@ -146,14 +146,12 @@
             <div v-if="loading == false" class="table-responsive table-custom">
               <table class="table table-sm">
                 <thead>
-                  <tr>
                     <th>{{ $t("#") }}</th>
                     <th>{{ $t("Code") }}</th>
                     <th>{{ $t("Name") }}</th>
                     <th>{{ $t("Stock In") }}</th>
                     <th>{{ $t("Stock Out") }}</th>
                     <th>{{ $t("Stock in Hand") }}</th>
-                  </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(data, i) in inventoryData" :key="i">

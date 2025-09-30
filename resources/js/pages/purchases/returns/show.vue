@@ -185,7 +185,6 @@
                 <div class="table-custom table-responsive text-center">
                   <table class="table table-sm">
                     <thead>
-                      <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Name") }}</th>
@@ -196,7 +195,6 @@
                         <th class="text-right">
                           {{ $t("Total Return") }}
                         </th>
-                      </tr>
                     </thead>
                     <tbody v-if="returnProducts">
                       <tr v-for="(data, i) in returnProducts" :key="i">

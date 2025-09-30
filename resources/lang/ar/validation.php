@@ -192,7 +192,7 @@ return [
         'incrementDate' => 'تاريخ الزيادة',
         'domain' => 'النطاق',
         // Chart of Accounts (Create / Update)
-        'name' => 'اسم الحساب',
+        'name' => 'الاسم',
         'code' => 'كود الحساب',
         'type_id' => 'نوع الحساب',
         'parent_id' => 'الحساب الأب',
@@ -228,6 +228,33 @@ return [
         'salaryDate' => 'تاريخ الراتب',
         // Product Sub-Category (Create / Update)
         'category' => 'الفئة',
+        // Loans Payments (Create)
+        'loan' => 'القرض',
+        'referenceNo' => 'رقم المرجع',
+        // Supplier Purchase Payment (Create)
+        'supplier' => 'المورد',
+        'purchase' => 'المشتريات',
+        'selectedPurchases' => 'المشتريات المحددة',
+        'availableBalance' => 'الرصيد المتاح',
+        'finalTotal' => 'إجمالي الدفع',
+        'receiptNo' => 'رقم الإيصال',
+        'paymentDate' => 'تاريخ الدفع',
+        // Client Invoice Payment (Create)
+        'client' => 'العميل',
+        'invoice' => 'الفاتورة',
+        'selectedInvoices' => 'الفواتير المحددة',
+        'totalPayment' => 'إجمالي الدفع',
+        // Loans (Create)
+        'authority' => 'جهة القرض',
+        'loanType' => 'نوع القرض',
+        'paymentType' => 'نوع الدفعة',
+        'duration' => 'المدة',
+        'payReturn' => 'القسط',
+        // Loan Authorities (Create)
+        'email' => 'البريد الإلكتروني',
+        'contactNumber' => 'رقم الاتصال',
+        'ccLoanLimit' => 'حد قرض السحب على المكشوف (CC)',
+        'address' => 'العنوان',
     ],
 
 ];

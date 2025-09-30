@@ -96,7 +96,6 @@
                 <div class="table-responsive table-custom w-100 m-auto">
                   <table class="table table-hover table-sm text-center">
                     <thead>
-                      <tr>
                         <th>{{ $t('#') }}</th>
                         <th>{{ $t('Code') }}</th>
                         <th>{{ $t('Name') }}</th>
@@ -115,7 +114,6 @@
                           {{ $t('Total Return') }}
                         </th>
                         <th class="text-right">{{ $t('Action') }}</th>
-                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(item, i) in form.selectedProducts" :key="i" class="text-center">

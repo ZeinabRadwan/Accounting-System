@@ -133,7 +133,6 @@
             <div class="table-responsive table-custom">
               <table class="table table-sm">
                 <thead>
-                  <tr>
                     <th>{{ $t("#") }}</th>
                     <th>{{ $t("Date") }}</th>
                     <th>{{ $t("Expense Reason") }}</th>
@@ -143,7 +142,6 @@
                     <th>{{ $t("Account") }}</th>
                     <th>{{ $t("Status") }}</th>
                     <th class="text-right">{{ $t("Created By") }}</th>
-                  </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(data, i) in expenses" :key="i">

@@ -113,7 +113,6 @@
                 <div class="table-responsive table-custom">
                   <table class="table">
                     <thead>
-                      <tr>
                         <th>{{ $t("Invoice No") }}</th>
                         <th>{{ $t("Invoice Date") }}</th>
                         <th>{{ $t("Invoice Total") }}</th>
@@ -122,7 +121,6 @@
                         <th class="text-right">
                           {{ $t("Payment Date") }}
                         </th>
-                      </tr>
                     </thead>
                     <tbody v-if="allData.invoice">
                       <tr>
