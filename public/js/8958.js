@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[8958],{
 
-/***/ 37503:
+/***/ 48425:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-373a08ce]{gap:10px}.card[data-v-373a08ce]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-373a08ce]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-373a08ce]{background:#fff!important}.btn-primary[data-v-373a08ce]{background:#2ab930!important}.btn-secondary[data-v-373a08ce]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-373a08ce]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.create-btn[data-v-373a08ce]{padding:11px}.supplier-status[data-v-373a08ce]{font-size:13px}.supplier-success[data-v-373a08ce],.supplier-warning[data-v-373a08ce]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.supplier-warning[data-v-373a08ce]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.supplier-success[data-v-373a08ce]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.product-status[data-v-373a08ce]{font-size:13px}.product-success[data-v-373a08ce],.product-warning[data-v-373a08ce]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.product-warning[data-v-373a08ce]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.product-success[data-v-373a08ce]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.btn-outline-warning[data-v-373a08ce]{border-color:#ffc107;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-373a08ce]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-373a08ce]:disabled{cursor:not-allowed;opacity:.6}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-534f45b5]{border:none!important}.group-account-statement-table[data-v-534f45b5]{border-collapse:separate;border-spacing:0}.group-account-statement-table thead th[data-v-534f45b5]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.group-account-statement-table thead tr[data-v-534f45b5]{border:none!important}.group-account-statement-table thead th[data-v-534f45b5]:first-child{border-top-left-radius:10px}.group-account-statement-table thead th[data-v-534f45b5]:last-child{border-top-right-radius:10px}[dir=rtl] .group-account-statement-table thead th[data-v-534f45b5]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .group-account-statement-table thead th[data-v-534f45b5]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.refresh-btn[data-v-534f45b5]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-534f45b5],.export-pdf-btn[data-v-534f45b5]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-534f45b5],.export-pdf-btn[data-v-534f45b5],.print-btn[data-v-534f45b5]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-534f45b5]{background:#33a0d91a!important;color:#33a0d9!important}.btn-group.c-w-100[data-v-534f45b5]{gap:10px}.card[data-v-534f45b5]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-534f45b5]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.overlay[data-v-534f45b5]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:9999}.info-box[data-v-534f45b5]{background:#fff;border:1px solid #dee2e6;margin-bottom:1rem;padding:1rem}.info-box[data-v-534f45b5],.info-box-icon[data-v-534f45b5]{align-items:center;border-radius:.375rem;display:flex}.info-box-icon[data-v-534f45b5]{height:60px;justify-content:center;margin-right:1rem;width:60px}.info-box-content[data-v-534f45b5]{flex:1}.info-box-text[data-v-534f45b5]{color:#6c757d;display:block;font-size:.875rem;margin-bottom:.25rem}.info-box-number[data-v-534f45b5]{color:#495057;display:block;font-size:1.25rem;font-weight:600}.btn-primary[data-v-534f45b5]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 68958:
+/***/ 88958:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -28,17 +28,19 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ edit)
+  "default": () => (/* binding */ group_account_statement)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/edit.vue?vue&type=template&id=373a08ce&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=template&id=534f45b5&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-lg-12"
+    staticClass: "col-12"
   }, [_c('div', {
     staticClass: "card custom-card w-100"
   }, [_c('div', {
@@ -48,955 +50,496 @@ var render = function render() {
       "items": _vm.breadcrumbs,
       "current": _vm.breadcrumbsCurrent
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
   }, [_c('div', {
-    staticClass: "btn-group c-w-100 header-buttons"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'purchases.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n              ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "button",
-      "title": "Save Temporarily"
-    },
-    on: {
-      "click": _vm.saveTemporary
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('form', {
-    attrs: {
-      "role": "form"
-    },
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v(_vm._s(_vm.$t('Filters')))]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('form', {
+    staticClass: "row",
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.updatePurchase.apply(null, arguments);
-      },
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
+        return _vm.generateReport.apply(null, arguments);
       }
     }
   }, [_c('div', {
-    staticClass: "card-body"
-  }, [_vm.items && _vm.products ? _c('div', {
-    staticClass: "row"
+    staticClass: "col-md-3"
   }, [_c('div', {
-    staticClass: "form-group col-md-12 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "supplier"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Supplier')) + "\n                  "), _c('span', {
-    staticClass: "required"
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Chart of Accounts')) + " "), _c('span', {
+    staticClass: "text-danger"
   }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('supplier')
-    },
     attrs: {
-      "options": _vm.items,
+      "options": _vm.chartOfAccounts,
+      "reduce": function reduce(account) {
+        return account.id;
+      },
+      "label": "display_name",
+      "placeholder": _vm.$t('Select Accounts'),
+      "searchable": true,
+      "clearable": false,
+      "loading": _vm.loadingAccounts,
+      "multiple": ""
+    },
+    on: {
+      "search": _vm.searchAccounts,
+      "input": _vm.onChartOfAccountsChange
+    },
+    model: {
+      value: _vm.filters.chartOfAccounts,
+      callback: function callback($$v) {
+        _vm.$set(_vm.filters, "chartOfAccounts", $$v);
+      },
+      expression: "filters.chartOfAccounts"
+    }
+  }), _vm._v(" "), _vm.errors.chart_of_account_ids ? _c('div', {
+    staticClass: "text-danger"
+  }, [_vm._v("\n              " + _vm._s(_vm.errors.chart_of_account_ids[0]) + "\n            ")]) : _vm._e(), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('Select one or more accounts to include in the report')) + "\n            ")])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Sub Chart of Accounts')))]), _vm._v(" "), _c('v-select', {
+    attrs: {
+      "options": _vm.subChartOfAccounts,
+      "reduce": function reduce(account) {
+        return account.id;
+      },
+      "label": "display_name",
+      "placeholder": _vm.$t('Select Sub Accounts'),
+      "searchable": true,
+      "clearable": true,
+      "loading": _vm.loadingSubAccounts,
+      "multiple": "",
+      "disabled": !_vm.filters.chartOfAccounts || _vm.filters.chartOfAccounts.length === 0
+    },
+    on: {
+      "search": _vm.searchSubAccounts
+    },
+    model: {
+      value: _vm.filters.subChartOfAccounts,
+      callback: function callback($$v) {
+        _vm.$set(_vm.filters, "subChartOfAccounts", $$v);
+      },
+      expression: "filters.subChartOfAccounts"
+    }
+  }), _vm._v(" "), _vm.errors.sub_chart_of_account_ids ? _c('div', {
+    staticClass: "text-danger"
+  }, [_vm._v("\n              " + _vm._s(_vm.errors.sub_chart_of_account_ids[0]) + "\n            ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Fiscal Year')))]), _vm._v(" "), _c('v-select', {
+    attrs: {
+      "options": _vm.fiscalYears,
+      "reduce": function reduce(year) {
+        return year.id;
+      },
       "label": "name",
-      "name": "supplier",
-      "placeholder": _vm.$t('Select a supplier')
+      "placeholder": _vm.$t('Select Fiscal Year'),
+      "searchable": true,
+      "clearable": true,
+      "loading": _vm.loadingFiscalYears
     },
     on: {
-      "input": _vm.onSupplierChange
+      "search": _vm.searchFiscalYears
     },
     model: {
-      value: _vm.form.supplier,
+      value: _vm.filters.fiscalYear,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "supplier", $$v);
+        _vm.$set(_vm.filters, "fiscalYear", $$v);
       },
-      expression: "form.supplier"
-    }
-  }), _vm._v(" "), _vm.form.supplier ? _c('div', {
-    staticClass: "supplier-status mt-2"
-  }, [!_vm.form.supplier.chart_of_account_id ? _c('div', {
-    staticClass: "supplier-warning"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle text-warning"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-2"
-  }, [_vm._v(_vm._s(_vm.$t('Supplier needs Chart of Account')))]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm btn-outline-warning ml-2",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.isAutoAssigningSupplier
-    },
-    on: {
-      "click": _vm.autoAssignSupplierChartOfAccount
-    }
-  }, [_c('i', {
-    "class": _vm.isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
-  }), _vm._v("\n                      " + _vm._s(_vm.isAutoAssigningSupplier ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                        ")])]) : _c('div', {
-    staticClass: "supplier-success"
-  }, [_c('i', {
-    staticClass: "fas fa-check-circle text-success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-2"
-  }, [_vm._v(_vm._s(_vm.$t('Supplier Chart of Account ready')))])])]) : _vm._e(), _vm._v(" "), _vm.form.supplier ? _c('div', {
-    staticClass: "mt-1 text-muted small"
-  }, [_vm._v("\n                  Debug: chart_of_account_id = " + _vm._s(_vm.form.supplier.chart_of_account_id || 'null') + "\n                ")]) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "supplier"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-12 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "purchaseNo"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Purchase No')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.purchaseNo,
-      expression: "form.purchaseNo"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('purchaseNo')
-    },
-    attrs: {
-      "id": "purchaseNo",
-      "type": "text",
-      "name": "purchaseNo",
-      "placeholder": _vm.$t('Enter purchase no'),
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.purchaseNo
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "purchaseNo", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "purchaseNo"
-    }
-  })], 1), _vm._v(" "), _vm.products ? _c('div', {
-    staticClass: "form-group col-md-12 col-xl-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "product"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Select Products')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('selectedProducts')
-    },
-    attrs: {
-      "options": _vm.products,
-      "label": "label",
-      "name": "product",
-      "placeholder": _vm.$t('Search products')
-    },
-    on: {
-      "input": function input($event) {
-        return _vm.storeProduct(_vm.form.product);
-      }
-    },
-    model: {
-      value: _vm.form.product,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "product", $$v);
-      },
-      expression: "form.product"
-    }
-  }), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "product-status mt-2"
-  }, [!_vm.form.selectedProducts[0].purchase_account_id ? _c('div', {
-    staticClass: "product-warning"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle text-warning"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-2"
-  }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(_vm.form.selectedProducts[0].name) + "\" " + _vm._s(_vm.$t('needs Purchase Account')))]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm btn-outline-warning ml-2",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.autoAssignProductChartOfAccount(_vm.form.selectedProducts[0]);
-      }
-    }
-  }, [_c('i', {
-    "class": _vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
-  }), _vm._v("\n                      " + _vm._s(_vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                    ")])]) : _c('div', {
-    staticClass: "product-success"
-  }, [_c('i', {
-    staticClass: "fas fa-check-circle text-success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-2"
-  }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(_vm.form.selectedProducts[0].name) + "\" " + _vm._s(_vm.$t('Purchase Account ready')))])])]) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "selectedProducts"
-    }
-  })], 1) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row mt-3 mb-4"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom w-100 m-auto"
-  }, [_c('table', {
-    staticClass: "table table-hover table-sm text-center"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t('#')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Code')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Name')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Purchased Qty')))]), _vm._v(" "), _vm.form.purchaseReturnData ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t('Returned Qty')) + "\n                      ")]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Purchase Price')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Discount')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total After Discount')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('VAT Type')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('VAT')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total with VAT')))]), _vm._v(" "), _vm.form.purchaseReturnData ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t('Total Return')) + "\n                      ")]) : _vm._e(), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t('Action')))])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.form.selectedProducts, function (item, i) {
-    return _c('tr', {
-      key: i,
-      staticClass: "text-center"
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', [_vm.$can('product-view') ? _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'products.show',
-          params: {
-            slug: item.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                          " + _vm._s(item.name) + "\n                        ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _c('td', [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "button-minus icon-shape icon-sm btn-danger",
-      attrs: {
-        "type": "button",
-        "value": "-",
-        "data-field": "quantity"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'decrement');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "quantity-field border-0 incrementor",
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "purchaseQty-".concat(i),
-        "name": "quantity",
-        "required": "",
-        "min": item.minQty
-      },
-      domProps: {
-        "value": item.qty
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
-        },
-        "keyup": function keyup($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "button-plus icon-shape icon-sm btn-primary",
-      attrs: {
-        "type": "button",
-        "value": "+",
-        "data-field": "quantity"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'increment');
-        }
-      }
-    })])]), _vm._v(" "), _vm.form.purchaseReturnData ? _c('td', [_vm._v("\n                        " + _vm._s(item.returnQty) + "\n                      ")]) : _vm._e(), _vm._v(" "), _c('td', [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "button-minus icon-shape icon-sm btn-danger",
-      attrs: {
-        "type": "button",
-        "value": "-",
-        "data-field": "unitPrice"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.generateItemTotal(item.unitPrice, 'price', i - 1, 'decrement');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "quantity-field border-0 incrementor",
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "unitPrice-".concat(i),
-        "name": "unitPrice",
-        "required": "",
-        "min": "1"
-      },
-      domProps: {
-        "value": item.unitPrice
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
-        },
-        "keyup": function keyup($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "button-plus icon-shape icon-sm btn-primary",
-      attrs: {
-        "type": "button",
-        "value": "+",
-        "data-field": "unitPrice"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.generateItemTotal(item.unitPrice, 'price', i - 1, 'increment');
-        }
-      }
-    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withCurrency")(item.unitPrice * item.qty)))]), _vm._v(" "), _c('td', [_c('div', {
-      staticClass: "input-group"
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discountType,
-        expression: "item.discountType"
-      }],
-      staticClass: "form-control form-control-sm",
-      staticStyle: {
-        "width": "60px"
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.calculateProductDiscount(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "fixed"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "percentage"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discount,
-        expression: "item.discount"
-      }],
-      staticClass: "form-control form-control-sm",
-      staticStyle: {
-        "width": "80px"
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "max": item.discountType == 'percentage' ? 100 : item.unitPrice * item.qty,
-        "placeholder": "0"
-      },
-      domProps: {
-        "value": item.discount
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.calculateProductDiscount(i - 1);
-        },
-        "keyup": function keyup($event) {
-          return _vm.calculateProductDiscount(i - 1);
-        },
-        "input": function input($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, "discount", $event.target.value);
-        }
-      }
-    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withCurrency")(item.unitPrice * item.qty - (item.discountAmount || 0))))]), _vm._v(" "), _c('td', [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.selectedVatRate,
-        expression: "item.selectedVatRate"
-      }],
-      staticClass: "form-control form-control-sm",
-      staticStyle: {
-        "min-width": "120px"
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.calculateProductVat(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax
-        }
-      }, [_vm._v("\n                            " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                          ")]);
-    })], 2)]), _vm._v(" "), _c('td', [_c('span', {
-      staticClass: "form-control-plaintext form-control-sm text-center"
-    }, [_vm._v("\n                          " + _vm._s(_vm._f("withCurrency")(item.productTax)) + "\n                        ")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withCurrency")(item.totalPrice)))]), _vm._v(" "), _vm.form.purchaseReturnData ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withCurrency")(item.totalReturn)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "text-right"
-    }, [_c('button', {
-      staticClass: "btn btn-danger",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.removeItem(item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    staticClass: "text-right",
-    attrs: {
-      "colspan": _vm.form.purchaseReturnData ? 8 : 7
-    }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Total')) + ":")])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm._f("withCurrency")(_vm.totalUnitPrice)))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm._f("withCurrency")(_vm.form.totalDiscount)))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm._f("withCurrency")(_vm.totalUnitPrice - _vm.form.totalDiscount)))])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm._f("withCurrency")(_vm.form.totalProductTax)))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm._f("withCurrency")(_vm.form.subTotal)))])]), _vm._v(" "), _vm.form.purchaseReturnData ? _c('td', [_c('strong', [_vm._v(_vm._s(_vm._f("withCurrency")(_vm.form.purchaseReturn)))])]) : _vm._e(), _vm._v(" "), _c('td')])], 2)])])]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "poReference"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('PO Reference')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.poReference,
-      expression: "form.poReference"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('poReference')
-    },
-    attrs: {
-      "id": "poReference",
-      "type": "text",
-      "step": "any",
-      "name": "poReference",
-      "placeholder": _vm.$t('Enter PO reference')
-    },
-    domProps: {
-      "value": _vm.form.poReference
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "poReference", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "poReference"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "paymentTerms"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Payment Terms')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.paymentTerms,
-      expression: "form.paymentTerms"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('paymentTerms')
-    },
-    attrs: {
-      "id": "paymentTerms",
-      "type": "text",
-      "name": "paymentTerms",
-      "placeholder": _vm.$t('Enter payment terms')
-    },
-    domProps: {
-      "value": _vm.form.paymentTerms
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "paymentTerms", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "paymentTerms"
-    }
-  })], 1), _vm._v(" "), _vm.taxes ? _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "orderTax"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Purchase Tax')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('orderTax')
-    },
-    attrs: {
-      "options": _vm.taxes,
-      "label": "code",
-      "name": "orderTax",
-      "placeholder": _vm.$t('Select a tax type')
-    },
-    on: {
-      "input": _vm.updateTax
-    },
-    model: {
-      value: _vm.form.orderTax,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "orderTax", $$v);
-      },
-      expression: "form.orderTax"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "orderTax"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.taxes ? _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "totalTax"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Total Tax')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.totalTax,
-      expression: "form.totalTax"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('totalTax')
-    },
-    attrs: {
-      "id": "totalTax",
-      "type": "text",
-      "name": "totalTax",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.totalTax
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "totalTax", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "totalTax"
-    }
-  })], 1) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6",
-    "class": _vm.form.purchaseReturnData ? 'col-lg-3' : 'col-lg-4'
-  }, [_c('label', {
-    attrs: {
-      "for": "discount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Discount')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.discount,
-      expression: "form.discount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('discount')
-    },
-    attrs: {
-      "id": "discount",
-      "type": "number",
-      "step": "any",
-      "min": "1",
-      "max": _vm.form.rowSubTotal,
-      "name": "discount",
-      "placeholder": _vm.$t('Enter discount')
-    },
-    domProps: {
-      "value": _vm.form.discount
-    },
-    on: {
-      "change": _vm.calculateSum,
-      "keyup": _vm.calculateSum,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "discount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "discount"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6",
-    "class": _vm.form.purchaseReturnData ? 'col-lg-3' : 'col-lg-4'
-  }, [_c('label', {
-    attrs: {
-      "for": "transportCost"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Transport Cost')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.transportCost,
-      expression: "form.transportCost"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('transportCost')
-    },
-    attrs: {
-      "id": "transportCost",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "transportCost",
-      "placeholder": _vm.$t('Enter transport cost')
-    },
-    domProps: {
-      "value": _vm.form.transportCost
-    },
-    on: {
-      "change": _vm.calculateSum,
-      "keyup": _vm.calculateSum,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "transportCost", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "transportCost"
-    }
-  })], 1), _vm._v(" "), _vm.form.purchaseReturnData ? _c('div', {
-    staticClass: "form-group col-md-6",
-    "class": _vm.form.purchaseReturnData ? 'col-lg-3' : 'col-lg-4'
-  }, [_c('label', {
-    attrs: {
-      "for": "purchaseReturn"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Cost of Return Products')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.purchaseReturn,
-      expression: "form.purchaseReturn"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('purchaseReturn')
-    },
-    attrs: {
-      "id": "purchaseReturn",
-      "type": "number",
-      "step": "any",
-      "name": "purchaseReturn",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.purchaseReturn
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "purchaseReturn", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "purchaseReturn"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6",
-    "class": _vm.form.purchaseReturnData ? 'col-lg-3' : 'col-lg-4'
-  }, [_c('label', {
-    attrs: {
-      "for": "netTotal"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Net Total')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.netTotal,
-      expression: "form.netTotal"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('netTotal')
-    },
-    attrs: {
-      "id": "netTotal",
-      "type": "number",
-      "step": "any",
-      "name": "netTotal",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.netTotal
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "netTotal", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "netTotal"
+      expression: "filters.fiscalYear"
     }
   })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
     staticClass: "form-group"
-  }, [_c('label', {
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Accounting Period')))]), _vm._v(" "), _c('v-select', {
     attrs: {
-      "for": "note"
+      "options": _vm.accountingPeriods,
+      "reduce": function reduce(period) {
+        return period.id;
+      },
+      "label": "name",
+      "placeholder": _vm.$t('Select Period'),
+      "searchable": true,
+      "clearable": true,
+      "loading": _vm.loadingAccountingPeriods,
+      "disabled": !_vm.filters.fiscalYear
+    },
+    on: {
+      "search": _vm.searchAccountingPeriods
+    },
+    model: {
+      value: _vm.filters.accountingPeriod,
+      callback: function callback($$v) {
+        _vm.$set(_vm.filters, "accountingPeriod", $$v);
+      },
+      expression: "filters.accountingPeriod"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Date Range')))]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
+      value: _vm.filters.fromDate,
+      expression: "filters.fromDate"
     }],
     staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
     attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!')
+      "type": "date",
+      "placeholder": _vm.$t('From Date'),
+      "disabled": _vm.filters.fiscalYear || _vm.filters.accountingPeriod
     },
     domProps: {
-      "value": _vm.form.note
+      "value": _vm.filters.fromDate
     },
     on: {
       "input": function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
+        _vm.$set(_vm.filters, "fromDate", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "input-group-append"
+  }, [_c('span', {
+    staticClass: "input-group-text"
+  }, [_vm._v(_vm._s(_vm.$t('to')))])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.filters.toDate,
+      expression: "filters.toDate"
+    }],
+    staticClass: "form-control",
     attrs: {
-      "form": _vm.form,
-      "field": "note"
+      "type": "date",
+      "placeholder": _vm.$t('To Date'),
+      "disabled": _vm.filters.fiscalYear || _vm.filters.accountingPeriod
+    },
+    domProps: {
+      "value": _vm.filters.toDate
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.filters, "toDate", $event.target.value);
+      }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.loading || !_vm.filters.chartOfAccounts || _vm.filters.chartOfAccounts.length === 0
+    }
+  }, [_vm.loading ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-search"
+  }), _vm._v("\n              " + _vm._s(_vm.$t('Generate Report')) + "\n            ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary ml-2",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.resetFilters
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-undo"
+  }), _vm._v("\n              " + _vm._s(_vm.$t('Reset')) + "\n            ")]), _vm._v(" "), _vm.reportData && _vm.reportData.entries && _vm.reportData.entries.length > 0 ? _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to Excel'),
+      expression: "$t('Export to Excel')"
+    }],
+    staticClass: "btn export-excel-btn ml-2",
+    attrs: {
+      "href": _vm.exportExcelUrl
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-arrow-circle-down"
+  })]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.reportData.entries && _vm.reportData.entries.length > 0 ? _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to PDF'),
+      expression: "$t('Export to PDF')"
+    }],
+    staticClass: "btn export-pdf-btn ml-2",
+    attrs: {
+      "href": _vm.exportPdfUrl
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-file-export"
+  })]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.reportData.entries && _vm.reportData.entries.length > 0 ? _c('a', {
+    staticClass: "btn print-btn ml-2",
+    attrs: {
+      "href": _vm.printTemplateUrl,
+      "target": "_blank"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  })]) : _vm._e()])])])])]), _vm._v(" "), _vm.reportData ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n        " + _vm._s(_vm.$t('Group Account Statement')) + " - " + _vm._s(_vm.selectedAccountsText) + "\n      ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-tools"
+  }, [_c('span', {
+    staticClass: "badge badge-info"
+  }, [_vm._v(_vm._s(_vm.$t('Accounts')) + ": " + _vm._s(_vm.reportData.chart_of_accounts.length))]), _vm._v(" "), _c('span', {
+    staticClass: "badge badge-secondary ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Entries')) + ": " + _vm._s(_vm.reportData.summary.total_entries))])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row mb-4"
+  }, [_c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "info-box"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "info-box-content"
+  }, [_c('span', {
+    staticClass: "info-box-text"
+  }, [_vm._v(_vm._s(_vm.$t('Opening Balance')))]), _vm._v(" "), _c('span', {
+    staticClass: "info-box-number"
+  }, [_vm._v("\n                " + _vm._s(_vm.reportData.summary.opening_balance) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")]), _vm._v(" "), _c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.reportData.summary.opening_balance_type) + ")")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "info-box"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "info-box-content"
+  }, [_c('span', {
+    staticClass: "info-box-text"
+  }, [_vm._v(_vm._s(_vm.$t('Period Debits')))]), _vm._v(" "), _c('span', {
+    staticClass: "info-box-number"
+  }, [_vm._v(_vm._s(_vm.reportData.summary.period_debits) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "info-box"
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "info-box-content"
+  }, [_c('span', {
+    staticClass: "info-box-text"
+  }, [_vm._v(_vm._s(_vm.$t('Period Credits')))]), _vm._v(" "), _c('span', {
+    staticClass: "info-box-number"
+  }, [_vm._v(_vm._s(_vm.reportData.summary.period_credits) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "info-box"
+  }, [_vm._m(4), _vm._v(" "), _c('div', {
+    staticClass: "info-box-content"
+  }, [_c('span', {
+    staticClass: "info-box-text"
+  }, [_vm._v(_vm._s(_vm.$t('Closing Balance')))]), _vm._v(" "), _c('span', {
+    staticClass: "info-box-number"
+  }, [_vm._v("\n                " + _vm._s(_vm.reportData.summary.closing_balance) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")]), _vm._v(" "), _c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.reportData.summary.closing_balance_type) + ")")])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mb-4"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('Selected Accounts')))]), _vm._v(" "), _c('div', {
     staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
+  }, _vm._l(_vm.reportData.chart_of_accounts, function (account) {
+    return _c('div', {
+      key: account.id,
+      staticClass: "col-md-4 mb-2"
+    }, [_c('div', {
+      staticClass: "card card-outline card-info"
+    }, [_c('div', {
+      staticClass: "card-body p-2"
+    }, [_c('div', {
+      staticClass: "d-flex justify-content-between"
+    }, [_c('div', [_c('strong', [_vm._v(_vm._s(account.code))]), _vm._v(" - " + _vm._s(account.name) + "\n                    ")]), _vm._v(" "), _c('span', {
+      staticClass: "badge badge-info"
+    }, [_vm._v(_vm._s(account.type))])])])])]);
+  }), 0)])]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom"
+  }, [_c('table', {
+    staticClass: "table group-account-statement-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t('Date')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Entry #')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Reference')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Description')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Account Name')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t('Debit')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t('Credit')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t('Net Amount')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t('Running Balance')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-center"
+  }, [_vm._v(_vm._s(_vm.$t('Balance Type')))])]), _vm._v(" "), _c('tbody', [_vm.loading ? _c('tr', [_c('td', {
+    staticClass: "text-center",
     attrs: {
-      "for": "purchaseDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Purchase Date')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.purchaseDate,
-      expression: "form.purchaseDate"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('purchaseDate')
-    },
-    attrs: {
-      "id": "purchaseDate",
-      "type": "date",
-      "name": "purchaseDate"
-    },
-    domProps: {
-      "value": _vm.form.purchaseDate
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "purchaseDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "purchaseDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "poDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('PO Date')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.poDate,
-      expression: "form.poDate"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('poDate')
-    },
-    attrs: {
-      "id": "poDate",
-      "type": "date",
-      "name": "poDate"
-    },
-    domProps: {
-      "value": _vm.form.poDate
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "poDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "poDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('v-button', {
-    attrs: {
-      "loading": _vm.form.busy,
-      "type": "success"
+      "colspan": "10"
     }
   }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save changes')) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
+    staticClass: "fas fa-spinner fa-spin"
+  }), _vm._v(" " + _vm._s(_vm.$t('Loading entries...')) + "\n              ")])]) : _vm.reportData.entries.length === 0 ? _c('tr', [_c('td', {
+    staticClass: "text-center text-muted",
     attrs: {
-      "type": "reset"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.form.reset();
-      }
+      "colspan": "10"
     }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t('No entries found for the selected criteria')) + "\n              ")])]) : _vm._l(_vm.reportData.entries, function (entry) {
+    return _c('tr', {
+      key: entry.id
+    }, [_c('td', [_vm._v(_vm._s(_vm.formatDate(entry.entry_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.entry_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.reference || '-'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.description || '-'))]), _vm._v(" "), _c('td', [entry.accounts && entry.accounts.length > 0 ? _c('div', _vm._l(entry.accounts, function (account, index) {
+      return _c('div', {
+        key: account.id,
+        staticClass: "mb-1"
+      }, [_c('span', {
+        staticClass: "badge badge-info mr-1"
+      }, [_vm._v(_vm._s(account.code))]), _vm._v(" "), _c('span', {
+        staticClass: "small"
+      }, [_vm._v(_vm._s(account.name))]), _vm._v(" "), index < entry.accounts.length - 1 ? _c('div', {
+        staticClass: "border-bottom mb-1"
+      }) : _vm._e()]);
+    }), 0) : _c('span', {
+      staticClass: "text-muted"
+    }, [_vm._v("-")])]), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(entry.debit_amount) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(entry.credit_amount) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [_c('span', {
+      "class": entry.net_amount >= 0 ? 'text-success' : 'text-danger'
+    }, [_vm._v("\n                    " + _vm._s(entry.net_amount) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [_c('span', {
+      "class": entry.balance_type === 'Debit' ? 'text-success' : 'text-danger'
+    }, [_vm._v("\n                    " + _vm._s(entry.running_balance) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [_c('span', {
+      staticClass: "badge",
+      "class": entry.balance_type === 'Debit' ? 'badge-success' : 'badge-danger'
+    }, [_vm._v("\n                    " + _vm._s(entry.balance_type) + "\n                  ")])])]);
+  })], 2)])]), _vm._v(" "), _vm.loadingMore ? _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-12 text-center"
+  }, [_c('div', {
+    staticClass: "alert alert-info"
   }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                ")])], 1)])])])])])])]);
+    staticClass: "fas fa-spinner fa-spin"
+  }), _vm._v(" \n            " + _vm._s(_vm.$t('Loading more entries...')) + " (" + _vm._s(_vm.reportData.entries.length) + " " + _vm._s(_vm.$t('loaded')) + ")\n          ")])])]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.reportData.entries.length > 0 ? _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "dataTables_info"
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('Total entries loaded')) + ": " + _vm._s(_vm.reportData.entries.length) + "\n            "), !_vm.hasMoreData ? _c('span', {
+    staticClass: "text-success"
+  }, [_c('i', {
+    staticClass: "fas fa-check"
+  }), _vm._v(" " + _vm._s(_vm.$t('All data loaded')) + "\n            ")]) : _vm._e()])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.loading ? _c('div', {
+    staticClass: "overlay"
+  }, [_c('i', {
+    staticClass: "fas fa-2x fa-sync-alt fa-spin"
+  })]) : _vm._e()])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('td', [_c('strong')]);
+  return _c('div', {
+    staticClass: "card-tools"
+  }, [_c('button', {
+    staticClass: "btn btn-tool",
+    attrs: {
+      "type": "button",
+      "data-card-widget": "collapse"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-minus"
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "info-box-icon bg-info"
+  }, [_c('i', {
+    staticClass: "fas fa-balance-scale"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "info-box-icon bg-success"
+  }, [_c('i', {
+    staticClass: "fas fa-arrow-up"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "info-box-icon bg-danger"
+  }, [_c('i', {
+    staticClass: "fas fa-arrow-down"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "info-box-icon bg-warning"
+  }, [_c('i', {
+    staticClass: "fas fa-balance-scale"
+  })]);
 }];
 
-;// ./resources/js/pages/purchases/edit.vue?vue&type=template&id=373a08ce&scoped=true
+;// ./resources/js/pages/reports/group-account-statement.vue?vue&type=template&id=534f45b5&scoped=true
 
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/edit.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorValues(e) { if (null != e) { var t = e["function" == typeof Symbol && Symbol.iterator || "@@iterator"], r = 0; if (t) return t.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) return { next: function next() { return e && r >= e.length && (e = void 0), { value: e && e[r++], done: !e }; } }; } throw new TypeError(_typeof(e) + " is not iterable"); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -1008,681 +551,674 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
-
-/* harmony default export */ const editvue_type_script_lang_js = ({
-  middleware: ['auth', 'check-permissions'],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t('Edit Purchase')
-    };
-  },
+/* harmony default export */ const group_account_statementvue_type_script_lang_js = ({
+  name: 'GroupAccountStatement',
   data: function data() {
     return {
-      breadcrumbsCurrent: 'Edit Purchase',
+      loading: false,
+      loadingAccounts: false,
+      loadingSubAccounts: false,
+      loadingFiscalYears: false,
+      loadingAccountingPeriods: false,
+      reportData: null,
+      errors: {},
+      // Breadcrumbs
       breadcrumbs: [{
         name: 'Dashboard',
         url: 'home'
       }, {
-        name: 'Purchases',
-        url: 'purchases.index'
-      }, {
-        name: 'Edit',
+        name: 'Group Account Statement',
         url: ''
       }],
-      form: new vform_es/* default */.Ay({
-        supplier: '',
-        purchaseNo: '',
-        selectedProducts: [],
-        orderTax: '',
-        totalTax: 0,
-        discount: '',
-        transportCost: '',
-        subTotal: 0,
-        rowSubTotal: 0,
-        netTotal: 0,
-        poReference: '',
-        paymentTerms: '',
-        totalProductTax: 0,
-        poDate: new Date().toISOString().slice(0, 10),
-        purchaseDate: new Date().toISOString().slice(0, 10),
-        purchaseReturnData: '',
-        purchaseReturn: 0,
-        note: '',
-        status: 1,
-        totalDiscount: 0
-      }),
-      products: '',
-      accounts: '',
-      taxes: '',
-      prefix: '',
-      purchasePrefix: '',
-      isAutoAssigningSupplier: false,
-      isAutoAssigningProduct: null
+      breadcrumbsCurrent: 'Group Account Statement',
+      // Filters
+      filters: {
+        chartOfAccounts: [],
+        subChartOfAccounts: [],
+        fiscalYear: null,
+        accountingPeriod: null,
+        fromDate: null,
+        toDate: null
+      },
+      // Options
+      chartOfAccounts: [],
+      subChartOfAccounts: [],
+      fiscalYears: [],
+      accountingPeriods: [],
+      // Chunked loading
+      currentChunk: 1,
+      chunkSize: 30,
+      hasMoreData: true,
+      loadingMore: false,
+      retryCount: 0,
+      maxRetries: 3
     };
   },
-  mounted: function mounted() {
-    var _this = this;
-    this.$nextTick(function () {
-      _this.loadTemporaryData();
-    });
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items', 'appInfo'])), {}, {
-    // Calculate total unit price (sum of all unit prices)
-    totalUnitPrice: function totalUnitPrice() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)({
+    appInfo: "appInfo"
+  })), {}, {
+    selectedAccountsText: function selectedAccountsText() {
+      if (!this.reportData || !this.reportData.chart_of_accounts) return '';
+      return this.reportData.chart_of_accounts.map(function (acc) {
+        return "".concat(acc.code, " - ").concat(acc.name);
+      }).join(', ');
+    },
+    entriesCount: function entriesCount() {
+      return this.reportData && this.reportData.entries ? this.reportData.entries.length : 0;
+    },
+    // Export URLs
+    exportExcelUrl: function exportExcelUrl() {
+      var params = new URLSearchParams();
+      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
+        this.filters.chartOfAccounts.forEach(function (id) {
+          params.append('chart_of_account_ids[]', id);
+        });
       }
-      return this.form.selectedProducts.reduce(function (total, item) {
-        return total + item.unitPrice * item.qty;
-      }, 0);
+      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
+        this.filters.subChartOfAccounts.forEach(function (id) {
+          params.append('sub_chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return "/group-account-statement/export?".concat(params.toString());
+    },
+    exportPdfUrl: function exportPdfUrl() {
+      var params = new URLSearchParams();
+      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
+        this.filters.chartOfAccounts.forEach(function (id) {
+          params.append('chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
+        this.filters.subChartOfAccounts.forEach(function (id) {
+          params.append('sub_chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return "/group-account-statement/pdf?".concat(params.toString());
+    },
+    printTemplateUrl: function printTemplateUrl() {
+      var params = new URLSearchParams();
+      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
+        this.filters.chartOfAccounts.forEach(function (id) {
+          params.append('chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
+        this.filters.subChartOfAccounts.forEach(function (id) {
+          params.append('sub_chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      return "/print/reports/group-account-statement?".concat(params.toString());
     }
   }),
-  created: function created() {
-    this.getPurchase();
-    this.getSuppliers();
-    this.getProducts();
-    this.getTaxes();
-    this.prefix = this.appInfo.productPrefix;
-    this.purchasePrefix = this.appInfo.purchasePrefix;
+  mounted: function mounted() {
+    this.loadInitialData();
   },
   methods: {
-    // get purchase
-    getPurchase: function getPurchase() {
-      var _this2 = this;
+    loadInitialData: function loadInitialData() {
+      var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.n) {
             case 0:
               _context.n = 1;
-              return axios_default().get(window.location.origin + '/api/purchases/' + _this2.$route.params.slug);
+              return Promise.all([_this.loadChartOfAccounts(), _this.loadFiscalYears()]);
             case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this2.form.purchaseNo = _this2.$options.filters.withPrefix(data.data.purchaseNo, _this2.purchasePrefix);
-              _this2.form.supplier = data.data.supplier;
-              _this2.form.poReference = data.data.poReference;
-              _this2.form.transportCost = data.data.transport;
-              _this2.form.totalTax = data.data.tax;
-              _this2.form.orderTax = data.data.taxType || null;
-              _this2.form.discount = data.data.totalDiscount;
-              _this2.form.paymentTerms = data.data.paymentTerms;
-              _this2.form.poDate = data.data.poDate;
-              _this2.form.purchaseDate = data.data.purchaseDate;
-              _this2.form.purchaseReturnData = data.data.purchaseReturn;
-              _this2.form.status = data.data.status;
-              _this2.form.note = data.data.note;
-              _this2.form.selectedProducts = _this2.assignProducts(data.data.products);
-            case 2:
               return _context.a(2);
           }
         }, _callee);
       }))();
     },
-    // get all local suppliers
-    getSuppliers: function getSuppliers() {
-      var _this3 = this;
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _arguments = arguments,
+        _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var search, response, accounts, _t;
         return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
-              _context2.n = 1;
-              return _this3.$store.dispatch('operations/allData', {
-                path: '/api/all-suppliers'
+              search = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : '';
+              _this2.loadingAccounts = true;
+              _context2.p = 1;
+              _context2.n = 2;
+              return axios_default().get('/api/chart-of-accounts/search', {
+                params: {
+                  term: search,
+                  perPage: 100
+                }
               });
-            case 1:
+            case 2:
+              response = _context2.v;
+              // Handle paginated response
+              accounts = response.data.data || response.data; // Add display_name for v-select
+              _this2.chartOfAccounts = accounts.map(function (account) {
+                return _objectSpread(_objectSpread({}, account), {}, {
+                  display_name: "[".concat(account.code, "] ").concat(account.name)
+                });
+              });
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t = _context2.v;
+              _this2.$toast.error('', _this2.$t('Failed to load chart of accounts'));
+            case 4:
+              _context2.p = 4;
+              _this2.loadingAccounts = false;
+              return _context2.f(4);
+            case 5:
               return _context2.a(2);
           }
-        }, _callee2);
+        }, _callee2, null, [[1, 3, 4, 5]]);
       }))();
     },
-    // get products
-    getProducts: function getProducts() {
-      var _this4 = this;
+    loadFiscalYears: function loadFiscalYears() {
+      var _arguments2 = arguments,
+        _this3 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var currentProductIds, _yield$axios$get2, data;
+        var search, response, _t2;
         return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
-              // Store the current selected products IDs
-              currentProductIds = _this4.form.selectedProducts ? _this4.form.selectedProducts.map(function (p) {
-                return p.id;
-              }) : [];
-              _context3.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-products-not-service');
-            case 1:
-              _yield$axios$get2 = _context3.v;
-              data = _yield$axios$get2.data;
-              _this4.products = data.data;
-
-              // Update selected products with fresh data if they exist
-              if (currentProductIds.length > 0 && _this4.form.selectedProducts) {
-                _this4.form.selectedProducts.forEach(function (selectedProduct) {
-                  var freshProduct = _this4.products.find(function (p) {
-                    return p.id === selectedProduct.id;
-                  });
-                  if (freshProduct) {
-                    // Update the product with fresh data while preserving user input
-                    Object.assign(selectedProduct, freshProduct);
-                  }
-                });
-              }
+              search = _arguments2.length > 0 && _arguments2[0] !== undefined ? _arguments2[0] : '';
+              _this3.loadingFiscalYears = true;
+              _context3.p = 1;
+              _context3.n = 2;
+              return axios_default().get('/api/fiscal-years/search', {
+                params: {
+                  search: search,
+                  perPage: 100
+                }
+              });
             case 2:
+              response = _context3.v;
+              // Handle paginated response
+              _this3.fiscalYears = response.data.data || response.data;
+              _context3.n = 4;
+              break;
+            case 3:
+              _context3.p = 3;
+              _t2 = _context3.v;
+              _this3.$toast.error('', _this3.$t('Failed to load fiscal years'));
+            case 4:
+              _context3.p = 4;
+              _this3.loadingFiscalYears = false;
+              return _context3.f(4);
+            case 5:
               return _context3.a(2);
           }
-        }, _callee3);
+        }, _callee3, null, [[1, 3, 4, 5]]);
       }))();
     },
-    // get taxes
-    getTaxes: function getTaxes() {
-      var _this5 = this;
+    loadAccountingPeriods: function loadAccountingPeriods() {
+      var _arguments3 = arguments,
+        _this4 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var _yield$axios$get3, data;
+        var search, response, _t3;
         return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
-              _context4.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-vat-rates');
-            case 1:
-              _yield$axios$get3 = _context4.v;
-              data = _yield$axios$get3.data;
-              _this5.taxes = data.data;
+              search = _arguments3.length > 0 && _arguments3[0] !== undefined ? _arguments3[0] : '';
+              _this4.loadingAccountingPeriods = true;
+              _context4.p = 1;
+              _context4.n = 2;
+              return axios_default().get('/api/accounting-periods/search', {
+                params: {
+                  search: search,
+                  perPage: 100
+                }
+              });
             case 2:
+              response = _context4.v;
+              // Handle paginated response
+              _this4.accountingPeriods = response.data.data || response.data;
+              _context4.n = 4;
+              break;
+            case 3:
+              _context4.p = 3;
+              _t3 = _context4.v;
+              _this4.$toast.error('', _this4.$t('Failed to load accounting periods'));
+            case 4:
+              _context4.p = 4;
+              _this4.loadingAccountingPeriods = false;
+              return _context4.f(4);
+            case 5:
               return _context4.a(2);
           }
-        }, _callee4);
+        }, _callee4, null, [[1, 3, 4, 5]]);
       }))();
     },
-    // store item in array
-    storeProduct: function storeProduct(product) {
-      var index = this.form.selectedProducts.findIndex(function (x) {
-        return x.id == product.id;
-      });
-      var qunatity = 1;
-      if (index === -1) {
-        var purchasePrice = product.avgPurchasePrice > 0 ? product.avgPurchasePrice : 1;
-        var productTax = product.taxType == 'Exclusive' ? purchasePrice * (product.taxRate / 100) : purchasePrice - purchasePrice / (1 + product.taxRate / 100);
-        var totalTax = productTax * qunatity;
-        // store product
-        this.form.selectedProducts.unshift({
-          id: product.id,
-          slug: product.slug,
-          name: product.name,
-          code: product.code,
-          qty: qunatity,
-          taxType: product.taxType,
-          taxRate: product.taxRate,
-          productTax: productTax,
-          totalTax: productTax * qunatity,
-          unitPrice: purchasePrice,
-          unitCost: product.taxType == 'Exclusive' ? purchasePrice + totalTax : purchasePrice,
-          totalPrice: product.taxType == 'Exclusive' ? 1 * (purchasePrice + totalTax) : 1 * purchasePrice,
-          returnQty: 0,
-          totalReturn: 0,
-          minQty: 1,
-          oldQty: 0,
-          // Include chart of account IDs for validation
-          sales_account_id: product.sales_account_id,
-          purchase_account_id: product.purchase_account_id
-        });
-      } else {
-        // Product already exists, update it with fresh data while preserving user input
-        var existingProduct = this.form.selectedProducts[index];
-        var updatedProduct = _objectSpread(_objectSpread({}, existingProduct), {}, {
-          // Update chart of account IDs with fresh data
-          sales_account_id: product.sales_account_id,
-          purchase_account_id: product.purchase_account_id
-        });
-        this.form.selectedProducts[index] = updatedProduct;
-      }
-      this.generateItemTotal(qunatity, 'qty', index, '');
-      this.updateTax();
-      return;
-    },
-    // update array
-    generateItemTotal: function generateItemTotal(value, type, index, action) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        if (type == 'qty') {
-          item.qty = value;
-          if (action == 'increment') {
-            item.qty = Number(item.qty) + 1;
-          } else if (action == 'decrement') {
-            if (item.qty > 0) {
-              item.qty = Number(item.qty) - 1;
-            }
-          }
-        } else {
-          this.form.selectedProducts[index].unitPrice = value;
-          item.unitPrice = value;
-          if (action == 'increment') {
-            item.unitPrice = Number(item.unitPrice) + 1;
-          } else if (action == 'decrement') {
-            if (item.qty > 0) {
-              item.unitPrice = Number(item.unitPrice) - 1;
-            }
-          }
-        }
-        item.productTax = item.taxType == 'Exclusive' ? item.unitPrice * (item.taxRate / 100) : item.unitPrice - item.unitPrice / (1 + item.taxRate / 100);
-        item.totalTax = item.productTax * item.qty;
-        item.totalPrice = item.taxType == 'Exclusive' ? item.qty * item.unitPrice + item.totalTax : item.qty * item.unitPrice;
-        item.unitCost = item.taxType == 'Exclusive' ? Number(item.unitPrice) + Number(item.productTax) : item.unitPrice;
-        this.form.selectedProducts[index] = item;
-      }
-      this.updateTax();
-      return;
-    },
-    // remove item from array
-    removeItem: function removeItem(item) {
-      var index = this.form.selectedProducts.indexOf(item);
-      if (index > -1) {
-        this.form.selectedProducts.splice(index, 1);
-      }
-      this.updateTax();
-      return;
-    },
-    // calculate product discount
-    calculateProductDiscount: function calculateProductDiscount(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        if (item.discountType === "percentage") {
-          item.discountAmount = Number((item.unitPrice * item.qty * item.discount / 100).toFixed(2));
-        } else {
-          item.discountAmount = Number(item.discount || 0);
-        }
-
-        // Recalculate totals
-        this.generateItemTotal(index, "qty", index, "");
-        this.calculateSum();
-      }
-    },
-    // calculate product VAT
-    calculateProductVat: function calculateProductVat(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        // Ensure the selectedVatRate is properly set
-        if (!item.selectedVatRate) {
-          // First try to use the product's default VAT rate, then fall back to available taxes
-          if (item.productTax) {
-            item.selectedVatRate = this.findMatchingVatRate(item.productTax);
-          }
-
-          // If no match found or no productTax, fall back to available taxes
-          if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
-            item.selectedVatRate = this.taxes[0];
-          }
-        }
-
-        // Recalculate totals with new VAT rate
-        this.generateItemTotal(index, "qty", index, "");
-        this.calculateSum();
-      }
-    },
-    // Helper method to find matching VAT rate
-    findMatchingVatRate: function findMatchingVatRate(productTax) {
-      if (!this.taxes || !productTax) return null;
-      return this.taxes.find(function (tax) {
-        return tax.rate === productTax;
-      });
-    },
-    // update tax
-    // update tax
-    updateTax: function updateTax() {
-      this.form.totalTax = 0;
-      if (this.form.orderTax && this.form.orderTax.rate > 0 && this.form.netTotal > 0) {
-        this.form.totalTax = Number((this.form.orderTax.rate / 100 * (this.form.subTotal - this.form.purchaseReturn)).toFixed(2));
-      }
-      this.calculateSum();
-      return;
-    },
-    // calculate sum
-    calculateSum: function calculateSum() {
-      var length = this.form.selectedProducts.length;
-      this.form.subTotal = this.form.totalProductTax = this.form.purchaseReturn = this.form.totalDiscount = 0;
-      for (var i = 0; i < length; i++) {
-        var looProduct = this.form.selectedProducts[i];
-        this.form.subTotal += Number(looProduct.totalPrice.toFixed(2));
-        this.form.totalProductTax += Number(looProduct.totalTax.toFixed(2));
-        this.form.purchaseReturn += Number(looProduct.totalReturn.toFixed(2));
-        this.form.totalDiscount += Number((looProduct.discountAmount || 0).toFixed(2));
-      }
-      if (this.form.subTotal > 0) {
-        this.form.netTotal = this.form.subTotal + Number(this.form.totalTax) + Number(this.form.transportCost) - Number(this.form.discount) - Number(this.form.purchaseReturn);
-        this.form.rowSubTotal = this.form.subTotal - this.form.purchaseReturn;
-      }
-      return;
-    },
-    // get purchase products
-    assignProducts: function assignProducts(purchaseProducts) {
-      for (var key in purchaseProducts) {
-        var purchaseProduct = purchaseProducts[key];
-        var minQty = purchaseProduct.returnQty > 0 ? purchaseProduct.returnQty : 1;
-        this.form.selectedProducts.unshift({
-          id: purchaseProduct.productID,
-          slug: purchaseProduct.productSlug,
-          name: purchaseProduct.productName,
-          code: purchaseProduct.productCode,
-          qty: purchaseProduct.quantity,
-          taxType: purchaseProduct.taxType,
-          taxRate: purchaseProduct.taxRate,
-          productTax: purchaseProduct.taxAmount,
-          totalTax: purchaseProduct.taxTotal,
-          unitCost: purchaseProduct.unitCost,
-          totalPrice: purchaseProduct.unitCostTotal,
-          returnQty: purchaseProduct.returnQty,
-          unitPrice: purchaseProduct.purchasePrice,
-          totalReturn: purchaseProduct.totalReturn,
-          minQty: purchaseProduct.stockQty >= purchaseProduct.quantity ? minQty : minQty <= purchaseProduct.stockQty ? minQty + 1 : purchaseProduct.stockQty,
-          oldQty: purchaseProduct.quantity,
-          discount: 0,
-          discountType: "fixed",
-          discountAmount: 0,
-          selectedVatRate: null
-        });
-      }
-      this.calculateSum();
-      this.updateTax();
-      return this.form.selectedProducts;
-    },
-    // Handle chart of account assignment
-    handleChartOfAccountAssigned: function handleChartOfAccountAssigned(data) {
-      var _this6 = this;
+    searchAccounts: function searchAccounts(search) {
+      var _this5 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var updatedSupplier;
         return _regenerator().w(function (_context5) {
           while (1) switch (_context5.n) {
             case 0:
-              if (!(data.entity === 'supplier')) {
-                _context5.n = 2;
-                break;
-              }
               _context5.n = 1;
-              return _this6.getSuppliers();
+              return _this5.loadChartOfAccounts(search);
             case 1:
-              // If we have a selected supplier, update it with the new data
-              if (_this6.form.supplier && _this6.items && _this6.items.length > 0) {
-                updatedSupplier = _this6.items.find(function (s) {
-                  return s.id === _this6.form.supplier.id;
-                });
-                if (updatedSupplier) {
-                  _this6.form.supplier = updatedSupplier;
-                }
-              }
-              _context5.n = 4;
-              break;
-            case 2:
-              if (!(data.entity === 'product')) {
-                _context5.n = 4;
-                break;
-              }
-              _context5.n = 3;
-              return _this6.getProducts();
-            case 3:
-              // Update selected products with new chart of account data
-              if (_this6.form.selectedProducts && _this6.form.selectedProducts.length > 0) {
-                _this6.form.selectedProducts.forEach(function (selectedProduct) {
-                  var updatedProduct = _this6.products.find(function (p) {
-                    return p.id === selectedProduct.id;
-                  });
-                  if (updatedProduct) {
-                    // Update the chart of account fields
-                    selectedProduct.sales_account_id = updatedProduct.sales_account_id;
-                    selectedProduct.purchase_account_id = updatedProduct.purchase_account_id;
-                  }
-                });
-              }
-            case 4:
-              // Force re-render of the validation component
-              _this6.$nextTick(function () {
-                _this6.$forceUpdate();
-              });
-            case 5:
               return _context5.a(2);
           }
         }, _callee5);
       }))();
     },
-    // Auto-assign Chart of Account for supplier
-    autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
-      var _this7 = this;
+    searchFiscalYears: function searchFiscalYears(search) {
+      var _this6 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var response, _t;
         return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
+          while (1) switch (_context6.n) {
             case 0:
-              if (!(!_this7.form.supplier || _this7.isAutoAssigningSupplier)) {
-                _context6.n = 1;
-                break;
-              }
-              return _context6.a(2);
+              _context6.n = 1;
+              return _this6.loadFiscalYears(search);
             case 1:
-              _this7.isAutoAssigningSupplier = true;
-              _context6.p = 2;
-              _context6.n = 3;
-              return axios_default().post("/api/suppliers/".concat(_this7.form.supplier.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context6.v;
-              if (response.data.success) {
-                console.log('Auto-assign response:', response.data);
-                console.log('Current supplier before update:', _this7.form.supplier);
-
-                // Update the supplier data with new chart of account
-                _this7.form.supplier.chart_of_account_id = response.data.chart_of_account_id;
-                console.log('Supplier after updating chart_of_account_id:', _this7.form.supplier);
-
-                // Force Vue to re-render the component to update the UI
-                _this7.$nextTick(function () {
-                  _this7.$forceUpdate();
-                });
-
-                // Show success message
-                toast.fire({
-                  type: "success",
-                  title: _this7.$t("Chart of Account assigned successfully")
-                });
-              } else {
-                toast.fire({
-                  type: "error",
-                  title: _this7.$t("Failed to assign Chart of Account"),
-                  text: response.data.message || _this7.$t("Please try again or assign manually")
-                });
-              }
-              _context6.n = 5;
-              break;
-            case 4:
-              _context6.p = 4;
-              _t = _context6.v;
-              console.error('Error auto-assigning chart of account:', _t);
-              toast.fire({
-                type: "error",
-                title: _this7.$t("An error occurred while assigning Chart of Account")
-              });
-            case 5:
-              _context6.p = 5;
-              _this7.isAutoAssigningSupplier = false;
-              return _context6.f(5);
-            case 6:
               return _context6.a(2);
           }
-        }, _callee6, null, [[2, 4, 5, 6]]);
+        }, _callee6);
       }))();
     },
-    // Auto-assign Chart of Account for a specific product
-    autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
-      var _this8 = this;
+    searchAccountingPeriods: function searchAccountingPeriods(search) {
+      var _this7 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var response, _t2;
         return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
+          while (1) switch (_context7.n) {
             case 0:
-              if (!(!product || _this8.isAutoAssigningProduct === product.id)) {
-                _context7.n = 1;
-                break;
-              }
-              return _context7.a(2);
+              _context7.n = 1;
+              return _this7.loadAccountingPeriods(search);
             case 1:
-              _this8.isAutoAssigningProduct = product.id;
-              _context7.p = 2;
-              _context7.n = 3;
-              return axios_default().post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context7.v;
-              if (response.data.success) {
-                // Update the product data with new chart of account
-                product.purchase_account_id = response.data.purchase_account_id;
-
-                // Force Vue to re-render the component to update the UI
-                _this8.$nextTick(function () {
-                  _this8.$forceUpdate();
-                });
-
-                // Show success message
-                toast.fire({
-                  type: "success",
-                  title: _this8.$t("Chart of Account assigned successfully")
-                });
-              } else {
-                toast.fire({
-                  type: "error",
-                  title: _this8.$t("Failed to assign Chart of Account"),
-                  text: response.data.message || _this8.$t("Please try again or assign manually")
-                });
-              }
-              _context7.n = 5;
-              break;
-            case 4:
-              _context7.p = 4;
-              _t2 = _context7.v;
-              console.error('Error auto-assigning chart of account:', _t2);
-              toast.fire({
-                type: "error",
-                title: _this8.$t("An error occurred while assigning Chart of Account")
-              });
-            case 5:
-              _context7.p = 5;
-              _this8.isAutoAssigningProduct = false;
-              return _context7.f(5);
-            case 6:
               return _context7.a(2);
           }
-        }, _callee7, null, [[2, 4, 5, 6]]);
+        }, _callee7);
       }))();
     },
-    // Handle supplier change
-    onSupplierChange: function onSupplierChange() {
-      var _this9 = this;
-      // Clear any previous errors
-      this.form.errors.clear('supplier');
-
-      // If a supplier is selected, ensure we have the latest data including Chart of Account
-      if (this.form.supplier && this.form.supplier.id) {
-        // Find the supplier in the items list to get the most up-to-date data
-        var updatedSupplier = this.items.find(function (s) {
-          return s.id === _this9.form.supplier.id;
-        });
-        if (updatedSupplier) {
-          // Update the form supplier with all the latest data
-          this.form.supplier = _objectSpread({}, updatedSupplier);
-        }
-      }
-    },
-    // update purchase
-    updatePurchase: function updatePurchase() {
-      var _this0 = this;
+    onChartOfAccountsChange: function onChartOfAccountsChange(accountIds) {
+      var _this8 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
         return _regenerator().w(function (_context8) {
           while (1) switch (_context8.n) {
             case 0:
+              if (!(accountIds && accountIds.length > 0)) {
+                _context8.n = 2;
+                break;
+              }
               _context8.n = 1;
-              return _this0.form.patch(window.location.origin + '/api/purchases/' + _this0.$route.params.slug).then(function (_ref) {
-                var data = _ref.data;
-                toast.fire({
-                  type: 'success',
-                  title: _this0.$t('Purchase updated successfully')
-                });
-                _this0.clearTemporaryData();
-                _this0.$router.push({
-                  name: 'purchases.show',
-                  params: {
-                    slug: data.data.slug
-                  }
-                });
-              })["catch"](function () {
-                toast.fire({
-                  type: 'error',
-                  title: _this0.$t('Opps...something went wrong')
-                });
-              });
+              return _this8.loadSubChartOfAccounts(accountIds);
             case 1:
+              _context8.n = 3;
+              break;
+            case 2:
+              // Clear sub accounts and report data if no accounts selected
+              _this8.filters.subChartOfAccounts = [];
+              _this8.subChartOfAccounts = [];
+              _this8.reportData = null;
+            case 3:
               return _context8.a(2);
           }
         }, _callee8);
       }))();
     },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      var tempData = {
-        supplier: this.form.supplier,
-        purchaseNo: this.form.purchaseNo,
-        selectedProducts: this.form.selectedProducts,
-        subTotal: this.form.subTotal,
-        netTotal: this.form.netTotal,
-        transportCost: this.form.transportCost,
-        orderTax: this.form.orderTax,
-        totalProductTax: this.form.totalProductTax,
-        totalTax: this.form.totalTax,
-        discount: this.form.discount,
-        poReference: this.form.poReference,
-        paymentTerms: this.form.paymentTerms,
-        poDate: this.form.poDate,
-        purchaseDate: this.form.purchaseDate,
-        note: this.form.note,
-        status: this.form.status,
-        timestamp: new Date().toISOString()
+    loadSubChartOfAccounts: function loadSubChartOfAccounts(parentAccountIds) {
+      var _arguments4 = arguments,
+        _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var search, subAccountPromises, responses, allSubAccounts, uniqueSubAccounts, existingSubAccountIds, newSubAccounts, _t4;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
+            case 0:
+              search = _arguments4.length > 1 && _arguments4[1] !== undefined ? _arguments4[1] : '';
+              _this9.loadingSubAccounts = true;
+              _context9.p = 1;
+              // Load sub accounts for each parent account
+              subAccountPromises = parentAccountIds.map(function (accountId) {
+                return axios_default().get('/api/reports/sub-chart-of-accounts', {
+                  params: {
+                    parent_account_id: accountId,
+                    search: search
+                  }
+                });
+              });
+              _context9.n = 2;
+              return Promise.all(subAccountPromises);
+            case 2:
+              responses = _context9.v;
+              allSubAccounts = [];
+              responses.forEach(function (response) {
+                if (response.data.success) {
+                  allSubAccounts.push.apply(allSubAccounts, _toConsumableArray(response.data.data));
+                }
+              });
+
+              // Remove duplicates based on ID
+              uniqueSubAccounts = allSubAccounts.filter(function (account, index, self) {
+                return index === self.findIndex(function (a) {
+                  return a.id === account.id;
+                });
+              }); // Merge with existing sub accounts instead of replacing
+              existingSubAccountIds = _this9.subChartOfAccounts.map(function (acc) {
+                return acc.id;
+              });
+              newSubAccounts = uniqueSubAccounts.filter(function (account) {
+                return !existingSubAccountIds.includes(account.id);
+              });
+              _this9.subChartOfAccounts = [].concat(_toConsumableArray(_this9.subChartOfAccounts), _toConsumableArray(newSubAccounts.map(function (account) {
+                return _objectSpread(_objectSpread({}, account), {}, {
+                  display_name: "[".concat(account.code, "] ").concat(account.name)
+                });
+              })));
+              _context9.n = 4;
+              break;
+            case 3:
+              _context9.p = 3;
+              _t4 = _context9.v;
+              _this9.$toast.error('', _this9.$t('Failed to load sub chart of accounts'));
+            case 4:
+              _context9.p = 4;
+              _this9.loadingSubAccounts = false;
+              return _context9.f(4);
+            case 5:
+              return _context9.a(2);
+          }
+        }, _callee9, null, [[1, 3, 4, 5]]);
+      }))();
+    },
+    searchSubAccounts: function searchSubAccounts(search) {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.n) {
+            case 0:
+              if (!(_this0.filters.chartOfAccounts && _this0.filters.chartOfAccounts.length > 0)) {
+                _context0.n = 1;
+                break;
+              }
+              _context0.n = 1;
+              return _this0.loadSubChartOfAccounts(_this0.filters.chartOfAccounts, search);
+            case 1:
+              return _context0.a(2);
+          }
+        }, _callee0);
+      }))();
+    },
+    generateReport: function generateReport() {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+        var _error$response, _t5;
+        return _regenerator().w(function (_context1) {
+          while (1) switch (_context1.p = _context1.n) {
+            case 0:
+              if (!(!_this1.filters.chartOfAccounts || _this1.filters.chartOfAccounts.length === 0)) {
+                _context1.n = 1;
+                break;
+              }
+              _this1.$toast.error('', _this1.$t('Please select at least one account'));
+              return _context1.a(2);
+            case 1:
+              _this1.loading = true;
+              _this1.errors = {};
+              _this1.reportData = null;
+              _this1.currentChunk = 1;
+              _this1.hasMoreData = true;
+              _this1.loadingMore = false;
+              _context1.p = 2;
+              _context1.n = 3;
+              return _this1.loadNextChunk();
+            case 3:
+              _this1.$toast.success('', _this1.$t('Report generated successfully'));
+              _context1.n = 5;
+              break;
+            case 4:
+              _context1.p = 4;
+              _t5 = _context1.v;
+              console.error('Generate report error:', _t5);
+              if (_t5.response && _t5.response.data && _t5.response.data.errors) {
+                _this1.errors = _t5.response.data.errors;
+              }
+              _this1.$toast.error('', ((_error$response = _t5.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this1.$t('Failed to generate report'));
+            case 5:
+              _context1.p = 5;
+              _this1.loading = false;
+              return _context1.f(5);
+            case 6:
+              return _context1.a(2);
+          }
+        }, _callee1, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    numberFormat: function numberFormat(value) {
+      return parseFloat(value).toFixed(2);
+    },
+    // Chunked loading methods
+    loadNextChunk: function loadNextChunk() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10() {
+        var _t6;
+        return _regenerator().w(function (_context10) {
+          while (1) switch (_context10.p = _context10.n) {
+            case 0:
+              if (!_this10.loadingMore) {
+                _context10.n = 1;
+                break;
+              }
+              return _context10.a(2);
+            case 1:
+              _this10.loadingMore = true;
+              _this10.retryCount = 0;
+              _context10.p = 2;
+              _context10.n = 3;
+              return _this10.loadChunkWithRetry();
+            case 3:
+              _context10.n = 5;
+              break;
+            case 4:
+              _context10.p = 4;
+              _t6 = _context10.v;
+              console.error('Load next chunk error:', _t6);
+              throw _t6;
+            case 5:
+              _context10.p = 5;
+              _this10.loadingMore = false;
+              return _context10.f(5);
+            case 6:
+              return _context10.a(2);
+          }
+        }, _callee10, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    loadChunkWithRetry: function loadChunkWithRetry() {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11() {
+        var _lastError;
+        var lastError, _loop, _ret, attempt;
+        return _regenerator().w(function (_context12) {
+          while (1) switch (_context12.n) {
+            case 0:
+              lastError = null;
+              _loop = /*#__PURE__*/_regenerator().m(function _loop(attempt) {
+                var reportAccountIds, params, response, data, pagination, _t7;
+                return _regenerator().w(function (_context11) {
+                  while (1) switch (_context11.p = _context11.n) {
+                    case 0:
+                      _context11.p = 0;
+                      console.log("Loading chunk ".concat(_this11.currentChunk, ", attempt ").concat(attempt));
+
+                      // Determine which accounts to use for reporting
+                      reportAccountIds = _this11.filters.chartOfAccounts;
+                      if (_this11.filters.subChartOfAccounts && _this11.filters.subChartOfAccounts.length > 0) {
+                        reportAccountIds = _this11.filters.subChartOfAccounts;
+                      }
+                      params = {
+                        chart_of_account_ids: reportAccountIds,
+                        page: _this11.currentChunk,
+                        per_page: _this11.chunkSize
+                      };
+                      if (_this11.filters.fiscalYear) {
+                        params.fiscal_year_id = _this11.filters.fiscalYear;
+                      } else if (_this11.filters.accountingPeriod) {
+                        params.accounting_period_id = _this11.filters.accountingPeriod;
+                      } else if (_this11.filters.fromDate && _this11.filters.toDate) {
+                        params.from_date = _this11.filters.fromDate;
+                        params.to_date = _this11.filters.toDate;
+                      }
+                      _context11.n = 1;
+                      return axios_default().get('/api/reports/group-account-statement', {
+                        params: params
+                      });
+                    case 1:
+                      response = _context11.v;
+                      if (!response.data.success) {
+                        _context11.n = 2;
+                        break;
+                      }
+                      data = response.data.data; // Store summary and chart of account info on first chunk
+                      if (_this11.currentChunk === 1) {
+                        _this11.reportData = {
+                          chart_of_accounts: data.chart_of_accounts,
+                          filters: data.filters,
+                          entries: [],
+                          summary: data.summary
+                        };
+                      }
+
+                      // Append new entries
+                      if (data.entries && data.entries.length > 0) {
+                        _this11.reportData.entries = [].concat(_toConsumableArray(_this11.reportData.entries), _toConsumableArray(data.entries));
+                      }
+
+                      // Check if there's more data
+                      pagination = data.pagination;
+                      _this11.hasMoreData = pagination.has_more;
+                      if (_this11.hasMoreData) {
+                        _this11.currentChunk++;
+                        // Automatically load next chunk after a short delay
+                        setTimeout(function () {
+                          _this11.loadNextChunk();
+                        }, 100);
+                      }
+                      _this11.retryCount = 0;
+                      return _context11.a(2, {
+                        v: void 0
+                      });
+                    case 2:
+                      if (!response.data.error) {
+                        _context11.n = 3;
+                        break;
+                      }
+                      throw new Error(response.data.message || _this11.$t('Failed to load chunk'));
+                    case 3:
+                      throw new Error(_this11.$t('Failed to load chunk'));
+                    case 4:
+                      _context11.n = 6;
+                      break;
+                    case 5:
+                      _context11.p = 5;
+                      _t7 = _context11.v;
+                      lastError = _t7;
+                      console.error("Chunk ".concat(_this11.currentChunk, " attempt ").concat(attempt, " failed:"), _t7);
+                      if (!(attempt < _this11.maxRetries)) {
+                        _context11.n = 6;
+                        break;
+                      }
+                      _context11.n = 6;
+                      return new Promise(function (resolve) {
+                        return setTimeout(resolve, 1000 * attempt);
+                      });
+                    case 6:
+                      return _context11.a(2);
+                  }
+                }, _loop, null, [[0, 5]]);
+              });
+              attempt = 1;
+            case 1:
+              if (!(attempt <= _this11.maxRetries)) {
+                _context12.n = 4;
+                break;
+              }
+              return _context12.d(_regeneratorValues(_loop(attempt)), 2);
+            case 2:
+              _ret = _context12.v;
+              if (!_ret) {
+                _context12.n = 3;
+                break;
+              }
+              return _context12.a(2, _ret.v);
+            case 3:
+              attempt++;
+              _context12.n = 1;
+              break;
+            case 4:
+              throw new Error("Failed to load chunk ".concat(_this11.currentChunk, " after ").concat(_this11.maxRetries, " attempts: ").concat(((_lastError = lastError) === null || _lastError === void 0 ? void 0 : _lastError.message) || 'Unknown error'));
+            case 5:
+              return _context12.a(2);
+          }
+        }, _callee11);
+      }))();
+    },
+    formatDate: function formatDate(dateString) {
+      if (!dateString) return '-';
+      var date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    },
+    resetFilters: function resetFilters() {
+      this.filters = {
+        chartOfAccounts: [],
+        subChartOfAccounts: [],
+        fiscalYear: null,
+        accountingPeriod: null,
+        fromDate: null,
+        toDate: null
       };
-      localStorage.setItem('purchaseEditTempData', JSON.stringify(tempData));
-    },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('purchaseEditTempData');
-      if (tempData) {
-        try {
-          var data = JSON.parse(tempData);
-          this.form.supplier = data.supplier || this.form.supplier;
-          this.form.purchaseNo = data.purchaseNo || this.form.purchaseNo;
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts;
-          this.form.subTotal = data.subTotal || this.form.subTotal;
-          this.form.netTotal = data.netTotal || this.form.netTotal;
-          this.form.transportCost = data.transportCost || this.form.transportCost;
-          this.form.orderTax = data.orderTax || this.form.orderTax;
-          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax;
-          this.form.totalTax = data.totalTax || this.form.totalTax;
-          this.form.discount = data.discount || this.form.discount;
-          this.form.poReference = data.poReference || this.form.poReference;
-          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms;
-          this.form.poDate = data.poDate || this.form.poDate;
-          this.form.purchaseDate = data.purchaseDate || this.form.purchaseDate;
-          this.form.note = data.note || this.form.note;
-          this.form.status = data.status !== undefined ? data.status : this.form.status;
-        } catch (e) {
-          console.error('Error loading temporary data:', e);
-        }
-      }
-    },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('purchaseEditTempData');
+      this.subChartOfAccounts = [];
+      this.reportData = null;
+      this.errors = {};
     }
   }
 });
-;// ./resources/js/pages/purchases/edit.vue?vue&type=script&lang=js
- /* harmony default export */ const purchases_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
+;// ./resources/js/pages/reports/group-account-statement.vue?vue&type=script&lang=js
+ /* harmony default export */ const reports_group_account_statementvue_type_script_lang_js = (group_account_statementvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/edit.vue?vue&type=style&index=0&id=373a08ce&prod&scoped=true&lang=css
-var editvue_type_style_index_0_id_373a08ce_prod_scoped_true_lang_css = __webpack_require__(37503);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/edit.vue?vue&type=style&index=0&id=373a08ce&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=style&index=0&id=534f45b5&prod&scoped=true&lang=css
+var group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css = __webpack_require__(48425);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=style&index=0&id=534f45b5&prod&scoped=true&lang=css
 
             
 
@@ -1691,16 +1227,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_373a08ce_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const purchases_editvue_type_style_index_0_id_373a08ce_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_373a08ce_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/purchases/edit.vue?vue&type=style&index=0&id=373a08ce&prod&scoped=true&lang=css
+/* harmony default export */ const reports_group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css = (group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/reports/group-account-statement.vue?vue&type=style&index=0&id=534f45b5&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/purchases/edit.vue
+;// ./resources/js/pages/reports/group-account-statement.vue
 
 
 
@@ -1710,17 +1246,17 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  purchases_editvue_type_script_lang_js,
+  reports_group_account_statementvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "373a08ce",
+  "534f45b5",
   null
   
 )
 
-/* harmony default export */ const edit = (component.exports);
+/* harmony default export */ const group_account_statement = (component.exports);
 
 /***/ })
 
