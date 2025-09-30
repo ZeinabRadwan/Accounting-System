@@ -147,7 +147,7 @@
                     :disabled="!reportData"
                   >
                     <i class="fas fa-print me-1"></i>
-                    {{ $t("Print with Template") }}
+                    
                   </a>
                   <button
                     v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"

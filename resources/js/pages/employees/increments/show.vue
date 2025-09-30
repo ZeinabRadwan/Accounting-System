@@ -129,8 +129,7 @@
                         <td>
                           {{
                             (allData.incrementAmount + allData.employee.salary)
-                              | withCurrency
-                          }}
+                          }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td>
                           {{ allData.employee.totalSalary  }} <span class="saudi-riyal">ê</span>

@@ -140,7 +140,7 @@
                     </td>
                     <td>{{ data.client ? data.client.name : '' }}</td>
                     <td>
-                      {{ data.invoice ? (data.invoice.invoiceTotal | withCurrency) : '' }}
+                      {{ data.invoice ? (data.invoice.invoiceTotal) : '' }} <span class="saudi-riyal">ê</span>
                     </td>
                     <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>

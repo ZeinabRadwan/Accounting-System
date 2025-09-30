@@ -264,8 +264,8 @@
                         <th>{{ $t("Account Receivable") }}:</th>
                         <td>
                           {{
-                            allData.purchase.accountReceivable | withCurrency
-                          }}
+                            allData.purchase.accountReceivable 
+                          }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>

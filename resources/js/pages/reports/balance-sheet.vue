@@ -150,11 +150,11 @@
                 <th>{{ account.name }} ({{ account.code }})</th>
                 <th class="text-right">
                   <span v-if="account.balance_type === 'Debit'" class="text-success">
-                    <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                    <span>{{account.absolute_balance}} <span class="saudi-riyal">ê</span></span>
                   </span>
                   <span v-else class="text-danger">
                     (
-                      <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                      <span>{{account.absolute_balance}} <span class="saudi-riyal">ê</span></span>
                     )
                   </span>
                 </th>
@@ -168,11 +168,11 @@
                 <th>{{ account.name }} ({{ account.code }})</th>
                 <th class="text-right">
                   <span v-if="account.balance_type === 'Credit'" class="text-danger">
-                    <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                    <span>{{account.absolute_balance}} <span class="saudi-riyal">ê</span></span>
                   </span>
                   <span v-else class="text-success">
                     (
-                      <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                      <span>{{account.absolute_balance}} <span class="saudi-riyal">ê</span></span>
                     )
                   </span>
                 </th>
@@ -184,11 +184,11 @@
                 <th>{{ account.name }} ({{ account.code }})</th>
                 <th class="text-right">
                   <span v-if="account.balance_type === 'Credit'" class="text-danger">
-                    <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                    <span>{{account.absolute_balance}} <span class="saudi-riyal">ê</span></span>
                   </span>
                   <span v-else class="text-success">
                     (
-                      <span v-html="account.absolute_balance | withAbsoluteCurrency"></span>
+                      <span>{{account.absolute_balance}} <span class="saudi-riyal">ê</span></span>
                     )
                   </span>
                 </th>
@@ -200,11 +200,11 @@
                 <th>{{ $t('Net Income') }}</th>
                 <th class="text-right">
                   <span v-if="balanceData.totals.net_income > 0" class="text-danger">
-                    <span v-html="balanceData.totals.net_income | withAbsoluteCurrency"></span>
+                    <span>{{balanceData.totals.net_income}} <span class="saudi-riyal">ê</span></span>
                   </span>
                   <span v-else class="text-success">
                     (
-                      <span v-html="Math.abs(balanceData.totals.net_income) | withAbsoluteCurrency"></span>
+                      <span>{{Math.abs(balanceData.totals.net_income)}} <span class="saudi-riyal">ê</span></span>
                     )
                   </span>
                 </th>
@@ -212,9 +212,9 @@
 
               <tr class="text-right font-weight-bold">
                 <th>{{ $t('Total Assets') }}</th>
-                <th class="text-success"><span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span></th>
+                <th class="text-success"><span>{{balanceData.totals.total_assets}} <span class="saudi-riyal">ê</span></span></th>
                 <th>{{ $t('Total Liabilities & Equity') }}</th>
-                <th class="text-danger"><span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span></th>
+                <th class="text-danger"><span>{{balanceData.totals.total_liabilities_and_equity}} <span class="saudi-riyal">ê</span></span></th>
               </tr>
             </tbody>
             <tbody v-else>
@@ -231,25 +231,25 @@
                   <h4 class="mt-2">
                     {{ $t('Total Assets') }}:
                     <span v-if="balanceData.totals.total_assets > balanceData.totals.total_liabilities_and_equity" class="text-success">
-                      <span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span>
+                      <span>{{balanceData.totals.total_assets}} <span class="saudi-riyal">ê</span></span>
                     </span>
                     <span v-else-if="balanceData.totals.total_assets < balanceData.totals.total_liabilities_and_equity" class="text-danger">
-                      <span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span>
+                      <span>{{balanceData.totals.total_assets}} <span class="saudi-riyal">ê</span></span>
                     </span>
                     <span v-else class="text-success">
-                      <span v-html="balanceData.totals.total_assets | withAbsoluteCurrency"></span>
+                      <span>{{balanceData.totals.total_assets}} <span class="saudi-riyal">ê</span></span>
                     </span>
                   </h4>
                   <h4>
                     {{ $t('Total Liabilities & Equity') }}:
                     <span v-if="balanceData.totals.total_liabilities_and_equity > balanceData.totals.total_assets" class="text-danger">
-                      <span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span>
+                      <span>{{balanceData.totals.total_liabilities_and_equity}} <span class="saudi-riyal">ê</span></span>
                     </span>
                     <span v-else-if="balanceData.totals.total_liabilities_and_equity < balanceData.totals.total_assets" class="text-success">
-                      <span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span>
+                      <span>{{balanceData.totals.total_liabilities_and_equity}} <span class="saudi-riyal">ê</span></span>
                     </span>
                     <span v-else class="text-success">
-                      <span v-html="balanceData.totals.total_liabilities_and_equity | withAbsoluteCurrency"></span>
+                      <span>{{balanceData.totals.total_liabilities_and_equity}} <span class="saudi-riyal">ê</span></span>
                     </span>
                   </h4>
                 </td>

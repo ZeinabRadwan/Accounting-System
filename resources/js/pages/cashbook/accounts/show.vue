@@ -118,8 +118,9 @@
                   </td>
                   <td>
                     <span v-if="data.type === 1">{{
-                      data.amount | withCurrency
-                    }}</span>
+                      data.amount 
+                    }}
+                    <span class="saudi-riyal">ê</span></span>
                     <span v-else>{{ 0  }} <span class="saudi-riyal">ê</span></span>
                   </td>
 

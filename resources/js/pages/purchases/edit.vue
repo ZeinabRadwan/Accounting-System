@@ -235,8 +235,8 @@
                         </td>
                         <td v-if="form.purchaseReturnData">
                           <strong>{{
-                            form.purchaseReturn | withCurrency
-                          }}</strong>
+                            form.purchaseReturn 
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>

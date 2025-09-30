@@ -221,13 +221,12 @@
                         <td>
                           {{
                             (data.purchasePrice * data.purchasedQty)
-                              | withCurrency
-                          }}
+                          }} <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="text-right">
                           {{
-                            (data.purchasePrice * data.returnQty) | withCurrency
-                          }}
+                            (data.purchasePrice * data.returnQty)
+                          }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>

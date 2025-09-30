@@ -210,12 +210,12 @@
                         <small class="text-muted">{{ summary.vat_rate_code }}</small>
                       </td>
                       <td class="text-center">{{ summary.vat_rate_percentage }}%</td>
-                      <td class="text-right">{{ calculateAmountBeforeVat(summary.sales_vat, summary.vat_rate_percentage) | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ summary.sales_vat | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ summary.journal_vat | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ calculateAmountBeforeVat(summary.sales_vat, summary.vat_rate_percentage)}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ summary.sales_vat}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ summary.journal_vat}} <span class="saudi-riyal">ê</span></td>
                       <td class="text-right">
                         <span class="text-success">
-                          {{ (summary.sales_vat + summary.journal_vat) | withAbsoluteCurrency }}
+                          {{ (summary.sales_vat + summary.journal_vat)}} <span class="saudi-riyal">ê</span>
                         </span>
                       </td>
                     </tr>
@@ -223,12 +223,12 @@
                   <tfoot>
                     <tr class="table-success">
                       <th colspan="2">{{ $t('Total') }}</th>
-                      <th class="text-right">{{ totalSalesAmount | withAbsoluteCurrency }}</th>
-                      <th class="text-right">{{ totalSalesVat | withAbsoluteCurrency }}</th>
-                      <th class="text-right">{{ totalJournalVat | withAbsoluteCurrency }}</th>
+                      <th class="text-right">{{ totalSalesAmount}} <span class="saudi-riyal">ê</span></th>
+                      <th class="text-right">{{ totalSalesVat}} <span class="saudi-riyal">ê</span></th>
+                      <th class="text-right">{{ totalJournalVat}} <span class="saudi-riyal">ê</span></th>
                       <th class="text-right">
                         <span class="text-success">
-                          {{ (totalSalesVat + totalJournalVat) | withAbsoluteCurrency }}
+                          {{ (totalSalesVat + totalJournalVat)}} <span class="saudi-riyal">ê</span>
                         </span>
                       </th>
                     </tr>
@@ -255,12 +255,12 @@
                         <small class="text-muted">{{ summary.vat_rate_code }}</small>
                       </td>
                       <td class="text-center">{{ summary.vat_rate_percentage }}%</td>
-                      <td class="text-right">{{ calculateAmountBeforeVat(summary.purchase_vat, summary.vat_rate_percentage) | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ summary.purchase_vat | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ summary.journal_vat | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ calculateAmountBeforeVat(summary.purchase_vat, summary.vat_rate_percentage)}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ summary.purchase_vat}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ summary.journal_vat}} <span class="saudi-riyal">ê</span></td>
                       <td class="text-right">
                         <span class="text-danger">
-                          {{ (summary.purchase_vat + summary.journal_vat) | withAbsoluteCurrency }}
+                          {{ (summary.purchase_vat + summary.journal_vat)}} <span class="saudi-riyal">ê</span>
                         </span>
                       </td>
                     </tr>
@@ -268,12 +268,12 @@
                   <tfoot>
                     <tr class="table-danger">
                       <th colspan="2">{{ $t('Total') }}</th>
-                      <th class="text-right">{{ totalPurchaseAmount | withAbsoluteCurrency }}</th>
-                      <th class="text-right">{{ totalPurchaseVat | withAbsoluteCurrency }}</th>
-                      <th class="text-right">{{ totalJournalVat | withAbsoluteCurrency }}</th>
+                      <th class="text-right">{{ totalPurchaseAmount}} <span class="saudi-riyal">ê</span></th>
+                      <th class="text-right">{{ totalPurchaseVat}} <span class="saudi-riyal">ê</span></th>
+                      <th class="text-right">{{ totalJournalVat}} <span class="saudi-riyal">ê</span></th>
                       <th class="text-right">
                         <span class="text-danger">
-                          {{ (totalPurchaseVat + totalJournalVat) | withAbsoluteCurrency }}
+                          {{ (totalPurchaseVat + totalJournalVat)}} <span class="saudi-riyal">ê</span>
                         </span>
                       </th>
                     </tr>
@@ -317,7 +317,7 @@
                         <td>
                           <span class="badge bg-secondary">{{ transaction.source }}</span>
                         </td>
-                        <td class="text-right">{{ transaction.vat_amount | withAbsoluteCurrency }}</td>
+                        <td class="text-right">{{ transaction.vat_amount}} <span class="saudi-riyal">ê</span></td>
                       </tr>
                     </template>
                   </tbody>

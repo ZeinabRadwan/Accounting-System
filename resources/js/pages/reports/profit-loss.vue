@@ -136,8 +136,8 @@
                     <td>{{ ++i }}</td>
                     <td>{{ data.itemCode | withPrefix(productPrefix) }}</td>
                     <td>{{ data.itemName }}</td>
-                    <td>{{ data.avgPurchasePrice | withAbsoluteCurrency }}</td>
-                    <td>{{ data.avgSalePrice | withAbsoluteCurrency }}</td>
+                    <td>{{ data.avgPurchasePrice}} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ data.avgSalePrice}} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.currentQty }}</td>
                     <td class="text-right">
                       <strong>
@@ -157,8 +157,7 @@
                     </td>
                     <td class="text-right">
                       <strong>{{
-                        totalProfitOrLoss | withAbsoluteCurrency
-                      }}</strong>
+                        totalProfitOrLoss}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                   </tr>
                 </tbody>
@@ -171,7 +170,7 @@
                     <th>{{ $t("Total Sales (Average)") }}</th>
                     <td></td>
                     <td class="text-right">
-                      <strong>{{ totalSold | withAbsoluteCurrency }}</strong>
+                      <strong>{{ totalSold}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                   </tr>
                   <tr>
@@ -181,7 +180,7 @@
                     <th>{{ $t("Total Purchase (Average)") }}</th>
                     <td></td>
                     <td class="text-right">
-                      <u><strong>({{ totalPurchased | withAbsoluteCurrency }})</strong></u>
+                      <u><strong>({{ totalPurchased}} <span class="saudi-riyal">ê</span>)</strong></u>
                     </td>
                   </tr>
                   <tr :class="totalProfitOrLoss >= 0 ? 'green' : 'red'">
@@ -194,8 +193,7 @@
                     <td></td>
                     <td class="text-right">
                       <strong>{{
-                        totalProfitOrLoss | withAbsoluteCurrency
-                      }}</strong>
+                        totalProfitOrLoss}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                   </tr>
                 </tbody>
@@ -228,8 +226,7 @@
                     <td></td>
                     <td class="text-right">
                       <strong>{{
-                        allData[0].totalSales | withAbsoluteCurrency
-                      }}</strong>
+                        allData[0].totalSales}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                   </tr>
                   <tr>
@@ -241,8 +238,7 @@
                     <td class="text-right">
                       <u>
                         <strong>({{
-                          allData[0].costOfGoodsSold | withAbsoluteCurrency
-                        }})</strong>
+                          allData[0].costOfGoodsSold}} <span class="saudi-riyal">ê</span>)</strong>
                       </u>
                     </td>
                   </tr>
@@ -255,8 +251,7 @@
                     <td>{{ $t("Positive Adjusted") }}</td>
                     <td class="text-right">
                       <u><strong>{{
-                        allData[0].posAdjustment | withAbsoluteCurrency
-                      }}</strong></u>
+                        allData[0].posAdjustment}} <span class="saudi-riyal">ê</span></strong></u>
                     </td>
                     <td></td>
                   </tr>
@@ -264,8 +259,7 @@
                     <td>{{ $t("Negative Adjusted") }}</td>
                     <td class="text-right">
                       <u><strong>({{
-                        allData[0].negAdjustment | withAbsoluteCurrency
-                      }})</strong>
+                        allData[0].negAdjustment}} <span class="saudi-riyal">ê</span>)</strong>
                       </u>
                     </td>
                     <td></td>
@@ -278,11 +272,9 @@
                       : 'text-danger'
                       ">
                       <strong v-if="allData[0].totalAdjustment >= 0">{{
-                        allData[0].totalAdjustment | withAbsoluteCurrency
-                      }}</strong>
+                        allData[0].totalAdjustment}} <span class="saudi-riyal">ê</span></strong>
                       <strong v-else>({{
-                        allData[0].totalAdjustment | withAbsoluteCurrency
-                      }})</strong>
+                        allData[0].totalAdjustment}} <span class="saudi-riyal">ê</span>)</strong>
                     </td>
                   </tr>
                   <tr>
@@ -292,8 +284,7 @@
                   <td></td>
                   <td class="text-right">
                     <strong>{{
-                      allData[0].totalSalesReturn | withAbsoluteCurrency
-                    }}</strong>
+                      allData[0].totalSalesReturn}} <span class="saudi-riyal">ê</span></strong>
                   </td>
                 </tr>
                   <tr>
@@ -306,8 +297,7 @@
                     <td></td>
                     <td class="text-right">
                       <strong>{{
-                        allData[0].grossProfitOrLoss | withAbsoluteCurrency
-                      }}</strong>
+                        allData[0].grossProfitOrLoss}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                   </tr>
                   <tr>
@@ -320,8 +310,7 @@
                     <td>{{ $t("Salaries") }}</td>
                     <td class="text-right">
                       <strong>{{
-                        allData[0].payrollAmount | withAbsoluteCurrency
-                      }}</strong>
+                        allData[0].payrollAmount}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                     <td></td>
                   </tr>
@@ -329,8 +318,7 @@
                     <td>{{ $t("General Expenses") }}</td>
                     <td class="text-right">
                       <strong>{{
-                        allData[0].expenseAmount | withAbsoluteCurrency
-                      }}</strong>
+                        allData[0].expenseAmount}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                     <td></td>
                   </tr>
@@ -338,8 +326,7 @@
                     <td>{{ $t("Loan Interest") }}</td>
                     <td class="text-right">
                       <strong>{{
-                        allData[0].loanInterest | withAbsoluteCurrency
-                      }}</strong>
+                        allData[0].loanInterest}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                     <td></td>
                   </tr>
@@ -347,8 +334,7 @@
                     <td>{{ $t("Asset Depreciation") }}</td>
                     <td class="text-right">
                       <strong>{{
-                        allData[0].assetDepriciation | withAbsoluteCurrency
-                      }}</strong>
+                        allData[0].assetDepriciation}} <span class="saudi-riyal">ê</span></strong>
                     </td>
                     <td></td>
                   </tr>
@@ -357,8 +343,7 @@
                     <td></td>
                     <td class="text-right">
                       <strong>({{
-                        allData[0].totalExpense | withAbsoluteCurrency
-                      }})</strong>
+                        allData[0].totalExpense}} <span class="saudi-riyal">ê</span>)</strong>
                     </td>
                   </tr>
                   <tr :class="allData[0].netProfitOrLoss >= 0
@@ -374,7 +359,7 @@
                     <td></td>
                     <td class="text-right">
                       <strong>
-                        {{ allData[0].netProfitOrLoss | withAbsoluteCurrency }}
+                        {{ allData[0].netProfitOrLoss}} <span class="saudi-riyal">ê</span>
                       </strong>
                     </td>
                   </tr>

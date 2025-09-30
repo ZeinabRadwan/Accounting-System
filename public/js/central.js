@@ -1983,7 +1983,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 90050:
+/***/ 32128:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25939,8 +25939,8 @@ var CompanyInfo_component = (0,componentNormalizer/* default */.A)(
 /* harmony default export */ const CompanyInfo = (CompanyInfo_component.exports);
 // EXTERNAL MODULE: ./resources/js/components/TableLoading.vue + 6 modules
 var TableLoading = __webpack_require__(17114);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivities.vue?vue&type=template&id=005de33b&scoped=true
-var RecentActivitiesvue_type_template_id_005de33b_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivities.vue?vue&type=template&id=ec03fe9c&scoped=true
+var RecentActivitiesvue_type_template_id_ec03fe9c_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -26177,7 +26177,9 @@ var RecentActivitiesvue_type_template_id_005de33b_scoped_true_render = function 
           }
         }
       }
-    }, [_vm._v("\n                    " + _vm._s(data.reason) + "\n                  ")])], 1), _vm._v(" "), _c('td', [data.transaction ? _c('span', [_vm._v(_vm._s(_vm._f("withCurrency")(data.transaction.amount)))]) : _vm._e()]), _vm._v(" "), _c('td', [data.account ? _c('span', [_vm._v(_vm._s(data.account.label) + " ")]) : _vm._e()]), _vm._v(" "), _c('td', [data.date ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
+    }, [_vm._v("\n                    " + _vm._s(data.reason) + "\n                  ")])], 1), _vm._v(" "), _c('td', [data.transaction ? _c('span', [_vm._v(_vm._s(data.transaction.amount) + "\n                  "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e()]), _vm._v(" "), _c('td', [data.account ? _c('span', [_vm._v(_vm._s(data.account.label) + " ")]) : _vm._e()]), _vm._v(" "), _c('td', [data.date ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
       staticClass: "badge bg-success"
     }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
       staticClass: "badge bg-danger"
@@ -26246,7 +26248,7 @@ var RecentActivitiesvue_type_template_id_005de33b_scoped_true_render = function 
     staticClass: "text-muted"
   }, [_vm._v(_vm._s(_vm.$t("There are no recent transactions to display.")))])])])]) : _vm._e()], 2)])])], 1)])])]);
 };
-var RecentActivitiesvue_type_template_id_005de33b_scoped_true_staticRenderFns = [];
+var RecentActivitiesvue_type_template_id_ec03fe9c_scoped_true_staticRenderFns = [];
 
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivities.vue?vue&type=script&lang=js
 function RecentActivitiesvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return RecentActivitiesvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, RecentActivitiesvue_type_script_lang_js_typeof(o); }
@@ -26377,23 +26379,23 @@ function RecentActivitiesvue_type_script_lang_js_toPrimitive(t, r) { if ("object
 });
 ;// CONCATENATED MODULE: ./resources/js/components/RecentActivities.vue?vue&type=script&lang=js
  /* harmony default export */ const components_RecentActivitiesvue_type_script_lang_js = (RecentActivitiesvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivities.vue?vue&type=style&index=0&id=005de33b&prod&scoped=true&lang=css
-var RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css = __webpack_require__(61052);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivities.vue?vue&type=style&index=0&id=005de33b&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivities.vue?vue&type=style&index=0&id=ec03fe9c&prod&scoped=true&lang=css
+var RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css = __webpack_require__(34548);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivities.vue?vue&type=style&index=0&id=ec03fe9c&prod&scoped=true&lang=css
 
             
 
-var RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css_options = {};
+var RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css_options = {};
 
-RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css_options.insert = "head";
-RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css_options.singleton = false;
+RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css_options.insert = "head";
+RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css_options.singleton = false;
 
-var RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css/* default */.A, RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css_options);
+var RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css/* default */.A, RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css = (RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/RecentActivities.vue?vue&type=style&index=0&id=005de33b&prod&scoped=true&lang=css
+/* harmony default export */ const components_RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css = (RecentActivitiesvue_type_style_index_0_id_ec03fe9c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/RecentActivities.vue?vue&type=style&index=0&id=ec03fe9c&prod&scoped=true&lang=css
 
 ;// CONCATENATED MODULE: ./resources/js/components/RecentActivities.vue
 
@@ -26406,11 +26408,11 @@ var RecentActivitiesvue_type_style_index_0_id_005de33b_prod_scoped_true_lang_css
 
 var RecentActivities_component = (0,componentNormalizer/* default */.A)(
   components_RecentActivitiesvue_type_script_lang_js,
-  RecentActivitiesvue_type_template_id_005de33b_scoped_true_render,
-  RecentActivitiesvue_type_template_id_005de33b_scoped_true_staticRenderFns,
+  RecentActivitiesvue_type_template_id_ec03fe9c_scoped_true_render,
+  RecentActivitiesvue_type_template_id_ec03fe9c_scoped_true_staticRenderFns,
   false,
   null,
-  "005de33b",
+  "ec03fe9c",
   null
   
 )
@@ -41115,7 +41117,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".not-allowed[data-v-ffa23cbc]{cursor:n
 
 /***/ }),
 
-/***/ 61052:
+/***/ 34548:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -41128,7 +41130,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".not-allowed[data-v-ffa23cbc]{cursor:n
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-005de33b]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;display:flex;flex-direction:column;height:100%;margin-bottom:30px;margin-top:30px}.card-header[data-v-005de33b]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-005de33b]{background:linear-gradient(135deg,#fff,#f8fafc);border-radius:0 0 20px 20px;display:flex;flex:1;flex-direction:column;overflow:hidden;padding:2rem 1.5rem;position:relative}.card-body[data-v-005de33b]:before{background:linear-gradient(90deg,transparent,#33a0d9,transparent);content:\"\";height:1px;left:0;opacity:.3;position:absolute;right:0;top:0}.card-header h3[data-v-005de33b]{align-items:center;color:#023033;display:flex;font-size:1.25rem;font-weight:700;gap:10px;margin:0}.card-header h3 svg[data-v-005de33b]{background:#33a0d91a;border-radius:10px;box-sizing:border-box;color:#33a0d9;font-weight:700;height:44px;margin-right:12px;padding:8px;width:44px}.table-custom[data-v-005de33b]{background:#fff;border:none!important;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.1);margin-top:0;overflow:hidden}.table-loading[data-v-005de33b]{background:linear-gradient(135deg,#f8fafc,#e2e8f0);border-radius:12px;color:#64748b;font-weight:600;padding:3rem;text-align:center}.table-responsive[data-v-005de33b]{-webkit-overflow-scrolling:touch;background:#fff;border-radius:12px;overflow-x:auto;scrollbar-color:#33a0d9 #f1f5f9;scrollbar-width:thin}.table-responsive[data-v-005de33b]::-webkit-scrollbar{height:8px}.table-responsive[data-v-005de33b]::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}.table-responsive[data-v-005de33b]::-webkit-scrollbar-thumb{background:#33a0d9;border-radius:4px}.table-responsive[data-v-005de33b]::-webkit-scrollbar-thumb:hover{background:#2a8bc7}.invoices-table[data-v-005de33b]{border-collapse:separate;border-spacing:0}.invoices-table thead th[data-v-005de33b]{background-color:#33a0d9!important;border:none!important;border-color:inherit!important;color:#fff!important;font-weight:400;padding:8px}.invoices-table thead tr[data-v-005de33b]{border:none!important}.card .invoices-table thead th[data-v-005de33b],.card-body .table-responsive .invoices-table thead th[data-v-005de33b],.table-responsive .invoices-table thead th[data-v-005de33b]{background-color:#33a0d9!important;color:#fff!important}.card-body .table-responsive .invoices-table thead th[data-v-005de33b]{background:#33a0d9!important}.invoices-table thead th[data-v-005de33b]:first-child{border-top-left-radius:10px}.invoices-table thead th[data-v-005de33b]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-table thead th[data-v-005de33b]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-table thead th[data-v-005de33b]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.nav-tabs[data-v-005de33b]{background:transparent;border-bottom:2px solid #e2e8f0;margin-bottom:1.5rem}.nav-tabs .nav-link[data-v-005de33b]{border:none;border-radius:8px 8px 0 0;color:#64748b;font-size:.95rem;font-weight:600;margin-right:8px;padding:12px 20px;position:relative;transition:all .3s ease}.nav-tabs .nav-link[data-v-005de33b]:hover{background:rgba(51,160,217,.08);border:none;color:#33a0d9}.nav-tabs .nav-link.active[data-v-005de33b]{background:#fff;border:none;box-shadow:0 -2px 8px rgba(51,160,217,.15);color:#33a0d9;font-weight:700}.nav-tabs .nav-link.active[data-v-005de33b]:after{background:linear-gradient(90deg,#33a0d9,#2ab930);border-radius:2px;bottom:-2px;content:\"\";height:3px;left:0;position:absolute;right:0}.tab-content[data-v-005de33b]{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);padding:0}.tab-pane[data-v-005de33b]{padding:0}.invoices-table .badge.bg-success[data-v-005de33b]{background:#f6fef4!important;color:#2ab930!important}.invoices-table .badge.bg-danger[data-v-005de33b],.invoices-table .badge.bg-success[data-v-005de33b]{font-size:12px!important;font-weight:500!important;padding:10px 16px}.invoices-table .badge.bg-danger[data-v-005de33b]{background:#fef4f4!important;color:#dc3545!important}.invoices-table tbody tr[data-v-005de33b]{transition:all .2s ease}.invoices-table tbody tr[data-v-005de33b]:hover{background:rgba(51,160,217,.04);box-shadow:0 2px 8px rgba(0,0,0,.08);transform:translateY(-1px)}.invoices-table a[data-v-005de33b]{color:#33a0d9;font-weight:600;text-decoration:none;transition:all .2s ease}.invoices-table a[data-v-005de33b]:hover{color:#2a8bc7;text-decoration:underline}.card-body[data-v-005de33b]{animation:fadeInUp-005de33b .6s ease-out}@keyframes fadeInUp-005de33b{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.table-custom[data-v-005de33b]:empty:before{background:#f8fafc;border-radius:12px;color:#64748b;content:\"No data available\";display:block;font-style:italic;padding:3rem;text-align:center}@media (max-width:1200px){.table-responsive[data-v-005de33b]{-webkit-overflow-scrolling:touch;overflow-x:auto}.invoices-table[data-v-005de33b]{min-width:800px}.invoices-table tbody td[data-v-005de33b],.invoices-table thead th[data-v-005de33b]{font-size:.9rem;padding:8px 6px;white-space:nowrap}}@media (max-width:992px){.table-responsive[data-v-005de33b]{-webkit-overflow-scrolling:touch;overflow-x:auto}.invoices-table[data-v-005de33b]{min-width:700px}.invoices-table tbody td[data-v-005de33b],.invoices-table thead th[data-v-005de33b]{font-size:.85rem;padding:6px 4px}.nav-tabs .nav-link[data-v-005de33b]{font-size:.9rem;margin-right:4px;padding:10px 14px}}@media (max-width:768px){.card-body[data-v-005de33b]{padding:1.5rem 1rem}.nav-tabs[data-v-005de33b]{flex-wrap:wrap;gap:4px}.nav-tabs .nav-link[data-v-005de33b]{flex:1;font-size:.85rem;margin-right:2px;min-width:0;padding:8px 12px;text-align:center}.table-custom[data-v-005de33b]{border-radius:8px}.table-responsive[data-v-005de33b]{-webkit-overflow-scrolling:touch;border:1px solid #e2e8f0;border-radius:8px;overflow-x:auto}.invoices-table[data-v-005de33b]{min-width:600px}.invoices-table tbody td[data-v-005de33b],.invoices-table thead th[data-v-005de33b]{font-size:.8rem;padding:6px 4px}}@media (max-width:576px){.card-body[data-v-005de33b]{padding:1rem .75rem}.nav-tabs[data-v-005de33b]{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:1rem}.nav-tabs .nav-link[data-v-005de33b]{border-radius:6px;flex:1;font-size:.8rem;margin-right:0;min-width:0;padding:6px 8px;text-align:center}.table-responsive[data-v-005de33b]{-webkit-overflow-scrolling:touch;border:1px solid #e2e8f0;border-radius:6px;margin:0 -.75rem;overflow-x:auto}.invoices-table[data-v-005de33b]{min-width:500px}.invoices-table tbody td[data-v-005de33b],.invoices-table thead th[data-v-005de33b]{font-size:.75rem;padding:4px 3px}.invoices-table thead th[data-v-005de33b]:first-child{border-top-left-radius:6px}.invoices-table thead th[data-v-005de33b]:last-child{border-top-right-radius:6px}.invoices-table .badge[data-v-005de33b]{font-size:.7rem!important;padding:4px 8px!important}.no-data-message[data-v-005de33b]{padding:2rem .5rem!important}.no-data-content[data-v-005de33b]{padding:1rem}.no-data-content i[data-v-005de33b]{font-size:1.5rem!important}.no-data-content h5[data-v-005de33b]{font-size:1rem}.no-data-content p[data-v-005de33b]{font-size:.8rem}}@media (max-width:480px){.card-body[data-v-005de33b]{padding:.75rem .5rem}.nav-tabs .nav-link[data-v-005de33b]{font-size:.75rem;padding:5px 6px}.invoices-table[data-v-005de33b]{min-width:450px}.invoices-table tbody td[data-v-005de33b],.invoices-table thead th[data-v-005de33b]{font-size:.7rem;padding:3px 2px}.invoices-table .badge[data-v-005de33b]{font-size:.65rem!important;padding:3px 6px!important}}.no-data-message[data-v-005de33b]{background:#f8fafc;border:none!important;padding:3rem 1rem!important}.no-data-content[data-v-005de33b]{align-items:center;display:flex;flex-direction:column;justify-content:center;padding:2rem}.no-data-content i[data-v-005de33b]{margin-bottom:1rem;opacity:.5}.no-data-content h5[data-v-005de33b]{font-weight:600;margin-bottom:.5rem}.no-data-content p[data-v-005de33b]{font-size:.9rem;margin-bottom:0}@media (max-width:768px){.no-data-message[data-v-005de33b]{padding:2rem .5rem!important}.no-data-content[data-v-005de33b]{padding:1.5rem}.no-data-content i[data-v-005de33b]{font-size:2rem!important}.no-data-content h5[data-v-005de33b]{font-size:1.1rem}.no-data-content p[data-v-005de33b]{font-size:.85rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-ec03fe9c]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;display:flex;flex-direction:column;height:100%;margin-bottom:30px;margin-top:30px}.card-header[data-v-ec03fe9c]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-ec03fe9c]{background:linear-gradient(135deg,#fff,#f8fafc);border-radius:0 0 20px 20px;display:flex;flex:1;flex-direction:column;overflow:hidden;padding:2rem 1.5rem;position:relative}.card-body[data-v-ec03fe9c]:before{background:linear-gradient(90deg,transparent,#33a0d9,transparent);content:\"\";height:1px;left:0;opacity:.3;position:absolute;right:0;top:0}.card-header h3[data-v-ec03fe9c]{align-items:center;color:#023033;display:flex;font-size:1.25rem;font-weight:700;gap:10px;margin:0}.card-header h3 svg[data-v-ec03fe9c]{background:#33a0d91a;border-radius:10px;box-sizing:border-box;color:#33a0d9;font-weight:700;height:44px;margin-right:12px;padding:8px;width:44px}.table-custom[data-v-ec03fe9c]{background:#fff;border:none!important;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.1);margin-top:0;overflow:hidden}.table-loading[data-v-ec03fe9c]{background:linear-gradient(135deg,#f8fafc,#e2e8f0);border-radius:12px;color:#64748b;font-weight:600;padding:3rem;text-align:center}.table-responsive[data-v-ec03fe9c]{-webkit-overflow-scrolling:touch;background:#fff;border-radius:12px;overflow-x:auto;scrollbar-color:#33a0d9 #f1f5f9;scrollbar-width:thin}.table-responsive[data-v-ec03fe9c]::-webkit-scrollbar{height:8px}.table-responsive[data-v-ec03fe9c]::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}.table-responsive[data-v-ec03fe9c]::-webkit-scrollbar-thumb{background:#33a0d9;border-radius:4px}.table-responsive[data-v-ec03fe9c]::-webkit-scrollbar-thumb:hover{background:#2a8bc7}.invoices-table[data-v-ec03fe9c]{border-collapse:separate;border-spacing:0}.invoices-table thead th[data-v-ec03fe9c]{background-color:#33a0d9!important;border:none!important;border-color:inherit!important;color:#fff!important;font-weight:400;padding:8px}.invoices-table thead tr[data-v-ec03fe9c]{border:none!important}.card .invoices-table thead th[data-v-ec03fe9c],.card-body .table-responsive .invoices-table thead th[data-v-ec03fe9c],.table-responsive .invoices-table thead th[data-v-ec03fe9c]{background-color:#33a0d9!important;color:#fff!important}.card-body .table-responsive .invoices-table thead th[data-v-ec03fe9c]{background:#33a0d9!important}.invoices-table thead th[data-v-ec03fe9c]:first-child{border-top-left-radius:10px}.invoices-table thead th[data-v-ec03fe9c]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-table thead th[data-v-ec03fe9c]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-table thead th[data-v-ec03fe9c]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.nav-tabs[data-v-ec03fe9c]{background:transparent;border-bottom:2px solid #e2e8f0;margin-bottom:1.5rem}.nav-tabs .nav-link[data-v-ec03fe9c]{border:none;border-radius:8px 8px 0 0;color:#64748b;font-size:.95rem;font-weight:600;margin-right:8px;padding:12px 20px;position:relative;transition:all .3s ease}.nav-tabs .nav-link[data-v-ec03fe9c]:hover{background:rgba(51,160,217,.08);border:none;color:#33a0d9}.nav-tabs .nav-link.active[data-v-ec03fe9c]{background:#fff;border:none;box-shadow:0 -2px 8px rgba(51,160,217,.15);color:#33a0d9;font-weight:700}.nav-tabs .nav-link.active[data-v-ec03fe9c]:after{background:linear-gradient(90deg,#33a0d9,#2ab930);border-radius:2px;bottom:-2px;content:\"\";height:3px;left:0;position:absolute;right:0}.tab-content[data-v-ec03fe9c]{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);padding:0}.tab-pane[data-v-ec03fe9c]{padding:0}.invoices-table .badge.bg-success[data-v-ec03fe9c]{background:#f6fef4!important;color:#2ab930!important}.invoices-table .badge.bg-danger[data-v-ec03fe9c],.invoices-table .badge.bg-success[data-v-ec03fe9c]{font-size:12px!important;font-weight:500!important;padding:10px 16px}.invoices-table .badge.bg-danger[data-v-ec03fe9c]{background:#fef4f4!important;color:#dc3545!important}.invoices-table tbody tr[data-v-ec03fe9c]{transition:all .2s ease}.invoices-table tbody tr[data-v-ec03fe9c]:hover{background:rgba(51,160,217,.04);box-shadow:0 2px 8px rgba(0,0,0,.08);transform:translateY(-1px)}.invoices-table a[data-v-ec03fe9c]{color:#33a0d9;font-weight:600;text-decoration:none;transition:all .2s ease}.invoices-table a[data-v-ec03fe9c]:hover{color:#2a8bc7;text-decoration:underline}.card-body[data-v-ec03fe9c]{animation:fadeInUp-ec03fe9c .6s ease-out}@keyframes fadeInUp-ec03fe9c{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.table-custom[data-v-ec03fe9c]:empty:before{background:#f8fafc;border-radius:12px;color:#64748b;content:\"No data available\";display:block;font-style:italic;padding:3rem;text-align:center}@media (max-width:1200px){.table-responsive[data-v-ec03fe9c]{-webkit-overflow-scrolling:touch;overflow-x:auto}.invoices-table[data-v-ec03fe9c]{min-width:800px}.invoices-table tbody td[data-v-ec03fe9c],.invoices-table thead th[data-v-ec03fe9c]{font-size:.9rem;padding:8px 6px;white-space:nowrap}}@media (max-width:992px){.table-responsive[data-v-ec03fe9c]{-webkit-overflow-scrolling:touch;overflow-x:auto}.invoices-table[data-v-ec03fe9c]{min-width:700px}.invoices-table tbody td[data-v-ec03fe9c],.invoices-table thead th[data-v-ec03fe9c]{font-size:.85rem;padding:6px 4px}.nav-tabs .nav-link[data-v-ec03fe9c]{font-size:.9rem;margin-right:4px;padding:10px 14px}}@media (max-width:768px){.card-body[data-v-ec03fe9c]{padding:1.5rem 1rem}.nav-tabs[data-v-ec03fe9c]{flex-wrap:wrap;gap:4px}.nav-tabs .nav-link[data-v-ec03fe9c]{flex:1;font-size:.85rem;margin-right:2px;min-width:0;padding:8px 12px;text-align:center}.table-custom[data-v-ec03fe9c]{border-radius:8px}.table-responsive[data-v-ec03fe9c]{-webkit-overflow-scrolling:touch;border:1px solid #e2e8f0;border-radius:8px;overflow-x:auto}.invoices-table[data-v-ec03fe9c]{min-width:600px}.invoices-table tbody td[data-v-ec03fe9c],.invoices-table thead th[data-v-ec03fe9c]{font-size:.8rem;padding:6px 4px}}@media (max-width:576px){.card-body[data-v-ec03fe9c]{padding:1rem .75rem}.nav-tabs[data-v-ec03fe9c]{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:1rem}.nav-tabs .nav-link[data-v-ec03fe9c]{border-radius:6px;flex:1;font-size:.8rem;margin-right:0;min-width:0;padding:6px 8px;text-align:center}.table-responsive[data-v-ec03fe9c]{-webkit-overflow-scrolling:touch;border:1px solid #e2e8f0;border-radius:6px;margin:0 -.75rem;overflow-x:auto}.invoices-table[data-v-ec03fe9c]{min-width:500px}.invoices-table tbody td[data-v-ec03fe9c],.invoices-table thead th[data-v-ec03fe9c]{font-size:.75rem;padding:4px 3px}.invoices-table thead th[data-v-ec03fe9c]:first-child{border-top-left-radius:6px}.invoices-table thead th[data-v-ec03fe9c]:last-child{border-top-right-radius:6px}.invoices-table .badge[data-v-ec03fe9c]{font-size:.7rem!important;padding:4px 8px!important}.no-data-message[data-v-ec03fe9c]{padding:2rem .5rem!important}.no-data-content[data-v-ec03fe9c]{padding:1rem}.no-data-content i[data-v-ec03fe9c]{font-size:1.5rem!important}.no-data-content h5[data-v-ec03fe9c]{font-size:1rem}.no-data-content p[data-v-ec03fe9c]{font-size:.8rem}}@media (max-width:480px){.card-body[data-v-ec03fe9c]{padding:.75rem .5rem}.nav-tabs .nav-link[data-v-ec03fe9c]{font-size:.75rem;padding:5px 6px}.invoices-table[data-v-ec03fe9c]{min-width:450px}.invoices-table tbody td[data-v-ec03fe9c],.invoices-table thead th[data-v-ec03fe9c]{font-size:.7rem;padding:3px 2px}.invoices-table .badge[data-v-ec03fe9c]{font-size:.65rem!important;padding:3px 6px!important}}.no-data-message[data-v-ec03fe9c]{background:#f8fafc;border:none!important;padding:3rem 1rem!important}.no-data-content[data-v-ec03fe9c]{align-items:center;display:flex;flex-direction:column;justify-content:center;padding:2rem}.no-data-content i[data-v-ec03fe9c]{margin-bottom:1rem;opacity:.5}.no-data-content h5[data-v-ec03fe9c]{font-weight:600;margin-bottom:.5rem}.no-data-content p[data-v-ec03fe9c]{font-size:.9rem;margin-bottom:0}@media (max-width:768px){.no-data-message[data-v-ec03fe9c]{padding:2rem .5rem!important}.no-data-content[data-v-ec03fe9c]{padding:1.5rem}.no-data-content i[data-v-ec03fe9c]{font-size:2rem!important}.no-data-content h5[data-v-ec03fe9c]{font-size:1.1rem}.no-data-content p[data-v-ec03fe9c]{font-size:.85rem}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -113891,12 +113893,12 @@ var map = {
 		1621
 	],
 	"./cashbook/accounts/show": [
-		50268,
-		268
+		32533,
+		2533
 	],
 	"./cashbook/accounts/show.vue": [
-		50268,
-		268
+		32533,
+		2533
 	],
 	"./cashbook/balances": [
 		97527,
@@ -114195,20 +114197,20 @@ var map = {
 		2503
 	],
 	"./central/payments": [
-		86453,
-		6453
+		1525,
+		1525
 	],
 	"./central/payments/": [
-		86453,
-		6453
+		1525,
+		1525
 	],
 	"./central/payments/index": [
-		86453,
-		6453
+		1525,
+		1525
 	],
 	"./central/payments/index.vue": [
-		86453,
-		6453
+		1525,
+		1525
 	],
 	"./central/permission-denied": [
 		38172,
@@ -114843,12 +114845,12 @@ var map = {
 		3284
 	],
 	"./employees/increments/show": [
-		68835,
-		8835
+		74643,
+		4643
 	],
 	"./employees/increments/show.vue": [
-		68835,
-		8835
+		74643,
+		4643
 	],
 	"./employees/index": [
 		96023,
@@ -114859,12 +114861,12 @@ var map = {
 		6023
 	],
 	"./employees/show": [
-		54349,
-		4349
+		46877,
+		6877
 	],
 	"./employees/show.vue": [
-		54349,
-		4349
+		46877,
+		6877
 	],
 	"./errors/404": [
 		1321,
@@ -114875,12 +114877,12 @@ var map = {
 		1321
 	],
 	"./expenses": [
-		46172,
-		6172
+		75060,
+		5060
 	],
 	"./expenses/": [
-		46172,
-		6172
+		75060,
+		5060
 	],
 	"./expenses/categories": [
 		39063,
@@ -114931,12 +114933,12 @@ var map = {
 		6501
 	],
 	"./expenses/index": [
-		46172,
-		6172
+		75060,
+		5060
 	],
 	"./expenses/index.vue": [
-		46172,
-		6172
+		75060,
+		5060
 	],
 	"./expenses/show": [
 		34345,
@@ -115203,28 +115205,28 @@ var map = {
 		7470
 	],
 	"./loans/payments/show": [
-		66129,
-		8510
+		1580,
+		1580
 	],
 	"./loans/payments/show.vue": [
-		66129,
-		8510
+		1580,
+		1580
 	],
 	"./loans/show": [
-		88786,
-		8786
+		11236,
+		1236
 	],
 	"./loans/show.vue": [
-		88786,
-		8786
+		11236,
+		1236
 	],
 	"./payments/clients/invoice": [
-		1191,
-		1191
+		41267,
+		1267
 	],
 	"./payments/clients/invoice/": [
-		1191,
-		1191
+		41267,
+		1267
 	],
 	"./payments/clients/invoice/create": [
 		46403,
@@ -115243,20 +115245,20 @@ var map = {
 		3621
 	],
 	"./payments/clients/invoice/index": [
-		1191,
-		1191
+		41267,
+		1267
 	],
 	"./payments/clients/invoice/index.vue": [
-		1191,
-		1191
+		41267,
+		1267
 	],
 	"./payments/clients/invoice/show": [
-		80084,
-		84
+		52395,
+		2395
 	],
 	"./payments/clients/invoice/show.vue": [
-		80084,
-		84
+		52395,
+		2395
 	],
 	"./payments/clients/non-invoice": [
 		80881,
@@ -115371,12 +115373,12 @@ var map = {
 		5505
 	],
 	"./payments/suppliers/purchase/show": [
-		40181,
-		181
+		28465,
+		8465
 	],
 	"./payments/suppliers/purchase/show.vue": [
-		40181,
-		181
+		28465,
+		8465
 	],
 	"./payroll": [
 		82182,
@@ -115499,12 +115501,12 @@ var map = {
 		7350
 	],
 	"./products/show": [
-		22904,
-		2904
+		79900,
+		9900
 	],
 	"./products/show.vue": [
-		22904,
-		2904
+		79900,
+		9900
 	],
 	"./products/sub-categories": [
 		46461,
@@ -115555,12 +115557,12 @@ var map = {
 		9276
 	],
 	"./purchase-order/edit": [
-		65303,
-		5303
+		28428,
+		8428
 	],
 	"./purchase-order/edit.vue": [
-		65303,
-		5303
+		28428,
+		8428
 	],
 	"./purchase-order/index": [
 		59990,
@@ -115595,12 +115597,12 @@ var map = {
 		7009
 	],
 	"./purchases/edit": [
-		13861,
-		3861
+		40086,
+		86
 	],
 	"./purchases/edit.vue": [
-		13861,
-		3861
+		40086,
+		86
 	],
 	"./purchases/index": [
 		91675,
@@ -115643,36 +115645,36 @@ var map = {
 		5904
 	],
 	"./purchases/returns/show": [
-		30781,
-		781
+		13978,
+		3978
 	],
 	"./purchases/returns/show.vue": [
-		30781,
-		781
+		13978,
+		3978
 	],
 	"./purchases/show": [
-		77492,
-		7492
+		36500,
+		6500
 	],
 	"./purchases/show.vue": [
-		77492,
-		7492
+		36500,
+		6500
 	],
 	"./reports/account-statement": [
-		71104,
-		1104
+		26150,
+		6150
 	],
 	"./reports/account-statement.vue": [
-		71104,
-		1104
+		26150,
+		6150
 	],
 	"./reports/balance-sheet": [
-		1658,
-		1658
+		63217,
+		3217
 	],
 	"./reports/balance-sheet.vue": [
-		1658,
-		1658
+		63217,
+		3217
 	],
 	"./reports/client-receivable-report": [
 		40249,
@@ -115699,12 +115701,12 @@ var map = {
 		7545
 	],
 	"./reports/group-account-statement": [
-		2978,
-		2978
+		77067,
+		7067
 	],
 	"./reports/group-account-statement.vue": [
-		2978,
-		2978
+		77067,
+		7067
 	],
 	"./reports/inventory": [
 		81744,
@@ -115715,12 +115717,12 @@ var map = {
 		1744
 	],
 	"./reports/invoice-summary": [
-		55761,
-		5761
+		60628,
+		628
 	],
 	"./reports/invoice-summary.vue": [
-		55761,
-		5761
+		60628,
+		628
 	],
 	"./reports/items": [
 		39532,
@@ -115731,20 +115733,20 @@ var map = {
 		9532
 	],
 	"./reports/profit-loss": [
-		14505,
-		4505
+		38557,
+		8557
 	],
 	"./reports/profit-loss.vue": [
-		14505,
-		4505
+		38557,
+		8557
 	],
 	"./reports/purchase-summary": [
-		3761,
-		3761
+		534,
+		534
 	],
 	"./reports/purchase-summary.vue": [
-		3761,
-		3761
+		534,
+		534
 	],
 	"./reports/sales-by-user-report": [
 		15421,
@@ -115755,12 +115757,12 @@ var map = {
 		5421
 	],
 	"./reports/summary": [
-		19233,
-		9233
+		19744,
+		9744
 	],
 	"./reports/summary.vue": [
-		19233,
-		9233
+		19744,
+		9744
 	],
 	"./reports/supplier-payable-report": [
 		65389,
@@ -115787,12 +115789,12 @@ var map = {
 		9946
 	],
 	"./reports/vat-report": [
-		37617,
-		7617
+		84224,
+		4224
 	],
 	"./reports/vat-report.vue": [
-		37617,
-		7617
+		84224,
+		4224
 	],
 	"./sales/invoices": [
 		42368,
@@ -115827,20 +115829,20 @@ var map = {
 		2368
 	],
 	"./sales/invoices/show": [
-		39075,
-		9075
+		22593,
+		2593
 	],
 	"./sales/invoices/show.vue": [
-		39075,
-		9075
+		22593,
+		2593
 	],
 	"./sales/pos/create": [
-		89700,
-		9700
+		11979,
+		1979
 	],
 	"./sales/pos/create.vue": [
-		89700,
-		9700
+		11979,
+		1979
 	],
 	"./sales/quotations": [
 		84176,
@@ -115923,12 +115925,12 @@ var map = {
 		6754
 	],
 	"./sales/returns/show": [
-		30247,
-		247
+		88326,
+		8326
 	],
 	"./sales/returns/show.vue": [
-		30247,
-		247
+		88326,
+		8326
 	],
 	"./settings": [
 		72603,
@@ -116644,7 +116646,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1621) return "js/1621.js";
 /******/ 			if (chunkId === 636) return "js/636.js";
 /******/ 			if (chunkId === 1129) return "js/1129.js";
-/******/ 			if (chunkId === 268) return "js/268.js";
+/******/ 			if (chunkId === 2533) return "js/2533.js";
 /******/ 			if (chunkId === 7527) return "js/7527.js";
 /******/ 			if (chunkId === 9800) return "js/9800.js";
 /******/ 			if (chunkId === 6065) return "js/6065.js";
@@ -116672,7 +116674,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2503) return "js/2503.js";
 /******/ 			if (chunkId === 6269) return "js/6269.js";
 /******/ 			if (chunkId === 2447) return "js/2447.js";
-/******/ 			if (chunkId === 6453) return "js/6453.js";
+/******/ 			if (chunkId === 1525) return "js/1525.js";
 /******/ 			if (chunkId === 8172) return "js/8172.js";
 /******/ 			if (chunkId === 2200) return "js/2200.js";
 /******/ 			if (chunkId === 1803) return "js/1803.js";
@@ -116738,10 +116740,10 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 3284) return "js/3284.js";
 /******/ 			if (chunkId === 5088) return "js/5088.js";
 /******/ 			if (chunkId === 4857) return "js/4857.js";
-/******/ 			if (chunkId === 8835) return "js/8835.js";
-/******/ 			if (chunkId === 4349) return "js/4349.js";
+/******/ 			if (chunkId === 4643) return "js/4643.js";
+/******/ 			if (chunkId === 6877) return "js/6877.js";
 /******/ 			if (chunkId === 1321) return "js/1321.js";
-/******/ 			if (chunkId === 6172) return "js/6172.js";
+/******/ 			if (chunkId === 5060) return "js/5060.js";
 /******/ 			if (chunkId === 1444) return "js/1444.js";
 /******/ 			if (chunkId === 2805) return "js/2805.js";
 /******/ 			if (chunkId === 3299) return "js/3299.js";
@@ -116772,12 +116774,12 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 7470) return "js/7470.js";
 /******/ 			if (chunkId === 5447) return "js/5447.js";
 /******/ 			if (chunkId === 3882) return "js/3882.js";
-/******/ 			if (chunkId === 8510) return "js/8510.js";
-/******/ 			if (chunkId === 8786) return "js/8786.js";
-/******/ 			if (chunkId === 1191) return "js/1191.js";
+/******/ 			if (chunkId === 1580) return "js/1580.js";
+/******/ 			if (chunkId === 1236) return "js/1236.js";
+/******/ 			if (chunkId === 1267) return "js/1267.js";
 /******/ 			if (chunkId === 6403) return "js/6403.js";
 /******/ 			if (chunkId === 3621) return "js/3621.js";
-/******/ 			if (chunkId === 84) return "js/84.js";
+/******/ 			if (chunkId === 2395) return "js/2395.js";
 /******/ 			if (chunkId === 881) return "js/881.js";
 /******/ 			if (chunkId === 1847) return "js/1847.js";
 /******/ 			if (chunkId === 6897) return "js/6897.js";
@@ -116789,7 +116791,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 5505) return "js/5505.js";
 /******/ 			if (chunkId === 8289) return "js/8289.js";
 /******/ 			if (chunkId === 1466) return "js/1466.js";
-/******/ 			if (chunkId === 181) return "js/181.js";
+/******/ 			if (chunkId === 8465) return "js/8465.js";
 /******/ 			if (chunkId === 2182) return "js/2182.js";
 /******/ 			if (chunkId === 1974) return "js/1974.js";
 /******/ 			if (chunkId === 5467) return "js/5467.js";
@@ -116802,44 +116804,44 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 4995) return "js/4995.js";
 /******/ 			if (chunkId === 8650) return "js/8650.js";
 /******/ 			if (chunkId === 8410) return "js/8410.js";
-/******/ 			if (chunkId === 2904) return "js/2904.js";
+/******/ 			if (chunkId === 9900) return "js/9900.js";
 /******/ 			if (chunkId === 6461) return "js/6461.js";
 /******/ 			if (chunkId === 9909) return "js/9909.js";
 /******/ 			if (chunkId === 3018) return "js/3018.js";
 /******/ 			if (chunkId === 9990) return "js/9990.js";
 /******/ 			if (chunkId === 9276) return "js/9276.js";
-/******/ 			if (chunkId === 5303) return "js/5303.js";
+/******/ 			if (chunkId === 8428) return "js/8428.js";
 /******/ 			if (chunkId === 279) return "js/279.js";
 /******/ 			if (chunkId === 1675) return "js/1675.js";
 /******/ 			if (chunkId === 7009) return "js/7009.js";
-/******/ 			if (chunkId === 3861) return "js/3861.js";
+/******/ 			if (chunkId === 86) return "js/86.js";
 /******/ 			if (chunkId === 5904) return "js/5904.js";
 /******/ 			if (chunkId === 1209) return "js/1209.js";
 /******/ 			if (chunkId === 8571) return "js/8571.js";
-/******/ 			if (chunkId === 781) return "js/781.js";
-/******/ 			if (chunkId === 7492) return "js/7492.js";
-/******/ 			if (chunkId === 1104) return "js/1104.js";
-/******/ 			if (chunkId === 1658) return "js/1658.js";
+/******/ 			if (chunkId === 3978) return "js/3978.js";
+/******/ 			if (chunkId === 6500) return "js/6500.js";
+/******/ 			if (chunkId === 6150) return "js/6150.js";
+/******/ 			if (chunkId === 3217) return "js/3217.js";
 /******/ 			if (chunkId === 249) return "js/249.js";
 /******/ 			if (chunkId === 4100) return "js/4100.js";
 /******/ 			if (chunkId === 7545) return "js/7545.js";
-/******/ 			if (chunkId === 2978) return "js/2978.js";
+/******/ 			if (chunkId === 7067) return "js/7067.js";
 /******/ 			if (chunkId === 1744) return "js/1744.js";
-/******/ 			if (chunkId === 5761) return "js/5761.js";
+/******/ 			if (chunkId === 628) return "js/628.js";
 /******/ 			if (chunkId === 9532) return "js/9532.js";
-/******/ 			if (chunkId === 4505) return "js/4505.js";
-/******/ 			if (chunkId === 3761) return "js/3761.js";
+/******/ 			if (chunkId === 8557) return "js/8557.js";
+/******/ 			if (chunkId === 534) return "js/534.js";
 /******/ 			if (chunkId === 5421) return "js/5421.js";
-/******/ 			if (chunkId === 9233) return "js/9233.js";
+/******/ 			if (chunkId === 9744) return "js/9744.js";
 /******/ 			if (chunkId === 5389) return "js/5389.js";
 /******/ 			if (chunkId === 5111) return "js/5111.js";
 /******/ 			if (chunkId === 9946) return "js/9946.js";
-/******/ 			if (chunkId === 7617) return "js/7617.js";
+/******/ 			if (chunkId === 4224) return "js/4224.js";
 /******/ 			if (chunkId === 2368) return "js/2368.js";
 /******/ 			if (chunkId === 6054) return "js/6054.js";
 /******/ 			if (chunkId === 8353) return "js/8353.js";
-/******/ 			if (chunkId === 9075) return "js/9075.js";
-/******/ 			if (chunkId === 9700) return "js/9700.js";
+/******/ 			if (chunkId === 2593) return "js/2593.js";
+/******/ 			if (chunkId === 1979) return "js/1979.js";
 /******/ 			if (chunkId === 4176) return "js/4176.js";
 /******/ 			if (chunkId === 2512) return "js/2512.js";
 /******/ 			if (chunkId === 5892) return "js/5892.js";
@@ -116848,7 +116850,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6754) return "js/6754.js";
 /******/ 			if (chunkId === 348) return "js/348.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
-/******/ 			if (chunkId === 247) return "js/247.js";
+/******/ 			if (chunkId === 8326) return "js/8326.js";
 /******/ 			if (chunkId === 2603) return "js/2603.js";
 /******/ 			if (chunkId === 2517) return "js/2517.js";
 /******/ 			if (chunkId === 6168) return "js/6168.js";
@@ -117117,7 +117119,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(90050)))
+/******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(32128)))
 /******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(60155)))
 /******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(70812)))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(79938)))

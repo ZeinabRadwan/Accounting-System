@@ -284,8 +284,8 @@
                           class="text-right"
                         >
                           <strong>{{
-                            allData.totalInvoiceReturn | withCurrency
-                          }}</strong>
+                            allData.totalInvoiceReturn 
+                          }} <span class="saudi-riyal">ê</span></strong>
                         </td> -->
                       </tr>
                       <tr>
@@ -425,8 +425,8 @@
                           </td>
                           <td colspan="5">
                             <strong>{{
-                              allData.totalPaid | withCurrency
-                            }}</strong>
+                              allData.totalPaid 
+                            }} <span class="saudi-riyal">ê</span></strong>
                           </td>
                         </tr>
                       </tbody>
