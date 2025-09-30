@@ -38,6 +38,6 @@ class DomainValidation implements Rule
      */
     public function message()
     {
-        return 'This domain has already been taken';
+        return __('This domain has already been taken');
     }
 }

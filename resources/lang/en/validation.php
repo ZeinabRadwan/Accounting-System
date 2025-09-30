@@ -131,8 +131,27 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'reason' => [
+            'required' => 'The increment reason field is required.',
+            'string' => 'The increment reason must be a string.',
+            'max' => 'The increment reason may not be greater than 255 characters.',
+        ],
+        'employee' => [
+            'required' => 'Please select an employee.',
+        ],
+        'incrementAmount' => [
+            'required' => 'The increment amount field is required.',
+            'numeric' => 'The increment amount must be a number.',
+            'min' => 'The increment amount must be at least 0.',
+        ],
+        'incrementDate' => [
+            'date' => 'The increment date is not a valid date.',
+            'date_format' => 'The increment date does not match the format Y-m-d.',
+            'after_or_equal' => 'The increment date must be after or equal to the employee joining date.',
+        ],
+        'note' => [
+            'string' => 'The note must be a string.',
+            'max' => 'The note may not be greater than 255 characters.',
         ],
     ],
 
@@ -147,6 +166,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'reason' => 'Increment Reason',
+        'employee' => 'Employee',
+        'incrementAmount' => 'Increment Amount',
+        'incrementDate' => 'Increment Date',
+        'note' => 'Note',
+        'status' => 'Status',
+        'domain' => 'Domain',
+    ],
 
 ];

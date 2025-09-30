@@ -17,7 +17,7 @@ class IsBanned
     public function handle(Request $request, Closure $next)
     {
         if (tenant()->is_banned) {
-            abort(403, 'This domain has been banned. Please contact site admin for more details.');
+            abort(403, __('This domain has been banned. Please contact site admin for more details.'));
         }
 
         return $next($request);

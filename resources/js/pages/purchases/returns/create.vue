@@ -121,7 +121,7 @@
                               data-field="quantity" @click="
                                 updateItem(Number(item.returnQty) - 1, i - 1)
                                 " />
-                            <input type="number" step="any" :id="`returnQty-${i}`" placeholder="Return Qty"
+                            <input type="number" step="any" :id="`returnQty-${i}`" :placeholder="$t('Return Qty')"
                               class="quantity-field border-0 incrementor" @change="updateItem($event.target.value, i - 1)"
                               @keyup="updateItem($event.target.value, i - 1)" :value="item.returnQty" min="0"
                               :max="item.purchaseQty" />
@@ -136,9 +136,9 @@
                                 " />
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ Number(item.purchasePrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
-                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
-                        <td style="min-width: 120px;">{{ Number(item.returnTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
+                        <td style="min-width: 100px;">{{ formatAmount(item.purchasePrice) }}</td>
+                        <td style="min-width: 120px;">{{ formatAmount(item.totalPrice) }}</td>
+                        <td style="min-width: 120px;">{{ formatAmount(item.returnTotal) }}</td>
                       </tr>
                       <tr v-if="form.purchase">
                         <td colspan="7" class="text-right">
@@ -146,11 +146,11 @@
                         </td>
                         <td>
                           <strong>{{
-                            Number(form.purchase.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                            formatAmount(form.purchase.subTotal)
                           }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ Number(form.totalReturn).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</strong>
+                          <strong>{{ formatAmount(form.totalReturn) }}</strong>
                         </td>
                       </tr>
                     </tbody>
@@ -355,7 +355,7 @@ export default {
     dynamicBreadcrumbs() {
       return [
         {
-          name: 'Dashboard',
+          name: this.$t('Dashboard'),
           url: 'home',
         },
         {
@@ -363,7 +363,7 @@ export default {
           url: 'purchaseReturns.index',
         },
         {
-          name: 'Create',
+          name: this.$t('Create'),
           url: '',
         },
       ];
@@ -376,6 +376,11 @@ export default {
     this.prefix = this.appInfo.productPrefix
   },
   methods: {
+    formatAmount(value) {
+      const num = Number(value) || 0;
+      const locale = (this.$i18n && this.$i18n.locale) ? this.$i18n.locale : 'en';
+      return num.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    },
     // get all suppliers
     async getSuppliers() {
       await this.$store.dispatch('operations/allData', {

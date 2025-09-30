@@ -682,6 +682,35 @@ export default {
   overflow: visible !important;
 }
 
+/* Enhanced Table Responsive */
+.table-responsive {
+  border-radius: 12px;
+  background: #ffffff;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #33a0d9 #f1f5f9;
+}
+
+/* Custom scrollbar for webkit browsers */
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #33a0d9;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #2a8bc7;
+}
+
 .suppliers-table {
   border-collapse: separate;
   border-spacing: 0;
@@ -997,5 +1026,220 @@ export default {
 }
 [dir=rtl] .text-right {
   text-align: right !important;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 1200px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .suppliers-table {
+    min-width: 1000px;
+  }
+  
+  .suppliers-table thead th,
+  .suppliers-table tbody td {
+    white-space: nowrap;
+    padding: 8px 6px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .suppliers-table {
+    min-width: 900px;
+  }
+  
+  .suppliers-table thead th,
+  .suppliers-table tbody td {
+    padding: 6px 4px;
+    font-size: 0.85rem;
+  }
+  
+  .btn-group.c-w-100 {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .btn-group.c-w-100 .btn {
+    width: 44px;
+    height: 40px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem 1rem;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin: 0 -1rem;
+  }
+  
+  .suppliers-table {
+    min-width: 800px;
+  }
+  
+  .suppliers-table thead th {
+    padding: 6px 4px;
+    font-size: 0.8rem;
+  }
+  
+  .suppliers-table tbody td {
+    padding: 6px 4px;
+    font-size: 0.8rem;
+  }
+  
+  .btn-group.c-w-100 {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .btn-group.c-w-100 .btn {
+    width: 100%;
+    height: 44px;
+    padding: 10px 16px;
+    justify-content: center;
+  }
+  
+  .btn-group.c-w-100 .btn i {
+    margin-right: 8px;
+  }
+  
+  .btn-group.c-w-100 .btn:not(:last-child) {
+    margin-right: 0;
+  }
+  
+  /* Adjust form controls for mobile */
+  .col-6.col-xl-4.mb-2,
+  .col-6.col-xl-2.mb-2 {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1rem 0.75rem;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin: 0 -0.75rem;
+  }
+  
+  .suppliers-table {
+    min-width: 700px;
+  }
+  
+  .suppliers-table thead th,
+  .suppliers-table tbody td {
+    padding: 4px 3px;
+    font-size: 0.75rem;
+  }
+  
+  .suppliers-table thead th:first-child {
+    border-top-left-radius: 6px;
+  }
+  
+  .suppliers-table thead th:last-child {
+    border-top-right-radius: 6px;
+  }
+  
+  /* Make badges smaller on mobile */
+  .suppliers-table .badge {
+    font-size: 0.7rem !important;
+    padding: 4px 8px !important;
+  }
+  
+  /* Adjust preview images for mobile */
+  .preview-sm {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .no-preview-sm {
+    width: 30px;
+    height: 30px;
+    font-size: 8px;
+  }
+  
+  /* Action dropdown adjustments for mobile */
+  .action-menu {
+    min-width: 180px;
+    max-height: 70vh;
+  }
+  
+  .action-menu li a {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .action-menu li a i {
+    width: 14px;
+    height: 14px;
+    font-size: 11px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .card-body {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .suppliers-table {
+    min-width: 600px;
+  }
+  
+  .suppliers-table thead th,
+  .suppliers-table tbody td {
+    padding: 3px 2px;
+    font-size: 0.7rem;
+  }
+  
+  .suppliers-table .badge {
+    font-size: 0.65rem !important;
+    padding: 3px 6px !important;
+  }
+  
+  .preview-sm {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .no-preview-sm {
+    width: 25px;
+    height: 25px;
+    font-size: 7px;
+  }
+  
+  .action-menu {
+    min-width: 160px;
+  }
+  
+  .action-menu li a {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
 }
 </style>
