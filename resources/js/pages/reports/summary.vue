@@ -114,7 +114,7 @@
                 <tr v-for="(data, i) in reportInfo.openingBalances" :key="i">
                   <td>{{ ++i }}</td>
                   <td>{{ data.bank_name }} [{{ data.account_number }}]</td>
-                  <td>{{ data.current_balance | withAbsoluteCurrency }}</td>
+                  <td>{{ data.current_balance}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2" class="text-right">
@@ -122,7 +122,7 @@
                   </td>
                   <td>
                     <strong>
-                      {{ totalOpeningBalance | withAbsoluteCurrency }}
+                      {{ totalOpeningBalance}} <span class="saudi-riyal">ê</span>
                     </strong>
                   </td>
                 </tr>
@@ -136,12 +136,12 @@
                 <tr>
                   <td>1</td>
                   <td>{{ $t("Invoice Sales") }}</td>
-                  <td>{{ reportInfo.invoiceSales | withAbsoluteCurrency }}</td>
+                  <td>{{ reportInfo.invoiceSales}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td>2</td>
                   <td>{{ $t("Invoice Dues") }}</td>
-                  <td>{{ reportInfo.invoiceDue | withAbsoluteCurrency }}</td>
+                  <td>{{ reportInfo.invoiceDue}} <span class="saudi-riyal">ê</span></td>
                 </tr>
               </tbody>
               <thead>
@@ -153,7 +153,7 @@
                 <tr v-for="(data, i) in reportInfo.accountCollections" :key="i">
                   <td>{{ ++i }}</td>
                   <td>{{ data.bank_name }} [{{ data.account_number }}]</td>
-                  <td>{{ data.total_collection | withAbsoluteCurrency }}</td>
+                  <td>{{ data.total_collection}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2" class="text-right">
@@ -161,8 +161,7 @@
                   </td>
                   <td>
                     <strong>{{
-                      totalCollection | withAbsoluteCurrency
-                    }}</strong>
+                      totalCollection}} <span class="saudi-riyal">ê</span></strong>
                   </td>
                 </tr>
               </tbody>
@@ -174,24 +173,24 @@
               <tbody>
                 <tr>
                   <td colspan="2">{{ $t("Purchase") }}</td>
-                  <td>{{ reportInfo.totalPurchase | withAbsoluteCurrency }}</td>
+                  <td>{{ reportInfo.totalPurchase}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2">{{ $t("General") }}</td>
-                  <td>{{ reportInfo.expenses | withAbsoluteCurrency }}</td>
+                  <td>{{ reportInfo.expenses}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2">{{ $t("Payroll") }}</td>
-                  <td>{{ reportInfo.payrolls | withAbsoluteCurrency }}</td>
+                  <td>{{ reportInfo.payrolls}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2">{{ $t("Loan Interest") }}</td>
-                  <td>{{ reportInfo.loanInterest | withAbsoluteCurrency }}</td>
+                  <td>{{ reportInfo.loanInterest}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2">{{ $t("Asset Depreciation") }}</td>
                   <td>
-                    {{ reportInfo.assetDepriciation | withAbsoluteCurrency }}
+                    {{ reportInfo.assetDepriciation}} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr>
@@ -199,7 +198,7 @@
                     <strong>{{ $t("Total") }}</strong>
                   </td>
                   <td>
-                    <strong>{{ totalExpense | withAbsoluteCurrency }}</strong>
+                    <strong>{{ totalExpense}} <span class="saudi-riyal">ê</span></strong>
                   </td>
                 </tr>
               </tbody>
@@ -218,14 +217,14 @@
   data.credit_transaction.cashbook_account.account_number
 }}]
                   </td>
-                  <td>{{ data.amount | withAbsoluteCurrency }}</td>
+                  <td>{{ data.amount}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2" class="text-right">
                     <strong>{{ $t("Total") }}</strong>
                   </td>
                   <td>
-                    <strong>{{ totalTransfer | withAbsoluteCurrency }}</strong>
+                    <strong>{{ totalTransfer}} <span class="saudi-riyal">ê</span></strong>
                   </td>
                 </tr>
               </tbody>
@@ -238,7 +237,7 @@
                 <tr v-for="(data, i) in reportInfo.closingBalances" :key="i">
                   <td>{{ ++i }}</td>
                   <td>{{ data.bank_name }} [{{ data.account_number }}]</td>
-                  <td>{{ data.current_balance | withAbsoluteCurrency }}</td>
+                  <td>{{ data.current_balance}} <span class="saudi-riyal">ê</span></td>
                 </tr>
                 <tr>
                   <td colspan="2" class="text-right">
@@ -246,8 +245,7 @@
                   </td>
                   <td>
                     <strong>{{
-                      totalClosingBalance | withAbsoluteCurrency
-                    }}</strong>
+                      totalClosingBalance}} <span class="saudi-riyal">ê</span></strong>
                   </td>
                 </tr>
               </tbody>

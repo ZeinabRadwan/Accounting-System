@@ -194,7 +194,7 @@
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Opening Balance') }}</span>
                     <span class="info-box-number">
-                      {{ summary ? summary.opening_balance : 0 | withAbsoluteCurrency }} {{ summary ? summary.opening_balance_type : '' }}
+                      {{ summary ? summary.opening_balance : 0}} <span class="saudi-riyal">ê</span> {{ summary ? summary.opening_balance_type : '' }}
                     </span>
                   </div>
                 </div>
@@ -206,7 +206,7 @@
                   </span>
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Period Debits') }}</span>
-                    <span class="info-box-number">{{ summary ? summary.period_debits : 0 | withAbsoluteCurrency }}</span>
+                    <span class="info-box-number">{{ summary ? summary.period_debits : 0}} <span class="saudi-riyal">ê</span></span>
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@
                   </span>
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Period Credits') }}</span>
-                    <span class="info-box-number">{{ summary ? summary.period_credits : 0 | withAbsoluteCurrency }}</span>
+                    <span class="info-box-number">{{ summary ? summary.period_credits : 0}} <span class="saudi-riyal">ê</span></span>
                   </div>
                 </div>
               </div>
@@ -229,7 +229,7 @@
                   <div class="info-box-content">
                     <span class="info-box-text">{{ $t('Closing Balance') }}</span>
                     <span class="info-box-number">
-                      {{ summary ? summary.closing_balance : 0 | withAbsoluteCurrency }} {{ summary ? summary.closing_balance_type : '' }}
+                      {{ summary ? summary.closing_balance : 0}} <span class="saudi-riyal">ê</span> {{ summary ? summary.closing_balance_type : '' }}
                     </span>
                   </div>
                 </div>
@@ -267,16 +267,16 @@
                     <td>{{ entry.entry_number }}</td>
                     <td>{{ entry.reference || '-' }}</td>
                     <td>{{ entry.description || '-' }}</td>
-                    <td class="text-right">{{ entry.debit_amount | withAbsoluteCurrency }}</td>
-                    <td class="text-right">{{ entry.credit_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ entry.debit_amount}} <span class="saudi-riyal">ê</span></td>
+                    <td class="text-right">{{ entry.credit_amount}} <span class="saudi-riyal">ê</span></td>
                     <td class="text-right">
                       <span :class="entry.net_amount < 0 ? 'text-danger' : 'text-success'">
-                        {{ entry.net_amount | withAbsoluteCurrency }}
+                        {{ entry.net_amount}} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
                     <td class="text-right">
                       <span :class="entry.balance_type === 'Debit' ? 'text-success' : 'text-danger'">
-                        {{ entry.running_balance | withAbsoluteCurrency }}
+                        {{ entry.running_balance}} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
                     <td class="text-center">

@@ -297,11 +297,11 @@
                       <td>{{ client.client_name }}</td>
                       <td>{{ client.client_phone || '-' }}</td>
                       <td class="text-center">{{ client.invoice_count }}</td>
-                      <td class="text-right">{{ client.total_amount | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ client.paid_amount | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ client.due_amount | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ client.discount_amount | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ client.tax_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ client.total_amount}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ client.paid_amount}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ client.due_amount}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ client.discount_amount}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ client.tax_amount}} <span class="saudi-riyal">ê</span></td>
                     </tr>
                   </template>
                 </tbody>
@@ -366,9 +366,9 @@
                     <tr v-for="month in reportData.monthly_summary" :key="month.month">
                       <td>{{ month.month_name }}</td>
                       <td class="text-center">{{ month.invoice_count }}</td>
-                      <td class="text-right">{{ month.total_amount | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ month.paid_amount | withAbsoluteCurrency }}</td>
-                      <td class="text-right">{{ month.due_amount | withAbsoluteCurrency }}</td>
+                      <td class="text-right">{{ month.total_amount}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ month.paid_amount}} <span class="saudi-riyal">ê</span></td>
+                      <td class="text-right">{{ month.due_amount}} <span class="saudi-riyal">ê</span></td>
                     </tr>
                   </template>
                 </tbody>
@@ -396,8 +396,8 @@
                     <td>{{ returnData.invoice.invoice_no }}</td>
                     <td>{{ returnData.invoice.client?.name || '-' }}</td>
                     <td>{{ formatDate(returnData.invoice.invoice_date) }}</td>
-                    <td class="text-right">{{ returnData.invoice.sub_total | withAbsoluteCurrency }}</td>
-                    <td class="text-right text-danger">{{ returnData.return_amount | withAbsoluteCurrency }}</td>
+                    <td class="text-right">{{ returnData.invoice.sub_total}} <span class="saudi-riyal">ê</span></td>
+                    <td class="text-right text-danger">{{ returnData.return_amount}} <span class="saudi-riyal">ê</span></td>
                     <td class="text-center">{{ returnData.returns.length }}</td>
                   </tr>
                 </tbody>

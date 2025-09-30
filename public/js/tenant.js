@@ -87141,20 +87141,20 @@ var map = {
 		6500
 	],
 	"./reports/account-statement": [
-		71104,
-		1104
+		26150,
+		6150
 	],
 	"./reports/account-statement.vue": [
-		71104,
-		1104
+		26150,
+		6150
 	],
 	"./reports/balance-sheet": [
-		1658,
-		1658
+		63217,
+		3217
 	],
 	"./reports/balance-sheet.vue": [
-		1658,
-		1658
+		63217,
+		3217
 	],
 	"./reports/client-receivable-report": [
 		40249,
@@ -87181,12 +87181,12 @@ var map = {
 		7545
 	],
 	"./reports/group-account-statement": [
-		2978,
-		2978
+		77067,
+		7067
 	],
 	"./reports/group-account-statement.vue": [
-		2978,
-		2978
+		77067,
+		7067
 	],
 	"./reports/inventory": [
 		81744,
@@ -87197,12 +87197,12 @@ var map = {
 		1744
 	],
 	"./reports/invoice-summary": [
-		55761,
-		5761
+		60628,
+		628
 	],
 	"./reports/invoice-summary.vue": [
-		55761,
-		5761
+		60628,
+		628
 	],
 	"./reports/items": [
 		39532,
@@ -87213,20 +87213,20 @@ var map = {
 		9532
 	],
 	"./reports/profit-loss": [
-		14505,
-		4505
+		38557,
+		8557
 	],
 	"./reports/profit-loss.vue": [
-		14505,
-		4505
+		38557,
+		8557
 	],
 	"./reports/purchase-summary": [
-		3761,
-		3761
+		534,
+		534
 	],
 	"./reports/purchase-summary.vue": [
-		3761,
-		3761
+		534,
+		534
 	],
 	"./reports/sales-by-user-report": [
 		15421,
@@ -87237,12 +87237,12 @@ var map = {
 		5421
 	],
 	"./reports/summary": [
-		19233,
-		9233
+		19744,
+		9744
 	],
 	"./reports/summary.vue": [
-		19233,
-		9233
+		19744,
+		9744
 	],
 	"./reports/supplier-payable-report": [
 		65389,
@@ -87269,12 +87269,12 @@ var map = {
 		9946
 	],
 	"./reports/vat-report": [
-		37617,
-		7617
+		84224,
+		4224
 	],
 	"./reports/vat-report.vue": [
-		37617,
-		7617
+		84224,
+		4224
 	],
 	"./sales/invoices": [
 		42368,
@@ -88268,23 +88268,23 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8571) return "js/8571.js";
 /******/ 			if (chunkId === 3978) return "js/3978.js";
 /******/ 			if (chunkId === 6500) return "js/6500.js";
-/******/ 			if (chunkId === 1104) return "js/1104.js";
-/******/ 			if (chunkId === 1658) return "js/1658.js";
+/******/ 			if (chunkId === 6150) return "js/6150.js";
+/******/ 			if (chunkId === 3217) return "js/3217.js";
 /******/ 			if (chunkId === 249) return "js/249.js";
 /******/ 			if (chunkId === 4100) return "js/4100.js";
 /******/ 			if (chunkId === 7545) return "js/7545.js";
-/******/ 			if (chunkId === 2978) return "js/2978.js";
+/******/ 			if (chunkId === 7067) return "js/7067.js";
 /******/ 			if (chunkId === 1744) return "js/1744.js";
-/******/ 			if (chunkId === 5761) return "js/5761.js";
+/******/ 			if (chunkId === 628) return "js/628.js";
 /******/ 			if (chunkId === 9532) return "js/9532.js";
-/******/ 			if (chunkId === 4505) return "js/4505.js";
-/******/ 			if (chunkId === 3761) return "js/3761.js";
+/******/ 			if (chunkId === 8557) return "js/8557.js";
+/******/ 			if (chunkId === 534) return "js/534.js";
 /******/ 			if (chunkId === 5421) return "js/5421.js";
-/******/ 			if (chunkId === 9233) return "js/9233.js";
+/******/ 			if (chunkId === 9744) return "js/9744.js";
 /******/ 			if (chunkId === 5389) return "js/5389.js";
 /******/ 			if (chunkId === 5111) return "js/5111.js";
 /******/ 			if (chunkId === 9946) return "js/9946.js";
-/******/ 			if (chunkId === 7617) return "js/7617.js";
+/******/ 			if (chunkId === 4224) return "js/4224.js";
 /******/ 			if (chunkId === 2368) return "js/2368.js";
 /******/ 			if (chunkId === 6054) return "js/6054.js";
 /******/ 			if (chunkId === 8353) return "js/8353.js";
