@@ -24999,12 +24999,12 @@ var map = {
 		9681
 	],
 	"./products": [
-		37195,
-		7195
+		67350,
+		7350
 	],
 	"./products/": [
-		37195,
-		7195
+		67350,
+		7350
 	],
 	"./products/barcode": [
 		63709,
@@ -25063,12 +25063,12 @@ var map = {
 		8410
 	],
 	"./products/index": [
-		37195,
-		7195
+		67350,
+		7350
 	],
 	"./products/index.vue": [
-		37195,
-		7195
+		67350,
+		7350
 	],
 	"./products/show": [
 		22904,
@@ -25239,12 +25239,12 @@ var map = {
 		1104
 	],
 	"./reports/balance-sheet": [
-		88325,
-		8325
+		1658,
+		1658
 	],
 	"./reports/balance-sheet.vue": [
-		88325,
-		8325
+		1658,
+		1658
 	],
 	"./reports/client-receivable-report": [
 		19711,
@@ -88416,7 +88416,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 5467) return "js/5467.js";
 /******/ 			if (chunkId === 3897) return "js/3897.js";
 /******/ 			if (chunkId === 9681) return "js/9681.js";
-/******/ 			if (chunkId === 7195) return "js/7195.js";
+/******/ 			if (chunkId === 7350) return "js/7350.js";
 /******/ 			if (chunkId === 3709) return "js/3709.js";
 /******/ 			if (chunkId === 8437) return "js/8437.js";
 /******/ 			if (chunkId === 8096) return "js/8096.js";
@@ -88440,7 +88440,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 781) return "js/781.js";
 /******/ 			if (chunkId === 7492) return "js/7492.js";
 /******/ 			if (chunkId === 1104) return "js/1104.js";
-/******/ 			if (chunkId === 8325) return "js/8325.js";
+/******/ 			if (chunkId === 1658) return "js/1658.js";
 /******/ 			if (chunkId === 9711) return "js/9711.js";
 /******/ 			if (chunkId === 4100) return "js/4100.js";
 /******/ 			if (chunkId === 8144) return "js/8144.js";
