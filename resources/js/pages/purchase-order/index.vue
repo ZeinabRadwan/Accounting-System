@@ -680,6 +680,9 @@ export default {
             // Send invoice to ZATCA and create journal entries
             const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
             
+            // Close the loading dialog
+            SwalOriginal.close();
+            
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
@@ -693,6 +696,8 @@ export default {
             }
           } catch (error) {
             console.error('Error sending invoice to ZATCA:', error);
+            // Close the loading dialog
+            SwalOriginal.close();
             this.$toast.error(
               this.$t("An error occurred while sending the invoice to ZATCA")
             );

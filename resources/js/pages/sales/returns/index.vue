@@ -497,6 +497,9 @@ export default {
             // Send credit note to ZATCA and create journal entries
             const response = await axios.post(`/api/invoice-returns/${data.slug}/send-to-zatca`);
             
+            // Close the loading dialog
+            SwalOriginal.close();
+            
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Sent Successfully!"),
@@ -512,6 +515,8 @@ export default {
             }
           } catch (error) {
             console.error('Error sending credit note:', error);
+            // Close the loading dialog
+            SwalOriginal.close();
             this.$toast.error(
               this.$t("Error!"),
               error.response?.data?.message || this.$t("An error occurred while sending the credit note")
