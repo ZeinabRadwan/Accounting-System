@@ -662,35 +662,36 @@ export default {
 
     // delete data
     async deleteData(slug) {
-      Swal.fire({
-        title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this!"),
-        type: "warning",
+      const result = await Swal.fire({
+        title: this.$t("Delete Client"),
+        text: this.$t("Are you sure you want to delete this client? You will not be able to return to this!"),
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
-      }).then((result) => {
-        // Send request to the server
-        if (result.value) {
-          this.$store
-            .dispatch("operations/deleteData", {
-              path: "/api/clients/",
-              slug: slug,
-            })
-            .then((response) => {
-              if (response === true) {
-                this.$toast.success(
-                  this.$t("Deleted!"),
-                  this.$t("Deleted successfully.")
-                );
-              } else {
-                this.$toast.warning(
-                  this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this client.")
-                );
-              }
-            });
-        }
+        confirmButtonText: this.$t("Confirm"),
+        cancelButtonText: this.$t("Cancel"),
       });
+      
+      if (result.value) {
+        // Send request to the server
+        this.$store
+          .dispatch("operations/deleteData", {
+            path: "/api/clients/",
+            slug: slug,
+          })
+          .then((response) => {
+            if (response === true) {
+              this.$toast.success(
+                this.$t("Deleted!"),
+                this.$t("Deleted successfully.")
+              );
+            } else {
+              this.$toast.warning(
+                this.$t("Failed!"),
+                this.$t("Sorry you can't delete this client.")
+              );
+            }
+          });
+      }
     },
 
     // Open edit modal for client

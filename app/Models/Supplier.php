@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Supplier extends Model
 {
-    use Sluggable, HasFactory, Notifiable;
+    use Sluggable, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

@@ -10,6 +10,7 @@ use App\Http\Controllers\CentralAppController;
 use App\Http\Controllers\Central\ExportController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\NewsletterSubscriptionController;
+use App\Http\Controllers\SuspensionController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,9 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Suspension page route (accessible without authentication)
+Route::get('/suspended', [SuspensionController::class, 'show'])->name('suspended');
 
 if (! app()->isProduction()) {
     Route::group(['prefix' => '/debug'], function () {

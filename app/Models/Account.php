@@ -5,11 +5,12 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\ChartOfAccount;
 
 class Account extends Model
 {
-    use Sluggable, HasFactory;
+    use Sluggable, HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

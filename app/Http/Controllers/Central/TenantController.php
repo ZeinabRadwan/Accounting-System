@@ -26,7 +26,20 @@ class TenantController extends Controller
      */
     public function index(Request $request)
     {
-        $tenants = Tenant::with('plan')->latest()->paginate($request->perPage);
+        $tenants = Tenant::with('plan')->active()->latest()->paginate($request->perPage);
+        return TenantResource::collection($tenants);
+    }
+
+    /**
+     * Display archived tenants.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function archived(Request $request)
+    {
+        $tenants = Tenant::with('plan')->archived()->latest('archived_at')->paginate($request->perPage);
         return TenantResource::collection($tenants);
     }
 
@@ -136,7 +149,7 @@ class TenantController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Archive the specified tenant.
      *
      * @param Tenant $tenant
      *
@@ -145,33 +158,67 @@ class TenantController extends Controller
     public function destroy(Tenant $tenant)
     {
         try {
-            // Log the deletion attempt
-            Log::info("Attempting to delete tenant: {$tenant->id}", [
+            // Log the archiving attempt
+            Log::info("Attempting to archive tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
                 'tenant_data' => $tenant->data,
                 'user_id' => auth()->id()
             ]);
 
-            // Delete domains first
-            $domainCount = $tenant->domains()->count();
-            $tenant->domains()->delete();
-            Log::info("Deleted {$domainCount} domains for tenant: {$tenant->id}");
+            // Archive the tenant instead of deleting
+            $tenant->archive(auth()->id());
+            Log::info("Successfully archived tenant: {$tenant->id}");
 
-            // Delete the tenant
-            $tenant->delete();
-            Log::info("Successfully deleted tenant: {$tenant->id}");
-
-            return $this->responseWithSuccess('Tenant deleted successfully');
+            return $this->responseWithSuccess('Tenant archived successfully');
             
         } catch (\Exception $e) {
-            Log::error("Failed to delete tenant: {$tenant->id}", [
+            Log::error("Failed to archive tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
                 'user_id' => auth()->id()
             ]);
 
-            return $this->responseWithError('Failed to delete tenant: ' . $e->getMessage());
+            return $this->responseWithError('Failed to archive tenant: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Restore the specified archived tenant.
+     *
+     * @param Tenant $tenant
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore(Tenant $tenant)
+    {
+        try {
+            // Check if tenant is actually archived
+            if (!$tenant->isArchived()) {
+                return $this->responseWithError('Tenant is not archived');
+            }
+
+            // Log the restoration attempt
+            Log::info("Attempting to restore tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'user_id' => auth()->id()
+            ]);
+
+            // Restore the tenant
+            $tenant->restore();
+            Log::info("Successfully restored tenant: {$tenant->id}");
+
+            return $this->responseWithSuccess('Tenant restored successfully');
+            
+        } catch (\Exception $e) {
+            Log::error("Failed to restore tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id()
+            ]);
+
+            return $this->responseWithError('Failed to restore tenant: ' . $e->getMessage());
         }
     }
 

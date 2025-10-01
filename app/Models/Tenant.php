@@ -35,9 +35,35 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'password',
     ];
 
+    protected $fillable = [
+        'data',
+        'company',
+        'name',
+        'domain',
+        'email',
+        'password',
+        'ready',
+        'trial_ends_at',
+        'trial_ends_email_sent_at',
+        'primary_domain_id',
+        'fallback_domain_id',
+        'is_banned',
+        'email_verified_at',
+        'is_archived',
+        'archived_at',
+        'archived_by',
+    ];
+
     protected $casts = [
+        'data' => 'array',
         'trial_ends_at' => 'datetime',
+        'trial_ends_email_sent_at' => 'datetime',
         'plan_ends_at' => 'datetime',
+        'email_verified_at' => 'datetime',
+        'is_archived' => 'boolean',
+        'archived_at' => 'datetime',
+        'ready' => 'boolean',
+        'is_banned' => 'boolean',
     ];
 
     public static function getCustomColumns(): array
@@ -149,5 +175,57 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         $this->forceFill([
             'email_verified_at' => $this->freshTimestamp(),
         ])->save();
+    }
+
+    /**
+     * Archive the tenant
+     */
+    public function archive($archivedBy = null)
+    {
+        \DB::table('tenants')
+            ->where('id', $this->id)
+            ->update([
+                'is_archived' => true,
+                'archived_at' => now(),
+                'archived_by' => $archivedBy ?? auth()->id(),
+            ]);
+    }
+
+    /**
+     * Restore the tenant from archive
+     */
+    public function restore()
+    {
+        \DB::table('tenants')
+            ->where('id', $this->id)
+            ->update([
+                'is_archived' => false,
+                'archived_at' => null,
+                'archived_by' => null,
+            ]);
+    }
+
+    /**
+     * Check if tenant is archived
+     */
+    public function isArchived(): bool
+    {
+        return $this->is_archived;
+    }
+
+    /**
+     * Scope to get only active (non-archived) tenants
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_archived', false);
+    }
+
+    /**
+     * Scope to get only archived tenants
+     */
+    public function scopeArchived($query)
+    {
+        return $query->where('is_archived', true);
     }
 }
