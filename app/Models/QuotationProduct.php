@@ -78,10 +78,9 @@ class QuotationProduct extends Model
      */
     public function getSubtotalAttribute()
     {
-        $unitCost = $this->getUnitCostAttribute();
-        $quantity = $this->quantity ?? 1;
+        $totalAfterDiscount = $this->getTotalAfterDiscountAttribute();
         
-        // Subtotal = Unit Cost * quantity
-        return $unitCost * $quantity;
+        // Subtotal = Total After Discount (without VAT)
+        return $totalAfterDiscount;
     }
 }

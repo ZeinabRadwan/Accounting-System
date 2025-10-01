@@ -907,12 +907,12 @@ export default {
 
     // calculate sum
     calculateSum() {
-      // calculate subtotal
+      // calculate subtotal (without VAT for quotations)
       this.form.subTotal = this.form.selectedProducts.reduce(function (
         prev,
         cur
       ) {
-        return Number((prev + cur.totalPrice).toFixed(2))
+        return Number((prev + (cur.totalAfterDiscount || 0)).toFixed(2))
       },
         0)
 
@@ -1490,7 +1490,7 @@ export default {
         return 0;
       }
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalPrice || 0);
+        return total + (item.totalAfterDiscount || 0);
       }, 0);
       return this.roundToTwoDecimals(total);
     },

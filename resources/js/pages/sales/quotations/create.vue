@@ -581,12 +581,9 @@ export default {
       return this.roundToTwoDecimals(total);
     },
     
-    // Calculate subtotal (reactive)
+    // Calculate subtotal (reactive) - WITHOUT VAT for quotations
     subtotal() {
-      const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalPrice || 0);
-      }, 0);
-      return this.roundToTwoDecimals(total);
+      return this.totalAfterDiscount;
     },
     
     // Check if there are any products with insufficient stock
@@ -933,6 +930,9 @@ export default {
         if (isNaN(vatRate) || vatRate < 0) {
           vatRate = 0;
         }
+
+        // Set totalAfterDiscount for subtotal calculation (without VAT)
+        item.totalAfterDiscount = this.roundToTwoDecimals(priceAfterDiscount);
 
         if (item.taxType == "Exclusive") {
           // VAT on discounted amount
