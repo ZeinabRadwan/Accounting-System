@@ -226,6 +226,7 @@ import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import Swal from "sweetalert2";
+import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import axios from "axios";
 
 export default {
@@ -470,7 +471,7 @@ export default {
       console.log('isSaudiArabia:', this.isSaudiArabia);
       console.log('data.status:', data.status);
       
-      Swal.fire({
+      SwalOriginal.fire({
         title: this.$t("Send Credit Note to ZATCA"),
         text: this.$t("Do you want to send this credit note to ZATCA?"),
         type: "question",
@@ -483,13 +484,13 @@ export default {
         if (result.value) {
           try {
             // Show loading
-            Swal.fire({
+            SwalOriginal.fire({
               title: this.$t("Sending..."),
               text: this.$t("Please wait while we send the credit note to ZATCA"),
               allowOutsideClick: false,
               showConfirmButton: false,
               willOpen: () => {
-                Swal.showLoading();
+                SwalOriginal.showLoading();
               }
             });
 
