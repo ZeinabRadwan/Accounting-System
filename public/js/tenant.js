@@ -24654,12 +24654,12 @@ var map = {
 		7883
 	],
 	"./clients": [
-		78841,
-		8841
+		95083,
+		5083
 	],
 	"./clients/": [
-		78841,
-		8841
+		95083,
+		5083
 	],
 	"./clients/create": [
 		90338,
@@ -24678,12 +24678,12 @@ var map = {
 		6808
 	],
 	"./clients/index": [
-		78841,
-		8841
+		95083,
+		5083
 	],
 	"./clients/index.vue": [
-		78841,
-		8841
+		95083,
+		5083
 	],
 	"./clients/show": [
 		67376,
@@ -25838,12 +25838,12 @@ var map = {
 		4176
 	],
 	"./sales/quotations/create": [
-		2512,
-		2512
+		50269,
+		269
 	],
 	"./sales/quotations/create.vue": [
-		2512,
-		2512
+		50269,
+		269
 	],
 	"./sales/quotations/edit": [
 		55892,
@@ -25862,12 +25862,12 @@ var map = {
 		4176
 	],
 	"./sales/quotations/invoice": [
-		63441,
-		3441
+		77688,
+		7688
 	],
 	"./sales/quotations/invoice.vue": [
-		63441,
-		3441
+		77688,
+		7688
 	],
 	"./sales/quotations/show": [
 		98397,
@@ -89331,7 +89331,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 7496) return "js/7496.js";
 /******/ 			if (chunkId === 9325) return "js/9325.js";
 /******/ 			if (chunkId === 7883) return "js/7883.js";
-/******/ 			if (chunkId === 8841) return "js/8841.js";
+/******/ 			if (chunkId === 5083) return "js/5083.js";
 /******/ 			if (chunkId === 338) return "js/338.js";
 /******/ 			if (chunkId === 6808) return "js/6808.js";
 /******/ 			if (chunkId === 7376) return "js/7376.js";
@@ -89451,9 +89451,9 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 2593) return "js/2593.js";
 /******/ 			if (chunkId === 1979) return "js/1979.js";
 /******/ 			if (chunkId === 4176) return "js/4176.js";
-/******/ 			if (chunkId === 2512) return "js/2512.js";
+/******/ 			if (chunkId === 269) return "js/269.js";
 /******/ 			if (chunkId === 5892) return "js/5892.js";
-/******/ 			if (chunkId === 3441) return "js/3441.js";
+/******/ 			if (chunkId === 7688) return "js/7688.js";
 /******/ 			if (chunkId === 8397) return "js/8397.js";
 /******/ 			if (chunkId === 6754) return "js/6754.js";
 /******/ 			if (chunkId === 4796) return "js/4796.js";
@@ -113285,7 +113285,13 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 
-vue_esm["default"].use(vue_meta_esm);
+vue_esm["default"].use(vue_meta_esm, {
+  keyName: 'metaInfo',
+  attribute: 'data-vue-meta',
+  ssrAttribute: 'data-vue-meta-server-rendered',
+  tagIDKeyName: 'vmid',
+  refreshOnceOnNavigation: true
+});
 vue_esm["default"].use(VueRouter$1);
 
 // The middleware for every page of the application.
