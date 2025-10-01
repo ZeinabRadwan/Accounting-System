@@ -604,7 +604,21 @@ export default {
         Number(item.inventoryCount) < Number(item.qty)
       );
     },
+    
+    // Page title computed property - static to prevent reactive updates
+    pageTitle() {
+      console.log('pageTitle computed property called');
+      return this.$t("Create Quotation");
+    }
   },
+  
+  watch: {
+    // Watch for any changes and ensure title stays correct
+    '$route'() {
+      this.setCorrectTitle();
+    }
+  },
+  
   created() {
     this.getClients();
     this.getProducts();
@@ -614,6 +628,15 @@ export default {
     this.ensureDiscountProperties();
   },
   methods: {
+    // Set the correct title and prevent it from changing
+    setCorrectTitle() {
+      const correctTitle = this.$t("Create Quotation");
+      if (document.title !== correctTitle) {
+        console.log('Title changed, fixing it. Current:', document.title, 'Setting to:', correctTitle);
+        document.title = correctTitle;
+      }
+    },
+    
     // get all clients
     async getClients(selectedClient = 'default') {
       await this.$store.dispatch("operations/allData", {
@@ -1475,7 +1498,41 @@ export default {
     },
   },
   mounted() {
-    this.loadTemporaryData()
+    this.loadTemporaryData();
+    this.setCorrectTitle();
+    
+    // Set up a periodic check to ensure title stays correct
+    this.titleCheckInterval = setInterval(() => {
+      this.setCorrectTitle();
+    }, 1000); // Check every second
+    
+    // Set up a MutationObserver to watch for title changes
+    this.titleObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' && mutation.target.tagName === 'TITLE') {
+          console.log('Title element changed, fixing it');
+          this.setCorrectTitle();
+        }
+      });
+    });
+    
+    // Observe the head element for title changes
+    const head = document.querySelector('head');
+    if (head) {
+      this.titleObserver.observe(head, { childList: true, subtree: true });
+    }
+  },
+  
+  beforeDestroy() {
+    // Clean up the interval
+    if (this.titleCheckInterval) {
+      clearInterval(this.titleCheckInterval);
+    }
+    
+    // Clean up the observer
+    if (this.titleObserver) {
+      this.titleObserver.disconnect();
+    }
   },
 };
 </script>

@@ -5,7 +5,13 @@ import routes from "./routes";
 import Router from "vue-router";
 import { sync } from "vuex-router-sync";
 
-Vue.use(Meta);
+Vue.use(Meta, {
+  keyName: 'metaInfo',
+  attribute: 'data-vue-meta',
+  ssrAttribute: 'data-vue-meta-server-rendered',
+  tagIDKeyName: 'vmid',
+  refreshOnceOnNavigation: true
+});
 Vue.use(Router);
 
 // The middleware for every page of the application.
