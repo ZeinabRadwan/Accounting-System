@@ -102,7 +102,7 @@ Route::middleware([
 ])->group(function () {
     // API Routes
     // [GUEST API] Tenant Routes without protection
-    Route::prefix('api')->group(function () {
+    Route::prefix('api')->middleware('tenant.not_archived')->group(function () {
         Route::post('login', [LoginController::class, 'login'])->name('tenant.login');
         Route::post('register', [RegisterController::class, 'register']);
 
@@ -120,7 +120,7 @@ Route::middleware([
     });
 
     // [PROTECTED API] Tenant Routes protected by Sanctum
-    Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'api', 'as' => 'tenant.'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
 
 
         Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
@@ -305,6 +305,17 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/chart-of-accounts/dropdown', [ChartOfAccountController::class, 'getDropdown']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::post('/chart-of-accounts/generate-code', [ChartOfAccountController::class, 'generateCode']);
+        
+        // Multilingual Chart of Accounts routes
+        Route::get('/chart-of-accounts/translations', [ChartOfAccountController::class, 'indexWithTranslations']);
+        Route::post('/chart-of-accounts/translations', [ChartOfAccountController::class, 'storeWithTranslations']);
+        Route::put('/chart-of-accounts/{slug}/translations', [ChartOfAccountController::class, 'updateWithTranslations']);
+        Route::get('/chart-of-accounts/{slug}/translations', [ChartOfAccountController::class, 'getTranslations']);
+        Route::put('/chart-of-accounts/{slug}/translations/update', [ChartOfAccountController::class, 'updateTranslations']);
+        Route::get('/chart-of-accounts/translations/search', [ChartOfAccountController::class, 'searchTranslations']);
+        Route::get('/chart-of-accounts/translations/stats', [ChartOfAccountController::class, 'getTranslationStats']);
+        Route::get('/chart-of-accounts/translations/export', [ChartOfAccountController::class, 'exportTranslations']);
+        
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
 
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
@@ -403,6 +414,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::get('/client/{slug}/invoices', [ClientController::class, 'specificClientInvoices']);
         Route::get('/client/{slug}/ledger', [ClientController::class, 'specificClientLedger']);
         Route::apiResource('clients', ClientController::class);
+        Route::get('/clients/trashed', [ClientController::class, 'trashed']);
+        Route::post('/clients/{slug}/restore', [ClientController::class, 'restore']);
+        Route::delete('/clients/{slug}/force-delete', [ClientController::class, 'forceDelete']);
         // client import csv routes
         Route::post('/client-import', [ClientController::class, 'import']);
 
@@ -435,6 +449,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::get('/all-suppliers', [SupplierController::class, 'allSuppliers']);
         Route::get('/supplier/purchases/{slug}', [SupplierController::class, 'supplierPurchases']);
         Route::apiResource('suppliers', SupplierController::class);
+        Route::get('/suppliers/trashed', [SupplierController::class, 'trashed']);
+        Route::post('/suppliers/{slug}/restore', [SupplierController::class, 'restore']);
+        Route::delete('/suppliers/{slug}/force-delete', [SupplierController::class, 'forceDelete']);
         // client import csv routes
         Route::post('/supplier-import', [SupplierController::class, 'import']);
 
@@ -513,6 +530,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::get('/products-by-sub-categories/{catSlug}/{subCatSlug}', [ProductController::class, 'productsBySubCategory']);
         Route::get('/all-products-by-sub-categories/{catSlug}/{subCatSlug}', [ProductController::class, 'allProductsBySubCategory']);
         Route::apiResource('products', ProductController::class);
+        Route::get('/products/trashed', [ProductController::class, 'trashed']);
+        Route::post('/products/{slug}/restore', [ProductController::class, 'restore']);
+        Route::delete('/products/{slug}/force-delete', [ProductController::class, 'forceDelete']);
         Route::post('/product-import', [ProductController::class, 'import']);
 
 
@@ -774,6 +794,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/items-report/export', [TableExportController::class, 'itemsReportExportExcel'])->name('itemsReport.export.excel');
     Route::get('/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('expensesReport.pdf');
         Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
+        // Aliases to match frontend URLs
+        Route::get('/reports/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('reports.expensesReport.pdf');
+        Route::get('/reports/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('reports.expensesReport.export.excel');
 
         // Journal Entries export routes
         Route::get('/journal-entries/export/excel', [TableExportController::class, 'journalEntriesExportExcel'])->name('journalEntries.export.excel');
@@ -801,5 +824,5 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     })->name('profile.image');
 
     // Tenant SPA routes
-    Route::get('{path}', SpaController::class)->where('path', '^(?!.*api).*$');
+    Route::get('{path}', SpaController::class)->where('path', '^(?!.*api).*$')->middleware('tenant.not_archived');
 });

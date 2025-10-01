@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class QuotationProduct extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -77,10 +78,9 @@ class QuotationProduct extends Model
      */
     public function getSubtotalAttribute()
     {
-        $unitCost = $this->getUnitCostAttribute();
-        $quantity = $this->quantity ?? 1;
+        $totalAfterDiscount = $this->getTotalAfterDiscountAttribute();
         
-        // Subtotal = Unit Cost * quantity
-        return $unitCost * $quantity;
+        // Subtotal = Total After Discount (without VAT)
+        return $totalAfterDiscount;
     }
 }

@@ -342,6 +342,7 @@ import { mapGetters } from "vuex";
 import DateRangePicker from "vue2-daterange-picker";
 import { ToggleButton } from "vue-js-toggle-button";
 import Swal from "sweetalert2";
+import SwalOriginal from "sweetalert2/dist/sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -653,7 +654,7 @@ export default {
       console.log('isSaudiArabia:', this.isSaudiArabia);
       console.log('data.status:', data.status);
       
-      Swal.fire({
+      SwalOriginal.fire({
         title: this.$t("Send Invoice to ZATCA"),
         text: this.$t("Do you want to send this invoice to ZATCA?"),
         type: "question",
@@ -666,18 +667,21 @@ export default {
         if (result.value) {
           try {
             // Show loading
-            Swal.fire({
+            SwalOriginal.fire({
               title: this.$t("Sending..."),
               text: this.$t("Please wait while we send the invoice to ZATCA"),
               allowOutsideClick: false,
               showConfirmButton: false,
               willOpen: () => {
-                Swal.showLoading();
+                SwalOriginal.showLoading();
               }
             });
 
             // Send invoice to ZATCA and create journal entries
             const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
+            
+            // Close the loading dialog
+            SwalOriginal.close();
             
             if (response.data.success) {
               this.$toast.success(
@@ -692,6 +696,8 @@ export default {
             }
           } catch (error) {
             console.error('Error sending invoice to ZATCA:', error);
+            // Close the loading dialog
+            SwalOriginal.close();
             this.$toast.error(
               this.$t("An error occurred while sending the invoice to ZATCA")
             );

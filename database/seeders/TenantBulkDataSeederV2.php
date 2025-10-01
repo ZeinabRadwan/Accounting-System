@@ -497,11 +497,11 @@ class TenantBulkDataSeederV2 extends Seeder
     private function createSampleClients()
     {
         $clients = [
-            ['name' => 'ABC Corporation', 'email' => 'contact@abccorp.com', 'phone' => '+1-555-0101', 'address' => '123 Business St, New York, NY 10001'],
-            ['name' => 'XYZ Industries', 'email' => 'info@xyzind.com', 'phone' => '+1-555-0102', 'address' => '456 Industrial Ave, Los Angeles, CA 90210'],
-            ['name' => 'Global Solutions Ltd', 'email' => 'sales@globalsol.com', 'phone' => '+1-555-0103', 'address' => '789 Commerce Blvd, Chicago, IL 60601'],
-            ['name' => 'Tech Innovations Inc', 'email' => 'hello@techinnov.com', 'phone' => '+1-555-0104', 'address' => '321 Innovation Dr, Austin, TX 73301'],
-            ['name' => 'Premier Services Co', 'email' => 'contact@premierserv.com', 'phone' => '+1-555-0105', 'address' => '654 Service Way, Miami, FL 33101'],
+            ['name' => 'شركة الرياض للتجارة', 'email' => $this->makeAsciiEmail('شركة الرياض للتجارة'), 'phone' => '+966-11-000-0101', 'address' => 'الرياض, المملكة العربية السعودية'],
+            ['name' => 'مؤسسة جدة للخدمات', 'email' => $this->makeAsciiEmail('مؤسسة جدة للخدمات'), 'phone' => '+966-12-000-0102', 'address' => 'جدة, المملكة العربية السعودية'],
+            ['name' => 'حلول الشرقية المحدودة', 'email' => $this->makeAsciiEmail('حلول الشرقية المحدودة'), 'phone' => '+966-13-000-0103', 'address' => 'الدمام, المملكة العربية السعودية'],
+            ['name' => 'ابتكارات التقنية', 'email' => $this->makeAsciiEmail('ابتكارات التقنية'), 'phone' => '+966-11-000-0104', 'address' => 'الرياض, المملكة العربية السعودية'],
+            ['name' => 'الخليج للخدمات المتميزة', 'email' => $this->makeAsciiEmail('الخليج للخدمات المتميزة'), 'phone' => '+966-12-000-0105', 'address' => 'جدة, المملكة العربية السعودية'],
         ];
 
         foreach ($clients as $clientData) {
@@ -519,11 +519,11 @@ class TenantBulkDataSeederV2 extends Seeder
     private function createSampleSuppliers()
     {
         $suppliers = [
-            ['name' => 'Supply Chain Solutions', 'email' => 'orders@supplychain.com', 'phone' => '+1-555-0201', 'address' => '100 Supply St, Dallas, TX 75201'],
-            ['name' => 'Manufacturing Partners', 'email' => 'sales@manufpartners.com', 'phone' => '+1-555-0202', 'address' => '200 Factory Rd, Detroit, MI 48201'],
-            ['name' => 'Wholesale Distributors', 'email' => 'contact@wholesale.com', 'phone' => '+1-555-0203', 'address' => '300 Distribution Ave, Phoenix, AZ 85001'],
-            ['name' => 'Raw Materials Co', 'email' => 'info@rawmaterials.com', 'phone' => '+1-555-0204', 'address' => '400 Material Blvd, Denver, CO 80201'],
-            ['name' => 'Equipment Suppliers', 'email' => 'sales@equipsupply.com', 'phone' => '+1-555-0205', 'address' => '500 Equipment Way, Seattle, WA 98101'],
+            ['name' => 'سلسلة الإمداد المتقدمة', 'email' => $this->makeAsciiEmail('سلسلة الإمداد المتقدمة'), 'phone' => '+966-11-200-0201', 'address' => 'الرياض, المملكة العربية السعودية'],
+            ['name' => 'شركاء التصنيع', 'email' => $this->makeAsciiEmail('شركاء التصنيع'), 'phone' => '+966-12-200-0202', 'address' => 'جدة, المملكة العربية السعودية'],
+            ['name' => 'الوكلاء بالجملة', 'email' => $this->makeAsciiEmail('الوكلاء بالجملة'), 'phone' => '+966-13-200-0203', 'address' => 'الدمام, المملكة العربية السعودية'],
+            ['name' => 'الخامات الأولية', 'email' => $this->makeAsciiEmail('الخامات الأولية'), 'phone' => '+966-11-200-0204', 'address' => 'الرياض, المملكة العربية السعودية'],
+            ['name' => 'معدات الإمداد', 'email' => $this->makeAsciiEmail('معدات الإمداد'), 'phone' => '+966-12-200-0205', 'address' => 'جدة, المملكة العربية السعودية'],
         ];
 
         foreach ($suppliers as $supplierData) {
@@ -547,16 +547,16 @@ class TenantBulkDataSeederV2 extends Seeder
         $this->createSampleVatRates();
         
         $products = [
-            ['name' => 'Office Chair', 'code' => 'CHR-001', 'regular_price' => 299.99, 'purchase_price' => 199.99],
-            ['name' => 'Desk Lamp', 'code' => 'LMP-001', 'regular_price' => 89.99, 'purchase_price' => 59.99],
-            ['name' => 'Computer Monitor', 'code' => 'MON-001', 'regular_price' => 599.99, 'purchase_price' => 399.99],
-            ['name' => 'Wireless Mouse', 'code' => 'MOU-001', 'regular_price' => 49.99, 'purchase_price' => 29.99],
-            ['name' => 'Keyboard', 'code' => 'KEY-001', 'regular_price' => 79.99, 'purchase_price' => 49.99],
-            ['name' => 'Notebook', 'code' => 'NBK-001', 'regular_price' => 12.99, 'purchase_price' => 7.99],
-            ['name' => 'Pen Set', 'code' => 'PEN-001', 'regular_price' => 24.99, 'purchase_price' => 14.99],
-            ['name' => 'File Cabinet', 'code' => 'CAB-001', 'regular_price' => 199.99, 'purchase_price' => 129.99],
-            ['name' => 'Printer Paper', 'code' => 'PAP-001', 'regular_price' => 19.99, 'purchase_price' => 12.99],
-            ['name' => 'Stapler', 'code' => 'STP-001', 'regular_price' => 15.99, 'purchase_price' => 9.99],
+            ['name' => 'كرسي مكتب', 'code' => 'CHR-001', 'regular_price' => 299.99, 'purchase_price' => 199.99],
+            ['name' => 'مصباح مكتب', 'code' => 'LMP-001', 'regular_price' => 89.99, 'purchase_price' => 59.99],
+            ['name' => 'شاشة كمبيوتر', 'code' => 'MON-001', 'regular_price' => 599.99, 'purchase_price' => 399.99],
+            ['name' => 'فأرة لاسلكية', 'code' => 'MOU-001', 'regular_price' => 49.99, 'purchase_price' => 29.99],
+            ['name' => 'لوحة مفاتيح', 'code' => 'KEY-001', 'regular_price' => 79.99, 'purchase_price' => 49.99],
+            ['name' => 'دفتر ملاحظات', 'code' => 'NBK-001', 'regular_price' => 12.99, 'purchase_price' => 7.99],
+            ['name' => 'طقم أقلام', 'code' => 'PEN-001', 'regular_price' => 24.99, 'purchase_price' => 14.99],
+            ['name' => 'خزانة ملفات', 'code' => 'CAB-001', 'regular_price' => 199.99, 'purchase_price' => 129.99],
+            ['name' => 'ورق طابعة', 'code' => 'PAP-001', 'regular_price' => 19.99, 'purchase_price' => 12.99],
+            ['name' => 'دباسة', 'code' => 'STP-001', 'regular_price' => 15.99, 'purchase_price' => 9.99],
         ];
 
         // Get a random subcategory
@@ -584,9 +584,9 @@ class TenantBulkDataSeederV2 extends Seeder
     {
         // Create product categories
         $categories = [
-            ['name' => 'Office Supplies', 'code' => 1, 'status' => 1],
-            ['name' => 'Electronics', 'code' => 2, 'status' => 1],
-            ['name' => 'Furniture', 'code' => 3, 'status' => 1],
+            ['name' => 'مستلزمات مكتبية', 'code' => 1, 'status' => 1],
+            ['name' => 'إلكترونيات', 'code' => 2, 'status' => 1],
+            ['name' => 'أثاث', 'code' => 3, 'status' => 1],
         ];
 
         $createdCategories = [];
@@ -597,9 +597,9 @@ class TenantBulkDataSeederV2 extends Seeder
 
         // Create subcategories
         $subCategories = [
-            ['name' => 'Writing Supplies', 'cat_id' => $createdCategories[0]->id, 'code' => 1, 'status' => 1],
-            ['name' => 'Computer Accessories', 'cat_id' => $createdCategories[1]->id, 'code' => 2, 'status' => 1],
-            ['name' => 'Office Furniture', 'cat_id' => $createdCategories[2]->id, 'code' => 3, 'status' => 1],
+            ['name' => 'أدوات كتابة', 'cat_id' => $createdCategories[0]->id, 'code' => 1, 'status' => 1],
+            ['name' => 'ملحقات الكمبيوتر', 'cat_id' => $createdCategories[1]->id, 'code' => 2, 'status' => 1],
+            ['name' => 'أثاث مكتبي', 'cat_id' => $createdCategories[2]->id, 'code' => 3, 'status' => 1],
         ];
 
         foreach ($subCategories as $subCategoryData) {
@@ -752,25 +752,25 @@ class TenantBulkDataSeederV2 extends Seeder
      */
     private function createBulkClient($clientNumber)
     {
-        $companyTypes = ['Corp', 'Inc', 'LLC', 'Ltd', 'Co', 'Group', 'Solutions', 'Services', 'Enterprises', 'Partners'];
-        $industries = ['Technology', 'Manufacturing', 'Healthcare', 'Finance', 'Retail', 'Construction', 'Consulting', 'Education', 'Real Estate', 'Logistics'];
-        $cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose'];
-        
+        $companyTypes = ['للتجارة', 'للخدمات', 'المحدودة', 'شركة', 'المجموعة', 'الحلول', 'المؤسسة', 'المتحدة', 'القابضة'];
+        $cities = ['الرياض', 'جدة', 'الدمام', 'الخبر', 'مكة', 'المدينة', 'بريدة', 'الطائف', 'تبوك', 'أبها'];
+
+        $baseNames = ['الرياض', 'الوطن', 'النخبة', 'السلام', 'المجد', 'النهضة', 'الرؤية', 'الخبراء', 'التميز', 'الأفق'];
         $companyType = $this->faker->randomElement($companyTypes);
-        $industry = $this->faker->randomElement($industries);
         $city = $this->faker->randomElement($cities);
-        
-        $companyName = $this->faker->company() . ' ' . $companyType;
-        $email = strtolower(str_replace([' ', '.', ',', '&'], ['', '', '', 'and'], $companyName)) . '@' . $this->faker->domainName();
+        $base = $this->faker->randomElement($baseNames);
+
+        $companyName = 'شركة ' . $base . ' ' . $companyType;
+        $email = $this->makeAsciiEmail($companyName);
         
         Client::create([
             'name' => $companyName,
             'email' => $email,
-            'phone_number' => $this->faker->phoneNumber(),
-            'address' => $this->faker->streetAddress() . ', ' . $city . ', ' . $this->faker->stateAbbr() . ' ' . $this->faker->postcode(),
-            'status' => $this->faker->randomElement([0, 1]), // Randomly active/inactive
+            'phone_number' => '+966-' . $this->faker->numberBetween(10,19) . '-' . $this->faker->numerify('###-####'),
+            'address' => $city . ', المملكة العربية السعودية',
+            'status' => $this->faker->randomElement([0, 1]),
             'type' => $this->faker->randomElement(['Company', 'Individual']),
-            'tax_registration_number' => $this->faker->optional(0.8)->numerify('##-#######'),
+            'tax_registration_number' => $this->faker->optional(0.8)->numerify('##########'),
         ]);
     }
 
@@ -779,25 +779,40 @@ class TenantBulkDataSeederV2 extends Seeder
      */
     private function createBulkSupplier($supplierNumber)
     {
-        $companyTypes = ['Supply', 'Distributors', 'Manufacturing', 'Wholesale', 'Trading', 'Import/Export', 'Services', 'Solutions', 'Enterprises', 'Partners'];
-        $industries = ['Raw Materials', 'Manufacturing', 'Technology', 'Office Supplies', 'Equipment', 'Food & Beverage', 'Textiles', 'Chemicals', 'Electronics', 'Automotive'];
-        $cities = ['Detroit', 'Dallas', 'Phoenix', 'Denver', 'Seattle', 'Boston', 'Atlanta', 'Miami', 'Tampa', 'Orlando'];
-        
+        $companyTypes = ['للتوريد', 'للتوزيع', 'للتصنيع', 'للتجزئة', 'للتجارة', 'للاستيراد والتصدير', 'للخدمات', 'للحلول', 'المتحدة'];
+        $cities = ['الرياض', 'جدة', 'الدمام', 'الخبر', 'مكة', 'المدينة', 'بريدة', 'الطائف', 'تبوك', 'أبها'];
+        $baseNames = ['النخبة', 'الإمداد', 'المحترفون', 'السبيل', 'الرائدة', 'المتكاملة', 'التميز', 'الخبراء', 'السعودية'];
+
         $companyType = $this->faker->randomElement($companyTypes);
-        $industry = $this->faker->randomElement($industries);
         $city = $this->faker->randomElement($cities);
-        
-        $companyName = $this->faker->company() . ' ' . $companyType;
-        $email = strtolower(str_replace([' ', '.', ',', '&'], ['', '', '', 'and'], $companyName)) . '@' . $this->faker->domainName();
+        $base = $this->faker->randomElement($baseNames);
+
+        $companyName = 'مؤسسة ' . $base . ' ' . $companyType;
+        $email = $this->makeAsciiEmail($companyName);
         
         Supplier::create([
             'name' => $companyName,
             'email' => $email,
-            'phone_number' => $this->faker->phoneNumber(),
-            'street_address1' => $this->faker->streetAddress() . ', ' . $city . ', ' . $this->faker->stateAbbr() . ' ' . $this->faker->postcode(),
-            'status' => $this->faker->randomElement([0, 1]), // Randomly active/inactive
+            'phone_number' => '+966-' . $this->faker->numberBetween(10,19) . '-' . $this->faker->numerify('###-####'),
+            'street_address1' => $city . ', المملكة العربية السعودية',
+            'status' => $this->faker->randomElement([0, 1]),
             'type' => $this->faker->randomElement(['Company', 'Individual']),
-            'tax_registration_number' => $this->faker->optional(0.8)->numerify('##-#######'),
+            'tax_registration_number' => $this->faker->optional(0.8)->numerify('##########'),
         ]);
+    }
+
+    /**
+     * Create ASCII-safe email from Arabic company name
+     */
+    private function makeAsciiEmail($companyName)
+    {
+        $transliterated = @iconv('UTF-8', 'ASCII//TRANSLIT', $companyName);
+        $transliterated = $transliterated ?: '';
+        $clean = preg_replace('/[^A-Za-z0-9]+/', '', strtolower($transliterated));
+        if (!$clean) {
+            $clean = 'company' . $this->faker->numerify('####');
+        }
+        $domain = $this->faker->domainName();
+        return $clean . '@' . $domain;
     }
 }

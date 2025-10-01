@@ -17,7 +17,7 @@
               </label>
               <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control" 
                 :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
-                :placeholder="$t('Loading...')" readonly aria-readonly="true" />
+                :placeholder="$t('Auto-generated...')" readonly aria-readonly="true" />
               <small class="form-text text-muted">
                 {{ $t("This client number is automatically generated and cannot be changed") }}
               </small>
@@ -626,7 +626,7 @@ export default {
       
       this.form = new Form({
         // Account Details
-        codeNumber: "AC001",
+        codeNumber: "", // Will be loaded from API
         notes: "",
         displayLanguage: "",
         
@@ -692,15 +692,15 @@ export default {
           console.log('Debug info from API:', response.data.debug);
         } else {
           console.error('API returned error:', response.data.message);
-          // Fallback to default
-          this.form.codeNumber = 'AC001';
+          // Fallback to default - use a placeholder that indicates loading failed
+          this.form.codeNumber = 'Loading...';
           console.log('Using fallback code number:', this.form.codeNumber);
         }
       } catch (error) {
         console.error('Error loading next code number:', error);
         console.error('Error details:', error.response?.data || error.message);
-        // Fallback to default
-        this.form.codeNumber = 'AC001';
+        // Fallback to default - use a placeholder that indicates loading failed
+        this.form.codeNumber = 'Loading...';
         console.log('Using fallback code number due to error:', this.form.codeNumber);
       }
     },

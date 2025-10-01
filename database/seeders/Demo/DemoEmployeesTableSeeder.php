@@ -3,6 +3,7 @@
 namespace Database\Seeders\Demo;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DemoEmployeesTableSeeder extends Seeder
 {
@@ -13,14 +14,14 @@ class DemoEmployeesTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('employees')->delete();
+        DB::table('employees')->delete();
 
-        \DB::table('employees')->insert([
+        DB::table('employees')->insert([
             0 => [
                 'id' => 1,
-                'name' => 'Whilemina Watts',
+                'name' => 'أحمد العبدالله',
                 'emp_id' => '1',
-                'slug' => 'whilemina-watts',
+                'slug' => 'ahmed-alabdullah',
                 'designation' => 'Sales Manager',
                 'salary' => 10000.0,
                 'commission' => 2.0,
@@ -41,9 +42,9 @@ class DemoEmployeesTableSeeder extends Seeder
             ],
             1 => [
                 'id' => 2,
-                'name' => 'Paki Wolf',
+                'name' => 'سلمان المطيري',
                 'emp_id' => '2',
-                'slug' => 'paki-wolf',
+                'slug' => 'salman-almutairi',
                 'designation' => 'Marketing Manager',
                 'salary' => 8000.0,
                 'commission' => 9.0,
@@ -64,9 +65,9 @@ class DemoEmployeesTableSeeder extends Seeder
             ],
             2 => [
                 'id' => 3,
-                'name' => 'Mari Johns',
+                'name' => 'منى الشهراني',
                 'emp_id' => '3',
-                'slug' => 'mari-johns',
+                'slug' => 'mona-alshahrani',
                 'designation' => 'Salesman',
                 'salary' => 1000.0,
                 'commission' => 3.0,

@@ -134,6 +134,7 @@ export default {
             this.$toast.success(this.$t('Locale changed successfully'))
           }
           
+          location.reload()
           // Force Vue to re-render all components with new locale
           this.$forceUpdate()
           

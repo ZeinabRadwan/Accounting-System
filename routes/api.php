@@ -115,7 +115,9 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
 
     // Tenant management routes
     Route::get('tenants/search', [TenantController::class, 'search']);
+    Route::get('tenants/archived', [TenantController::class, 'archived']);
     Route::post('tenants/{tenant}/ban', [TenantController::class, 'ban']);
+    Route::post('tenants/{tenant}/restore', [TenantController::class, 'restore']);
     Route::apiResource('tenants', TenantController::class);
     Route::post('send-notification/{tenant}', SendNotificationController::class);
     Route::post('payments/download', [PaymentController::class, 'download']);

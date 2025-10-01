@@ -22,7 +22,8 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
-                    :href="exportExcelUrl"
+                    href="#"
+                    @click.prevent="openInNewTab(exportExcelUrl)"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
@@ -41,7 +42,8 @@
                     </svg>
                   </a>
                   <a
-                    :href="exportPdfUrl"
+                    href="#"
+                    @click.prevent="openInNewTab(exportPdfUrl)"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -323,6 +325,15 @@ export default {
     this.loadTemporaryData()
   },
   methods: {
+    openInNewTab(url) {
+      try {
+        const fullUrl = url.startsWith('http') ? url : (window.location.origin + url);
+        window.open(fullUrl, '_blank', 'noopener');
+      } catch (e) {
+        console.error('Failed to open URL in new tab', e);
+        window.location.href = url;
+      }
+    },
     // get all categories
     async getCatgories() {
       await this.$store.dispatch("operations/allData", {

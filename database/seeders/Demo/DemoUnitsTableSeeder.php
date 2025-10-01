@@ -19,7 +19,7 @@ class DemoUnitsTableSeeder extends Seeder
         DB::table('units')->insert([
             0 => [
                 'id' => 1,
-                'name' => 'Piece',
+                'name' => 'قطعة',
                 'slug' => 'piece',
                 'code' => 'Pcs',
                 'note' => 'Individual items or units',
@@ -29,7 +29,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             1 => [
                 'id' => 2,
-                'name' => 'Kilogram',
+                'name' => 'كيلوغرام',
                 'slug' => 'kilogram',
                 'code' => 'Kg',
                 'note' => 'Unit of mass',
@@ -39,7 +39,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             2 => [
                 'id' => 3,
-                'name' => 'Gram',
+                'name' => 'غرام',
                 'slug' => 'gram',
                 'code' => 'g',
                 'note' => 'Unit of mass',
@@ -49,7 +49,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             3 => [
                 'id' => 4,
-                'name' => 'Liter',
+                'name' => 'لتر',
                 'slug' => 'liter',
                 'code' => 'L',
                 'note' => 'Unit of volume',
@@ -59,7 +59,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             4 => [
                 'id' => 5,
-                'name' => 'Meter',
+                'name' => 'متر',
                 'slug' => 'meter',
                 'code' => 'm',
                 'note' => 'Unit of length',
@@ -69,7 +69,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             5 => [
                 'id' => 6,
-                'name' => 'Centimeter',
+                'name' => 'سنتيمتر',
                 'slug' => 'centimeter',
                 'code' => 'cm',
                 'note' => 'Unit of length',
@@ -79,7 +79,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             6 => [
                 'id' => 7,
-                'name' => 'Square Meter',
+                'name' => 'متر مربع',
                 'slug' => 'square-meter',
                 'code' => 'm²',
                 'note' => 'Unit of area',
@@ -89,7 +89,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             7 => [
                 'id' => 8,
-                'name' => 'Cubic Meter',
+                'name' => 'متر مكعب',
                 'slug' => 'cubic-meter',
                 'code' => 'm³',
                 'note' => 'Unit of volume',
@@ -99,7 +99,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             8 => [
                 'id' => 9,
-                'name' => 'Pack',
+                'name' => 'عبوة',
                 'slug' => 'pack',
                 'code' => 'Pack',
                 'note' => 'Packaged items',
@@ -109,7 +109,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             9 => [
                 'id' => 10,
-                'name' => 'Box',
+                'name' => 'صندوق',
                 'slug' => 'box',
                 'code' => 'Box',
                 'note' => 'Boxed items',
@@ -119,7 +119,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             10 => [
                 'id' => 11,
-                'name' => 'Dozen',
+                'name' => 'دزينة',
                 'slug' => 'dozen',
                 'code' => 'Dz',
                 'note' => '12 pieces',
@@ -129,7 +129,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             11 => [
                 'id' => 12,
-                'name' => 'Pair',
+                'name' => 'زوج',
                 'slug' => 'pair',
                 'code' => 'Pair',
                 'note' => 'Two matching items',
@@ -139,7 +139,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             12 => [
                 'id' => 13,
-                'name' => 'Set',
+                'name' => 'مجموعة',
                 'slug' => 'set',
                 'code' => 'Set',
                 'note' => 'Collection of items',
@@ -149,7 +149,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             13 => [
                 'id' => 14,
-                'name' => 'Bottle',
+                'name' => 'زجاجة',
                 'slug' => 'bottle',
                 'code' => 'Btl',
                 'note' => 'Bottled items',
@@ -159,7 +159,7 @@ class DemoUnitsTableSeeder extends Seeder
             ],
             14 => [
                 'id' => 15,
-                'name' => 'Carton',
+                'name' => 'كرتون',
                 'slug' => 'carton',
                 'code' => 'Ctn',
                 'note' => 'Carton packaging',

@@ -5,7 +5,6 @@ import routes from "./routes";
 import Router from "vue-router";
 import { sync } from "vuex-router-sync";
 
-Vue.use(Meta);
 Vue.use(Router);
 
 // The middleware for every page of the application.
@@ -17,6 +16,18 @@ const routeMiddleware = resolveMiddleware(
 );
 
 const router = createRouter();
+
+// Initialize vue-meta with defensive configuration
+Vue.use(Meta, {
+  keyName: 'metaInfo',
+  attribute: 'data-vue-meta',
+  ssrAttribute: 'data-vue-meta-server-rendered',
+  tagIDKeyName: 'vmid',
+  refreshOnceOnNavigation: true,
+  // Add defensive options to prevent router access errors
+  debounceWait: 0,
+  waitFor: false
+});
 
 sync(store, router);
 
@@ -200,6 +211,11 @@ function scrollBehavior(to, from, savedPosition) {
 
   if (to.hash) {
     return { selector: to.hash };
+  }
+
+  // Check if router is available before accessing it
+  if (!router || !router.getMatchedComponents) {
+    return { x: 0, y: 0 };
   }
 
   const [component] = router.getMatchedComponents({ ...to }).slice(-1);

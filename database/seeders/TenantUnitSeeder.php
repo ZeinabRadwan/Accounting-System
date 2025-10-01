@@ -16,7 +16,7 @@ class TenantUnitSeeder extends Seeder
     {
         DB::table('units')->insert([
             [
-                'name' => 'Piece',
+                'name' => 'قطعة',
                 'slug' => 'piece',
                 'code' => 'Pcs',
                 'note' => 'Individual items or units',
@@ -25,7 +25,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Kilogram',
+                'name' => 'كيلوغرام',
                 'slug' => 'kilogram',
                 'code' => 'Kg',
                 'note' => 'Unit of mass',
@@ -34,7 +34,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Gram',
+                'name' => 'غرام',
                 'slug' => 'gram',
                 'code' => 'g',
                 'note' => 'Unit of mass',
@@ -43,7 +43,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Liter',
+                'name' => 'لتر',
                 'slug' => 'liter',
                 'code' => 'L',
                 'note' => 'Unit of volume',
@@ -52,7 +52,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Meter',
+                'name' => 'متر',
                 'slug' => 'meter',
                 'code' => 'm',
                 'note' => 'Unit of length',
@@ -61,7 +61,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Centimeter',
+                'name' => 'سنتيمتر',
                 'slug' => 'centimeter',
                 'code' => 'cm',
                 'note' => 'Unit of length',
@@ -70,7 +70,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Square Meter',
+                'name' => 'متر مربع',
                 'slug' => 'square-meter',
                 'code' => 'm²',
                 'note' => 'Unit of area',
@@ -79,7 +79,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Cubic Meter',
+                'name' => 'متر مكعب',
                 'slug' => 'cubic-meter',
                 'code' => 'm³',
                 'note' => 'Unit of volume',
@@ -88,7 +88,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Pack',
+                'name' => 'حزمة',
                 'slug' => 'pack',
                 'code' => 'Pack',
                 'note' => 'Packaged items',
@@ -97,7 +97,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Box',
+                'name' => 'صندوق',
                 'slug' => 'box',
                 'code' => 'Box',
                 'note' => 'Boxed items',
@@ -106,7 +106,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Dozen',
+                'name' => 'دزينة',
                 'slug' => 'dozen',
                 'code' => 'Dz',
                 'note' => '12 pieces',
@@ -115,7 +115,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Pair',
+                'name' => 'زوج',
                 'slug' => 'pair',
                 'code' => 'Pair',
                 'note' => 'Two matching items',
@@ -124,7 +124,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Set',
+                'name' => 'مجموعة',
                 'slug' => 'set',
                 'code' => 'Set',
                 'note' => 'Collection of items',
@@ -133,7 +133,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Bottle',
+                'name' => 'زجاجة',
                 'slug' => 'bottle',
                 'code' => 'Btl',
                 'note' => 'Bottled items',
@@ -142,7 +142,7 @@ class TenantUnitSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Carton',
+                'name' => 'كرتون',
                 'slug' => 'carton',
                 'code' => 'Ctn',
                 'note' => 'Carton packaging',

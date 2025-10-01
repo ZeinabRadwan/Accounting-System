@@ -1172,6 +1172,9 @@ export default {
         
         let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount;
         
+        // Set totalAfterDiscount for subtotal calculation (without VAT)
+        item.totalAfterDiscount = priceAfterDiscount;
+        
         let vatRate = 0;
         if (item.selectedVatRate && item.selectedVatRate.rate) {
           vatRate = item.selectedVatRate.rate;
@@ -1250,6 +1253,9 @@ export default {
         }
         let priceAfterDiscount = (item.unitPrice * item.qty) - discountAmount;
         
+        // Set totalAfterDiscount for subtotal calculation (without VAT)
+        item.totalAfterDiscount = priceAfterDiscount;
+        
         if (item.taxType == 'Exclusive') {
           // For exclusive tax: calculate VAT on the discounted amount
           item.productTax = priceAfterDiscount * (vatRate / 100);
@@ -1280,10 +1286,10 @@ export default {
 
     calculateSum() {
       this.form.subTotal = this.form.selectedProducts.reduce(function (
-        prev,
+prev,
         cur
       ) {
-        return Number((prev + cur.totalPrice).toFixed(2));
+        return Number((prev + (cur.totalAfterDiscount || 0)).toFixed(2));
       },
         0);
 

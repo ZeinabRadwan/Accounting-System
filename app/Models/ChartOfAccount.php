@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChartOfAccount extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Translatable;
     protected $table = 'chart_of_accounts';
     
     protected $fillable = [
@@ -24,6 +25,13 @@ class ChartOfAccount extends Model
         'order',
         'is_active',
         'created_by',
+    ];
+
+    /**
+     * Translatable fields
+     */
+    protected $translatable = [
+        'name',
     ];
 
     protected $casts = [
@@ -37,6 +45,43 @@ class ChartOfAccount extends Model
     public function type()
     {
         return $this->belongsTo(ChartOfAccountType::class, 'type_id');
+    }
+
+    public function translations(): HasMany
+    {
+        return $this->hasMany(ChartOfAccountTranslation::class, 'chart_of_account_id');
+    }
+
+    /**
+     * Resolve translated value from dedicated translations table
+     */
+    public function getTranslatedField(string $field, ?string $locale = null)
+    {
+        $locale = $locale ?: app()->getLocale();
+
+        // Only support dedicated fields
+        if (!in_array($field, ['name', 'description'])) {
+            return $this->getAttribute($field);
+        }
+
+        $value = $this->translations()
+            ->where('locale', $locale)
+            ->value($field);
+
+        return $value ?: $this->getAttribute($field);
+    }
+
+    /**
+     * Return available locales for a translatable field.
+     * Dedicated table does not separate by field, so we ignore $field.
+     */
+    public function getAvailableLocales(string $field): array
+    {
+        return $this->translations()
+            ->pluck('locale')
+            ->unique()
+            ->values()
+            ->toArray();
     }
 
     /**
@@ -332,5 +377,76 @@ class ChartOfAccount extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('order', 'asc')->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get translated name for current locale
+     */
+    public function getTranslatedNameAttribute()
+    {
+        return $this->getTranslatedField('name');
+    }
+
+
+    /**
+     * Get all translations for this account
+     */
+    public function getAllTranslationsAttribute()
+    {
+        return $this->getAllTranslations();
+    }
+
+    /**
+     * Scope to search by translated name
+     */
+    public function scopeSearchByName($query, $searchTerm, $locale = null)
+    {
+        return $query->where(function ($q) use ($searchTerm, $locale) {
+            $q->where('name', 'like', "%{$searchTerm}%")
+              ->orWhereHas('translations', function ($translationQuery) use ($searchTerm, $locale) {
+                  $translationQuery->where('field', 'name')
+                                  ->where('value', 'like', "%{$searchTerm}%");
+                  if ($locale) {
+                      $translationQuery->where('locale', $locale);
+                  }
+              });
+        });
+    }
+
+
+    /**
+     * Create or update account with translations
+     */
+    public static function createWithTranslations($data, $translations = [])
+    {
+        $account = static::create($data);
+        
+        if (!empty($translations)) {
+            foreach ($translations as $field => $fieldTranslations) {
+                if (in_array($field, $account->translatable)) {
+                    $account->setTranslations($field, $fieldTranslations);
+                }
+            }
+        }
+        
+        return $account;
+    }
+
+    /**
+     * Update account with translations
+     */
+    public function updateWithTranslations($data, $translations = [])
+    {
+        $this->update($data);
+        
+        if (!empty($translations)) {
+            foreach ($translations as $field => $fieldTranslations) {
+                if (in_array($field, $this->translatable)) {
+                    $this->setTranslations($field, $fieldTranslations);
+                }
+            }
+        }
+        
+        return $this;
     }
 }

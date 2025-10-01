@@ -374,7 +374,7 @@
                 <has-error :form="form" field="transportCost" />
               </div>
 
-              <div v-if="taxes" class="form-group col-md-6 col-lg-6">
+              <div v-if="taxes && !isSaudiArabia" class="form-group col-md-6 col-lg-6">
                 <label for="orderTax">{{ $t("Invoice Tax") }} </label>
                 <div class="input-group select-input-group">
                   <v-select
@@ -962,6 +962,11 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+    
+    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    isSaudiArabia() {
+      return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
   },
   mounted() {
     window.addEventListener("keypress", (e) => {
@@ -1467,9 +1472,9 @@ export default {
       let netAmount =
         this.form.subTotal - discount + Number(this.form.transportCost);
 
-      // calculate invoice tax on net amount
+      // Calculate Invoice Tax based on selected tax rate (skip for Saudi Arabia)
       this.form.totalTax = 0;
-      if (this.form.orderTax) {
+      if (!this.isSaudiArabia && this.form.orderTax) {
         this.form.totalTax = (this.form.orderTax.rate / 100) * netAmount;
       }
 

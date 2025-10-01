@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Models\ChartOfAccount;
 
 class Product extends Model implements HasMedia
 {
-    use Sluggable, HasFactory, InteractsWithMedia;
+    use Sluggable, HasFactory, InteractsWithMedia, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

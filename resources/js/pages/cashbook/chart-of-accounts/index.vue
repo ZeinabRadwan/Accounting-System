@@ -1,12 +1,7 @@
 <template>
   <div class="mb-50">
     <div class="row">
-      <div class="col-lg-12" v-if="$can('chart-of-account-list') ||
-        $can('chart-of-account-create') ||
-        $can('chart-of-account-view') ||
-        $can('chart-of-account-edit') ||
-        $can('chart-of-account-delete')
-        ">
+      <div class="col-lg-12">
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <!-- breadcrumbs Start -->
@@ -15,18 +10,11 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">
-            <div class="row">
-              <div class="col-6 col-xl-8 mb-2 text-right">
-                <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
-                  :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
-                  v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100" style="display: none;">
-                  <template v-slot:input="picker" style="min-width: 350px">
-                    {{ picker.startDate | startDate }} -
-                    {{ picker.endDate | endDate }}
-                  </template>
-                </date-range-picker>
-              </div>
-            </div>
+            <!-- Language Selector -->
+          
+            <!-- Search and Filters -->
+          
+
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
@@ -86,10 +74,10 @@
                   >
                     <i class="fas fa-print"></i>
                   </a>
-                  <router-link v-if="$can('chart-of-account-tree')" :to="{ name: 'chart-of-accounts.tree' }" class="btn tree-btn" v-tooltip="$t('Tree View')" :title="$t('Tree View')">
-                    <i class="fas fa-tree" />
-                  </router-link>
-                  <router-link v-if="$can('chart-of-account-create')" :to="{ name: 'chart-of-accounts.create' }" class="btn btn-primary">
+                  <router-link
+                    :to="{ name: 'chart-of-accounts.create' }"
+                    class="btn btn-primary"
+                  >
                     {{ $t("Create") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />
                   </router-link>
@@ -98,77 +86,70 @@
             </div>
             <table-loading v-show="loading" />
             <div class="table-responsive table-custom mt-3" id="printMe">
-              <table class="table chart-of-accounts-table">
+              <table class="table accounts-table">
                 <thead>
+                  <th>{{ $t("#") }}</th>
                   <th>{{ $t("Code") }}</th>
                   <th>{{ $t("Name") }}</th>
                   <th>{{ $t("Type") }}</th>
                   <th>{{ $t("Parent Account") }}</th>
-                  <th>{{ $t("Order") }}</th>
                   <th>{{ $t("Status") }}</th>
-                  <th class="text-right">{{ $t("Debit") }}</th>
-                  <th class="text-right">{{ $t("Credit") }}</th>
-                  <th class="text-right">{{ $t("Balance") }}</th>
-                  <th v-if="$can('chart-of-account-view') ||
-                    $can('chart-of-account-edit') ||
-                    $can('chart-of-account-delete')
-                    " class="text-right no-print">
-                    {{ $t("Action") }}
-                  </th>
+                  <!-- <th>{{ $t("Translations") }}</th> -->
+                  <th class="text-right no-print">{{ $t("Action") }}</th>
                 </thead>
                 <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
+                  <tr v-show="accounts.length" v-for="(account, i) in accounts" :key="i">
                     <td>
-                      <router-link v-if="$can('chart-of-account-view')" :to="{
-                        name: 'chart-of-accounts.show',
-                        params: { slug: data.code },
-                      }">
-                        {{ data.code }}
-                      </router-link>
-                      <span v-else>{{ data.code }}</span>
+                      <span v-if="pagination && pagination.current_page > 1">
+                        {{
+                          pagination.per_page * (pagination.current_page - 1) +
+                          (i + 1)
+                        }}
+                      </span>
+                      <span v-else>{{ i + 1 }}</span>
                     </td>
-                    <td>{{ data.name }}</td>
                     <td>
-                      <span v-if="data.types" class="badge bg-info">
-                        {{ data.types.name }}
+                      <code>{{ account.code }}</code>
+                    </td>
+                    <td>
+                      <div class="account-name">
+                        <strong>{{ getTranslatedName(account) }}</strong>
+                        <!-- <small v-if="account.original_name !== getTranslatedName(account)" class="text-muted d-block">
+                          Original: {{ account.original_name }}
+                        </small> -->
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-info">{{ getTranslatedName(account.type) }}</span>
+                    </td>
+                    <td>
+                      <span v-if="account.parent">
+                        {{ account.parent.code }} - {{ getTranslatedName(account.parent) }}
                       </span>
                       <span v-else class="text-muted">-</span>
                     </td>
                     <td>
-                      <span v-if="data.parent" class="text-muted">
-                        {{ data.parent.name }}
-                      </span>
-                      <span v-else class="text-muted">-</span>
-                    </td>
-                    <td>{{ data.order || '-' }}</td>
-                    <td>
-                      <span v-if="data.is_active" class="badge bg-success">{{
-                        $t("Active")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
-                      }}</span>
-                    </td>
-                    <td class="text-right">
-                      <span class="text-success font-weight-bold">
-                        {{ formatCurrency(data.debit_amount) }}
+                      <span class="badge" :class="account.is_active ? 'bg-success' : 'bg-danger'">
+                        {{ account.is_active ? $t('Active') : $t('Inactive') }}
                       </span>
                     </td>
-                    <td class="text-right">
-                      <span class="text-danger font-weight-bold">
-                        {{ formatCurrency(data.credit_amount) }}
-                      </span>
-                    </td>
-                    <td class="text-right">
-                      <span :class="data.balance >= 0 ? 'text-success' : 'text-danger'" class="font-weight-bold">
-                        {{ formatCurrency(Math.abs(data.balance)) }}
-                        <small class="text-muted">({{ data.balance >= 0 ? 'Dr' : 'Cr' }})</small>
-                      </span>
-                    </td>
-                    <td v-if="$can('chart-of-account-view') ||
-                        $can('chart-of-account-edit') ||
-                        $can('chart-of-account-delete')
-                        " class="text-right no-print">
+                    <!-- <td>
+                      <div class="translation-indicators">
+                        <span
+                          v-for="locale in availableLocales"
+                          :key="locale.code"
+                          class="indicator"
+                          :class="{
+                            'has-translation': hasTranslation(account, locale.code),
+                            'is-current': locale.code === currentLocale
+                          }"
+                          :title="getTranslationTooltip(account, locale.code)"
+                        >
+                          {{ locale.flag }}
+                        </span>
+                      </div>
+                    </td> -->
+                    <td class="text-right no-print">
                       <div class="action-dropdown" :class="{ open: openActionIndex === i }">
                         <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -183,20 +164,20 @@
                             </button>
                           </div>
                           <ul>
-                            <li v-if="$can('chart-of-account-view')">
-                              <router-link :to="{ name: 'chart-of-accounts.show', params: { slug: data.code } }">
-                                <i class="fas fa-eye"></i>
-                                {{ $t('View') }}
-                              </router-link>
-                            </li>
-                            <li v-if="$can('chart-of-account-edit')">
-                              <router-link :to="{ name: 'chart-of-accounts.edit', params: { slug: data.code } }">
+                            <li>
+                              <router-link :to="{ name: 'chart-of-accounts.edit', params: { slug: account.code } }">
                                 <i class="fas fa-edit"></i>
                                 {{ $t('Edit') }}
                               </router-link>
                             </li>
-                            <li v-if="$can('chart-of-account-delete')">
-                              <a href="#" @click.prevent="deleteData(data.code)">
+                            <li>
+                              <a href="#" @click.prevent="manageTranslations(account)">
+                                <i class="fas fa-language"></i>
+                                {{ $t('Manage Translations') }}
+                              </a>
+                            </li>
+                            <li v-if="!account.has_children">
+                              <a href="#" @click.prevent="deleteAccount(account)">
                                 <i class="fas fa-trash"></i>
                                 {{ $t('Delete') }}
                               </a>
@@ -206,8 +187,8 @@
                       </div>
                     </td>
                   </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="10">
+                  <tr v-show="!loading && !accounts.length">
+                    <td colspan="8">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -239,118 +220,146 @@
       </div>
     </div>
 
-   <Modal v-if="showModal" @close="previewModal()">
-      <h5 slot="header">{{ $t("Chart of Account Details") }}</h5>
-      <div class="w-100" slot="body">
-        <div class="row">
-          <div class="col-md-6">
-            <strong>{{ $t("Code") }}:</strong> {{ selectedAccount.code }}
-          </div>
-          <div class="col-md-6">
-            <strong>{{ $t("Name") }}:</strong> {{ selectedAccount.name }}
-          </div>
-          <div class="col-md-6">
-            <strong>{{ $t("Type") }}:</strong> {{ selectedAccount.types ? selectedAccount.types.name : '-' }}
-          </div>
-          <div class="col-md-6">
-            <strong>{{ $t("Parent Account") }}:</strong> {{ selectedAccount.parent ? selectedAccount.parent.name : '-' }}
-          </div>
+    <!-- Create/Edit happen in dedicated routes; only translations uses modal -->
+
+    <!-- Translation Management Modal -->
+    <Modal v-if="translationAccount" @close="closeTranslationModal">
+      <div slot="header" class="d-flex align-items-center">
+        <div class="me-3">
+          <i class="fas fa-language text-primary fs-4"></i>
+        </div>
+        <div>
+          <h5 class="modal-title mb-1">
+            {{ $t('Translation Management') }}
+          </h5>
+          <p class="text-muted mb-0 small">
+            {{ translationAccount.code }} - {{ getTranslatedName(translationAccount) }}
+          </p>
         </div>
       </div>
+      <div slot="body" class="translation-content">
+        <TranslationManager
+          :model-id="translationAccount.code"
+          model-type="chart-of-accounts"
+          :translatable-fields="['name']"
+          :initial-translations="translationAccount.translations || {}"
+          :fallback-values="{ name: translationAccount.original_name }"
+          @translations-saved="onTranslationsSaved"
+        />
+      </div>
+      <div slot="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          @click="closeTranslationModal"
+        >
+          <i class="fas fa-times me-2"></i>
+          {{ $t('Close') }}
+        </button>
+      </div>
     </Modal>
-
   </div>
 </template>
 
 <script>
-import moment from "moment";
-import { mapGetters } from "vuex";
-import i18n from "~/plugins/i18n";
-import DateRangePicker from "vue2-daterange-picker";
-import Swal from "sweetalert2";
+import ChartOfAccountForm from '@/components/ChartOfAccountForm.vue'
+import TranslationManager from '@/components/TranslationManager.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
+  name: 'ChartOfAccountsIndex',
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Chart of Accounts") };
   },
   components: {
-    DateRangePicker,
+    ChartOfAccountForm,
+    TranslationManager,
+    Modal
   },
-  data: () => ({
-    breadcrumbsCurrent: "Chart of Accounts",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
+  data() {
+    return {
+      breadcrumbsCurrent: "Chart of Accounts",
+      breadcrumbs: [
+        {
+          name: "Dashboard",
+          url: "home",
+        },
+        {
+          name: "Cashbook",
+          url: "",
+        },
+        {
+          name: "Chart of Accounts",
+          url: "",
+        },
+      ],
+      accounts: [],
+      accountTypes: [],
+      parentAccounts: [],
+      stats: {
+        total_accounts: 0,
+        accounts_with_translations: 0
       },
-      {
-        name: "Cashbook",
-        url: "",
-      },
-      {
-        name: "Chart of Accounts",
-        url: "",
-      },
-    ],
-    query: "",
-    perPage: 10,
-    showModal: false,
-    selectedAccount: {},
-    openActionIndex: null,
-    minDate: moment(new Date("01-01-2021")).format("YYYY-MM-DD"),
-    maxDate: moment().add(1, "days").format("YYYY-MM-DD"),
-    dateRange: {
-      startDate: "",
-      endDate: "",
-    },
-    locale: {
-      direction: "ltr",
-      format: "YYYY-MM-DD",
-      separator: " - ",
-      applyLabel: "Apply",
-      cancelLabel: "Cancel",
-      weekLabel: "W",
-      customRangeLabel: "Custom Range",
-      daysOfWeek: moment.weekdaysMin(),
-      monthNames: moment.monthsShort(),
-      firstDay: 1,
-    },
-  }),
-  filters: {
-    startDate(val) {
-      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("From");
-    },
-    endDate(val) {
-      return val ? moment(val).format("YYYY-MM-DD") : i18n.t("To");
-    },
+      currentLocale: this.$store?.getters?.['lang/locale'] || (window.config && window.config.locale) || 'en',
+      searchTerm: '',
+      searchField: 'name',
+      typeFilter: '',
+      query: "",
+      perPage: 10,
+      loading: false,
+      openActionIndex: null,
+      pagination: null,
+      // create/edit are handled via routes
+      showCreateForm: false,
+      editingAccount: null,
+      translationAccount: null,
+      supportedLocales: this.getSystemSupportedLocales()
+    }
   },
-  // Map Getters
   computed: {
-    ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
+    availableLocales() {
+      return this.supportedLocales
+    },
+    translationPercentage() {
+      if (this.stats.total_accounts === 0) return 0
+      return Math.round((this.stats.accounts_with_translations / this.stats.total_accounts) * 100)
+    },
+    missingTranslations() {
+      return this.stats.total_accounts - this.stats.accounts_with_translations
+    },
+    visiblePages() {
+      if (!this.pagination) return []
+      const current = this.pagination.current_page
+      const last = this.pagination.last_page
+      const pages = []
+      
+      for (let i = Math.max(1, current - 2); i <= Math.min(last, current + 2); i++) {
+        pages.push(i)
+      }
+      
+      return pages
+    },
     exportUrl() {
       // Create a dynamic export URL with query parameters
-      return `/chart-of-accounts/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
-    },
+      return `/chart-of-accounts/export/excel?term=${this.query}&search_field=${this.searchField}&type_filter=${this.typeFilter}`;
+    }
   },
   watch: {
     // watch search data
     query: function (newQ) {
       if (newQ === "") {
-        if (this.dateRange.startDate && this.dateRange.endDate) {
-          this.searchData();
-        } else {
-          this.getData();
-        }
+        this.loadAccounts();
       } else {
         this.searchData();
       }
     },
   },
-  created() {
-    this.getData();
-  },
   mounted() {
+    this.loadAccounts()
+    this.loadAccountTypes()
+    this.loadParentAccounts()
+    this.loadTranslationStats()
     document.addEventListener('click', this.onClickOutside);
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.handleResize);
@@ -361,6 +370,184 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    getSystemSupportedLocales() {
+      // Get locales from system config (same as LocaleDropdown.vue uses)
+      const systemLocales = this.$store?.getters?.['lang/locales'] || (window.config && window.config.locales) || {}
+      
+      // Map system locales to our format with flags
+      const localeFlags = {
+        'en': '🇺🇸', 'hi': '🇮🇳', 'bn': '🇧🇩', 'es': '🇪🇸', 'de': '🇩🇪', 
+        'fr': '🇫🇷', 'ar': '🇸🇦', 'id': '🇮🇩', 'nl': '🇳🇱', 'ms': '🇲🇾', 
+        'it': '🇮🇹', 'ko': '🇰🇷', 'ru': '🇷🇺', 'th': '🇹🇭', 'tr': '🇹🇷', 
+        'vi': '🇻🇳', 'zh': '🇨🇳', 'pt': '🇵🇹'
+      }
+      
+      const localeNames = {
+        'en': 'English', 'hi': 'हिन्दी', 'bn': 'বাংলা', 'es': 'Español', 'de': 'Deutsch',
+        'fr': 'Français', 'ar': 'العربية', 'id': 'Bahasa Indonesia', 'nl': 'Nederlands', 
+        'ms': 'Bahasa Melayu', 'it': 'Italiano', 'ko': '한국어', 'ru': 'Русский', 
+        'th': 'ไทย', 'tr': 'Türkçe', 'vi': 'Tiếng Việt', 'zh': '中文', 'pt': 'Português'
+      }
+      
+      return Object.keys(systemLocales).map(code => ({
+        code,
+        name: localeNames[code] || code.toUpperCase(),
+        flag: localeFlags[code] || '🌐'
+      }))
+    },
+
+    async loadAccounts() {
+      this.loading = true
+      try {
+        const currentPage = (this.pagination && this.pagination.current_page) ? this.pagination.current_page : 1
+        const isSearching = !!this.searchTerm
+        const endpoint = isSearching
+          ? '/api/chart-of-accounts/translations/search'
+          : '/api/chart-of-accounts/translations'
+
+        const params = {
+          page: currentPage,
+          perPage: this.perPage,
+          locale: this.currentLocale,
+          include_translations: true,
+          include_available_locales: true,
+          include: 'type',
+          include_type_translations: true
+        }
+
+        if (isSearching) {
+          params.search = this.searchTerm
+          params.field = this.searchField
+        }
+
+        if (this.typeFilter) {
+          params.type_id = this.typeFilter
+        }
+
+        const response = await this.$axios.get(endpoint, { params })
+        this.accounts = response.data.data
+        this.pagination = response.data.meta
+      } catch (error) {
+        console.error('Error loading accounts:', error)
+        this.$toast.error('Error loading accounts')
+      } finally {
+        this.loading = false
+      }
+    },
+    
+    async loadAccountTypes() {
+      try {
+        const response = await this.$axios.get('/api/chart-of-account-types')
+        this.accountTypes = response.data.data
+      } catch (error) {
+        console.error('Error loading account types:', error)
+      }
+    },
+    
+    async loadParentAccounts() {
+      try {
+        const response = await this.$axios.get('/api/chart-of-accounts/all')
+        this.parentAccounts = response.data.data
+      } catch (error) {
+        console.error('Error loading parent accounts:', error)
+      }
+    },
+    
+    async loadTranslationStats() {
+      try {
+        const response = await this.$axios.get('/api/chart-of-accounts/translations/stats')
+        this.stats = response.data.data
+      } catch (error) {
+        console.error('Error loading translation stats:', error)
+      }
+    },
+    
+    setDisplayLocale(locale) {
+      this.currentLocale = locale
+      this.loadAccounts()
+    },
+    
+    onSearch() {
+      this.debounceSearch()
+    },
+    
+    debounceSearch() {
+      clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => {
+        // reset to first page on new search
+        if (this.pagination) {
+          this.pagination.current_page = 1
+        }
+        this.loadAccounts()
+      }, 500)
+    },
+    
+    clearFilters() {
+      this.searchTerm = ''
+      this.typeFilter = ''
+      this.loadAccounts()
+    },
+    
+    loadPage(page) {
+      if (page >= 1 && page <= this.pagination.last_page) {
+        this.pagination.current_page = page
+        this.loadAccounts()
+      }
+    },
+    
+    getTranslatedName(entity) {
+      if (!entity) return ''
+      const translations = entity.translations && entity.translations.name
+      const locale = this.currentLocale
+      if (translations && translations[locale] && translations[locale].trim() !== '') {
+        return translations[locale]
+      }
+      return entity.name || entity.original_name || ''
+    },
+    
+    hasTranslation(account, locale) {
+      return account.translations?.name?.[locale] && account.translations.name[locale].trim() !== ''
+    },
+    
+    getTranslationTooltip(account, locale) {
+      const hasTranslation = this.hasTranslation(account, locale)
+      const localeName = this.supportedLocales.find(l => l.code === locale)?.name || locale
+      
+      if (hasTranslation) {
+        return `${localeName}: ${account.translations.name[locale]}`
+      } else {
+        return `${localeName}: No translation`
+      }
+    },
+    
+    manageTranslations(account) {
+      this.translationAccount = account
+    },
+    
+    async deleteAccount(account) {
+      if (confirm(`Are you sure you want to delete account ${account.code}?`)) {
+        try {
+          await this.$axios.delete(`/api/chart-of-accounts/${account.code}`)
+          this.$toast.success('Account deleted successfully')
+          this.loadAccounts()
+        } catch (error) {
+          console.error('Error deleting account:', error)
+          this.$toast.error('Error deleting account')
+        }
+      }
+    },
+    
+    onTranslationsSaved() {
+      this.closeTranslationModal()
+      this.loadAccounts()
+      this.loadTranslationStats()
+    },
+    
+    closeTranslationModal() {
+      this.translationAccount = null
+    },
+
+    // Action dropdown methods
     toggleAction(index) {
       this.openActionIndex = this.openActionIndex === index ? null : index;
       
@@ -403,144 +590,47 @@ export default {
         this.positionDropdown(this.openActionIndex);
       }
     },
-    // filter data for selected date range
-    async updateValues() {
-      this.dateRange.startDate = moment(this.dateRange.startDate).format(
-        "YYYY-MM-DD"
-      );
-      this.dateRange.endDate = moment(this.dateRange.endDate).format(
-        "YYYY-MM-DD"
-      );
-      this.searchData();
-    },
 
-    // refresh table
+    // Additional methods for new functionality
     refreshTable() {
       this.query = "";
-      this.dateRange.startDate = null;
-      this.dateRange.endDate = null;
-      this.query === "" ? this.getData() : this.searchData();
-      setTimeout(
-        function () {
-          this.dateRange.startDate = "";
-          this.dateRange.endDate = "";
-        }.bind(this),
-        500
-      );
+      this.searchTerm = "";
+      this.typeFilter = "";
+      this.loadAccounts();
     },
 
-    // update per page count
-    updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getData() : this.searchData();
+    searchData() {
+      this.searchTerm = this.query;
+      this.loadAccounts();
     },
 
-    // get data
-    async getData() {
-      this.$store.state.operations.loading = true;
-      let currentPage = this.pagination ? this.pagination.current_page : 1;
-      await this.$store.dispatch("operations/fetchData", {
-        path: "/api/chart-of-accounts?page=",
-        currentPage: currentPage + "&perPage=" + this.perPage,
-      });
-    },
-
-    // pagination
-    async paginate() {
-      this.query === "" ? this.getData() : this.searchData();
-    },
-
-    // reset pagination
-    async resetPagination() {
-      this.pagination.current_page = 1;
-    },
-
-    // search data
-    async searchData() {
-      this.$store.state.operations.loading = true;
-      let currentPage = this.pagination ? this.pagination.current_page : 1;
-      await this.$store.dispatch("operations/searchData", {
-        path: "/api/chart-of-accounts/search",
-        term: this.query,
-        currentPage: currentPage + "&perPage=" + this.perPage,
-        startDate: this.dateRange.startDate,
-        endDate: this.dateRange.endDate,
-      });
-    },
-
-    // reload after search
-    async reload() {
-      this.query = "";
-      await this.searchData();
-    },
-
-    // print table
-    async print() {
-      await this.$htmlToPaper("printMe");
-    },
-
-    // format currency
-    formatCurrency(amount) {
-      if (amount === null || amount === undefined) return '0.00';
-      return parseFloat(amount).toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    },
-
-
-
-
-
-
-
-     // delete data
-     async deleteData(slug) {
-      Swal.fire({
-        title: this.$t("Are you sure?"),
-        text: this.$t("You will not be able to return to this! This will delete the chart of account permanently."),
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
-      }).then((result) => {
-        // Send request to the server
-        if (result.value) {
-          this.$store
-            .dispatch("operations/deleteData", {
-              path: "/api/chart-of-accounts/",
-              slug: slug,
-            })
-            .then((response) => {
-              if (response === true) {
-                this.getData();
-                toast.fire({
-                  type: 'success',
-                  title: this.$t('Deleted successfully.')
-                })
-              } else {
-                const backendMessage = response?.response?.data?.message || this.$t("Please check your input and try again.")
-                toast.fire({
-                  type: 'error',
-                  title: backendMessage
-                })
-              }
-            });
-        }
-      });
-    },
-
-
-
-    // display modal
-    previewModal(account) {
-      this.selectedAccount = account;
-      if (this.showModal) {
-        return (this.showModal = false);
+    resetPagination() {
+      if (this.pagination) {
+        this.pagination.current_page = 1;
       }
-      return (this.showModal = true);
     },
-  },
-};
+
+    reload() {
+      this.query = "";
+      this.loadAccounts();
+    },
+
+    print() {
+      this.$htmlToPaper("printMe");
+    },
+
+    updatePerPager() {
+      if (this.pagination) {
+        this.pagination.current_page = 1;
+      }
+      this.loadAccounts();
+    },
+
+    paginate() {
+      this.loadAccounts();
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -548,12 +638,12 @@ export default {
   border: none !important;
 }
 
-.chart-of-accounts-table {
+.accounts-table {
   border-collapse: separate;
   border-spacing: 0;
 }
 
-.chart-of-accounts-table thead th {
+.accounts-table thead th {
   background-color: #33a0d9;
   color: #ffffff;
   padding: 8px;
@@ -562,25 +652,25 @@ export default {
   font-weight: 400;
 }
 
-.chart-of-accounts-table thead tr {
+.accounts-table thead tr {
   border: none !important;
 }
 
-.chart-of-accounts-table thead th:first-child {
+.accounts-table thead th:first-child {
   border-top-left-radius: 10px;
 }
 
-.chart-of-accounts-table thead th:last-child {
+.accounts-table thead th:last-child {
   border-top-right-radius: 10px;
 }
 
 /* RTL styles for Arabic language */
-[dir="rtl"] .chart-of-accounts-table thead th:first-child {
+[dir="rtl"] .accounts-table thead th:first-child {
   border-top-left-radius: 0;
   border-top-right-radius: 10px;
 }
 
-[dir="rtl"] .chart-of-accounts-table thead th:last-child {
+[dir="rtl"] .accounts-table thead th:last-child {
   border-top-right-radius: 0;
   border-top-left-radius: 10px;
 }
@@ -618,16 +708,6 @@ export default {
 .print-btn {
   background: #33a0d91a !important;
   color: #33a0d9 !important;
-  width: 56px;
-  height: 44px;
-  border-radius: 10px;
-  padding: 10px 16px;
-  border: none;
-}
-
-.tree-btn {
-  background: #f6fef4 !important;
-  color: #2ab930 !important;
   width: 56px;
   height: 44px;
   border-radius: 10px;
@@ -682,7 +762,6 @@ export default {
     transform: translateY(0);
   }
 }
-
 
 .action-menu-header {
   display: flex;
@@ -778,8 +857,6 @@ export default {
   gap: 10px;
 }
 
-
-
 .card {
   margin-top: 30px;
   border-radius: 20px;
@@ -796,7 +873,7 @@ export default {
 }
 
 /* Custom Status Badge Styling */
-.chart-of-accounts-table .badge.bg-success {
+.accounts-table .badge.bg-success {
   background: #F6FEF4 !important;
   color: #2AB930 !important;
   font-size: 12px !important;
@@ -804,17 +881,9 @@ export default {
   padding: 10px 16px;
 }
 
-.chart-of-accounts-table .badge.bg-danger {
+.accounts-table .badge.bg-danger {
   background: #FEF4F4 !important;
   color: #DC3545 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 10px 16px;
-}
-
-.chart-of-accounts-table .badge.bg-info {
-  background: #F1F5FB !important;
-  color: #33a0d9 !important;
   font-size: 12px !important;
   font-weight: 500 !important;
   padding: 10px 16px;
@@ -830,11 +899,122 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-
   border: none !important;
 }
-</style>
 
+.translation-indicators {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.indicator {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.indicator.has-translation {
+  opacity: 1;
+}
+
+.indicator.is-current {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.account-name strong {
+  color: #2c3e50;
+}
+
+.language-selector .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+/* Account Form Modal Styling */
+.account-form-modal {
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border: none;
+  overflow: hidden;
+}
+
+.account-form-modal .modal-header {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1.5rem 2rem;
+  border-radius: 16px 16px 0 0;
+}
+
+.account-form-modal .modal-title {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.account-form-modal .modal-body {
+  background: #ffffff;
+  padding: 2rem;
+}
+
+.account-form-modal .btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #64748b;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.account-form-modal .btn-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.05);
+  color: #1e293b;
+}
+
+/* Translation Modal Content Styling */
+.translation-content {
+  padding: 1rem 0;
+  min-height: 400px;
+}
+
+.modal-title {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.text-primary {
+  color: #3b82f6 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-filters .row > div {
+    margin-bottom: 0.5rem;
+  }
+  
+  .account-form-modal .modal-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .account-form-modal .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .translation-content {
+    padding: 0.5rem 0;
+  }
+  
+  .account-form-modal .modal-dialog {
+    margin: 1rem;
+  }
+}
+</style>
 <style>
 .dtable-footer {
     align-items: center;

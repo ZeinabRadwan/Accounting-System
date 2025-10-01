@@ -73,6 +73,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'is_banned' => \App\Http\Middleware\IsBanned::class,
         'read_only' => CheckForReadOnlyMode::class,
+        'tenant.not_archived' => \App\Http\Middleware\CheckTenantNotArchived::class,
+        'user.tenant.not_archived' => \App\Http\Middleware\CheckUserTenantNotArchived::class,
     ];
 
     /**

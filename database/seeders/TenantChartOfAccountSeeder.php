@@ -41,9 +41,14 @@ class TenantChartOfAccountSeeder extends Seeder
      * @return void
      */
 
-     /*
+     
     public function run()
     {
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::table('chart_of_accounts')->truncate();
+        DB::table('chart_of_account_translations')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
         // Check if chart of accounts already exist to avoid foreign key constraint issues
         if (DB::table('chart_of_accounts')->count() > 0) {
             $this->command->info('Chart of accounts already exist, skipping seeding.');
@@ -69,11 +74,11 @@ class TenantChartOfAccountSeeder extends Seeder
         // }
 
         // Get the created account types
-        $assetTypeId = DB::table('chart_of_account_types')->where('name', 'Asset')->first()->id;
-        $liabilityTypeId = DB::table('chart_of_account_types')->where('name', 'Liability')->first()->id;
-        $equityTypeId = DB::table('chart_of_account_types')->where('name', 'Equity')->first()->id;
-        $revenueTypeId = DB::table('chart_of_account_types')->where('name', 'Revenue')->first()->id;
-        $expenseTypeId = DB::table('chart_of_account_types')->where('name', 'Expense')->first()->id;
+        $assetTypeId = DB::table('chart_of_account_types')->where('id', 1)->first()->id;
+        $liabilityTypeId = DB::table('chart_of_account_types')->where('id', 2)->first()->id;
+        $equityTypeId = DB::table('chart_of_account_types')->where('id', 3)->first()->id;
+        $revenueTypeId = DB::table('chart_of_account_types')->where('id', 4)->first()->id;
+        $expenseTypeId = DB::table('chart_of_account_types')->where('id', 5)->first()->id;
 
         // Get a user ID for created_by (assuming you have at least one user)
         $userId = DB::table('users')->first()->id ?? 1;
@@ -83,6 +88,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Level 0 - Root Accounts
             [
                 'name' => 'Assets',
+                'name_ar' => 'الأصول',
                 'code' => '1000',
                 'type_id' => $assetTypeId,
                 'parent_id' => null,
@@ -92,6 +98,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Liabilities',
+                'name_ar' => 'الخصوم',
                 'code' => '2000',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => null,
@@ -101,6 +108,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Equity',
+                'name_ar' => 'حقوق الملكية',
                 'code' => '3000',
                 'type_id' => $equityTypeId,
                 'parent_id' => null,
@@ -110,6 +118,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Revenue',
+                'name_ar' => 'الإيرادات',
                 'code' => '4000',
                 'type_id' => $revenueTypeId,
                 'parent_id' => null,
@@ -119,6 +128,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Expenses',
+                'name_ar' => 'المصروفات',
                 'code' => '5000',
                 'type_id' => $expenseTypeId,
                 'parent_id' => null,
@@ -143,6 +153,26 @@ class TenantChartOfAccountSeeder extends Seeder
                 'updated_at' => now(),
             ]);
             $rootAccountIds[$account['name']] = $id;
+
+            // seed translations (ar uses seeded name; en defaults to same label unless customized later)
+            DB::table('chart_of_account_translations')->insert([
+                [
+                    'chart_of_account_id' => $id,
+                    'locale' => 'ar',
+                    'name' => $account['name_ar'],
+                    'description' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'chart_of_account_id' => $id,
+                    'locale' => 'en',
+                    'name' => $account['name'],
+                    'description' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
         }
 
         // Level 1 - Sub-accounts
@@ -150,6 +180,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Assets sub-accounts
             [
                 'name' => 'Current Assets',
+                'name_ar' => 'الأصول المتداولة',
                 'code' => '1100',
                 'type_id' => $assetTypeId,
                 'parent_id' => $rootAccountIds['Assets'],
@@ -159,6 +190,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Fixed Assets',
+                'name_ar' => 'الأصول الثابتة',
                 'code' => '1200',
                 'type_id' => $assetTypeId,
                 'parent_id' => $rootAccountIds['Assets'],
@@ -168,6 +200,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Intangible Assets',
+                'name_ar' => 'الأصول غير المتداولة',
                 'code' => '1300',
                 'type_id' => $assetTypeId,
                 'parent_id' => $rootAccountIds['Assets'],
@@ -179,6 +212,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Liabilities sub-accounts
             [
                 'name' => 'Current Liabilities',
+                'name_ar' => 'الخصوم المتداولة',
                 'code' => '2100',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => $rootAccountIds['Liabilities'],
@@ -188,6 +222,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Long-term Liabilities',
+                'name_ar' => 'الخصوم الطويلة المدى',
                 'code' => '2200',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => $rootAccountIds['Liabilities'],
@@ -199,6 +234,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Equity sub-accounts
             [
                 'name' => 'Owner\'s Equity',
+                'name_ar' => 'حقوق الملكية',
                 'code' => '3100',
                 'type_id' => $equityTypeId,
                 'parent_id' => $rootAccountIds['Equity'],
@@ -208,6 +244,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Retained Earnings',
+                'name_ar' => 'الأرباح المحتجزة',
                 'code' => '3200',
                 'type_id' => $equityTypeId,
                 'parent_id' => $rootAccountIds['Equity'],
@@ -219,6 +256,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Revenue sub-accounts
             [
                 'name' => 'Sales Revenue',
+                'name_ar' => 'الإيرادات المباعة',
                 'code' => '4100',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $rootAccountIds['Revenue'],
@@ -228,6 +266,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Other Revenue',
+                'name_ar' => 'الإيرادات الأخرى',
                 'code' => '4200',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $rootAccountIds['Revenue'],
@@ -239,6 +278,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Expenses sub-accounts
             [
                 'name' => 'Cost of Goods Sold',
+                'name_ar' => 'تكلفة المباعات',
                 'code' => '5100',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $rootAccountIds['Expenses'],
@@ -248,6 +288,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Operating Expenses',
+                'name_ar' => 'المصروفات التشغيلية',
                 'code' => '5200',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $rootAccountIds['Expenses'],
@@ -257,6 +298,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Financial Expenses',
+                'name_ar' => 'المصروفات المالية',
                 'code' => '5300',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $rootAccountIds['Expenses'],
@@ -281,6 +323,25 @@ class TenantChartOfAccountSeeder extends Seeder
                 'updated_at' => now(),
             ]);
             $subAccountIds[$account['name']] = $id;
+
+            DB::table('chart_of_account_translations')->insert([
+                [
+                    'chart_of_account_id' => $id,
+                    'locale' => 'ar',
+                    'name' => $account['name_ar'],
+                    'description' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'chart_of_account_id' => $id,
+                    'locale' => 'en',
+                    'name' => $account['name'],
+                    'description' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
         }
 
         // Level 2 - Detailed accounts with specific accounting system requirements
@@ -288,6 +349,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Current Assets detailed accounts
             [
                 'name' => 'Cash',
+                'name_ar' => 'النقدية',
                 'code' => '1110',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Current Assets'],
@@ -297,6 +359,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Bank Accounts',
+                'name_ar' => 'الحسابات البنكية',
                 'code' => '1120',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Current Assets'],
@@ -306,6 +369,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Clients Account',
+                'name_ar' => 'حساب العملاء',
                 'code' => '1130',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Current Assets'],
@@ -315,6 +379,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Purchase VAT Account',
+                'name_ar' => 'حساب القيمة المضافة للمشتريات',
                 'code' => '1131',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Current Assets'],
@@ -324,6 +389,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Inventory',
+                'name_ar' => 'المخزون',
                 'code' => '1140',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Current Assets'],
@@ -335,6 +401,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Fixed Assets detailed accounts
             [
                 'name' => 'Equipment',
+                'name_ar' => 'المعدات',
                 'code' => '1210',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Fixed Assets'],
@@ -344,6 +411,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Buildings',
+                'name_ar' => 'المباني',
                 'code' => '1220',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Fixed Assets'],
@@ -353,6 +421,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Vehicles',
+                'name_ar' => 'المركبات',
                 'code' => '1230',
                 'type_id' => $assetTypeId,
                 'parent_id' => $subAccountIds['Fixed Assets'],
@@ -364,6 +433,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Current Liabilities detailed accounts
             [
                 'name' => 'Suppliers Account',
+                'name_ar' => 'حساب الموردين',
                 'code' => '2110',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => $subAccountIds['Current Liabilities'],
@@ -373,6 +443,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Sales VAT Account',
+                'name_ar' => 'حساب القيمة المضافة للمبيعات',
                 'code' => '2111',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => $subAccountIds['Current Liabilities'],
@@ -382,6 +453,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Short-term Loans',
+                'name_ar' => 'القروض القصيرة المدى',
                 'code' => '2120',
                 'type_id' => $liabilityTypeId,
                 'parent_id' => $subAccountIds['Current Liabilities'],
@@ -393,6 +465,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Sales Revenue detailed accounts - Specific to accounting system requirements
             [
                 'name' => 'Sales Account',
+                'name_ar' => 'حساب المبيعات',
                 'code' => '4110',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $subAccountIds['Sales Revenue'],
@@ -402,6 +475,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Product Sales Account',
+                'name_ar' => 'حساب المبيعات للمنتجات',
                 'code' => '4111',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $subAccountIds['Sales Revenue'],
@@ -411,6 +485,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Service Revenue',
+                'name_ar' => 'حساب الإيرادات الخدمية',
                 'code' => '4120',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $subAccountIds['Sales Revenue'],
@@ -420,6 +495,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Sales Returns',
+                'name_ar' => 'إرجاعات المبيعات',
                 'code' => '4121',
                 'type_id' => $revenueTypeId,
                 'parent_id' => $subAccountIds['Sales Revenue'],
@@ -431,6 +507,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Cost of Goods Sold detailed accounts - Purchase related
             [
                 'name' => 'Purchase Account',
+                'name_ar' => 'حساب المشتريات',
                 'code' => '5110',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Cost of Goods Sold'],
@@ -440,6 +517,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Product Purchase Account',
+                'name_ar' => 'حساب المشتريات للمنتجات',
                 'code' => '5111',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Cost of Goods Sold'],
@@ -449,6 +527,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Purchase Returns',
+                'name_ar' => 'إرجاعات المشتريات',
                 'code' => '5112',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Cost of Goods Sold'],
@@ -460,6 +539,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Operating Expenses detailed accounts
             [
                 'name' => 'Expenses Account',
+                'name_ar' => 'حساب المصروفات',
                 'code' => '5210',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
@@ -469,6 +549,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Salaries and Wages',
+                'name_ar' => 'الرواتب والأجور',
                 'code' => '5220',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
@@ -478,6 +559,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Rent Expense',
+                'name_ar' => 'الإيجار',
                 'code' => '5230',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
@@ -487,6 +569,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Utilities',
+                'name_ar' => 'الخدمات',
                 'code' => '5240',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Operating Expenses'],
@@ -498,6 +581,7 @@ class TenantChartOfAccountSeeder extends Seeder
             // Financial Expenses detailed accounts - Discount related
             [
                 'name' => 'Discount Allowed Account',
+                'name_ar' => 'حساب الخصم المسموح به',
                 'code' => '5310',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Financial Expenses'],
@@ -507,6 +591,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Discount Received Account',
+                'name_ar' => 'حساب الخصم المستلم',
                 'code' => '5311',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Financial Expenses'],
@@ -516,6 +601,7 @@ class TenantChartOfAccountSeeder extends Seeder
             ],
             [
                 'name' => 'Interest Expense',
+                'name_ar' => 'الفوائد المدفوعة',
                 'code' => '5320',
                 'type_id' => $expenseTypeId,
                 'parent_id' => $subAccountIds['Financial Expenses'],
@@ -527,117 +613,6 @@ class TenantChartOfAccountSeeder extends Seeder
 
         // Insert detailed accounts
         foreach ($detailedAccounts as $account) {
-            DB::table('chart_of_accounts')->insert([
-                'name' => $account['name'],
-                'code' => $account['code'],
-                'type_id' => $account['type_id'],
-                'parent_id' => $account['parent_id'],
-                'order' => $account['order'],
-                'is_active' => $account['is_active'],
-                'created_by' => $account['created_by'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-
-        $this->command->info('Chart of Accounts seeded successfully!');
-        $this->command->info('Created ' . count($accountTypes) . ' account types');
-        $this->command->info('Created ' . (count($accounts) + count($subAccounts) + count($detailedAccounts)) . ' chart of accounts');
-    }
-}
-    */
-
-    
-    public function run()
-    {
-        // Check if chart of accounts already exist to avoid foreign key constraint issues
-        if (DB::table('chart_of_accounts')->count() > 0) {
-            $this->command->info('Chart of accounts already exist, skipping seeding.');
-            return;
-        }
-
-        // First, let's create some account types
-        $accountTypes = [
-            ['name' => 'الأصول', 'order' => 1],        // Asset
-            ['name' => 'الخصوم', 'order' => 2],        // Liability
-            ['name' => 'حقوق الملكية', 'order' => 3],  // Equity
-            ['name' => 'الإيرادات', 'order' => 4],     // Revenue
-            ['name' => 'المصروفات', 'order' => 5],     // Expense
-        ];
-        
-        // foreach ($accountTypes as $type) {
-        //     DB::table('chart_of_account_types')->insert([
-        //         'name' => $type['name'],
-        //         'order' => $type['order'],
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ]);
-        // }
-
-        // Get the created account types
-        $assetTypeId = DB::table('chart_of_account_types')->where('name', 'الأصول')->first()->id;
-        $liabilityTypeId = DB::table('chart_of_account_types')->where('name', 'الخصوم')->first()->id;
-        $equityTypeId = DB::table('chart_of_account_types')->where('name', 'حقوق الملكية')->first()->id;
-        $revenueTypeId = DB::table('chart_of_account_types')->where('name', 'الإيرادات')->first()->id;
-        $expenseTypeId = DB::table('chart_of_account_types')->where('name', 'المصروفات')->first()->id;
-        
-        // Get a user ID for created_by (assuming you have at least one user)
-        $userId = DB::table('users')->first()->id ?? 1;
-
-        // Create hierarchical chart of accounts
-        $accounts = [
-            // المستوى 0 - الحسابات الرئيسية
-            [
-                'name' => 'الأصول', // Assets
-                'code' => '1000',
-                'type_id' => $assetTypeId,
-                'parent_id' => null,
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الخصوم', // Liabilities
-                'code' => '2000',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => null,
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'حقوق الملكية', // Equity
-                'code' => '3000',
-                'type_id' => $equityTypeId,
-                'parent_id' => null,
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الإيرادات', // Revenue
-                'code' => '4000',
-                'type_id' => $revenueTypeId,
-                'parent_id' => null,
-                'order' => 4,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'المصروفات', // Expenses
-                'code' => '5000',
-                'type_id' => $expenseTypeId,
-                'parent_id' => null,
-                'order' => 5,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        ];
-        
-
-        // Insert root accounts and get their IDs
-        $rootAccountIds = [];
-        foreach ($accounts as $account) {
             $id = DB::table('chart_of_accounts')->insertGetId([
                 'name' => $account['name'],
                 'code' => $account['code'],
@@ -649,403 +624,24 @@ class TenantChartOfAccountSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            $rootAccountIds[$account['name']] = $id;
-        }
 
-        // Level 1 - Sub-accounts
-        $subAccounts = [
-            // الأصول - الحسابات الفرعية
-            [
-                'name' => 'الأصول المتداولة', // Current Assets
-                'code' => '1100',
-                'type_id' => $assetTypeId,
-                'parent_id' => $rootAccountIds['الأصول'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الأصول الثابتة', // Fixed Assets
-                'code' => '1200',
-                'type_id' => $assetTypeId,
-                'parent_id' => $rootAccountIds['الأصول'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الأصول غير الملموسة', // Intangible Assets
-                'code' => '1300',
-                'type_id' => $assetTypeId,
-                'parent_id' => $rootAccountIds['الأصول'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // الخصوم - الحسابات الفرعية
-            [
-                'name' => 'الخصوم المتداولة', // Current Liabilities
-                'code' => '2100',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => $rootAccountIds['الخصوم'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الخصوم طويلة الأجل', // Long-term Liabilities
-                'code' => '2200',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => $rootAccountIds['الخصوم'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // حقوق الملكية - الحسابات الفرعية
-            [
-                'name' => 'رأس مال المالك', // Owner’s Equity
-                'code' => '3100',
-                'type_id' => $equityTypeId,
-                'parent_id' => $rootAccountIds['حقوق الملكية'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الأرباح المحتجزة', // Retained Earnings
-                'code' => '3200',
-                'type_id' => $equityTypeId,
-                'parent_id' => $rootAccountIds['حقوق الملكية'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // الإيرادات - الحسابات الفرعية
-            [
-                'name' => 'إيرادات المبيعات', // Sales Revenue
-                'code' => '4100',
-                'type_id' => $revenueTypeId,
-                'parent_id' => $rootAccountIds['الإيرادات'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'إيرادات أخرى', // Other Revenue
-                'code' => '4200',
-                'type_id' => $revenueTypeId,
-                'parent_id' => $rootAccountIds['الإيرادات'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // المصروفات - الحسابات الفرعية
-            [
-                'name' => 'تكلفة البضاعة المباعة', // Cost of Goods Sold
-                'code' => '5100',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $rootAccountIds['المصروفات'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'المصروفات التشغيلية', // Operating Expenses
-                'code' => '5200',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $rootAccountIds['المصروفات'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'المصروفات المالية', // Financial Expenses
-                'code' => '5300',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $rootAccountIds['المصروفات'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        ];
-        
-
-        // Insert sub-accounts and get their IDs
-        $subAccountIds = [];
-        foreach ($subAccounts as $account) {
-            $id = DB::table('chart_of_accounts')->insertGetId([
-                'name' => $account['name'],
-                'code' => $account['code'],
-                'type_id' => $account['type_id'],
-                'parent_id' => $account['parent_id'],
-                'order' => $account['order'],
-                'is_active' => $account['is_active'],
-                'created_by' => $account['created_by'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-            $subAccountIds[$account['name']] = $id;
-        }
-
-        // Level 2 - Detailed accounts with specific accounting system requirements
-        $detailedAccounts = [
-            // الأصول المتداولة - الحسابات التفصيلية
-            [
-                'name' => 'النقدية', // Cash
-                'code' => '1110',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول المتداولة'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الحسابات البنكية', // Bank Accounts
-                'code' => '1120',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول المتداولة'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'حسابات العملاء', // Clients Account / Accounts Receivable
-                'code' => '1130',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول المتداولة'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'حساب ضريبة القيمة المضافة للمشتريات', // Purchase VAT Account
-                'code' => '1131',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول المتداولة'],
-                'order' => 4,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'المخزون', // Inventory
-                'code' => '1140',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول المتداولة'],
-                'order' => 5,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // الأصول الثابتة - الحسابات التفصيلية
-            [
-                'name' => 'المعدات', // Equipment
-                'code' => '1210',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول الثابتة'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'المباني', // Buildings
-                'code' => '1220',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول الثابتة'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'المركبات', // Vehicles
-                'code' => '1230',
-                'type_id' => $assetTypeId,
-                'parent_id' => $subAccountIds['الأصول الثابتة'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // الخصوم المتداولة - الحسابات التفصيلية
-            [
-                'name' => 'حسابات الموردين', // Suppliers Account / Accounts Payable
-                'code' => '2110',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => $subAccountIds['الخصوم المتداولة'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'حساب ضريبة القيمة المضافة للمبيعات', // Sales VAT Account
-                'code' => '2111',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => $subAccountIds['الخصوم المتداولة'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'قروض قصيرة الأجل', // Short-term Loans
-                'code' => '2120',
-                'type_id' => $liabilityTypeId,
-                'parent_id' => $subAccountIds['الخصوم المتداولة'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // إيرادات المبيعات - الحسابات التفصيلية
-            [
-                'name' => 'حساب المبيعات', // Sales Account
-                'code' => '4110',
-                'type_id' => $revenueTypeId,
-                'parent_id' => $subAccountIds['إيرادات المبيعات'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'حساب مبيعات المنتجات', // Product Sales Account
-                'code' => '4111',
-                'type_id' => $revenueTypeId,
-                'parent_id' => $subAccountIds['إيرادات المبيعات'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'إيرادات الخدمات', // Service Revenue
-                'code' => '4120',
-                'type_id' => $revenueTypeId,
-                'parent_id' => $subAccountIds['إيرادات المبيعات'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'مردودات المبيعات', // Sales Returns
-                'code' => '4121',
-                'type_id' => $revenueTypeId,
-                'parent_id' => $subAccountIds['إيرادات المبيعات'],
-                'order' => 4,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // تكلفة البضاعة المباعة - الحسابات التفصيلية
-            [
-                'name' => 'حساب المشتريات', // Purchase Account
-                'code' => '5110',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['تكلفة البضاعة المباعة'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'حساب مشتريات المنتجات', // Product Purchase Account
-                'code' => '5111',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['تكلفة البضاعة المباعة'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'مردودات المشتريات', // Purchase Returns
-                'code' => '5112',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['تكلفة البضاعة المباعة'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // المصروفات التشغيلية - الحسابات التفصيلية
-            [
-                'name' => 'حساب المصروفات', // Expenses Account
-                'code' => '5210',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['المصروفات التشغيلية'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'الرواتب والأجور', // Salaries and Wages
-                'code' => '5220',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['المصروفات التشغيلية'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'مصروف الإيجار', // Rent Expense
-                'code' => '5230',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['المصروفات التشغيلية'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'مصروفات الخدمات', // Utilities
-                'code' => '5240',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['المصروفات التشغيلية'],
-                'order' => 4,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        
-            // المصروفات المالية - الحسابات التفصيلية
-            [
-                'name' => 'خصم مسموح به', // Discount Allowed Account
-                'code' => '5310',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['المصروفات المالية'],
-                'order' => 1,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'خصم مكتسب', // Discount Received Account
-                'code' => '5311',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['المصروفات المالية'],
-                'order' => 2,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-            [
-                'name' => 'مصروف الفوائد', // Interest Expense
-                'code' => '5320',
-                'type_id' => $expenseTypeId,
-                'parent_id' => $subAccountIds['المصروفات المالية'],
-                'order' => 3,
-                'is_active' => 1,
-                'created_by' => $userId,
-            ],
-        ];
-        
-
-        // Insert detailed accounts
-        foreach ($detailedAccounts as $account) {
-            DB::table('chart_of_accounts')->insert([
-                'name' => $account['name'],
-                'code' => $account['code'],
-                'type_id' => $account['type_id'],
-                'parent_id' => $account['parent_id'],
-                'order' => $account['order'],
-                'is_active' => $account['is_active'],
-                'created_by' => $account['created_by'],
-                'created_at' => now(),
-                'updated_at' => now(),
+            DB::table('chart_of_account_translations')->insert([
+                [
+                    'chart_of_account_id' => $id,
+                    'locale' => 'ar',
+                    'name' => $account['name_ar'],
+                    'description' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'chart_of_account_id' => $id,
+                    'locale' => 'en',
+                    'name' => $account['name'],
+                    'description' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
             ]);
         }
 

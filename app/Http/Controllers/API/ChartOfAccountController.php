@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\ChartOfAccountResource;
 use App\Http\Resources\ChartOfAccountResourceCollection;
+use App\Http\Resources\ChartOfAccountTranslationResource;
 use App\Http\Requests\ChartOfAccount\StoreChartOfAccountRequest;
 use App\Http\Requests\ChartOfAccount\UpdateChartOfAccountRequest;
+use App\Services\TranslationService;
 use Illuminate\Support\Facades\DB;
 
 class ChartOfAccountController extends Controller
@@ -25,6 +27,17 @@ class ChartOfAccountController extends Controller
         $this->middleware('can:chart-of-account-view', ['only' => ['show']]);
         $this->middleware('can:chart-of-account-edit', ['only' => ['edit', 'update']]);
         $this->middleware('can:chart-of-account-delete', ['only' => ['destroy']]);
+    }
+
+    /**
+     * Resolve ChartOfAccount by code (slug) or numeric id
+     */
+    protected function resolveAccount($slugOrId)
+    {
+        if (is_numeric($slugOrId)) {
+            return ChartOfAccount::findOrFail((int) $slugOrId);
+        }
+        return ChartOfAccount::where('code', $slugOrId)->firstOrFail();
     }
 
     /**
@@ -72,9 +85,12 @@ class ChartOfAccountController extends Controller
                 ->orderBy('name', 'asc')
                 ->get()
                 ->map(function ($account) {
+                    $translatedName = method_exists($account, 'getTranslatedField')
+                        ? $account->getTranslatedField('name')
+                        : $account->name;
                     return [
                         'id' => $account->id,
-                        'name' => $account->name,
+                        'name' => $translatedName,
                         'code' => $account->code,
                         'type' => $account->type ? $account->type->name : null,
                         'parent_id' => $account->parent_id,
@@ -479,6 +495,296 @@ class ChartOfAccountController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error loading journal entries',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get chart of accounts with translations
+     */
+    public function indexWithTranslations(Request $request)
+    {
+        $perPage = $request->perPage ?? 10;
+        $locale = $request->get('locale', app()->getLocale());
+        
+        $accounts = ChartOfAccount::with(['type', 'parent', 'translations'])
+            ->ordered()
+            ->paginate($perPage);
+            
+        return ChartOfAccountTranslationResource::collection($accounts);
+    }
+
+    /**
+     * Store chart of account with translations
+     */
+    public function storeWithTranslations(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:150',
+                'description' => 'nullable|string',
+                'code' => 'required|string|max:50|unique:chart_of_accounts,code',
+                'type_id' => 'required|exists:chart_of_account_types,id',
+                'parent_id' => 'nullable|exists:chart_of_accounts,id',
+                'order' => 'nullable|integer',
+                'is_active' => 'boolean',
+                'translations' => 'nullable|array',
+                'translations.name' => 'nullable|array',
+                'translations.description' => 'nullable|array',
+            ]);
+
+            $accountData = collect($validated)->except('translations')->toArray();
+            $accountData['created_by'] = Auth::id();
+
+            $account = ChartOfAccount::createWithTranslations($accountData, $validated['translations'] ?? []);
+
+            return response()->json([
+                'message' => 'Chart of account created successfully with translations',
+                'data' => new ChartOfAccountTranslationResource($account)
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error creating chart of account with translations',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Update chart of account with translations
+     */
+    public function updateWithTranslations(Request $request, $slug)
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'sometimes|string|max:150',
+                'description' => 'nullable|string',
+                'code' => 'sometimes|string|max:50|unique:chart_of_accounts,code,' . $slug . ',code',
+                'type_id' => 'sometimes|exists:chart_of_account_types,id',
+                'parent_id' => 'nullable|exists:chart_of_accounts,id',
+                'order' => 'nullable|integer',
+                'is_active' => 'boolean',
+                'translations' => 'nullable|array',
+                'translations.name' => 'nullable|array',
+                'translations.description' => 'nullable|array',
+            ]);
+
+            $account = $this->resolveAccount($slug);
+            
+            $accountData = collect($validated)->except('translations')->toArray();
+            $account->updateWithTranslations($accountData, $validated['translations'] ?? []);
+
+            return response()->json([
+                'message' => 'Chart of account updated successfully with translations',
+                'data' => new ChartOfAccountTranslationResource($account)
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error updating chart of account with translations',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get translations for a specific chart of account
+     */
+    public function getTranslations($slug)
+    {
+        try {
+            $account = $this->resolveAccount($slug);
+            $translationService = app(TranslationService::class);
+            
+            return response()->json([
+                'data' => $translationService->getAllTranslations($account),
+                'available_locales' => $translationService->getSupportedLocales(),
+                'current_locale' => $translationService->getCurrentLocale(),
+                'fallback_locale' => $translationService->getFallbackLocale(),
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error loading translations',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Update translations for a specific chart of account
+     */
+    public function updateTranslations(Request $request, $slug)
+    {
+        try {
+            $validated = $request->validate([
+                'field' => 'required|string|in:name,description',
+                'translations' => 'required|array',
+                'translations.*' => 'required|string',
+            ]);
+
+            $account = $this->resolveAccount($slug);
+            $translationService = app(TranslationService::class);
+            
+            $translationService->setTranslations($account, $validated['field'], $validated['translations']);
+
+            return response()->json([
+                'message' => 'Translations updated successfully',
+                'data' => $translationService->getTranslations($account, $validated['field'])
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error updating translations',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Search chart of accounts by translated content
+     */
+    public function searchTranslations(Request $request)
+    {
+        try {
+            $perPage = $request->perPage ?? 10;
+            $searchTerm = $request->get('search', '');
+            $locale = $request->get('locale', app()->getLocale());
+            $field = $request->get('field', 'name');
+            
+            $query = ChartOfAccount::with(['type', 'parent', 'translations']);
+            
+            if ($searchTerm) {
+                if ($field === 'name') {
+                    $query->searchByName($searchTerm, $locale);
+                } elseif ($field === 'description') {
+                    $query->searchByDescription($searchTerm, $locale);
+                } else {
+                    $query->where('name', 'like', "%{$searchTerm}%")
+                          ->orWhere('description', 'like', "%{$searchTerm}%");
+                }
+            }
+
+            $accounts = $query->ordered()->paginate($perPage);
+            
+            return ChartOfAccountTranslationResource::collection($accounts);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error searching translations',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get translation statistics for all chart of accounts
+     */
+    public function getTranslationStats()
+    {
+        try {
+            $translationService = app(TranslationService::class);
+            $accounts = ChartOfAccount::all();
+            
+            $stats = [
+                'total_accounts' => $accounts->count(),
+                'accounts_with_translations' => 0,
+                'field_stats' => [
+                    'name' => ['total' => 0, 'translated' => 0, 'missing' => 0],
+                    'description' => ['total' => 0, 'translated' => 0, 'missing' => 0],
+                ],
+                'locale_stats' => [],
+            ];
+            
+            $supportedLocales = $translationService->getSupportedLocales();
+            
+            foreach ($supportedLocales as $locale) {
+                $stats['locale_stats'][$locale] = 0;
+            }
+            
+            foreach ($accounts as $account) {
+                $accountStats = $translationService->getTranslationStats($account);
+                
+                if (!empty($accountStats)) {
+                    $stats['accounts_with_translations']++;
+                }
+                
+                foreach (['name', 'description'] as $field) {
+                    if (isset($accountStats[$field])) {
+                        $stats['field_stats'][$field]['total']++;
+                        $stats['field_stats'][$field]['translated'] += $accountStats[$field]['translated_locales'];
+                        $stats['field_stats'][$field]['missing'] += $accountStats[$field]['missing_locales'];
+                        
+                        foreach ($accountStats[$field] as $locale => $count) {
+                            if (is_numeric($count) && isset($stats['locale_stats'][$locale])) {
+                                $stats['locale_stats'][$locale] += $count;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return response()->json([
+                'data' => $stats,
+                'supported_locales' => $supportedLocales,
+                'current_locale' => $translationService->getCurrentLocale(),
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error loading translation statistics',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Export translations for chart of accounts
+     */
+    public function exportTranslations(Request $request)
+    {
+        try {
+            $format = $request->get('format', 'json');
+            $accountIds = $request->get('account_ids', []);
+            
+            $query = ChartOfAccount::with('translations');
+            
+            if (!empty($accountIds)) {
+                $query->whereIn('id', $accountIds);
+            }
+            
+            $accounts = $query->get();
+            $translationService = app(TranslationService::class);
+            
+            $exportData = [];
+            foreach ($accounts as $account) {
+                $exportData[$account->code] = [
+                    'name' => $account->name,
+                    'description' => $account->description,
+                    'translations' => $translationService->exportTranslations($account, 'array'),
+                ];
+            }
+            
+            if ($format === 'csv') {
+                $csv = "Account Code,Field,Locale,Value\n";
+                foreach ($exportData as $code => $data) {
+                    foreach ($data['translations'] as $field => $translations) {
+                        foreach ($translations as $locale => $value) {
+                            $csv .= "\"{$code}\",\"{$field}\",\"{$locale}\",\"" . str_replace('"', '""', $value) . "\"\n";
+                        }
+                    }
+                }
+                
+                return response($csv, 200, [
+                    'Content-Type' => 'text/csv',
+                    'Content-Disposition' => 'attachment; filename="chart_of_accounts_translations.csv"',
+                ]);
+            }
+            
+            return response()->json([
+                'data' => $exportData,
+                'exported_at' => now(),
+                'total_accounts' => $accounts->count(),
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error exporting translations',
                 'error' => $e->getMessage()
             ], 500);
         }

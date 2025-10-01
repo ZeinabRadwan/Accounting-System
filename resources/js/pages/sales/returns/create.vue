@@ -146,7 +146,7 @@
                   <label for="invoiceTotal">{{
                     $t('Invoice Total')
                   }}</label>
-                  <input id="invoiceTotal" v-model="form.invoiceTotal" type="number" step="any" class="form-control"
+                  <input id="invoiceTotal" v-model="form.originalInvoiceTotal" type="number" step="any" class="form-control"
                     name="invoiceTotal" readonly />
                 </div>
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
@@ -344,6 +344,7 @@ export default {
       invoiceTransport: 0,
       invoiceTaxRate: 0,
       invoiceTotal: 0,
+      originalInvoiceTotal: 0,
       invoiceDue: 0,
       totalPaid: 0,
       newDue: 0,
@@ -454,7 +455,7 @@ export default {
     },
     // Dynamic breadcrumbs current based on country
     dynamicBreadcrumbsCurrent() {
-      return this.isSaudiArabia ? this.$t('Create Invoice Return KSA') : this.$t('Create Invoice Return');
+      return this.isSaudiArabia ? this.$t('Create Credit Note') : this.$t('Create Invoice Return');
     },
     // Dynamic breadcrumbs based on country
     dynamicBreadcrumbs() {
@@ -599,6 +600,7 @@ export default {
       this.form.invoiceTax = this.form.invoice.tax
       this.form.newTax = this.form.invoice.tax
       this.form.invoiceTaxRate = this.form.invoice.taxRate
+      this.form.originalInvoiceTotal = this.form.invoice.invoiceTotal
       this.form.invoiceTotal = this.form.invoice.invoiceTotal
       this.form.invoiceTransport = this.form.invoice.transport
       this.form.invoiceDiscount = this.form.invoice.discount
@@ -629,8 +631,8 @@ export default {
           inventoryCount: invoiceItem.inventoryCount,
           avgPurchasePrice: invoiceItem.purchasePrice,
           unitPrice: invoiceItem.salePrice,
-          unitCost: invoiceItem.unitCost,
-          totalPrice: invoiceItem.unitCostTotal,
+          unitCost: invoiceItem.salePrice,
+          totalPrice: invoiceItem.total,
           returnTotal: 0,
           productTax: invoiceItem.unitTax,
           totalTax: invoiceItem.taxTotal,
@@ -808,20 +810,22 @@ export default {
         this.form.newTax = 0
       }
       
-      // Add product-level taxes to the total tax
-      this.form.newTax += totalProductTax
+      // Note: Product-level taxes are already included in the original invoice calculation
+      // We only need to calculate the invoice-level tax on the new subtotal
 
       // Calculate final totals
-      this.form.invoiceTotal = Number(
-        (
-          this.form.newSubTotal +
-          this.form.newTax +
-          this.form.invoiceTransport
-        ).toFixed(2)
-      )
+      // Note: invoiceTotal should remain as the original invoice total
+      // The new calculated total would be:
+      // this.form.invoiceTotal = Number(
+      //   (
+      //     this.form.newSubTotal +
+      //     this.form.newTax +
+      //     this.form.invoiceTransport
+      //   ).toFixed(2)
+      // )
       
       this.form.invoiceDue = Number(
-        (this.form.invoiceTotal - this.form.invoice.totalPaid).toFixed(2)
+        (this.form.originalInvoiceTotal - this.form.invoice.totalPaid).toFixed(2)
       )
       
       // Update the display fields with calculated values
@@ -840,9 +844,9 @@ export default {
 
       // calculate new due or payable
       if (this.form.invoiceDue >= 0) {
-        this.form.newDue = this.form.invoiceTotal - this.form.invoice.totalPaid
+        this.form.newDue = this.form.originalInvoiceTotal - this.form.invoice.totalPaid
         this.form.newDueText =
-          this.form.invoiceTotal +
+          this.form.originalInvoiceTotal +
           ' - ' +
           this.form.invoice.totalPaid +
           ' = ' +
@@ -850,12 +854,12 @@ export default {
         this.form.returnAmount = 0
       } else {
         this.form.returnAmount = Number(
-          (this.form.invoice.totalPaid - this.form.invoiceTotal).toFixed(2)
+          (this.form.invoice.totalPaid - this.form.originalInvoiceTotal).toFixed(2)
         )
         this.form.returnAmountText =
           this.form.invoice.totalPaid +
           ' - ' +
-          this.form.invoiceTotal +
+          this.form.originalInvoiceTotal +
           ' = ' +
           this.form.returnAmount
         this.form.invoiceDue = 0
@@ -964,38 +968,50 @@ export default {
       
       // Check if any products have returns
       if (this.form.totalReturn <= 0) {
-        errors.push('At least one product must have a return quantity greater than 0')
+        errors.push(this.$t('At least one product must have a return quantity greater than 0'))
         isValid = false
       }
       
       // Check if return quantities exceed available quantities
       this.form.selectedProducts.forEach((product) => {
         if (product.returnQty > product.qty) {
-          errors.push(`Return quantity for ${product.name} cannot exceed available quantity`)
+          errors.push(this.$t('Return quantity for {name} cannot exceed available quantity', { name: product.name }))
           isValid = false
         }
-        
+
         if (product.returnQty < 0) {
-          errors.push(`Return quantity for ${product.name} cannot be negative`)
+          errors.push(this.$t('Return quantity for {name} cannot be negative', { name: product.name }))
           isValid = false
         }
       })
       
       // Check if new subtotal is valid
       if (this.form.newSubTotal < 0) {
-        errors.push('New subtotal cannot be negative')
+        errors.push(this.$t('New subtotal cannot be negative'))
         isValid = false
       }
       
       // Check if discount is valid
       if (this.form.invoiceDiscount > this.form.newSubTotal) {
-        errors.push('Total discount cannot exceed new subtotal')
+        errors.push(this.$t('Total discount cannot exceed new subtotal'))
         isValid = false
       }
       
       if (errors.length > 0) {
         console.error('Validation Errors:', errors)
-        alert('Validation Errors:\n' + errors.join('\n'))
+        // Show a toast like other parts of the system
+        if (typeof toast !== 'undefined' && toast.fire) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Validation Errors'),
+            text: errors[0],
+          })
+        }
+
+        // Bind errors to vform so they appear under inputs/section
+        if (this.form && this.form.errors && typeof this.form.errors.set === 'function') {
+          this.form.errors.set({ selectedProducts: errors })
+        }
       }
       
       return isValid
