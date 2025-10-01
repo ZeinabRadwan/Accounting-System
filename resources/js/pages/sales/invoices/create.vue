@@ -1767,12 +1767,12 @@ export default {
        // Update products with default VAT rate if needed
        this.updateProductsWithDefaultVatRate();
        
-       // calculate subtotal with proper decimal precision
+       // calculate subtotal with proper decimal precision (without VAT for invoices)
        this.form.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
          prev,
          cur
        ) {
-         return prev + cur.totalPrice;
+         return prev + (cur.totalAfterDiscount || 0);
        }, 0));
 
        // calculate product tax with proper decimal precision
@@ -2072,7 +2072,7 @@ export default {
       }, 0));
       
       this.reactiveTotals.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalPrice || 0);
+        return total + (item.totalAfterDiscount || 0);
       }, 0));
 
       console.log('[InvoiceCreate] updateReactiveTotals called:', this.reactiveTotals);
@@ -2127,7 +2127,7 @@ export default {
         return 0;
       }
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalPrice || 0);
+        return total + (item.totalAfterDiscount || 0);
       }, 0);
       return this.roundToTwoDecimals(total);
     },
@@ -2450,7 +2450,7 @@ export default {
       try {
         // Validate subtotal
         const calculatedSubTotal = this.form.selectedProducts.reduce((total, item) => {
-          return total + Number(item.totalPrice);
+          return total + Number(item.totalAfterDiscount || 0);
         }, 0);
         
         if (Math.abs(calculatedSubTotal - this.form.subTotal) > 0.01) {
