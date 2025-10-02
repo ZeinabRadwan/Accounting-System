@@ -72,7 +72,7 @@
             name="is_primary"
           />
           <label class="custom-control-label" for="is_primary">
-            {{ $t("Mark as primary contact") }}
+            <span style="padding: 0 10px">{{ $t("Mark as primary contact") }}</span>
           </label>
         </div>
       </div>
