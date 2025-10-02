@@ -36,9 +36,15 @@
 
           <div class="btn-group">
             <a
-              @click="notify((form.isSendSMS = true))"
+              @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null"
               href="#"
-              class="btn btn-secondary"
+              :class="[
+                'btn',
+                communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
+              ]"
+              :disabled="!communicationConfig.sms_configured"
+              :title="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
+              v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
             >
               <i class="fas fa-sms"></i> {{ $t("SMS") }}
             </a>
@@ -582,6 +588,12 @@ export default {
     isDemoMode: window.config.isDemoMode,
     query: "",
     perPage: 10,
+    // Communication configuration status
+    communicationConfig: {
+      email_configured: false,
+      sms_configured: false,
+      loading: true,
+    },
   }),
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
@@ -600,11 +612,31 @@ export default {
 
   created() {
     this.getPurchase();
+    this.loadCommunicationConfigStatus();
     this.productPrefix = this.appInfo.productPrefix;
     this.purchasePrefix = this.appInfo.purchasePrefix;
     this.supplierPrefix = this.appInfo.supplierPrefix;
   },
   methods: {
+    // Load communication configuration status
+    async loadCommunicationConfigStatus() {
+      try {
+        this.communicationConfig.loading = true;
+        
+        const response = await axios.get('/api/communication-config-status');
+        
+        this.communicationConfig.email_configured = response.data.email_configured;
+        this.communicationConfig.sms_configured = response.data.sms_configured;
+        this.communicationConfig.loading = false;
+      } catch (error) {
+        console.error('Error loading communication config status:', error);
+        // Default to false if there's an error
+        this.communicationConfig.email_configured = false;
+        this.communicationConfig.sms_configured = false;
+        this.communicationConfig.loading = false;
+      }
+    },
+
     // get the purchase
     async getPurchase() {
       this.$store.state.operations.loading = true;
