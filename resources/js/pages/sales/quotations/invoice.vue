@@ -1,21 +1,25 @@
 <template>
   <div>
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
     <div class="row">
       <div class="col-lg-12 col-xl-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t('Create quotation to invoice') }}
-            </h3>
-            <router-link :to="{ name: 'quotations.index' }" class="btn btn-info float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-            </router-link>
+        <div class="card custom-card w-100">
+          <div class="card-header setings-header">
+            <!-- breadcrumbs Start -->
+            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+            <!-- breadcrumbs end -->
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100 header-buttons">
+                <router-link :to="{ name: 'quotations.index' }" class="btn btn-info">
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+                </router-link>
+                <button type="submit" class="btn btn-success" :form="'quotationToInvoiceForm'" title="Save">
+                  <i class="fas fa-save" />
+                </button>
+              </div>
+            </div>
           </div>
-          <!-- /.card-header -->
-            <div class="card-body">
+          
+          <div class="card-body">
               <!-- Chart of Account Validation -->
               <ChartOfAccountValidation
                 :client="form.client"
@@ -23,83 +27,120 @@
                 type="invoice"
                 @chart-of-account-assigned="handleChartOfAccountAssigned"
               />
-              <!-- form start -->
-              <form role="form" @submit.prevent="createInvoice" @keydown="form.onKeydown($event)">
+              <!-- Add the missing form element with submit handler -->
+              <form id="quotationToInvoiceForm" @submit.prevent="createInvoice">
+              <!-- Client Selection with Auto-Assign -->
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
-                  <label for="client">{{ $t('Client') }}
+                  <label for="client">{{ $t("Client") }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.client" :options="items" label="name"
-                    :class="{ 'is-invalid': form.errors.has('client') }" name="client"
-                    :placeholder="$t('Select a client')" />
-                  
-                  <!-- Client Chart of Account Status -->
-                  <div class="client-status mt-2" v-if="form.client">
-                    <div v-if="!form.client.chart_of_account_id" class="client-warning">
-                      <i class="fas fa-exclamation-triangle text-warning"></i>
-                      <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
-                      <button 
-                        type="button" 
-                        class="btn btn-sm btn-outline-warning ml-2"
-                        @click="autoAssignClientChartOfAccount"
-                        :disabled="isAutoAssigningClient"
-                      >
-                        <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                        {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
-                      </button>
-                    </div>
-                    <div v-else class="client-success">
-                      <i class="fas fa-check-circle text-success"></i>
-                      <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
+                  <div class="row">
+                    <div class="col">
+                      <div class="d-flex w-100">
+                        <v-select 
+                          class="flex-grow-1" 
+                          v-model="form.client" 
+                          :options="items" 
+                          label="name"
+                          :class="{ 'is-invalid': form.errors.has('client') }" 
+                          name="client"
+                          :placeholder="$t('Select a client')"
+                          @input="onClientChange"
+                        />
+                        <ClientCreateModal @reloadClients="getClients('latest')">
+                          <div class="input-group-text create-btn">
+                            <i class="fas fa-solid fa-plus-circle"></i>
+                          </div>
+                        </ClientCreateModal>
+                      </div>
+                      
+                      <!-- Client Chart of Account Status - Keep this validation -->
+                      <div class="client-status mt-2" v-if="form.client">
+                        <div v-if="!form.client.chart_of_account_id" class="client-warning">
+                          <i class="fas fa-exclamation-triangle text-warning"></i>
+                          <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                          <button 
+                            type="button" 
+                            class="btn btn-sm btn-outline-warning ml-2"
+                            @click="autoAssignClientChartOfAccount"
+                            :disabled="isAutoAssigningClient"
+                          >
+                            <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                            {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
+                          </button>
+                        </div>
+                        
+                      </div>
+                      
+                      <has-error :form="form" field="client" />
                     </div>
                   </div>
-                  
-                  <has-error :form="form" field="client" />
                 </div>
+                
                 <div class="form-group col-md-6">
-                  <label for="reference">{{ $t('Reference') }}</label>
-                  <input id="reference" v-model="form.reference" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
-                    :placeholder="$t('Enter reference')" />
-                  <has-error :form="form" field="reference" />
+                    <label for="reference">
+                      {{ $t("Reference") }}
+                    </label>
+                    <input id="reference" v-model="form.reference" type="text" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
+                      :placeholder="$t('Enter reference')" @input="clearFieldError('reference')" />
+                    <has-error :form="form" field="reference" />
+                  </div>
                 </div>
-              </div>
               <div class="row" v-if="products">
-                <div class="form-group col-md-12">
-                  <label for="product">{{ $t('Select Items') }}
+                <div class="form-group col-md-6">
+                  <label for="product">{{ $t("Select Items") }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.product" :options="products" label="label" :class="{
-                    'is-invalid': form.errors.has('selectedProducts'),
-                  }" name="product" :placeholder="$t('Search Items')"
-                    @input="storeProduct(form.product)" />
-                  
-                  <!-- Product Chart of Account Status -->
-                  <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
-                    <div v-if="!allProductsHaveSalesAccounts" class="product-warning">
-                      <i class="fas fa-exclamation-triangle text-warning"></i>
-                      <span class="ml-2">{{ $t('Some products need Sales Accounts assigned') }}</span>
-                      <button 
-                        type="button" 
-                        class="btn btn-sm btn-outline-warning ml-2"
-                        @click="autoAssignAllProductsChartOfAccount"
-                        :disabled="isAutoAssigningProduct"
-                      >
-                        <i :class="isAutoAssigningProduct ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                        {{ isAutoAssigningProduct ? $t('Assigning...') : $t('Auto-Assign All') }}
-                      </button>
-                    </div>
-                    <div v-else class="product-success">
-                      <i class="fas fa-check-circle text-success"></i>
-                      <span class="ml-2">{{ $t('All products have Sales Accounts assigned') }}</span>
+                  <div class="row">
+                    <div class="col">
+                      <div class="d-flex w-100">
+                        <v-select class="flex-grow-1" v-model="form.product" :options="products" label="label" :class="{
+                          'is-invalid': form.errors.has('selectedProducts'),
+                        }" name="product" :placeholder="$t('Search Items')"
+                          @input="storeProduct(form.product)" />
+                        <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
+                          <div class="input-group-text create-btn">
+                            <i class="fas fa-solid fa-plus-circle"></i>
+                          </div>
+                        </ProductCreateModal>
+                      </div>
+                      
+                      <!-- Product Chart of Account Status - Similar to client validation -->
+                      <div class="product-status mt-2" v-if="form.product">
+                        <div v-if="!form.product.sales_account_id" class="product-warning">
+                          <i class="fas fa-exclamation-triangle text-warning"></i>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}</span>
+                          <button 
+                            type="button" 
+                            class="btn btn-sm btn-outline-warning ml-2"
+                            @click="autoAssignProductChartOfAccount(form.product, 'sales')"
+                            :disabled="isAutoAssigningProduct === form.product.id"
+                          >
+                            <i :class="isAutoAssigningProduct === form.product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                            {{ isAutoAssigningProduct === form.product.id ? $t('Assigning...') : $t('Auto-Assign') }}
+                          </button>
+                        </div>
+                        <div v-else-if="!form.product.productTax || !form.product.productTax.id" class="product-warning">
+                          <i class="fas fa-exclamation-triangle text-warning"></i>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate') }}</span>
+                        </div>
+                        <div v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id" class="product-success">
+                          <i class="fas fa-check-circle text-success"></i>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
+                        </div>
+                      </div>
+                      
+                      <has-error :form="form" field="selectedProducts" />
+                      <div v-if="!form.selectedProducts || form.selectedProducts.length === 0" class="text-warning mt-1">
+                        <small><i class="fas fa-exclamation-triangle"></i> {{ $t('At least one product must be selected') }}</small>
+                      </div>
                     </div>
                   </div>
-                  
-                  <has-error :form="form" field="selectedProducts" />
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center quotations-create-table">
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
+                  <table class="table table-hover table-sm text-center invoices-create-table">
                     <thead>
                       <th>{{ $t("#") }}</th>
                       <th>{{ $t("Code") }}</th>
@@ -290,65 +331,89 @@
                   </table>
                 </div>
               </div>
-
+                              
+              <!-- Insufficient Stock Warning -->
+              <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
+                <div class="col-12">
+                  <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <i class="fas fa-exclamation-triangle mr-3" style="font-size: 1.5rem;"></i>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1">{{ $t("Insufficient Stock Alert") }}</h6>
+                      <p class="mb-0">
+                        {{ $t("Some products have insufficient stock. Click on the red badges to manage stock levels.") }}
+                        <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="showAllInsufficientStock">
+                          <i class="fas fa-list mr-1"></i>
+                          {{ $t("View All") }}
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Discount and Tax Section -->
               <div class="row">
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="discountType">{{
-                    $t('Discount Type')
-                  }}</label>
-                  <select id="discountType" v-model="form.discountType" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum"
-                    @keyup="calculateSum">
-                    <option value="0">{{ $t('Fixed') }}</option>
-                    <option value="1">{{ $t('Percentage') }}(%)</option>
+                  <label for="discountType">{{ $t("Discount Type") }}</label>
+                  <select id="discountType" v-model="form.discountType" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
+                    @change="calculateSum; clearFieldError('discountType')" @keyup="calculateSum">
+                    <option value="0">{{ $t("Fixed") }}</option>
+                    <option value="1">{{ $t("Percentage") }}(%)</option>
                   </select>
                   <has-error :form="form" field="discountType" />
                 </div>
-                <div class="form-group" :class="form.discountType == 1 ? 'col-md-2' : 'col-md-4'" v-if="!isSaudiArabia">
-                  <label for="discount">{{ $t('Discount') }}
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
+                  <label for="discount">{{ $t("Discount") }}
                     <span v-if="form.discountType == 1">(%)</span></label>
-                  <input id="discount" v-model="form.discount" type="number" step="any" min="1"
-                    :max="form.discountType == 1 ? 100 : form.netTotal" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                    :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
+                  <div class="input-group">
+                    <input id="discount" v-model="form.discount" type="number" step="any" min="0"
+                      :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
+                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount')" />
+                    <div v-if="form.discountType == 1" class="input-group-append">
+                      <span class="input-group-text">{{
+                        form.totalDiscount }}<span class="saudi-riyal">ê</span></span>
+                    </div>
+                  </div>
                   <has-error :form="form" field="discount" />
                 </div>
-                <div v-if="form.discountType == 1 && !isSaudiArabia" class="form-group col-md-2">
-                  <label for="totalDiscount">{{
-                    $t('Total discount')
-                  }}</label>
-                  <input id="totalDiscount" v-model="form.totalDiscount" type="number" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
-                  <has-error :form="form" field="totalDiscount" />
-                </div>
-                <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="transportCost">{{
-                    $t('Transport Cost')
-                  }}</label>
-                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
-                  <has-error :form="form" field="transportCost" />
-                </div>
+                                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
+                   <label for="transportCost">{{
+                     $t("Transport Cost")
+                   }}</label>
+                   <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
+                     class="form-control" name="transportCost"
+                     :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('transportCost')" />
+                 </div>
               </div>
 
               <div class="row">
-                <div v-if="taxes" class="form-group col-md-4">
-                  <label for="orderTax">{{ $t('Invoice Tax') }}
-                    <span v-if="!isSaudiArabia" class="required">*</span></label>
-                  <v-select v-model="form.orderTax" :options="taxes" label="code"
-                    :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax"
-                    :placeholder="$t('Select a tax type')" @input="calculateSum" />
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-2">
+                  <label for="orderTax">{{ $t("Invoice Tax") }}
+                    <span class="required">*</span></label>
+                                     <v-select v-model="form.orderTax" :options="taxes" label="code"
+                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" placeholder="Select a tax type"
+                     @input="calculateSum(); clearFieldError('orderTax')" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes" class="form-group col-md-4">
-                  <label for="totalTax">{{ $t('Total Tax') }}</label>
+                <div class="form-group col-md-2" v-if="!isSaudiArabia">
+                  <label for="totalDiscount">{{ $t("Product Discounts") }}</label>
+                  <input id="totalDiscount" v-model="form.totalDiscount" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
+                  <has-error :form="form" field="totalDiscount" />
+                </div>
+                <div class="form-group col-md-2" v-if="!isSaudiArabia">
+                  <label for="globalDiscount">{{ $t("Global Discount") }}</label>
+                  <input id="globalDiscount" v-model="globalDiscountDisplay" type="text" class="form-control" readonly />
+                </div>
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-3">
+                  <label for="totalTax">{{ $t("Total Tax") }}</label>
                   <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="netTotal">{{ $t('Net Total') }}</label>
+                <div class="form-group col-md-3" v-if="!isSaudiArabia">
+                  <label for="netTotal">{{ $t("Net Total") }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
                   <has-error :form="form" field="netTotal" />
@@ -357,53 +422,56 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="poReference">{{
-                    $t('PO Reference')
+                    $t("PO Reference")
                   }}</label>
                   <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference"
-                    :placeholder="$t('Enter PO reference')" />
+                    :placeholder="$t('Enter PO reference')" @input="clearFieldError('poReference')" />
                   <has-error :form="form" field="poReference" />
                 </div>
                 <div class="form-group col-md-4">
                   <label for="paymentTerms">{{
-                    $t('Payment Terms')
+                    $t("Payment Terms")
                   }}</label>
                   <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms"
-                    :placeholder="$t('Enter payment terms')" />
+                    :placeholder="$t('Enter payment terms')" @input="clearFieldError('paymentTerms')" />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="addPayment">{{ $t('Add Payment?') }}</label>
-                  <select id="addPayment" v-model="form.addPayment" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('addPayment') }" name="addPayment">
-                    <option value="" selected disabled>
-                      {{ $t('Select an option') }}
-                    </option>
-                    <option value="1">{{ $t('Yes') }}</option>
-                    <option value="0">{{ $t('No') }}</option>
+                  <label for="addPayment">{{ $t("Add Payment?") }}</label>
+                  <select id="addPayment" 
+                          v-model="form.addPayment" 
+                          class="form-control"
+                          :class="{ 'is-invalid': form.errors.has('addPayment') }"
+                          @change="onAddPaymentChange">
+                    <option value="">{{ $t("Select") }}</option>
+                    <option value="1">{{ $t("Yes") }}</option>
+                    <option value="0">{{ $t("No") }}</option>
                   </select>
                   <has-error :form="form" field="addPayment" />
                 </div>
               </div>
-              <div class="row" v-if="form.addPayment == 1 &&
-                accounts &&
-                form.selectedProducts &&
-                form.selectedProducts.length > 0
-                ">
-                <div class="form-group col-md-6">
-                  <label for="account">{{ $t('Account') }}
+              <div class="row" v-if="paymentFieldsVisible">
+                <div class="form-group col-md-4">
+                  <label for="account">{{ $t("Account") }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')">
+                    :placeholder="$t('Select an account')" @input="onAccountChange">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
                     </template>
                   </v-select>
+                  <has-error :form="form" field="account" />
                   
-                  <!-- Account Chart of Account Status -->
+                  <!-- Payment validation hint -->
+                  <div v-if="form.addPayment == 1 && !form.account" class="text-warning mt-1">
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Please choose a bank account") }}</small>
+                  </div>
+                  
+                  <!-- Bank Account Chart of Account Status -->
                   <div class="account-status mt-2" v-if="form.account">
                     <div v-if="!form.account.chartOfAccountId" class="account-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
@@ -411,11 +479,10 @@
                       <button 
                         type="button" 
                         class="btn btn-sm btn-outline-warning ml-2"
-                        @click="autoAssignBankAccountChartOfAccount"
-                        :disabled="isAutoAssigningAccount"
+                        @click="goToBankAccounts"
                       >
-                        <i :class="isAutoAssigningAccount ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                        {{ isAutoAssigningAccount ? $t('Assigning...') : $t('Auto-Assign') }}
+                        <i class="fas fa-external-link-alt"></i>
+                        {{ $t('Go to Bank Accounts') }}
                       </button>
                     </div>
                     <div v-else class="account-success">
@@ -423,20 +490,13 @@
                       <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
                     </div>
                   </div>
-                  
-                  <has-error :form="form" field="account" />
-                  
-                  <!-- Payment validation hint -->
-                  <div v-if="form.addPayment == 1 && !form.account" class="text-warning mt-1">
-                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Please choose a bank account") }}</small>
-                  </div>
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="paidAmount">{{ $t('Paid Amount')
+                <div class="form-group col-md-2">
+                  <label for="paidAmount">{{ $t("Paid Amount")
                   }}<span class="required">*</span></label>
                   <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
-                    :max="form.netTotal" :placeholder="$t('Enter an amount')" />
+                    :max="form.netTotal" :placeholder="$t('Enter an amount')" @input="onPaidAmountChange" />
                   <has-error :form="form" field="paidAmount" />
                   
                   <!-- Payment validation hint -->
@@ -451,69 +511,94 @@
                     </small>
                   </div>
                 </div>
-                <!-- <div class="form-group col-md-6">
-                  <label for="chequeNo">{{ $t('Cheque No') }}</label>
+                <!-- <div class="form-group col-md-3">
+                  <label for="chequeNo">{{ $t("Cheque No") }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
-                    :placeholder="$t('Enter a cheque number')" />
+                    :placeholder="$t('Enter a cheque number')" @input="clearFieldError('chequeNo')" />
                   <has-error :form="form" field="chequeNo" />
                 </div> -->
-                <div class="form-group col-md-6">
-                  <label for="receiptNo">{{ $t('Receipt No') }}</label>
+                <div class="form-group col-md-3">
+                  <label for="receiptNo">{{ $t("Receipt No") }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
-                    :placeholder="$t('Enter a receipt no')" />
+                    :placeholder="$t('Enter a receipt no')" @input="clearFieldError('receiptNo')" />
                   <has-error :form="form" field="receiptNo" />
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="deliveryPlace">{{
-                    $t('Delivery Place')
+                    $t("Delivery Place")
                   }}</label>
                   <input id="deliveryPlace" v-model="form.deliveryPlace" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('deliveryPlace') }" name="deliveryPlace"
-                    :placeholder="$t('Enter a delivery place')" />
+                    :placeholder="$t('Enter a delivery place')" @input="clearFieldError('deliveryPlace')" />
                   <has-error :form="form" field="deliveryPlace" />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="date">{{ $t('Date') }}</label>
+                  <label for="date">{{ $t("Date") }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
+                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" @change="clearFieldError('date')" />
                   <has-error :form="form" field="date" />
                 </div>
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="status">{{ $t('Status') }}</label>
+                  <label for="status">{{ $t("Status") }}</label>
                   <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }">
-                    <option value="1">{{ $t('Active') }}</option>
-                    <option value="0">{{ $t('Inactive') }}</option>
+                    :class="{ 'is-invalid': form.errors.has('status') }" @change="clearFieldError('status')">
+                    <option value="1">{{ $t("Active") }}</option>
+                    <option value="0">{{ $t("Inactive") }}</option>
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
               </div>
+
               <div class="form-group">
-                <label for="note">{{ $t('Note') }}</label>
+                <label for="note">{{ $t("Note") }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" @input="clearFieldError('note')" />
                 <has-error :form="form" field="note" />
               </div>
+
+              <div class="form-group col-12 d-flex flex-wrap">
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendEmail" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+                  <span class="ml-3">{{ $t("Send To Email") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("Email not configured") }})
+                  </span>
+                </div>
+              </div>
+              <div class="form-group col-12 d-flex flex-wrap">
+                <div class="pr-5 d-flex align-items-center">
+                  <toggle-button 
+                    v-model="form.isSendSMS" 
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                        class="ml-2 text-muted small">
+                    ({{ $t("SMS not configured") }})
+                  </span>
+                </div>
+              </div>
               
-              <!-- Form buttons inside the form -->
-              <div class="form-group text-right">
-                <button 
-                  type="submit"
-                  :disabled="!isFormReady || form.busy"
-                  class="btn btn-primary"
-                  :class="{ 'btn-warning': !isFormReady }"
-                >
-                  <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
-                  <i v-else :class="isFormReady ? 'fas fa-save' : 'fas fa-exclamation-triangle'" /> 
-                  {{ form.busy ? $t('Saving...') : (isFormReady ? $t('Save') : $t('Complete Required Fields')) }}
-                </button>
-                <button type="reset" class="btn btn-info ml-2" @click="form.reset()">
-                  <i class="fas fa-power-off" /> {{ $t('Reset') }}
-                </button>
+              <!-- Form Actions -->
+              <div class="card-footer">
+                <div class="dtable-footer">
+                  <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+                    <button :disabled="form.busy || !isFormReady" class="btn btn-success" type="submit">
+                      <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
+                      <i v-else class="fas fa-save"></i>
+                      {{ form.busy ? $t("Saving...") : $t("Save") }}
+                    </button>
+                    <button type="button" class="btn btn-secondary ml-2" @click="resetForm">
+                      <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
             <!-- /.card-body -->

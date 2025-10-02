@@ -66590,9 +66590,12 @@ label:not(.form-check-label):not(.custom-file-label) {
 
 .create-btn, .create-button, .create-btn-2,
 .vs__dropdown-toggle {
-  display: inline-block;
   height: auto;
   min-height: 52px
+}
+
+.create-btn, .create-button, .create-btn-2 {
+  display: inline-block; 
 }
 
 .vs__dropdown-option--highlight {
