@@ -113,7 +113,7 @@
               </div>
 
               <!-- Debug Panel -->
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" v-show="false" class="row mt-3 mb-3">
+              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-3">
                 <div class="col-12">
                   <div class="card debug-panel">
                     <div class="card-header bg-warning text-dark">
@@ -2024,6 +2024,7 @@ export default {
   border: 2px solid #ffc107;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(255, 193, 7, 0.2);
+  display: none; /* Hide debug panel by default */
 }
 
 .debug-panel .card-header {
