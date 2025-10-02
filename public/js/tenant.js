@@ -22556,12 +22556,12 @@ var map = {
 		2757
 	],
 	"./purchase-order/create": [
-		19276,
-		9276
+		97843,
+		7843
 	],
 	"./purchase-order/create.vue": [
-		19276,
-		9276
+		97843,
+		7843
 	],
 	"./purchase-order/edit": [
 		28428,
@@ -89430,7 +89430,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 9909) return "js/9909.js";
 /******/ 			if (chunkId === 3018) return "js/3018.js";
 /******/ 			if (chunkId === 2757) return "js/2757.js";
-/******/ 			if (chunkId === 9276) return "js/9276.js";
+/******/ 			if (chunkId === 7843) return "js/7843.js";
 /******/ 			if (chunkId === 8428) return "js/8428.js";
 /******/ 			if (chunkId === 8254) return "js/8254.js";
 /******/ 			if (chunkId === 4206) return "js/4206.js";
