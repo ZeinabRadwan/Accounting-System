@@ -409,6 +409,10 @@ export default {
       const direct = this.$t(message)
       if (direct && direct !== message) return direct
 
+      // Get current locale
+      const currentLocale = this.$i18n.locale || 'en'
+      const isArabic = currentLocale === 'ar'
+
       // Field label mapping for employee form fields
       const fieldLabelMap = {
         employeeName: this.$t('Employee Name'),
@@ -434,103 +438,367 @@ export default {
       }
       const fieldLabel = fieldLabelMap[field] || field
 
-      // Common Laravel validation patterns
+      // Common Laravel validation patterns with localized messages
       const patterns = [
         // Required field patterns
-        { re: /The\s+.+?\s+field\s+is\s+required\.?/i, ar: `هذا الحقل مطلوب` },
-        { re: /Please\s+select\s+an?\s+.+?\.?/i, ar: `يرجى اختيار` },
-        { re: /Please\s+enter\s+a\s+.+?\.?/i, ar: `يرجى إدخال` },
-        { re: /Please\s+provide\s+a\s+.+?\.?/i, ar: `يرجى تقديم` },
+        { 
+          re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+          en: `This field is required`,
+          ar: `هذا الحقل مطلوب` 
+        },
+        { 
+          re: /Please\s+select\s+an?\s+.+?\.?/i, 
+          en: `Please select`,
+          ar: `يرجى اختيار` 
+        },
+        { 
+          re: /Please\s+enter\s+a\s+.+?\.?/i, 
+          en: `Please enter`,
+          ar: `يرجى إدخال` 
+        },
+        { 
+          re: /Please\s+provide\s+a\s+.+?\.?/i, 
+          en: `Please provide`,
+          ar: `يرجى تقديم` 
+        },
         
         // Selection and choice patterns
-        { re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, ar: `القيمة المحددة غير صالحة` },
-        { re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i, ar: `القيمة المحددة غير موجودة` },
-        { re: /Please\s+choose\s+a\s+.+?\.?/i, ar: `يرجى اختيار` },
-        { re: /You\s+must\s+select\s+a\s+.+?\.?/i, ar: `يجب اختيار` },
+        { 
+          re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, 
+          en: `The selected value is invalid`,
+          ar: `القيمة المحددة غير صالحة` 
+        },
+        { 
+          re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i, 
+          en: `The selected value does not exist`,
+          ar: `القيمة المحددة غير موجودة` 
+        },
+        { 
+          re: /Please\s+choose\s+a\s+.+?\.?/i, 
+          en: `Please choose`,
+          ar: `يرجى اختيار` 
+        },
+        { 
+          re: /You\s+must\s+select\s+a\s+.+?\.?/i, 
+          en: `You must select`,
+          ar: `يجب اختيار` 
+        },
         
         // Data type patterns
-        { re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, ar: `يجب أن يكون رقماً` },
-        { re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, ar: `يجب أن يكون عدداً صحيحاً` },
-        { re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i, ar: `يجب أن يكون نصاً` },
-        { re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i, ar: `يجب أن يكون مصفوفة` },
-        { re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i, ar: `يجب أن يكون صحيح أو خطأ` },
-        { re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i, ar: `يجب أن يكون بريد إلكتروني صحيح` },
-        { re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i, ar: `يجب أن يكون رابط صحيح` },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, 
+          en: `Must be a number`,
+          ar: `يجب أن يكون رقماً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, 
+          en: `Must be an integer`,
+          ar: `يجب أن يكون عدداً صحيحاً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i, 
+          en: `Must be a string`,
+          ar: `يجب أن يكون نصاً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i, 
+          en: `Must be an array`,
+          ar: `يجب أن يكون مصفوفة` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i, 
+          en: `Must be true or false`,
+          ar: `يجب أن يكون صحيح أو خطأ` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i, 
+          en: `Must be a valid email`,
+          ar: `يجب أن يكون بريد إلكتروني صحيح` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i, 
+          en: `Must be a valid URL`,
+          ar: `يجب أن يكون رابط صحيح` 
+        },
         
         // Numeric validation patterns
-        { re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, ar: (_, n) => `يجب ألا يقل عن ${n}` },
-        { re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i, ar: (_, n) => `يجب أن يكون أكبر من ${n}` },
-        { re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, ar: (_, n) => `يجب ألا يزيد عن ${n}` },
-        { re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i, ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max}` },
-        { re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i, ar: (_, n) => `يجب أن يكون بالضبط ${n}` },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, 
+          en: (_, n) => `Must be at least ${n}`,
+          ar: (_, n) => `يجب ألا يقل عن ${n}` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+          en: (_, n) => `Must be greater than ${n}`,
+          ar: (_, n) => `يجب أن يكون أكبر من ${n}` 
+        },
+        { 
+          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+          en: (_, n) => `May not be greater than ${n}`,
+          ar: (_, n) => `يجب ألا يزيد عن ${n}` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i, 
+          en: (_, min, max) => `Must be between ${min} and ${max}`,
+          ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max}` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i, 
+          en: (_, n) => `Must be exactly ${n}`,
+          ar: (_, n) => `يجب أن يكون بالضبط ${n}` 
+        },
         
         // String length patterns
-        { re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i, ar: (_, n) => `يجب ألا يتجاوز ${n} حرفاً` },
-        { re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i, ar: (_, n) => `يجب أن يكون على الأقل ${n} حرفاً` },
-        { re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i, ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max} حرفاً` },
+        { 
+          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i, 
+          en: (_, n) => `May not be greater than ${n} characters`,
+          ar: (_, n) => `يجب ألا يتجاوز ${n} حرفاً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i, 
+          en: (_, n) => `Must be at least ${n} characters`,
+          ar: (_, n) => `يجب أن يكون على الأقل ${n} حرفاً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i, 
+          en: (_, min, max) => `Must be between ${min} and ${max} characters`,
+          ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max} حرفاً` 
+        },
         
         // Date validation patterns
-        { re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i, ar: `ليس تاريخاً صحيحاً` },
-        { re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i, ar: `لا يطابق التنسيق المطلوب` },
-        { re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i, ar: `يجب أن يكون بعد أو يساوي التاريخ المحدد` },
-        { re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i, ar: `يجب أن يكون قبل أو يساوي التاريخ المحدد` },
-        { re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i, ar: `يجب أن يكون بعد التاريخ المحدد` },
-        { re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i, ar: `يجب أن يكون قبل التاريخ المحدد` },
-        { re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i, ar: `يجب أن يكون تاريخ بعد أو يساوي اليوم` },
+        { 
+          re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i, 
+          en: `Is not a valid date`,
+          ar: `ليس تاريخاً صحيحاً` 
+        },
+        { 
+          re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i, 
+          en: `Does not match the required format`,
+          ar: `لا يطابق التنسيق المطلوب` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i, 
+          en: `Must be after or equal to the specified date`,
+          ar: `يجب أن يكون بعد أو يساوي التاريخ المحدد` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i, 
+          en: `Must be before or equal to the specified date`,
+          ar: `يجب أن يكون قبل أو يساوي التاريخ المحدد` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i, 
+          en: `Must be after the specified date`,
+          ar: `يجب أن يكون بعد التاريخ المحدد` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i, 
+          en: `Must be before the specified date`,
+          ar: `يجب أن يكون قبل التاريخ المحدد` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i, 
+          en: `Must be a date after or equal to today`,
+          ar: `يجب أن يكون تاريخ بعد أو يساوي اليوم` 
+        },
         
         // Format validation patterns
-        { re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, ar: `تنسيق غير صالح` },
-        { re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i, ar: `لا يطابق التنسيق المطلوب` },
-        { re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i, ar: `يجب أن يطابق النمط المطلوب` },
+        { 
+          re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, 
+          en: `Invalid format`,
+          ar: `تنسيق غير صالح` 
+        },
+        { 
+          re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i, 
+          en: `Does not match the required format`,
+          ar: `لا يطابق التنسيق المطلوب` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i, 
+          en: `Must match the required pattern`,
+          ar: `يجب أن يطابق النمط المطلوب` 
+        },
         
         // Uniqueness patterns
-        { re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, ar: `هذه القيمة مستخدمة بالفعل` },
-        { re: /The\s+.+?\s+already\s+exists\.?/i, ar: `موجود بالفعل` },
-        { re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i, ar: `هذا مستخدم بالفعل` },
+        { 
+          re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, 
+          en: `This value has already been taken`,
+          ar: `هذه القيمة مستخدمة بالفعل` 
+        },
+        { 
+          re: /The\s+.+?\s+already\s+exists\.?/i, 
+          en: `Already exists`,
+          ar: `موجود بالفعل` 
+        },
+        { 
+          re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i, 
+          en: `This is already in use`,
+          ar: `هذا مستخدم بالفعل` 
+        },
         
         // File upload patterns
-        { re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i, ar: `يجب أن يكون ملفاً` },
-        { re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i, ar: `يجب أن يكون صورة` },
-        { re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i, ar: `يجب أن يكون صورة صحيحة` },
-        { re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i, ar: `الملف كبير جداً` },
-        { re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i, ar: (_, n) => `حجم الملف يجب ألا يتجاوز ${n} كيلوبايت` },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i, 
+          en: `Must be a file`,
+          ar: `يجب أن يكون ملفاً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i, 
+          en: `Must be an image`,
+          ar: `يجب أن يكون صورة` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i, 
+          en: `Must be a valid image`,
+          ar: `يجب أن يكون صورة صحيحة` 
+        },
+        { 
+          re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i, 
+          en: `File is too large`,
+          ar: `الملف كبير جداً` 
+        },
+        { 
+          re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i, 
+          en: (_, n) => `File size must not exceed ${n} KB`,
+          ar: (_, n) => `حجم الملف يجب ألا يتجاوز ${n} كيلوبايت` 
+        },
         
         // Confirmation patterns
-        { re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i, ar: `التأكيد غير متطابق` },
-        { re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i, ar: `يجب أن يتطابقا` },
+        { 
+          re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i, 
+          en: `Confirmation does not match`,
+          ar: `التأكيد غير متطابق` 
+        },
+        { 
+          re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i, 
+          en: `Must match`,
+          ar: `يجب أن يتطابقا` 
+        },
         
         // Custom validation patterns for employee form
-        { re: /Employee\s+name\s+is\s+required\.?/i, ar: `اسم الموظف مطلوب` },
-        { re: /Department\s+is\s+required\.?/i, ar: `القسم مطلوب` },
-        { re: /Designation\s+is\s+required\.?/i, ar: `المنصب مطلوب` },
-        { re: /Salary\s+is\s+required\.?/i, ar: `الراتب مطلوب` },
-        { re: /Email\s+is\s+required\.?/i, ar: `البريد الإلكتروني مطلوب` },
-        { re: /Password\s+is\s+required\.?/i, ar: `كلمة المرور مطلوبة` },
-        { re: /Role\s+is\s+required\.?/i, ar: `الدور مطلوب` },
-        { re: /Please\s+select\s+a\s+department\.?/i, ar: `يرجى اختيار قسم` },
-        { re: /Please\s+select\s+a\s+role\.?/i, ar: `يرجى اختيار دور` },
-        { re: /Mobile\s+number\s+is\s+required\.?/i, ar: `رقم الهاتف المحمول مطلوب` },
-        { re: /Phone\s+number\s+is\s+required\.?/i, ar: `رقم الهاتف مطلوب` },
-        { re: /Address\s+is\s+required\.?/i, ar: `العنوان مطلوب` },
-        { re: /Gender\s+is\s+required\.?/i, ar: `الجنس مطلوب` },
-        { re: /Blood\s+group\s+is\s+required\.?/i, ar: `فصيلة الدم مطلوبة` },
-        { re: /Religion\s+is\s+required\.?/i, ar: `الدين مطلوب` },
-        { re: /Appointment\s+date\s+is\s+required\.?/i, ar: `تاريخ التعيين مطلوب` },
-        { re: /Joining\s+date\s+is\s+required\.?/i, ar: `تاريخ الانضمام مطلوب` },
-        { re: /Profile\s+picture\s+is\s+required\.?/i, ar: `صورة الملف الشخصي مطلوبة` },
+        { 
+          re: /Employee\s+name\s+is\s+required\.?/i, 
+          en: `Employee name is required`,
+          ar: `اسم الموظف مطلوب` 
+        },
+        { 
+          re: /Department\s+is\s+required\.?/i, 
+          en: `Department is required`,
+          ar: `القسم مطلوب` 
+        },
+        { 
+          re: /Designation\s+is\s+required\.?/i, 
+          en: `Designation is required`,
+          ar: `المنصب مطلوب` 
+        },
+        { 
+          re: /Salary\s+is\s+required\.?/i, 
+          en: `Salary is required`,
+          ar: `الراتب مطلوب` 
+        },
+        { 
+          re: /Email\s+is\s+required\.?/i, 
+          en: `Email is required`,
+          ar: `البريد الإلكتروني مطلوب` 
+        },
+        { 
+          re: /Password\s+is\s+required\.?/i, 
+          en: `Password is required`,
+          ar: `كلمة المرور مطلوبة` 
+        },
+        { 
+          re: /Role\s+is\s+required\.?/i, 
+          en: `Role is required`,
+          ar: `الدور مطلوب` 
+        },
+        { 
+          re: /Please\s+select\s+a\s+department\.?/i, 
+          en: `Please select a department`,
+          ar: `يرجى اختيار قسم` 
+        },
+        { 
+          re: /Please\s+select\s+a\s+role\.?/i, 
+          en: `Please select a role`,
+          ar: `يرجى اختيار دور` 
+        },
+        { 
+          re: /Mobile\s+number\s+is\s+required\.?/i, 
+          en: `Mobile number is required`,
+          ar: `رقم الهاتف المحمول مطلوب` 
+        },
+        { 
+          re: /Phone\s+number\s+is\s+required\.?/i, 
+          en: `Phone number is required`,
+          ar: `رقم الهاتف مطلوب` 
+        },
+        { 
+          re: /Address\s+is\s+required\.?/i, 
+          en: `Address is required`,
+          ar: `العنوان مطلوب` 
+        },
+        { 
+          re: /Gender\s+is\s+required\.?/i, 
+          en: `Gender is required`,
+          ar: `الجنس مطلوب` 
+        },
+        { 
+          re: /Blood\s+group\s+is\s+required\.?/i, 
+          en: `Blood group is required`,
+          ar: `فصيلة الدم مطلوبة` 
+        },
+        { 
+          re: /Religion\s+is\s+required\.?/i, 
+          en: `Religion is required`,
+          ar: `الدين مطلوب` 
+        },
+        { 
+          re: /Appointment\s+date\s+is\s+required\.?/i, 
+          en: `Appointment date is required`,
+          ar: `تاريخ التعيين مطلوب` 
+        },
+        { 
+          re: /Joining\s+date\s+is\s+required\.?/i, 
+          en: `Joining date is required`,
+          ar: `تاريخ الانضمام مطلوب` 
+        },
+        { 
+          re: /Profile\s+picture\s+is\s+required\.?/i, 
+          en: `Profile picture is required`,
+          ar: `صورة الملف الشخصي مطلوبة` 
+        },
         
         // Generic fallback patterns
-        { re: /This\s+field\s+is\s+required\.?/i, ar: `هذا الحقل مطلوب` },
-        { re: /This\s+field\s+must\s+be\s+filled\.?/i, ar: `يجب ملء هذا الحقل` },
-        { re: /This\s+value\s+is\s+invalid\.?/i, ar: `هذه القيمة غير صالحة` },
-        { re: /Invalid\s+input\.?/i, ar: `إدخال غير صالح` },
-        { re: /Please\s+check\s+your\s+input\.?/i, ar: `يرجى التحقق من المدخلات` },
+        { 
+          re: /This\s+field\s+is\s+required\.?/i, 
+          en: `This field is required`,
+          ar: `هذا الحقل مطلوب` 
+        },
+        { 
+          re: /This\s+field\s+must\s+be\s+filled\.?/i, 
+          en: `This field must be filled`,
+          ar: `يجب ملء هذا الحقل` 
+        },
+        { 
+          re: /This\s+value\s+is\s+invalid\.?/i, 
+          en: `This value is invalid`,
+          ar: `هذه القيمة غير صالحة` 
+        },
+        { 
+          re: /Invalid\s+input\.?/i, 
+          en: `Invalid input`,
+          ar: `إدخال غير صالح` 
+        },
+        { 
+          re: /Please\s+check\s+your\s+input\.?/i, 
+          en: `Please check your input`,
+          ar: `يرجى التحقق من المدخلات` 
+        },
       ]
 
-      for (const { re, ar } of patterns) {
+      for (const { re, en, ar } of patterns) {
         const match = message.match(re)
         if (match) {
-          const text = typeof ar === 'function' ? ar(...match) : ar
+          const text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en)(...match) : (isArabic ? ar : en)
           return `${fieldLabel}: ${text}`
         }
       }

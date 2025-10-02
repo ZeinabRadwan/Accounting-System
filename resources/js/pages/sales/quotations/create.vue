@@ -1307,11 +1307,15 @@ export default {
           }
         });
     },
-    // translate common validation messages coming from backend to Arabic (fallback when i18n key missing)
+    // translate common validation messages coming from backend to localized messages
     translateValidationMessage(message, field) {
       // If there is a direct translation key, use it
       const direct = this.$t(message);
       if (direct && direct !== message) return direct;
+
+      // Get current locale
+      const currentLocale = this.$i18n.locale || 'en';
+      const isArabic = currentLocale === 'ar';
 
       // Normalize field label (try to use translated field names)
       const fieldLabelMap = {
@@ -1332,22 +1336,54 @@ export default {
       };
       const fieldLabel = fieldLabelMap[field] || field;
 
-      // Common Laravel validation patterns
+      // Common Laravel validation patterns with localized messages
       const patterns = [
-        { re: /The\s+.+?\s+field\s+is\s+required\.?/i, ar: `هذا الحقل مطلوب` },
-        { re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, ar: `القيمة المحددة غير صالحة` },
-        { re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, ar: `يجب أن يكون رقماً` },
-        { re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, ar: `يجب أن يكون عدداً صحيحاً` },
-        { re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, ar: (_, n) => `يجب ألا يقل عن ${n}` },
-        { re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, ar: (_, n) => `يجب ألا يزيد عن ${n}` },
-        { re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, ar: `تنسيق غير صالح` },
-        { re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, ar: `هذه القيمة مستخدمة بالفعل` },
+        { 
+          re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+          en: `This field is required`,
+          ar: `هذا الحقل مطلوب` 
+        },
+        { 
+          re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, 
+          en: `The selected value is invalid`,
+          ar: `القيمة المحددة غير صالحة` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, 
+          en: `Must be a number`,
+          ar: `يجب أن يكون رقماً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, 
+          en: `Must be an integer`,
+          ar: `يجب أن يكون عدداً صحيحاً` 
+        },
+        { 
+          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, 
+          en: (_, n) => `Must be at least ${n}`,
+          ar: (_, n) => `يجب ألا يقل عن ${n}` 
+        },
+        { 
+          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+          en: (_, n) => `May not be greater than ${n}`,
+          ar: (_, n) => `يجب ألا يزيد عن ${n}` 
+        },
+        { 
+          re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, 
+          en: `Invalid format`,
+          ar: `تنسيق غير صالح` 
+        },
+        { 
+          re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, 
+          en: `This value has already been taken`,
+          ar: `هذه القيمة مستخدمة بالفعل` 
+        },
       ];
 
-      for (const { re, ar } of patterns) {
+      for (const { re, en, ar } of patterns) {
         const match = message.match(re);
         if (match) {
-          const text = typeof ar === 'function' ? ar(...match) : ar;
+          const text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en)(...match) : (isArabic ? ar : en);
           // Prefix with field label where useful
           return `${fieldLabel}: ${text}`;
         }
