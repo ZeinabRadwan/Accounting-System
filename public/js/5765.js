@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[9590],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[5765],{
 
-/***/ 9590:
+/***/ 15765:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -9,361 +9,394 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ create)
+  "default": () => (/* binding */ register)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/increments/create.vue?vue&type=template&id=29f9c1cd&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/register.vue?vue&type=template&id=b04e5d1e
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "mb-50"
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "row no-gutter"
+  }, [_c('div', {
+    staticClass: "col-md-6 d-none d-md-flex bg-image"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6 bg-light"
+  }, [_c('div', {
+    staticClass: "auth-wrapper d-flex align-items-center py-5"
+  }, [_c('div', {
+    staticClass: "container"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-lg-12"
+    staticClass: "col-md-12 col-lg-10 col-xl-8 mx-auto"
   }, [_c('div', {
-    staticClass: "card custom-card w-100"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
+    staticClass: "text-center"
   }, [_c('router-link', {
-    staticClass: "btn btn-info",
     attrs: {
-      "to": {
-        name: 'increments.index'
-      }
+      "to": "/"
     }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n              ")])], 1)])], 1), _vm._v(" "), _c('form', {
+  }, [_vm.appInfo ? _c('img', {
+    staticClass: "lg-logo img-fluid logo-width",
     attrs: {
-      "role": "form"
-    },
+      "src": _vm.appInfo.blackLogo,
+      "alt": _vm.appInfo.companyName
+    }
+  }) : _vm._e()]), _vm._v(" "), !_vm.verificationForm.email && _vm.appInfo ? _c('div', [_c('p', {
+    staticClass: "text-22 mb-4 mt-2"
+  }, [_vm._v("\n                                        " + _vm._s(_vm.$t('Sign Up Instantly Free for') + ' ' + _vm.appInfo.trial_day_count + ' ' + _vm.$t('days, no credit card required') + '.') + "\n                                    ")])]) : _vm._e(), _vm._v(" "), _vm.isDemoMode ? _c('div', {
+    staticClass: "alert alert-danger"
+  }, [_vm._v("\n                                    To prevent the creation of multiple\n                                    sub-domains, we have disabled the\n                                    registration feature for the demo. You\n                                    can access the Tenant panel\n                                    "), _c('a', {
+    attrs: {
+      "href": "https://john.arqam.sa/login"
+    }
+  }, [_vm._v("here")])]) : _vm._e()], 1), _vm._v(" "), !_vm.verificationForm.email ? _c('form', {
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.saveIncrement.apply(null, arguments);
+        return _vm.tenantRegister.apply(null, arguments);
       },
       "keydown": function keydown($event) {
         return _vm.form.onKeydown($event);
       }
     }
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "reason"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Increment Reason'))), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+  }, [_vm.message && _vm.type === 'danger' ? _c('div', {
+    staticClass: "alert alert-danger mb-4"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.message) + "\n                                ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group mb-3"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.reason,
-      expression: "form.reason"
+      value: _vm.form.name,
+      expression: "form.name"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-pill border-0 shadow-sm px-4 text-primary",
     "class": {
-      'is-invalid': _vm.form.errors.has('reason')
+      'is-invalid': _vm.form.errors.has('name')
     },
     attrs: {
-      "id": "reason",
+      "id": "name",
       "type": "text",
-      "name": "reason",
-      "placeholder": _vm.$t('Enter a reason')
+      "name": "name",
+      "placeholder": _vm.$t('Name')
     },
     domProps: {
-      "value": _vm.form.reason
+      "value": _vm.form.name
     },
     on: {
       "input": function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.form, "reason", $event.target.value);
+        _vm.$set(_vm.form, "name", $event.target.value);
       }
     }
   }), _vm._v(" "), _c('has-error', {
+    staticClass: "ml-4",
     attrs: {
       "form": _vm.form,
-      "field": "reason"
+      "field": "name"
     }
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "employee"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Employee'))), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _vm.items ? _c('v-select', {
+    staticClass: "form-group mb-3"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.email,
+      expression: "form.email"
+    }],
+    staticClass: "form-control rounded-pill border-0 shadow-sm px-4 text-primary",
     "class": {
-      'is-invalid': _vm.form.errors.has('employee')
+      'is-invalid': _vm.form.errors.has('email')
     },
     attrs: {
-      "options": _vm.items,
-      "label": "name",
-      "name": "employee",
-      "placeholder": _vm.$t('Select an employee')
+      "id": "email",
+      "name": "email",
+      "type": "email",
+      "placeholder": _vm.$t('Email')
+    },
+    domProps: {
+      "value": _vm.form.email
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "email", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    staticClass: "ml-4",
+    attrs: {
+      "form": _vm.form,
+      "field": "email"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group mb-3"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center mb-2"
+  }, [_c('label', {
+    staticClass: "form-label mb-0",
+    attrs: {
+      "for": "domain"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('domain')))]), _vm._v(" "), _c('i', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('domain_explanation'),
+      expression: "$t('domain_explanation')"
+    }],
+    staticClass: "fas fa-info-circle ms-2",
+    staticStyle: {
+      "cursor": "help",
+      "font-size": "14px"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex url"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.domain,
+      expression: "form.domain"
+    }],
+    staticClass: "form-control rounded-pill border-0 shadow-sm px-4 text-primary",
+    "class": {
+      'is-invalid': _vm.form.errors.has('domain') || _vm.domainValidation.error,
+      'is-valid': _vm.domainValidation.valid && _vm.domainValidation.available && !_vm.domainValidation.checking
+    },
+    attrs: {
+      "id": "domain",
+      "name": "domain",
+      "type": "text",
+      "placeholder": _vm.$t('domain')
+    },
+    domProps: {
+      "value": _vm.form.domain
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "domain", $event.target.value);
+      }, _vm.checkDomainAvailability]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticStyle: {
+      "height": "100%",
+      "line-height": "2"
+    }
+  }, [_vm._v(_vm._s(_vm.host))])]), _vm._v(" "), _vm.domainValidation.checking ? _c('div', {
+    staticClass: "ml-4 text-muted small"
+  }, [_c('i', {
+    staticClass: "fas fa-spinner fa-spin me-1"
+  }), _vm._v("\n                                        " + _vm._s(_vm.$t('domain_checking')) + "\n                                    ")]) : _vm.domainValidation.valid && _vm.domainValidation.available ? _c('div', {
+    staticClass: "ml-4 text-success small"
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle me-1"
+  }), _vm._v("\n                                        " + _vm._s(_vm.$t('domain_available')) + "\n                                    ")]) : _vm.domainValidation.error ? _c('div', {
+    staticClass: "ml-4 text-danger small"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle me-1"
+  }), _vm._v("\n                                        " + _vm._s(_vm.domainValidation.message) + "\n                                    ")]) : _vm._e(), _vm._v(" "), _c('has-error', {
+    staticClass: "ml-4",
+    attrs: {
+      "form": _vm.form,
+      "field": "domain"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group mb-3"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.company,
+      expression: "form.company"
+    }],
+    staticClass: "form-control rounded-pill border-0 shadow-sm px-4 text-primary",
+    "class": {
+      'is-invalid': _vm.form.errors.has('company')
+    },
+    attrs: {
+      "id": "company",
+      "name": "company",
+      "type": "text",
+      "placeholder": _vm.$t('Company Name')
+    },
+    domProps: {
+      "value": _vm.form.company
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "company", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    staticClass: "ml-4",
+    attrs: {
+      "form": _vm.form,
+      "field": "company"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group mb-3"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.password,
+      expression: "form.password"
+    }],
+    staticClass: "form-control rounded-pill border-0 shadow-sm px-4 text-primary",
+    "class": {
+      'is-invalid': _vm.form.errors.has('password')
+    },
+    attrs: {
+      "id": "password",
+      "name": "password",
+      "type": "password",
+      "placeholder": _vm.$t('password')
+    },
+    domProps: {
+      "value": _vm.form.password
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "password", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    staticClass: "ml-4",
+    attrs: {
+      "form": _vm.form,
+      "field": "password"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group mb-3"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.password_confirmation,
+      expression: "form.password_confirmation"
+    }],
+    staticClass: "form-control rounded-pill border-0 shadow-sm px-4 text-primary",
+    "class": {
+      'is-invalid': _vm.form.errors.has('password_confirmation')
+    },
+    attrs: {
+      "id": "password_confirmation",
+      "name": "password_confirmation",
+      "type": "password",
+      "placeholder": _vm.$t('confirm_password')
+    },
+    domProps: {
+      "value": _vm.form.password_confirmation
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "password_confirmation", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    staticClass: "ml-4",
+    attrs: {
+      "form": _vm.form,
+      "field": "password_confirmation"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row mb-5 ml-2"
+  }, [_c('checkbox', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('terms_and_conditions')
+    },
+    attrs: {
+      "id": "terms_and_conditions",
+      "name": "terms_and_conditions",
+      "required": ""
     },
     model: {
-      value: _vm.form.employee,
+      value: _vm.form.terms_and_conditions,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "employee", $$v);
+        _vm.$set(_vm.form, "terms_and_conditions", $$v);
       },
-      expression: "form.employee"
+      expression: "form.terms_and_conditions"
     }
-  }) : _vm._e(), _vm._v(" "), _c('has-error', {
+  }, [_vm._v("\n                                        " + _vm._s(_vm.$t('register_policy')) + "\n                                    ")]), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
-      "field": "employee"
+      "field": "terms_and_conditions"
     }
-  })], 1)]), _vm._v(" "), _vm.form.employee ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "presentSalary"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Present Salary'))), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.employee.totalSalary,
-      expression: "form.employee.totalSalary"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('presentSalary')
-    },
-    attrs: {
-      "id": "presentSalary",
-      "type": "text",
-      "name": "presentSalary",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.employee.totalSalary
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form.employee, "totalSalary", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "presentSalary"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "incrementAmount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Increment Amount')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.incrementAmount,
-      expression: "form.incrementAmount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('incrementAmount')
-    },
-    attrs: {
-      "id": "incrementAmount",
-      "type": "number",
-      "step": "any",
-      "name": "incrementAmount",
-      "placeholder": _vm.$t('Enter increment amount'),
-      "min": "0",
-      "max": _vm.form.employee.totalSalary
-    },
-    domProps: {
-      "value": _vm.form.incrementAmount
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "incrementAmount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "incrementAmount"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "incrementDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Increment Date')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.incrementDate,
-      expression: "form.incrementDate"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('incrementDate')
-    },
-    attrs: {
-      "id": "incrementDate",
-      "type": "date",
-      "name": "incrementDate"
-    },
-    domProps: {
-      "value": _vm.form.incrementDate
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "incrementDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "incrementDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!')
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('v-button', {
-    staticClass: "btn btn-success",
+  })], 1), _vm._v(" "), _c('v-button', {
+    staticClass: "btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm",
     attrs: {
       "loading": _vm.form.busy
     }
   }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save')) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
+    staticClass: "fas fa-sign-in-alt"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('register')))])]), _vm._v(" "), _c('div', {
+    staticClass: "row justify-content-between"
+  }, [_c('router-link', {
+    staticClass: "mx-2",
     attrs: {
-      "type": "reset"
-    },
+      "to": {
+        name: 'find-domain'
+      }
+    }
+  }, [_vm._v("\n                                        " + _vm._s(_vm.$t('already_registered')) + "\n                                    ")]), _vm._v(" "), _c('router-link', {
+    staticClass: "mx-2",
+    attrs: {
+      "to": {
+        name: 'resend'
+      }
+    }
+  }, [_vm._v("\n                                        " + _vm._s(_vm.$t('resend_verification_link')) + "\n                                    ")])], 1)], 1) : _c('div', {
+    staticClass: "mt-5"
+  }, [_vm.message ? _c('div', {
+    staticClass: "alert",
+    "class": _vm.type == 'success' ? 'alert-success' : 'alert-danger'
+  }, [_vm._v("\n                                    " + _vm._s(_vm.message) + "\n                                    "), _vm.type != 'success' ? _c('span', [_vm._v("\n                                        " + _vm._s(_vm.$t('please')) + "\n                                        "), _c('router-link', {
+    attrs: {
+      "to": {
+        name: 'find-domain'
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.$t('login')))])], 1) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('h3', [_vm._v(_vm._s(_vm.$t('register_next_step')))]), _vm._v(" "), _c('p', {
+    staticClass: "text-22 mb-4 mt-2"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.$t('email_sent')) + "\n                                    "), _c('span', {
+    staticClass: "text-indigo"
+  }, [_vm._v("\n                                        " + _vm._s(_vm.verificationForm.email) + " ")]), _vm._v(".\n                                    " + _vm._s(_vm.$t('confirm_account')) + "\n                                ")]), _vm._v(" "), _c('p', [_vm._v("\n                                    " + _vm._s(_vm.$t('check_email')) + "\n                                    "), _c('button', {
+    staticClass: "btn p-0 text-indigo",
     on: {
-      "click": function click($event) {
-        return _vm.form.reset();
+      "click": _vm.resendVerification
+    }
+  }, [_vm._v("\n                                        " + _vm._s(_vm.$t('resend_verification_link')) + "\n                                    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "mt-3"
+  }, [_c('router-link', {
+    staticClass: "btn btn-outline-primary btn-sm",
+    attrs: {
+      "to": {
+        name: 'find-domain',
+        query: {
+          email: _vm.verificationForm.email,
+          domain: _vm.form.domain
+        }
       }
     }
   }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                ")])], 1)])])])])])])]);
+    staticClass: "fas fa-sign-in-alt mr-1"
+  }), _vm._v("\n                                        " + _vm._s(_vm.$t('go_to_login')) + "\n                                    ")])], 1)])])])])])])])]);
 };
 var staticRenderFns = [];
 
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/increments/create.vue?vue&type=script&lang=js
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/register.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -382,111 +415,128 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
-/* harmony default export */ const createvue_type_script_lang_js = ({
-  middleware: ['auth', 'check-permissions'],
+/* harmony default export */ const registervue_type_script_lang_js = ({
+  layout: 'basic',
+  middleware: 'guest',
   metaInfo: function metaInfo() {
     return {
-      title: this.$t('Create Salary Increment')
+      title: this.$t('register')
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: 'Create Salary Increment',
-      breadcrumbs: [{
-        name: 'Dashboard',
-        url: 'home'
-      }, {
-        name: 'Increments',
-        url: 'increments.index'
-      }, {
-        name: 'Create',
-        url: ''
-      }],
-      url: null,
+      isDemoMode: window.config.isDemoMode,
       form: new vform_es/* default */.Ay({
-        reason: '',
-        employee: '',
-        presentSalary: '',
-        incrementAmount: '',
-        incrementDate: new Date().toISOString().slice(0, 10),
-        status: 1,
-        note: ''
-      })
+        name: '',
+        email: '',
+        domain: '',
+        password: '',
+        password_confirmation: '',
+        terms_and_conditions: false
+      }),
+      appName: window.config.appName,
+      host: location.host,
+      verificationForm: new vform_es/* default */.Ay({
+        email: ''
+      }),
+      message: '',
+      type: null,
+      domainValidation: {
+        checking: false,
+        valid: false,
+        available: false,
+        error: false,
+        message: ''
+      },
+      domainCheckTimeout: null
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items'])),
-  created: function created() {
-    this.getEmployees();
-  },
+  // Map Getters
+  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo'])),
   methods: {
-    // get all employees
-    getEmployees: function getEmployees() {
+    tenantRegister: function tenantRegister() {
       var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$_this$form$pos, data, _t;
         return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
-              _context.n = 1;
-              return _this.$store.dispatch('operations/allData', {
-                path: '/api/all-employees'
-              });
+              if (!_this.isDemoMode) {
+                _context.n = 1;
+                break;
+              }
+              return _context.a(2, window.toast.fire({
+                type: 'warning',
+                title: _this.$t('You are not allowed to do this in demo version.')
+              }));
             case 1:
+              _context.p = 1;
+              _context.n = 2;
+              return _this.form.post('/api/register');
+            case 2:
+              _yield$_this$form$pos = _context.v;
+              data = _yield$_this$form$pos.data;
+              if (data) {
+                _this.verificationForm.email = data.data.tenant.email;
+              }
+              _context.n = 4;
+              break;
+            case 3:
+              _context.p = 3;
+              _t = _context.v;
+              _this.handleSubmitError(_t);
+            case 4:
               return _context.a(2);
           }
-        }, _callee);
-      }))();
-    },
-    // save increment
-    saveIncrement: function saveIncrement() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _context2.n = 1;
-              return _this2.form.post(window.location.origin + '/api/increments').then(function () {
-                toast.fire({
-                  type: 'success',
-                  title: _this2.$t('Increment added successfully')
-                });
-                _this2.$router.push({
-                  name: 'increments.index'
-                });
-              })["catch"](function (error) {
-                _this2.handleSubmitError(error);
-              });
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
+        }, _callee, null, [[1, 3]]);
       }))();
     },
     // handle form submission errors
     handleSubmitError: function handleSubmitError(error) {
       var _error$response,
         _error$response2,
-        _this3 = this;
+        _this2 = this;
+      // Handle SMTP configuration error specifically
+      if (error.response && error.response.status === 422) {
+        var errorData = error.response.data;
+        if (errorData.message && errorData.message.includes('SMTP configuration')) {
+          // Show error message in the form area for SMTP issues
+          this.message = this.$t('System is unable to send email. Please contact the administrator.');
+          this.type = 'danger';
+          return;
+        }
+      }
+
+      // Handle validation errors
       if ((error === null || error === void 0 || (_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422 && (_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.errors) {
         var serverErrors = error.response.data.errors || {};
         var translatedErrors = {};
         Object.keys(serverErrors).forEach(function (field) {
           var fieldErrors = serverErrors[field] || [];
           translatedErrors[field] = fieldErrors.map(function (message) {
-            return _this3.translateValidationMessage(message, field);
+            return _this2.translateValidationMessage(message, field);
           });
         });
         this.form.errors.set(translatedErrors);
-        toast.fire({
-          type: 'error',
-          title: this.$t('Please check your input and try again.')
-        });
+
+        // Show first validation error as message
+        var firstError = Object.values(translatedErrors)[0];
+        if (firstError && firstError.length > 0) {
+          this.message = firstError[0];
+          this.type = 'danger';
+        } else {
+          this.message = this.$t('Please check your input and try again.');
+          this.type = 'danger';
+        }
       } else {
-        var _error$response3;
-        var message = (error === null || error === void 0 || (_error$response3 = error.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || this.$t('Please check your input and try again.');
-        toast.fire({
-          type: 'error',
-          title: message
-        });
+        // Handle other errors normally
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message;
+          this.type = 'danger';
+        } else {
+          this.message = this.$t('An error occurred during registration. Please try again.');
+          this.type = 'danger';
+        }
       }
     },
     // translate validation messages from backend to localized messages
@@ -499,14 +549,24 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var currentLocale = this.$i18n.locale || 'en';
       var isArabic = currentLocale === 'ar';
 
-      // Field label mapping for increment form fields
+      // Field label mapping for registration form fields
       var fieldLabelMap = {
-        reason: this.$t('Increment Reason'),
-        employee: this.$t('Employee'),
-        incrementAmount: this.$t('Increment Amount'),
-        incrementDate: this.$t('Increment Date'),
-        note: this.$t('Note'),
-        status: this.$t('Status')
+        name: this.$t('Name'),
+        email: this.$t('Email'),
+        password: this.$t('Password'),
+        password_confirmation: this.$t('Password Confirmation'),
+        domain: this.$t('Domain'),
+        company_name: this.$t('Company Name'),
+        phone: this.$t('Phone'),
+        address: this.$t('Address'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        country: this.$t('Country'),
+        zip_code: this.$t('Zip Code'),
+        currency: this.$t('Currency'),
+        timezone: this.$t('Timezone'),
+        date_format: this.$t('Date Format'),
+        time_format: this.$t('Time Format')
       };
       var fieldLabel = fieldLabelMap[field] || field;
 
@@ -740,39 +800,67 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         en: "Must match",
         ar: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u062A\u0637\u0627\u0628\u0642\u0627"
       },
-      // Custom validation patterns for increment form
+      // Custom validation patterns for registration form
       {
-        re: /Increment\s+amount\s+cannot\s+exceed\s+present\s+salary\.?/i,
-        en: "Increment amount cannot exceed present salary",
-        ar: "\u0645\u0628\u0644\u063A \u0627\u0644\u0632\u064A\u0627\u062F\u0629 \u0644\u0627 \u064A\u0645\u0643\u0646 \u0623\u0646 \u064A\u062A\u062C\u0627\u0648\u0632 \u0627\u0644\u0631\u0627\u062A\u0628 \u0627\u0644\u062D\u0627\u0644\u064A"
+        re: /This\s+domain\s+has\s+already\s+been\s+taken\.?/i,
+        en: "This domain has already been taken",
+        ar: "\u0647\u0630\u0627 \u0627\u0644\u0646\u0637\u0627\u0642 \u0645\u0633\u062A\u062E\u062F\u0645 \u0628\u0627\u0644\u0641\u0639\u0644"
       }, {
-        re: /Increment\s+date\s+must\s+be\s+after\s+employee\s+joining\s+date\.?/i,
-        en: "Increment date must be after employee joining date",
-        ar: "\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0632\u064A\u0627\u062F\u0629 \u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0628\u0639\u062F \u062A\u0627\u0631\u064A\u062E \u0627\u0646\u0636\u0645\u0627\u0645 \u0627\u0644\u0645\u0648\u0638\u0641"
+        re: /The\s+email\s+has\s+already\s+been\s+taken\.?/i,
+        en: "The email has already been taken",
+        ar: "\u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0645\u0633\u062A\u062E\u062F\u0645 \u0628\u0627\u0644\u0641\u0639\u0644"
       }, {
-        re: /Please\s+select\s+an\s+employee\.?/i,
-        en: "Please select an employee",
-        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 \u0645\u0648\u0638\u0641"
+        re: /The\s+password\s+confirmation\s+does\s+not\s+match\.?/i,
+        en: "The password confirmation does not match",
+        ar: "\u062A\u0623\u0643\u064A\u062F \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u063A\u064A\u0631 \u0645\u062A\u0637\u0627\u0628\u0642"
       }, {
-        re: /Employee\s+is\s+required\.?/i,
-        en: "Employee is required",
-        ar: "\u0627\u0644\u0645\u0648\u0638\u0641 \u0645\u0637\u0644\u0648\u0628"
+        re: /Password\s+confirmation\s+does\s+not\s+match\.?/i,
+        en: "Password confirmation does not match",
+        ar: "\u062A\u0623\u0643\u064A\u062F \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u063A\u064A\u0631 \u0645\u062A\u0637\u0627\u0628\u0642"
       }, {
-        re: /Increment\s+reason\s+is\s+required\.?/i,
-        en: "Increment reason is required",
-        ar: "\u0633\u0628\u0628 \u0627\u0644\u0632\u064A\u0627\u062F\u0629 \u0645\u0637\u0644\u0648\u0628"
+        re: /The\s+password\s+and\s+password\s+confirmation\s+must\s+match\.?/i,
+        en: "The password and password confirmation must match",
+        ar: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0648\u062A\u0623\u0643\u064A\u062F\u0647\u0627 \u064A\u062C\u0628 \u0623\u0646 \u064A\u062A\u0637\u0627\u0628\u0642\u0627"
       }, {
-        re: /Increment\s+amount\s+is\s+required\.?/i,
-        en: "Increment amount is required",
-        ar: "\u0645\u0628\u0644\u063A \u0627\u0644\u0632\u064A\u0627\u062F\u0629 \u0645\u0637\u0644\u0648\u0628"
+        re: /Domain\s+is\s+required\.?/i,
+        en: "Domain is required",
+        ar: "\u0627\u0644\u0646\u0637\u0627\u0642 \u0645\u0637\u0644\u0648\u0628"
       }, {
-        re: /Increment\s+amount\s+must\s+be\s+greater\s+than\s+zero\.?/i,
-        en: "Increment amount must be greater than zero",
-        ar: "\u0645\u0628\u0644\u063A \u0627\u0644\u0632\u064A\u0627\u062F\u0629 \u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0623\u0643\u0628\u0631 \u0645\u0646 \u0635\u0641\u0631"
+        re: /Email\s+is\s+required\.?/i,
+        en: "Email is required",
+        ar: "\u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0645\u0637\u0644\u0648\u0628"
       }, {
-        re: /Note\s+cannot\s+exceed\s+255\s+characters\.?/i,
-        en: "Note cannot exceed 255 characters",
-        ar: "\u0627\u0644\u0645\u0644\u0627\u062D\u0638\u0629 \u0644\u0627 \u064A\u0645\u0643\u0646 \u0623\u0646 \u062A\u062A\u062C\u0627\u0648\u0632 255 \u062D\u0631\u0641\u0627\u064B"
+        re: /Password\s+is\s+required\.?/i,
+        en: "Password is required",
+        ar: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0645\u0637\u0644\u0648\u0628\u0629"
+      }, {
+        re: /Name\s+is\s+required\.?/i,
+        en: "Name is required",
+        ar: "\u0627\u0644\u0627\u0633\u0645 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Company\s+name\s+is\s+required\.?/i,
+        en: "Company name is required",
+        ar: "\u0627\u0633\u0645 \u0627\u0644\u0634\u0631\u0643\u0629 \u0645\u0637\u0644\u0648\u0628"
+      }, {
+        re: /Please\s+enter\s+a\s+domain\.?/i,
+        en: "Please enter a domain",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0646\u0637\u0627\u0642"
+      }, {
+        re: /Please\s+enter\s+an\s+email\.?/i,
+        en: "Please enter an email",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A"
+      }, {
+        re: /Please\s+enter\s+a\s+password\.?/i,
+        en: "Please enter a password",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631"
+      }, {
+        re: /Please\s+enter\s+a\s+name\.?/i,
+        en: "Please enter a name",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645"
+      }, {
+        re: /Please\s+enter\s+a\s+company\s+name\.?/i,
+        en: "Please enter a company name",
+        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0634\u0631\u0643\u0629"
       },
       // Generic fallback patterns
       {
@@ -810,74 +898,143 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
       // Fallback: return original message if nothing matched
       return message;
+    },
+    resendVerification: function resendVerification() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              if (!_this3.isDemoMode) {
+                _context2.n = 1;
+                break;
+              }
+              return _context2.a(2, window.toast.fire({
+                type: 'warning',
+                title: _this3.$t('You are not allowed to do this in demo version.')
+              }));
+            case 1:
+              _context2.n = 2;
+              return _this3.verificationForm.post('/api/email/resend').then(function (_ref) {
+                var data = _ref.data;
+                _this3.message = data.message;
+                _this3.type = 'success';
+              })["catch"](function (e) {
+                _this3.message = e.response.data.message;
+                _this3.type = 'danger';
+              });
+            case 2:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // Domain validation methods
+    checkDomainAvailability: function checkDomainAvailability() {
+      var _this4 = this;
+      // Clear previous timeout
+      if (this.domainCheckTimeout) {
+        clearTimeout(this.domainCheckTimeout);
+      }
+
+      // Reset validation state
+      this.domainValidation = {
+        checking: false,
+        valid: false,
+        available: false,
+        error: false,
+        message: ''
+      };
+
+      // Don't check if domain is empty or too short
+      if (!this.form.domain || this.form.domain.length < 2) {
+        return;
+      }
+
+      // Set checking state
+      this.domainValidation.checking = true;
+
+      // Debounce the API call
+      this.domainCheckTimeout = setTimeout(function () {
+        _this4.performDomainCheck();
+      }, 500);
+    },
+    performDomainCheck: function performDomainCheck() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, _error$response3, _t2;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _context3.p = 0;
+              _context3.n = 1;
+              return _this5.$axios.post('/api/check-domain', {
+                domain: _this5.form.domain,
+                locale: _this5.$i18n.locale
+              });
+            case 1:
+              response = _context3.v;
+              if (response.data.valid && response.data.available) {
+                _this5.domainValidation = {
+                  checking: false,
+                  valid: true,
+                  available: true,
+                  error: false,
+                  message: _this5.$t('domain_available')
+                };
+              } else {
+                _this5.domainValidation = {
+                  checking: false,
+                  valid: response.data.valid,
+                  available: false,
+                  error: true,
+                  message: response.data.message || _this5.$t('domain_taken')
+                };
+              }
+              _context3.n = 3;
+              break;
+            case 2:
+              _context3.p = 2;
+              _t2 = _context3.v;
+              _this5.domainValidation = {
+                checking: false,
+                valid: false,
+                available: false,
+                error: true,
+                message: ((_error$response3 = _t2.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || _this5.$t('domain_invalid')
+              };
+            case 3:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[0, 2]]);
+      }))();
     }
   }
 });
-;// ./resources/js/pages/employees/increments/create.vue?vue&type=script&lang=js
- /* harmony default export */ const increments_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/increments/create.vue?vue&type=style&index=0&id=29f9c1cd&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_29f9c1cd_prod_scoped_true_lang_css = __webpack_require__(58040);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/increments/create.vue?vue&type=style&index=0&id=29f9c1cd&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_29f9c1cd_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const increments_createvue_type_style_index_0_id_29f9c1cd_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_29f9c1cd_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/employees/increments/create.vue?vue&type=style&index=0&id=29f9c1cd&prod&scoped=true&lang=css
-
+;// ./resources/js/pages/auth/register.vue?vue&type=script&lang=js
+ /* harmony default export */ const auth_registervue_type_script_lang_js = (registervue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/employees/increments/create.vue
+;// ./resources/js/pages/auth/register.vue
 
 
 
-;
 
 
 /* normalize component */
-
+;
 var component = (0,componentNormalizer/* default */.A)(
-  increments_createvue_type_script_lang_js,
+  auth_registervue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "29f9c1cd",
+  null,
   null
   
 )
 
-/* harmony default export */ const create = (component.exports);
-
-/***/ }),
-
-/***/ 58040:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-29f9c1cd]{gap:10px}.card[data-v-29f9c1cd]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-29f9c1cd]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-29f9c1cd]{padding:1.25rem}.card-footer[data-v-29f9c1cd]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-29f9c1cd]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-29f9c1cd]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-29f9c1cd]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-29f9c1cd]{color:#dc3545;font-weight:700}.btn-primary[data-v-29f9c1cd]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-29f9c1cd]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-29f9c1cd]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-29f9c1cd]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-29f9c1cd]{border-color:#dc3545!important}textarea.form-control[data-v-29f9c1cd]{min-height:100px;resize:vertical}.v-select[data-v-29f9c1cd]{background:#fff!important}.v-select .vs__dropdown-toggle[data-v-29f9c1cd]{background:#fff!important;border:1px solid #e5e7eb!important;padding:10px 16px!important}.v-select .vs__dropdown-toggle[data-v-29f9c1cd]:focus{border-color:#33a0d9!important;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)!important}.v-select.is-invalid .vs__dropdown-toggle[data-v-29f9c1cd]{border-color:#dc3545!important}.row[data-v-29f9c1cd]{margin-bottom:1rem}@media (max-width:768px){.card-footer[data-v-29f9c1cd]{flex-direction:column;gap:10px}.card-footer .btn[data-v-29f9c1cd]{margin-right:0!important;width:100%}.card-footer div[data-v-29f9c1cd]{display:flex;flex-direction:column;gap:10px;width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
+/* harmony default export */ const register = (component.exports);
 
 /***/ })
 
