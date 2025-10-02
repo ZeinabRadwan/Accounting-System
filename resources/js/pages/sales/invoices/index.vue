@@ -182,10 +182,10 @@
                                 {{ $t('View') }}
                               </router-link>
                             </li>
-                            <li v-if="$can('invoice-edit')">
+                            <li v-if="$can('invoice-edit') && !(isSaudiArabia && data.status === 1)">
                               <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
                             </li>
-                            <li v-if="$can('invoice-delete')">
+                            <li v-if="$can('invoice-delete') && !(isSaudiArabia && data.status === 1)">
                               <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>
                             </li>
                           </ul>
@@ -453,7 +453,6 @@ export default {
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
       const result = !this.appInfo?.country || this.appInfo.country === 'SA';
-      console.log('isSaudiArabia computed:', result, 'appInfo.country:', this.appInfo?.country);
       return result;
     },
   },
@@ -683,15 +682,24 @@ export default {
               slug: slug,
             })
             .then((response) => {
-              if (response === true) {
+              if (response === true || (response && response.success === true)) {
                 this.$toast.success(
                   this.$t("Deleted!"),
                   this.$t("Deleted successfully.")
                 );
               } else {
+                // Show the actual error message from the API response
+                let errorMessage = this.$t("Sorry you can't delete this invoice!");
+                
+                if (response && typeof response === 'object' && response.message) {
+                  errorMessage = response.message;
+                } else if (typeof response === 'string') {
+                  errorMessage = response;
+                }
+                
                 this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this invoice!")
+                  errorMessage
                 );
               }
             });
@@ -701,10 +709,6 @@ export default {
 
     // send invoice
     async sendInvoice(data) {
-      console.log('Send invoice clicked for:', data);
-      console.log('isSaudiArabia:', this.isSaudiArabia);
-      console.log('data.status:', data.status);
-      
       SwalOriginal.fire({
         title: this.$t("Send Invoice to ZATCA"),
         text: this.$t("Do you want to send this invoice to ZATCA?"),

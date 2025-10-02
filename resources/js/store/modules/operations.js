@@ -142,7 +142,15 @@ export const actions = {
       commit(types.DELETE_DATA, { slug: slug })
       return data.success
     } catch (error) {
-      return error
+      // Return error message from API response if available
+      if (error.response && error.response.data) {
+        const errorData = error.response.data;
+        if (errorData.message) {
+          return { success: false, message: errorData.message }
+        }
+      }
+      // Fallback to generic error message
+      return { success: false, message: error.message || 'An error occurred while deleting the item.' }
     }
   },
 

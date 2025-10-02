@@ -66588,8 +66588,9 @@ label:not(.form-check-label):not(.custom-file-label) {
   top: 8px
 }
 
-.create-btn,
+.create-btn, .create-button, .create-btn-2,
 .vs__dropdown-toggle {
+  display: inline-block;
   height: auto;
   min-height: 52px
 }

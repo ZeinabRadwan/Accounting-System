@@ -23,7 +23,7 @@ class PurchaseListReource extends JsonResource
             'supplierPhone' => $this->supplier->phone_number,
             'transport' => $this->transport > 0 ? $this->transport : 0,
             'tax' => $this->taxAmount(),
-            'taxRate' => $this->purchaseTax->rate,
+            'taxRate' => $this->purchaseTax ? $this->purchaseTax->rate : 0,
             'subTotal' => $this->sub_total,
             'purchaseTotal' => $this->purchaseTotal(),
             'totalDiscount' => $this->discount > 0 ? $this->discount : 0,
