@@ -615,6 +615,9 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 import Swal from 'sweetalert2'
+import { ToggleButton } from "vue-js-toggle-button"
+import ClientCreateModal from '~/components/ClientCreateModal'
+import ProductCreateModal from '~/components/ProductCreateModal'
 
 export default {
   middleware: ['auth', 'check-permissions'],
@@ -622,7 +625,10 @@ export default {
     return { title: this.$t('Quotation To Invoice') }
   },
   components: {
-    ChartOfAccountValidation
+    ChartOfAccountValidation,
+    ClientCreateModal,
+    ProductCreateModal,
+    ToggleButton,
   },
   data: () => ({
     breadcrumbsCurrent: 'Quotation To Invoice',
@@ -663,6 +669,8 @@ export default {
       receiptNo: '',
       note: '',
       status: 1,
+      isSendEmail: false,
+      isSendSMS: false,
     }),
     products: '',
     accounts: '',
@@ -673,6 +681,11 @@ export default {
     isAutoAssigningAccount: false,
     isRTL: false,
     currentLocale: 'en',
+    communicationConfig: {
+      loading: false,
+      email_configured: false,
+      sms_configured: false,
+    },
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -776,6 +789,27 @@ export default {
       
       // Only check if fields have values, not their validity
       return this.form.account && this.form.paidAmount;
+    },
+
+    // Check if there are products with insufficient stock
+    hasInsufficientStock() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return false;
+      }
+      return this.form.selectedProducts.some(product => 
+        product.itemType === 'product' && 
+        Number(product.inventoryCount) < Number(product.qty)
+      );
+    },
+
+    // Check if payment fields should be visible
+    paymentFieldsVisible() {
+      return this.form.addPayment == 1;
+    },
+
+    // Check if app is in demo mode
+    isDemoMode() {
+      return this.appInfo?.is_demo || false;
     },
   },
   created() {
@@ -1139,7 +1173,7 @@ export default {
     showMultipleValidationErrors(errors) {
       if (errors.length === 1) {
         // Single error - show as regular toast
-        toast.fire({
+        window.toast.fire({
           type: errors[0].type,
           title: errors[0].title,
           text: errors[0].message,
@@ -1149,10 +1183,11 @@ export default {
       } else {
         // Multiple errors - show as alert with list
         const errorList = errors.map(err => `• ${err.message}`).join('\n');
-        this.$toast.warning(
-          this.$t('Validation Errors'),
-          this.$t('Please fix the following issues:') + '\n' + errorList
-        );
+        window.toast.fire({
+          type: 'warning',
+          title: this.$t('Validation Errors'),
+          text: this.$t('Please fix the following issues:') + '\n' + errorList
+        });
       }
     },
 
@@ -1261,22 +1296,22 @@ export default {
         await this.form
           .post(window.location.origin + '/api/invoices')
           .then(() => {
-            toast.fire({
-              type: 'success',
-              title: this.$t('Invoice created successfully'),
-            })
+        window.toast.fire({
+          type: 'success',
+          title: this.$t('Invoice created successfully'),
+        })
             this.$router.push({ name: 'invoices.index' })
           })
           .catch((error) => {
             console.error('Invoice creation error:', error);
-            toast.fire({
+            window.toast.fire({
               type: 'error',
               title: this.$t('Please check your input and try again.'),
             })
           })
       } catch (error) {
         console.error('Unexpected error:', error);
-        toast.fire({
+        window.toast.fire({
           type: 'error',
           title: this.$t('Please check your input and try again.'),
         })
@@ -1299,7 +1334,7 @@ export default {
       if (!this.form.client) return;
       
       if (!this.form.client.slug) {
-        toast.fire({
+        window.toast.fire({
           type: 'error',
           title: this.$t('Error'),
           text: this.$t('Client missing required information. Please refresh and try again.'),
@@ -1325,12 +1360,12 @@ export default {
             }
           }
           
-          toast.fire({
+          window.toast.fire({
             type: 'success',
             title: this.$t('Chart of Account assigned successfully'),
           });
         } else {
-          toast.fire({
+          window.toast.fire({
             type: 'error',
             title: this.$t('Failed to assign Chart of Account'),
             text: (response && response.data && response.data.message) || this.$t('Please try again'),
@@ -1346,7 +1381,7 @@ export default {
           errorMessage = error.message;
         }
         
-        toast.fire({
+        window.toast.fire({
           type: 'error',
           title: this.$t('Error'),
           text: errorMessage,
@@ -1365,7 +1400,7 @@ export default {
         const productsWithoutSalesAccount = this.form.selectedProducts.filter(product => !product.sales_account_id);
         
         if (productsWithoutSalesAccount.length === 0) {
-          toast.fire({
+          window.toast.fire({
             type: 'info',
             title: this.$t('All products already have sales accounts assigned'),
           });
@@ -1394,7 +1429,7 @@ export default {
           }
         }
         
-        toast.fire({
+        window.toast.fire({
           type: 'success',
           title: this.$t('Chart of Accounts assigned successfully'),
         });
@@ -1408,7 +1443,7 @@ export default {
           errorMessage = error.message;
         }
         
-        toast.fire({
+        window.toast.fire({
           type: 'error',
           title: this.$t('Error'),
           text: errorMessage,
@@ -1595,6 +1630,88 @@ export default {
       
       // For now, return a simple representation
       return `${amount.toFixed(2)} SAR`;
+    },
+
+    // Handle add payment change
+    onAddPaymentChange() {
+      // Reset payment fields when changing add payment option
+      if (this.form.addPayment != 1) {
+        this.form.account = '';
+        this.form.paidAmount = '';
+        this.form.receiptNo = '';
+      }
+    },
+
+    // Handle client change
+    onClientChange() {
+      // Clear any previous client-related errors
+      this.clearFieldError('client');
+    },
+
+    // Handle account change
+    onAccountChange() {
+      // Clear any previous account-related errors
+      this.clearFieldError('account');
+    },
+
+    // Handle paid amount change
+    onPaidAmountChange() {
+      // Clear any previous paid amount errors
+      this.clearFieldError('paidAmount');
+    },
+
+    // Navigate to bank accounts
+    goToBankAccounts() {
+      this.$router.push({ name: 'bank-accounts.index' });
+    },
+
+    // Reset form
+    resetForm() {
+      this.form.reset();
+      this.form.selectedProducts = [];
+      this.form.date = new Date().toISOString().slice(0, 10);
+      this.form.status = this.isSaudiArabia ? 0 : 1;
+      this.form.addPayment = 0;
+      this.form.isSendEmail = false;
+      this.form.isSendSMS = false;
+    },
+
+    // Show all insufficient stock items
+    showAllInsufficientStock() {
+      const insufficientItems = this.form.selectedProducts.filter(product => 
+        product.itemType === 'product' && 
+        Number(product.inventoryCount) < Number(product.qty)
+      );
+      
+      if (insufficientItems.length === 0) {
+        return;
+      }
+      
+      const itemList = insufficientItems.map(item => 
+        `• ${item.name}: Required ${item.qty}, Available ${item.inventoryCount}`
+      ).join('\n');
+      
+      Swal.fire({
+        title: this.$t('Insufficient Stock Items'),
+        text: this.$t('The following items have insufficient stock:') + '\n\n' + itemList,
+        icon: 'warning',
+        confirmButtonText: this.$t('OK')
+      });
+    },
+
+    // Clear field error
+    clearFieldError(field) {
+      if (this.form.errors.has(field)) {
+        this.form.errors.clear(field);
+      }
+    },
+
+    // Handle product created
+    handleProductCreated(product) {
+      // Add the new product to the products list
+      if (this.products && Array.isArray(this.products)) {
+        this.products.unshift(product);
+      }
     },
   },
 }
