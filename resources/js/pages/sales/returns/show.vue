@@ -1149,10 +1149,9 @@ export default {
       // Final Total = Subtotal - Cost of Returned Products - Return Discount - Return VAT - Remaining Discount + Remaining Tax + Transport
       return Number(
         (
-          subtotal -
-          returnedProductCost -
-          returnDiscount -
-          returnVat -
+          (subtotal + returnVat) -
+          // returnedProductCost -
+          returnDiscount - 
           remainingDiscount +
           remainingTax +
           transport

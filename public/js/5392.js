@@ -1,4 +1,1170 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[2185],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[5392],{
+
+/***/ 5392:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ show)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=template&id=3df51c7b&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row no-print mb-2"
+  }, [_c('div', {
+    staticClass: "w-100 text-right float-right"
+  }, [_vm.allData ? _c('div', {
+    staticClass: "d-flex justify-content-between"
+  }, [_c('div', {
+    staticClass: "btn-group"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills"
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link active",
+    attrs: {
+      "href": "#details",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.getInvoiceReturn
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-info"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Details")))])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#activity-log",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.getActivity
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-bell",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#journal-entry",
+      "data-toggle": "tab"
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-book",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Journal Entry")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn-group"
+  }, [_c('a', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.generatePDF();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-download"
+  }), _vm._v(" " + _vm._s(_vm.$t("download")) + "\n          ")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.printWindow();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('invoice-return-edit') && !(_vm.isSaudiArabia && _vm.allData.status === 1) ? _c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'invoiceReturns.edit',
+        params: {
+          slug: _vm.allData.slug
+        }
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-edit"
+  }), _vm._v(" " + _vm._s(_vm.$t("Edit")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-info float-right",
+    attrs: {
+      "to": {
+        name: 'invoiceReturns.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n          ")])], 1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    staticClass: "tab-pane active",
+    attrs: {
+      "id": "details"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "invoice p-3 mb-3 w-100",
+    attrs: {
+      "id": "content-to-pdf"
+    }
+  }, [_c('div', {
+    staticClass: "row invoice-info"
+  }, [_c('div', {
+    staticClass: "col-sm-4 invoice-col"
+  }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-8 invoice-col float-right text-md-right"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Client Details")))]), _vm._v(" "), _vm.allData.client ? _c('div', [_vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Client ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.client.clientID, _vm.clientPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Client Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.client.name)), _c('br'), _vm._v(" "), _vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.contactNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.contactNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "table-custom table-responsive"
+  }, [_vm.allData.invoice ? _c('table', {
+    staticClass: "table table-bordered"
+  }, [_c('thead', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Reason")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.invoice.invoiceNo, _vm.invoicePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.returnNo, _vm.returnPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.invoice.invoiceDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.returnDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('td', [_vm._v(_vm._s(_vm.allData.reason))]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
+    staticClass: "badge bg-success"
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+    staticClass: "badge bg-danger"
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.allData.createdBy ? _c('td', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")]) : _vm._e()])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+    staticClass: "row position-relative mt-4 mb-4"
+  }, [_c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
+  }, [_c('strong', {
+    staticClass: "mt-3"
+  }, [_vm._v(_vm._s(_vm.$t("Return Products")) + ":")]), _vm._v(" "), _vm.allData.invoice ? _c('div', {
+    staticClass: "table-custom table-responsive text-center"
+  }, [_c('table', {
+    staticClass: "table table-sm"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Return Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Net")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Unit Total")))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total Return")) + "\n                      ")])])]), _vm._v(" "), _vm.returnProducts ? _c('tbody', [_vm._l(_vm.returnProducts, function (data, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.productCode, _vm.productPrefix)) + "\n                      ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.productName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.invoiceQty) + " " + _vm._s(data.productUnit))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.returnQty) + " " + _vm._s(data.productUnit))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salePrice) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.calculateUnitDiscount(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.calculateUnitNet(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.calculateUnitVat(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.calculateUnitTotal(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticClass: "text-right"
+    }, [_vm._v("\n                        " + _vm._s(_vm.calculateReturnTotal(data)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": "9"
+    }
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(Number(_vm.allData.invoice.subTotal).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
+    staticClass: "text-right"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.invoiceReturn) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])], 2) : _vm._e()])]) : _vm._e()])], 1), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4",
+    attrs: {
+      "id": "page-break"
+    }
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-xl-8"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-12 col-xl-4 text-lg-right mt-4"
+  }, [_c('div', {
+    staticClass: "table-responsive table-custom table-border-y-0"
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('tbody', [_c('tr', {
+    staticClass: "bg-sub-light text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.invoice.subTotal).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Cost of Returned Products")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalReturnedProductCost()).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Return Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalReturnDiscount()).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Return VAT")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalReturnTax()).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Remaining Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalRemainingDiscount()).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Remaining Tax")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.calculateTotalRemainingTax()).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Transport")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.invoice.transport).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
+    staticClass: "bg-indigo-light"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "equal-sign"
+  }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.calculateFinalTotal()) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.invoice.totalPaid).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]), _vm._v(" "), _c('tr', {
+    staticClass: "bg-red-light"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Due")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Number(_vm.allData.invoice.due).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })))])]), _vm._v(" "), _vm.allData.accountPayable ? _c('tr', {
+    staticClass: "bg-green-light"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Account Payable")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(Number(_vm.allData.accountPayable.amount).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })) + "\n                      ")])]) : _vm._e()])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row no-print mt-5"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('router-link', {
+    staticClass: "btn btn-info float-right",
+    attrs: {
+      "to": {
+        name: 'invoiceReturns.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Back")) + "\n              ")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": _vm.printWindow
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  }), _vm._v(" " + _vm._s(_vm.$t("Print")))])], 1)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "activity-log"
+    }
+  }, [_c('div', {
+    staticClass: "card custom-card w-100 mt-5 no-print"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    staticClass: "btn btn-success",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.refreshTable();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Print Table'),
+      expression: "$t('Print Table')"
+    }],
+    staticClass: "btn btn-info",
+    on: {
+      "click": _vm.print
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  })])])])]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reload
+    },
+    model: {
+      value: _vm.query,
+      callback: function callback($$v) {
+        _vm.query = $$v;
+      },
+      expression: "query"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_vm._l(_vm.items, function (data, i) {
+    return _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.items.length > 0,
+        expression: "items.length > 0"
+      }],
+      key: i
+    }, [_c('div', {
+      staticClass: "card mb-0 border border-gray"
+    }, [_c('div', {
+      staticClass: "card-body py-1"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-1 d-flex justify-content-center align-items-center"
+    }, [data.event == 'Update' ? _c('i', {
+      staticClass: "fa fa-magic",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
+      staticClass: "fa fa-plus-circle",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
+      staticClass: "fa fa-trash",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e()]), _vm._v(" "), _c('div', {
+      staticClass: "col-11"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "text-bold mb-0"
+    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "mb-0"
+    }, [_vm._v(_vm._s(data.description))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "mb-0"
+    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
+  }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.loading && !_vm.items.length,
+      expression: "!loading && !items.length"
+    }],
+    staticClass: "text-center"
+  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.perPage,
+      expression: "perPage"
+    }],
+    staticClass: "form-control form-control-sm ml-1",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.updatePerPager]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-flex-end",
+    attrs: {
+      "pagination": _vm.pagination,
+      "offset": 5
+    },
+    on: {
+      "paginate": _vm.paginate
+    }
+  }) : _vm._e()], 1)])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "journal-entry"
+    }
+  }, [_c('div', {
+    staticClass: "card custom-card w-100 mt-5 no-print"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Journal Entry Information")) + "\n            ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_vm.allData.journalEntries && _vm.allData.journalEntries.length > 0 ? _c('div', _vm._l(_vm.sortedJournalEntries, function (journalEntry, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "mb-4"
+    }, [_c('div', {
+      staticClass: "row mb-3"
+    }, [_c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Number")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(journalEntry.formatted_entry_number))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Date")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(_vm._f("formatDate")(journalEntry.entry_date)))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Status")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2 badge",
+      "class": journalEntry.status === 'posted' ? 'badge-success' : 'badge-warning'
+    }, [_vm._v("\n                    " + _vm._s(journalEntry.formatted_status) + "\n                  ")])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Amount")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_c('CurrencyDisplay', {
+      attrs: {
+        "amount": journalEntry.total_debit
+      }
+    })], 1)])]), _vm._v(" "), _c('div', {
+      staticClass: "row mb-3"
+    }, [_c('div', {
+      staticClass: "col-12"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Description")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(journalEntry.description))])])]), _vm._v(" "), _c('div', {
+      staticClass: "table-responsive"
+    }, [_c('table', {
+      staticClass: "table table-bordered table-sm"
+    }, [_c('thead', {
+      staticClass: "bg-light"
+    }, [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Line")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Chart of Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Description")))]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(_vm.$t("Debit")))]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(_vm.$t("Credit")))])])]), _vm._v(" "), _c('tbody', _vm._l(journalEntry.lines, function (line, lineIndex) {
+      return _c('tr', {
+        key: lineIndex
+      }, [_c('td', [_vm._v(_vm._s(line.line_number))]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(line.chart_of_account.name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+        staticClass: "text-muted"
+      }, [_vm._v(_vm._s(line.chart_of_account.type.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(line.description))]), _vm._v(" "), _c('td', {
+        staticClass: "text-right"
+      }, [line.debit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.debit_amount)), _c('span', {
+        staticClass: "saudi-riyal"
+      }, [_vm._v("ê")])]) : _c('span', {
+        staticClass: "text-muted"
+      }, [_vm._v("-")])]), _vm._v(" "), _c('td', {
+        staticClass: "text-right"
+      }, [line.credit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.credit_amount) + " "), _c('span', {
+        staticClass: "saudi-riyal"
+      }, [_vm._v("ê")])]) : _c('span', {
+        staticClass: "text-muted"
+      }, [_vm._v("-")])])]);
+    }), 0), _vm._v(" "), _c('tfoot', {
+      staticClass: "bg-light"
+    }, [_c('tr', [_c('th', {
+      staticClass: "text-right",
+      attrs: {
+        "colspan": "3"
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total")) + ":\n                      ")]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_debit) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_credit) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', {
+      staticClass: "text-right",
+      attrs: {
+        "colspan": "3"
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Balance")) + ":\n                      ")]), _vm._v(" "), _c('th', {
+      staticClass: "text-center",
+      attrs: {
+        "colspan": "2"
+      }
+    }, [_c('span', {
+      staticClass: "badge",
+      "class": journalEntry.is_balanced ? 'badge-success' : 'badge-danger'
+    }, [_vm._v("\n                          " + _vm._s(journalEntry.is_balanced ? _vm.$t("Balanced") : _vm.$t("Unbalanced")) + "\n                        ")])])])])])])]);
+  }), 0) : _c('div', {
+    staticClass: "text-center text-muted"
+  }, [_c('p', [_vm._v("\n              " + _vm._s(_vm.$t("No journal entries found for this invoice return.")) + "\n            ")])])])])])])], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
+var html2pdf = __webpack_require__(33833);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+/* harmony default export */ const showvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Invoice Return Details")
+    };
+  },
+  components: {
+    CurrencyDisplay: function CurrencyDisplay() {
+      return __webpack_require__.e(/* import() */ 150).then(__webpack_require__.bind(__webpack_require__, 90150));
+    }
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: "Invoice Return Details",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Invoice Returns",
+        url: "invoiceReturns.index"
+      }, {
+        name: "Details",
+        url: ""
+      }],
+      allData: "",
+      invoiceSubTotal: 0,
+      invoiceReturn: 0,
+      returnProducts: [],
+      productPrefix: "",
+      invoicePrefix: "",
+      returnPrefix: "",
+      clientPrefix: "",
+      loading: false,
+      query: "",
+      perPage: 10
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])), {}, {
+    // Check if the country is Saudi Arabia
+    isSaudiArabia: function isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
+    // Filter products that have return quantities > 0
+    productsWithReturns: function productsWithReturns() {
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return [];
+      }
+      return this.returnProducts.filter(function (product) {
+        return product.returnQty > 0;
+      });
+    },
+    // Sort journal entry lines with debits first, then credits
+    sortedJournalEntries: function sortedJournalEntries() {
+      var _this = this;
+      if (!this.allData || !this.allData.journalEntries) {
+        return [];
+      }
+      return this.allData.journalEntries.map(function (journalEntry) {
+        return _objectSpread(_objectSpread({}, journalEntry), {}, {
+          lines: _this.sortJournalEntryLines(journalEntry.lines || [])
+        });
+      });
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === "") {
+        this.getActivity();
+      } else {
+        this.searchData();
+      }
+    }
+  },
+  created: function created() {
+    this.getInvoiceReturn();
+    this.productPrefix = this.appInfo.productPrefix;
+    this.invoicePrefix = this.appInfo.invoicePrefix;
+    this.returnPrefix = this.appInfo.invoiceReturnPrefix;
+    this.clientPrefix = this.appInfo.clientPrefix;
+  },
+  methods: {
+    // get the invoice
+    getInvoiceReturn: function getInvoiceReturn() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _this2.loading = true;
+              _context.n = 1;
+              return axios_default().get(window.location.origin + "/api/invoice-returns/" + _this2.$route.params.slug);
+            case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              _this2.allData = data.data;
+              _this2.returnProducts = _this2.allData.invoiceReturnProducts;
+              _this2.returnProducts.sort(_this2.sortProducts);
+              _this2.calculateTotalAmount();
+              _this2.loading = false;
+            case 2:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    sortProducts: function sortProducts(a, b) {
+      if (a.productCode < b.productCode) {
+        return -1;
+      }
+      if (a.productCode > b.productCode) {
+        return 1;
+      }
+      return 0;
+    },
+    // Sort journal entry lines: debits first, then credits
+    sortJournalEntryLines: function sortJournalEntryLines(lines) {
+      if (!lines || lines.length === 0) {
+        return [];
+      }
+      return _toConsumableArray(lines).sort(function (a, b) {
+        // If both are debits or both are credits, maintain original order
+        var aIsDebit = a.debit_amount > 0;
+        var bIsDebit = b.debit_amount > 0;
+        if (aIsDebit && !bIsDebit) return -1; // a is debit, b is credit - a comes first
+        if (!aIsDebit && bIsDebit) return 1; // a is credit, b is debit - b comes first
+
+        // If both are same type, maintain original order by line number
+        return a.line_number - b.line_number;
+      });
+    },
+    // Return Invoice Calculation Summary Methods (Based on Updated Formula)
+    // Get VAT rate for a product from database
+    getVatRate: function getVatRate() {
+      var product = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      if (product && product.vatRate) {
+        return product.vatRate;
+      }
+      // Fallback to first product's VAT rate or default 20%
+      if (this.returnProducts && this.returnProducts.length > 0) {
+        return this.returnProducts[0].vatRate || 20;
+      }
+      return 20; // Default VAT rate
+    },
+    // 1. Calculate Subtotal (Original Quantity × Price per Unit)
+    calculateSubtotal: function calculateSubtotal(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 0;
+      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
+      return Number((originalQty * unitPrice).toFixed(2));
+    },
+    // Calculate Subtotal with VAT (Subtotal - Discount + VAT)
+    calculateSubtotalWithVat: function calculateSubtotalWithVat(invoiceProduct) {
+      var subtotal = this.calculateSubtotal(invoiceProduct);
+      var discountAmount = parseFloat(invoiceProduct.discountAmount) || 0;
+      var taxAmount = parseFloat(invoiceProduct.taxAmount) || 0;
+      return Number((subtotal - discountAmount + taxAmount).toFixed(2));
+    },
+    // 2. Calculate Cost of Returned Products
+    // Returned Product Cost = Returned Units × Unit Price
+    calculateReturnedProductCost: function calculateReturnedProductCost(invoiceProduct) {
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
+      return Number((returnedUnits * unitPrice).toFixed(2));
+    },
+    // Returned Product Cost including VAT = (Total Invoice Amount / Original Quantity) × Returned Units
+    calculateReturnedProductCostWithVat: function calculateReturnedProductCostWithVat(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      var totalInvoiceAmount = this.calculateSubtotalWithVat(invoiceProduct);
+      return originalQty > 0 ? Number((totalInvoiceAmount / originalQty * returnedUnits).toFixed(2)) : 0;
+    },
+    // 3. Calculate Return Discount
+    // Per Unit Discount = Total Discount / Original Quantity
+    calculatePerUnitDiscount: function calculatePerUnitDiscount(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var totalDiscount = parseFloat(invoiceProduct.discountAmount) || 0;
+      return originalQty > 0 ? Number((totalDiscount / originalQty).toFixed(2)) : 0;
+    },
+    // Return Discount = Per Unit Discount × Returned Units
+    calculateReturnDiscount: function calculateReturnDiscount(invoiceProduct) {
+      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((perUnitDiscount * returnedUnits).toFixed(2));
+    },
+    // 4. Calculate Return VAT
+    // Per Unit VAT = Total VAT / Original Quantity
+    calculatePerUnitVat: function calculatePerUnitVat(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
+      return originalQty > 0 ? Number((totalVat / originalQty).toFixed(2)) : 0;
+    },
+    // Return VAT = Per Unit VAT × Returned Units
+    calculateReturnVat: function calculateReturnVat(invoiceProduct) {
+      var perUnitVat = this.calculatePerUnitVat(invoiceProduct);
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((perUnitVat * returnedUnits).toFixed(2));
+    },
+    // 5. Calculate Remaining Discount
+    // Remaining Units = Invoice Qty - Return Qty
+    calculateRemainingUnits: function calculateRemainingUnits(invoiceProduct) {
+      var invoiceQty = parseFloat(invoiceProduct.invoiceQty) || 0;
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((invoiceQty - returnQty).toFixed(2));
+    },
+    // Remaining Discount = Per Unit Discount × Remaining Units
+    calculateRemainingDiscount: function calculateRemainingDiscount(invoiceProduct) {
+      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      var remainingUnits = this.calculateRemainingUnits(invoiceProduct);
+      return Number((perUnitDiscount * remainingUnits).toFixed(2));
+    },
+    // 6. Calculate Remaining Tax
+    // Tax = TotalVAT - ReturnVAT
+    calculateRemainingTax: function calculateRemainingTax(invoiceProduct) {
+      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
+      var returnVat = this.calculateReturnVat(invoiceProduct);
+      return Number((totalVat - returnVat).toFixed(2));
+    },
+    // Legacy methods for backward compatibility
+    calculateUnitDiscount: function calculateUnitDiscount(invoiceProduct) {
+      return this.calculatePerUnitDiscount(invoiceProduct);
+    },
+    calculateUnitNet: function calculateUnitNet(invoiceProduct) {
+      var salePrice = parseFloat(invoiceProduct.salePrice) || 0;
+      var unitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      return Number((salePrice - unitDiscount).toFixed(2));
+    },
+    calculateUnitVat: function calculateUnitVat(invoiceProduct) {
+      return this.calculatePerUnitVat(invoiceProduct);
+    },
+    calculateUnitTotal: function calculateUnitTotal(invoiceProduct) {
+      var unitNet = this.calculateUnitNet(invoiceProduct);
+      var unitVat = this.calculatePerUnitVat(invoiceProduct);
+      return Number((unitNet + unitVat).toFixed(2));
+    },
+    calculateReturnTotal: function calculateReturnTotal(invoiceProduct) {
+      var unitTotal = this.calculateUnitTotal(invoiceProduct);
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((unitTotal * returnQty).toFixed(2));
+    },
+    calculateReturnSubtotal: function calculateReturnSubtotal(invoiceProduct) {
+      return this.calculateReturnedProductCost(invoiceProduct);
+    },
+    calculateReturnNet: function calculateReturnNet(invoiceProduct) {
+      var unitNet = this.calculateUnitNet(invoiceProduct);
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((unitNet * returnQty).toFixed(2));
+    },
+    // Calculate total invoice tax (sum of tax_amount from invoice_products)
+    calculateTotalInvoiceTax: function calculateTotalInvoiceTax() {
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + (parseFloat(product.taxAmount) || 0);
+      }, 0);
+    },
+    // Calculate total return tax (sum of return VAT for all products)
+    calculateTotalReturnTax: function calculateTotalReturnTax() {
+      var _this3 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this3.calculateReturnVat(product);
+      }, 0);
+    },
+    // Calculate total return discount (sum of return discount for all products)
+    calculateTotalReturnDiscount: function calculateTotalReturnDiscount() {
+      var _this4 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this4.calculateReturnDiscount(product);
+      }, 0);
+    },
+    // Calculate total remaining discount (sum of remaining discount for all products)
+    calculateTotalRemainingDiscount: function calculateTotalRemainingDiscount() {
+      var _this5 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this5.calculateRemainingDiscount(product);
+      }, 0);
+    },
+    // Calculate total remaining tax (sum of remaining tax for all products)
+    calculateTotalRemainingTax: function calculateTotalRemainingTax() {
+      var _this6 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this6.calculateRemainingTax(product);
+      }, 0);
+    },
+    // Calculate total cost of returned products
+    calculateTotalReturnedProductCost: function calculateTotalReturnedProductCost() {
+      var _this7 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this7.calculateReturnedProductCost(product);
+      }, 0);
+    },
+    // Calculate total subtotal with VAT for all products
+    calculateTotalSubtotalWithVat: function calculateTotalSubtotalWithVat() {
+      var _this8 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this8.calculateSubtotalWithVat(product);
+      }, 0);
+    },
+    // Calculate final total using the new formula
+    calculateFinalTotal: function calculateFinalTotal() {
+      var subtotal = parseFloat(this.allData.invoice.subTotal) || 0;
+      var returnedProductCost = this.calculateTotalReturnedProductCost();
+      var returnDiscount = this.calculateTotalReturnDiscount();
+      var returnVat = this.calculateTotalReturnTax();
+      var remainingDiscount = this.calculateTotalRemainingDiscount();
+      var remainingTax = this.calculateTotalRemainingTax();
+      var transport = parseFloat(this.allData.invoice.transport) || 0;
+
+      // Final Total = Subtotal - Cost of Returned Products - Return Discount - Return VAT - Remaining Discount + Remaining Tax + Transport
+      return Number((subtotal + returnVat -
+      // returnedProductCost -
+      returnDiscount - remainingDiscount + remainingTax + transport).toFixed(2));
+    },
+    // calculate total return using the correct formula
+    calculateTotalAmount: function calculateTotalAmount() {
+      var _this9 = this;
+      var invoiceSubTotal = 0;
+      var invoiceReturn = 0;
+      if (this.allData.invoiceReturnProducts) {
+        // Calculate invoice subtotal (original calculation)
+        invoiceSubTotal = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
+          return prev + Number(next.invoiceQty) * Number(next.salePrice);
+        }, 0);
+
+        // Calculate return total using the correct formula
+        invoiceReturn = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
+          if (next.returnQty > 0) {
+            // Parse quantities safely and ensure they're numbers
+            var quantity = parseFloat(next.quantity) || 1; // fallback to 1 to avoid division by zero
+            var returnQty = parseFloat(next.returnQty) || 0;
+            var discountAmount = parseFloat(next.discountAmount) || 0;
+            var salePrice = parseFloat(next.salePrice) || 0;
+
+            // unit_discount = round(discount_amount / quantity, 2)
+            var unitDiscount = quantity > 0 ? Number((discountAmount / quantity).toFixed(2)) : 0;
+
+            // unit_net = sale_price - unit_discount
+            var unitNet = Number((salePrice - unitDiscount).toFixed(2));
+
+            // unit_vat = round(unit_net * vat_rate / 100, 2)
+            var vatRate = _this9.getVatRate(next);
+            var unitVat = Number((unitNet * vatRate / 100).toFixed(2));
+
+            // unit_total = unit_net + unit_vat
+            var unitTotal = Number((unitNet + unitVat).toFixed(2));
+
+            // return_total = round(unit_total * return_qty, 2)
+            var returnTotal = Number((unitTotal * returnQty).toFixed(2));
+            return prev + returnTotal;
+          }
+          return prev;
+        }, 0);
+      }
+      this.invoiceSubTotal = invoiceSubTotal;
+      this.invoiceReturn = invoiceReturn;
+      return;
+    },
+    // print
+    printWindow: function printWindow() {
+      // Open print page in new window
+      var printUrl = "/print/invoice-return/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
+    },
+    // download pdf
+    generatePDF: function generatePDF() {
+      // Download PDF using the new route
+      var downloadUrl = "/print/invoice-return/".concat(this.$route.params.slug, "/pdf");
+      window.open(downloadUrl, '_blank');
+    },
+    // print table
+    print: function print() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              _context2.n = 1;
+              return _this0.$htmlToPaper("printMe");
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // get activity logs
+    getActivity: function getActivity() {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var currentPage, slug, modelName;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              currentPage = _this1.pagination ? _this1.pagination.current_page : 1;
+              _this1.$store.state.operations.loading = true;
+              slug = _this1.$route.params.slug;
+              modelName = "InvoiceReturn";
+              _context3.n = 1;
+              return _this1.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: currentPage + "&perPage=" + _this1.perPage,
+                slug: slug,
+                modelName: modelName
+              });
+            case 1:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // search data
+    searchData: function searchData() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var slug, modelName;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _this10.$store.state.operations.loading = true;
+              slug = _this10.$route.params.slug;
+              modelName = "InvoiceReturn";
+              _context4.n = 1;
+              return _this10.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: _this10.pagination.current_page + "&perPage=" + _this10.perPage,
+                term: _this10.query,
+                slug: slug,
+                modelName: modelName
+              });
+            case 1:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // pagination
+    paginate: function paginate() {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              _this11.getActivity();
+            case 1:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reload after search
+    reload: function reload() {
+      var _this12 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              _this12.query = "";
+            case 1:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      this.query = "";
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reset pagination
+    resetPagination: function resetPagination() {
+      var _this13 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
+            case 0:
+              _this13.pagination.current_page = 1;
+            case 1:
+              return _context7.a(2);
+          }
+        }, _callee7);
+      }))();
+    }
+  }
+});
+;// ./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const returns_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=3df51c7b&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_3df51c7b_prod_scoped_true_lang_css = __webpack_require__(56369);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=3df51c7b&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_3df51c7b_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const returns_showvue_type_style_index_0_id_3df51c7b_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_3df51c7b_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=3df51c7b&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/sales/returns/show.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  returns_showvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "3df51c7b",
+  null
+  
+)
+
+/* harmony default export */ const show = (component.exports);
+
+/***/ }),
 
 /***/ 20354:
 /***/ (function(module) {
@@ -25454,298 +26620,23 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var n,r,i,a,
 
 /***/ }),
 
-/***/ 82185:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 56369:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ inventory_history)
-});
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-3df51c7b]{background:#ddd;border-radius:.25rem;margin:2px}.info-box[data-v-3df51c7b]{background:#fff;border-radius:.25rem;box-shadow:0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);display:flex;margin-bottom:1rem;min-height:80px;width:100%}.info-box-icon[data-v-3df51c7b]{align-items:center;border-radius:.25rem 0 0 .25rem;color:#fff;font-size:1.875rem;font-weight:300;text-align:center;width:70px}.info-box-content[data-v-3df51c7b],.info-box-icon[data-v-3df51c7b]{display:flex;justify-content:center}.info-box-content[data-v-3df51c7b]{flex:1;flex-direction:column;padding:5px 10px}.info-box-text[data-v-3df51c7b]{color:#6c757d;display:block;font-size:.875rem;margin-bottom:.25rem}.info-box-number[data-v-3df51c7b]{color:#495057;display:block;font-size:1.25rem;font-weight:700}.bg-secondary[data-v-3df51c7b]{background-color:#6c757d!important}.bg-info[data-v-3df51c7b]{background-color:#33a0d9!important}.bg-warning[data-v-3df51c7b]{background-color:#ffc107!important}.bg-success[data-v-3df51c7b]{background-color:#28a745!important}.bg-primary[data-v-3df51c7b]{background-color:#007bff!important}.bg-danger[data-v-3df51c7b]{background-color:#dc3545!important}.bg-dark[data-v-3df51c7b]{background-color:#343a40!important}.equal-sign[data-v-3df51c7b]{color:#007bff;font-weight:700;margin-right:5px}.bg-indigo-light[data-v-3df51c7b]{background-color:#e3f2fd!important}.bg-red-light[data-v-3df51c7b]{background-color:#ffebee!important}.bg-green-light[data-v-3df51c7b]{background-color:#e8f5e8!important}.bg-sub-light[data-v-3df51c7b]{background-color:#f8f9fa!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/history.vue?vue&type=template&id=6bb401ba
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row no-print mb-2"
-  }, [_c('div', {
-    staticClass: "w-100 text-right float-right"
-  }, [_vm.allData ? _c('div', {
-    staticClass: "btn-group"
-  }, [_c('a', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.generatePDF();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-download"
-  }), _vm._v(" " + _vm._s(_vm.$t("Download")) + "\n        ")]), _vm._v(" "), _c('a', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.printWindow();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n        ")]), _vm._v(" "), _c('router-link', {
-    staticClass: "btn btn-info float-right",
-    attrs: {
-      "to": {
-        name: 'inventory.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n        ")])], 1) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "invoice p-3 mb-3 w-100",
-    attrs: {
-      "id": "content-to-pdf"
-    }
-  }, [_c('div', {
-    staticClass: "row invoice-info"
-  }, [_c('div', {
-    staticClass: "col-sm-4 invoice-col"
-  }, [_c('CompanyInfo')], 1), _vm._v(" "), _vm.product && _vm.product.category && _vm.product.subCategory && _vm.product.itemUnit ? _c('div', {
-    staticClass: "col-sm-8 invoice-col float-right text-md-right"
-  }, [_c('p', [_vm._v("\n            " + _vm._s(_vm.$t('Date')) + ": " + _vm._s(_vm._f("moment")(_vm.date, 'Do MMM, YYYY')) + "\n          ")]), _vm._v(" "), _c('h5', [_vm._v(_vm._s(_vm.$t('Product Details')))]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('Code')) + ":")]), _vm._v("\n          " + _vm._s(_vm._f("withPrefix")(_vm.product.code, _vm.productPrefix))), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('Name')) + ":")]), _vm._v(" " + _vm._s(_vm.product.name)), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('Category')) + ":")]), _vm._v("\n          " + _vm._s(_vm.product.category.name)), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('Sub Category')) + ":")]), _vm._v("\n          " + _vm._s(_vm.product.subCategory.name)), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t('Stock')) + ":")]), _vm._v("\n          " + _vm._s(_vm.product.availableQty) + " " + _vm._s(_vm.product.itemUnit ? _vm.product.itemUnit.code : '-') + " "), _c('br')]) : _vm._e()]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
-    staticClass: "row mt-5 position-relative"
-  }, [_c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-6"
-  }, [_c('h4', {
-    attrs: {
-      "align": "center"
-    }
-  }, [_c('i', [_vm._v(_vm._s(_vm.$t('Stock In')))])]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_c('table', {
-    staticClass: "table table-sm"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t('#')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Date')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Stock In')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Price')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Type')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Code')))]), _vm._v(" "), _c('th', [_vm._v("\n                    " + _vm._s(_vm.$t('Supplier')) + "/" + _vm._s(_vm.$t('Client')) + "\n                  ")])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allData.stockIns, function (data, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(data.date, 'Do MMM, YYYY')))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.price) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(data.type))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', [data.type === 'Purchase' ? _c('span', [_vm._v(_vm._s(data.supplier))]) : data.type === 'Invoice Return' ? _c('span', [_vm._v(_vm._s(data.client))]) : _vm._e()])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    attrs: {
-      "colspan": "2",
-      "align": "right"
-    }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Total Quantity')))])]), _vm._v(" "), _vm.allData.stockIns ? _c('td', {
-    attrs: {
-      "colspan": "5"
-    }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.stockInQty(_vm.allData.stockIns)))])]) : _vm._e()])], 2)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-6"
-  }, [_c('h4', {
-    attrs: {
-      "align": "center"
-    }
-  }, [_c('i', [_vm._v(_vm._s(_vm.$t('Stock Out')))])]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_c('table', {
-    staticClass: "table table-sm"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t('#')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Date')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Stock Out')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Price')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Type')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Code')))]), _vm._v(" "), _c('th', [_vm._v("\n                    " + _vm._s(_vm.$t('Client')) + "/" + _vm._s(_vm.$t('Supplier')) + "\n                  ")])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allData.stockOuts, function (data, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(data.date, 'Do MMM, YYYY')))]), _vm._v(" "), _c('td', [_vm._v("-" + _vm._s(data.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.price) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(data.type))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', [data.type === 'Invoice' ? _c('span', [_vm._v(_vm._s(data.client))]) : data.type === 'Purchase Return' ? _c('span', [_vm._v(_vm._s(data.supplier))]) : _vm._e()])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    attrs: {
-      "colspan": "2",
-      "align": "right"
-    }
-  }, [_c('b', [_c('i', [_vm._v(_vm._s(_vm.$t('Total Quantity')) + ": ")])])]), _vm._v(" "), _vm.allData.stockOuts ? _c('td', {
-    attrs: {
-      "colspan": "5"
-    }
-  }, [_c('b', [_c('i', [_vm._v("- " + _vm._s(_vm.stockOutQty(_vm.allData.stockOuts)) + " ")])])]) : _vm._e()])], 2)])])])], 1)])])], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
-var html2pdf = __webpack_require__(33833);
-var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/history.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-/* harmony default export */ const historyvue_type_script_lang_js = ({
-  middleware: ['auth', 'check-permissions'],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t('Inventory History')
-    };
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: 'Inventory History',
-      breadcrumbs: [{
-        name: 'Dashboard',
-        url: 'home'
-      }, {
-        name: 'Inventory',
-        url: 'inventory.index'
-      }, {
-        name: 'History',
-        url: ''
-      }],
-      allData: '',
-      product: '',
-      date: new Date(),
-      loading: false,
-      productPrefix: ''
-    };
-  },
-  // Map Getters
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo'])),
-  created: function created() {
-    this.getHistory();
-    this.productPrefix = this.appInfo.productPrefix;
-  },
-  methods: {
-    // get the product
-    getHistory: function getHistory() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _this.loading = true;
-              _context.n = 1;
-              return axios_default().get(window.location.origin + '/api/inventory-history/' + _this.$route.params.slug);
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this.allData = data;
-              _this.product = data.product;
-              _this.loading = false;
-            case 2:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    // count stock in qty
-    stockInQty: function stockInQty(stockIns) {
-      var total = stockIns.reduce(function (accumulator, current) {
-        return Number(accumulator) + Number(current.quantity);
-      }, 0);
-      return total;
-    },
-    // count stock out qty
-    stockOutQty: function stockOutQty(stockOuts) {
-      var total = stockOuts.reduce(function (accumulator, current) {
-        return Number(accumulator) + Number(current.quantity);
-      }, 0);
-      return total;
-    },
-    // download pdf
-    generatePDF: function generatePDF() {
-      // Get the HTML content to be converted
-      var element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      var options = {
-        margin: 5,
-        filename: "Inventory History-" + this.$route.params.slug + ".pdf",
-        image: {
-          type: "jpeg",
-          quality: 0.98
-        },
-        pagebreak: {
-          mode: "avoid-all",
-          before: "#page-break"
-        },
-        html2canvas: {
-          scale: 2
-        },
-        jsPDF: {
-          unit: "mm",
-          format: "a4",
-          orientation: "landscape"
-        }
-      };
-
-      // Generate PDF from HTML content
-      html2pdf_default()().from(element).set(options).save();
-    },
-    // print
-    printWindow: function printWindow() {
-      window.print();
-    }
-  }
-});
-;// ./resources/js/pages/inventory/history.vue?vue&type=script&lang=js
- /* harmony default export */ const inventory_historyvue_type_script_lang_js = (historyvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/inventory/history.vue
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,componentNormalizer/* default */.A)(
-  inventory_historyvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const inventory_history = (component.exports);
 
 /***/ })
 

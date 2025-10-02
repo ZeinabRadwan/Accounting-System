@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[7009],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[7843],{
 
 /***/ 144:
 /***/ ((__unused_webpack_module, exports) => {
@@ -7442,2506 +7442,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 67009:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ create)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/create.vue?vue&type=template&id=2cc6fb71&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-lg-12 col-xl-12"
-  }, [_c('div', {
-    staticClass: "card custom-card w-100"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100 header-buttons"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'purchases.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n              ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "button",
-      "title": _vm.$t('Save Temporarily')
-    },
-    on: {
-      "click": _vm.saveTemporary
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.savePurchase.apply(null, arguments);
-      },
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      }
-    }
-  }, [_vm.items && _vm.products ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "supplier"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Supplier")) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col"
-  }, [_c('div', {
-    staticClass: "d-flex w-100"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1",
-    "class": {
-      'is-invalid': _vm.form.errors.has('supplier')
-    },
-    attrs: {
-      "options": _vm.items,
-      "label": "name",
-      "name": "supplier",
-      "placeholder": _vm.$t('Select a supplier')
-    },
-    on: {
-      "input": _vm.onSupplierChange
-    },
-    model: {
-      value: _vm.form.supplier,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "supplier", $$v);
-      },
-      expression: "form.supplier"
-    }
-  }), _vm._v(" "), _c('SupplierCreateModal', {
-    on: {
-      "reloadSuppliers": _vm.getSuppliers
-    }
-  }, [_c('div', {
-    staticClass: "input-group-text create-btn"
-  }, [_c('i', {
-    staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _vm.form.supplier ? _c('div', {
-    staticClass: "supplier-status mt-2"
-  }, [!_vm.form.supplier.chart_of_account_id ? _c('div', {
-    staticClass: "supplier-warning"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle text-warning"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-2"
-  }, [_vm._v(_vm._s(_vm.$t('Supplier needs Chart of Account')))]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm btn-outline-warning ml-2",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.isAutoAssigningSupplier
-    },
-    on: {
-      "click": _vm.autoAssignSupplierChartOfAccount
-    }
-  }, [_c('i', {
-    "class": _vm.isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
-  }), _vm._v("\n                          " + _vm._s(_vm.isAutoAssigningSupplier ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "supplier"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "poReference"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("PO Reference")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.poReference,
-      expression: "form.poReference"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('poReference')
-    },
-    attrs: {
-      "id": "poReference",
-      "type": "text",
-      "step": "any",
-      "name": "poReference",
-      "placeholder": _vm.$t('Enter PO reference')
-    },
-    domProps: {
-      "value": _vm.form.poReference
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "poReference", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "poReference"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.items && _vm.products ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "product"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Select Products")) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col"
-  }, [_c('div', {
-    staticClass: "d-flex w-100"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1",
-    "class": {
-      'is-invalid': _vm.form.errors.has('selectedProducts')
-    },
-    attrs: {
-      "options": _vm.products,
-      "label": "label",
-      "name": "product",
-      "placeholder": _vm.$t('Search products')
-    },
-    on: {
-      "input": function input($event) {
-        return _vm.storeProduct(_vm.form.product);
-      }
-    },
-    model: {
-      value: _vm.form.product,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "product", $$v);
-      },
-      expression: "form.product"
-    }
-  }), _vm._v(" "), _c('ProductCreateModal', {
-    on: {
-      "reloadProducts": _vm.getProducts,
-      "productCreated": _vm.handleProductCreated
-    }
-  }, [_c('div', {
-    staticClass: "input-group-text create-btn"
-  }, [_c('i', {
-    staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "product-status mt-2"
-  }, [!_vm.form.selectedProducts[0].purchase_account_id ? _c('div', {
-    staticClass: "product-warning"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle text-warning"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-2"
-  }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(_vm.form.selectedProducts[0].name) + "\" " + _vm._s(_vm.$t('needs Purchase Account')))]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm btn-outline-warning ml-2",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.autoAssignProductChartOfAccount(_vm.form.selectedProducts[0]);
-      }
-    }
-  }, [_c('i', {
-    "class": _vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
-  }), _vm._v("\n                          " + _vm._s(_vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "selectedProducts"
-    }
-  })], 1)])])]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row mt-3 mb-4"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom w-100 m-auto",
-    staticStyle: {
-      "max-width": "100%"
-    }
-  }, [_c('table', {
-    staticClass: "table table-hover table-sm text-center invoices-create-table"
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Quantity")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchase Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Action")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.form.selectedProducts, function (item, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', {
-      staticStyle: {
-        "min-width": "30px"
-      }
-    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "60px"
-      }
-    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "120px"
-      }
-    }, [_vm.$can('product-view') ? _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'products.show',
-          params: {
-            slug: item.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                          " + _vm._s(item.name) + "\n                        ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "120px"
-      }
-    }, [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "button-minus icon-shape icon-sm btn-danger",
-      attrs: {
-        "type": "button",
-        "value": "-",
-        "data-field": "quantity"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'decrement');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "quantity-field border-0 incrementor",
-      "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".qty"))
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "purchaseQty-".concat(i),
-        "name": "quantity",
-        "required": "",
-        "min": "1"
-      },
-      domProps: {
-        "value": item.qty
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
-        },
-        "keyup": function keyup($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "button-plus icon-shape icon-sm btn-primary",
-      attrs: {
-        "type": "button",
-        "value": "+",
-        "data-field": "quantity"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'increment');
-        }
-      }
-    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".qty")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".qty"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "120px"
-      }
-    }, [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "quantity-field border-0",
-      "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".unitPrice"))
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "unitPrice-".concat(i),
-        "name": "unitPrice",
-        "required": "",
-        "min": "0"
-      },
-      domProps: {
-        "value": item.originalPrice || item.unitPrice
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
-        },
-        "keyup": function keyup($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
-        }
-      }
-    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".unitPrice")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".unitPrice"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "80px"
-      }
-    }, [_vm._v(_vm._s((item.originalPrice || item.unitPrice) * item.qty) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "120px"
-      }
-    }, [_c('div', {
-      staticClass: "input-group"
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discountType,
-        expression: "item.discountType"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType"))
-      },
-      staticStyle: {
-        "width": "60px"
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.calculateProductDiscount(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "fixed"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "percentage"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discount,
-        expression: "item.discount"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount"))
-      },
-      staticStyle: {
-        "width": "80px"
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "max": item.discountType == 'percentage' ? 100 : (item.originalPrice || item.unitPrice) * item.qty,
-        "placeholder": "0"
-      },
-      domProps: {
-        "value": item.discount
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.calculateProductDiscount(i - 1);
-        },
-        "keyup": function keyup($event) {
-          return _vm.calculateProductDiscount(i - 1);
-        },
-        "input": function input($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, "discount", $event.target.value);
-        }
-      }
-    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) || _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "80px"
-      }
-    }, [_vm._v(_vm._s(_vm.getTotalAfterDiscount(item)) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "100px"
-      }
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.selectedVatRate,
-        expression: "item.selectedVatRate"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate"))
-      },
-      staticStyle: {
-        "min-width": "80px"
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.calculateProductVat(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax
-        }
-      }, [_vm._v("\n                            " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                          ")]);
-    })], 2), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "60px"
-      }
-    }, [_c('span', {
-      staticClass: "form-control-plaintext form-control-sm text-center"
-    }, [_vm._v("\n                          " + _vm._s(item.productTax) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "80px"
-      }
-    }, [_vm._v(_vm._s(_vm.getTotalWithVAT(item)) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-right",
-      staticStyle: {
-        "min-width": "50px"
-      }
-    }, [_c('button', {
-      staticClass: "btn btn-danger",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.removeItem(item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    staticClass: "text-right",
-    attrs: {
-      "colspan": "5"
-    }
-  }, [_c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.toWord()) + " ")])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.totalUnitPrice) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalDiscountSum()) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getSubTotalAfterDiscount()) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalVATSum()) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalWithVATSum()) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td')])], 2)])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "paymentTerms"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Payment Terms")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.paymentTerms,
-      expression: "form.paymentTerms"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('paymentTerms')
-    },
-    attrs: {
-      "id": "paymentTerms",
-      "type": "text",
-      "name": "paymentTerms",
-      "placeholder": _vm.$t('Enter payment terms')
-    },
-    domProps: {
-      "value": _vm.form.paymentTerms
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "paymentTerms", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "paymentTerms"
-    }
-  })], 1), _vm._v(" "), _vm.taxes && !_vm.isSaudiArabia ? _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "orderTax"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Purchase Tax")) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('orderTax')
-    },
-    attrs: {
-      "options": _vm.taxes,
-      "label": "code",
-      "name": "orderTax",
-      "placeholder": _vm.$t('Select a tax type')
-    },
-    on: {
-      "input": _vm.updateTax
-    },
-    model: {
-      value: _vm.form.orderTax,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "orderTax", $$v);
-      },
-      expression: "form.orderTax"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "orderTax"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.taxes && !_vm.isSaudiArabia ? _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "totalTax"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Total Tax")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.totalTax,
-      expression: "form.totalTax"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('totalTax')
-    },
-    attrs: {
-      "id": "totalTax",
-      "type": "text",
-      "name": "totalTax",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.totalTax
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "totalTax", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "totalTax"
-    }
-  })], 1) : _vm._e()]), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row"
-  }, [!_vm.isSaudiArabia ? _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "discount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.discount,
-      expression: "form.discount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('discount')
-    },
-    attrs: {
-      "id": "discount",
-      "type": "number",
-      "step": "any",
-      "min": "1",
-      "max": _vm.form.subTotal,
-      "name": "discount",
-      "placeholder": _vm.$t('Enter discount')
-    },
-    domProps: {
-      "value": _vm.form.discount
-    },
-    on: {
-      "change": _vm.calculateSum,
-      "keyup": _vm.calculateSum,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "discount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "discount"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "transportCost"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Transport Cost")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.transportCost,
-      expression: "form.transportCost"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('transportCost')
-    },
-    attrs: {
-      "id": "transportCost",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "transportCost",
-      "placeholder": _vm.$t('Enter transport cost')
-    },
-    domProps: {
-      "value": _vm.form.transportCost
-    },
-    on: {
-      "change": _vm.calculateSum,
-      "keyup": _vm.calculateSum,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "transportCost", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "transportCost"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "netTotal"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Net Total")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.netTotal,
-      expression: "form.netTotal"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('netTotal')
-    },
-    attrs: {
-      "id": "netTotal",
-      "type": "number",
-      "step": "any",
-      "name": "netTotal",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.netTotal
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "netTotal", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "netTotal"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6 col-xl-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "addPayment"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Add Payment?")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.addPayment,
-      expression: "form.addPayment"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('addPayment')
-    },
-    attrs: {
-      "id": "addPayment",
-      "name": "addPayment"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "addPayment", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "",
-      "selected": "",
-      "disabled": ""
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Select an option")) + "\n                  ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Yes")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("No")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "addPayment"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.addPayment == 1 && _vm.accounts && _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "account"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Account")) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('account')
-    },
-    attrs: {
-      "options": _vm.accounts,
-      "label": "label",
-      "name": "account",
-      "placeholder": _vm.$t('Select an account')
-    },
-    on: {
-      "input": _vm.updateBalance
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(option) {
-        return [_c('img', {
-          staticStyle: {
-            "width": "30px",
-            "height": "30px"
-          },
-          attrs: {
-            "src": option.image
-          }
-        }), _vm._v("\n                      " + _vm._s(option.label) + "\n                  ")];
-      }
-    }], null, false, 3023951659),
-    model: {
-      value: _vm.form.account,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "account", $$v);
-      },
-      expression: "form.account"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "account"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "availableBalance"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Available Balance")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.availableBalance,
-      expression: "form.availableBalance"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('availableBalance')
-    },
-    attrs: {
-      "id": "availableBalance",
-      "type": "number",
-      "step": "any",
-      "name": "availableBalance",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.availableBalance
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "availableBalance", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "availableBalance"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "totalPaid"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Total Paid")) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.totalPaid,
-      expression: "form.totalPaid"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('totalPaid')
-    },
-    attrs: {
-      "id": "totalPaid",
-      "type": "number",
-      "step": "any",
-      "name": "totalPaid",
-      "min": "1",
-      "max": _vm.form.netTotal,
-      "placeholder": _vm.$t('Enter an amount')
-    },
-    domProps: {
-      "value": _vm.form.totalPaid
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "totalPaid", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "totalPaid"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "receiptNo"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Receipt No")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.receiptNo,
-      expression: "form.receiptNo"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('receiptNo')
-    },
-    attrs: {
-      "id": "receiptNo",
-      "type": "text",
-      "name": "receiptNo",
-      "placeholder": _vm.$t('Enter a receipt no')
-    },
-    domProps: {
-      "value": _vm.form.receiptNo
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "receiptNo", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "receiptNo"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!')
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "purchaseDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Purchase Date")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.purchaseDate,
-      expression: "form.purchaseDate"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('purchaseDate')
-    },
-    attrs: {
-      "id": "purchaseDate",
-      "type": "date",
-      "name": "purchaseDate"
-    },
-    domProps: {
-      "value": _vm.form.purchaseDate
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "purchaseDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "purchaseDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "poDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("PO Date")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.poDate,
-      expression: "form.poDate"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('poDate')
-    },
-    attrs: {
-      "id": "poDate",
-      "type": "date",
-      "name": "poDate"
-    },
-    domProps: {
-      "value": _vm.form.poDate
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "poDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "poDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12 d-flex flex-wrap"
-  }, [_c('div', {
-    staticClass: "pr-5 d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
-    },
-    model: {
-      value: _vm.form.isSendEmail,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendEmail", $$v);
-      },
-      expression: "form.isSendEmail"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send To Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("Email not configured")) + ")\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12 d-flex flex-wrap"
-  }, [_c('div', {
-    staticClass: "pr-5 d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
-    },
-    model: {
-      value: _vm.form.isSendSMS,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendSMS", $$v);
-      },
-      expression: "form.isSendSMS"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send To SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "submit",
-      "disabled": _vm.form.busy
-    },
-    on: {
-      "click": _vm.savePurchase
-    }
-  }, [_c('i', {
-    "class": _vm.form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'
-  }), _vm._v(" \n                  " + _vm._s(_vm.form.busy ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "type": "reset"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.form.reset();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n                ")])])])])])])])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('td', [_c('strong')]);
-}];
-
-;// ./resources/js/pages/purchases/create.vue?vue&type=template&id=2cc6fb71&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
-var dist = __webpack_require__(12616);
-// EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 5 modules
-var ProductCreateModal = __webpack_require__(63545);
-// EXTERNAL MODULE: ./resources/js/components/SupplierCreateModal.vue + 5 modules
-var SupplierCreateModal = __webpack_require__(24502);
-// EXTERNAL MODULE: ./resources/js/mixins/RTLMixin.js
-var RTLMixin = __webpack_require__(64744);
-// EXTERNAL MODULE: ./node_modules/to-words/dist/ToWords.js
-var ToWords = __webpack_require__(54923);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/create.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-
-
-
-/* harmony default export */ const createvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Create Purchase")
-    };
-  },
-  mixins: [RTLMixin/* default */.A],
-  components: {
-    ToggleButton: dist.ToggleButton,
-    ProductCreateModal: ProductCreateModal/* default */.A,
-    SupplierCreateModal: SupplierCreateModal/* default */.A
-  },
-  data: function data() {
-    return {
-      isDemoMode: window.config.isDemoMode,
-      breadcrumbsCurrent: "Create Purchase",
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Purchases",
-        url: "purchases.index"
-      }, {
-        name: "Create",
-        url: ""
-      }],
-      isAutoAssigningSupplier: false,
-      isAutoAssigningProduct: null,
-      form: new vform_es/* default */.Ay({
-        supplier: "",
-        selectedProducts: [],
-        subTotal: 0,
-        netTotal: 0,
-        discount: "",
-        transportCost: "",
-        account: "",
-        availableBalance: "",
-        totalProductTax: 0,
-        orderTax: "",
-        totalTax: 0,
-        totalPaid: "",
-        poReference: "",
-        paymentTerms: "",
-        addPayment: "",
-        chequeNo: "",
-        receiptNo: "",
-        poDate: new Date().toISOString().slice(0, 10),
-        purchaseDate: new Date().toISOString().slice(0, 10),
-        note: "",
-        status: 1,
-        isSendEmail: false,
-        isSendSMS: false,
-        totalDiscount: 0
-      }),
-      products: "",
-      accounts: "",
-      taxes: "",
-      // Communication configuration status
-      communicationConfig: {
-        email_configured: false,
-        sms_configured: false,
-        loading: true
-      }
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
-    // Calculate total unit price (sum of all unit prices)
-    totalUnitPrice: function totalUnitPrice() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
-      }
-      return this.form.selectedProducts.reduce(function (total, item) {
-        return total + (item.originalPrice || item.unitPrice) * item.qty;
-      }, 0);
-    },
-    // Check if the country is Saudi Arabia
-    isSaudiArabia: function isSaudiArabia() {
-      console.log('=== isSaudiArabia Debug ===');
-      console.log('appInfo:', this.appInfo);
-      console.log('appInfo.country:', this.appInfo ? this.appInfo.country : 'appInfo is null/undefined');
-      console.log('Country comparison result:', this.appInfo && this.appInfo.country === 'SA');
-      console.log('========================');
-      return this.appInfo && this.appInfo.country === 'SA';
-    }
-  }),
-  watch: {
-    appInfo: {
-      handler: function handler(newVal, oldVal) {
-        console.log('=== appInfo Watcher ===');
-        console.log('New appInfo:', newVal);
-        console.log('Old appInfo:', oldVal);
-        console.log('Country in new appInfo:', newVal ? newVal.country : 'newVal is null/undefined');
-        console.log('======================');
-      },
-      immediate: true,
-      deep: true
-    },
-    isSaudiArabia: {
-      handler: function handler(newVal, oldVal) {
-        console.log('=== isSaudiArabia Watcher ===');
-        console.log('New isSaudiArabia:', newVal);
-        console.log('Old isSaudiArabia:', oldVal);
-        // Clear orderTax when fields are hidden (when isSaudiArabia is true)
-        if (newVal === true) {
-          console.log('Clearing orderTax because fields are hidden');
-          this.form.orderTax = null;
-          this.form.totalTax = 0;
-        }
-        console.log('============================');
-      },
-      immediate: true
-    },
-    // Watch for changes in selectedProducts to update Net Total
-    'form.selectedProducts': {
-      handler: function handler() {
-        this.updateNetTotal();
-      },
-      deep: true
-    },
-    // Watch for changes in transport cost to update Net Total
-    'form.transportCost': {
-      handler: function handler() {
-        this.updateNetTotal();
-      }
-    }
-  },
-  created: function created() {
-    console.log('=== Component Created ===');
-    console.log('appInfo at creation:', this.appInfo);
-    this.getSuppliers();
-    this.getProducts();
-    this.getAccounts();
-    this.getTaxes();
-    this.loadCommunicationConfigStatus();
-    this.prefix = this.appInfo.productPrefix;
-  },
-  methods: {
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _this.communicationConfig.loading = true;
-              _context.n = 1;
-              return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context.v;
-              _this.communicationConfig.email_configured = response.data.email_configured;
-              _this.communicationConfig.sms_configured = response.data.sms_configured;
-              _this.communicationConfig.loading = false;
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading communication config status:', _t);
-              // Default to false if there's an error
-              _this.communicationConfig.email_configured = false;
-              _this.communicationConfig.sms_configured = false;
-              _this.communicationConfig.loading = false;
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    },
-    // get all local suppliers
-    getSuppliers: function getSuppliers() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var currentSupplierId, currentSupplier;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              // Store the current supplier ID if one is selected
-              currentSupplierId = _this2.form.supplier ? _this2.form.supplier.id : null;
-              _context2.n = 1;
-              return _this2.$store.dispatch("operations/allData", {
-                path: "/api/all-suppliers"
-              });
-            case 1:
-              // If we had a supplier selected, find and restore it
-              if (currentSupplierId && _this2.items && _this2.items.length > 0) {
-                currentSupplier = _this2.items.find(function (s) {
-                  return s.id === currentSupplierId;
-                });
-                if (currentSupplier) {
-                  _this2.form.supplier = currentSupplier;
-                } else {
-                  // Fallback to first supplier if current one not found
-                  _this2.form.supplier = _this2.items[0];
-                }
-              } else {
-                // No supplier was selected, use first one
-                _this2.form.supplier = _this2.items[0];
-              }
-            case 2:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // get products
-    getProducts: function getProducts() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var currentProductIds, _yield$axios$get, data;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              // Store the current selected products IDs
-              currentProductIds = _this3.form.selectedProducts ? _this3.form.selectedProducts.map(function (p) {
-                return p.id;
-              }) : [];
-              _context3.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-products-not-service");
-            case 1:
-              _yield$axios$get = _context3.v;
-              data = _yield$axios$get.data;
-              _this3.products = data.data;
-              _this3.products.sort(_this3.sortProducts);
-
-              // Update selected products with fresh data if they exist
-              if (currentProductIds.length > 0 && _this3.form.selectedProducts) {
-                _this3.form.selectedProducts.forEach(function (selectedProduct) {
-                  var freshProduct = _this3.products.find(function (p) {
-                    return p.id === selectedProduct.id;
-                  });
-                  if (freshProduct) {
-                    // Update the product with fresh data while preserving user input
-                    Object.assign(selectedProduct, freshProduct);
-                  }
-                });
-              }
-            case 2:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // handle newly created product
-    handleProductCreated: function handleProductCreated(newProduct) {
-      // Add the new product to the products list
-      this.products.unshift(newProduct);
-      this.products.sort(this.sortProducts);
-
-      // Automatically select the newly created product
-      this.form.product = newProduct;
-
-      // Automatically add it to the selected products list
-      this.storeProduct(newProduct);
-
-      // Show success message
-      // this.$toast.success(this.$t("Product created and added to purchase successfully!"));
-    },
-    // sort products
-    sortProducts: function sortProducts(a, b) {
-      if (Number(a.code) < Number(b.code)) {
-        return -1;
-      }
-      if (Number(a.code) > Number(b.code)) {
-        return 1;
-      }
-      return 0;
-    },
-    // get taxes
-    getTaxes: function getTaxes() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var _yield$axios$get2, data, defaultVatRateSlug;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _context4.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get2 = _context4.v;
-              data = _yield$axios$get2.data;
-              _this4.taxes = data.data;
-              // assign default vat rate
-              if (_this4.taxes && _this4.taxes.length > 0) {
-                defaultVatRateSlug = _this4.appInfo.defaultVatRateSlug;
-                _this4.form.orderTax = _this4.taxes.find(function (tax) {
-                  return tax.slug === defaultVatRateSlug;
-                });
-              }
-              _this4.updateTax();
-            case 2:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // get accounts
-    getAccounts: function getAccounts() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var _yield$axios$get3, data, defaultAccountSlug;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _context5.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-accounts");
-            case 1:
-              _yield$axios$get3 = _context5.v;
-              data = _yield$axios$get3.data;
-              _this5.accounts = data.data;
-              // assign default account
-              if (_this5.accounts && _this5.accounts.length > 0) {
-                defaultAccountSlug = _this5.appInfo.defaultAccountSlug;
-                _this5.form.account = _this5.accounts.find(function (account) {
-                  return account.slug === defaultAccountSlug;
-                });
-              }
-              _this5.updateBalance();
-            case 2:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // update available balance
-    updateBalance: function updateBalance() {
-      this.form.availableBalance = 0;
-      if (this.form.account) {
-        this.form.availableBalance = this.form.account.availableBalance;
-      }
-      return;
-    },
-    // store item in array
-    storeProduct: function storeProduct(product) {
-      var index = this.form.selectedProducts.findIndex(function (x) {
-        return x.id == product.id;
-      });
-      var quantity = 1;
-      if (index === -1) {
-        var purchasePrice = product.avgPurchasePrice > 0 ? product.avgPurchasePrice : 1;
-        // store product
-        this.form.selectedProducts.unshift({
-          id: product.id,
-          slug: product.slug,
-          name: product.name,
-          code: product.code,
-          qty: quantity,
-          unitPrice: purchasePrice,
-          originalPrice: purchasePrice,
-          // Store original price to preserve it
-          discount: 0,
-          discountType: "fixed",
-          discountAmount: 0,
-          selectedVatRate: this.findMatchingVatRate(product.productTax) || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
-          productTax: 0,
-          totalTax: 0,
-          unitCost: purchasePrice,
-          totalPrice: purchasePrice * quantity,
-          // Include chart of account IDs for validation
-          sales_account_id: product.sales_account_id,
-          purchase_account_id: product.purchase_account_id
-        });
-      } else {
-        // Product already exists, update it with fresh data while preserving user input
-        var existingProduct = this.form.selectedProducts[index];
-        var updatedProduct = _objectSpread(_objectSpread({}, existingProduct), {}, {
-          // Update chart of account IDs with fresh data
-          sales_account_id: product.sales_account_id,
-          purchase_account_id: product.purchase_account_id
-        });
-        this.form.selectedProducts[index] = updatedProduct;
-      }
-      this.generateItemTotal(quantity, "qty", index, "");
-      // Calculate VAT for the newly added product if it has a default VAT rate
-      if (index === -1 && this.taxes && this.taxes.length > 0) {
-        this.calculateProductVat(0); // 0 because we used unshift, so new product is at index 0
-      }
-      this.updateTax();
-      return;
-    },
-    // update array
-    generateItemTotal: function generateItemTotal(value, type, index, action) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        if (type == "qty") {
-          item.qty = value;
-          if (action == "increment") {
-            item.qty = Number(item.qty) + 1;
-          } else if (action == "decrement") {
-            if (item.qty > 0) {
-              item.qty = Number(item.qty) - 1;
-            }
-          }
-        } else {
-          item.unitPrice = value;
-          if (action == "increment") {
-            item.unitPrice = Number(item.unitPrice) + 1;
-          } else if (action == "decrement") {
-            if (item.unitPrice > 0) {
-              item.unitPrice = Number(item.unitPrice) - 1;
-            }
-          }
-          // Update original price when user manually changes unit price
-          item.originalPrice = item.unitPrice;
-        }
-
-        // Use the new method to calculate totals
-        this.generateItemTotalPrice(index);
-        this.form.selectedProducts[index] = item;
-      }
-      this.updateTax();
-      this.calculateSum();
-      return;
-    },
-    // calculate product discount
-    calculateProductDiscount: function calculateProductDiscount(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        var total = (item.originalPrice || item.unitPrice) * item.qty;
-        if (item.discountType === "percentage") {
-          // For percentage: discount amount = total * discount / 100
-          item.discountAmount = Number((total * (item.discount || 0) / 100).toFixed(2));
-        } else {
-          // For fixed: discount amount = discount value directly
-          item.discountAmount = Number(item.discount || 0);
-        }
-
-        // Recalculate totals using the new method
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
-      }
-    },
-    // calculate product VAT
-    calculateProductVat: function calculateProductVat(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        // Recalculate totals using the new method
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
-      }
-    },
-    // generate item total price (following the pseudocode exactly)
-    generateItemTotalPrice: function generateItemTotalPrice(index) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        // 1. Line Item: Total (Before Discount)
-        var total = Number(((item.originalPrice || item.unitPrice) * item.qty).toFixed(2));
-
-        // 2. Line Item: Total After Discount
-        var totalAfterDiscount;
-        if (item.discountType === "percentage") {
-          totalAfterDiscount = Number((total - total * (item.discount || 0) / 100).toFixed(2));
-        } else {
-          totalAfterDiscount = Number((total - (item.discountAmount || 0)).toFixed(2));
-        }
-
-        // Get VAT rate
-        var vatRate = 0;
-        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
-          vatRate = Number(item.selectedVatRate.rate);
-        } else if (item.taxRate !== undefined && item.taxRate !== null) {
-          vatRate = Number(item.taxRate);
-        }
-
-        // Ensure vatRate is a valid number
-        if (isNaN(vatRate) || vatRate < 0) {
-          vatRate = 0;
-        }
-
-        // 3. Line Item: VAT Amount (always calculated on TotalAfterDiscount)
-        item.productTax = Number((totalAfterDiscount * vatRate / 100).toFixed(2));
-        item.totalTax = Number((item.productTax * item.qty).toFixed(2));
-
-        // 4. Line Item: Total With VAT
-        item.totalPrice = Number((totalAfterDiscount + item.totalTax).toFixed(2));
-
-        // Calculate unit cost (unit price + VAT per unit)
-        item.unitCost = Number(((item.originalPrice || item.unitPrice) + item.productTax).toFixed(2));
-
-        // Update the item in the array
-        this.form.selectedProducts[index] = item;
-      }
-    },
-    // Helper method to get total after discount for display
-    getTotalAfterDiscount: function getTotalAfterDiscount(item) {
-      var total = (item.originalPrice || item.unitPrice) * item.qty;
-      if (item.discountType === "percentage") {
-        return total - total * (item.discount || 0) / 100;
-      } else {
-        return total - (item.discountAmount || 0);
-      }
-    },
-    // Helper method to get subtotal after discount for display
-    getSubTotalAfterDiscount: function getSubTotalAfterDiscount() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
-      }
-      return this.form.selectedProducts.reduce(function (prev, cur) {
-        var lineTotal = (cur.originalPrice || cur.unitPrice) * cur.qty;
-        var lineTotalAfterDiscount;
-        if (cur.discountType === "percentage") {
-          lineTotalAfterDiscount = lineTotal - lineTotal * (cur.discount || 0) / 100;
-        } else {
-          lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
-        }
-        return Number((prev + lineTotalAfterDiscount).toFixed(2));
-      }, 0);
-    },
-    // Helper method to get total with VAT for display (VAT + Total After Discount)
-    getTotalWithVAT: function getTotalWithVAT(item) {
-      var totalAfterDiscount = this.getTotalAfterDiscount(item);
-      var vatAmount = item.productTax || 0;
-      return Number((totalAfterDiscount + vatAmount).toFixed(2));
-    },
-    // Helper method to get grand total with VAT (Total VAT + Total After Discount)
-    getGrandTotalWithVAT: function getGrandTotalWithVAT() {
-      var totalAfterDiscount = this.getSubTotalAfterDiscount();
-      var totalVAT = this.form.totalProductTax || 0;
-      return Number((totalAfterDiscount + totalVAT).toFixed(2));
-    },
-    // Helper method to get sum of all individual "Total with VAT" values
-    getTotalWithVATSum: function getTotalWithVATSum() {
-      var _this6 = this;
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
-      }
-      return this.form.selectedProducts.reduce(function (total, item) {
-        return Number((total + _this6.getTotalWithVAT(item)).toFixed(2));
-      }, 0);
-    },
-    // Helper method to get sum of all individual VAT amounts
-    getTotalVATSum: function getTotalVATSum() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
-      }
-      return this.form.selectedProducts.reduce(function (total, item) {
-        return Number((total + (item.productTax || 0)).toFixed(2));
-      }, 0);
-    },
-    // Helper method to get sum of all individual discount amounts
-    getTotalDiscountSum: function getTotalDiscountSum() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
-      }
-      return this.form.selectedProducts.reduce(function (total, item) {
-        return Number((total + (item.discountAmount || 0)).toFixed(2));
-      }, 0);
-    },
-    // Update Net Total when Total with VAT or Transport Cost changes
-    updateNetTotal: function updateNetTotal() {
-      // Calculate Total with VAT (sum of all individual "Total with VAT" values)
-      var totalWithVAT = this.getTotalWithVATSum();
-
-      // Net Total = Total with VAT + Transport cost (if transport cost is empty, Net Total = Total with VAT)
-      this.form.netTotal = Number((totalWithVAT + Number(this.form.transportCost || 0)).toFixed(2));
-    },
-    // Helper method to find matching VAT rate
-    findMatchingVatRate: function findMatchingVatRate(productTax) {
-      if (!this.taxes || !productTax) return null;
-
-      // If productTax is an object (VAT rate object), use its rate property
-      if (_typeof(productTax) === 'object' && productTax.rate !== undefined) {
-        return this.taxes.find(function (tax) {
-          return tax.rate === productTax.rate;
-        });
-      }
-
-      // If productTax is a number (rate value), compare directly
-      if (typeof productTax === 'number') {
-        return this.taxes.find(function (tax) {
-          return tax.rate === productTax;
-        });
-      }
-      return null;
-    },
-    // return number to word with language support
-    toWord: function toWord() {
-      var amount = this.totalUnitPrice || 0;
-
-      // Handle edge cases
-      if (isNaN(amount) || amount < 0) {
-        return this.isRTL && this.currentLocale === 'ar' ? 'مبلغ غير صحيح' : 'Invalid Amount';
-      }
-      if (amount === 0) {
-        return this.isRTL && this.currentLocale === 'ar' ? 'صفر ريال فقط' : 'Zero Only';
-      }
-      if (this.isRTL && this.currentLocale === 'ar') {
-        return this.convertToArabicWords(amount);
-      } else {
-        return this.convertToEnglishWords(amount);
-      }
-    },
-    // Convert number to Arabic words
-    convertToArabicWords: function convertToArabicWords(amount) {
-      var currencyInfo = this.getCurrencyInfo();
-      if (amount === 0) return "\u0635\u0641\u0631 ".concat(currencyInfo.main, " \u0641\u0642\u0637");
-      var integerPart = Math.floor(amount);
-      var decimalPart = Math.round((amount - integerPart) * 100);
-      var result = '';
-      if (integerPart > 0) {
-        var arabicNumber = this.convertIntegerToArabic(integerPart);
-        result += arabicNumber + ' ' + currencyInfo.main;
-
-        // Add proper pluralization for main currency
-        if (integerPart === 1) {
-          // Keep singular form
-        } else if (integerPart === 2) {
-          result = result.replace(currencyInfo.main, currencyInfo.main + 'ان');
-        } else if (integerPart >= 3 && integerPart <= 10) {
-          result = result.replace(currencyInfo.main, currencyInfo.main + 'ات');
-        } else {
-          // Keep plural form for larger numbers
-        }
-      }
-      if (decimalPart > 0) {
-        if (result) result += ' و ';
-        var arabicDecimal = this.convertIntegerToArabic(decimalPart);
-        result += arabicDecimal + ' ' + currencyInfo.sub;
-
-        // Add proper pluralization for sub currency
-        if (decimalPart === 1) {
-          // Keep singular form
-        } else if (decimalPart === 2) {
-          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ان');
-        } else if (decimalPart >= 3 && decimalPart <= 10) {
-          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ات');
-        } else {
-          // Keep plural form for larger numbers
-        }
-      }
-      return result + ' فقط';
-    },
-    // Get currency information based on locale and app settings
-    getCurrencyInfo: function getCurrencyInfo() {
-      var _this$appInfo, _currencyMap$currency;
-      var currency = ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.currency) || 'SAR';
-      var isArabic = this.isRTL && this.currentLocale === 'ar';
-      var currencyMap = {
-        'SAR': {
-          en: {
-            main: 'Riyal',
-            sub: 'Halala',
-            symbol: 'ê'
-          },
-          ar: {
-            main: 'ريال',
-            sub: 'هللة',
-            symbol: 'ê'
-          }
-        },
-        'USD': {
-          en: {
-            main: 'Dollar',
-            sub: 'Cent',
-            symbol: '$'
-          },
-          ar: {
-            main: 'دولار',
-            sub: 'سنت',
-            symbol: '$'
-          }
-        },
-        'EUR': {
-          en: {
-            main: 'Euro',
-            sub: 'Cent',
-            symbol: '€'
-          },
-          ar: {
-            main: 'يورو',
-            sub: 'سنت',
-            symbol: '€'
-          }
-        },
-        'EGP': {
-          en: {
-            main: 'Pound',
-            sub: 'Piastre',
-            symbol: '£'
-          },
-          ar: {
-            main: 'جنيه',
-            sub: 'قرش',
-            symbol: '£'
-          }
-        }
-      };
-      return ((_currencyMap$currency = currencyMap[currency]) === null || _currencyMap$currency === void 0 ? void 0 : _currencyMap$currency[isArabic ? 'ar' : 'en']) || currencyMap['SAR'][isArabic ? 'ar' : 'en'];
-    },
-    // Convert number to English words
-    convertToEnglishWords: function convertToEnglishWords(amount) {
-      var currencyInfo = this.getCurrencyInfo();
-      var toWords = new ToWords.ToWords();
-      var words = toWords.convert(amount);
-
-      // Add currency information
-      var integerPart = Math.floor(amount);
-      var decimalPart = Math.round((amount - integerPart) * 100);
-      var result = words;
-      if (integerPart > 0) {
-        result += ' ' + currencyInfo.main;
-        if (integerPart !== 1) result += 's';
-      }
-      if (decimalPart > 0) {
-        if (result) result += ' and ';
-        result += this.convertIntegerToEnglish(decimalPart) + ' ' + currencyInfo.sub;
-        if (decimalPart !== 1) result += 's';
-      }
-      return result + ' Only';
-    },
-    // Convert integer to English words (for decimal parts)
-    convertIntegerToEnglish: function convertIntegerToEnglish(num) {
-      if (num === 0) return 'zero';
-      var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-      var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-      var teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-      if (num < 10) return ones[num];
-      if (num < 20) return teens[num - 10];
-      if (num < 100) {
-        var ten = Math.floor(num / 10);
-        var one = num % 10;
-        if (one === 0) return tens[ten];
-        return tens[ten] + '-' + ones[one];
-      }
-      return 'number';
-    },
-    // Convert integer to Arabic words
-    convertIntegerToArabic: function convertIntegerToArabic(num) {
-      if (num === 0) return 'صفر';
-      var ones = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
-      var tens = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
-      var teens = ['عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
-      var hundreds = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
-      if (num < 10) return ones[num];
-      if (num < 20) return teens[num - 10];
-      if (num < 100) {
-        var ten = Math.floor(num / 10);
-        var one = num % 10;
-        if (one === 0) return tens[ten];
-        return ones[one] + ' و ' + tens[ten];
-      }
-      if (num < 1000) {
-        var hundred = Math.floor(num / 100);
-        var remainder = num % 100;
-        if (remainder === 0) return hundreds[hundred];
-        return hundreds[hundred] + ' و ' + this.convertIntegerToArabic(remainder);
-      }
-      if (num < 1000000) {
-        var thousand = Math.floor(num / 1000);
-        var _remainder = num % 1000;
-        if (_remainder === 0) {
-          if (thousand === 1) return 'ألف';
-          if (thousand === 2) return 'ألفان';
-          if (thousand >= 3 && thousand <= 10) return this.convertIntegerToArabic(thousand) + ' آلاف';
-          return this.convertIntegerToArabic(thousand) + ' ألف';
-        }
-        return this.convertIntegerToArabic(thousand) + ' ألف و ' + this.convertIntegerToArabic(_remainder);
-      }
-      if (num < 1000000000) {
-        var million = Math.floor(num / 1000000);
-        var _remainder2 = num % 1000000;
-        if (_remainder2 === 0) {
-          if (million === 1) return 'مليون';
-          if (million === 2) return 'مليونان';
-          if (million >= 3 && million <= 10) return this.convertIntegerToArabic(million) + ' ملايين';
-          return this.convertIntegerToArabic(million) + ' مليون';
-        }
-        return this.convertIntegerToArabic(million) + ' مليون و ' + this.convertIntegerToArabic(_remainder2);
-      }
-      return 'رقم كبير جداً';
-    },
-    // remove item from array
-    removeItem: function removeItem(item) {
-      var index = this.form.selectedProducts.indexOf(item);
-      if (index > -1) {
-        this.form.selectedProducts.splice(index, 1);
-      }
-      this.updateTax();
-      this.calculateSum();
-      return;
-    },
-    // update tax
-    updateTax: function updateTax() {
-      this.form.totalTax = 0;
-      if (this.form.orderTax && this.form.orderTax.rate > 0 && this.form.subTotal > 0) {
-        this.form.totalTax = Number((this.form.orderTax.rate / 100 * this.form.subTotal).toFixed(2));
-      }
-      this.calculateSum();
-      return;
-    },
-    // calculate sum (following the pseudocode exactly)
-    calculateSum: function calculateSum() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        this.form.totalDiscount = 0;
-        this.form.subTotal = 0;
-        this.form.totalProductTax = 0;
-        this.form.netTotal = 0;
-        return;
-      }
-
-      // 5. Discount Summary (All Lines)
-      this.form.totalDiscount = this.form.selectedProducts.reduce(function (prev, cur) {
-        return Number((prev + (cur.discountAmount || 0)).toFixed(2));
-      }, 0);
-
-      // 7. Subtotal After Discount (All Lines) - sum of all line totals after discount
-      var subTotalAfterDiscount = this.form.selectedProducts.reduce(function (prev, cur) {
-        var lineTotal = (cur.originalPrice || cur.unitPrice) * cur.qty;
-        var lineTotalAfterDiscount;
-        if (cur.discountType === "percentage") {
-          lineTotalAfterDiscount = lineTotal - lineTotal * (cur.discount || 0) / 100;
-        } else {
-          lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
-        }
-        return Number((prev + lineTotalAfterDiscount).toFixed(2));
-      }, 0);
-
-      // 8. Total VAT Summary (All Lines)
-      this.form.totalProductTax = this.form.selectedProducts.reduce(function (prev, cur) {
-        return Number((prev + (cur.totalTax || 0)).toFixed(2));
-      }, 0);
-
-      // 9. Net Total (Final Payable Amount) = Total with VAT + Transport cost
-      this.form.subTotal = subTotalAfterDiscount; // This is the subtotal after discount
-
-      // Update Net Total using the dedicated method
-      this.updateNetTotal();
-      return;
-    },
-    // save purchase
-    savePurchase: function savePurchase() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var validationErrors, errorList, formData, response, errorMessages, _errorList, ErrorHandler, _t2;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
-            case 0:
-              if (!_this7.form.busy) {
-                _context6.n = 1;
-                break;
-              }
-              return _context6.a(2);
-            case 1:
-              // Validate required fields - collect all errors first
-              validationErrors = []; // Check supplier
-              if (!_this7.form.supplier) {
-                validationErrors.push(_this7.$t("Please select a supplier"));
-              }
-
-              // Check products
-              if (!_this7.form.selectedProducts || _this7.form.selectedProducts.length === 0) {
-                validationErrors.push(_this7.$t("Please add at least one product"));
-              }
-
-              // Check account (only required if adding payment)
-              if (_this7.form.addPayment == 1 && !_this7.form.account) {
-                validationErrors.push(_this7.$t("Please select an account"));
-              }
-
-              // Check total paid (only required if adding payment)
-              if (_this7.form.addPayment == 1 && (!_this7.form.totalPaid || Number(_this7.form.totalPaid) <= 0)) {
-                validationErrors.push(_this7.$t("Please enter the total amount paid"));
-              }
-
-              // Check product details
-              if (_this7.form.selectedProducts && _this7.form.selectedProducts.length > 0) {
-                _this7.form.selectedProducts.forEach(function (product, index) {
-                  if (!product.qty || Number(product.qty) <= 0) {
-                    validationErrors.push("".concat(_this7.$t("Product"), " ").concat(index + 1, ": ").concat(_this7.$t("Invalid quantity")));
-                  }
-                  if (!product.unitPrice || Number(product.unitPrice) <= 0) {
-                    validationErrors.push("".concat(_this7.$t("Product"), " ").concat(index + 1, ": ").concat(_this7.$t("Invalid unit price")));
-                  }
-                });
-              }
-
-              // Show all validation errors if any
-              if (!(validationErrors.length > 0)) {
-                _context6.n = 2;
-                break;
-              }
-              errorList = validationErrors.map(function (error) {
-                return "\u2022 ".concat(error);
-              }).join('\n');
-              toast.fire({
-                type: "error",
-                title: "".concat(_this7.$t("Validation Error"), ":\n\n").concat(errorList),
-                timer: 8000,
-                timerProgressBar: true
-              });
-              return _context6.a(2);
-            case 2:
-              _context6.p = 2;
-              // Clear any existing form errors to prevent individual error display
-              _this7.form.errors.clear();
-
-              // Submit the form
-
-              // Prepare the form data
-              formData = _this7.form.data(); // Convert addPayment to boolean for backend validation
-              formData.addPayment = _this7.form.addPayment == 1;
-
-              // Only include payment-related fields if payment is being added
-              if (_this7.form.addPayment == 1) {
-                formData.account = _this7.form.account;
-                formData.totalPaid = _this7.form.totalPaid;
-              } else {
-                // Remove payment-related fields if not adding payment
-                delete formData.account;
-                delete formData.totalPaid;
-              }
-
-              // Handle orderTax - only include if country is NOT Saudi Arabia
-              if (_this7.isSaudiArabia) {
-                delete formData.orderTax;
-              }
-
-              // Use direct axios call instead of form.post to have better control over error handling
-              _context6.n = 3;
-              return _this7.$axios.post("/api/purchases", formData);
-            case 3:
-              response = _context6.v;
-              toast.fire({
-                type: "success",
-                title: _this7.$t("Purchase added successfully")
-              });
-              _this7.clearTemporaryData();
-              _this7.$router.push({
-                name: "purchases.show",
-                params: {
-                  slug: response.data.data.slug
-                }
-              });
-              _context6.n = 5;
-              break;
-            case 4:
-              _context6.p = 4;
-              _t2 = _context6.v;
-              if (_t2.response && _t2.response.data && _t2.response.data.errors) {
-                // Validation errors from backend - show all errors in one notification
-                errorMessages = Object.values(_t2.response.data.errors).flat();
-                _errorList = errorMessages.map(function (error) {
-                  return "\u2022 ".concat(error);
-                }).join('\n');
-                toast.fire({
-                  type: "error",
-                  title: "".concat(_this7.$t("Validation Error"), ":\n\n").concat(_errorList),
-                  timer: 8000,
-                  timerProgressBar: true
-                });
-              } else if (_t2.response && _t2.response.data && _t2.response.data.message) {
-                // Custom error message from backend
-                toast.fire({
-                  type: "error",
-                  title: _this7.$t("Error"),
-                  text: _t2.response.data.message
-                });
-              } else {
-                // Use centralized error handler
-                ErrorHandler = (__webpack_require__(36694)/* ["default"] */ .A);
-                ErrorHandler.handleApiError(_t2, {
-                  showValidationErrors: true
-                });
-              }
-            case 5:
-              return _context6.a(2);
-          }
-        }, _callee6, null, [[2, 4]]);
-      }))();
-    },
-    // Auto-assign Chart of Account for supplier
-    autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var response, _t3;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
-            case 0:
-              if (!(!_this8.form.supplier || _this8.isAutoAssigningSupplier)) {
-                _context7.n = 1;
-                break;
-              }
-              return _context7.a(2);
-            case 1:
-              _this8.isAutoAssigningSupplier = true;
-              _context7.p = 2;
-              _context7.n = 3;
-              return _this8.$http.post("/api/suppliers/".concat(_this8.form.supplier.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context7.v;
-              if (response.data.success) {
-                console.log('Auto-assign response:', response.data);
-                console.log('Current supplier before update:', _this8.form.supplier);
-
-                // Update the supplier data with new chart of account
-                _this8.form.supplier.chart_of_account_id = response.data.chart_of_account_id;
-                console.log('Supplier after updating chart_of_account_id:', _this8.form.supplier);
-
-                // Force Vue to re-render the component to update the UI
-                _this8.$nextTick(function () {
-                  _this8.$forceUpdate();
-                });
-
-                // Show success message
-                toast.fire({
-                  type: "success",
-                  title: _this8.$t("Chart of Account assigned successfully")
-                });
-              } else {
-                toast.fire({
-                  type: "error",
-                  title: _this8.$t("Failed to assign Chart of Account"),
-                  text: response.data.message || _this8.$t("Please try again or assign manually")
-                });
-              }
-              _context7.n = 5;
-              break;
-            case 4:
-              _context7.p = 4;
-              _t3 = _context7.v;
-              console.error('Error auto-assigning chart of account:', _t3);
-              toast.fire({
-                type: "error",
-                title: _this8.$t("An error occurred while assigning Chart of Account")
-              });
-            case 5:
-              _context7.p = 5;
-              _this8.isAutoAssigningSupplier = false;
-              return _context7.f(5);
-            case 6:
-              return _context7.a(2);
-          }
-        }, _callee7, null, [[2, 4, 5, 6]]);
-      }))();
-    },
-    // Auto-assign Chart of Account for a specific product
-    autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var response, _t4;
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.p = _context8.n) {
-            case 0:
-              if (!(!product || _this9.isAutoAssigningProduct === product.id)) {
-                _context8.n = 1;
-                break;
-              }
-              return _context8.a(2);
-            case 1:
-              _this9.isAutoAssigningProduct = product.id;
-              _context8.p = 2;
-              _context8.n = 3;
-              return _this9.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context8.v;
-              if (response.data.success) {
-                // Update the product data with new chart of account
-                product.purchase_account_id = response.data.purchase_account_id;
-
-                // Force Vue to re-render the component to update the UI
-                _this9.$nextTick(function () {
-                  _this9.$forceUpdate();
-                });
-
-                // Show success message
-                toast.fire({
-                  type: "success",
-                  title: _this9.$t("Chart of Account assigned successfully")
-                });
-              } else {
-                toast.fire({
-                  type: "error",
-                  title: _this9.$t("Failed to assign Chart of Account"),
-                  text: response.data.message || _this9.$t("Please try again or assign manually")
-                });
-              }
-              _context8.n = 5;
-              break;
-            case 4:
-              _context8.p = 4;
-              _t4 = _context8.v;
-              console.error('Error auto-assigning chart of account:', _t4);
-              toast.fire({
-                type: "error",
-                title: _this9.$t("An error occurred while assigning Chart of Account")
-              });
-            case 5:
-              _context8.p = 5;
-              _this9.isAutoAssigningProduct = false;
-              return _context8.f(5);
-            case 6:
-              return _context8.a(2);
-          }
-        }, _callee8, null, [[2, 4, 5, 6]]);
-      }))();
-    },
-    // Handle supplier change
-    onSupplierChange: function onSupplierChange() {
-      var _this0 = this;
-      // Clear any previous errors
-      this.form.errors.clear('supplier');
-
-      // If a supplier is selected, ensure we have the latest data including Chart of Account
-      if (this.form.supplier && this.form.supplier.id) {
-        // Find the supplier in the items list to get the most up-to-date data
-        var updatedSupplier = this.items.find(function (s) {
-          return s.id === _this0.form.supplier.id;
-        });
-        if (updatedSupplier) {
-          // Update the form supplier with all the latest data
-          this.form.supplier = _objectSpread({}, updatedSupplier);
-        }
-      }
-    },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      var tempData = {
-        supplier: this.form.supplier,
-        selectedProducts: this.form.selectedProducts,
-        subTotal: this.form.subTotal,
-        netTotal: this.form.netTotal,
-        transportCost: this.form.transportCost,
-        orderTax: this.form.orderTax,
-        totalProductTax: this.form.totalProductTax,
-        totalTax: this.form.totalTax,
-        discount: this.form.discount,
-        poReference: this.form.poReference,
-        paymentTerms: this.form.paymentTerms,
-        poDate: this.form.poDate,
-        purchaseDate: this.form.purchaseDate,
-        addPayment: this.form.addPayment,
-        account: this.form.account,
-        totalPaid: this.form.totalPaid,
-        note: this.form.note,
-        status: this.form.status,
-        timestamp: new Date().toISOString()
-      };
-      localStorage.setItem('purchaseTempData', JSON.stringify(tempData));
-    },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('purchaseTempData');
-      if (tempData) {
-        try {
-          var data = JSON.parse(tempData);
-          this.form.supplier = data.supplier || this.form.supplier;
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts;
-          this.form.subTotal = data.subTotal || this.form.subTotal;
-          this.form.netTotal = data.netTotal || this.form.netTotal;
-          this.form.transportCost = data.transportCost || this.form.transportCost;
-          this.form.orderTax = data.orderTax || this.form.orderTax;
-          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax;
-          this.form.totalTax = data.totalTax || this.form.totalTax;
-          this.form.discount = data.discount || this.form.discount;
-          this.form.poReference = data.poReference || this.form.poReference;
-          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms;
-          this.form.poDate = data.poDate || this.form.poDate;
-          this.form.purchaseDate = data.purchaseDate || this.form.purchaseDate;
-          this.form.addPayment = data.addPayment || this.form.addPayment;
-          this.form.account = data.account || this.form.account;
-          this.form.totalPaid = data.totalPaid || this.form.totalPaid;
-          this.form.note = data.note || this.form.note;
-          this.form.status = data.status !== undefined ? data.status : this.form.status;
-        } catch (e) {
-          console.error('Error loading temporary data:', e);
-        }
-      }
-    },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('purchaseTempData');
-    }
-  },
-  mounted: function mounted() {
-    this.loadTemporaryData();
-  }
-});
-;// ./resources/js/pages/purchases/create.vue?vue&type=script&lang=js
- /* harmony default export */ const purchases_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/create.vue?vue&type=style&index=0&id=2cc6fb71&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_2cc6fb71_prod_scoped_true_lang_css = __webpack_require__(86935);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/create.vue?vue&type=style&index=0&id=2cc6fb71&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_2cc6fb71_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const purchases_createvue_type_style_index_0_id_2cc6fb71_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_2cc6fb71_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/purchases/create.vue?vue&type=style&index=0&id=2cc6fb71&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/purchases/create.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  purchases_createvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "2cc6fb71",
-  null
-  
-)
-
-/* harmony default export */ const create = (component.exports);
-
-/***/ }),
-
 /***/ 69543:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -10164,6 +7664,25 @@ const LOCALES = {
     'es-VE': es_VE_1.default,
 };
 exports["default"] = LOCALES;
+
+
+/***/ }),
+
+/***/ 71587:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-17d12814]{margin-bottom:15px}.footer-buttons[data-v-17d12814]{display:flex;gap:10px}.footer-buttons .btn[data-v-17d12814]{margin-right:10px}.footer-buttons .btn[data-v-17d12814]:last-child{margin-right:0}.create-btn[data-v-17d12814]{padding:11px}.chart-account-success[data-v-17d12814],.chart-account-warning[data-v-17d12814]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-17d12814]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-17d12814]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-17d12814],.warning-content[data-v-17d12814]{align-items:center;display:flex;gap:16px}.success-icon[data-v-17d12814],.warning-icon[data-v-17d12814]{flex-shrink:0;font-size:24px}.warning-icon[data-v-17d12814]{color:#856404}.success-icon[data-v-17d12814]{color:#155724}.success-text[data-v-17d12814],.warning-text[data-v-17d12814]{flex-grow:1}.success-title[data-v-17d12814],.warning-title[data-v-17d12814]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-17d12814]{color:#856404}.success-title[data-v-17d12814]{color:#155724}.success-description[data-v-17d12814],.warning-description[data-v-17d12814]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-17d12814]{color:#856404}.success-description[data-v-17d12814]{color:#155724}.warning-action[data-v-17d12814]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-17d12814]{padding:0}.btn-primary[data-v-17d12814]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-17d12814]:disabled{box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}@media (max-width:768px){.success-content[data-v-17d12814],.warning-content[data-v-17d12814]{flex-direction:column;gap:12px;text-align:center}.btn-primary[data-v-17d12814],.warning-action[data-v-17d12814]{width:100%}}.client-status[data-v-17d12814]{font-size:13px}.success[data-v-17d12814],.warning[data-v-17d12814]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.warning[data-v-17d12814]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.client-success[data-v-17d12814]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.btn-outline-warning[data-v-17d12814]{border-color:#ffc107;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-17d12814]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-17d12814]:disabled{cursor:not-allowed;opacity:.6}.product-status[data-v-17d12814]{font-size:13px}.product-success[data-v-17d12814],.product-warning[data-v-17d12814]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.product-warning[data-v-17d12814]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.product-success[data-v-17d12814]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.account-status[data-v-17d12814]{font-size:13px}.account-success[data-v-17d12814],.account-warning[data-v-17d12814]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.account-warning[data-v-17d12814]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.account-success[data-v-17d12814]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.radio-group-horizontal[data-v-17d12814]{align-items:center;display:flex;flex-direction:row;gap:20px}.radio-group-horizontal .form-check[data-v-17d12814]{align-items:center;display:flex;margin-bottom:0}.radio-group-horizontal .form-check-input[data-v-17d12814]{margin-right:8px}.radio-group-horizontal .form-check-label[data-v-17d12814]{cursor:pointer;margin-bottom:0}.text-warning[data-v-17d12814]{color:#856404!important}.text-warning small[data-v-17d12814]{font-size:12px;font-weight:500}.text-warning i[data-v-17d12814]{margin-right:4px}.table-custom[data-v-17d12814]{border:none!important}.invoices-create-table[data-v-17d12814]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-17d12814]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-17d12814]{border:none!important}.invoices-create-table thead th[data-v-17d12814]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-17d12814]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-17d12814]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-17d12814]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-17d12814]{gap:10px}.card[data-v-17d12814]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-17d12814]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.invoices-create-table .badge.badge-danger[data-v-17d12814]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-17d12814]{background:#fff!important}.btn-primary[data-v-17d12814]{background:#2ab930!important}.btn-secondary[data-v-17d12814]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.form-control[data-v-17d12814]{border-radius:0}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -10617,25 +8136,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 86935:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-2cc6fb71]{margin-bottom:15px}.footer-buttons[data-v-2cc6fb71]{display:flex;gap:10px}.footer-buttons .btn[data-v-2cc6fb71]{margin-right:10px}.footer-buttons .btn[data-v-2cc6fb71]:last-child{margin-right:0}.create-btn[data-v-2cc6fb71]{padding:11px}.chart-account-success[data-v-2cc6fb71],.chart-account-warning[data-v-2cc6fb71]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-2cc6fb71]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-2cc6fb71]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-2cc6fb71],.warning-content[data-v-2cc6fb71]{align-items:center;display:flex;gap:16px}.success-icon[data-v-2cc6fb71],.warning-icon[data-v-2cc6fb71]{flex-shrink:0;font-size:24px}.warning-icon[data-v-2cc6fb71]{color:#856404}.success-icon[data-v-2cc6fb71]{color:#155724}.success-text[data-v-2cc6fb71],.warning-text[data-v-2cc6fb71]{flex-grow:1}.success-title[data-v-2cc6fb71],.warning-title[data-v-2cc6fb71]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-2cc6fb71]{color:#856404}.success-title[data-v-2cc6fb71]{color:#155724}.success-description[data-v-2cc6fb71],.warning-description[data-v-2cc6fb71]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-2cc6fb71]{color:#856404}.success-description[data-v-2cc6fb71]{color:#155724}.warning-action[data-v-2cc6fb71]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-2cc6fb71]{padding:0}.card[data-v-2cc6fb71]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-2cc6fb71]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-2cc6fb71]{padding:1.25rem}.card-footer[data-v-2cc6fb71]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-2cc6fb71]{border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-2cc6fb71]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-2cc6fb71]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-2cc6fb71]{color:#dc3545;font-weight:700}.btn-primary[data-v-2cc6fb71]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-2cc6fb71]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-2cc6fb71]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-2cc6fb71]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-2cc6fb71]{border-color:#dc3545!important}textarea.form-control[data-v-2cc6fb71]{min-height:100px;resize:vertical}.v-select[data-v-2cc6fb71],.v-select .vs__dropdown-toggle[data-v-2cc6fb71]{background:#fff!important;border:1px solid #e5e7eb}.v-select .vs__dropdown-toggle[data-v-2cc6fb71]{padding:10px 16px}.v-select .vs__search[data-v-2cc6fb71]::-moz-placeholder{color:#6b7280}.v-select .vs__search[data-v-2cc6fb71]::placeholder{color:#6b7280}.v-select .vs__selected[data-v-2cc6fb71]{color:#374151}.v-select .vs__dropdown-menu[data-v-2cc6fb71]{border-radius:10px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}.table-custom[data-v-2cc6fb71]{border-radius:10px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-custom thead th[data-v-2cc6fb71]{background-color:#f8f9fa;border-bottom:2px solid #e5e7eb;color:#374151;font-weight:600;padding:12px 8px;text-align:center}.table-custom tbody td[data-v-2cc6fb71]{border-bottom:1px solid #e5e7eb;padding:12px 8px;vertical-align:middle}.table-custom tbody tr[data-v-2cc6fb71]:hover{background-color:#f8f9fa}.toggle-button[data-v-2cc6fb71]{margin-right:10px}.product-status[data-v-2cc6fb71],.supplier-status[data-v-2cc6fb71]{font-size:13px}.product-warning[data-v-2cc6fb71],.supplier-warning[data-v-2cc6fb71]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;color:#856404;display:flex;font-weight:500;padding:8px 12px}.btn-outline-warning[data-v-2cc6fb71]{border-color:#ffc107;border-radius:6px;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-2cc6fb71]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-2cc6fb71]:disabled{cursor:not-allowed;opacity:.6}.row[data-v-2cc6fb71]{margin-bottom:1rem}.form-text[data-v-2cc6fb71]{color:#6b7280;font-size:.875rem}.text-muted[data-v-2cc6fb71]{color:#6b7280!important}@media (max-width:768px){.card-footer[data-v-2cc6fb71]{flex-direction:column;gap:10px}.card-footer .btn[data-v-2cc6fb71]{margin-right:0!important;width:100%}.card-footer div[data-v-2cc6fb71]{display:flex;flex-direction:column;gap:10px;width:100%}.table-custom[data-v-2cc6fb71]{font-size:12px}.table-custom tbody td[data-v-2cc6fb71],.table-custom thead th[data-v-2cc6fb71]{padding:8px 4px}}.btn-group.c-w-100[data-v-2cc6fb71]{gap:10px}.quantity-field[data-v-2cc6fb71]{border-radius:0!important;margin:0!important;min-height:50px!important}.table-custom[data-v-2cc6fb71]{border:none!important}.invoices-create-table[data-v-2cc6fb71]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-2cc6fb71]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-2cc6fb71]{border:none!important}.invoices-create-table thead th[data-v-2cc6fb71]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-2cc6fb71]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-2cc6fb71]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-2cc6fb71]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.invoices-create-table .badge.badge-danger[data-v-2cc6fb71]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-2cc6fb71]{background:#fff!important}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 92952:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -10704,6 +8204,2275 @@ class Locale {
 }
 exports["default"] = Locale;
 
+
+/***/ }),
+
+/***/ 97843:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ create)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchase-order/create.vue?vue&type=template&id=17d12814&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-xl-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100 header-buttons"
+  }, [_c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'purchase-order.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n              ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "submit",
+      "form": 'purchaseOrderCreateForm',
+      "title": "Save"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  })])], 1)])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('form', {
+    attrs: {
+      "id": "purchaseOrderCreateForm",
+      "role": "form"
+    },
+    on: {
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.savePurchaseOrder.apply(null, arguments);
+      },
+      "keydown": function keydown($event) {
+        return _vm.form.onKeydown($event);
+      }
+    }
+  }, [_vm.items && _vm.products ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "supplier"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Supplier")) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('div', {
+    staticClass: "d-flex w-100"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1",
+    "class": {
+      'is-invalid': _vm.form.errors.has('supplier')
+    },
+    attrs: {
+      "options": _vm.items,
+      "label": "name",
+      "clearable": false,
+      "name": "supplier",
+      "placeholder": _vm.$t('Select a supplier')
+    },
+    on: {
+      "input": _vm.onSupplierChange
+    },
+    model: {
+      value: _vm.form.supplier,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "supplier", $$v);
+      },
+      expression: "form.supplier"
+    }
+  }), _vm._v(" "), _c('SupplierCreateModal', {
+    on: {
+      "reloadSuppliers": _vm.getSuppliers
+    }
+  }, [_c('div', {
+    staticClass: "input-group-text create-btn"
+  }, [_c('i', {
+    staticClass: "fas fa-solid fa-plus-circle"
+  })])])], 1), _vm._v(" "), _vm.form.supplier ? _c('div', {
+    staticClass: "supplier-status mt-2"
+  }, [!_vm.form.supplier.chart_of_account_id ? _c('div', {
+    staticClass: "warning"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Supplier needs Chart of Account')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-outline-warning ml-2",
+    attrs: {
+      "type": "button",
+      "disabled": _vm.isAutoAssigningSupplier
+    },
+    on: {
+      "click": _vm.autoAssignSupplierChartOfAccount
+    }
+  }, [_c('i', {
+    "class": _vm.isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
+  }), _vm._v("\n                          " + _vm._s(_vm.isAutoAssigningSupplier ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "supplier"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "product"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Select Products")) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('div', {
+    staticClass: "d-flex w-100"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1",
+    "class": {
+      'is-invalid': _vm.form.errors.has('selectedProducts')
+    },
+    attrs: {
+      "options": _vm.products,
+      "label": "label",
+      "clearable": false,
+      "name": "product",
+      "placeholder": _vm.$t('Search products')
+    },
+    on: {
+      "input": function input($event) {
+        return _vm.storeProduct(_vm.form.product);
+      }
+    },
+    model: {
+      value: _vm.form.product,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "product", $$v);
+      },
+      expression: "form.product"
+    }
+  }), _vm._v(" "), _c('ProductCreateModal', {
+    on: {
+      "reloadProducts": _vm.getProducts,
+      "productCreated": _vm.handleProductCreated
+    }
+  }, [_c('div', {
+    staticClass: "input-group-text create-btn"
+  }, [_c('i', {
+    staticClass: "fas fa-solid fa-plus-circle"
+  })])])], 1), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    staticClass: "product-status mt-2"
+  }, [!_vm.form.selectedProducts[0].purchase_account_id ? _c('div', {
+    staticClass: "product-warning"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(_vm.form.selectedProducts[0].name) + "\" " + _vm._s(_vm.$t('needs Purchase Account')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-outline-warning ml-2",
+    attrs: {
+      "type": "button",
+      "disabled": _vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.autoAssignProductChartOfAccount(_vm.form.selectedProducts[0]);
+      }
+    }
+  }, [_c('i', {
+    "class": _vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
+  }), _vm._v("\n                          " + _vm._s(_vm.isAutoAssigningProduct === _vm.form.selectedProducts[0].id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "selectedProducts"
+    }
+  })], 1)])])]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    staticClass: "row mt-3 mb-4"
+  }, [_c('div', {
+    staticClass: "table-responsive table-custom w-100 m-auto"
+  }, [_c('table', {
+    staticClass: "table table-hover table-sm text-center invoices-create-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Quantity")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchase Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Action")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.form.selectedProducts, function (item, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', {
+      staticStyle: {
+        "min-width": "50px"
+      }
+    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "100px"
+      }
+    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "200px"
+      }
+    }, [_vm.$can('product-view') ? _c('router-link', {
+      attrs: {
+        "to": {
+          name: 'products.show',
+          params: {
+            slug: item.slug
+          }
+        }
+      }
+    }, [_vm._v("\n                          " + _vm._s(item.name) + "\n                        ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "200px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      staticClass: "button-minus icon-shape icon-sm btn-danger",
+      attrs: {
+        "type": "button",
+        "value": "-",
+        "data-field": "quantity"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'decrement');
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item.qty,
+        expression: "item.qty",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0 incrementor",
+      "class": {
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".qty"))
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "id": "purchaseQty-".concat(i),
+        "name": "quantity",
+        "required": "",
+        "min": "1"
+      },
+      domProps: {
+        "value": item.qty
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "qty", _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.generateItemTotal(item.qty, 'qty', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      staticClass: "button-plus icon-shape icon-sm btn-primary",
+      attrs: {
+        "type": "button",
+        "value": "+",
+        "data-field": "quantity"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'increment');
+        }
+      }
+    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".qty")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".qty"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "200px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item.unitPrice,
+        expression: "item.unitPrice",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0",
+      "class": {
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".unitPrice"))
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "id": "unitPrice-".concat(i),
+        "name": "unitPrice",
+        "required": "",
+        "min": "0"
+      },
+      domProps: {
+        "value": item.unitPrice
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "unitPrice", _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.generateItemTotal(item.unitPrice, 'price', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".unitPrice")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".unitPrice"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "120px"
+      }
+    }, [_vm._v(_vm._s((item.originalPrice || item.unitPrice) * item.qty) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "180px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discountType,
+        expression: "item.discountType"
+      }],
+      staticClass: "form-control form-control-sm border-0",
+      "class": {
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType"))
+      },
+      staticStyle: {
+        "width": "60px"
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.calculateProductDiscount(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "fixed"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "percentage"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discount,
+        expression: "item.discount"
+      }],
+      staticClass: "form-control form-control-sm border-0",
+      "class": {
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount"))
+      },
+      staticStyle: {
+        "width": "80px"
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "max": item.discountType == 'percentage' ? 100 : (item.originalPrice || item.unitPrice) * item.qty,
+        "placeholder": "0"
+      },
+      domProps: {
+        "value": item.discount
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.calculateProductDiscount(i - 1);
+        },
+        "keyup": function keyup($event) {
+          return _vm.calculateProductDiscount(i - 1);
+        },
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "discount", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) || _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "120px"
+      }
+    }, [_vm._v(_vm._s(_vm.getTotalAfterDiscount(item)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "150px"
+      }
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.selectedVatRate,
+        expression: "item.selectedVatRate"
+      }],
+      staticClass: "form-control form-control-sm border-0",
+      "class": {
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate"))
+      },
+      staticStyle: {
+        "min-width": "120px"
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.calculateProductVat(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax
+        }
+      }, [_vm._v("\n                            " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                          ")]);
+    })], 2), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "100px"
+      }
+    }, [_c('span', {
+      staticClass: "form-control-plaintext form-control-sm text-center"
+    }, [_vm._v("\n                          " + _vm._s(item.productTax) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "120px"
+      }
+    }, [_vm._v(_vm._s(_vm.getTotalWithVAT(item)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticClass: "text-right",
+      staticStyle: {
+        "min-width": "80px"
+      }
+    }, [_c('button', {
+      staticClass: "btn btn-danger",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeItem(item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])])]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": "5"
+    }
+  }, [_c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.toWord()) + " ")])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.totalUnitPrice) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalDiscountSum()) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getSubTotalAfterDiscount()) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalVATSum()) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.getTotalWithVATSum()) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td')])], 2)])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "poReference"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("PO Reference")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.poReference,
+      expression: "form.poReference"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('poReference')
+    },
+    attrs: {
+      "id": "poReference",
+      "type": "text",
+      "step": "any",
+      "name": "poReference",
+      "placeholder": _vm.$t('Enter PO reference')
+    },
+    domProps: {
+      "value": _vm.form.poReference
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "poReference", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "poReference"
+    }
+  })], 1), _vm._v(" "), _vm.taxes && !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "orderTax"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Purchase Tax")) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('orderTax')
+    },
+    attrs: {
+      "options": _vm.taxes,
+      "label": "code",
+      "clearable": false,
+      "name": "orderTax",
+      "placeholder": _vm.$t('Select a tax type')
+    },
+    on: {
+      "input": _vm.updateTax
+    },
+    model: {
+      value: _vm.form.orderTax,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "orderTax", $$v);
+      },
+      expression: "form.orderTax"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "orderTax"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "netTotal"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Net Total")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.netTotal,
+      expression: "form.netTotal"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('netTotal')
+    },
+    attrs: {
+      "id": "netTotal",
+      "type": "number",
+      "step": "any",
+      "name": "netTotal",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.form.netTotal
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "netTotal", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "netTotal"
+    }
+  })], 1), _vm._v(" "), _vm.taxes && !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "totalTax"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Total Tax")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.totalTax,
+      expression: "form.totalTax"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('totalTax')
+    },
+    attrs: {
+      "id": "totalTax",
+      "type": "text",
+      "name": "totalTax",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.form.totalTax
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "totalTax", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "totalTax"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-6 col-xl-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "discount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.discount,
+      expression: "form.discount"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('discount')
+    },
+    attrs: {
+      "id": "discount",
+      "type": "number",
+      "step": "any",
+      "min": "1",
+      "max": _vm.form.subTotal,
+      "name": "discount",
+      "placeholder": _vm.$t('Enter discount')
+    },
+    domProps: {
+      "value": _vm.form.discount
+    },
+    on: {
+      "change": _vm.calculateSum,
+      "keyup": _vm.calculateSum,
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "discount", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "discount"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "transportCost"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Transport Cost")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.transportCost,
+      expression: "form.transportCost"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('transportCost')
+    },
+    attrs: {
+      "id": "transportCost",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "transportCost",
+      "placeholder": _vm.$t('Enter transport cost')
+    },
+    domProps: {
+      "value": _vm.form.transportCost
+    },
+    on: {
+      "change": _vm.calculateSum,
+      "keyup": _vm.calculateSum,
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "transportCost", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "transportCost"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "paymentTerms"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Payment Terms")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.paymentTerms,
+      expression: "form.paymentTerms"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('paymentTerms')
+    },
+    attrs: {
+      "id": "paymentTerms",
+      "type": "text",
+      "name": "paymentTerms",
+      "placeholder": _vm.$t('Enter payment terms')
+    },
+    domProps: {
+      "value": _vm.form.paymentTerms
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "paymentTerms", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "paymentTerms"
+    }
+  })], 1)]), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    staticClass: "row"
+  }) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "note"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.note,
+      expression: "form.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('note')
+    },
+    attrs: {
+      "id": "note",
+      "placeholder": _vm.$t('Write your note here!')
+    },
+    domProps: {
+      "value": _vm.form.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "note"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "purchaseDate"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Purchase Date")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.purchaseDate,
+      expression: "form.purchaseDate"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('purchaseDate')
+    },
+    attrs: {
+      "id": "purchaseDate",
+      "type": "date",
+      "name": "purchaseDate"
+    },
+    domProps: {
+      "value": _vm.form.purchaseDate
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "purchaseDate", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "purchaseDate"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "poDate"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("PO Date")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.poDate,
+      expression: "form.poDate"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('poDate')
+    },
+    attrs: {
+      "id": "poDate",
+      "type": "date",
+      "name": "poDate"
+    },
+    domProps: {
+      "value": _vm.form.poDate
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "poDate", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "poDate"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-12 d-flex flex-wrap"
+  }, [_c('div', {
+    staticClass: "pr-5 d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
+    },
+    model: {
+      value: _vm.form.isSendEmail,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendEmail", $$v);
+      },
+      expression: "form.isSendEmail"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send To Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("Email not configured")) + ")\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-12 d-flex flex-wrap"
+  }, [_c('div', {
+    staticClass: "pr-5 d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
+    },
+    model: {
+      value: _vm.form.isSendSMS,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendSMS", $$v);
+      },
+      expression: "form.isSendSMS"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send To SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.form.busy
+    },
+    on: {
+      "click": _vm.savePurchaseOrder
+    }
+  }, [_c('i', {
+    "class": _vm.form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'
+  }), _vm._v(" \n                  " + _vm._s(_vm.form.busy ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "type": "reset"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.form.reset();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-power-off"
+  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n                ")])])])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('td', [_c('strong')]);
+}];
+
+;// ./resources/js/pages/purchase-order/create.vue?vue&type=template&id=17d12814&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
+var dist = __webpack_require__(12616);
+// EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 5 modules
+var ProductCreateModal = __webpack_require__(63545);
+// EXTERNAL MODULE: ./resources/js/components/SupplierCreateModal.vue + 5 modules
+var SupplierCreateModal = __webpack_require__(24502);
+// EXTERNAL MODULE: ./resources/js/utils/errorHandler.js
+var errorHandler = __webpack_require__(36694);
+// EXTERNAL MODULE: ./resources/js/mixins/RTLMixin.js
+var RTLMixin = __webpack_require__(64744);
+// EXTERNAL MODULE: ./node_modules/to-words/dist/ToWords.js
+var ToWords = __webpack_require__(54923);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchase-order/create.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+
+
+
+
+/* harmony default export */ const createvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Create Purchase Order")
+    };
+  },
+  mixins: [RTLMixin/* default */.A],
+  components: {
+    ToggleButton: dist.ToggleButton,
+    ProductCreateModal: ProductCreateModal/* default */.A,
+    SupplierCreateModal: SupplierCreateModal/* default */.A
+  },
+  data: function data() {
+    return {
+      isDemoMode: window.config.isDemoMode,
+      breadcrumbsCurrent: "Create Purchase Order",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Purchase Orders",
+        url: "purchase-order.index"
+      }, {
+        name: "Create",
+        url: ""
+      }],
+      isAutoAssigningSupplier: false,
+      isAutoAssigningProduct: null,
+      form: new vform_es/* default */.Ay({
+        supplier: "",
+        selectedProducts: [],
+        subTotal: 0,
+        netTotal: 0,
+        discount: "",
+        transportCost: "",
+        totalProductTax: 0,
+        orderTax: "",
+        totalTax: 0,
+        poReference: "",
+        paymentTerms: "",
+        poDate: new Date().toISOString().slice(0, 10),
+        purchaseDate: new Date().toISOString().slice(0, 10),
+        note: "",
+        status: 1,
+        isSendEmail: false,
+        isSendSMS: false,
+        totalDiscount: 0
+      }),
+      products: "",
+      taxes: "",
+      // Communication configuration status
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true
+      }
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
+    // Calculate total unit price (sum of all unit prices)
+    totalUnitPrice: function totalUnitPrice() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (total, item) {
+        return total + (item.originalPrice || item.unitPrice) * item.qty;
+      }, 0);
+    },
+    // Check if the country is Saudi Arabia
+    isSaudiArabia: function isSaudiArabia() {
+      console.log('=== isSaudiArabia Debug ===');
+      console.log('appInfo:', this.appInfo);
+      console.log('appInfo.country:', this.appInfo ? this.appInfo.country : 'appInfo is null/undefined');
+      console.log('Country comparison result:', this.appInfo && this.appInfo.country === 'SA');
+      console.log('========================');
+      return this.appInfo && this.appInfo.country === 'SA';
+    }
+  }),
+  watch: {
+    appInfo: {
+      handler: function handler(newVal, oldVal) {
+        console.log('=== appInfo Watcher ===');
+        console.log('New appInfo:', newVal);
+        console.log('Old appInfo:', oldVal);
+        console.log('Country in new appInfo:', newVal ? newVal.country : 'newVal is null/undefined');
+        console.log('======================');
+      },
+      immediate: true,
+      deep: true
+    },
+    isSaudiArabia: {
+      handler: function handler(newVal, oldVal) {
+        console.log('=== isSaudiArabia Watcher ===');
+        console.log('New isSaudiArabia:', newVal);
+        console.log('Old isSaudiArabia:', oldVal);
+        // Clear orderTax when fields are hidden (when isSaudiArabia is true)
+        if (newVal === true) {
+          console.log('Clearing orderTax because fields are hidden');
+          this.form.orderTax = null;
+          this.form.totalTax = 0;
+        }
+        console.log('============================');
+      },
+      immediate: true
+    },
+    // Watch for changes in selectedProducts to update Net Total
+    'form.selectedProducts': {
+      handler: function handler() {
+        this.updateNetTotal();
+      },
+      deep: true
+    },
+    // Watch for changes in transport cost to update Net Total
+    'form.transportCost': {
+      handler: function handler() {
+        this.updateNetTotal();
+      }
+    }
+  },
+  created: function created() {
+    console.log('=== Component Created ===');
+    console.log('appInfo at creation:', this.appInfo);
+    this.getSuppliers();
+    this.getProducts();
+    this.getTaxes();
+    this.loadCommunicationConfigStatus();
+    this.prefix = this.appInfo.productPrefix;
+  },
+  mounted: function mounted() {
+    this.loadTemporaryData();
+  },
+  methods: {
+    // Load communication configuration status
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              _this.communicationConfig.loading = true;
+              _context.n = 1;
+              return axios_default().get('/api/communication-config-status');
+            case 1:
+              response = _context.v;
+              _this.communicationConfig.email_configured = response.data.email_configured;
+              _this.communicationConfig.sms_configured = response.data.sms_configured;
+              _this.communicationConfig.loading = false;
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error('Error loading communication config status:', _t);
+              // Default to false if there's an error
+              _this.communicationConfig.email_configured = false;
+              _this.communicationConfig.sms_configured = false;
+              _this.communicationConfig.loading = false;
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }))();
+    },
+    // get all local suppliers
+    getSuppliers: function getSuppliers() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var currentSupplierId, currentSupplier;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              // Store the current supplier ID if one is selected
+              currentSupplierId = _this2.form.supplier ? _this2.form.supplier.id : null;
+              _context2.n = 1;
+              return _this2.$store.dispatch("operations/allData", {
+                path: "/api/all-suppliers"
+              });
+            case 1:
+              // If we had a supplier selected, find and restore it
+              if (currentSupplierId && _this2.items && _this2.items.length > 0) {
+                currentSupplier = _this2.items.find(function (s) {
+                  return s.id === currentSupplierId;
+                });
+                if (currentSupplier) {
+                  _this2.form.supplier = currentSupplier;
+                } else {
+                  // Fallback to first supplier if current one not found
+                  _this2.form.supplier = _this2.items[0];
+                }
+              } else {
+                // No supplier was selected, use first one
+                _this2.form.supplier = _this2.items[0];
+              }
+            case 2:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // get products
+    getProducts: function getProducts() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var currentProductIds, _yield$axios$get, data;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              // Store the current selected products IDs
+              currentProductIds = _this3.form.selectedProducts ? _this3.form.selectedProducts.map(function (p) {
+                return p.id;
+              }) : [];
+              _context3.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-products-not-service");
+            case 1:
+              _yield$axios$get = _context3.v;
+              data = _yield$axios$get.data;
+              _this3.products = data.data;
+              _this3.products.sort(_this3.sortProducts);
+
+              // Update selected products with fresh data if they exist
+              if (currentProductIds.length > 0 && _this3.form.selectedProducts) {
+                _this3.form.selectedProducts.forEach(function (selectedProduct) {
+                  var freshProduct = _this3.products.find(function (p) {
+                    return p.id === selectedProduct.id;
+                  });
+                  if (freshProduct) {
+                    // Update the product with fresh data while preserving user input
+                    Object.assign(selectedProduct, freshProduct);
+                  }
+                });
+              }
+            case 2:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // handle newly created product
+    handleProductCreated: function handleProductCreated(newProduct) {
+      // Add the new product to the products list
+      this.products.unshift(newProduct);
+      this.products.sort(this.sortProducts);
+
+      // Automatically select the newly created product
+      this.form.product = newProduct;
+
+      // Automatically add it to the selected products list
+      this.storeProduct(newProduct);
+
+      // Show success message
+      // this.$toast.success(this.$t("Product created and added to purchase order successfully!"));
+    },
+    // sort products
+    sortProducts: function sortProducts(a, b) {
+      if (Number(a.code) < Number(b.code)) {
+        return -1;
+      }
+      if (Number(a.code) > Number(b.code)) {
+        return 1;
+      }
+      return 0;
+    },
+    // get taxes
+    getTaxes: function getTaxes() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get2, data, defaultVatRateSlug;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _context4.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+            case 1:
+              _yield$axios$get2 = _context4.v;
+              data = _yield$axios$get2.data;
+              _this4.taxes = data.data;
+              // assign default vat rate
+              if (_this4.taxes && _this4.taxes.length > 0) {
+                defaultVatRateSlug = _this4.appInfo.defaultVatRateSlug;
+                _this4.form.orderTax = _this4.taxes.find(function (tax) {
+                  return tax.slug === defaultVatRateSlug;
+                });
+              }
+              _this4.updateTax();
+            case 2:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // update tax
+    updateTax: function updateTax() {
+      this.form.totalTax = 0;
+      if (this.form.orderTax && this.form.orderTax.rate > 0 && this.form.subTotal > 0) {
+        this.form.totalTax = Number((this.form.orderTax.rate / 100 * this.form.subTotal).toFixed(2));
+      }
+      this.calculateSum();
+      return;
+    },
+    // store item in array
+    storeProduct: function storeProduct(product) {
+      var index = this.form.selectedProducts.findIndex(function (x) {
+        return x.id == product.id;
+      });
+      var quantity = 1;
+      if (index === -1) {
+        // Prefer sellingPrice from API payload; fallback to regularPrice then avgPurchasePrice then 1
+        var purchasePrice = 1;
+        if (product && Number(product.sellingPrice) > 0) {
+          purchasePrice = Number(product.sellingPrice);
+        } else if (product && Number(product.regularPrice) > 0) {
+          purchasePrice = Number(product.regularPrice);
+        } else if (product && Number(product.avgPurchasePrice) > 0) {
+          purchasePrice = Number(product.avgPurchasePrice);
+        }
+        // store product
+        this.form.selectedProducts.unshift({
+          id: product.id,
+          slug: product.slug,
+          name: product.name,
+          code: product.code,
+          qty: quantity,
+          unitPrice: purchasePrice,
+          originalPrice: purchasePrice,
+          // Store original price to preserve it
+          discount: 0,
+          discountType: "fixed",
+          discountAmount: 0,
+          selectedVatRate: this.findMatchingVatRate(product.productTax) || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
+          productTax: 0,
+          totalTax: 0,
+          unitCost: purchasePrice,
+          totalPrice: purchasePrice * quantity,
+          // Include chart of account IDs for validation
+          sales_account_id: product.sales_account_id,
+          purchase_account_id: product.purchase_account_id
+        });
+      } else {
+        // Product already exists, update it with fresh data while preserving user input
+        var existingProduct = this.form.selectedProducts[index];
+        var updatedProduct = _objectSpread(_objectSpread({}, existingProduct), {}, {
+          // Update chart of account IDs with fresh data
+          sales_account_id: product.sales_account_id,
+          purchase_account_id: product.purchase_account_id
+        });
+        this.form.selectedProducts[index] = updatedProduct;
+      }
+      this.generateItemTotal(quantity, "qty", index, "");
+      // Calculate VAT for the newly added product if it has a default VAT rate
+      if (index === -1 && this.taxes && this.taxes.length > 0) {
+        this.calculateProductVat(0); // 0 because we used unshift, so new product is at index 0
+      }
+      this.updateTax();
+      return;
+    },
+    // update array
+    generateItemTotal: function generateItemTotal(value, type, index, action) {
+      var item = this.form.selectedProducts[index];
+      if (item) {
+        if (type == "qty") {
+          var newQty = value;
+          if (action == "increment") {
+            newQty = Number(item.qty) + 1;
+          } else if (action == "decrement") {
+            if (item.qty > 0) {
+              newQty = Number(item.qty) - 1;
+            }
+          }
+          this.$set(item, 'qty', newQty);
+        } else if (type == "price") {
+          var newPrice = value;
+          if (action == "increment") {
+            newPrice = Number(item.unitPrice) + 1;
+          } else if (action == "decrement") {
+            if (item.unitPrice > 0) {
+              newPrice = Number(item.unitPrice) - 1;
+            }
+          }
+          this.$set(item, 'unitPrice', newPrice);
+          // Update original price when user manually changes unit price
+          this.$set(item, 'originalPrice', newPrice);
+        }
+
+        // Recalculate discount amount when quantity or price changes
+        if (item.discount > 0) {
+          if (item.discountType === "percentage") {
+            this.$set(item, 'discountAmount', Number((item.unitPrice * item.qty * item.discount / 100).toFixed(2)));
+          } else {
+            this.$set(item, 'discountAmount', Number(item.discount || 0));
+          }
+        }
+
+        // Use the new method to calculate totals
+        this.generateItemTotalPrice(index);
+      }
+      this.updateTax();
+      this.calculateSum();
+      return;
+    },
+    // calculate product discount
+    calculateProductDiscount: function calculateProductDiscount(index) {
+      var item = this.form.selectedProducts[index];
+      if (item) {
+        var total = (item.originalPrice || item.unitPrice) * item.qty;
+        if (item.discountType === "percentage") {
+          // For percentage: discount amount = total * discount / 100
+          item.discountAmount = Number((total * (item.discount || 0) / 100).toFixed(2));
+        } else {
+          // For fixed: discount amount = discount value directly
+          item.discountAmount = Number(item.discount || 0);
+        }
+
+        // Recalculate totals using the new method
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+      }
+    },
+    // calculate product VAT
+    calculateProductVat: function calculateProductVat(index) {
+      var item = this.form.selectedProducts[index];
+      if (item) {
+        // Recalculate totals using the new method
+        this.generateItemTotalPrice(index);
+        this.calculateSum();
+      }
+    },
+    // generate item total price (following the pseudocode exactly)
+    generateItemTotalPrice: function generateItemTotalPrice(index) {
+      var item = this.form.selectedProducts[index];
+      if (item) {
+        // 1. Line Item: Total (Before Discount)
+        var total = Number(((item.originalPrice || item.unitPrice) * item.qty).toFixed(2));
+
+        // 2. Line Item: Total After Discount
+        var totalAfterDiscount;
+        if (item.discountType === "percentage") {
+          totalAfterDiscount = Number((total - total * (item.discount || 0) / 100).toFixed(2));
+        } else {
+          totalAfterDiscount = Number((total - (item.discountAmount || 0)).toFixed(2));
+        }
+
+        // Get VAT rate
+        var vatRate = 0;
+        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+          vatRate = Number(item.selectedVatRate.rate);
+        } else if (item.taxRate !== undefined && item.taxRate !== null) {
+          vatRate = Number(item.taxRate);
+        }
+
+        // Ensure vatRate is a valid number
+        if (isNaN(vatRate) || vatRate < 0) {
+          vatRate = 0;
+        }
+
+        // 3. Line Item: VAT Amount (always calculated on TotalAfterDiscount)
+        item.productTax = Number((totalAfterDiscount * vatRate / 100).toFixed(2));
+        item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+
+        // 4. Line Item: Total With VAT
+        item.totalPrice = Number((totalAfterDiscount + item.totalTax).toFixed(2));
+
+        // Calculate unit cost (unit price + VAT per unit)
+        item.unitCost = Number(((item.originalPrice || item.unitPrice) + item.productTax).toFixed(2));
+
+        // Update the item in the array
+        this.form.selectedProducts[index] = item;
+      }
+    },
+    // Helper method to get total after discount for display
+    getTotalAfterDiscount: function getTotalAfterDiscount(item) {
+      var total = (item.originalPrice || item.unitPrice) * item.qty;
+      if (item.discountType === "percentage") {
+        return total - total * (item.discount || 0) / 100;
+      } else {
+        return total - (item.discountAmount || 0);
+      }
+    },
+    // Helper method to get subtotal after discount for display
+    getSubTotalAfterDiscount: function getSubTotalAfterDiscount() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (prev, cur) {
+        var lineTotal = (cur.originalPrice || cur.unitPrice) * cur.qty;
+        var lineTotalAfterDiscount;
+        if (cur.discountType === "percentage") {
+          lineTotalAfterDiscount = lineTotal - lineTotal * (cur.discount || 0) / 100;
+        } else {
+          lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
+        }
+        return Number((prev + lineTotalAfterDiscount).toFixed(2));
+      }, 0);
+    },
+    // Helper method to get total with VAT for display (VAT + Total After Discount)
+    getTotalWithVAT: function getTotalWithVAT(item) {
+      var totalAfterDiscount = this.getTotalAfterDiscount(item);
+      var vatAmount = item.productTax || 0;
+      return Number((totalAfterDiscount + vatAmount).toFixed(2));
+    },
+    // Helper method to get grand total with VAT (Total VAT + Total After Discount)
+    getGrandTotalWithVAT: function getGrandTotalWithVAT() {
+      var totalAfterDiscount = this.getSubTotalAfterDiscount();
+      var totalVAT = this.form.totalProductTax || 0;
+      return Number((totalAfterDiscount + totalVAT).toFixed(2));
+    },
+    // Helper method to get sum of all individual "Total with VAT" values
+    getTotalWithVATSum: function getTotalWithVATSum() {
+      var _this5 = this;
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (total, item) {
+        return Number((total + _this5.getTotalWithVAT(item)).toFixed(2));
+      }, 0);
+    },
+    // Helper method to get sum of all individual VAT amounts
+    getTotalVATSum: function getTotalVATSum() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (total, item) {
+        return Number((total + (item.productTax || 0)).toFixed(2));
+      }, 0);
+    },
+    // Helper method to get sum of all individual discount amounts
+    getTotalDiscountSum: function getTotalDiscountSum() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return 0;
+      }
+      return this.form.selectedProducts.reduce(function (total, item) {
+        return Number((total + (item.discountAmount || 0)).toFixed(2));
+      }, 0);
+    },
+    // Update Net Total when Total with VAT or Transport Cost changes
+    updateNetTotal: function updateNetTotal() {
+      // Calculate Total with VAT (sum of all individual "Total with VAT" values)
+      var totalWithVAT = this.getTotalWithVATSum();
+
+      // Net Total = Total with VAT + Transport cost (if transport cost is empty, Net Total = Total with VAT)
+      this.form.netTotal = Number((totalWithVAT + Number(this.form.transportCost || 0)).toFixed(2));
+    },
+    // Helper method to find matching VAT rate
+    findMatchingVatRate: function findMatchingVatRate(productTax) {
+      if (!this.taxes || !productTax) return null;
+
+      // If productTax is an object (VAT rate object), use its rate property
+      if (_typeof(productTax) === 'object' && productTax.rate !== undefined) {
+        return this.taxes.find(function (tax) {
+          return tax.rate === productTax.rate;
+        });
+      }
+
+      // If productTax is a number (rate value), compare directly
+      if (typeof productTax === 'number') {
+        return this.taxes.find(function (tax) {
+          return tax.rate === productTax;
+        });
+      }
+      return null;
+    },
+    // return number to word with language support
+    toWord: function toWord() {
+      var amount = this.totalUnitPrice || 0;
+
+      // Handle edge cases
+      if (isNaN(amount) || amount < 0) {
+        return this.isRTL && this.currentLocale === 'ar' ? 'مبلغ غير صحيح' : 'Invalid Amount';
+      }
+      if (amount === 0) {
+        return this.isRTL && this.currentLocale === 'ar' ? 'صفر ريال فقط' : 'Zero Only';
+      }
+      if (this.isRTL && this.currentLocale === 'ar') {
+        return this.convertToArabicWords(amount);
+      } else {
+        return this.convertToEnglishWords(amount);
+      }
+    },
+    // Convert number to Arabic words
+    convertToArabicWords: function convertToArabicWords(amount) {
+      var currencyInfo = this.getCurrencyInfo();
+      if (amount === 0) return "\u0635\u0641\u0631 ".concat(currencyInfo.main, " \u0641\u0642\u0637");
+      var integerPart = Math.floor(amount);
+      var decimalPart = Math.round((amount - integerPart) * 100);
+      var result = '';
+      if (integerPart > 0) {
+        var arabicNumber = this.convertIntegerToArabic(integerPart);
+        result += arabicNumber + ' ' + currencyInfo.main;
+
+        // Add proper pluralization for main currency
+        if (integerPart === 1) {
+          // Keep singular form
+        } else if (integerPart === 2) {
+          result = result.replace(currencyInfo.main, currencyInfo.main + 'ان');
+        } else if (integerPart >= 3 && integerPart <= 10) {
+          result = result.replace(currencyInfo.main, currencyInfo.main + 'ات');
+        } else {
+          // Keep plural form for larger numbers
+        }
+      }
+      if (decimalPart > 0) {
+        if (result) result += ' و ';
+        var arabicDecimal = this.convertIntegerToArabic(decimalPart);
+        result += arabicDecimal + ' ' + currencyInfo.sub;
+
+        // Add proper pluralization for sub currency
+        if (decimalPart === 1) {
+          // Keep singular form
+        } else if (decimalPart === 2) {
+          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ان');
+        } else if (decimalPart >= 3 && decimalPart <= 10) {
+          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ات');
+        } else {
+          // Keep plural form for larger numbers
+        }
+      }
+      return result + ' فقط';
+    },
+    // Get currency information based on locale and app settings
+    getCurrencyInfo: function getCurrencyInfo() {
+      var _this$appInfo, _currencyMap$currency;
+      var currency = ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.currency) || 'SAR';
+      var isArabic = this.isRTL && this.currentLocale === 'ar';
+      var currencyMap = {
+        'SAR': {
+          en: {
+            main: 'Riyal',
+            sub: 'Halala',
+            symbol: 'ê'
+          },
+          ar: {
+            main: 'ريال',
+            sub: 'هللة',
+            symbol: 'ê'
+          }
+        },
+        'USD': {
+          en: {
+            main: 'Dollar',
+            sub: 'Cent',
+            symbol: '$'
+          },
+          ar: {
+            main: 'دولار',
+            sub: 'سنت',
+            symbol: '$'
+          }
+        },
+        'EUR': {
+          en: {
+            main: 'Euro',
+            sub: 'Cent',
+            symbol: '€'
+          },
+          ar: {
+            main: 'يورو',
+            sub: 'سنت',
+            symbol: '€'
+          }
+        },
+        'EGP': {
+          en: {
+            main: 'Pound',
+            sub: 'Piastre',
+            symbol: '£'
+          },
+          ar: {
+            main: 'جنيه',
+            sub: 'قرش',
+            symbol: '£'
+          }
+        }
+      };
+      return ((_currencyMap$currency = currencyMap[currency]) === null || _currencyMap$currency === void 0 ? void 0 : _currencyMap$currency[isArabic ? 'ar' : 'en']) || currencyMap['SAR'][isArabic ? 'ar' : 'en'];
+    },
+    // Convert number to English words
+    convertToEnglishWords: function convertToEnglishWords(amount) {
+      var currencyInfo = this.getCurrencyInfo();
+      var toWords = new ToWords.ToWords();
+      var words = toWords.convert(amount);
+
+      // Add currency information
+      var integerPart = Math.floor(amount);
+      var decimalPart = Math.round((amount - integerPart) * 100);
+      var result = words;
+      if (integerPart > 0) {
+        result += ' ' + currencyInfo.main;
+        if (integerPart !== 1) result += 's';
+      }
+      if (decimalPart > 0) {
+        if (result) result += ' and ';
+        result += this.convertIntegerToEnglish(decimalPart) + ' ' + currencyInfo.sub;
+        if (decimalPart !== 1) result += 's';
+      }
+      return result + ' Only';
+    },
+    // Convert integer to English words (for decimal parts)
+    convertIntegerToEnglish: function convertIntegerToEnglish(num) {
+      if (num === 0) return 'zero';
+      var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+      var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+      var teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+      if (num < 10) return ones[num];
+      if (num < 20) return teens[num - 10];
+      if (num < 100) {
+        var ten = Math.floor(num / 10);
+        var one = num % 10;
+        if (one === 0) return tens[ten];
+        return tens[ten] + '-' + ones[one];
+      }
+      return 'number';
+    },
+    // Convert integer to Arabic words
+    convertIntegerToArabic: function convertIntegerToArabic(num) {
+      if (num === 0) return 'صفر';
+      var ones = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
+      var tens = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
+      var teens = ['عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
+      var hundreds = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
+      if (num < 10) return ones[num];
+      if (num < 20) return teens[num - 10];
+      if (num < 100) {
+        var ten = Math.floor(num / 10);
+        var one = num % 10;
+        if (one === 0) return tens[ten];
+        return ones[one] + ' و ' + tens[ten];
+      }
+      if (num < 1000) {
+        var hundred = Math.floor(num / 100);
+        var remainder = num % 100;
+        if (remainder === 0) return hundreds[hundred];
+        return hundreds[hundred] + ' و ' + this.convertIntegerToArabic(remainder);
+      }
+      if (num < 1000000) {
+        var thousand = Math.floor(num / 1000);
+        var _remainder = num % 1000;
+        if (_remainder === 0) {
+          if (thousand === 1) return 'ألف';
+          if (thousand === 2) return 'ألفان';
+          if (thousand >= 3 && thousand <= 10) return this.convertIntegerToArabic(thousand) + ' آلاف';
+          return this.convertIntegerToArabic(thousand) + ' ألف';
+        }
+        return this.convertIntegerToArabic(thousand) + ' ألف و ' + this.convertIntegerToArabic(_remainder);
+      }
+      if (num < 1000000000) {
+        var million = Math.floor(num / 1000000);
+        var _remainder2 = num % 1000000;
+        if (_remainder2 === 0) {
+          if (million === 1) return 'مليون';
+          if (million === 2) return 'مليونان';
+          if (million >= 3 && million <= 10) return this.convertIntegerToArabic(million) + ' ملايين';
+          return this.convertIntegerToArabic(million) + ' مليون';
+        }
+        return this.convertIntegerToArabic(million) + ' مليون و ' + this.convertIntegerToArabic(_remainder2);
+      }
+      return 'رقم كبير جداً';
+    },
+    // remove item from array
+    removeItem: function removeItem(item) {
+      var index = this.form.selectedProducts.indexOf(item);
+      if (index > -1) {
+        this.form.selectedProducts.splice(index, 1);
+      }
+      this.updateTax();
+      this.calculateSum();
+      return;
+    },
+    // calculate sum (following the pseudocode exactly)
+    calculateSum: function calculateSum() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        this.form.totalDiscount = 0;
+        this.form.subTotal = 0;
+        this.form.totalProductTax = 0;
+        this.form.netTotal = 0;
+        return;
+      }
+
+      // 5. Discount Summary (All Lines)
+      this.form.totalDiscount = this.form.selectedProducts.reduce(function (prev, cur) {
+        return Number((prev + (cur.discountAmount || 0)).toFixed(2));
+      }, 0);
+
+      // 7. Subtotal After Discount (All Lines) - sum of all line totals after discount
+      var subTotalAfterDiscount = this.form.selectedProducts.reduce(function (prev, cur) {
+        var lineTotal = (cur.originalPrice || cur.unitPrice) * cur.qty;
+        var lineTotalAfterDiscount;
+        if (cur.discountType === "percentage") {
+          lineTotalAfterDiscount = lineTotal - lineTotal * (cur.discount || 0) / 100;
+        } else {
+          lineTotalAfterDiscount = lineTotal - (cur.discountAmount || 0);
+        }
+        return Number((prev + lineTotalAfterDiscount).toFixed(2));
+      }, 0);
+
+      // 8. Total VAT Summary (All Lines)
+      this.form.totalProductTax = this.form.selectedProducts.reduce(function (prev, cur) {
+        return Number((prev + (cur.totalTax || 0)).toFixed(2));
+      }, 0);
+
+      // 9. Net Total (Final Payable Amount) = Total with VAT + Transport cost
+      this.form.subTotal = subTotalAfterDiscount; // This is the subtotal after discount
+
+      // Update Net Total using the dedicated method
+      this.updateNetTotal();
+      return;
+    },
+    // save purchase order
+    savePurchaseOrder: function savePurchaseOrder() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var validationErrors, errorList, formData, response, _t2;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
+            case 0:
+              if (!_this6.form.busy) {
+                _context5.n = 1;
+                break;
+              }
+              return _context5.a(2);
+            case 1:
+              // Validate required fields - collect all errors first
+              validationErrors = []; // Check supplier
+              if (!_this6.form.supplier) {
+                validationErrors.push(_this6.$t("Please select a supplier"));
+              }
+
+              // Check products
+              if (!_this6.form.selectedProducts || _this6.form.selectedProducts.length === 0) {
+                validationErrors.push(_this6.$t("Please add at least one product"));
+              }
+
+              // Check product details
+              if (_this6.form.selectedProducts && _this6.form.selectedProducts.length > 0) {
+                _this6.form.selectedProducts.forEach(function (product, index) {
+                  if (!product.qty || Number(product.qty) <= 0) {
+                    validationErrors.push("".concat(_this6.$t("Product"), " ").concat(index + 1, ": ").concat(_this6.$t("Invalid quantity")));
+                  }
+                  if (!product.unitPrice || Number(product.unitPrice) <= 0) {
+                    validationErrors.push("".concat(_this6.$t("Product"), " ").concat(index + 1, ": ").concat(_this6.$t("Invalid unit price")));
+                  }
+                });
+              }
+
+              // Show all validation errors if any
+              if (!(validationErrors.length > 0)) {
+                _context5.n = 2;
+                break;
+              }
+              errorList = validationErrors.map(function (error) {
+                return "\u2022 ".concat(error);
+              }).join('\n');
+              toast.fire({
+                type: "error",
+                title: "".concat(_this6.$t("Validation Error"), ":\n\n").concat(errorList),
+                timer: 8000,
+                timerProgressBar: true
+              });
+              return _context5.a(2);
+            case 2:
+              _context5.p = 2;
+              // Clear any existing form errors to prevent individual error display
+              _this6.form.errors.clear();
+
+              // Prepare the form data manually to ensure proper structure
+              formData = {
+                supplier: _this6.form.supplier,
+                selectedProducts: _this6.form.selectedProducts.map(function (product) {
+                  return {
+                    id: product.id,
+                    quantity: product.qty,
+                    // Convert qty to quantity for backend
+                    unitPrice: product.unitPrice,
+                    discount: product.discount || 0,
+                    discount_type: product.discountType || 'fixed',
+                    discount_amount: product.discountAmount || 0
+                  };
+                }),
+                subTotal: _this6.form.subTotal,
+                netTotal: _this6.form.netTotal,
+                discount: _this6.form.discount,
+                transport: _this6.form.transportCost || 0,
+                totalProductTax: _this6.form.totalProductTax,
+                orderTax: _this6.form.orderTax,
+                totalTax: _this6.form.totalTax,
+                poReference: _this6.form.poReference || '',
+                paymentTerms: _this6.form.paymentTerms || '',
+                poDate: _this6.form.poDate,
+                purchaseDate: _this6.form.purchaseDate,
+                note: _this6.form.note,
+                status: _this6.form.status,
+                isSendEmail: _this6.form.isSendEmail,
+                isSendSMS: _this6.form.isSendSMS,
+                totalDiscount: _this6.form.totalDiscount
+              }; // Handle orderTax - only include if country is NOT Saudi Arabia
+              if (_this6.isSaudiArabia) {
+                delete formData.orderTax;
+              }
+
+              // Use direct axios call instead of form.post to have better control over error handling
+              _context5.n = 3;
+              return _this6.$axios.post("/api/purchase-order", formData);
+            case 3:
+              response = _context5.v;
+              // Clear temporary data after successful save
+              _this6.clearTemporaryData();
+              toast.fire({
+                type: "success",
+                title: _this6.$t("Purchase order created successfully")
+              });
+              _this6.$router.push({
+                name: "purchase-order.show",
+                params: {
+                  slug: response.data.data.slug
+                }
+              });
+              _context5.n = 5;
+              break;
+            case 4:
+              _context5.p = 4;
+              _t2 = _context5.v;
+              _this6.loading = false;
+
+              // Use centralized error handler
+              errorHandler/* default */.A.handleApiError(_t2, {
+                showValidationErrors: true
+              });
+            case 5:
+              return _context5.a(2);
+          }
+        }, _callee5, null, [[2, 4]]);
+      }))();
+    },
+    // save form data temporarily
+    saveTemporary: function saveTemporary() {
+      var tempData = {
+        supplier: this.form.supplier,
+        selectedProducts: this.form.selectedProducts,
+        subTotal: this.form.subTotal,
+        netTotal: this.form.netTotal,
+        discount: this.form.discount,
+        transportCost: this.form.transportCost,
+        totalProductTax: this.form.totalProductTax,
+        orderTax: this.form.orderTax,
+        totalTax: this.form.totalTax,
+        poReference: this.form.poReference,
+        paymentTerms: this.form.paymentTerms,
+        poDate: this.form.poDate,
+        purchaseDate: this.form.purchaseDate,
+        note: this.form.note,
+        status: this.form.status,
+        isSendEmail: this.form.isSendEmail,
+        isSendSMS: this.form.isSendSMS,
+        totalDiscount: this.form.totalDiscount,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('purchaseOrderTempData', JSON.stringify(tempData));
+      toast.fire({
+        type: 'success'
+      });
+    },
+    // load temporary data
+    loadTemporaryData: function loadTemporaryData() {
+      var tempData = localStorage.getItem('purchaseOrderTempData');
+      if (tempData) {
+        try {
+          var data = JSON.parse(tempData);
+          this.form.supplier = data.supplier || null;
+          this.form.selectedProducts = data.selectedProducts || [];
+          this.form.subTotal = data.subTotal || 0;
+          this.form.netTotal = data.netTotal || 0;
+          this.form.discount = data.discount || 0;
+          this.form.transportCost = data.transportCost || 0;
+          this.form.totalProductTax = data.totalProductTax || 0;
+          this.form.orderTax = data.orderTax || 0;
+          this.form.totalTax = data.totalTax || 0;
+          this.form.poReference = data.poReference || '';
+          this.form.paymentTerms = data.paymentTerms || '';
+          this.form.poDate = data.poDate || '';
+          this.form.purchaseDate = data.purchaseDate || '';
+          this.form.note = data.note || '';
+          this.form.status = data.status !== undefined ? data.status : 1;
+          this.form.isSendEmail = data.isSendEmail || false;
+          this.form.isSendSMS = data.isSendSMS || false;
+          this.form.totalDiscount = data.totalDiscount || 0;
+        } catch (error) {
+          console.error('Error loading temporary data:', error);
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData: function clearTemporaryData() {
+      localStorage.removeItem('purchaseOrderTempData');
+    },
+    // Auto-assign Chart of Account for supplier
+    autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var response, _t3;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
+            case 0:
+              if (!(!_this7.form.supplier || _this7.isAutoAssigningSupplier)) {
+                _context6.n = 1;
+                break;
+              }
+              return _context6.a(2);
+            case 1:
+              _this7.isAutoAssigningSupplier = true;
+              _context6.p = 2;
+              _context6.n = 3;
+              return _this7.$http.post("/api/suppliers/".concat(_this7.form.supplier.slug, "/auto-assign-chart-of-account"));
+            case 3:
+              response = _context6.v;
+              if (response.data.success) {
+                console.log('Auto-assign response:', response.data);
+                console.log('Current supplier before update:', _this7.form.supplier);
+
+                // Update the supplier data with new chart of account
+                _this7.form.supplier.chart_of_account_id = response.data.chart_of_account_id;
+                console.log('Supplier after updating chart_of_account_id:', _this7.form.supplier);
+
+                // Force Vue to re-render the component to update the UI
+                _this7.$nextTick(function () {
+                  _this7.$forceUpdate();
+                });
+
+                // Show success message
+                toast.fire({
+                  type: "success",
+                  title: _this7.$t("Chart of Account assigned successfully")
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this7.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this7.$t("Please try again or assign manually")
+                });
+              }
+              _context6.n = 5;
+              break;
+            case 4:
+              _context6.p = 4;
+              _t3 = _context6.v;
+              console.error('Error auto-assigning chart of account:', _t3);
+              toast.fire({
+                type: "error",
+                title: _this7.$t("An error occurred while assigning Chart of Account")
+              });
+            case 5:
+              _context6.p = 5;
+              _this7.isAutoAssigningSupplier = false;
+              return _context6.f(5);
+            case 6:
+              return _context6.a(2);
+          }
+        }, _callee6, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    // Auto-assign Chart of Account for a specific product
+    autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var response, _t4;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
+            case 0:
+              if (!(!product || _this8.isAutoAssigningProduct === product.id)) {
+                _context7.n = 1;
+                break;
+              }
+              return _context7.a(2);
+            case 1:
+              _this8.isAutoAssigningProduct = product.id;
+              _context7.p = 2;
+              _context7.n = 3;
+              return _this8.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
+            case 3:
+              response = _context7.v;
+              if (response.data.success) {
+                // Update the product data with new chart of account
+                product.purchase_account_id = response.data.purchase_account_id;
+
+                // Force Vue to re-render the component to update the UI
+                _this8.$nextTick(function () {
+                  _this8.$forceUpdate();
+                });
+
+                // Show success message
+                toast.fire({
+                  type: "success",
+                  title: _this8.$t("Chart of Account assigned successfully")
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this8.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this8.$t("Please try again or assign manually")
+                });
+              }
+              _context7.n = 5;
+              break;
+            case 4:
+              _context7.p = 4;
+              _t4 = _context7.v;
+              console.error('Error auto-assigning chart of account:', _t4);
+              toast.fire({
+                type: "error",
+                title: _this8.$t("An error occurred while assigning Chart of Account")
+              });
+            case 5:
+              _context7.p = 5;
+              _this8.isAutoAssigningProduct = false;
+              return _context7.f(5);
+            case 6:
+              return _context7.a(2);
+          }
+        }, _callee7, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    // Handle supplier change
+    onSupplierChange: function onSupplierChange() {
+      var _this9 = this;
+      // Clear any previous errors
+      this.form.errors.clear('supplier');
+
+      // If a supplier is selected, ensure we have the latest data including Chart of Account
+      if (this.form.supplier && this.form.supplier.id) {
+        // Find the supplier in the items list to get the most up-to-date data
+        var updatedSupplier = this.items.find(function (s) {
+          return s.id === _this9.form.supplier.id;
+        });
+        if (updatedSupplier) {
+          // Update the form supplier with all the latest data
+          this.form.supplier = _objectSpread({}, updatedSupplier);
+        }
+      }
+    }
+  }
+});
+;// ./resources/js/pages/purchase-order/create.vue?vue&type=script&lang=js
+ /* harmony default export */ const purchase_order_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchase-order/create.vue?vue&type=style&index=0&id=17d12814&prod&scoped=true&lang=css
+var createvue_type_style_index_0_id_17d12814_prod_scoped_true_lang_css = __webpack_require__(71587);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchase-order/create.vue?vue&type=style&index=0&id=17d12814&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_17d12814_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const purchase_order_createvue_type_style_index_0_id_17d12814_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_17d12814_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/purchase-order/create.vue?vue&type=style&index=0&id=17d12814&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/purchase-order/create.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  purchase_order_createvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "17d12814",
+  null
+  
+)
+
+/* harmony default export */ const create = (component.exports);
 
 /***/ }),
 

@@ -142,17 +142,10 @@
                                 )
                                 " />
 
-                            <input type="number" step="any" :id="`purchaseQty-${i}`" :value="item.qty" name="quantity"
+                            <input type="number" step="any" :id="`purchaseQty-${i}`" v-model.number="item.qty" name="quantity"
                               class="quantity-field border-0 incrementor" required min="1" 
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`) }"
-                              @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'qty',
-                                  i - 1,
-                                  ''
-                                )
-                                " @keyup="generateItemTotal($event.target.value, 'qty', i - 1, '')" />
+                              @input="generateItemTotal(item.qty, 'qty', i - 1, '')" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
                               data-field="quantity" @click="
@@ -170,17 +163,10 @@
                           </td>
                           <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
-                            <input type="number" step="any" :id="`unitPrice-${i}`" :value="item.originalPrice || item.unitPrice"
+                            <input type="number" step="any" :id="`unitPrice-${i}`" v-model.number="item.unitPrice"
                               name="unitPrice" class="quantity-field border-0" required min="0" 
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.unitPrice`) }"
-                              @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'price',
-                                  i - 1,
-                                  ''
-                                )
-                                " @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
+                              @input="generateItemTotal(item.unitPrice, 'price', i - 1, '')" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${i-1}.unitPrice`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
@@ -759,31 +745,40 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         if (type == "qty") {
-          item.qty = value;
+          let newQty = value;
           if (action == "increment") {
-            item.qty = Number(item.qty) + 1;
+            newQty = Number(item.qty) + 1;
           } else if (action == "decrement") {
             if (item.qty > 0) {
-              item.qty = Number(item.qty) - 1;
+              newQty = Number(item.qty) - 1;
             }
           }
-        } else {
-          item.unitPrice = value;
+          this.$set(item, 'qty', newQty);
+        } else if (type == "price") {
+          let newPrice = value;
           if (action == "increment") {
-            item.unitPrice = Number(item.unitPrice) + 1;
+            newPrice = Number(item.unitPrice) + 1;
           } else if (action == "decrement") {
             if (item.unitPrice > 0) {
-              item.unitPrice = Number(item.unitPrice) - 1;
+              newPrice = Number(item.unitPrice) - 1;
             }
           }
+          this.$set(item, 'unitPrice', newPrice);
           // Update original price when user manually changes unit price
-          item.originalPrice = item.unitPrice;
+          this.$set(item, 'originalPrice', newPrice);
+        }
+        
+        // Recalculate discount amount when quantity or price changes
+        if (item.discount > 0) {
+          if (item.discountType === "percentage") {
+            this.$set(item, 'discountAmount', Number(((item.unitPrice * item.qty * item.discount) / 100).toFixed(2)));
+          } else {
+            this.$set(item, 'discountAmount', Number(item.discount || 0));
+          }
         }
         
         // Use the new method to calculate totals
         this.generateItemTotalPrice(index);
-        
-        this.form.selectedProducts[index] = item;
       }
       this.updateTax();
       this.calculateSum();
