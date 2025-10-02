@@ -149,7 +149,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 5 modules
-var ClientForm = __webpack_require__(12904);
+var ClientForm = __webpack_require__(77958);
 // EXTERNAL MODULE: ./resources/js/components/Button.vue + 3 modules
 var Button = __webpack_require__(60069);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/clients/edit.vue?vue&type=script&lang=js

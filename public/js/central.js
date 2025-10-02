@@ -1983,7 +1983,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 32128:
+/***/ 22270:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25036,103 +25036,8 @@ var Child_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const Child = (Child_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=template&id=3dc61004&scoped=true
-var Modalvue_type_template_id_3dc61004_scoped_true_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    attrs: {
-      "id": "modal-template"
-    }
-  }, [_c('transition', {
-    attrs: {
-      "name": "modal"
-    }
-  }, [_c('div', {
-    staticClass: "modal-mask"
-  }, [_c('div', {
-    staticClass: "modal-wrapper"
-  }, [_c('div', {
-    staticClass: "modal-container"
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_vm._t("header", function () {
-    return [_vm._v(_vm._s(_vm.$t('Attached Image Preview')))];
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_vm._t("body", function () {
-    return [_vm._v("\n              " + _vm._s(_vm.$t('Default body')) + "\n            ")];
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_vm._t("modal-footer", function () {
-    return [_c('button', {
-      staticClass: "modal-default-button btn btn-info",
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('close');
-        }
-      }
-    }, [_vm._v("\n                " + _vm._s(_vm.$t('Close')) + "\n              ")])];
-  })], 2)])])])])], 1);
-};
-var Modalvue_type_template_id_3dc61004_scoped_true_staticRenderFns = [];
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=script&lang=js
-/* harmony default export */ const Modalvue_type_script_lang_js = ({
-  props: {
-    form: Object,
-    allData: Object
-  },
-  name: 'Modal',
-  data: function data() {
-    return {};
-  },
-  methods: {}
-});
-;// CONCATENATED MODULE: ./resources/js/components/Modal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_Modalvue_type_script_lang_js = (Modalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=style&index=0&id=3dc61004&prod&lang=scss&scoped=true
-var Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true = __webpack_require__(94674);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=style&index=0&id=3dc61004&prod&lang=scss&scoped=true
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true/* default */.A, options);
-
-
-
-/* harmony default export */ const components_Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true = (Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/Modal.vue?vue&type=style&index=0&id=3dc61004&prod&lang=scss&scoped=true
-
-;// CONCATENATED MODULE: ./resources/js/components/Modal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var Modal_component = (0,componentNormalizer/* default */.A)(
-  components_Modalvue_type_script_lang_js,
-  Modalvue_type_template_id_3dc61004_scoped_true_render,
-  Modalvue_type_template_id_3dc61004_scoped_true_staticRenderFns,
-  false,
-  null,
-  "3dc61004",
-  null
-  
-)
-
-/* harmony default export */ const Modal = (Modal_component.exports);
+// EXTERNAL MODULE: ./resources/js/components/Modal.vue + 5 modules
+var Modal = __webpack_require__(70227);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=template&id=47633b56
 var Searchvue_type_template_id_47633b56_render = function render() {
   var _vm = this,
@@ -25211,18 +25116,21 @@ var Searchvue_type_template_id_47633b56_staticRenderFns = [];
 });
 ;// CONCATENATED MODULE: ./resources/js/components/Search.vue?vue&type=script&lang=js
  /* harmony default export */ const components_Searchvue_type_script_lang_js = (Searchvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=47633b56&prod&lang=css
 var Searchvue_type_style_index_0_id_47633b56_prod_lang_css = __webpack_require__(88607);
 ;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=47633b56&prod&lang=css
 
             
 
-var Searchvue_type_style_index_0_id_47633b56_prod_lang_css_options = {};
+var options = {};
 
-Searchvue_type_style_index_0_id_47633b56_prod_lang_css_options.insert = "head";
-Searchvue_type_style_index_0_id_47633b56_prod_lang_css_options.singleton = false;
+options.insert = "head";
+options.singleton = false;
 
-var Searchvue_type_style_index_0_id_47633b56_prod_lang_css_update = injectStylesIntoStyleTag_default()(Searchvue_type_style_index_0_id_47633b56_prod_lang_css/* default */.A, Searchvue_type_style_index_0_id_47633b56_prod_lang_css_options);
+var update = injectStylesIntoStyleTag_default()(Searchvue_type_style_index_0_id_47633b56_prod_lang_css/* default */.A, options);
 
 
 
@@ -26423,7 +26331,7 @@ var SettingsSidebar = __webpack_require__(21524);
 // EXTERNAL MODULE: ./resources/js/components/VModal.vue + 5 modules
 var VModal = __webpack_require__(36792);
 // EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 5 modules
-var ClientForm = __webpack_require__(12904);
+var ClientForm = __webpack_require__(77958);
 ;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vform/src/components/bootstrap4/AlertError.vue?vue&type=template&id=96b49df0
 var AlertErrorvue_type_template_id_96b49df0_render = function render(){var _vm=this,_c=_vm._self._c;return (_vm.form.errors.any())?_c('div',{staticClass:"alert alert-danger alert-dismissible",attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Dismiss"},on:{"click":_vm.dismiss}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]):_vm._e(),_vm._v(" "),_vm._t("default",function(){return [(_vm.form.errors.has('error'))?_c('div',{domProps:{"innerHTML":_vm._s(_vm.form.errors.get('error'))}}):(_vm.form.errors.has('message'))?_c('div',{domProps:{"innerHTML":_vm._s(_vm.form.errors.get('message'))}}):_c('div',{domProps:{"innerHTML":_vm._s(_vm.message)}})]})],2):_vm._e()
 }
@@ -26579,7 +26487,7 @@ var HasError = __webpack_require__(73883);
 
 
 // Components that are registered globaly.
-[Card, Child, Modal, Button/* default */.A, Search, Checkbox, StockAlert, EmptyTable, TopClients, Pagination["default"], Breadcrumbs, CompanyInfo, TableLoading["default"], RecentActivities, SettingsSidebar["default"], HasError/* default */.A, bootstrap4_AlertError, bootstrap4_AlertErrors, bootstrap4_AlertSuccess, VModal/* default */.A, ClientForm/* default */.A].forEach(function (Component) {
+[Card, Child, Modal/* default */.A, Button/* default */.A, Search, Checkbox, StockAlert, EmptyTable, TopClients, Pagination["default"], Breadcrumbs, CompanyInfo, TableLoading["default"], RecentActivities, SettingsSidebar["default"], HasError/* default */.A, bootstrap4_AlertError, bootstrap4_AlertErrors, bootstrap4_AlertSuccess, VModal/* default */.A, ClientForm/* default */.A].forEach(function (Component) {
   vue_esm["default"].component(Component.name, Component);
 });
 // EXTERNAL MODULE: ./resources/js/helpers/can.js
@@ -34349,6 +34257,926 @@ var actions = {
 
 /***/ }),
 
+/***/ 21525:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ translations)
+});
+
+;// CONCATENATED MODULE: ./resources/js/services/TranslationService.js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+/**
+ * Translation Service for handling multilingual API calls
+ */
+var TranslationService = /*#__PURE__*/function () {
+  function TranslationService(axios) {
+    _classCallCheck(this, TranslationService);
+    /**
+     * Chart of Accounts API calls
+     */
+    _defineProperty(this, "chartOfAccounts", {
+      /**
+       * Get accounts with translations
+       */
+      getWithTranslations: function getWithTranslations() {
+        var _arguments = arguments,
+          _this = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+          var params, response;
+          return _regeneratorRuntime().wrap(function _callee$(_context) {
+            while (1) switch (_context.prev = _context.next) {
+              case 0:
+                params = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : {};
+                _context.next = 3;
+                return _this.axios.get('/api/chart-of-accounts/translations', {
+                  params: params
+                });
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", response.data);
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }, _callee);
+        }))();
+      },
+      /**
+       * Create account with translations
+       */
+      createWithTranslations: function createWithTranslations(data) {
+        var _this2 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+            while (1) switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.axios.post('/api/chart-of-accounts/translations', data);
+              case 2:
+                response = _context2.sent;
+                return _context2.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }, _callee2);
+        }))();
+      },
+      /**
+       * Update account with translations
+       */
+      updateWithTranslations: function updateWithTranslations(code, data) {
+        var _this3 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+            while (1) switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.axios.put("/api/chart-of-accounts/translations/".concat(code), data);
+              case 2:
+                response = _context3.sent;
+                return _context3.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }, _callee3);
+        }))();
+      },
+      /**
+       * Get translations for specific account
+       */
+      getTranslations: function getTranslations(code) {
+        var _this4 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+            while (1) switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _this4.axios.get("/api/chart-of-accounts/".concat(code, "/translations"));
+              case 2:
+                response = _context4.sent;
+                return _context4.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }, _callee4);
+        }))();
+      },
+      /**
+       * Update translations for specific account
+       */
+      updateTranslations: function updateTranslations(code, field, translations) {
+        var _this5 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+            while (1) switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _this5.axios.put("/api/chart-of-accounts/".concat(code, "/translations/update"), {
+                  field: field,
+                  translations: translations
+                });
+              case 2:
+                response = _context5.sent;
+                return _context5.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }, _callee5);
+        }))();
+      },
+      /**
+       * Search accounts by translations
+       */
+      searchTranslations: function searchTranslations(searchTerm) {
+        var _arguments2 = arguments,
+          _this6 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+          var locale, field, params, response;
+          return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+            while (1) switch (_context6.prev = _context6.next) {
+              case 0:
+                locale = _arguments2.length > 1 && _arguments2[1] !== undefined ? _arguments2[1] : null;
+                field = _arguments2.length > 2 && _arguments2[2] !== undefined ? _arguments2[2] : 'name';
+                params = {
+                  search: searchTerm,
+                  field: field,
+                  locale: locale || _this6.getCurrentLocale()
+                };
+                _context6.next = 5;
+                return _this6.axios.get('/api/chart-of-accounts/translations/search', {
+                  params: params
+                });
+              case 5:
+                response = _context6.sent;
+                return _context6.abrupt("return", response.data);
+              case 7:
+              case "end":
+                return _context6.stop();
+            }
+          }, _callee6);
+        }))();
+      },
+      /**
+       * Get translation statistics
+       */
+      getTranslationStats: function getTranslationStats() {
+        var _this7 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+            while (1) switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return _this7.axios.get('/api/chart-of-accounts/translations/stats');
+              case 2:
+                response = _context7.sent;
+                return _context7.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context7.stop();
+            }
+          }, _callee7);
+        }))();
+      },
+      /**
+       * Export translations
+       */
+      exportTranslations: function exportTranslations() {
+        var _arguments3 = arguments,
+          _this8 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+          var format, accountIds, params, response;
+          return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+            while (1) switch (_context8.prev = _context8.next) {
+              case 0:
+                format = _arguments3.length > 0 && _arguments3[0] !== undefined ? _arguments3[0] : 'json';
+                accountIds = _arguments3.length > 1 && _arguments3[1] !== undefined ? _arguments3[1] : [];
+                params = {
+                  format: format
+                };
+                if (accountIds.length > 0) {
+                  params.account_ids = accountIds;
+                }
+                _context8.next = 6;
+                return _this8.axios.get('/api/chart-of-accounts/translations/export', {
+                  params: params
+                });
+              case 6:
+                response = _context8.sent;
+                return _context8.abrupt("return", response.data);
+              case 8:
+              case "end":
+                return _context8.stop();
+            }
+          }, _callee8);
+        }))();
+      }
+    });
+    /**
+     * Generic model translation methods
+     */
+    _defineProperty(this, "model", {
+      /**
+       * Get model with translations
+       */
+      getWithTranslations: function getWithTranslations(modelType) {
+        var _arguments4 = arguments,
+          _this9 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+          var params, response;
+          return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+            while (1) switch (_context9.prev = _context9.next) {
+              case 0:
+                params = _arguments4.length > 1 && _arguments4[1] !== undefined ? _arguments4[1] : {};
+                _context9.next = 3;
+                return _this9.axios.get("/api/".concat(modelType, "/translations"), {
+                  params: params
+                });
+              case 3:
+                response = _context9.sent;
+                return _context9.abrupt("return", response.data);
+              case 5:
+              case "end":
+                return _context9.stop();
+            }
+          }, _callee9);
+        }))();
+      },
+      /**
+       * Create model with translations
+       */
+      createWithTranslations: function createWithTranslations(modelType, data) {
+        var _this10 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+            while (1) switch (_context10.prev = _context10.next) {
+              case 0:
+                _context10.next = 2;
+                return _this10.axios.post("/api/".concat(modelType, "/translations"), data);
+              case 2:
+                response = _context10.sent;
+                return _context10.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context10.stop();
+            }
+          }, _callee10);
+        }))();
+      },
+      /**
+       * Update model with translations
+       */
+      updateWithTranslations: function updateWithTranslations(modelType, id, data) {
+        var _this11 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+            while (1) switch (_context11.prev = _context11.next) {
+              case 0:
+                _context11.next = 2;
+                return _this11.axios.put("/api/".concat(modelType, "/translations/").concat(id), data);
+              case 2:
+                response = _context11.sent;
+                return _context11.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context11.stop();
+            }
+          }, _callee11);
+        }))();
+      },
+      /**
+       * Get translations for specific model
+       */
+      getTranslations: function getTranslations(modelType, id) {
+        var _this12 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+            while (1) switch (_context12.prev = _context12.next) {
+              case 0:
+                _context12.next = 2;
+                return _this12.axios.get("/api/".concat(modelType, "/").concat(id, "/translations"));
+              case 2:
+                response = _context12.sent;
+                return _context12.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context12.stop();
+            }
+          }, _callee12);
+        }))();
+      },
+      /**
+       * Update translations for specific model
+       */
+      updateTranslations: function updateTranslations(modelType, id, field, translations) {
+        var _this13 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+          var response;
+          return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+            while (1) switch (_context13.prev = _context13.next) {
+              case 0:
+                _context13.next = 2;
+                return _this13.axios.put("/api/".concat(modelType, "/").concat(id, "/translations/update"), {
+                  field: field,
+                  translations: translations
+                });
+              case 2:
+                response = _context13.sent;
+                return _context13.abrupt("return", response.data);
+              case 4:
+              case "end":
+                return _context13.stop();
+            }
+          }, _callee13);
+        }))();
+      },
+      /**
+       * Search model by translations
+       */
+      searchTranslations: function searchTranslations(modelType, searchTerm) {
+        var _arguments5 = arguments,
+          _this14 = this;
+        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
+          var locale, field, params, response;
+          return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+            while (1) switch (_context14.prev = _context14.next) {
+              case 0:
+                locale = _arguments5.length > 2 && _arguments5[2] !== undefined ? _arguments5[2] : null;
+                field = _arguments5.length > 3 && _arguments5[3] !== undefined ? _arguments5[3] : 'name';
+                params = {
+                  search: searchTerm,
+                  field: field,
+                  locale: locale || _this14.getCurrentLocale()
+                };
+                _context14.next = 5;
+                return _this14.axios.get("/api/".concat(modelType, "/translations/search"), {
+                  params: params
+                });
+              case 5:
+                response = _context14.sent;
+                return _context14.abrupt("return", response.data);
+              case 7:
+              case "end":
+                return _context14.stop();
+            }
+          }, _callee14);
+        }))();
+      }
+    });
+    /**
+     * Utility methods
+     */
+    _defineProperty(this, "utils", {
+      /**
+       * Check if translation exists
+       */
+      hasTranslation: function hasTranslation(translations, field, locale) {
+        return translations[field] && translations[field][locale] && translations[field][locale].trim() !== '';
+      },
+      /**
+       * Get missing translations
+       */
+      getMissingTranslations: function getMissingTranslations(translations, field) {
+        var _this15 = this;
+        return this.supportedLocales.filter(function (locale) {
+          return !_this15.utils.hasTranslation(translations, field, locale.code);
+        }).map(function (locale) {
+          return locale.code;
+        });
+      },
+      /**
+       * Copy translation from one locale to another
+       */
+      copyTranslation: function copyTranslation(translations, field, fromLocale, toLocale) {
+        if (translations[field] && translations[field][fromLocale]) {
+          if (!translations[field][toLocale]) {
+            translations[field][toLocale] = {};
+          }
+          translations[field][toLocale] = translations[field][fromLocale];
+        }
+        return translations;
+      },
+      /**
+       * Clear translation for specific locale
+       */
+      clearTranslation: function clearTranslation(translations, field, locale) {
+        if (translations[field] && translations[field][locale]) {
+          delete translations[field][locale];
+        }
+        return translations;
+      },
+      /**
+       * Validate translations
+       */
+      validateTranslations: function validateTranslations(translations) {
+        var requiredFields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ['name'];
+        var errors = {};
+        requiredFields.forEach(function (field) {
+          if (!translations[field]) {
+            errors[field] = "".concat(field, " translations are required");
+            return;
+          }
+          var fieldTranslations = translations[field];
+          var hasAnyTranslation = Object.values(fieldTranslations).some(function (value) {
+            return value && value.trim() !== '';
+          });
+          if (!hasAnyTranslation) {
+            errors[field] = "At least one translation for ".concat(field, " is required");
+          }
+        });
+        return Object.keys(errors).length > 0 ? errors : null;
+      }
+    });
+    this.axios = axios;
+    this.supportedLocales = [{
+      code: 'en',
+      name: 'English',
+      flag: '🇺🇸'
+    }, {
+      code: 'ar',
+      name: 'العربية',
+      flag: '🇸🇦'
+    }, {
+      code: 'ur',
+      name: 'اردو',
+      flag: '🇵🇰'
+    }, {
+      code: 'fr',
+      name: 'Français',
+      flag: '🇫🇷'
+    }, {
+      code: 'es',
+      name: 'Español',
+      flag: '🇪🇸'
+    }, {
+      code: 'de',
+      name: 'Deutsch',
+      flag: '🇩🇪'
+    }, {
+      code: 'hi',
+      name: 'हिन्दी',
+      flag: '🇮🇳'
+    }, {
+      code: 'bn',
+      name: 'বাংলা',
+      flag: '🇧🇩'
+    }, {
+      code: 'zh',
+      name: '中文',
+      flag: '🇨🇳'
+    }, {
+      code: 'ru',
+      name: 'Русский',
+      flag: '🇷🇺'
+    }, {
+      code: 'tr',
+      name: 'Türkçe',
+      flag: '🇹🇷'
+    }, {
+      code: 'th',
+      name: 'ไทย',
+      flag: '🇹🇭'
+    }, {
+      code: 'vi',
+      name: 'Tiếng Việt',
+      flag: '🇻🇳'
+    }, {
+      code: 'ko',
+      name: '한국어',
+      flag: '🇰🇷'
+    }, {
+      code: 'it',
+      name: 'Italiano',
+      flag: '🇮🇹'
+    }, {
+      code: 'pt',
+      name: 'Português',
+      flag: '🇵🇹'
+    }, {
+      code: 'nl',
+      name: 'Nederlands',
+      flag: '🇳🇱'
+    }];
+  }
+
+  /**
+   * Get supported locales
+   */
+  return _createClass(TranslationService, [{
+    key: "getSupportedLocales",
+    value: function getSupportedLocales() {
+      return this.supportedLocales;
+    }
+
+    /**
+     * Get current locale from localStorage or default to 'en'
+     */
+  }, {
+    key: "getCurrentLocale",
+    value: function getCurrentLocale() {
+      return localStorage.getItem('locale') || 'en';
+    }
+
+    /**
+     * Set current locale
+     */
+  }, {
+    key: "setCurrentLocale",
+    value: function setCurrentLocale(locale) {
+      localStorage.setItem('locale', locale);
+      return locale;
+    }
+
+    /**
+     * Get locale info by code
+     */
+  }, {
+    key: "getLocaleInfo",
+    value: function getLocaleInfo(code) {
+      return this.supportedLocales.find(function (locale) {
+        return locale.code === code;
+      });
+    }
+
+    /**
+     * Get translated field value with fallback
+     */
+  }, {
+    key: "getTranslatedValue",
+    value: function getTranslatedValue(translations, field) {
+      var locale = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var targetLocale = locale || this.getCurrentLocale();
+      var fallbackLocale = 'en';
+
+      // Try to get translation for target locale
+      if (translations[field] && translations[field][targetLocale]) {
+        return translations[field][targetLocale];
+      }
+
+      // Try fallback locale
+      if (translations[field] && translations[field][fallbackLocale]) {
+        return translations[field][fallbackLocale];
+      }
+
+      // Return empty string if no translation found
+      return '';
+    }
+
+    /**
+     * Set translation value
+     */
+  }, {
+    key: "setTranslationValue",
+    value: function setTranslationValue(translations, field, locale, value) {
+      if (!translations[field]) {
+        translations[field] = {};
+      }
+      translations[field][locale] = value;
+      return translations;
+    }
+
+    /**
+     * Get translation statistics
+     */
+  }, {
+    key: "getTranslationStats",
+    value: function getTranslationStats(translations) {
+      var _this16 = this;
+      var fields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ['name'];
+      var stats = {};
+      fields.forEach(function (field) {
+        if (translations[field]) {
+          var fieldTranslations = translations[field];
+          var totalLocales = _this16.supportedLocales.length;
+          var translatedLocales = Object.values(fieldTranslations).filter(function (value) {
+            return value && value.trim() !== '';
+          }).length;
+          stats[field] = {
+            total: totalLocales,
+            translated: translatedLocales,
+            missing: totalLocales - translatedLocations,
+            percentage: Math.round(translatedLocales / totalLocales * 100)
+          };
+        }
+      });
+      return stats;
+    }
+  }]);
+}();
+/* harmony default export */ const services_TranslationService = (TranslationService);
+;// CONCATENATED MODULE: ./resources/js/store/modules/translations.js
+function translations_typeof(o) { "@babel/helpers - typeof"; return translations_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, translations_typeof(o); }
+function translations_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ translations_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == translations_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(translations_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function translations_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function translations_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { translations_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { translations_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var state = {
+  currentLocale: 'en',
+  supportedLocales: [],
+  translationStats: {},
+  isLoading: false,
+  error: null
+};
+var mutations = {
+  SET_CURRENT_LOCALE: function SET_CURRENT_LOCALE(state, locale) {
+    state.currentLocale = locale;
+    localStorage.setItem('locale', locale);
+  },
+  SET_SUPPORTED_LOCALES: function SET_SUPPORTED_LOCALES(state, locales) {
+    state.supportedLocales = locales;
+  },
+  SET_TRANSLATION_STATS: function SET_TRANSLATION_STATS(state, stats) {
+    state.translationStats = stats;
+  },
+  SET_LOADING: function SET_LOADING(state, loading) {
+    state.isLoading = loading;
+  },
+  SET_ERROR: function SET_ERROR(state, error) {
+    state.error = error;
+  },
+  CLEAR_ERROR: function CLEAR_ERROR(state) {
+    state.error = null;
+  }
+};
+var actions = {
+  /**
+   * Initialize translation service
+   */
+  initialize: function initialize(_ref) {
+    var _this = this;
+    return translations_asyncToGenerator( /*#__PURE__*/translations_regeneratorRuntime().mark(function _callee() {
+      var commit, dispatch, translationService, supportedLocales, currentLocale;
+      return translations_regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            commit = _ref.commit, dispatch = _ref.dispatch;
+            _context.prev = 1;
+            commit('SET_LOADING', true);
+
+            // Initialize translation service
+            translationService = new services_TranslationService(_this.$axios); // Get supported locales
+            supportedLocales = translationService.getSupportedLocales();
+            commit('SET_SUPPORTED_LOCALES', supportedLocales);
+
+            // Get current locale
+            currentLocale = translationService.getCurrentLocale();
+            commit('SET_CURRENT_LOCALE', currentLocale);
+
+            // Load translation stats
+            _context.next = 10;
+            return dispatch('loadTranslationStats');
+          case 10:
+            _context.next = 16;
+            break;
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](1);
+            commit('SET_ERROR', _context.t0.message);
+            console.error('Error initializing translations:', _context.t0);
+          case 16:
+            _context.prev = 16;
+            commit('SET_LOADING', false);
+            return _context.finish(16);
+          case 19:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee, null, [[1, 12, 16, 19]]);
+    }))();
+  },
+  /**
+   * Set current locale
+   */
+  setCurrentLocale: function setCurrentLocale(_ref2, locale) {
+    var commit = _ref2.commit;
+    commit('SET_CURRENT_LOCALE', locale);
+
+    // Update application locale
+    if (this.$i18n) {
+      this.$i18n.locale = locale;
+    }
+  },
+  /**
+   * Load translation statistics
+   */
+  loadTranslationStats: function loadTranslationStats(_ref3) {
+    var _this2 = this;
+    return translations_asyncToGenerator( /*#__PURE__*/translations_regeneratorRuntime().mark(function _callee2() {
+      var commit, translationService, response;
+      return translations_regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            commit = _ref3.commit;
+            _context2.prev = 1;
+            commit('SET_LOADING', true);
+            translationService = new services_TranslationService(_this2.$axios);
+            _context2.next = 6;
+            return translationService.chartOfAccounts.getTranslationStats();
+          case 6:
+            response = _context2.sent;
+            commit('SET_TRANSLATION_STATS', response.data);
+            _context2.next = 14;
+            break;
+          case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](1);
+            commit('SET_ERROR', _context2.t0.message);
+            console.error('Error loading translation stats:', _context2.t0);
+          case 14:
+            _context2.prev = 14;
+            commit('SET_LOADING', false);
+            return _context2.finish(14);
+          case 17:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2, null, [[1, 10, 14, 17]]);
+    }))();
+  },
+  /**
+   * Get translated value with fallback
+   */
+  getTranslatedValue: function getTranslatedValue(_ref4, _ref5) {
+    var state = _ref4.state;
+    var translations = _ref5.translations,
+      field = _ref5.field,
+      _ref5$locale = _ref5.locale,
+      locale = _ref5$locale === void 0 ? null : _ref5$locale;
+    var translationService = new services_TranslationService(this.$axios);
+    return translationService.getTranslatedValue(translations, field, locale || state.currentLocale);
+  },
+  /**
+   * Check if translation exists
+   */
+  hasTranslation: function hasTranslation(_ref6, _ref7) {
+    var state = _ref6.state;
+    var translations = _ref7.translations,
+      field = _ref7.field,
+      _ref7$locale = _ref7.locale,
+      locale = _ref7$locale === void 0 ? null : _ref7$locale;
+    var translationService = new services_TranslationService(this.$axios);
+    return translationService.utils.hasTranslation(translations, field, locale || state.currentLocale);
+  },
+  /**
+   * Get missing translations
+   */
+  getMissingTranslations: function getMissingTranslations(_ref8, _ref9) {
+    var state = _ref8.state;
+    var translations = _ref9.translations,
+      field = _ref9.field;
+    var translationService = new services_TranslationService(this.$axios);
+    return translationService.utils.getMissingTranslations(translations, field);
+  },
+  /**
+   * Copy translation from one locale to another
+   */
+  copyTranslation: function copyTranslation(_ref10, _ref11) {
+    var state = _ref10.state;
+    var translations = _ref11.translations,
+      field = _ref11.field,
+      fromLocale = _ref11.fromLocale,
+      toLocale = _ref11.toLocale;
+    var translationService = new services_TranslationService(this.$axios);
+    return translationService.utils.copyTranslation(translations, field, fromLocale, toLocale);
+  },
+  /**
+   * Clear translation for specific locale
+   */
+  clearTranslation: function clearTranslation(_ref12, _ref13) {
+    var state = _ref12.state;
+    var translations = _ref13.translations,
+      field = _ref13.field,
+      locale = _ref13.locale;
+    var translationService = new services_TranslationService(this.$axios);
+    return translationService.utils.clearTranslation(translations, field, locale);
+  },
+  /**
+   * Validate translations
+   */
+  validateTranslations: function validateTranslations(_ref14, _ref15) {
+    var state = _ref14.state;
+    var translations = _ref15.translations,
+      _ref15$requiredFields = _ref15.requiredFields,
+      requiredFields = _ref15$requiredFields === void 0 ? ['name'] : _ref15$requiredFields;
+    var translationService = new services_TranslationService(this.$axios);
+    return translationService.utils.validateTranslations(translations, requiredFields);
+  },
+  /**
+   * Export translations
+   */
+  exportTranslations: function exportTranslations(_ref16, _ref17) {
+    var _this3 = this;
+    return translations_asyncToGenerator( /*#__PURE__*/translations_regeneratorRuntime().mark(function _callee3() {
+      var commit, _ref17$format, format, _ref17$accountIds, accountIds, translationService, response;
+      return translations_regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
+          case 0:
+            commit = _ref16.commit;
+            _ref17$format = _ref17.format, format = _ref17$format === void 0 ? 'json' : _ref17$format, _ref17$accountIds = _ref17.accountIds, accountIds = _ref17$accountIds === void 0 ? [] : _ref17$accountIds;
+            _context3.prev = 2;
+            commit('SET_LOADING', true);
+            translationService = new services_TranslationService(_this3.$axios);
+            _context3.next = 7;
+            return translationService.chartOfAccounts.exportTranslations(format, accountIds);
+          case 7:
+            response = _context3.sent;
+            return _context3.abrupt("return", response);
+          case 11:
+            _context3.prev = 11;
+            _context3.t0 = _context3["catch"](2);
+            commit('SET_ERROR', _context3.t0.message);
+            throw _context3.t0;
+          case 15:
+            _context3.prev = 15;
+            commit('SET_LOADING', false);
+            return _context3.finish(15);
+          case 18:
+          case "end":
+            return _context3.stop();
+        }
+      }, _callee3, null, [[2, 11, 15, 18]]);
+    }))();
+  }
+};
+var getters = {
+  /**
+   * Get current locale info
+   */
+  currentLocaleInfo: function currentLocaleInfo(state) {
+    return state.supportedLocales.find(function (locale) {
+      return locale.code === state.currentLocale;
+    });
+  },
+  /**
+   * Get available locales (excluding current)
+   */
+  availableLocales: function availableLocales(state) {
+    return state.supportedLocales.filter(function (locale) {
+      return locale.code !== state.currentLocale;
+    });
+  },
+  /**
+   * Get translation completion percentage
+   */
+  translationCompletionPercentage: function translationCompletionPercentage(state) {
+    if (!state.translationStats.total_accounts) return 0;
+    return Math.round(state.translationStats.accounts_with_translations / state.translationStats.total_accounts * 100);
+  },
+  /**
+   * Get missing translations count
+   */
+  missingTranslationsCount: function missingTranslationsCount(state) {
+    return state.translationStats.total_accounts - state.translationStats.accounts_with_translations;
+  },
+  /**
+   * Check if translations are loading
+   */
+  isTranslationsLoading: function isTranslationsLoading(state) {
+    return state.isLoading;
+  },
+  /**
+   * Get translation error
+   */
+  translationError: function translationError(state) {
+    return state.error;
+  }
+};
+/* harmony default export */ const translations = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
+});
+
+/***/ }),
+
 /***/ 85211:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -41017,7 +41845,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".checkbox-container[data-v-2847c223]{a
 
 /***/ }),
 
-/***/ 843:
+/***/ 37258:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -41030,7 +41858,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".checkbox-container[data-v-2847c223]{a
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-e4bb8766]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-e4bb8766]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-e4bb8766]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-e4bb8766]{padding:16px}.form-control[data-v-e4bb8766]{background:#fff!important}input[readonly][data-v-e4bb8766]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-e4bb8766]:focus,select.form-control[data-v-e4bb8766]:focus,textarea.form-control[data-v-e4bb8766]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-e4bb8766]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-e4bb8766]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-e4bb8766]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-e4bb8766],.v-select .vs__dropdown-toggle[data-v-e4bb8766]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-e4bb8766],.v-select .vs__search[data-v-e4bb8766],.v-select .vs__selected[data-v-e4bb8766]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-e4bb8766]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-e4bb8766]{border-radius:6px}.file-upload-area[data-v-e4bb8766]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-e4bb8766]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-e4bb8766]{color:#33a0d9}.selected-files .selected-file-item[data-v-e4bb8766]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-e4bb8766]{font-weight:500}.required[data-v-e4bb8766]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-e4bb8766]{border-radius:20px 20px 0 0}.custom-file-label[data-v-e4bb8766],[dir=rtl] .custom-file-label[data-v-e4bb8766]{text-align:left!important}.btn-primary[data-v-e4bb8766]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-e4bb8766]:hover{filter:brightness(.95)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-3792619f]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-3792619f]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-3792619f]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-3792619f]{padding:16px}.form-control[data-v-3792619f]{background:#fff!important}input[readonly][data-v-3792619f]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-3792619f]:focus,select.form-control[data-v-3792619f]:focus,textarea.form-control[data-v-3792619f]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-3792619f]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-3792619f]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-3792619f]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-3792619f],.v-select .vs__dropdown-toggle[data-v-3792619f]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-3792619f],.v-select .vs__search[data-v-3792619f],.v-select .vs__selected[data-v-3792619f]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-3792619f]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-3792619f]{border-radius:6px}.file-upload-area[data-v-3792619f]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-3792619f]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-3792619f]{color:#33a0d9}.selected-files .selected-file-item[data-v-3792619f]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-3792619f]{font-weight:500}.required[data-v-3792619f]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-3792619f]{border-radius:20px 20px 0 0}.custom-file-label[data-v-3792619f],[dir=rtl] .custom-file-label[data-v-3792619f]{text-align:left!important}.btn-primary[data-v-3792619f]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-3792619f]:hover{filter:brightness(.95)}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41057,7 +41885,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".progress[data-v-45707076]{background-
 
 /***/ }),
 
-/***/ 12981:
+/***/ 71208:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -41070,7 +41898,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".progress[data-v-45707076]{background-
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".disabled[data-v-3ee66836]{opacity:.6;pointer-events:none}.dropdown-item[data-v-3ee66836]:hover:not(.disabled){background-color:#f8f9fa}.custom-nav-btn[data-v-3ee66836]{align-items:center!important;background:#33a0d91a!important;border:none!important;border-radius:10px!important;color:#33a0d9!important;display:flex!important;height:48px!important;justify-content:center!important;margin:0 4px!important;padding:12px!important;transition:all .3s ease!important;width:48px!important}.custom-nav-btn[data-v-3ee66836]:hover{background:#33a0d933!important;box-shadow:0 4px 8px rgba(51,160,217,.2)!important;color:#33a0d9!important;transform:translateY(-1px)!important}.custom-nav-btn[data-v-3ee66836]:focus{background:#33a0d91a!important;box-shadow:0 0 0 2px rgba(51,160,217,.3)!important;color:#33a0d9!important}.custom-nav-btn svg[data-v-3ee66836]{stroke:#33a0d9!important;color:#33a0d9!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".disabled[data-v-7bc2235c]{opacity:.6;pointer-events:none}.dropdown-item[data-v-7bc2235c]:hover:not(.disabled){background-color:#f8f9fa}.custom-nav-btn[data-v-7bc2235c]{align-items:center!important;background:#33a0d91a!important;border:none!important;border-radius:10px!important;color:#33a0d9!important;display:flex!important;height:48px!important;justify-content:center!important;margin:0 4px!important;padding:12px!important;transition:all .3s ease!important;width:48px!important}.custom-nav-btn[data-v-7bc2235c]:hover{background:#33a0d933!important;box-shadow:0 4px 8px rgba(51,160,217,.2)!important;color:#33a0d9!important;transform:translateY(-1px)!important}.custom-nav-btn[data-v-7bc2235c]:focus{background:#33a0d91a!important;box-shadow:0 0 0 2px rgba(51,160,217,.3)!important;color:#33a0d9!important}.custom-nav-btn svg[data-v-7bc2235c]{stroke:#33a0d9!important;color:#33a0d9!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -73714,7 +74542,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 12904:
+/***/ 77958:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -73724,7 +74552,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ClientForm)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=template&id=e4bb8766&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=template&id=3792619f&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -73767,7 +74595,7 @@ var render = function render() {
       "id": "codeNumber",
       "type": "text",
       "name": "codeNumber",
-      "placeholder": _vm.$t('Loading...'),
+      "placeholder": _vm.$t('Auto-generated...'),
       "readonly": "",
       "aria-readonly": "true"
     },
@@ -75071,7 +75899,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       console.log('Initial data:', this.initialData);
       this.form = new vform_es/* default */.Ay(_objectSpread({
         // Account Details
-        codeNumber: "AC001",
+        codeNumber: "",
+        // Will be loaded from API
         notes: "",
         displayLanguage: "",
         // Client Details
@@ -75134,8 +75963,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                 console.log('Debug info from API:', response.data.debug);
               } else {
                 console.error('API returned error:', response.data.message);
-                // Fallback to default
-                _this3.form.codeNumber = 'AC001';
+                // Fallback to default - use a placeholder that indicates loading failed
+                _this3.form.codeNumber = 'Loading...';
                 console.log('Using fallback code number:', _this3.form.codeNumber);
               }
               _context.next = 16;
@@ -75145,8 +75974,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               _context.t0 = _context["catch"](0);
               console.error('Error loading next code number:', _context.t0);
               console.error('Error details:', ((_error$response = _context.t0.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _context.t0.message);
-              // Fallback to default
-              _this3.form.codeNumber = 'AC001';
+              // Fallback to default - use a placeholder that indicates loading failed
+              _this3.form.codeNumber = 'Loading...';
               console.log('Using fallback code number due to error:', _this3.form.codeNumber);
             case 16:
             case "end":
@@ -75929,9 +76758,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=e4bb8766&prod&scoped=true&lang=css
-var ClientFormvue_type_style_index_0_id_e4bb8766_prod_scoped_true_lang_css = __webpack_require__(843);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=e4bb8766&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=3792619f&prod&scoped=true&lang=css
+var ClientFormvue_type_style_index_0_id_3792619f_prod_scoped_true_lang_css = __webpack_require__(37258);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=3792619f&prod&scoped=true&lang=css
 
             
 
@@ -75940,12 +76769,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ClientFormvue_type_style_index_0_id_e4bb8766_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ClientFormvue_type_style_index_0_id_3792619f_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ClientFormvue_type_style_index_0_id_e4bb8766_prod_scoped_true_lang_css = (ClientFormvue_type_style_index_0_id_e4bb8766_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=e4bb8766&prod&scoped=true&lang=css
+/* harmony default export */ const components_ClientFormvue_type_style_index_0_id_3792619f_prod_scoped_true_lang_css = (ClientFormvue_type_style_index_0_id_3792619f_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=3792619f&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -75964,7 +76793,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "e4bb8766",
+  "3792619f",
   null
   
 )
@@ -76002,7 +76831,7 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /***/ }),
 
-/***/ 12204:
+/***/ 72679:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -76012,7 +76841,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ LocaleDropdown)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=template&id=3ee66836&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=template&id=7bc2235c&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -76295,7 +77124,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 11:
               response = _context.sent;
               if (!(response && response.data && response.data.success)) {
-                _context.next = 28;
+                _context.next = 29;
                 break;
               }
               _context.next = 15;
@@ -76331,7 +77160,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (_this.$toast) {
                 _this.$toast.success(_this.$t('Locale changed successfully'));
               }
-
+              location.reload();
               // Force Vue to re-render all components with new locale
               _this.$forceUpdate();
 
@@ -76353,18 +77182,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
               });
-              _context.next = 30;
+              _context.next = 31;
               break;
-            case 28:
+            case 29:
               console.error('Failed to set locale:', (response === null || response === void 0 || (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.error) || 'Unknown error');
               if (_this.$toast) {
                 _this.$toast.error(_this.$t('Failed to change locale'));
               }
-            case 30:
-              _context.next = 36;
+            case 31:
+              _context.next = 37;
               break;
-            case 32:
-              _context.prev = 32;
+            case 33:
+              _context.prev = 33;
               _context.t0 = _context["catch"](6);
               console.error('Error setting locale:', _context.t0);
 
@@ -76388,38 +77217,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$toast.error('Request failed');
                 }
               }
-            case 36:
-              _context.prev = 36;
+            case 37:
+              _context.prev = 37;
               _this.isLoading = false;
-              return _context.finish(36);
-            case 39:
+              return _context.finish(37);
+            case 40:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[6, 32, 36, 39]]);
+        }, _callee, null, [[6, 33, 37, 40]]);
       }))();
     }
   }
 });
 ;// CONCATENATED MODULE: ./resources/js/components/LocaleDropdown.vue?vue&type=script&lang=js
  /* harmony default export */ const components_LocaleDropdownvue_type_script_lang_js = (LocaleDropdownvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=3ee66836&prod&scoped=true&lang=css
-var LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css = __webpack_require__(12981);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=3ee66836&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=7bc2235c&prod&scoped=true&lang=css
+var LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css = __webpack_require__(71208);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=7bc2235c&prod&scoped=true&lang=css
 
             
 
-var LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css_options = {};
+var LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css_options = {};
 
-LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css_options.insert = "head";
-LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css_options.singleton = false;
+LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css_options.insert = "head";
+LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css_options.singleton = false;
 
-var LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css/* default */.A, LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css_options);
+var LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css/* default */.A, LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css = (LocaleDropdownvue_type_style_index_0_id_3ee66836_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=3ee66836&prod&scoped=true&lang=css
+/* harmony default export */ const components_LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css = (LocaleDropdownvue_type_style_index_0_id_7bc2235c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=7bc2235c&prod&scoped=true&lang=css
 
 ;// CONCATENATED MODULE: ./resources/js/components/LocaleDropdown.vue
 
@@ -76436,12 +77265,124 @@ var LocaleDropdown_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "3ee66836",
+  "7bc2235c",
   null
   
 )
 
 /* harmony default export */ const LocaleDropdown = (LocaleDropdown_component.exports);
+
+/***/ }),
+
+/***/ 70227:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ Modal)
+});
+
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=template&id=3dc61004&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    attrs: {
+      "id": "modal-template"
+    }
+  }, [_c('transition', {
+    attrs: {
+      "name": "modal"
+    }
+  }, [_c('div', {
+    staticClass: "modal-mask"
+  }, [_c('div', {
+    staticClass: "modal-wrapper"
+  }, [_c('div', {
+    staticClass: "modal-container"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_vm._t("header", function () {
+    return [_vm._v(_vm._s(_vm.$t('Attached Image Preview')))];
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_vm._t("body", function () {
+    return [_vm._v("\n              " + _vm._s(_vm.$t('Default body')) + "\n            ")];
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_vm._t("modal-footer", function () {
+    return [_c('button', {
+      staticClass: "modal-default-button btn btn-info",
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('close');
+        }
+      }
+    }, [_vm._v("\n                " + _vm._s(_vm.$t('Close')) + "\n              ")])];
+  })], 2)])])])])], 1);
+};
+var staticRenderFns = [];
+
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=script&lang=js
+/* harmony default export */ const Modalvue_type_script_lang_js = ({
+  props: {
+    form: Object,
+    allData: Object
+  },
+  name: 'Modal',
+  data: function data() {
+    return {};
+  },
+  methods: {}
+});
+;// CONCATENATED MODULE: ./resources/js/components/Modal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_Modalvue_type_script_lang_js = (Modalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=style&index=0&id=3dc61004&prod&lang=scss&scoped=true
+var Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true = __webpack_require__(94674);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=style&index=0&id=3dc61004&prod&lang=scss&scoped=true
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true/* default */.A, options);
+
+
+
+/* harmony default export */ const components_Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true = (Modalvue_type_style_index_0_id_3dc61004_prod_lang_scss_scoped_true/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/Modal.vue?vue&type=style&index=0&id=3dc61004&prod&lang=scss&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// CONCATENATED MODULE: ./resources/js/components/Modal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_Modalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "3dc61004",
+  null
+  
+)
+
+/* harmony default export */ const Modal = (component.exports);
 
 /***/ }),
 
@@ -77840,7 +78781,7 @@ var staticRenderFns = [];
 // EXTERNAL MODULE: ./resources/js/components/GlobalSaveButton.vue
 var GlobalSaveButton = __webpack_require__(50607);
 // EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
-var LocaleDropdown = __webpack_require__(12204);
+var LocaleDropdown = __webpack_require__(72679);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=script&lang=js
 
 
@@ -78182,7 +79123,7 @@ var Navbarvue_type_template_id_7be7c12c_scoped_true_staticRenderFns = [function 
 ;// CONCATENATED MODULE: ./resources/js/components/central/Navbar.vue?vue&type=template&id=7be7c12c&scoped=true
 
 // EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
-var LocaleDropdown = __webpack_require__(12204);
+var LocaleDropdown = __webpack_require__(72679);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/central/Navbar.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
@@ -79792,7 +80733,7 @@ var Navbarvue_type_template_id_1b551a84_scoped_true_staticRenderFns = [function 
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
-var LocaleDropdown = __webpack_require__(12204);
+var LocaleDropdown = __webpack_require__(72679);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
@@ -113933,12 +114874,12 @@ var map = {
 		6654
 	],
 	"./cashbook/chart-of-accounts": [
-		32527,
-		2527
+		11012,
+		1012
 	],
 	"./cashbook/chart-of-accounts/": [
-		32527,
-		2527
+		11012,
+		1012
 	],
 	"./cashbook/chart-of-accounts/create": [
 		491,
@@ -113957,12 +114898,12 @@ var map = {
 		3135
 	],
 	"./cashbook/chart-of-accounts/index": [
-		32527,
-		2527
+		11012,
+		1012
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		32527,
-		2527
+		11012,
+		1012
 	],
 	"./cashbook/chart-of-accounts/show": [
 		15434,
@@ -114661,12 +115602,12 @@ var map = {
 		7883
 	],
 	"./clients": [
-		45764,
-		5764
+		49443,
+		9443
 	],
 	"./clients/": [
-		45764,
-		5764
+		49443,
+		9443
 	],
 	"./clients/create": [
 		90338,
@@ -114685,20 +115626,20 @@ var map = {
 		6808
 	],
 	"./clients/index": [
-		45764,
-		5764
+		49443,
+		9443
 	],
 	"./clients/index.vue": [
-		45764,
-		5764
+		49443,
+		9443
 	],
 	"./clients/show": [
-		67376,
-		7376
+		55847,
+		5847
 	],
 	"./clients/show.vue": [
-		67376,
-		7376
+		55847,
+		5847
 	],
 	"./dashboard": [
 		10918,
@@ -115533,12 +116474,12 @@ var map = {
 		8824
 	],
 	"./purchase-order": [
-		50074,
-		74
+		72757,
+		2757
 	],
 	"./purchase-order/": [
-		50074,
-		74
+		72757,
+		2757
 	],
 	"./purchase-order/create": [
 		19276,
@@ -115557,12 +116498,12 @@ var map = {
 		8428
 	],
 	"./purchase-order/index": [
-		50074,
-		74
+		72757,
+		2757
 	],
 	"./purchase-order/index.vue": [
-		50074,
-		74
+		72757,
+		2757
 	],
 	"./purchase-order/show": [
 		8254,
@@ -115653,12 +116594,12 @@ var map = {
 		1763
 	],
 	"./reports/account-statement": [
-		26150,
-		6150
+		6575,
+		6575
 	],
 	"./reports/account-statement.vue": [
-		26150,
-		6150
+		6575,
+		6575
 	],
 	"./reports/balance-sheet": [
 		82732,
@@ -115685,20 +116626,20 @@ var map = {
 		9231
 	],
 	"./reports/expenses": [
-		40187,
-		187
+		44090,
+		4090
 	],
 	"./reports/expenses.vue": [
-		40187,
-		187
+		44090,
+		4090
 	],
 	"./reports/group-account-statement": [
-		77067,
-		7067
+		88958,
+		8958
 	],
 	"./reports/group-account-statement.vue": [
-		77067,
-		7067
+		88958,
+		8958
 	],
 	"./reports/inventory": [
 		68600,
@@ -115749,12 +116690,12 @@ var map = {
 		5766
 	],
 	"./reports/summary": [
-		19744,
-		9744
+		76096,
+		6096
 	],
 	"./reports/summary.vue": [
-		19744,
-		9744
+		76096,
+		6096
 	],
 	"./reports/supplier-payable-report": [
 		65389,
@@ -115773,12 +116714,12 @@ var map = {
 		5111
 	],
 	"./reports/trial-balance": [
-		84850,
-		4850
+		74671,
+		4671
 	],
 	"./reports/trial-balance.vue": [
-		84850,
-		4850
+		74671,
+		4671
 	],
 	"./reports/vat-report": [
 		84224,
@@ -115789,36 +116730,36 @@ var map = {
 		4224
 	],
 	"./sales/invoices": [
-		27981,
-		7981
+		59978,
+		9978
 	],
 	"./sales/invoices/": [
-		27981,
-		7981
+		59978,
+		9978
 	],
 	"./sales/invoices/create": [
-		96054,
-		6054
+		83547,
+		3547
 	],
 	"./sales/invoices/create.vue": [
-		96054,
-		6054
+		83547,
+		3547
 	],
 	"./sales/invoices/edit": [
-		28353,
-		8353
+		15014,
+		5014
 	],
 	"./sales/invoices/edit.vue": [
-		28353,
-		8353
+		15014,
+		5014
 	],
 	"./sales/invoices/index": [
-		27981,
-		7981
+		59978,
+		9978
 	],
 	"./sales/invoices/index.vue": [
-		27981,
-		7981
+		59978,
+		9978
 	],
 	"./sales/invoices/show": [
 		22593,
@@ -115829,12 +116770,12 @@ var map = {
 		2593
 	],
 	"./sales/pos/create": [
-		11979,
-		1979
+		12074,
+		2074
 	],
 	"./sales/pos/create.vue": [
-		11979,
-		1979
+		12074,
+		2074
 	],
 	"./sales/quotations": [
 		18747,
@@ -115845,12 +116786,12 @@ var map = {
 		8747
 	],
 	"./sales/quotations/create": [
-		2512,
-		2512
+		50269,
+		269
 	],
 	"./sales/quotations/create.vue": [
-		2512,
-		2512
+		50269,
+		269
 	],
 	"./sales/quotations/edit": [
 		55892,
@@ -115869,12 +116810,12 @@ var map = {
 		8747
 	],
 	"./sales/quotations/invoice": [
-		63441,
-		3441
+		77688,
+		7688
 	],
 	"./sales/quotations/invoice.vue": [
-		63441,
-		3441
+		77688,
+		7688
 	],
 	"./sales/quotations/show": [
 		98397,
@@ -115885,20 +116826,20 @@ var map = {
 		8397
 	],
 	"./sales/returns": [
-		64831,
-		4831
+		25318,
+		2937
 	],
 	"./sales/returns/": [
-		64831,
-		4831
+		25318,
+		2937
 	],
 	"./sales/returns/create": [
-		20348,
-		348
+		18077,
+		8077
 	],
 	"./sales/returns/create.vue": [
-		20348,
-		348
+		18077,
+		8077
 	],
 	"./sales/returns/edit": [
 		64590,
@@ -115909,12 +116850,12 @@ var map = {
 		4590
 	],
 	"./sales/returns/index": [
-		64831,
-		4831
+		25318,
+		2937
 	],
 	"./sales/returns/index.vue": [
-		64831,
-		4831
+		25318,
+		2937
 	],
 	"./sales/returns/show": [
 		88326,
@@ -116222,11 +117163,11 @@ var map = {
 	],
 	"./setup/units/create": [
 		8353,
-		734
+		8353
 	],
 	"./setup/units/create.vue": [
 		8353,
-		734
+		8353
 	],
 	"./setup/units/edit": [
 		37853,
@@ -116368,7 +117309,8 @@ var map = {
 	"./auth.js": 73840,
 	"./chartOfAccounts.js": 31717,
 	"./lang.js": 7882,
-	"./operations.js": 94976
+	"./operations.js": 94976,
+	"./translations.js": 21525
 };
 
 
@@ -116642,7 +117584,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6654) return "js/6654.js";
 /******/ 			if (chunkId === 9800) return "js/9800.js";
 /******/ 			if (chunkId === 6065) return "js/6065.js";
-/******/ 			if (chunkId === 2527) return "js/2527.js";
+/******/ 			if (chunkId === 1012) return "js/1012.js";
 /******/ 			if (chunkId === 491) return "js/491.js";
 /******/ 			if (chunkId === 3135) return "js/3135.js";
 /******/ 			if (chunkId === 5434) return "js/5434.js";
@@ -116714,10 +117656,10 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 7496) return "js/7496.js";
 /******/ 			if (chunkId === 9325) return "js/9325.js";
 /******/ 			if (chunkId === 7883) return "js/7883.js";
-/******/ 			if (chunkId === 5764) return "js/5764.js";
+/******/ 			if (chunkId === 9443) return "js/9443.js";
 /******/ 			if (chunkId === 338) return "js/338.js";
 /******/ 			if (chunkId === 6808) return "js/6808.js";
-/******/ 			if (chunkId === 7376) return "js/7376.js";
+/******/ 			if (chunkId === 5847) return "js/5847.js";
 /******/ 			if (chunkId === 918) return "js/918.js";
 /******/ 			if (chunkId === 5360) return "js/5360.js";
 /******/ 			if (chunkId === 7936) return "js/7936.js";
@@ -116799,7 +117741,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8824) return "js/8824.js";
 /******/ 			if (chunkId === 9909) return "js/9909.js";
 /******/ 			if (chunkId === 3018) return "js/3018.js";
-/******/ 			if (chunkId === 74) return "js/74.js";
+/******/ 			if (chunkId === 2757) return "js/2757.js";
 /******/ 			if (chunkId === 9276) return "js/9276.js";
 /******/ 			if (chunkId === 8428) return "js/8428.js";
 /******/ 			if (chunkId === 8254) return "js/8254.js";
@@ -116811,35 +117753,35 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 4399) return "js/4399.js";
 /******/ 			if (chunkId === 6904) return "js/6904.js";
 /******/ 			if (chunkId === 1763) return "js/1763.js";
-/******/ 			if (chunkId === 6150) return "js/6150.js";
+/******/ 			if (chunkId === 6575) return "js/6575.js";
 /******/ 			if (chunkId === 2732) return "js/2732.js";
 /******/ 			if (chunkId === 249) return "js/249.js";
 /******/ 			if (chunkId === 9231) return "js/9231.js";
-/******/ 			if (chunkId === 187) return "js/187.js";
-/******/ 			if (chunkId === 7067) return "js/7067.js";
+/******/ 			if (chunkId === 4090) return "js/4090.js";
+/******/ 			if (chunkId === 8958) return "js/8958.js";
 /******/ 			if (chunkId === 8600) return "js/8600.js";
 /******/ 			if (chunkId === 628) return "js/628.js";
 /******/ 			if (chunkId === 1936) return "js/1936.js";
 /******/ 			if (chunkId === 6037) return "js/6037.js";
 /******/ 			if (chunkId === 534) return "js/534.js";
 /******/ 			if (chunkId === 5766) return "js/5766.js";
-/******/ 			if (chunkId === 9744) return "js/9744.js";
+/******/ 			if (chunkId === 6096) return "js/6096.js";
 /******/ 			if (chunkId === 5389) return "js/5389.js";
 /******/ 			if (chunkId === 5111) return "js/5111.js";
-/******/ 			if (chunkId === 4850) return "js/4850.js";
+/******/ 			if (chunkId === 4671) return "js/4671.js";
 /******/ 			if (chunkId === 4224) return "js/4224.js";
-/******/ 			if (chunkId === 7981) return "js/7981.js";
-/******/ 			if (chunkId === 6054) return "js/6054.js";
-/******/ 			if (chunkId === 8353) return "js/8353.js";
+/******/ 			if (chunkId === 9978) return "js/9978.js";
+/******/ 			if (chunkId === 3547) return "js/3547.js";
+/******/ 			if (chunkId === 5014) return "js/5014.js";
 /******/ 			if (chunkId === 2593) return "js/2593.js";
-/******/ 			if (chunkId === 1979) return "js/1979.js";
+/******/ 			if (chunkId === 2074) return "js/2074.js";
 /******/ 			if (chunkId === 8747) return "js/8747.js";
-/******/ 			if (chunkId === 2512) return "js/2512.js";
+/******/ 			if (chunkId === 269) return "js/269.js";
 /******/ 			if (chunkId === 5892) return "js/5892.js";
-/******/ 			if (chunkId === 3441) return "js/3441.js";
+/******/ 			if (chunkId === 7688) return "js/7688.js";
 /******/ 			if (chunkId === 8397) return "js/8397.js";
-/******/ 			if (chunkId === 4831) return "js/4831.js";
-/******/ 			if (chunkId === 348) return "js/348.js";
+/******/ 			if (chunkId === 2937) return "js/2937.js";
+/******/ 			if (chunkId === 8077) return "js/8077.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
 /******/ 			if (chunkId === 8326) return "js/8326.js";
 /******/ 			if (chunkId === 8557) return "js/8557.js";
@@ -116872,7 +117814,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6382) return "js/6382.js";
 /******/ 			if (chunkId === 5507) return "js/5507.js";
 /******/ 			if (chunkId === 9237) return "js/9237.js";
-/******/ 			if (chunkId === 734) return "js/734.js";
+/******/ 			if (chunkId === 8353) return "js/8353.js";
 /******/ 			if (chunkId === 7853) return "js/7853.js";
 /******/ 			if (chunkId === 8087) return "js/8087.js";
 /******/ 			if (chunkId === 4957) return "js/4957.js";
@@ -117110,7 +118052,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(32128)))
+/******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(22270)))
 /******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(60155)))
 /******/ 	__webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(70812)))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [7753,2409,8252], () => (__webpack_require__(79938)))

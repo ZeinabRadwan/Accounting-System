@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[8958],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[6575],{
 
-/***/ 48425:
+/***/ 48011:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-534f45b5]{border:none!important}.group-account-statement-table[data-v-534f45b5]{border-collapse:separate;border-spacing:0}.group-account-statement-table thead th[data-v-534f45b5]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.group-account-statement-table thead tr[data-v-534f45b5]{border:none!important}.group-account-statement-table thead th[data-v-534f45b5]:first-child{border-top-left-radius:10px}.group-account-statement-table thead th[data-v-534f45b5]:last-child{border-top-right-radius:10px}[dir=rtl] .group-account-statement-table thead th[data-v-534f45b5]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .group-account-statement-table thead th[data-v-534f45b5]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.refresh-btn[data-v-534f45b5]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-534f45b5],.export-pdf-btn[data-v-534f45b5]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-534f45b5],.export-pdf-btn[data-v-534f45b5],.print-btn[data-v-534f45b5]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-534f45b5]{background:#33a0d91a!important;color:#33a0d9!important}.btn-group.c-w-100[data-v-534f45b5]{gap:10px}.card[data-v-534f45b5]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-534f45b5]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.overlay[data-v-534f45b5]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:9999}.info-box[data-v-534f45b5]{background:#fff;border:1px solid #dee2e6;margin-bottom:1rem;padding:1rem}.info-box[data-v-534f45b5],.info-box-icon[data-v-534f45b5]{align-items:center;border-radius:.375rem;display:flex}.info-box-icon[data-v-534f45b5]{height:60px;justify-content:center;margin-right:1rem;width:60px}.info-box-content[data-v-534f45b5]{flex:1}.info-box-text[data-v-534f45b5]{color:#6c757d;display:block;font-size:.875rem;margin-bottom:.25rem}.info-box-number[data-v-534f45b5]{color:#495057;display:block;font-size:1.25rem;font-weight:600}.btn-primary[data-v-534f45b5]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-7cd47292]{border:none!important}.account-statement-table[data-v-7cd47292]{border-collapse:separate;border-spacing:0}.account-statement-table thead th[data-v-7cd47292]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.account-statement-table thead tr[data-v-7cd47292]{border:none!important}.account-statement-table thead th[data-v-7cd47292]:first-child{border-top-left-radius:10px}.account-statement-table thead th[data-v-7cd47292]:last-child{border-top-right-radius:10px}[dir=rtl] .account-statement-table thead th[data-v-7cd47292]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .account-statement-table thead th[data-v-7cd47292]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.refresh-btn[data-v-7cd47292]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-7cd47292],.export-pdf-btn[data-v-7cd47292]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-7cd47292],.export-pdf-btn[data-v-7cd47292],.print-btn[data-v-7cd47292]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-7cd47292]{background:#33a0d91a!important;color:#33a0d9!important}.btn-group.c-w-100[data-v-7cd47292]{gap:10px}.card[data-v-7cd47292]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-7cd47292]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.overlay[data-v-7cd47292]{background-color:rgba(0,0,0,.5);height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:9999}.info-box[data-v-7cd47292],.overlay[data-v-7cd47292]{align-items:center;display:flex}.info-box[data-v-7cd47292]{background:#fff;border:1px solid #dee2e6;border-radius:.25rem;margin-bottom:1rem;padding:1rem}.info-box-icon[data-v-7cd47292]{align-items:center;border-radius:50%;display:flex;height:60px;justify-content:center;margin-right:1rem;width:60px}.info-box-content[data-v-7cd47292]{flex:1}.info-box-text[data-v-7cd47292]{color:#6c757d;display:block;font-size:.875rem;margin-bottom:.25rem}.info-box-number[data-v-7cd47292]{color:#495057;display:block;font-size:1.25rem;font-weight:700}.table th[data-v-7cd47292]{border-top:1px solid #dee2e6}.pagination[data-v-7cd47292]{margin-bottom:0}.dataTables_info[data-v-7cd47292]{color:#6c757d;padding-bottom:.75rem;padding-top:.75rem}.dataTables_paginate[data-v-7cd47292]{text-align:right}.btn-primary[data-v-7cd47292]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 88958:
+/***/ 6575:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -28,37 +28,25 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ group_account_statement)
+  "default": () => (/* binding */ account_statement)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=template&id=534f45b5&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/account-statement.vue?vue&type=template&id=7cd47292&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "mb-50"
+  return _c('div', [_c('div', {
+    staticClass: "card"
   }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "card custom-card w-100"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
+    staticClass: "card-header"
   }, [_c('breadcrumbs', {
     attrs: {
       "items": _vm.breadcrumbs,
       "current": _vm.breadcrumbsCurrent
     }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h3', {
+  }), _vm._v(" "), _c('h3', {
     staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.$t('Filters')))]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('Filters')))]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('form', {
     staticClass: "row",
@@ -72,7 +60,7 @@ var render = function render() {
     staticClass: "col-md-3"
   }, [_c('div', {
     staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Chart of Accounts')) + " "), _c('span', {
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Chart of Account')) + " "), _c('span', {
     staticClass: "text-danger"
   }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
     attrs: {
@@ -81,58 +69,54 @@ var render = function render() {
         return account.id;
       },
       "label": "display_name",
-      "placeholder": _vm.$t('Select Accounts'),
+      "placeholder": _vm.$t('Select Account'),
       "searchable": true,
       "clearable": false,
-      "loading": _vm.loadingAccounts,
-      "multiple": ""
+      "loading": _vm.loadingAccounts
     },
     on: {
       "search": _vm.searchAccounts,
-      "input": _vm.onChartOfAccountsChange
+      "input": _vm.onChartOfAccountChange
     },
     model: {
-      value: _vm.filters.chartOfAccounts,
+      value: _vm.filters.chartOfAccount,
       callback: function callback($$v) {
-        _vm.$set(_vm.filters, "chartOfAccounts", $$v);
+        _vm.$set(_vm.filters, "chartOfAccount", $$v);
       },
-      expression: "filters.chartOfAccounts"
+      expression: "filters.chartOfAccount"
     }
-  }), _vm._v(" "), _vm.errors.chart_of_account_ids ? _c('div', {
+  }), _vm._v(" "), _vm.errors.chart_of_account_id ? _c('div', {
     staticClass: "text-danger"
-  }, [_vm._v("\n              " + _vm._s(_vm.errors.chart_of_account_ids[0]) + "\n            ")]) : _vm._e(), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t('Select one or more accounts to include in the report')) + "\n            ")])], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                  " + _vm._s(_vm.errors.chart_of_account_id[0]) + "\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
   }, [_c('div', {
     staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Sub Chart of Accounts')))]), _vm._v(" "), _c('v-select', {
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Sub Chart of Account')))]), _vm._v(" "), _c('v-select', {
     attrs: {
       "options": _vm.subChartOfAccounts,
       "reduce": function reduce(account) {
         return account.id;
       },
       "label": "display_name",
-      "placeholder": _vm.$t('Select Sub Accounts'),
+      "placeholder": _vm.$t('Select Sub Account'),
       "searchable": true,
       "clearable": true,
       "loading": _vm.loadingSubAccounts,
-      "multiple": "",
-      "disabled": !_vm.filters.chartOfAccounts || _vm.filters.chartOfAccounts.length === 0
+      "disabled": !_vm.filters.chartOfAccount
     },
     on: {
       "search": _vm.searchSubAccounts
     },
     model: {
-      value: _vm.filters.subChartOfAccounts,
+      value: _vm.filters.subChartOfAccount,
       callback: function callback($$v) {
-        _vm.$set(_vm.filters, "subChartOfAccounts", $$v);
+        _vm.$set(_vm.filters, "subChartOfAccount", $$v);
       },
-      expression: "filters.subChartOfAccounts"
+      expression: "filters.subChartOfAccount"
     }
-  }), _vm._v(" "), _vm.errors.sub_chart_of_account_ids ? _c('div', {
+  }), _vm._v(" "), _vm.errors.sub_chart_of_account_id ? _c('div', {
     staticClass: "text-danger"
-  }, [_vm._v("\n              " + _vm._s(_vm.errors.sub_chart_of_account_ids[0]) + "\n            ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                  " + _vm._s(_vm.errors.sub_chart_of_account_id[0]) + "\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
   }, [_c('div', {
     staticClass: "form-group"
@@ -201,8 +185,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       "type": "date",
-      "placeholder": _vm.$t('From Date'),
-      "disabled": _vm.filters.fiscalYear || _vm.filters.accountingPeriod
+      "placeholder": _vm.$t('From Date')
     },
     domProps: {
       "value": _vm.filters.fromDate
@@ -227,8 +210,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       "type": "date",
-      "placeholder": _vm.$t('To Date'),
-      "disabled": _vm.filters.fiscalYear || _vm.filters.accountingPeriod
+      "placeholder": _vm.$t('To Date')
     },
     domProps: {
       "value": _vm.filters.toDate
@@ -247,13 +229,13 @@ var render = function render() {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "submit",
-      "disabled": _vm.loading || !_vm.filters.chartOfAccounts || _vm.filters.chartOfAccounts.length === 0
+      "disabled": _vm.loading || !_vm.filters.chartOfAccount
     }
   }, [_vm.loading ? _c('i', {
     staticClass: "fas fa-spinner fa-spin"
   }) : _c('i', {
     staticClass: "fas fa-search"
-  }), _vm._v("\n              " + _vm._s(_vm.$t('Generate Report')) + "\n            ")]), _vm._v(" "), _c('button', {
+  }), _vm._v("\n                  " + _vm._s(_vm.$t('Generate Report')) + "\n                ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-secondary ml-2",
     attrs: {
       "type": "button"
@@ -263,7 +245,7 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-undo"
-  }), _vm._v("\n              " + _vm._s(_vm.$t('Reset')) + "\n            ")]), _vm._v(" "), _vm.reportData && _vm.reportData.entries && _vm.reportData.entries.length > 0 ? _c('a', {
+  }), _vm._v("\n                  " + _vm._s(_vm.$t('Reset')) + "\n                ")]), _vm._v(" "), _vm.reportData && _vm.entriesCount > 0 ? _c('a', {
     directives: [{
       name: "tooltip",
       rawName: "v-tooltip",
@@ -276,7 +258,7 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fa fa-arrow-circle-down"
-  })]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.reportData.entries && _vm.reportData.entries.length > 0 ? _c('a', {
+  })]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.entriesCount > 0 ? _c('a', {
     directives: [{
       name: "tooltip",
       rawName: "v-tooltip",
@@ -289,7 +271,7 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-file-export"
-  })]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.reportData.entries && _vm.reportData.entries.length > 0 ? _c('a', {
+  })]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.entriesCount > 0 ? _c('a', {
     staticClass: "btn print-btn ml-2",
     attrs: {
       "href": _vm.printTemplateUrl,
@@ -303,13 +285,15 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c('h3', {
     staticClass: "card-title"
-  }, [_vm._v("\n        " + _vm._s(_vm.$t('Group Account Statement')) + " - " + _vm._s(_vm.selectedAccountsText) + "\n      ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('Account Statement')) + " - \n            "), _vm.reportData.report_account && _vm.reportData.report_account.id !== _vm.reportData.chart_of_account.id ? _c('span', [_vm._v("\n              " + _vm._s(_vm.reportData.report_account.code) + " - " + _vm._s(_vm.reportData.report_account.name) + "\n              "), _c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t('Sub Account of')) + " " + _vm._s(_vm.reportData.chart_of_account.code) + " - " + _vm._s(_vm.reportData.chart_of_account.name) + ")")])]) : _c('span', [_vm._v("\n              " + _vm._s(_vm.reportData.chart_of_account.code) + " - " + _vm._s(_vm.reportData.chart_of_account.name) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-tools"
   }, [_c('span', {
     staticClass: "badge badge-info"
-  }, [_vm._v(_vm._s(_vm.$t('Accounts')) + ": " + _vm._s(_vm.reportData.chart_of_accounts.length))]), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.$t('Type')) + ": " + _vm._s(_vm.reportData.chart_of_account.type))]), _vm._v(" "), _vm.reportData.report_account && _vm.reportData.report_account.id !== _vm.reportData.chart_of_account.id ? _c('span', {
     staticClass: "badge badge-secondary ml-2"
-  }, [_vm._v(_vm._s(_vm.$t('Entries')) + ": " + _vm._s(_vm.reportData.summary.total_entries))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('Sub Account Type')) + ": " + _vm._s(_vm.reportData.report_account.type) + "\n            ")]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row mb-4"
@@ -323,11 +307,9 @@ var render = function render() {
     staticClass: "info-box-text"
   }, [_vm._v(_vm._s(_vm.$t('Opening Balance')))]), _vm._v(" "), _c('span', {
     staticClass: "info-box-number"
-  }, [_vm._v("\n                " + _vm._s(_vm.reportData.summary.opening_balance) + " "), _c('span', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.summary ? _vm.summary.opening_balance : 0) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")]), _vm._v(" "), _c('small', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.reportData.summary.opening_balance_type) + ")")])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("ê")]), _vm._v(" " + _vm._s(_vm.summary ? _vm.summary.opening_balance_type : '') + "\n                  ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
   }, [_c('div', {
     staticClass: "info-box"
@@ -337,7 +319,7 @@ var render = function render() {
     staticClass: "info-box-text"
   }, [_vm._v(_vm._s(_vm.$t('Period Debits')))]), _vm._v(" "), _c('span', {
     staticClass: "info-box-number"
-  }, [_vm._v(_vm._s(_vm.reportData.summary.period_debits) + " "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.summary ? _vm.summary.period_debits : 0) + " "), _c('span', {
     staticClass: "saudi-riyal"
   }, [_vm._v("ê")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
@@ -349,7 +331,7 @@ var render = function render() {
     staticClass: "info-box-text"
   }, [_vm._v(_vm._s(_vm.$t('Period Credits')))]), _vm._v(" "), _c('span', {
     staticClass: "info-box-number"
-  }, [_vm._v(_vm._s(_vm.reportData.summary.period_credits) + " "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.summary ? _vm.summary.period_credits : 0) + " "), _c('span', {
     staticClass: "saudi-riyal"
   }, [_vm._v("ê")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
@@ -361,34 +343,13 @@ var render = function render() {
     staticClass: "info-box-text"
   }, [_vm._v(_vm._s(_vm.$t('Closing Balance')))]), _vm._v(" "), _c('span', {
     staticClass: "info-box-number"
-  }, [_vm._v("\n                " + _vm._s(_vm.reportData.summary.closing_balance) + " "), _c('span', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.summary ? _vm.summary.closing_balance : 0) + " "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")]), _vm._v(" "), _c('small', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.reportData.summary.closing_balance_type) + ")")])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mb-4"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('Selected Accounts')))]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, _vm._l(_vm.reportData.chart_of_accounts, function (account) {
-    return _c('div', {
-      key: account.id,
-      staticClass: "col-md-4 mb-2"
-    }, [_c('div', {
-      staticClass: "card card-outline card-info"
-    }, [_c('div', {
-      staticClass: "card-body p-2"
-    }, [_c('div', {
-      staticClass: "d-flex justify-content-between"
-    }, [_c('div', [_c('strong', [_vm._v(_vm._s(account.code))]), _vm._v(" - " + _vm._s(account.name) + "\n                    ")]), _vm._v(" "), _c('span', {
-      staticClass: "badge badge-info"
-    }, [_vm._v(_vm._s(account.type))])])])])]);
-  }), 0)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("ê")]), _vm._v(" " + _vm._s(_vm.summary ? _vm.summary.closing_balance_type : '') + "\n                  ")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "table-responsive table-custom"
   }, [_c('table', {
-    staticClass: "table group-account-statement-table"
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t('Date')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Entry #')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Reference')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Description')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Account Name')))]), _vm._v(" "), _c('th', {
+    staticClass: "table account-statement-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t('Date')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Entry #')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Reference')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Description')))]), _vm._v(" "), _c('th', {
     staticClass: "text-right"
   }, [_vm._v(_vm._s(_vm.$t('Debit')))]), _vm._v(" "), _c('th', {
     staticClass: "text-right"
@@ -398,35 +359,22 @@ var render = function render() {
     staticClass: "text-right"
   }, [_vm._v(_vm._s(_vm.$t('Running Balance')))]), _vm._v(" "), _c('th', {
     staticClass: "text-center"
-  }, [_vm._v(_vm._s(_vm.$t('Balance Type')))])]), _vm._v(" "), _c('tbody', [_vm.loading ? _c('tr', [_c('td', {
+  }, [_vm._v(_vm._s(_vm.$t('Balance Type')))])]), _vm._v(" "), _c('tbody', [_vm.loadingEntries ? _c('tr', [_c('td', {
     staticClass: "text-center",
     attrs: {
-      "colspan": "10"
+      "colspan": "9"
     }
   }, [_c('i', {
     staticClass: "fas fa-spinner fa-spin"
-  }), _vm._v(" " + _vm._s(_vm.$t('Loading entries...')) + "\n              ")])]) : _vm.reportData.entries.length === 0 ? _c('tr', [_c('td', {
+  }), _vm._v(" " + _vm._s(_vm.$t('Loading entries...')) + "\n                  ")])]) : !_vm.loadingEntries && _vm.entriesCount === 0 ? _c('tr', [_c('td', {
     staticClass: "text-center text-muted",
     attrs: {
-      "colspan": "10"
+      "colspan": "9"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t('No entries found for the selected criteria')) + "\n              ")])]) : _vm._l(_vm.reportData.entries, function (entry) {
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t('No entries found for the selected criteria')) + "\n                  ")])]) : !_vm.loadingEntries ? _vm._l(_vm.safeAllEntries, function (entry) {
     return _c('tr', {
       key: entry.id
-    }, [_c('td', [_vm._v(_vm._s(_vm.formatDate(entry.entry_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.entry_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.reference || '-'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.description || '-'))]), _vm._v(" "), _c('td', [entry.accounts && entry.accounts.length > 0 ? _c('div', _vm._l(entry.accounts, function (account, index) {
-      return _c('div', {
-        key: account.id,
-        staticClass: "mb-1"
-      }, [_c('span', {
-        staticClass: "badge badge-info mr-1"
-      }, [_vm._v(_vm._s(account.code))]), _vm._v(" "), _c('span', {
-        staticClass: "small"
-      }, [_vm._v(_vm._s(account.name))]), _vm._v(" "), index < entry.accounts.length - 1 ? _c('div', {
-        staticClass: "border-bottom mb-1"
-      }) : _vm._e()]);
-    }), 0) : _c('span', {
-      staticClass: "text-muted"
-    }, [_vm._v("-")])]), _vm._v(" "), _c('td', {
+    }, [_c('td', [_vm._v(_vm._s(entry.entry_date))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.entry_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.reference || '-'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(entry.description || '-'))]), _vm._v(" "), _c('td', {
       staticClass: "text-right"
     }, [_vm._v(_vm._s(entry.debit_amount) + " "), _c('span', {
       staticClass: "saudi-riyal"
@@ -437,22 +385,22 @@ var render = function render() {
     }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
       staticClass: "text-right"
     }, [_c('span', {
-      "class": entry.net_amount >= 0 ? 'text-success' : 'text-danger'
-    }, [_vm._v("\n                    " + _vm._s(entry.net_amount) + " "), _c('span', {
+      "class": entry.net_amount < 0 ? 'text-danger' : 'text-success'
+    }, [_vm._v("\n                      " + _vm._s(entry.net_amount) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
       staticClass: "text-right"
     }, [_c('span', {
       "class": entry.balance_type === 'Debit' ? 'text-success' : 'text-danger'
-    }, [_vm._v("\n                    " + _vm._s(entry.running_balance) + " "), _c('span', {
+    }, [_vm._v("\n                      " + _vm._s(entry.running_balance) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
       staticClass: "text-center"
     }, [_c('span', {
       staticClass: "badge",
       "class": entry.balance_type === 'Debit' ? 'badge-success' : 'badge-danger'
-    }, [_vm._v("\n                    " + _vm._s(entry.balance_type) + "\n                  ")])])]);
-  })], 2)])]), _vm._v(" "), _vm.loadingMore ? _c('div', {
+    }, [_vm._v("\n                      " + _vm._s(entry.balance_type) + "\n                    ")])])]);
+  }) : _vm._e()], 2)])]), _vm._v(" "), _vm.loadingMore ? _c('div', {
     staticClass: "row mt-3"
   }, [_c('div', {
     staticClass: "col-12 text-center"
@@ -460,21 +408,21 @@ var render = function render() {
     staticClass: "alert alert-info"
   }, [_c('i', {
     staticClass: "fas fa-spinner fa-spin"
-  }), _vm._v(" \n            " + _vm._s(_vm.$t('Loading more entries...')) + " (" + _vm._s(_vm.reportData.entries.length) + " " + _vm._s(_vm.$t('loaded')) + ")\n          ")])])]) : _vm._e(), _vm._v(" "), _vm.reportData && _vm.reportData.entries.length > 0 ? _c('div', {
+  }), _vm._v(" \n                " + _vm._s(_vm.$t('Loading more entries...')) + " (" + _vm._s(_vm.entriesCount) + " " + _vm._s(_vm.$t('loaded')) + ")\n              ")])])]) : _vm._e(), _vm._v(" "), _vm.entriesCount > 0 ? _c('div', {
     staticClass: "row mt-3"
   }, [_c('div', {
     staticClass: "col-12"
   }, [_c('div', {
     staticClass: "dataTables_info"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t('Total entries loaded')) + ": " + _vm._s(_vm.reportData.entries.length) + "\n            "), !_vm.hasMoreData ? _c('span', {
+  }, [_vm._v("\n                " + _vm._s(_vm.$t('Total entries loaded')) + ": " + _vm._s(_vm.entriesCount) + "\n                "), !_vm.hasMoreData ? _c('span', {
     staticClass: "text-success"
   }, [_c('i', {
     staticClass: "fas fa-check"
-  }), _vm._v(" " + _vm._s(_vm.$t('All data loaded')) + "\n            ")]) : _vm._e()])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.loading ? _c('div', {
+  }), _vm._v(" " + _vm._s(_vm.$t('All data loaded')) + "\n                ")]) : _vm._e()])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.loading ? _c('div', {
     staticClass: "overlay"
   }, [_c('i', {
     staticClass: "fas fa-2x fa-sync-alt fa-spin"
-  })]) : _vm._e()])])])])]);
+  })]) : _vm._e()]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -510,7 +458,7 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('span', {
-    staticClass: "info-box-icon bg-danger"
+    staticClass: "info-box-icon bg-warning"
   }, [_c('i', {
     staticClass: "fas fa-arrow-down"
   })]);
@@ -518,20 +466,20 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('span', {
-    staticClass: "info-box-icon bg-warning"
+    staticClass: "info-box-icon bg-primary"
   }, [_c('i', {
-    staticClass: "fas fa-balance-scale"
+    staticClass: "fas fa-calculator"
   })]);
 }];
 
-;// CONCATENATED MODULE: ./resources/js/pages/reports/group-account-statement.vue?vue&type=template&id=534f45b5&scoped=true
+;// CONCATENATED MODULE: ./resources/js/pages/reports/account-statement.vue?vue&type=template&id=7cd47292&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/account-statement.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -549,8 +497,8 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
-/* harmony default export */ const group_account_statementvue_type_script_lang_js = ({
-  name: 'GroupAccountStatement',
+/* harmony default export */ const account_statementvue_type_script_lang_js = ({
+  name: "AccountStatement",
   data: function data() {
     return {
       loading: false,
@@ -558,21 +506,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       loadingSubAccounts: false,
       loadingFiscalYears: false,
       loadingAccountingPeriods: false,
+      loadingEntries: false,
       reportData: null,
+      summary: null,
+      allEntries: [],
+      // Store all loaded entries
       errors: {},
       // Breadcrumbs
       breadcrumbs: [{
         name: 'Dashboard',
         url: 'home'
       }, {
-        name: 'Group Account Statement',
+        name: 'Account Statement',
         url: ''
       }],
-      breadcrumbsCurrent: 'Group Account Statement',
+      breadcrumbsCurrent: 'Account Statement',
       // Filters
       filters: {
-        chartOfAccounts: [],
-        subChartOfAccounts: [],
+        chartOfAccount: null,
+        subChartOfAccount: null,
         fiscalYear: null,
         accountingPeriod: null,
         fromDate: null,
@@ -592,30 +544,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       maxRetries: 3
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)({
-    appInfo: "appInfo"
-  })), {}, {
-    selectedAccountsText: function selectedAccountsText() {
-      if (!this.reportData || !this.reportData.chart_of_accounts) return '';
-      return this.reportData.chart_of_accounts.map(function (acc) {
-        return "".concat(acc.code, " - ").concat(acc.name);
-      }).join(', ');
+  computed: _objectSpread({
+    // Safe access to allEntries with fallback
+    safeAllEntries: function safeAllEntries() {
+      return this.allEntries || [];
     },
+    // Safe access to entries count
     entriesCount: function entriesCount() {
-      return this.reportData && this.reportData.entries ? this.reportData.entries.length : 0;
+      return this.safeAllEntries.length;
     },
     // Export URLs
     exportExcelUrl: function exportExcelUrl() {
       var params = new URLSearchParams();
-      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
-        this.filters.chartOfAccounts.forEach(function (id) {
-          params.append('chart_of_account_ids[]', id);
-        });
+      if (this.filters.chartOfAccount) {
+        params.append('chart_of_account_id', this.filters.chartOfAccount);
       }
-      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
-        this.filters.subChartOfAccounts.forEach(function (id) {
-          params.append('sub_chart_of_account_ids[]', id);
-        });
+      if (this.filters.subChartOfAccount) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
       if (this.filters.fiscalYear) {
         params.append('fiscal_year_id', this.filters.fiscalYear);
@@ -629,19 +574,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      return "/group-account-statement/export?".concat(params.toString());
+      return "/account-statement/export?".concat(params.toString());
     },
     exportPdfUrl: function exportPdfUrl() {
       var params = new URLSearchParams();
-      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
-        this.filters.chartOfAccounts.forEach(function (id) {
-          params.append('chart_of_account_ids[]', id);
-        });
+      if (this.filters.chartOfAccount) {
+        params.append('chart_of_account_id', this.filters.chartOfAccount);
       }
-      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
-        this.filters.subChartOfAccounts.forEach(function (id) {
-          params.append('sub_chart_of_account_ids[]', id);
-        });
+      if (this.filters.subChartOfAccount) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
       if (this.filters.fiscalYear) {
         params.append('fiscal_year_id', this.filters.fiscalYear);
@@ -655,19 +596,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      return "/group-account-statement/pdf?".concat(params.toString());
+      return "/account-statement/pdf?".concat(params.toString());
     },
     printTemplateUrl: function printTemplateUrl() {
       var params = new URLSearchParams();
-      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
-        this.filters.chartOfAccounts.forEach(function (id) {
-          params.append('chart_of_account_ids[]', id);
-        });
+      if (this.filters.chartOfAccount) {
+        params.append('chart_of_account_id', this.filters.chartOfAccount);
       }
-      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
-        this.filters.subChartOfAccounts.forEach(function (id) {
-          params.append('sub_chart_of_account_ids[]', id);
-        });
+      if (this.filters.subChartOfAccount) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
       }
       if (this.filters.fiscalYear) {
         params.append('fiscal_year_id', this.filters.fiscalYear);
@@ -681,11 +618,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      return "/print/reports/group-account-statement?".concat(params.toString());
+      return "/print/reports/account-statement?".concat(params.toString());
     }
-  }),
+  }, (0,vuex_esm/* mapGetters */.L8)({
+    appInfo: "appInfo"
+  })),
   mounted: function mounted() {
     this.loadInitialData();
+  },
+  watch: {
+    'filters.subChartOfAccount': function filtersSubChartOfAccount(newValue, oldValue) {
+      // If sub account changes and we have a parent account selected, regenerate the report
+      if (this.filters.chartOfAccount && newValue !== oldValue && !this.loading) {
+        this.generateReport();
+      }
+    },
+    'filters.fiscalYear': function filtersFiscalYear() {
+      this.filters.accountingPeriod = null;
+      this.loadAccountingPeriods();
+    }
   },
   methods: {
     loadInitialData: function loadInitialData() {
@@ -727,7 +678,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               accounts = response.data.data || response.data; // Add display_name for v-select
               _this2.chartOfAccounts = accounts.map(function (account) {
                 return _objectSpread(_objectSpread({}, account), {}, {
-                  display_name: "[".concat(account.code, "] ").concat(account.name)
+                  display_name: "".concat(account.code, " - ").concat(account.name)
                 });
               });
               _context2.next = 13;
@@ -795,34 +746,42 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               search = _arguments3.length > 0 && _arguments3[0] !== undefined ? _arguments3[0] : '';
+              if (_this4.filters.fiscalYear) {
+                _context4.next = 4;
+                break;
+              }
+              _this4.accountingPeriods = [];
+              return _context4.abrupt("return");
+            case 4:
               _this4.loadingAccountingPeriods = true;
-              _context4.prev = 2;
-              _context4.next = 5;
-              return axios_default().get('/api/accounting-periods/search', {
+              _context4.prev = 5;
+              _context4.next = 8;
+              return axios_default().get('/api/accounting-periods/by-fiscal-year', {
                 params: {
+                  fiscal_year_id: _this4.filters.fiscalYear,
                   search: search,
                   perPage: 100
                 }
               });
-            case 5:
+            case 8:
               response = _context4.sent;
               // Handle paginated response
               _this4.accountingPeriods = response.data.data || response.data;
-              _context4.next = 12;
+              _context4.next = 15;
               break;
-            case 9:
-              _context4.prev = 9;
-              _context4.t0 = _context4["catch"](2);
-              _this4.$toast.error('', _this4.$t('Failed to load accounting periods'));
             case 12:
               _context4.prev = 12;
-              _this4.loadingAccountingPeriods = false;
-              return _context4.finish(12);
+              _context4.t0 = _context4["catch"](5);
+              _this4.$toast.error('', _this4.$t('Failed to load accounting periods'));
             case 15:
+              _context4.prev = 15;
+              _this4.loadingAccountingPeriods = false;
+              return _context4.finish(15);
+            case 18:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[2, 9, 12, 15]]);
+        }, _callee4, null, [[5, 12, 15, 18]]);
       }))();
     },
     searchAccounts: function searchAccounts(search) {
@@ -870,96 +829,67 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         }, _callee7);
       }))();
     },
-    onChartOfAccountsChange: function onChartOfAccountsChange(accountIds) {
+    onChartOfAccountChange: function onChartOfAccountChange(accountId) {
       var _this8 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
         return _regeneratorRuntime().wrap(function _callee8$(_context8) {
           while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              if (!(accountIds && accountIds.length > 0)) {
+              // Clear sub chart of account when parent changes
+              _this8.filters.subChartOfAccount = null;
+              _this8.subChartOfAccounts = [];
+              if (!accountId) {
                 _context8.next = 5;
                 break;
               }
-              _context8.next = 3;
-              return _this8.loadSubChartOfAccounts(accountIds);
-            case 3:
-              _context8.next = 8;
-              break;
+              _context8.next = 5;
+              return _this8.loadSubChartOfAccounts(accountId);
             case 5:
-              // Clear sub accounts and report data if no accounts selected
-              _this8.filters.subChartOfAccounts = [];
-              _this8.subChartOfAccounts = [];
-              _this8.reportData = null;
-            case 8:
             case "end":
               return _context8.stop();
           }
         }, _callee8);
       }))();
     },
-    loadSubChartOfAccounts: function loadSubChartOfAccounts(parentAccountIds) {
+    loadSubChartOfAccounts: function loadSubChartOfAccounts(parentAccountId) {
       var _arguments4 = arguments,
         _this9 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var search, subAccountPromises, responses, allSubAccounts, uniqueSubAccounts, existingSubAccountIds, newSubAccounts;
+        var search, response;
         return _regeneratorRuntime().wrap(function _callee9$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
             case 0:
               search = _arguments4.length > 1 && _arguments4[1] !== undefined ? _arguments4[1] : '';
               _this9.loadingSubAccounts = true;
               _context9.prev = 2;
-              // Load sub accounts for each parent account
-              subAccountPromises = parentAccountIds.map(function (accountId) {
-                return axios_default().get('/api/reports/sub-chart-of-accounts', {
-                  params: {
-                    parent_account_id: accountId,
-                    search: search
-                  }
-                });
-              });
-              _context9.next = 6;
-              return Promise.all(subAccountPromises);
-            case 6:
-              responses = _context9.sent;
-              allSubAccounts = [];
-              responses.forEach(function (response) {
-                if (response.data.success) {
-                  allSubAccounts.push.apply(allSubAccounts, _toConsumableArray(response.data.data));
+              _context9.next = 5;
+              return axios_default().get('/api/reports/sub-chart-of-accounts', {
+                params: {
+                  parent_account_id: parentAccountId,
+                  search: search
                 }
               });
-
-              // Remove duplicates based on ID
-              uniqueSubAccounts = allSubAccounts.filter(function (account, index, self) {
-                return index === self.findIndex(function (a) {
-                  return a.id === account.id;
-                });
-              }); // Merge with existing sub accounts instead of replacing
-              existingSubAccountIds = _this9.subChartOfAccounts.map(function (acc) {
-                return acc.id;
-              });
-              newSubAccounts = uniqueSubAccounts.filter(function (account) {
-                return !existingSubAccountIds.includes(account.id);
-              });
-              _this9.subChartOfAccounts = [].concat(_toConsumableArray(_this9.subChartOfAccounts), _toConsumableArray(newSubAccounts.map(function (account) {
-                return _objectSpread(_objectSpread({}, account), {}, {
-                  display_name: "[".concat(account.code, "] ").concat(account.name)
-                });
-              })));
-              _context9.next = 18;
+            case 5:
+              response = _context9.sent;
+              if (response.data.success) {
+                _this9.subChartOfAccounts = response.data.data;
+              }
+              _context9.next = 13;
               break;
-            case 15:
-              _context9.prev = 15;
+            case 9:
+              _context9.prev = 9;
               _context9.t0 = _context9["catch"](2);
+              console.error('Error loading sub chart of accounts:', _context9.t0);
               _this9.$toast.error('', _this9.$t('Failed to load sub chart of accounts'));
-            case 18:
-              _context9.prev = 18;
+            case 13:
+              _context9.prev = 13;
               _this9.loadingSubAccounts = false;
-              return _context9.finish(18);
-            case 21:
+              return _context9.finish(13);
+            case 16:
             case "end":
               return _context9.stop();
           }
-        }, _callee9, null, [[2, 15, 18, 21]]);
+        }, _callee9, null, [[2, 9, 13, 16]]);
       }))();
     },
     searchSubAccounts: function searchSubAccounts(search) {
@@ -968,12 +898,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         return _regeneratorRuntime().wrap(function _callee10$(_context10) {
           while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              if (!(_this10.filters.chartOfAccounts && _this10.filters.chartOfAccounts.length > 0)) {
+              if (!(search && _this10.filters.chartOfAccount)) {
                 _context10.next = 3;
                 break;
               }
               _context10.next = 3;
-              return _this10.loadSubChartOfAccounts(_this10.filters.chartOfAccounts, search);
+              return _this10.loadSubChartOfAccounts(_this10.filters.chartOfAccount, search);
             case 3:
             case "end":
               return _context10.stop();
@@ -984,60 +914,59 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     generateReport: function generateReport() {
       var _this11 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
-        var _error$response;
+        var _error$response, errorMessage;
         return _regeneratorRuntime().wrap(function _callee11$(_context11) {
           while (1) switch (_context11.prev = _context11.next) {
             case 0:
-              if (!(!_this11.filters.chartOfAccounts || _this11.filters.chartOfAccounts.length === 0)) {
+              if (_this11.filters.chartOfAccount) {
                 _context11.next = 3;
                 break;
               }
-              _this11.$toast.error('', _this11.$t('Please select at least one account'));
+              _this11.$toast.error('', _this11.$t('Please select a chart of account'));
               return _context11.abrupt("return");
             case 3:
               _this11.loading = true;
+              _this11.loadingEntries = true;
               _this11.errors = {};
-              _this11.reportData = null;
+              _this11.allEntries = []; // Initialize before calling loadNextChunk
               _this11.currentChunk = 1;
               _this11.hasMoreData = true;
-              _this11.loadingMore = false;
-              _context11.prev = 9;
-              _context11.next = 12;
+              _this11.retryCount = 0;
+              _context11.prev = 10;
+              _context11.next = 13;
               return _this11.loadNextChunk();
-            case 12:
+            case 13:
               _this11.$toast.success('', _this11.$t('Report generated successfully'));
-              _context11.next = 20;
+              _context11.next = 22;
               break;
-            case 15:
-              _context11.prev = 15;
-              _context11.t0 = _context11["catch"](9);
+            case 16:
+              _context11.prev = 16;
+              _context11.t0 = _context11["catch"](10);
               console.error('Generate report error:', _context11.t0);
               if (_context11.t0.response && _context11.t0.response.data && _context11.t0.response.data.errors) {
                 _this11.errors = _context11.t0.response.data.errors;
               }
-              _this11.$toast.error('', ((_error$response = _context11.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this11.$t('Failed to generate report'));
-            case 20:
-              _context11.prev = 20;
+              errorMessage = ((_error$response = _context11.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _context11.t0.message || _this11.$t('Failed to generate report');
+              _this11.$toast.error('', errorMessage);
+            case 22:
+              _context11.prev = 22;
               _this11.loading = false;
-              return _context11.finish(20);
-            case 23:
+              _this11.loadingEntries = false;
+              return _context11.finish(22);
+            case 26:
             case "end":
               return _context11.stop();
           }
-        }, _callee11, null, [[9, 15, 20, 23]]);
+        }, _callee11, null, [[10, 16, 22, 26]]);
       }))();
     },
-    numberFormat: function numberFormat(value) {
-      return parseFloat(value).toFixed(2);
-    },
-    // Chunked loading methods
     loadNextChunk: function loadNextChunk() {
       var _this12 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
         return _regeneratorRuntime().wrap(function _callee12$(_context12) {
           while (1) switch (_context12.prev = _context12.next) {
             case 0:
-              if (!_this12.loadingMore) {
+              if (!(!_this12.hasMoreData || _this12.loadingMore)) {
                 _context12.next = 2;
                 break;
               }
@@ -1049,22 +978,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               _context12.next = 7;
               return _this12.loadChunkWithRetry();
             case 7:
-              _context12.next = 13;
-              break;
-            case 9:
-              _context12.prev = 9;
-              _context12.t0 = _context12["catch"](4);
-              console.error('Load next chunk error:', _context12.t0);
-              throw _context12.t0;
-            case 13:
-              _context12.prev = 13;
+              _context12.prev = 7;
               _this12.loadingMore = false;
-              return _context12.finish(13);
-            case 16:
+              return _context12.finish(7);
+            case 10:
             case "end":
               return _context12.stop();
           }
-        }, _callee12, null, [[4, 9, 13, 16]]);
+        }, _callee12, null, [[4,, 7, 10]]);
       }))();
     },
     loadChunkWithRetry: function loadChunkWithRetry() {
@@ -1076,55 +997,60 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           while (1) switch (_context14.prev = _context14.next) {
             case 0:
               lastError = null;
-              _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop(attempt) {
-                var reportAccountIds, params, response, data, pagination;
+              _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
+                var params, response, data, pagination, delay;
                 return _regeneratorRuntime().wrap(function _loop$(_context13) {
                   while (1) switch (_context13.prev = _context13.next) {
                     case 0:
                       _context13.prev = 0;
                       console.log("Loading chunk ".concat(_this13.currentChunk, ", attempt ").concat(attempt));
-
-                      // Determine which accounts to use for reporting
-                      reportAccountIds = _this13.filters.chartOfAccounts;
-                      if (_this13.filters.subChartOfAccounts && _this13.filters.subChartOfAccounts.length > 0) {
-                        reportAccountIds = _this13.filters.subChartOfAccounts;
-                      }
                       params = {
-                        chart_of_account_ids: reportAccountIds,
+                        chart_of_account_id: _this13.filters.chartOfAccount,
                         page: _this13.currentChunk,
                         per_page: _this13.chunkSize
                       };
+                      if (_this13.filters.subChartOfAccount) {
+                        params.sub_chart_of_account_id = _this13.filters.subChartOfAccount;
+                      }
                       if (_this13.filters.fiscalYear) {
                         params.fiscal_year_id = _this13.filters.fiscalYear;
-                      } else if (_this13.filters.accountingPeriod) {
+                      }
+                      if (_this13.filters.accountingPeriod) {
                         params.accounting_period_id = _this13.filters.accountingPeriod;
-                      } else if (_this13.filters.fromDate && _this13.filters.toDate) {
+                      }
+                      if (_this13.filters.fromDate) {
                         params.from_date = _this13.filters.fromDate;
+                      }
+                      if (_this13.filters.toDate) {
                         params.to_date = _this13.filters.toDate;
                       }
-                      _context13.next = 8;
-                      return axios_default().get('/api/reports/group-account-statement', {
+                      _context13.next = 10;
+                      return axios_default().get('/api/reports/account-statement', {
                         params: params
                       });
-                    case 8:
+                    case 10:
                       response = _context13.sent;
                       if (!response.data.success) {
-                        _context13.next = 20;
+                        _context13.next = 22;
                         break;
                       }
                       data = response.data.data; // Store summary and chart of account info on first chunk
                       if (_this13.currentChunk === 1) {
                         _this13.reportData = {
-                          chart_of_accounts: data.chart_of_accounts,
-                          filters: data.filters,
-                          entries: [],
-                          summary: data.summary
+                          chart_of_account: data.chart_of_account,
+                          report_account: data.report_account,
+                          filters: data.filters
                         };
+                        _this13.summary = data.summary;
                       }
 
-                      // Append new entries
+                      // Add new entries to the list
                       if (data.entries && data.entries.length > 0) {
-                        _this13.reportData.entries = [].concat(_toConsumableArray(_this13.reportData.entries), _toConsumableArray(data.entries));
+                        // Ensure allEntries is always an array
+                        if (!Array.isArray(_this13.allEntries)) {
+                          _this13.allEntries = [];
+                        }
+                        _this13.allEntries = [].concat(_toConsumableArray(_this13.allEntries), _toConsumableArray(data.entries));
                       }
 
                       // Check if there's more data
@@ -1137,39 +1063,42 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                           _this13.loadNextChunk();
                         }, 100);
                       }
-                      _this13.retryCount = 0;
+                      console.log("Chunk ".concat(_this13.currentChunk - 1, " loaded successfully. Total entries: ").concat(_this13.allEntries ? _this13.allEntries.length : 0));
                       return _context13.abrupt("return", {
                         v: void 0
                       });
-                    case 20:
+                    case 22:
                       if (!response.data.error) {
-                        _context13.next = 24;
+                        _context13.next = 26;
                         break;
                       }
                       throw new Error(response.data.message || _this13.$t('Failed to load chunk'));
-                    case 24:
+                    case 26:
                       throw new Error(_this13.$t('Failed to load chunk'));
-                    case 25:
-                      _context13.next = 34;
-                      break;
                     case 27:
-                      _context13.prev = 27;
+                      _context13.next = 38;
+                      break;
+                    case 29:
+                      _context13.prev = 29;
                       _context13.t0 = _context13["catch"](0);
                       lastError = _context13.t0;
                       console.error("Chunk ".concat(_this13.currentChunk, " attempt ").concat(attempt, " failed:"), _context13.t0);
                       if (!(attempt < _this13.maxRetries)) {
-                        _context13.next = 34;
+                        _context13.next = 38;
                         break;
                       }
-                      _context13.next = 34;
+                      // Wait before retry (exponential backoff)
+                      delay = Math.pow(2, attempt) * 1000;
+                      console.log("Retrying in ".concat(delay, "ms..."));
+                      _context13.next = 38;
                       return new Promise(function (resolve) {
-                        return setTimeout(resolve, 1000 * attempt);
+                        return setTimeout(resolve, delay);
                       });
-                    case 34:
+                    case 38:
                     case "end":
                       return _context13.stop();
                   }
-                }, _loop, null, [[0, 27]]);
+                }, _loop, null, [[0, 29]]);
               });
               attempt = 1;
             case 3:
@@ -1177,7 +1106,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 _context14.next = 11;
                 break;
               }
-              return _context14.delegateYield(_loop(attempt), "t0", 5);
+              return _context14.delegateYield(_loop(), "t0", 5);
             case 5:
               _ret = _context14.t0;
               if (!_ret) {
@@ -1198,19 +1127,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         }, _callee13);
       }))();
     },
-    formatDate: function formatDate(dateString) {
-      if (!dateString) return '-';
-      var date = new Date(dateString);
-      return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      });
-    },
     resetFilters: function resetFilters() {
       this.filters = {
-        chartOfAccounts: [],
-        subChartOfAccounts: [],
+        chartOfAccount: null,
+        subChartOfAccount: null,
         fiscalYear: null,
         accountingPeriod: null,
         fromDate: null,
@@ -1218,18 +1138,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       };
       this.subChartOfAccounts = [];
       this.reportData = null;
+      this.summary = null;
+      this.allEntries = []; // Ensure it's always an array
       this.errors = {};
+      this.currentChunk = 1;
+      this.hasMoreData = true;
+      this.retryCount = 0;
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/reports/group-account-statement.vue?vue&type=script&lang=js
- /* harmony default export */ const reports_group_account_statementvue_type_script_lang_js = (group_account_statementvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/pages/reports/account-statement.vue?vue&type=script&lang=js
+ /* harmony default export */ const reports_account_statementvue_type_script_lang_js = (account_statementvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=style&index=0&id=534f45b5&prod&scoped=true&lang=css
-var group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css = __webpack_require__(48425);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/group-account-statement.vue?vue&type=style&index=0&id=534f45b5&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/account-statement.vue?vue&type=style&index=0&id=7cd47292&prod&scoped=true&lang=css
+var account_statementvue_type_style_index_0_id_7cd47292_prod_scoped_true_lang_css = __webpack_require__(48011);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/account-statement.vue?vue&type=style&index=0&id=7cd47292&prod&scoped=true&lang=css
 
             
 
@@ -1238,16 +1163,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(account_statementvue_type_style_index_0_id_7cd47292_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const reports_group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css = (group_account_statementvue_type_style_index_0_id_534f45b5_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/reports/group-account-statement.vue?vue&type=style&index=0&id=534f45b5&prod&scoped=true&lang=css
+/* harmony default export */ const reports_account_statementvue_type_style_index_0_id_7cd47292_prod_scoped_true_lang_css = (account_statementvue_type_style_index_0_id_7cd47292_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/reports/account-statement.vue?vue&type=style&index=0&id=7cd47292&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/reports/group-account-statement.vue
+;// CONCATENATED MODULE: ./resources/js/pages/reports/account-statement.vue
 
 
 
@@ -1257,17 +1182,17 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  reports_group_account_statementvue_type_script_lang_js,
+  reports_account_statementvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "534f45b5",
+  "7cd47292",
   null
   
 )
 
-/* harmony default export */ const group_account_statement = (component.exports);
+/* harmony default export */ const account_statement = (component.exports);
 
 /***/ })
 
