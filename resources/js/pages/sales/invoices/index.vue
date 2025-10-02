@@ -683,14 +683,26 @@ export default {
               slug: slug,
             })
             .then((response) => {
-              if (response === true) {
+              console.log('Delete response:', response);
+              if (response === true || (response && response.success === true)) {
                 this.$toast.success(
                   this.$t("Deleted!"),
                   this.$t("Deleted successfully.")
                 );
               } else {
                 // Show the actual error message from the API response
-                const errorMessage = response.message || this.$t("Sorry you can't delete this invoice!");
+                let errorMessage = this.$t("Sorry you can't delete this invoice!");
+                
+                if (response && typeof response === 'object' && response.message) {
+                  errorMessage = response.message;
+                } else if (typeof response === 'string') {
+                  errorMessage = response;
+                } else {
+                  // If response is an object but no message, try to stringify it for debugging
+                  console.error('Unexpected response format:', response);
+                  errorMessage = this.$t("Sorry you can't delete this invoice!");
+                }
+                
                 this.$toast.warning(
                   this.$t("Failed!"),
                   errorMessage
