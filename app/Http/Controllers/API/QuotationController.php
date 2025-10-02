@@ -36,7 +36,7 @@ class QuotationController extends Controller
      */
     public function index(Request $request)
     {
-        return QuotationListResource::collection(Quotation::with('client', 'user')->latest()->paginate($request->perPage));
+        return QuotationListResource::collection(Quotation::with('client', 'user', 'quotationProducts')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -357,7 +357,7 @@ class QuotationController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = Quotation::with('client', 'user');
+        $query = Quotation::with('client', 'user', 'quotationProducts');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('quotation_date', [$request->startDate, $request->endDate]);
