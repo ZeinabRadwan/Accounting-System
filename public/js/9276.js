@@ -6065,7 +6065,7 @@ var vform_es = __webpack_require__(63216);
 // EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
 var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
-var RepresentativesList = __webpack_require__(2585);
+var RepresentativesList = __webpack_require__(89812);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);

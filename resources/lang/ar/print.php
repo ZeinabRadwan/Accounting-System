@@ -11,7 +11,7 @@ return [
     'Discount' => 'الخصم',
     'Total After Discount' => 'الإجمالي بعد الخصم',
     'VAT' => 'الضريبة',
-    'Total with Tax' => 'الإجمالي مع الضريبة',
+    'Total with Tax' => 'الإجمالي بالضريبة',
     'No Discount' => 'لا يوجد خصم',
     'No VAT' => 'لا توجد ضريبة',
     

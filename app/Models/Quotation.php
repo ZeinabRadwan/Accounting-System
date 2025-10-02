@@ -48,7 +48,8 @@ class Quotation extends Model
     // quotation total
     public function quotationTotal()
     {
-        return $this->sub_total + $this->total_tax + $this->transport - $this->discount;
+        $productDiscounts = $this->quotationProducts->sum('discount_amount');
+        return $this->sub_total + $this->transport - $productDiscounts + $this->total_tax;
     }
 
     /**

@@ -34153,7 +34153,7 @@ var actions = {
   // Delete Data
   deleteData: function deleteData(_ref18, _ref19) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-      var commit, path, slug, _yield$axios$delete, data;
+      var commit, path, slug, _yield$axios$delete, data, errorData;
       return _regeneratorRuntime().wrap(function _callee7$(_context7) {
         while (1) switch (_context7.prev = _context7.next) {
           case 0:
@@ -34172,8 +34172,25 @@ var actions = {
           case 11:
             _context7.prev = 11;
             _context7.t0 = _context7["catch"](2);
-            return _context7.abrupt("return", _context7.t0);
-          case 14:
+            if (!(_context7.t0.response && _context7.t0.response.data)) {
+              _context7.next = 17;
+              break;
+            }
+            errorData = _context7.t0.response.data;
+            if (!errorData.message) {
+              _context7.next = 17;
+              break;
+            }
+            return _context7.abrupt("return", {
+              success: false,
+              message: errorData.message
+            });
+          case 17:
+            return _context7.abrupt("return", {
+              success: false,
+              message: _context7.t0.message || 'An error occurred while deleting the item.'
+            });
+          case 18:
           case "end":
             return _context7.stop();
         }
@@ -41965,7 +41982,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-ec03fe9c]{border:1px soli
 
 /***/ }),
 
-/***/ 4272:
+/***/ 16344:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -41978,7 +41995,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-ec03fe9c]{border:1px soli
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".representative-form[data-v-d3257ac0]{background:#f8f9fa;border-radius:8px;margin-bottom:20px;padding:20px}.form-row[data-v-d3257ac0]{margin-bottom:15px}.required[data-v-d3257ac0]{color:#dc3545}.custom-checkbox[data-v-d3257ac0]{margin-top:8px}.btn[data-v-d3257ac0]{margin-top:10px}.btn-primary[data-v-d3257ac0]{background-color:#28a745!important;border-color:#28a745!important}.btn-primary[data-v-d3257ac0]:focus,.btn-primary[data-v-d3257ac0]:hover{background-color:#218838!important;border-color:#218838!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".representative-form[data-v-ae21c566]{background:#f8f9fa;border-radius:8px;margin-bottom:20px;padding:20px}.form-row[data-v-ae21c566]{margin-bottom:15px}.required[data-v-ae21c566]{color:#dc3545}.custom-checkbox[data-v-ae21c566]{margin-top:8px}.btn[data-v-ae21c566]{margin-top:10px}.btn-primary[data-v-ae21c566]{background-color:#28a745!important;border-color:#28a745!important}.btn-primary[data-v-ae21c566]:focus,.btn-primary[data-v-ae21c566]:hover{background-color:#218838!important;border-color:#218838!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -75699,7 +75716,7 @@ var vform_es = __webpack_require__(63216);
 // EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
 var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
-var RepresentativesList = __webpack_require__(2585);
+var RepresentativesList = __webpack_require__(89812);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
@@ -77623,7 +77640,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 2585:
+/***/ 89812:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -77740,8 +77757,8 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RepresentativeForm.vue?vue&type=template&id=d3257ac0&scoped=true
-var RepresentativeFormvue_type_template_id_d3257ac0_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RepresentativeForm.vue?vue&type=template&id=ae21c566&scoped=true
+var RepresentativeFormvue_type_template_id_ae21c566_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -77947,7 +77964,11 @@ var RepresentativeFormvue_type_template_id_d3257ac0_scoped_true_render = functio
     attrs: {
       "for": "is_primary"
     }
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("Mark as primary contact")) + "\n        ")])])]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticStyle: {
+      "padding": "0 10px"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Mark as primary contact")))])])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group col-md-4"
   }, [_c('label', {
     attrs: {
@@ -78013,7 +78034,7 @@ var RepresentativeFormvue_type_template_id_d3257ac0_scoped_true_render = functio
     }
   }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")]) : _vm._e()])])]);
 };
-var RepresentativeFormvue_type_template_id_d3257ac0_scoped_true_staticRenderFns = [];
+var RepresentativeFormvue_type_template_id_ae21c566_scoped_true_staticRenderFns = [];
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -78113,9 +78134,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RepresentativeForm.vue?vue&type=style&index=0&id=d3257ac0&prod&scoped=true&lang=css
-var RepresentativeFormvue_type_style_index_0_id_d3257ac0_prod_scoped_true_lang_css = __webpack_require__(4272);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RepresentativeForm.vue?vue&type=style&index=0&id=d3257ac0&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RepresentativeForm.vue?vue&type=style&index=0&id=ae21c566&prod&scoped=true&lang=css
+var RepresentativeFormvue_type_style_index_0_id_ae21c566_prod_scoped_true_lang_css = __webpack_require__(16344);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RepresentativeForm.vue?vue&type=style&index=0&id=ae21c566&prod&scoped=true&lang=css
 
             
 
@@ -78124,12 +78145,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(RepresentativeFormvue_type_style_index_0_id_d3257ac0_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(RepresentativeFormvue_type_style_index_0_id_ae21c566_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_RepresentativeFormvue_type_style_index_0_id_d3257ac0_prod_scoped_true_lang_css = (RepresentativeFormvue_type_style_index_0_id_d3257ac0_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/RepresentativeForm.vue?vue&type=style&index=0&id=d3257ac0&prod&scoped=true&lang=css
+/* harmony default export */ const components_RepresentativeFormvue_type_style_index_0_id_ae21c566_prod_scoped_true_lang_css = (RepresentativeFormvue_type_style_index_0_id_ae21c566_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/RepresentativeForm.vue?vue&type=style&index=0&id=ae21c566&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -78144,11 +78165,11 @@ var componentNormalizer = __webpack_require__(14486);
 
 var component = (0,componentNormalizer/* default */.A)(
   components_RepresentativeFormvue_type_script_lang_js,
-  RepresentativeFormvue_type_template_id_d3257ac0_scoped_true_render,
-  RepresentativeFormvue_type_template_id_d3257ac0_scoped_true_staticRenderFns,
+  RepresentativeFormvue_type_template_id_ae21c566_scoped_true_render,
+  RepresentativeFormvue_type_template_id_ae21c566_scoped_true_staticRenderFns,
   false,
   null,
-  "d3257ac0",
+  "ae21c566",
   null
   
 )
@@ -114762,12 +114783,12 @@ var map = {
 		7919
 	],
 	"./auth/register": [
-		89466,
-		9466
+		70749,
+		749
 	],
 	"./auth/register.vue": [
-		89466,
-		9466
+		70749,
+		749
 	],
 	"./auth/resend": [
 		9459,
@@ -114955,11 +114976,11 @@ var map = {
 	],
 	"./cashbook/transfer-balances/edit": [
 		48818,
-		6437
+		8818
 	],
 	"./cashbook/transfer-balances/edit.vue": [
 		48818,
-		6437
+		8818
 	],
 	"./cashbook/transfer-balances/index": [
 		95664,
@@ -115698,12 +115719,12 @@ var map = {
 		812
 	],
 	"./employees/create": [
-		28818,
-		8818
+		11349,
+		1349
 	],
 	"./employees/create.vue": [
-		28818,
-		8818
+		11349,
+		1349
 	],
 	"./employees/departments": [
 		817,
@@ -115714,12 +115735,12 @@ var map = {
 		817
 	],
 	"./employees/departments/create": [
-		11330,
-		1330
+		39808,
+		9808
 	],
 	"./employees/departments/create.vue": [
-		11330,
-		1330
+		39808,
+		9808
 	],
 	"./employees/departments/edit": [
 		94300,
@@ -115754,12 +115775,12 @@ var map = {
 		9099
 	],
 	"./employees/increments/create": [
-		15088,
-		5088
+		9590,
+		9590
 	],
 	"./employees/increments/create.vue": [
-		15088,
-		5088
+		9590,
+		9590
 	],
 	"./employees/increments/edit": [
 		34857,
@@ -116586,12 +116607,12 @@ var map = {
 		6904
 	],
 	"./purchases/show": [
-		61763,
-		1763
+		49274,
+		9274
 	],
 	"./purchases/show.vue": [
-		61763,
-		1763
+		49274,
+		9274
 	],
 	"./reports/account-statement": [
 		6575,
@@ -116730,20 +116751,20 @@ var map = {
 		4224
 	],
 	"./sales/invoices": [
-		59978,
-		9978
+		57454,
+		7454
 	],
 	"./sales/invoices/": [
-		59978,
-		9978
+		57454,
+		7454
 	],
 	"./sales/invoices/create": [
 		83547,
-		3547
+		8785
 	],
 	"./sales/invoices/create.vue": [
 		83547,
-		3547
+		8785
 	],
 	"./sales/invoices/edit": [
 		15014,
@@ -116754,20 +116775,20 @@ var map = {
 		5014
 	],
 	"./sales/invoices/index": [
-		59978,
-		9978
+		57454,
+		7454
 	],
 	"./sales/invoices/index.vue": [
-		59978,
-		9978
+		57454,
+		7454
 	],
 	"./sales/invoices/show": [
-		22593,
-		2593
+		56582,
+		6582
 	],
 	"./sales/invoices/show.vue": [
-		22593,
-		2593
+		56582,
+		6582
 	],
 	"./sales/pos/create": [
 		12074,
@@ -116786,20 +116807,20 @@ var map = {
 		8747
 	],
 	"./sales/quotations/create": [
-		50269,
-		269
+		43547,
+		3547
 	],
 	"./sales/quotations/create.vue": [
-		50269,
-		269
+		43547,
+		3547
 	],
 	"./sales/quotations/edit": [
-		55892,
-		5892
+		56622,
+		6622
 	],
 	"./sales/quotations/edit.vue": [
-		55892,
-		5892
+		56622,
+		6622
 	],
 	"./sales/quotations/index": [
 		18747,
@@ -116818,12 +116839,12 @@ var map = {
 		7688
 	],
 	"./sales/quotations/show": [
-		98397,
-		8397
+		17616,
+		5235
 	],
 	"./sales/quotations/show.vue": [
-		98397,
-		8397
+		17616,
+		5235
 	],
 	"./sales/returns": [
 		25318,
@@ -117242,12 +117263,12 @@ var map = {
 		9141
 	],
 	"./suppliers/create": [
-		48451,
-		8451
+		7179,
+		7179
 	],
 	"./suppliers/create.vue": [
-		48451,
-		8451
+		7179,
+		7179
 	],
 	"./suppliers/edit": [
 		19340,
@@ -117572,7 +117593,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2922) return "js/2922.js";
 /******/ 			if (chunkId === 4724) return "js/4724.js";
 /******/ 			if (chunkId === 7919) return "js/7919.js";
-/******/ 			if (chunkId === 9466) return "js/9466.js";
+/******/ 			if (chunkId === 749) return "js/749.js";
 /******/ 			if (chunkId === 9459) return "js/9459.js";
 /******/ 			if (chunkId === 9257) return "js/9257.js";
 /******/ 			if (chunkId === 7880) return "js/7880.js";
@@ -117592,7 +117613,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1655) return "js/1655.js";
 /******/ 			if (chunkId === 5664) return "js/5664.js";
 /******/ 			if (chunkId === 5242) return "js/5242.js";
-/******/ 			if (chunkId === 6437) return "js/6437.js";
+/******/ 			if (chunkId === 8818) return "js/8818.js";
 /******/ 			if (chunkId === 5868) return "js/5868.js";
 /******/ 			if (chunkId === 4135) return "js/4135.js";
 /******/ 			if (chunkId === 1833) return "js/1833.js";
@@ -117665,13 +117686,13 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 7936) return "js/7936.js";
 /******/ 			if (chunkId === 2758) return "js/2758.js";
 /******/ 			if (chunkId === 812) return "js/812.js";
-/******/ 			if (chunkId === 8818) return "js/8818.js";
+/******/ 			if (chunkId === 1349) return "js/1349.js";
 /******/ 			if (chunkId === 817) return "js/817.js";
-/******/ 			if (chunkId === 1330) return "js/1330.js";
+/******/ 			if (chunkId === 9808) return "js/9808.js";
 /******/ 			if (chunkId === 4300) return "js/4300.js";
 /******/ 			if (chunkId === 8888) return "js/8888.js";
 /******/ 			if (chunkId === 9099) return "js/9099.js";
-/******/ 			if (chunkId === 5088) return "js/5088.js";
+/******/ 			if (chunkId === 9590) return "js/9590.js";
 /******/ 			if (chunkId === 4857) return "js/4857.js";
 /******/ 			if (chunkId === 4643) return "js/4643.js";
 /******/ 			if (chunkId === 6877) return "js/6877.js";
@@ -117752,7 +117773,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 9583) return "js/9583.js";
 /******/ 			if (chunkId === 4399) return "js/4399.js";
 /******/ 			if (chunkId === 6904) return "js/6904.js";
-/******/ 			if (chunkId === 1763) return "js/1763.js";
+/******/ 			if (chunkId === 9274) return "js/9274.js";
 /******/ 			if (chunkId === 6575) return "js/6575.js";
 /******/ 			if (chunkId === 2732) return "js/2732.js";
 /******/ 			if (chunkId === 249) return "js/249.js";
@@ -117770,16 +117791,16 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 5111) return "js/5111.js";
 /******/ 			if (chunkId === 4671) return "js/4671.js";
 /******/ 			if (chunkId === 4224) return "js/4224.js";
-/******/ 			if (chunkId === 9978) return "js/9978.js";
-/******/ 			if (chunkId === 3547) return "js/3547.js";
+/******/ 			if (chunkId === 7454) return "js/7454.js";
+/******/ 			if (chunkId === 8785) return "js/8785.js";
 /******/ 			if (chunkId === 5014) return "js/5014.js";
-/******/ 			if (chunkId === 2593) return "js/2593.js";
+/******/ 			if (chunkId === 6582) return "js/6582.js";
 /******/ 			if (chunkId === 2074) return "js/2074.js";
 /******/ 			if (chunkId === 8747) return "js/8747.js";
-/******/ 			if (chunkId === 269) return "js/269.js";
-/******/ 			if (chunkId === 5892) return "js/5892.js";
+/******/ 			if (chunkId === 3547) return "js/3547.js";
+/******/ 			if (chunkId === 6622) return "js/6622.js";
 /******/ 			if (chunkId === 7688) return "js/7688.js";
-/******/ 			if (chunkId === 8397) return "js/8397.js";
+/******/ 			if (chunkId === 5235) return "js/5235.js";
 /******/ 			if (chunkId === 2937) return "js/2937.js";
 /******/ 			if (chunkId === 8077) return "js/8077.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
@@ -117822,7 +117843,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 9836) return "js/9836.js";
 /******/ 			if (chunkId === 9948) return "js/9948.js";
 /******/ 			if (chunkId === 9141) return "js/9141.js";
-/******/ 			if (chunkId === 8451) return "js/8451.js";
+/******/ 			if (chunkId === 7179) return "js/7179.js";
 /******/ 			if (chunkId === 9340) return "js/9340.js";
 /******/ 			if (chunkId === 5406) return "js/5406.js";
 /******/ 			if (chunkId === 944) return "js/944.js";

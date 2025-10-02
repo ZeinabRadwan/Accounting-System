@@ -24,7 +24,7 @@
             <div class="card-body">
               <!-- Date Field - Standalone Row -->
               <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-12 col-sm-6 col-md-4">
                   <label for="date">{{ $t("Date") }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
@@ -32,7 +32,7 @@
                 </div>
               </div>
               <div class="row" v-if="items">
-                <div class="form-group col-md-6">
+                <div class="form-group col-12 col-md-6">
                   <label for="client">{{ $t("Client") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -61,7 +61,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-12 col-md-6">
                   <label for="reference">{{ $t("Reference") }}</label>
                   <input id="reference" v-model="form.reference" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
@@ -70,7 +70,7 @@
                 </div>
               </div>
               <div class="row" v-if="products">
-                <div class="form-group col-md-12">
+                <div class="form-group col-12">
                   <label for="product">{{ $t("Select Items") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -112,9 +112,169 @@
                 </div>
               </div>
 
+              <!-- Debug Panel -->
+              <div v-if="showDebugPanel" class="row mt-3 mb-3">
+                <div class="col-12">
+                  <div class="card bg-light">
+                    <div class="card-header">
+                      <h6 class="mb-0">
+                        🔍 Debug Panel - Calculation Steps
+                        <span class="badge badge-info ml-2">
+                          DEBUG MODE ACTIVE
+                        </span>
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-12 col-lg-6">
+                          <h6>Individual Item Calculations:</h6>
+                          <div v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                            <div v-for="(item, index) in form.selectedProducts" :key="index" class="mb-2 p-2 border rounded">
+                              <strong>{{ item.name }}</strong><br>
+                              <small>
+                                Subtotal: {{ item.unitPrice }} × {{ item.qty }} = {{ formatToTwoDecimals(item.unitPrice * item.qty) }}<br>
+                                Discount: {{ item.discountAmount || 0 }}<br>
+                                After Discount: {{ item.totalAfterDiscount || 0 }}<br>
+                                VAT: {{ item.totalTax || 0 }}<br>
+                                <strong>Total with VAT: {{ item.totalPrice || 0 }}</strong>
+                              </small>
+                            </div>
+                          </div>
+                          <div v-else class="text-muted">
+                            <em>No products added yet. Add a product to see individual calculations.</em>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                          <h6>Summary Totals:</h6>
+                          <div class="mb-2">
+                            <strong>Computed Values:</strong><br>
+                            <small>
+                              Total Unit Price: {{ totalUnitPrice }}<br>
+                              Total Discount: {{ totalProductDiscount }}<br>
+                              Total After Discount: {{ totalAfterDiscount }}<br>
+                              Total Tax: {{ totalProductTax }}<br>
+                            </small>
+                          </div>
+                          <div class="mb-2">
+                            <strong>Form Values:</strong><br>
+                            <small>
+                              form.subTotal: {{ form.subTotal }}<br>
+                              form.totalDiscount: {{ form.totalDiscount }}<br>
+                              form.totalTax: {{ form.totalTax }}<br>
+                              <strong>form.netTotal: {{ form.netTotal }}</strong><br>
+                            </small>
+                          </div>
+                          <div class="mb-2">
+                            <strong>Template Display:</strong><br>
+                            <small>
+                              Summary Final Total: {{ formatToTwoDecimals(form.netTotal) }}<br>
+                              Amount in Words: {{ toWord() }}
+                            </small>
+                          </div>
+                          <div class="mb-2">
+                            <strong>Calculation Steps:</strong><br>
+                            <small>
+                              Step 1: Subtotal = {{ formatToTwoDecimals(form.subTotal) }}<br>
+                              Step 2: Transport = {{ formatToTwoDecimals(form.transportCost || 0) }}<br>
+                              Step 3: Discount = {{ formatToTwoDecimals(form.discount || 0) }}<br>
+                              Step 4: Tax = {{ formatToTwoDecimals(form.totalTax || 0) }}<br>
+                              Step 5: Net Total = {{ formatToTwoDecimals(form.subTotal) }} + {{ formatToTwoDecimals(form.transportCost || 0) }} - {{ formatToTwoDecimals(form.discount || 0) }} + {{ formatToTwoDecimals(form.totalTax || 0) }} = {{ formatToTwoDecimals(form.netTotal) }}<br>
+                            </small>
+                          </div>
+                          <div class="mb-2">
+                            <strong>Current State:</strong><br>
+                            <small>
+                              Selected Products Count: {{ form.selectedProducts ? form.selectedProducts.length : 0 }}<br>
+                              Is Saudi Arabia: {{ isSaudiArabia }}<br>
+                              Debug Panel Visible: ✅ YES
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Summary Comparison Table -->
+                      <div class="row mt-3" v-if="form.selectedProducts.length > 0">
+                        <div class="col-12">
+                          <h6>Summary Table Comparison:</h6>
+                          <table class="table table-sm table-bordered">
+                            <thead class="thead-light">
+                              <tr>
+                                <th>Value</th>
+                                <th>Computed Property</th>
+                                <th>Form Value</th>
+                                <th>Template Display</th>
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Subtotal</td>
+                                <td>{{ totalUnitPrice }}</td>
+                                <td>{{ form.subTotal }}</td>
+                                <td>{{ formatToTwoDecimals(totalUnitPrice) }}</td>
+                                <td>
+                                  <span :class="totalUnitPrice === form.subTotal ? 'text-success' : 'text-danger'">
+                                    {{ totalUnitPrice === form.subTotal ? '✅' : '❌' }}
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Discount</td>
+                                <td>{{ totalProductDiscount }}</td>
+                                <td>{{ form.totalDiscount }}</td>
+                                <td>{{ formatToTwoDecimals(totalProductDiscount) }}</td>
+                                <td>
+                                  <span :class="totalProductDiscount === form.totalDiscount ? 'text-success' : 'text-danger'">
+                                    {{ totalProductDiscount === form.totalDiscount ? '✅' : '❌' }}
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>After Discount</td>
+                                <td>{{ totalAfterDiscount }}</td>
+                                <td>{{ totalAfterDiscount }}</td>
+                                <td>{{ formatToTwoDecimals(totalAfterDiscount) }}</td>
+                                <td>
+                                  <span class="text-success">
+                                    ✅
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Tax</td>
+                                <td>{{ totalProductTax }}</td>
+                                <td>{{ form.totalTax }}</td>
+                                <td>{{ formatToTwoDecimals(totalProductTax) }}</td>
+                                <td>
+                                  <span :class="totalProductTax === form.totalTax ? 'text-success' : 'text-danger'">
+                                    {{ totalProductTax === form.totalTax ? '✅' : '❌' }}
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr class="table-info">
+                                <td><strong>Final Total</strong></td>
+                                <td><strong>{{ calculateSumOfItemTotals() }}</strong></td>
+                                <td><strong>{{ form.netTotal }}</strong></td>
+                                <td><strong>{{ formatToTwoDecimals(form.netTotal) }}</strong></td>
+                                <td>
+                                  <span :class="calculateSumOfItemTotals() === form.netTotal ? 'text-success' : 'text-danger'">
+                                    <strong>{{ calculateSumOfItemTotals() === form.netTotal ? '✅' : '❌' }}</strong>
+                                  </span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center quotations-create-table">
+                <div class="col-12">
+                  <div class="table-responsive table-custom">
+                    <table class="table table-hover table-sm text-center quotations-create-table">
                     <thead>
                       <th>{{ $t("#") }}</th>
                       <th>{{ $t("Code") }}</th>
@@ -263,9 +423,8 @@
                         </td>
                         <td class="no-currency" style="min-width: 100px;">
                           <span class="form-control-plaintext form-control-sm text-center no-currency">
-                            {{ formatToTwoDecimals(item.productTax) }}
+                            {{ formatToTwoDecimals(item.productTax) }} <span class="saudi-riyal">ê</span>
                           </span>
-                          <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right" style="min-width: 80px;">
@@ -294,17 +453,18 @@
                           <strong>{{ formatToTwoDecimals(totalProductTax) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(subtotal) }}</strong> <span class="saudi-riyal">ê</span>
+                          <strong>{{ formatToTwoDecimals(form.netTotal) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td></td>
                       </tr>
                     </tbody>
-                  </table>
+                    </table>
+                  </div>
                 </div>
               </div>
 
               <div class="row" v-if="!isSaudiArabia">
-                <div class="form-group col-md-4">
+                <div class="form-group col-12 col-sm-6 col-md-4">
                   <label for="discountType">{{
                     $t("Discount Type")
                   }}</label>
@@ -315,7 +475,7 @@
                   </select>
                   <has-error :form="form" field="discountType" />
                 </div>
-                <div class="form-group" :class="form.discountType == 1 ? 'col-md-2' : 'col-md-4'">
+                <div class="form-group col-12 col-sm-6" :class="form.discountType == 1 ? 'col-md-2' : 'col-md-4'">
                   <label for="discount">{{ $t("Discount") }}
                     <span v-if="form.discountType == 1">(%)</span></label>
                   <input id="discount" v-model="form.discount" type="number" step="any" min="1"
@@ -324,7 +484,7 @@
                     :placeholder="$t('Enter discount')" @change="calculateSum" />
                   <has-error :form="form" field="discount" />
                 </div>
-                <div v-if="form.discountType == 1" class="form-group col-md-2">
+                <div v-if="form.discountType == 1" class="form-group col-12 col-sm-6 col-md-2">
                   <label for="totalDiscount">{{
                     $t("Total discount")
                   }}</label>
@@ -332,21 +492,24 @@
                     :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
                   <has-error :form="form" field="totalDiscount" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-12 col-sm-6 col-md-4">
                   <label for="transportCost">{{
                     $t("Transport Cost")
                   }}</label>
-                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" />
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
-                  <span class="saudi-riyal">ê</span>
+                  <div class="input-group">
+                    <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
+                      :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                    <div class="input-group-append">
+                      <span class="input-group-text saudi-riyal">ê</span>
+                    </div>
+                  </div>
                   <has-error :form="form" field="transportCost" />
                 </div>
               </div>
 
               <div class="row">
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-12 col-sm-6 col-md-4">
                   <label for="orderTax">{{ $t("Quotation Tax") }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.orderTax" :options="taxes" label="code"
@@ -358,21 +521,29 @@
                     :placeholder="$t('Select a tax type')" @input="calculateSum" />
                   <has-error :form="form" field="orderTax" />
                 </div>
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
+                <div v-if="taxes && !isSaudiArabia" class="form-group col-12 col-sm-6 col-md-4">
                   <label for="totalTax">{{ $t("Total Tax") }}</label>
-                  <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
-                  <span class="saudi-riyal">ê</span>
+                  <div class="input-group">
+                    <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
+                    <div class="input-group-append">
+                      <span class="input-group-text saudi-riyal">ê</span>
+                    </div>
+                  </div>
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group" :class="'col-md-4'">
+                <div class="form-group col-12 col-sm-6 col-md-4">
                   <label for="netTotal">{{ $t("Net Total") }}</label>
-                  <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
-                  <span class="saudi-riyal">ê</span>
+                  <div class="input-group">
+                    <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
+                    <div class="input-group-append">
+                      <span class="input-group-text saudi-riyal">ê</span>
+                    </div>
+                  </div>
                   <has-error :form="form" field="netTotal" />
                 </div> 
-                <div class="form-group col-md-4">
+                <div class="form-group col-12 col-sm-6 col-md-4">
                   <label for="deliveryPlace">{{
                     $t("Delivery Place")
                   }}</label>
@@ -381,7 +552,7 @@
                     :placeholder="$t('Enter a delivery place')" />
                   <has-error :form="form" field="deliveryPlace" />
                 </div>
-                <div class="form-group col-md-4" v-if="!isSaudiArabia">
+                <div class="form-group col-12 col-sm-6 col-md-4" v-if="!isSaudiArabia">
                   <label for="status">{{ $t("Status") }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -398,11 +569,11 @@
                 <has-error :form="form" field="note" />
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5 d-flex align-items-center">
+                <div class="pr-3 pr-md-5 d-flex align-items-center flex-wrap">
                   <toggle-button 
                     v-model="form.isSendEmail" 
                     :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
-                  <span class="ml-3">{{ $t("Send To Email") }}</span>
+                  <span class="ml-2 ml-md-3">{{ $t("Send To Email") }}</span>
                   <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
                         class="ml-2 text-muted small">
                     ({{ $t("Email not configured") }})
@@ -410,11 +581,11 @@
                 </div>
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5 d-flex align-items-center">
+                <div class="pr-3 pr-md-5 d-flex align-items-center flex-wrap">
                   <toggle-button 
                     v-model="form.isSendSMS" 
                     :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
-                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
+                  <span class="ml-2 ml-md-3">{{ $t("Send To SMS") }}</span>
                   <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
                         class="ml-2 text-muted small">
                     ({{ $t("SMS not configured") }})
@@ -543,6 +714,9 @@ export default {
     // Stock adjustment modal
     showStockAdjustmentModal: false,
     selectedProductForStockAdjustment: null,
+    
+    // Debug panel visibility
+    showDebugPanel: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -554,36 +728,65 @@ export default {
     
     // Calculate total unit price (sum of all unit prices * quantities)
     totalUnitPrice() {
+      console.log(`🔍 ===== TOTAL UNIT PRICE COMPUTED =====`);
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.unitPrice * item.qty);
+        const itemTotal = item.unitPrice * item.qty;
+        console.log(`📊 totalUnitPrice: ${item.name} = ${item.unitPrice} * ${item.qty} = ${itemTotal}`);
+        return total + itemTotal;
       }, 0);
-      return this.roundToTwoDecimals(total);
+      const roundedTotal = this.roundToTwoDecimals(total);
+      console.log(`💰 totalUnitPrice calculated: ${roundedTotal}`);
+      console.log(`🔍 ===== TOTAL UNIT PRICE COMPUTED END =====`);
+      return roundedTotal;
     },
     
     // Calculate total discount from all products (reactive)
     totalProductDiscount() {
+      console.log(`🔍 ===== TOTAL PRODUCT DISCOUNT COMPUTED =====`);
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.discountAmount || 0);
+        const itemDiscount = item.discountAmount || 0;
+        console.log(`📊 totalProductDiscount: ${item.name} discount = ${itemDiscount}`);
+        return total + itemDiscount;
       }, 0);
-      return this.roundToTwoDecimals(total);
+      const roundedTotal = this.roundToTwoDecimals(total);
+      console.log(`💰 totalProductDiscount calculated: ${roundedTotal}`);
+      console.log(`🔍 ===== TOTAL PRODUCT DISCOUNT COMPUTED END =====`);
+      return roundedTotal;
     },
     
-    // Calculate total after discount (reactive)
+    // Calculate total after discount (reactive) - use sum of individual item calculations
     totalAfterDiscount() {
-      return this.roundToTwoDecimals(this.totalUnitPrice - this.totalProductDiscount);
+      console.log(`🔍 ===== TOTAL AFTER DISCOUNT COMPUTED =====`);
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        const itemAfterDiscount = item.totalAfterDiscount || 0;
+        console.log(`📊 totalAfterDiscount: ${item.name} after discount = ${itemAfterDiscount}`);
+        return total + itemAfterDiscount;
+      }, 0);
+      const roundedTotal = this.roundToTwoDecimals(total);
+      console.log(`💰 totalAfterDiscount calculated: ${roundedTotal}`);
+      console.log(`🔍 ===== TOTAL AFTER DISCOUNT COMPUTED END =====`);
+      return roundedTotal;
     },
     
     // Calculate total product tax (reactive)
     totalProductTax() {
+      console.log(`🔍 ===== TOTAL PRODUCT TAX COMPUTED =====`);
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalTax || 0);
+        const itemTax = item.totalTax || 0;
+        console.log(`📊 totalProductTax: ${item.name} tax = ${itemTax}`);
+        return total + itemTax;
       }, 0);
-      return this.roundToTwoDecimals(total);
+      const roundedTotal = this.roundToTwoDecimals(total);
+      console.log(`💰 totalProductTax calculated: ${roundedTotal}`);
+      console.log(`🔍 ===== TOTAL PRODUCT TAX COMPUTED END =====`);
+      return roundedTotal;
     },
     
-    // Calculate subtotal (reactive) - WITHOUT VAT for quotations
+    // Calculate subtotal (reactive) - sum of all item subtotals (before discount)
     subtotal() {
-      return this.totalAfterDiscount;
+      const result = this.totalUnitPrice;
+      console.log(`💰 subtotal: ${result} (sum of all item subtotals)`);
+      return result;
     },
     
     // Check if there are any products with insufficient stock
@@ -613,6 +816,12 @@ export default {
     // Watch for any changes and ensure title stays correct
     '$route'() {
       this.setCorrectTitle();
+    },
+    
+    // Watch form.netTotal changes for debugging
+    'form.netTotal'(newValue, oldValue) {
+      console.log(`🔍 form.netTotal changed: ${oldValue} → ${newValue}`);
+      this.debugTemplateValues();
     }
   },
   
@@ -771,26 +980,44 @@ export default {
 
     // update array
     generateItemTotal(value, type, index, action) {
+      console.log(`🔄 generateItemTotal called:`, { value, type, index, action });
       let item = this.form.selectedProducts[index];
       if (item) {
+        console.log(`📦 Item before update:`, {
+          name: item.name,
+          qty: item.qty,
+          unitPrice: item.unitPrice,
+          discount: item.discount,
+          discountType: item.discountType,
+          discountAmount: item.discountAmount
+        });
+
         if (type == "qty") {
           let newQty = value;
           if (action == "increment") {
             newQty = Number(item.qty) + 1;
+            console.log(`➕ Incrementing quantity: ${item.qty} + 1 = ${newQty}`);
           } else if (action == "decrement") {
             if (item.qty > 0) {
               newQty = Number(item.qty) - 1;
+              console.log(`➖ Decrementing quantity: ${item.qty} - 1 = ${newQty}`);
             }
+          } else {
+            console.log(`📝 Setting quantity directly: ${newQty}`);
           }
           this.$set(item, 'qty', newQty);
         } else if (type == "price") {
           let newPrice = value;
           if (action == "increment") {
             newPrice = Number(item.unitPrice) + 1;
+            console.log(`➕ Incrementing price: ${item.unitPrice} + 1 = ${newPrice}`);
           } else if (action == "decrement") {
             if (item.unitPrice > 0) {
               newPrice = Number(item.unitPrice) - 1;
+              console.log(`➖ Decrementing price: ${item.unitPrice} - 1 = ${newPrice}`);
             }
+          } else {
+            console.log(`📝 Setting price directly: ${newPrice}`);
           }
           this.$set(item, 'unitPrice', newPrice);
         }
@@ -798,14 +1025,32 @@ export default {
         // Recalculate discount amount when quantity or price changes
         if (item.discount > 0) {
           if (item.discountType === "percentage") {
-            this.$set(item, 'discountAmount', this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100));
+            const newDiscountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
+            this.$set(item, 'discountAmount', newDiscountAmount);
+            console.log(`💰 Recalculated percentage discount: ${newDiscountAmount} (${item.unitPrice} * ${item.qty} * ${item.discount} / 100)`);
           } else {
-            this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
+            const newDiscountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+            this.$set(item, 'discountAmount', newDiscountAmount);
+            console.log(`💰 Recalculated fixed discount: ${newDiscountAmount}`);
           }
+        } else {
+          this.$set(item, 'discountAmount', 0);
+          console.log(`💰 No discount, setting discountAmount to 0`);
         }
+        
+        console.log(`📦 Item after update:`, {
+          name: item.name,
+          qty: item.qty,
+          unitPrice: item.unitPrice,
+          discount: item.discount,
+          discountType: item.discountType,
+          discountAmount: item.discountAmount
+        });
         
         // Use the new method to calculate totals with discount and VAT
         this.generateItemTotalPrice(index);
+      } else {
+        console.log(`❌ No item found at index ${index}`);
       }
       this.calculateSum();
       return;
@@ -874,123 +1119,301 @@ export default {
       });
     },
 
-    // Calculate product discount
+    // Calculate product discount (following correct pseudocode)
     calculateProductDiscount(index) {
+      console.log(`💰 calculateProductDiscount called for index ${index}`);
       let item = this.form.selectedProducts[index];
       if (item) {
-        if (item.discountType === "percentage") {
-          this.$set(item, 'discountAmount', this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100));
-        } else {
-          this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
+        console.log(`📊 Item discount details:`, {
+          name: item.name,
+          unitPrice: item.unitPrice,
+          qty: item.qty,
+          discount: item.discount,
+          discountType: item.discountType,
+          currentDiscountAmount: item.discountAmount
+        });
+
+        // Calculate subtotal first
+        const subtotal = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        console.log(`💰 Subtotal for discount calculation: ${subtotal}`);
+
+        let newDiscountAmount = 0;
+        if (item.discount > 0) {
+          if (item.discountType === "percentage") {
+            newDiscountAmount = this.roundToTwoDecimals(subtotal * (item.discount / 100));
+            console.log(`📈 Percentage discount calculated: ${subtotal} × (${item.discount} / 100) = ${newDiscountAmount}`);
+          } else {
+            newDiscountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+            console.log(`📈 Fixed discount calculated: ${newDiscountAmount}`);
+          }
         }
+        
+        this.$set(item, 'discountAmount', newDiscountAmount);
+        
+        console.log(`✅ Updated item discount:`, {
+          name: item.name,
+          subtotal: subtotal,
+          discountAmount: item.discountAmount,
+          discountType: item.discountType
+        });
         
         // Recalculate totals
         this.generateItemTotalPrice(index);
         this.calculateSum();
+      } else {
+        console.log(`❌ No item found at index ${index}`);
       }
     },
 
     // Calculate product VAT
     calculateProductVat(index) {
+      console.log(`🧾 calculateProductVat called for index ${index}`);
       let item = this.form.selectedProducts[index];
       if (item) {
+        console.log(`📊 Item VAT details before calculation:`, {
+          name: item.name,
+          selectedVatRate: item.selectedVatRate,
+          taxRate: item.taxRate,
+          taxType: item.taxType
+        });
+
         // Ensure the selectedVatRate is properly set
         if (!item.selectedVatRate) {
+          console.log(`🔍 No selectedVatRate found, trying to find matching rate`);
           if (item.taxRate) {
             item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
+            console.log(`🔍 Found matching VAT rate from taxRate:`, item.selectedVatRate);
           }
           
           if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
             item.selectedVatRate = this.taxes[0];
+            console.log(`🔍 Using first available tax rate:`, item.selectedVatRate);
           }
+        } else {
+          console.log(`✅ selectedVatRate already set:`, item.selectedVatRate);
         }
+        
+        console.log(`📊 Item VAT details after setup:`, {
+          name: item.name,
+          selectedVatRate: item.selectedVatRate,
+          taxRate: item.taxRate,
+          taxType: item.taxType
+        });
         
         // Recalculate totals with new VAT rate
         this.generateItemTotalPrice(index);
         this.calculateSum();
+      } else {
+        console.log(`❌ No item found at index ${index}`);
       }
     },
 
-    // Generate item total price with discount and VAT (aligned with invoice logic)
+    // Generate item total price with discount and VAT (following correct pseudocode)
     generateItemTotalPrice(index) {
+      console.log(`🔧 generateItemTotalPrice called for index ${index}`);
       let item = this.form.selectedProducts[index];
       if (item) {
-        // Calculate price after discount
-        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
+        console.log(`📊 Item before calculation:`, {
+          name: item.name,
+          unitPrice: item.unitPrice,
+          qty: item.qty,
+          discount: item.discount,
+          discountType: item.discountType,
+          discountAmount: item.discountAmount,
+          taxType: item.taxType,
+          selectedVatRate: item.selectedVatRate,
+          taxRate: item.taxRate
+        });
 
-        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
+        // Step 1: Calculate Subtotal = Quantity × Unit_Price
+        const subtotal = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        console.log(`💰 Step 1 - Subtotal: ${item.unitPrice} × ${item.qty} = ${subtotal}`);
+
+        // Step 2: Calculate Discount Amount
+        let discountAmount = 0;
+        if (item.discount > 0) {
+          if (item.discountType === "percentage") {
+            discountAmount = this.roundToTwoDecimals(subtotal * (item.discount / 100));
+            console.log(`💰 Step 2a - Percentage discount: ${subtotal} × (${item.discount} / 100) = ${discountAmount}`);
+          } else {
+            discountAmount = this.roundToTwoDecimals(Number(item.discount));
+            console.log(`💰 Step 2b - Fixed discount: ${discountAmount}`);
+          }
+        }
+        
+        // Update the item's discount amount
+        this.$set(item, 'discountAmount', discountAmount);
+
+        // Step 3: Calculate Net Amount = Subtotal - Discount Amount
+        const netAmount = this.roundToTwoDecimals(subtotal - discountAmount);
+        console.log(`💰 Step 3 - Net Amount: ${subtotal} - ${discountAmount} = ${netAmount}`);
+
+        // Set totalAfterDiscount for subtotal calculation (without VAT)
+        this.$set(item, 'totalAfterDiscount', netAmount);
+        console.log(`📋 totalAfterDiscount set to: ${item.totalAfterDiscount}`);
+
+        // Step 4: Calculate VAT (following exact pseudocode)
         let vatRate = 0;
         if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
           vatRate = Number(item.selectedVatRate.rate);
+          console.log(`📈 Using selectedVatRate: ${vatRate}%`);
         } else if (item.taxRate !== undefined && item.taxRate !== null) {
           vatRate = Number(item.taxRate);
+          console.log(`📈 Using product taxRate: ${vatRate}%`);
         }
 
         // Ensure vatRate is a valid number
         if (isNaN(vatRate) || vatRate < 0) {
           vatRate = 0;
+          console.log(`⚠️ Invalid vatRate, setting to 0`);
         }
 
-        // Set totalAfterDiscount for subtotal calculation (without VAT)
-        item.totalAfterDiscount = this.roundToTwoDecimals(priceAfterDiscount);
+        // Calculate tax on after_discount amount (following pseudocode exactly)
+        const tax = this.roundToTwoDecimals(netAmount * (vatRate / 100));
+        const totalWithTax = this.roundToTwoDecimals(netAmount + tax);
+        
+        console.log(`🧾 Step 4 - VAT calculation: ${netAmount} × (${vatRate} / 100) = ${tax}, Total = ${totalWithTax}`);
 
-        if (item.taxType == "Exclusive") {
-          // VAT on discounted amount
-          item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-          item.totalTax = this.roundToTwoDecimals(item.productTax);
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
-        } else {
-          // Inclusive: VAT is included in unit price; derive VAT from discounted price
-          let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
-          item.unitPrice = discountedUnitPrice;
-          item.productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
-          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
-        }
+        // Set the calculated values
+        item.productTax = tax;
+        item.totalTax = tax; // For individual items, productTax and totalTax are the same
+        item.totalPrice = totalWithTax;
+
+        console.log(`✅ Item after calculation:`, {
+          name: item.name,
+          unitPrice: item.unitPrice,
+          qty: item.qty,
+          subtotal: subtotal,
+          discountAmount: item.discountAmount,
+          netAmount: netAmount,
+          vatRate: vatRate,
+          tax: tax,
+          totalPrice: item.totalPrice
+        });
 
         this.form.selectedProducts[index] = item;
+      } else {
+        console.log(`❌ No item found at index ${index}`);
       }
     },
 
-    // calculate sum (aligned with invoice logic)
+    // calculate sum (following exact pseudocode)
+    // For each item: subtotal = qty × unit_price, discount applied, after_discount = subtotal - discount, tax = after_discount × VAT%, total_with_tax = after_discount + tax
+    // After all items: grand_total = total_after_discount + total_tax
     calculateSum() {
-      // Update form values for consistency with computed properties
-      this.$set(this.form, 'subTotal', this.roundToTwoDecimals(this.subtotal));
-      this.$set(this.form, 'productTotalTax', this.roundToTwoDecimals(this.totalProductTax));
-      this.$set(this.form, 'totalDiscount', this.roundToTwoDecimals(this.totalProductDiscount));
+      console.log(`🧮 ===== CALCULATE SUM DEBUG START =====`);
+      console.log(`🧮 calculateSum called`);
+      console.log(`📊 Current form state:`, {
+        selectedProducts: this.form.selectedProducts.length,
+        isSaudiArabia: this.isSaudiArabia,
+        discount: this.form.discount,
+        discountType: this.form.discountType,
+        orderTax: this.form.orderTax,
+        transportCost: this.form.transportCost
+      });
 
-      // Global discount
-      let globalDiscount = 0;
-      if (!this.isSaudiArabia && this.form.discount > 0) {
-        if (this.form.discountType == 1) {
-          globalDiscount = this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal);
-        } else {
-          globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
-        }
+      // Following the pseudocode: Sum up all individual item calculations
+      let totalSubtotal = 0;
+      let totalDiscount = 0;
+      let totalNet = 0;
+      let totalTax = 0;
+      let grandTotal = 0;
+
+      console.log(`📋 Calculating totals from individual items:`);
+      this.form.selectedProducts.forEach((item, index) => {
+        const itemSubtotal = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        const itemDiscount = item.discountAmount || 0;
+        const itemNet = item.totalAfterDiscount || 0;
+        const itemTax = item.totalTax || 0;
+        const itemTotal = item.totalPrice || 0;
+
+        totalSubtotal += itemSubtotal;
+        totalDiscount += itemDiscount;
+        totalNet += itemNet;
+        totalTax += itemTax;
+        grandTotal += itemTotal;
+
+        console.log(`📦 Item ${index + 1} (${item.name}):`, {
+          unitPrice: item.unitPrice,
+          qty: item.qty,
+          subtotal: itemSubtotal,
+          discount: itemDiscount,
+          net: itemNet,
+          tax: itemTax,
+          total: itemTotal,
+          discountAmount: item.discountAmount,
+          totalAfterDiscount: item.totalAfterDiscount,
+          totalTax: item.totalTax,
+          totalPrice: item.totalPrice
+        });
+      });
+
+      // Round all totals
+      totalSubtotal = this.roundToTwoDecimals(totalSubtotal);
+      totalDiscount = this.roundToTwoDecimals(totalDiscount);
+      totalNet = this.roundToTwoDecimals(totalNet);
+      totalTax = this.roundToTwoDecimals(totalTax);
+      grandTotal = this.roundToTwoDecimals(grandTotal);
+
+      console.log(`💰 Individual item totals:`, {
+        totalSubtotal,
+        totalDiscount,
+        totalNet,
+        totalTax,
+        grandTotal
+      });
+
+      // Update form values
+      console.log(`🔧 Setting form values:`);
+      this.$set(this.form, 'subTotal', totalSubtotal);
+      console.log(`  - form.subTotal = ${totalSubtotal}`);
+      
+      this.$set(this.form, 'totalDiscount', totalDiscount);
+      console.log(`  - form.totalDiscount = ${totalDiscount}`);
+      
+      this.$set(this.form, 'productTotalTax', totalTax);
+      console.log(`  - form.productTotalTax = ${totalTax}`);
+
+      // Calculate Net Total using the formula: Subtotal + Transport - Discount + Tax
+      const transportCost = parseFloat(this.form.transportCost || 0);
+      const quotationDiscount = parseFloat(this.form.discount || 0);
+      const quotationTax = parseFloat(this.form.totalTax || 0);
+      
+      // Apply quotation-level discount calculation if needed
+      let finalDiscount = quotationDiscount;
+      if (this.form.discountType == 1 && quotationDiscount > 0) {
+        // Percentage discount
+        finalDiscount = (totalSubtotal * quotationDiscount) / 100;
       }
+      
+      const netTotal = totalSubtotal + transportCost - finalDiscount + quotationTax;
+      console.log(`💰 Net Total calculation: ${totalSubtotal} + ${transportCost} - ${finalDiscount} + ${quotationTax} = ${netTotal}`);
+      
+      // Set the final total using the correct formula
+      this.$set(this.form, 'netTotal', this.roundToTwoDecimals(netTotal));
+      console.log(`  - form.netTotal = ${this.form.netTotal}`);
+      
+      // For backward compatibility, set other form values
+      this.$set(this.form, 'totalTax', totalTax);
+      this.$set(this.form, 'invoiceTax', 0); // No quotation-level tax for now
 
-      // Quotation-level tax computed on (subTotal - globalDiscount)
-      this.$set(this.form, 'invoiceTax', 0);
-      if (!this.isSaudiArabia && this.form.orderTax && this.form.orderTax.rate) {
-        this.$set(this.form, 'invoiceTax', this.roundToTwoDecimals(
-          (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount)
-        ));
-      }
-
-      // Total tax = product VAT + quotation-level tax
-      this.$set(this.form, 'totalTax', this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax));
-
-      // Net total
-      if (this.isSaudiArabia) {
-        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.form.subTotal));
-      } else {
-        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(
-          this.form.subTotal -
-          globalDiscount +
-          this.form.invoiceTax +
-          Number(this.form.transportCost || 0)
-        ));
-      }
+      console.log(`✅ Final calculation results:`, {
+        totalSubtotal,
+        totalDiscount,
+        totalAfterDiscount: totalNet,
+        totalTax,
+        grandTotal: grandTotal
+      });
+      
+      console.log(`🔍 Form values after setting:`, {
+        'form.subTotal': this.form.subTotal,
+        'form.totalDiscount': this.form.totalDiscount,
+        'form.productTotalTax': this.form.productTotalTax,
+        'form.netTotal': this.form.netTotal,
+        'form.totalTax': this.form.totalTax
+      });
+      
+      console.log(`🧮 ===== CALCULATE SUM DEBUG END =====`);
       return;
     },
 
@@ -1082,7 +1505,7 @@ export default {
         console.log('Updated product in selectedProducts array:', updatedProduct);
         
         // Recalculate totals
-        this.calculateTotal();
+        this.calculateSum();
       } else {
         console.warn('Could not find product to update in selectedProducts array');
       }
@@ -1090,7 +1513,7 @@ export default {
 
     // return number to word with language support
     toWord(){
-      const amount = this.subtotal || 0;
+      const amount = this.form.netTotal || 0;
       
       // Handle edge cases
       if (isNaN(amount) || amount < 0) {
@@ -1532,10 +1955,101 @@ export default {
         showConfirmButton: true
       });
     },
+
+    // Debug method - can be called from browser console
+    debugCalculations() {
+      console.log(`🔍 === QUOTATION CALCULATION DEBUG ===`);
+      console.log(`📊 Form state:`, {
+        selectedProducts: this.form.selectedProducts.length,
+        isSaudiArabia: this.isSaudiArabia,
+        discount: this.form.discount,
+        discountType: this.form.discountType,
+        orderTax: this.form.orderTax,
+        transportCost: this.form.transportCost
+      });
+      
+      console.log(`📋 Computed values:`, {
+        totalUnitPrice: this.totalUnitPrice,
+        totalProductDiscount: this.totalProductDiscount,
+        totalAfterDiscount: this.totalAfterDiscount,
+        totalProductTax: this.totalProductTax,
+        subtotal: this.subtotal
+      });
+      
+      console.log(`💰 Form totals:`, {
+        totalSubtotal: this.form.subTotal,
+        totalDiscount: this.form.totalDiscount,
+        totalAfterDiscount: this.totalAfterDiscount,
+        totalTax: this.form.totalTax,
+        grandTotal: this.form.netTotal
+      });
+      
+      console.log(`📦 Selected products details:`, this.form.selectedProducts.map((item, index) => {
+        const itemSubtotal = this.roundToTwoDecimals(item.unitPrice * item.qty);
+        const itemDiscount = item.discountAmount || 0;
+        const itemAfterDiscount = item.totalAfterDiscount || 0;
+        const itemTax = item.totalTax || 0;
+        const itemTotalWithTax = item.totalPrice || 0;
+        
+        return {
+          index,
+          name: item.name,
+          qty: item.qty,
+          unitPrice: item.unitPrice,
+          subtotal: itemSubtotal,
+          discount: item.discount,
+          discountType: item.discountType,
+          discountAmount: itemDiscount,
+          afterDiscount: itemAfterDiscount,
+          vatRate: item.selectedVatRate?.rate || item.taxRate || 0,
+          tax: itemTax,
+          totalWithTax: itemTotalWithTax
+        };
+      }));
+      
+      console.log(`🔍 === END DEBUG ===`);
+    },
+
+    // Debug method to check template values
+    debugTemplateValues() {
+      console.log(`🔍 === TEMPLATE VALUES DEBUG ===`);
+      console.log(`📊 Summary table values:`, {
+        'totalUnitPrice (computed)': this.totalUnitPrice,
+        'totalProductDiscount (computed)': this.totalProductDiscount,
+        'totalAfterDiscount (computed)': this.totalAfterDiscount,
+        'totalProductTax (computed)': this.totalProductTax,
+        'form.netTotal': this.form.netTotal,
+        'formatToTwoDecimals(form.netTotal)': this.formatToTwoDecimals(this.form.netTotal)
+      });
+      console.log(`🔍 === TEMPLATE VALUES DEBUG END ===`);
+    },
+
+    // Calculate sum of all item totals for debugging
+    calculateSumOfItemTotals() {
+      const total = this.form.selectedProducts.reduce((sum, item) => {
+        return sum + (item.totalPrice || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+
+    // Toggle debug panel visibility
+    toggleDebugPanel() {
+      this.showDebugPanel = !this.showDebugPanel;
+      console.log(`🔧 Debug panel ${this.showDebugPanel ? 'shown' : 'hidden'}`);
+    },
   },
   mounted() {
     this.loadTemporaryData();
     this.setCorrectTitle();
+    
+    // Make debug methods available globally for console access
+    window.debugQuotationCalculations = () => this.debugCalculations();
+    window.debugTemplateValues = () => this.debugTemplateValues();
+    window.toggleDebugPanel = () => this.toggleDebugPanel();
+    console.log('🔧 Debug methods available:');
+    console.log('  - window.debugQuotationCalculations() - Full calculation debug');
+    console.log('  - window.debugTemplateValues() - Template values debug');
+    console.log('  - window.toggleDebugPanel() - Toggle debug panel visibility');
     
     // Set up a periodic check to ensure title stays correct
     this.titleCheckInterval = setInterval(() => {
@@ -1568,6 +2082,17 @@ export default {
     // Clean up the observer
     if (this.titleObserver) {
       this.titleObserver.disconnect();
+    }
+    
+    // Clean up global debug methods
+    if (window.debugQuotationCalculations) {
+      delete window.debugQuotationCalculations;
+    }
+    if (window.debugTemplateValues) {
+      delete window.debugTemplateValues;
+    }
+    if (window.toggleDebugPanel) {
+      delete window.toggleDebugPanel;
     }
   },
 };
@@ -1816,5 +2341,125 @@ export default {
 .insufficient-stock-input:focus {
   border-color: #dc3545 !important;
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Responsive table styles */
+@media (max-width: 991.98px) {
+  .quotations-create-table {
+    font-size: 0.875rem;
+  }
+  
+  .quotations-create-table th,
+  .quotations-create-table td {
+    padding: 0.5rem 0.25rem;
+    white-space: nowrap;
+  }
+  
+  .quotations-create-table th:first-child,
+  .quotations-create-table td:first-child {
+    min-width: 40px;
+  }
+  
+  .quotations-create-table th:nth-child(2),
+  .quotations-create-table td:nth-child(2) {
+    min-width: 80px;
+  }
+  
+  .quotations-create-table th:nth-child(3),
+  .quotations-create-table td:nth-child(3) {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .quotations-create-table {
+    font-size: 0.8rem;
+  }
+  
+  .quotations-create-table th,
+  .quotations-create-table td {
+    padding: 0.375rem 0.125rem;
+  }
+  
+  .custom-qty-input {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .button-minus,
+  .button-plus {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  
+  .quantity-field {
+    width: 50px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Responsive form elements */
+@media (max-width: 575.98px) {
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control {
+    font-size: 0.875rem;
+  }
+  
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .card {
+    margin-top: 15px;
+    border-radius: 15px;
+  }
+  
+  .card-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-footer {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Responsive debug panel */
+@media (max-width: 767.98px) {
+  .debug-panel .card-body {
+    padding: 0.75rem;
+  }
+  
+  .debug-panel h6 {
+    font-size: 0.875rem;
+  }
+  
+  .debug-panel small {
+    font-size: 0.75rem;
+  }
+  
+  .debug-panel .table {
+    font-size: 0.75rem;
+  }
+}
+
+/* Responsive alert */
+@media (max-width: 575.98px) {
+  .alert {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .alert .fas {
+    font-size: 1.25rem !important;
+  }
 }
 </style>

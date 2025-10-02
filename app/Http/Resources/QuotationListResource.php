@@ -25,7 +25,7 @@ class QuotationListResource extends JsonResource
             'transport' => $this->transport,
             'discountType' => $this->discount_type,
             'discountPercentage' => $this->discountPercentage(),
-            'discount' => $this->discount,
+            'discount' => $this->quotationProducts->sum('discount_amount'),
             'totalTax' => $this->total_tax,
             'subTotal' => $this->sub_total,
             'total' => $this->quotationTotal(),
