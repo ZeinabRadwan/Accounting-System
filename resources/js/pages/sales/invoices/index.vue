@@ -689,9 +689,11 @@ export default {
                   this.$t("Deleted successfully.")
                 );
               } else {
+                // Show the actual error message from the API response
+                const errorMessage = response.message || this.$t("Sorry you can't delete this invoice!");
                 this.$toast.warning(
                   this.$t("Failed!"),
-                  this.$t("Sorry you can't delete this invoice!")
+                  errorMessage
                 );
               }
             });
