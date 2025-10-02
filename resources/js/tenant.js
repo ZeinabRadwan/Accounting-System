@@ -66,20 +66,13 @@ Vue.prototype.$axios = axios
 Vue.prototype.$http = axios
 
 /* eslint-disable no-new */
-// Ensure router is properly initialized before creating Vue instance
-if (router) {
-  // Set a temporary app reference to prevent vue-meta errors
-  router.app = { $router: router };
-}
+ 
 
-const app = new Vue({
+  new Vue({
   i18n,
   store,
   router,
   ...App
 })
 
-// Update the router app reference with the actual Vue instance
-if (router) {
-  router.app = app;
-}
+ 
