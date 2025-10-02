@@ -27,7 +27,13 @@
 
                   <form @submit.prevent="handleSubmit" @keydown="handleKeydown">
                     <!-- domain -->
-                    <div class="form-group mb-3 ">
+                    <div class="form-group mb-3">
+                      <div class="d-flex align-items-center mb-2">
+                        <label for="domain" class="form-label mb-0">{{ $t('domain') }}</label>
+                        <i class="fas fa-info-circle ms-2" 
+                           v-tooltip="$t('domain_explanation')" 
+                           style="cursor: help; font-size: 14px;"></i>
+                      </div>
                       <div class="d-flex url">
                         <input v-model="form.domain" id="domain" name="domain"
                           :class="{ 'is-invalid': form.errors.has('domain') }" class="

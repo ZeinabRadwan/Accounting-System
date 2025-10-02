@@ -108,22 +108,40 @@
                                     </div>
                                     <!-- domain -->
                                     <div class="form-group mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <label for="domain" class="form-label mb-0">{{ $t('domain') }}</label>
+                                            <i class="fas fa-info-circle  ms-2" 
+                                               v-tooltip="$t('domain_explanation')" 
+                                               style="cursor: help; font-size: 14px;"></i>
+                                        </div>
                                         <div class="d-flex url">
                                             <input
                                                 v-model="form.domain"
+                                                @input="checkDomainAvailability"
                                                 id="domain"
                                                 name="domain"
                                                 :class="{
-                                                    'is-invalid':
-                                                        form.errors.has(
-                                                            'domain'
-                                                        ),
+                                                    'is-invalid': form.errors.has('domain') || domainValidation.error,
+                                                    'is-valid': domainValidation.valid && domainValidation.available && !domainValidation.checking
                                                 }"
                                                 class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
                                                 type="text"
                                                 :placeholder="$t('domain')"
                                             />
                                             <span style="height: 100%; line-height: 2">{{ host }}</span>
+                                        </div>
+                                        <!-- Domain validation feedback -->
+                                        <div v-if="domainValidation.checking" class="ml-4 text-muted small">
+                                            <i class="fas fa-spinner fa-spin me-1"></i>
+                                            {{ $t('domain_checking') }}
+                                        </div>
+                                        <div v-else-if="domainValidation.valid && domainValidation.available" class="ml-4 text-success small">
+                                            <i class="fas fa-check-circle me-1"></i>
+                                            {{ $t('domain_available') }}
+                                        </div>
+                                        <div v-else-if="domainValidation.error" class="ml-4 text-danger small">
+                                            <i class="fas fa-exclamation-circle me-1"></i>
+                                            {{ domainValidation.message }}
                                         </div>
                                         <has-error
                                             :form="form"
@@ -330,6 +348,14 @@ export default {
         }),
         message: '',
         type: null,
+        domainValidation: {
+            checking: false,
+            valid: false,
+            available: false,
+            error: false,
+            message: ''
+        },
+        domainCheckTimeout: null,
     }),
     // Map Getters
     computed: {
@@ -803,6 +829,71 @@ export default {
                     this.message = e.response.data.message;
                     this.type = 'danger';
                 });
+        },
+
+        // Domain validation methods
+        checkDomainAvailability() {
+            // Clear previous timeout
+            if (this.domainCheckTimeout) {
+                clearTimeout(this.domainCheckTimeout);
+            }
+
+            // Reset validation state
+            this.domainValidation = {
+                checking: false,
+                valid: false,
+                available: false,
+                error: false,
+                message: ''
+            };
+
+            // Don't check if domain is empty or too short
+            if (!this.form.domain || this.form.domain.length < 2) {
+                return;
+            }
+
+            // Set checking state
+            this.domainValidation.checking = true;
+
+            // Debounce the API call
+            this.domainCheckTimeout = setTimeout(() => {
+                this.performDomainCheck();
+            }, 500);
+        },
+
+        async performDomainCheck() {
+            try {
+                const response = await this.$axios.post('/api/check-domain', {
+                    domain: this.form.domain,
+                    locale: this.$i18n.locale
+                });
+
+                if (response.data.valid && response.data.available) {
+                    this.domainValidation = {
+                        checking: false,
+                        valid: true,
+                        available: true,
+                        error: false,
+                        message: this.$t('domain_available')
+                    };
+                } else {
+                    this.domainValidation = {
+                        checking: false,
+                        valid: response.data.valid,
+                        available: false,
+                        error: true,
+                        message: response.data.message || this.$t('domain_taken')
+                    };
+                }
+            } catch (error) {
+                this.domainValidation = {
+                    checking: false,
+                    valid: false,
+                    available: false,
+                    error: true,
+                    message: error.response?.data?.message || this.$t('domain_invalid')
+                };
+            }
         },
     },
 };

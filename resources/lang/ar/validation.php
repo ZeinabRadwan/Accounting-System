@@ -259,6 +259,16 @@ return [
         'contactNumber' => 'رقم الاتصال',
         'ccLoanLimit' => 'حد قرض السحب على المكشوف (CC)',
         'address' => 'العنوان',
+        'domain' => 'النطاق',
     ],
+
+    // Custom validation messages
+    'domain_format' => ':attribute يجب أن يكون اسم نطاق صحيح.',
+    'domain_invalid_characters' => ':attribute يجب أن يحتوي على أحرف وأرقام وشرطات فقط (a-z, 0-9, -).',
+    'domain_hyphen_position' => ':attribute لا يمكن أن يبدأ أو ينتهي بشرطة (-).',
+    'domain_too_short' => ':attribute يجب أن يكون على الأقل حرفين.',
+    'domain_too_long' => ':attribute لا يمكن أن يتجاوز 63 حرف.',
+    'domain_consecutive_hyphens' => ':attribute لا يمكن أن يحتوي على شرطات متتالية (--).',
+    'domain_numbers_only' => ':attribute لا يمكن أن يحتوي على أرقام فقط.',
 
 ];
