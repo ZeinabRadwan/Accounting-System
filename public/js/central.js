@@ -116831,12 +116831,12 @@ var map = {
 		8747
 	],
 	"./sales/quotations/invoice": [
-		22165,
-		2165
+		44728,
+		2347
 	],
 	"./sales/quotations/invoice.vue": [
-		22165,
-		2165
+		44728,
+		2347
 	],
 	"./sales/quotations/show": [
 		17616,
@@ -117799,7 +117799,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8747) return "js/8747.js";
 /******/ 			if (chunkId === 2423) return "js/2423.js";
 /******/ 			if (chunkId === 6622) return "js/6622.js";
-/******/ 			if (chunkId === 2165) return "js/2165.js";
+/******/ 			if (chunkId === 2347) return "js/2347.js";
 /******/ 			if (chunkId === 5235) return "js/5235.js";
 /******/ 			if (chunkId === 2937) return "js/2937.js";
 /******/ 			if (chunkId === 8077) return "js/8077.js";
