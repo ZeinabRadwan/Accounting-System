@@ -252,7 +252,7 @@
               <!-- No children message -->
               <div v-else class="no-children-message">
                 <div class="text-center py-4">
-                  <i class="fas fa-info-circle text-muted" style="font-size: 32px; margin-bottom: 16px;"></i>
+                  <i class="fas fa-info-circle" style="font-size: 32px; margin-bottom: 16px;"></i>
                   <h5 class="text-muted">{{ $t("No Child Accounts") }}</h5>
                   <p class="text-muted">{{ $t("This account doesn't have any child accounts.") }}</p>
                 </div>

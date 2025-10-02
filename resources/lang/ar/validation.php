@@ -259,6 +259,10 @@ return [
         'contactNumber' => 'رقم الاتصال',
         'ccLoanLimit' => 'حد قرض السحب على المكشوف (CC)',
         'address' => 'العنوان',
+        'domain' => 'النطاق',
     ],
+
+    // Custom validation messages
+    'domain_format' => ':attribute يجب أن يكون اسم نطاق صحيح.',
 
 ];
