@@ -864,7 +864,8 @@ export default {
         async performDomainCheck() {
             try {
                 const response = await this.$axios.post('/api/check-domain', {
-                    domain: this.form.domain
+                    domain: this.form.domain,
+                    locale: this.$i18n.locale
                 });
 
                 if (response.data.valid && response.data.available) {

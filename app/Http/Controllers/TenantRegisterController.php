@@ -7,6 +7,7 @@ use App\Services\TenantService;
 use App\Rules\DomainValidation;
 use App\Rules\CustomDomainValidation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Stancl\Tenancy\Database\Models\Domain;
 
 class TenantRegisterController extends Controller
@@ -24,6 +25,19 @@ class TenantRegisterController extends Controller
     */
     public function checkDomain(Request $request)
     {
+        // Set locale from request header or default to English
+        $locale = $request->header('Accept-Language', 'en');
+        if (strpos($locale, 'ar') !== false) {
+            app()->setLocale('ar');
+        } else {
+            app()->setLocale('en');
+        }
+        
+        // Also check for locale in the request data
+        if ($request->has('locale') && $request->input('locale') === 'ar') {
+            app()->setLocale('ar');
+        }
+
         $request->validate([
             'domain' => ['required', 'string', 'max:255', 'alpha_dash']
         ]);
@@ -42,7 +56,7 @@ class TenantRegisterController extends Controller
             });
         } catch (\Exception $e) {
             $isValidFormat = false;
-            $formatError = __('validation.domain_format', ['attribute' => 'domain']);
+            $formatError = __('validation.domain_format', ['attribute' => __('validation.attributes.domain')]);
         }
 
         if (!$isValidFormat) {
@@ -60,7 +74,7 @@ class TenantRegisterController extends Controller
         return response()->json([
             'valid' => true,
             'available' => $isAvailable,
-            'message' => $isAvailable ? 'Domain is available' : 'This domain has already been taken'
+            'message' => $isAvailable ? __('Domain is available') : __('This domain has already been taken')
         ]);
     }
 }
