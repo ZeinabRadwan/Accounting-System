@@ -20,6 +20,82 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".chart-of-account-form[data-v-f0bbdc42
 
 /***/ }),
 
+/***/ 36695:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".multilingual-input[data-v-78a07ab2]{position:relative}.language-selector .btn-group[data-v-78a07ab2]{display:flex;flex-wrap:wrap;gap:2px}.language-selector .btn[data-v-78a07ab2]{border-radius:.25rem;font-size:.8rem;padding:.25rem .5rem}.input-container[data-v-78a07ab2]{position:relative}.translation-indicators[data-v-78a07ab2]{display:flex;gap:2px;pointer-events:none;position:absolute;right:10px;top:50%;transform:translateY(-50%)}.indicator[data-v-78a07ab2]{font-size:.8rem;opacity:.5;transition:opacity .2s}.indicator.has-translation[data-v-78a07ab2]{opacity:1}.indicator.is-active[data-v-78a07ab2]{opacity:1;transform:scale(1.2)}.indicator.is-fallback[data-v-78a07ab2]{border:1px solid #007bff;border-radius:2px;padding:1px}.translation-status[data-v-78a07ab2]{font-size:.75rem}.translation-actions[data-v-78a07ab2]{display:flex;flex-wrap:wrap;gap:.5rem}.translation-actions .btn[data-v-78a07ab2]{font-size:.75rem;padding:.25rem .5rem}@media (max-width:768px){.language-selector .btn-group[data-v-78a07ab2]{width:100%}.language-selector .btn[data-v-78a07ab2]{flex:1;min-width:0}.translation-indicators[data-v-78a07ab2]{justify-content:center;margin-top:.5rem;position:static;transform:none}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 13284:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".translation-manager[data-v-a894c80e]{background:#f8f9fa;border:1px solid #dee2e6;border-radius:.5rem;padding:1.5rem}.language-tabs .nav-tabs[data-v-a894c80e]{border-bottom:2px solid #dee2e6}.language-tabs .nav-link[data-v-a894c80e]{border:none;border-bottom:3px solid transparent;color:#6c757d;font-weight:500}.language-tabs .nav-link.active[data-v-a894c80e]{background:none}.language-tabs .nav-link.active[data-v-a894c80e],.language-tabs .nav-link[data-v-a894c80e]:hover{border-bottom-color:#007bff;color:#007bff}.translation-status[data-v-a894c80e]{background:#fff;border:1px solid #e9ecef;border-radius:.375rem;padding:1rem}.progress[data-v-a894c80e]{background-color:#e9ecef}.translation-actions .btn[data-v-a894c80e]{min-width:140px}@media (max-width:768px){.translation-manager[data-v-a894c80e]{padding:1rem}.language-tabs .nav-tabs[data-v-a894c80e]{flex-wrap:wrap}.translation-actions .btn[data-v-a894c80e]{margin-bottom:.5rem;min-width:auto;width:100%}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 25933:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-736a3b3a]{border:none!important}.accounts-table[data-v-736a3b3a]{border-collapse:separate;border-spacing:0}.accounts-table thead th[data-v-736a3b3a]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.accounts-table thead tr[data-v-736a3b3a]{border:none!important}.accounts-table thead th[data-v-736a3b3a]:first-child{border-top-left-radius:10px}.accounts-table thead th[data-v-736a3b3a]:last-child{border-top-right-radius:10px}[dir=rtl] .accounts-table thead th[data-v-736a3b3a]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .accounts-table thead th[data-v-736a3b3a]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.refresh-btn[data-v-736a3b3a]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-736a3b3a],.export-pdf-btn[data-v-736a3b3a]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-736a3b3a],.export-pdf-btn[data-v-736a3b3a],.print-btn[data-v-736a3b3a]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-736a3b3a]{background:#33a0d91a!important;color:#33a0d9!important}.action-dropdown[data-v-736a3b3a]{display:inline-block;position:relative}.action-icon-btn[data-v-736a3b3a]{align-items:center;background-color:#fff;border:none;cursor:pointer;display:inline-flex;height:24px;justify-content:center;padding:0;width:24px}.action-menu[data-v-736a3b3a]{animation:slideInDown-736a3b3a .3s ease-out;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 8px 20px 0 #00000014;max-height:80vh;min-width:200px;overflow:hidden;position:fixed;z-index:9999}[dir=rtl] .action-menu[data-v-736a3b3a]{left:45px!important;right:auto!important}@keyframes slideInDown-736a3b3a{0%{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.action-menu-header[data-v-736a3b3a]{align-items:center;background:#f8fafc;border-bottom:1px solid #f1f5fb;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;padding:12px 16px}.action-menu-title[data-v-736a3b3a]{color:#023033;font-size:14px;font-weight:600}.action-menu-close[data-v-736a3b3a]{background:none;border:none;border-radius:4px;color:#6b7280;cursor:pointer;padding:4px;transition:all .2s ease}.action-menu-close[data-v-736a3b3a]:hover{background:#e5e7eb;color:#374151}.action-menu ul[data-v-736a3b3a]{list-style:none;margin:0;padding:8px 0}.action-menu li[data-v-736a3b3a]{border-bottom:1px solid #f1f5fb}.action-menu li[data-v-736a3b3a]:last-child{border-bottom:none}.action-menu li a[data-v-736a3b3a]{align-items:center;color:#023033;display:flex;font-size:14px;font-weight:500;gap:10px;padding:12px 16px;position:relative;text-decoration:none;transition:all .2s ease}.action-menu li a i[data-v-736a3b3a]{align-items:center;display:flex;font-size:12px;height:16px;justify-content:center;width:16px}.action-menu li a[data-v-736a3b3a]:hover{background:#f8fafc;color:#2ab930;transform:translateX(2px)}.action-menu li a[data-v-736a3b3a]:before{background:#2ab930;bottom:0;content:\"\";left:0;position:absolute;top:0;transform:scaleY(0);transition:transform .2s ease;width:3px}.action-menu li a[data-v-736a3b3a]:hover:before{transform:scaleY(1)}.btn-group.c-w-100[data-v-736a3b3a]{gap:10px}.card[data-v-736a3b3a]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px;overflow:visible}.card-footer[data-v-736a3b3a]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.accounts-table .badge.bg-success[data-v-736a3b3a]{background:#f6fef4!important;color:#2ab930!important}.accounts-table .badge.bg-danger[data-v-736a3b3a],.accounts-table .badge.bg-success[data-v-736a3b3a]{font-size:12px!important;font-weight:500!important;padding:10px 16px}.accounts-table .badge.bg-danger[data-v-736a3b3a]{background:#fef4f4!important;color:#dc3545!important}.form-control[data-v-736a3b3a]{background:#fff!important}.btn-primary[data-v-736a3b3a]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.translation-indicators[data-v-736a3b3a]{display:flex;flex-wrap:wrap;gap:2px}.indicator[data-v-736a3b3a]{font-size:.8rem;opacity:.5;transition:opacity .2s}.indicator.has-translation[data-v-736a3b3a]{opacity:1}.indicator.is-current[data-v-736a3b3a]{opacity:1;transform:scale(1.2)}.account-name strong[data-v-736a3b3a]{color:#2c3e50}.language-selector .btn-group[data-v-736a3b3a]{display:flex;flex-wrap:wrap;gap:2px}.account-form-modal[data-v-736a3b3a]{border:none;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.15);overflow:hidden}.account-form-modal .modal-header[data-v-736a3b3a]{background:linear-gradient(135deg,#f8fafc,#e2e8f0);border-bottom:1px solid #e2e8f0;border-radius:16px 16px 0 0;padding:1.5rem 2rem}.account-form-modal .modal-title[data-v-736a3b3a]{color:#1e293b;font-size:1.25rem;font-weight:600}.account-form-modal .modal-body[data-v-736a3b3a]{background:#fff;padding:2rem}.account-form-modal .btn-close[data-v-736a3b3a]{background:none;border:none;border-radius:8px;color:#64748b;font-size:1.5rem;opacity:.7;padding:.5rem;transition:all .2s ease}.account-form-modal .btn-close[data-v-736a3b3a]:hover{background:rgba(0,0,0,.05);color:#1e293b;opacity:1}.translation-content[data-v-736a3b3a]{min-height:400px;padding:1rem 0}.modal-title[data-v-736a3b3a]{color:#1e293b;font-size:1.25rem;font-weight:600}.text-primary[data-v-736a3b3a]{color:#3b82f6!important}@media (max-width:768px){.search-filters .row>div[data-v-736a3b3a]{margin-bottom:.5rem}.account-form-modal .modal-header[data-v-736a3b3a]{padding:1rem 1.5rem}.account-form-modal .modal-body[data-v-736a3b3a]{padding:1.5rem}.translation-content[data-v-736a3b3a]{padding:.5rem 0}.account-form-modal .modal-dialog[data-v-736a3b3a]{margin:1rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 44197:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;display:flex;flex-direction:column;justify-content:space-between;margin-top:30px;padding:0 0 0 10px}.card-footer .form-group.row.display-per-page{align-items:center;display:flex;gap:10px;justify-content:flex-end;width:100%}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 11012:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -31,7 +107,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ chart_of_accounts)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=template&id=736a3b3a&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=template&id=736a3b3a&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -401,7 +477,7 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountForm.vue?vue&type=template&id=f0bbdc42&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountForm.vue?vue&type=template&id=f0bbdc42&scoped=true
 var ChartOfAccountFormvue_type_template_id_f0bbdc42_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -709,7 +785,7 @@ var ChartOfAccountFormvue_type_template_id_f0bbdc42_scoped_true_render = functio
 };
 var ChartOfAccountFormvue_type_template_id_f0bbdc42_scoped_true_staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MultilingualInput.vue?vue&type=template&id=78a07ab2&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MultilingualInput.vue?vue&type=template&id=78a07ab2&scoped=true
 var MultilingualInputvue_type_template_id_78a07ab2_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -874,11 +950,11 @@ var MultilingualInputvue_type_template_id_78a07ab2_scoped_true_render = function
 };
 var MultilingualInputvue_type_template_id_78a07ab2_scoped_true_staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MultilingualInput.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MultilingualInput.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /* harmony default export */ const MultilingualInputvue_type_script_lang_js = ({
@@ -1058,14 +1134,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   }
 });
-;// ./resources/js/components/MultilingualInput.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./resources/js/components/MultilingualInput.vue?vue&type=script&lang=js
  /* harmony default export */ const components_MultilingualInputvue_type_script_lang_js = (MultilingualInputvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MultilingualInput.vue?vue&type=style&index=0&id=78a07ab2&prod&scoped=true&lang=css
 var MultilingualInputvue_type_style_index_0_id_78a07ab2_prod_scoped_true_lang_css = __webpack_require__(36695);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MultilingualInput.vue?vue&type=style&index=0&id=78a07ab2&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MultilingualInput.vue?vue&type=style&index=0&id=78a07ab2&prod&scoped=true&lang=css
 
             
 
@@ -1079,11 +1155,11 @@ var update = injectStylesIntoStyleTag_default()(MultilingualInputvue_type_style_
 
 
 /* harmony default export */ const components_MultilingualInputvue_type_style_index_0_id_78a07ab2_prod_scoped_true_lang_css = (MultilingualInputvue_type_style_index_0_id_78a07ab2_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/MultilingualInput.vue?vue&type=style&index=0&id=78a07ab2&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./resources/js/components/MultilingualInput.vue?vue&type=style&index=0&id=78a07ab2&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/MultilingualInput.vue
+;// CONCATENATED MODULE: ./resources/js/components/MultilingualInput.vue
 
 
 
@@ -1104,7 +1180,7 @@ var component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const MultilingualInput = (component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TranslationManager.vue?vue&type=template&id=a894c80e&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TranslationManager.vue?vue&type=template&id=a894c80e&scoped=true
 var TranslationManagervue_type_template_id_a894c80e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1243,17 +1319,17 @@ var TranslationManagervue_type_template_id_a894c80e_scoped_true_render = functio
 };
 var TranslationManagervue_type_template_id_a894c80e_scoped_true_staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TranslationManager.vue?vue&type=script&lang=js
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TranslationManager.vue?vue&type=script&lang=js
+function TranslationManagervue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return TranslationManagervue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, TranslationManagervue_type_script_lang_js_typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == TranslationManagervue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(TranslationManagervue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 /* harmony default export */ const TranslationManagervue_type_script_lang_js = ({
   name: 'TranslationManager',
   props: {
@@ -1436,14 +1512,14 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     },
     saveTranslations: function saveTranslations() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var promises, _error$response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var promises, _error$response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
               _this4.isSaving = true;
               _this4.errors = {};
-              _context.p = 1;
+              _context.prev = 2;
               promises = _this4.translatableFields.map(function (field) {
                 var fieldTranslations = _this4.translations[field];
                 var nonEmptyTranslations = Object.fromEntries(Object.entries(fieldTranslations).filter(function (_ref) {
@@ -1460,29 +1536,30 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 }
                 return Promise.resolve();
               });
-              _context.n = 2;
+              _context.next = 6;
               return Promise.all(promises.filter(Boolean));
-            case 2:
+            case 6:
               _this4.$toast.success('Translations saved successfully!');
               _this4.$emit('translations-saved', _this4.translations);
-              _context.n = 4;
+              _context.next = 15;
               break;
-            case 3:
-              _context.p = 3;
-              _t = _context.v;
-              console.error('Error saving translations:', _t);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              console.error('Error saving translations:', _context.t0);
               _this4.$toast.error('Error saving translations');
-              if ((_error$response = _t.response) !== null && _error$response !== void 0 && (_error$response = _error$response.data) !== null && _error$response !== void 0 && _error$response.errors) {
-                _this4.errors = _t.response.data.errors;
+              if ((_error$response = _context.t0.response) !== null && _error$response !== void 0 && (_error$response = _error$response.data) !== null && _error$response !== void 0 && _error$response.errors) {
+                _this4.errors = _context.t0.response.data.errors;
               }
-            case 4:
-              _context.p = 4;
+            case 15:
+              _context.prev = 15;
               _this4.isSaving = false;
-              return _context.f(4);
-            case 5:
-              return _context.a(2);
+              return _context.finish(15);
+            case 18:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[1, 3, 4, 5]]);
+        }, _callee, null, [[2, 10, 15, 18]]);
       }))();
     },
     resetTranslations: function resetTranslations() {
@@ -1504,11 +1581,11 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     }
   }
 });
-;// ./resources/js/components/TranslationManager.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./resources/js/components/TranslationManager.vue?vue&type=script&lang=js
  /* harmony default export */ const components_TranslationManagervue_type_script_lang_js = (TranslationManagervue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TranslationManager.vue?vue&type=style&index=0&id=a894c80e&prod&scoped=true&lang=css
 var TranslationManagervue_type_style_index_0_id_a894c80e_prod_scoped_true_lang_css = __webpack_require__(13284);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TranslationManager.vue?vue&type=style&index=0&id=a894c80e&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TranslationManager.vue?vue&type=style&index=0&id=a894c80e&prod&scoped=true&lang=css
 
             
 
@@ -1522,9 +1599,9 @@ var TranslationManagervue_type_style_index_0_id_a894c80e_prod_scoped_true_lang_c
 
 
 /* harmony default export */ const components_TranslationManagervue_type_style_index_0_id_a894c80e_prod_scoped_true_lang_css = (TranslationManagervue_type_style_index_0_id_a894c80e_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/TranslationManager.vue?vue&type=style&index=0&id=a894c80e&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./resources/js/components/TranslationManager.vue?vue&type=style&index=0&id=a894c80e&prod&scoped=true&lang=css
 
-;// ./resources/js/components/TranslationManager.vue
+;// CONCATENATED MODULE: ./resources/js/components/TranslationManager.vue
 
 
 
@@ -1545,17 +1622,16 @@ var TranslationManager_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const TranslationManager = (TranslationManager_component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountForm.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountForm.vue?vue&type=script&lang=js
 function ChartOfAccountFormvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ChartOfAccountFormvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ChartOfAccountFormvue_type_script_lang_js_typeof(o); }
-function ChartOfAccountFormvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(u), ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (ChartOfAccountFormvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, ChartOfAccountFormvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
+function ChartOfAccountFormvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ ChartOfAccountFormvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == ChartOfAccountFormvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(ChartOfAccountFormvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function ChartOfAccountFormvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function ChartOfAccountFormvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ChartOfAccountFormvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { ChartOfAccountFormvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ChartOfAccountFormvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function ChartOfAccountFormvue_type_script_lang_js_defineProperty(e, r, t) { return (r = ChartOfAccountFormvue_type_script_lang_js_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function ChartOfAccountFormvue_type_script_lang_js_defineProperty(obj, key, value) { key = ChartOfAccountFormvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function ChartOfAccountFormvue_type_script_lang_js_toPropertyKey(t) { var i = ChartOfAccountFormvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == ChartOfAccountFormvue_type_script_lang_js_typeof(i) ? i : i + ""; }
 function ChartOfAccountFormvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != ChartOfAccountFormvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ChartOfAccountFormvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function ChartOfAccountFormvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function ChartOfAccountFormvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { ChartOfAccountFormvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { ChartOfAccountFormvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ChartOfAccountFormvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function ChartOfAccountFormvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { ChartOfAccountFormvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { ChartOfAccountFormvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 /* harmony default export */ const ChartOfAccountFormvue_type_script_lang_js = ({
@@ -1649,55 +1725,56 @@ function ChartOfAccountFormvue_type_script_lang_js_asyncToGenerator(n) { return 
     },
     submitForm: function submitForm() {
       var _this = this;
-      return ChartOfAccountFormvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ChartOfAccountFormvue_type_script_lang_js_regenerator().m(function _callee() {
-        var formData, response, _error$response, _t;
-        return ChartOfAccountFormvue_type_script_lang_js_regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return ChartOfAccountFormvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ChartOfAccountFormvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
+        var formData, response, _error$response;
+        return ChartOfAccountFormvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
               _this.isSubmitting = true;
               _this.errors = {};
-              _context.p = 1;
+              _context.prev = 2;
               formData = ChartOfAccountFormvue_type_script_lang_js_objectSpread(ChartOfAccountFormvue_type_script_lang_js_objectSpread({}, _this.form), {}, {
                 // Ensure we have the English name as fallback
                 name: _this.form.translations.name.en || _this.form.name
               });
               if (!_this.isEdit) {
-                _context.n = 3;
+                _context.next = 10;
                 break;
               }
-              _context.n = 2;
+              _context.next = 7;
               return _this.$axios.put("/api/chart-of-accounts/translations/".concat(_this.form.code), formData);
-            case 2:
-              response = _context.v;
-              _context.n = 5;
+            case 7:
+              response = _context.sent;
+              _context.next = 13;
               break;
-            case 3:
-              _context.n = 4;
+            case 10:
+              _context.next = 12;
               return _this.$axios.post('/api/chart-of-accounts/translations', formData);
-            case 4:
-              response = _context.v;
-            case 5:
+            case 12:
+              response = _context.sent;
+            case 13:
               _this.$toast.success(response.data.message);
               _this.$emit('saved', response.data.data);
-              _context.n = 7;
+              _context.next = 21;
               break;
-            case 6:
-              _context.p = 6;
-              _t = _context.v;
-              console.error('Error saving chart of account:', _t);
-              if ((_error$response = _t.response) !== null && _error$response !== void 0 && (_error$response = _error$response.data) !== null && _error$response !== void 0 && _error$response.errors) {
-                _this.errors = _t.response.data.errors;
+            case 17:
+              _context.prev = 17;
+              _context.t0 = _context["catch"](2);
+              console.error('Error saving chart of account:', _context.t0);
+              if ((_error$response = _context.t0.response) !== null && _error$response !== void 0 && (_error$response = _error$response.data) !== null && _error$response !== void 0 && _error$response.errors) {
+                _this.errors = _context.t0.response.data.errors;
               } else {
                 _this.$toast.error('Error saving chart of account');
               }
-            case 7:
-              _context.p = 7;
+            case 21:
+              _context.prev = 21;
               _this.isSubmitting = false;
-              return _context.f(7);
-            case 8:
-              return _context.a(2);
+              return _context.finish(21);
+            case 24:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[1, 6, 7, 8]]);
+        }, _callee, null, [[2, 17, 21, 24]]);
       }))();
     },
     cancelForm: function cancelForm() {
@@ -1705,11 +1782,11 @@ function ChartOfAccountFormvue_type_script_lang_js_asyncToGenerator(n) { return 
     }
   }
 });
-;// ./resources/js/components/ChartOfAccountForm.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./resources/js/components/ChartOfAccountForm.vue?vue&type=script&lang=js
  /* harmony default export */ const components_ChartOfAccountFormvue_type_script_lang_js = (ChartOfAccountFormvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountForm.vue?vue&type=style&index=0&id=f0bbdc42&prod&scoped=true&lang=css
 var ChartOfAccountFormvue_type_style_index_0_id_f0bbdc42_prod_scoped_true_lang_css = __webpack_require__(2583);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountForm.vue?vue&type=style&index=0&id=f0bbdc42&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountForm.vue?vue&type=style&index=0&id=f0bbdc42&prod&scoped=true&lang=css
 
             
 
@@ -1723,9 +1800,9 @@ var ChartOfAccountFormvue_type_style_index_0_id_f0bbdc42_prod_scoped_true_lang_c
 
 
 /* harmony default export */ const components_ChartOfAccountFormvue_type_style_index_0_id_f0bbdc42_prod_scoped_true_lang_css = (ChartOfAccountFormvue_type_style_index_0_id_f0bbdc42_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ChartOfAccountForm.vue?vue&type=style&index=0&id=f0bbdc42&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./resources/js/components/ChartOfAccountForm.vue?vue&type=style&index=0&id=f0bbdc42&prod&scoped=true&lang=css
 
-;// ./resources/js/components/ChartOfAccountForm.vue
+;// CONCATENATED MODULE: ./resources/js/components/ChartOfAccountForm.vue
 
 
 
@@ -1748,11 +1825,11 @@ var ChartOfAccountForm_component = (0,componentNormalizer/* default */.A)(
 /* harmony default export */ const ChartOfAccountForm = (ChartOfAccountForm_component.exports);
 // EXTERNAL MODULE: ./resources/js/components/Modal.vue + 5 modules
 var Modal = __webpack_require__(70227);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=script&lang=js
-function chart_of_accountsvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(u), chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (chart_of_accountsvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } chart_of_accountsvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, chart_of_accountsvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
-function chart_of_accountsvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function chart_of_accountsvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { chart_of_accountsvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { chart_of_accountsvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=script&lang=js
+function chart_of_accountsvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return chart_of_accountsvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, chart_of_accountsvue_type_script_lang_js_typeof(o); }
+function chart_of_accountsvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ chart_of_accountsvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == chart_of_accountsvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(chart_of_accountsvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function chart_of_accountsvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function chart_of_accountsvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { chart_of_accountsvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { chart_of_accountsvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -1913,13 +1990,13 @@ function chart_of_accountsvue_type_script_lang_js_asyncToGenerator(n) { return f
     },
     loadAccounts: function loadAccounts() {
       var _this = this;
-      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regenerator().m(function _callee() {
-        var currentPage, isSearching, endpoint, params, response, _t;
-        return chart_of_accountsvue_type_script_lang_js_regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
+        var currentPage, isSearching, endpoint, params, response;
+        return chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
               _this.loading = true;
-              _context.p = 1;
+              _context.prev = 1;
               currentPage = _this.pagination && _this.pagination.current_page ? _this.pagination.current_page : 1;
               isSearching = !!_this.searchTerm;
               endpoint = isSearching ? '/api/chart-of-accounts/translations/search' : '/api/chart-of-accounts/translations';
@@ -1939,104 +2016,108 @@ function chart_of_accountsvue_type_script_lang_js_asyncToGenerator(n) { return f
               if (_this.typeFilter) {
                 params.type_id = _this.typeFilter;
               }
-              _context.n = 2;
+              _context.next = 10;
               return _this.$axios.get(endpoint, {
                 params: params
               });
-            case 2:
-              response = _context.v;
+            case 10:
+              response = _context.sent;
               _this.accounts = response.data.data;
               _this.pagination = response.data.meta;
-              _context.n = 4;
+              _context.next = 19;
               break;
-            case 3:
-              _context.p = 3;
-              _t = _context.v;
-              console.error('Error loading accounts:', _t);
+            case 15:
+              _context.prev = 15;
+              _context.t0 = _context["catch"](1);
+              console.error('Error loading accounts:', _context.t0);
               _this.$toast.error('Error loading accounts');
-            case 4:
-              _context.p = 4;
+            case 19:
+              _context.prev = 19;
               _this.loading = false;
-              return _context.f(4);
-            case 5:
-              return _context.a(2);
+              return _context.finish(19);
+            case 22:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[1, 3, 4, 5]]);
+        }, _callee, null, [[1, 15, 19, 22]]);
       }))();
     },
     loadAccountTypes: function loadAccountTypes() {
       var _this2 = this;
-      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regenerator().m(function _callee2() {
-        var response, _t2;
-        return chart_of_accountsvue_type_script_lang_js_regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
+      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.p = 0;
-              _context2.n = 1;
+              _context2.prev = 0;
+              _context2.next = 3;
               return _this2.$axios.get('/api/chart-of-account-types');
-            case 1:
-              response = _context2.v;
-              _this2.accountTypes = response.data.data;
-              _context2.n = 3;
-              break;
-            case 2:
-              _context2.p = 2;
-              _t2 = _context2.v;
-              console.error('Error loading account types:', _t2);
             case 3:
-              return _context2.a(2);
+              response = _context2.sent;
+              _this2.accountTypes = response.data.data;
+              _context2.next = 10;
+              break;
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](0);
+              console.error('Error loading account types:', _context2.t0);
+            case 10:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, null, [[0, 2]]);
+        }, _callee2, null, [[0, 7]]);
       }))();
     },
     loadParentAccounts: function loadParentAccounts() {
       var _this3 = this;
-      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regenerator().m(function _callee3() {
-        var response, _t3;
-        return chart_of_accountsvue_type_script_lang_js_regenerator().w(function (_context3) {
-          while (1) switch (_context3.p = _context3.n) {
+      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.p = 0;
-              _context3.n = 1;
+              _context3.prev = 0;
+              _context3.next = 3;
               return _this3.$axios.get('/api/chart-of-accounts/all');
-            case 1:
-              response = _context3.v;
-              _this3.parentAccounts = response.data.data;
-              _context3.n = 3;
-              break;
-            case 2:
-              _context3.p = 2;
-              _t3 = _context3.v;
-              console.error('Error loading parent accounts:', _t3);
             case 3:
-              return _context3.a(2);
+              response = _context3.sent;
+              _this3.parentAccounts = response.data.data;
+              _context3.next = 10;
+              break;
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](0);
+              console.error('Error loading parent accounts:', _context3.t0);
+            case 10:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3, null, [[0, 2]]);
+        }, _callee3, null, [[0, 7]]);
       }))();
     },
     loadTranslationStats: function loadTranslationStats() {
       var _this4 = this;
-      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regenerator().m(function _callee4() {
-        var response, _t4;
-        return chart_of_accountsvue_type_script_lang_js_regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
+      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().mark(function _callee4() {
+        var response;
+        return chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.p = 0;
-              _context4.n = 1;
+              _context4.prev = 0;
+              _context4.next = 3;
               return _this4.$axios.get('/api/chart-of-accounts/translations/stats');
-            case 1:
-              response = _context4.v;
-              _this4.stats = response.data.data;
-              _context4.n = 3;
-              break;
-            case 2:
-              _context4.p = 2;
-              _t4 = _context4.v;
-              console.error('Error loading translation stats:', _t4);
             case 3:
-              return _context4.a(2);
+              response = _context4.sent;
+              _this4.stats = response.data.data;
+              _context4.next = 10;
+              break;
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](0);
+              console.error('Error loading translation stats:', _context4.t0);
+            case 10:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee4, null, [[0, 2]]);
+        }, _callee4, null, [[0, 7]]);
       }))();
     },
     setDisplayLocale: function setDisplayLocale(locale) {
@@ -2098,32 +2179,32 @@ function chart_of_accountsvue_type_script_lang_js_asyncToGenerator(n) { return f
     },
     deleteAccount: function deleteAccount(account) {
       var _this6 = this;
-      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regenerator().m(function _callee5() {
-        var _t5;
-        return chart_of_accountsvue_type_script_lang_js_regenerator().w(function (_context5) {
-          while (1) switch (_context5.p = _context5.n) {
+      return chart_of_accountsvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().mark(function _callee5() {
+        return chart_of_accountsvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
               if (!confirm("Are you sure you want to delete account ".concat(account.code, "?"))) {
-                _context5.n = 4;
+                _context5.next = 12;
                 break;
               }
-              _context5.p = 1;
-              _context5.n = 2;
+              _context5.prev = 1;
+              _context5.next = 4;
               return _this6.$axios["delete"]("/api/chart-of-accounts/".concat(account.code));
-            case 2:
+            case 4:
               _this6.$toast.success('Account deleted successfully');
               _this6.loadAccounts();
-              _context5.n = 4;
+              _context5.next = 12;
               break;
-            case 3:
-              _context5.p = 3;
-              _t5 = _context5.v;
-              console.error('Error deleting account:', _t5);
+            case 8:
+              _context5.prev = 8;
+              _context5.t0 = _context5["catch"](1);
+              console.error('Error deleting account:', _context5.t0);
               _this6.$toast.error('Error deleting account');
-            case 4:
-              return _context5.a(2);
+            case 12:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee5, null, [[1, 3]]);
+        }, _callee5, null, [[1, 8]]);
       }))();
     },
     onTranslationsSaved: function onTranslationsSaved() {
@@ -2210,11 +2291,11 @@ function chart_of_accountsvue_type_script_lang_js_asyncToGenerator(n) { return f
     }
   }
 });
-;// ./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=script&lang=js
  /* harmony default export */ const cashbook_chart_of_accountsvue_type_script_lang_js = (chart_of_accountsvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=0&id=736a3b3a&prod&scoped=true&lang=css
 var chart_of_accountsvue_type_style_index_0_id_736a3b3a_prod_scoped_true_lang_css = __webpack_require__(25933);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=0&id=736a3b3a&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=0&id=736a3b3a&prod&scoped=true&lang=css
 
             
 
@@ -2228,11 +2309,11 @@ var chart_of_accountsvue_type_style_index_0_id_736a3b3a_prod_scoped_true_lang_cs
 
 
 /* harmony default export */ const cashbook_chart_of_accountsvue_type_style_index_0_id_736a3b3a_prod_scoped_true_lang_css = (chart_of_accountsvue_type_style_index_0_id_736a3b3a_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=0&id=736a3b3a&prod&scoped=true&lang=css
+;// CONCATENATED MODULE: ./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=0&id=736a3b3a&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=1&id=736a3b3a&prod&lang=css
 var chart_of_accountsvue_type_style_index_1_id_736a3b3a_prod_lang_css = __webpack_require__(44197);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=1&id=736a3b3a&prod&lang=css
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=1&id=736a3b3a&prod&lang=css
 
             
 
@@ -2246,9 +2327,9 @@ var chart_of_accountsvue_type_style_index_1_id_736a3b3a_prod_lang_css_update = i
 
 
 /* harmony default export */ const cashbook_chart_of_accountsvue_type_style_index_1_id_736a3b3a_prod_lang_css = (chart_of_accountsvue_type_style_index_1_id_736a3b3a_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=1&id=736a3b3a&prod&lang=css
+;// CONCATENATED MODULE: ./resources/js/pages/cashbook/chart-of-accounts/index.vue?vue&type=style&index=1&id=736a3b3a&prod&lang=css
 
-;// ./resources/js/pages/cashbook/chart-of-accounts/index.vue
+;// CONCATENATED MODULE: ./resources/js/pages/cashbook/chart-of-accounts/index.vue
 
 
 
@@ -2270,82 +2351,6 @@ var chart_of_accounts_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const chart_of_accounts = (chart_of_accounts_component.exports);
-
-/***/ }),
-
-/***/ 13284:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".translation-manager[data-v-a894c80e]{background:#f8f9fa;border:1px solid #dee2e6;border-radius:.5rem;padding:1.5rem}.language-tabs .nav-tabs[data-v-a894c80e]{border-bottom:2px solid #dee2e6}.language-tabs .nav-link[data-v-a894c80e]{border:none;border-bottom:3px solid transparent;color:#6c757d;font-weight:500}.language-tabs .nav-link.active[data-v-a894c80e]{background:none}.language-tabs .nav-link.active[data-v-a894c80e],.language-tabs .nav-link[data-v-a894c80e]:hover{border-bottom-color:#007bff;color:#007bff}.translation-status[data-v-a894c80e]{background:#fff;border:1px solid #e9ecef;border-radius:.375rem;padding:1rem}.progress[data-v-a894c80e]{background-color:#e9ecef}.translation-actions .btn[data-v-a894c80e]{min-width:140px}@media (max-width:768px){.translation-manager[data-v-a894c80e]{padding:1rem}.language-tabs .nav-tabs[data-v-a894c80e]{flex-wrap:wrap}.translation-actions .btn[data-v-a894c80e]{margin-bottom:.5rem;min-width:auto;width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 25933:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-736a3b3a]{border:none!important}.accounts-table[data-v-736a3b3a]{border-collapse:separate;border-spacing:0}.accounts-table thead th[data-v-736a3b3a]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.accounts-table thead tr[data-v-736a3b3a]{border:none!important}.accounts-table thead th[data-v-736a3b3a]:first-child{border-top-left-radius:10px}.accounts-table thead th[data-v-736a3b3a]:last-child{border-top-right-radius:10px}[dir=rtl] .accounts-table thead th[data-v-736a3b3a]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .accounts-table thead th[data-v-736a3b3a]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.refresh-btn[data-v-736a3b3a]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-736a3b3a],.export-pdf-btn[data-v-736a3b3a]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-736a3b3a],.export-pdf-btn[data-v-736a3b3a],.print-btn[data-v-736a3b3a]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-736a3b3a]{background:#33a0d91a!important;color:#33a0d9!important}.action-dropdown[data-v-736a3b3a]{display:inline-block;position:relative}.action-icon-btn[data-v-736a3b3a]{align-items:center;background-color:#fff;border:none;cursor:pointer;display:inline-flex;height:24px;justify-content:center;padding:0;width:24px}.action-menu[data-v-736a3b3a]{animation:slideInDown-736a3b3a .3s ease-out;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 8px 20px 0 #00000014;max-height:80vh;min-width:200px;overflow:hidden;position:fixed;z-index:9999}[dir=rtl] .action-menu[data-v-736a3b3a]{left:45px!important;right:auto!important}@keyframes slideInDown-736a3b3a{0%{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.action-menu-header[data-v-736a3b3a]{align-items:center;background:#f8fafc;border-bottom:1px solid #f1f5fb;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;padding:12px 16px}.action-menu-title[data-v-736a3b3a]{color:#023033;font-size:14px;font-weight:600}.action-menu-close[data-v-736a3b3a]{background:none;border:none;border-radius:4px;color:#6b7280;cursor:pointer;padding:4px;transition:all .2s ease}.action-menu-close[data-v-736a3b3a]:hover{background:#e5e7eb;color:#374151}.action-menu ul[data-v-736a3b3a]{list-style:none;margin:0;padding:8px 0}.action-menu li[data-v-736a3b3a]{border-bottom:1px solid #f1f5fb}.action-menu li[data-v-736a3b3a]:last-child{border-bottom:none}.action-menu li a[data-v-736a3b3a]{align-items:center;color:#023033;display:flex;font-size:14px;font-weight:500;gap:10px;padding:12px 16px;position:relative;text-decoration:none;transition:all .2s ease}.action-menu li a i[data-v-736a3b3a]{align-items:center;display:flex;font-size:12px;height:16px;justify-content:center;width:16px}.action-menu li a[data-v-736a3b3a]:hover{background:#f8fafc;color:#2ab930;transform:translateX(2px)}.action-menu li a[data-v-736a3b3a]:before{background:#2ab930;bottom:0;content:\"\";left:0;position:absolute;top:0;transform:scaleY(0);transition:transform .2s ease;width:3px}.action-menu li a[data-v-736a3b3a]:hover:before{transform:scaleY(1)}.btn-group.c-w-100[data-v-736a3b3a]{gap:10px}.card[data-v-736a3b3a]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px;overflow:visible}.card-footer[data-v-736a3b3a]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.accounts-table .badge.bg-success[data-v-736a3b3a]{background:#f6fef4!important;color:#2ab930!important}.accounts-table .badge.bg-danger[data-v-736a3b3a],.accounts-table .badge.bg-success[data-v-736a3b3a]{font-size:12px!important;font-weight:500!important;padding:10px 16px}.accounts-table .badge.bg-danger[data-v-736a3b3a]{background:#fef4f4!important;color:#dc3545!important}.form-control[data-v-736a3b3a]{background:#fff!important}.btn-primary[data-v-736a3b3a]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.translation-indicators[data-v-736a3b3a]{display:flex;flex-wrap:wrap;gap:2px}.indicator[data-v-736a3b3a]{font-size:.8rem;opacity:.5;transition:opacity .2s}.indicator.has-translation[data-v-736a3b3a]{opacity:1}.indicator.is-current[data-v-736a3b3a]{opacity:1;transform:scale(1.2)}.account-name strong[data-v-736a3b3a]{color:#2c3e50}.language-selector .btn-group[data-v-736a3b3a]{display:flex;flex-wrap:wrap;gap:2px}.account-form-modal[data-v-736a3b3a]{border:none;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.15);overflow:hidden}.account-form-modal .modal-header[data-v-736a3b3a]{background:linear-gradient(135deg,#f8fafc,#e2e8f0);border-bottom:1px solid #e2e8f0;border-radius:16px 16px 0 0;padding:1.5rem 2rem}.account-form-modal .modal-title[data-v-736a3b3a]{color:#1e293b;font-size:1.25rem;font-weight:600}.account-form-modal .modal-body[data-v-736a3b3a]{background:#fff;padding:2rem}.account-form-modal .btn-close[data-v-736a3b3a]{background:none;border:none;border-radius:8px;color:#64748b;font-size:1.5rem;opacity:.7;padding:.5rem;transition:all .2s ease}.account-form-modal .btn-close[data-v-736a3b3a]:hover{background:rgba(0,0,0,.05);color:#1e293b;opacity:1}.translation-content[data-v-736a3b3a]{min-height:400px;padding:1rem 0}.modal-title[data-v-736a3b3a]{color:#1e293b;font-size:1.25rem;font-weight:600}.text-primary[data-v-736a3b3a]{color:#3b82f6!important}@media (max-width:768px){.search-filters .row>div[data-v-736a3b3a]{margin-bottom:.5rem}.account-form-modal .modal-header[data-v-736a3b3a]{padding:1rem 1.5rem}.account-form-modal .modal-body[data-v-736a3b3a]{padding:1.5rem}.translation-content[data-v-736a3b3a]{padding:.5rem 0}.account-form-modal .modal-dialog[data-v-736a3b3a]{margin:1rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 36695:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".multilingual-input[data-v-78a07ab2]{position:relative}.language-selector .btn-group[data-v-78a07ab2]{display:flex;flex-wrap:wrap;gap:2px}.language-selector .btn[data-v-78a07ab2]{border-radius:.25rem;font-size:.8rem;padding:.25rem .5rem}.input-container[data-v-78a07ab2]{position:relative}.translation-indicators[data-v-78a07ab2]{display:flex;gap:2px;pointer-events:none;position:absolute;right:10px;top:50%;transform:translateY(-50%)}.indicator[data-v-78a07ab2]{font-size:.8rem;opacity:.5;transition:opacity .2s}.indicator.has-translation[data-v-78a07ab2]{opacity:1}.indicator.is-active[data-v-78a07ab2]{opacity:1;transform:scale(1.2)}.indicator.is-fallback[data-v-78a07ab2]{border:1px solid #007bff;border-radius:2px;padding:1px}.translation-status[data-v-78a07ab2]{font-size:.75rem}.translation-actions[data-v-78a07ab2]{display:flex;flex-wrap:wrap;gap:.5rem}.translation-actions .btn[data-v-78a07ab2]{font-size:.75rem;padding:.25rem .5rem}@media (max-width:768px){.language-selector .btn-group[data-v-78a07ab2]{width:100%}.language-selector .btn[data-v-78a07ab2]{flex:1;min-width:0}.translation-indicators[data-v-78a07ab2]{justify-content:center;margin-top:.5rem;position:static;transform:none}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 44197:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;display:flex;flex-direction:column;justify-content:space-between;margin-top:30px;padding:0 0 0 10px}.card-footer .form-group.row.display-per-page{align-items:center;display:flex;gap:10px;justify-content:flex-end;width:100%}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ })
 
