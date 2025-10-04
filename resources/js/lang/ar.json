@@ -3837,5 +3837,11 @@
   "December": "ديسمبر",
   "Root Account": "الحساب الرئيسي",
   "Chart of Account Required" : "الحساب في الشجرة المحاسبية مطلوب",
+  "Unknown": "غير معروف",
+  "Cancel Account Routing": "إلغاء توجيه الحسابات",
+  "No account routing - discounts are not posted to accounts": "لا يوجد توجيه للحسابات - لا يتم تسجيل الخصومات في الحسابات",
+  "Specify Main Account Per Each": "تحديد الحساب الرئيسي لكل واحد",
+  "Specify Per Each": "تحديد لكل واحد",
+  "Automatic Account Routing": "توجيه الحسابات التلقائي",
   "Manage Translations": "إدارة الترجمات"
 }

@@ -91,12 +91,12 @@
                   >
                     <template #option="{ label, description }">
                       <div class="routing-option">
-                        <span class="routing-label">{{ label }}</span>
-                        <span class="routing-description">{{ description }}</span>
+                        <span class="routing-label">{{ $t(label) }}</span>
+                        <span class="routing-description">{{ $t(description) }}</span>
                       </div>
                     </template>
                     <template #selected-option="{ label }">
-                      <span class="selected-routing-label">{{ label }}</span>
+                      <span class="selected-routing-label">{{ $t(label) }}</span>
                     </template>
                   </VSelect>
                 </div>
@@ -196,12 +196,12 @@
                   >
                     <template #option="{ label, description }">
                       <div class="routing-option">
-                        <span class="routing-label">{{ label }}</span>
-                        <span class="routing-description">{{ description }}</span>
+                        <span class="routing-label">{{ $t(label) }}</span>
+                        <span class="routing-description">{{ $t(description) }}</span>
                       </div>
                     </template>
                     <template #selected-option="{ label }">
-                      <span class="selected-routing-label">{{ label }}</span>
+                      <span class="selected-routing-label">{{ $t(label) }}</span>
                     </template>
                   </VSelect>
                 </div>
@@ -281,12 +281,12 @@
                   >
                     <template #option="{ label, description }">
                       <div class="routing-option">
-                        <span class="routing-label">{{ label }}</span>
-                        <span class="routing-description">{{ description }}</span>
+                        <span class="routing-label">{{ $t(label) }}</span>
+                        <span class="routing-description">{{ $t(description) }}</span>
                       </div>
                     </template>
                     <template #selected-option="{ label }">
-                      <span class="selected-routing-label">{{ label }}</span>
+                      <span class="selected-routing-label">{{ $t(label) }}</span>
                     </template>
                   </VSelect>
                 </div>
@@ -366,12 +366,12 @@
                   >
                     <template #option="{ label, description }">
                       <div class="routing-option">
-                        <span class="routing-label">{{ label }}</span>
-                        <span class="routing-description">{{ description }}</span>
+                        <span class="routing-label">{{ $t(label) }}</span>
+                        <span class="routing-description">{{ $t(description) }}</span>
                       </div>
                     </template>
                     <template #selected-option="{ label }">
-                      <span class="selected-routing-label">{{ label }}</span>
+                      <span class="selected-routing-label">{{ $t(label) }}</span>
                     </template>
                   </VSelect>
                 </div>
@@ -570,7 +570,12 @@ export default {
           if (setting.setting_key === 'discount_allowed_account') {
             console.log('Discount setting using custom routing options:', setting.routing_type_options)
           }
-          return setting.routing_type_options
+          // Apply translations to database-loaded options
+          return setting.routing_type_options.map(option => ({
+            ...option,
+            label: this.$t(option.label),
+            description: this.$t(option.description)
+          }))
         }
         // Otherwise, use the default options.
         if (setting.setting_key === 'discount_allowed_account') {

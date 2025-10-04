@@ -143,15 +143,15 @@ class AccountRoutingSetting extends Model
     {
         switch ($this->routing_type) {
             case 'automatic':
-                return 'Automatic Account Routing';
+                return __('Automatic Account Routing');
             case 'per_each':
-                return 'Specify Per Each';
+                return __('Specify Per Each');
             case 'main_account_per_each':
-                return 'Specify Main Account Per Each';
+                return __('Specify Main Account Per Each');
             case 'cancel':
-                return 'Cancel Account Routing';
+                return __('Cancel Account Routing');
             default:
-                return 'Unknown';
+                return __('Unknown');
         }
     }
 
