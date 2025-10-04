@@ -21628,12 +21628,12 @@ var map = {
 		8418
 	],
 	"./central/tenants": [
-		15146,
-		5146
+		85767,
+		5767
 	],
 	"./central/tenants/": [
-		15146,
-		5146
+		85767,
+		5767
 	],
 	"./central/tenants/create": [
 		2665,
@@ -21652,12 +21652,12 @@ var map = {
 		7496
 	],
 	"./central/tenants/index": [
-		15146,
-		5146
+		85767,
+		5767
 	],
 	"./central/tenants/index.vue": [
-		15146,
-		5146
+		85767,
+		5767
 	],
 	"./central/tenants/show": [
 		29325,
@@ -89339,7 +89339,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 5626) return "js/5626.js";
 /******/ 			if (chunkId === 1238) return "js/1238.js";
 /******/ 			if (chunkId === 8418) return "js/8418.js";
-/******/ 			if (chunkId === 5146) return "js/5146.js";
+/******/ 			if (chunkId === 5767) return "js/5767.js";
 /******/ 			if (chunkId === 2665) return "js/2665.js";
 /******/ 			if (chunkId === 7496) return "js/7496.js";
 /******/ 			if (chunkId === 9325) return "js/9325.js";
