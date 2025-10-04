@@ -319,7 +319,7 @@
               </div>
 
               <div class="row">
-                <div v-if="taxes" class="form-group col-md-4">
+                <div v-if="taxes" class="form-group col-md-4" style="display: none;">
                   <label for="orderTax">{{ $t('Invoice Tax') }}
                     <span v-if="!isSaudiArabia" class="required">*</span></label>
                   <v-select v-model="form.orderTax" :options="taxes" label="code"

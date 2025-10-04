@@ -61,6 +61,16 @@
               <i class="fas fa-print"></i> {{ $t("Print") }}
             </a>
             <router-link
+              v-if="$can('quotation-to-invoice')"
+              :to="{
+                name: 'quotations.invoice',
+                params: { slug: allData.slug },
+              }"
+              class="btn btn-success"
+            >
+              <i class="fas fa-file-invoice" /> {{ $t("Create Invoice") }}
+            </router-link>
+            <router-link
               v-if="$can('quotation-edit')"
               :to="{
                 name: 'quotations.edit',
@@ -430,7 +440,6 @@
 import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
-import html2pdf from "html2pdf.js";
 
 export default {
   middleware: ["auth", "check-permissions"],
