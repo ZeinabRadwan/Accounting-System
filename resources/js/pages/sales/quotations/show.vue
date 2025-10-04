@@ -687,7 +687,7 @@ export default {
     // calculate total after discount
     calculateTotalAfterDiscount(data) {
       const salePrice = parseFloat(data.salePrice) || 0;
-      const discountAmount = parseFloat(data.discountAmount) || 0;
+      const discountAmount = Number(data.discountAmount) || 0;
       const quantity = parseFloat(data.quantity) || 1;
       
       // Total After Discount = quotation_products.sale_price - (quotation_products.discount_amount/quotation_products.quantity)
@@ -730,7 +730,7 @@ export default {
       if (data.discountType === 'percentage') {
         return ((data.salePrice * data.quantity) * data.discount / 100).toFixed(2);
       } else if (data.discountAmount && data.discountAmount > 0) {
-        return parseFloat(data.discountAmount || 0).toFixed(2);
+        return Number(data.discountAmount).toFixed(2);
       }
       return 0;
     },

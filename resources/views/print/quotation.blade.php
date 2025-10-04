@@ -168,7 +168,7 @@
             
             @if($totalProductDiscount > 0)
             <div class="total-row">
-                <span>@lang('print.Product Discount'):</span>
+                <span>@lang('print.Discount'):</span>
                 <span>-{!! centralCurrencySymbolFormat($totalProductDiscount) !!}</span>
             </div>
             @endif
