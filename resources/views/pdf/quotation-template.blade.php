@@ -66,12 +66,10 @@
                 <td class="total">@currency($quotation['transport'])</td>
             </tr>
         @endif
-        @if ($quotation['discount'])
-            <tr>
-                <td class="total" colspan="3">@lang('Discount')</td>
-                <td class="total">@currency($quotation['discount'])</td>
-            </tr>
-        @endif
+        <tr>
+            <td class="total" colspan="3">@lang('Discount')</td>
+            <td class="total">@currency($quotation['discount'])</td>
+        </tr>
         @if ($quotation['total_tax'])
             <tr>
                 <td class="total" colspan="3">@lang('TAX')</td>

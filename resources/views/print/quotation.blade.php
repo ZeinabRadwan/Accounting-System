@@ -165,12 +165,10 @@
                 <span>{!! centralCurrencySymbolFormat($subtotal) !!}</span>
             </div>
             
-            @if($totalProductDiscount > 0)
             <div class="total-row">
                 <span>@lang('print.Discount'):</span>
                 <span> {!! centralCurrencySymbolFormat($totalProductDiscount) !!}</span>
             </div>
-            @endif
             
             <div class="total-row">
                 <span>@lang('print.Total After Discount'):</span>

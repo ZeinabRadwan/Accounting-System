@@ -144,12 +144,10 @@
                 <span>@lang('print.Subtotal'):</span>
                 <span>{!! centralCurrencySymbolFormat($quotation->sub_total) !!}</span>
             </div>
-            @if($quotation->discount > 0)
             <div class="total-row">
                 <span>@lang('print.Discount'):</span>
                 <span>-{!! centralCurrencySymbolFormat($quotation->discount) !!}</span>
             </div>
-            @endif
             @if($quotation->total_tax > 0)
             <div class="total-row">
                 <span>@lang('print.Tax'):</span>
