@@ -1073,6 +1073,25 @@ export default [
     component: page('products/edit.vue'),
     meta: {permissions: ['product-edit']},
   },
+  // New unified product form routes
+  {
+    path: '/products/create-new',
+    name: 'products.create-new',
+    component: page('products/create-new.vue'),
+    meta: {permissions: ['product-create']},
+  },
+  {
+    path: '/products/edit-new/:slug',
+    name: 'products.edit-new',
+    component: page('products/edit-new.vue'),
+    meta: {permissions: ['product-edit']},
+  },
+  {
+    path: '/products/demo',
+    name: 'products.demo',
+    component: page('products/demo.vue'),
+    meta: {permissions: ['product-list']},
+  },
 
   // Product barcode
   {

@@ -69,13 +69,11 @@ export default {
   margin-right: 0;
 }
 
-
-
 .card {
   margin-top: 30px;
   border-radius: 20px;
   box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA
+  border: 1px solid #CED4DA;
 }
 
 .card-footer {
@@ -94,7 +92,6 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-
   border: none !important;
 }
 
@@ -102,7 +99,6 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-
   border: none !important;
 }
 
@@ -145,4 +141,4 @@ li {
 a {
   color: #42b983;
 }
-</style> 
+</style>

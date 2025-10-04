@@ -46,16 +46,12 @@ export default {
   margin-right: 0;
 }
 
-
-
 .card {
   margin-top: 30px;
   border-radius: 20px;
   box-shadow: 0px 8px 20px 0px #00000014;
   border: 1px solid #CED4DA;
 }
-
-/* Removed card-header override to match client pages styling */
 
 .card-body {
   padding: 1.25rem;
@@ -99,7 +95,6 @@ export default {
   background: #2AB930 !important;
   color: white !important;
   padding: 10px 20px !important;
-
   border: none !important;
   font-weight: 500;
 }
@@ -114,7 +109,6 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-
   border: none !important;
   font-weight: 500;
   margin-right: 10px;
@@ -286,4 +280,4 @@ textarea.form-control {
     gap: 10px;
   }
 }
-</style> 
+</style>
