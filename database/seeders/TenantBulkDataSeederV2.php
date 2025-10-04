@@ -610,9 +610,9 @@ class TenantBulkDataSeederV2 extends Seeder
     private function createSampleVatRates()
     {
         $vatRates = [
-            ['name' => 'Standard VAT', 'rate' => 15.0, 'status' => 1],
-            ['name' => 'Reduced VAT', 'rate' => 5.0, 'status' => 1],
-            ['name' => 'Zero VAT', 'rate' => 0.0, 'status' => 1],
+            ['name' => 'Standard VAT', 'code' => 'VAT@15', 'rate' => 15.0, 'status' => 1],
+            ['name' => 'Reduced VAT', 'code' => 'VAT@5', 'rate' => 5.0, 'status' => 1],
+            ['name' => 'Zero VAT', 'code' => 'VAT@0', 'rate' => 0.0, 'status' => 1],
         ];
 
         foreach ($vatRates as $vatData) {
