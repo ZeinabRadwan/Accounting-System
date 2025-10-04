@@ -153,7 +153,6 @@
                         return $product->discount_amount ?? 0;
                     }
                 });
-                
                 $totalAfterDiscount = $subtotal - $totalProductDiscount;
                 
                 $totalProductVat = $quotation->quotationProducts->sum('tax_amount');
@@ -169,7 +168,7 @@
             @if($totalProductDiscount > 0)
             <div class="total-row">
                 <span>@lang('print.Discount'):</span>
-                <span>-{!! centralCurrencySymbolFormat($totalProductDiscount) !!}</span>
+                <span> {!! centralCurrencySymbolFormat($totalProductDiscount) !!}</span>
             </div>
             @endif
             
