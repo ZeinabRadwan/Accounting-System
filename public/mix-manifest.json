@@ -1,8 +1,8 @@
 {
-    "/js/central.js": "/js/central.js",
-    "/js/tenant.js": "/js/tenant.js",
-    "/js/rtl-manager.js": "/js/rtl-manager.js",
-    "/css/custom_rtl.css": "/css/custom_rtl.css",
-    "/css/custom_ltr.css": "/css/custom_ltr.css",
-    "/css/app.css": "/css/app.css"
+    "/js/central.js": "/js/central.js?id=8c5722e5f366bdff9e3b5429d62208c5",
+    "/js/tenant.js": "/js/tenant.js?id=e210bd5aaf1d0e9c56056f09408cb9b9",
+    "/js/rtl-manager.js": "/js/rtl-manager.js?id=39498cba089c3645fa270ea90da47408",
+    "/css/custom_rtl.css": "/css/custom_rtl.css?id=340179143798d7da25427572afded7b0",
+    "/css/custom_ltr.css": "/css/custom_ltr.css?id=ebec5691383e2ae69b694551a59c6998",
+    "/css/app.css": "/css/app.css?id=a342554b32431dd65b3c7c147fef77ad"
 }
