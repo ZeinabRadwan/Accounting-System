@@ -193,16 +193,7 @@
           {{ $t("Chart of Accounts") }}
         </h5>
       </div>
-      <div class="card-body">
-        <!-- Info about automatic assignment -->
-        <div v-if="isSalesAccountAutomatic || isPurchaseAccountAutomatic" class="row mb-3">
-          <div class="col-12">
-            <div class="alert alert-info d-flex align-items-center">
-              <i class="fas fa-info-circle mr-2"></i>
-              <span>{{ $t("Accounts are pre-assigned based on your settings, but you can change them below if needed.") }}</span>
-            </div>
-          </div>
-        </div>
+      <div class="card-body"> 
 
         <div class="row">
           <div class="col-md-6">

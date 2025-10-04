@@ -190,7 +190,7 @@ export default {
   methods: {
     initializeForm() {
       if (this.mode === 'page') {
-        this.breadcrumbsCurrent = this.product ? 'Edit Item' : 'Create Item'
+        this.breadcrumbsCurrent = this.product ? this.$t('Edit Item') : this.$t('Create Item')
         this.breadcrumbs = [
           { name: 'Dashboard', url: 'home' },
           { name: 'Items', url: 'products.index' },
