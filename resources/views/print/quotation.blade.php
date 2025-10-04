@@ -140,25 +140,54 @@
     <!-- Totals -->
     <div class="totals-section">
         <div class="totals-table">
+            @php
+                // Calculate totals similar to invoice structure
+                $subtotal = $quotation->quotationProducts->sum(function($product) {
+                    return $product->quantity * $product->sale_price;
+                });
+                
+                $totalProductDiscount = $quotation->quotationProducts->sum(function($product) {
+                    if ($product->discount_type === 'percentage') {
+                        return ($product->quantity * $product->sale_price * $product->discount) / 100;
+                    } else {
+                        return $product->discount_amount ?? 0;
+                    }
+                });
+                
+                $totalAfterDiscount = $subtotal - $totalProductDiscount;
+                
+                $totalProductVat = $quotation->quotationProducts->sum('tax_amount');
+                
+                $totalWithVat = $totalAfterDiscount + $totalProductVat;
+            @endphp
+            
             <div class="total-row">
                 <span>@lang('print.Subtotal'):</span>
-                <span>{!! centralCurrencySymbolFormat($quotation->sub_total) !!}</span>
+                <span>{!! centralCurrencySymbolFormat($subtotal) !!}</span>
             </div>
-            @if($quotation->discount > 0)
+            
+            @if($totalProductDiscount > 0)
             <div class="total-row">
-                <span>@lang('print.Discount'):</span>
-                <span>-{!! centralCurrencySymbolFormat($quotation->discount) !!}</span>
+                <span>@lang('print.Product Discount'):</span>
+                <span>-{!! centralCurrencySymbolFormat($totalProductDiscount) !!}</span>
             </div>
             @endif
-            @if($quotation->total_tax > 0)
+            
             <div class="total-row">
-                <span>@lang('print.Tax'):</span>
-                <span>{!! centralCurrencySymbolFormat($quotation->total_tax) !!}</span>
+                <span>@lang('print.Total After Discount'):</span>
+                <span>{!! centralCurrencySymbolFormat($totalAfterDiscount) !!}</span>
+            </div>
+            
+            @if($totalProductVat > 0)
+            <div class="total-row">
+                <span>@lang('print.VAT'):</span>
+                <span>{!! centralCurrencySymbolFormat($totalProductVat) !!}</span>
             </div>
             @endif
+            
             <div class="total-row total-final">
-                <span>@lang('print.Total'):</span>
-                <span>{!! centralCurrencySymbolFormat($quotation->quotationTotal()) !!}</span>
+                <span>@lang('print.Total with VAT'):</span>
+                <span>{!! centralCurrencySymbolFormat($totalWithVat) !!}</span>
             </div>
         </div>
     </div>
