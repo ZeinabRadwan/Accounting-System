@@ -88515,12 +88515,12 @@ var map = {
 		4805
 	],
 	"./setup": [
-		68175,
-		8175
+		53260,
+		3260
 	],
 	"./setup/": [
-		68175,
-		8175
+		53260,
+		3260
 	],
 	"./setup/accounting-periods": [
 		80148,
@@ -88627,12 +88627,12 @@ var map = {
 		1864
 	],
 	"./setup/index": [
-		68175,
-		8175
+		53260,
+		3260
 	],
 	"./setup/index.vue": [
-		68175,
-		8175
+		53260,
+		3260
 	],
 	"./setup/mail-configuration": [
 		17830,
@@ -89351,7 +89351,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8960) return "js/8960.js";
 /******/ 			if (chunkId === 4665) return "js/4665.js";
 /******/ 			if (chunkId === 4805) return "js/4805.js";
-/******/ 			if (chunkId === 8175) return "js/8175.js";
+/******/ 			if (chunkId === 3260) return "js/3260.js";
 /******/ 			if (chunkId === 148) return "js/148.js";
 /******/ 			if (chunkId === 7053) return "js/7053.js";
 /******/ 			if (chunkId === 8114) return "js/8114.js";

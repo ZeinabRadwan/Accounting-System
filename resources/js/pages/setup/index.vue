@@ -224,7 +224,7 @@
               <p>
                 {{ $t('Configure account routing settings for accounting system.') }}
               </p>
-              <router-link :to="{ name: 'setup.account-routing' }" class="card-cta">
+              <router-link :to="{ path: 'setup/accounting-settings/account-routing' }" class="card-cta">
                 {{ $t('Account Routing') }}
                 <i class="fas fa-long-arrow-alt-right" />
               </router-link>
@@ -268,14 +268,14 @@ export default {
   },
 
   data: () => ({
-    breadcrumbsCurrent: 'Setup',
+    breadcrumbsCurrent: this.$t('Setup'),
     breadcrumbs: [
       {
-        name: 'Dashboard',
+        name: this.$t('Dashboard'),
         url: 'home',
       },
       {
-        name: 'Setup',
+        name: this.$t('Setup'),
         url: '',
       },
     ],
