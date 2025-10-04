@@ -244,9 +244,13 @@ class TenantController extends Controller
                 'user_id' => auth()->id()
             ]);
 
-            // Delete tenant database if it exists
-            if ($tenant->databaseExists()) {
-                $tenant->deleteDatabase();
+            // Get the database manager
+            $databaseManager = app(\Stancl\Tenancy\Contracts\TenantDatabaseManager::class);
+            
+            // Check if tenant database exists and delete it
+            $databaseName = $tenant->database()->getName();
+            if ($databaseManager->databaseExists($databaseName)) {
+                $databaseManager->deleteDatabase($tenant);
                 Log::info("Deleted database for tenant: {$tenant->id}");
             }
 
