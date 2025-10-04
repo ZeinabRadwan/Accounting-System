@@ -293,27 +293,27 @@
                         </td>
                       </tr>
                       <!-- Totals Row -->
-                      <tr :key="`totals-${getSubTotal()}-${getTotalUnitPrice()}`">
+                      <tr :key="`totals-${subtotal}-${totalUnitPrice}`">
                         <td colspan="5" class="text-right">
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalUnitPrice()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalDiscount()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getTotalAfterDiscount()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ getProductTotalTax()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ getSubTotal()  }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(subtotal) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>
@@ -759,6 +759,27 @@ export default {
       return this.form.selectedProducts.reduce((total, item) => {
         return total + (item.totalAfterDiscount || 0);
       }, 0);
+    },
+
+    // Calculate total discount from all products (reactive)
+    totalProductDiscount() {
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.discountAmount || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+    
+    // Calculate total product tax (reactive)
+    totalProductTax() {
+      const total = this.form.selectedProducts.reduce((total, item) => {
+        return total + (item.totalTax || 0);
+      }, 0);
+      return this.roundToTwoDecimals(total);
+    },
+    
+    // Calculate subtotal (reactive) - WITH VAT for invoices (matching quotation logic)
+    subtotal() {
+      return this.roundToTwoDecimals(this.totalAfterDiscount + this.totalProductTax);
     },
 
     // Add computed property to check if chart of account is assigned
@@ -1579,6 +1600,18 @@ export default {
       return Math.round((value + Number.EPSILON) * 100) / 100;
     },
 
+    // Format number to display with exactly 2 decimal places
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+
     // calculate product discount
     calculateProductDiscount(index) {
       this.debugBreak();
@@ -1670,12 +1703,9 @@ export default {
       if (item) {
         this.logDebug('generateItemTotalPrice:start', { index, before: JSON.parse(JSON.stringify(item)) });
         
-        // Calculate total before discount
-        const totalBeforeDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty);
-        
         // Calculate price after discount
-        const totalAfterDiscount = this.roundToTwoDecimals(totalBeforeDiscount - (item.discountAmount || 0));
-        
+        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
+
         // Use selected VAT rate if available, otherwise fall back to product's default tax rate
         let vatRate = 0;
         if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
@@ -1683,36 +1713,35 @@ export default {
         } else if (item.taxRate !== undefined && item.taxRate !== null) {
           vatRate = Number(item.taxRate);
         }
-        
+
         // Ensure vatRate is a valid number
         if (isNaN(vatRate) || vatRate < 0) {
           vatRate = 0;
         }
-        
-        // Calculate tax based on discounted price
+
+        // Set totalAfterDiscount for subtotal calculation (without VAT)
+        item.totalAfterDiscount = this.roundToTwoDecimals(priceAfterDiscount);
+
         let productTax, totalTax, totalPrice;
         
         if (item.taxType == "Exclusive") {
-          // For exclusive tax: calculate VAT on the discounted amount
-          productTax = this.roundToTwoDecimals(totalAfterDiscount * (vatRate / 100));
+          // VAT on discounted amount
+          productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
           totalTax = this.roundToTwoDecimals(productTax);
-          totalPrice = this.roundToTwoDecimals(totalAfterDiscount + totalTax);
+          totalPrice = this.roundToTwoDecimals(priceAfterDiscount + totalTax);
         } else {
-          // For inclusive tax: VAT is already included in the unit price
-          // Calculate the VAT amount from the discounted price
-          let discountedUnitPrice = this.roundToTwoDecimals(totalAfterDiscount / item.qty);
-          
-          // Calculate VAT amount from the inclusive price
+          // Inclusive: VAT is included in unit price; derive VAT from discounted price
+          let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
+          item.unitPrice = discountedUnitPrice;
           productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
           totalTax = this.roundToTwoDecimals(productTax * item.qty);
-          totalPrice = this.roundToTwoDecimals(totalAfterDiscount);
+          totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
         }
         
         // Create a new object with all the calculated values to ensure reactivity
         const updatedItem = {
           ...item,
-          totalBeforeDiscount,
-          totalAfterDiscount,
+          totalAfterDiscount: item.totalAfterDiscount,
           productTax,
           totalTax,
           totalPrice
@@ -1767,68 +1796,43 @@ export default {
        // Update products with default VAT rate if needed
        this.updateProductsWithDefaultVatRate();
        
-       // calculate subtotal with proper decimal precision (without VAT for invoices)
-       this.form.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
-         prev,
-         cur
-       ) {
-         return prev + (cur.totalAfterDiscount || 0);
-       }, 0));
+       // Update form values for consistency with computed properties
+       this.$set(this.form, 'subTotal', this.roundToTwoDecimals(this.subtotal));
+       this.$set(this.form, 'productTotalTax', this.roundToTwoDecimals(this.totalProductTax));
+       this.$set(this.form, 'totalDiscount', this.roundToTwoDecimals(this.totalProductDiscount));
 
-       // calculate product tax with proper decimal precision
-       this.form.productTotalTax = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
-         prev,
-         cur
-       ) {
-         return prev + cur.totalTax;
-       }, 0));
-       
-
-
-       // calculate total product discount with proper decimal precision
-       this.form.totalDiscount = this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (
-         prev,
-         cur
-       ) {
-         return prev + (cur.discountAmount || 0);
-       }, 0));
-       
-
-
-       // calculate global discount with proper decimal precision
+       // Global discount
        let globalDiscount = 0;
        if (!this.isSaudiArabia && this.form.discount > 0) {
-         if (this.form.discountType == 1) { // Percentage
+         if (this.form.discountType == 1) {
            globalDiscount = this.roundToTwoDecimals((this.form.discount / 100) * this.form.subTotal);
-         } else { // Fixed
+         } else {
            globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
          }
        }
 
-       // Calculate Invoice Tax based on selected tax rate (skip for Saudi Arabia)
-       this.form.invoiceTax = 0;
+       // Invoice-level tax computed on (subTotal - globalDiscount)
+       this.$set(this.form, 'invoiceTax', 0);
        if (!this.isSaudiArabia && this.form.orderTax && this.form.orderTax.rate) {
-         // Calculate invoice tax on the subtotal after global discount
-         this.form.invoiceTax = this.roundToTwoDecimals(
+         this.$set(this.form, 'invoiceTax', this.roundToTwoDecimals(
            (this.form.orderTax.rate / 100) * (this.form.subTotal - globalDiscount)
-         );
+         ));
        }
 
-       // Total tax is the sum of individual product VATs PLUS invoice tax
-       this.form.totalTax = this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax);
+       // Total tax = product VAT + invoice-level tax
+       this.$set(this.form, 'totalTax', this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax));
 
-       // calculate final total with proper decimal precision
-       // For Saudi Arabia: Net Total = SubTotal (no global discount, no invoice tax, no transport cost)
-       // For other countries: Net Total = SubTotal - Global Discount + Invoice Tax + Transport Cost
-      if (this.isSaudiArabia) {
-         this.form.netTotal = this.roundToTwoDecimals(this.form.subTotal);
+       // Net total
+       if (this.isSaudiArabia) {
+         // For Saudi Arabia, include VAT in the final total
+         this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.subtotal));
        } else {
-         this.form.netTotal = this.roundToTwoDecimals(
+         this.$set(this.form, 'netTotal', this.roundToTwoDecimals(
            this.form.subTotal -
            globalDiscount +
            this.form.invoiceTax +
            Number(this.form.transportCost || 0)
-         );
+         ));
        }
        
        // Update reactive totals for the table
@@ -1857,7 +1861,7 @@ export default {
 
     // return number to word with language support
     toWord(){
-      const amount = this.form.subTotal || 0;
+      const amount = this.subtotal || 0;
       
       // Handle edge cases
       if (isNaN(amount) || amount < 0) {

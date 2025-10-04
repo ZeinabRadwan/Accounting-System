@@ -116759,12 +116759,12 @@ var map = {
 		7454
 	],
 	"./sales/invoices/create": [
-		83547,
-		3547
+		22232,
+		2232
 	],
 	"./sales/invoices/create.vue": [
-		83547,
-		3547
+		22232,
+		2232
 	],
 	"./sales/invoices/edit": [
 		15014,
@@ -116831,20 +116831,20 @@ var map = {
 		8747
 	],
 	"./sales/quotations/invoice": [
-		44728,
-		2347
+		82736,
+		2736
 	],
 	"./sales/quotations/invoice.vue": [
-		44728,
-		2347
+		82736,
+		2736
 	],
 	"./sales/quotations/show": [
-		17616,
-		5235
+		42875,
+		2875
 	],
 	"./sales/quotations/show.vue": [
-		17616,
-		5235
+		42875,
+		2875
 	],
 	"./sales/returns": [
 		25318,
@@ -117792,15 +117792,15 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 4671) return "js/4671.js";
 /******/ 			if (chunkId === 4224) return "js/4224.js";
 /******/ 			if (chunkId === 7454) return "js/7454.js";
-/******/ 			if (chunkId === 3547) return "js/3547.js";
+/******/ 			if (chunkId === 2232) return "js/2232.js";
 /******/ 			if (chunkId === 5014) return "js/5014.js";
 /******/ 			if (chunkId === 6582) return "js/6582.js";
 /******/ 			if (chunkId === 2074) return "js/2074.js";
 /******/ 			if (chunkId === 8747) return "js/8747.js";
 /******/ 			if (chunkId === 2423) return "js/2423.js";
 /******/ 			if (chunkId === 6622) return "js/6622.js";
-/******/ 			if (chunkId === 2347) return "js/2347.js";
-/******/ 			if (chunkId === 5235) return "js/5235.js";
+/******/ 			if (chunkId === 2736) return "js/2736.js";
+/******/ 			if (chunkId === 2875) return "js/2875.js";
 /******/ 			if (chunkId === 2937) return "js/2937.js";
 /******/ 			if (chunkId === 8077) return "js/8077.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
