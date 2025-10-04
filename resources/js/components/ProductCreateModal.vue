@@ -208,79 +208,121 @@
               </h5>
             </div>
             <div class="card-body">
+              <!-- Override Automatic Routing Checkboxes -->
+              <div v-if="isSalesAccountAutomatic || isPurchaseAccountAutomatic" class="row mb-3">
+                <div class="col-12">
+                  <div class="alert alert-info d-flex align-items-center">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <span>{{ $t("Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.") }}</span>
+                  </div>
+                </div>
+              </div>
+
               <div class="row">
                 <div class="col-md-6">
                   <!-- Sales Account -->
-                  <div v-if="!isSalesAccountAutomatic" class="form-group">
-                    <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
-                    <div class="d-flex align-items-center">
-                      <v-select
-                        v-model="form.salesAccountId"
-                        :options="chartOfAccounts"
-                        label="name"
-                        :reduce="option => option.id"
-                        :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
-                        name="salesAccountId"
-                        :placeholder="$t('Select sales account')"
-                        class="flex-grow-1 mr-2"
-                        required
-                      />
-                      <button 
-                        type="button" 
-                        @click="autoAssignSalesAccount" 
-                        :disabled="isAutoAssigningSales"
-                        class="btn btn-outline-success btn-sm auto-assign-btn"
-                        :title="$t('Auto-assign')"
-                      >
-                        <i v-if="isAutoAssigningSales" class="fas fa-spinner fa-spin"></i>
-                        <i v-else class="fas fa-magic"></i>
-                      </button>
+                  <div class="form-group">
+                    <div class="override-checkbox-container mb-3">
+                      <label class="form-check-label">
+                        <input 
+                          type="checkbox" 
+                          v-model="form.overrideSalesAccount" 
+                          class="form-check-input"
+                          @change="onOverrideSalesAccountChange"
+                        />
+                        <span class="checkbox-text">{{ $t("Select it manuallyt") }}</span>
+                      </label>
                     </div>
-                    <has-error :form="form" field="salesAccountId" />
-                  </div>
+                    
+                    <!-- Manual Selection (shown when override is checked or not automatic) -->
+                    <div v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="form-group">
+                      <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
+                      <div class="d-flex align-items-center">
+                        <v-select
+                          v-model="form.salesAccountId"
+                          :options="chartOfAccounts"
+                          label="name"
+                          :reduce="option => option.id"
+                          :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                          name="salesAccountId"
+                          :placeholder="$t('Select sales account')"
+                          class="flex-grow-1 mr-2"
+                          required
+                        />
+                        <!-- <button 
+                          type="button" 
+                          @click="autoAssignSalesAccount" 
+                          :disabled="isAutoAssigningSales"
+                          class="btn btn-outline-success btn-sm auto-assign-btn"
+                          :title="$t('Auto-assign')"
+                        >
+                          <i v-if="isAutoAssigningSales" class="fas fa-spinner fa-spin"></i>
+                          <i v-else class="fas fa-magic"></i>
+                        </button> -->
+                      </div>
+                      <has-error :form="form" field="salesAccountId" />
+                    </div>
 
-                  <div v-if="isSalesAccountAutomatic" class="form-group">
-                    <label>{{ $t("Sales Account") }}</label>
-                    <div class="form-control-plaintext text-muted">
-                      <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                    <!-- Auto-assigned (shown when automatic and not overridden) -->
+                    <div v-if="isSalesAccountAutomatic && !form.overrideSalesAccount" class="form-group">
+                      <label>{{ $t("Sales Account") }}</label>
+                      <div class="form-control-plaintext text-muted">
+                        <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <!-- Purchase Account -->
-                  <div v-if="!isPurchaseAccountAutomatic" class="form-group">
-                    <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
-                    <div class="d-flex align-items-center">
-                      <v-select
-                        v-model="form.purchaseAccountId"
-                        :options="chartOfAccounts"
-                        label="name"
-                        :reduce="option => option.id"
-                        :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
-                        name="purchaseAccountId"
-                        :placeholder="$t('Select purchase account')"
-                        class="flex-grow-1 mr-2"
-                        required
-                      />
-                      <button 
-                        type="button" 
-                        @click="autoAssignPurchaseAccount" 
-                        :disabled="isAutoAssigningPurchase"
-                        class="btn btn-outline-info btn-sm auto-assign-btn"
-                        :title="$t('Auto-assign')"
-                      >
-                        <i v-if="isAutoAssigningPurchase" class="fas fa-spinner fa-spin"></i>
-                        <i v-else class="fas fa-magic"></i>
-                      </button>
+                  <div class="form-group">
+                    <div class="override-checkbox-container mb-3">
+                      <label class="form-check-label">
+                        <input 
+                          type="checkbox" 
+                          v-model="form.overridePurchaseAccount" 
+                          class="form-check-input"
+                          @change="onOverridePurchaseAccountChange"
+                        />
+                        <span class="checkbox-text">{{ $t("Select it manuallyt") }}</span>
+                      </label>
                     </div>
-                    <has-error :form="form" field="purchaseAccountId" />
-                  </div>
+                    
+                    <!-- Manual Selection (shown when override is checked or not automatic) -->
+                    <div v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="form-group">
+                      <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
+                      <div class="d-flex align-items-center">
+                        <v-select
+                          v-model="form.purchaseAccountId"
+                          :options="chartOfAccounts"
+                          label="name"
+                          :reduce="option => option.id"
+                          :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                          name="purchaseAccountId"
+                          :placeholder="$t('Select purchase account')"
+                          class="flex-grow-1 mr-2"
+                          required
+                        />
+                        <!-- <button 
+                          type="button" 
+                          @click="autoAssignPurchaseAccount" 
+                          :disabled="isAutoAssigningPurchase"
+                          class="btn btn-outline-info btn-sm auto-assign-btn"
+                          :title="$t('Auto-assign')"
+                        >
+                          <i v-if="isAutoAssigningPurchase" class="fas fa-spinner fa-spin"></i>
+                          <i v-else class="fas fa-magic"></i>
+                        </button> -->
+                      </div>
+                      <has-error :form="form" field="purchaseAccountId" />
+                    </div>
 
-                  <div v-if="isPurchaseAccountAutomatic" class="form-group">
-                    <label>{{ $t("Purchase Account") }}</label>
-                    <div class="form-control-plaintext text-muted">
-                      <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                    <!-- Auto-assigned (shown when automatic and not overridden) -->
+                    <div v-if="isPurchaseAccountAutomatic && !form.overridePurchaseAccount" class="form-group">
+                      <label>{{ $t("Purchase Account") }}</label>
+                      <div class="form-control-plaintext text-muted">
+                        <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -394,6 +436,8 @@ export default {
       image: "",
       salesAccountId: "",
       purchaseAccountId: "",
+      overrideSalesAccount: false,
+      overridePurchaseAccount: false,
     }),
     categories: [],
     options: [],
@@ -587,13 +631,16 @@ export default {
       // Debug: Log validation state
       console.log("Validation state:", {
         isSalesAccountAutomatic: this.isSalesAccountAutomatic,
+        overrideSalesAccount: this.form.overrideSalesAccount,
         salesAccountId: this.form.salesAccountId,
         isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
+        overridePurchaseAccount: this.form.overridePurchaseAccount,
         purchaseAccountId: this.form.purchaseAccountId
       });
 
-      // Validate sales account if not automatic
-      if (!this.isSalesAccountAutomatic && !this.form.salesAccountId) {
+      // Validate sales account - required if not automatic OR if override is checked
+      const needsSalesAccount = !this.isSalesAccountAutomatic || this.form.overrideSalesAccount;
+      if (needsSalesAccount && !this.form.salesAccountId) {
         toast.fire({ 
           type: "error", 
           title: this.$t("Sales Account is required") 
@@ -601,8 +648,9 @@ export default {
         return;
       }
 
-      // Validate purchase account if not automatic
-      if (!this.isPurchaseAccountAutomatic && !this.form.purchaseAccountId) {
+      // Validate purchase account - required if not automatic OR if override is checked
+      const needsPurchaseAccount = !this.isPurchaseAccountAutomatic || this.form.overridePurchaseAccount;
+      if (needsPurchaseAccount && !this.form.purchaseAccountId) {
         toast.fire({ 
           type: "error", 
           title: this.$t("Purchase Account is required") 
@@ -664,6 +712,8 @@ export default {
           
           this.form.reset();
           this.form.itemType = "product"; // Reset to default
+          this.form.overrideSalesAccount = false; // Reset override flags
+          this.form.overridePurchaseAccount = false;
           
           // Restore auto-assigned account IDs after reset
           if (autoAssignedSalesAccountId) {
@@ -802,6 +852,32 @@ export default {
         });
       } finally {
         this.isAutoAssigningPurchase = false;
+      }
+    },
+
+    // Handle Select it manuallyt checkbox change
+    onOverrideSalesAccountChange() {
+      if (this.form.overrideSalesAccount) {
+        // When overriding, clear the current account selection to force manual selection
+        this.form.salesAccountId = "";
+      } else {
+        // When not overriding and automatic is enabled, restore the automatic account
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id;
+        }
+      }
+    },
+
+    // Handle Select it manuallyt checkbox change
+    onOverridePurchaseAccountChange() {
+      if (this.form.overridePurchaseAccount) {
+        // When overriding, clear the current account selection to force manual selection
+        this.form.purchaseAccountId = "";
+      } else {
+        // When not overriding and automatic is enabled, restore the automatic account
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id;
+        }
       }
     },
   },
@@ -1076,5 +1152,139 @@ export default {
   .option-content span {
     font-size: 0.85rem;
   }
+  
+  /* Mobile checkbox adjustments */
+  .override-checkbox-container .form-check-label {
+    min-height: 44px;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .checkbox-text {
+    font-size: 0.9rem;
+  }
+  
+  .form-check-input {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Override checkbox styling */
+.form-check-input {
+  margin-right: 0.75rem;
+  margin-top: 0.1rem;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ced4da;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form-check-input:checked {
+  background-color: #33a0d9;
+  border-color: #33a0d9;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+}
+
+.form-check-input:hover {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+.form-check-input:focus {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+  outline: none;
+}
+
+.form-check-label {
+  font-weight: 600;
+  color: #495057;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  margin-bottom: 0;
+}
+
+.form-check-label:hover {
+  color: #33a0d9;
+  background-color: #e3f2fd;
+  border-color: #33a0d9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(51, 160, 217, 0.1);
+}
+
+.form-check-label:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(51, 160, 217, 0.1);
+}
+
+/* Override checkbox container */
+.override-checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #495057;
+  margin-left: 0.5rem;
+  padding: 0 26px;
+}
+
+/* Enhanced checkbox styling for better visual hierarchy */
+.override-checkbox-container .form-check-label {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border: 2px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+}
+
+.override-checkbox-container .form-check-label:hover {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+  border-color: #33a0d9;
+  box-shadow: 0 4px 8px rgba(51, 160, 217, 0.15);
+}
+
+.override-checkbox-container .form-check-label:has(.form-check-input:checked) {
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0fff0 100%);
+  border-color: #28a745;
+  color: #155724;
+}
+
+.override-checkbox-container .form-check-label:has(.form-check-input:checked) .checkbox-text {
+  color: #155724;
+  font-weight: 700;
+}
+
+/* Alert styling for override info */
+.alert-info {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.alert-info i {
+  color: #0c5460;
 }
 </style>

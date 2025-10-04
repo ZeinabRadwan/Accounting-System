@@ -49,4 +49,9 @@ return [
     'Transport cost must be a number.' => 'تكلفة النقل يجب أن تكون رقماً.',
     'Transport cost cannot be negative.' => 'تكلفة النقل لا يمكن أن تكون سالبة.',
     'Reference cannot exceed 255 characters.' => 'المرجع لا يمكن أن يتجاوز 255 حرف.',
+    
+    // Product Override Messages
+    'Select it manuallyt' => 'تجاوز حساب المبيعات',
+    'Select it manuallyt' => 'تجاوز حساب المشتريات',
+    'Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.' => 'سيتم تعيين الحسابات تلقائياً بناءً على إعداداتك. حدد المربعات أدناه لتحديد الحسابات يدوياً لهذا المنتج.',
 ];

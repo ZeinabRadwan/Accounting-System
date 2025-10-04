@@ -252,7 +252,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <!-- Sales Account -->
-                  <div v-if="!isSalesAccountAutomatic" class="form-group">
+                  <div class="form-group">
                     <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
                     <v-select
                       v-model="form.salesAccountId"
@@ -272,20 +272,16 @@
                         </div>
                       </template>
                     </v-select>
-                    <has-error :form="form" field="salesAccountId" />
-                  </div>
-
-                  <div v-if="isSalesAccountAutomatic" class="form-group">
-                    <label>{{ $t("Sales Account") }}</label>
-                    <div class="form-control-plaintext text-muted">
-                      <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                    <div v-if="isSalesAccountAutomatic" class="form-text text-info">
+                      <i class="fas fa-info-circle"></i> {{ $t("Originally auto-assigned, but you can change it") }}
                     </div>
+                    <has-error :form="form" field="salesAccountId" />
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <!-- Purchase Account -->
-                  <div v-if="!isPurchaseAccountAutomatic" class="form-group">
+                  <div class="form-group">
                     <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
                     <v-select
                       v-model="form.purchaseAccountId"
@@ -305,14 +301,10 @@
                         </div>
                       </template>
                     </v-select>
-                    <has-error :form="form" field="purchaseAccountId" />
-                  </div>
-
-                  <div v-if="isPurchaseAccountAutomatic" class="form-group">
-                    <label>{{ $t("Purchase Account") }}</label>
-                    <div class="form-control-plaintext text-muted">
-                      <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                    <div v-if="isPurchaseAccountAutomatic" class="form-text text-info">
+                      <i class="fas fa-info-circle"></i> {{ $t("Originally auto-assigned, but you can change it") }}
                     </div>
+                    <has-error :form="form" field="purchaseAccountId" />
                   </div>
                 </div>
               </div>

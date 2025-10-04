@@ -84,6 +84,8 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'note' => 'nullable|string|max:255',
             'alertQuantity' => 'nullable|numeric|min:1',
+            'overrideSalesAccount' => 'nullable|boolean',
+            'overridePurchaseAccount' => 'nullable|boolean',
         ]);
         try {
             DB::beginTransaction();
@@ -135,13 +137,18 @@ class ProductController extends Controller
             $sales_settings = AccountRoutingSetting::where('module', 'sales')->where('setting_key', 'product_sales_account')->first();
             $purchase_settings = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
 
-            if ($sales_settings && $sales_settings->routing_type == 'automatic') {
+            // Handle Sales Account
+            $isSalesAutomatic = $sales_settings && $sales_settings->routing_type == 'automatic';
+            $overrideSales = $request->boolean('overrideSalesAccount', false);
+            
+            if ($isSalesAutomatic && !$overrideSales) {
+                // Use automatic routing
                 $salesAccountId = $sales_settings?->main_account_id;
-
                 if ($salesAccountId == null || $salesAccountId == '' || $salesAccountId == 0) {
                     return $this->responseWithError('Sales Account is required - Please configure account routing settings');
                 }
             } else {
+                // Use manual selection (either not automatic or override is checked)
                 if ($request->salesAccountId) {
                     $salesAccountId = is_array($request->salesAccountId) || is_object($request->salesAccountId)
                         ? (is_array($request->salesAccountId) ? $request->salesAccountId['id'] : $request->salesAccountId->id)
@@ -151,13 +158,18 @@ class ProductController extends Controller
                 }
             }
 
-            if ($purchase_settings && $purchase_settings->routing_type == 'automatic') {
+            // Handle Purchase Account
+            $isPurchaseAutomatic = $purchase_settings && $purchase_settings->routing_type == 'automatic';
+            $overridePurchase = $request->boolean('overridePurchaseAccount', false);
+            
+            if ($isPurchaseAutomatic && !$overridePurchase) {
+                // Use automatic routing
                 $purchaseAccountId = $purchase_settings?->main_account_id;
-
                 if ($purchaseAccountId == null || $purchaseAccountId == '' || $purchaseAccountId == 0) {
                     return $this->responseWithError('Purchase Account is required - Please configure account routing settings');
                 }
             } else {
+                // Use manual selection (either not automatic or override is checked)
                 if ($request->purchaseAccountId) {
                     $purchaseAccountId = is_array($request->purchaseAccountId) || is_object($request->purchaseAccountId)
                         ? (is_array($request->purchaseAccountId) ? $request->purchaseAccountId['id'] : $request->purchaseAccountId->id)
@@ -166,8 +178,6 @@ class ProductController extends Controller
                     return $this->responseWithError('Purchase Account is required');
                 }
             }
-
-
 
             // create product
             $product = Product::create([
