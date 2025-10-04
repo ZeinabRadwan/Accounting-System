@@ -29,6 +29,24 @@
               </div>
             </div>
           </div>
+          
+          <!-- Tabs Navigation -->
+          <div class="card-header">
+            <ul class="nav nav-tabs" id="tenantTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" :class="{ active: activeTab === 'active' }" 
+                        @click="switchTab('active')" type="button">
+                  {{ $t("Active Tenants") }}
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" :class="{ active: activeTab === 'archived' }" 
+                        @click="switchTab('archived')" type="button">
+                  {{ $t("Archived Tenants") }}
+                </button>
+              </li>
+            </ul>
+          </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <div class="row">
@@ -121,40 +139,60 @@
                     </td>
                     <td class="text-right no-print" v-if="!isDemoMode">
                       <div class="btn-group">
-                        <router-link v-if="data.email_verified_at" v-tooltip="$t('View')" :to="{
-                          name: 'tenants.show',
-                          params: { id: data.id },
-                        }" class="btn btn-primary btn-sm">
-                          <i class="fas fa-eye" />
-                        </router-link>
-                        <button v-if="data.email_verified_at" @click="impersonate(data.id)"
-                          v-tooltip="$t('Impersonate')" class="btn btn-info btn-sm">
-                          <i class="fas fa-user-secret" />
-                        </button>
-                        <router-link v-if="data.email_verified_at" :to="{
-                          name: 'send-notification',
-                          params: { id: data.id },
-                        }" v-tooltip="$t('Send Email')" class="btn btn-secondary btn-sm">
-                          <i class="fas fa-envelope" />
-                        </router-link>
-
-                        <router-link v-if="data.email_verified_at" v-tooltip="$t('Edit')" :to="{
-                          name: 'tenants.edit',
-                          params: { id: data.id },
-                        }" class="btn btn-info btn-sm">
-                          <i class="fas fa-edit" />
-                        </router-link>
-                        <a v-if="data.email_verified_at" href="#" v-tooltip="data.is_banned
-                          ? $t('Unban')
-                          : $t('Ban')
-                          " class="btn btn-sm" :class="data.is_banned ? 'btn-success' : 'btn-warning'"
-                          @click="ban(data.id)">
-                          <i class="fas fa-ban" />
-                        </a>
-                        <a href="#" v-tooltip="$t('Delete')" class="btn btn-danger btn-sm"
-                          @click="deleteData(data.id)">
-                          <i class="fas fa-trash" />
-                        </a>
+                        <!-- Active Tenants Actions -->
+                        <template v-if="activeTab === 'active'">
+                          <router-link v-if="data.email_verified_at" v-tooltip="$t('View')" :to="{
+                            name: 'tenants.show',
+                            params: { id: data.id },
+                          }" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye" />
+                          </router-link>
+                          <button v-if="data.email_verified_at" @click="impersonate(data.id)"
+                            v-tooltip="$t('Impersonate')" class="btn btn-info btn-sm">
+                            <i class="fas fa-user-secret" />
+                          </button>
+                          <router-link v-if="data.email_verified_at" :to="{
+                            name: 'send-notification',
+                            params: { id: data.id },
+                          }" v-tooltip="$t('Send Email')" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-envelope" />
+                          </router-link>
+                          <router-link v-if="data.email_verified_at" v-tooltip="$t('Edit')" :to="{
+                            name: 'tenants.edit',
+                            params: { id: data.id },
+                          }" class="btn btn-info btn-sm">
+                            <i class="fas fa-edit" />
+                          </router-link>
+                          <a v-if="data.email_verified_at" href="#" v-tooltip="data.is_banned
+                            ? $t('Unban')
+                            : $t('Ban')
+                            " class="btn btn-sm" :class="data.is_banned ? 'btn-success' : 'btn-warning'"
+                            @click="ban(data.id)">
+                            <i class="fas fa-ban" />
+                          </a>
+                          <a href="#" v-tooltip="$t('Archive')" class="btn btn-warning btn-sm"
+                            @click="archiveData(data.id)">
+                            <i class="fas fa-archive" />
+                          </a>
+                        </template>
+                        
+                        <!-- Archived Tenants Actions -->
+                        <template v-if="activeTab === 'archived'">
+                          <router-link v-if="data.email_verified_at" v-tooltip="$t('View')" :to="{
+                            name: 'tenants.show',
+                            params: { id: data.id },
+                          }" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye" />
+                          </router-link>
+                          <a href="#" v-tooltip="$t('Restore')" class="btn btn-success btn-sm"
+                            @click="restoreData(data.id)">
+                            <i class="fas fa-undo" />
+                          </a>
+                          <a href="#" v-tooltip="$t('Permanent Delete')" class="btn btn-danger btn-sm"
+                            @click="permanentDeleteData(data.id)">
+                            <i class="fas fa-trash" />
+                          </a>
+                        </template>
                       </div>
                     </td>
                   </tr>
@@ -225,6 +263,7 @@ export default {
     query: "",
     perPage: 10,
     clientPrefix: "",
+    activeTab: "active", // Track which tab is active
     minDate: moment(new Date("01-01-2021")).format("YYYY-MM-DD"),
     maxDate: moment().add(1, "days").format("YYYY-MM-DD"),
     dateRange: {
@@ -315,8 +354,9 @@ export default {
     async getData() {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
+      const endpoint = this.activeTab === 'archived' ? '/api/tenants/archived?page=' : '/api/tenants?page=';
       await this.$store.dispatch("operations/fetchData", {
-        path: "/api/tenants?page=",
+        path: endpoint,
         currentPage: currentPage + "&perPage=" + this.perPage,
       });
     },
@@ -349,8 +389,9 @@ export default {
     async searchData() {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
+      const endpoint = this.activeTab === 'archived' ? '/api/tenants/search?archived=1' : '/api/tenants/search';
       await this.$store.dispatch("operations/searchData", {
-        path: "/api/tenants/search",
+        path: endpoint,
         term: this.query,
         currentPage: currentPage + "&perPage=" + this.perPage,
         startDate: this.dateRange.startDate,
@@ -420,6 +461,138 @@ export default {
       });
     },
 
+    // Switch between active and archived tabs
+    async switchTab(tab) {
+      this.activeTab = tab;
+      this.query = "";
+      this.dateRange.startDate = "";
+      this.dateRange.endDate = "";
+      this.pagination.current_page = 1;
+      await this.getData();
+    },
+
+    // Archive tenant (instead of delete)
+    async archiveData(id) {
+      Swal.fire({
+        title: this.$t("Archive Tenant"),
+        text: this.$t("Are you sure you want to archive this tenant? The tenant will be moved to archived section and can be restored later."),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes, archive it!"),
+        cancelButtonText: this.$t("Cancel"),
+      }).then((result) => {
+        if (result.value) {
+          this.$store
+            .dispatch("operations/deleteData", {
+              path: "/api/tenants/",
+              slug: id,
+            })
+            .then((response) => {
+              if (response === true) {
+                this.$toast.success(
+                  this.$t("Archived"),
+                  this.$t("Tenant archived successfully")
+                );
+                this.getData();
+              } else {
+                this.$toast.warning(
+                  this.$t("Failed"),
+                  this.$t("Archive failed")
+                );
+              }
+            })
+            .catch((error) => {
+              this.$toast.warning(
+                this.$t("Failed"),
+                this.$t("Archive failed")
+              );
+            });
+        }
+      });
+    },
+
+    // Restore archived tenant
+    async restoreData(id) {
+      Swal.fire({
+        title: this.$t("Restore Tenant"),
+        text: this.$t("Are you sure you want to restore this tenant? The tenant will be moved back to active tenants."),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes, restore it!"),
+        cancelButtonText: this.$t("Cancel"),
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .post(`/api/tenants/${id}/restore`)
+            .then((response) => {
+              if (response.data.success === true) {
+                this.$toast.success(
+                  this.$t("Restored"),
+                  this.$t("Tenant restored successfully")
+                );
+                this.getData();
+              } else {
+                this.$toast.warning(
+                  this.$t("Failed"),
+                  this.$t("Restore failed")
+                );
+              }
+            })
+            .catch((error) => {
+              this.$toast.warning(
+                this.$t("Failed"),
+                this.$t("Restore failed")
+              );
+            });
+        }
+      });
+    },
+
+    // Permanently delete tenant
+    async permanentDeleteData(id) {
+      Swal.fire({
+        title: this.$t("Permanent Delete"),
+        text: this.$t("WARNING: This action will permanently delete the tenant and all its data including the database. This action cannot be undone!"),
+        type: "error",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes, delete permanently!"),
+        cancelButtonText: this.$t("Cancel"),
+        confirmButtonColor: "#d33",
+        input: "text",
+        inputPlaceholder: this.$t("Type 'DELETE' to confirm"),
+        inputValidator: (value) => {
+          if (value !== "DELETE") {
+            return this.$t("You must type 'DELETE' to confirm");
+          }
+        }
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .delete(`/api/tenants/${id}/permanent`)
+            .then((response) => {
+              if (response.data.success === true) {
+                this.$toast.success(
+                  this.$t("Permanently Deleted"),
+                  this.$t("Tenant and all data permanently deleted")
+                );
+                this.getData();
+              } else {
+                this.$toast.warning(
+                  this.$t("Failed"),
+                  this.$t("Permanent delete failed")
+                );
+              }
+            })
+            .catch((error) => {
+              this.$toast.warning(
+                this.$t("Failed"),
+                this.$t("Permanent delete failed")
+              );
+            });
+        }
+      });
+    },
+
     // delete data
     async ban(id) {
       axios
@@ -479,6 +652,39 @@ export default {
     justify-content: flex-end;
     width: 100%;
     align-items: center;
+}
+
+/* Tab styling */
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 0;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    color: #495057;
+    background-color: transparent;
+    border-color: transparent;
+    padding: 0.5rem 1rem;
+    margin-right: 2px;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+    isolation: isolate;
+}
+
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .nav-link:focus {
+    border-color: #e9ecef #e9ecef #dee2e6;
+    isolation: isolate;
 }
 </style>
 

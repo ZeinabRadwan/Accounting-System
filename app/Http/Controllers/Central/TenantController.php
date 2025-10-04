@@ -223,6 +223,52 @@ class TenantController extends Controller
     }
 
     /**
+     * Permanently delete the specified tenant and its database.
+     *
+     * @param Tenant $tenant
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function permanentDelete(Tenant $tenant)
+    {
+        try {
+            // Check if tenant is actually archived
+            if (!$tenant->isArchived()) {
+                return $this->responseWithError('Only archived tenants can be permanently deleted');
+            }
+
+            // Log the permanent deletion attempt
+            Log::info("Attempting to permanently delete tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'tenant_data' => $tenant->data,
+                'user_id' => auth()->id()
+            ]);
+
+            // Delete tenant database if it exists
+            if ($tenant->databaseExists()) {
+                $tenant->deleteDatabase();
+                Log::info("Deleted database for tenant: {$tenant->id}");
+            }
+
+            // Permanently delete the tenant record
+            $tenant->forceDelete();
+            Log::info("Successfully permanently deleted tenant: {$tenant->id}");
+
+            return $this->responseWithSuccess('Tenant permanently deleted successfully');
+            
+        } catch (\Exception $e) {
+            Log::error("Failed to permanently delete tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id()
+            ]);
+
+            return $this->responseWithError('Failed to permanently delete tenant: ' . $e->getMessage());
+        }
+    }
+
+    /**
      * search resource from storage.
      *
      * @param Request $request
@@ -233,6 +279,13 @@ class TenantController extends Controller
     {
         $term = $request->term;
         $query = Tenant::query();
+
+        // Check if we're searching archived tenants
+        if ($request->archived) {
+            $query->archived();
+        } else {
+            $query->active();
+        }
 
         if ($request->startDate && $request->endDate) {
             $startDate = Carbon::createFromFormat('Y-m-d', $request->startDate)->startOfDay();
