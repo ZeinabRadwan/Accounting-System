@@ -258,7 +258,7 @@ return [
     'Note' => 'ملاحظة',
     'Invoice Quantity' => 'كمية الفاتورة',
     'Return Total' => 'إجمالي المرتجع',
-    'Original Invoice Subtotal' => 'الإجمالي الفرعي للفاتورة الأصلية',
+    'Original Invoice Subtotal' => 'الإجمالي قبل الضريبة للفاتورة الأصلية',
     'Return Amount' => 'مبلغ المرتجع',
     'Original Discount' => 'الخصم الأصلي',
     'Original Tax' => 'الضريبة الأصلية',
