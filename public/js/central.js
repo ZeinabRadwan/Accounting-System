@@ -3821,11 +3821,14 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/fj.svg?3f46c20e700872e4d3e
 /***/ }),
 
 /***/ 15677:
-/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
-// UNUSED EXPORTS: default
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ Button)
+});
 
 ;// ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vform/src/components/bootstrap5/Button.vue?vue&type=template&id=70b03476
 var render = function render(){var _vm=this,_c=_vm._self._c;return _c('button',{attrs:{"type":"submit","disabled":_vm.form.busy,"aria-disabled":_vm.form.busy}},[(_vm.form.busy && _vm.spinner)?_c('span',{staticClass:"spinner-border spinner-border-sm",attrs:{"role":"status","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),_vm._t("default")],2)
@@ -30453,7 +30456,7 @@ var HasError = __webpack_require__(73883);
 
 
 // Components that are registered globaly.
-[Card, Child, Modal/* default */.A, Button/* default */.A, Search, Checkbox, StockAlert, EmptyTable, TopClients, Pagination["default"], Breadcrumbs, CompanyInfo, TableLoading["default"], RecentActivities, SettingsSidebar["default"], HasError/* default */.A, bootstrap4_AlertError, bootstrap4_AlertErrors, bootstrap4_AlertSuccess, VModal/* default */.A, ClientForm/* default */.A].forEach(function (Component) {
+[Card, Child, Modal/* default */.A, Button/* default */.A, Search, Checkbox, StockAlert, EmptyTable, TopClients, Pagination["default"], Breadcrumbs, CompanyInfo, TableLoading["default"], RecentActivities, SettingsSidebar["default"], HasError/* default */.A, bootstrap4_AlertError, bootstrap4_AlertErrors, bootstrap4_AlertSuccess, VModal["default"], ClientForm/* default */.A].forEach(function (Component) {
   vue_esm["default"].component(Component.name, Component);
 });
 // EXTERNAL MODULE: ./resources/js/helpers/can.js
@@ -50484,20 +50487,44 @@ var map = {
 		8820
 	],
 	"./products/create": [
-		96269,
-		8650
+		61331,
+		1331
+	],
+	"./products/create-new": [
+		93422,
+		3422
+	],
+	"./products/create-new.vue": [
+		93422,
+		3422
 	],
 	"./products/create.vue": [
-		96269,
-		8650
+		61331,
+		1331
+	],
+	"./products/demo": [
+		48561,
+		8561
+	],
+	"./products/demo.vue": [
+		48561,
+		8561
 	],
 	"./products/edit": [
-		88410,
-		8410
+		50698,
+		698
+	],
+	"./products/edit-new": [
+		92100,
+		2100
+	],
+	"./products/edit-new.vue": [
+		92100,
+		2100
 	],
 	"./products/edit.vue": [
-		88410,
-		8410
+		50698,
+		698
 	],
 	"./products/index": [
 		73548,
@@ -50892,12 +50919,12 @@ var map = {
 		2736
 	],
 	"./sales/quotations/show": [
-		3809,
-		3809
+		62559,
+		2559
 	],
 	"./sales/quotations/show.vue": [
-		3809,
-		3809
+		62559,
+		2559
 	],
 	"./sales/returns": [
 		25318,
@@ -52585,10 +52612,12 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/kr.svg?6682166bbe7bc054487
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ VModal)
+  "default": () => (/* binding */ VModal)
 });
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=template&id=42f0596d
@@ -117894,8 +117923,11 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 8820) return "js/8820.js";
 /******/ 			if (chunkId === 8096) return "js/8096.js";
 /******/ 			if (chunkId === 4995) return "js/4995.js";
-/******/ 			if (chunkId === 8650) return "js/8650.js";
-/******/ 			if (chunkId === 8410) return "js/8410.js";
+/******/ 			if (chunkId === 1331) return "js/1331.js";
+/******/ 			if (chunkId === 3422) return "js/3422.js";
+/******/ 			if (chunkId === 8561) return "js/8561.js";
+/******/ 			if (chunkId === 698) return "js/698.js";
+/******/ 			if (chunkId === 2100) return "js/2100.js";
 /******/ 			if (chunkId === 9900) return "js/9900.js";
 /******/ 			if (chunkId === 8824) return "js/8824.js";
 /******/ 			if (chunkId === 9909) return "js/9909.js";
@@ -117938,7 +117970,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 2423) return "js/2423.js";
 /******/ 			if (chunkId === 6622) return "js/6622.js";
 /******/ 			if (chunkId === 2736) return "js/2736.js";
-/******/ 			if (chunkId === 3809) return "js/3809.js";
+/******/ 			if (chunkId === 2559) return "js/2559.js";
 /******/ 			if (chunkId === 2937) return "js/2937.js";
 /******/ 			if (chunkId === 8077) return "js/8077.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
@@ -118006,6 +118038,8 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 7299) return "js/7299.js";
 /******/ 			if (chunkId === 4755) return "js/4755.js";
 /******/ 			if (chunkId === 150) return "js/150.js";
+/******/ 			if (chunkId === 2569) return "js/2569.js";
+/******/ 			if (chunkId === 9173) return "js/9173.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

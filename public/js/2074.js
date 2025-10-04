@@ -259,6 +259,26 @@ exports.GenericBarcode = GenericBarcode;
 
 /***/ }),
 
+/***/ 2559:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-7c79e6b4]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-7c79e6b4]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-7c79e6b4]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-7c79e6b4]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-7c79e6b4]:after{display:none}.form-card .card-header .section-title i[data-v-7c79e6b4]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-7c79e6b4]{padding:16px}.section-title[data-v-7c79e6b4]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-7c79e6b4]{margin-bottom:1rem}.form-group label[data-v-7c79e6b4]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-7c79e6b4]{color:#dc3545;font-weight:700}.row[data-v-7c79e6b4]{margin-bottom:1rem}.row[data-v-7c79e6b4]:last-child{margin-bottom:0}.auto-assign-btn[data-v-7c79e6b4]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-7c79e6b4]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-7c79e6b4]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-7c79e6b4]{text-align:center}.image-preview img[data-v-7c79e6b4]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-7c79e6b4]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-7c79e6b4]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-7c79e6b4]{color:#6c757d}.create-button[data-v-7c79e6b4]{cursor:pointer;text-decoration:none}@media (max-width:768px){.section-title[data-v-7c79e6b4]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-7c79e6b4]{padding:.75rem}.auto-assign-btn[data-v-7c79e6b4]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-7c79e6b4]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-7c79e6b4]{margin-bottom:0}.is-invalid[data-v-7c79e6b4]{border-color:#dc3545!important}.invalid-feedback[data-v-7c79e6b4]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-7c79e6b4]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-7c79e6b4]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-7c79e6b4]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-7c79e6b4]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-7c79e6b4]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-7c79e6b4]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-7c79e6b4]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-7c79e6b4]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-7c79e6b4]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-7c79e6b4]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-7c79e6b4]{flex-direction:column;gap:.5rem}.option-content[data-v-7c79e6b4]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-7c79e6b4]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-7c79e6b4]{font-size:.85rem}.override-checkbox-container .form-check-label[data-v-7c79e6b4]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-7c79e6b4]{font-size:.9rem}.form-check-input[data-v-7c79e6b4]{height:16px;width:16px}}.form-check-input[data-v-7c79e6b4]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#fff;border:2px solid #ced4da;border-radius:4px;cursor:pointer;height:18px;margin-right:.75rem;margin-top:.1rem;position:relative;transition:all .2s ease;width:18px}.form-check-input[data-v-7c79e6b4]:checked{background-color:#33a0d9;background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3E%3C/svg%3E\");background-position:50%;background-repeat:no-repeat;background-size:12px;border-color:#33a0d9}.form-check-input[data-v-7c79e6b4]:focus,.form-check-input[data-v-7c79e6b4]:hover{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-check-input[data-v-7c79e6b4]:focus{outline:none}.form-check-label[data-v-7c79e6b4]{align-items:center;background-color:#f8f9fa;border:1px solid #e9ecef;border-radius:6px;color:#495057;cursor:pointer;display:flex;font-weight:600;margin-bottom:0;padding:.5rem .75rem;transition:all .2s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.form-check-label[data-v-7c79e6b4]:hover{background-color:#e3f2fd;border-color:#33a0d9;box-shadow:0 2px 4px rgba(51,160,217,.1);color:#33a0d9;transform:translateY(-1px)}.form-check-label[data-v-7c79e6b4]:active{box-shadow:0 1px 2px rgba(51,160,217,.1);transform:translateY(0)}.override-checkbox-container[data-v-7c79e6b4]{align-items:center;display:flex}.checkbox-text[data-v-7c79e6b4]{color:#495057;font-size:.95rem;font-weight:600;margin-left:.5rem;padding:0 26px}.override-checkbox-container .form-check-label[data-v-7c79e6b4]{background:linear-gradient(135deg,#f8f9fa,#fff);border:2px solid #e9ecef;box-shadow:0 2px 4px rgba(0,0,0,.05);min-height:48px;padding:.75rem 1rem}.override-checkbox-container .form-check-label[data-v-7c79e6b4]:hover{background:linear-gradient(135deg,#e3f2fd,#f0f8ff);border-color:#33a0d9;box-shadow:0 4px 8px rgba(51,160,217,.15)}.override-checkbox-container .form-check-label[data-v-7c79e6b4]:has(.form-check-input:checked){background:linear-gradient(135deg,#e8f5e8,#f0fff0);border-color:#28a745;color:#155724}.override-checkbox-container .form-check-label:has(.form-check-input:checked) .checkbox-text[data-v-7c79e6b4]{color:#155724;font-weight:700}.alert-info[data-v-7c79e6b4]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-7c79e6b4],.alert-info i[data-v-7c79e6b4]{color:#0c5460}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 3781:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -2287,7 +2307,7 @@ var vue_barcode_default = /*#__PURE__*/__webpack_require__.n(vue_barcode);
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(52021);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 5 modules
-var ProductCreateModal = __webpack_require__(63545);
+var ProductCreateModal = __webpack_require__(18141);
 // EXTERNAL MODULE: ./node_modules/html2canvas/dist/html2canvas.js
 var html2canvas = __webpack_require__(20354);
 var html2canvas_default = /*#__PURE__*/__webpack_require__.n(html2canvas);
@@ -3602,6 +3622,1699 @@ function checksum(number) {
 }
 
 exports["default"] = UPC;
+
+/***/ }),
+
+/***/ 18141:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ProductCreateModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=7c79e6b4&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": function close($event) {
+        _vm.showProductCreateModal = false;
+      }
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Product")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showProductCreateModal,
+      callback: function callback($$v) {
+        _vm.showProductCreateModal = $$v;
+      },
+      expression: "showProductCreateModal"
+    }
+  }, [_vm._v(" "), _c('div', {
+    staticClass: "w-100"
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.form.onKeydown($event);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-cube mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Item Type")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "item-type-selector"
+  }, [_c('label', {
+    staticClass: "item-type-option",
+    "class": {
+      'active': _vm.form.itemType === 'product'
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemType,
+      expression: "form.itemType"
+    }],
+    attrs: {
+      "type": "radio",
+      "id": "product",
+      "name": "itemType",
+      "value": "product",
+      "autocomplete": "off"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.itemType, "product")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "itemType", "product");
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('i', {
+    staticClass: "fas fa-cube"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Product")))])])]), _vm._v(" "), _c('label', {
+    staticClass: "item-type-option",
+    "class": {
+      'active': _vm.form.itemType === 'service'
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemType,
+      expression: "form.itemType"
+    }],
+    attrs: {
+      "type": "radio",
+      "id": "service",
+      "name": "itemType",
+      "value": "service",
+      "autocomplete": "off"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.itemType, "service")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "itemType", "service");
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('i', {
+    staticClass: "fas fa-cogs"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Service")))])])])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemType"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Product Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Item Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemName,
+      expression: "form.itemName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemName')
+    },
+    attrs: {
+      "id": "itemName",
+      "type": "text",
+      "name": "itemName",
+      "placeholder": _vm.$t('Enter a name')
+    },
+    domProps: {
+      "value": _vm.form.itemName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "itemName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemCode"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Item Code")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_vm.prefix ? _c('span', {
+    staticClass: "input-group-text"
+  }, [_vm._v(_vm._s(_vm.prefix))]) : _vm._e(), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemCode,
+      expression: "form.itemCode"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemCode')
+    },
+    attrs: {
+      "type": "text",
+      "name": "itemCode",
+      "placeholder": _vm.$t('Enter item code')
+    },
+    domProps: {
+      "value": _vm.form.itemCode
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "itemCode", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemCode"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "subCategory"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Category")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('subCategory')
+    },
+    attrs: {
+      "options": _vm.categories,
+      "label": "name",
+      "name": "subCategory",
+      "placeholder": _vm.$t('Select a category')
+    },
+    model: {
+      value: _vm.form.subCategory,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "subCategory", $$v);
+      },
+      expression: "form.subCategory"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "subCategory"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemUnit"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Unit")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemUnit')
+    },
+    attrs: {
+      "options": _vm.units,
+      "label": "name",
+      "name": "itemUnit",
+      "placeholder": _vm.$t('Select a unit')
+    },
+    model: {
+      value: _vm.form.itemUnit,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "itemUnit", $$v);
+      },
+      expression: "form.itemUnit"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemUnit"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "productTax"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Tax Rate")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('productTax')
+    },
+    attrs: {
+      "options": _vm.taxes,
+      "label": "code",
+      "name": "productTax",
+      "placeholder": _vm.$t('Select a tax')
+    },
+    on: {
+      "input": _vm.calculatePrice
+    },
+    model: {
+      value: _vm.form.productTax,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "productTax", $$v);
+      },
+      expression: "form.productTax"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "productTax"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemModel"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Model")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemModel,
+      expression: "form.itemModel"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemModel')
+    },
+    attrs: {
+      "id": "itemModel",
+      "type": "text",
+      "name": "itemModel",
+      "placeholder": _vm.$t('Enter a model')
+    },
+    domProps: {
+      "value": _vm.form.itemModel
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "itemModel", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemModel"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "regularPrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Price")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.regularPrice,
+      expression: "form.regularPrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('regularPrice')
+    },
+    attrs: {
+      "id": "regularPrice",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "regularPrice",
+      "placeholder": _vm.$t('Enter price')
+    },
+    domProps: {
+      "value": _vm.form.regularPrice
+    },
+    on: {
+      "change": _vm.calculatePrice,
+      "keyup": _vm.calculatePrice,
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "regularPrice", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "regularPrice"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "discount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Discount (%)")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.discount,
+      expression: "form.discount"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('discount')
+    },
+    attrs: {
+      "type": "number",
+      "min": "0",
+      "max": "100",
+      "name": "discount",
+      "placeholder": _vm.$t('Enter discount')
+    },
+    domProps: {
+      "value": _vm.form.discount
+    },
+    on: {
+      "change": _vm.calculatePrice,
+      "keyup": _vm.calculatePrice,
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "discount", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "discount"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "sellingPrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Final Price")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.sellingPrice,
+      expression: "form.sellingPrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('sellingPrice')
+    },
+    attrs: {
+      "id": "sellingPrice",
+      "type": "number",
+      "readonly": "",
+      "name": "sellingPrice",
+      "placeholder": _vm.$t('Calculated automatically')
+    },
+    domProps: {
+      "value": _vm.form.sellingPrice
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "sellingPrice", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "sellingPrice"
+    }
+  })], 1)])])])]), _vm._v(" "), _vm.form.itemType === 'product' ? _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-warehouse mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Stock Information")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "openingStockCount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Opening Stock")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.openingStockCount,
+      expression: "form.openingStockCount"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('openingStockCount')
+    },
+    attrs: {
+      "id": "openingStockCount",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "openingStockCount",
+      "placeholder": _vm.$t('Enter opening stock')
+    },
+    domProps: {
+      "value": _vm.form.openingStockCount
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "openingStockCount", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "openingStockCount"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "openingStockUnitPrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Stock Unit Price")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.openingStockUnitPrice,
+      expression: "form.openingStockUnitPrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('openingStockUnitPrice')
+    },
+    attrs: {
+      "id": "openingStockUnitPrice",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "openingStockUnitPrice",
+      "placeholder": _vm.$t('Enter unit price')
+    },
+    domProps: {
+      "value": _vm.form.openingStockUnitPrice
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "openingStockUnitPrice", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "openingStockUnitPrice"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "alertQuantity"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Alert Quantity")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.alertQuantity,
+      expression: "form.alertQuantity"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('alertQuantity')
+    },
+    attrs: {
+      "id": "alertQuantity",
+      "type": "number",
+      "min": "0",
+      "max": "1000",
+      "name": "alertQuantity",
+      "placeholder": _vm.$t('Enter alert quantity')
+    },
+    domProps: {
+      "value": _vm.form.alertQuantity
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "alertQuantity", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "alertQuantity"
+    }
+  })], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.form.itemType === 'service' ? _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-dollar-sign mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Service Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "servicePurchasePrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Purchase Price")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.servicePurchasePrice,
+      expression: "form.servicePurchasePrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('servicePurchasePrice')
+    },
+    attrs: {
+      "id": "servicePurchasePrice",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "servicePurchasePrice",
+      "placeholder": _vm.$t('Enter purchase price')
+    },
+    domProps: {
+      "value": _vm.form.servicePurchasePrice
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "servicePurchasePrice", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "servicePurchasePrice"
+    }
+  })], 1)])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Chart of Accounts")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_vm.isSalesAccountAutomatic || _vm.isPurchaseAccountAutomatic ? _c('div', {
+    staticClass: "row mb-3"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "alert alert-info d-flex align-items-center"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.")))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "override-checkbox-container mb-3"
+  }, [_c('label', {
+    staticClass: "form-check-label"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.overrideSalesAccount,
+      expression: "form.overrideSalesAccount"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      "type": "checkbox"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.form.overrideSalesAccount) ? _vm._i(_vm.form.overrideSalesAccount, null) > -1 : _vm.form.overrideSalesAccount
+    },
+    on: {
+      "change": [function ($event) {
+        var $$a = _vm.form.overrideSalesAccount,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.form, "overrideSalesAccount", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.form, "overrideSalesAccount", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.form, "overrideSalesAccount", $$c);
+        }
+      }, _vm.onOverrideSalesAccountChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "checkbox-text"
+  }, [_vm._v(_vm._s(_vm.$t("Select it manuallyt")))])])]), _vm._v(" "), !_vm.isSalesAccountAutomatic || _vm.form.overrideSalesAccount ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "salesAccountId"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Sales Account")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1 mr-2",
+    "class": {
+      'is-invalid': _vm.form.errors.has('salesAccountId')
+    },
+    attrs: {
+      "options": _vm.chartOfAccounts,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "name": "salesAccountId",
+      "placeholder": _vm.$t('Select sales account'),
+      "required": ""
+    },
+    model: {
+      value: _vm.form.salesAccountId,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "salesAccountId", $$v);
+      },
+      expression: "form.salesAccountId"
+    }
+  })], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "salesAccountId"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.isSalesAccountAutomatic && !_vm.form.overrideSalesAccount ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Sales Account")))]), _vm._v(" "), _c('div', {
+    staticClass: "form-control-plaintext text-muted"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle"
+  }), _vm._v(" " + _vm._s(_vm.$t("Auto-assigned")) + "\n                    ")])]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "override-checkbox-container mb-3"
+  }, [_c('label', {
+    staticClass: "form-check-label"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.overridePurchaseAccount,
+      expression: "form.overridePurchaseAccount"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      "type": "checkbox"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.form.overridePurchaseAccount) ? _vm._i(_vm.form.overridePurchaseAccount, null) > -1 : _vm.form.overridePurchaseAccount
+    },
+    on: {
+      "change": [function ($event) {
+        var $$a = _vm.form.overridePurchaseAccount,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.form, "overridePurchaseAccount", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.form, "overridePurchaseAccount", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.form, "overridePurchaseAccount", $$c);
+        }
+      }, _vm.onOverridePurchaseAccountChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "checkbox-text"
+  }, [_vm._v(_vm._s(_vm.$t("Select it manuallyt")))])])]), _vm._v(" "), !_vm.isPurchaseAccountAutomatic || _vm.form.overridePurchaseAccount ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "purchaseAccountId"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Purchase Account")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1 mr-2",
+    "class": {
+      'is-invalid': _vm.form.errors.has('purchaseAccountId')
+    },
+    attrs: {
+      "options": _vm.chartOfAccounts,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "name": "purchaseAccountId",
+      "placeholder": _vm.$t('Select purchase account'),
+      "required": ""
+    },
+    model: {
+      value: _vm.form.purchaseAccountId,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "purchaseAccountId", $$v);
+      },
+      expression: "form.purchaseAccountId"
+    }
+  })], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "purchaseAccountId"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.isPurchaseAccountAutomatic && !_vm.form.overridePurchaseAccount ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Purchase Account")))]), _vm._v(" "), _c('div', {
+    staticClass: "form-control-plaintext text-muted"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle"
+  }), _vm._v(" " + _vm._s(_vm.$t("Auto-assigned")) + "\n                    ")])]) : _vm._e()])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Additional Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "image"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Image")))]), _vm._v(" "), _c('div', {
+    staticClass: "custom-file"
+  }, [_c('input', {
+    staticClass: "custom-file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('image')
+    },
+    attrs: {
+      "id": "image",
+      "type": "file",
+      "name": "image"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-file-label",
+    attrs: {
+      "for": "image"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-upload"
+  }), _vm._v(" " + _vm._s(_vm.$t("Upload")) + "\n                    ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "image"
+    }
+  }), _vm._v(" "), _vm.url ? _c('div', {
+    staticClass: "image-preview mt-2"
+  }, [_c('img', {
+    staticClass: "img-fluid rounded",
+    staticStyle: {
+      "max-height": "80px"
+    },
+    attrs: {
+      "src": _vm.url,
+      "alt": _vm.$t('Product Image')
+    }
+  })]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "note"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.note,
+      expression: "form.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('note')
+    },
+    attrs: {
+      "id": "note",
+      "rows": "3",
+      "name": "note",
+      "placeholder": _vm.$t('Add any additional notes...')
+    },
+    domProps: {
+      "value": _vm.form.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "note"
+    }
+  })], 1)])])])])])]), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "loading": _vm.form.busy
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.submitItem($event);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")])])]), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+/* harmony default export */ const ProductCreateModalvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Create Product")
+    };
+  },
+  data: function data() {
+    return {
+      showProductCreateModal: false,
+      form: new vform_es/* default */.Ay({
+        itemType: "product",
+        itemName: "",
+        itemCode: "",
+        itemModel: "",
+        barcodeSymbology: "CODE128",
+        subCategory: "",
+        brand: "",
+        itemUnit: "",
+        productTax: "",
+        taxType: "Exclusive",
+        regularPrice: "",
+        servicePurchasePrice: "",
+        openingStockCount: "",
+        openingStockUnitPrice: "",
+        discount: "",
+        sellingPrice: "",
+        note: "",
+        alertQuantity: 1,
+        status: 1,
+        image: "",
+        salesAccountId: "",
+        purchaseAccountId: "",
+        overrideSalesAccount: false,
+        overridePurchaseAccount: false
+      }),
+      categories: [],
+      options: [],
+      units: [],
+      brands: [],
+      taxes: [],
+      chartOfAccounts: [],
+      prefix: "",
+      url: null,
+      isAutoAssigningSales: false,
+      isAutoAssigningPurchase: false,
+      accountRoutingSettings: null,
+      isSalesAccountAutomatic: false,
+      isPurchaseAccountAutomatic: false
+    };
+  },
+  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
+  created: function created() {
+    this.getSubCategories();
+    this.getUnits();
+    // this.getBrands(); // Temporarily commented out
+    this.getTaxes();
+    this.getItemCode();
+    this.loadChartOfAccounts();
+    this.loadAccountRoutingSettings();
+  },
+  methods: {
+    toggleModal: function toggleModal() {
+      this.showProductCreateModal = !this.showProductCreateModal;
+
+      // When opening the modal, ensure account routing settings are loaded
+      if (this.showProductCreateModal) {
+        this.loadAccountRoutingSettings();
+      }
+    },
+    submitItem: function submitItem(evt) {
+      evt.preventDefault();
+      this.saveProduct();
+    },
+    // Load chart of accounts for sales and purchase account selection
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              _context.n = 1;
+              return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
+            case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              _this.chartOfAccounts = data || [];
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error("Error loading chart of accounts:", _t);
+              _this.chartOfAccounts = [];
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }))();
+    },
+    // Load account routing settings
+    loadAccountRoutingSettings: function loadAccountRoutingSettings() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var _this2$accountRouting, _this2$accountRouting2, _this2$accountRouting3, _this2$accountRouting4, response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _context2.p = 0;
+              _context2.n = 1;
+              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+            case 1:
+              response = _context2.v;
+              _this2.accountRoutingSettings = response.data.data || {};
+
+              // Set flags for automatic routing
+              _this2.isSalesAccountAutomatic = _this2.accountRoutingSettings.sales && _this2.accountRoutingSettings.sales.routing_type === 'automatic';
+              _this2.isPurchaseAccountAutomatic = _this2.accountRoutingSettings.purchase && _this2.accountRoutingSettings.purchase.routing_type === 'automatic';
+
+              // If automatic routing is enabled, set the account IDs from routing settings
+              if (_this2.isSalesAccountAutomatic && _this2.accountRoutingSettings.sales.main_account_id) {
+                _this2.form.salesAccountId = _this2.accountRoutingSettings.sales.main_account_id;
+              }
+              if (_this2.isPurchaseAccountAutomatic && _this2.accountRoutingSettings.purchase.main_account_id) {
+                _this2.form.purchaseAccountId = _this2.accountRoutingSettings.purchase.main_account_id;
+              }
+              console.log('=== ACCOUNT ROUTING DEBUG ===');
+              console.log('Full account routing settings:', _this2.accountRoutingSettings);
+              console.log('Sales settings:', _this2.accountRoutingSettings.sales);
+              console.log('Purchase settings:', _this2.accountRoutingSettings.purchase);
+              console.log('Sales routing type:', (_this2$accountRouting = _this2.accountRoutingSettings.sales) === null || _this2$accountRouting === void 0 ? void 0 : _this2$accountRouting.routing_type);
+              console.log('Sales main_account_id:', (_this2$accountRouting2 = _this2.accountRoutingSettings.sales) === null || _this2$accountRouting2 === void 0 ? void 0 : _this2$accountRouting2.main_account_id);
+              console.log('Purchase routing type:', (_this2$accountRouting3 = _this2.accountRoutingSettings.purchase) === null || _this2$accountRouting3 === void 0 ? void 0 : _this2$accountRouting3.routing_type);
+              console.log('Purchase main_account_id:', (_this2$accountRouting4 = _this2.accountRoutingSettings.purchase) === null || _this2$accountRouting4 === void 0 ? void 0 : _this2$accountRouting4.main_account_id);
+              console.log('isSalesAccountAutomatic:', _this2.isSalesAccountAutomatic);
+              console.log('isPurchaseAccountAutomatic:', _this2.isPurchaseAccountAutomatic);
+              console.log('Form salesAccountId after auto-assignment:', _this2.form.salesAccountId);
+              console.log('Form purchaseAccountId after auto-assignment:', _this2.form.purchaseAccountId);
+              console.log('==============================');
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.p = 2;
+              _t2 = _context2.v;
+              console.error("Error loading account routing settings:", _t2);
+              // Set defaults if API fails
+              _this2.isSalesAccountAutomatic = false;
+              _this2.isPurchaseAccountAutomatic = false;
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[0, 2]]);
+      }))();
+    },
+    // get all product categories
+    getSubCategories: function getSubCategories() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _yield$_this3$form$ge, data;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              _context3.n = 1;
+              return _this3.form.get(window.location.origin + "/api/all-product-sub-categories");
+            case 1:
+              _yield$_this3$form$ge = _context3.v;
+              data = _yield$_this3$form$ge.data;
+              _this3.categories = data.data;
+            case 2:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // get all brands
+    getBrands: function getBrands() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get2, data;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _context4.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-brands");
+            case 1:
+              _yield$axios$get2 = _context4.v;
+              data = _yield$axios$get2.data;
+              _this4.brands = data.data;
+            case 2:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // get all units
+    getUnits: function getUnits() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var _yield$axios$get3, data;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              _context5.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-units");
+            case 1:
+              _yield$axios$get3 = _context5.v;
+              data = _yield$axios$get3.data;
+              _this5.units = data.data;
+            case 2:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    // get all taxes
+    getTaxes: function getTaxes() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var _yield$axios$get4, data, defaultVatRateSlug;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              _context6.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+            case 1:
+              _yield$axios$get4 = _context6.v;
+              data = _yield$axios$get4.data;
+              _this6.taxes = data.data;
+              // assign default vat rate
+              if (_this6.taxes && _this6.taxes.length > 0) {
+                defaultVatRateSlug = _this6.appInfo.defaultVatRateSlug;
+                _this6.form.productTax = _this6.taxes.find(function (tax) {
+                  return tax.slug === defaultVatRateSlug;
+                });
+              }
+              _this6.calculatePrice();
+            case 2:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    },
+    // get item code
+    getItemCode: function getItemCode() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var _yield$axios$get5, data;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
+            case 0:
+              _context7.n = 1;
+              return axios_default().get(window.location.origin + "/api/generate-itemcode");
+            case 1:
+              _yield$axios$get5 = _context7.v;
+              data = _yield$axios$get5.data;
+              _this7.form.itemCode = data.code;
+              _this7.prefix = data.prefix;
+            case 2:
+              return _context7.a(2);
+          }
+        }, _callee7);
+      }))();
+    },
+    // calculate selling price
+    calculatePrice: function calculatePrice() {
+      if (this.form.regularPrice && this.form.productTax && this.form.taxType) {
+        var discount = 0;
+        if (this.form.discount && this.form.discount > 0) {
+          discount = this.form.discount / 100 * this.form.regularPrice;
+        }
+        var currentPrice = this.form.regularPrice - discount;
+        var taxAmount = 0;
+        var totalTax = 0;
+        if (this.form.productTax.rate > 0) {
+          taxAmount = this.form.productTax.rate / 100;
+        }
+        if (this.form.taxType == "Exclusive") {
+          totalTax = currentPrice * taxAmount;
+        } else {
+          totalTax = currentPrice - currentPrice / (1 + taxAmount);
+        }
+        if (this.form.taxType == "Exclusive") {
+          this.form.sellingPrice = this.form.regularPrice - discount + totalTax;
+        } else {
+          this.form.sellingPrice = (this.form.regularPrice - discount) / (1 + taxAmount) + totalTax;
+        }
+        return;
+      }
+      this.form.sellingPrice = this.form.regularPrice;
+    },
+    // vue file upload
+    onFileChange: function onFileChange(e) {
+      var _this8 = this;
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
+        reader.onloadend = function () {
+          _this8.form.image = reader.result;
+        };
+        reader.readAsDataURL(file);
+        this.url = URL.createObjectURL(file);
+      } else {
+        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
+      }
+    },
+    // save product
+    saveProduct: function saveProduct() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        var _this9$accountRouting, _this9$accountRouting2;
+        var needsSalesAccount, needsPurchaseAccount;
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
+            case 0:
+              if (!(_this9.form.itemType === 'service' && !_this9.form.servicePurchasePrice)) {
+                _context8.n = 1;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this9.$t("Service Purchase Price is required for services")
+              });
+              return _context8.a(2);
+            case 1:
+              // Debug: Log validation state
+              console.log("Validation state:", {
+                isSalesAccountAutomatic: _this9.isSalesAccountAutomatic,
+                overrideSalesAccount: _this9.form.overrideSalesAccount,
+                salesAccountId: _this9.form.salesAccountId,
+                isPurchaseAccountAutomatic: _this9.isPurchaseAccountAutomatic,
+                overridePurchaseAccount: _this9.form.overridePurchaseAccount,
+                purchaseAccountId: _this9.form.purchaseAccountId
+              });
+
+              // Validate sales account - required if not automatic OR if override is checked
+              needsSalesAccount = !_this9.isSalesAccountAutomatic || _this9.form.overrideSalesAccount;
+              if (!(needsSalesAccount && !_this9.form.salesAccountId)) {
+                _context8.n = 2;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this9.$t("Sales Account is required")
+              });
+              return _context8.a(2);
+            case 2:
+              // Validate purchase account - required if not automatic OR if override is checked
+              needsPurchaseAccount = !_this9.isPurchaseAccountAutomatic || _this9.form.overridePurchaseAccount;
+              if (!(needsPurchaseAccount && !_this9.form.purchaseAccountId)) {
+                _context8.n = 3;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this9.$t("Purchase Account is required")
+              });
+              return _context8.a(2);
+            case 3:
+              // Debug: Log form data being sent
+              console.log("=== FORM SUBMISSION DEBUG ===");
+              console.log("Form data being sent:", _this9.form.data());
+              console.log("Account routing settings:", _this9.accountRoutingSettings);
+              console.log("Sales settings:", _this9.accountRoutingSettings.sales);
+              console.log("Purchase settings:", _this9.accountRoutingSettings.purchase);
+              console.log("Sales routing type:", (_this9$accountRouting = _this9.accountRoutingSettings.sales) === null || _this9$accountRouting === void 0 ? void 0 : _this9$accountRouting.routing_type);
+              console.log("Sales main_account_id:", (_this9$accountRouting2 = _this9.accountRoutingSettings.sales) === null || _this9$accountRouting2 === void 0 ? void 0 : _this9$accountRouting2.main_account_id);
+              console.log("Form salesAccountId:", _this9.form.salesAccountId);
+              console.log("Form purchaseAccountId:", _this9.form.purchaseAccountId);
+              console.log("=============================");
+              _context8.n = 4;
+              return _this9.form.post(window.location.origin + "/api/products").then(function (response) {
+                toast.fire({
+                  type: "success",
+                  title: _this9.$t("Product added successfully")
+                });
+
+                // Emit the newly created product data
+                if (response.data && response.data.data) {
+                  var newProduct = response.data.data;
+                  // Format the product data to match the expected structure for v-select
+                  var formattedProduct = {
+                    id: newProduct.id,
+                    slug: newProduct.slug,
+                    name: newProduct.name,
+                    code: newProduct.code,
+                    label: "".concat(newProduct.name, " [").concat(newProduct.code, "]"),
+                    itemType: newProduct.itemType,
+                    itemModel: newProduct.itemModel || '',
+                    avgPurchasePrice: newProduct.avgPurchasePrice || 0,
+                    regularPrice: newProduct.regularPrice || 0,
+                    priceWithDiscount: newProduct.sellingPrice,
+                    sellingPrice: newProduct.sellingPrice,
+                    taxAmount: newProduct.taxAmount || 0,
+                    taxType: newProduct.taxType,
+                    taxRate: newProduct.taxRate,
+                    productTax: newProduct.productTax,
+                    inventoryCount: newProduct.inventoryCount || 0,
+                    image: newProduct.image || '',
+                    sales_account_id: newProduct.sales_account_id,
+                    purchase_account_id: newProduct.purchase_account_id
+                  };
+                  _this9.$emit('productCreated', formattedProduct);
+                }
+
+                // Store auto-assigned account IDs before reset
+                var autoAssignedSalesAccountId = _this9.isSalesAccountAutomatic ? _this9.form.salesAccountId : null;
+                var autoAssignedPurchaseAccountId = _this9.isPurchaseAccountAutomatic ? _this9.form.purchaseAccountId : null;
+                _this9.form.reset();
+                _this9.form.itemType = "product"; // Reset to default
+                _this9.form.overrideSalesAccount = false; // Reset override flags
+                _this9.form.overridePurchaseAccount = false;
+
+                // Restore auto-assigned account IDs after reset
+                if (autoAssignedSalesAccountId) {
+                  _this9.form.salesAccountId = autoAssignedSalesAccountId;
+                }
+                if (autoAssignedPurchaseAccountId) {
+                  _this9.form.purchaseAccountId = autoAssignedPurchaseAccountId;
+                }
+                _this9.showProductCreateModal = false;
+                _this9.$emit('reloadProducts');
+              })["catch"](function (error) {
+                var _error$response;
+                console.error("Error creating product:", error);
+                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this9.$t("Please check your input and try again.");
+                toast.fire({
+                  type: "error",
+                  title: errorMessage
+                });
+              });
+            case 4:
+              return _context8.a(2);
+          }
+        }, _callee8);
+      }))();
+    },
+    // Auto-assign sales account
+    autoAssignSalesAccount: function autoAssignSalesAccount() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var defaultAccount;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.n) {
+            case 0:
+              if (!_this0.isAutoAssigningSales) {
+                _context9.n = 1;
+                break;
+              }
+              return _context9.a(2);
+            case 1:
+              _this0.isAutoAssigningSales = true;
+              try {
+                // For new products, we need to simulate the auto-assignment logic
+                // since the product doesn't exist in the database yet
+                defaultAccount = null;
+                if (_this0.form.itemType === 'product') {
+                  // Look for "Sales of Goods" or similar
+                  defaultAccount = _this0.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('sales') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
+                  });
+                } else if (_this0.form.itemType === 'service') {
+                  // Look for "Sales of Services" or similar
+                  defaultAccount = _this0.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('sales') && account.name.toLowerCase().includes('service');
+                  });
+                }
+
+                // Fallback to any Sales account
+                if (!defaultAccount) {
+                  defaultAccount = _this0.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('sales');
+                  });
+                }
+
+                // Final fallback to any active account
+                if (!defaultAccount && _this0.chartOfAccounts.length > 0) {
+                  defaultAccount = _this0.chartOfAccounts[0];
+                }
+                if (defaultAccount) {
+                  _this0.form.salesAccountId = defaultAccount.id;
+                  toast.fire({
+                    type: "success",
+                    title: _this0.$t("Sales Account auto-assigned successfully")
+                  });
+                } else {
+                  toast.fire({
+                    type: "error",
+                    title: _this0.$t("No suitable Sales Account found for automatic assignment")
+                  });
+                }
+              } catch (error) {
+                console.error("Error auto-assigning sales account:", error);
+                toast.fire({
+                  type: "error",
+                  title: _this0.$t("Failed to auto-assign Sales Account")
+                });
+              } finally {
+                _this0.isAutoAssigningSales = false;
+              }
+            case 2:
+              return _context9.a(2);
+          }
+        }, _callee9);
+      }))();
+    },
+    // Auto-assign purchase account
+    autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        var defaultAccount;
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.n) {
+            case 0:
+              if (!_this1.isAutoAssigningPurchase) {
+                _context0.n = 1;
+                break;
+              }
+              return _context0.a(2);
+            case 1:
+              _this1.isAutoAssigningPurchase = true;
+              try {
+                // For new products, we need to simulate the auto-assignment logic
+                // since the product doesn't exist in the database yet
+                defaultAccount = null;
+                if (_this1.form.itemType === 'product') {
+                  // Look for "Cost of Goods Sold" or similar
+                  defaultAccount = _this1.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('cost') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
+                  });
+                } else if (_this1.form.itemType === 'service') {
+                  // Look for "Cost of Services" or similar
+                  defaultAccount = _this1.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('cost') && account.name.toLowerCase().includes('service');
+                  });
+                }
+
+                // Fallback to any Cost account
+                if (!defaultAccount) {
+                  defaultAccount = _this1.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('cost');
+                  });
+                }
+
+                // Final fallback to any active account
+                if (!defaultAccount && _this1.chartOfAccounts.length > 0) {
+                  defaultAccount = _this1.chartOfAccounts[0];
+                }
+                if (defaultAccount) {
+                  _this1.form.purchaseAccountId = defaultAccount.id;
+                  toast.fire({
+                    type: "success",
+                    title: _this1.$t("Purchase Account auto-assigned successfully")
+                  });
+                } else {
+                  toast.fire({
+                    type: "error",
+                    title: _this1.$t("No suitable Purchase Account found for automatic assignment")
+                  });
+                }
+              } catch (error) {
+                console.error("Error auto-assigning purchase account:", error);
+                toast.fire({
+                  type: "error",
+                  title: _this1.$t("Failed to auto-assign Purchase Account")
+                });
+              } finally {
+                _this1.isAutoAssigningPurchase = false;
+              }
+            case 2:
+              return _context0.a(2);
+          }
+        }, _callee0);
+      }))();
+    },
+    // Handle Select it manuallyt checkbox change
+    onOverrideSalesAccountChange: function onOverrideSalesAccountChange() {
+      if (this.form.overrideSalesAccount) {
+        // When overriding, clear the current account selection to force manual selection
+        this.form.salesAccountId = "";
+      } else {
+        // When not overriding and automatic is enabled, restore the automatic account
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id;
+        }
+      }
+    },
+    // Handle Select it manuallyt checkbox change
+    onOverridePurchaseAccountChange: function onOverridePurchaseAccountChange() {
+      if (this.form.overridePurchaseAccount) {
+        // When overriding, clear the current account selection to force manual selection
+        this.form.purchaseAccountId = "";
+      } else {
+        // When not overriding and automatic is enabled, restore the automatic account
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id;
+        }
+      }
+    }
+  }
+});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=7c79e6b4&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_7c79e6b4_prod_scoped_true_lang_css = __webpack_require__(2559);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=7c79e6b4&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_7c79e6b4_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_7c79e6b4_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_7c79e6b4_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=7c79e6b4&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ProductCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ProductCreateModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "7c79e6b4",
+  null
+  
+)
+
+/* harmony default export */ const ProductCreateModal = (component.exports);
 
 /***/ }),
 
@@ -12888,26 +14601,6 @@ exports.pharmacode = pharmacode;
 
 /***/ }),
 
-/***/ 42996:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-77923dd0]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-77923dd0]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-77923dd0]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-77923dd0]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-77923dd0]:after{display:none}.form-card .card-header .section-title i[data-v-77923dd0]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-77923dd0]{padding:16px}.section-title[data-v-77923dd0]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-77923dd0]{margin-bottom:1rem}.form-group label[data-v-77923dd0]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-77923dd0]{color:#dc3545;font-weight:700}.row[data-v-77923dd0]{margin-bottom:1rem}.row[data-v-77923dd0]:last-child{margin-bottom:0}.auto-assign-btn[data-v-77923dd0]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-77923dd0]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-77923dd0]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-77923dd0]{text-align:center}.image-preview img[data-v-77923dd0]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-77923dd0]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-77923dd0]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-77923dd0]{color:#6c757d}.create-button[data-v-77923dd0]{cursor:pointer;text-decoration:none}@media (max-width:768px){.section-title[data-v-77923dd0]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-77923dd0]{padding:.75rem}.auto-assign-btn[data-v-77923dd0]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-77923dd0]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-77923dd0]{margin-bottom:0}.is-invalid[data-v-77923dd0]{border-color:#dc3545!important}.invalid-feedback[data-v-77923dd0]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-77923dd0]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-77923dd0]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-77923dd0]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-77923dd0]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-77923dd0]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-77923dd0]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-77923dd0]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-77923dd0]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-77923dd0]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-77923dd0]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-77923dd0]{flex-direction:column;gap:.5rem}.option-content[data-v-77923dd0]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-77923dd0]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-77923dd0]{font-size:.85rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 43804:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -14090,1605 +15783,6 @@ var C_CHARS = exports.C_CHARS = "(\xCF*[0-9]{2}\xCF*)";
 // 103 data symbols, 3 start symbols (A, B and C), and 1 stop symbol (the last one)
 // Each symbol consist of three black bars (1) and three white spaces (0).
 var BARS = exports.BARS = [11011001100, 11001101100, 11001100110, 10010011000, 10010001100, 10001001100, 10011001000, 10011000100, 10001100100, 11001001000, 11001000100, 11000100100, 10110011100, 10011011100, 10011001110, 10111001100, 10011101100, 10011100110, 11001110010, 11001011100, 11001001110, 11011100100, 11001110100, 11101101110, 11101001100, 11100101100, 11100100110, 11101100100, 11100110100, 11100110010, 11011011000, 11011000110, 11000110110, 10100011000, 10001011000, 10001000110, 10110001000, 10001101000, 10001100010, 11010001000, 11000101000, 11000100010, 10110111000, 10110001110, 10001101110, 10111011000, 10111000110, 10001110110, 11101110110, 11010001110, 11000101110, 11011101000, 11011100010, 11011101110, 11101011000, 11101000110, 11100010110, 11101101000, 11101100010, 11100011010, 11101111010, 11001000010, 11110001010, 10100110000, 10100001100, 10010110000, 10010000110, 10000101100, 10000100110, 10110010000, 10110000100, 10011010000, 10011000010, 10000110100, 10000110010, 11000010010, 11001010000, 11110111010, 11000010100, 10001111010, 10100111100, 10010111100, 10010011110, 10111100100, 10011110100, 10011110010, 11110100100, 11110010100, 11110010010, 11011011110, 11011110110, 11110110110, 10101111000, 10100011110, 10001011110, 10111101000, 10111100010, 11110101000, 11110100010, 10111011110, 10111101110, 11101011110, 11110101110, 11010000100, 11010010000, 11010011100, 1100011101011];
-
-/***/ }),
-
-/***/ 63545:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ProductCreateModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=77923dd0&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": function close($event) {
-        _vm.showProductCreateModal = false;
-      }
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Product")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showProductCreateModal,
-      callback: function callback($$v) {
-        _vm.showProductCreateModal = $$v;
-      },
-      expression: "showProductCreateModal"
-    }
-  }, [_vm._v(" "), _c('div', {
-    staticClass: "w-100"
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-cube mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Item Type")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "item-type-selector"
-  }, [_c('label', {
-    staticClass: "item-type-option",
-    "class": {
-      'active': _vm.form.itemType === 'product'
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemType,
-      expression: "form.itemType"
-    }],
-    attrs: {
-      "type": "radio",
-      "id": "product",
-      "name": "itemType",
-      "value": "product",
-      "autocomplete": "off"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.itemType, "product")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "itemType", "product");
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('i', {
-    staticClass: "fas fa-cube"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Product")))])])]), _vm._v(" "), _c('label', {
-    staticClass: "item-type-option",
-    "class": {
-      'active': _vm.form.itemType === 'service'
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemType,
-      expression: "form.itemType"
-    }],
-    attrs: {
-      "type": "radio",
-      "id": "service",
-      "name": "itemType",
-      "value": "service",
-      "autocomplete": "off"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.itemType, "service")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "itemType", "service");
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('i', {
-    staticClass: "fas fa-cogs"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Service")))])])])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemType"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Product Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Item Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemName,
-      expression: "form.itemName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemName')
-    },
-    attrs: {
-      "id": "itemName",
-      "type": "text",
-      "name": "itemName",
-      "placeholder": _vm.$t('Enter a name')
-    },
-    domProps: {
-      "value": _vm.form.itemName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "itemName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemCode"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Item Code")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "input-group"
-  }, [_vm.prefix ? _c('span', {
-    staticClass: "input-group-text"
-  }, [_vm._v(_vm._s(_vm.prefix))]) : _vm._e(), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemCode,
-      expression: "form.itemCode"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemCode')
-    },
-    attrs: {
-      "type": "text",
-      "name": "itemCode",
-      "placeholder": _vm.$t('Enter item code')
-    },
-    domProps: {
-      "value": _vm.form.itemCode
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "itemCode", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemCode"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "subCategory"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Category")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('subCategory')
-    },
-    attrs: {
-      "options": _vm.categories,
-      "label": "name",
-      "name": "subCategory",
-      "placeholder": _vm.$t('Select a category')
-    },
-    model: {
-      value: _vm.form.subCategory,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "subCategory", $$v);
-      },
-      expression: "form.subCategory"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "subCategory"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemUnit"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Unit")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemUnit')
-    },
-    attrs: {
-      "options": _vm.units,
-      "label": "name",
-      "name": "itemUnit",
-      "placeholder": _vm.$t('Select a unit')
-    },
-    model: {
-      value: _vm.form.itemUnit,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "itemUnit", $$v);
-      },
-      expression: "form.itemUnit"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemUnit"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "productTax"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax Rate")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('productTax')
-    },
-    attrs: {
-      "options": _vm.taxes,
-      "label": "code",
-      "name": "productTax",
-      "placeholder": _vm.$t('Select a tax')
-    },
-    on: {
-      "input": _vm.calculatePrice
-    },
-    model: {
-      value: _vm.form.productTax,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "productTax", $$v);
-      },
-      expression: "form.productTax"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "productTax"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemModel"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Model")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemModel,
-      expression: "form.itemModel"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemModel')
-    },
-    attrs: {
-      "id": "itemModel",
-      "type": "text",
-      "name": "itemModel",
-      "placeholder": _vm.$t('Enter a model')
-    },
-    domProps: {
-      "value": _vm.form.itemModel
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "itemModel", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemModel"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "regularPrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Price")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.regularPrice,
-      expression: "form.regularPrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('regularPrice')
-    },
-    attrs: {
-      "id": "regularPrice",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "regularPrice",
-      "placeholder": _vm.$t('Enter price')
-    },
-    domProps: {
-      "value": _vm.form.regularPrice
-    },
-    on: {
-      "change": _vm.calculatePrice,
-      "keyup": _vm.calculatePrice,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "regularPrice", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "regularPrice"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "discount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Discount (%)")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.discount,
-      expression: "form.discount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('discount')
-    },
-    attrs: {
-      "type": "number",
-      "min": "0",
-      "max": "100",
-      "name": "discount",
-      "placeholder": _vm.$t('Enter discount')
-    },
-    domProps: {
-      "value": _vm.form.discount
-    },
-    on: {
-      "change": _vm.calculatePrice,
-      "keyup": _vm.calculatePrice,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "discount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "discount"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "sellingPrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Final Price")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.sellingPrice,
-      expression: "form.sellingPrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('sellingPrice')
-    },
-    attrs: {
-      "id": "sellingPrice",
-      "type": "number",
-      "readonly": "",
-      "name": "sellingPrice",
-      "placeholder": _vm.$t('Calculated automatically')
-    },
-    domProps: {
-      "value": _vm.form.sellingPrice
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "sellingPrice", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "sellingPrice"
-    }
-  })], 1)])])])]), _vm._v(" "), _vm.form.itemType === 'product' ? _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-warehouse mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Stock Information")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "openingStockCount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Opening Stock")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.openingStockCount,
-      expression: "form.openingStockCount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('openingStockCount')
-    },
-    attrs: {
-      "id": "openingStockCount",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "openingStockCount",
-      "placeholder": _vm.$t('Enter opening stock')
-    },
-    domProps: {
-      "value": _vm.form.openingStockCount
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "openingStockCount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "openingStockCount"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "openingStockUnitPrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Stock Unit Price")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.openingStockUnitPrice,
-      expression: "form.openingStockUnitPrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('openingStockUnitPrice')
-    },
-    attrs: {
-      "id": "openingStockUnitPrice",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "openingStockUnitPrice",
-      "placeholder": _vm.$t('Enter unit price')
-    },
-    domProps: {
-      "value": _vm.form.openingStockUnitPrice
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "openingStockUnitPrice", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "openingStockUnitPrice"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "alertQuantity"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Alert Quantity")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.alertQuantity,
-      expression: "form.alertQuantity"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('alertQuantity')
-    },
-    attrs: {
-      "id": "alertQuantity",
-      "type": "number",
-      "min": "0",
-      "max": "1000",
-      "name": "alertQuantity",
-      "placeholder": _vm.$t('Enter alert quantity')
-    },
-    domProps: {
-      "value": _vm.form.alertQuantity
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "alertQuantity", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "alertQuantity"
-    }
-  })], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.form.itemType === 'service' ? _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-dollar-sign mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Service Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "servicePurchasePrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Purchase Price")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.servicePurchasePrice,
-      expression: "form.servicePurchasePrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('servicePurchasePrice')
-    },
-    attrs: {
-      "id": "servicePurchasePrice",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "servicePurchasePrice",
-      "placeholder": _vm.$t('Enter purchase price')
-    },
-    domProps: {
-      "value": _vm.form.servicePurchasePrice
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "servicePurchasePrice", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "servicePurchasePrice"
-    }
-  })], 1)])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Chart of Accounts")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [!_vm.isSalesAccountAutomatic ? _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "salesAccountId"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Sales Account")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1 mr-2",
-    "class": {
-      'is-invalid': _vm.form.errors.has('salesAccountId')
-    },
-    attrs: {
-      "options": _vm.chartOfAccounts,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "name": "salesAccountId",
-      "placeholder": _vm.$t('Select sales account'),
-      "required": ""
-    },
-    model: {
-      value: _vm.form.salesAccountId,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "salesAccountId", $$v);
-      },
-      expression: "form.salesAccountId"
-    }
-  }), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-outline-success btn-sm auto-assign-btn",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.isAutoAssigningSales,
-      "title": _vm.$t('Auto-assign')
-    },
-    on: {
-      "click": _vm.autoAssignSalesAccount
-    }
-  }, [_vm.isAutoAssigningSales ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-magic"
-  })])], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "salesAccountId"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.isSalesAccountAutomatic ? _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Sales Account")))]), _vm._v(" "), _c('div', {
-    staticClass: "form-control-plaintext text-muted"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle"
-  }), _vm._v(" " + _vm._s(_vm.$t("Auto-assigned")) + "\n                  ")])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [!_vm.isPurchaseAccountAutomatic ? _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "purchaseAccountId"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Purchase Account")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1 mr-2",
-    "class": {
-      'is-invalid': _vm.form.errors.has('purchaseAccountId')
-    },
-    attrs: {
-      "options": _vm.chartOfAccounts,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "name": "purchaseAccountId",
-      "placeholder": _vm.$t('Select purchase account'),
-      "required": ""
-    },
-    model: {
-      value: _vm.form.purchaseAccountId,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "purchaseAccountId", $$v);
-      },
-      expression: "form.purchaseAccountId"
-    }
-  }), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-outline-info btn-sm auto-assign-btn",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.isAutoAssigningPurchase,
-      "title": _vm.$t('Auto-assign')
-    },
-    on: {
-      "click": _vm.autoAssignPurchaseAccount
-    }
-  }, [_vm.isAutoAssigningPurchase ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-magic"
-  })])], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "purchaseAccountId"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.isPurchaseAccountAutomatic ? _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Purchase Account")))]), _vm._v(" "), _c('div', {
-    staticClass: "form-control-plaintext text-muted"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle"
-  }), _vm._v(" " + _vm._s(_vm.$t("Auto-assigned")) + "\n                  ")])]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Additional Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Image")))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "image",
-      "type": "file",
-      "name": "image"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "image"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-upload"
-  }), _vm._v(" " + _vm._s(_vm.$t("Upload")) + "\n                    ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _vm.url ? _c('div', {
-    staticClass: "image-preview mt-2"
-  }, [_c('img', {
-    staticClass: "img-fluid rounded",
-    staticStyle: {
-      "max-height": "80px"
-    },
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Product Image')
-    }
-  })]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "rows": "3",
-      "name": "note",
-      "placeholder": _vm.$t('Add any additional notes...')
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1)])])])])])]), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "loading": _vm.form.busy
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.submitItem($event);
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")])])]), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-/* harmony default export */ const ProductCreateModalvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Create Product")
-    };
-  },
-  data: function data() {
-    return {
-      showProductCreateModal: false,
-      form: new vform_es/* default */.Ay({
-        itemType: "product",
-        itemName: "",
-        itemCode: "",
-        itemModel: "",
-        barcodeSymbology: "CODE128",
-        subCategory: "",
-        brand: "",
-        itemUnit: "",
-        productTax: "",
-        taxType: "Exclusive",
-        regularPrice: "",
-        servicePurchasePrice: "",
-        openingStockCount: "",
-        openingStockUnitPrice: "",
-        discount: "",
-        sellingPrice: "",
-        note: "",
-        alertQuantity: 1,
-        status: 1,
-        image: "",
-        salesAccountId: "",
-        purchaseAccountId: ""
-      }),
-      categories: [],
-      options: [],
-      units: [],
-      brands: [],
-      taxes: [],
-      chartOfAccounts: [],
-      prefix: "",
-      url: null,
-      isAutoAssigningSales: false,
-      isAutoAssigningPurchase: false,
-      accountRoutingSettings: null,
-      isSalesAccountAutomatic: false,
-      isPurchaseAccountAutomatic: false
-    };
-  },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
-  created: function created() {
-    this.getSubCategories();
-    this.getUnits();
-    // this.getBrands(); // Temporarily commented out
-    this.getTaxes();
-    this.getItemCode();
-    this.loadChartOfAccounts();
-    this.loadAccountRoutingSettings();
-  },
-  methods: {
-    toggleModal: function toggleModal() {
-      this.showProductCreateModal = !this.showProductCreateModal;
-
-      // When opening the modal, ensure account routing settings are loaded
-      if (this.showProductCreateModal) {
-        this.loadAccountRoutingSettings();
-      }
-    },
-    submitItem: function submitItem(evt) {
-      evt.preventDefault();
-      this.saveProduct();
-    },
-    // Load chart of accounts for sales and purchase account selection
-    loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _context.n = 1;
-              return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this.chartOfAccounts = data || [];
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error("Error loading chart of accounts:", _t);
-              _this.chartOfAccounts = [];
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    },
-    // Load account routing settings
-    loadAccountRoutingSettings: function loadAccountRoutingSettings() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _this2$accountRouting, _this2$accountRouting2, _this2$accountRouting3, _this2$accountRouting4, response, _t2;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
-            case 0:
-              _context2.p = 0;
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
-            case 1:
-              response = _context2.v;
-              _this2.accountRoutingSettings = response.data.data || {};
-
-              // Set flags for automatic routing
-              _this2.isSalesAccountAutomatic = _this2.accountRoutingSettings.sales && _this2.accountRoutingSettings.sales.routing_type === 'automatic';
-              _this2.isPurchaseAccountAutomatic = _this2.accountRoutingSettings.purchase && _this2.accountRoutingSettings.purchase.routing_type === 'automatic';
-
-              // If automatic routing is enabled, set the account IDs from routing settings
-              if (_this2.isSalesAccountAutomatic && _this2.accountRoutingSettings.sales.main_account_id) {
-                _this2.form.salesAccountId = _this2.accountRoutingSettings.sales.main_account_id;
-              }
-              if (_this2.isPurchaseAccountAutomatic && _this2.accountRoutingSettings.purchase.main_account_id) {
-                _this2.form.purchaseAccountId = _this2.accountRoutingSettings.purchase.main_account_id;
-              }
-              console.log('=== ACCOUNT ROUTING DEBUG ===');
-              console.log('Full account routing settings:', _this2.accountRoutingSettings);
-              console.log('Sales settings:', _this2.accountRoutingSettings.sales);
-              console.log('Purchase settings:', _this2.accountRoutingSettings.purchase);
-              console.log('Sales routing type:', (_this2$accountRouting = _this2.accountRoutingSettings.sales) === null || _this2$accountRouting === void 0 ? void 0 : _this2$accountRouting.routing_type);
-              console.log('Sales main_account_id:', (_this2$accountRouting2 = _this2.accountRoutingSettings.sales) === null || _this2$accountRouting2 === void 0 ? void 0 : _this2$accountRouting2.main_account_id);
-              console.log('Purchase routing type:', (_this2$accountRouting3 = _this2.accountRoutingSettings.purchase) === null || _this2$accountRouting3 === void 0 ? void 0 : _this2$accountRouting3.routing_type);
-              console.log('Purchase main_account_id:', (_this2$accountRouting4 = _this2.accountRoutingSettings.purchase) === null || _this2$accountRouting4 === void 0 ? void 0 : _this2$accountRouting4.main_account_id);
-              console.log('isSalesAccountAutomatic:', _this2.isSalesAccountAutomatic);
-              console.log('isPurchaseAccountAutomatic:', _this2.isPurchaseAccountAutomatic);
-              console.log('Form salesAccountId after auto-assignment:', _this2.form.salesAccountId);
-              console.log('Form purchaseAccountId after auto-assignment:', _this2.form.purchaseAccountId);
-              console.log('==============================');
-              _context2.n = 3;
-              break;
-            case 2:
-              _context2.p = 2;
-              _t2 = _context2.v;
-              console.error("Error loading account routing settings:", _t2);
-              // Set defaults if API fails
-              _this2.isSalesAccountAutomatic = false;
-              _this2.isPurchaseAccountAutomatic = false;
-            case 3:
-              return _context2.a(2);
-          }
-        }, _callee2, null, [[0, 2]]);
-      }))();
-    },
-    // get all product categories
-    getSubCategories: function getSubCategories() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var _yield$_this3$form$ge, data;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              _context3.n = 1;
-              return _this3.form.get(window.location.origin + "/api/all-product-sub-categories");
-            case 1:
-              _yield$_this3$form$ge = _context3.v;
-              data = _yield$_this3$form$ge.data;
-              _this3.categories = data.data;
-            case 2:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // get all brands
-    getBrands: function getBrands() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var _yield$axios$get2, data;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _context4.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-brands");
-            case 1:
-              _yield$axios$get2 = _context4.v;
-              data = _yield$axios$get2.data;
-              _this4.brands = data.data;
-            case 2:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // get all units
-    getUnits: function getUnits() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var _yield$axios$get3, data;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _context5.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-units");
-            case 1:
-              _yield$axios$get3 = _context5.v;
-              data = _yield$axios$get3.data;
-              _this5.units = data.data;
-            case 2:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // get all taxes
-    getTaxes: function getTaxes() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var _yield$axios$get4, data, defaultVatRateSlug;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _context6.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get4 = _context6.v;
-              data = _yield$axios$get4.data;
-              _this6.taxes = data.data;
-              // assign default vat rate
-              if (_this6.taxes && _this6.taxes.length > 0) {
-                defaultVatRateSlug = _this6.appInfo.defaultVatRateSlug;
-                _this6.form.productTax = _this6.taxes.find(function (tax) {
-                  return tax.slug === defaultVatRateSlug;
-                });
-              }
-              _this6.calculatePrice();
-            case 2:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    // get item code
-    getItemCode: function getItemCode() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var _yield$axios$get5, data;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
-            case 0:
-              _context7.n = 1;
-              return axios_default().get(window.location.origin + "/api/generate-itemcode");
-            case 1:
-              _yield$axios$get5 = _context7.v;
-              data = _yield$axios$get5.data;
-              _this7.form.itemCode = data.code;
-              _this7.prefix = data.prefix;
-            case 2:
-              return _context7.a(2);
-          }
-        }, _callee7);
-      }))();
-    },
-    // calculate selling price
-    calculatePrice: function calculatePrice() {
-      if (this.form.regularPrice && this.form.productTax && this.form.taxType) {
-        var discount = 0;
-        if (this.form.discount && this.form.discount > 0) {
-          discount = this.form.discount / 100 * this.form.regularPrice;
-        }
-        var currentPrice = this.form.regularPrice - discount;
-        var taxAmount = 0;
-        var totalTax = 0;
-        if (this.form.productTax.rate > 0) {
-          taxAmount = this.form.productTax.rate / 100;
-        }
-        if (this.form.taxType == "Exclusive") {
-          totalTax = currentPrice * taxAmount;
-        } else {
-          totalTax = currentPrice - currentPrice / (1 + taxAmount);
-        }
-        if (this.form.taxType == "Exclusive") {
-          this.form.sellingPrice = this.form.regularPrice - discount + totalTax;
-        } else {
-          this.form.sellingPrice = (this.form.regularPrice - discount) / (1 + taxAmount) + totalTax;
-        }
-        return;
-      }
-      this.form.sellingPrice = this.form.regularPrice;
-    },
-    // vue file upload
-    onFileChange: function onFileChange(e) {
-      var _this8 = this;
-      var file = e.target.files[0];
-      var reader = new FileReader();
-      if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
-        reader.onloadend = function () {
-          _this8.form.image = reader.result;
-        };
-        reader.readAsDataURL(file);
-        this.url = URL.createObjectURL(file);
-      } else {
-        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
-      }
-    },
-    // save product
-    saveProduct: function saveProduct() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var _this9$accountRouting, _this9$accountRouting2;
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
-            case 0:
-              if (!(_this9.form.itemType === 'service' && !_this9.form.servicePurchasePrice)) {
-                _context8.n = 1;
-                break;
-              }
-              toast.fire({
-                type: "error",
-                title: _this9.$t("Service Purchase Price is required for services")
-              });
-              return _context8.a(2);
-            case 1:
-              // Debug: Log validation state
-              console.log("Validation state:", {
-                isSalesAccountAutomatic: _this9.isSalesAccountAutomatic,
-                salesAccountId: _this9.form.salesAccountId,
-                isPurchaseAccountAutomatic: _this9.isPurchaseAccountAutomatic,
-                purchaseAccountId: _this9.form.purchaseAccountId
-              });
-
-              // Validate sales account if not automatic
-              if (!(!_this9.isSalesAccountAutomatic && !_this9.form.salesAccountId)) {
-                _context8.n = 2;
-                break;
-              }
-              toast.fire({
-                type: "error",
-                title: _this9.$t("Sales Account is required")
-              });
-              return _context8.a(2);
-            case 2:
-              if (!(!_this9.isPurchaseAccountAutomatic && !_this9.form.purchaseAccountId)) {
-                _context8.n = 3;
-                break;
-              }
-              toast.fire({
-                type: "error",
-                title: _this9.$t("Purchase Account is required")
-              });
-              return _context8.a(2);
-            case 3:
-              // Debug: Log form data being sent
-              console.log("=== FORM SUBMISSION DEBUG ===");
-              console.log("Form data being sent:", _this9.form.data());
-              console.log("Account routing settings:", _this9.accountRoutingSettings);
-              console.log("Sales settings:", _this9.accountRoutingSettings.sales);
-              console.log("Purchase settings:", _this9.accountRoutingSettings.purchase);
-              console.log("Sales routing type:", (_this9$accountRouting = _this9.accountRoutingSettings.sales) === null || _this9$accountRouting === void 0 ? void 0 : _this9$accountRouting.routing_type);
-              console.log("Sales main_account_id:", (_this9$accountRouting2 = _this9.accountRoutingSettings.sales) === null || _this9$accountRouting2 === void 0 ? void 0 : _this9$accountRouting2.main_account_id);
-              console.log("Form salesAccountId:", _this9.form.salesAccountId);
-              console.log("Form purchaseAccountId:", _this9.form.purchaseAccountId);
-              console.log("=============================");
-              _context8.n = 4;
-              return _this9.form.post(window.location.origin + "/api/products").then(function (response) {
-                toast.fire({
-                  type: "success",
-                  title: _this9.$t("Product added successfully")
-                });
-
-                // Emit the newly created product data
-                if (response.data && response.data.data) {
-                  var newProduct = response.data.data;
-                  // Format the product data to match the expected structure for v-select
-                  var formattedProduct = {
-                    id: newProduct.id,
-                    slug: newProduct.slug,
-                    name: newProduct.name,
-                    code: newProduct.code,
-                    label: "".concat(newProduct.name, " [").concat(newProduct.code, "]"),
-                    itemType: newProduct.itemType,
-                    itemModel: newProduct.itemModel || '',
-                    avgPurchasePrice: newProduct.avgPurchasePrice || 0,
-                    regularPrice: newProduct.regularPrice || 0,
-                    priceWithDiscount: newProduct.sellingPrice,
-                    sellingPrice: newProduct.sellingPrice,
-                    taxAmount: newProduct.taxAmount || 0,
-                    taxType: newProduct.taxType,
-                    taxRate: newProduct.taxRate,
-                    productTax: newProduct.productTax,
-                    inventoryCount: newProduct.inventoryCount || 0,
-                    image: newProduct.image || '',
-                    sales_account_id: newProduct.sales_account_id,
-                    purchase_account_id: newProduct.purchase_account_id
-                  };
-                  _this9.$emit('productCreated', formattedProduct);
-                }
-
-                // Store auto-assigned account IDs before reset
-                var autoAssignedSalesAccountId = _this9.isSalesAccountAutomatic ? _this9.form.salesAccountId : null;
-                var autoAssignedPurchaseAccountId = _this9.isPurchaseAccountAutomatic ? _this9.form.purchaseAccountId : null;
-                _this9.form.reset();
-                _this9.form.itemType = "product"; // Reset to default
-
-                // Restore auto-assigned account IDs after reset
-                if (autoAssignedSalesAccountId) {
-                  _this9.form.salesAccountId = autoAssignedSalesAccountId;
-                }
-                if (autoAssignedPurchaseAccountId) {
-                  _this9.form.purchaseAccountId = autoAssignedPurchaseAccountId;
-                }
-                _this9.showProductCreateModal = false;
-                _this9.$emit('reloadProducts');
-              })["catch"](function (error) {
-                var _error$response;
-                console.error("Error creating product:", error);
-                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this9.$t("Please check your input and try again.");
-                toast.fire({
-                  type: "error",
-                  title: errorMessage
-                });
-              });
-            case 4:
-              return _context8.a(2);
-          }
-        }, _callee8);
-      }))();
-    },
-    // Auto-assign sales account
-    autoAssignSalesAccount: function autoAssignSalesAccount() {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        var defaultAccount;
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.n) {
-            case 0:
-              if (!_this0.isAutoAssigningSales) {
-                _context9.n = 1;
-                break;
-              }
-              return _context9.a(2);
-            case 1:
-              _this0.isAutoAssigningSales = true;
-              try {
-                // For new products, we need to simulate the auto-assignment logic
-                // since the product doesn't exist in the database yet
-                defaultAccount = null;
-                if (_this0.form.itemType === 'product') {
-                  // Look for "Sales of Goods" or similar
-                  defaultAccount = _this0.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('sales') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
-                  });
-                } else if (_this0.form.itemType === 'service') {
-                  // Look for "Sales of Services" or similar
-                  defaultAccount = _this0.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('sales') && account.name.toLowerCase().includes('service');
-                  });
-                }
-
-                // Fallback to any Sales account
-                if (!defaultAccount) {
-                  defaultAccount = _this0.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('sales');
-                  });
-                }
-
-                // Final fallback to any active account
-                if (!defaultAccount && _this0.chartOfAccounts.length > 0) {
-                  defaultAccount = _this0.chartOfAccounts[0];
-                }
-                if (defaultAccount) {
-                  _this0.form.salesAccountId = defaultAccount.id;
-                  toast.fire({
-                    type: "success",
-                    title: _this0.$t("Sales Account auto-assigned successfully")
-                  });
-                } else {
-                  toast.fire({
-                    type: "error",
-                    title: _this0.$t("No suitable Sales Account found for automatic assignment")
-                  });
-                }
-              } catch (error) {
-                console.error("Error auto-assigning sales account:", error);
-                toast.fire({
-                  type: "error",
-                  title: _this0.$t("Failed to auto-assign Sales Account")
-                });
-              } finally {
-                _this0.isAutoAssigningSales = false;
-              }
-            case 2:
-              return _context9.a(2);
-          }
-        }, _callee9);
-      }))();
-    },
-    // Auto-assign purchase account
-    autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
-      var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-        var defaultAccount;
-        return _regenerator().w(function (_context0) {
-          while (1) switch (_context0.n) {
-            case 0:
-              if (!_this1.isAutoAssigningPurchase) {
-                _context0.n = 1;
-                break;
-              }
-              return _context0.a(2);
-            case 1:
-              _this1.isAutoAssigningPurchase = true;
-              try {
-                // For new products, we need to simulate the auto-assignment logic
-                // since the product doesn't exist in the database yet
-                defaultAccount = null;
-                if (_this1.form.itemType === 'product') {
-                  // Look for "Cost of Goods Sold" or similar
-                  defaultAccount = _this1.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('cost') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
-                  });
-                } else if (_this1.form.itemType === 'service') {
-                  // Look for "Cost of Services" or similar
-                  defaultAccount = _this1.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('cost') && account.name.toLowerCase().includes('service');
-                  });
-                }
-
-                // Fallback to any Cost account
-                if (!defaultAccount) {
-                  defaultAccount = _this1.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('cost');
-                  });
-                }
-
-                // Final fallback to any active account
-                if (!defaultAccount && _this1.chartOfAccounts.length > 0) {
-                  defaultAccount = _this1.chartOfAccounts[0];
-                }
-                if (defaultAccount) {
-                  _this1.form.purchaseAccountId = defaultAccount.id;
-                  toast.fire({
-                    type: "success",
-                    title: _this1.$t("Purchase Account auto-assigned successfully")
-                  });
-                } else {
-                  toast.fire({
-                    type: "error",
-                    title: _this1.$t("No suitable Purchase Account found for automatic assignment")
-                  });
-                }
-              } catch (error) {
-                console.error("Error auto-assigning purchase account:", error);
-                toast.fire({
-                  type: "error",
-                  title: _this1.$t("Failed to auto-assign Purchase Account")
-                });
-              } finally {
-                _this1.isAutoAssigningPurchase = false;
-              }
-            case 2:
-              return _context0.a(2);
-          }
-        }, _callee0);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=77923dd0&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_77923dd0_prod_scoped_true_lang_css = __webpack_require__(42996);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=77923dd0&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_77923dd0_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_77923dd0_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_77923dd0_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=77923dd0&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ProductCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ProductCreateModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "77923dd0",
-  null
-  
-)
-
-/* harmony default export */ const ProductCreateModal = (component.exports);
 
 /***/ }),
 

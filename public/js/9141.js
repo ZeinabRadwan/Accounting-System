@@ -2094,7 +2094,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 /* harmony default export */ const SupplierEditModalvue_type_script_lang_js = ({
   name: "SupplierEditModal",
   components: {
-    VModal: VModal/* default */.A,
+    VModal: VModal["default"],
     SupplierForm: SupplierForm/* default */.A
   },
   props: {
