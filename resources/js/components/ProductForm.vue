@@ -33,8 +33,11 @@
               :url="url"
               :is-sales-account-automatic="isSalesAccountAutomatic"
               :is-purchase-account-automatic="isPurchaseAccountAutomatic"
+              :is-edit-mode="isEditMode"
               @calculate-price="calculatePrice"
               @on-file-change="onFileChange"
+              @on-override-sales-account-change="onOverrideSalesAccountChange"
+              @on-override-purchase-account-change="onOverridePurchaseAccountChange"
               @submit-form="submitForm"
             />
           </div>
@@ -71,8 +74,11 @@
             :url="url"
             :is-sales-account-automatic="isSalesAccountAutomatic"
             :is-purchase-account-automatic="isPurchaseAccountAutomatic"
+            :is-edit-mode="isEditMode"
             @calculate-price="calculatePrice"
             @on-file-change="onFileChange"
+            @on-override-sales-account-change="onOverrideSalesAccountChange"
+            @on-override-purchase-account-change="onOverridePurchaseAccountChange"
             @submit-form="submitForm"
           />
         </div>
@@ -160,6 +166,8 @@ export default {
         image: "",
         salesAccountId: "",
         purchaseAccountId: "",
+        overrideSalesAccount: false,
+        overridePurchaseAccount: false,
       }),
       categories: [],
       brands: [],
@@ -192,9 +200,9 @@ export default {
       if (this.mode === 'page') {
         this.breadcrumbsCurrent = this.product ? this.$t('Edit Item') : this.$t('Create Item')
         this.breadcrumbs = [
-          { name: 'Dashboard', url: 'home' },
-          { name: 'Items', url: 'products.index' },
-          { name: this.product ? 'Edit' : 'Create', url: '' }
+          { name: this.$t('Dashboard'), url: 'home' },
+          { name: this.$t('Items'), url: 'products.index' },
+          { name: this.product ? this.$t('Edit') : this.$t('Create'), url: '' }
         ]
       }
     },
@@ -396,8 +404,9 @@ export default {
         return
       }
 
-      // Validate sales account - always required
-      if (!this.form.salesAccountId) {
+      // Validate sales account - required if not automatic OR if override is checked
+      const needsSalesAccount = !this.isSalesAccountAutomatic || this.form.overrideSalesAccount
+      if (needsSalesAccount && !this.form.salesAccountId) {
         toast.fire({ 
           type: "error", 
           title: this.$t("Sales Account is required") 
@@ -405,8 +414,9 @@ export default {
         return
       }
 
-      // Validate purchase account - always required
-      if (!this.form.purchaseAccountId) {
+      // Validate purchase account - required if not automatic OR if override is checked
+      const needsPurchaseAccount = !this.isPurchaseAccountAutomatic || this.form.overridePurchaseAccount
+      if (needsPurchaseAccount && !this.form.purchaseAccountId) {
         toast.fire({ 
           type: "error", 
           title: this.$t("Purchase Account is required") 
@@ -455,6 +465,8 @@ export default {
           
           this.form.reset()
           this.form.itemType = "product" // Reset to default
+          this.form.overrideSalesAccount = false // Reset override flags
+          this.form.overridePurchaseAccount = false
           
           // Restore auto-assigned account IDs after reset
           if (autoAssignedSalesAccountId) {
@@ -516,7 +528,7 @@ export default {
           return
         }
 
-        // Validate sales account - always required
+        // Validate sales account - always required for edit mode
         if (!this.form.salesAccountId) {
           toast.fire({
             type: "error",
@@ -525,7 +537,7 @@ export default {
           return
         }
 
-        // Validate purchase account - always required
+        // Validate purchase account - always required for edit mode
         if (!this.form.purchaseAccountId) {
           toast.fire({
             type: "error",
@@ -689,6 +701,28 @@ export default {
         this.calculatePrice()
       })
     },
+
+    // Handle Select it manually checkbox change
+    onOverrideSalesAccountChange() {
+      if (this.form.overrideSalesAccount) {
+        this.form.salesAccountId = ""
+      } else {
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
+        }
+      }
+    },
+
+    // Handle Select it manually checkbox change
+    onOverridePurchaseAccountChange() {
+      if (this.form.overridePurchaseAccount) {
+        this.form.purchaseAccountId = ""
+      } else {
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
+        }
+      }
+    }
 
   }
 }

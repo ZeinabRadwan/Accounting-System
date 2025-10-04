@@ -193,63 +193,178 @@
           {{ $t("Chart of Accounts") }}
         </h5>
       </div>
-      <div class="card-body"> 
-
-        <div class="row">
-          <div class="col-md-6">
-            <!-- Sales Account -->
-            <div class="form-group">
-              <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
-              <v-select
-                v-model="form.salesAccountId"
-                :options="chartOfAccounts"
-                label="name"
-                :reduce="option => option.id"
-                :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
-                name="salesAccountId"
-                :placeholder="$t('Select sales account')"
-                required
-              >
-                <template #option="{ name, code, type }">
-                  <div>
-                    <strong>{{ name }}</strong>
-                    <br>
-                    <small class="text-muted">{{ code }} - {{ type }}</small>
-                  </div>
-                </template>
-              </v-select>
-              <has-error :form="form" field="salesAccountId" />
-              <div v-if="isSalesAccountAutomatic" class="form-text text-info">
-                <i class="fas fa-info-circle"></i> {{ $t("Pre-assigned from settings, but you can change it") }}
+      <div class="card-body">
+        <!-- Create Mode: Show checkboxes for override -->
+        <div v-if="!isEditMode">
+          <!-- Override Automatic Routing Checkboxes -->
+          <div v-if="isSalesAccountAutomatic || isPurchaseAccountAutomatic" class="row mb-3">
+            <div class="col-12">
+              <div class="alert alert-info d-flex align-items-center">
+                <i class="fas fa-info-circle mr-2"></i>
+                <span>{{ $t("Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.") }}</span>
               </div>
             </div>
           </div>
 
-          <div class="col-md-6">
-            <!-- Purchase Account -->
-            <div class="form-group">
-              <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
-              <v-select
-                v-model="form.purchaseAccountId"
-                :options="chartOfAccounts"
-                label="name"
-                :reduce="option => option.id"
-                :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
-                name="purchaseAccountId"
-                :placeholder="$t('Select purchase account')"
-                required
-              >
-                <template #option="{ name, code, type }">
-                  <div>
-                    <strong>{{ name }}</strong>
-                    <br>
-                    <small class="text-muted">{{ code }} - {{ type }}</small>
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Sales Account -->
+              <div class="form-group">
+                <div class="override-checkbox-container mb-3">
+                  <label class="form-check-label">
+                    <input 
+                      type="checkbox" 
+                      v-model="form.overrideSalesAccount" 
+                      class="form-check-input"
+                      @change="onOverrideSalesAccountChange"
+                    />
+                    <span class="checkbox-text">{{ $t("Select it manually") }}</span>
+                  </label>
+                </div>
+                
+                <!-- Manual Selection (shown when override is checked or not automatic) -->
+                <div v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="form-group">
+                  <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
+                  <div class="d-flex align-items-center">
+                    <v-select
+                      v-model="form.salesAccountId"
+                      :options="chartOfAccounts"
+                      label="name"
+                      :reduce="option => option.id"
+                      :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                      name="salesAccountId"
+                      :placeholder="$t('Select sales account')"
+                      class="flex-grow-1 mr-2"
+                      required
+                    />
                   </div>
-                </template>
-              </v-select>
-              <has-error :form="form" field="purchaseAccountId" />
-              <div v-if="isPurchaseAccountAutomatic" class="form-text text-info">
-                <i class="fas fa-info-circle"></i> {{ $t("Pre-assigned from settings, but you can change it") }}
+                  <has-error :form="form" field="salesAccountId" />
+                </div>
+
+                <!-- Auto-assigned (shown when automatic and not overridden) -->
+                <div v-if="isSalesAccountAutomatic && !form.overrideSalesAccount" class="form-group">
+                  <label>{{ $t("Sales Account") }}</label>
+                  <div class="form-control-plaintext text-muted">
+                    <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <!-- Purchase Account -->
+              <div class="form-group">
+                <div class="override-checkbox-container mb-3">
+                  <label class="form-check-label">
+                    <input 
+                      type="checkbox" 
+                      v-model="form.overridePurchaseAccount" 
+                      class="form-check-input"
+                      @change="onOverridePurchaseAccountChange"
+                    />
+                    <span class="checkbox-text">{{ $t("Select it manually") }}</span>
+                  </label>
+                </div>
+                
+                <!-- Manual Selection (shown when override is checked or not automatic) -->
+                <div v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="form-group">
+                  <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
+                  <div class="d-flex align-items-center">
+                    <v-select
+                      v-model="form.purchaseAccountId"
+                      :options="chartOfAccounts"
+                      label="name"
+                      :reduce="option => option.id"
+                      :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                      name="purchaseAccountId"
+                      :placeholder="$t('Select purchase account')"
+                      class="flex-grow-1 mr-2"
+                      required
+                    />
+                  </div>
+                  <has-error :form="form" field="purchaseAccountId" />
+                </div>
+
+                <!-- Auto-assigned (shown when automatic and not overridden) -->
+                <div v-if="isPurchaseAccountAutomatic && !form.overridePurchaseAccount" class="form-group">
+                  <label>{{ $t("Purchase Account") }}</label>
+                  <div class="form-control-plaintext text-muted">
+                    <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Mode: Direct account selection -->
+        <div v-else>
+          <!-- Info about automatic assignment -->
+          <div v-if="isSalesAccountAutomatic || isPurchaseAccountAutomatic" class="row mb-3">
+            <div class="col-12">
+              <div class="alert alert-info d-flex align-items-center">
+                <i class="fas fa-info-circle mr-2"></i>
+                <span>{{ $t("Accounts are pre-assigned based on your settings, but you can change them below if needed.") }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Sales Account -->
+              <div class="form-group">
+                <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
+                <v-select
+                  v-model="form.salesAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                  name="salesAccountId"
+                  :placeholder="$t('Select sales account')"
+                  required
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <has-error :form="form" field="salesAccountId" />
+                <div v-if="isSalesAccountAutomatic" class="form-text text-info">
+                  <i class="fas fa-info-circle"></i> {{ $t("Pre-assigned from settings, but you can change it") }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <!-- Purchase Account -->
+              <div class="form-group">
+                <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
+                <v-select
+                  v-model="form.purchaseAccountId"
+                  :options="chartOfAccounts"
+                  label="name"
+                  :reduce="option => option.id"
+                  :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                  name="purchaseAccountId"
+                  :placeholder="$t('Select purchase account')"
+                  required
+                >
+                  <template #option="{ name, code, type }">
+                    <div>
+                      <strong>{{ name }}</strong>
+                      <br>
+                      <small class="text-muted">{{ code }} - {{ type }}</small>
+                    </div>
+                  </template>
+                </v-select>
+                <has-error :form="form" field="purchaseAccountId" />
+                <div v-if="isPurchaseAccountAutomatic" class="form-text text-info">
+                  <i class="fas fa-info-circle"></i> {{ $t("Pre-assigned from settings, but you can change it") }}
+                </div>
               </div>
             </div>
           </div>
@@ -364,6 +479,10 @@ export default {
     isPurchaseAccountAutomatic: {
       type: Boolean,
       default: false
+    },
+    isEditMode: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -372,6 +491,12 @@ export default {
     },
     onFileChange(e) {
       this.$emit('onFileChange', e)
+    },
+    onOverrideSalesAccountChange() {
+      this.$emit('onOverrideSalesAccountChange')
+    },
+    onOverridePurchaseAccountChange() {
+      this.$emit('onOverridePurchaseAccountChange')
     },
     submitForm() {
       this.$emit('submitForm')

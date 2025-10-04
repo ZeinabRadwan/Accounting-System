@@ -2655,7 +2655,7 @@
   "Debit note added successfully" : "تم إضافة الاشعار المدين بنجاح",
   "Credit note added successfully" : "تم إضافة الاشعار الدائن بنجاح",
   "Failed to auto-assign Purchase Account": "فشل في تعيين حساب المشتريات تلقائياً",
-  "Select it manuallyt": "الاختيار يدوياً",
+  "Select it manually": "الاختيار يدوياً",
   "Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.": "سيتم تعيين الحسابات تلقائياً بناءً على إعداداتك. حدد المربعات أدناه لتحديد الحسابات يدوياً لهذا المنتج.",
   "Originally auto-assigned, but you can change it": "تم تعيينه تلقائياً في الأصل، ولكن يمكنك تغييره",
   "needs Purchase Account": "يحتاج إلى حساب مشتريات",
