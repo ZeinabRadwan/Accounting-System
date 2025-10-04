@@ -211,13 +211,13 @@
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Quantity") }}</th>
-                        <th>{{ $t("Unit Price") }}</th>
+                        <th>{{ $t("Qty") }}</th>
+                        <th>{{ $t("Price") }}</th>
+                        <th>{{ $t("Total") }}</th>
                         <th>{{ $t("Discount") }}</th>
                         <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("Unit Tax") }}</th>
-                        <th>{{ $t("Unit Cost") }}</th>
-                        <th class="text-right">{{ $t("Subtotal") }}</th>
+                        <th>{{ $t("VAT") }}</th>
+                        <th>{{ $t("Total with VAT") }}</th>
                       </tr>
                     </thead>
                     <tbody v-if="allData.products">
@@ -228,21 +228,39 @@
                         </td>
                         <td>{{ data.productName }}</td>
                         <td>{{ data.quantity }} {{ data.productUnit }}</td>
-                        <td class="no-currency">{{ data.salePrice }}</td>
-                        <td class="no-currency">{{ data.discountAmount || 0 }}</td>
-                        <td class="no-currency">{{ calculateTotalAfterDiscount(data) }}</td>
-                        <td class="no-currency">{{ calculateUnitTax(data) }}</td>
-                        <td class="no-currency">{{ calculateUnitCost(data) }}</td>
-                        <td class="text-right no-currency">
-                          {{ calculateSubtotal(data) }}
+                        <td>{{ data.salePrice }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ (data.salePrice * data.quantity) }} <span class="saudi-riyal">ê</span></td>
+                        <td>
+                          <span v-if="data.discountType === 'percentage'">
+                            {{ data.discount }}% ({{ calculateProductDiscountAmount(data) }} <span class="saudi-riyal">ê</span>)
+                          </span>
+                          <span v-else-if="data.discountAmount > 0">
+                            {{ calculateProductDiscountAmount(data) }} <span class="saudi-riyal">ê</span>
+                          </span>
+                          <span v-else class="text-muted">
+                            {{ $t('No Discount') }}
+                          </span>
                         </td>
+                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>
+                          <span v-if="data.taxAmount > 0">
+                            {{ data.taxAmount }} <span class="saudi-riyal">ê</span>
+                            <small v-if="data.taxRate" class="text-muted d-block">
+                              ({{ data.taxRate }}%)
+                            </small>
+                          </span>
+                          <span v-else class="text-muted">
+                            {{ $t('No VAT') }}
+                          </span>
+                        </td>
+                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.taxAmount || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <td class="text-right" colspan="9">
                           <strong>{{ $t("Subtotal") }}</strong>
                         </td>
-                        <td class="text-right no-currency">
-                          <strong>{{ calculatedSubTotal }}</strong>
+                        <td class="text-center">
+                          <strong>{{ calculatedSubTotal }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -251,78 +269,36 @@
               </div>
             </div>
             <!-- /.row -->
-            <div class="row mt-3">
-              <div class="offset-xl-8 col-lg-12 col-xl-4 text-xl-right">
+            <div class="row mt-4">
+              <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
                 <div class="table-responsive table-custom table-border-y-0">
                   <table class="table">
                     <tbody>
                       <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Total before vat") }}:</th>
-                        <td class="no-currency">{{ calculatedTotalAfterDiscount }}</td>
+                        <th>{{ $t("Subtotal") }}:</th>
+                        <td>{{ calculatedSubTotal }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
-                        <th>
-                          {{ $t("Discount") }}
-                          <span v-if="allData.discountPercentage > 0"
-                            >({{ allData.discountPercentage }}%)</span
-                          >:
-                        </th>
-                        <td class="no-currency">
-                          {{ calculatedTotalDiscount }}
+                        <th>{{ $t("Product Discount") }}:</th>
+                        <td>
+                          {{ totalProductDiscount }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr>
+                      <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td class="no-currency">
-                          {{ calculatedTotalAfterDiscount }}
-                        </td>
+                        <td>{{ (calculatedSubTotal - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr>
-                        <th>{{ $t("Transport") }}:</th>
-                        <td class="no-currency">
-                          {{ allData.transport || 0 }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>
-                          {{ $t("Tax") }}
-                          <span v-if="allData.quotationTax"
-                            >({{ allData.quotationTax.rate }}%)</span
-                          >: <br />
-                          <span
-                            v-if="
-                              allData.quotationTax &&
-                              allData.quotationTax.group_tax_details &&
-                              allData.quotationTax.group_tax_details.length
-                            "
-                          >
-                            (<span
-                              v-for="(tax, index) in allData.quotationTax
-                                .group_tax_details"
-                              :key="tax.id"
-                            >
-                              {{ tax.rate }}%<span
-                                v-if="
-                                  index <
-                                  allData.quotationTax.group_tax_details
-                                    .length -
-                                    1
-                                "
-                              >
-                                +</span
-                              > </span
-                            >)
-                          </span>
-                        </th>
-                        <td class="no-currency">
-                          {{ allData.totalTax }}
+                      <tr v-if="totalProductVat > 0">
+                        <th>{{ $t("Product VAT") }}:</th>
+                        <td>
+                          {{ totalProductVat }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
-                        <th>{{ $t("Total") }}:</th>
-                        <td class="no-currency">
+                        <th>{{ $t("Total with VAT") }}:</th>
+                        <td>
                           <span class="equal-sign">=</span>
-                          {{ calculatedTotal }}
+                          {{ calculatedTotal }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -516,46 +492,37 @@ export default {
       
       let total = 0;
       this.allData.products.forEach(product => {
-        total += parseFloat(this.calculateSubtotal(product));
+        const unitPrice = parseFloat(product.salePrice) || 0;
+        const quantity = parseFloat(product.quantity) || 0;
+        total += unitPrice * quantity;
       });
       return total.toFixed(2);
     },
 
-    // calculate total discount from all products
-    calculatedTotalDiscount() {
+    // calculate total product VAT
+    totalProductVat() {
       if (!this.allData.products) return 0;
-      
-      let totalDiscount = 0;
-      this.allData.products.forEach(product => {
-        totalDiscount += parseFloat(product.discountAmount) || 0;
-      });
-      return totalDiscount.toFixed(2);
+      return this.allData.products.reduce((total, product) => {
+        return total + (product.taxAmount || 0);
+      }, 0);
     },
-
-    // calculate total after discount
-    calculatedTotalAfterDiscount() {
+    
+    // calculate total product discount
+    totalProductDiscount() {
       if (!this.allData.products) return 0;
-      
-      let totalAfterDiscount = 0;
-      this.allData.products.forEach(product => {
-        const unitPrice = parseFloat(product.salePrice) || 0;
-        const quantity = parseFloat(product.quantity) || 0;
-        const discount = parseFloat(product.discountAmount) || 0;
-        
-        // Total After Discount = unit price * quantity - discount
-        const productTotalAfterDiscount = (unitPrice * quantity) - discount;
-        totalAfterDiscount += productTotalAfterDiscount;
-      });
-      return totalAfterDiscount.toFixed(2);
+      return this.allData.products.reduce((total, product) => {
+        return total + this.calculateProductDiscountAmount(product);
+      }, 0);
     },
 
     // calculate total with new formulas
     calculatedTotal() {
       const subtotal = parseFloat(this.calculatedSubTotal) || 0;
-      const transport = parseFloat(this.allData.transport) || 0;
+      const productDiscount = parseFloat(this.totalProductDiscount) || 0;
+      const productVat = parseFloat(this.totalProductVat) || 0;
       
-      // Total = Subtotal + Transport only
-      const total = subtotal + transport;
+      // Total = Subtotal - Product Discount + Product VAT
+      const total = subtotal - productDiscount + productVat;
       return total.toFixed(2);
     },
   },
@@ -756,6 +723,16 @@ export default {
       // Subtotal = Unit Cost * quantity
       const subtotal = unitCost * quantity;
       return subtotal.toFixed(2);
+    },
+
+    // calculate product discount amount
+    calculateProductDiscountAmount(data) {
+      if (data.discountType === 'percentage') {
+        return ((data.salePrice * data.quantity) * data.discount / 100).toFixed(2);
+      } else if (data.discountAmount > 0) {
+        return data.discountAmount.toFixed(2);
+      }
+      return 0;
     },
   },
 };

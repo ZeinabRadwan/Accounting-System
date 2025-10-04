@@ -4,6 +4,7 @@ namespace App\Http\Requests\Invoice;
 
 use App\Http\Requests\BaseRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class StoreInvoiceRequest extends BaseRequest
 {
@@ -16,6 +17,7 @@ class StoreInvoiceRequest extends BaseRequest
     {
         return auth()->check();
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -72,57 +74,58 @@ class StoreInvoiceRequest extends BaseRequest
      * @return array
      */
     public function messages()
-    {
+    { 
+        
         return [
-            'client.required' => 'Please select a client.',
-            'client.id.required' => 'Client ID is required.',
-            'client.id.exists' => 'Selected client does not exist.',
-            'selectedProducts.required' => 'Please select at least one product.',
-            'selectedProducts.min' => 'Please select at least one product.',
-            'selectedProducts.*.id.required' => 'Product ID is required.',
-            'selectedProducts.*.id.exists' => 'Selected product does not exist.',
-            'selectedProducts.*.slug.required' => 'Product slug is required.',
-            'selectedProducts.*.slug.exists' => 'Selected product does not exist.',
-            'selectedProducts.*.qty.required' => 'Product quantity is required.',
-            'selectedProducts.*.qty.numeric' => 'Product quantity must be a number.',
-            'selectedProducts.*.qty.min' => 'Product quantity must be greater than 0.',
-            'selectedProducts.*.unitPrice.required' => 'Product unit price is required.',
-            'selectedProducts.*.unitPrice.numeric' => 'Product unit price must be a number.',
-            'selectedProducts.*.unitPrice.min' => 'Product unit price cannot be negative.',
-            'selectedProducts.*.discount.numeric' => 'Product discount must be a number.',
-            'selectedProducts.*.discount.min' => 'Product discount cannot be negative.',
-            'selectedProducts.*.discountType.in' => 'Product discount type must be either fixed or percentage.',
-            'selectedProducts.*.productTax.required' => 'Product tax is required.',
-            'selectedProducts.*.productTax.numeric' => 'Product tax must be a number.',
-            'selectedProducts.*.productTax.min' => 'Product tax cannot be negative.',
-            'subTotal.required' => 'Subtotal is required.',
-            'subTotal.numeric' => 'Subtotal must be a number.',
-            'subTotal.min' => 'Subtotal cannot be negative.',
-            'orderTax.required' => 'Order tax is required.',
-            'netTotal.required' => 'Net total is required.',
-            'netTotal.numeric' => 'Net total must be a number.',
-            'netTotal.min' => 'Net total must be greater than 0.',
-            'poReference.max' => 'PO Reference cannot exceed 255 characters.',
-            'paymentTerms.max' => 'Payment terms cannot exceed 255 characters.',
-            'deliveryPlace.max' => 'Delivery place cannot exceed 255 characters.',
-            'date.required' => 'Invoice date is required.',
-            'date.date_format' => 'Invoice date must be in Y-m-d format.',
-            'note.max' => 'Note cannot exceed 1000 characters.',
-            'status.required' => 'Status is required.',
-            'status.in' => 'Status must be either active or inactive.',
-            'paidAmount.required_if' => 'Paid amount is required when adding payment.',
-            'paidAmount.numeric' => 'Paid amount must be a number.',
-            'paidAmount.min' => 'Paid amount must be greater than 0.',
-            'paidAmount.max' => 'Paid amount cannot exceed net total.',
-            'account.required_if' => 'Account is required when adding payment.',
-            'chequeNo.max' => 'Cheque number cannot exceed 255 characters.',
-            'receiptNo.max' => 'Receipt number cannot exceed 255 characters.',
-            'discount.numeric' => 'Discount must be a number.',
-            'discount.min' => 'Discount cannot be negative.',
-            'discountType.in' => 'Discount type must be either fixed or percentage.',
-            'transportCost.numeric' => 'Transport cost must be a number.',
-            'transportCost.min' => 'Transport cost cannot be negative.',
-            'reference.max' => 'Reference cannot exceed 255 characters.',
+            'client.required' => __('messages.Please select a client.'),
+            'client.id.required' => __('messages.Client ID is required.'),
+            'client.id.exists' => __('messages.Selected client does not exist.'),
+            'selectedProducts.required' => __('messages.Please select at least one product.'),
+            'selectedProducts.min' => __('messages.Please select at least one product.'),
+            'selectedProducts.*.id.required' => __('messages.Product ID is required.'),
+            'selectedProducts.*.id.exists' => __('messages.Selected product does not exist.'),
+            'selectedProducts.*.slug.required' => __('messages.Product slug is required.'),
+            'selectedProducts.*.slug.exists' => __('messages.Selected product does not exist.'),
+            'selectedProducts.*.qty.required' => __('messages.Product quantity is required.'),
+            'selectedProducts.*.qty.numeric' => __('messages.Product quantity must be a number.'),
+            'selectedProducts.*.qty.min' => __('messages.Product quantity must be greater than 0.'),
+            'selectedProducts.*.unitPrice.required' => __('messages.Product unit price is required.'),
+            'selectedProducts.*.unitPrice.numeric' => __('messages.Product unit price must be a number.'),
+            'selectedProducts.*.unitPrice.min' => __('messages.Product unit price cannot be negative.'),
+            'selectedProducts.*.discount.numeric' => __('messages.Product discount must be a number.'),
+            'selectedProducts.*.discount.min' => __('messages.Product discount cannot be negative.'),
+            'selectedProducts.*.discountType.in' => __('messages.Product discount type must be either fixed or percentage.'),
+            'selectedProducts.*.productTax.required' => __('messages.Product tax is required.'),
+            'selectedProducts.*.productTax.numeric' => __('messages.Product tax must be a number.'),
+            'selectedProducts.*.productTax.min' => __('messages.Product tax cannot be negative.'),
+            'subTotal.required' => __('messages.Subtotal is required.'),
+            'subTotal.numeric' => __('messages.Subtotal must be a number.'),
+            'subTotal.min' => __('messages.Subtotal cannot be negative.'),
+            'orderTax.required' => __('messages.Order tax is required.'),
+            'netTotal.required' => __('messages.Net total is required.'),
+            'netTotal.numeric' => __('messages.Net total must be a number.'),
+            'netTotal.min' => __('messages.Net total must be greater than 0.'),
+            'poReference.max' => __('messages.PO Reference cannot exceed 255 characters.'),
+            'paymentTerms.max' => __('messages.Payment terms cannot exceed 255 characters.'),
+            'deliveryPlace.max' => __('messages.Delivery place cannot exceed 255 characters.'),
+            'date.required' => __('messages.Invoice date is required.'),
+            'date.date_format' => __('messages.Invoice date must be in Y-m-d format.'),
+            'note.max' => __('messages.Note cannot exceed 1000 characters.'),
+            'status.required' => __('messages.Status is required.'),
+            'status.in' => __('messages.Status must be either active or inactive.'),
+            'paidAmount.required_if' => __('messages.Paid amount is required when adding payment.'),
+            'paidAmount.numeric' => __('messages.Paid amount must be a number.'),
+            'paidAmount.min' => __('messages.Paid amount must be greater than 0.'),
+            'paidAmount.max' => __('messages.Paid amount cannot exceed net total.'),
+            'account.required_if' => __('messages.Account is required when adding payment.'),
+            'chequeNo.max' => __('messages.Cheque number cannot exceed 255 characters.'),
+            'receiptNo.max' => __('messages.Receipt number cannot exceed 255 characters.'),
+            'discount.numeric' => __('messages.Discount must be a number.'),
+            'discount.min' => __('messages.Discount cannot be negative.'),
+            'discountType.in' => __('messages.Discount type must be either fixed or percentage.'),
+            'transportCost.numeric' => __('messages.Transport cost must be a number.'),
+            'transportCost.min' => __('messages.Transport cost cannot be negative.'),
+            'reference.max' => __('messages.Reference cannot exceed 255 characters.'),
         ];
     }
 
@@ -130,7 +133,8 @@ class StoreInvoiceRequest extends BaseRequest
      * Configure the validator instance.
      */
     public function withValidator($validator)
-    {
+    { 
+        
         $validator->after(function ($validator) {
             // Validate product discounts
             if ($this->has('selectedProducts')) {
@@ -166,4 +170,5 @@ class StoreInvoiceRequest extends BaseRequest
             }
         });
     }
+ 
 }

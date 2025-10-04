@@ -139,6 +139,13 @@ return [
         'employee' => [
             'required' => 'يرجى اختيار موظف.',
         ],
+        'client' => [
+            'required' => 'يرجى اختيار عميل.',
+        ],
+        'selectedProducts' => [
+            'required' => 'يرجى اختيار منتج واحد على الأقل.',
+            'min' => 'يرجى اختيار منتج واحد على الأقل.',
+        ],
         'incrementAmount' => [
             'required' => 'حقل مبلغ الزيادة مطلوب.',
             'numeric' => 'مبلغ الزيادة يجب أن يكون رقماً.',
@@ -231,7 +238,7 @@ return [
         // Quotations (Create / Update)
         'client' => 'العميل',
         'selectedProducts' => 'المنتجات المحددة',
-        'netTotal' => 'الإجمالي الصافي',
+        'netTotal' => 'الإجمالي بعد الضريبة',
         // Loans Payments (Create)
         'loan' => 'القرض',
         'referenceNo' => 'رقم المرجع',
