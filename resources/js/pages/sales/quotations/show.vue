@@ -729,8 +729,8 @@ export default {
     calculateProductDiscountAmount(data) {
       if (data.discountType === 'percentage') {
         return ((data.salePrice * data.quantity) * data.discount / 100).toFixed(2);
-      } else if (data.discountAmount > 0) {
-        return data.discountAmount.toFixed(2);
+      } else if (data.discountAmount && data.discountAmount > 0) {
+        return parseFloat(data.discountAmount || 0).toFixed(2);
       }
       return 0;
     },
