@@ -11,7 +11,7 @@ return [
     'Discount' => 'الخصم',
     'Total After Discount' => 'الإجمالي بعد الخصم',
     'VAT' => 'الضريبة',
-    'Total with Tax' => 'الإجمالي بالضريبة',
+    'Total with Tax' => 'الإجمالي بعد الضريبة',
     'No Discount' => 'لا يوجد خصم',
     'No VAT' => 'لا توجد ضريبة',
     
@@ -222,7 +222,7 @@ return [
     'Due Date' => 'تاريخ الاستحقاق',
     'Bill To' => 'فاتورة إلى',
     'Subtotal' => 'الإجمالي قبل الضريبة',
-    "Total with VAT" => 'الإجمالي بالضريبة',
+    "Total with VAT" => 'الإجمالي بعد الضريبة',
     'Product Discount' => 'الخصم المنتجي',
     'VAT' => 'الضريبة',
     'Discount' => 'الخصم',

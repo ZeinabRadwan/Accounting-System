@@ -39,7 +39,20 @@ class TenantController extends Controller
      */
     public function archived(Request $request)
     {
-        $tenants = Tenant::with('plan')->archived()->latest('archived_at')->paginate($request->perPage);
+        $tenants = Tenant::with('plan')
+            ->archived()
+            ->latest('archived_at')
+            ->paginate($request->perPage);
+        
+        // Add archived_by_name to each tenant
+        $tenants->getCollection()->transform(function ($tenant) {
+            if ($tenant->archived_by) {
+                $user = \App\Models\User::find($tenant->archived_by);
+                $tenant->archived_by_name = $user ? $user->name : 'Unknown';
+            }
+            return $tenant;
+        });
+        
         return TenantResource::collection($tenants);
     }
 
@@ -223,56 +236,6 @@ class TenantController extends Controller
     }
 
     /**
-     * Permanently delete the specified tenant and its database.
-     *
-     * @param Tenant $tenant
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function permanentDelete(Tenant $tenant)
-    {
-        try {
-            // Check if tenant is actually archived
-            if (!$tenant->isArchived()) {
-                return $this->responseWithError('Only archived tenants can be permanently deleted');
-            }
-
-            // Log the permanent deletion attempt
-            Log::info("Attempting to permanently delete tenant: {$tenant->id}", [
-                'tenant_id' => $tenant->id,
-                'tenant_data' => $tenant->data,
-                'user_id' => auth()->id()
-            ]);
-
-            // Get the database manager
-            $databaseManager = app(\Stancl\Tenancy\Contracts\TenantDatabaseManager::class);
-            
-            // Check if tenant database exists and delete it
-            $databaseName = $tenant->database()->getName();
-            if ($databaseManager->databaseExists($databaseName)) {
-                $databaseManager->deleteDatabase($tenant);
-                Log::info("Deleted database for tenant: {$tenant->id}");
-            }
-
-            // Permanently delete the tenant record
-            $tenant->forceDelete();
-            Log::info("Successfully permanently deleted tenant: {$tenant->id}");
-
-            return $this->responseWithSuccess('Tenant permanently deleted successfully');
-            
-        } catch (\Exception $e) {
-            Log::error("Failed to permanently delete tenant: {$tenant->id}", [
-                'tenant_id' => $tenant->id,
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-                'user_id' => auth()->id()
-            ]);
-
-            return $this->responseWithError('Failed to permanently delete tenant: ' . $e->getMessage());
-        }
-    }
-
-    /**
      * search resource from storage.
      *
      * @param Request $request
@@ -283,13 +246,6 @@ class TenantController extends Controller
     {
         $term = $request->term;
         $query = Tenant::query();
-
-        // Check if we're searching archived tenants
-        if ($request->archived) {
-            $query->archived();
-        } else {
-            $query->active();
-        }
 
         if ($request->startDate && $request->endDate) {
             $startDate = Carbon::createFromFormat('Y-m-d', $request->startDate)->startOfDay();
@@ -331,5 +287,52 @@ class TenantController extends Controller
         }
 
         return $tenantService->impersonateAsTenant($tenant);
+    }
+
+    /**
+     * Permanently delete the specified tenant and its database.
+     *
+     * @param Tenant $tenant
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function permanentDelete(Tenant $tenant)
+    {
+        try {
+            // Check if tenant is archived
+            if (!$tenant->isArchived()) {
+                return $this->responseWithError('Only archived tenants can be permanently deleted');
+            }
+
+            // Log the permanent deletion attempt
+            Log::info("Attempting to permanently delete tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'tenant_data' => $tenant->data,
+                'user_id' => auth()->id()
+            ]);
+
+            // Get the database manager for the tenant's database
+            $databaseManager = app(\Stancl\Tenancy\Contracts\TenantDatabaseManager::class);
+            
+            // Delete the tenant's database
+            $databaseManager->deleteDatabase($tenant);
+
+            // Permanently delete the tenant record
+            $tenant->forceDelete();
+
+            Log::info("Successfully permanently deleted tenant: {$tenant->id}");
+
+            return $this->responseWithSuccess('Tenant permanently deleted successfully');
+            
+        } catch (\Exception $e) {
+            Log::error("Failed to permanently delete tenant: {$tenant->id}", [
+                'tenant_id' => $tenant->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id()
+            ]);
+
+            return $this->responseWithError('Failed to permanently delete tenant: ' . $e->getMessage());
+        }
     }
 }

@@ -119,7 +119,7 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
     Route::get('tenants/archived', [TenantController::class, 'archived']);
     Route::post('tenants/{tenant}/ban', [TenantController::class, 'ban']);
     Route::post('tenants/{tenant}/restore', [TenantController::class, 'restore']);
-    Route::delete('tenants/{tenant}/permanent', [TenantController::class, 'permanentDelete']);
+    Route::delete('tenants/{tenant}/permanent-delete', [TenantController::class, 'permanentDelete']);
     Route::apiResource('tenants', TenantController::class);
     Route::post('send-notification/{tenant}', SendNotificationController::class);
     Route::post('payments/download', [PaymentController::class, 'download']);
