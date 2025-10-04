@@ -24,7 +24,7 @@
     <!-- Loading State -->
     <div v-if="isLoading" class="loading-container">
       <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
+        <span class="sr-only">{{ $t('Loading...') }}</span>
       </div>
       <p class="loading-text">{{ $t('Loading Chart of Accounts...') }}</p>
     </div>
@@ -60,7 +60,7 @@
             <div class="setting-card" v-for="setting in salesSettings" :key="setting.setting_key">
               <div class="setting-header">
                 <h4 class="setting-name">
-                  {{ setting.setting_name }}
+                  {{ $t(setting.setting_name) }}
                   <span class="required" v-if="setting.is_required">*</span>
                 </h4>
                 <div class="setting-status">
@@ -73,7 +73,7 @@
                 </div>
               </div>
               
-              <p class="setting-description">{{ setting.description }}</p>
+              <p class="setting-description">{{ $t(setting.description) }}</p>
               
               <div class="setting-controls">
                 <!-- Routing Type Dropdown -->
@@ -143,7 +143,7 @@
                 <div v-if="setting.setting_key === 'discount_allowed_account' && setting.routing_type === 'automatic'" class="form-group">
                   <div class="alert alert-info">
                     <i class="fas fa-info-circle mr-2"></i>
-                    <strong>Note:</strong> When discounts are applied to sales, they will be automatically posted to the selected account above.
+                    <strong>{{ $t('Note') }}:</strong> {{ $t('When discounts are applied to sales, they will be automatically posted to the selected account above.') }}
                   </div>
                 </div>
               </div>
@@ -165,7 +165,7 @@
             <div class="setting-card" v-for="setting in purchaseSettings" :key="setting.setting_key">
               <div class="setting-header">
                 <h4 class="setting-name">
-                  {{ setting.setting_name }}
+                  {{ $t(setting.setting_name) }}
                   <span class="required" v-if="setting.is_required">*</span>
                 </h4>
                 <div class="setting-status">
@@ -178,7 +178,7 @@
                 </div>
               </div>
               
-              <p class="setting-description">{{ setting.description }}</p>
+              <p class="setting-description">{{ $t(setting.description) }}</p>
               
               <div class="setting-controls">
                 <!-- Routing Type Dropdown -->
@@ -250,7 +250,7 @@
             <div class="setting-card" v-for="setting in vatSettings" :key="setting.setting_key">
               <div class="setting-header">
                 <h4 class="setting-name">
-                  {{ setting.setting_name }}
+                  {{ $t(setting.setting_name) }}
                   <span class="required" v-if="setting.is_required">*</span>
                 </h4>
                 <div class="setting-status">
@@ -263,7 +263,7 @@
                 </div>
               </div>
               
-              <p class="setting-description">{{ setting.description }}</p>
+              <p class="setting-description">{{ $t(setting.description) }}</p>
               
               <div class="setting-controls">
                 <!-- Routing Type Dropdown -->
@@ -335,7 +335,7 @@
             <div class="setting-card" v-for="setting in expenseSettings" :key="setting.setting_key">
               <div class="setting-header">
                 <h4 class="setting-name">
-                  {{ setting.setting_name }}
+                  {{ $t(setting.setting_name) }}
                   <span class="required" v-if="setting.is_required">*</span>
                 </h4>
                 <div class="setting-status">
@@ -348,7 +348,7 @@
                 </div>
               </div>
               
-              <p class="setting-description">{{ setting.description }}</p>
+              <p class="setting-description">{{ $t(setting.description) }}</p>
               
               <div class="setting-controls">
                 <!-- Routing Type Dropdown -->
@@ -461,18 +461,18 @@ export default {
   },
   data() {
     return {
-      breadcrumbsCurrent: 'Account Routing Settings',
+      breadcrumbsCurrent: this.$t('Account Routing Settings'),
       breadcrumbs: [
         {
-          name: 'Dashboard',
+          name: this.$t('Dashboard'),
           url: 'home',
         },
         {
-          name: 'Setup',
+          name: this.$t('Setup'),
           url: 'setup.index',
         },
         {
-          name: 'Account Routing Settings',
+          name: this.$t('Account Routing Settings'),
           url: '',
         },
       ],
@@ -488,18 +488,18 @@ export default {
       // Default routing type options for most settings
       defaultRoutingTypeOptions: [
         { 
-          label: 'Automatic Account Routing', 
-          description: 'System automatically routes to the selected parent account', 
+          label: this.$t('Automatic Account Routing'), 
+          description: this.$t('System automatically routes to the selected parent account'), 
           value: 'automatic' 
         },
         { 
-          label: 'Specify Per Each', 
-          description: 'You will specify accounts individually for each item', 
+          label: this.$t('Specify Per Each'), 
+          description: this.$t('You will specify accounts individually for each item'), 
           value: 'per_each' 
         },
         { 
-          label: 'Specify Main Account Per Each', 
-          description: 'You will specify a main account and then individual accounts', 
+          label: this.$t('Specify Main Account Per Each'), 
+          description: this.$t('You will specify a main account and then individual accounts'), 
           value: 'main_account_per_each' 
         }
       ]
@@ -510,25 +510,25 @@ export default {
       return [
         {
           id: 'sales',
-          label: 'Sales',
+          label: this.$t('Sales'),
           icon: 'fas fa-shopping-cart',
           count: this.salesSettings.length
         },
         {
           id: 'purchase',
-          label: 'Purchase',
+          label: this.$t('Purchase'),
           icon: 'fas fa-truck',
           count: this.purchaseSettings.length
         },
         {
           id: 'vat',
-          label: 'VAT/Tax',
+          label: this.$t('VAT/Tax'),
           icon: 'fas fa-percentage',
           count: this.vatSettings.length
         },
         {
           id: 'expenses',
-          label: 'Expenses',
+          label: this.$t('Expenses'),
           icon: 'fas fa-receipt',
           count: this.expenseSettings.length
         }
@@ -679,7 +679,7 @@ export default {
         }
       } catch (error) {
         console.error('Error loading settings:', error)
-        this.showMessage('Error loading settings: ' + (error.response?.data?.message || error.message), 'alert-danger')
+        this.showMessage(this.$t('Error loading settings') + ': ' + (error.response?.data?.message || error.message), 'alert-danger')
       } finally {
         this.isLoading = false
       }
@@ -691,11 +691,11 @@ export default {
         const response = await this.$http.get('/api/chart-of-accounts/dropdown')
         this.chartOfAccounts = response.data.data || []
         if (this.chartOfAccounts.length === 0) {
-          this.showMessage('Warning: No chart of accounts found. Please create some accounts first.', 'alert-warning')
+          this.showMessage(this.$t('Warning: No chart of accounts found. Please create some accounts first.'), 'alert-warning')
         }
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
-        this.showMessage('Error loading chart of accounts: ' + (error.response?.data?.message || error.message), 'alert-danger')
+        this.showMessage(this.$t('Error loading chart of accounts') + ': ' + (error.response?.data?.message || error.message), 'alert-danger')
       } finally {
         this.chartAccountsLoading = false
       }
@@ -729,11 +729,11 @@ export default {
         const response = await this.$http.put(`/api/account-routing-settings/${setting.id}`, updateData)
         
         if (response.data.success) {
-          this.showMessage('Setting updated successfully', 'alert-success')
+          this.showMessage(this.$t('Setting updated successfully'), 'alert-success')
         }
       } catch (error) {
         console.error('Error updating setting:', error)
-        this.showMessage('Error updating setting: ' + (error.response?.data?.message || error.message), 'alert-danger')
+        this.showMessage(this.$t('Error updating setting') + ': ' + (error.response?.data?.message || error.message), 'alert-danger')
       }
     },
     
@@ -750,11 +750,11 @@ export default {
         const response = await this.$http.put('/api/account-routing-settings/bulk', { updates })
         
         if (response.data.success) {
-          this.showMessage('All settings saved successfully', 'alert-success')
+          this.showMessage(this.$t('All settings saved successfully'), 'alert-success')
         }
       } catch (error) {
         console.error('Error saving settings:', error)
-        this.showMessage('Error saving settings: ' + (error.response?.data?.message || error.message), 'alert-danger')
+        this.showMessage(this.$t('Error saving settings') + ': ' + (error.response?.data?.message || error.message), 'alert-danger')
       } finally {
         this.saving = false
       }
@@ -771,7 +771,7 @@ export default {
 
     showSeederInstructions() {
       this.showMessage(
-        `To initialize the account routing settings, you need to run the database seeder. Open your terminal and run: php artisan db:seed --class=AccountRoutingSettingsSeeder. This will create the default settings for all modules. After running the seeder, refresh this page to see the settings.`,
+        this.$t('To initialize the account routing settings, you need to run the database seeder. Open your terminal and run: php artisan db:seed --class=AccountRoutingSettingsSeeder. This will create the default settings for all modules. After running the seeder, refresh this page to see the settings.'),
         'alert-info'
       )
       
