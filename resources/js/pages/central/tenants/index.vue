@@ -297,7 +297,6 @@ import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import moment from "moment";
 import { mapGetters } from "vuex";
-import Swal from "sweetalert2";
 import axios from "axios";
 
 export default {
@@ -495,61 +494,39 @@ export default {
     async deleteData(slug) {
       console.log('Delete function called with slug:', slug);
       
-      try {
-        const result = await Swal.fire({
-          title: this.$t("Are you sure?"),
-          text: this.$t("Are you sure you want to archive this tenant? The tenant will be moved to archived section and can be restored later."),
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: this.$t("Confirm"),
-          cancelButtonText: this.$t("Cancel"),
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          reverseButtons: true
-        });
-
-        console.log('SweetAlert result:', result);
+      const confirmed = confirm(this.$t("Are you sure you want to archive this tenant? The tenant will be moved to archived section and can be restored later."));
+      
+      if (confirmed) {
+        console.log('Sending delete request for tenant:', slug);
         
-        // Send request to the server
-        if (result.isConfirmed) {
-          console.log('Sending delete request for tenant:', slug);
+        try {
+          const response = await this.$store.dispatch("operations/deleteData", {
+            path: "/api/tenants/",
+            slug: slug,
+          });
           
-          try {
-            const response = await this.$store.dispatch("operations/deleteData", {
-              path: "/api/tenants/",
-              slug: slug,
-            });
-            
-            console.log('Delete response:', response);
-            
-            if (response === true) {
-              this.$toast.success(
-                this.$t("Archived"),
-                this.$t("Tenant archived successfully")
-              );
-              this.getData();
-            } else {
-              console.error('Archive failed with response:', response);
-              this.$toast.warning(
-                this.$t("Failed"),
-                this.$t("Archive failed")
-              );
-            }
-          } catch (error) {
-            console.error('Delete request error:', error);
+          console.log('Delete response:', response);
+          
+          if (response === true) {
+            this.$toast.success(
+              this.$t("Archived"),
+              this.$t("Tenant archived successfully")
+            );
+            this.getData();
+          } else {
+            console.error('Archive failed with response:', response);
             this.$toast.warning(
               this.$t("Failed"),
               this.$t("Archive failed")
             );
           }
+        } catch (error) {
+          console.error('Delete request error:', error);
+          this.$toast.warning(
+            this.$t("Failed"),
+            this.$t("Archive failed")
+          );
         }
-      } catch (error) {
-        console.error('SweetAlert error:', error);
-        // If SweetAlert fails, still proceed with the action
-        this.$toast.warning(
-          this.$t("Warning"),
-          this.$t("Confirmation dialog failed, but action will proceed")
-        );
       }
     },
 
@@ -638,96 +615,60 @@ export default {
 
     // Restore tenant
     async restoreTenant(id) {
-      try {
-        const result = await Swal.fire({
-          title: this.$t("Are you sure?"),
-          text: this.$t("Are you sure you want to restore this tenant?"),
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonText: this.$t("Confirm"),
-          cancelButtonText: this.$t("Cancel"),
-          confirmButtonColor: "#28a745",
-          cancelButtonColor: "#6c757d",
-          reverseButtons: true
-        });
-
-        if (result.isConfirmed) {
-          try {
-            const response = await axios.post(`/api/tenants/${id}/restore`);
-            if (response.data.success) {
-              this.$toast.success(
-                this.$t("Success"),
-                this.$t("Tenant restored successfully")
-              );
-              this.getArchivedData();
-              this.getData(); // Refresh active tenants too
-            } else {
-              this.$toast.error(
-                this.$t("Failed"),
-                this.$t("Failed to restore tenant")
-              );
-            }
-          } catch (error) {
-            console.error('Error restoring tenant:', error);
+      const confirmed = confirm(this.$t("Are you sure you want to restore this tenant?"));
+      
+      if (confirmed) {
+        try {
+          const response = await axios.post(`/api/tenants/${id}/restore`);
+          if (response.data.success) {
+            this.$toast.success(
+              this.$t("Success"),
+              this.$t("Tenant restored successfully")
+            );
+            this.getArchivedData();
+            this.getData(); // Refresh active tenants too
+          } else {
             this.$toast.error(
-              this.$t("Error!"),
-              error.response?.data?.message || this.$t("Failed to restore tenant")
+              this.$t("Failed"),
+              this.$t("Failed to restore tenant")
             );
           }
+        } catch (error) {
+          console.error('Error restoring tenant:', error);
+          this.$toast.error(
+            this.$t("Error!"),
+            error.response?.data?.message || this.$t("Failed to restore tenant")
+          );
         }
-      } catch (error) {
-        console.error('SweetAlert error:', error);
-        this.$toast.warning(
-          this.$t("Warning"),
-          this.$t("Confirmation dialog failed")
-        );
       }
     },
 
     // Permanent delete tenant
     async permanentDeleteTenant(id) {
-      try {
-        const result = await Swal.fire({
-          title: this.$t("Are you sure?"),
-          text: this.$t("Are you sure you want to permanently delete this tenant? This action cannot be undone and will delete all data including the database."),
-          icon: "error",
-          showCancelButton: true,
-          confirmButtonText: this.$t("Confirm"),
-          cancelButtonText: this.$t("Cancel"),
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#6c757d",
-          reverseButtons: true
-        });
-
-        if (result.isConfirmed) {
-          try {
-            const response = await axios.delete(`/api/tenants/${id}/permanent-delete`);
-            if (response.data.success) {
-              this.$toast.success(
-                this.$t("Success"),
-                this.$t("Tenant permanently deleted successfully")
-              );
-              this.getArchivedData();
-            } else {
-              this.$toast.error(
-                this.$t("Failed"),
-                this.$t("Failed to permanently delete tenant")
-              );
-            }
-          } catch (error) {
-            console.error('Error permanently deleting tenant:', error);
+      const confirmed = confirm(this.$t("Are you sure you want to permanently delete this tenant? This action cannot be undone and will delete all data including the database."));
+      
+      if (confirmed) {
+        try {
+          const response = await axios.delete(`/api/tenants/${id}/permanent-delete`);
+          if (response.data.success) {
+            this.$toast.success(
+              this.$t("Success"),
+              this.$t("Tenant permanently deleted successfully")
+            );
+            this.getArchivedData();
+          } else {
             this.$toast.error(
-              this.$t("Error!"),
-              error.response?.data?.message || this.$t("Failed to permanently delete tenant")
+              this.$t("Failed"),
+              this.$t("Failed to permanently delete tenant")
             );
           }
+        } catch (error) {
+          console.error('Error permanently deleting tenant:', error);
+          this.$toast.error(
+            this.$t("Error!"),
+            error.response?.data?.message || this.$t("Failed to permanently delete tenant")
+          );
         }
-      } catch (error) {
-        console.error('SweetAlert error:', error);
-        this.$toast.warning(
-          this.$t("Warning"),
-          this.$t("Confirmation dialog failed")
-        );
       }
     },
   },

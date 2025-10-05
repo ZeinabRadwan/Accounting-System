@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\DB;
 use Stancl\Tenancy\Contracts\TenantDatabaseManager;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Exceptions\NoConnectionSetException;
-use App\Exceptions\GeneralException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Exception;
 
 
 class MySQLDatabaseManager implements TenantDatabaseManager
@@ -179,7 +179,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
             Log::error("Schema approach failed for {$database}: " . $e->getMessage());
         }
 
-        throw new GeneralException("All database creation methods failed for '{$database}'. Please contact your hosting provider to enable database creation or grant CREATE privileges.");
+        throw new Exception("All database creation methods failed for '{$database}'. Please contact your hosting provider to enable database creation or grant CREATE privileges.");
     }
 
     /**
@@ -302,18 +302,18 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         try {
             $xml = simplexml_load_string($response);
             if ($xml === false) {
-                throw new GeneralException("Failed to parse Plesk XML response.");
+                throw new Exception("Failed to parse Plesk XML response.");
             }
 
             $json = json_encode($xml);
             $array = json_decode($json, true);
             if (!is_array($array)) {
-                throw new GeneralException("Failed to convert Plesk XML to array.");
+                throw new Exception("Failed to convert Plesk XML to array.");
             }
 
             return $array;
         } catch (\Exception $e) {
-            throw new GeneralException(
+            throw new Exception(
                 "Exception while parsing Plesk response: " . $e->getMessage(),
                 0,
                 $e
@@ -340,12 +340,39 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
     public function deleteDatabase(TenantWithDatabase $tenant): bool
     {
-        return $this->database()->statement("DROP DATABASE `{$tenant->database()->getName()}`");
+        $databaseName = $tenant->database()->getName();
+        
+        // Check if database exists before trying to drop it
+        if (!$this->databaseExists($databaseName)) {
+            Log::info("Database '{$databaseName}' does not exist, skipping deletion");
+            return true; // Return true since the goal (database not existing) is already achieved
+        }
+        
+        try {
+            Log::info("Attempting to drop database: {$databaseName}");
+            $result = $this->database()->statement("DROP DATABASE `{$databaseName}`");
+            Log::info("Successfully dropped database: {$databaseName}");
+            return $result;
+        } catch (\Exception $e) {
+            Log::warning("Failed to drop database '{$databaseName}': " . $e->getMessage());
+            // If the database doesn't exist, consider it a success
+            if (strpos($e->getMessage(), "database doesn't exist") !== false) {
+                Log::info("Database '{$databaseName}' doesn't exist, considering deletion successful");
+                return true;
+            }
+            throw $e;
+        }
     }
 
     public function databaseExists(string $name): bool
     {
-        return (bool) $this->database()->select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$name'");
+        try {
+            $result = $this->database()->select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?", [$name]);
+            return !empty($result);
+        } catch (\Exception $e) {
+            Log::warning("Failed to check if database exists: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function makeConnectionConfig(array $baseConfig, string $databaseName): array

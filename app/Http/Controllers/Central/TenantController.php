@@ -312,7 +312,16 @@ class TenantController extends Controller
             ]);
 
             // Get the database manager for the tenant's database
-            $databaseManager = app(\Stancl\Tenancy\Contracts\TenantDatabaseManager::class);
+            $connection = config('tenancy.database.central_connection');
+            $driver = config("database.connections.{$connection}.driver");
+            $managerClass = config("tenancy.database.managers.{$driver}");
+            
+            if (!$managerClass) {
+                throw new \Exception("No database manager configured for driver: {$driver}");
+            }
+            
+            $databaseManager = app($managerClass);
+            $databaseManager->setConnection($connection);
             
             // Delete the tenant's database
             $databaseManager->deleteDatabase($tenant);
