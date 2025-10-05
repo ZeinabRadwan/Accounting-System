@@ -51,7 +51,7 @@ return [
     'Reference cannot exceed 255 characters.' => 'المرجع لا يمكن أن يتجاوز 255 حرف.',
     
     // Product Override Messages
-    'Select it manuallyt' => 'تجاوز حساب المبيعات',
-    'Select it manuallyt' => 'تجاوز حساب المشتريات',
+    'Select it manually' => 'تجاوز حساب المبيعات',
+    'Select it manually' => 'تجاوز حساب المشتريات',
     'Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.' => 'سيتم تعيين الحسابات تلقائياً بناءً على إعداداتك. حدد المربعات أدناه لتحديد الحسابات يدوياً لهذا المنتج.',
 ];

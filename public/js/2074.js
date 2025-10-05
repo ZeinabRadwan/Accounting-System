@@ -4347,7 +4347,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _c('span', {
     staticClass: "checkbox-text"
-  }, [_vm._v(_vm._s(_vm.$t("Select it manuallyt")))])])]), _vm._v(" "), !_vm.isSalesAccountAutomatic || _vm.form.overrideSalesAccount ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t("Select it manually")))])])]), _vm._v(" "), !_vm.isSalesAccountAutomatic || _vm.form.overrideSalesAccount ? _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -4432,7 +4432,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _c('span', {
     staticClass: "checkbox-text"
-  }, [_vm._v(_vm._s(_vm.$t("Select it manuallyt")))])])]), _vm._v(" "), !_vm.isPurchaseAccountAutomatic || _vm.form.overridePurchaseAccount ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t("Select it manually")))])])]), _vm._v(" "), !_vm.isPurchaseAccountAutomatic || _vm.form.overridePurchaseAccount ? _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -5243,7 +5243,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         }, _callee0);
       }))();
     },
-    // Handle Select it manuallyt checkbox change
+    // Handle Select it manually checkbox change
     onOverrideSalesAccountChange: function onOverrideSalesAccountChange() {
       if (this.form.overrideSalesAccount) {
         // When overriding, clear the current account selection to force manual selection
@@ -5255,7 +5255,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         }
       }
     },
-    // Handle Select it manuallyt checkbox change
+    // Handle Select it manually checkbox change
     onOverridePurchaseAccountChange: function onOverridePurchaseAccountChange() {
       if (this.form.overridePurchaseAccount) {
         // When overriding, clear the current account selection to force manual selection
