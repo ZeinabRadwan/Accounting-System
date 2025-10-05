@@ -44,7 +44,7 @@
           <div class="card-footer">
             <div class="dtable-footer">
               <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-                <v-button :loading="form.busy" type="success">
+                <v-button :loading="form.busy" type="success" @click.prevent="submitForm">
                   <i class="fas fa-save" /> {{ $t('Save') }}
                 </v-button>
                 <button type="reset" class="btn btn-info" @click="form.reset()">

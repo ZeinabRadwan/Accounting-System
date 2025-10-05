@@ -138,11 +138,11 @@
                       }}</span>
                     </td>
                     <td>{{ data.clientName }}</td>
-                    <td>{{ parseFloat(data.subTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat((data.subTotal || 0) - (data.totalTax || 0)).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ parseFloat(data.transport || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ parseFloat(data.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ parseFloat(data.totalTax || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ parseFloat(data.total || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ parseFloat(data.subTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")

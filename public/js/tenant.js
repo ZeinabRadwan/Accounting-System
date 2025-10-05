@@ -88400,12 +88400,12 @@ var map = {
 		2074
 	],
 	"./sales/quotations": [
-		18747,
-		8747
+		75121,
+		5121
 	],
 	"./sales/quotations/": [
-		18747,
-		8747
+		75121,
+		5121
 	],
 	"./sales/quotations/create": [
 		42423,
@@ -88424,12 +88424,12 @@ var map = {
 		6622
 	],
 	"./sales/quotations/index": [
-		18747,
-		8747
+		75121,
+		5121
 	],
 	"./sales/quotations/index.vue": [
-		18747,
-		8747
+		75121,
+		5121
 	],
 	"./sales/quotations/invoice": [
 		82736,
@@ -89368,7 +89368,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 5014) return "js/5014.js";
 /******/ 			if (chunkId === 2014) return "js/2014.js";
 /******/ 			if (chunkId === 2074) return "js/2074.js";
-/******/ 			if (chunkId === 8747) return "js/8747.js";
+/******/ 			if (chunkId === 5121) return "js/5121.js";
 /******/ 			if (chunkId === 2423) return "js/2423.js";
 /******/ 			if (chunkId === 6622) return "js/6622.js";
 /******/ 			if (chunkId === 2736) return "js/2736.js";
