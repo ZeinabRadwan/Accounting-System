@@ -137,11 +137,43 @@ export default {
           this.$refs.clientForm.resetForm();
           this.showClientCreateModal = false;
           this.form = null; // Reset form reference
+        } else {
+          throw new Error(response.data.message || 'Failed to create client');
         }
       } catch (error) {
         console.error("Error creating client:", error);
-        const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
-        toast.fire({ type: "error", title: errorMessage });
+        const status = error && error.response && error.response.status;
+        const serverErrors = error && error.response && error.response.data && error.response.data.errors;
+        
+        if (status === 422 && serverErrors && this.$refs.clientForm && this.$refs.clientForm.getFormData) {
+          // Map backend validation errors into ClientForm's vform errors
+          const form = this.$refs.clientForm.getFormData();
+          const mapped = {};
+          Object.keys(serverErrors).forEach((key) => {
+            const messages = serverErrors[key];
+            if (Array.isArray(messages) && messages.length > 0) {
+              mapped[key] = messages[0];
+              // Also map attachments.* to attachments field for UI display
+              if (key.startsWith('attachments.')) {
+                if (!mapped.attachments) {
+                  mapped.attachments = messages[0];
+                }
+              }
+            }
+          });
+          if (form && form.errors && typeof form.errors.record === 'function') {
+            form.errors.record(mapped);
+          }
+          // Show toast notification for validation errors
+          toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: this.$t("Please check the form for errors and try again.")
+          });
+        } else {
+          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
+          toast.fire({ type: "error", title: errorMessage });
+        }
       } finally {
         this.isSubmitting = false;
       }

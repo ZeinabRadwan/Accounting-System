@@ -3849,6 +3849,7 @@
   "Pre-assigned from settings, but you can change it" : "مُعين مسبقًا من الإعدادات، لكن يمكنك تغييره",
   "Bank Account Chart of Account ready" : "الحساب البنمي جاهز في الشجرة المحاسبية",
   "No Products Selected" : "لم يتم اختيار أي صنف",
-  "Credit Note created successfully'" : "تم إنشاء الاشعار الدائن بنجاح",
+  "Credit Note created successfully" : "تم إنشاء الاشعار الدائن بنجاح",
+  "Please fill in all required fields correctly." : "يرجى تعبئة جميع الحقول المطلوبة بشكل صحيح.",
   "Manage Translations": "إدارة الترجمات"
 }
