@@ -79,7 +79,7 @@ export default {
 
 /* Additional RTL specific positioning */
 [dir="rtl"] .search-area .search-clear {
-  left: 5% !important;
+  left: 8% !important;
   right: auto !important;
 }
 </style>
