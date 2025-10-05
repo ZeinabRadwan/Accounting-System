@@ -612,6 +612,210 @@
       @adjust-quantity="adjustProductQuantity"
       @stock-updated="handleStockUpdated"
     />
+    
+    <!-- Debug Panel -->
+    <div class="row mt-3 mb-3">
+      <div class="col-12">
+        <div class="card debug-panel">
+          <div class="card-header bg-warning text-dark">
+            <h6 class="mb-0">
+              <i class="fas fa-bug mr-2"></i>
+              🔍 Debug Panel - Calculation Steps
+              <span class="badge badge-success ml-2">DEBUG MODE ACTIVE</span>
+            </h6>
+          </div>
+          <div class="card-body">
+            <!-- Individual Item Calculations -->
+            <div class="mb-4">
+              <h6 class="text-primary">
+                <i class="fas fa-calculator mr-1"></i>
+                Individual Item Calculations:
+              </h6>
+              <div v-for="(item, index) in form.selectedProducts" :key="index" class="debug-item mb-3 p-3 border rounded">
+                <div class="font-weight-bold text-dark mb-2">{{ item.name }}</div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="debug-step">
+                      <strong>Subtotal:</strong> {{ formatToTwoDecimals(item.unitPrice) }} × {{ item.qty }} = {{ formatToTwoDecimals((Number(item.unitPrice)||0) * (Number(item.qty)||0)) }}
+                    </div>
+                    <div class="debug-step">
+                      <strong>Discount:</strong> {{ formatToTwoDecimals(item.discountAmount || 0) }}
+                    </div>
+                    <div class="debug-step">
+                      <strong>After Discount:</strong> {{ formatToTwoDecimals(((Number(item.unitPrice)||0) * (Number(item.qty)||0)) - (item.discountAmount || 0)) }}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="debug-step">
+                      <strong>VAT:</strong> {{ formatToTwoDecimals(item.totalTax || 0) }}
+                    </div>
+                    <div class="debug-step">
+                      <strong>Total with VAT:</strong> {{ formatToTwoDecimals(item.totalPrice || 0) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Summary Totals -->
+            <div class="mb-4">
+              <h6 class="text-success">
+                <i class="fas fa-chart-line mr-1"></i>
+                Summary Totals:
+              </h6>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="debug-summary">
+                    <strong>Computed Values:</strong>
+                    <ul class="list-unstyled mt-2">
+                      <li>Total Unit Price: {{ formatToTwoDecimals(totalUnitPrice) }}</li>
+                      <li>Total Discount: {{ formatToTwoDecimals(totalProductDiscount) }}</li>
+                      <li>Total After Discount: {{ formatToTwoDecimals(totalAfterDiscount) }}</li>
+                      <li>Total Product Tax: {{ formatToTwoDecimals(totalProductTax) }}</li>
+                      <li>Subtotal (After Discount + VAT): {{ formatToTwoDecimals(subtotal) }}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="debug-summary">
+                    <strong>Form Values:</strong>
+                    <ul class="list-unstyled mt-2">
+                      <li>form.subTotal: {{ formatToTwoDecimals(form.subTotal) }}</li>
+                      <li>form.totalDiscount: {{ formatToTwoDecimals(form.totalDiscount) }}</li>
+                      <li>form.productTotalTax: {{ formatToTwoDecimals(form.productTotalTax) }}</li>
+                      <li>form.invoiceTax: {{ formatToTwoDecimals(form.invoiceTax || 0) }}</li>
+                      <li>form.totalTax: {{ formatToTwoDecimals(form.totalTax) }}</li>
+                      <li>form.netTotal: {{ formatToTwoDecimals(form.netTotal) }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Template Display -->
+            <div class="mb-4">
+              <h6 class="text-info">
+                <i class="fas fa-eye mr-1"></i>
+                Template Display:
+              </h6>
+              <div class="debug-display p-3 bg-light rounded">
+                <div><strong>Summary Final Total:</strong> {{ formatToTwoDecimals(subtotal) }}</div>
+                <div><strong>Amount in Words:</strong> {{ toWord() }}</div>
+              </div>
+            </div>
+
+            <!-- Calculation Steps -->
+            <div class="mb-4">
+              <h6 class="text-warning">
+                <i class="fas fa-list-ol mr-1"></i>
+                Calculation Steps:
+              </h6>
+              <div class="debug-steps">
+                <div class="step">Step 1: Sum of all item totals = {{ formatToTwoDecimals(subtotal) }}</div>
+                <div class="step">Step 2: form.netTotal = {{ formatToTwoDecimals(form.netTotal) }}</div>
+                <div class="step">Step 3: Are they equal? 
+                  <span :class="formatToTwoDecimals(subtotal) === formatToTwoDecimals(form.netTotal) ? 'text-success' : 'text-danger'">
+                    {{ formatToTwoDecimals(subtotal) === formatToTwoDecimals(form.netTotal) ? '✅ YES' : '❌ NO' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Current State -->
+            <div class="mb-4">
+              <h6 class="text-secondary">
+                <i class="fas fa-info-circle mr-1"></i>
+                Current State:
+              </h6>
+              <div class="debug-state">
+                <div>Selected Products Count: {{ form.selectedProducts.length }}</div>
+                <div>Is Saudi Arabia: {{ isSaudiArabia }}</div>
+                <div>Debug Panel Visible: ✅ YES</div>
+              </div>
+            </div>
+
+            <!-- Summary Table Comparison -->
+            <div class="mb-0">
+              <h6 class="text-danger">
+                <i class="fas fa-table mr-1"></i>
+                Summary Table Comparison:
+              </h6>
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Value</th>
+                      <th>Computed Property</th>
+                      <th>Form Value</th>
+                      <th>Template Display</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Subtotal</td>
+                      <td>{{ formatToTwoDecimals(subtotal) }}</td>
+                      <td>{{ formatToTwoDecimals(form.subTotal) }}</td>
+                      <td>{{ formatToTwoDecimals(subtotal) }}</td>
+                      <td>
+                        <span :class="formatToTwoDecimals(subtotal) === formatToTwoDecimals(form.subTotal) ? 'text-success' : 'text-danger'">
+                          {{ formatToTwoDecimals(subtotal) === formatToTwoDecimals(form.subTotal) ? '✅' : '❌' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Discount</td>
+                      <td>{{ formatToTwoDecimals(totalProductDiscount) }}</td>
+                      <td>{{ formatToTwoDecimals(form.totalDiscount) }}</td>
+                      <td>{{ formatToTwoDecimals(totalProductDiscount) }}</td>
+                      <td>
+                        <span :class="totalProductDiscount === form.totalDiscount ? 'text-success' : 'text-danger'">
+                          {{ totalProductDiscount === form.totalDiscount ? '✅' : '❌' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>After Discount</td>
+                      <td>{{ formatToTwoDecimals(totalAfterDiscount) }}</td>
+                      <td>{{ formatToTwoDecimals(form.subTotal - (form.productTotalTax + (form.invoiceTax || 0))) }}</td>
+                      <td>{{ formatToTwoDecimals(totalAfterDiscount) }}</td>
+                      <td>
+                        <span :class="formatToTwoDecimals(totalAfterDiscount) === formatToTwoDecimals(form.subTotal - (form.productTotalTax + (form.invoiceTax || 0))) ? 'text-success' : 'text-danger'">
+                          {{ formatToTwoDecimals(totalAfterDiscount) === formatToTwoDecimals(form.subTotal - (form.productTotalTax + (form.invoiceTax || 0))) ? '✅' : '❌' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Tax</td>
+                      <td>{{ formatToTwoDecimals(totalProductTax + (form.invoiceTax || 0)) }}</td>
+                      <td>{{ formatToTwoDecimals(form.totalTax) }}</td>
+                      <td>{{ formatToTwoDecimals(totalProductTax + (form.invoiceTax || 0)) }}</td>
+                      <td>
+                        <span :class="formatToTwoDecimals(totalProductTax + (form.invoiceTax || 0)) === formatToTwoDecimals(form.totalTax) ? 'text-success' : 'text-danger'">
+                          {{ formatToTwoDecimals(totalProductTax + (form.invoiceTax || 0)) === formatToTwoDecimals(form.totalTax) ? '✅' : '❌' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Final Total</td>
+                      <td>{{ formatToTwoDecimals(subtotal) }}</td>
+                      <td>{{ formatToTwoDecimals(form.netTotal) }}</td>
+                      <td>{{ formatToTwoDecimals(subtotal) }}</td>
+                      <td>
+                        <span :class="formatToTwoDecimals(subtotal) === formatToTwoDecimals(form.netTotal) ? 'text-success' : 'text-danger'">
+                          {{ formatToTwoDecimals(subtotal) === formatToTwoDecimals(form.netTotal) ? '✅' : '❌' }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -1702,9 +1906,16 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         this.logDebug('generateItemTotalPrice:start', { index, before: JSON.parse(JSON.stringify(item)) });
-        
+
+        // Normalize numeric inputs
+        const unitPriceNumber = Number(item.unitPrice) || 0;
+        const qtyNumber = Number(item.qty) || 0;
+
+        // Calculate total before discount (unit price × quantity)
+        const totalBeforeDiscount = this.roundToTwoDecimals(unitPriceNumber * qtyNumber);
+
         // Calculate price after discount
-        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
+        let priceAfterDiscount = this.roundToTwoDecimals((unitPriceNumber * qtyNumber) - (item.discountAmount || 0));
 
         // Use selected VAT rate if available, otherwise fall back to product's default tax rate
         let vatRate = 0;
@@ -1719,7 +1930,8 @@ export default {
           vatRate = 0;
         }
 
-        // Set totalAfterDiscount for subtotal calculation (without VAT)
+        // Set totals used by summary/subtotal
+        item.totalBeforeDiscount = totalBeforeDiscount;
         item.totalAfterDiscount = this.roundToTwoDecimals(priceAfterDiscount);
 
         let productTax, totalTax, totalPrice;
@@ -1731,16 +1943,17 @@ export default {
           totalPrice = this.roundToTwoDecimals(priceAfterDiscount + totalTax);
         } else {
           // Inclusive: VAT is included in unit price; derive VAT from discounted price
-          let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
+          let discountedUnitPrice = this.roundToTwoDecimals(qtyNumber > 0 ? (priceAfterDiscount / qtyNumber) : 0);
           item.unitPrice = discountedUnitPrice;
           productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
-          totalTax = this.roundToTwoDecimals(productTax * item.qty);
+          totalTax = this.roundToTwoDecimals(productTax * qtyNumber);
           totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
         }
         
         // Create a new object with all the calculated values to ensure reactivity
         const updatedItem = {
           ...item,
+          totalBeforeDiscount: item.totalBeforeDiscount,
           totalAfterDiscount: item.totalAfterDiscount,
           productTax,
           totalTax,
@@ -3719,6 +3932,130 @@ export default {
   padding: 4px 8px;
 }
 
+/* Debug Panel Styles */
+.debug-panel {
+  border: 2px solid #ffc107;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.2);
+  display: none; 
+}
+
+.debug-panel .card-header {
+  background: linear-gradient(45deg, #ffc107, #ffeb3b) !important;
+  border-bottom: 2px solid #ffc107;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.debug-item {
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff !important;
+  transition: all 0.3s ease;
+}
+
+.debug-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.debug-step {
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.debug-summary {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.debug-summary ul li {
+  padding: 4px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.debug-summary ul li:last-child {
+  border-bottom: none;
+}
+
+.debug-display {
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5) !important;
+  border: 1px solid #bbdefb;
+  font-family: 'Courier New', monospace;
+}
+
+.debug-steps .step {
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.debug-state {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.debug-state div {
+  padding: 4px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.debug-state div:last-child {
+  border-bottom: none;
+}
+
+/* Debug table styling */
+.debug-panel .table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.debug-panel .table td {
+  font-size: 0.85em;
+  vertical-align: middle;
+}
+
+.debug-panel .table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive adjustments for debug panel */
+@media (max-width: 768px) {
+  .debug-panel .card-body {
+    padding: 15px;
+  }
+  
+  .debug-item .row {
+    margin: 0;
+  }
+  
+  .debug-item .col-md-6 {
+    padding: 0 5px;
+  }
+  
+  .debug-step {
+    font-size: 0.8em;
+    padding: 3px 6px;
+  }
+  
+  .debug-panel .table {
+    font-size: 0.75em;
+  }
+}
+
 .btn-outline-warning:hover {
   background-color: #ffc107;
   border-color: #ffc107;
@@ -4062,4 +4399,3 @@ export default {
   margin: 0 5px;
 }
 </style>
-
