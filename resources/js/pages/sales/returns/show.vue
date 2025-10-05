@@ -195,13 +195,14 @@
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Invoice Qty") }}</th>
+                        <th>{{ $t("Qty") }}</th>
                         <th>{{ $t("Return Qty") }}</th>
-                        <th>{{ $t("Unit Price") }}</th>
-                        <th>{{ $t("Unit Discount") }}</th>
-                        <th>{{ $t("Unit Net") }}</th>
-                        <th>{{ $t("Unit VAT") }}</th>
-                        <th>{{ $t("Unit Total") }}</th>
+                        <th>{{ $t("Price") }}</th>
+                        <th>{{ $t("Total") }}</th>
+                        <th>{{ $t("Discount") }}</th>
+                        <th>{{ $t("Total After Discount") }}</th>
+                        <th>{{ $t("VAT") }}</th>
+                        <th>{{ $t("Total with VAT") }}</th>
                         <th class="text-right">
                           {{ $t("Total Return") }}
                         </th>
@@ -217,6 +218,7 @@
                         <td>{{ data.invoiceQty }} {{ data.productUnit }}</td>
                         <td>{{ data.returnQty }} {{ data.productUnit }}</td>
                         <td>{{ data.salePrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ (data.salePrice * data.returnQty)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           {{ calculateUnitDiscount(data)  }} <span class="saudi-riyal">ê</span>
                         </td>
@@ -228,7 +230,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="9" class="text-right">
+                        <td colspan="10" class="text-right">
                           <strong>{{ $t("Subtotal") }}</strong>
                         </td>
                         <td>

@@ -1,25 +1,57 @@
 <?php
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Transfer Balance Messages
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used for transfer balance operations
-    | including success and error messages.
-    |
-    */
-
-    // Error Messages
-    'Debit bank account not found.' => 'حساب البنك المدين غير موجود.',
-    'Credit bank account not found.' => 'حساب البنك الدائن غير موجود.',
-    'Failed to create journal entry: ' => 'فشل في إنشاء قيد اليومية: ',
-    'This transfer is linked to a journal entry (draft/posted) and cannot be deleted.' => 'هذا التحويل مربوط بقيد يومية (مسودة/مُرسل) ولا يمكن حذفه.',
-    'Sorry you can\'t delete this transfer!' => 'عذراً، لا يمكنك حذف هذا التحويل!',
-
-    // Success Messages
-    'Transfer added successfully' => 'تم إضافة التحويل بنجاح',
-    'Transfer updated successfully' => 'تم تحديث التحويل بنجاح',
-    'Transfer deleted successfully' => 'تم حذف التحويل بنجاح',
+    // POS Validation Messages
+    'Please select a client.' => 'يرجى اختيار عميل.',
+    'Please select at least one product.' => 'يرجى اختيار منتج واحد على الأقل.',
+    'Client ID is required.' => 'معرف العميل مطلوب.',
+    'Selected client does not exist.' => 'العميل المحدد غير موجود.',
+    'Product ID is required.' => 'معرف المنتج مطلوب.',
+    'Selected product does not exist.' => 'المنتج المحدد غير موجود.',
+    'Product slug is required.' => 'رابط المنتج مطلوب.',
+    'Product quantity is required.' => 'كمية المنتج مطلوبة.',
+    'Product quantity must be a number.' => 'كمية المنتج يجب أن تكون رقماً.',
+    'Product quantity must be greater than 0.' => 'كمية المنتج يجب أن تكون أكبر من 0.',
+    'Product unit price is required.' => 'سعر وحدة المنتج مطلوب.',
+    'Product unit price must be a number.' => 'سعر وحدة المنتج يجب أن يكون رقماً.',
+    'Product unit price cannot be negative.' => 'سعر وحدة المنتج لا يمكن أن يكون سالباً.',
+    'Product discount must be a number.' => 'خصم المنتج يجب أن يكون رقماً.',
+    'Product discount cannot be negative.' => 'خصم المنتج لا يمكن أن يكون سالباً.',
+    'Product discount type must be either fixed or percentage.' => 'نوع خصم المنتج يجب أن يكون إما ثابت أو نسبة مئوية.',
+    'Product tax is required.' => 'ضريبة المنتج مطلوبة.',
+    'Product tax must be a number.' => 'ضريبة المنتج يجب أن تكون رقماً.',
+    'Product tax cannot be negative.' => 'ضريبة المنتج لا يمكن أن تكون سالبة.',
+    'Subtotal is required.' => 'المجموع الفرعي مطلوب.',
+    'Subtotal must be a number.' => 'المجموع الفرعي يجب أن يكون رقماً.',
+    'Subtotal cannot be negative.' => 'المجموع الفرعي لا يمكن أن يكون سالباً.',
+    'Order tax is required.' => 'ضريبة الطلب مطلوبة.',
+    'Net total is required.' => 'المجموع الصافي مطلوب.',
+    'Net total must be a number.' => 'المجموع الصافي يجب أن يكون رقماً.',
+    'Net total must be greater than 0.' => 'المجموع الصافي يجب أن يكون أكبر من 0.',
+    'PO Reference cannot exceed 255 characters.' => 'مرجع أمر الشراء لا يمكن أن يتجاوز 255 حرف.',
+    'Payment terms cannot exceed 255 characters.' => 'شروط الدفع لا يمكن أن تتجاوز 255 حرف.',
+    'Delivery place cannot exceed 255 characters.' => 'مكان التسليم لا يمكن أن يتجاوز 255 حرف.',
+    'Invoice date is required.' => 'تاريخ الفاتورة مطلوب.',
+    'Invoice date must be in Y-m-d format.' => 'تاريخ الفاتورة يجب أن يكون بصيغة Y-m-d.',
+    'Note cannot exceed 1000 characters.' => 'الملاحظة لا يمكن أن تتجاوز 1000 حرف.',
+    'Status is required.' => 'الحالة مطلوبة.',
+    'Status must be either active or inactive.' => 'الحالة يجب أن تكون إما نشطة أو غير نشطة.',
+    'Paid amount is required when adding payment.' => 'المبلغ المدفوع مطلوب عند إضافة الدفع.',
+    'Paid amount must be a number.' => 'المبلغ المدفوع يجب أن يكون رقماً.',
+    'Paid amount must be greater than 0.' => 'المبلغ المدفوع يجب أن يكون أكبر من 0.',
+    'Paid amount cannot exceed net total.' => 'المبلغ المدفوع لا يمكن أن يتجاوز المجموع الصافي.',
+    'Account is required when adding payment.' => 'الحساب مطلوب عند إضافة الدفع.',
+    'Cheque number cannot exceed 255 characters.' => 'رقم الشيك لا يمكن أن يتجاوز 255 حرف.',
+    'Receipt number cannot exceed 255 characters.' => 'رقم الإيصال لا يمكن أن يتجاوز 255 حرف.',
+    'Discount must be a number.' => 'الخصم يجب أن يكون رقماً.',
+    'Discount cannot be negative.' => 'الخصم لا يمكن أن يكون سالباً.',
+    'Discount type must be either fixed or percentage.' => 'نوع الخصم يجب أن يكون إما ثابت أو نسبة مئوية.',
+    'Transport cost must be a number.' => 'تكلفة النقل يجب أن تكون رقماً.',
+    'Transport cost cannot be negative.' => 'تكلفة النقل لا يمكن أن تكون سالبة.',
+    'Reference cannot exceed 255 characters.' => 'المرجع لا يمكن أن يتجاوز 255 حرف.',
+    
+    // Product Override Messages
+    'Select it manually' => 'تجاوز حساب المبيعات',
+    'Select it manually' => 'تجاوز حساب المشتريات',
+    'Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.' => 'سيتم تعيين الحسابات تلقائياً بناءً على إعداداتك. حدد المربعات أدناه لتحديد الحسابات يدوياً لهذا المنتج.',
 ];

@@ -232,7 +232,12 @@ export default {
               invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           });
-          // Do not show generic toast on validation errors
+          // Show toast notification for validation errors
+          toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: this.$t("Please check the form for errors and try again.")
+          });
         } else {
           toast.fire({ 
             type: "error", 

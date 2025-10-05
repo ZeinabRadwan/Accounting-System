@@ -230,7 +230,7 @@
                           class="form-check-input"
                           @change="onOverrideSalesAccountChange"
                         />
-                        <span class="checkbox-text">{{ $t("Select it manuallyt") }}</span>
+                        <span class="checkbox-text">{{ $t("Select it manually") }}</span>
                       </label>
                     </div>
                     
@@ -284,7 +284,7 @@
                           class="form-check-input"
                           @change="onOverridePurchaseAccountChange"
                         />
-                        <span class="checkbox-text">{{ $t("Select it manuallyt") }}</span>
+                        <span class="checkbox-text">{{ $t("Select it manually") }}</span>
                       </label>
                     </div>
                     
@@ -855,7 +855,7 @@ export default {
       }
     },
 
-    // Handle Select it manuallyt checkbox change
+    // Handle Select it manually checkbox change
     onOverrideSalesAccountChange() {
       if (this.form.overrideSalesAccount) {
         // When overriding, clear the current account selection to force manual selection
@@ -868,7 +868,7 @@ export default {
       }
     },
 
-    // Handle Select it manuallyt checkbox change
+    // Handle Select it manually checkbox change
     onOverridePurchaseAccountChange() {
       if (this.form.overridePurchaseAccount) {
         // When overriding, clear the current account selection to force manual selection

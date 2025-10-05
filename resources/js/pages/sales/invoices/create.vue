@@ -2076,7 +2076,7 @@ export default {
       }, 0));
       
       this.reactiveTotals.subTotal = this.roundToTwoDecimals(this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalAfterDiscount || 0);
+        return total + (item.totalAfterDiscount || 0) + (item.totalTax || 0);
       }, 0));
 
       console.log('[InvoiceCreate] updateReactiveTotals called:', this.reactiveTotals);
@@ -2131,7 +2131,7 @@ export default {
         return 0;
       }
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalAfterDiscount || 0);
+        return total + (item.totalAfterDiscount || 0) + (item.totalTax || 0);
       }, 0);
       return this.roundToTwoDecimals(total);
     },
@@ -2452,9 +2452,9 @@ export default {
     // Validate that all calculations are mathematically correct
     validateCalculations() {
       try {
-        // Validate subtotal
+        // Validate subtotal (should match the computed subtotal which includes VAT)
         const calculatedSubTotal = this.form.selectedProducts.reduce((total, item) => {
-          return total + Number(item.totalAfterDiscount || 0);
+          return total + Number(item.totalAfterDiscount || 0) + Number(item.totalTax || 0);
         }, 0);
         
         if (Math.abs(calculatedSubTotal - this.form.subTotal) > 0.01) {
