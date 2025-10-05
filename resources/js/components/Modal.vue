@@ -67,6 +67,7 @@ export default {
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
+  max-width: 100%;
 }
 
 .modal-header h4 {
@@ -109,10 +110,35 @@ export default {
   transform: scale(1.1);
 }
 
+/* Responsive modal sizing */
+@media (max-width: 1400px) {
+  .modal-container {
+    width: 900px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .modal-container {
+    width: 800px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .modal-container {
+    width: 700px;
+  }
+}
+
+@media (max-width: 987px) {
+  .modal-container {
+    width: 500px;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .modal-container {
-    width: auto !important;
-    padding: 0px;
+    width: 100% !important;
+    padding: 0.5rem;
     height: 100%;
     overflow: auto;
   }

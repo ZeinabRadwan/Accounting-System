@@ -714,9 +714,7 @@ class TableExportController extends Controller
         $data = Client::latest()->get()->toArray();
         // share data to view
         view()->share('clients', $data);
-        $pdf = PDF::loadView('pdf.clients', $data)->setPaper('a4', 'landscape');
-        // download PDF file with download method
-        return $pdf->download('client-list.pdf');
+        return $this->generatePDF('pdf.clients', $data, 'client-list.pdf', 'a4', 'landscape');
     }
 
     // return clients export

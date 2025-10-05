@@ -353,13 +353,12 @@
                            >
                              <i class="fas fa-sync"></i>
                            </a>
-                           <a
-                             @click="generatePDF()"
-                             href="#"
-                             v-tooltip="$t('Export to PDF')"
-                             class="btn export-pdf-btn"
-                             title="Export to PDF"
-                           >
+                          <a
+                            href="/clients/pdf"
+                            v-tooltip="$t('Export to PDF')"
+                            class="btn export-pdf-btn"
+                            title="Export to PDF"
+                          >
                              <svg
                                width="24"
                                height="24"
@@ -594,8 +593,7 @@
                             <i class="fas fa-sync"></i>
                           </a>
                           <a
-                            @click="generatePDF()"
-                            href="#"
+                            href="/clients/pdf"
                             v-tooltip="$t('Export to PDF')"
                             class="btn export-pdf-btn"
                             title="Export to PDF"
@@ -2068,26 +2066,6 @@ export default {
       this.ledgerLoading = false;
     },
 
-    // generate pdf
-    async generatePDF() {
-      // Get the HTML content to be converted
-      this.headerShow = true;
-      const element = document.getElementById("content-to-pdf");
-      setTimeout(async () => {
-        // Options for PDF generation
-        const options = {
-          margin: 5,
-          filename: this.activeTab + ".pdf",
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
-        };
-
-        // Generate PDF from HTML content
-        html2pdf().from(element).set(options).save();
-        this.headerShow = false;
-      }, 2000);
-    },
 
     // print table
     async print() {

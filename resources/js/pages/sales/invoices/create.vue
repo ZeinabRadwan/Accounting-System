@@ -150,7 +150,7 @@
                       <th class="text-right">{{ $t("Action") }}</th>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}-${item.totalPrice}-${item.totalAfterDiscount}`">
+                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
                         <td style="min-width: 30px;">{{ index + 1 }}</td>
                         <td style="min-width: 60px;">
                           {{ item.code | withPrefix(prefix) }}
@@ -293,7 +293,7 @@
                         </td>
                       </tr>
                       <!-- Totals Row -->
-                      <tr :key="`totals-${subtotal}-${totalUnitPrice}`">
+                      <tr :key="`totals`">
                         <td colspan="5" class="text-right">
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>

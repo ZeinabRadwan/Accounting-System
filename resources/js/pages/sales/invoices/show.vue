@@ -451,25 +451,25 @@
                     
                      
                       <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.subTotal }} </td>
+                        <th>{{ $t("Total Price") }}:</th>
+                        <td>{{ totalPrice }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Product Discount") }}:</th>
                         <td>
-                          {{ totalProductDiscount  }} 
+                          {{ totalProductDiscount }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
 
-                      <tr v-if="isSaudiArabia" class="bg-green-light text-bold">
+                      <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ (allData.subTotal - totalProductDiscount)  }} </td>
+                        <td>{{ (totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
 
-                      <tr v-if="isSaudiArabia && totalProductVat > 0">
+                      <tr>
                         <th>{{ $t("Product VAT") }}:</th>
                         <td>
-                          {{ totalProductVat  }} 
+                          {{ totalProductVat }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
 
@@ -538,18 +538,18 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ calculatedTotal  }} 
+                          {{ (totalPrice - totalProductDiscount + totalProductVat) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="allData.invoicePayments">
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          {{ allData.totalPaid  }}
+                          {{ allData.totalPaid }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ (calculatedTotal - (allData.totalPaid || 0))  }}</td>
+                        <td>{{ ((totalPrice - totalProductDiscount + totalProductVat) - (allData.totalPaid || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountPayable">
                         <th>{{ $t("Account Payable") }}:</th>
@@ -778,6 +778,14 @@ export default {
        if (!this.invoiceProducts) return 0;
        return this.invoiceProducts.reduce((total, product) => {
          return total + this.calculateProductDiscountAmount(product);
+       }, 0);
+     },
+     
+     // Calculate total price (sum of Total column in items table)
+     totalPrice() {
+       if (!this.invoiceProducts) return 0;
+       return this.invoiceProducts.reduce((total, product) => {
+         return total + (product.salePrice * product.quantity);
        }, 0);
      },
      

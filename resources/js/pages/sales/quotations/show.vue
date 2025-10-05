@@ -257,10 +257,10 @@
                       </tr>
                       <tr>
                         <td class="text-right" colspan="9">
-                          <strong>{{ $t("Subtotal") }}</strong>
+                          <strong>{{ $t("Total Price") }}</strong>
                         </td>
                         <td class="text-center">
-                          <strong>{{ calculatedSubTotal }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ totalPrice }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -275,8 +275,8 @@
                   <table class="table">
                     <tbody>
                       <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ calculatedSubTotal }} <span class="saudi-riyal">ê</span></td>
+                        <th>{{ $t("Total Price") }}:</th>
+                        <td>{{ totalPrice }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Product Discount") }}:</th>
@@ -286,9 +286,9 @@
                       </tr>
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ (calculatedSubTotal - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ (totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr v-if="totalProductVat > 0">
+                      <tr>
                         <th>{{ $t("Product VAT") }}:</th>
                         <td>
                           {{ totalProductVat }} <span class="saudi-riyal">ê</span>
@@ -298,7 +298,7 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ calculatedTotal }} <span class="saudi-riyal">ê</span>
+                          {{ (totalPrice - totalProductDiscount + totalProductVat) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -512,6 +512,14 @@ export default {
       if (!this.allData.products) return 0;
       return this.allData.products.reduce((total, product) => {
         return total + this.calculateProductDiscountAmount(product);
+      }, 0);
+    },
+    
+    // Calculate total price (sum of Total column in items table)
+    totalPrice() {
+      if (!this.allData.products) return 0;
+      return this.allData.products.reduce((total, product) => {
+        return total + (product.salePrice * product.quantity);
       }, 0);
     },
 

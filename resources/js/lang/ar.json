@@ -3842,6 +3842,8 @@
    "Event": "الحدث",
    "You will not be able to return to this! This will delete the transfer balance permanently.": "لن تتمكن من العودة إلى هذا! سيتم حذف تحويل الرصيد نهائياً.",
    "Please select a second account": "يرجى اختيار حساب ثاني",
+   "Calculation Error": "خطأ في الحساب",
+   "Purchase Order Tax": "ضريبة أمر الشراء",
   "Stock Shortage" : "نقص المخزون",
   "Click to manage stock" : "انقر لإدارة المخزون",
   "Chart of Account Validation Required" : "تحقق من الحسابات المحاسبية",

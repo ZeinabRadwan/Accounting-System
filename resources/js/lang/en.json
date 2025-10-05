@@ -1544,6 +1544,8 @@
     "Event": "Event",
     "You will not be able to return to this! This will delete the transfer balance permanently.": "You will not be able to return to this! This will delete the transfer balance permanently.",
     "Please select a second account": "Please select a second account",
+    "Calculation Error": "Calculation Error",
+    "Purchase Order Tax": "Purchase Order Tax",
   "Format": "Format",
   "SQL (.sql)": "SQL (.sql)",
   "Backup downloaded successfully": "Backup downloaded successfully",
