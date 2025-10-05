@@ -1241,9 +1241,7 @@ export default {
     font-size: 12px;
   }
 }
-</style>
 
-<style>
 .dtable-footer {
     align-items: center;
     display: flex;

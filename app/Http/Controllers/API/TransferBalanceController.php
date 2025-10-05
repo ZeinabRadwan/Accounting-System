@@ -65,12 +65,12 @@ class TransferBalanceController extends Controller
             
             if (!$debitAccount) {
                 DB::rollback();
-                return $this->responseWithError('Debit bank account not found.');
+                return $this->responseWithError(__('Debit bank account not found.'));
             }
             
             if (!$creditAccount) {
                 DB::rollback();
-                return $this->responseWithError('Credit bank account not found.');
+                return $this->responseWithError(__('Credit bank account not found.'));
             }
 
             // Check if debit account is connected to chart of accounts
@@ -110,7 +110,7 @@ try {
     // If journal creation fails, we should also fail the transfer creation
     // since the user expects both to be created together
     DB::rollback();
-    return $this->responseWithError('Failed to create journal entry: ' . $journalException->getMessage());
+    return $this->responseWithError(__('Failed to create journal entry: ') . $journalException->getMessage());
 }
 
             // add activity log
@@ -129,7 +129,7 @@ try {
 
             DB::commit();
 
-            return $this->responseWithSuccess('Transfer added successfully');
+            return $this->responseWithSuccess(__('Transfer added successfully'));
         } catch (Exception $e) {
             DB::rollback();
             return $this->responseWithError($e->getMessage());
@@ -209,7 +209,7 @@ try {
 
             DB::commit();
 
-            return $this->responseWithSuccess('Transfer updated successfully');
+            return $this->responseWithSuccess(__('Transfer updated successfully'));
         } catch (Exception $e) {
             DB::rollback();
             return $this->responseWithError($e->getMessage());
@@ -244,7 +244,7 @@ try {
                 // Block deletion if journal entry is draft or posted
                 if (in_array($journalEntry->status, ['draft', 'posted'])) {
                     DB::rollBack();
-                    return $this->responseWithError('This transfer is linked to a journal entry (draft/posted) and cannot be deleted.');
+                    return $this->responseWithError(__('This transfer is linked to a journal entry (draft/posted) and cannot be deleted.'));
                 }
 
                 // If journal entry is void, allow deletion and also delete the journal entry
@@ -276,12 +276,12 @@ try {
                 $transfer->creditTransaction->delete();
                 $transfer->delete();
             } else {
-                return $this->responseWithError('Sorry you can\'t delete this transfer!');
+                return $this->responseWithError(__('Sorry you can\'t delete this transfer!'));
             }
 
             DB::commit();
 
-            return $this->responseWithSuccess('Transfer deleted successfully');
+            return $this->responseWithSuccess(__('Transfer deleted successfully'));
         } catch (Exception $e) {
             DB::rollback();
             return $this->responseWithError($e->getMessage());

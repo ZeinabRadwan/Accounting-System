@@ -36,6 +36,7 @@ export default {
 .modal-content {
   max-width: 1000px;
   margin: 1.75rem auto;
+  width: 100%;
 }
 
 .custom-modal-dialog {
@@ -45,5 +46,37 @@ export default {
 .modal-body {
   max-height: 75vh;
   overflow: auto;
+}
+
+/* Responsive modal sizing */
+@media (max-width: 1400px) {
+  .modal-content {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .modal-content {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .modal-content {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 987px) {
+  .modal-content {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 100%;
+    margin: 0.5rem;
+  }
 }
 </style>

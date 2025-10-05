@@ -77,7 +77,7 @@ class PurchaseReturnController extends Controller
 
             // store return
             $purchaseReturn = PurchaseReturn::create([
-                'reason' => $request->returnReason,
+                'reason' => $request->returnReason ?: 'Purchase Return', // Ensure reason is not empty for slug generation
                 'purchase_id' => $request->purchase['id'],
                 'transaction_id' => $transactionID,
                 'code' => $code,
@@ -88,13 +88,18 @@ class PurchaseReturnController extends Controller
                 'status' => $request->status,
             ]);
 
-            // Create journal entry for purchase return
-            try {
-                $journalService = new \App\Services\BusinessTransactionJournalService();
-                $journalEntry = $journalService->createPurchaseReturnJournal($purchaseReturn, $userId);
-            } catch (\Exception $e) {
-                // Log the error but don't fail the return creation
-                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for purchase return: ' . $e->getMessage());
+            // Ensure the purchase return was created successfully
+            if (!$purchaseReturn || !$purchaseReturn->id) {
+                throw new \Exception('Failed to create purchase return');
+            }
+            
+            // Log the created purchase return for debugging
+            \Illuminate\Support\Facades\Log::info('Created purchase return with ID: ' . $purchaseReturn->id);
+            
+            // Verify the purchase return exists in the database
+            $verifyReturn = PurchaseReturn::find($purchaseReturn->id);
+            if (!$verifyReturn) {
+                throw new \Exception('Purchase return was not properly saved to database');
             }
 
             // store return products
@@ -102,6 +107,11 @@ class PurchaseReturnController extends Controller
                 $returnQty = (int) $selectedProduct['returnQty'];
                 if ($returnQty > 0) {
                     $product = Product::where('slug', $selectedProduct['slug'])->first();
+                    
+                    if (!$product) {
+                        throw new \Exception('Product not found: ' . $selectedProduct['slug']);
+                    }
+                    
                     // calculate new purchase price
                     $currentStockPrice = $product->inventory_count * $product->purchase_price;
 
@@ -117,13 +127,30 @@ class PurchaseReturnController extends Controller
                         'inventory_count' => $totalQty,
                     ]);
 
-                    PurchaseReturnProduct::create([
+                    \Illuminate\Support\Facades\Log::info('Creating purchase return product with return_id: ' . $purchaseReturn->id . ', product_id: ' . $selectedProduct['id']);
+                    
+                    $returnProduct = PurchaseReturnProduct::create([
                         'return_id' => $purchaseReturn->id,
                         'product_id' => $selectedProduct['id'],
                         'purchase_price' => $selectedProduct['purchasePrice'],
                         'quantity' => $returnQty,
                     ]);
+                    
+                    if (!$returnProduct) {
+                        throw new \Exception('Failed to create purchase return product for product ID: ' . $selectedProduct['id']);
+                    }
+                    
+                    \Illuminate\Support\Facades\Log::info('Successfully created purchase return product with ID: ' . $returnProduct->id);
                 }
+            }
+
+            // Create journal entry for purchase return (after products are created)
+            try {
+                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalEntry = $journalService->createPurchaseReturnJournal($purchaseReturn, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the return creation
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for purchase return: ' . $e->getMessage());
             }
 
             // update purchase status

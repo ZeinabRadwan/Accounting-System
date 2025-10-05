@@ -468,7 +468,7 @@ class SupplierController extends Controller
                 return $this->responseWithError('Supplier not found', 404);
             }
             
-            return PurchaseListResource::collection(Purchase::where('supplier_id', $supplier->id)->get());
+            return PurchaseListResource::collection(Purchase::with('purchaseTax')->where('supplier_id', $supplier->id)->get());
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -490,7 +490,8 @@ class SupplierController extends Controller
         $products = [];
         $purchases = Purchase::with(
             'purchaseProducts.product.proSubCategory.category',
-            'purchaseProducts.product.productUnit'
+            'purchaseProducts.product.productUnit',
+            'purchaseTax'
         );
         if (isset($request->products) && count($request->products) > 0) {
             // build the product array

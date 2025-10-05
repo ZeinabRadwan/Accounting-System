@@ -227,7 +227,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
-import Swal from "sweetalert2";
+import SwalOriginal from "sweetalert2/dist/sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -465,7 +465,7 @@ export default {
 
     // delete data
     async deleteData(slug) {
-      Swal.fire({
+      SwalOriginal.fire({
         title: this.$t("Are you sure?"),
         text: this.$t("You will not be able to return to this!"),
         type: "warning",

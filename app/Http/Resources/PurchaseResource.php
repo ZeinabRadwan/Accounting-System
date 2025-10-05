@@ -23,7 +23,7 @@ class PurchaseResource extends JsonResource
             'totalDiscount' => $this->discount,
             'transport' => $this->transport,
             'tax' => $this->total_tax,
-            'taxRate' => $this->purchaseTax->rate,
+            'taxRate' => $this->purchaseTax ? $this->purchaseTax->rate : 0,
             'subTotal' => $this->sub_total,
             'purchaseTotal' => $this->purchaseTotal(),
             'totalPaid' => $this->purchaseTotalPaid(),
