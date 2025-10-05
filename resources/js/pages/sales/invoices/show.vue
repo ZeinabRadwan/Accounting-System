@@ -240,7 +240,7 @@
                           {{ data.returnQty }} {{ data.productUnit }}
                         </td>
                         <td>{{ data.salePrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ (data.salePrice * data.quantity)  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="align-middle">{{ (data.salePrice * data.quantity)  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.discountType === 'percentage'">
                             {{ data.discountPercentage }}% ({{ calculateProductDiscountAmount(data)  }} <span class="saudi-riyal">ê</span>)
@@ -252,7 +252,7 @@
                             {{ $t('No Discount') }}
                           </span>
                         </td>
-                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data))  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="align-middle">{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data))  }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.productTax > 0">
                             {{ data.productTax  }} <span class="saudi-riyal">ê</span>
@@ -264,7 +264,7 @@
                             {{ $t('No VAT') }}
                           </span>
                         </td>
-                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.productTax || 0))  }} <span class="saudi-riyal">ê</span></td>
+                        <td class="align-middle">{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.productTax || 0))  }} <span class="saudi-riyal">ê</span></td>
                         <!-- <td>{{ data.unitCost  }} <span class="saudi-riyal">ê</span></td>
                         <td
                           v-if="allData.totalInvoiceReturn"
