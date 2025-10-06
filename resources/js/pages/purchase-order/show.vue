@@ -208,11 +208,11 @@
                         <td>{{ ((data.quantity * data.purchase_price) - parseFloat(data.discount_amount) + parseFloat(data.tax_amount))  }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
-                        <td
-                          class="text-right"
-                          colspan="9"
-                        >
+                        <td class="text-right" colspan="9">
                           <strong>{{ $t("Subtotal") }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ getTotalWithVatSum()  }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -232,50 +232,42 @@
             </div>
 
             <!-- /.row -->
-            <div class="row mt-4" id="page-break">
-              <div class="col-lg-12 col-xl-8">
-                <div class="no-print callout callout-info mt-4 w-100">
-                  <h5>{{ $t("Purchase Order Information") }}</h5>
-                  <p>{{ $t("This is a purchase order document. No payments are required at this stage.") }}</p>
-                </div>
-              </div>
-              <div class="col-lg-12 col-xl-4 text-lg-right mt-4 pt-2">
-                <div
-                  class="table-responsive table-custom table-border-y-0"
-                  v-if="allData.supplier"
-                >
+            <div class="row mt-4">
+              <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
+                <div class="table-responsive table-custom table-border-y-0">
                   <table class="table">
                     <tbody>
                       <tr class="bg-sub-light text-bold">
-                        <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ (allData.sub_total || 0)  }} <span class="saudi-riyal">ê</span></td>
+                        <th>{{ $t("Total Price") }}:</th>
+                        <td>{{ getTotalPrice() }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total") }}:</th>
+                      <tr>
+                        <th>{{ $t("Product Discount") }}:</th>
                         <td>
-                          <span class="equal-sign">=</span>
-                          {{ (allData.net_total || allData.calculated_total || 0)  }} <span class="saudi-riyal">ê</span>
+                          {{ getTotalProductDiscount() }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr class="text-muted small">
-                        <th colspan="2">{{ $t("Breakdown") }}:</th>
+                      <tr class="bg-green-light text-bold">
+                        <th>{{ $t("Total After Discount") }}:</th>
+                        <td>{{ (getTotalPrice() - getTotalProductDiscount()) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr class="text-muted small">
-                        <th>{{ $t("Product Discounts") }}:</th>
+                      <tr>
+                        <th>{{ $t("Product VAT") }}:</th>
                         <td>
-                          {{ (allData.discount || 0)  }} <span class="saudi-riyal">ê</span>
+                          {{ getTotalProductVat() }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr class="text-muted small">
+                      <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           {{ (allData.transport || 0)  }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr class="text-muted small">
-                        <th>{{ $t("Tax") }}:</th>
+                      <tr class="bg-indigo-light">
+                        <th>{{ $t("Total with VAT") }}:</th>
                         <td>
-                          {{ (allData.total_tax || allData.calculated_tax || 0)  }} <span class="saudi-riyal">ê</span>
+                          <span class="equal-sign">=</span>
+                          {{ (getTotalPrice() - getTotalProductDiscount() + getTotalProductVat() + (allData.transport || 0)) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -472,9 +464,9 @@ export default {
 
   created() {
     this.getPurchaseOrder();
-    this.productPrefix = this.appInfo.productPrefix;
-    this.purchaseOrderPrefix = this.appInfo.purchaseOrderPrefix;
-    this.supplierPrefix = this.appInfo.supplierPrefix;
+    this.productPrefix = (this.appInfo && this.appInfo.productPrefix) ? this.appInfo.productPrefix : '';
+    this.purchaseOrderPrefix = (this.appInfo && this.appInfo.purchaseOrderPrefix) ? this.appInfo.purchaseOrderPrefix : '';
+    this.supplierPrefix = (this.appInfo && this.appInfo.supplierPrefix) ? this.appInfo.supplierPrefix : '';
     this.breadcrumbsCurrent = this.$t("Purchase Order Details");
     this.breadcrumbs[0].name = this.$t("Dashboard");
     this.breadcrumbs[1].name = this.$t("Purchase Orders");
@@ -529,6 +521,36 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    // Summary helpers (mirror quotations page behavior)
+    getTotalPrice() {
+      if (!this.purchaseOrderProducts || this.purchaseOrderProducts.length === 0) return 0;
+      return this.purchaseOrderProducts.reduce((sum, line) => {
+        return Number((sum + (Number(line.quantity) * Number(line.purchase_price))).toFixed(2));
+      }, 0);
+    },
+    getTotalProductDiscount() {
+      if (!this.purchaseOrderProducts || this.purchaseOrderProducts.length === 0) return 0;
+      return this.purchaseOrderProducts.reduce((sum, line) => {
+        const discount = line.discount_type === 'percentage'
+          ? (Number(line.quantity) * Number(line.purchase_price) * Number(line.discount || 0) / 100)
+          : Number(line.discount_amount || 0);
+        return Number((sum + discount).toFixed(2));
+      }, 0);
+    },
+    getTotalProductVat() {
+      if (!this.purchaseOrderProducts || this.purchaseOrderProducts.length === 0) return 0;
+      return this.purchaseOrderProducts.reduce((sum, line) => {
+        return Number((sum + Number(line.tax_amount || 0)).toFixed(2));
+      }, 0);
+    },
+    getTotalWithVatSum() {
+      if (!this.purchaseOrderProducts || this.purchaseOrderProducts.length === 0) return 0;
+      return this.purchaseOrderProducts.reduce((sum, line) => {
+        const lineTotal = (Number(line.quantity) * Number(line.purchase_price)) - Number(line.discount_amount || 0) + Number(line.tax_amount || 0);
+        return Number((sum + lineTotal).toFixed(2));
+      }, 0);
     },
 
     // get activity logs

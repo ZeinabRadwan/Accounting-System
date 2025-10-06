@@ -116551,12 +116551,12 @@ var map = {
 		8824
 	],
 	"./purchase-order": [
-		72757,
-		2757
+		48354,
+		8354
 	],
 	"./purchase-order/": [
-		72757,
-		2757
+		48354,
+		8354
 	],
 	"./purchase-order/create": [
 		97843,
@@ -116567,28 +116567,28 @@ var map = {
 		7843
 	],
 	"./purchase-order/edit": [
-		49237,
-		9237
+		66210,
+		6210
 	],
 	"./purchase-order/edit.vue": [
-		49237,
-		9237
+		66210,
+		6210
 	],
 	"./purchase-order/index": [
-		72757,
-		2757
+		48354,
+		8354
 	],
 	"./purchase-order/index.vue": [
-		72757,
-		2757
+		48354,
+		8354
 	],
 	"./purchase-order/show": [
-		8254,
-		8254
+		39550,
+		9550
 	],
 	"./purchase-order/show.vue": [
-		8254,
-		8254
+		39550,
+		9550
 	],
 	"./purchases": [
 		44206,
@@ -117232,11 +117232,11 @@ var map = {
 	],
 	"./setup/units": [
 		79237,
-		1618
+		9237
 	],
 	"./setup/units/": [
 		79237,
-		1618
+		9237
 	],
 	"./setup/units/create": [
 		8353,
@@ -117256,11 +117256,11 @@ var map = {
 	],
 	"./setup/units/index": [
 		79237,
-		1618
+		9237
 	],
 	"./setup/units/index.vue": [
 		79237,
-		1618
+		9237
 	],
 	"./setup/vat-rates": [
 		28087,
@@ -117821,10 +117821,10 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8824) return "js/8824.js";
 /******/ 			if (chunkId === 9909) return "js/9909.js";
 /******/ 			if (chunkId === 3018) return "js/3018.js";
-/******/ 			if (chunkId === 2757) return "js/2757.js";
+/******/ 			if (chunkId === 8354) return "js/8354.js";
 /******/ 			if (chunkId === 7843) return "js/7843.js";
-/******/ 			if (chunkId === 9237) return "js/9237.js";
-/******/ 			if (chunkId === 8254) return "js/8254.js";
+/******/ 			if (chunkId === 6210) return "js/6210.js";
+/******/ 			if (chunkId === 9550) return "js/9550.js";
 /******/ 			if (chunkId === 4206) return "js/4206.js";
 /******/ 			if (chunkId === 7009) return "js/7009.js";
 /******/ 			if (chunkId === 1679) return "js/1679.js";
@@ -117893,7 +117893,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1340) return "js/1340.js";
 /******/ 			if (chunkId === 6382) return "js/6382.js";
 /******/ 			if (chunkId === 5507) return "js/5507.js";
-/******/ 			if (chunkId === 1618) return "js/1618.js";
+/******/ 			if (chunkId === 9237) return "js/9237.js";
 /******/ 			if (chunkId === 8353) return "js/8353.js";
 /******/ 			if (chunkId === 7853) return "js/7853.js";
 /******/ 			if (chunkId === 8087) return "js/8087.js";

@@ -63,6 +63,10 @@ class PurchaseOrderController extends Controller
             'selectedProducts.*.id' => 'required|exists:products,id',
             'selectedProducts.*.quantity' => 'required|numeric|min:1',
             'selectedProducts.*.unitPrice' => 'required|numeric|min:0',
+            'selectedProducts.*.tax_amount' => 'nullable|numeric|min:0',
+            'selectedProducts.*.discount' => 'nullable|numeric|min:0',
+            'selectedProducts.*.discount_type' => 'nullable|in:fixed,percentage',
+            'selectedProducts.*.discount_amount' => 'nullable|numeric|min:0',
             'discount' => 'nullable|numeric|min:0',
             'transport' => 'nullable|numeric|min:0',
             'subTotal' => 'nullable|numeric|min:0',
@@ -113,7 +117,7 @@ class PurchaseOrderController extends Controller
                     'quantity' => $product['quantity'],
                     'purchase_price' => $product['unitPrice'],
                     'unit_cost' => $product['unitPrice'],
-                    'tax_amount' => 0, // Can be calculated later if needed
+                    'tax_amount' => isset($product['tax_amount']) ? $product['tax_amount'] : 0,
                     'discount' => $product['discount'] ?? 0,
                     'discount_type' => $product['discount_type'] ?? 'fixed',
                     'discount_amount' => $product['discount_amount'] ?? 0,
@@ -142,10 +146,18 @@ class PurchaseOrderController extends Controller
      * @param  \App\Models\PurchaseOrder  $purchaseOrder
      * @return \Illuminate\Http\Response
      */
-    public function show(PurchaseOrder $purchaseOrder)
+    public function show($slug)
     {
-        $purchaseOrder->load('supplier', 'purchaseOrderProducts.product');
+        // Explicitly fetch by slug with eager-loaded relations
+        $purchaseOrder = PurchaseOrder::with(['supplier', 'purchaseOrderProducts.product', 'user'])
+            ->where('slug', $slug)
+            ->first();
 
+        if (!$purchaseOrder) {
+            return response()->json(['message' => 'Purchase order not found'], 404);
+        }
+
+        // Return the model directly so frontend expectations (snake_case keys and relations) are preserved
         return response()->json([
             'data' => $purchaseOrder
         ]);

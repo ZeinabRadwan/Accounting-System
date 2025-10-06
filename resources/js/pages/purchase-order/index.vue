@@ -96,9 +96,11 @@
                   <th>{{ $t("Purchase Order No") }}</th>
                   <th>{{ $t("PO Date") }}</th>
                   <th>{{ $t("Supplier") }}</th>
+                  <th>{{ $t("Subtotal") }}</th>
+                  <th>{{ $t("Transport") }}</th>
+                  <th>{{ $t("Discount") }}</th>
+                  <th>{{ $t("Tax") }}</th>
                   <th>{{ $t("Net Total") }}</th>
-                  <th>{{ $t("Total Paid") }}</th>
-                  <th>{{ $t("Total Due") }}</th>
                   <th>{{ $t("Status") }}</th>
                   <th v-if="$can('purchase-order-view') ||
                     $can('purchase-order-edit') ||
@@ -130,14 +132,17 @@
                       }}</span>
                     </td>
                     <td>
-                      <span v-if="data.poDate">{{
-                        data.poDate | moment("Do MMM, YYYY")
+                      <span v-if="data.poDate || data.po_date">{{
+                        (data.poDate || data.po_date) | moment("Do MMM, YYYY")
                       }}</span>
                     </td>
                     <td>{{ data.supplierName || (data.supplier && data.supplier.name) }}</td>
-                    <td>{{ parseFloat(data.netTotal || data.calculated_total).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ parseFloat(data.totalPaid).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ parseFloat(data.due).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ Number(data.subTotal || data.sub_total || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ Number(data.transport || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ Number(data.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ Number(data.totalTax || data.total_tax || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ Number(data.netTotal || data.net_total || data.calculated_total || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                    
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -146,9 +151,9 @@
                         $t("Inactive")
                       }}</span>
                     </td>
-                    <td v-if="$can('invoice-view') ||
-                        $can('invoice-edit') ||
-                        $can('invoice-delete')
+                    <td v-if="$can('purchase-order-view') ||
+                        $can('purchase-order-edit') ||
+                        $can('purchase-order-delete')
                         " class="text-right no-print">
                   <div class="action-dropdown" :class="{ open: openActionIndex === i }">
                         <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
