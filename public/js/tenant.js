@@ -88989,12 +88989,12 @@ var map = {
 		9948
 	],
 	"./suppliers": [
-		1935,
-		1935
+		49296,
+		9296
 	],
 	"./suppliers/": [
-		1935,
-		1935
+		49296,
+		9296
 	],
 	"./suppliers/create": [
 		7179,
@@ -89013,12 +89013,12 @@ var map = {
 		9340
 	],
 	"./suppliers/index": [
-		1935,
-		1935
+		49296,
+		9296
 	],
 	"./suppliers/index.vue": [
-		1935,
-		1935
+		49296,
+		9296
 	],
 	"./suppliers/show": [
 		85406,
@@ -89547,7 +89547,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1489) return "js/1489.js";
 /******/ 			if (chunkId === 9836) return "js/9836.js";
 /******/ 			if (chunkId === 9948) return "js/9948.js";
-/******/ 			if (chunkId === 1935) return "js/1935.js";
+/******/ 			if (chunkId === 9296) return "js/9296.js";
 /******/ 			if (chunkId === 7179) return "js/7179.js";
 /******/ 			if (chunkId === 9340) return "js/9340.js";
 /******/ 			if (chunkId === 5406) return "js/5406.js";

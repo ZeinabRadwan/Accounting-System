@@ -250,6 +250,8 @@ return [
         'finalTotal' => 'إجمالي الدفع',
         'receiptNo' => 'رقم الإيصال',
         'paymentDate' => 'تاريخ الدفع',
+        // Purchase Returns (Create / Update)
+        'returnReason' => 'سبب الإرجاع',
         // Client Invoice Payment (Create)
         'client' => 'العميل',
         'invoice' => 'الفاتورة',

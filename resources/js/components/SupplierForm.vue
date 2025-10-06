@@ -791,19 +791,19 @@ export default {
       // Required field validations
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
         console.log('Phone number validation failed');
-        this.form.errors.set('phoneNumber', 'Mobile number is required');
+        this.form.errors.set('phoneNumber', this.$t('Mobile number is required'));
         isValid = false;
       }
       
       if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
         console.log('Full name validation failed for individual');
-        this.form.errors.set('fullName', 'Full name is required for individual suppliers');
+        this.form.errors.set('fullName', this.$t('Full name is required for individual suppliers'));
         isValid = false;
       }
       
       if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
         console.log('Business name validation failed for company');
-        this.form.errors.set('businessName', 'Business name is required for company suppliers');
+        this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
         isValid = false;
       }
       

@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[7179],{
 
-/***/ 21572:
+/***/ 56626:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,7 +13,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-c1d1a994]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-c1d1a994]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-c1d1a994]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-c1d1a994]{padding:16px}.form-control[data-v-c1d1a994]{background:#fff!important}input[readonly][data-v-c1d1a994]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-c1d1a994]:focus,select.form-control[data-v-c1d1a994]:focus,textarea.form-control[data-v-c1d1a994]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-c1d1a994]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-c1d1a994]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-c1d1a994]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-c1d1a994],.v-select .vs__dropdown-toggle[data-v-c1d1a994]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-c1d1a994],.v-select .vs__search[data-v-c1d1a994],.v-select .vs__selected[data-v-c1d1a994]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-c1d1a994]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-c1d1a994]{border-radius:6px}.file-upload-area[data-v-c1d1a994]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-c1d1a994]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-c1d1a994]{color:#33a0d9}.selected-files .selected-file-item[data-v-c1d1a994]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-c1d1a994]{font-weight:500}.required[data-v-c1d1a994]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-c1d1a994]{border-radius:20px 20px 0 0}.custom-file-label[data-v-c1d1a994],[dir=rtl] .custom-file-label[data-v-c1d1a994]{text-align:left!important}.btn-primary[data-v-c1d1a994]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-c1d1a994]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-c1d1a994],.equal-height>[class^=col-][data-v-c1d1a994]{display:flex}.equal-height .form-card[data-v-c1d1a994]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-c1d1a994]{flex:1 1 auto}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-b75b6ede]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-b75b6ede]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-b75b6ede]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-b75b6ede]{padding:16px}.form-control[data-v-b75b6ede]{background:#fff!important}input[readonly][data-v-b75b6ede]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-b75b6ede]:focus,select.form-control[data-v-b75b6ede]:focus,textarea.form-control[data-v-b75b6ede]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-b75b6ede]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-b75b6ede]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-b75b6ede]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-b75b6ede],.v-select .vs__dropdown-toggle[data-v-b75b6ede]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-b75b6ede],.v-select .vs__search[data-v-b75b6ede],.v-select .vs__selected[data-v-b75b6ede]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-b75b6ede]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-b75b6ede]{border-radius:6px}.file-upload-area[data-v-b75b6ede]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-b75b6ede]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-b75b6ede]{color:#33a0d9}.selected-files .selected-file-item[data-v-b75b6ede]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-b75b6ede]{font-weight:500}.required[data-v-b75b6ede]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-b75b6ede]{border-radius:20px 20px 0 0}.custom-file-label[data-v-b75b6ede],[dir=rtl] .custom-file-label[data-v-b75b6ede]{text-align:left!important}.btn-primary[data-v-b75b6ede]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-b75b6ede]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-b75b6ede],.equal-height>[class^=col-][data-v-b75b6ede]{display:flex}.equal-height .form-card[data-v-b75b6ede]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-b75b6ede]{flex:1 1 auto}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -58,7 +58,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".vti__flag.be{width:18px}.vti__flag.ch
 
 /***/ }),
 
-/***/ 17359:
+/***/ 47085:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -67,7 +67,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ SupplierForm)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=c1d1a994&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=b75b6ede&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1575,17 +1575,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // Required field validations
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
         console.log('Phone number validation failed');
-        this.form.errors.set('phoneNumber', 'Mobile number is required');
+        this.form.errors.set('phoneNumber', this.$t('Mobile number is required'));
         isValid = false;
       }
       if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
         console.log('Full name validation failed for individual');
-        this.form.errors.set('fullName', 'Full name is required for individual suppliers');
+        this.form.errors.set('fullName', this.$t('Full name is required for individual suppliers'));
         isValid = false;
       }
       if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
         console.log('Business name validation failed for company');
-        this.form.errors.set('businessName', 'Business name is required for company suppliers');
+        this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
         isValid = false;
       }
 
@@ -2186,9 +2186,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=c1d1a994&prod&scoped=true&lang=css
-var SupplierFormvue_type_style_index_0_id_c1d1a994_prod_scoped_true_lang_css = __webpack_require__(21572);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=c1d1a994&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=b75b6ede&prod&scoped=true&lang=css
+var SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css = __webpack_require__(56626);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=b75b6ede&prod&scoped=true&lang=css
 
             
 
@@ -2197,12 +2197,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_c1d1a994_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_c1d1a994_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_c1d1a994_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=c1d1a994&prod&scoped=true&lang=css
+/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=b75b6ede&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -2221,7 +2221,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "c1d1a994",
+  "b75b6ede",
   null
   
 )
@@ -2327,7 +2327,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 5 modules
-var SupplierForm = __webpack_require__(17359);
+var SupplierForm = __webpack_require__(47085);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
