@@ -22584,7 +22584,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     };
   },
   components: {
-    VButton: Button/* default */.A,
+    VButton: Button["default"],
     DateRangePicker: (vue2_daterange_picker_umd_min_default()),
     ClientEditModal: ClientEditModal/* default */.A
   },

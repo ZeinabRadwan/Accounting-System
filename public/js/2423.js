@@ -6099,7 +6099,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/VModal.vue + 5 modules
-var VModal = __webpack_require__(16708);
+var VModal = __webpack_require__(30326);
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
 // EXTERNAL MODULE: ./node_modules/vform/src/components/bootstrap5/index.js + 12 modules

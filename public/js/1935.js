@@ -24346,7 +24346,7 @@ var SupplierEditModalvue_type_template_id_b3fe9852_scoped_true_render = function
 var SupplierEditModalvue_type_template_id_b3fe9852_scoped_true_staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/VModal.vue + 5 modules
-var VModal = __webpack_require__(16708);
+var VModal = __webpack_require__(30326);
 // EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 5 modules
 var SupplierForm = __webpack_require__(17359);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierEditModal.vue?vue&type=script&lang=js

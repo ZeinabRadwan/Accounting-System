@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[8561],{
 
-/***/ 85485:
+/***/ 68584:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -39,7 +39,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-3c55829f]{border:1px soli
 
 /***/ }),
 
-/***/ 4341:
+/***/ 84151:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -48,7 +48,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductForm)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=525cf773&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=79af1b6a&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -119,7 +119,7 @@ var render = function render() {
     staticClass: "dtable-footer"
   }, [_c('div', {
     staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('v-button', {
+  }, [_c('VButton', {
     attrs: {
       "loading": _vm.form.busy,
       "type": "success"
@@ -258,7 +258,13 @@ var toast = sweetalert2_all_default().mixin({
   name: "ProductForm",
   components: {
     VModal: function VModal() {
-      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 16708));
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 30326));
+    },
+    VButton: function VButton() {
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 60069));
+    },
+    Breadcrumbs: function Breadcrumbs() {
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 62171));
     },
     HasError: function HasError() {
       return __webpack_require__.e(/* import() */ 2569).then(__webpack_require__.bind(__webpack_require__, 72569)).then(function (m) {
@@ -339,6 +345,9 @@ var toast = sweetalert2_all_default().mixin({
     },
     submitButtonText: function submitButtonText() {
       return this.product ? this.$t("Update") : this.$t("Save");
+    },
+    isEditMode: function isEditMode() {
+      return !!this.product;
     }
   }),
   created: function created() {
@@ -402,19 +411,22 @@ var toast = sweetalert2_all_default().mixin({
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
+              console.log('Submit form called', {
+                hasProduct: !!_this2.product
+              });
               if (!_this2.product) {
-                _context2.next = 5;
+                _context2.next = 6;
                 break;
               }
-              _context2.next = 3;
+              _context2.next = 4;
               return _this2.updateProduct();
-            case 3:
-              _context2.next = 7;
+            case 4:
+              _context2.next = 8;
               break;
-            case 5:
-              _context2.next = 7;
+            case 6:
+              _context2.next = 8;
               return _this2.saveProduct();
-            case 7:
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -690,8 +702,19 @@ var toast = sweetalert2_all_default().mixin({
         return _regeneratorRuntime().wrap(function _callee10$(_context10) {
           while (1) switch (_context10.prev = _context10.next) {
             case 0:
+              console.log('Save product called', {
+                formData: _this11.form.data(),
+                isSalesAccountAutomatic: _this11.isSalesAccountAutomatic,
+                isPurchaseAccountAutomatic: _this11.isPurchaseAccountAutomatic,
+                salesAccountId: _this11.form.salesAccountId,
+                purchaseAccountId: _this11.form.purchaseAccountId,
+                overrideSalesAccount: _this11.form.overrideSalesAccount,
+                overridePurchaseAccount: _this11.form.overridePurchaseAccount
+              });
+
+              // Validate required fields based on item type
               if (!(_this11.form.itemType === 'service' && !_this11.form.servicePurchasePrice)) {
-                _context10.next = 3;
+                _context10.next = 4;
                 break;
               }
               toast.fire({
@@ -699,32 +722,40 @@ var toast = sweetalert2_all_default().mixin({
                 title: _this11.$t("Service Purchase Price is required for services")
               });
               return _context10.abrupt("return");
-            case 3:
+            case 4:
               // Validate sales account - required if not automatic OR if override is checked
               needsSalesAccount = !_this11.isSalesAccountAutomatic || _this11.form.overrideSalesAccount;
               if (!(needsSalesAccount && !_this11.form.salesAccountId)) {
-                _context10.next = 7;
+                _context10.next = 9;
                 break;
               }
+              console.log('Sales account validation failed', {
+                needsSalesAccount: needsSalesAccount,
+                salesAccountId: _this11.form.salesAccountId
+              });
               toast.fire({
                 type: "error",
                 title: _this11.$t("Sales Account is required")
               });
               return _context10.abrupt("return");
-            case 7:
+            case 9:
               // Validate purchase account - required if not automatic OR if override is checked
               needsPurchaseAccount = !_this11.isPurchaseAccountAutomatic || _this11.form.overridePurchaseAccount;
               if (!(needsPurchaseAccount && !_this11.form.purchaseAccountId)) {
-                _context10.next = 11;
+                _context10.next = 14;
                 break;
               }
+              console.log('Purchase account validation failed', {
+                needsPurchaseAccount: needsPurchaseAccount,
+                purchaseAccountId: _this11.form.purchaseAccountId
+              });
               toast.fire({
                 type: "error",
                 title: _this11.$t("Purchase Account is required")
               });
               return _context10.abrupt("return");
-            case 11:
-              _context10.next = 13;
+            case 14:
+              _context10.next = 16;
               return _this11.form.post(window.location.origin + "/api/products").then(function (response) {
                 toast.fire({
                   type: "success",
@@ -790,7 +821,7 @@ var toast = sweetalert2_all_default().mixin({
                   title: errorMessage
                 });
               });
-            case 13:
+            case 16:
             case "end":
               return _context10.stop();
           }
@@ -1077,9 +1108,9 @@ var toast = sweetalert2_all_default().mixin({
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=525cf773&prod&scoped=true&lang=css
-var ProductFormvue_type_style_index_0_id_525cf773_prod_scoped_true_lang_css = __webpack_require__(85485);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=525cf773&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=79af1b6a&prod&scoped=true&lang=css
+var ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css = __webpack_require__(68584);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=79af1b6a&prod&scoped=true&lang=css
 
             
 
@@ -1088,12 +1119,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_525cf773_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_525cf773_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_525cf773_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=525cf773&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=79af1b6a&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -1112,7 +1143,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "525cf773",
+  "79af1b6a",
   null
   
 )
@@ -1194,7 +1225,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/ProductForm.vue + 5 modules
-var ProductForm = __webpack_require__(4341);
+var ProductForm = __webpack_require__(84151);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/demo.vue?vue&type=script&lang=js
 
 /* harmony default export */ const demovue_type_script_lang_js = ({

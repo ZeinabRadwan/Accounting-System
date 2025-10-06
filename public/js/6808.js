@@ -168,7 +168,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   components: {
     ClientForm: ClientForm/* default */.A,
-    VButton: Button/* default */.A
+    VButton: Button["default"]
   },
   data: function data() {
     return {
