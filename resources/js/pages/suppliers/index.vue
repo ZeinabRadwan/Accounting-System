@@ -34,12 +34,7 @@
                   <option value="Individual">{{ $t("Individual") }}</option>
                 </select>
               </div>
-               <div class="col-6 col-xl-2 mb-2 text-right">
-                 <button @click="clearAllFilters" class="btn clear-btn" v-tooltip="$t('Clear All Filters')">
-                   <i class="fas fa-filter"></i>
-                 </button>
-               </div>
-              <div class="col-xl-4 col-4 float-right text-right">
+              <div class="col-xl-6 col-6 float-right text-right">
                 <div class="btn-group c-w-100">
                   <a
                     @click="refreshTable()"
@@ -57,6 +52,9 @@
                   >
                     <i class="fas fa-upload"></i>
                   </a>
+                  <button @click="clearAllFilters" class="btn clear-btn" v-tooltip="$t('Clear All Filters')">
+                    <i class="fas fa-filter"></i>
+                  </button>
                   <a
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
