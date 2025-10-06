@@ -139,14 +139,12 @@ class PurchaseOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $slug
+     * @param  \App\Models\PurchaseOrder  $purchaseOrder
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(PurchaseOrder $purchaseOrder)
     {
-        $purchaseOrder = PurchaseOrder::with('supplier', 'purchaseOrderProducts.product')
-            ->where('slug', $slug)
-            ->firstOrFail();
+        $purchaseOrder->load('supplier', 'purchaseOrderProducts.product');
 
         return response()->json([
             'data' => $purchaseOrder
@@ -157,12 +155,11 @@ class PurchaseOrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  string  $slug
+     * @param  \App\Models\PurchaseOrder  $purchaseOrder
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, PurchaseOrder $purchaseOrder)
     {
-        $purchaseOrder = PurchaseOrder::where('slug', $slug)->firstOrFail();
 
         // validate request
         $this->validate($request, [
@@ -245,13 +242,12 @@ class PurchaseOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  string  $slug
+     * @param  \App\Models\PurchaseOrder  $purchaseOrder
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($slug)
+    public function destroy(PurchaseOrder $purchaseOrder)
     {
         try {
-            $purchaseOrder = PurchaseOrder::where('slug', $slug)->firstOrFail();
             
             // Delete related products first
             $purchaseOrder->purchaseOrderProducts()->delete();

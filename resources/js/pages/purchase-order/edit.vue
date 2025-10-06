@@ -343,7 +343,7 @@ export default {
     // get the purchase order
     async getPurchaseOrder() {
       const { data } = await axios.get(
-        window.location.origin + "/api/purchase-order/" + this.$route.params.id
+        window.location.origin + "/api/purchase-order/" + this.$route.params.slug
       );
       this.form.supplier = data.data.supplier;
       this.form.reference = data.data.reference;
@@ -556,7 +556,7 @@ export default {
     async updatePurchaseOrder() {
       await this.form
         .patch(
-          window.location.origin + "/api/purchase-order/" + this.$route.params.id
+          window.location.origin + "/api/purchase-order/" + this.$route.params.slug
         )
         .then(({ data }) => {
           toast.fire({
