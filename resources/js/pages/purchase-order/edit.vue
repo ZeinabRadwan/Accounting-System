@@ -11,7 +11,7 @@
               {{ $t("Edit Purchase Order") }}
             </h3>
             <div class="float-right header-buttons">
-              <router-link :to="{ name: 'purchase-orders.index' }" class="btn btn-info">
+              <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-info">
                 <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
               </router-link>
               <button type="submit" class="btn btn-success ml-2" :form="'purchaseOrderEditForm'" title="Save">
@@ -300,7 +300,7 @@ export default {
       },
       {
         name: "Purchase Orders",
-        url: "purchase-orders.index",
+        url: "purchase-order.index",
       },
       {
         name: "Edit",
@@ -565,8 +565,8 @@ export default {
           });
           this.clearTemporaryData()
           this.$router.push({
-            name: "purchase-orders.show",
-            params: { id: data.data.id },
+            name: "purchase-order.show",
+            params: { slug: this.$route.params.slug },
           });
         })
         .catch(() => {
