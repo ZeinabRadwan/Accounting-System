@@ -44,9 +44,9 @@
           <div class="card-footer">
             <div class="dtable-footer">
               <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-                <v-button :loading="form.busy" type="success" @click.prevent="submitForm">
+                <VButton :loading="form.busy" type="success" @click.prevent="submitForm">
                   <i class="fas fa-save" /> {{ $t('Save') }}
-                </v-button>
+                </VButton>
                 <button type="reset" class="btn btn-info" @click="form.reset()">
                   <i class="fas fa-power-off" /> {{ $t('Reset') }}
                 </button>
@@ -118,6 +118,8 @@ export default {
   name: "ProductForm",
   components: {
     VModal: () => import('./VModal.vue'),
+    VButton: () => import('./Button.vue'),
+    Breadcrumbs: () => import('./Breadcrumbs.vue'),
     HasError: () => import('vform/src/components/bootstrap5').then(m => m.HasError),
     ProductFormTemplate: () => import('./ProductFormTemplate.vue'),
   },
@@ -189,6 +191,9 @@ export default {
     },
     submitButtonText() {
       return this.product ? this.$t("Update") : this.$t("Save")
+    },
+    isEditMode() {
+      return !!this.product
     }
   },
   created() {
@@ -240,6 +245,7 @@ export default {
     },
 
     async submitForm() {
+      console.log('Submit form called', { hasProduct: !!this.product })
       if (this.product) {
         await this.updateProduct()
       } else {
@@ -395,6 +401,16 @@ export default {
 
     // save product
     async saveProduct() {
+      console.log('Save product called', {
+        formData: this.form.data(),
+        isSalesAccountAutomatic: this.isSalesAccountAutomatic,
+        isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
+        salesAccountId: this.form.salesAccountId,
+        purchaseAccountId: this.form.purchaseAccountId,
+        overrideSalesAccount: this.form.overrideSalesAccount,
+        overridePurchaseAccount: this.form.overridePurchaseAccount
+      })
+
       // Validate required fields based on item type
       if (this.form.itemType === 'service' && !this.form.servicePurchasePrice) {
         toast.fire({ 
@@ -407,6 +423,7 @@ export default {
       // Validate sales account - required if not automatic OR if override is checked
       const needsSalesAccount = !this.isSalesAccountAutomatic || this.form.overrideSalesAccount
       if (needsSalesAccount && !this.form.salesAccountId) {
+        console.log('Sales account validation failed', { needsSalesAccount, salesAccountId: this.form.salesAccountId })
         toast.fire({ 
           type: "error", 
           title: this.$t("Sales Account is required") 
@@ -417,6 +434,7 @@ export default {
       // Validate purchase account - required if not automatic OR if override is checked
       const needsPurchaseAccount = !this.isPurchaseAccountAutomatic || this.form.overridePurchaseAccount
       if (needsPurchaseAccount && !this.form.purchaseAccountId) {
+        console.log('Purchase account validation failed', { needsPurchaseAccount, purchaseAccountId: this.form.purchaseAccountId })
         toast.fire({ 
           type: "error", 
           title: this.$t("Purchase Account is required") 
