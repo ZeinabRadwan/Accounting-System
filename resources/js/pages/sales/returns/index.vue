@@ -178,7 +178,7 @@
                               <router-link :to="{ name: 'invoiceReturns.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
                             </li>
                             <li v-if="$can('invoice-return-delete') && !(isSaudiArabia && data.status === 1)">
-                              <a href="#" @click="deleteData(data.slug)">{{ $t('Delete') }}</a>
+                              <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>
                             </li>
                           </ul>
                         </div>
@@ -225,7 +225,6 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
-import Swal from "sweetalert2";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import axios from "axios";
 
@@ -528,7 +527,7 @@ export default {
 
     // delete data
     async deleteData(slug) {
-      Swal.fire({
+      SwalOriginal.fire({
         title: this.$t("Are you sure?"),
         text: this.$t("You will not be able to return to this!"),
         type: "warning",

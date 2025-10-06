@@ -50,8 +50,10 @@ Swal.fire = function patchedFire(arg1, arg2, arg3) {
   try {
     const options = normalizeOptions(arg1, arg2, arg3)
 
-    // Allow SweetAlert only for delete confirmations
-    if (isDeleteConfirmation(options)) {
+    // Always use original SweetAlert for any confirm/cancel style dialog
+    // to preserve Promise-based API (needed by callers using .then())
+    const hasButtons = options.showCancelButton === true || options.showDenyButton === true || options.showConfirmButton === true
+    if (hasButtons || isDeleteConfirmation(options)) {
       return originalFire(options)
     }
 

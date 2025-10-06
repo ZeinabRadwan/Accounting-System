@@ -88581,12 +88581,12 @@ var map = {
 		7792
 	],
 	"./sales/returns": [
-		25318,
-		2937
+		45923,
+		5923
 	],
 	"./sales/returns/": [
-		25318,
-		2937
+		45923,
+		5923
 	],
 	"./sales/returns/create": [
 		18077,
@@ -88605,12 +88605,12 @@ var map = {
 		4590
 	],
 	"./sales/returns/index": [
-		25318,
-		2937
+		45923,
+		5923
 	],
 	"./sales/returns/index.vue": [
-		25318,
-		2937
+		45923,
+		5923
 	],
 	"./sales/returns/show": [
 		14871,
@@ -89506,7 +89506,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6622) return "js/6622.js";
 /******/ 			if (chunkId === 2736) return "js/2736.js";
 /******/ 			if (chunkId === 7792) return "js/7792.js";
-/******/ 			if (chunkId === 2937) return "js/2937.js";
+/******/ 			if (chunkId === 5923) return "js/5923.js";
 /******/ 			if (chunkId === 8077) return "js/8077.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
 /******/ 			if (chunkId === 4871) return "js/4871.js";
@@ -106677,8 +106677,10 @@ function toToastOptions(options) {
   try {
     var options = normalizeOptions(arg1, arg2, arg3);
 
-    // Allow SweetAlert only for delete confirmations
-    if (isDeleteConfirmation(options)) {
+    // Always use original SweetAlert for any confirm/cancel style dialog
+    // to preserve Promise-based API (needed by callers using .then())
+    var hasButtons = options.showCancelButton === true || options.showDenyButton === true || options.showConfirmButton === true;
+    if (hasButtons || isDeleteConfirmation(options)) {
       return originalFire(options);
     }
 
