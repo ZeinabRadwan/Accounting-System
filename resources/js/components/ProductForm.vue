@@ -39,9 +39,10 @@
               @on-override-sales-account-change="onOverrideSalesAccountChange"
               @on-override-purchase-account-change="onOverridePurchaseAccountChange"
               @submit-form="submitForm"
+              @save-temporary="saveTemporary"
             />
           </div>
-          <div class="card-footer">
+          <div class="card-footer" style="display: none;">
             <div class="dtable-footer">
               <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
                 <VButton :loading="form.busy" type="success" native-type="button" @click.prevent="submitForm">
@@ -80,6 +81,7 @@
             @on-override-sales-account-change="onOverrideSalesAccountChange"
             @on-override-purchase-account-change="onOverridePurchaseAccountChange"
             @submit-form="submitForm"
+            @save-temporary="saveTemporary"
           />
         </div>
         <div slot="modal-footer">
@@ -257,6 +259,29 @@ export default {
       } else {
         await this.saveProduct()
       }
+    },
+
+    saveTemporary(event) {
+      // Prevent any form submission or navigation
+      if (event) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      
+      // Save form data to localStorage for temporary storage
+      const formData = this.form.data()
+      localStorage.setItem('productFormTemporary', JSON.stringify(formData))
+      
+      // Show success message
+      toast.fire({
+        type: "success",
+        title: "Form saved temporarily"
+      })
+      
+      console.log('Form data saved temporarily:', formData)
+      
+      // Return false to prevent any further event handling
+      return false
     },
 
     // get all product categories

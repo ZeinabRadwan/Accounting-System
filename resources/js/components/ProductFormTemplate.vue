@@ -1,5 +1,21 @@
 <template>
   <form :id="formId" role="form" @keydown="form.onKeydown($event)">
+    <!-- Top Save Button -->
+    <div class="form-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">
+            <i class="fas fa-save mr-2"></i>
+            {{ $t("Product Form") }}
+          </h5>
+          <button type="button" class="btn btn-outline-success" @click.prevent="saveTemporary">
+            <i class="fas fa-save mr-1"></i>
+            {{ $t("Save Temporary") }}
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Item Type Selection Section -->
     <div class="form-card">
       <div class="card-header">
@@ -429,6 +445,18 @@
         </div>
       </div>
     </div>
+
+    <!-- Bottom Submit Button -->
+    <div class="form-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-success btn-lg" @click.prevent="submitForm">
+            <i class="fas fa-paper-plane mr-2"></i>
+            {{ $t("Submit Product") }}
+          </button>
+        </div>
+      </div>
+    </div>
   </form>
 </template>
 
@@ -500,6 +528,9 @@ export default {
     },
     submitForm() {
       this.$emit('submitForm')
+    },
+    saveTemporary() {
+      this.$emit('saveTemporary')
     }
   }
 }

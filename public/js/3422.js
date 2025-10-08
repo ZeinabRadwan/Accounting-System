@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[3422],{
 
-/***/ 33054:
+/***/ 16543:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -39,7 +39,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-e368acd2]{ga
 
 /***/ }),
 
-/***/ 17439:
+/***/ 33763:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -48,7 +48,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductForm)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=520f319e&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=4b8dc11e&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -114,10 +114,14 @@ var render = function render() {
       "on-file-change": _vm.onFileChange,
       "on-override-sales-account-change": _vm.onOverrideSalesAccountChange,
       "on-override-purchase-account-change": _vm.onOverridePurchaseAccountChange,
-      "submit-form": _vm.submitForm
+      "submit-form": _vm.submitForm,
+      "save-temporary": _vm.saveTemporary
     }
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
+    staticClass: "card-footer",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('div', {
     staticClass: "dtable-footer"
   }, [_c('div', {
@@ -191,7 +195,8 @@ var render = function render() {
       "on-file-change": _vm.onFileChange,
       "on-override-sales-account-change": _vm.onOverrideSalesAccountChange,
       "on-override-purchase-account-change": _vm.onOverridePurchaseAccountChange,
-      "submit-form": _vm.submitForm
+      "submit-form": _vm.submitForm,
+      "save-temporary": _vm.saveTemporary
     }
   })], 1), _vm._v(" "), _c('div', {
     attrs: {
@@ -271,7 +276,7 @@ var toast = sweetalert2_all_default().mixin({
       return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 62171));
     },
     ProductFormTemplate: function ProductFormTemplate() {
-      return __webpack_require__.e(/* import() */ 8537).then(__webpack_require__.bind(__webpack_require__, 88537));
+      return __webpack_require__.e(/* import() */ 3073).then(__webpack_require__.bind(__webpack_require__, 3073));
     }
   },
   props: {
@@ -436,6 +441,27 @@ var toast = sweetalert2_all_default().mixin({
           }
         }, _callee2);
       }))();
+    },
+    saveTemporary: function saveTemporary(event) {
+      // Prevent any form submission or navigation
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      // Save form data to localStorage for temporary storage
+      var formData = this.form.data();
+      localStorage.setItem('productFormTemporary', JSON.stringify(formData));
+
+      // Show success message
+      toast.fire({
+        type: "success",
+        title: "Form saved temporarily"
+      });
+      console.log('Form data saved temporarily:', formData);
+
+      // Return false to prevent any further event handling
+      return false;
     },
     // get all product categories
     getSubCategories: function getSubCategories() {
@@ -1110,9 +1136,9 @@ var toast = sweetalert2_all_default().mixin({
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=520f319e&prod&scoped=true&lang=css
-var ProductFormvue_type_style_index_0_id_520f319e_prod_scoped_true_lang_css = __webpack_require__(33054);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=520f319e&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=4b8dc11e&prod&scoped=true&lang=css
+var ProductFormvue_type_style_index_0_id_4b8dc11e_prod_scoped_true_lang_css = __webpack_require__(16543);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=4b8dc11e&prod&scoped=true&lang=css
 
             
 
@@ -1121,12 +1147,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_520f319e_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_4b8dc11e_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_520f319e_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_520f319e_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=520f319e&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_4b8dc11e_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_4b8dc11e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=4b8dc11e&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -1145,7 +1171,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "520f319e",
+  "4b8dc11e",
   null
   
 )
@@ -1181,7 +1207,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/ProductForm.vue + 5 modules
-var ProductForm = __webpack_require__(17439);
+var ProductForm = __webpack_require__(33763);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/create-new.vue?vue&type=script&lang=js
 
 /* harmony default export */ const create_newvue_type_script_lang_js = ({
