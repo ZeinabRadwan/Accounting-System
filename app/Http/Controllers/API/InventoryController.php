@@ -18,7 +18,7 @@ class InventoryController extends Controller
     // define middleware
     public function __construct()
     {
-        $this->middleware('can:inventory-view', ['only' => ['allInventory']]);
+        $this->middleware('can:inventory-view', ['only' => ['allInventory', 'inventoryCount', 'searchInventoryCount']]);
         $this->middleware('can:inventory-history', ['only' => ['inventoryHistoryByItem']]);
     }
 
@@ -190,5 +190,80 @@ class InventoryController extends Controller
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
+    }
+
+    // return inventory count data
+    public function inventoryCount(Request $request)
+    {
+        return ProductResource::collection(Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')->orderBy('code', 'ASC')->paginate($request->perPage));
+    }
+
+    // search inventory count data
+    public function searchInventoryCount(Request $request)
+    {
+        $term = $request->term;
+        $query = Product::query();
+
+        // Apply search term conditions
+        if (!empty($term)) {
+            $query->where(function ($query) use ($term) {
+                $query->where('name', 'LIKE', '%' . $term . '%')
+                    ->orWhere('slug', 'LIKE', '%' . $term . '%')
+                    ->orWhere('model', 'LIKE', '%' . $term . '%')
+                    ->orWhere('code', 'LIKE', '%' . $term . '%')
+                    ->orWhere('inventory_count', 'LIKE', '%' . $term . '%')
+                    ->orWhereHas('proSubCategory', function ($newQuery) use ($term) {
+                        $newQuery->where('name', 'LIKE', '%' . $term . '%')
+                            ->orWhereHas('category', function ($newQuery) use ($term) {
+                                $newQuery->where('name', 'LIKE', '%' . $term . '%');
+                            });
+                    });
+            });
+        }
+
+        // Apply filtering based on filterType
+        if ($request->filterType) {
+            switch ($request->filterType) {
+                case 'with_products':
+                    $query->where('inventory_count', '>', 0);
+                    break;
+                case 'with_data':
+                    $query->whereNotNull('inventory_count')
+                          ->where('inventory_count', '>', 0);
+                    break;
+                case 'low_to_high_stock':
+                    $query->orderBy('inventory_count', 'ASC');
+                    break;
+                case 'high_to_low_stock':
+                    $query->orderBy('inventory_count', 'DESC');
+                    break;
+                case 'active':
+                    $query->where('status', true);
+                    break;
+                case 'inactive':
+                    $query->where('status', false);
+                    break;
+                case 'zero_stock':
+                    $query->where(function ($query) {
+                        $query->where('inventory_count', 0)
+                            ->orWhereNull('inventory_count');
+                    });
+                    break;
+                case 'non_zero_stock':
+                    $query->where('inventory_count', '>', 0);
+                    break;
+                default:
+                    $query->orderBy('code', 'ASC');
+                    break;
+            }
+        } else {
+            $query->orderBy('code', 'ASC');
+        }
+
+        // Return the filtered and paginated results
+        return ProductResource::collection(
+            $query->with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+                ->paginate($request->perPage)
+        );
     }
 }

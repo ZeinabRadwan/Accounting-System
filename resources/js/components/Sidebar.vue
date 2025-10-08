@@ -1182,6 +1182,12 @@
                   <p>{{ $t("View Inventory") }}</p>
                 </router-link>
               </li>
+              <li v-if="$can('inventory-view')" class="nav-item">
+                <router-link :to="{ name: 'inventory.count' }" class="nav-link">
+                  <i class="fas fa-clipboard-check nav-icon" />
+                  <p>{{ $t("Inventory Count") }}</p>
+                </router-link>
+              </li>
               <li
                 v-if="
                   $can('adjustment-create') ||

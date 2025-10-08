@@ -1114,6 +1114,12 @@ export default [
     component: page('inventory/history.vue'),
     meta: {permissions: ['inventory-history']},
   },
+  {
+    path: '/inventory-count',
+    name: 'inventory.count',
+    component: page('inventory/count.vue'),
+    meta: {permissions: ['inventory-view']},
+  },
 
   // Inventory adjustment routes
   {

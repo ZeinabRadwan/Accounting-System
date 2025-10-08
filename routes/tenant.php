@@ -540,6 +540,10 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::get('/inventory', [InventoryController::class, 'allInventory']);
         Route::get('/inventory/search', [InventoryController::class, 'searchInventory']);
         Route::get('/inventory-history/{slug}', [InventoryController::class, 'inventoryHistoryByItem']);
+        
+        // Inventory count routes
+        Route::get('/inventory-count', [InventoryController::class, 'inventoryCount']);
+        Route::get('/inventory-count/search', [InventoryController::class, 'searchInventoryCount']);
 
         // Inventory adjustment routes
         Route::get('/inventory-adjustments/search', [InventoryAdjustmentController::class, 'search']);

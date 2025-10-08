@@ -199,8 +199,12 @@ return [
     
     // Inventory Report
     'Inventory Report' => 'تقرير المخزون',
+    'Inventory Count' => 'جرد المخزون',
     'Name' => 'الاسم',
     'Stock in Hand' => 'المخزون المتاح',
+    'Current Stock' => 'المخزون الحالي',
+    'With Products' => 'مع المنتجات',
+    'With Data' => 'مع البيانات',
     'No inventory data found for the selected period.' => 'لم يتم العثور على بيانات المخزون للفترة المحددة.',
     
     // User Reports

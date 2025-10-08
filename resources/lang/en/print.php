@@ -199,8 +199,12 @@ return [
     
     // Inventory Report
     'Inventory Report' => 'Inventory Report',
+    'Inventory Count' => 'Inventory Count',
     'Name' => 'Name',
     'Stock in Hand' => 'Stock in Hand',
+    'Current Stock' => 'Current Stock',
+    'With Products' => 'With Products',
+    'With Data' => 'With Data',
     'No inventory data found for the selected period.' => 'No inventory data found for the selected period.',
     
     // User Reports
