@@ -199,6 +199,14 @@ export default {
     this.initializeForm()
     this.loadData()
   },
+  watch: {
+    'form.regularPrice'(newPrice) {
+      if (newPrice) {
+        this.form.openingStockUnitPrice = newPrice
+        this.form.servicePurchasePrice = newPrice
+      }
+    }
+  },
   methods: {
     initializeForm() {
       if (this.mode === 'page') {
@@ -373,9 +381,17 @@ export default {
           this.form.sellingPrice =
             (this.form.regularPrice - discount) / (1 + taxAmount) + totalTax
         }
+        
+        // Set hidden fields to match regular price
+        this.form.openingStockUnitPrice = this.form.regularPrice
+        this.form.servicePurchasePrice = this.form.regularPrice
+        
         return
       }
       this.form.sellingPrice = this.form.regularPrice
+      // Set hidden fields to match regular price
+      this.form.openingStockUnitPrice = this.form.regularPrice
+      this.form.servicePurchasePrice = this.form.regularPrice
     },
 
     // vue file upload

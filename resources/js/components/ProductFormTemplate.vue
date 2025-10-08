@@ -55,7 +55,7 @@
                 <span v-if="prefix" class="input-group-text">{{ prefix }}</span>
                 <input v-model="form.itemCode" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('itemCode') }" name="itemCode"
-                  :placeholder="$t('Enter item code')" :readonly="!!product" />
+                  :placeholder="$t('Enter item code')" readonly />
               </div>
               <has-error :form="form" field="itemCode" />
             </div>
@@ -142,7 +142,7 @@
               <has-error :form="form" field="openingStockCount" />
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" style="display: none;">
             <div class="form-group">
               <label for="openingStockUnitPrice">{{ $t("Stock Unit Price") }}</label>
               <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
@@ -167,7 +167,7 @@
       </div>
     </div>
 
-    <div class="form-card" v-if="form.itemType === 'service'">
+    <div class="form-card" v-if="form.itemType === 'service'" style="display: none;">
       <div class="card-header">
         <h5 class="section-title">
           <i class="fas fa-dollar-sign mr-2"></i>
