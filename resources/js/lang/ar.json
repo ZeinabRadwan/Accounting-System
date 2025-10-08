@@ -1575,6 +1575,7 @@
   "Optional - Auto-assigned if not selected": "اختياري - يتم التعيين تلقائياً إذا لم يتم الاختيار",
   "Auto-assign based on type": "تعيين تلقائي بناءً على النوع",
   "Leave empty to automatically assign appropriate Chart of Account": "اتركه فارغاً ليتم تعيين دليل الحسابات المناسب تلقائياً",
+  "Accounts are pre-assigned based on your settings, but you can change them below if needed.": "الحسابات معينة مسبقاً بناءً على إعداداتك، ولكن يمكنك تغييرها أدناه إذا لزم الأمر.",
   "Select a Chart of Account": "اختر حساباً من دليل الحسابات",
   "Create a chart of account": "إنشاء حساب في دليل الحسابات",
   "Sales Account": "حساب المبيعات",

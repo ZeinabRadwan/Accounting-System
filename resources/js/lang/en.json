@@ -1833,6 +1833,7 @@
     "Optional - Auto-assigned if not selected": "Optional - Auto-assigned if not selected",
     "Auto-assign based on type": "Auto-assign based on type",
     "Leave empty to automatically assign appropriate Chart of Account": "Leave empty to automatically assign appropriate Chart of Account",
+    "Accounts are pre-assigned based on your settings, but you can change them below if needed.": "Accounts are pre-assigned based on your settings, but you can change them below if needed.",
     "Select a Chart of Account": "Select a Chart of Account",
     "Create a chart of account": "Create a chart of account",
     "Sales Account": "Sales Account",
