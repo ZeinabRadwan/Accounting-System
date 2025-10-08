@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[1331],{
 
-/***/ 68584:
+/***/ 90246:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -39,7 +39,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-a55117a2]{ga
 
 /***/ }),
 
-/***/ 84151:
+/***/ 75712:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -48,7 +48,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductForm)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=79af1b6a&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=3138ad6a&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -83,9 +83,12 @@ var render = function render() {
   }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n              ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-success",
     attrs: {
-      "type": "submit",
-      "form": _vm.formId,
+      "type": "button",
+      "disabled": _vm.form.busy,
       "title": "Save"
+    },
+    on: {
+      "click": _vm.submitForm
     }
   }, [_c('i', {
     staticClass: "fas fa-save"
@@ -122,7 +125,8 @@ var render = function render() {
   }, [_c('VButton', {
     attrs: {
       "loading": _vm.form.busy,
-      "type": "success"
+      "type": "success",
+      "native-type": "button"
     },
     on: {
       "click": function click($event) {
@@ -261,18 +265,13 @@ var toast = sweetalert2_all_default().mixin({
       return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 30326));
     },
     VButton: function VButton() {
-      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 60069));
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 63377));
     },
     Breadcrumbs: function Breadcrumbs() {
       return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 62171));
     },
-    HasError: function HasError() {
-      return __webpack_require__.e(/* import() */ 2569).then(__webpack_require__.bind(__webpack_require__, 72569)).then(function (m) {
-        return m.HasError;
-      });
-    },
     ProductFormTemplate: function ProductFormTemplate() {
-      return __webpack_require__.e(/* import() */ 9173).then(__webpack_require__.bind(__webpack_require__, 61554));
+      return __webpack_require__.e(/* import() */ 776).then(__webpack_require__.bind(__webpack_require__, 10776));
     }
   },
   props: {
@@ -411,22 +410,19 @@ var toast = sweetalert2_all_default().mixin({
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              console.log('Submit form called', {
-                hasProduct: !!_this2.product
-              });
               if (!_this2.product) {
-                _context2.next = 6;
+                _context2.next = 5;
                 break;
               }
-              _context2.next = 4;
+              _context2.next = 3;
               return _this2.updateProduct();
-            case 4:
-              _context2.next = 8;
+            case 3:
+              _context2.next = 7;
               break;
-            case 6:
-              _context2.next = 8;
+            case 5:
+              _context2.next = 7;
               return _this2.saveProduct();
-            case 8:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -702,56 +698,47 @@ var toast = sweetalert2_all_default().mixin({
         return _regeneratorRuntime().wrap(function _callee10$(_context10) {
           while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              console.log('Save product called', {
-                formData: _this11.form.data(),
-                isSalesAccountAutomatic: _this11.isSalesAccountAutomatic,
-                isPurchaseAccountAutomatic: _this11.isPurchaseAccountAutomatic,
-                salesAccountId: _this11.form.salesAccountId,
-                purchaseAccountId: _this11.form.purchaseAccountId,
-                overrideSalesAccount: _this11.form.overrideSalesAccount,
-                overridePurchaseAccount: _this11.form.overridePurchaseAccount
-              });
-
-              // Validate required fields based on item type
               if (!(_this11.form.itemType === 'service' && !_this11.form.servicePurchasePrice)) {
-                _context10.next = 4;
+                _context10.next = 3;
                 break;
               }
               toast.fire({
                 type: "error",
-                title: _this11.$t("Service Purchase Price is required for services")
+                title: "Service Purchase Price is required for services"
               });
               return _context10.abrupt("return");
-            case 4:
+            case 3:
               // Validate sales account - required if not automatic OR if override is checked
               needsSalesAccount = !_this11.isSalesAccountAutomatic || _this11.form.overrideSalesAccount;
               if (!(needsSalesAccount && !_this11.form.salesAccountId)) {
-                _context10.next = 9;
+                _context10.next = 7;
                 break;
               }
-              console.log('Sales account validation failed', {
-                needsSalesAccount: needsSalesAccount,
-                salesAccountId: _this11.form.salesAccountId
-              });
               toast.fire({
                 type: "error",
-                title: _this11.$t("Sales Account is required")
+                title: "Sales Account is required"
               });
               return _context10.abrupt("return");
-            case 9:
+            case 7:
               // Validate purchase account - required if not automatic OR if override is checked
               needsPurchaseAccount = !_this11.isPurchaseAccountAutomatic || _this11.form.overridePurchaseAccount;
               if (!(needsPurchaseAccount && !_this11.form.purchaseAccountId)) {
+                _context10.next = 11;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: "Purchase Account is required"
+              });
+              return _context10.abrupt("return");
+            case 11:
+              if (!_this11.form.errors.any()) {
                 _context10.next = 14;
                 break;
               }
-              console.log('Purchase account validation failed', {
-                needsPurchaseAccount: needsPurchaseAccount,
-                purchaseAccountId: _this11.form.purchaseAccountId
-              });
               toast.fire({
                 type: "error",
-                title: _this11.$t("Purchase Account is required")
+                title: "Please fix the form errors before submitting"
               });
               return _context10.abrupt("return");
             case 14:
@@ -815,7 +802,7 @@ var toast = sweetalert2_all_default().mixin({
               })["catch"](function (error) {
                 var _error$response;
                 console.error("Error creating product:", error);
-                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this11.$t("Please check your input and try again.");
+                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Please check your input and try again.";
                 toast.fire({
                   type: "error",
                   title: errorMessage
@@ -1108,9 +1095,9 @@ var toast = sweetalert2_all_default().mixin({
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=79af1b6a&prod&scoped=true&lang=css
-var ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css = __webpack_require__(68584);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=79af1b6a&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=3138ad6a&prod&scoped=true&lang=css
+var ProductFormvue_type_style_index_0_id_3138ad6a_prod_scoped_true_lang_css = __webpack_require__(90246);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=3138ad6a&prod&scoped=true&lang=css
 
             
 
@@ -1119,12 +1106,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_3138ad6a_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_79af1b6a_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=79af1b6a&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_3138ad6a_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_3138ad6a_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=3138ad6a&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -1143,7 +1130,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "79af1b6a",
+  "3138ad6a",
   null
   
 )
@@ -1179,7 +1166,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/ProductForm.vue + 5 modules
-var ProductForm = __webpack_require__(84151);
+var ProductForm = __webpack_require__(75712);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/create.vue?vue&type=script&lang=js
 
 /* harmony default export */ const createvue_type_script_lang_js = ({

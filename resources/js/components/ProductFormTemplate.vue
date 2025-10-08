@@ -1,5 +1,5 @@
 <template>
-  <form :id="formId" role="form" @submit.prevent="submitForm" @keydown="form.onKeydown($event)">
+  <form :id="formId" role="form" @keydown="form.onKeydown($event)">
     <!-- Item Type Selection Section -->
     <div class="form-card">
       <div class="card-header">

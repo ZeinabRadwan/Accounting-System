@@ -46336,14 +46336,11 @@ module.exports = function listToStyles (parentId, list) {
 /***/ }),
 
 /***/ 15677:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ Button)
-});
+// UNUSED EXPORTS: default
 
 ;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vform/src/components/bootstrap5/Button.vue?vue&type=template&id=70b03476
 var render = function render(){var _vm=this,_c=_vm._self._c;return _c('button',{attrs:{"type":"submit","disabled":_vm.form.busy,"aria-disabled":_vm.form.busy}},[(_vm.form.busy && _vm.spinner)?_c('span',{staticClass:"spinner-border spinner-border-sm",attrs:{"role":"status","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),_vm._t("default")],2)
@@ -46594,7 +46591,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 60069:
+/***/ 63377:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46606,7 +46603,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ Button)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Button.vue?vue&type=template&id=6cd90eaa
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Button.vue?vue&type=template&id=f49b6e94
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
@@ -46620,6 +46617,11 @@ var render = function render() {
     attrs: {
       "type": _vm.nativeType,
       "disabled": _vm.loading
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.$emit('click', $event);
+      }
     }
   }, [_vm._t("default")], 2);
 };
@@ -89573,8 +89575,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2838) return "js/2838.js";
 /******/ 			if (chunkId === 4755) return "js/4755.js";
 /******/ 			if (chunkId === 150) return "js/150.js";
-/******/ 			if (chunkId === 2569) return "js/2569.js";
-/******/ 			if (chunkId === 9173) return "js/9173.js";
+/******/ 			if (chunkId === 776) return "js/776.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
@@ -113901,7 +113902,7 @@ var Search_component = (0,componentNormalizer/* default */.A)(
 
 /* harmony default export */ const Search = (Search_component.exports);
 // EXTERNAL MODULE: ./resources/js/components/Button.vue + 3 modules
-var Button = __webpack_require__(60069);
+var Button = __webpack_require__(63377);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Checkbox.vue?vue&type=template&id=2847c223&scoped=true
 var Checkboxvue_type_template_id_2847c223_scoped_true_render = function render() {
   var _vm = this,
