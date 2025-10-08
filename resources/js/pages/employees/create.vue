@@ -415,28 +415,144 @@ export default {
 
       // Field label mapping for employee form fields
       const fieldLabelMap = {
-        employeeName: this.$t('Employee Name'),
-        department: this.$t('Department'),
-        designation: this.$t('Designation'),
-        employeeId: this.$t('Employee ID'),
-        mobileNumber: this.$t('Mobile Number'),
-        phone: this.$t('Phone'),
-        salary: this.$t('Salary'),
-        commission: this.$t('Commission'),
-        gender: this.$t('Gender'),
-        bloodGroup: this.$t('Blood Group'),
-        religion: this.$t('Religion'),
-        appointmentDate: this.$t('Appointment Date'),
-        joiningDate: this.$t('Join Date'),
-        address: this.$t('Address'),
-        status: this.$t('Status'),
-        image: this.$t('Profile Picture'),
-        email: this.$t('Email'),
-        password: this.$t('Password'),
-        role: this.$t('Role'),
-        note: this.$t('Note'),
+        // Handle field names that might come from backend with spaces or different formats
+        'employee name': this.$t('Employee Name'),
+        'employee_name': this.$t('Employee Name'),
+        'employeeName': this.$t('Employee Name'),
+        'department': this.$t('Department'),
+        'designation': this.$t('Designation'),
+        'mobile number': this.$t('Mobile Number'),
+        'mobile_number': this.$t('Mobile Number'),
+        'mobileNumber': this.$t('Mobile Number'),
+        'phone number': this.$t('Phone'),
+        'phone_number': this.$t('Phone'),
+        'phone': this.$t('Phone'),
+        'salary': this.$t('Salary'),
+        'commission': this.$t('Commission'),
+        'gender': this.$t('Gender'),
+        'blood group': this.$t('Blood Group'),
+        'blood_group': this.$t('Blood Group'),
+        'bloodGroup': this.$t('Blood Group'),
+        'religion': this.$t('Religion'),
+        'birth date': this.$t('Birth Date'),
+        'birth_date': this.$t('Birth Date'),
+        'birthDate': this.$t('Birth Date'),
+        'appointment date': this.$t('Appointment Date'),
+        'appointment_date': this.$t('Appointment Date'),
+        'appointmentDate': this.$t('Appointment Date'),
+        'joining date': this.$t('Join Date'),
+        'joining_date': this.$t('Join Date'),
+        'joiningDate': this.$t('Join Date'),
+        'address': this.$t('Address'),
+        'status': this.$t('Status'),
+        'profile picture': this.$t('Profile Picture'),
+        'profile_picture': this.$t('Profile Picture'),
+        'image': this.$t('Profile Picture'),
+        'email': this.$t('Email'),
+        'password': this.$t('Password'),
+        'role': this.$t('Role'),
+        'note': this.$t('Note'),
       }
       const fieldLabel = fieldLabelMap[field] || field
+
+      // Handle mixed language messages from backend (Arabic + English)
+      // Pattern: "حقل [field] مطلوب" -> "Field is required"
+      const mixedLanguagePatterns = [
+        // Arabic "حقل" + English field + Arabic "مطلوب"
+        { 
+          re: /حقل\s+([^م]+?)\s+مطلوب/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || cleanFieldName
+            return `${fieldTranslation} is required`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || cleanFieldName
+            return `${fieldTranslation} مطلوب`
+          }
+        },
+        // Arabic "يرجى اختيار" + English field
+        { 
+          re: /يرجى\s+اختيار\s+([^.]+)/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || cleanFieldName
+            return `Please select ${fieldTranslation}`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || cleanFieldName
+            return `يرجى اختيار ${fieldTranslation}`
+          }
+        },
+        // Arabic "يرجى إدخال" + English field
+        { 
+          re: /يرجى\s+إدخال\s+([^.]+)/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || cleanFieldName
+            return `Please enter ${fieldTranslation}`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || cleanFieldName
+            return `يرجى إدخال ${fieldTranslation}`
+          }
+        }
+      ]
+
+      // Check mixed language patterns first
+      for (const { re, en, ar } of mixedLanguagePatterns) {
+        const match = message.match(re)
+        if (match) {
+          const text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en)(...match) : (isArabic ? ar : en)
+          return text
+        }
+      }
+
+      // Additional pattern for "حقل employee name مطلوب" format
+      if (message.includes('حقل') && message.includes('مطلوب')) {
+        const fieldMatch = message.match(/حقل\s+([^م]+?)\s+مطلوب/i)
+        if (fieldMatch) {
+          const fieldName = fieldMatch[1].trim()
+          // Try different field name formats
+          let fieldTranslation = fieldLabelMap[fieldName] || 
+                                fieldLabelMap[fieldName.toLowerCase()] || 
+                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+                                fieldName
+          return isArabic ? `${fieldTranslation} مطلوب` : `${fieldTranslation} is required`
+        }
+      }
+
+      // Handle "يرجى اختيار" patterns
+      if (message.includes('يرجى اختيار')) {
+        const fieldMatch = message.match(/يرجى\s+اختيار\s+([^.]+)/i)
+        if (fieldMatch) {
+          const fieldName = fieldMatch[1].trim()
+          let fieldTranslation = fieldLabelMap[fieldName] || 
+                                fieldLabelMap[fieldName.toLowerCase()] || 
+                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+                                fieldName
+          return isArabic ? `يرجى اختيار ${fieldTranslation}` : `Please select ${fieldTranslation}`
+        }
+      }
+
+      // Handle "يرجى إدخال" patterns
+      if (message.includes('يرجى إدخال')) {
+        const fieldMatch = message.match(/يرجى\s+إدخال\s+([^.]+)/i)
+        if (fieldMatch) {
+          const fieldName = fieldMatch[1].trim()
+          let fieldTranslation = fieldLabelMap[fieldName] || 
+                                fieldLabelMap[fieldName.toLowerCase()] || 
+                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+                                fieldName
+          return isArabic ? `يرجى إدخال ${fieldTranslation}` : `Please enter ${fieldTranslation}`
+        }
+      }
 
       // Common Laravel validation patterns with localized messages
       const patterns = [

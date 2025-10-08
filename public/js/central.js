@@ -115763,12 +115763,12 @@ var map = {
 		812
 	],
 	"./employees/create": [
-		11349,
-		1349
+		61587,
+		1587
 	],
 	"./employees/create.vue": [
-		11349,
-		1349
+		61587,
+		1587
 	],
 	"./employees/departments": [
 		817,
@@ -117762,7 +117762,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 7936) return "js/7936.js";
 /******/ 			if (chunkId === 2758) return "js/2758.js";
 /******/ 			if (chunkId === 812) return "js/812.js";
-/******/ 			if (chunkId === 1349) return "js/1349.js";
+/******/ 			if (chunkId === 1587) return "js/1587.js";
 /******/ 			if (chunkId === 817) return "js/817.js";
 /******/ 			if (chunkId === 9808) return "js/9808.js";
 /******/ 			if (chunkId === 4300) return "js/4300.js";
