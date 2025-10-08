@@ -22548,7 +22548,7 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./resources/js/plugins/i18n.js + 1 modules
 var i18n = __webpack_require__(37225);
 // EXTERNAL MODULE: ./resources/js/components/Button.vue + 3 modules
-var Button = __webpack_require__(60069);
+var Button = __webpack_require__(63377);
 // EXTERNAL MODULE: ./node_modules/vue2-daterange-picker/dist/vue2-daterange-picker.umd.min.js
 var vue2_daterange_picker_umd_min = __webpack_require__(32464);
 var vue2_daterange_picker_umd_min_default = /*#__PURE__*/__webpack_require__.n(vue2_daterange_picker_umd_min);
