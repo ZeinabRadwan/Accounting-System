@@ -267,7 +267,7 @@ var toast = sweetalert2_all_default().mixin({
   name: "ProductForm",
   components: {
     VModal: function VModal() {
-      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 30326));
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 83458));
     },
     VButton: function VButton() {
       return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 63377));

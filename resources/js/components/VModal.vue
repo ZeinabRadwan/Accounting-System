@@ -5,7 +5,6 @@
   v-bind="$attrs"
   classes="z-50 custom-modal-dialog"
   content-class="modal-content"
-  overlay-class="custom-modal-overlay"
     v-on="$listeners">
     <span class="modal-header">
       <slot name="title"></slot>
@@ -38,21 +37,24 @@ export default {
   max-width: 1000px;
   margin: 1.75rem auto;
   width: 100%;
-  z-index: 10000 !important; /* above overlay */
 }
 
 .custom-modal-dialog {
-  overflow: auto;
-  z-index: 10000 !important; /* ensure modal container above everything */
-}
-
-.custom-modal-overlay {
-  z-index: 9990 !important; /* above sidebar, below content */
+  overflow: auto
 }
 
 .modal-body {
   max-height: 75vh;
   overflow: auto;
+}
+
+/* Ensure the modal overlay and container render above the fixed sidebar (z-index: 1000) */
+.vfm__overlay {
+  z-index: 2000 !important;
+}
+
+.vfm__container {
+  z-index: 2001 !important;
 }
 
 /* Responsive modal sizing */
@@ -87,3 +89,5 @@ export default {
   }
 }
 </style>
+
+
