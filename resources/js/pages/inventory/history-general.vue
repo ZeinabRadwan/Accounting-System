@@ -28,29 +28,26 @@
                   <option value="default" selected>
                     {{ $t("Filter") }}
                   </option>
-                  <option value="with_products">
-                    {{ $t("With Products") }}
+                  <option value="purchase">
+                    {{ $t("Purchase") }}
                   </option>
-                  <option value="with_data">
-                    {{ $t("With Data") }}
+                  <option value="invoice">
+                    {{ $t("Invoice") }}
                   </option>
-                  <option value="low_to_high_stock">
-                    {{ $t("Filter By Low To High Stock") }}
+                  <option value="adjustment">
+                    {{ $t("Adjustment") }}
                   </option>
-                  <option value="high_to_low_stock">
-                    {{ $t("Filter By High To Low Stock") }}
+                  <option value="purchase_return">
+                    {{ $t("Purchase Return") }}
                   </option>
-                  <option value="non_zero_stock">
-                    {{ $t("Filter Non Zero Stock") }}
+                  <option value="invoice_return">
+                    {{ $t("Invoice Return") }}
                   </option>
-                  <option value="zero_stock">
-                    {{ $t("Filter Zero Stock") }}
+                  <option value="stock_in">
+                    {{ $t("Stock In") }}
                   </option>
-                  <option value="active">
-                    {{ $t("Filter By Active Status") }}
-                  </option>
-                  <option value="inactive">
-                    {{ $t("Filter By Inactive Status") }}
+                  <option value="stock_out">
+                    {{ $t("Stock Out") }}
                   </option>
                 </select>
               </div>
@@ -84,7 +81,7 @@
                     </svg>
                   </a>
                   <a
-                    href="/inventory-count/pdf"
+                    href="/inventory-history/pdf"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -114,14 +111,15 @@
             </div>
             <table-loading v-show="loading" />
             <div class="table-responsive table-custom mt-3" id="printMe">
-              <table class="table inventory-count-table">
+              <table class="table inventory-history-table">
                 <thead>
                   <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Code") }}</th>
-                  <th>{{ $t("Name") }}</th>
-                  <th>{{ $t("Current Stock") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th>{{ $t("Actions") }}</th>
+                  <th>{{ $t("Operation Date") }}</th>
+                  <th>{{ $t("Product") }}</th>
+                  <th>{{ $t("Operation Type") }}</th>
+                  <th>{{ $t("Price") }}</th>
+                  <th>{{ $t("Quantity") }}</th>
+                  <th>{{ $t("Notes") }}</th>
                 </thead>
                 <tbody>
                   <tr v-show="items.length" v-for="(data, i) in items" :key="i">
@@ -134,47 +132,29 @@
                       </span>
                       <span v-else>{{ i + 1 }}</span>
                     </td>
-                    <td>{{ data.code | withPrefix(prefix) }}</td>
+                    <td>{{ data.operation_date | moment('Do MMM, YYYY') }}</td>
                     <td>
-                      <router-link :to="{
-                        name: 'products.show',
-                        params: { slug: data.slug },
-                      }">
-                        {{ data.name }}
-                      </router-link>
+                      <div>
+                        <strong>{{ data.product_name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ data.product_code | withPrefix(prefix) }}</small>
+                      </div>
                     </td>
                     <td>
-                      <span v-if="data.availableQty < data.alertQty" v-tooltip="$t('Stock is less than alert qty!')"
-                        class="badge badge-danger p-2">
-                        <i class="fas fa-exclamation"></i>
-                      </span>
-                      <span v-if="data.itemUnit">
-                        {{ data.availableQty }} {{ data.itemUnit.code }}
-                      </span>
-                      <span v-else>
-                        {{ data.availableQty }}
+                      <span :class="getOperationTypeClass(data.operation_type)" class="badge">
+                        {{ data.operation_type }}
                       </span>
                     </td>
+                    <td>{{ data.price | formatMoney(currency) }}</td>
                     <td>
-                      <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
-                      }}</span>
+                      <span :class="data.quantity_change > 0 ? 'text-success' : 'text-danger'">
+                        {{ data.quantity_change > 0 ? '+' : '' }}{{ data.quantity_change }}
+                      </span>
                     </td>
-                    <td>
-                      <router-link target="_blank"
-                        :to="{ name: 'adjustments.create', query: { product_id: data.id } }"
-                        class="btn btn-sm btn-primary"
-                        v-tooltip="$t('Create Adjustment')"
-                      >
-                        <i class="fas fa-edit"></i>
-                      </router-link>
-                    </td>
+                    <td>{{ data.notes || '-' }}</td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="6">
+                    <td colspan="7">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -214,10 +194,10 @@ import Swal from "sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Inventory Count") };
+    return { title: this.$t("Inventory History") };
   },
   data: () => ({
-    breadcrumbsCurrent: "Inventory Count",
+    breadcrumbsCurrent: "Inventory History",
     breadcrumbs: [
       {
         name: "Dashboard",
@@ -228,7 +208,7 @@ export default {
         url: "inventory.index",
       },
       {
-        name: "Inventory Count",
+        name: "Inventory History",
         url: "",
       },
     ],
@@ -237,13 +217,14 @@ export default {
     showModal: false,
     perPage: 10,
     prefix: "",
+    currency: "",
   }),
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
       // Create a dynamic export URL with query parameters
-      return `/inventory-count/excel?term=${this.query}`;
+      return `/inventory-history/excel?term=${this.query}&filterType=${this.filterType}`;
     },
   },
   watch: {
@@ -267,6 +248,7 @@ export default {
   created() {
     this.getData();
     this.prefix = this.appInfo.productPrefix;
+    this.currency = this.appInfo.currency;
   },
   methods: {
     // update per page count
@@ -279,7 +261,7 @@ export default {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
       await this.$store.dispatch("operations/fetchData", {
-        path: "/api/inventory-count?page=",
+        path: "/api/inventory-history?page=",
         currentPage: currentPage + "&perPage=" + this.perPage,
       });
     },
@@ -299,7 +281,7 @@ export default {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
       await this.$store.dispatch("operations/searchDataWithFilterType", {
-        path: "/api/inventory-count/search",
+        path: "/api/inventory-history/search",
         term: this.query,
         currentPage: currentPage + "&perPage=" + this.perPage,
         filterType: this.filterType,
@@ -322,6 +304,20 @@ export default {
       this.filterType = "default";
       this.query === "" ? this.getData() : this.searchData();
     },
+
+    // Get operation type badge class
+    getOperationTypeClass(type) {
+      const typeClasses = {
+        'Purchase': 'bg-success',
+        'Invoice': 'bg-primary',
+        'Adjustment': 'bg-warning',
+        'Purchase Return': 'bg-danger',
+        'Invoice Return': 'bg-info',
+        'Stock In': 'bg-success',
+        'Stock Out': 'bg-danger'
+      };
+      return typeClasses[type] || 'bg-secondary';
+    },
   },
 };
 </script>
@@ -331,12 +327,12 @@ export default {
   border: none !important;
 }
 
-.inventory-count-table {
+.inventory-history-table {
   border-collapse: separate;
   border-spacing: 0;
 }
 
-.inventory-count-table thead th {
+.inventory-history-table thead th {
   background-color: #33a0d9;
   color: #ffffff;
   padding: 8px;
@@ -345,25 +341,25 @@ export default {
   font-weight: 400;
 }
 
-.inventory-count-table thead tr {
+.inventory-history-table thead tr {
   border: none !important;
 }
 
-.inventory-count-table thead th:first-child {
+.inventory-history-table thead th:first-child {
   border-top-left-radius: 10px;
 }
 
-.inventory-count-table thead th:last-child {
+.inventory-history-table thead th:last-child {
   border-top-right-radius: 10px;
 }
 
 /* RTL styles for Arabic language */
-[dir="rtl"] .inventory-count-table thead th:first-child {
+[dir="rtl"] .inventory-history-table thead th:first-child {
   border-top-left-radius: 0;
   border-top-right-radius: 10px;
 }
 
-[dir="rtl"] .inventory-count-table thead th:last-child {
+[dir="rtl"] .inventory-history-table thead th:last-child {
   border-top-right-radius: 0;
   border-top-left-radius: 10px;
 }
@@ -423,30 +419,41 @@ export default {
   border-radius: 0 0 20px 20px;
 }
 
-/* Custom Status Badge Styling */
-.inventory-count-table .badge.bg-success {
-  background: #F6FEF4 !important;
-  color: #2AB930 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 10px 16px;
-}
-
-.inventory-count-table .badge.bg-danger {
-  background: #FEF4F4 !important;
-  color: #DC3545 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 10px 16px;
-}
-
-/* Alert badge styling */
-.inventory-count-table .badge.badge-danger {
-  background: #FEF4F4 !important;
-  color: #DC3545 !important;
+/* Custom Badge Styling */
+.inventory-history-table .badge {
   font-size: 12px !important;
   font-weight: 500 !important;
   padding: 8px 12px;
+}
+
+.inventory-history-table .badge.bg-success {
+  background: #F6FEF4 !important;
+  color: #2AB930 !important;
+}
+
+.inventory-history-table .badge.bg-primary {
+  background: #E3F2FD !important;
+  color: #1976D2 !important;
+}
+
+.inventory-history-table .badge.bg-warning {
+  background: #FFF8E1 !important;
+  color: #F57C00 !important;
+}
+
+.inventory-history-table .badge.bg-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+}
+
+.inventory-history-table .badge.bg-info {
+  background: #E0F2F1 !important;
+  color: #00695C !important;
+}
+
+.inventory-history-table .badge.bg-secondary {
+  background: #F5F5F5 !important;
+  color: #6C757D !important;
 }
 
 /* Search Input Background Override */
@@ -457,6 +464,17 @@ export default {
 /* Space between action buttons */
 .btn-group.c-w-100 {
   gap: 10px;
+}
+
+/* Quantity change styling */
+.text-success {
+  color: #2AB930 !important;
+  font-weight: 600;
+}
+
+.text-danger {
+  color: #DC3545 !important;
+  font-weight: 600;
 }
 </style>
 
@@ -477,3 +495,4 @@ export default {
     align-items: center;
 }
 </style>
+

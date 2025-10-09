@@ -19,7 +19,7 @@ class InventoryController extends Controller
     public function __construct()
     {
         $this->middleware('can:inventory-view', ['only' => ['allInventory', 'inventoryCount', 'searchInventoryCount']]);
-        $this->middleware('can:inventory-history', ['only' => ['inventoryHistoryByItem']]);
+        $this->middleware('can:inventory-history', ['only' => ['inventoryHistoryByItem', 'inventoryHistory', 'searchInventoryHistory']]);
     }
 
     // return product inventory
@@ -265,5 +265,312 @@ class InventoryController extends Controller
             $query->with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
                 ->paginate($request->perPage)
         );
+    }
+
+    // return general inventory history
+    public function inventoryHistory(Request $request)
+    {
+        try {
+            $perPage = $request->perPage ?? 10;
+            $history = collect();
+
+            // Get all purchase products
+            $purchaseProducts = PurchaseProduct::with(['purchase.supplier', 'product'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            foreach ($purchaseProducts as $item) {
+                $history->push([
+                    'id' => 'purchase_' . $item->id,
+                    'operation_date' => $item->purchase->purchase_date,
+                    'product_name' => $item->product->name,
+                    'product_code' => $item->product->code,
+                    'product_slug' => $item->product->slug,
+                    'operation_type' => 'Purchase',
+                    'price' => $item->purchase_price,
+                    'quantity_change' => $item->quantity,
+                    'notes' => 'Purchase from ' . $item->purchase->supplier->name,
+                    'reference_code' => config('config.purchasePrefix') . '-' . $item->purchase->purchase_no,
+                ]);
+            }
+
+            // Get all invoice products
+            $invoiceProducts = InvoiceProduct::with(['invoice.client', 'product'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            foreach ($invoiceProducts as $item) {
+                $history->push([
+                    'id' => 'invoice_' . $item->id,
+                    'operation_date' => $item->invoice->invoice_date,
+                    'product_name' => $item->product->name,
+                    'product_code' => $item->product->code,
+                    'product_slug' => $item->product->slug,
+                    'operation_type' => 'Invoice',
+                    'price' => $item->sale_price,
+                    'quantity_change' => -$item->quantity, // Negative for stock out
+                    'notes' => 'Sale to ' . $item->invoice->client->name,
+                    'reference_code' => config('config.invoicePrefix') . '-' . $item->invoice->invoice_no,
+                ]);
+            }
+
+            // Get all adjustment products
+            $adjustmentProducts = AdjustmentProduct::with(['inventoryAdjustment', 'product'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            foreach ($adjustmentProducts as $item) {
+                $quantityChange = $item->type == 1 ? $item->quantity : -$item->quantity;
+                $operationType = $item->type == 1 ? 'Stock In' : 'Stock Out';
+                
+                $history->push([
+                    'id' => 'adjustment_' . $item->id,
+                    'operation_date' => $item->inventoryAdjustment->date,
+                    'product_name' => $item->product->name,
+                    'product_code' => $item->product->code,
+                    'product_slug' => $item->product->slug,
+                    'operation_type' => $operationType,
+                    'price' => $item->purchase_price,
+                    'quantity_change' => $quantityChange,
+                    'notes' => $item->inventoryAdjustment->reason,
+                    'reference_code' => config('config.adjustmentPrefix') . '-' . $item->inventoryAdjustment->code,
+                ]);
+            }
+
+            // Get all invoice return products
+            $invoiceReturnProducts = InvoiceReturnProduct::with(['invoiceReturn.invoice.client', 'product'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            foreach ($invoiceReturnProducts as $item) {
+                $history->push([
+                    'id' => 'invoice_return_' . $item->id,
+                    'operation_date' => $item->invoiceReturn->date,
+                    'product_name' => $item->product->name,
+                    'product_code' => $item->product->code,
+                    'product_slug' => $item->product->slug,
+                    'operation_type' => 'Invoice Return',
+                    'price' => $item->product->purchase_price,
+                    'quantity_change' => $item->quantity,
+                    'notes' => 'Return from ' . $item->invoiceReturn->invoice->client->name,
+                    'reference_code' => config('config.invoiceReturnPrefix') . '-' . $item->invoiceReturn->return_no,
+                ]);
+            }
+
+            // Get all purchase return products
+            $purchaseReturnProducts = PurchaseReturnProduct::with(['purchaseReturn.purchase.supplier', 'product'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            foreach ($purchaseReturnProducts as $item) {
+                $history->push([
+                    'id' => 'purchase_return_' . $item->id,
+                    'operation_date' => $item->purchaseReturn->date,
+                    'product_name' => $item->product->name,
+                    'product_code' => $item->product->code,
+                    'product_slug' => $item->product->slug,
+                    'operation_type' => 'Purchase Return',
+                    'price' => $item->purchase_price,
+                    'quantity_change' => -$item->quantity, // Negative for stock out
+                    'notes' => 'Return to ' . $item->purchaseReturn->purchase->supplier->name,
+                    'reference_code' => config('config.purchaseReturnPrefix') . '-' . $item->purchaseReturn->code,
+                ]);
+            }
+
+            // Sort by operation date descending
+            $history = $history->sortByDesc('operation_date');
+
+            // Paginate the results
+            $total = $history->count();
+            $currentPage = $request->page ?? 1;
+            $offset = ($currentPage - 1) * $perPage;
+            $items = $history->slice($offset, $perPage)->values();
+
+            return response()->json([
+                'data' => $items,
+                'current_page' => $currentPage,
+                'per_page' => $perPage,
+                'total' => $total,
+                'last_page' => ceil($total / $perPage),
+                'from' => $offset + 1,
+                'to' => min($offset + $perPage, $total),
+            ]);
+
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    // search inventory history
+    public function searchInventoryHistory(Request $request)
+    {
+        try {
+            $perPage = $request->perPage ?? 10;
+            $term = $request->term ?? '';
+            $filterType = $request->filterType ?? 'default';
+            $history = collect();
+
+            // Get all purchase products
+            $purchaseQuery = PurchaseProduct::with(['purchase.supplier', 'product']);
+            if (!empty($term)) {
+                $purchaseQuery->whereHas('product', function($q) use ($term) {
+                    $q->where('name', 'LIKE', '%' . $term . '%')
+                      ->orWhere('code', 'LIKE', '%' . $term . '%');
+                });
+            }
+            $purchaseProducts = $purchaseQuery->orderBy('created_at', 'desc')->get();
+
+            foreach ($purchaseProducts as $item) {
+                if ($filterType === 'default' || $filterType === 'purchase' || $filterType === 'stock_in') {
+                    $history->push([
+                        'id' => 'purchase_' . $item->id,
+                        'operation_date' => $item->purchase->purchase_date,
+                        'product_name' => $item->product->name,
+                        'product_code' => $item->product->code,
+                        'product_slug' => $item->product->slug,
+                        'operation_type' => 'Purchase',
+                        'price' => $item->purchase_price,
+                        'quantity_change' => $item->quantity,
+                        'notes' => 'Purchase from ' . $item->purchase->supplier->name,
+                        'reference_code' => config('config.purchasePrefix') . '-' . $item->purchase->purchase_no,
+                    ]);
+                }
+            }
+
+            // Get all invoice products
+            $invoiceQuery = InvoiceProduct::with(['invoice.client', 'product']);
+            if (!empty($term)) {
+                $invoiceQuery->whereHas('product', function($q) use ($term) {
+                    $q->where('name', 'LIKE', '%' . $term . '%')
+                      ->orWhere('code', 'LIKE', '%' . $term . '%');
+                });
+            }
+            $invoiceProducts = $invoiceQuery->orderBy('created_at', 'desc')->get();
+
+            foreach ($invoiceProducts as $item) {
+                if ($filterType === 'default' || $filterType === 'invoice' || $filterType === 'stock_out') {
+                    $history->push([
+                        'id' => 'invoice_' . $item->id,
+                        'operation_date' => $item->invoice->invoice_date,
+                        'product_name' => $item->product->name,
+                        'product_code' => $item->product->code,
+                        'product_slug' => $item->product->slug,
+                        'operation_type' => 'Invoice',
+                        'price' => $item->sale_price,
+                        'quantity_change' => -$item->quantity,
+                        'notes' => 'Sale to ' . $item->invoice->client->name,
+                        'reference_code' => config('config.invoicePrefix') . '-' . $item->invoice->invoice_no,
+                    ]);
+                }
+            }
+
+            // Get all adjustment products
+            $adjustmentQuery = AdjustmentProduct::with(['inventoryAdjustment', 'product']);
+            if (!empty($term)) {
+                $adjustmentQuery->whereHas('product', function($q) use ($term) {
+                    $q->where('name', 'LIKE', '%' . $term . '%')
+                      ->orWhere('code', 'LIKE', '%' . $term . '%');
+                });
+            }
+            $adjustmentProducts = $adjustmentQuery->orderBy('created_at', 'desc')->get();
+
+            foreach ($adjustmentProducts as $item) {
+                if ($filterType === 'default' || $filterType === 'adjustment' || 
+                    ($filterType === 'stock_in' && $item->type == 1) || 
+                    ($filterType === 'stock_out' && $item->type == 0)) {
+                    $quantityChange = $item->type == 1 ? $item->quantity : -$item->quantity;
+                    $operationType = $item->type == 1 ? 'Stock In' : 'Stock Out';
+                    
+                    $history->push([
+                        'id' => 'adjustment_' . $item->id,
+                        'operation_date' => $item->inventoryAdjustment->date,
+                        'product_name' => $item->product->name,
+                        'product_code' => $item->product->code,
+                        'product_slug' => $item->product->slug,
+                        'operation_type' => $operationType,
+                        'price' => $item->purchase_price,
+                        'quantity_change' => $quantityChange,
+                        'notes' => $item->inventoryAdjustment->reason,
+                        'reference_code' => config('config.adjustmentPrefix') . '-' . $item->inventoryAdjustment->code,
+                    ]);
+                }
+            }
+
+            // Get all invoice return products
+            $invoiceReturnQuery = InvoiceReturnProduct::with(['invoiceReturn.invoice.client', 'product']);
+            if (!empty($term)) {
+                $invoiceReturnQuery->whereHas('product', function($q) use ($term) {
+                    $q->where('name', 'LIKE', '%' . $term . '%')
+                      ->orWhere('code', 'LIKE', '%' . $term . '%');
+                });
+            }
+            $invoiceReturnProducts = $invoiceReturnQuery->orderBy('created_at', 'desc')->get();
+
+            foreach ($invoiceReturnProducts as $item) {
+                if ($filterType === 'default' || $filterType === 'invoice_return' || $filterType === 'stock_in') {
+                    $history->push([
+                        'id' => 'invoice_return_' . $item->id,
+                        'operation_date' => $item->invoiceReturn->date,
+                        'product_name' => $item->product->name,
+                        'product_code' => $item->product->code,
+                        'product_slug' => $item->product->slug,
+                        'operation_type' => 'Invoice Return',
+                        'price' => $item->product->purchase_price,
+                        'quantity_change' => $item->quantity,
+                        'notes' => 'Return from ' . $item->invoiceReturn->invoice->client->name,
+                        'reference_code' => config('config.invoiceReturnPrefix') . '-' . $item->invoiceReturn->return_no,
+                    ]);
+                }
+            }
+
+            // Get all purchase return products
+            $purchaseReturnQuery = PurchaseReturnProduct::with(['purchaseReturn.purchase.supplier', 'product']);
+            if (!empty($term)) {
+                $purchaseReturnQuery->whereHas('product', function($q) use ($term) {
+                    $q->where('name', 'LIKE', '%' . $term . '%')
+                      ->orWhere('code', 'LIKE', '%' . $term . '%');
+                });
+            }
+            $purchaseReturnProducts = $purchaseReturnQuery->orderBy('created_at', 'desc')->get();
+
+            foreach ($purchaseReturnProducts as $item) {
+                if ($filterType === 'default' || $filterType === 'purchase_return' || $filterType === 'stock_out') {
+                    $history->push([
+                        'id' => 'purchase_return_' . $item->id,
+                        'operation_date' => $item->purchaseReturn->date,
+                        'product_name' => $item->product->name,
+                        'product_code' => $item->product->code,
+                        'product_slug' => $item->product->slug,
+                        'operation_type' => 'Purchase Return',
+                        'price' => $item->purchase_price,
+                        'quantity_change' => -$item->quantity,
+                        'notes' => 'Return to ' . $item->purchaseReturn->purchase->supplier->name,
+                        'reference_code' => config('config.purchaseReturnPrefix') . '-' . $item->purchaseReturn->code,
+                    ]);
+                }
+            }
+
+            // Sort by operation date descending
+            $history = $history->sortByDesc('operation_date');
+
+            // Paginate the results
+            $total = $history->count();
+            $currentPage = $request->page ?? 1;
+            $offset = ($currentPage - 1) * $perPage;
+            $items = $history->slice($offset, $perPage)->values();
+
+            return response()->json([
+                'data' => $items,
+                'current_page' => $currentPage,
+                'per_page' => $perPage,
+                'total' => $total,
+                'last_page' => ceil($total / $perPage),
+                'from' => $offset + 1,
+                'to' => min($offset + $perPage, $total),
+            ]);
+
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
     }
 }

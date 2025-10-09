@@ -1089,8 +1089,10 @@
   "Edit adjustment": "تعديل التعديل",
   "Adjustment updated successfully": "تم تحديث التعديل بنجاح",
   "Adjustment Details": "تفاصيل التعديل",
-  "Inventory History": "سجل المخزون",
+  "Inventory History": "سجل الجرد",
   "History": "السجل",
+  "Operation Date": "تاريخ العملية",
+  "Operation Type": "نوع العملية",
   "Products": "الأصناف",
   "Adjustment No": "رقم التعديل",
   "Adjustment Date": "تاريخ التعديل",
@@ -3893,5 +3895,6 @@
   "No Products Selected" : "لم يتم اختيار أي صنف",
   "Credit Note created successfully" : "تم إنشاء الاشعار الدائن بنجاح",
   "Please fill in all required fields correctly." : "يرجى تعبئة جميع الحقول المطلوبة بشكل صحيح.",
+  "Inventory Count" : " جرد المخزون ",
   "Manage Translations": "إدارة الترجمات"
 }

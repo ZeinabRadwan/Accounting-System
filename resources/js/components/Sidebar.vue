@@ -1182,6 +1182,12 @@
                   <p>{{ $t("View Inventory") }}</p>
                 </router-link>
               </li>
+              <li v-if="$can('inventory-history')" class="nav-item">
+                <router-link :to="{ name: 'inventory.history-general' }" class="nav-link">
+                  <i class="fas fa-history nav-icon" />
+                  <p>{{ $t("Inventory History") }}</p>
+                </router-link>
+              </li>
               <li v-if="$can('inventory-view')" class="nav-item">
                 <router-link :to="{ name: 'inventory.count' }" class="nav-link">
                   <i class="fas fa-clipboard-check nav-icon" />

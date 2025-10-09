@@ -1115,6 +1115,12 @@ export default [
     meta: {permissions: ['inventory-history']},
   },
   {
+    path: '/inventory-history',
+    name: 'inventory.history-general',
+    component: page('inventory/history-general.vue'),
+    meta: {permissions: ['inventory-history']},
+  },
+  {
     path: '/inventory-count',
     name: 'inventory.count',
     component: page('inventory/count.vue'),

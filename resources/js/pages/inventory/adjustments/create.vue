@@ -204,16 +204,32 @@ export default {
     }),
     products: "",
     prefix: "",
+    productPreSelected: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+  },
+  watch: {
+    // Watch for products to be loaded and handle pre-selection
+    products: {
+      handler(newProducts) {
+        if (newProducts && newProducts.length > 0) {
+          // Use nextTick to ensure the DOM is updated
+          this.$nextTick(() => {
+            this.handleProductPreSelection();
+          });
+        }
+      },
+      immediate: true
+    }
   },
   created() {
     this.getProducts();
     this.prefix = this.appInfo.productPrefix;
   },
   mounted() {
-    this.loadTemporaryData()
+    this.loadTemporaryData();
+    this.handleProductPreSelection();
   },
   methods: {
     // get products
@@ -331,6 +347,45 @@ export default {
     // clear temporary data
     clearTemporaryData() {
       localStorage.removeItem('inventoryAdjustmentTempData')
+    },
+    
+    // handle product pre-selection from query parameter
+    handleProductPreSelection() {
+      // Prevent multiple calls
+      if (this.productPreSelected) {
+        return;
+      }
+      
+      const productId = this.$route.query.product_id;
+      console.log('Product ID from query:', productId);
+      console.log('Products available:', this.products);
+      
+      if (productId && this.products && this.products.length > 0) {
+        // Find the product by ID
+        const product = this.products.find(p => p.id == productId || p.id == parseInt(productId));
+        console.log('Found product:', product);
+        
+        if (product) {
+          // Check if product is already selected
+          const existingIndex = this.form.selectedProducts.findIndex(
+            (x) => x.id == product.id
+          );
+          
+          if (existingIndex === -1) {
+            // Pre-select the product
+            this.storeProduct(product);
+            this.productPreSelected = true;
+            console.log('Product pre-selected successfully');
+          } else {
+            this.productPreSelected = true;
+            console.log('Product already selected');
+          }
+        } else {
+          console.log('Product not found with ID:', productId);
+        }
+      } else {
+        console.log('Missing productId or products not loaded yet');
+      }
     },
   },
 };
