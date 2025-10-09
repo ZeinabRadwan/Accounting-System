@@ -87548,12 +87548,12 @@ var map = {
 		812
 	],
 	"./employees/show": [
-		46877,
-		6877
+		91152,
+		1152
 	],
 	"./employees/show.vue": [
-		46877,
-		6877
+		91152,
+		1152
 	],
 	"./errors/404": [
 		1321,
@@ -89436,7 +89436,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 9590) return "js/9590.js";
 /******/ 			if (chunkId === 4857) return "js/4857.js";
 /******/ 			if (chunkId === 4643) return "js/4643.js";
-/******/ 			if (chunkId === 6877) return "js/6877.js";
+/******/ 			if (chunkId === 1152) return "js/1152.js";
 /******/ 			if (chunkId === 1321) return "js/1321.js";
 /******/ 			if (chunkId === 3611) return "js/3611.js";
 /******/ 			if (chunkId === 4606) return "js/4606.js";

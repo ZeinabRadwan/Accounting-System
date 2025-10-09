@@ -944,9 +944,9 @@ export default {
         window.location.origin +
           "/api/employee-increments/" +
           this.$route.params.slug +
-          "/search/" +
+          "/search?term=" +
           this.salIncreQuery +
-          "?page=" +
+          "&page=" +
           currentPage +
           "&perPage=" +
           this.perPage
