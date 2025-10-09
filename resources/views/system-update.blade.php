@@ -301,7 +301,41 @@
         });
 
         buildOnlyBtn?.addEventListener('click', function(){
-            executeAction("{{ route('system.update.build.only') }}", 'Building', true);
+            // Clear previous results
+            buildResults.textContent = 'Starting build...\n';
+            setPushMsg('Building...', true);
+            
+            // Use EventSource for real-time streaming
+            const eventSource = new EventSource("{{ route('system.update.build.stream') }}?key=" + encodeURIComponent(providedKey));
+            
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                
+                if (data.type === 'start') {
+                    buildResults.textContent = data.message + '\n';
+                } else if (data.type === 'output') {
+                    buildResults.textContent += data.message + '\n';
+                    // Auto-scroll to bottom
+                    buildResults.scrollTop = buildResults.scrollHeight;
+                } else if (data.type === 'complete') {
+                    buildResults.textContent += '\nBuild completed with exit code: ' + data.exit_code + '\n';
+                    setPushMsg('Build completed successfully.', true);
+                    showMessage('Build completed successfully.', 'success');
+                    eventSource.close();
+                } else if (data.type === 'error') {
+                    buildResults.textContent += '\nError: ' + data.message + '\n';
+                    setPushMsg('Build failed: ' + data.message, false);
+                    showMessage('Build failed: ' + data.message, 'error');
+                    eventSource.close();
+                }
+            };
+            
+            eventSource.onerror = function(event) {
+                buildResults.textContent += '\nConnection error occurred.\n';
+                setPushMsg('Build connection failed', false);
+                showMessage('Build connection failed', 'error');
+                eventSource.close();
+            };
         });
 
         pushBuildResultsBtn?.addEventListener('click', function(){

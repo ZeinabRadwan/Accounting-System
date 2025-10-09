@@ -36,6 +36,7 @@ if (! empty(env('SYSTEM_UPDATE_KEY'))) {
         Route::post('/system-update/push', [SystemUpdateController::class, 'pushSettings'])->name('system.update.settings.push');
         Route::post('/system-update/push-build-results', [SystemUpdateController::class, 'pushBuildResults'])->name('system.update.push.build.results');
         Route::post('/system-update/build-only', [SystemUpdateController::class, 'buildOnly'])->name('system.update.build.only');
+        Route::get('/system-update/build-stream', [SystemUpdateController::class, 'buildStream'])->name('system.update.build.stream');
     // });
 }
 

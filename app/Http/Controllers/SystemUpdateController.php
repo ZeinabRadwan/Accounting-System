@@ -178,7 +178,7 @@ class SystemUpdateController extends Controller
 
             $steps = [
                 'git add system_update_setting.json public/mix-manifest.json public/css public/js',
-                'git commit -m "chore(system-update): update system_update_setting.json and build assets via UI"',
+                'git commit -m "chore(system-update): build assets via UI"',
                 'git push'
             ];
 
@@ -219,13 +219,48 @@ class SystemUpdateController extends Controller
             $cwd = getcwd();
             @chdir($repoPath);
 
-            $cmd = 'npm run build';
-            $cmdOutput = [];
-            @exec($cmd . ' 2>&1', $cmdOutput, $exitCode);
-            $output[] = '> ' . $cmd;
-            $output = array_merge($output, $cmdOutput);
+            $cmd = 'npm run build 2>&1';
+            $output[] = '> npm run build';
+            $output[] = '';
+
+            // Use proc_open for real-time output streaming
+            $descriptorspec = array(
+                0 => array("pipe", "r"),  // stdin
+                1 => array("pipe", "w"),  // stdout
+                2 => array("pipe", "w")   // stderr
+            );
+
+            $process = proc_open($cmd, $descriptorspec, $pipes, $repoPath);
+
+            if (is_resource($process)) {
+                fclose($pipes[0]); // Close stdin
+
+                // Read output in real-time
+                while (!feof($pipes[1])) {
+                    $line = fgets($pipes[1]);
+                    if ($line !== false) {
+                        $output[] = rtrim($line);
+                    }
+                }
+
+                // Read any remaining stderr
+                while (!feof($pipes[2])) {
+                    $line = fgets($pipes[2]);
+                    if ($line !== false) {
+                        $output[] = rtrim($line);
+                    }
+                }
+
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+                $exitCode = proc_close($process);
+            } else {
+                $output[] = 'Failed to start npm run build process';
+                $exitCode = 1;
+            }
         } catch (\Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            $output[] = 'Error: ' . $e->getMessage();
+            $exitCode = 1;
         } finally {
             if (isset($cwd)) { @chdir($cwd); }
         }
@@ -235,6 +270,86 @@ class SystemUpdateController extends Controller
             'output' => $output,
             'exit_code' => $exitCode,
         ]);
+    }
+
+    public function buildStream(Request $request)
+    {
+        if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
+            abort(404);
+        }
+        $this->enforceKey($request);
+
+        $repoPath = base_path();
+
+        // Set headers for Server-Sent Events
+        $response = response()->stream(function() use ($repoPath) {
+            $cwd = getcwd();
+            @chdir($repoPath);
+
+            $cmd = 'npm run build 2>&1';
+            
+            // Send initial message
+            echo "data: " . json_encode(['type' => 'start', 'message' => '> npm run build']) . "\n\n";
+            ob_flush();
+            flush();
+
+            // Use proc_open for real-time output streaming
+            $descriptorspec = array(
+                0 => array("pipe", "r"),  // stdin
+                1 => array("pipe", "w"),  // stdout
+                2 => array("pipe", "w")   // stderr
+            );
+
+            $process = proc_open($cmd, $descriptorspec, $pipes, $repoPath);
+
+            if (is_resource($process)) {
+                fclose($pipes[0]); // Close stdin
+
+                // Read output in real-time and stream it
+                while (!feof($pipes[1])) {
+                    $line = fgets($pipes[1]);
+                    if ($line !== false) {
+                        $message = rtrim($line);
+                        echo "data: " . json_encode(['type' => 'output', 'message' => $message]) . "\n\n";
+                        ob_flush();
+                        flush();
+                    }
+                }
+
+                // Read any remaining stderr
+                while (!feof($pipes[2])) {
+                    $line = fgets($pipes[2]);
+                    if ($line !== false) {
+                        $message = rtrim($line);
+                        echo "data: " . json_encode(['type' => 'output', 'message' => $message]) . "\n\n";
+                        ob_flush();
+                        flush();
+                    }
+                }
+
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+                $exitCode = proc_close($process);
+                
+                // Send completion message
+                echo "data: " . json_encode(['type' => 'complete', 'exit_code' => $exitCode]) . "\n\n";
+                ob_flush();
+                flush();
+            } else {
+                echo "data: " . json_encode(['type' => 'error', 'message' => 'Failed to start npm run build process']) . "\n\n";
+                ob_flush();
+                flush();
+            }
+
+            if (isset($cwd)) { @chdir($cwd); }
+        }, 200, [
+            'Content-Type' => 'text/event-stream',
+            'Cache-Control' => 'no-cache',
+            'Connection' => 'keep-alive',
+            'X-Accel-Buffering' => 'no', // Disable nginx buffering
+        ]);
+
+        return $response;
     }
 }
 
