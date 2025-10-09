@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[2492],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[6641],{
 
-/***/ 30150:
+/***/ 12906:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-4f37f130]{gap:10px}.header-buttons[data-v-4f37f130]{margin-bottom:15px}.footer-buttons[data-v-4f37f130]{display:flex;gap:10px}.footer-buttons .btn[data-v-4f37f130]{margin-right:10px}.footer-buttons .btn[data-v-4f37f130]:last-child{margin-right:0}.card[data-v-4f37f130]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-4f37f130]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-4f37f130]{background:#fff!important}.btn-primary[data-v-4f37f130]{background:#2ab930!important}.btn-primary[data-v-4f37f130],.btn-secondary[data-v-4f37f130]{border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-4f37f130]{background:#33a0d9!important}.btn-secondary[data-v-4f37f130]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-83ba742e]{gap:10px}.header-buttons[data-v-83ba742e]{margin-bottom:15px}.footer-buttons[data-v-83ba742e]{display:flex;gap:10px}.footer-buttons .btn[data-v-83ba742e]{margin-right:10px}.footer-buttons .btn[data-v-83ba742e]:last-child{margin-right:0}.card[data-v-83ba742e]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-83ba742e]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-83ba742e]{padding:1.25rem}.card-footer[data-v-83ba742e]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-83ba742e]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-83ba742e]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-83ba742e]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-83ba742e]{color:#dc3545;font-weight:700}.btn-primary[data-v-83ba742e]{background:#2ab930!important;border:none!important;color:#fff!important}.btn-primary[data-v-83ba742e]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-danger[data-v-83ba742e]{background:#dc3545!important;border:none!important;color:#fff!important;font-weight:500}.btn-danger[data-v-83ba742e]:hover{background:#c82333!important;box-shadow:0 4px 8px rgba(220,53,69,.3);transform:translateY(-1px)}.btn-secondary[data-v-83ba742e]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-83ba742e]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.btn-warning[data-v-83ba742e]{background:#ffc107!important;border:none!important;border-radius:6px!important;color:#212529!important;font-size:12px;font-weight:500;padding:6px 12px!important}.is-invalid[data-v-83ba742e]{border-color:#dc3545!important}textarea.form-control[data-v-83ba742e]{min-height:100px;resize:vertical}.v-select[data-v-83ba742e]{background:#fff!important}.v-select .vs__dropdown-toggle[data-v-83ba742e]{background:#fff!important;border:1px solid #e5e7eb!important;padding:10px 16px!important}.v-select .vs__dropdown-toggle[data-v-83ba742e]:focus{border-color:#33a0d9!important;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)!important}.v-select.is-invalid .vs__dropdown-toggle[data-v-83ba742e]{border-color:#dc3545!important}.table-custom[data-v-83ba742e]{border:none!important}.invoices-create-table[data-v-83ba742e]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-83ba742e]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-83ba742e]{border:none!important}.invoices-create-table thead th[data-v-83ba742e]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-83ba742e]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-83ba742e]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-83ba742e]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-83ba742e]{align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:8px;display:flex;overflow:hidden}.custom-qty-input .button-minus[data-v-83ba742e],.custom-qty-input .button-plus[data-v-83ba742e]{border:none;cursor:pointer;font-weight:700;transition:background-color .2s}.button-minus.icon-shape.icon-sm.btn-danger[data-v-83ba742e],.button-plus.icon-shape.icon-sm.btn-primary[data-v-83ba742e]{padding:0}.custom-qty-input .quantity-field[data-v-83ba742e]{background:#fff;border:none;font-weight:500;min-width:156px;padding:8px 12px;text-align:center}.custom-qty-input .quantity-field[data-v-83ba742e]:focus{background:#fff;outline:none}.invoices-create-table .quantity-field[data-v-83ba742e]{border-radius:0!important;margin:0!important;min-height:50px!important}.row[data-v-83ba742e]{margin-bottom:1rem}@media (max-width:768px){.card-footer[data-v-83ba742e]{flex-direction:column;gap:10px}.card-footer .btn[data-v-83ba742e]{margin-right:0!important;width:100%}.card-footer div[data-v-83ba742e]{display:flex;flex-direction:column;gap:10px;width:100%}.table-custom[data-v-83ba742e]{font-size:12px}.custom-qty-input[data-v-83ba742e]{flex-direction:column;width:100%}.custom-qty-input .button-minus[data-v-83ba742e],.custom-qty-input .button-plus[data-v-83ba742e]{margin:2px 0;width:100%}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 42492:
+/***/ 36641:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -28,14 +28,16 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ edit)
+  "default": () => (/* binding */ create)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=template&id=4f37f130&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/create.vue?vue&type=template&id=83ba742e&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-lg-12"
@@ -79,7 +81,7 @@ var render = function render() {
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.updateAdjustment.apply(null, arguments);
+        return _vm.saveAdjustment.apply(null, arguments);
       },
       "keydown": function keydown($event) {
         return _vm.form.onKeydown($event);
@@ -87,49 +89,17 @@ var render = function render() {
     }
   }, [_c('div', {
     staticClass: "card-body"
-  }, [_c('div', {
+  }, [_vm.products ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
-      "for": "adjustmentNo"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Adjustment No')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.adjustmentNo,
-      expression: "form.adjustmentNo"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "adjustmentNo",
-      "type": "text",
-      "name": "adjustmentReason",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.adjustmentNo
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "adjustmentNo", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "adjustmentNo"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
       "for": "adjustmentReason"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Adjustment Reason')))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t("Adjustment Reason")) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -160,15 +130,13 @@ var render = function render() {
       "form": _vm.form,
       "field": "adjustmentReason"
     }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm.products ? _c('div', {
-    staticClass: "form-group col-md-12"
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
       "for": "product"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Select Products')) + "\n                  "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.$t("Select Products")) + "\n                  "), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
     "class": {
@@ -197,25 +165,40 @@ var render = function render() {
       "form": _vm.form,
       "field": "selectedProducts"
     }
-  })], 1) : _vm._e()]), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row mt-3 mb-2"
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    staticClass: "row mt-3 mb-4"
   }, [_c('div', {
-    staticClass: "table-responsive table-custom w-95 m-auto"
+    staticClass: "table-responsive table-custom w-100 m-auto",
+    staticStyle: {
+      "max-width": "100%"
+    }
   }, [_c('table', {
-    staticClass: "table table-sm"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t('#')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Code')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Name')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Stock')))]), _vm._v(" "), _c('th', {
+    staticClass: "table table-hover table-sm text-center invoices-create-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Stock")))]), _vm._v(" "), _c('th', {
     staticClass: "w-200px"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t('Adjustment Type')) + "\n                      ")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("\n                          " + _vm._s(_vm.$t("Adjustment Type")) + "\n                        ")]), _vm._v(" "), _c('th', {
     staticClass: "w-250px"
-  }, [_vm._v(_vm._s(_vm.$t('Quantity')))]), _vm._v(" "), _c('th', {
+  }, [_vm._v(_vm._s(_vm.$t("Quantity")))]), _vm._v(" "), _c('th', {
     staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t('Action')))])])]), _vm._v(" "), _c('tbody', _vm._l(_vm.form.selectedProducts, function (item, i) {
+  }, [_vm._v(_vm._s(_vm.$t("Action")))])]), _vm._v(" "), _c('tbody', _vm._l(_vm.form.selectedProducts, function (item, i) {
     return _c('tr', {
       key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withPrefix")(item.itemCode, _vm.productPrefix)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_c('span', {
+    }, [_c('td', {
+      staticStyle: {
+        "min-width": "30px"
+      }
+    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "60px"
+      }
+    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.itemCode, _vm.prefix)))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "120px"
+      }
+    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_c('span', {
       staticClass: "btn btn-warning btn-sm"
     }, [_vm._v(_vm._s(item.stockQty))])]), _vm._v(" "), _c('td', [_c('select', {
-      staticClass: "form-control w-200px",
+      staticClass: "form-control",
       attrs: {
         "id": "adjustType-".concat(i),
         "required": ""
@@ -228,18 +211,12 @@ var render = function render() {
     }, [_c('option', {
       attrs: {
         "value": "Increment"
-      },
-      domProps: {
-        "selected": item.adjustType == 'Increment'
       }
-    }, [_vm._v("\n                            " + _vm._s(_vm.$t('Increment')) + "\n                          ")]), _vm._v(" "), _c('option', {
+    }, [_vm._v("\n                            " + _vm._s(_vm.$t("Increment")) + "\n                          ")]), _vm._v(" "), _c('option', {
       attrs: {
         "value": "Decrement"
-      },
-      domProps: {
-        "selected": item.adjustType == 'Decrement'
       }
-    }, [_vm._v("\n                            " + _vm._s(_vm.$t('Decrement')) + "\n                          ")])])]), _vm._v(" "), _c('td', [_c('div', {
+    }, [_vm._v("\n                            " + _vm._s(_vm.$t("Decrement")) + "\n                          ")])])]), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "input-group custom-qty-input"
     }, [_c('input', {
       staticClass: "button-minus icon-shape icon-sm btn-danger",
@@ -250,7 +227,7 @@ var render = function render() {
       },
       on: {
         "click": function click($event) {
-          return _vm.updateProduct(item.adjustQty > 1 ? item.adjustQty - 1 : 1, 'quantity', i - 1);
+          _vm.updateProduct(item.adjustQty > 1 ? parseFloat(item.adjustQty) - 1 : 1, 'quantity', i - 1);
         }
       }
     }), _vm._v(" "), _c('input', {
@@ -285,7 +262,7 @@ var render = function render() {
       },
       on: {
         "click": function click($event) {
-          return _vm.updateProduct(item.adjustQty + 1, 'quantity', i - 1);
+          _vm.updateProduct(parseFloat(item.adjustQty) + 1, 'quantity', i - 1);
         }
       }
     })])]), _vm._v(" "), _c('td', {
@@ -309,7 +286,7 @@ var render = function render() {
     attrs: {
       "for": "note"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -346,7 +323,7 @@ var render = function render() {
     attrs: {
       "for": "adjustmentDate"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Adjustment Date')))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t("Adjustment Date")))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -382,7 +359,7 @@ var render = function render() {
     attrs: {
       "for": "status"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -411,11 +388,11 @@ var render = function render() {
     attrs: {
       "value": "1"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "0"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "status"
@@ -432,8 +409,8 @@ var render = function render() {
       "type": "success"
     }
   }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save changes')) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n                ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-info",
     attrs: {
       "type": "reset"
@@ -445,7 +422,7 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                ")])], 1)])])])])])])]);
+  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n                ")])], 1)])])])])])])]);
 };
 var staticRenderFns = [];
 
@@ -454,9 +431,12 @@ var vform_es = __webpack_require__(63216);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/create.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
@@ -470,56 +450,76 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
-/* harmony default export */ const editvue_type_script_lang_js = ({
-  middleware: ['auth', 'check-permissions'],
+
+var toast = sweetalert2_all_default().mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
+/* harmony default export */ const createvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t('Edit Adjustment')
+      title: this.$t("Create Adjustment")
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: 'Edit Adjustment',
+      breadcrumbsCurrent: "Create Adjustment",
       breadcrumbs: [{
-        name: 'Dashboard',
-        url: 'home'
+        name: "Dashboard",
+        url: "home"
       }, {
-        name: 'Adjustments',
-        url: 'adjustments.index'
+        name: "Adjustments",
+        url: "adjustments.index"
       }, {
-        name: 'Edit',
-        url: ''
+        name: "Create",
+        url: ""
       }],
       form: new vform_es/* default */.Ay({
-        adjustmentNo: '',
         selectedProducts: [],
-        adjustmentReason: '',
+        adjustmentReason: "",
         adjustmentDate: new Date().toISOString().slice(0, 10),
-        note: '',
+        note: "",
         status: 1
       }),
-      products: '',
-      productPrefix: '',
-      adjustmentPrefix: ''
+      products: "",
+      prefix: "",
+      productPreSelected: false,
+      returnUrl: null
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items', 'appInfo'])),
+  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
+  watch: {
+    // Watch for products to be loaded and handle pre-selection
+    products: {
+      handler: function handler(newProducts) {
+        var _this = this;
+        if (newProducts && newProducts.length > 0) {
+          // Use nextTick to ensure the DOM is updated
+          this.$nextTick(function () {
+            _this.handleProductPreSelection();
+          });
+        }
+      },
+      immediate: true
+    }
+  },
   created: function created() {
     this.getProducts();
-    this.getAdjustment();
-    this.productPrefix = this.appInfo.productPrefix;
-    this.adjustmentPrefix = this.appInfo.adjustmentPrefix;
+    this.prefix = this.appInfo.productPrefix;
   },
   mounted: function mounted() {
-    var _this = this;
-    // Load temporary data after component is mounted
-    this.$nextTick(function () {
-      _this.loadTemporaryData();
-    });
+    this.loadTemporaryData();
+    this.handleProductPreSelection();
+    // Capture return URL from query parameters
+    this.returnUrl = this.$route.query.returnUrl;
   },
   methods: {
-    // get the adjustment
-    getAdjustment: function getAdjustment() {
+    // get products
+    getProducts: function getProducts() {
       var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
         var _yield$axios$get, data;
@@ -527,40 +527,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           while (1) switch (_context.n) {
             case 0:
               _context.n = 1;
-              return axios_default().get(window.location.origin + '/api/inventory-adjustments/' + _this2.$route.params.slug);
+              return axios_default().get(window.location.origin + "/api/all-products");
             case 1:
               _yield$axios$get = _context.v;
               data = _yield$axios$get.data;
-              _this2.form.adjustmentNo = _this2.$options.filters.withPrefix(data.data.code, _this2.adjustmentPrefix);
-              _this2.form.adjustmentReason = data.data.reason;
-              _this2.form.adjustmentDate = data.data.date;
-              _this2.form.note = data.data.note;
-              _this2.form.status = data.data.status;
-              _this2.assignProducts(data.data.adjustmentProducts);
+              _this2.products = data.data;
             case 2:
               return _context.a(2);
           }
         }, _callee);
-      }))();
-    },
-    // get products
-    getProducts: function getProducts() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _yield$axios$get2, data;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-products');
-            case 1:
-              _yield$axios$get2 = _context2.v;
-              data = _yield$axios$get2.data;
-              _this3.products = data.data;
-            case 2:
-              return _context2.a(2);
-          }
-        }, _callee2);
       }))();
     },
     // store item in array
@@ -568,7 +543,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var index = this.form.selectedProducts.findIndex(function (x) {
         return x.id == product.id;
       });
-      var qunatity = 1;
+      var quantity = 1;
       if (index === -1) {
         // store product
         this.form.selectedProducts.unshift({
@@ -578,15 +553,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           itemCode: product.code,
           purchasePrice: product.avgPurchasePrice,
           stockQty: product.inventoryCount,
-          adjustType: 'Increment',
-          adjustQty: qunatity,
+          adjustType: "Increment",
+          adjustQty: quantity,
           maxQty: 9999
         });
       } else {
         // update qty
         if (this.form.selectedProducts[index]) {
-          qunatity = this.form.selectedProducts[index].adjustQty ? this.form.selectedProducts[index].adjustQty + 1 : 1;
-          this.form.selectedProducts[index].adjustQty = qunatity;
+          quantity = this.form.selectedProducts[index].adjustQty ? this.form.selectedProducts[index].adjustQty + 1 : 1;
+          this.form.selectedProducts[index].adjustQty = quantity;
         }
       }
       return;
@@ -595,17 +570,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     updateProduct: function updateProduct(value, type, index) {
       var selectedProduct = this.form.selectedProducts[index];
       if (selectedProduct) {
-        if (type == 'quantity' && selectedProduct.adjustQty >= 1) {
+        if (type == "quantity" && selectedProduct.adjustQty >= 1) {
           selectedProduct.adjustQty = value;
-        } else if (type == 'adjustType') {
+        } else if (type == "adjustType") {
           selectedProduct.adjustType = value;
-          if (selectedProduct.adjustType == 'Decrement') {
+          if (selectedProduct.adjustType == "Decrement") {
             selectedProduct.maxQty = selectedProduct.stockQty;
           } else {
             selectedProduct.maxQty = 9999;
           }
         } else {
           selectedProduct.purchasePrice = value;
+          selectedProduct.adjustQty = 1;
         }
       }
       this.form.selectedProducts[index] = selectedProduct;
@@ -619,54 +595,46 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
       return;
     },
-    // get order products
-    assignProducts: function assignProducts(products) {
-      for (var key in products) {
-        var adjustmentItem = products[key];
-        this.form.selectedProducts.unshift({
-          id: adjustmentItem.productID,
-          slug: adjustmentItem.productSlug,
-          name: adjustmentItem.productName,
-          itemCode: adjustmentItem.productCode,
-          itemUnit: adjustmentItem.productUnit,
-          purchasePrice: adjustmentItem.purchasePrice,
-          stockQty: adjustmentItem.productStock,
-          oriAdjustType: adjustmentItem.type == 1 ? 'Increment' : 'Decrement',
-          oriAdjustQty: adjustmentItem.quantity,
-          adjustType: adjustmentItem.type == 1 ? 'Increment' : 'Decrement',
-          adjustQty: adjustmentItem.quantity,
-          maxQty: adjustmentItem.type == 0 ? adjustmentItem.productStock : 9999
-        });
-      }
-    },
-    // update adjustments
-    updateAdjustment: function updateAdjustment() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+    // save adjustment
+    saveAdjustment: function saveAdjustment() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
             case 0:
-              _context3.n = 1;
-              return _this4.form.patch(window.location.origin + '/api/inventory-adjustments/' + _this4.$route.params.slug).then(function () {
+              _context2.n = 1;
+              return _this3.form.post(window.location.origin + "/api/inventory-adjustments").then(function () {
                 // Clear temporary data after successful save
-                _this4.clearTemporaryData();
-                toast.fire({
-                  type: 'success',
-                  title: _this4.$t('Adjustment updated successfully')
-                });
-                _this4.$router.push({
-                  name: 'adjustments.index'
-                });
+                _this3.clearTemporaryData();
+                // toast.fire({
+                //   type: "success",
+                //   title: this.$t("Adjustment added successfully"),
+                //   text: this.$t("The inventory adjustment has been saved successfully.")
+                // });
+                // Redirect to return URL if available, otherwise go to adjustments index
+                if (_this3.returnUrl) {
+                  _this3.$router.push(_this3.returnUrl)["catch"](function () {
+                    // Fallback to adjustments index if return URL is invalid
+                    _this3.$router.push({
+                      name: "adjustments.index"
+                    });
+                  });
+                } else {
+                  _this3.$router.push({
+                    name: "adjustments.index"
+                  });
+                }
               })["catch"](function () {
                 toast.fire({
-                  type: 'error',
-                  title: _this4.$t('Please check your input and try again.')
+                  type: "error",
+                  title: _this3.$t("Error"),
+                  text: _this3.$t("Please check your input and try again.")
                 });
               });
             case 1:
-              return _context3.a(2);
+              return _context2.a(2);
           }
-        }, _callee3);
+        }, _callee2);
       }))();
     },
     // save form data temporarily
@@ -677,17 +645,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         status: this.form.status,
         timestamp: new Date().toISOString()
       };
-      localStorage.setItem('inventoryAdjustmentEditTempData', JSON.stringify(tempData));
+      localStorage.setItem('inventoryAdjustmentTempData', JSON.stringify(tempData));
     },
     // load temporary data
     loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('inventoryAdjustmentEditTempData');
+      var tempData = localStorage.getItem('inventoryAdjustmentTempData');
       if (tempData) {
         try {
           var data = JSON.parse(tempData);
-          this.form.adjustmentReason = data.adjustmentReason || this.form.adjustmentReason;
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts;
-          this.form.status = data.status !== undefined ? data.status : this.form.status;
+          this.form.adjustmentReason = data.adjustmentReason || '';
+          this.form.selectedProducts = data.selectedProducts || [];
+          this.form.status = data.status !== undefined ? data.status : 1;
         } catch (error) {
           console.error('Error loading temporary data:', error);
         }
@@ -695,18 +663,45 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // clear temporary data
     clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('inventoryAdjustmentEditTempData');
+      localStorage.removeItem('inventoryAdjustmentTempData');
+    },
+    // handle product pre-selection from query parameter
+    handleProductPreSelection: function handleProductPreSelection() {
+      // Prevent multiple calls
+      if (this.productPreSelected) {
+        return;
+      }
+      var productId = this.$route.query.productId || this.$route.query.product_id;
+      if (productId && this.products && this.products.length > 0) {
+        // Find the product by ID
+        var product = this.products.find(function (p) {
+          return p.id == productId || p.id == parseInt(productId);
+        });
+        if (product) {
+          // Check if product is already selected
+          var existingIndex = this.form.selectedProducts.findIndex(function (x) {
+            return x.id == product.id;
+          });
+          if (existingIndex === -1) {
+            // Pre-select the product
+            this.storeProduct(product);
+            this.productPreSelected = true;
+          } else {
+            this.productPreSelected = true;
+          }
+        }
+      } else {}
     }
   }
 });
-;// ./resources/js/pages/inventory/adjustments/edit.vue?vue&type=script&lang=js
- /* harmony default export */ const adjustments_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
+;// ./resources/js/pages/inventory/adjustments/create.vue?vue&type=script&lang=js
+ /* harmony default export */ const adjustments_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=style&index=0&id=4f37f130&prod&scoped=true&lang=css
-var editvue_type_style_index_0_id_4f37f130_prod_scoped_true_lang_css = __webpack_require__(30150);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/edit.vue?vue&type=style&index=0&id=4f37f130&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/create.vue?vue&type=style&index=0&id=83ba742e&prod&scoped=true&lang=css
+var createvue_type_style_index_0_id_83ba742e_prod_scoped_true_lang_css = __webpack_require__(12906);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/adjustments/create.vue?vue&type=style&index=0&id=83ba742e&prod&scoped=true&lang=css
 
             
 
@@ -715,16 +710,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_4f37f130_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_83ba742e_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const adjustments_editvue_type_style_index_0_id_4f37f130_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_4f37f130_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/inventory/adjustments/edit.vue?vue&type=style&index=0&id=4f37f130&prod&scoped=true&lang=css
+/* harmony default export */ const adjustments_createvue_type_style_index_0_id_83ba742e_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_83ba742e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/inventory/adjustments/create.vue?vue&type=style&index=0&id=83ba742e&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/inventory/adjustments/edit.vue
+;// ./resources/js/pages/inventory/adjustments/create.vue
 
 
 
@@ -734,17 +729,17 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  adjustments_editvue_type_script_lang_js,
+  adjustments_createvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "4f37f130",
+  "83ba742e",
   null
   
 )
 
-/* harmony default export */ const edit = (component.exports);
+/* harmony default export */ const create = (component.exports);
 
 /***/ })
 
