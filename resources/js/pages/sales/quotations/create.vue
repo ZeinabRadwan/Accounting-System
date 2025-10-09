@@ -1669,8 +1669,31 @@ export default {
 
     // Stock adjustment modal methods
     openStockAdjustmentModal(product) {
-      this.selectedProductForStockAdjustment = product;
-      this.showStockAdjustmentModal = true;
+      try {
+        console.log("Opening stock adjustment modal for product:", product);
+        
+        // Validate product object
+        if (!product || !product.id) {
+          console.error("Invalid product object:", product);
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: this.$t("Product information is missing. Please try again.")
+          });
+          return;
+        }
+        
+        this.selectedProductForStockAdjustment = product;
+        this.showStockAdjustmentModal = true;
+        console.log("Modal should be open now");
+      } catch (error) {
+        console.error("Error opening stock adjustment modal:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("Failed to open stock adjustment modal. Please try again.")
+        });
+      }
     },
 
     closeStockAdjustmentModal() {

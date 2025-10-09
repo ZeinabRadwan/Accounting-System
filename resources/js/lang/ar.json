@@ -3897,5 +3897,7 @@
   "Credit Note created successfully" : "تم إنشاء الاشعار الدائن بنجاح",
   "Please fill in all required fields correctly." : "يرجى تعبئة جميع الحقول المطلوبة بشكل صحيح.",
   "Inventory Count" : " جرد المخزون ",
+  "Adjustment added successfully" : "تم إضافة التعديل بنجاح",
+  "The inventory adjustment has been saved successfully." : "تم حفظ التعديل على المخزون بنجاح.",
   "Manage Translations": "إدارة الترجمات"
 }

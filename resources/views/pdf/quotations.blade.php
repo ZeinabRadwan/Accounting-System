@@ -1,6 +1,6 @@
-@extends('pdf')
+@extends('pdf.layout')
 
-@section('content-area')
+@section('content')
     <style>
         body {
             font-family: Arial, sans-serif;

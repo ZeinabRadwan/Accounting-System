@@ -22,13 +22,13 @@
           <div class="row">
             <div class="col-md-6">
               <h6>{{ $t("Product Details") }}</h6>
-              <p class="mb-1"><strong>{{ $t("Name") }}:</strong> {{ product.name }}</p>
-              <p class="mb-1"><strong>{{ $t("Code") }}:</strong> {{ product.code | withPrefix(prefix) }}</p>
+              <p class="mb-1"><strong>{{ $t("Name") }}:</strong> {{ product.name || 'N/A' }}</p>
+              <p class="mb-1"><strong>{{ $t("Code") }}:</strong> {{ productCodeWithPrefix }}</p>
               <p class="mb-1"><strong>{{ $t("Current Stock") }}:</strong> 
-                <span class="badge badge-info">{{ product.inventoryCount }}</span>
+                <span class="badge badge-info">{{ product.inventoryCount || 0 }}</span>
               </p>
               <p class="mb-1"><strong>{{ $t("Required Quantity") }}:</strong> 
-                <span class="badge badge-danger">{{ product.qty }}</span>
+                <span class="badge badge-danger">{{ product.qty || 0 }}</span>
               </p>
             </div>
             <div class="col-md-6">
@@ -153,7 +153,18 @@
 
 <script>
 import Form from "vform";
+import axios from "axios";
+import Swal from "sweetalert2";
 import { mapGetters } from "vuex";
+import "~/plugins/filter";
+
+const toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
 
 export default {
   name: "StockAdjustmentModal",
@@ -189,16 +200,36 @@ export default {
         return 0;
       }
       return Math.max(0, this.product.qty - this.product.inventoryCount);
+    },
+    
+    productCodeWithPrefix() {
+      if (!this.product || !this.product.code) {
+        return 'N/A';
+      }
+      return this.prefix + this.product.code;
     }
   },
   watch: {
     isOpen(newVal) {
+      console.log("Modal isOpen changed to:", newVal);
+      console.log("Product object:", this.product);
       if (newVal && this.product) {
         // Set default quantity to shortage amount
         this.adjustmentForm.quantity = this.shortageQuantity || 1;
         this.adjustmentForm.reason = "Stock shortage adjustment";
+        console.log("Modal opened with product:", this.product.name);
       }
     }
+  },
+  mounted() {
+    console.log("StockAdjustmentModal mounted");
+    console.log("Initial isOpen:", this.isOpen);
+    console.log("Initial product:", this.product);
+  },
+  
+  beforeDestroy() {
+    console.log("StockAdjustmentModal beforeDestroy");
+    console.log("Product at destroy:", this.product);
   },
   methods: {
     closeModal() {
@@ -213,16 +244,97 @@ export default {
     },
     
     openInventoryAdjustment() {
-      console.log("Opening inventory adjustment...");
-      // Close modal first
-      this.closeModal();
-      // Then navigate with a small delay
-      setTimeout(() => {
-        console.log("Navigating to adjustments.create");
-        this.$router.push({ name: "adjustments.create" }).catch(err => {
-          console.error("Navigation error:", err);
+      try {
+        console.log("Opening inventory adjustment...");
+        console.log("Product object:", this.product);
+        
+        // Validate product object
+        if (!this.product || !this.product.id) {
+          console.error("Invalid product object:", this.product);
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: this.$t("Product information is missing. Please try again.")
+          });
+          return;
+        }
+        
+        // Capture product data before closing modal to avoid null reference
+        const productData = {
+          id: this.product.id,
+          name: this.product.name,
+          code: this.product.code,
+          slug: this.product.slug
+        };
+        
+        console.log("Captured product data:", productData);
+        
+        // Close modal first
+        this.closeModal();
+        
+        // Then navigate with a small delay
+        setTimeout(() => {
+          try {
+            console.log("Navigating to adjustments.create");
+            console.log("Product ID:", productData.id);
+            
+            // Get current route safely
+            const returnUrl = this.$route ? this.$route.fullPath : window.location.pathname;
+            console.log("Return URL:", returnUrl);
+            
+            // Check if user has permission to create adjustments
+            if (!this.$can('adjustment-create')) {
+              toast.fire({
+                type: "error",
+                title: this.$t("Permission Denied"),
+                text: this.$t("You don't have permission to create adjustments.")
+              });
+              return;
+            }
+            
+            // Try navigation with fallback
+            this.$router.push({ 
+              name: "adjustments.create", 
+              query: { 
+                productId: productData.id,
+                returnUrl: returnUrl
+              } 
+            }).then(() => {
+              console.log("Navigation successful");
+            }).catch(err => {
+              console.error("Navigation error:", err);
+              
+              // Fallback: show alert with manual navigation option
+              Swal.fire({
+                title: this.$t("Navigate to Adjustments"),
+                text: this.$t("Click OK to go to the adjustments page manually."),
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: this.$t("Go to Adjustments"),
+                cancelButtonText: this.$t("Cancel")
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '/inventory-adjustments/create?productId=' + productData.id + '&returnUrl=' + encodeURIComponent(returnUrl);
+                }
+              });
+            });
+          } catch (error) {
+            console.error("Error in navigation timeout:", error);
+            toast.fire({
+              type: "error",
+              title: this.$t("Error"),
+              text: this.$t("An error occurred while navigating. Please try again.")
+            });
+          }
+        }, 300);
+      } catch (error) {
+        console.error("Error in openInventoryAdjustment:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("An unexpected error occurred. Please try again.")
         });
-      }, 300);
+      }
     },
     
     openPurchaseOrder() {

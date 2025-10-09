@@ -172,7 +172,16 @@
 <script>
 import Form from "vform";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { mapGetters } from "vuex";
+
+const toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -205,6 +214,7 @@ export default {
     products: "",
     prefix: "",
     productPreSelected: false,
+    returnUrl: null,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -230,6 +240,8 @@ export default {
   mounted() {
     this.loadTemporaryData();
     this.handleProductPreSelection();
+    // Capture return URL from query parameters
+    this.returnUrl = this.$route.query.returnUrl;
   },
   methods: {
     // get products
@@ -309,14 +321,27 @@ export default {
         .then(() => {
           // Clear temporary data after successful save
           this.clearTemporaryData()
-          toast.fire({
-            type: "success",
-            title: this.$t("Adjustment added successfully"),
-          });
-          this.$router.push({ name: "adjustments.index" });
+          // toast.fire({
+          //   type: "success",
+          //   title: this.$t("Adjustment added successfully"),
+          //   text: this.$t("The inventory adjustment has been saved successfully.")
+          // });
+          // Redirect to return URL if available, otherwise go to adjustments index
+          if (this.returnUrl) {
+            this.$router.push(this.returnUrl).catch(() => {
+              // Fallback to adjustments index if return URL is invalid
+              this.$router.push({ name: "adjustments.index" });
+            });
+          } else {
+            this.$router.push({ name: "adjustments.index" });
+          }
         })
         .catch(() => {
-          toast.fire({ type: "error", title: this.$t("Please check your input and try again.") });
+          toast.fire({ 
+            type: "error", 
+            title: this.$t("Error"), 
+            text: this.$t("Please check your input and try again.") 
+          });
         });
     },
     // save form data temporarily
@@ -356,14 +381,11 @@ export default {
         return;
       }
       
-      const productId = this.$route.query.product_id;
-      console.log('Product ID from query:', productId);
-      console.log('Products available:', this.products);
+      const productId = this.$route.query.productId || this.$route.query.product_id;
       
       if (productId && this.products && this.products.length > 0) {
         // Find the product by ID
         const product = this.products.find(p => p.id == productId || p.id == parseInt(productId));
-        console.log('Found product:', product);
         
         if (product) {
           // Check if product is already selected
@@ -375,16 +397,11 @@ export default {
             // Pre-select the product
             this.storeProduct(product);
             this.productPreSelected = true;
-            console.log('Product pre-selected successfully');
           } else {
             this.productPreSelected = true;
-            console.log('Product already selected');
           }
-        } else {
-          console.log('Product not found with ID:', productId);
-        }
+        }  
       } else {
-        console.log('Missing productId or products not loaded yet');
       }
     },
   },

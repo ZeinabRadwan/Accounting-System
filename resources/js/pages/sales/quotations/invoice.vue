@@ -956,6 +956,15 @@
       </div>
     </div>
   </div>
+  
+  <!-- Stock Adjustment Modal -->
+  <StockAdjustmentModal 
+    :is-open="showStockAdjustmentModal"
+    :product="selectedProductForStockAdjustment"
+    @close="closeStockAdjustmentModal"
+    @adjust-quantity="adjustProductQuantity"
+    @stock-updated="handleStockUpdated"
+  />
   </div>
 </template>
 
@@ -964,7 +973,16 @@ import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
+import StockAdjustmentModal from '~/components/StockAdjustmentModal'
 import Swal from 'sweetalert2'
+
+const toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+})
 
 export default {
   middleware: ['auth', 'check-permissions'],
@@ -972,7 +990,8 @@ export default {
     return { title: this.$t('Quotation To Invoice') }
   },
   components: {
-    ChartOfAccountValidation
+    ChartOfAccountValidation,
+    StockAdjustmentModal
   },
   data: () => ({
     breadcrumbsCurrent: 'Quotation To Invoice',
@@ -1023,6 +1042,8 @@ export default {
     isAutoAssigningAccount: false,
     isRTL: false,
     currentLocale: 'en',
+    showStockAdjustmentModal: false,
+    selectedProductForStockAdjustment: null,
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -1872,25 +1893,47 @@ export default {
     },
 
     // Open stock adjustment modal
-    openStockAdjustmentModal(item) {
-      // This would open a stock adjustment modal
-      // For now, we'll show an alert with instructions
-      Swal.fire({
-        title: this.$t('Insufficient Stock'),
-        text: `Product "${item.name}" has insufficient stock. Current: ${item.inventoryCount}, Required: ${item.qty}`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: this.$t('Adjust Stock'),
-        cancelButtonText: this.$t('Cancel')
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Navigate to stock adjustment or open modal
-          this.$router.push({
-            name: 'products.stock-adjustment',
-            params: { slug: item.slug }
-          });
-        }
-      });
+    openStockAdjustmentModal(product) {
+      this.selectedProductForStockAdjustment = product;
+      this.showStockAdjustmentModal = true;
+    },
+
+    closeStockAdjustmentModal() {
+      this.showStockAdjustmentModal = false;
+      this.selectedProductForStockAdjustment = null;
+    },
+
+    adjustProductQuantity(product) {
+      // Find the product in the selected products array and adjust its quantity
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        // Set quantity to available stock
+        this.$set(this.form.selectedProducts[index], 'qty', product.inventoryCount);
+        this.generateItemTotal(product.inventoryCount, "qty", index, "");
+        
+        Swal.fire({
+          type: "info",
+          title: this.$t("Quantity Adjusted"),
+          text: this.$t("Product quantity has been adjusted to available stock.")
+        });
+      }
+      this.closeStockAdjustmentModal();
+    },
+
+    handleStockUpdated(eventData) {
+      // Refresh products to get updated stock levels
+      this.getProducts();
+      
+      // Update the specific product in selectedProducts if it exists
+      const { product, newQuantity } = eventData;
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'inventoryCount', 
+          (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
+        
+        // Recalculate totals
+        this.calculateSum();
+      }
     },
 
     // calculate product discount
