@@ -658,8 +658,17 @@ class ChartOfAccountController extends Controller
                 } elseif ($field === 'description') {
                     $query->searchByDescription($searchTerm, $locale);
                 } else {
-                    $query->where('name', 'like', "%{$searchTerm}%")
-                          ->orWhere('description', 'like', "%{$searchTerm}%");
+                    $query->where(function ($q) use ($searchTerm, $locale) {
+                        $q->where('name', 'like', "%{$searchTerm}%")
+                          ->orWhere('description', 'like', "%{$searchTerm}%")
+                          ->orWhereHas('translations', function ($subQuery) use ($searchTerm, $locale) {
+                              $subQuery->where('locale', $locale)
+                                       ->where(function ($transQuery) use ($searchTerm) {
+                                           $transQuery->where('name', 'like', "%{$searchTerm}%")
+                                                     ->orWhere('description', 'like', "%{$searchTerm}%");
+                                       });
+                          });
+                    });
                 }
             }
 
