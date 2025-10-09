@@ -15,14 +15,7 @@
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <div class="row mb-3">
-              <div class="col-md-6">
-                <div class="alert alert-info" role="alert">
-                  <i class="fas fa-info-circle"></i>
-                  <strong>{{ $t("VAT Chart of Accounts") }}:</strong>
-                  {{ $t("Connect VAT rates to chart of accounts for proper journal entries") }}
-                </div>
-              </div>
-              <div class="col-md-6 text-right">
+              <div class="col-md-12 text-right">
                 <button @click="checkConnections" class="btn btn-warning btn-sm">
                   <i class="fas fa-check-circle"></i> {{ $t("Check Connections") }}
                 </button>

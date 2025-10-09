@@ -70,9 +70,33 @@
                 <td class="text-right"> @currency($product['unit_cost'] * $product['quantity'])</td>
             </tr>
         @endforeach
+        @php
+            // Calculate totals similar to quotation structure
+            // Calculate subtotal from actual products (sum of quantity × price)
+            $subtotal = 0;
+            foreach ($invoice['invoiceProducts'] as $product) {
+                $subtotal += $product['unit_cost'] * $product['quantity'];
+            }
+            
+            // Calculate total product discount
+            $totalProductDiscount = 0;
+            foreach ($invoice['invoiceProducts'] as $product) {
+                $totalProductDiscount += $product['discount_amount'] ?? 0;
+            }
+            
+            // Calculate total product VAT
+            $totalProductVat = 0;
+            foreach ($invoice['invoiceProducts'] as $product) {
+                $totalProductVat += $product['tax_amount'] ?? 0;
+            }
+            
+            $totalAfterDiscount = $subtotal - $totalProductDiscount;
+            $totalWithVat = $totalAfterDiscount + $totalProductVat;
+        @endphp
+        
         <tr>
             <td class="total" colspan="3">@lang('Subtotal')</td>
-            <td class="total">@currency($invoice['sub_total'])</td>
+            <td class="total">@currency($subtotal)</td>
         </tr>
         @if ($invoice['invoiceReturn'])
             <tr>
@@ -80,33 +104,35 @@
                 <td class="total">@currency($invoice['invoiceReturn']['total_return'])</td>
             </tr>
         @endif
-        @if ($invoice['discount'])
-            <tr>
-                <td class="total" colspan="3">@lang('Discount')</td>
-                <td class="total">@currency($invoice['discount'])</td>
-            </tr>
-        @endif
+        <tr>
+            <td class="total" colspan="3">@lang('Discount')</td>
+            <td class="total">@currency($totalProductDiscount)</td>
+        </tr>
+        <tr>
+            <td class="total" colspan="3">@lang('Total After Discount')</td>
+            <td class="total">@currency($totalAfterDiscount)</td>
+        </tr>
         @if ($invoice['transport'])
             <tr>
                 <td class="total" colspan="3">@lang('Transport')</td>
                 <td class="total">@currency($invoice['transport'])</td>
             </tr>
         @endif
-        @if ($invoice->taxAmount())
+        @if ($totalProductVat > 0)
             <tr>
-                <td class="total" colspan="3">@lang('Tax')</td>
-                <td class="total">@currency($invoice->taxAmount())</td>
+                <td class="total" colspan="3">@lang('VAT')</td>
+                <td class="total">@currency($totalProductVat)</td>
             </tr>
         @endif
         <tr>
-            <td colspan="3" class="total">@lang('Total')</td>
+            <td colspan="3" class="total">@lang('Total with VAT')</td>
             <td class="total">
                 @php
                     $totalInvoiceReturn = isset($invoice['invoiceReturn']) ? $invoice['invoiceReturn']['total_return'] : 0;
-                    $total = $invoice['sub_total'] - $totalInvoiceReturn - $invoice['discount'] + $invoice['total_tax'] + $invoice['transport'];
+                    $finalTotal = $totalWithVat + ($invoice['transport'] ?? 0) - $totalInvoiceReturn;
                     $accountPayable = isset($invoice['invoiceReturn']['returnTransaction']) ? $invoice['invoiceReturn']['returnTransaction']['amount'] : null;
                 @endphp
-                @currency($total)
+                @currency($finalTotal)
             </td>
         </tr>
         <tr>
