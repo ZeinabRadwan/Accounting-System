@@ -79,7 +79,8 @@ class UpdateSettingCommand extends Command
                 }
 
                 if ($runSeeder[0]) {
-                    $result = $this->runSeeder($runSeeder[1]);
+                    $seederType = isset($runSeeder[2]) ? $runSeeder[2] : null;
+                    $result = $this->runSeeder($runSeeder[1], $seederType);
                     if (strpos($result, 'Error') !== false) {
                         $errors[] = $result;
                     } else {
@@ -282,16 +283,27 @@ class UpdateSettingCommand extends Command
         }
     }
 
-    private function runSeeder($seederName)
+    private function runSeeder($seederName, $seederType = null)
     {
         try {
             $backup_command = Artisan::call('backup:run', ['--only-db' => true]);
 
             if ($backup_command === 0) {
-                $return_var = Artisan::call('db:seed', ['--class' => $seederName]);
+                $return_var = 0;
+                
+                if ($seederType === 'central') {
+                    // Run seeder for central database only
+                    $return_var = Artisan::call('db:seed', ['--class' => $seederName]);
+                } elseif ($seederType === 'tenant') {
+                    $return_var = Artisan::call('tenants:seed', ['--class' => $seederName]);
+                } else {
+                    // Run seeder normally (original behavior)
+                    $return_var = Artisan::call('db:seed', ['--class' => $seederName]);
+                }
 
                 if ($return_var === 0) {
-                    return $seederName . ' Was run successfully';
+                    $typeInfo = $seederType ? ' (' . $seederType . ')' : '';
+                    return $seederName . ' Was run successfully' . $typeInfo;
                 } else {
                     return 'Error In ' . $seederName . ' Seeder.';
                 }

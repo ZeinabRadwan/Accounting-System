@@ -85,7 +85,7 @@
                     if ($isBool) { $checked = $value; }
                     elseif ($isInt) { $checked = (int) $value === 1; }
                     elseif ($isString) { $checked = in_array(strtolower($value), ['true','1'], true); }
-                    $isPairToggle = $isArray && count($value) === 2 && is_bool($value[0]);
+                    $isPairToggle = $isArray && count($value) >= 2 && is_bool($value[0]);
                 @endphp
                 @if ($isScalar)
                 <li class="su-item su-item-card">
@@ -113,6 +113,13 @@
                             <span class="su-slider"></span>
                         </label>
                         <input type="text" class="su-input js-setting-pair-input" data-setting-key="{{ $key }}" placeholder="Value" value="{{ is_null($value[1]) ? '' : $value[1] }}">
+                        @if($key === 'run_seeder' && count($value) >= 3)
+                        <select class="su-input js-setting-seeder-type" data-setting-key="{{ $key }}" style="min-width: 150px;">
+                            <option value="">Select Type</option>
+                            <option value="central" @if(isset($value[2]) && $value[2] === 'central') selected @endif>Central</option>
+                            <option value="tenant" @if(isset($value[2]) && $value[2] === 'tenant') selected @endif>Tenant</option>
+                        </select>
+                        @endif
                     </div>
                 </li>
                 @endif
@@ -222,8 +229,15 @@
                 const key = e.target.getAttribute('data-setting-key');
                 const isOn = e.target.checked;
                 const input = document.querySelector('.js-setting-pair-input[data-setting-key="' + key + '"]');
+                const seederType = document.querySelector('.js-setting-seeder-type[data-setting-key="' + key + '"]');
                 const val = input ? input.value : null;
-                currentSettings[key] = [!!isOn, val === '' ? null : val];
+                const type = seederType ? seederType.value : null;
+                
+                if (key === 'run_seeder' && seederType) {
+                    currentSettings[key] = [!!isOn, val === '' ? null : val, type === '' ? null : type];
+                } else {
+                    currentSettings[key] = [!!isOn, val === '' ? null : val];
+                }
                 saveSettings(currentSettings, true).catch(() => {
                     e.target.checked = !isOn;
                 });
@@ -233,8 +247,15 @@
             function sync(){
                 const key = inp.getAttribute('data-setting-key');
                 const toggle = document.querySelector('.js-setting-pair-toggle[data-setting-key="' + key + '"]');
+                const seederType = document.querySelector('.js-setting-seeder-type[data-setting-key="' + key + '"]');
                 const isOn = !!(toggle && toggle.checked);
-                currentSettings[key] = [isOn, inp.value === '' ? null : inp.value];
+                const type = seederType ? seederType.value : null;
+                
+                if (key === 'run_seeder' && seederType) {
+                    currentSettings[key] = [isOn, inp.value === '' ? null : inp.value, type === '' ? null : type];
+                } else {
+                    currentSettings[key] = [isOn, inp.value === '' ? null : inp.value];
+                }
                 saveSettings(currentSettings, true).catch(() => {
                     // leave input text; show message only
                 });
@@ -243,6 +264,25 @@
             inp.addEventListener('keyup', function(e){ if (e.key === 'Enter') sync(); });
             inp.addEventListener('blur', sync);
         });
+        
+        // Seeder type dropdown handler
+        document.querySelectorAll('.js-setting-seeder-type').forEach(select => {
+            select.addEventListener('change', function(e){
+                const key = e.target.getAttribute('data-setting-key');
+                const toggle = document.querySelector('.js-setting-pair-toggle[data-setting-key="' + key + '"]');
+                const input = document.querySelector('.js-setting-pair-input[data-setting-key="' + key + '"]');
+                const isOn = !!(toggle && toggle.checked);
+                const val = input ? input.value : null;
+                const type = e.target.value;
+                
+                currentSettings[key] = [isOn, val === '' ? null : val, type === '' ? null : type];
+                saveSettings(currentSettings, true).catch(() => {
+                    // revert selection if save fails
+                    e.target.value = currentSettings[key][2] || '';
+                });
+            });
+        });
+        
         saveBtn?.addEventListener('click', function(){
             let jsonText = editor.value;
             let parsed;
