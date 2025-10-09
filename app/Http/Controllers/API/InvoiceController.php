@@ -40,6 +40,8 @@ class InvoiceController extends Controller
         $this->middleware('can:invoice-view', ['only' => ['show']]);
         $this->middleware('can:invoice-edit', ['only' => ['update']]);
         $this->middleware('can:invoice-delete', ['only' => ['destroy']]);
+        // Block modifications to active invoices (KSA)
+        $this->middleware('prevent_active_invoice_modification', ['only' => ['update', 'destroy']]);
     }
 
     /**

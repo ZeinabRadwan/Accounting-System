@@ -60,7 +60,7 @@
             </a>
 
             <router-link
-              v-if="$can('invoice-edit')"
+              v-if="$can('invoice-edit') && !(isSaudiArabia && allData && allData.status === 1)"
               :to="{
                 name: 'invoices.edit',
                 params: { slug: allData.slug },

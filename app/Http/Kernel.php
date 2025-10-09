@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
         'read_only' => CheckForReadOnlyMode::class,
         'tenant.not_archived' => \App\Http\Middleware\CheckTenantNotArchived::class,
         'user.tenant.not_archived' => \App\Http\Middleware\CheckUserTenantNotArchived::class,
+        'prevent_active_invoice_modification' => \App\Http\Middleware\PreventActiveInvoiceModification::class,
     ];
 
     /**

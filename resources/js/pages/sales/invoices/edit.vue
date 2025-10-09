@@ -1013,6 +1013,17 @@ export default {
         this.form.discount = data.data.discount || 0;
         this.form.totalDiscount = data.data.totalDiscount || 0;
         
+        // Block editing active invoices in KSA and redirect to show page
+        if (this.isSaudiArabia && Number(this.form.status) === 1) {
+          toast.fire({
+            type: 'warning',
+            title: this.$t("Sorry you can't delete this invoice!"),
+            text: this.$t("Sorry you can't delete this invoice!"),
+          });
+          this.$router.replace({ name: 'invoices.show', params: { slug: this.$route.params.slug } });
+          return;
+        }
+        
       } catch (error) {
         console.error('Error getting invoice:', error);
       }

@@ -5,7 +5,7 @@
     "run_migration": false,
     "run_seeder": [
         false,
-        ""
+        null
     ],
     "run_command": [
         false,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SystemUpdateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DebugController;
 use App\Http\Controllers\PaypalController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\NewsletterSubscriptionController;
 use App\Http\Controllers\SuspensionController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,16 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// System Update UI is only available if SYSTEM_UPDATE_KEY exists in env
+if (! empty(env('SYSTEM_UPDATE_KEY'))) {
+    // Route::middleware(['web','auth'])->group(function () {
+        Route::get('/system-update', [SystemUpdateController::class, 'index'])->name('system.update.index');
+        Route::get('/system-update/settings', [SystemUpdateController::class, 'getSettings'])->name('system.update.settings.get');
+        Route::post('/system-update/settings', [SystemUpdateController::class, 'saveSettings'])->name('system.update.settings.save');
+        Route::post('/system-update/push', [SystemUpdateController::class, 'pushSettings'])->name('system.update.settings.push');
+    // });
+}
 
 // Suspension page route (accessible without authentication)
 Route::get('/suspended', [SuspensionController::class, 'show'])->name('suspended');

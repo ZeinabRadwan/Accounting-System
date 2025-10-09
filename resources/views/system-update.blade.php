@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>System Update</title>
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <style>
+        :root { --su-bg:#0b1325; --su-card:#111a2e; --su-soft:#1a2540; --su-text:#e6ecff; --su-muted:#9fb0d8; --su-accent:#4f7cff; --su-accent-2:#22d3ee; --su-danger:#ef4444; }
+        body { background: radial-gradient(1200px 600px at 20% -10%, #14244d 0%, transparent 60%), radial-gradient(1000px 600px at 120% 10%, #0f2a5a 0%, transparent 60%), var(--su-bg); color: var(--su-text); }
+        .su-container { max-width: 1024px; }
+        .su-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06); backdrop-filter: blur(8px); }
+        .su-title { font-weight: 700; letter-spacing: 0.3px; margin: 0; }
+        .su-sub { color: var(--su-muted); font-size: 0.95rem; }
+        .su-list { margin: 0; padding: 0; list-style: none; }
+        .su-item { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .su-item:first-child { border-top: 0; }
+        .su-item h6 { margin: 0 0 4px; font-weight: 600; }
+        .su-item p { margin: 0; color: var(--su-muted); font-size: 0.9rem; }
+        .su-actions { display: flex; align-items: center; gap: 10px; }
+        .su-input { background: var(--su-soft); border: 1px solid rgba(255,255,255,0.08); color: var(--su-text); padding: 10px 12px; border-radius: 10px; min-width: 260px; }
+        .su-btn { appearance: none; border: 0; padding: 10px 14px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: transform .05s ease, background .2s ease, color .2s ease, border .2s ease; }
+        .su-btn:active { transform: scale(0.98); }
+        .su-btn-ghost { background: transparent; color: var(--su-text); border: 1px solid rgba(255,255,255,0.12); }
+        .su-badge { display:inline-flex; align-items:center; gap:6px; font-size:.75rem; padding:4px 8px; border-radius:999px; background:rgba(79,124,255,0.12); color:#c8d6ff; border:1px solid rgba(79,124,255,0.25); }
+        /* Toggle switch */
+        .su-switch { position: relative; width: 56px; height: 32px; }
+        .su-switch input { display: none; }
+        .su-slider { position: absolute; inset: 0; background: #233056; border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; box-shadow: inset 0 3px 8px rgba(0,0,0,0.25); transition: background .25s ease, border .25s ease; }
+        .su-slider::after { content: ""; position: absolute; top: 50%; left: 6px; width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(180deg, #ffffff, #dfe7ff); box-shadow: 0 4px 12px rgba(0,0,0,0.35); transform: translateY(-50%); transition: left .25s ease, background .25s ease; }
+        .su-switch input:checked + .su-slider { background: linear-gradient(90deg, var(--su-accent), var(--su-accent-2)); border-color: transparent; }
+        .su-switch input:checked + .su-slider::after { left: 28px; background: linear-gradient(180deg, #03244d, #0c1a33); }
+        .grid-2 { display:grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 992px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
+        .su-pre { background: rgba(255,255,255,0.04); color: var(--su-text); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; }
+        .grid-2col { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media (min-width: 992px){ .grid-2col { grid-template-columns: 1fr 1fr; } }
+        .su-item-card { border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px 18px; background: rgba(255,255,255,0.02); }
+    </style>
+</head>
+<body>
+<div class="container py-5 su-container">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <div>
+            <div class="su-badge">System Tools</div>
+            <h1 class="mt-2 su-title">System Update</h1>
+            <div class="su-sub">Direct, simple triggers for maintenance tasks. Use toggles to run instantly.</div>
+        </div>
+    </div>
+
+    @if (session('status'))
+        <div class="alert alert-success">{{ session('status') }}</div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="su-card mb-3">
+        <ul class="su-list grid-2col">
+            <li class="su-item">
+                <div>
+                    <h6>Settings Switches</h6>
+                    <p>Toggle values for each key; changes save instantly.</p>
+                </div>
+            </li>
+            @foreach ($settings as $key => $value)
+                @php
+                    $isArray = is_array($value);
+                    $isBool = is_bool($value);
+                    $isInt = is_int($value);
+                    $isString = is_string($value);
+                    $isBoolishString = $isString && in_array(strtolower($value), ['true','false','1','0'], true);
+                    $isScalar = !$isArray && (is_scalar($value) || is_null($value));
+                    $checked = false;
+                    if ($isBool) { $checked = $value; }
+                    elseif ($isInt) { $checked = (int) $value === 1; }
+                    elseif ($isString) { $checked = in_array(strtolower($value), ['true','1'], true); }
+                    $isPairToggle = $isArray && count($value) === 2 && is_bool($value[0]);
+                @endphp
+                @if ($isScalar)
+                <li class="su-item su-item-card">
+                    <div>
+                        <h6>{{ $key }}</h6>
+                        <p class="mb-0 su-sub">Current: <code>{{ is_bool($value) ? ($value ? 'true' : 'false') : (is_null($value) ? 'null' : (is_string($value) ? $value : json_encode($value))) }}</code></p>
+                    </div>
+                    <div class="su-actions">
+                        <label class="su-switch" title="Toggle {{ $key }}">
+                            <input type="checkbox" class="js-setting-toggle" data-setting-key="{{ $key }}" data-original-type="{{ $isBool ? 'bool' : ($isInt ? 'int' : ($isBoolishString ? 'boolish-string' : ($isString ? 'string' : 'other'))) }}" @if($checked) checked @endif>
+                            <span class="su-slider"></span>
+                        </label>
+                    </div>
+                </li>
+                @endif
+                @if ($isPairToggle)
+                <li class="su-item su-item-card">
+                    <div>
+                        <h6>{{ $key }}</h6>
+                        <p class="mb-0 su-sub">Toggle and provide value if required.</p>
+                    </div>
+                    <div class="su-actions">
+                        <label class="su-switch" title="Toggle {{ $key }}">
+                            <input type="checkbox" class="js-setting-pair-toggle" data-setting-key="{{ $key }}" @if($value[0]) checked @endif>
+                            <span class="su-slider"></span>
+                        </label>
+                        <input type="text" class="su-input js-setting-pair-input" data-setting-key="{{ $key }}" placeholder="Value" value="{{ is_null($value[1]) ? '' : $value[1] }}">
+                    </div>
+                </li>
+                @endif
+            @endforeach
+        </ul>
+    </div>
+
+    <hr class="my-4">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <button id="pushSettingsBtn" class="su-btn su-btn-ghost">Push changes</button>
+        <span id="pushSettingsMsg" class="su-sub"></span>
+    </div>
+    <div class="mb-2" style="display:none;">
+        <textarea id="settingsEditor" class="form-control su-pre" rows="12" style="white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">{{ json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</textarea>
+    </div>
+    <div class="d-flex align-items-center gap-2" style="display:none;">
+        <button id="saveSettingsBtn" class="su-btn su-btn-ghost">Save Settings</button>
+        <span id="saveSettingsMsg" class="su-sub"></span>
+    </div>
+</div>
+<script>
+    (function(){
+        const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const providedKey = "{{ $providedKey }}";
+        function showMessage(text, type){
+            const container = document.querySelector('.su-container');
+            if (!container) return;
+            const existing = document.getElementById('flash-msg');
+            if (existing) existing.remove();
+            const div = document.createElement('div');
+            div.id = 'flash-msg';
+            div.className = 'alert ' + (type === 'error' ? 'alert-danger' : 'alert-success');
+            div.textContent = text;
+            container.insertBefore(div, container.firstChild.nextSibling);
+            setTimeout(()=>{ div.remove(); }, 5000);
+        }
+        // Removed toggle handlers since we only edit/save settings now.
+
+        // Settings editor save
+        const saveBtn = document.getElementById('saveSettingsBtn');
+        const editor = document.getElementById('settingsEditor');
+        const msg = document.getElementById('saveSettingsMsg');
+        function setMsg(text, ok){ msg.textContent = text; msg.style.color = ok ? '#9fe2b0' : '#ef9a9a'; }
+        let currentSettings;
+        try { currentSettings = JSON.parse(editor.value || '{}'); } catch(e) { currentSettings = {}; }
+
+        function coerceValueForToggle(originalType, isOn) {
+            switch (originalType) {
+                case 'bool': return !!isOn;
+                case 'int': return isOn ? 1 : 0;
+                case 'boolish-string': return isOn ? '1' : '0';
+                case 'string': return isOn ? 'true' : 'false';
+                default: return !!isOn;
+            }
+        }
+
+        function saveSettings(newSettings, silent){
+            if (!silent) setMsg('Saving...', true);
+            return fetch("{{ route('system.update.settings.save') }}", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-System-Update-Key': providedKey
+                },
+                body: JSON.stringify({ settings: newSettings, key: providedKey })
+            }).then(async (res) => {
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) throw new Error(data.message || 'Failed to save');
+                currentSettings = data.settings || newSettings;
+                editor.value = JSON.stringify(currentSettings, null, 2);
+                if (!silent) { setMsg('Saved successfully.', true); showMessage('Settings saved.', 'success'); }
+                return data;
+            }).catch(err => {
+                if (!silent) { setMsg(err.message, false); showMessage(err.message, 'error'); }
+                throw err;
+            });
+        }
+
+        // Toggle handlers for each key
+        document.querySelectorAll('.js-setting-toggle').forEach(cb => {
+            cb.addEventListener('change', function(e){
+                const key = e.target.getAttribute('data-setting-key');
+                const originalType = e.target.getAttribute('data-original-type');
+                const isOn = e.target.checked;
+                currentSettings[key] = coerceValueForToggle(originalType, isOn);
+                saveSettings(currentSettings, true).catch(() => {
+                    // revert UI if save fails
+                    e.target.checked = !isOn;
+                });
+            });
+        });
+
+        // Toggle/input handlers for pair keys
+        document.querySelectorAll('.js-setting-pair-toggle').forEach(cb => {
+            cb.addEventListener('change', function(e){
+                const key = e.target.getAttribute('data-setting-key');
+                const isOn = e.target.checked;
+                const input = document.querySelector('.js-setting-pair-input[data-setting-key="' + key + '"]');
+                const val = input ? input.value : null;
+                currentSettings[key] = [!!isOn, val === '' ? null : val];
+                saveSettings(currentSettings, true).catch(() => {
+                    e.target.checked = !isOn;
+                });
+            });
+        });
+        document.querySelectorAll('.js-setting-pair-input').forEach(inp => {
+            function sync(){
+                const key = inp.getAttribute('data-setting-key');
+                const toggle = document.querySelector('.js-setting-pair-toggle[data-setting-key="' + key + '"]');
+                const isOn = !!(toggle && toggle.checked);
+                currentSettings[key] = [isOn, inp.value === '' ? null : inp.value];
+                saveSettings(currentSettings, true).catch(() => {
+                    // leave input text; show message only
+                });
+            }
+            inp.addEventListener('change', sync);
+            inp.addEventListener('keyup', function(e){ if (e.key === 'Enter') sync(); });
+            inp.addEventListener('blur', sync);
+        });
+        saveBtn?.addEventListener('click', function(){
+            let jsonText = editor.value;
+            let parsed;
+            try {
+                parsed = JSON.parse(jsonText);
+            } catch (e) {
+                setMsg('Invalid JSON: ' + e.message, false);
+                return;
+            }
+            currentSettings = parsed;
+            saveSettings(parsed, false);
+        });
+
+        // Push changes
+        const pushBtn = document.getElementById('pushSettingsBtn');
+        const pushMsg = document.getElementById('pushSettingsMsg');
+        function setPushMsg(text, ok){ pushMsg.textContent = text; pushMsg.style.color = ok ? '#9fe2b0' : '#ef9a9a'; }
+        pushBtn?.addEventListener('click', function(){
+            setPushMsg('Pushing...', true);
+            fetch("{{ route('system.update.settings.push') }}", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-System-Update-Key': providedKey
+                },
+                body: JSON.stringify({ key: providedKey })
+            }).then(async (res) => {
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) throw new Error(data.message || 'Push failed');
+                setPushMsg('Pushed successfully.', true);
+                showMessage('Pushed successfully.', 'success');
+                // Optionally, display output in console for debugging
+                if (data && data.output) { try { console.log(data.output.join('\n')); } catch(e){} }
+            }).catch(err => {
+                setPushMsg(err.message, false);
+                showMessage(err.message, 'error');
+            });
+        });
+    })();
+</script>
+<script src="{{ mix('/js/tenant.js') }}" defer></script>
+</body>
+</html>
+
+
