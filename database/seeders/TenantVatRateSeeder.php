@@ -14,16 +14,35 @@ class TenantVatRateSeeder extends Seeder
      */
     public function run()
     {
-        // check if table is empty
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('vat_rates')->truncate();
         if (DB::table('vat_rates')->count() == 0) {
             DB::table('vat_rates')->insert([
                 [
-                    'name' => 'VAT 15%',
+                    'name' => 'ضريبة القيمة المضافة  15%',
                     'slug' => 'vat-15',
                     'code' => 'VAT@15',
+                    'note' => 'ضريبة القيمة المضافة  15%',
                     'rate' => '15.00',
                     'sales_vat_account_id' => 27,
                     'purchase_vat_account_id' => 21,
+                ],
+            ]);
+
+            DB::table('vat_rates')->insert([
+                [
+                    'name' => 'ضريبة القيمة المضافة  0%',
+                    'slug' => 'vat-0',
+                    'code' => 'VAT@0',
+                    'note' => 'ضريبة القيمة المضافة  0%',
+                ],
+            ]);
+            DB::table('vat_rates')->insert([
+                [
+                    'name' => 'ضريبة القيمة المضافة  5%',
+                    'slug' => 'vat-5',
+                    'code' => 'VAT@5',
+                    'note' => 'ضريبة القيمة المضافة  5%',
                 ],
             ]);
         }

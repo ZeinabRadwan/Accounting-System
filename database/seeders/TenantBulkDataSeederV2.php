@@ -167,11 +167,11 @@ class TenantBulkDataSeederV2 extends Seeder
             $this->products = Product::all();
         }
 
-        if ($this->vatRates->isEmpty()) {
-            $this->log('Creating sample VAT rates...');
-            $this->createSampleVatRates();
-            $this->vatRates = VatRate::all();
-        }
+        // if ($this->vatRates->isEmpty()) {
+        //     $this->log('Creating sample VAT rates...');
+        //     $this->createSampleVatRates();
+        //     $this->vatRates = VatRate::all();
+        // }
 
         if ($this->users->isEmpty()) {
             $this->log('Creating sample users...');
@@ -543,8 +543,8 @@ class TenantBulkDataSeederV2 extends Seeder
         // First create product categories and subcategories
         $this->createSampleProductCategories();
         
-        // Create VAT rates first
-        $this->createSampleVatRates();
+        // // Create VAT rates first
+        // $this->createSampleVatRates();
         
         $products = [
             ['name' => 'كرسي مكتب', 'code' => 'CHR-001', 'regular_price' => 299.99, 'purchase_price' => 199.99],
