@@ -160,6 +160,83 @@ class SystemUpdateController extends Controller
             'exit_codes' => $exitCodes,
         ]);
     }
+
+    public function buildAndPush(Request $request)
+    {
+        if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
+            abort(404);
+        }
+        $this->enforceKey($request);
+
+        $repoPath = base_path();
+        $output = [];
+        $exitCodes = [];
+
+        try {
+            $cwd = getcwd();
+            @chdir($repoPath);
+
+            $steps = [
+                'npm run build',
+                'git add system_update_setting.json public/mix-manifest.json public/css public/js',
+                'git commit -m "chore(system-update): build assets and update system_update_setting.json via UI"',
+                'git push'
+            ];
+
+            foreach ($steps as $cmd) {
+                $cmdOutput = [];
+                $code = 0;
+                @exec($cmd . ' 2>&1', $cmdOutput, $code);
+                $output[] = '> ' . $cmd;
+                $output = array_merge($output, $cmdOutput);
+                $exitCodes[] = $code;
+                // If any step fails, we still return output to help debug
+            }
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        } finally {
+            if (isset($cwd)) { @chdir($cwd); }
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'output' => $output,
+            'exit_codes' => $exitCodes,
+        ]);
+    }
+
+    public function buildOnly(Request $request)
+    {
+        if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
+            abort(404);
+        }
+        $this->enforceKey($request);
+
+        $repoPath = base_path();
+        $output = [];
+        $exitCode = 0;
+
+        try {
+            $cwd = getcwd();
+            @chdir($repoPath);
+
+            $cmd = 'npm run build';
+            $cmdOutput = [];
+            @exec($cmd . ' 2>&1', $cmdOutput, $exitCode);
+            $output[] = '> ' . $cmd;
+            $output = array_merge($output, $cmdOutput);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        } finally {
+            if (isset($cwd)) { @chdir($cwd); }
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'output' => $output,
+            'exit_code' => $exitCode,
+        ]);
+    }
 }
 
 

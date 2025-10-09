@@ -123,6 +123,8 @@
     <hr class="my-4">
     <div class="d-flex align-items-center gap-2 mb-3">
         <button id="pushSettingsBtn" class="su-btn su-btn-ghost">Push changes</button>
+        <button id="buildOnlyBtn" class="su-btn su-btn-ghost">Build only</button>
+        <button id="buildAndPushBtn" class="su-btn su-btn-ghost">Build & Push</button>
         <span id="pushSettingsMsg" class="su-sub"></span>
     </div>
     <div class="mb-2" style="display:none;">
@@ -249,11 +251,14 @@
 
         // Push changes
         const pushBtn = document.getElementById('pushSettingsBtn');
+        const buildOnlyBtn = document.getElementById('buildOnlyBtn');
+        const buildAndPushBtn = document.getElementById('buildAndPushBtn');
         const pushMsg = document.getElementById('pushSettingsMsg');
         function setPushMsg(text, ok){ pushMsg.textContent = text; pushMsg.style.color = ok ? '#9fe2b0' : '#ef9a9a'; }
-        pushBtn?.addEventListener('click', function(){
-            setPushMsg('Pushing...', true);
-            fetch("{{ route('system.update.settings.push') }}", {
+        
+        function executeAction(url, actionName) {
+            setPushMsg(actionName + '...', true);
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -264,15 +269,27 @@
                 body: JSON.stringify({ key: providedKey })
             }).then(async (res) => {
                 const data = await res.json().catch(() => ({}));
-                if (!res.ok) throw new Error(data.message || 'Push failed');
-                setPushMsg('Pushed successfully.', true);
-                showMessage('Pushed successfully.', 'success');
+                if (!res.ok) throw new Error(data.message || actionName + ' failed');
+                setPushMsg(actionName + ' completed successfully.', true);
+                showMessage(actionName + ' completed successfully.', 'success');
                 // Optionally, display output in console for debugging
                 if (data && data.output) { try { console.log(data.output.join('\n')); } catch(e){} }
             }).catch(err => {
                 setPushMsg(err.message, false);
                 showMessage(err.message, 'error');
             });
+        }
+
+        pushBtn?.addEventListener('click', function(){
+            executeAction("{{ route('system.update.settings.push') }}", 'Pushing');
+        });
+
+        buildOnlyBtn?.addEventListener('click', function(){
+            executeAction("{{ route('system.update.build.only') }}", 'Building');
+        });
+
+        buildAndPushBtn?.addEventListener('click', function(){
+            executeAction("{{ route('system.update.build.and.push') }}", 'Building & Pushing');
         });
     })();
 </script>
