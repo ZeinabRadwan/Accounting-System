@@ -3899,5 +3899,20 @@
   "Inventory Count" : " جرد المخزون ",
   "Adjustment added successfully" : "تم إضافة التعديل بنجاح",
   "The inventory adjustment has been saved successfully." : "تم حفظ التعديل على المخزون بنجاح.",
-  "Manage Translations": "إدارة الترجمات"
+  "Manage Translations": "إدارة الترجمات",
+  "Manage Translations": "إدارة الترجمات",
+  "Minimum one product returned qty is required!": "مطلوب حد أدنى من كمية منتج واحد مسترد!",
+  "Purchase order payment added successfully": "تم إضافة دفعة أمر الشراء بنجاح",
+  "Please check your input and try again.": "يرجى التحقق من المدخلات والمحاولة مرة أخرى.",
+  "Are you sure?": "هل أنت متأكد؟",
+  "You will not be able to return to this! This will delete the purchase order permanently.": "لن تتمكن من العودة إلى هذا! سيتم حذف أمر الشراء نهائياً.",
+  "Deleted successfully.": "تم الحذف بنجاح.",
+  "Sorry you can't delete this purchase order!": "عذراً، لا يمكنك حذف أمر الشراء هذا!",
+  "Do you want to send this invoice to ZATCA?": "هل تريد إرسال هذه الفاتورة إلى هيئة الزكاة والضريبة؟",
+  "Sending...": "جاري الإرسال...",
+  "Invoice has been sent to ZATCA and journal entries have been created.": "تم إرسال الفاتورة إلى هيئة الزكاة والضريبة وتم إنشاء قيود اليومية.",
+  "Please select a supplier": "يرجى اختيار مورد",
+  "Please add at least one product": "يرجى إضافة منتج واحد على الأقل",
+  "Journal Entry Information": "معلومات قيد اليومية",
+  "No journal entries found for this invoice return.": "لم يتم العثور على قيود يومية لهذا إرجاع الفاتورة."
 }

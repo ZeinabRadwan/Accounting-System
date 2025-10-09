@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[6877],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[1152],{
 
 /***/ 97469:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -69,7 +69,7 @@
 
 /***/ }),
 
-/***/ 41548:
+/***/ 85738:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -81,14 +81,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-fa575a9a]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-1d74d7ce]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 46877:
+/***/ 91152:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -99,7 +99,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ show)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=template&id=fa575a9a&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=template&id=1d74d7ce&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1135,7 +1135,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               _this10.salIncreLoading = true;
               currentPage = _this10.allIncrements ? _this10.salIncrePagination.current_page : 1;
               _context9.next = 4;
-              return axios_default().get(window.location.origin + "/api/employee-increments/" + _this10.$route.params.slug + "/search/" + _this10.salIncreQuery + "?page=" + currentPage + "&perPage=" + _this10.perPage);
+              return axios_default().get(window.location.origin + "/api/employee-increments/" + _this10.$route.params.slug + "/search?term=" + _this10.salIncreQuery + "&page=" + currentPage + "&perPage=" + _this10.perPage);
             case 4:
               _yield$axios$get3 = _context9.sent;
               data = _yield$axios$get3.data;
@@ -1427,9 +1427,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=fa575a9a&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_fa575a9a_prod_scoped_true_lang_css = __webpack_require__(41548);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=fa575a9a&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css = __webpack_require__(85738);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
 
             
 
@@ -1438,12 +1438,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_fa575a9a_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const employees_showvue_type_style_index_0_id_fa575a9a_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_fa575a9a_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=fa575a9a&prod&scoped=true&lang=css
+/* harmony default export */ const employees_showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -1462,7 +1462,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "fa575a9a",
+  "1d74d7ce",
   null
   
 )

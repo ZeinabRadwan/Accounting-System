@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChartOfAccount extends Model
 {
-    use HasFactory, SoftDeletes, Translatable;
+    use HasFactory, SoftDeletes;
     protected $table = 'chart_of_accounts';
     
     protected $fillable = [
@@ -25,13 +24,6 @@ class ChartOfAccount extends Model
         'order',
         'is_active',
         'created_by',
-    ];
-
-    /**
-     * Translatable fields
-     */
-    protected $translatable = [
-        'name',
     ];
 
     protected $casts = [
@@ -391,6 +383,23 @@ class ChartOfAccount extends Model
     /**
      * Get all translations for this account
      */
+    public function getAllTranslations()
+    {
+        $translations = [];
+        
+        foreach ($this->translations as $translation) {
+            $translations[$translation->locale] = [
+                'name' => $translation->name,
+                'description' => $translation->description,
+            ];
+        }
+        
+        return $translations;
+    }
+
+    /**
+     * Get all translations for this account (attribute accessor)
+     */
     public function getAllTranslationsAttribute()
     {
         return $this->getAllTranslations();
@@ -404,8 +413,23 @@ class ChartOfAccount extends Model
         return $query->where(function ($q) use ($searchTerm, $locale) {
             $q->where('name', 'like', "%{$searchTerm}%")
               ->orWhereHas('translations', function ($translationQuery) use ($searchTerm, $locale) {
-                  $translationQuery->where('field', 'name')
-                                  ->where('value', 'like', "%{$searchTerm}%");
+                  $translationQuery->where('name', 'like', "%{$searchTerm}%");
+                  if ($locale) {
+                      $translationQuery->where('locale', $locale);
+                  }
+              });
+        });
+    }
+
+    /**
+     * Scope to search by translated description
+     */
+    public function scopeSearchByDescription($query, $searchTerm, $locale = null)
+    {
+        return $query->where(function ($q) use ($searchTerm, $locale) {
+            $q->where('description', 'like', "%{$searchTerm}%")
+              ->orWhereHas('translations', function ($translationQuery) use ($searchTerm, $locale) {
+                  $translationQuery->where('description', 'like', "%{$searchTerm}%");
                   if ($locale) {
                       $translationQuery->where('locale', $locale);
                   }
