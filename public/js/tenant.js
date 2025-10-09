@@ -21728,12 +21728,12 @@ var map = {
 		9443
 	],
 	"./clients/show": [
-		3739,
-		3739
+		97182,
+		7182
 	],
 	"./clients/show.vue": [
-		3739,
-		3739
+		97182,
+		7182
 	],
 	"./dashboard": [
 		10918,
@@ -22032,12 +22032,12 @@ var map = {
 		2860
 	],
 	"./inventory/adjustments": [
-		67983,
-		7983
+		77470,
+		7470
 	],
 	"./inventory/adjustments/": [
-		67983,
-		7983
+		77470,
+		7470
 	],
 	"./inventory/adjustments/create": [
 		36641,
@@ -22056,12 +22056,12 @@ var map = {
 		2492
 	],
 	"./inventory/adjustments/index": [
-		67983,
-		7983
+		77470,
+		7470
 	],
 	"./inventory/adjustments/index.vue": [
-		67983,
-		7983
+		77470,
+		7470
 	],
 	"./inventory/adjustments/show": [
 		95512,
@@ -23400,12 +23400,12 @@ var map = {
 		9296
 	],
 	"./suppliers/show": [
-		85406,
-		5406
+		48103,
+		8103
 	],
 	"./suppliers/show.vue": [
-		85406,
-		5406
+		48103,
+		8103
 	],
 	"./welcome": [
 		20944,
@@ -89701,7 +89701,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 9443) return "js/9443.js";
 /******/ 			if (chunkId === 9221) return "js/9221.js";
 /******/ 			if (chunkId === 6808) return "js/6808.js";
-/******/ 			if (chunkId === 3739) return "js/3739.js";
+/******/ 			if (chunkId === 7182) return "js/7182.js";
 /******/ 			if (chunkId === 918) return "js/918.js";
 /******/ 			if (chunkId === 5360) return "js/5360.js";
 /******/ 			if (chunkId === 7936) return "js/7936.js";
@@ -89730,7 +89730,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 1554) return "js/1554.js";
 /******/ 			if (chunkId === 7189) return "js/7189.js";
 /******/ 			if (chunkId === 2860) return "js/2860.js";
-/******/ 			if (chunkId === 7983) return "js/7983.js";
+/******/ 			if (chunkId === 7470) return "js/7470.js";
 /******/ 			if (chunkId === 6641) return "js/6641.js";
 /******/ 			if (chunkId === 2492) return "js/2492.js";
 /******/ 			if (chunkId === 5512) return "js/5512.js";
@@ -89871,7 +89871,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 9296) return "js/9296.js";
 /******/ 			if (chunkId === 7179) return "js/7179.js";
 /******/ 			if (chunkId === 9340) return "js/9340.js";
-/******/ 			if (chunkId === 5406) return "js/5406.js";
+/******/ 			if (chunkId === 8103) return "js/8103.js";
 /******/ 			if (chunkId === 944) return "js/944.js";
 /******/ 			if (chunkId === 1690) return "js/1690.js";
 /******/ 			if (chunkId === 2209) return "js/2209.js";
