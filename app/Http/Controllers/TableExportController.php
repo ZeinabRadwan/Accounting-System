@@ -333,27 +333,43 @@ class TableExportController extends Controller
             'locale' => $locale
         ];
         
-        // Generate PDF using Snappy for better Arabic support
+        // Generate PDF with fallback mechanism
         $html = view('pdf.quotations', $data)->render();
         
-        $pdf = SnappyPdf::loadHTML($html)
-            ->setPaper('a4')
-            ->setOrientation('landscape')
-            ->setOption('encoding', 'UTF-8')
-            ->setOption('enable-local-file-access', true)
-            ->setOption('disable-smart-shrinking', true)
-            ->setOption('print-media-type', true)
-            ->setOption('no-background', false)
-            ->setOption('margin-top', 10)
-            ->setOption('margin-right', 10)
-            ->setOption('margin-bottom', 10)
-            ->setOption('margin-left', 10)
-            ->setOption('disable-external-links', true)
-            ->setOption('disable-plugins', true)
-            ->setOption('disable-javascript', true);
+        try {
+            // Try Snappy first for better Arabic support
+            $pdf = SnappyPdf::loadHTML($html)
+                ->setPaper('a4')
+                ->setOrientation('landscape')
+                ->setOption('encoding', 'UTF-8')
+                ->setOption('enable-local-file-access', true)
+                ->setOption('disable-smart-shrinking', true)
+                ->setOption('print-media-type', true)
+                ->setOption('no-background', false)
+                ->setOption('margin-top', 10)
+                ->setOption('margin-right', 10)
+                ->setOption('margin-bottom', 10)
+                ->setOption('margin-left', 10)
+                ->setOption('disable-external-links', true)
+                ->setOption('disable-plugins', true)
+                ->setOption('disable-javascript', true);
+                
+            return $pdf->download('quotation-list.pdf');
+        } catch (\Exception $e) {
+            // Fallback to DomPDF if Snappy fails
+            Log::warning('Snappy PDF generation failed for quotations: ' . $e->getMessage());
             
-        // download PDF file with download method
-        return $pdf->download('quotation-list.pdf');
+            $pdf = PDF::loadHTML($html)
+                ->setPaper('a4', 'landscape')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'defaultFont' => 'DejaVu Sans'
+                ]);
+                
+            return $pdf->download('quotation-list.pdf');
+        }
     }
 
     // return quotation export
