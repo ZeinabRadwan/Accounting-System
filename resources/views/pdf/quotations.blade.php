@@ -3,19 +3,19 @@
 @section('content')
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'DejaVu Sans', Arial, sans-serif;
             direction: {{ $locale === 'ar' ? 'rtl' : 'ltr' }};
             margin: 0;
             padding: 10px;
         }
         .arabic-text {
-            font-family: Arial, sans-serif;
+            font-family: 'DejaVu Sans', Arial, sans-serif;
             direction: rtl;
             text-align: right;
             unicode-bidi: bidi-override;
         }
         .english-text {
-            font-family: Arial, sans-serif;
+            font-family: 'DejaVu Sans', Arial, sans-serif;
             direction: ltr;
             text-align: left;
         }
