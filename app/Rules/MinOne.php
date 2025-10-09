@@ -42,6 +42,6 @@ class MinOne implements Rule
      */
     public function message()
     {
-        return 'Minimum one product returned qty is required!';
+        return trans('Minimum one product returned qty is required!');
     }
 }

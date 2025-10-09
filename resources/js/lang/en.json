@@ -3064,5 +3064,19 @@
   "Client": "Client",
   "Stock": "Stock",
   "Select a product": "Select a product",
-  "Clear All Filters": "Clear All Filters"
+  "Clear All Filters": "Clear All Filters",
+  "Minimum one product returned qty is required!": "Minimum one product returned qty is required!",
+  "Purchase order payment added successfully": "Purchase order payment added successfully",
+  "Please check your input and try again.": "Please check your input and try again.",
+  "Are you sure?": "Are you sure?",
+  "You will not be able to return to this! This will delete the purchase order permanently.": "You will not be able to return to this! This will delete the purchase order permanently.",
+  "Deleted successfully.": "Deleted successfully.",
+  "Sorry you can't delete this purchase order!": "Sorry you can't delete this purchase order!",
+  "Do you want to send this invoice to ZATCA?": "Do you want to send this invoice to ZATCA?",
+  "Sending...": "Sending...",
+  "Invoice has been sent to ZATCA and journal entries have been created.": "Invoice has been sent to ZATCA and journal entries have been created.",
+  "Please select a supplier": "Please select a supplier",
+  "Please add at least one product": "Please add at least one product",
+  "Journal Entry Information": "Journal Entry Information",
+  "No journal entries found for this invoice return.": "No journal entries found for this invoice return."
 }
