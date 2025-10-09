@@ -4,9 +4,9 @@
     "public_update": false,
     "run_migration": false,
     "run_seeder": [
-        false,
-        null,
-        "central"
+        true,
+        "TenantVatRateSeeder",
+        "tenant"
     ],
     "run_command": [
         false,
