@@ -333,11 +333,25 @@ class TableExportController extends Controller
             'locale' => $locale
         ];
         
-        // Generate PDF with fallback mechanism
+        // Generate PDF with engine selection and fallback
         $html = view('pdf.quotations', $data)->render();
-        
+
+        // Prefer DomPDF for Arabic to avoid RTL shaping issues with wkhtmltopdf
+        $forceDomPdf = ($locale === 'ar') || (strtolower((string) env('PDF_ENGINE', '')) === 'dompdf');
+        if ($forceDomPdf) {
+            $pdf = PDF::loadHTML($html)
+                ->setPaper('a4', 'landscape')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'defaultFont' => 'DejaVu Sans',
+                ]);
+            return $pdf->download('quotation-list.pdf');
+        }
+
         try {
-            // Try Snappy first for better Arabic support
+            // Try Snappy (wkhtmltopdf)
             $pdf = SnappyPdf::loadHTML($html)
                 ->setPaper('a4')
                 ->setOrientation('landscape')
@@ -353,21 +367,20 @@ class TableExportController extends Controller
                 ->setOption('disable-external-links', true)
                 ->setOption('disable-plugins', true)
                 ->setOption('disable-javascript', true);
-                
+
             return $pdf->download('quotation-list.pdf');
         } catch (\Exception $e) {
-            // Fallback to DomPDF if Snappy fails
             Log::warning('Snappy PDF generation failed for quotations: ' . $e->getMessage());
-            
+
             $pdf = PDF::loadHTML($html)
                 ->setPaper('a4', 'landscape')
                 ->setOptions([
                     'isHtml5ParserEnabled' => true,
                     'isRemoteEnabled' => true,
                     'isPhpEnabled' => true,
-                    'defaultFont' => 'DejaVu Sans'
+                    'defaultFont' => 'DejaVu Sans',
                 ]);
-                
+
             return $pdf->download('quotation-list.pdf');
         }
     }
