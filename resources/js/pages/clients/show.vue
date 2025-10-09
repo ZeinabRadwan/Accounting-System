@@ -1644,6 +1644,7 @@ export default {
 
     // Format phone number to display properly
     formatPhoneNumber(phoneNumber) {
+      return phoneNumber;
       if (!phoneNumber) return '';
       
       // Remove all non-digit characters except +

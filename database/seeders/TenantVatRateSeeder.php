@@ -31,6 +31,16 @@ class TenantVatRateSeeder extends Seeder
 
             DB::table('vat_rates')->insert([
                 [
+                    'name' => 'ضريبة القيمة المضافة  5%',
+                    'slug' => 'vat-5',
+                    'code' => 'VAT@5',
+                    'note' => 'ضريبة القيمة المضافة  5%',
+                    'rate' => '5.00',
+                ],
+            ]);
+
+            DB::table('vat_rates')->insert([
+                [
                     'name' => 'الضريبة الصفرية 0%',
                     'slug' => 'vat-0',
                     'code' => 'VAT@0',

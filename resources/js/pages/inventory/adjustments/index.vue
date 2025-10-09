@@ -135,7 +135,7 @@
                         <!-- Product specific columns -->
                         <td>{{ product.productCode | withPrefix(productPrefix) }}</td>
                         <td>{{ product.productName }}</td>
-                        <td>{{ product.avgPurchasePrice }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ product.avgPurchasePrice === 0 || product.avgPurchasePrice ? product.avgPurchasePrice : 0 }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="product.type == 1">+</span>
                           <span v-else>-</span>
