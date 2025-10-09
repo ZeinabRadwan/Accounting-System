@@ -286,7 +286,8 @@ class UpdateSettingCommand extends Command
     private function runSeeder($seederName, $seederType = null)
     {
         try {
-            $backup_command = Artisan::call('backup:run', ['--only-db' => true]);
+            // $backup_command = Artisan::call('backup:run', ['--only-db' => true]);
+            $backup_command = 0;
 
             if ($backup_command === 0) {
                 $return_var = 0;
