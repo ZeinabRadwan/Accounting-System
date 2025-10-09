@@ -161,7 +161,7 @@ class SystemUpdateController extends Controller
         ]);
     }
 
-    public function buildAndPush(Request $request)
+    public function pushBuildResults(Request $request)
     {
         if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
             abort(404);
@@ -177,9 +177,8 @@ class SystemUpdateController extends Controller
             @chdir($repoPath);
 
             $steps = [
-                'npm run build',
                 'git add system_update_setting.json public/mix-manifest.json public/css public/js',
-                'git commit -m "chore(system-update): build assets and update system_update_setting.json via UI"',
+                'git commit -m "chore(system-update): update system_update_setting.json and build assets via UI"',
                 'git push'
             ];
 

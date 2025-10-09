@@ -122,10 +122,17 @@
 
     <hr class="my-4">
     <div class="d-flex align-items-center gap-2 mb-3">
-        <button id="pushSettingsBtn" class="su-btn su-btn-ghost">Push changes</button>
+        <button id="pushSettingsBtn" class="su-btn su-btn-ghost">Push settings</button>
         <button id="buildOnlyBtn" class="su-btn su-btn-ghost">Build only</button>
-        <button id="buildAndPushBtn" class="su-btn su-btn-ghost">Build & Push</button>
+        <button id="pushBuildResultsBtn" class="su-btn su-btn-ghost">Push build results</button>
         <span id="pushSettingsMsg" class="su-sub"></span>
+    </div>
+    
+    <div class="su-card mb-3">
+        <div class="p-3">
+            <h6 class="mb-2">Build Results</h6>
+            <div id="buildResults" class="su-pre p-3" style="white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; max-height: 300px; overflow-y: auto; background: rgba(0,0,0,0.3);">No build executed yet. Click "Build only" to see results.</div>
+        </div>
     </div>
     <div class="mb-2" style="display:none;">
         <textarea id="settingsEditor" class="form-control su-pre" rows="12" style="white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">{{ json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</textarea>
@@ -252,12 +259,16 @@
         // Push changes
         const pushBtn = document.getElementById('pushSettingsBtn');
         const buildOnlyBtn = document.getElementById('buildOnlyBtn');
-        const buildAndPushBtn = document.getElementById('buildAndPushBtn');
+        const pushBuildResultsBtn = document.getElementById('pushBuildResultsBtn');
         const pushMsg = document.getElementById('pushSettingsMsg');
+        const buildResults = document.getElementById('buildResults');
         function setPushMsg(text, ok){ pushMsg.textContent = text; pushMsg.style.color = ok ? '#9fe2b0' : '#ef9a9a'; }
         
-        function executeAction(url, actionName) {
+        function executeAction(url, actionName, showInResults = false) {
             setPushMsg(actionName + '...', true);
+            if (showInResults) {
+                buildResults.textContent = actionName + '...\n';
+            }
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -272,24 +283,29 @@
                 if (!res.ok) throw new Error(data.message || actionName + ' failed');
                 setPushMsg(actionName + ' completed successfully.', true);
                 showMessage(actionName + ' completed successfully.', 'success');
-                // Optionally, display output in console for debugging
-                if (data && data.output) { try { console.log(data.output.join('\n')); } catch(e){} }
+                
+                if (showInResults && data && data.output) {
+                    buildResults.textContent = data.output.join('\n');
+                }
             }).catch(err => {
                 setPushMsg(err.message, false);
                 showMessage(err.message, 'error');
+                if (showInResults) {
+                    buildResults.textContent = 'Error: ' + err.message;
+                }
             });
         }
 
         pushBtn?.addEventListener('click', function(){
-            executeAction("{{ route('system.update.settings.push') }}", 'Pushing');
+            executeAction("{{ route('system.update.settings.push') }}", 'Pushing settings');
         });
 
         buildOnlyBtn?.addEventListener('click', function(){
-            executeAction("{{ route('system.update.build.only') }}", 'Building');
+            executeAction("{{ route('system.update.build.only') }}", 'Building', true);
         });
 
-        buildAndPushBtn?.addEventListener('click', function(){
-            executeAction("{{ route('system.update.build.and.push') }}", 'Building & Pushing');
+        pushBuildResultsBtn?.addEventListener('click', function(){
+            executeAction("{{ route('system.update.push.build.results') }}", 'Pushing build results');
         });
     })();
 </script>

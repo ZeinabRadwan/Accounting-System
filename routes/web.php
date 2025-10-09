@@ -34,7 +34,7 @@ if (! empty(env('SYSTEM_UPDATE_KEY'))) {
         Route::get('/system-update/settings', [SystemUpdateController::class, 'getSettings'])->name('system.update.settings.get');
         Route::post('/system-update/settings', [SystemUpdateController::class, 'saveSettings'])->name('system.update.settings.save');
         Route::post('/system-update/push', [SystemUpdateController::class, 'pushSettings'])->name('system.update.settings.push');
-        Route::post('/system-update/build-and-push', [SystemUpdateController::class, 'buildAndPush'])->name('system.update.build.and.push');
+        Route::post('/system-update/push-build-results', [SystemUpdateController::class, 'pushBuildResults'])->name('system.update.push.build.results');
         Route::post('/system-update/build-only', [SystemUpdateController::class, 'buildOnly'])->name('system.update.build.only');
     // });
 }
