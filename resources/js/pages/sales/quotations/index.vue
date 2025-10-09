@@ -56,7 +56,7 @@
                     </svg>
                   </a>
                   <a
-                    href="/quotations/pdf"
+                    :href="pdfExportUrl"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -301,7 +301,13 @@ export default {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
       // Create a dynamic export URL with query parameters
-      return `/quotations/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      const locale = this.$i18n.locale;
+      return `/quotations/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
+    },
+    pdfExportUrl() {
+      // Create a dynamic PDF export URL with locale parameter
+      const locale = this.$i18n.locale;
+      return `/quotations/pdf?locale=${locale}`;
     },
   },
   watch: {

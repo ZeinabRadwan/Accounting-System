@@ -33,7 +33,7 @@ class InventoryAdjustmentController extends Controller
      */
     public function index(Request $request)
     {
-        return AdjustmentListResource::collection(InventoryAdjustment::latest()->paginate($request->perPage));
+        return AdjustmentListResource::collection(InventoryAdjustment::with('adjustmentProducts.product.productUnit')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -292,7 +292,7 @@ class InventoryAdjustmentController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = InventoryAdjustment::with('user');
+        $query = InventoryAdjustment::with('user', 'adjustmentProducts.product.productUnit');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

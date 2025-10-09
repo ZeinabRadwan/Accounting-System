@@ -16,12 +16,14 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
     protected $startDate;
     protected $endDate;
     protected $term;
+    protected $locale;
 
-    public function __construct($startDate, $endDate, $term)
+    public function __construct($startDate, $endDate, $term, $locale = null)
     {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->term = $term;
+        $this->locale = $locale ?: session('locale', app()->getLocale());
     }
 
     /**
@@ -53,12 +55,21 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
 
         $salesQuotations = QuotationListResource::collection($query->latest()->get())->map(function ($salesQuotation) {
             $currencySymbol = getExcelCompatibleCurrencySymbol();
+            
+            // Calculate correct subtotal (without VAT)
+            $subtotalWithoutVat = $salesQuotation->sub_total - $salesQuotation->total_tax;
+            
+            // Translate status using stored locale
+            $statusText = $salesQuotation->status ? 
+                ($this->locale === 'ar' ? 'نشط' : 'Active') : 
+                ($this->locale === 'ar' ? 'غير نشط' : 'Inactive');
+            
             return [
                 config('config.quotationPrefix') . ' - ' . $salesQuotation->quotation_no,
                 date('jS M, Y', strtotime($salesQuotation->quotation_date)),
-                $salesQuotation->status ? 'Active' : 'Inactive',
+                $statusText,
                 $salesQuotation->client?->name,
-                $currencySymbol . strval($salesQuotation->sub_total),
+                $currencySymbol . strval($subtotalWithoutVat),
                 $currencySymbol . strval($salesQuotation->transport > 0 ? $salesQuotation->transport : '0'),
                 $currencySymbol . strval($salesQuotation->discount > 0 ? $salesQuotation->discount : '0'),
                 $currencySymbol . strval($salesQuotation->total_tax > 0 ? $salesQuotation->total_tax : '0'),
@@ -84,9 +95,37 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
             return floatval(str_replace($currencySymbol, '',  $row[8] ?? 0));
         });
 
+        // Use stored locale for total row labels
+        $locale = $this->locale;
+        
+        // Define translations for total row labels
+        $totalLabels = [
+            'en' => [
+                'Total Subtotal = ',
+                'Total Transport = ',
+                'Total Discount = ',
+                'Total Vat = ',
+                'Total NetTotal = '
+            ],
+            'ar' => [
+                'إجمالي الإجمالي قبل الضريبة = ',
+                'إجمالي النقل = ',
+                'إجمالي الخصم = ',
+                'إجمالي الضريبة = ',
+                'إجمالي الإجمالي بعد الضريبة = '
+            ]
+        ];
+        
+        $labels = $totalLabels[$locale] ?? $totalLabels['en'];
+        
         // Add the total paid as a new row
         $salesQuotations->push([
-            '', '', '', '', 'Total Subtotal = ' . $currencySymbol . $totalSub_Total, 'Total Transport = ' . $currencySymbol . $totalTransport, 'Total Discount = ' . $currencySymbol . $totalDiscount, 'Total Vat = ' . $currencySymbol . $totalVat, 'Total NetTotal = ' . $currencySymbol . $totalNetTotal,
+            '', '', '', '', 
+            $labels[0] . $currencySymbol . $totalSub_Total, 
+            $labels[1] . $currencySymbol . $totalTransport, 
+            $labels[2] . $currencySymbol . $totalDiscount, 
+            $labels[3] . $currencySymbol . $totalVat, 
+            $labels[4] . $currencySymbol . $totalNetTotal,
         ]);
 
         return $salesQuotations;
@@ -94,17 +133,36 @@ class ExportQuotation implements FromCollection,  WithHeadings, ShouldAutoSize, 
 
     public function headings(): array
     {
-        return [
-            'Quotation No',
-            'Quotation Date',
-            'Status',
-            'Client',
-            'Subtotal',
-            'Transport',
-            'Discount',
-            'Tax',
-            'Net Total',
+        // Use stored locale
+        $locale = $this->locale;
+        
+        // Define translations for Excel headers
+        $translations = [
+            'en' => [
+                'Quotation No',
+                'Quotation Date',
+                'Status',
+                'Client',
+                'Subtotal',
+                'Transport',
+                'Discount',
+                'Tax',
+                'Net Total',
+            ],
+            'ar' => [
+                'رقم عرض السعر',
+                'تاريخ عرض السعر',
+                'الحالة',
+                'العميل',
+                'الإجمالي قبل الضريبة',
+                'النقل',
+                'الخصم',
+                'الضريبة',
+                'الإجمالي بعد الضريبة',
+            ]
         ];
+        
+        return $translations[$locale] ?? $translations['en'];
     }
 
     public function registerEvents(): array

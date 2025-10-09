@@ -45,6 +45,7 @@ use App\Models\ExpenseCategory;
 use App\Models\ProductCategory;
 use App\Models\PurchasePayment;
 use App\Models\SalaryIncrement;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use App\Exports\ExportAssetType;
 use App\Exports\ExportInventory;
@@ -315,13 +316,42 @@ class TableExportController extends Controller
     }
 
     // return quotation pdf
-    public function quotationsPDF()
+    public function quotationsPDF(Request $request)
     {
+        // Get locale from request parameter, fallback to session, then app locale
+        $locale = $request->input('locale', session('locale', app()->getLocale()));
+        
+        // Set the locale for translations
+        app()->setLocale($locale);
+        
         // retrieve all records from db
-        $data = Quotation::with('client')->latest()->get()->toArray();
-        // share data to view
-        view()->share('quotations', $data);
-        $pdf = PDF::loadView('pdf.quotations', $data);
+        $quotations = Quotation::with('client')->latest()->get()->toArray();
+        
+        // Pass data to the view
+        $data = [
+            'quotations' => $quotations,
+            'locale' => $locale
+        ];
+        
+        // Generate PDF using Snappy for better Arabic support
+        $html = view('pdf.quotations', $data)->render();
+        
+        $pdf = SnappyPdf::loadHTML($html)
+            ->setPaper('a4')
+            ->setOrientation('landscape')
+            ->setOption('encoding', 'UTF-8')
+            ->setOption('enable-local-file-access', true)
+            ->setOption('disable-smart-shrinking', true)
+            ->setOption('print-media-type', true)
+            ->setOption('no-background', false)
+            ->setOption('margin-top', 10)
+            ->setOption('margin-right', 10)
+            ->setOption('margin-bottom', 10)
+            ->setOption('margin-left', 10)
+            ->setOption('disable-external-links', true)
+            ->setOption('disable-plugins', true)
+            ->setOption('disable-javascript', true);
+            
         // download PDF file with download method
         return $pdf->download('quotation-list.pdf');
     }
@@ -332,8 +362,9 @@ class TableExportController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $term = $request->input('term');
+        $locale = $request->input('locale', session('locale', app()->getLocale()));
 
-        return Excel::download(new ExportQuotation($startDate, $endDate, $term), 'SalesQuotations.xlsx');
+        return Excel::download(new ExportQuotation($startDate, $endDate, $term, $locale), 'SalesQuotations.xlsx');
     }
 
     // return invoice pdf

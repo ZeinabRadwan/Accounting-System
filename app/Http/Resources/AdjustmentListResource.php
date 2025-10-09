@@ -23,6 +23,18 @@ class AdjustmentListResource extends JsonResource
             'note' => $this->note,
             'status' => (int) $this->status,
             'createdBy' => $this->user->name,
+            'adjustmentProducts' => $this->whenLoaded('adjustmentProducts', function () {
+                return $this->adjustmentProducts->map(function ($adjustmentProduct) {
+                    return [
+                        'productCode' => $adjustmentProduct->product->code,
+                        'productName' => $adjustmentProduct->product->name,
+                        'avgPurchasePrice' => $adjustmentProduct->purchase_price,
+                        'quantity' => $adjustmentProduct->quantity,
+                        'type' => $adjustmentProduct->type,
+                        'productUnit' => $adjustmentProduct->product->productUnit->code ?? '',
+                    ];
+                });
+            }),
         ];
     }
 }

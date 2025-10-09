@@ -627,7 +627,7 @@ textarea.form-control {
   border: none;
   text-align: center;
   padding: 8px 12px;
-  min-width: 60px;
+  min-width: 156px;
   font-weight: 500;
 }
 
