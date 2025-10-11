@@ -646,6 +646,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/invoice/pdf/{slug}', [PDFGeneratorController::class, 'generateInvoicePDF'])->name('email.invoice.pdf');
     Route::get('/purchase/pdf/{slug}', [PDFGeneratorController::class, 'generatePurchasePDF'])->name('email.purchase.pdf');
     Route::get('/quotation/pdf/{slug}', [PDFGeneratorController::class, 'generateQuotationPDF'])->name('email.quotation.pdf');
+    Route::get('/purchase-order/pdf/{slug}', [PDFGeneratorController::class, 'generatePurchaseOrderPDF'])->name('email.purchase-order.pdf');
     
     // Template preview routes
     Route::get('/template/preview/{id}', [PDFGeneratorController::class, 'previewTemplate'])->name('template.preview');
@@ -699,6 +700,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
 
     Route::get('/purchases/pdf', [TableExportController::class, 'purchasesPDF'])->name('purchases.pdf');
     Route::get('/purchases/export/excel', [TableExportController::class, 'purchasesExportExcel'])->name('purchases.export.excel');
+    Route::get('/purchase-orders/pdf', [TableExportController::class, 'purchaseOrdersPDF'])->name('purchaseOrders.pdf');
     Route::get('/purchase-order/export/excel', [TableExportController::class, 'purchaseOrdersExportExcel'])->name('purchaseOrders.export.excel');
     Route::get('/purchase-returns/pdf', [TableExportController::class, 'purchaseReturnsPDF'])->name('purchaseReturns.pdf');
     Route::get('/purchase-returns/export/excel', [TableExportController::class, 'purchaseReturnsExportExcel'])->name('purchaseReturns.export.excel');

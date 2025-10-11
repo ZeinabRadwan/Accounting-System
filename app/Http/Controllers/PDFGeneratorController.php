@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\Purchase;
+use App\Models\PurchaseOrder;
 use App\Models\Quotation;
 use App\Models\PrintTemplate;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -77,6 +78,29 @@ class PDFGeneratorController extends Controller
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
         return $pdf->stream('Quotation-'.$quotation->slug.'.pdf');
+    }
+
+    // generate purchase order pdf
+    public function generatePurchaseOrderPDF($slug){
+        $purchaseOrder = PurchaseOrder::with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')->where('slug', $slug)->firstOrFail();
+        
+        // Get the default template for purchase orders
+        $template = PrintTemplate::byModule('purchase_order')->default()->first();
+        
+        if ($template) {
+            // Use the template system
+            $html = $this->renderTemplate($template, $purchaseOrder, 'purchase_order');
+            $pdf = Pdf::loadHTML($html);
+        } else {
+            // Fallback to original template
+        $pdf = Pdf::loadHTML(view('pdf.purchase-order-template', [
+            'purchaseOrder' => $purchaseOrder
+        ]));
+        }
+        
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        return $pdf->stream('Purchase-Order-'.$purchaseOrder->slug.'.pdf');
     }
 
     /**

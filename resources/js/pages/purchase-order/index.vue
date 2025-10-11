@@ -56,7 +56,7 @@
                     </svg>
                   </a>
                   <a
-                    href="/purchase-order/pdf"
+                    href="/purchase-orders/pdf"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     :title="$t('Export to PDF')"

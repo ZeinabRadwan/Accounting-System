@@ -17,6 +17,7 @@ use App\Models\VatRate;
 use App\Models\Currency;
 use App\Models\Employee;
 use App\Models\Purchase;
+use App\Models\PurchaseOrder;
 use App\Models\Supplier;
 use App\Models\AssetType;
 use App\Models\Quotation;
@@ -291,6 +292,16 @@ class TableExportController extends Controller
         $term = $request->input('term');
 
         return Excel::download(new ExportPurchaseOrder($startDate, $endDate, $term), 'PurchaseOrders.xlsx');
+    }
+
+    // return purchase orders pdf
+    public function purchaseOrdersPDF()
+    {
+        // retrieve all records from db
+        $data = PurchaseOrder::with('supplier')->latest()->get()->toArray();
+        // share data to view
+        view()->share('purchaseOrders', $data);
+        return $this->generatePDF('pdf.purchase-orders', $data, 'purchase-orders-list.pdf', 'a4', 'landscape');
     }
 
     // return purchase returns pdf
