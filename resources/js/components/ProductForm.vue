@@ -40,6 +40,7 @@
               @on-override-purchase-account-change="onOverridePurchaseAccountChange"
               @submit-form="submitForm"
               @save-temporary="saveTemporary"
+              @reset-form="resetForm"
             />
           </div>
           <div class="card-footer" style="display: none;">
@@ -82,6 +83,7 @@
             @on-override-purchase-account-change="onOverridePurchaseAccountChange"
             @submit-form="submitForm"
             @save-temporary="saveTemporary"
+            @reset-form="resetForm"
           />
         </div>
         <div slot="modal-footer">
@@ -282,6 +284,11 @@ export default {
       
       // Return false to prevent any further event handling
       return false
+    },
+
+    resetForm() {
+      this.form.reset()
+      this.url = null
     },
 
     // get all product categories

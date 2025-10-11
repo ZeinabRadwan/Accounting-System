@@ -446,14 +446,19 @@
       </div>
     </div>
 
-    <!-- Bottom Submit Button -->
+    <!-- Bottom Action Buttons -->
     <div class="form-card">
-      <div class="card-body">
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-success btn-lg" @click.prevent="submitForm">
-            <i class="fas fa-paper-plane mr-2"></i>
-            {{ $t("Submit Product") }}
-          </button>
+      <div class="card-footer">
+        <div class="dtable-footer">
+          <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+            <button type="button" :disabled="form.busy" class="btn btn-success" @click.prevent="submitForm">
+              <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" />
+              {{ form.busy ? $t("Saving...") : $t("Save") }}
+            </button>
+            <button type="reset" class="btn btn-info ml-2" @click="resetForm">
+              <i class="fas fa-power-off" /> {{ $t("Reset") }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -531,6 +536,9 @@ export default {
     },
     saveTemporary() {
       this.$emit('saveTemporary')
+    },
+    resetForm() {
+      this.$emit('resetForm')
     }
   }
 }
