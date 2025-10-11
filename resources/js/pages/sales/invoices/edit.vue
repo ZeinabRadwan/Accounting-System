@@ -564,15 +564,17 @@
               
               <!-- Form Actions -->
               <div class="card-footer">
-                <div class="footer-buttons">
-                  <button :disabled="form.busy || !isFormReady" class="btn btn-primary" type="submit">
-                    <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
-                    <i v-else class="fas fa-save"></i>
-                    {{ form.busy ? $t("Updating...") : $t("Update") }}
-                  </button>
-                  <button type="button" class="btn btn-secondary" @click="resetForm">
-                    <i class="fas fa-power-off" /> {{ $t("Reset") }}
-                  </button>
+                <div class="dtable-footer">
+                  <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+                    <button :disabled="form.busy || !isFormReady" class="btn btn-success" type="submit">
+                      <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
+                      <i v-else class="fas fa-save"></i>
+                      {{ form.busy ? $t("Updating...") : $t("Update") }}
+                    </button>
+                    <button type="button" class="btn btn-secondary ml-2" @click="resetForm">
+                      <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                    </button>
+                  </div>
                 </div>
                 
 
@@ -869,8 +871,6 @@ export default {
   },
   mounted() {
     this.setupGlobalErrorHandling();
-    // Load temporary data
-    this.loadTemporaryData();
     
     this.$nextTick(() => {
       if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
@@ -1012,6 +1012,9 @@ export default {
         this.form.discountType = data.data.discountType || 0;
         this.form.discount = data.data.discount || 0;
         this.form.totalDiscount = data.data.totalDiscount || 0;
+        
+        // Load temporary data after invoice data is loaded
+        this.loadTemporaryData();
         
         // Block editing active invoices in KSA and redirect to show page
         if (this.isSaudiArabia && Number(this.form.status) === 1) {
@@ -1953,7 +1956,21 @@ prev,
           this.form.invoiceNo = data.invoiceNo || this.form.invoiceNo
           this.form.client = data.client || this.form.client
           this.form.reference = data.reference || this.form.reference
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
+          
+          // Preserve sales_account_id when loading temporary products
+          if (data.selectedProducts && this.form.selectedProducts) {
+            const tempProducts = data.selectedProducts.map(tempProduct => {
+              const existingProduct = this.form.selectedProducts.find(p => p.id === tempProduct.id)
+              return {
+                ...tempProduct,
+                sales_account_id: existingProduct ? existingProduct.sales_account_id : tempProduct.sales_account_id
+              }
+            })
+            this.form.selectedProducts = tempProducts
+          } else {
+            this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
+          }
+          
           this.form.subTotal = data.subTotal || this.form.subTotal
           this.form.netTotal = data.netTotal || this.form.netTotal
           this.form.transportCost = data.transportCost || this.form.transportCost

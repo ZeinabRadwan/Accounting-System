@@ -51,6 +51,7 @@ class InvoiceProductResource extends JsonResource
             'productUnit' => $this->product->productUnit?->code,
             'taxType' => $this->product->tax_type,
             'taxRate' => $this->product->productTax?->rate,
+            'sales_account_id' => $this->product->sales_account_id,
             'vatRate' => $this->vatRate ? [
                 'id' => $this->vatRate->id,
                 'rate' => $this->vatRate->rate,
