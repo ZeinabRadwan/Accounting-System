@@ -167,11 +167,19 @@ class PurchaseOrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PurchaseOrder  $purchaseOrder
+     * @param  string  $slug
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, PurchaseOrder $purchaseOrder)
+    public function update(Request $request, $slug)
     {
+        // Find purchase order by slug
+        $purchaseOrder = PurchaseOrder::where('slug', $slug)->first();
+        
+        if (!$purchaseOrder) {
+            return response()->json([
+                'message' => 'Purchase order not found'
+            ], 404);
+        }
 
         // validate request
         $this->validate($request, [
@@ -254,12 +262,20 @@ class PurchaseOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PurchaseOrder  $purchaseOrder
+     * @param  string  $slug
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(PurchaseOrder $purchaseOrder)
+    public function destroy($slug)
     {
         try {
+            // Find purchase order by slug
+            $purchaseOrder = PurchaseOrder::where('slug', $slug)->first();
+            
+            if (!$purchaseOrder) {
+                return response()->json([
+                    'message' => 'Purchase order not found'
+                ], 404);
+            }
             
             // Delete related products first
             $purchaseOrder->purchaseOrderProducts()->delete();
