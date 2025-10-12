@@ -1258,6 +1258,9 @@ export default {
             discount: product.discount || 0,
             discount_type: product.discountType || 'fixed',
             discount_amount: product.discountAmount || 0,
+            productTax: product.productTax || 0, // Include VAT amount
+            totalTax: product.totalTax || 0, // Include total VAT amount
+            selectedVatRate: product.selectedVatRate, // Include VAT rate object
           })),
           subTotal: this.form.subTotal,
           netTotal: this.form.netTotal,
