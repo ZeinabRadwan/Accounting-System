@@ -189,23 +189,20 @@
                   v-if="allData.invoice"
                   class="table-custom table-responsive text-center"
                 >
-                  <table class="table table-sm">
+                  <table class="table table-sm invoices-create-table">
                     <thead>
                       <tr>
                         <th>{{ $t("#") }}</th>
                         <th>{{ $t("Code") }}</th>
                         <th>{{ $t("Item Name") }}</th>
                         <th>{{ $t("Qty") }}</th>
-                        <th>{{ $t("Return Qty") }}</th>
                         <th>{{ $t("Price") }}</th>
                         <th>{{ $t("Total") }}</th>
                         <th>{{ $t("Discount") }}</th>
                         <th>{{ $t("Total After Discount") }}</th>
+                        <th>{{ $t("VAT Type") }}</th>
                         <th>{{ $t("VAT") }}</th>
                         <th>{{ $t("Total with VAT") }}</th>
-                        <th class="text-right">
-                          {{ $t("Total Return") }}
-                        </th>
                       </tr>
                     </thead>
                     <tbody v-if="returnProducts">
@@ -215,31 +212,34 @@
                           {{ data.productCode | withPrefix(productPrefix) }}
                         </td>
                         <td>{{ data.productName }}</td>
-                        <td>{{ data.invoiceQty }} {{ data.productUnit }}</td>
                         <td>{{ data.returnQty }} {{ data.productUnit }}</td>
-                        <td>{{ data.salePrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ (data.salePrice * data.returnQty)  }} <span class="saudi-riyal">ê</span></td>
-                        <td>
-                          {{ calculateUnitDiscount(data)  }} <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td>{{ calculateUnitNet(data)  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ calculateUnitVat(data)  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ calculateUnitTotal(data)  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right">
-                          {{ calculateReturnTotal(data)  }} <span class="saudi-riyal">ê</span>
-                        </td>
+                        <td>{{ formatToTwoDecimals(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(data.salePrice * data.returnQty) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateUnitDiscount(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateUnitNet(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ getVatRate(data) }}%</td>
+                        <td>{{ formatToTwoDecimals(calculateUnitVat(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateUnitTotal(data)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
-                        <td colspan="10" class="text-right">
+                        <td colspan="5" class="text-right">
                           <strong>{{ $t("Subtotal") }}</strong>
                         </td>
                         <td>
-                          <strong>{{
-                            Number(allData.invoice.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                          }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
-                        <td class="text-right">
-                          <strong>{{ invoiceReturn  }} <span class="saudi-riyal">ê</span></strong>
+                        <td>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td></td>
+                        <td>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -407,76 +407,32 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>
-                          {{ Number(allData.invoice.subTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-                        </td>
+                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
-                        <th>{{ $t("Cost of Returned Products") }}:</th>
+                        <th>{{ $t("Product Discount") }}:</th>
                         <td>
-                          {{
-                            Number(calculateTotalReturnedProductCost()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                          }}
+                          {{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
+
+                      <tr class="bg-green-light text-bold">
+                        <th>{{ $t("Total After Discount") }}:</th>
+                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></td>
+                      </tr>
+
                       <tr>
-                        <th>{{ $t("Return Discount") }}:</th>
+                        <th>{{ $t("Product VAT") }}:</th>
                         <td>
-                          {{
-                            Number(calculateTotalReturnDiscount()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                          }}
+                          {{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr>
-                        <th>{{ $t("Return VAT") }}:</th>
-                        <td>
-                          {{ Number(calculateTotalReturnTax()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Remaining Discount") }}:</th>
-                        <td>
-                          {{
-                            Number(calculateTotalRemainingDiscount()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                          }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Remaining Tax") }}:</th>
-                        <td>
-                          {{ Number(calculateTotalRemainingTax()).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Transport") }}:</th>
-                        <td>
-                          {{ Number(allData.invoice.transport).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-                        </td>
-                      </tr>
+
                       <tr class="bg-indigo-light">
-                        <th>{{ $t("Total") }}:</th>
+                        <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ calculateFinalTotal()  }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("Total Paid") }}:</th>
-                        <td>
-                          {{ Number(allData.invoice.totalPaid).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-                        </td>
-                      </tr>
-                      <tr class="bg-red-light">
-                        <th>{{ $t("Due") }}:</th>
-                        <td>{{ Number(allData.invoice.due).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
-                      </tr>
-                      <tr
-                        v-if="allData.accountPayable"
-                        class="bg-green-light"
-                      >
-                        <th>{{ $t("Account Payable") }}:</th>
-                        <td>
-                          {{ Number(allData.accountPayable.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
+                          {{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -868,6 +824,19 @@ export default {
     this.clientPrefix = this.appInfo.clientPrefix;
   },
   methods: {
+    // Format number to two decimal places
+    formatToTwoDecimals(value) {
+      // Handle null, undefined, or non-numeric values
+      if (value === null || value === undefined || isNaN(value)) {
+        return '0.00'
+      }
+      const numValue = Number(value)
+      if (isNaN(numValue)) {
+        return '0.00'
+      }
+      return numValue.toFixed(2)
+    },
+
     // get the invoice
     async getInvoiceReturn() {
       this.loading = true;
@@ -1395,5 +1364,39 @@ export default {
 
 .bg-sub-light {
   background-color: #f8f9fa !important;
+}
+
+/* Invoice Create Table Styles */
+.invoices-create-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.invoices-create-table th,
+.invoices-create-table td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.invoices-create-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.invoices-create-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.invoices-create-table .quantity-field {
+  width: 80px;
+  text-align: center;
+}
+
+.invoices-create-table .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
 }
 </style>

@@ -209,13 +209,13 @@
                 </div>
               </div>
               <div class="row" id="input-fields">
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                   <label for="invoiceTotal">{{
                     $t('Invoice Total')
                   }}</label>
                   <input id="invoiceTotal" v-model="formattedOriginalInvoiceTotal" type="text" class="form-control"
                     name="invoiceTotal" readonly />
-                </div>
+                </div> -->
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="totalDiscount">{{
                     $t('Total Discount')
@@ -237,11 +237,11 @@
                   <input id="invoiceTax" v-model="formattedInvoiceTax" type="text" class="form-control"
                     name="invoiceTax" readonly />
                 </div>
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                   <label for="totalPaid">{{ $t('Total Paid') }}</label>
                   <input id="totalPaid" v-model="formattedTotalPaid" type="text" class="form-control"
                     name="totalPaid" readonly />
-                </div>
+                </div> -->
                 <div v-if="form.returnAmount > 0" class="form-group col-md-3">
                   <label for="returnAmountText">{{
                     $t('Return Amount')
@@ -251,14 +251,14 @@
                   }" name="returnAmountText" readonly />
                   <has-error :form="form" field="returnAmountText" />
                 </div>
-                <div v-else class="form-group col-md-3">
+                <!-- <div v-else class="form-group col-md-3">
                   <label for="newDueText">{{
                     $t('New Due')
                   }}</label>
                   <input id="newDueText" v-model="form.newDueText" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('newDueText') }" name="newDueText" readonly />
                   <has-error :form="form" field="newDueText" />
-                </div>
+                </div> -->
               </div>
               <div v-if="accounts && form.returnAmount > 0" class="row">
                 <div class="form-group col-md-4">
