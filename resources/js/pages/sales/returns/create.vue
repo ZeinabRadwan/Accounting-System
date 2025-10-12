@@ -755,6 +755,7 @@ export default {
                     
                     
                     if (this.clientInvoices && this.clientInvoices.length > 0) {
+                      
                       const selectedInvoice = this.clientInvoices.find(invoice => invoice.slug === invoiceSlug)
                       
                       if (selectedInvoice) {
@@ -762,6 +763,41 @@ export default {
                         // Trigger product loading for this invoice
                         this.storeProducts()
                         return // Success, exit the loop
+                      } else {
+                        
+                        // Try multiple fallback methods
+                        let fallbackInvoice = null
+                        
+                        // Method 1: Try by ID
+                        if (invoiceData && invoiceData.id) {
+                          fallbackInvoice = this.clientInvoices.find(invoice => invoice.id === invoiceData.id)
+                        }
+                        
+                        // Method 2: Try by invoice number
+                        if (!fallbackInvoice && invoiceData && invoiceData.invoiceNo) {
+                          fallbackInvoice = this.clientInvoices.find(invoice => invoice.invoiceNo === invoiceData.invoiceNo)
+                        }
+                        
+                        // Method 3: Try by slug with different casing
+                        if (!fallbackInvoice) {
+                          fallbackInvoice = this.clientInvoices.find(invoice => 
+                            invoice.slug && invoice.slug.toLowerCase() === invoiceSlug.toLowerCase()
+                          )
+                        }
+                        
+                        if (fallbackInvoice) {
+                          this.form.invoice = fallbackInvoice
+                          this.storeProducts()
+                          return // Success, exit the loop
+                        } else {
+                          
+                          // If we have invoice data from API but it's not in client's list, use it directly
+                          if (invoiceData && invoiceData.slug === invoiceSlug) {
+                            this.form.invoice = invoiceData
+                            this.storeProducts()
+                            return // Success, exit the loop
+                          }
+                        }
                       }
                     }
                     // Continue trying instead of returning early
@@ -780,6 +816,7 @@ export default {
                   
                   
                   if (this.clientInvoices && this.clientInvoices.length > 0) {
+                    
                     const selectedInvoice = this.clientInvoices.find(invoice => invoice.slug === invoiceSlug)
                     
                     if (selectedInvoice) {
@@ -787,6 +824,41 @@ export default {
                       // Trigger product loading for this invoice
                       this.storeProducts()
                       return // Success, exit the loop
+                    } else {
+                      
+                      // Try multiple fallback methods
+                      let fallbackInvoice = null
+                      
+                      // Method 1: Try by ID
+                      if (invoiceData && invoiceData.id) {
+                        fallbackInvoice = this.clientInvoices.find(invoice => invoice.id === invoiceData.id)
+                      }
+                      
+                      // Method 2: Try by invoice number
+                      if (!fallbackInvoice && invoiceData && invoiceData.invoiceNo) {
+                        fallbackInvoice = this.clientInvoices.find(invoice => invoice.invoiceNo === invoiceData.invoiceNo)
+                      }
+                      
+                      // Method 3: Try by slug with different casing
+                      if (!fallbackInvoice) {
+                        fallbackInvoice = this.clientInvoices.find(invoice => 
+                          invoice.slug && invoice.slug.toLowerCase() === invoiceSlug.toLowerCase()
+                        )
+                      }
+                      
+                      if (fallbackInvoice) {
+                        this.form.invoice = fallbackInvoice
+                        this.storeProducts()
+                        return // Success, exit the loop
+                      } else {
+                        
+                        // If we have invoice data from API but it's not in client's list, use it directly
+                        if (invoiceData && invoiceData.slug === invoiceSlug) {
+                          this.form.invoice = invoiceData
+                          this.storeProducts()
+                          return // Success, exit the loop
+                        }
+                      }
                     }
                   }
                   // Continue trying instead of returning early
