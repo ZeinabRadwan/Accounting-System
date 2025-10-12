@@ -94,13 +94,13 @@
                         <td style="min-width: 120px;">
                           <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
-                              <router-link v-if="$can('product-view')" :to="{
-                                name: 'products.show',
-                                params: { slug: item.slug },
-                              }">
-                                {{ item.name }}
-                              </router-link>
-                              <span v-else>{{ item.name }}</span>
+                          <router-link v-if="$can('product-view')" :to="{
+                            name: 'products.show',
+                            params: { slug: item.slug },
+                          }">
+                            {{ item.name }}
+                          </router-link>
+                          <span v-else>{{ item.name }}</span>
                             </div>
                           </div>
                         </td>
@@ -762,9 +762,9 @@ export default {
                         // Trigger product loading for this invoice
                         this.storeProducts()
                         return // Success, exit the loop
-                      }  
-                    }  
-                    return // Client found but invoice not found, exit
+                      }
+                    }
+                    // Continue trying instead of returning early
                   }
                 }
                 
@@ -787,11 +787,11 @@ export default {
                       // Trigger product loading for this invoice
                       this.storeProducts()
                       return // Success, exit the loop
-                    }  
-                  } 
-                  return // Client found but invoice not found, exit
-                }  
-              }  
+                    }
+                  }
+                  // Continue trying instead of returning early
+                }
+              }
               attempts++
               if (attempts < maxAttempts) {
                 await new Promise(resolve => setTimeout(resolve, 200))
@@ -1232,7 +1232,7 @@ export default {
         const totalTax = parseFloat(product.totalTax) || 0
         const taxQty = parseFloat(product.qty) || 1
         const originalLineTax = totalTax / taxQty
-         
+        
       }) 
       
       // Show alert with key information
