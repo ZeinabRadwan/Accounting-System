@@ -176,6 +176,12 @@
                                 {{ $t('Send Invoice') }}
                               </a>
                             </li>
+                            <li v-if="$can('invoice-return-create') && data.status === 1">
+                              <a href="#" @click.prevent="returnInvoice(data)">
+                                <i class="fas fa-undo"></i>
+                                {{ $t('Return Invoice') }}
+                              </a>
+                            </li>
                             <li v-if="$can('invoice-view')">
                               <router-link :to="{ name: 'invoices.show', params: { slug: data.slug } }">
                                 <i class="fas fa-eye"></i>
@@ -760,6 +766,21 @@ export default {
               this.$t("An error occurred while sending the invoice to ZATCA")
             );
           }
+        }
+      });
+    },
+
+    // return invoice
+    returnInvoice(data) {
+      // Navigate to invoice return create page with pre-selected invoice
+      // We'll fetch the client info from the invoice on the create page
+      console.log('Full invoice data:', JSON.stringify(data, null, 2))
+      console.log('Invoice slug:', data.slug)
+      
+      this.$router.push({
+        name: 'invoiceReturns.create',
+        query: {
+          invoice: data.slug
         }
       });
     },

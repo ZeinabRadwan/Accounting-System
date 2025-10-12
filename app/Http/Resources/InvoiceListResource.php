@@ -21,6 +21,7 @@ class InvoiceListResource extends JsonResource
             'slug' => $this->slug,
             'reference' => $this->reference,
             'client' => $this->client->name,
+            'clientSlug' => $this->client->slug,
             'salesBy' => $this->user->name.'['.($this->user?->employee?->designation ?? 'Super Admin').']',
             'salesByUserDesigntion' => $this->user?->employee?->designation,
             'transport' => $this->transport,
