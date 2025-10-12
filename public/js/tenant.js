@@ -22968,12 +22968,12 @@ var map = {
 		5923
 	],
 	"./sales/returns/create": [
-		70702,
-		702
+		96031,
+		6031
 	],
 	"./sales/returns/create.vue": [
-		70702,
-		702
+		96031,
+		6031
 	],
 	"./sales/returns/edit": [
 		64590,
@@ -22992,12 +22992,12 @@ var map = {
 		5923
 	],
 	"./sales/returns/show": [
-		14871,
-		4871
+		76664,
+		6664
 	],
 	"./sales/returns/show.vue": [
-		14871,
-		4871
+		76664,
+		6664
 	],
 	"./settings": [
 		88557,
@@ -89828,9 +89828,9 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 6386) return "js/6386.js";
 /******/ 			if (chunkId === 7792) return "js/7792.js";
 /******/ 			if (chunkId === 5923) return "js/5923.js";
-/******/ 			if (chunkId === 702) return "js/702.js";
+/******/ 			if (chunkId === 6031) return "js/6031.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
-/******/ 			if (chunkId === 4871) return "js/4871.js";
+/******/ 			if (chunkId === 6664) return "js/6664.js";
 /******/ 			if (chunkId === 8557) return "js/8557.js";
 /******/ 			if (chunkId === 2517) return "js/2517.js";
 /******/ 			if (chunkId === 6168) return "js/6168.js";
