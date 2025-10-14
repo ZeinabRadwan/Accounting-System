@@ -257,10 +257,10 @@
                       </tr>
                       <tr>
                         <td class="text-right" colspan="9">
-                          <strong>{{ $t("Total Price") }}</strong>
+                          <strong>{{ $t("Total with VAT") }}</strong>
                         </td>
                         <td class="text-center">
-                          <strong>{{ totalPrice }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ calculatedTotal }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>

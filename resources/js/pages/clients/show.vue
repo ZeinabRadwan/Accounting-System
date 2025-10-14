@@ -491,7 +491,7 @@
                                      </button>
                                    </div>
                                    <ul>
-                                     <li v-if="$can('invoice-view') && data.due > 0">
+                                    <li v-if="$can('invoice-view') && data.due > 0 && data.status === 1">
                                        <a href="#" @click.prevent="handleModal(data)">
                                          <i class="fas fa-credit-card"></i>
                                          {{ $t('Add Payment?') }}

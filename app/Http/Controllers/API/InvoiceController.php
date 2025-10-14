@@ -270,8 +270,12 @@ class InvoiceController extends Controller
 
 
 
-            // store transaction
+            // store transaction (only if invoice is active)
             if ($request->addPayment == 1) {
+                if ($invoiceStatus !== 1) {
+                    DB::rollBack();
+                    return $this->responseWithError('Cannot add payment to an inactive invoice.');
+                }
                 $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $request->account['accountNumber'] . ']';
 
                 // create transaction
@@ -358,6 +362,10 @@ class InvoiceController extends Controller
         ]);
 
         $invoice = Invoice::findOrFail($request->invoice_id);
+        // Block adding payment to inactive invoices
+        if ((int)$invoice->status !== 1) {
+            return $this->responseWithError('Cannot add payment to an inactive invoice.');
+        }
         
         $userId = auth()->id();
         // store transaction
@@ -375,7 +383,7 @@ class InvoiceController extends Controller
                 'cheque_no' => $request->chequeNo,
                 'receipt_no' => $request->receiptNo,
                 'created_by' => $userId,
-                'status' => $invoice->status,
+                'status' => 1,
             ]);
 
             // store invoice payment record
@@ -387,7 +395,7 @@ class InvoiceController extends Controller
                 'date' => $request->date,
                 'note' => clean($request->note),
                 'created_by' => $userId,
-                'status' => $invoice->status,
+                'status' => 1,
             ]);
 
             // Create journal entry for invoice payment only if both invoice and payment status are active

@@ -89,6 +89,12 @@ class InvoicePaymentController extends Controller
                 // get invoice
                 $invoice = Invoice::where('slug', $selectedInvoice['slug'])->first();
 
+            // Prevent adding payment to inactive invoices
+            if (!$invoice || (int)$invoice->status !== 1) {
+                DB::rollBack();
+                return $this->responseWithError('Cannot add payment to an inactive invoice.');
+            }
+
                 // store transaction
                 $transactionID = null;
                 $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice payment added to [' . $request->account['accountNumber'] . ']';
