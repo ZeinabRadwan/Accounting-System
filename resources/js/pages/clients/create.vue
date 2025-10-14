@@ -25,7 +25,7 @@
                 <router-link :to="{ name: 'clients.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
+                <button type="button" class="btn btn-success" @click="submitForm" :title="$t('Save')">
                   <i class="fas fa-save" />
                 </button>
               </div>

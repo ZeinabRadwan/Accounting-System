@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'purchases.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
+                <button type="submit" class="btn btn-success" :form="'purchaseCreateForm'" :title="$t('Save')">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -21,7 +21,7 @@
           <!-- /.card-header -->
             <div class="card-body">
               <!-- form start -->
-              <form role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
+              <form id="purchaseCreateForm" role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items && products">
                 <div class="form-group col-md-6">
                   <label for="supplier">{{ $t("Supplier") }}

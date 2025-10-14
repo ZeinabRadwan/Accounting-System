@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'adjustments.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
+                <button type="submit" class="btn btn-success" :form="'adjustmentEditForm'" :title="$t('Save')">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -20,7 +20,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" @submit.prevent="updateAdjustment" @keydown="form.onKeydown($event)">
+          <form id="adjustmentEditForm" role="form" @submit.prevent="updateAdjustment" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-md-6">
