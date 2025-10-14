@@ -269,6 +269,8 @@ export default {
         
         console.log("Captured product data:", productData);
         
+        // Ask parent to persist current form state before leaving
+        this.$emit('persist');
         // Close modal first
         this.closeModal();
         

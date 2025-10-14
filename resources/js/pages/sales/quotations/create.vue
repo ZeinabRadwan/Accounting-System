@@ -658,6 +658,7 @@
       :product="selectedProductForStockAdjustment"
       @close="closeStockAdjustmentModal"
       @adjust-quantity="adjustProductQuantity"
+      @persist="saveTemporary"
       @stock-updated="handleStockUpdated"
     />
   </div>
@@ -743,6 +744,7 @@ export default {
     // Stock adjustment modal
     showStockAdjustmentModal: false,
     selectedProductForStockAdjustment: null,
+    restoredFromTemp: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -824,6 +826,21 @@ export default {
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
   },
+  // Persist form state when navigating away (e.g., to adjustments page) so it's restored on return
+  beforeRouteLeave(to, from, next) {
+    try {
+      // Only persist when going to inventory adjustments create page
+      if (to && to.name === 'adjustments.create') {
+        this.saveTemporary();
+      } else {
+        // For any other navigation, ensure temp is cleared so data doesn't persist
+        this.clearTemporaryData();
+      }
+    } catch (e) {
+      // no-op
+    }
+    next();
+  },
   methods: {
     // Set the correct title and prevent it from changing
     setCorrectTitle() {
@@ -836,19 +853,27 @@ export default {
     
     // get all clients
     async getClients(selectedClient = 'default') {
-      await this.$store.dispatch("operations/allData", {
-        path: "/api/all-clients",
-      });
-      // assign default client
-      if (this.items && this.items.length > 0) {
-        let defaultClientSlug = this.appInfo.defaultClientSlug;
-        this.form.client = this.items.find(
-          (item) => item.slug === defaultClientSlug
-        );
+      await this.$store.dispatch("operations/allData", { path: "/api/all-clients" });
+
+      if (!this.items || this.items.length === 0) return;
+
+      // If explicitly requesting latest (e.g., after creating a client)
+      if (selectedClient === 'latest') {
+        this.form.client = this.items[0];
+        return;
       }
 
-      if (selectedClient == 'latest') {
-        this.form.client = this.items[0];
+      // If a client was restored from temp or already selected, normalize to an option from items
+      if (this.form.client && (this.form.client.id || this.form.client.slug)) {
+        this.normalizeClientSelection();
+        return;
+      }
+
+      // Otherwise, assign default client
+      let defaultClientSlug = this.appInfo.defaultClientSlug;
+      const defaultClient = this.items.find((item) => item.slug === defaultClientSlug);
+      if (defaultClient) {
+        this.form.client = defaultClient;
       }
     },
 
@@ -859,6 +884,10 @@ export default {
       );
       this.products = data.data;
       this.products.sort(this.sortProducts);
+      // After products are loaded/refreshed, sync inventory for selected items
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.refreshSelectedProductsInventory();
+      }
     },
 
     // handle newly created product
@@ -1657,6 +1686,16 @@ export default {
           this.form.status = data.status !== undefined ? data.status : this.form.status
           this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
           this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
+          // One-time restore: clear after successful load so a refresh doesn't restore again
+          this.clearTemporaryData()
+          // Ensure product fields exist and recalculate totals after restore
+          this.ensureDiscountProperties();
+          this.calculateSum();
+          // Attempt to refresh inventory counts in case stock changed while away
+          this.refreshSelectedProductsInventory();
+          // Mark that we restored and normalize client to match current items list
+          this.restoredFromTemp = true;
+          this.normalizeClientSelection();
         } catch (e) {
           console.error('Error loading temporary data:', e)
         }
@@ -1755,6 +1794,49 @@ export default {
         timer: 10000,
         showConfirmButton: true
       });
+    },
+    // Sync selected products' inventoryCount with latest products list
+    refreshSelectedProductsInventory() {
+      try {
+        if (!Array.isArray(this.products) || !Array.isArray(this.form.selectedProducts)) return;
+        const productById = new Map(this.products.map(p => [p.id, p]));
+        this.form.selectedProducts = this.form.selectedProducts.map(item => {
+          const latest = productById.get(item.id);
+          if (latest) {
+            const updated = { ...item };
+            updated.inventoryCount = latest.inventoryCount;
+            // Optionally update name/code/taxRate to reflect latest
+            updated.name = latest.name || updated.name;
+            updated.code = latest.code || updated.code;
+            updated.taxRate = (latest.taxRate !== undefined && latest.taxRate !== null) ? latest.taxRate : updated.taxRate;
+            return updated;
+          }
+          return item;
+        });
+        // Recalculate to update any dependent totals
+        this.calculateSum();
+      } catch (e) {
+        // silent fail
+      }
+    },
+    // Normalize form.client to an object from items by id/slug so v-select shows it
+    normalizeClientSelection() {
+      try {
+        if (!this.form.client || !this.items || this.items.length === 0) return;
+        const current = this.form.client;
+        let matched = null;
+        if (current.id) {
+          matched = this.items.find(i => i.id === current.id);
+        }
+        if (!matched && current.slug) {
+          matched = this.items.find(i => i.slug === current.slug);
+        }
+        if (matched) {
+          this.form.client = matched;
+        }
+      } catch (e) {
+        // silent
+      }
     },
   },
   mounted() {
