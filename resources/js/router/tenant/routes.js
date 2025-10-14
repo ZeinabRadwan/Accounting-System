@@ -500,7 +500,7 @@ export default [
   {
     path: '/invoice-returns/create',
     name: 'invoiceReturns.create',
-    component: page('sales/returns/create.vue'),
+    component: page('sales/returns/form.vue'),
     meta: {permissions: ['invoice-return-create']},
   },
   {
@@ -512,7 +512,7 @@ export default [
   {
     path: '/invoice-returns/edit/:slug',
     name: 'invoiceReturns.edit',
-    component: page('sales/returns/edit.vue'),
+    component: page('sales/returns/form.vue'),
     meta: {permissions: ['invoice-return-edit']},
   },
 
