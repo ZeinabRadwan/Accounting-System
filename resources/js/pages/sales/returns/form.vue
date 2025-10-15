@@ -406,8 +406,8 @@ export default {
       },
     },
   },
-  created() {
-    this.getClients()
+  async created() {
+    await this.getClients()
     this.getProducts()
     this.getAccounts()
     this.getTaxes()
@@ -417,11 +417,109 @@ export default {
     if (this.isEdit) {
       this.loadExistingReturn()
     }
+    // handle pre-selection from query on create
+    if (!this.isEdit) {
+      this.handlePreSelection()
+    }
   },
   methods: {
     // get all clients
     async getClients() {
       await this.$store.dispatch('operations/allData', { path: '/api/all-clients' })
+    },
+    // handle pre-selection from query parameters (client and/or invoice)
+    async handlePreSelection() {
+      let clientSlug = this.$route?.query?.client
+      const invoiceSlug = this.$route?.query?.invoice
+      let invoiceData = null
+
+      console.log('Preselection starting:', { clientSlug, invoiceSlug, query: this.$route?.query })
+
+      try {
+        // if we have invoice slug but no client, fetch invoice to get client
+        if (invoiceSlug && !clientSlug) {
+          console.log('Fetching invoice to get client:', invoiceSlug)
+          const response = await axios.get(`/api/invoices/${invoiceSlug}`)
+          invoiceData = response.data?.data
+          if (invoiceData && invoiceData.client) {
+            clientSlug = invoiceData.client.slug
+            console.log('Found client from invoice:', clientSlug)
+          }
+        }
+
+        if (clientSlug) {
+          console.log('Looking for client:', clientSlug)
+          // wait for clients to be available in store
+          let attempts = 0
+          const maxAttempts = 10
+          while (attempts < maxAttempts) {
+            if (this.items && Array.isArray(this.items) && this.items.length > 0) break
+            await new Promise(r => setTimeout(r, 200))
+            attempts++
+          }
+
+          console.log('Available clients:', this.items?.length)
+          const matchedClient = (this.items || []).find(c => c.slug === clientSlug)
+          if (matchedClient) {
+            console.log('Found client, setting form.client:', matchedClient)
+            this.form.client = matchedClient
+            await this.assignInvoices()
+            console.log('Client invoices loaded:', this.clientInvoices?.length)
+
+            // if invoice slug was provided, try to pick that invoice
+            if (invoiceSlug) {
+              // ensure we have invoice data if not already fetched
+              if (!invoiceData) {
+                try {
+                  const resp = await axios.get(`/api/invoices/${invoiceSlug}`)
+                  invoiceData = resp.data?.data
+                  console.log('Fetched invoice data:', invoiceData?.id)
+                } catch (e) { 
+                  console.warn('Failed to fetch invoice:', e)
+                }
+              }
+
+              // pick from clientInvoices by slug match; fallback by id if available
+              const matchedInvoice = (this.clientInvoices || []).find(inv => inv.slug === invoiceSlug || inv.id === invoiceData?.id)
+              if (matchedInvoice) {
+                console.log('Found invoice in clientInvoices:', matchedInvoice)
+                this.form.invoice = matchedInvoice
+                this.storeProducts()
+              } else {
+                // if not found in clientInvoices, try using the full invoice data directly
+                if (invoiceData) {
+                  console.log('Using full invoice data directly:', invoiceData)
+                  this.form.invoice = invoiceData
+                  this.storeProducts()
+                } else {
+                  console.warn('No invoice found for slug:', invoiceSlug)
+                }
+              }
+            }
+          } else {
+            console.warn('Client not found in store:', clientSlug)
+            // fallback: if we already fetched invoiceData with client, use it directly
+            if (invoiceData && invoiceData.client) {
+              this.form.client = invoiceData.client
+              await this.assignInvoices()
+
+              if (invoiceSlug) {
+                const matchedInvoice = (this.clientInvoices || []).find(inv => inv.slug === invoiceSlug || inv.id === invoiceData?.id)
+                if (matchedInvoice) {
+                  this.form.invoice = matchedInvoice
+                  this.storeProducts()
+                } else if (invoiceData) {
+                  this.form.invoice = invoiceData
+                  this.storeProducts()
+                }
+              }
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Preselection failed:', e)
+        // silent fail – preselection is best-effort
+      }
     },
     // get products
     async getProducts() {
