@@ -576,6 +576,8 @@ export default {
       this.form.transportCost = this.form.invoice.transport || 0
       for (const invoiceItem of this.form.invoice.invoiceProducts) {
         const matchedReturn = this.isEdit && this.loadedReturn ? this.loadedReturn.invoiceReturnProducts.find(p => p.productID === invoiceItem.productID) : null
+        // On edit, only include products that were saved in this return
+        if (this.isEdit && this.loadedReturn && !matchedReturn) continue
         const presetReturnQty = matchedReturn ? matchedReturn.returnQty : (invoiceItem.quantity - invoiceItem.returnQty)
         const maxQty = invoiceItem.quantity - (invoiceItem.returnQty || 0)
         const selectedVatRate = this.findMatchingVatRate(invoiceItem.productTax) || this.form.orderTax || this.taxes?.[0]
@@ -609,6 +611,8 @@ export default {
           totalReturnQty: maxQty,
           inventoryCount: invoiceItem.inventoryCount,
           avgPurchasePrice: invoiceItem.purchasePrice,
+          // backend update expects 'purchasePrice' key; mirror avgPurchasePrice
+          purchasePrice: invoiceItem.purchasePrice,
           unitPrice: invoiceItem.salePrice,
           unitCost: invoiceItem.salePrice,
           totalPrice: totalPrice,
