@@ -22984,12 +22984,12 @@ var map = {
 		4590
 	],
 	"./sales/returns/form": [
-		49055,
-		9055
+		40079,
+		79
 	],
 	"./sales/returns/form.vue": [
-		49055,
-		9055
+		40079,
+		79
 	],
 	"./sales/returns/index": [
 		45923,
@@ -89838,7 +89838,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 5923) return "js/5923.js";
 /******/ 			if (chunkId === 4804) return "js/4804.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
-/******/ 			if (chunkId === 9055) return "js/9055.js";
+/******/ 			if (chunkId === 79) return "js/79.js";
 /******/ 			if (chunkId === 6664) return "js/6664.js";
 /******/ 			if (chunkId === 8557) return "js/8557.js";
 /******/ 			if (chunkId === 2517) return "js/2517.js";
