@@ -1414,6 +1414,9 @@ export default {
         let subtotalAfterDiscount =
           item.unitPrice * item.qty - (item.discountAmount || 0);
 
+        // Persist VAT-excluded total for summary/subtotal calculations
+        item.totalAfterDiscount = this.roundToTwoDecimals(subtotalAfterDiscount);
+
         // Calculate VAT on the discounted amount
         if (item.selectedVatRate && item.selectedVatRate.rate > 0) {
           item.productTax = this.roundToTwoDecimals(
@@ -1425,10 +1428,16 @@ export default {
 
         item.totalTax = item.productTax;
 
-        // Calculate final total with VAT
+        // Calculate final total with VAT (line total including VAT)
         item.totalPrice = this.roundToTwoDecimals(
           subtotalAfterDiscount + item.productTax
         );
+
+        // Update unit cost (price per unit including VAT if applicable)
+        const qtyNumber = Number(item.qty) || 0;
+        if (qtyNumber > 0) {
+          item.unitCost = this.roundToTwoDecimals(item.totalPrice / qtyNumber);
+        }
 
         this.form.selectedProducts[index] = item;
       }
@@ -1436,14 +1445,13 @@ export default {
 
     // calculate sum
     calculateSum() {
-      // calculate subtotal
+      // calculate subtotal (VAT-excluded, after line discounts)
       this.form.subTotal = this.form.selectedProducts.reduce(function (
         prev,
         cur
       ) {
-        return Number((prev + cur.totalPrice).toFixed(2));
-      },
-      0);
+        return Number((prev + (cur.totalAfterDiscount || 0)).toFixed(2));
+      }, 0);
 
       // calculate product tax
       this.form.productTotalTax = this.form.selectedProducts.reduce(function (
@@ -1468,18 +1476,23 @@ export default {
         }
       }
 
-      // calculate net amount (after discount)
+      // calculate net amount (after discount, before VAT, add transport)
       let netAmount =
-        this.form.subTotal - discount + Number(this.form.transportCost);
+        this.form.subTotal - discount + Number(this.form.transportCost || 0);
 
-      // Calculate Invoice Tax based on selected tax rate (skip for Saudi Arabia)
-      this.form.totalTax = 0;
+      // Calculate invoice-level tax on netAmount (skip for Saudi Arabia)
+      let invoiceTax = 0;
       if (!this.isSaudiArabia && this.form.orderTax) {
-        this.form.totalTax = (this.form.orderTax.rate / 100) * netAmount;
+        invoiceTax = (this.form.orderTax.rate / 100) * netAmount;
       }
 
+      // Total tax = product VAT + invoice-level tax
+      this.form.totalTax = Number(
+        (this.form.productTotalTax + invoiceTax).toFixed(2)
+      );
+
       // calculate final total
-      this.form.netTotal = netAmount + this.form.totalTax;
+      this.form.netTotal = Number((netAmount + this.form.totalTax).toFixed(2));
       return;
     },
 

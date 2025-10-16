@@ -234,14 +234,21 @@ class InvoiceController extends Controller
                     }
                 }
 
+                // Calculate server-side unit cost to ensure receipt reflects edited price
+                $lineQty = (float) ($selectedProduct['qty'] ?? 0);
+                $lineUnitPrice = (float) ($selectedProduct['unitPrice'] ?? 0);
+                $lineTaxAmount = (float) ($selectedProduct['productTax'] ?? ($selectedProduct['totalTax'] ?? 0));
+                $lineSubtotalAfterDiscount = ($lineUnitPrice * $lineQty) - (float) $discountAmount;
+                $calculatedUnitCost = $lineQty > 0 ? (($lineSubtotalAfterDiscount + $lineTaxAmount) / $lineQty) : 0;
+
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
                     'product_id' => $selectedProduct['id'],
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['avgPurchasePrice'],
                     'sale_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => $selectedProduct['unitCost'],
-                    'tax_amount' => $selectedProduct['totalTax'],
+                    'unit_cost' => $calculatedUnitCost,
+                    'tax_amount' => $lineTaxAmount,
                     // 'tax_amount' => $selectedProduct['productTax'],
                     'discount' => $selectedProduct['discount'] ?? 0,
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
@@ -568,14 +575,21 @@ class InvoiceController extends Controller
                     }
                 }
 
+                // Calculate server-side unit cost to ensure receipt reflects edited price
+                $lineQty = (float) ($selectedProduct['qty'] ?? 0);
+                $lineUnitPrice = (float) ($selectedProduct['unitPrice'] ?? 0);
+                $lineTaxAmount = (float) ($selectedProduct['productTax'] ?? ($selectedProduct['totalTax'] ?? 0));
+                $lineSubtotalAfterDiscount = ($lineUnitPrice * $lineQty) - (float) $discountAmount;
+                $calculatedUnitCost = $lineQty > 0 ? (($lineSubtotalAfterDiscount + $lineTaxAmount) / $lineQty) : 0;
+
                 InvoiceProduct::create([
                     'invoice_id' => $invoice->id,
                     'product_id' => $selectedProduct['id'],
                     'quantity' => $selectedProduct['qty'],
                     'purchase_price' => $selectedProduct['avgPurchasePrice'],
                     'sale_price' => $selectedProduct['unitPrice'],
-                    'unit_cost' => $selectedProduct['unitCost'],
-                    'tax_amount' => $selectedProduct['productTax'],
+                    'unit_cost' => $calculatedUnitCost,
+                    'tax_amount' => $lineTaxAmount,
                     'discount' => $selectedProduct['discount'] ?? 0,
                     'discount_type' => $selectedProduct['discountType'] ?? 'fixed',
                     'discount_amount' => $discountAmount,
