@@ -746,7 +746,11 @@ import SwalOriginal from "sweetalert2/dist/sweetalert2";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
-    return { title: this.$t("Invoice Return Details") };
+    return {
+      title: this.isSaudiArabia
+        ? this.$t("Credit Note Details")
+        : this.$t("Invoice Return Details")
+    };
   },
   components: {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
