@@ -40,6 +40,9 @@
             </ul>
           </div>
           <div class="btn-group">
+            <a v-if="isSaudiArabia && allData.status === 0" @click="sendCreditNote(allData)" href="#" class="btn btn-success">
+              <i class="fas fa-paper-plane"></i> {{ $t("Send Credit Note") }}
+            </a>
             <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
@@ -738,6 +741,7 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
+import SwalOriginal from "sweetalert2/dist/sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -1204,6 +1208,58 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    // send credit note
+    async sendCreditNote(data) {
+      SwalOriginal.fire({
+        title: this.$t("Send Credit Note to ZATCA"),
+        text: this.$t("Do you want to send this credit note to ZATCA?"),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#dc3545",
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            SwalOriginal.fire({
+              title: this.$t("Sending..."),
+              text: this.$t("Please wait while we send the credit note to ZATCA"),
+              allowOutsideClick: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                SwalOriginal.showLoading();
+              },
+            });
+
+            const response = await axios.post(`/api/invoice-returns/${data.slug}/send-to-zatca`);
+
+            SwalOriginal.close();
+
+            if (response.data.success) {
+              this.$toast.success(
+                this.$t("Sent Successfully!"),
+                this.$t("Credit note has been sent to ZATCA and journal entries have been created.")
+              );
+              // Refresh current page data to reflect updated status
+              this.getInvoiceReturn();
+            } else {
+              this.$toast.error(
+                this.$t("Failed!"),
+                response.data.message || this.$t("Failed to send credit note to ZATCA")
+              );
+            }
+          } catch (error) {
+            SwalOriginal.close();
+            this.$toast.error(
+              this.$t("Error!"),
+              error.response?.data?.message || this.$t("An error occurred while sending the credit note")
+            );
+          }
+        }
+      });
     },
 
     // get activity logs
