@@ -190,6 +190,14 @@
                                 {{ $t('View') }}
                               </router-link>
                             </li>
+                            <li v-if="data.attachment">
+                              <a href="#" @click.prevent="viewAttachment(data.attachment)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M14 4.5H10.5L9 3H2C1.45 3 1 3.45 1 4V12C1 12.55 1.45 13 2 13H14C14.55 13 15 12.55 15 12V5.5C15 4.95 14.55 4.5 14 4.5ZM8 9.5L10.5 7H8V4.5L5.5 7H8V9.5Z" fill="#6B7280"/>
+                                </svg>
+                                {{ $t('View Attachment') }}
+                              </a>
+                            </li>
                             <li v-if="$can('invoice-payment-edit') && data.status !== 2">
                               <router-link :to="{ name: 'invoicePayments.edit', params: { slug: data.slug } }">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -811,6 +819,21 @@ export default {
             });
         }
       });
+    },
+
+    // view attachment
+    viewAttachment(attachmentPath) {
+      if (!attachmentPath) {
+        this.$toast.error(this.$t('No attachment found'));
+        return;
+      }
+      
+      // Create the full URL for the attachment
+      // For multi-tenant applications, use /storage/tenant/ path
+      const attachmentUrl = window.location.origin + '/storage/tenant/' + attachmentPath;
+      
+      // Open the attachment in a new tab
+      window.open(attachmentUrl, '_blank');
     },
   },
 };

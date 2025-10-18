@@ -29,6 +29,7 @@ class InvoicePaymentResource extends JsonResource
             'accountPayable' => isset($this->invoice->invoiceReturn->returnTransaction) ? $this->invoice->invoiceReturn->returnTransaction->amount : null,
             'date' => $this->date,
             'note' => $this->note,
+            'attachment' => $this->attachment,
             'status' => (int) $this->status,
             'createdBy' => $this->user->name,
             'collectionBy' => $this->user->name.'['.($this->user?->employee?->designation ?? 'Super Admin').']',

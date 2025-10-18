@@ -143,7 +143,22 @@ class BusinessTransactionJournalService
 
 
 
-            $totalAmount = $invoice->invoiceTotal();
+            // Calculate the actual totals for the journal entry
+            $totalSalesAmount = 0;
+            $totalVatAmount = 0;
+            
+            // Calculate sales and VAT amounts (after discounts)
+            foreach ($invoiceProducts as $invoiceProduct) {
+                $originalAmount = $invoiceProduct->sale_price * $invoiceProduct->quantity;
+                $discountAmount = $invoiceProduct->discount_amount ?? 0;
+                $netAmount = $originalAmount - $discountAmount;
+                
+                $totalSalesAmount += $netAmount;
+                $totalVatAmount += $invoiceProduct->tax_amount;
+            }
+            
+            // The total amount should be net sales + VAT
+            $totalAmount = $totalSalesAmount + $totalVatAmount;
             
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
@@ -174,59 +189,33 @@ class BusinessTransactionJournalService
 
 
 
-            if ($totalDiscountAmount > 0) {
-                $discountAccount = $this->getDiscountAllowedAccount();
-                if ($discountAccount) {
-                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, $totalDiscountAmount, 0, $lineNumber, " ");
-                    $lineNumber++;
-                } else {
-                    throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
-                }
-            }
+            // Note: Discounts are handled by reducing the sales amount, not as separate entries
 
 
             
             // Group by sales account to handle multiple products with different accounts
             $salesByAccount = [];
-            $totalDiscountAmount = 0;
+            $vatByAccount = [];
             
             foreach ($invoiceProducts as $invoiceProduct) {
                 $product = $invoiceProduct->product;
                 $accountId = $product->sales_account_id;
                 
-                // Calculate original amount (before discount)
+                // Calculate amount after discount
                 $originalAmount = $invoiceProduct->sale_price * $invoiceProduct->quantity;
+                $discountAmount = $invoiceProduct->discount_amount ?? 0;
+                $netAmount = $originalAmount - $discountAmount;
                 
-                // Add to sales account
+                // Add to sales account (net amount after discount)
                 if (!isset($salesByAccount[$accountId])) {
                     $salesByAccount[$accountId] = 0;
                 }
-                $salesByAccount[$accountId] += $originalAmount ;
+                $salesByAccount[$accountId] += $netAmount;
                 
-                // Track discount amount
-                if ($invoiceProduct->discount_amount > 0) {
-                    $totalDiscountAmount += $invoiceProduct->discount_amount;
-                }
-            }
-            
-            // Create separate journal entry lines for each sales account (full amount before discount)
-            foreach ($salesByAccount as $accountId => $amount) {
-                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "Sales Revenue for Invoice {$invoice->invoice_no}");
-                $lineNumber++;
-            }
-            
-
-
- 
-            // Group by VAT account to handle multiple products with different VAT accounts
-
-            $vatByAccount = [];
-           
-            
-            foreach ($invoiceProducts as $invoiceProduct) {
+                // Handle VAT account
                 if (isset($vatAccountsByProduct[$invoiceProduct->product_id])) {
                     $vatAccountId = $vatAccountsByProduct[$invoiceProduct->product_id]->id;
-                    $productVatAmount = $invoiceProduct->tax_amount; // Use the tax amount from invoice product
+                    $productVatAmount = $invoiceProduct->tax_amount;
                    
                     if ($productVatAmount > 0) {
                         if (!isset($vatByAccount[$vatAccountId])) {
@@ -237,12 +226,28 @@ class BusinessTransactionJournalService
                 }
             }
             
+            // Create separate journal entry lines for each sales account (net amount after discount)
+            foreach ($salesByAccount as $accountId => $amount) {
+                if ($amount > 0) { // Only create line if amount is greater than 0
+                    Log::info("Creating sales journal line: Account ID {$accountId}, Amount: {$amount}");
+                    $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "Sales Revenue for Invoice {$invoice->invoice_no}");
+                    $lineNumber++;
+                }
+            }
+            
             // Create VAT journal entries (grouped by account)
             foreach ($vatByAccount as $vatAccountId => $totalVatAmount) {
-              
-                $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, "VAT Payable for Invoice {$invoice->invoice_no}");
-                $lineNumber++;
+                if ($totalVatAmount > 0) { // Only create line if amount is greater than 0
+                    Log::info("Creating VAT journal line: Account ID {$vatAccountId}, Amount: {$totalVatAmount}");
+                    $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, "VAT Payable for Invoice {$invoice->invoice_no}");
+                    $lineNumber++;
+                }
             }
+            
+            // Log the final totals for debugging
+            Log::info("Journal entry totals - Debit: {$totalAmount}, Credit: {$totalAmount}");
+            Log::info("Sales accounts: " . json_encode($salesByAccount));
+            Log::info("VAT accounts: " . json_encode($vatByAccount));
 
 
 

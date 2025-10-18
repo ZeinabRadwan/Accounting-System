@@ -1443,6 +1443,7 @@
   "Failed": "فشل",
   "Impersonate": "انتحال شخصية",
   "View": "عرض",
+  "View Attachment": "عرض المرفق",
   "Export PDF": "تصدير PDF",
   "Unban": "إلغاء الحظر",
   "Ban": "حظر",
@@ -3919,5 +3920,7 @@
   "Connect VAT rates to chart of accounts for proper journal entries" : "ربط فئات الضريبة بدليل الحسابات للقيود اليومية المناسبة",
   "Check Connections" : "التحقق من الربط",
   "Return Invoice" : "إرجاع الفاتورة",
+  "Payment Attachment" : "مرفق الدفع",
+  "Supported formats: PDF, JPG, PNG, DOC, DOCX" : "الملفات المدعومة: PDF, JPG, PNG, DOC, DOCX",
   "No journal entries found for this invoice return.": "لم يتم العثور على قيود يومية لهذا إرجاع الفاتورة."
 }

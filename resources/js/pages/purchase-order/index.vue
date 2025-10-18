@@ -654,11 +654,7 @@ export default {
     },
 
     // send invoice
-    async sendInvoice(data) {
-      console.log('Send invoice clicked for:', data);
-      console.log('isSaudiArabia:', this.isSaudiArabia);
-      console.log('data.status:', data.status);
-      
+    async sendInvoice(data) { 
       SwalOriginal.fire({
         title: this.$t("Send Invoice to ZATCA"),
         text: this.$t("Do you want to send this invoice to ZATCA?"),

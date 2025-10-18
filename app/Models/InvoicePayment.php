@@ -16,7 +16,7 @@ class InvoicePayment extends Model
      * @var array
      */
     protected $fillable = [
-        'invoice_id', 'slug',  'amount', 'transaction_id', 'date', 'note', 'status', 'created_by',
+        'invoice_id', 'slug',  'amount', 'transaction_id', 'date', 'note', 'attachment', 'status', 'created_by',
     ];
 
     protected $casts = [

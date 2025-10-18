@@ -12,6 +12,15 @@
             <div class="float-right header-buttons">
               <button
                 type="button"
+                class="btn btn-info mr-2"
+                @click="openInvoicesPage"
+                :title="$t('Open Invoices Page')"
+              >
+                <i class="fas fa-file-invoice" />
+                {{ $t('Invoices') }}
+              </button>
+              <button
+                type="button"
                 class="btn btn-success"
                 @click="saveTemporary"
                 :title="$t('Save Temporarily')"
@@ -721,6 +730,35 @@
             />
             <has-error :form="form" field="note" />
           </div>
+          <div class="form-group">
+            <label for="attachment">{{ $t("Payment Attachment") }}</label>
+            <input
+              id="attachment"
+              ref="attachmentInput"
+              type="file"
+              class="form-control"
+              :class="{ 'is-invalid': form.errors.has('attachment') }"
+              name="attachment"
+              accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+              @change="handleAttachmentChange"
+            />
+            <small class="form-text text-muted">
+              {{ $t("Supported formats: PDF, JPG, PNG, DOC, DOCX") }}
+            </small>
+            <has-error :form="form" field="attachment" />
+            <div v-if="form.attachment" class="mt-2">
+              <span class="badge badge-info">
+                <i class="fas fa-paperclip"></i> {{ getAttachmentName() }}
+              </span>
+              <button 
+                type="button" 
+                class="btn btn-sm btn-outline-danger ml-2"
+                @click="removeAttachment"
+              >
+                <i class="fas fa-times"></i> {{ $t("Remove") }}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="payment-modal-footer" slot="modal-footer">
@@ -780,13 +818,13 @@
                       {{ data.productName }}<br />
                       <span class="pqty"
                         >{{ data.quantity }} {{ data.productUnit }} x
-                        {{ data.unitCost }}
+                        {{ data.salePrice }}
                         <span class="saudi-riyal">ê</span></span
                       >
                     </span>
                   </td>
                   <td style="text-align: right; vertical-align: bottom">
-                    {{ data.unitCost * data.quantity }}
+                    {{ data.salePrice * data.quantity }}
                     <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
@@ -812,14 +850,7 @@
                 <tr style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Total") }}</td>
                   <td style="text-align: right" class="total">
-                    {{
-                      (allData.subTotal -
-                        allData.totalInvoiceReturn -
-                        allData.discount +
-                        allData.transport +
-                        allData.tax)
-                        
-                    }}
+                    {{ allData.invoiceTotal }}
                     <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
@@ -940,6 +971,7 @@ export default {
       category: "",
       invoice_id: null,
       invoice_slug: null,
+      attachment: null,
     }),
     taxes: [],
     audio: "",
@@ -998,16 +1030,21 @@ export default {
       }
     });
   },
-  created() {
+  async created() {
     this.getClients();
-    this.getProducts();
     this.getAccounts();
-    this.getTaxes();
+    await this.getTaxes(); // Wait for taxes to load first
+    this.getProducts();
     this.getCategories();
     this.getSubCategories();
     this.audio = new Audio(sound);
-    this.productPrefix = this.appInfo.productPrefix;
-    this.invoicePrefix = this.appInfo.invoicePrefix;
+    
+    // Only set prefixes if appInfo is available
+    if (this.appInfo) {
+      this.productPrefix = this.appInfo.productPrefix;
+      this.invoicePrefix = this.appInfo.invoicePrefix;
+    }
+    
     document.body.classList.add("sidebar-collapse");
   },
   watch: {
@@ -1018,6 +1055,46 @@ export default {
       } else {
         this.searchProducts();
       }
+    },
+    
+    // watch appInfo changes
+    appInfo: {
+      handler(newVal) {
+        if (newVal && newVal.country) {
+          // Update prefixes when appInfo is loaded
+          this.productPrefix = newVal.productPrefix;
+          this.invoicePrefix = newVal.invoicePrefix;
+        }
+      },
+      immediate: true,
+      deep: true
+    },
+    
+    // watch selectedProducts changes to ensure calculations are always up to date
+    selectedProducts: {
+      handler() {
+        // Recalculate all totals when products change
+        this.calculateSum();
+      },
+      deep: true
+    },
+    
+    // watch taxes changes to update selected products VAT rates
+    taxes: {
+      handler(newTaxes) {
+        if (newTaxes && newTaxes.length > 0 && this.form.selectedProducts.length > 0) {
+          // Update VAT rates for existing selected products
+          this.form.selectedProducts.forEach((product, index) => {
+            if (!product.selectedVatRate) {
+              const vat15 = newTaxes.find((tax) => tax.rate === 15);
+              product.selectedVatRate = vat15 || newTaxes[0];
+              this.generateItemTotalPrice(index);
+            }
+          });
+          this.calculateSum();
+        }
+      },
+      deep: true
     },
   },
   methods: {
@@ -1112,6 +1189,9 @@ export default {
       this.products = data.data;
       this.products.sort(this.sortProducts);
       this.pagination = data.meta;
+      
+      // Ensure all products have proper VAT rate information
+      this.processProductsVatRates();
     },
 
     // sort products
@@ -1168,6 +1248,9 @@ export default {
         );
         this.products = data.data;
         this.pagination = data.meta;
+        
+        // Ensure all products have proper VAT rate information
+        this.processProductsVatRates();
       } else {
         await this.getProducts();
       }
@@ -1216,6 +1299,9 @@ export default {
       this.products = data.data;
       this.products.sort(this.sortProducts);
       this.pagination = data.meta;
+      
+      // Ensure all products have proper VAT rate information
+      this.processProductsVatRates();
       console.log(this.pagination);
     },
 
@@ -1226,19 +1312,35 @@ export default {
     },
 
     // store item in array
-    storeProduct(product) {
+    async storeProduct(product) {
       var index = this.form.selectedProducts.findIndex(
         (x) => x.id == product.id
       );
       let quantity = 1;
       if (product.itemType == "service" || product.inventoryCount >= quantity) {
         if (index === -1) {
-          let productTax =
-            product.taxType == "Exclusive"
-              ? product.priceWithDiscount * (product.taxRate / 100)
-              : product.priceWithDiscount -
-                product.priceWithDiscount / (1 + product.taxRate / 100);
-          let totalTax = productTax * quantity;
+          // Ensure taxes are loaded before assigning VAT rate
+          if (!this.taxes || this.taxes.length === 0) {
+            console.warn('Taxes not loaded yet, loading now...');
+            await this.getTaxes();
+          }
+          
+          // Find the appropriate VAT rate
+          let selectedVatRate = this.findMatchingVatRate(product.productTax) ||
+                               this.form.orderTax ||
+                               this.taxes?.[0];
+          
+          // Ensure we use the exact object reference from taxes array
+          if (selectedVatRate && this.taxes) {
+            const exactTaxObject = this.taxes.find(tax => 
+              tax.id === selectedVatRate.id || 
+              (tax.rate === selectedVatRate.rate && tax.code === selectedVatRate.code)
+            );
+            if (exactTaxObject) {
+              selectedVatRate = exactTaxObject;
+            }
+          }
+          
 
           this.form.selectedProducts.unshift({
             id: product.id,
@@ -1252,24 +1354,20 @@ export default {
             inventoryCount: product.inventoryCount,
             avgPurchasePrice: product.avgPurchasePrice,
             unitPrice: product.priceWithDiscount,
-            unitCost:
-              product.taxType == "Exclusive"
-                ? product.priceWithDiscount + productTax
-                : product.priceWithDiscount,
-            totalPrice:
-              product.taxType == "Exclusive"
-                ? 1 * (product.priceWithDiscount + totalTax)
-                : 1 * product.priceWithDiscount,
-            productTax: product.productTax > 0 ? product.productTax : 0,
-            totalTax: totalTax,
+            unitCost: product.priceWithDiscount, // Will be recalculated
+            totalPrice: product.priceWithDiscount, // Will be recalculated
+            productTax: 0, // Will be recalculated
+            totalTax: 0, // Will be recalculated
             discount: 0,
             discountType: "fixed",
             discountAmount: 0,
-            selectedVatRate:
-              this.findMatchingVatRate(product.productTax) ||
-              this.form.orderTax ||
-              this.taxes?.[0],
+            selectedVatRate: selectedVatRate,
           });
+          
+          // Recalculate all totals for the new product
+          this.generateItemTotalPrice(0); // Index 0 because we used unshift
+          
+          
           // play sound if added
           this.audio.play();
         } else {
@@ -1287,7 +1385,7 @@ export default {
           title: this.$t("Insufficient Stock"),
         });
       }
-      this.generateItemTotal(quantity, "qty", index, "");
+      this.calculateSum();
       return;
     },
 
@@ -1386,24 +1484,48 @@ export default {
 
     // find matching VAT rate
     findMatchingVatRate(productTax) {
-      if (!productTax || !this.taxes) return null;
+      if (!this.taxes || this.taxes.length === 0) return null;
 
       // If productTax is a number, find matching rate
-      if (typeof productTax === "number") {
-        return this.taxes.find((tax) => tax.rate === productTax);
+      if (typeof productTax === "number" && productTax > 0) {
+        const matchingTax = this.taxes.find((tax) => tax.rate === productTax);
+        if (matchingTax) return matchingTax;
       }
 
       // If productTax is an object, return it directly
-      if (typeof productTax === "object") {
+      if (typeof productTax === "object" && productTax !== null) {
         return productTax;
       }
 
-      return null;
+      // If no match found or productTax is invalid, return VAT@15 (15%) as default
+      const vat15 = this.taxes.find((tax) => tax.rate === 15);
+      if (vat15) return vat15;
+      
+      // Fallback to first available VAT rate if 15% not found
+      return this.taxes[0];
     },
 
     // round to two decimals
     roundToTwoDecimals(value) {
       return Math.round((value + Number.EPSILON) * 100) / 100;
+    },
+
+    // process products to ensure they have proper VAT rate information
+    processProductsVatRates() {
+      if (!this.products || !this.taxes || this.taxes.length === 0) return;
+      
+      this.products.forEach(product => {
+        // If product doesn't have a proper VAT rate, assign VAT@15 (15%) as default
+        if (!product.vatRate || !product.vatRate.rate) {
+          const vat15 = this.taxes.find((tax) => tax.rate === 15);
+          product.vatRate = vat15 || this.taxes[0];
+        }
+        
+        // Ensure productTax is properly set
+        if (!product.productTax && product.vatRate && product.vatRate.rate > 0) {
+          product.productTax = product.vatRate.rate;
+        }
+      });
     },
 
     // generate item total price with discount and VAT
@@ -1498,13 +1620,30 @@ export default {
 
     // save invoice
     async saveInvoice(isDirect = true) {
+      // Ensure appInfo is loaded before proceeding
+      await this.ensureAppInfoLoaded();
+      
       await this.form
         .post(window.location.origin + "/api/invoices")
-        .then(({ data }) => {
+        .then(async ({ data }) => {
           this.form.invoice_id = data.data.invoice_id;
           this.form.invoice_slug = data.data.invoice_slug;
           this.clearTemporaryData();
+          
           if (isDirect) {
+            // Send to ZATCA if in Saudi Arabia and this is a direct save
+            if (this.isSaudiArabia) {
+              try {
+                await this.sendInvoiceToZatca(this.form.invoice_slug);
+              } catch (error) {
+                console.error('Failed to send invoice to ZATCA:', error);
+                // Show error but don't block the flow
+                this.$toast.error(
+                  this.$t("ZATCA Error"),
+                  this.$t("Invoice created but failed to send to ZATCA. Please try sending manually.")
+                );
+              }
+            }
             this.showInvoiceAndPrint();
           }
         })
@@ -1519,8 +1658,37 @@ export default {
     // save payment
     async addPayment() {
       if (this.form.invoice_id != null) {
-        await this.form
-          .post(window.location.origin + "/api/invoices-pay")
+        // Create FormData for file upload
+        const formData = new FormData();
+        
+        // Add basic form fields manually to avoid nested object issues
+        formData.append('account', JSON.stringify(this.form.account));
+        formData.append('paidAmount', this.form.paidAmount);
+        formData.append('chequeNo', this.form.chequeNo || '');
+        formData.append('receiptNo', this.form.receiptNo || '');
+        formData.append('date', this.form.date);
+        formData.append('note', this.form.note || '');
+        formData.append('reference', this.form.reference || '');
+        formData.append('poReference', this.form.poReference || '');
+        formData.append('paymentTerms', this.form.paymentTerms || '');
+        formData.append('deliveryPlace', this.form.deliveryPlace || '');
+        formData.append('status', this.form.status);
+        formData.append('netTotal', this.form.netTotal);
+        
+        // Add the invoice_id
+        formData.append('invoice_id', this.form.invoice_id);
+        
+        // Handle file attachment
+        if (this.form.attachment) {
+          formData.append('attachment', this.form.attachment);
+        }
+        
+        await axios
+          .post(window.location.origin + "/api/invoices-pay", formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
           .then(async () => {
             this.showModal = false;
             await this.showInvoiceAndPrint();
@@ -1547,6 +1715,57 @@ export default {
       this.againDefaultSettings();
     },
 
+    // handle attachment file change
+    handleAttachmentChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        // Validate file size (max 10MB)
+        if (file.size > 10 * 1024 * 1024) {
+          this.$toast.error(
+            this.$t("File too large"),
+            this.$t("File size must be less than 10MB")
+          );
+          this.$refs.attachmentInput.value = '';
+          return;
+        }
+        
+        // Validate file type
+        const allowedTypes = [
+          'application/pdf',
+          'image/jpeg',
+          'image/jpg', 
+          'image/png',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        
+        if (!allowedTypes.includes(file.type)) {
+          this.$toast.error(
+            this.$t("Invalid file type"),
+            this.$t("Please select a PDF, JPG, PNG, DOC, or DOCX file")
+          );
+          this.$refs.attachmentInput.value = '';
+          return;
+        }
+        
+        this.form.attachment = file;
+      }
+    },
+
+    // get attachment file name
+    getAttachmentName() {
+      if (this.form.attachment && this.form.attachment.name) {
+        return this.form.attachment.name;
+      }
+      return '';
+    },
+
+    // remove attachment
+    removeAttachment() {
+      this.form.attachment = null;
+      this.$refs.attachmentInput.value = '';
+    },
+
     // close receipt modal
     closeReceiptModal() {
       this.showSmallInvoiceModal = false;
@@ -1560,6 +1779,20 @@ export default {
     async completeOrderAndAddPayment() {
       await this.saveInvoice(false);
       if (this.form.invoice_id != null) {
+        // Send to ZATCA before showing payment modal if in Saudi Arabia
+        if (this.isSaudiArabia) {
+          try {
+            await this.sendInvoiceToZatca(this.form.invoice_slug);
+          } catch (error) {
+            console.error('Failed to send invoice to ZATCA:', error);
+            // Show error but don't block the flow
+            this.$toast.error(
+              this.$t("ZATCA Error"),
+              this.$t("Invoice created but failed to send to ZATCA. Please try sending manually.")
+            );
+          }
+        }
+        
         this.showModal = true;
         this.form.paidAmount = this.form.netTotal.toFixed(2);
 
@@ -1702,6 +1935,39 @@ export default {
     // clear temporary data
     clearTemporaryData() {
       localStorage.removeItem("posTempData");
+    },
+
+    // open invoices page in new tab
+    openInvoicesPage() {
+      const routeData = this.$router.resolve({ name: 'invoices.index' });
+      window.open(routeData.href, '_blank');
+    },
+
+    // send invoice to ZATCA
+    async sendInvoiceToZatca(invoiceSlug) {
+      try {
+        const response = await axios.post(`/api/invoices/${invoiceSlug}/send-to-zatca`);
+        
+        if (response.data.success) {
+          this.$toast.success(
+            this.$t("Sent to ZATCA Successfully!"),
+            this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
+          );
+          return response.data;
+        } else {
+          throw new Error(response.data.message || 'Failed to send invoice to ZATCA');
+        }
+      } catch (error) {
+        console.error('ZATCA sending error:', error);
+        throw error;
+      }
+    },
+
+    // ensure appInfo is loaded
+    async ensureAppInfoLoaded() {
+      if (!this.appInfo) {
+        await this.$store.dispatch('operations/fetchSettingData');
+      }
     },
   },
   mounted() {

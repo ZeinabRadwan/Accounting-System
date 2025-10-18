@@ -77,7 +77,14 @@ class Invoice extends Model
             $totalTax = ($taxRate->rate / 100) * $taxableAmount;
         }
 
-        return $totalTax;
+        // Add product-level VAT for Saudi Arabia
+        $totalProductVat = 0;
+        $invoiceProducts = $this->invoiceProducts;
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $totalProductVat += $invoiceProduct->tax_amount;
+        }
+
+        return $totalTax + $totalProductVat;
     }
 
     // return discount percentage
@@ -130,11 +137,6 @@ class Invoice extends Model
         }
 
 
-        return $totalProductSubTotal - $totalProductDiscount + $totalProductVat  - $costOfProductReturn;
-
-
-
-        
         // Calculate global discount
         $globalDiscount = 0;
         if ($this->discount > 0) {
@@ -155,7 +157,10 @@ class Invoice extends Model
             $taxAmount = ($this->invoiceTax->rate / 100) * $taxableAmount;
         }
 
-        return $this->sub_total - $globalDiscount + $taxAmount + $this->transport - $costOfProductReturn;
+        // Use the global calculation which includes discount and transport
+        // For Saudi Arabia, include product-level VAT instead of invoice-level tax
+        $totalTax = $taxAmount + $totalProductVat;
+        return $this->sub_total - $globalDiscount + $totalTax + $this->transport - $costOfProductReturn;
     }
 
     // purchase total paid

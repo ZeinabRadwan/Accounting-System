@@ -366,6 +366,7 @@ class InvoiceController extends Controller
             'receiptNo' => 'nullable|string|max:255',
             'date' => 'nullable|date_format:Y-m-d',
             'note' => 'nullable|string|max:255',
+            'attachment' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240', // 10MB max
         ]);
 
         $invoice = Invoice::findOrFail($request->invoice_id);
@@ -375,14 +376,18 @@ class InvoiceController extends Controller
         }
         
         $userId = auth()->id();
+        
+        // Decode account if it's JSON string
+        $account = is_string($request->account) ? json_decode($request->account, true) : $request->account;
+        
         // store transaction
-        $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $request->account['accountNumber'] . ']';
+        $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice Payment added to [' . $account['accountNumber'] . ']';
         try {
             DB::beginTransaction();
 
             // create transaction
             $transaction = AccountTransaction::create([
-                'account_id' => $request->account['id'],
+                'account_id' => $account['id'],
                 'amount' => $request->paidAmount,
                 'reason' => $reason,
                 'type' => 1,
@@ -393,6 +398,16 @@ class InvoiceController extends Controller
                 'status' => 1,
             ]);
 
+            // Handle file upload if attachment is provided
+            $attachmentPath = null;
+            if ($request->hasFile('attachment')) {
+                $file = $request->file('attachment');
+                // Generate unique filename with original extension
+                $originalExtension = $file->getClientOriginalExtension();
+                $uniqueFileName = uniqid() . '_' . time() . '.' . $originalExtension;
+                $attachmentPath = $file->storeAs('invoice-payments', $uniqueFileName, 'public');
+            }
+
             // store invoice payment record
             InvoicePayment::create([
                 'slug' => uniqid(),
@@ -401,6 +416,7 @@ class InvoiceController extends Controller
                 'amount' => $request->paidAmount,
                 'date' => $request->date,
                 'note' => clean($request->note),
+                'attachment' => $attachmentPath,
                 'created_by' => $userId,
                 'status' => 1,
             ]);
@@ -806,8 +822,6 @@ class InvoiceController extends Controller
                         $transaction->update([
                             'status' => 1,
                         ]);
-
-
                     }
                 } catch (\Exception $e) {
                     Log::error('Failed to create payment journal entry for ZATCA invoice: ' . $e->getMessage());
@@ -841,6 +855,70 @@ class InvoiceController extends Controller
             DB::rollback();
             Log::error('Error sending invoice to ZATCA: ' . $e->getMessage());
             return $this->responseWithError('Failed to send invoice to ZATCA: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Internal method to send invoice to ZATCA (used during invoice creation)
+     *
+     * @param  Invoice  $invoice
+     * @param  int  $userId
+     * @return bool
+     */
+    private function sendToZatcaInternal($invoice, $userId)
+    {
+        try {
+            // Load relationships
+            $invoice->load('client', 'invoiceProducts.product', 'invoicePayments');
+
+            // Create journal entry for invoice sale (now that we're sending to ZATCA)
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createInvoiceSaleJournal($invoice, $userId);
+            } catch (\Exception $e) {
+                Log::error('Failed to create journal entry for ZATCA invoice: ' . $e->getMessage());
+                throw $e;
+            }
+
+            // Create journal entries for any existing payments
+            foreach ($invoice->invoicePayments as $payment) {
+                try {
+                    $transaction = AccountTransaction::find($payment->transaction_id);
+                    if ($transaction) {
+                        $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $payment->amount, $userId);
+                        $payment->update([
+                            'status' => 1,
+                        ]);
+                   
+                        $transaction->update([
+                            'status' => 1,
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Failed to create payment journal entry for ZATCA invoice: ' . $e->getMessage());
+                    // Continue with other payments even if one fails
+                }
+            }
+
+            // Update invoice status to active (sent to ZATCA)
+            $invoice->update(['status' => 1]);
+
+            // Here you would add actual ZATCA integration
+            // For now, we'll just simulate the ZATCA sending
+            // You can integrate with ZATCA API here
+            
+            // Log the ZATCA sending
+            Log::info("Invoice {$invoice->invoice_no} sent to ZATCA", [
+                'invoice_id' => $invoice->id,
+                'user_id' => $userId,
+                'timestamp' => now()
+            ]);
+
+            return true;
+
+        } catch (Exception $e) {
+            Log::error('Error sending invoice to ZATCA internally: ' . $e->getMessage());
+            throw $e;
         }
     }
 
