@@ -299,7 +299,7 @@
                           :colspan="allData.totalInvoiceReturn ? 10 : 9"
                           class="text-right"
                         >
-                          <strong>{{ $t("Subtotal") }} </strong>
+                          <strong>{{ $t("Total with VAT") }} </strong>
                         </td>
                         <td class="text-center">
                           <strong>
