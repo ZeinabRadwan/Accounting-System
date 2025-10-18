@@ -753,8 +753,8 @@ export default {
        if (!this.allData) return 0;
        
        if (this.isSaudiArabia) {
-         // For Saudi Arabia: Subtotal - Product Discount + Product VAT
-         return this.allData.subTotal - this.totalProductDiscount + this.totalProductVat;
+         // For Saudi Arabia: subTotal already includes discount and VAT
+         return this.allData.subTotal;
        } else {
          // For other countries: Subtotal - Returns - Global Discount + Transport + Tax
          return this.allData.subTotal - 

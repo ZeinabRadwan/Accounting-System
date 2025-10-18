@@ -117,10 +117,9 @@ class Invoice extends Model
     {
         $costOfProductReturn = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
 
-
-
-
-
+        // Check if country is Saudi Arabia
+        $country = \App\Models\GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        $isSaudiArabia = $country === 'SA';
 
         $invoiceProducts = $this->invoiceProducts;
         $totalProductVat = 0;
@@ -157,10 +156,15 @@ class Invoice extends Model
             $taxAmount = ($this->invoiceTax->rate / 100) * $taxableAmount;
         }
 
-        // Use the global calculation which includes discount and transport
-        // For Saudi Arabia, include product-level VAT instead of invoice-level tax
-        $totalTax = $taxAmount + $totalProductVat;
-        return $this->sub_total - $globalDiscount + $totalTax + $this->transport - $costOfProductReturn;
+        if ($isSaudiArabia) {
+            // For Saudi Arabia: subTotal already includes discount and VAT
+            return $this->sub_total;
+        } else {
+            // For other countries: Original calculation
+            // Use the global calculation which includes discount and transport
+            $totalTax = $taxAmount + $totalProductVat;
+            return $this->sub_total - $globalDiscount + $totalTax + $this->transport - $costOfProductReturn;
+        }
     }
 
     // purchase total paid
