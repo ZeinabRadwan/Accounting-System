@@ -2,7 +2,7 @@
     "TechnicianEmail": "update@websoft.sa",
     "upg_update": false,
     "public_update": false,
-    "run_migration": false,
+    "run_migration": true,
     "run_seeder": [
         false,
         "TenantVatRateSeeder",
