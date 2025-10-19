@@ -171,8 +171,8 @@
                 </div> -->
               </div>
 
-              <!-- <div v-if="accounts && form.returnAmount > 0" class="row"> -->
-                <!-- <div class="form-group col-md-4">
+             <div v-if="accounts && form.returnAmount > 0" class="row">  
+               <div class="form-group col-md-4">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
@@ -182,8 +182,8 @@
                       <img :src="option.image" style="width: 30px; height: 30px;" />
                       {{ option.label }}
                     </template>
-                  </v-select> -->
-                  <!-- <div class="account-status mt-2" v-if="form.account">
+                  </v-select>  
+                 <div class="account-status mt-2" v-if="form.account">
                     <div v-if="!form.account.chartOfAccountId" class="account-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
@@ -211,7 +211,7 @@
                     :placeholder="$t('Enter a receipt no')" />
                   <has-error :form="form" field="receiptNo" />
                 </div>
-              </div> -->
+              </div>  
 
               <div class="form-group">
                 <label for="note">{{ $t('Note') }}</label>

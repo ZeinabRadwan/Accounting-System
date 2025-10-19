@@ -91,14 +91,10 @@ class InvoiceReturnController extends Controller
                 return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
             }
 
-            // store return amount
+            // store retrun amount
             $isPaid = 0;
             $transactionID = null;
-            if (isset($request->returnAmount) && $request->returnAmount > 0) {
-                // Validate that account is provided when returnAmount > 0
-                if (!isset($request->account) || empty($request->account) || (is_array($request->account) && empty($request->account['id']))) {
-                    return $this->responseWithError('Account is required when return amount is greater than 0.');
-                }
+            if ($request->returnAmount > 0) {
 
                 $transaction = $this->transactionService->createTransactionFromInvoiceReturn($request, $userId, $code);
 
@@ -261,23 +257,18 @@ class InvoiceReturnController extends Controller
                 return $this->responseWithError('The configured accounting period does not belong to the configured fiscal year.');
             }
 
-            // store return amount
+            // store retrun amount
             $isPaid = 0;
             $transactionID = null;
-            if (isset($request->returnAmount) && $request->returnAmount > 0) {
-                // Validate that account is provided when returnAmount > 0
-                if (!isset($request->account) || empty($request->account) || (is_array($request->account) && empty($request->account['id']))) {
-                    return $this->responseWithError('Account is required when return amount is greater than 0.');
-                }
-
+            if ($request->returnAmount > 0) {
                 if (isset($invoiceReturn->returnTransaction)) {
                     // update transaction
                     $transaction = $invoiceReturn->returnTransaction->update([
                         'account_id' => $request->account['id'],
                         'amount' => $request->returnAmount,
                         'transaction_date' => $request->date,
-                        'cheque_no' => $request->chequeNo ?? null,
-                        'receipt_no' => $request->receiptNo ?? null,
+                        'cheque_no' => $request->chequeNo,
+                        'receipt_no' => $request->receiptNo,
                         'status' => $request->status,
                     ]);
                     $transactionID = $invoiceReturn->returnTransaction->id;
@@ -292,8 +283,8 @@ class InvoiceReturnController extends Controller
                         'amount' => $request->returnAmount,
                         'transaction_date' => $request->date,
                         'type' => 0,
-                        'cheque_no' => $request->chequeNo ?? null,
-                        'receipt_no' => $request->receiptNo ?? null,
+                        'cheque_no' => $request->chequeNo,
+                        'receipt_no' => $request->receiptNo,
                         'status' => $request->status,
                         'created_by' => $userId,
                     ]);
