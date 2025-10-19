@@ -96,7 +96,7 @@ class InvoiceReturnController extends Controller
             $transactionID = null;
             if (isset($request->returnAmount) && $request->returnAmount > 0) {
                 // Validate that account is provided when returnAmount > 0
-                if (!isset($request->account) || !$request->account) {
+                if (!isset($request->account) || empty($request->account) || (is_array($request->account) && empty($request->account['id']))) {
                     return $this->responseWithError('Account is required when return amount is greater than 0.');
                 }
 
@@ -266,7 +266,7 @@ class InvoiceReturnController extends Controller
             $transactionID = null;
             if (isset($request->returnAmount) && $request->returnAmount > 0) {
                 // Validate that account is provided when returnAmount > 0
-                if (!isset($request->account) || !$request->account) {
+                if (!isset($request->account) || empty($request->account) || (is_array($request->account) && empty($request->account['id']))) {
                     return $this->responseWithError('Account is required when return amount is greater than 0.');
                 }
 
