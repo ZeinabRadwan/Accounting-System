@@ -30,7 +30,7 @@ class StoreInvoiceReturnRequest extends BaseRequest
             'invoice' => 'required',
             'selectedProducts' => ['required', 'distinct', new MinOne],
             'account' => $this->returnAmount > 0 ? 'required' : 'nullable',
-            'availableBalance' => $this->returnAmount > 0 ? 'required|numeric|min:'.$this->returnAmount : 'nullable',
+            // 'availableBalance' => $this->returnAmount > 0 ? 'required|numeric|min:'.$this->returnAmount : 'nullable',
             'totalReturn' => 'required|numeric|min:1',
             'date' => 'nullable|date_format:Y-m-d',
             'note' => 'nullable|string|max:255'
