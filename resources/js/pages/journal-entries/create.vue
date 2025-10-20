@@ -346,7 +346,7 @@ export default {
         // Validate chart of account selections
         const invalidLines = this.form.lines.filter(line => !line.chart_of_account_id)
         if (invalidLines.length > 0) {
-          window.toast.error('Please select chart of accounts for all lines')
+          window.toast.error(this.$t('Please select chart of accounts for all lines'))
           return
         }
 

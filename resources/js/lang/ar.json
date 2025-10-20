@@ -3922,5 +3922,6 @@
   "Return Invoice" : "إرجاع الفاتورة",
   "Payment Attachment" : "مرفق الدفع",
   "Supported formats: PDF, JPG, PNG, DOC, DOCX" : "الملفات المدعومة: PDF, JPG, PNG, DOC, DOCX",
+  "Plese select at least one invoice" : "يرجى اختيار فاتورة واحد على الأقل",
   "No journal entries found for this invoice return.": "لم يتم العثور على قيود يومية لهذا إرجاع الفاتورة."
 }

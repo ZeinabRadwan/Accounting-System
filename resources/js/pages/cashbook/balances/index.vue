@@ -162,12 +162,14 @@
                                 {{ $t('Edit') }}
                               </router-link>
                             </li> -->
+                            <!--
                             <li v-if="$can('account-balance-delete')">
                               <a href="#" @click.prevent="deleteData(data.slug)">
                                 <i class="fas fa-trash"></i>
                                 {{ $t('Delete') }}
                               </a>
                             </li>
+                            -->
                           </ul>
                         </div>
                       </div>
