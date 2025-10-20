@@ -30,6 +30,24 @@
                     :class="{ 'is-invalid': form.errors.has('client') }" name="client"
                     :placeholder="$t('Select a client')" @input="getInvoices" />
                   <has-error :form="form" field="client" />
+                  <!-- Client Chart of Account Status -->
+                  <div v-if="form.client" class="mt-2">
+                    <div v-if="!form.client.chart_of_account_id" class="d-flex align-items-center">
+                      <span class="badge badge-warning">{{ $t('Warning') }}</span>
+                      <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                      <button type="button" class="btn btn-sm btn-outline-primary ml-3"
+                        :disabled="isAutoAssigningClient"
+                        @click="autoAssignClientChartOfAccount">
+                        <i v-if="!isAutoAssigningClient" class="fas fa-magic"></i>
+                        <i v-else class="fas fa-spinner fa-spin"></i>
+                        <span class="ml-1">{{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}</span>
+                      </button>
+                    </div>
+                    <div v-else class="d-flex align-items-center text-success">
+                      <i class="fas fa-check-circle"></i>
+                      <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div v-if="form.client" class="row">
@@ -264,6 +282,7 @@ export default {
     }),
     accounts: "",
     invoices: "",
+    isAutoAssigningClient: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -280,6 +299,56 @@ export default {
     this.loadTemporaryData()
   },
   methods: {
+    // Auto-assign Chart of Account for selected client
+    async autoAssignClientChartOfAccount() {
+      if (!this.form.client || !this.form.client.slug) return;
+      try {
+        this.isAutoAssigningClient = true;
+        const { data } = await axios.post(`/api/clients/${this.form.client.slug}/auto-assign-chart-of-account`);
+
+        const newAccountId = data.chart_of_account_id || (data.data && data.data.chart_of_account_id) || null;
+        if (newAccountId) {
+          // Update current form client
+          this.$set(this.form.client, 'chart_of_account_id', newAccountId);
+
+          // Also update the item in the clients list (items from vuex)
+          const idx = (this.items || []).findIndex(c => c.slug === this.form.client.slug);
+          if (idx !== -1) {
+            this.$set(this.items, idx, { ...this.items[idx], chart_of_account_id: newAccountId });
+          }
+
+          toast.fire({
+            type: 'success',
+            title: this.$t('Chart of Account assigned successfully'),
+          });
+        } else {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Failed to assign Chart of Account'),
+          });
+        }
+      } catch (error) {
+        // Permission denied or other backend validation
+        const message = error?.response?.data?.message || error?.message;
+        if (message && message.toLowerCase().includes("permission")) {
+          toast.fire({
+            type: 'error',
+            title: this.$t("Permission Denied"),
+            text: this.$t("You don't have permission to assign Chart of Accounts."),
+          });
+        } else {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Failed to assign Chart of Account'),
+            text: message,
+          });
+        }
+        // eslint-disable-next-line no-console
+        console.error('Error auto-assigning chart of account:', error);
+      } finally {
+        this.isAutoAssigningClient = false;
+      }
+    },
     // get all clients
     async getClients() {
       await this.$store.dispatch("operations/allData", {

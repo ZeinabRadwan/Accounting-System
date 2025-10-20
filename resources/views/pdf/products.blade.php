@@ -21,15 +21,20 @@
                     <tr>
                         <td> {{ ++$key }} </td>
                         <td>
-                            {{ $product['proSubCategory']['name'] }}<br />
-                            [{{ config('config.proSubCatPrefix') . '-' . $product['proSubCategory']['code'] }}]
+                            {{ $product['proSubCategory']['name'] ?? '-' }}<br />
+                            @php
+                                $subCatCode = $product['proSubCategory']['code'] ?? null;
+                            @endphp
+                            @if($subCatCode)
+                                [{{ config('config.proSubCatPrefix') . '-' . $subCatCode }}]
+                            @endif
                         </td>
                         <td>{{ config('config.productPrefix') . '-' . $product['code'] }}</td>
                         <td>{{ $product['name'] }}</td>
                         <td>{{ $product['model'] }}</td>
                         <td>
-                            {{ $product['inventory_count'] > 0 ? $product['inventory_count'] : 0 }}
-                            {{ $product['productUnit']['code'] }}
+                            {{ ($product['inventory_count'] ?? 0) > 0 ? ($product['inventory_count'] ?? 0) : 0 }}
+                            {{ $product['productUnit']['code'] ?? '' }}
                         </td>
                         <td>@currency($product['purchase_price'])</td>
                         <td>@currency($product['regular_price'])</td>
