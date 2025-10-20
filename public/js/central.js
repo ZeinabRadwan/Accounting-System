@@ -20893,12 +20893,12 @@ var map = {
 		2533
 	],
 	"./cashbook/balances": [
-		46654,
-		6654
+		27676,
+		7676
 	],
 	"./cashbook/balances/": [
-		46654,
-		6654
+		27676,
+		7676
 	],
 	"./cashbook/balances/create": [
 		39800,
@@ -20917,20 +20917,20 @@ var map = {
 		6065
 	],
 	"./cashbook/balances/index": [
-		46654,
-		6654
+		27676,
+		7676
 	],
 	"./cashbook/balances/index.vue": [
-		46654,
-		6654
+		27676,
+		7676
 	],
 	"./cashbook/chart-of-accounts": [
-		11012,
-		1012
+		30645,
+		645
 	],
 	"./cashbook/chart-of-accounts/": [
-		11012,
-		1012
+		30645,
+		645
 	],
 	"./cashbook/chart-of-accounts/create": [
 		491,
@@ -20949,12 +20949,12 @@ var map = {
 		3135
 	],
 	"./cashbook/chart-of-accounts/index": [
-		11012,
-		1012
+		30645,
+		645
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		11012,
-		1012
+		30645,
+		645
 	],
 	"./cashbook/chart-of-accounts/show": [
 		15434,
@@ -20989,20 +20989,20 @@ var map = {
 		1655
 	],
 	"./cashbook/transfer-balances": [
-		95664,
-		5664
+		43790,
+		3790
 	],
 	"./cashbook/transfer-balances/": [
-		95664,
-		5664
+		43790,
+		3790
 	],
 	"./cashbook/transfer-balances/create": [
-		5242,
-		5242
+		46137,
+		6137
 	],
 	"./cashbook/transfer-balances/create.vue": [
-		5242,
-		5242
+		46137,
+		6137
 	],
 	"./cashbook/transfer-balances/edit": [
 		48818,
@@ -21013,12 +21013,12 @@ var map = {
 		8818
 	],
 	"./cashbook/transfer-balances/index": [
-		95664,
-		5664
+		43790,
+		3790
 	],
 	"./cashbook/transfer-balances/index.vue": [
-		95664,
-		5664
+		43790,
+		3790
 	],
 	"./cashbook/transfer-balances/show": [
 		75868,
@@ -22069,12 +22069,12 @@ var map = {
 		8838
 	],
 	"./journal-entries/create": [
-		34158,
-		4158
+		69005,
+		9005
 	],
 	"./journal-entries/create.vue": [
-		34158,
-		4158
+		69005,
+		9005
 	],
 	"./journal-entries/edit": [
 		85701,
@@ -22101,12 +22101,12 @@ var map = {
 		880
 	],
 	"./loans": [
-		89001,
-		9001
+		86694,
+		6694
 	],
 	"./loans/": [
-		89001,
-		9001
+		86694,
+		6694
 	],
 	"./loans/authorities": [
 		2770,
@@ -22165,12 +22165,12 @@ var map = {
 		1711
 	],
 	"./loans/index": [
-		89001,
-		9001
+		86694,
+		6694
 	],
 	"./loans/index.vue": [
-		89001,
-		9001
+		86694,
+		6694
 	],
 	"./loans/payments": [
 		68802,
@@ -22229,12 +22229,12 @@ var map = {
 		308
 	],
 	"./payments/clients/invoice/create": [
-		14728,
-		4728
+		74988,
+		4988
 	],
 	"./payments/clients/invoice/create.vue": [
-		14728,
-		4728
+		74988,
+		4988
 	],
 	"./payments/clients/invoice/edit": [
 		83621,
@@ -22269,12 +22269,12 @@ var map = {
 		873
 	],
 	"./payments/clients/non-invoice/create": [
-		11847,
-		1847
+		30324,
+		324
 	],
 	"./payments/clients/non-invoice/create.vue": [
-		11847,
-		1847
+		30324,
+		324
 	],
 	"./payments/clients/non-invoice/edit": [
 		86897,
@@ -23365,12 +23365,12 @@ var map = {
 		9296
 	],
 	"./suppliers/show": [
-		48103,
-		8103
+		45514,
+		5514
 	],
 	"./suppliers/show.vue": [
-		48103,
-		8103
+		45514,
+		5514
 	],
 	"./welcome": [
 		20944,
@@ -117853,17 +117853,17 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 636) return "js/636.js";
 /******/ 			if (chunkId === 1129) return "js/1129.js";
 /******/ 			if (chunkId === 2533) return "js/2533.js";
-/******/ 			if (chunkId === 6654) return "js/6654.js";
+/******/ 			if (chunkId === 7676) return "js/7676.js";
 /******/ 			if (chunkId === 9800) return "js/9800.js";
 /******/ 			if (chunkId === 6065) return "js/6065.js";
-/******/ 			if (chunkId === 1012) return "js/1012.js";
+/******/ 			if (chunkId === 645) return "js/645.js";
 /******/ 			if (chunkId === 491) return "js/491.js";
 /******/ 			if (chunkId === 3135) return "js/3135.js";
 /******/ 			if (chunkId === 5434) return "js/5434.js";
 /******/ 			if (chunkId === 9582) return "js/9582.js";
 /******/ 			if (chunkId === 1655) return "js/1655.js";
-/******/ 			if (chunkId === 5664) return "js/5664.js";
-/******/ 			if (chunkId === 5242) return "js/5242.js";
+/******/ 			if (chunkId === 3790) return "js/3790.js";
+/******/ 			if (chunkId === 6137) return "js/6137.js";
 /******/ 			if (chunkId === 8818) return "js/8818.js";
 /******/ 			if (chunkId === 5868) return "js/5868.js";
 /******/ 			if (chunkId === 4135) return "js/4135.js";
@@ -117968,10 +117968,10 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 2185) return "js/2185.js";
 /******/ 			if (chunkId === 9882) return "js/9882.js";
 /******/ 			if (chunkId === 8838) return "js/8838.js";
-/******/ 			if (chunkId === 4158) return "js/4158.js";
+/******/ 			if (chunkId === 9005) return "js/9005.js";
 /******/ 			if (chunkId === 5701) return "js/5701.js";
 /******/ 			if (chunkId === 880) return "js/880.js";
-/******/ 			if (chunkId === 9001) return "js/9001.js";
+/******/ 			if (chunkId === 6694) return "js/6694.js";
 /******/ 			if (chunkId === 2770) return "js/2770.js";
 /******/ 			if (chunkId === 8884) return "js/8884.js";
 /******/ 			if (chunkId === 3014) return "js/3014.js";
@@ -117984,11 +117984,11 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 1580) return "js/1580.js";
 /******/ 			if (chunkId === 1236) return "js/1236.js";
 /******/ 			if (chunkId === 308) return "js/308.js";
-/******/ 			if (chunkId === 4728) return "js/4728.js";
+/******/ 			if (chunkId === 4988) return "js/4988.js";
 /******/ 			if (chunkId === 3621) return "js/3621.js";
 /******/ 			if (chunkId === 9660) return "js/9660.js";
 /******/ 			if (chunkId === 873) return "js/873.js";
-/******/ 			if (chunkId === 1847) return "js/1847.js";
+/******/ 			if (chunkId === 324) return "js/324.js";
 /******/ 			if (chunkId === 6897) return "js/6897.js";
 /******/ 			if (chunkId === 2021) return "js/2021.js";
 /******/ 			if (chunkId === 8678) return "js/8678.js";
@@ -118102,7 +118102,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 9296) return "js/9296.js";
 /******/ 			if (chunkId === 7179) return "js/7179.js";
 /******/ 			if (chunkId === 9340) return "js/9340.js";
-/******/ 			if (chunkId === 8103) return "js/8103.js";
+/******/ 			if (chunkId === 5514) return "js/5514.js";
 /******/ 			if (chunkId === 944) return "js/944.js";
 /******/ 			if (chunkId === 1690) return "js/1690.js";
 /******/ 			if (chunkId === 2209) return "js/2209.js";
