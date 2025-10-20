@@ -81,7 +81,7 @@
                   <label for="amount">{{ $t('Amount') }}
                     <span class="required">*</span></label>
                   <input id="amount" v-model="form.amount" type="number" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('amount') }" name="amount" placeholder="Enter an amount" />
+                    :class="{ 'is-invalid': form.errors.has('amount') }" name="amount" :placeholder="$t('Enter an amount')" />
                   <has-error :form="form" field="amount" />
                 </div>
               </div>

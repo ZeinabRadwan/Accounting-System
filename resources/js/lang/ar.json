@@ -3100,7 +3100,7 @@
   "This balance adjustment is linked to a journal entry and cannot be edited.": "تعديل الرصيد هذا مربوط بقيود يومية ولا يمكن تعديله.",
   "Balance updated successfully!": "تم تحديث الرصيد بنجاح!",
   "Transaction not found": "المعاملة غير موجودة",
-  "This transaction is linked to a posted journal entry and cannot be deleted.": "هذه المعاملة مربوطة بقيود يومية منشورة ولا يمكن حذفها.",
+  "This transaction is linked to a posted journal entry and cannot be deleted.": "هذه المعاملة مربوطة بقيود يومية مرحلة ولا يمكن حذفها.",
   "Transaction deleted successfully": "تم حذف المعاملة بنجاح",
   "Transaction can't be remove": "لا يمكن إزالة المعاملة",
   "Balance adjustment created successfully.": "تم إنشاء تعديل الرصيد بنجاح.",

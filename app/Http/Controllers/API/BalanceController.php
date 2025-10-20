@@ -190,7 +190,7 @@ try {
             // If related journal exists
             if ($transaction->journalEntry) {
                 if ($transaction->journalEntry->status === 'posted') {
-                    return $this->responseWithError('This transaction is linked to a posted journal entry and cannot be deleted.');
+                    return $this->responseWithError(__('This transaction is linked to a posted journal entry and cannot be deleted.'));
                 }
                 // status is draft: allow delete and cascade delete the journal entry
                 // Also ensure we remove any linkage to avoid orphan reference

@@ -22,4 +22,6 @@ return [
     'Transfer added successfully' => 'Transfer added successfully',
     'Transfer updated successfully' => 'Transfer updated successfully',
     'Transfer deleted successfully' => 'Transfer deleted successfully',
+    // General / Shared
+    'posted_journal_delete_error' => 'This transaction is linked to a posted journal entry and cannot be deleted.',
 ];
