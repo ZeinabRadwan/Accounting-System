@@ -3931,5 +3931,6 @@
   "Report generated successfully" : "تم إنشاء التقرير بنجاح",
   "Auto-Assign All" : "تسجيل تلقائي للكل",
   "Net total must be greater than total paid amount" : "يجب أن يكون الإجمالي الصافي أكبر من إجمالي المبلغ المدفوع",
+  "Purchase order updated successfully" : "تم تحديث أمر الشراء بنجاح",
   "No journal entries found for this invoice return.": "لم يتم العثور على قيود يومية لهذا إرجاع الفاتورة."
 }
