@@ -188,7 +188,7 @@
                     </div>
                     <div class="d-flex align-items-center gap-2 mt-2">
                         <button id="gitCommitBtn" class="su-btn su-btn-ghost">Commit</button>
-                        <button id="gitPushBtn" class="su-btn su-btn-ghost">Push</button>
+                        <button id="gitPushBtn" class="su-btn su-btn-ghost" style="display: none;">Push</button>
                         <span id="gitActionMsg" class="su-sub"></span>
                     </div>
                 </div>
@@ -499,6 +499,13 @@
             } else {
                 gitCommitForm.style.display = 'none';
             }
+            
+            // Show push button if there are local commits to push
+            if (data.has_local_commits) {
+                gitPushBtn.style.display = 'inline-block';
+            } else {
+                gitPushBtn.style.display = 'none';
+            }
         }
 
         function executeGitAction(url, actionName, data = {}) {
@@ -536,10 +543,7 @@
 
         // Git Status button
         gitStatusBtn?.addEventListener('click', function() {
-            executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status')
-                .then(data => {
-                    updateGitStatus(data);
-                });
+            checkGitStatus(false);
         });
 
         // Git Pull button
@@ -547,10 +551,7 @@
             executeGitAction("{{ route('system.update.git.pull') }}", 'Pulling from remote')
                 .then(() => {
                     // Refresh status after pull
-                    return executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status');
-                })
-                .then(data => {
-                    updateGitStatus(data);
+                    checkGitStatus(true);
                 });
         });
 
@@ -569,9 +570,7 @@
                 body: { title, message }
             }).then(() => {
                 // Refresh status after commit
-                return executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status');
-            }).then(data => {
-                updateGitStatus(data);
+                checkGitStatus(true);
             });
         });
 
@@ -580,22 +579,57 @@
             executeGitAction("{{ route('system.update.git.push') }}", 'Pushing to remote')
                 .then(() => {
                     // Refresh status after push
-                    return executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status');
-                })
-                .then(data => {
-                    updateGitStatus(data);
+                    checkGitStatus(true);
                 });
         });
 
-        // Auto-check git status on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status')
-                .then(data => {
-                    updateGitStatus(data);
-                })
-                .catch(() => {
-                    // Silently fail on page load
+        // Auto-check git status on page load and every 5 seconds
+        let gitStatusInterval;
+        
+        function checkGitStatus(silent = false) {
+            if (silent) {
+                // Silent check - don't show output or messages
+                fetch("{{ route('system.update.git.status') }}", {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-System-Update-Key': providedKey
+                    }
+                }).then(async (res) => {
+                    const data = await res.json().catch(() => ({}));
+                    if (res.ok) {
+                        updateGitStatus(data);
+                    }
+                }).catch(() => {
+                    // Silently fail
                 });
+            } else {
+                executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status')
+                    .then(data => {
+                        updateGitStatus(data);
+                    })
+                    .catch(() => {
+                        // Silently fail on page load
+                    });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial check
+            checkGitStatus(false);
+            
+            // Set up automatic checking every 5 seconds
+            gitStatusInterval = setInterval(() => {
+                checkGitStatus(true);
+            }, 5000);
+        });
+        
+        // Clean up interval when page is unloaded
+        window.addEventListener('beforeunload', function() {
+            if (gitStatusInterval) {
+                clearInterval(gitStatusInterval);
+            }
         });
     })();
 </script>
