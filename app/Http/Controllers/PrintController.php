@@ -539,16 +539,35 @@ class PrintController extends Controller
         ]);
     }
     /**
-     * Generate PDF using Snappy (wkhtmltopdf) for perfect character preservation
+     * Generate PDF using DomPDF as primary method with fallbacks
      */
     private function generatePDF($html, $filename)
     {
-
-        //  return $html;
-
+        try {
+            // Primary method: DomPDF for better compatibility and reliability
+            $pdf = Pdf::loadHTML($html)
+                ->setPaper('A4', 'portrait')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'defaultFont' => 'DejaVu Sans',
+                    'isJavascriptEnabled' => false,
+                    'debugKeepTemp' => false,
+                    'debugCss' => false,
+                    'debugLayout' => false,
+                    'debugLayoutLines' => false,
+                    'debugLayoutBlocks' => false,
+                    'debugLayoutInline' => false,
+                ]);
+            
+            return $pdf->download($filename);
+        } catch (\Exception $e) {
+            Log::warning('DomPDF generation failed: ' . $e->getMessage());
+        }
 
         try {
-            // Try Snappy first for perfect character preservation
+            // Fallback to SnappyPdf if available
             $pdf = SnappyPdf::loadHTML($html)
                 ->setPaper('a4')
                 ->setOrientation('portrait')
@@ -561,12 +580,10 @@ class PrintController extends Controller
                 ->setOption('margin-right', 10)
                 ->setOption('margin-bottom', 10)
                 ->setOption('margin-left', 10);
-
-                // return 'asdasd';
             
             return $pdf->download($filename);
         } catch (\Exception $e) {
-            Log::warning('Snappy PDF generation failed: ' . $e->getMessage());
+            Log::warning('SnappyPdf generation failed: ' . $e->getMessage());
         }
 
         try {
@@ -579,7 +596,7 @@ class PrintController extends Controller
             Log::warning('Puppeteer PDF generation failed: ' . $e->getMessage());
         }
 
-        // Fallback to html2pdf
+        // Final fallback to html2pdf
         try {
             $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', [0, 0, 0, 0]);
             $html2pdf->setDefaultFont('Arial');
@@ -592,27 +609,14 @@ class PrintController extends Controller
                 'Pragma' => 'public'
             ]);
         } catch (Html2PdfException $e) {
-            // Final fallback to DomPDF
-            try {
-                $pdf = Pdf::loadHTML($html);
-                $pdf->setPaper('A4', 'portrait');
-                $pdf->setOptions([
-                    'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled' => false,
-                    'defaultFont' => 'Arial',
-                ]);
-                
-                return $pdf->download($filename);
-            } catch (\Exception $fallbackException) {
-                return response()->json([
-                    'error' => 'PDF generation failed',
-                    'message' => 'All PDF generation methods failed',
-                    'snappy_error' => $e->getMessage(),
-                    'puppeteer_error' => $e->getMessage(),
-                    'html2pdf_error' => $e->getMessage(),
-                    'dompdf_error' => $fallbackException->getMessage()
-                ], 500);
-            }
+            return response()->json([
+                'error' => 'PDF generation failed',
+                'message' => 'All PDF generation methods failed',
+                'dompdf_error' => 'DomPDF failed',
+                'snappy_error' => 'SnappyPdf failed',
+                'puppeteer_error' => 'Puppeteer failed',
+                'html2pdf_error' => $e->getMessage()
+            ], 500);
         }
     }
 

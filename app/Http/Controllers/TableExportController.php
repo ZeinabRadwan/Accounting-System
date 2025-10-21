@@ -46,8 +46,8 @@ use App\Models\ExpenseCategory;
 use App\Models\ProductCategory;
 use App\Models\PurchasePayment;
 use App\Models\SalaryIncrement;
-use Barryvdh\Snappy\Facades\SnappyPdf;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use App\Exports\ExportAssetType;
 use App\Exports\ExportInventory;
 use App\Exports\ExportQuotation;
@@ -109,12 +109,17 @@ class TableExportController extends Controller
                 'orientation' => $orientation
             ]);
             
+            // For quotations PDF, use SnappyPdf for better Arabic support
+            if ($view === 'pdf.quotations') {
+                return $this->generateQuotationsPDFWithSnappy($view, $data, $filename);
+            }
+            
             $pdf = PDF::loadView($view, $data)
                 ->setPaper($paper, $orientation)
                 ->setOptions([
                     'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled' => false,
-                    'defaultFont' => 'DejaVu Sans',
+                    'isRemoteEnabled' => true,
+                    'defaultFont' => 'Cairo',
                     'isPhpEnabled' => false,
                     'isJavascriptEnabled' => false,
                     'debugKeepTemp' => false,
@@ -134,6 +139,107 @@ class TableExportController extends Controller
                 'trace' => $e->getTraceAsString()
             ]);
             throw $e;
+        }
+    }
+    
+    private function generateQuotationsPDFWithSnappy($view, $data, $filename)
+    {
+        try {
+            // Render the view to HTML
+            $html = view($view, $data)->render();
+            
+            // Add Arabic support CSS to the HTML
+            $html = str_replace('<head>', '<head>
+                <meta charset="UTF-8">
+                <style>
+                    body {
+                        font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
+                        direction: ' . ($data['locale'] === 'ar' ? 'rtl' : 'ltr') . ';
+                        margin: 0;
+                        padding: 10px;
+                    }
+                    .arabic-text {
+                        font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
+                        direction: rtl;
+                        text-align: right;
+                        unicode-bidi: bidi-override;
+                    }
+                    .english-text {
+                        font-family: Arial, "DejaVu Sans", sans-serif;
+                        direction: ltr;
+                        text-align: left;
+                    }
+                    .table-listing {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 10px;
+                    }
+                    .table-listing th, .table-listing td {
+                        padding: 8px;
+                        border: 1px solid #ddd;
+                        font-size: 12px;
+                    }
+                    .table-listing th {
+                        font-weight: bold;
+                    }
+                    h3 {
+                        text-align: ' . ($data['locale'] === 'ar' ? 'right' : 'left') . ';
+                        margin-bottom: 10px;
+                    }
+                </style>', $html);
+            
+            // Use SnappyPdf (wkhtmltopdf) for better Arabic support
+            $pdf = SnappyPdf::loadHTML($html)
+                ->setPaper('a4')
+                ->setOrientation('landscape')
+                ->setOption('encoding', 'UTF-8')
+                ->setOption('enable-local-file-access', true)
+                ->setOption('disable-smart-shrinking', true)
+                ->setOption('print-media-type', true)
+                ->setOption('no-background', false)
+                ->setOption('margin-top', 10)
+                ->setOption('margin-right', 10)
+                ->setOption('margin-bottom', 10)
+                ->setOption('margin-left', 10);
+            
+            return $pdf->download($filename);
+            
+        } catch (\Exception $e) {
+            Log::error("Html2Pdf generation failed: {$filename}", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            // Fallback to DomPDF with Cairo font
+            $pdf = PDF::loadView($view, $data)
+                ->setPaper('a4', 'landscape')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'defaultFont' => 'Cairo',
+                    'isPhpEnabled' => false,
+                    'isJavascriptEnabled' => false,
+                ]);
+            
+            return $pdf->download($filename);
+        } catch (\Exception $e) {
+            Log::error("PDF generation failed: {$filename}", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            // Final fallback with basic settings
+            $pdf = PDF::loadView($view, $data)
+                ->setPaper('a4', 'landscape')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => false,
+                    'defaultFont' => 'DejaVu Sans',
+                    'isPhpEnabled' => false,
+                    'isJavascriptEnabled' => false,
+                ]);
+            
+            return $pdf->download($filename);
         }
     }
     // return all brands pdf
@@ -338,49 +444,15 @@ class TableExportController extends Controller
         // retrieve all records from db
         $quotations = Quotation::with('client')->latest()->get()->toArray();
         
-        // Pass data to the view
+        // Pass data to the view with locale
         $data = [
             'quotations' => $quotations,
             'locale' => $locale
         ];
         
-        // Generate PDF with fallback mechanism
-        $html = view('pdf.quotations', $data)->render();
-        
-        try {
-            // Try Snappy first for better Arabic support
-            $pdf = SnappyPdf::loadHTML($html)
-                ->setPaper('a4')
-                ->setOrientation('landscape')
-                ->setOption('encoding', 'UTF-8')
-                ->setOption('enable-local-file-access', true)
-                ->setOption('disable-smart-shrinking', true)
-                ->setOption('print-media-type', true)
-                ->setOption('no-background', false)
-                ->setOption('margin-top', 10)
-                ->setOption('margin-right', 10)
-                ->setOption('margin-bottom', 10)
-                ->setOption('margin-left', 10)
-                ->setOption('disable-external-links', true)
-                ->setOption('disable-plugins', true)
-                ->setOption('disable-javascript', true);
-                
-            return $pdf->download('quotation-list.pdf');
-        } catch (\Exception $e) {
-            // Fallback to DomPDF if Snappy fails
-            Log::warning('Snappy PDF generation failed for quotations: ' . $e->getMessage());
-            
-            $pdf = PDF::loadHTML($html)
-                ->setPaper('a4', 'landscape')
-                ->setOptions([
-                    'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled' => true,
-                    'isPhpEnabled' => true,
-                    'defaultFont' => 'DejaVu Sans'
-                ]);
-                
-            return $pdf->download('quotation-list.pdf');
-        }
+        // share data to view
+        view()->share('quotations', $quotations);
+        return $this->generatePDF('pdf.quotations', $data, 'quotation-list.pdf', 'a4', 'landscape');
     }
 
     // return quotation export

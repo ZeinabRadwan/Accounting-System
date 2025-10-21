@@ -691,14 +691,14 @@ export default {
       );
       let quantity = 1;
       if (index === -1) {
-        // Prefer sellingPrice from API payload; fallback to regularPrice then avgPurchasePrice then 1
+        // Prefer avgPurchasePrice from API payload; fallback to sellingPrice then regularPrice then 1
         let purchasePrice = 1;
-        if (product && Number(product.sellingPrice) > 0) {
+        if (product && Number(product.avgPurchasePrice) > 0) {
+          purchasePrice = Number(product.avgPurchasePrice);
+        } else if (product && Number(product.sellingPrice) > 0) {
           purchasePrice = Number(product.sellingPrice);
         } else if (product && Number(product.regularPrice) > 0) {
           purchasePrice = Number(product.regularPrice);
-        } else if (product && Number(product.avgPurchasePrice) > 0) {
-          purchasePrice = Number(product.avgPurchasePrice);
         }
         // store product
         this.form.selectedProducts.unshift({
