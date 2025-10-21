@@ -147,34 +147,34 @@
         </div>
 
         <div class="header">
-            <h1 class="arabic-text">@lang('print.Purchase Summary')</h1>
-            <p class="arabic-text">@lang('print.This report was generated on') {{ date('d-M-Y H:i:s') }}</p>
+            <h1 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Purchase Summary')</h1>
+            <p class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.This report was generated on') {{ date('d-M-Y H:i:s') }}</p>
         </div>
 
         <!-- Summary Section -->
         @if(isset($purchaseSummaryData['summary']))
-            <h2 class="arabic-text">@lang('print.Summary')</h2>
+            <h2 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Summary')</h2>
             <div class="summary-grid">
                 <div class="summary-box suppliers">
-                    <h3 class="arabic-text">@lang('print.Total Suppliers')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Suppliers')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {{ $purchaseSummaryData['summary']['total_suppliers'] ?? 0 }}
                     </p>
                 </div>
                 <div class="summary-box purchases">
-                    <h3 class="arabic-text">@lang('print.Total Purchases')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Purchases')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {{ $purchaseSummaryData['summary']['total_purchases'] ?? 0 }}
                     </p>
                 </div>
                 <div class="summary-box amount">
-                    <h3 class="arabic-text">@lang('print.Total Amount')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Amount')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {!! formatPdfCurrency($purchaseSummaryData['summary']['total_amount'] ?? 0) !!}
                     </p>
                 </div>
                 <div class="summary-box due">
-                    <h3 class="arabic-text">@lang('print.Total Due')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Due')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {!! formatPdfCurrency($purchaseSummaryData['summary']['total_due'] ?? 0) !!}
                     </p>
@@ -184,24 +184,24 @@
 
         <!-- Supplier Details -->
         @if(isset($purchaseSummaryData['suppliers']) && count($purchaseSummaryData['suppliers']) > 0)
-            <h2 class="arabic-text">@lang('print.Supplier Details')</h2>
+            <h2 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Supplier Details')</h2>
             <table>
                 <thead>
                     <tr>
-                        <th class="arabic-text">@lang('print.Row Number')</th>
-                        <th class="arabic-text">@lang('print.Supplier Name')</th>
-                        <th class="arabic-text">@lang('print.Total Purchases')</th>
-                        <th class="arabic-text">@lang('print.Total Amount')</th>
-                        <th class="arabic-text">@lang('print.Total Tax')</th>
-                        <th class="arabic-text">@lang('print.Total Paid')</th>
-                        <th class="arabic-text">@lang('print.Total Due')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Row Number')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Supplier Name')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Purchases')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Amount')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Tax')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Paid')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Due')</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($purchaseSummaryData['suppliers'] as $index => $supplier)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td class="arabic-text">{{ $supplier['supplier_name'] ?? 'Unknown Supplier' }}</td>
+                            <td class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $supplier['supplier_name'] ?? 'Unknown Supplier' }}</td>
                             <td>{{ $supplier['total_purchases'] ?? 0 }}</td>
                             <td>{!! formatPdfCurrency($supplier['total_amount'] ?? 0) !!}</td>
                             <td>{!! formatPdfCurrency($supplier['total_tax'] ?? 0) !!}</td>
@@ -212,12 +212,12 @@
                 </tbody>
             </table>
             
-            <div style="text-align: center; color: #6b7280; margin-top: 15px;" class="arabic-text">
+            <div style="text-align: center; color: #6b7280; margin-top: 15px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                 @lang('print.Total suppliers'): {{ count($purchaseSummaryData['suppliers']) }}
             </div>
         @else
             <div class="no-data">
-                <h3 class="arabic-text">@lang('print.No suppliers found for the selected period.')</h3>
+                <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.No suppliers found for the selected period.')</h3>
             </div>
         @endif
     </div>

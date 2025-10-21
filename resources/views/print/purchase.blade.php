@@ -30,7 +30,7 @@
                 @endif
                 
                 @if($elements['showCompanyInfo'] ?? true)
-                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;" class="arabic-text">
+                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ $companyName }}
                 </h1>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
@@ -65,7 +65,7 @@
     <!-- Supplier Info -->
     <div class="supplier-info">
         <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Supplier'):</h3>
-        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $purchase->supplier->name ?? __('print.N/A') }}</p>
+        <p style="margin: 0; font-weight: 600;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $purchase->supplier->name ?? __('print.N/A') }}</p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
             {{ $purchase->supplier->address ?? __('print.N/A') }}
         </p>

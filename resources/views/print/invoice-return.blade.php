@@ -30,7 +30,7 @@
                 @endif
                 
                 @if($elements['showCompanyInfo'] ?? true)
-                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;" class="arabic-text">
+                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ $companyName }}
                 </h1>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
@@ -65,7 +65,7 @@
     <!-- Client Info -->
     <div class="client-info">
         <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Return From'):</h3>
-        <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $invoiceReturn->invoice->client->name ?? __('print.N/A') }}</p>
+        <p style="margin: 0; font-weight: 600;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $invoiceReturn->invoice->client->name ?? __('print.N/A') }}</p>
         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
             {{ $invoiceReturn->invoice->client->address ?? __('print.N/A') }}
         </p>

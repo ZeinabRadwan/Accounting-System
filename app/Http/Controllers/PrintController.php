@@ -15,6 +15,7 @@ use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class PrintController extends Controller
 {
@@ -490,11 +491,62 @@ class PrintController extends Controller
         return $templateData;
     }
 
+
+
+    public function upload(Request $request)
+    {
+        if (!$request->hasFile('file')) {
+            return response()->json(['error' => 'No file uploaded'], 400);
+        }
+        
+
+        $type = $request->type;
+
+
+        if($type == 'invoice')
+        {
+            $path  = 'invoices/pdfs';
+        }
+        else if($type == 'purchase')
+        {
+            $path  = 'purchases/pdfs';
+        }
+        else if($type == 'quotation')
+        {
+            $path  = 'quotations/pdfs';
+        }
+
+
+        $file = $request->file('file');
+        $fileName = $file->getClientOriginalName();
+
+        // ✅ Make sure folder exists (public/pdfs)
+        $destinationPath = public_path($path);
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0777, true);
+        }
+
+        // ✅ Move uploaded PDF into /public/pdfs
+        $file->move($destinationPath, $fileName);
+
+        $fullPath = asset($path.'/' . $fileName);
+        
+
+        return response()->json([
+            'success' => true,
+            'path' =>  $fullPath,
+            'type' => $type,
+        ]);
+    }
     /**
      * Generate PDF using Snappy (wkhtmltopdf) for perfect character preservation
      */
     private function generatePDF($html, $filename)
     {
+
+        //  return $html;
+
+
         try {
             // Try Snappy first for perfect character preservation
             $pdf = SnappyPdf::loadHTML($html)
@@ -509,6 +561,8 @@ class PrintController extends Controller
                 ->setOption('margin-right', 10)
                 ->setOption('margin-bottom', 10)
                 ->setOption('margin-left', 10);
+
+                // return 'asdasd';
             
             return $pdf->download($filename);
         } catch (\Exception $e) {
@@ -721,130 +775,130 @@ class PrintController extends Controller
         $logoBase64 = $this->getLogoAsBase64($template);
         
         // Hide buttons in PDF and add Arabic support
-        $html = str_replace('<head>', '<head>
-            <style>
-                .action-buttons { display: none !important; }
-                body { 
-                    font-family: Arial, "DejaVu Sans", sans-serif; 
-                    direction: ltr;
-                }
-                .arabic-text { 
-                    direction: rtl; 
-                    text-align: right; 
-                    font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
-                }
-                * { 
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                }
+        // $html = str_replace('<head>', '<head>
+        //     <style>
+        //         .action-buttons { display: none !important; }
+        //         body { 
+        //             font-family: Arial, "DejaVu Sans", sans-serif; 
+        //             direction: ltr;
+        //         }
+        //         .arabic-text { 
+        //             direction: rtl; 
+        //             text-align: right; 
+        //             font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
+        //         }
+        //         * { 
+        //             -webkit-font-smoothing: antialiased;
+        //             -moz-osx-font-smoothing: grayscale;
+        //         }
                 
-                /* Fix layout issues for PDF */
-                .document-header > div {
-                    display: table !important;
-                    width: 100% !important;
-                }
-                .document-header > div > div:first-child {
-                    display: table-cell !important;
-                    vertical-align: top !important;
-                    width: 60% !important;
-                }
-                .document-header > div > div:last-child {
-                    display: table-cell !important;
-                    vertical-align: top !important;
-                    width: 40% !important;
-                    text-align: right !important;
-                }
+        //         /* Fix layout issues for PDF */
+        //         .document-header > div {
+        //             display: table !important;
+        //             width: 100% !important;
+        //         }
+        //         .document-header > div > div:first-child {
+        //             display: table-cell !important;
+        //             vertical-align: top !important;
+        //             width: 60% !important;
+        //         }
+        //         .document-header > div > div:last-child {
+        //             display: table-cell !important;
+        //             vertical-align: top !important;
+        //             width: 40% !important;
+        //             text-align: right !important;
+        //         }
                 
-                /* Fix logo display */
-                .company-logo {
-                    max-height: 60px !important;
-                    max-width: 200px !important;
-                    height: auto !important;
-                    width: auto !important;
-                    display: block !important;
-                }
+        //         /* Fix logo display */
+        //         .company-logo {
+        //             max-height: 60px !important;
+        //             max-width: 200px !important;
+        //             height: auto !important;
+        //             width: auto !important;
+        //             display: block !important;
+        //         }
                 
-                /* Fix totals section layout */
-                .totals-section {
-                    display: table !important;
-                    width: 100% !important;
-                }
-                .totals-table {
-                    display: table-cell !important;
-                    width: 300px !important;
-                    vertical-align: top !important;
-                }
+        //         /* Fix totals section layout */
+        //         .totals-section {
+        //             display: table !important;
+        //             width: 100% !important;
+        //         }
+        //         .totals-table {
+        //             display: table-cell !important;
+        //             width: 300px !important;
+        //             vertical-align: top !important;
+        //         }
                 
-                /* Ensure proper spacing */
-                .client-info, .supplier-info {
-                    margin-bottom: 20px !important;
-                }
+        //         /* Ensure proper spacing */
+        //         .client-info, .supplier-info {
+        //             margin-bottom: 20px !important;
+        //         }
                 
-                /* Professional table styling for PDF - High specificity */
-                .document-container .items-table {
-                    width: 100% !important;
-                    border-collapse: collapse !important;
-                    margin-bottom: 25px !important;
-                    font-size: 12px !important;
-                    border: 2px solid #374151 !important;
-                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-                }
-                .document-container .items-table th,
-                .document-container .items-table td {
-                    padding: 10px 8px !important;
-                    border: 1px solid #d1d5db !important;
-                    vertical-align: middle !important;
-                    font-size: 11px !important;
-                    line-height: 1.4 !important;
-                }
-                .document-container .items-table th {
-                    background: #374151 !important;
-                    color: #ffffff !important;
-                    font-weight: 600 !important;
-                    text-align: center !important;
-                    padding: 12px 8px !important;
-                    border-bottom: 2px solid #1f2937 !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 0.5px !important;
-                }
-                .document-container .items-table tbody tr {
-                    background: #ffffff !important;
-                }
-                .document-container .items-table tbody tr:nth-child(even) {
-                    background: #f9fafb !important;
-                }
-                .document-container .items-table tbody tr:hover {
-                    background: #f3f4f6 !important;
-                }
-                .document-container .items-table .text-right {
-                    text-align: right !important;
-                    font-weight: 500 !important;
-                }
-                .document-container .items-table .text-center {
-                    text-align: center !important;
-                }
-                .document-container .items-table tbody td {
-                    color: #374151 !important;
-                }
-                .document-container .items-table tbody td strong {
-                    font-weight: 600 !important;
-                    color: #111827 !important;
-                }
-                .document-container .items-table tbody td small {
-                    font-size: 10px !important;
-                    color: #6b7280 !important;
-                }
+        //         /* Professional table styling for PDF - High specificity */
+        //         .document-container .items-table {
+        //             width: 100% !important;
+        //             border-collapse: collapse !important;
+        //             margin-bottom: 25px !important;
+        //             font-size: 12px !important;
+        //             border: 2px solid #374151 !important;
+        //             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        //         }
+        //         .document-container .items-table th,
+        //         .document-container .items-table td {
+        //             padding: 10px 8px !important;
+        //             border: 1px solid #d1d5db !important;
+        //             vertical-align: middle !important;
+        //             font-size: 11px !important;
+        //             line-height: 1.4 !important;
+        //         }
+        //         .document-container .items-table th {
+        //             background: #374151 !important;
+        //             color: #ffffff !important;
+        //             font-weight: 600 !important;
+        //             text-align: center !important;
+        //             padding: 12px 8px !important;
+        //             border-bottom: 2px solid #1f2937 !important;
+        //             text-transform: uppercase !important;
+        //             letter-spacing: 0.5px !important;
+        //         }
+        //         .document-container .items-table tbody tr {
+        //             background: #ffffff !important;
+        //         }
+        //         .document-container .items-table tbody tr:nth-child(even) {
+        //             background: #f9fafb !important;
+        //         }
+        //         .document-container .items-table tbody tr:hover {
+        //             background: #f3f4f6 !important;
+        //         }
+        //         .document-container .items-table .text-right {
+        //             text-align: right !important;
+        //             font-weight: 500 !important;
+        //         }
+        //         .document-container .items-table .text-center {
+        //             text-align: center !important;
+        //         }
+        //         .document-container .items-table tbody td {
+        //             color: #374151 !important;
+        //         }
+        //         .document-container .items-table tbody td strong {
+        //             font-weight: 600 !important;
+        //             color: #111827 !important;
+        //         }
+        //         .document-container .items-table tbody td small {
+        //             font-size: 10px !important;
+        //             color: #6b7280 !important;
+        //         }
                 
                 
-                /* Fix number formatting */
-                .items-table td {
-                    white-space: nowrap !important;
-                }
-                .items-table td:first-child {
-                    white-space: normal !important;
-                }
-            </style>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $html);
+        //         /* Fix number formatting */
+        //         .items-table td {
+        //             white-space: nowrap !important;
+        //         }
+        //         .items-table td:first-child {
+        //             white-space: normal !important;
+        //         }
+        //     </style>
+        //     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $html);
             
         // Replace logo URLs with base64 data URLs
         if ($logoBase64) {

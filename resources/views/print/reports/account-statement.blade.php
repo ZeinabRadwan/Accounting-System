@@ -40,31 +40,31 @@
                 @endif
                 
                 @if($elements['showCompanyInfo'] ?? true)
-                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;" class="arabic-text">
+                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ $companyName }}
                 </h1>
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="arabic-text">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ $companyAddress }}
                 </p>
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="arabic-text">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ $companyPhone }} • {{ $companyEmail }}
                 </p>
                 @endif
             </div>
             <div class="document-info" style="text-align: {{ $isRTL ? 'left' : 'right' }};">
                 @if($elements['showReportTitle'] ?? true)
-                <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;" class="arabic-text">
+                <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Account Statement')
                 </h2>
                 @endif
                 
                 @if($elements['showAccountInfo'] ?? true)
                 <div style="margin-bottom: 10px;">
-                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-weight: bold;" class="arabic-text">
+                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-weight: bold;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                         @lang('print.Account'): {{ $accountStatementData['chart_of_account']['code'] }} - {{ $accountStatementData['chart_of_account']['name'] }}
                     </p>
                     @if(isset($accountStatementData['report_account']) && $accountStatementData['report_account']['id'] !== $accountStatementData['chart_of_account']['id'])
-                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-size: 14px;" class="arabic-text">
+                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-size: 14px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                         @lang('print.Sub Account'): {{ $accountStatementData['report_account']['code'] }} - {{ $accountStatementData['report_account']['name'] }}
                     </p>
                     @endif
@@ -72,13 +72,13 @@
                 @endif
                 
                 @if($elements['showPeriod'] ?? true)
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="arabic-text">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Period'): {{ $accountStatementData['filters']['from_date'] ?? '' }} - {{ $accountStatementData['filters']['to_date'] ?? '' }}
                 </p>
                 @endif
                 
                 @if($elements['showGeneratedDate'] ?? true)
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="arabic-text">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Generated'): {{ now()->format('Y-m-d H:i:s') }}
                 </p>
                 @endif
@@ -92,8 +92,8 @@
     <div class="summary-section" style="margin: 20px 0;">
         <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; {{ $isRTL ? 'flex-direction: row-reverse;' : '' }}">
             <div class="summary-box" style="flex: 1; min-width: 200px; padding: 15px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;" class="arabic-text">@lang('print.Opening Balance')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};" class="arabic-text">
+                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Opening Balance')</h4>
+                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ number_format($accountStatementData['summary']['opening_balance'] ?? 0, 2) }} 
                     @if(($accountStatementData['summary']['opening_balance_type'] ?? '') === 'Debit')
                         @lang('print.Debit')
@@ -105,20 +105,20 @@
                 </p>
             </div>
             <div class="summary-box" style="flex: 1; min-width: 200px; padding: 15px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;" class="arabic-text">@lang('print.Period Debits')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};" class="arabic-text">
+                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Period Debits')</h4>
+                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ number_format($accountStatementData['summary']['period_debits'] ?? 0, 2) }}
                 </p>
             </div>
             <div class="summary-box" style="flex: 1; min-width: 200px; padding: 15px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;" class="arabic-text">@lang('print.Period Credits')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};" class="arabic-text">
+                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Period Credits')</h4>
+                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ number_format($accountStatementData['summary']['period_credits'] ?? 0, 2) }}
                 </p>
             </div>
             <div class="summary-box" style="flex: 1; min-width: 200px; padding: 15px; background: {{ $colors['primary'] ?? '#2563eb' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: white; font-size: 14px;" class="arabic-text">@lang('print.Closing Balance')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: white;" class="arabic-text">
+                <h4 style="margin: 0 0 8px 0; color: white; font-size: 14px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Closing Balance')</h4>
+                <p style="margin: 0; font-size: 18px; font-weight: bold; color: white;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     {{ number_format($accountStatementData['summary']['closing_balance'] ?? 0, 2) }} 
                     @if(($accountStatementData['summary']['closing_balance_type'] ?? '') === 'Debit')
                         @lang('print.Debit')
@@ -140,31 +140,31 @@
             <table class="data-table">
                 <thead>
                     <tr style="background: {{ $colors['accent'] ?? '#f8fafc' }};">
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Date')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Entry #')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Reference')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Description')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Debit')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Credit')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Net Amount')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Running Balance')
                         </th>
-                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                             @lang('print.Balance Type')
                         </th>
                     </tr>
@@ -182,7 +182,7 @@
                             <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;">
                                 {{ $entry['reference'] ?? '-' }}
                             </td>
-                            <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;" class="arabic-text">
+                            <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                 {{ $entry['description'] ?? '-' }}
                             </td>
                             <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;">
@@ -212,7 +212,7 @@
                             <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;">
                                 <span style="padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; 
                                       background: {{ ($entry['balance_type'] ?? '') === 'Debit' ? '#dcfce7' : '#fee2e2' }}; 
-                                      color: {{ ($entry['balance_type'] ?? '') === 'Debit' ? '#166534' : '#991b1b' }};" class="arabic-text">
+                                      color: {{ ($entry['balance_type'] ?? '') === 'Debit' ? '#166534' : '#991b1b' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @if(($entry['balance_type'] ?? '') === 'Debit')
                                         @lang('print.Debit')
                                     @elseif(($entry['balance_type'] ?? '') === 'Credit')
@@ -240,7 +240,7 @@
         <div class="totals-section" style="margin-top: 20px;">
             <table class="totals-table" style="width: 100%; border-collapse: collapse;">
                 <tr style="border-top: 2px solid {{ $colors['primary'] ?? '#2563eb' }};">
-                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; width: 50%; text-align: {{ $isRTL ? 'right' : 'left' }};" class="arabic-text">
+                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; width: 50%; text-align: {{ $isRTL ? 'right' : 'left' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                         @lang('print.Total Debit'):
                     </td>
                     <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; width: 50%;">
@@ -248,7 +248,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; text-align: {{ $isRTL ? 'right' : 'left' }};" class="arabic-text">
+                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; text-align: {{ $isRTL ? 'right' : 'left' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                         @lang('print.Total Credit'):
                     </td>
                     <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }};">
@@ -256,7 +256,7 @@
                     </td>
                 </tr>
                 <tr style="border-top: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; background: {{ $colors['accent'] ?? '#f8fafc' }};">
-                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 16px; text-align: {{ $isRTL ? 'right' : 'left' }};" class="arabic-text">
+                    <td style="padding: 12px; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 16px; text-align: {{ $isRTL ? 'right' : 'left' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                         @lang('print.Closing Balance'):
                     </td>
                     <td style="padding: 12px; text-align: right; font-weight: bold; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 16px;">
@@ -278,7 +278,7 @@
     @if($elements['showFooter'] ?? true)
     <!-- Footer -->
     <div class="document-footer">
-        <p style="text-align: center; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-size: 12px; margin: 20px 0 0 0;" class="arabic-text">
+        <p style="text-align: center; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-size: 12px; margin: 20px 0 0 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
             @lang('print.This report was generated on') {{ now()->format('Y-m-d H:i:s') }}
         </p>
     </div>

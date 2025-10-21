@@ -408,15 +408,15 @@
     <div class="totals-section">
         <table class="totals-table">
             <tr>
-                <td class="arabic-text"><strong>@lang('print.Total Debit'):</strong></td>
+                <td class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}"><strong>@lang('print.Total Debit'):</strong></td>
                 <td class="text-right"><strong>{{ number_format($accountStatementData['summary']['period_debits'] ?? 0, 2) }}</strong></td>
             </tr>
             <tr>
-                <td class="arabic-text"><strong>@lang('print.Total Credit'):</strong></td>
+                <td class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}"><strong>@lang('print.Total Credit'):</strong></td>
                 <td class="text-right"><strong>{{ number_format($accountStatementData['summary']['period_credits'] ?? 0, 2) }}</strong></td>
             </tr>
             <tr class="total-row">
-                <td class="arabic-text"><strong>@lang('print.Closing Balance'):</strong></td>
+                <td class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}"><strong>@lang('print.Closing Balance'):</strong></td>
                 <td class="text-right"><strong>{{ number_format($accountStatementData['summary']['closing_balance'] ?? 0, 2) }} 
                 @if(($accountStatementData['summary']['closing_balance_type'] ?? '') === 'Debit')
                     @lang('print.Debit')

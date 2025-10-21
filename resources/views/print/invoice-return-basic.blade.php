@@ -76,7 +76,7 @@
                         $companyPhone = $settings->where('key', 'phone_number')->first()?->value ?? 'Phone';
                         $companyEmail = $settings->where('key', 'email_address')->first()?->value ?? 'Email';
                     @endphp
-                    <h1 style="font-size: 24px; margin: 0 0 10px 0;" class="arabic-text">{{ $companyName }}</h1>
+                    <h1 style="font-size: 24px; margin: 0 0 10px 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $companyName }}</h1>
                     <p style="margin: 0;">{{ $companyAddress }}</p>
                     <p style="margin: 0;">{{ $companyPhone }} • {{ $companyEmail }}</p>
                 </div>
@@ -94,7 +94,7 @@
         <!-- Client Info -->
         <div style="margin-bottom: 30px;">
             <h3 style="margin-bottom: 10px;">@lang('print.Return From'):</h3>
-            <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $invoiceReturn->invoice->client->name ?? __('print.N/A') }}</p>
+            <p style="margin: 0; font-weight: 600;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $invoiceReturn->invoice->client->name ?? __('print.N/A') }}</p>
             <p style="margin: 0;">{{ $invoiceReturn->invoice->client->address ?? __('print.N/A') }}</p>
             <p style="margin: 0;">{{ $invoiceReturn->invoice->client->email ?? __('print.N/A') }} • {{ $invoiceReturn->invoice->client->phone ?? __('print.N/A') }}</p>
         </div>
