@@ -179,20 +179,20 @@
     </div>
 
     <div class="header">
-        <h1 class="arabic-text">@lang('print.Group Account Statement')</h1>
-        <p class="arabic-text">@lang('print.This report was generated on') {{ date('d-M-Y H:i:s') }}</p>
+        <h1 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Group Account Statement')</h1>
+        <p class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.This report was generated on') {{ date('d-M-Y H:i:s') }}</p>
     </div>
 
     <!-- Account Information -->
     @if(isset($groupStatementData['chart_of_accounts']) && count($groupStatementData['chart_of_accounts']) > 0)
         <div class="accounts-info">
-            <h3 class="arabic-text">@lang('print.Selected Accounts')</h3>
+            <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Selected Accounts')</h3>
             @foreach($groupStatementData['chart_of_accounts'] as $account)
                 <div style="margin-bottom: 10px;">
-                    <strong class="arabic-text">@lang('print.Account'):</strong> 
-                    <span class="arabic-text">{{ $account['code'] ?? '' }} - {{ $account['name'] ?? '' }}</span><br>
-                    <strong class="arabic-text">@lang('Account Type'):</strong> 
-                    <span class="arabic-text">{{ $account['type'] ?? '' }}</span>
+                    <strong class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Account'):</strong> 
+                    <span class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $account['code'] ?? '' }} - {{ $account['name'] ?? '' }}</span><br>
+                    <strong class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('Account Type'):</strong> 
+                    <span class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $account['type'] ?? '' }}</span>
                 </div>
             @endforeach
         </div>
@@ -200,12 +200,12 @@
 
     <!-- Summary Section -->
     @if(isset($groupStatementData['summary']))
-        <h3 class="arabic-text">@lang('print.Summary')</h3>
+        <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Summary')</h3>
         <div class="summary-boxes">
             <div class="summary-box">
-                <h4 class="arabic-text">@lang('print.Opening Balance')</h4>
+                <h4 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Opening Balance')</h4>
                 <p>{!! formatPdfCurrency($groupStatementData['summary']['opening_balance'] ?? 0) !!}</p>
-                <small class="arabic-text">
+                <small class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @if(($groupStatementData['summary']['opening_balance_type'] ?? '') === 'Debit')
                         @lang('print.Debit')
                     @elseif(($groupStatementData['summary']['opening_balance_type'] ?? '') === 'Credit')
@@ -216,17 +216,17 @@
                 </small>
             </div>
             <div class="summary-box">
-                <h4 class="arabic-text">@lang('print.Period Debits')</h4>
+                <h4 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Period Debits')</h4>
                 <p>{!! formatPdfCurrency($groupStatementData['summary']['period_debits'] ?? 0) !!}</p>
             </div>
             <div class="summary-box">
-                <h4 class="arabic-text">@lang('print.Period Credits')</h4>
+                <h4 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Period Credits')</h4>
                 <p>{!! formatPdfCurrency($groupStatementData['summary']['period_credits'] ?? 0) !!}</p>
             </div>
             <div class="summary-box">
-                <h4 class="arabic-text">@lang('print.Closing Balance')</h4>
+                <h4 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Closing Balance')</h4>
                 <p>{!! formatPdfCurrency($groupStatementData['summary']['closing_balance'] ?? 0) !!}</p>
-                <small class="arabic-text">
+                <small class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @if(($groupStatementData['summary']['closing_balance_type'] ?? '') === 'Debit')
                         @lang('print.Debit')
                     @elseif(($groupStatementData['summary']['closing_balance_type'] ?? '') === 'Credit')
@@ -241,19 +241,19 @@
 
     <!-- Transaction Details -->
     @if(isset($groupStatementData['entries']) && count($groupStatementData['entries']) > 0)
-        <h3 class="arabic-text">@lang('print.Transaction Details')</h3>
+        <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Transaction Details')</h3>
         <table>
             <thead>
                 <tr>
-                    <th class="arabic-text">@lang('print.Row Number')</th>
-                    <th class="arabic-text">@lang('print.Date')</th>
-                    <th class="arabic-text">@lang('print.Entry #')</th>
-                    <th class="arabic-text">@lang('print.Reference')</th>
-                    <th class="arabic-text">@lang('print.Description')</th>
-                    <th class="arabic-text">@lang('print.Debit')</th>
-                    <th class="arabic-text">@lang('print.Credit')</th>
-                    <th class="arabic-text">@lang('print.Running Balance')</th>
-                    <th class="arabic-text">@lang('print.Balance Type')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Row Number')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Date')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Entry #')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Reference')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Description')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Debit')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Credit')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Running Balance')</th>
+                    <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Balance Type')</th>
                 </tr>
             </thead>
             <tbody>
@@ -263,7 +263,7 @@
                         <td>{{ \Carbon\Carbon::parse($entry['entry_date'])->format('d-M-Y') }}</td>
                         <td>{{ $entry['entry_number'] ?? '-' }}</td>
                         <td>{{ $entry['reference'] ?? '-' }}</td>
-                        <td class="arabic-text">{{ $entry['description'] ?? '-' }}</td>
+                        <td class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $entry['description'] ?? '-' }}</td>
                         <td>{!! formatPdfCurrency($entry['debit_amount'] ?? 0) !!}</td>
                         <td>{!! formatPdfCurrency($entry['credit_amount'] ?? 0) !!}</td>
                         <td>{!! formatPdfCurrency($entry['running_balance'] ?? 0) !!}</td>
@@ -283,12 +283,12 @@
             </tbody>
         </table>
         
-        <p style="text-align: center; margin-top: 20px; color: #6b7280;" class="arabic-text">
+        <p style="text-align: center; margin-top: 20px; color: #6b7280;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
             @lang('print.Total entries'): {{ count($groupStatementData['entries']) }}
         </p>
     @else
         <div class="no-data">
-            <h4 class="arabic-text">@lang('print.No entries found for the selected period.')</h4>
+            <h4 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.No entries found for the selected period.')</h4>
         </div>
     @endif
 

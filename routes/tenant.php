@@ -74,6 +74,7 @@ use App\Http\Controllers\API\AccountRoutingController;
 use App\Http\Controllers\API\VatReportController;
 use App\Http\Controllers\API\ClientRepresentativeController;
 use App\Http\Controllers\API\SupplierRepresentativeController;
+use App\Http\Controllers\PrintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,7 +92,7 @@ use App\Http\Controllers\API\SupplierRepresentativeController;
  * Structured Routes
  */
 
-
+ Route::post('/upload-pdf', [PrintController::class, 'upload']);
 
 
 Route::middleware([
@@ -122,7 +123,8 @@ Route::middleware([
     // [PROTECTED API] Tenant Routes protected by Sanctum
     Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
 
-
+        // routes/api.php
+        
         Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
 
         Route::post('logout', [LoginController::class, 'logout']);

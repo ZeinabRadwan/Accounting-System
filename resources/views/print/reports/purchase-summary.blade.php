@@ -94,10 +94,10 @@
                 </div>
             @endif
             <div style="flex: 2; text-align: {{ $isRTL ? 'left' : 'right' }};">
-                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin: 0; font-size: 28px;" class="arabic-text">
+                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin: 0; font-size: 28px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Purchase Summary')
                 </h1>
-                <p style="color: {{ $colors['secondary'] ?? '#6b7280' }}; margin: 5px 0;" class="arabic-text">
+                <p style="color: {{ $colors['secondary'] ?? '#6b7280' }}; margin: 5px 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.This report was generated on') {{ date('d-M-Y H:i:s') }}
                 </p>
             </div>
@@ -106,14 +106,14 @@
         <!-- Filters Information -->
         @if(isset($purchaseSummaryData['filters']))
             <div style="margin-bottom: 30px;">
-                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; border-bottom: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; padding-bottom: 10px;" class="arabic-text">
+                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; border-bottom: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; padding-bottom: 10px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Report Filters')
                 </h3>
                 <div style="display: flex; {{ $isRTL ? 'flex-direction: row-reverse;' : '' }} flex-wrap: wrap; gap: 20px;">
                     @if(isset($purchaseSummaryData['filters']['from_date']) && isset($purchaseSummaryData['filters']['to_date']))
                         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                            <strong style="color: {{ $colors['primary'] ?? '#2563eb' }};" class="arabic-text">@lang('print.Period'):</strong> 
-                            <span class="arabic-text">{{ $purchaseSummaryData['filters']['from_date'] }} - {{ $purchaseSummaryData['filters']['to_date'] }}</span>
+                            <strong style="color: {{ $colors['primary'] ?? '#2563eb' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Period'):</strong> 
+                            <span class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $purchaseSummaryData['filters']['from_date'] }} - {{ $purchaseSummaryData['filters']['to_date'] }}</span>
                         </div>
                     @endif
                 </div>
@@ -123,30 +123,30 @@
         <!-- Summary Section -->
         @if(isset($purchaseSummaryData['summary']))
             <div style="margin-bottom: 30px;">
-                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; border-bottom: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; padding-bottom: 10px;" class="arabic-text">
+                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; border-bottom: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; padding-bottom: 10px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Summary')
                 </h3>
                 <div style="display: flex; {{ $isRTL ? 'flex-direction: row-reverse;' : '' }} flex-wrap: wrap; gap: 20px;">
                     <div style="background: #dcfce7; padding: 20px; border-radius: 8px; text-align: center; flex: 1; min-width: 150px;">
-                        <h4 style="margin: 0; color: #166534;" class="arabic-text">@lang('print.Total Suppliers')</h4>
+                        <h4 style="margin: 0; color: #166534;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Suppliers')</h4>
                         <p style="font-size: 18px; font-weight: bold; margin: 5px 0; color: #166534;">
                             {{ $purchaseSummaryData['summary']['total_suppliers'] ?? 0 }}
                         </p>
                     </div>
                     <div style="background: #dbeafe; padding: 20px; border-radius: 8px; text-align: center; flex: 1; min-width: 150px;">
-                        <h4 style="margin: 0; color: #1e40af;" class="arabic-text">@lang('print.Total Purchases')</h4>
+                        <h4 style="margin: 0; color: #1e40af;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Purchases')</h4>
                         <p style="font-size: 18px; font-weight: bold; margin: 5px 0; color: #1e40af;">
                             {{ $purchaseSummaryData['summary']['total_purchases'] ?? 0 }}
                         </p>
                     </div>
                     <div style="background: #fef3c7; padding: 20px; border-radius: 8px; text-align: center; flex: 1; min-width: 150px;">
-                        <h4 style="margin: 0; color: #92400e;" class="arabic-text">@lang('print.Total Amount')</h4>
+                        <h4 style="margin: 0; color: #92400e;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Amount')</h4>
                         <p style="font-size: 18px; font-weight: bold; margin: 5px 0; color: #92400e;">
                             {!! formatPdfCurrency($purchaseSummaryData['summary']['total_amount'] ?? 0) !!}
                         </p>
                     </div>
                     <div style="background: #fee2e2; padding: 20px; border-radius: 8px; text-align: center; flex: 1; min-width: 150px;">
-                        <h4 style="margin: 0; color: #991b1b;" class="arabic-text">@lang('print.Total Due')</h4>
+                        <h4 style="margin: 0; color: #991b1b;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Due')</h4>
                         <p style="font-size: 18px; font-weight: bold; margin: 5px 0; color: #991b1b;">
                             {!! formatPdfCurrency($purchaseSummaryData['summary']['total_due'] ?? 0) !!}
                         </p>
@@ -158,32 +158,32 @@
         <!-- Supplier Details -->
         @if(isset($purchaseSummaryData['suppliers']) && count($purchaseSummaryData['suppliers']) > 0)
             <div style="margin-bottom: 30px;">
-                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; border-bottom: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; padding-bottom: 10px;" class="arabic-text">
+                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; border-bottom: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; padding-bottom: 10px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Supplier Details')
                 </h3>
                 <div style="overflow-x: auto;">
                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                         <thead>
                             <tr style="background: {{ $colors['primary'] ?? '#2563eb' }}; color: white;">
-                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="arabic-text">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @lang('print.Row Number')
                                 </th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="arabic-text">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @lang('print.Supplier Name')
                                 </th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="arabic-text">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @lang('print.Total Purchases')
                                 </th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="arabic-text">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @lang('print.Total Amount')
                                 </th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="arabic-text">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @lang('print.Total Tax')
                                 </th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="arabic-text">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @lang('print.Total Paid')
                                 </th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="arabic-text">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                     @lang('print.Total Due')
                                 </th>
                             </tr>
@@ -194,7 +194,7 @@
                                     <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;">
                                         {{ $index + 1 }}
                                     </td>
-                                    <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;" class="arabic-text">
+                                    <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                                         {{ $supplier['supplier_name'] ?? 'Unknown Supplier' }}
                                     </td>
                                     <td style="padding: 8px 12px; border: 1px solid #e5e7eb; text-align: center;">
@@ -219,12 +219,12 @@
                 </div>
                 
                 <!-- Total entries info -->
-                <div style="margin-top: 15px; text-align: center; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="arabic-text">
+                <div style="margin-top: 15px; text-align: center; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                     @lang('print.Total suppliers'): {{ count($purchaseSummaryData['suppliers']) }}
                 </div>
             </div>
         @else
-            <div style="text-align: center; padding: 40px; background: #f9fafb; border-radius: 8px; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="arabic-text">
+            <div style="text-align: center; padding: 40px; background: #f9fafb; border-radius: 8px; color: {{ $colors['secondary'] ?? '#6b7280' }};" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                 <h4>@lang('print.No suppliers found for the selected period.')</h4>
             </div>
         @endif

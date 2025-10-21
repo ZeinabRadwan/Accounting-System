@@ -147,34 +147,34 @@
         </div>
 
         <div class="header">
-            <h1 class="arabic-text">@lang('print.Invoice Summary')</h1>
-            <p class="arabic-text">@lang('print.This report was generated on') {{ date('d-M-Y H:i:s') }}</p>
+            <h1 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Invoice Summary')</h1>
+            <p class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.This report was generated on') {{ date('d-M-Y H:i:s') }}</p>
         </div>
 
         <!-- Summary Section -->
         @if(isset($invoiceSummaryData['summary']))
-            <h2 class="arabic-text">@lang('print.Summary')</h2>
+            <h2 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Summary')</h2>
             <div class="summary-grid">
                 <div class="summary-box clients">
-                    <h3 class="arabic-text">@lang('print.Total Clients')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Clients')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {{ $invoiceSummaryData['summary']['total_clients'] ?? 0 }}
                     </p>
                 </div>
                 <div class="summary-box invoices">
-                    <h3 class="arabic-text">@lang('print.Total Invoices')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Invoices')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {{ $invoiceSummaryData['summary']['total_invoices'] ?? 0 }}
                     </p>
                 </div>
                 <div class="summary-box amount">
-                    <h3 class="arabic-text">@lang('print.Total Amount')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Amount')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {!! formatPdfCurrency($invoiceSummaryData['summary']['total_amount'] ?? 0) !!}
                     </p>
                 </div>
                 <div class="summary-box due">
-                    <h3 class="arabic-text">@lang('print.Total Due')</h3>
+                    <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Due')</h3>
                     <p style="font-size: 24px; font-weight: bold; margin: 0;">
                         {!! formatPdfCurrency($invoiceSummaryData['summary']['total_due'] ?? 0) !!}
                     </p>
@@ -184,24 +184,24 @@
 
         <!-- Client Details -->
         @if(isset($invoiceSummaryData['clients']) && count($invoiceSummaryData['clients']) > 0)
-            <h2 class="arabic-text">@lang('print.Client Details')</h2>
+            <h2 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Client Details')</h2>
             <table>
                 <thead>
                     <tr>
-                        <th class="arabic-text">@lang('print.Row Number')</th>
-                        <th class="arabic-text">@lang('print.Client Name')</th>
-                        <th class="arabic-text">@lang('print.Total Invoices')</th>
-                        <th class="arabic-text">@lang('print.Total Amount')</th>
-                        <th class="arabic-text">@lang('print.Total Tax')</th>
-                        <th class="arabic-text">@lang('print.Total Paid')</th>
-                        <th class="arabic-text">@lang('print.Total Due')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Row Number')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Client Name')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Invoices')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Amount')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Tax')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Paid')</th>
+                        <th class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.Total Due')</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($invoiceSummaryData['clients'] as $index => $client)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td class="arabic-text">{{ $client['client_name'] ?? 'Unknown Client' }}</td>
+                            <td class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $client['client_name'] ?? 'Unknown Client' }}</td>
                             <td>{{ $client['total_invoices'] ?? 0 }}</td>
                             <td>{!! formatPdfCurrency($client['total_amount'] ?? 0) !!}</td>
                             <td>{!! formatPdfCurrency($client['total_tax'] ?? 0) !!}</td>
@@ -212,12 +212,12 @@
                 </tbody>
             </table>
             
-            <div style="text-align: center; color: #6b7280; margin-top: 15px;" class="arabic-text">
+            <div style="text-align: center; color: #6b7280; margin-top: 15px;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">
                 @lang('print.Total clients'): {{ count($invoiceSummaryData['clients']) }}
             </div>
         @else
             <div class="no-data">
-                <h3 class="arabic-text">@lang('print.No clients found for the selected period.')</h3>
+                <h3 class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">@lang('print.No clients found for the selected period.')</h3>
             </div>
         @endif
     </div>

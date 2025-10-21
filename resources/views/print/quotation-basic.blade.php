@@ -63,7 +63,7 @@
                         $companyPhone = $settings->where('key', 'phone_number')->first()?->value ?? 'Phone';
                         $companyEmail = $settings->where('key', 'email_address')->first()?->value ?? 'Email';
                     @endphp
-                    <h1 style="font-size: 24px; margin: 0 0 10px 0;" class="arabic-text">{{ $companyName }}</h1>
+                    <h1 style="font-size: 24px; margin: 0 0 10px 0;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $companyName }}</h1>
                     <p style="margin: 0;">{{ $companyAddress }}</p>
                     <p style="margin: 0;">{{ $companyPhone }} • {{ $companyEmail }}</p>
                 </div>
@@ -78,7 +78,7 @@
         <!-- Client Info -->
         <div style="margin-bottom: 30px;">
             <h3 style="margin-bottom: 10px;">Quote To:</h3>
-            <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $quotation->client->name ?? 'N/A' }}</p>
+            <p style="margin: 0; font-weight: 600;" class="{{ app()->getLocale() === 'ar' ? 'arabic-text' : '' }}">{{ $quotation->client->name ?? 'N/A' }}</p>
             <p style="margin: 0;">{{ $quotation->client->address ?? 'N/A' }}</p>
             <p style="margin: 0;">{{ $quotation->client->email ?? 'N/A' }} • {{ $quotation->client->phone ?? 'N/A' }}</p>
         </div>
