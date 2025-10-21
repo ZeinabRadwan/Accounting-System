@@ -168,7 +168,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $invoice->invoice_date,
                 'reference' => $invoice->invoice_no,
-                'description' => "Sale Invoice {$invoice->invoice_no}",
+                'description' => __('journal.sale_invoice', ['number' => $invoice->invoice_no]),
                 'total_debit' => $totalAmount,
                 'total_credit' => $totalAmount,
                 'status' => 'posted', // Auto-post for system-generated entries
@@ -182,7 +182,7 @@ class BusinessTransactionJournalService
             ]);
 
             // Line 1: Debit to Client's Accounts Receivable
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalAmount, 0, 1, " ");
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalAmount, 0, 1, __('journal.accounts_receivable'));
            
           
             $lineNumber = 2;
@@ -230,7 +230,7 @@ class BusinessTransactionJournalService
             foreach ($salesByAccount as $accountId => $amount) {
                 if ($amount > 0) { // Only create line if amount is greater than 0
                     Log::info("Creating sales journal line: Account ID {$accountId}, Amount: {$amount}");
-                    $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "Sales Revenue for Invoice {$invoice->invoice_no}");
+                    $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, __('journal.sales_revenue_for_invoice', ['number' => $invoice->invoice_no]));
                     $lineNumber++;
                 }
             }
@@ -239,7 +239,7 @@ class BusinessTransactionJournalService
             foreach ($vatByAccount as $vatAccountId => $totalVatAmount) {
                 if ($totalVatAmount > 0) { // Only create line if amount is greater than 0
                     Log::info("Creating VAT journal line: Account ID {$vatAccountId}, Amount: {$totalVatAmount}");
-                    $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, "VAT Payable for Invoice {$invoice->invoice_no}");
+                    $this->createJournalEntryLine($journalEntry, $vatAccountId, 0, $totalVatAmount, $lineNumber, __('journal.vat_payable_for_invoice', ['number' => $invoice->invoice_no]));
                     $lineNumber++;
                 }
             }
@@ -338,7 +338,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => now()->toDateString(),
                 'reference' => $paymentReference,
-                'description' => "Payment received for Invoice {$invoice->invoice_no}",
+                'description' => __('journal.payment_received_for_invoice', ['number' => $invoice->invoice_no]),
                 'total_debit' => $amount,
                 'total_credit' => $amount,
                 'status' => 'posted',
@@ -352,8 +352,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, " ");
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $amount, 2, " ");
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $amount, 0, 1, __('journal.cash_bank_receipt'));
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $amount, 2, __('journal.accounts_receivable'));
 
             // Create bridge table record
             \App\Models\InvoiceJournal::create([
@@ -499,7 +499,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $purchase->purchase_date,
                 'reference' => $purchase->purchase_no,
-                'description' => "Purchase Order {$purchase->purchase_no}",
+                'description' => __('journal.purchase', ['number' => $purchase->purchase_no]),
                 'total_debit' => $totalDebit,
                 'total_credit' => $totalCredit,
                 'status' => 'posted',
@@ -517,13 +517,13 @@ class BusinessTransactionJournalService
             // Line 1: Credit to Supplier's Accounts Payable (net amount after discount)
             $accountsPayableAmount = $totalAmount - $totalDiscountAmount;
             Log::info("Creating journal line 1: Credit to Supplier Accounts Payable - Amount: {$accountsPayableAmount}");
-            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $accountsPayableAmount, $lineNumber, "Accounts Payable for PO {$purchase->purchase_no}");
+            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $accountsPayableAmount, $lineNumber, __('journal.accounts_payable_for_purchase', ['number' => $purchase->purchase_no]));
             $lineNumber++;
 
             // Create separate journal entry lines for each purchase account (Debit)
             foreach ($purchaseExpensesByAccount as $accountId => $expense) {
                 Log::info("Creating journal line {$lineNumber}: Debit to Purchase Expense - Account ID: {$accountId}, Amount: {$expense['total']}");
-                $this->createJournalEntryLine($journalEntry, $accountId, $expense['total'], 0, $lineNumber, "Purchase Expense for PO {$purchase->purchase_no}");
+                $this->createJournalEntryLine($journalEntry, $accountId, $expense['total'], 0, $lineNumber, __('journal.purchase_expense_for_purchase', ['number' => $purchase->purchase_no]));
                 $lineNumber++;
             }
             
@@ -532,7 +532,7 @@ class BusinessTransactionJournalService
                 $discountAccount = $this->getDiscountReceivedAccount();
                 if ($discountAccount) {
                     Log::info("Creating journal line {$lineNumber}: Credit to Discount Received - Account ID: {$discountAccount->id}, Amount: {$totalDiscountAmount}");
-                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalDiscountAmount, $lineNumber, "Discount Received for PO {$purchase->purchase_no}");
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalDiscountAmount, $lineNumber, __('journal.discount_received_for_purchase', ['number' => $purchase->purchase_no]));
                     $lineNumber++;
                 } else {
                     Log::warning("Discount Received account not configured, skipping discount journal entry");
@@ -543,12 +543,12 @@ class BusinessTransactionJournalService
             if ($purchase->transport && $purchase->transport > 0) {
                 $transportAccount = $this->getTransportExpenseAccount();
                 if ($transportAccount) {
-                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, $purchase->transport, 0, $lineNumber, "Transport Cost for PO {$purchase->purchase_no}");
+                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, $purchase->transport, 0, $lineNumber, __('journal.transport_cost_for_purchase', ['number' => $purchase->purchase_no]));
                 } else {
                     // Fallback to first purchase account if transport account not configured
                     $firstPurchaseAccountId = array_key_first($purchaseExpensesByAccount);
                     if ($firstPurchaseAccountId) {
-                        $this->createJournalEntryLine($journalEntry, $firstPurchaseAccountId, $purchase->transport, 0, $lineNumber, "Transport Cost for PO {$purchase->purchase_no}");
+                        $this->createJournalEntryLine($journalEntry, $firstPurchaseAccountId, $purchase->transport, 0, $lineNumber, __('journal.transport_cost_for_purchase', ['number' => $purchase->purchase_no]));
                     }
                 }
                 $lineNumber++;
@@ -559,7 +559,7 @@ class BusinessTransactionJournalService
                 $vatAccount = $this->getVatAccountForPurchase($purchase);
                 if ($vatAccount) {
                     Log::info("Creating journal line {$lineNumber}: Debit to VAT Input - Account ID: {$vatAccount->id}, Amount: {$totalVatAmount}");
-                    $this->createJournalEntryLine($journalEntry, $vatAccount->id, $totalVatAmount, 0, $lineNumber, "VAT Input for PO {$purchase->purchase_no}");
+                    $this->createJournalEntryLine($journalEntry, $vatAccount->id, $totalVatAmount, 0, $lineNumber, __('journal.vat_input_for_purchase', ['number' => $purchase->purchase_no]));
                     $lineNumber++;
                 } else {
                     Log::warning("VAT Input account not configured, skipping VAT journal entry");
@@ -650,7 +650,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => now()->toDateString(),
                 'reference' => $paymentReference,
-                'description' => "Payment made for Purchase Order {$purchase->purchase_no}",
+                'description' => __('journal.payment_made_for_purchase', ['number' => $purchase->purchase_no]),
                 'total_debit' => $amount,
                 'total_credit' => $amount,
                 'status' => 'posted',
@@ -664,8 +664,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $amount, 0, 1, "Reduction in Accounts Payable for PO {$purchase->purchase_no}");
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $amount, 2, "Cash/Bank payment for PO {$purchase->purchase_no}");
+            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $amount, 0, 1, __('journal.reduction_in_accounts_payable_for_purchase', ['number' => $purchase->purchase_no]));
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $amount, 2, __('journal.cash_bank_payment_for_purchase', ['number' => $purchase->purchase_no]));
 
             // Create bridge table record
             \App\Models\PurchaseJournal::create([
@@ -738,7 +738,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $expense->date,
                 'reference' => $expense->id,
-                'description' => "Expense: {$expense->reason}",
+                'description' => __('journal.expense', ['reason' => $expense->reason]),
                 'total_debit' => $expense->amount,
                 'total_credit' => $expense->amount,
                 'status' => 'posted',
@@ -753,10 +753,10 @@ class BusinessTransactionJournalService
 
             // Create journal entry lines
             Log::info('Creating journal line 1: Debit to expense account ' . $expenseAccount->id . ' with amount: ' . $expense->amount);
-            $this->createJournalEntryLine($journalEntry, $expenseAccount->id, $expense->amount, 0, 1, "Expense: {$expense->reason}");
+            $this->createJournalEntryLine($journalEntry, $expenseAccount->id, $expense->amount, 0, 1, __('journal.expense', ['reason' => $expense->reason]));
             
             Log::info('Creating journal line 2: Credit to bank account ' . $bankAccount->id . ' with amount: ' . $expense->amount);
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $expense->amount, 2, "Cash/Bank payment for expense");
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $expense->amount, 2, __('journal.cash_bank_payment_for_expense'));
 
             // Create bridge table record
             \App\Models\ExpenseJournal::create([
@@ -822,7 +822,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $nonInvoicePayment->date,
                 'reference' => 'NIP-' . $nonInvoicePayment->id . '-PAY-' . time(),
-                'description' => "Non-Invoice Payment: {$nonInvoicePayment->note}",
+                'description' => __('journal.non_invoice_payment', ['note' => $nonInvoicePayment->note]),
                 'total_debit' => $nonInvoicePayment->amount,
                 'total_credit' => $nonInvoicePayment->amount,
                 'status' => 'posted',
@@ -837,9 +837,9 @@ class BusinessTransactionJournalService
 
             // Create journal entry lines
             // Line 1: Debit to Bank Account (Cash/Bank receipt)
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, "Cash/Bank receipt for non-invoice payment");
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.cash_bank_receipt_for_non_invoice_payment'));
             // Line 2: Credit to Client's Accounts Receivable
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $nonInvoicePayment->amount, 2, "Reduction in client accounts receivable");
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.reduction_in_client_accounts_receivable'));
 
             // Create bridge table record (you'll need to create this model and migration)
             // \App\Models\NonInvoicePaymentJournal::create([
@@ -901,7 +901,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $loanPayment->payment_date,
                 'reference' => $loanPayment->id,
-                'description' => "Loan Payment: {$loanPayment->note}",
+                'description' => __('journal.loan_payment', ['note' => $loanPayment->note]),
                 'total_debit' => $loanPayment->amount,
                 'total_credit' => $loanPayment->amount,
                 'status' => 'posted',
@@ -915,8 +915,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $loanAccount->id, $loanPayment->amount, 0, 1, "Reduction in Loans Payable");
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $loanPayment->amount, 2, "Cash/Bank payment for loan");
+            $this->createJournalEntryLine($journalEntry, $loanAccount->id, $loanPayment->amount, 0, 1, __('journal.reduction_in_loans_payable'));
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $loanPayment->amount, 2, __('journal.cash_bank_payment_for_loan'));
 
             // Create bridge table record
             \App\Models\LoanJournal::create([
@@ -982,7 +982,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $nonPurchasePayment->date,
                 'reference' => 'NPP-' . $nonPurchasePayment->id . '-PAY-' . time(),
-                'description' => 'Supplier Non-Purchase Payment',
+                'description' => __('journal.supplier_non_purchase_payment'),
                 'total_debit' => $nonPurchasePayment->amount,
                 'total_credit' => $nonPurchasePayment->amount,
                 'status' => 'posted',
@@ -997,9 +997,9 @@ class BusinessTransactionJournalService
 
             // Create journal entry lines
             // Line 1: Debit to Supplier's Accounts Payable (reducing liability)
-            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $nonPurchasePayment->amount, 0, 1, 'Reduction in Accounts Payable');
+            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.reduction_in_accounts_payable'));
             // Line 2: Credit to Bank Account (Cash/Bank payment)
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonPurchasePayment->amount, 2, 'Cash/Bank payment for non-purchase');
+            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'));
 
             DB::commit();
             return $journalEntry;
@@ -1133,8 +1133,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, $vatAmount, 0, 1, "VAT Receivable - {$description}");
-            $this->createJournalEntryLine($journalEntry, $salesVatAccount->id, 0, $vatAmount, 2, "VAT Payable - {$description}");
+            $this->createJournalEntryLine($journalEntry, $accountsReceivableAccount->id, $vatAmount, 0, 1, __('journal.vat_receivable', ['description' => $description]));
+            $this->createJournalEntryLine($journalEntry, $salesVatAccount->id, 0, $vatAmount, 2, __('journal.vat_payable', ['description' => $description]));
 
             DB::commit();
             return $journalEntry;
@@ -1183,8 +1183,8 @@ class BusinessTransactionJournalService
             ]);
 
             // Create journal entry lines
-            $this->createJournalEntryLine($journalEntry, $purchaseVatAccount->id, $vatAmount, 0, 1, "VAT Receivable - {$description}");
-            $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, 0, $vatAmount, 2, "VAT Payable - {$description}");
+            $this->createJournalEntryLine($journalEntry, $purchaseVatAccount->id, $vatAmount, 0, 1, __('journal.vat_receivable', ['description' => $description]));
+            $this->createJournalEntryLine($journalEntry, $accountsPayableAccount->id, 0, $vatAmount, 2, __('journal.vat_payable', ['description' => $description]));
 
             DB::commit();
             return $journalEntry;
@@ -1207,8 +1207,8 @@ class BusinessTransactionJournalService
             
             if ($vatReceivableAccount && $vatPayableAccount) {
                 $reference = $source->invoice_no ?? 'Unknown';
-                $this->createJournalEntryLine($journalEntry, $vatReceivableAccount->id, $vatAmount, 0, 3, "VAT Receivable for {$reference}");
-                $this->createJournalEntryLine($journalEntry, $vatPayableAccount->id, 0, $vatAmount, 4, "VAT Payable for {$reference}");
+                $this->createJournalEntryLine($journalEntry, $vatReceivableAccount->id, $vatAmount, 0, 3, __('journal.vat_receivable_for', ['reference' => $reference]));
+                $this->createJournalEntryLine($journalEntry, $vatPayableAccount->id, 0, $vatAmount, 4, __('journal.vat_payable_for', ['reference' => $reference]));
             }
         } elseif ($type === 'purchase') {
             // For purchase VAT, debit VAT receivable, credit accounts payable
@@ -1216,7 +1216,7 @@ class BusinessTransactionJournalService
             
             if ($vatReceivableAccount) {
                 $reference = $source->purchase_no ?? 'Unknown';
-                $this->createJournalEntryLine($journalEntry, $vatReceivableAccount->id, $vatAmount, 0, count($journalEntry->lines) + 1, "VAT Receivable for {$reference}");
+                $this->createJournalEntryLine($journalEntry, $vatReceivableAccount->id, $vatAmount, 0, count($journalEntry->lines) + 1, __('journal.vat_receivable_for', ['reference' => $reference]));
             }
         }
     }
@@ -1374,7 +1374,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $invoiceReturn->date,
                 'reference' => $invoiceReturn->return_no . '-RET-' . time(), // Make reference unique
-                'description' => "Invoice Return {$invoiceReturn->return_no}",
+                'description' => __('journal.invoice_return', ['number' => $invoiceReturn->return_no]),
                 'total_debit' => $totalReturnAmount,
                 'total_credit' => $totalReturnAmount,
                 'status' => 'posted',
@@ -1391,13 +1391,13 @@ class BusinessTransactionJournalService
 
             // Create sales revenue reversal lines (Credit to reverse sales)
             foreach ($salesByAccount as $accountId => $amount) {
-                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "Sales Revenue Reversal for Return {$invoiceReturn->return_no}");
+                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, __('journal.sales_revenue_reversal_for_return', ['number' => $invoiceReturn->return_no]));
                 $lineNumber++;
             }
 
             // Create VAT reversal lines (Credit to reverse VAT payable)
             foreach ($vatByAccount as $accountId => $amount) {
-                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, "VAT Payable Reversal for Return {$invoiceReturn->return_no}");
+                $this->createJournalEntryLine($journalEntry, $accountId, 0, $amount, $lineNumber, __('journal.vat_payable_reversal_for_return', ['number' => $invoiceReturn->return_no]));
                 $lineNumber++;
             }
 
@@ -1405,13 +1405,13 @@ class BusinessTransactionJournalService
             if ($totalReturnDiscount > 0) {
                 $discountAccount = $this->getDiscountAllowedAccount();
                 if ($discountAccount) {
-                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalReturnDiscount, $lineNumber, "Discount Allowed Reversal for Return {$invoiceReturn->return_no}");
+                    $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalReturnDiscount, $lineNumber, __('journal.discount_allowed_reversal_for_return', ['number' => $invoiceReturn->return_no]));
                     $lineNumber++;
                 }
             }
 
             // Create accounts receivable reduction line (Debit to reduce client balance)
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalReturnAmount, 0, $lineNumber, "Accounts Receivable Reduction for Return {$invoiceReturn->return_no}");
+            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $totalReturnAmount, 0, $lineNumber, __('journal.accounts_receivable_reduction_for_return', ['number' => $invoiceReturn->return_no]));
 
             DB::commit();
             return $journalEntry;
@@ -1523,7 +1523,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $balanceTransfer->date,
                 'reference' => $balanceTransfer->slug,
-                'description' => $balanceTransfer->note ?? "Balance Transfer: {$balanceTransfer->reason}",
+                'description' => $balanceTransfer->note ?? __('journal.balance_transfer', ['reason' => $balanceTransfer->reason]),
                 'total_debit' => $balanceTransfer->amount,
                 'total_credit' => $balanceTransfer->amount,
                 'status' => 'posted',
@@ -1544,7 +1544,7 @@ class BusinessTransactionJournalService
                 $balanceTransfer->amount, 
                 0, 
                 1, 
-                "Balance Transfer to {$toAccount->bank_name} [{$toAccount->account_number}]"
+                __('journal.balance_transfer_to', ['account' => $toAccount->bank_name, 'number' => $toAccount->account_number])
             );
 
             // Line 2: Credit the "From" account (money going out)
@@ -1554,7 +1554,7 @@ class BusinessTransactionJournalService
                 0, 
                 $balanceTransfer->amount, 
                 2, 
-                "Balance Transfer from {$fromAccount->bank_name} [{$fromAccount->account_number}]"
+                __('journal.balance_transfer_from', ['account' => $fromAccount->bank_name, 'number' => $fromAccount->account_number])
             );
 
             // Update the account transactions to link them to the journal entry
@@ -1627,7 +1627,7 @@ class BusinessTransactionJournalService
                 'entry_date' => $accountTransaction->transaction_date,
                 // Ensure reference is unique to avoid duplicate key violations
                 'reference' => $accountTransaction->slug . '-' . $accountTransaction->id,
-                'description' => $accountTransaction->note ?? "Balance Adjustment: {$accountTransaction->reason}",
+                'description' => $accountTransaction->note ?? __('journal.balance_adjustment', ['reason' => $accountTransaction->reason]),
                 'total_debit' => $accountTransaction->amount,
                 'total_credit' => $accountTransaction->amount,
                 'status' => 'posted',
@@ -1646,7 +1646,7 @@ class BusinessTransactionJournalService
                     $accountTransaction->amount, 
                     0, 
                     1, 
-                    "Balance Added to {$cashbookAccount->bank_name} [{$cashbookAccount->account_number}]"
+                    __('journal.balance_added_to', ['account' => $cashbookAccount->bank_name, 'number' => $cashbookAccount->account_number])
                 );
 
                 $this->createJournalEntryLine(
@@ -1655,7 +1655,7 @@ class BusinessTransactionJournalService
                     0, 
                     $accountTransaction->amount, 
                     2, 
-                    "Balance Adjustment - {$secondAccount->name}"
+                    __('journal.balance_adjustment_account', ['name' => $secondAccount->name])
                 );
             } else {
                 // Removing balance: Debit Selected Account, Credit Cashbook Account
@@ -1665,7 +1665,7 @@ class BusinessTransactionJournalService
                     $accountTransaction->amount, 
                     0, 
                     1, 
-                    "Balance Adjustment - {$secondAccount->name}"
+                    __('journal.balance_adjustment_account', ['name' => $secondAccount->name])
                 );
 
                 $this->createJournalEntryLine(
@@ -1674,7 +1674,7 @@ class BusinessTransactionJournalService
                     0, 
                     $accountTransaction->amount, 
                     2, 
-                    "Balance Removed from {$cashbookAccount->bank_name} [{$cashbookAccount->account_number}]"
+                    __('journal.balance_removed_from', ['account' => $cashbookAccount->bank_name, 'number' => $cashbookAccount->account_number])
                 );
             }
 
@@ -1772,7 +1772,7 @@ class BusinessTransactionJournalService
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $purchaseReturn->date,
                 'reference' => 'PR-' . $purchaseReturn->code . '-' . time(), // Make reference unique
-                'description' => "Purchase Return PR-{$purchaseReturn->code}",
+                'description' => __('journal.purchase_return', ['code' => $purchaseReturn->code]),
                 'total_debit' => $totalReturnAmount,
                 'total_credit' => $totalReturnAmount,
                 'status' => 'posted',
@@ -1795,7 +1795,7 @@ class BusinessTransactionJournalService
                     0, // debit
                     $expenseData['total'], // credit (to reverse the expense)
                     $lineNumber,
-                    "Purchase Return - Reverse expense for PR-{$purchaseReturn->code}"
+                    __('journal.purchase_return_reverse_expense', ['code' => $purchaseReturn->code])
                 );
                 $lineNumber++;
             }
@@ -1807,7 +1807,7 @@ class BusinessTransactionJournalService
                 $totalReturnAmount, // debit (to reduce payable)
                 0, // credit
                 $lineNumber,
-                "Purchase Return - Reduce payable for PR-{$purchaseReturn->code}"
+                __('journal.purchase_return_reduce_payable', ['code' => $purchaseReturn->code])
             );
 
             // Create bridge table record if PurchaseReturnJournal model exists

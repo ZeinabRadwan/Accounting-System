@@ -159,6 +159,24 @@ class Purchase extends Model
     }
 
     /**
+     * Check if purchase can be sent to ZATCA
+     */
+    public function canSendToZatca()
+    {
+        // Only inactive purchases can be sent to ZATCA
+        return $this->status == 0;
+    }
+
+    /**
+     * Check if purchase has been sent to ZATCA
+     */
+    public function isSentToZatca()
+    {
+        // Active purchases are considered sent to ZATCA
+        return $this->status == 1;
+    }
+
+    /**
      * Get the fiscal year for this purchase.
      */
     public function fiscalYear()

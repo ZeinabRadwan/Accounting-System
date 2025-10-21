@@ -267,6 +267,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/due-purchases', [PurchaseController::class, 'duePurchases']);
         Route::post('/purchase/notify/{slug}', [PurchaseController::class, 'notifySupplier']);
         Route::post('/purchase-pay', [PurchaseController::class, 'storePurchasePayment']);
+        Route::post('/purchases/{slug}/send-to-zatca', [PurchaseController::class, 'sendToZatca']);
         Route::apiResource('purchases', PurchaseController::class);
 
         // Purchase Order routes

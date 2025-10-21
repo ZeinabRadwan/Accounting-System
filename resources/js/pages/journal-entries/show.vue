@@ -135,13 +135,13 @@
                     <td>{{ line.description || '-' }}</td>
                     <td class="text-right">
                       <span v-if="line.debit_amount > 0" class="text-success">
-                        <CurrencyDisplay :amount="line.debit_amount" />
+                        <CurrencyDisplay :amount="line.debit_amount" :disable-rtl="true"/>
                       </span>
                       <span v-else>-</span>
                     </td>
                     <td class="text-right">
                       <span v-if="line.credit_amount > 0" class="text-danger">
-                        <CurrencyDisplay :amount="line.credit_amount" />
+                        <CurrencyDisplay :amount="line.credit_amount" :disable-rtl="true" />
                       </span>
                       <span v-else>-</span>
                     </td>
@@ -165,7 +165,7 @@
                 <div class="form-group">
                   <label class="font-weight-bold">{{ $t('Total Debit') }}:</label>
                   <p class="form-control-plaintext text-success">
-                    <CurrencyDisplay :amount="journalEntry.total_debit" />
+                    <CurrencyDisplay :amount="journalEntry.total_debit" :disable-rtl="true" />
                   </p>
                 </div>
               </div>
@@ -173,7 +173,7 @@
                 <div class="form-group">
                   <label class="font-weight-bold">{{ $t('Total Credit') }}:</label>
                   <p class="form-control-plaintext text-danger">
-                    <CurrencyDisplay :amount="journalEntry.total_credit" />
+                    <CurrencyDisplay :amount="journalEntry.total_credit" :disable-rtl="true" />
                   </p>
                 </div>
               </div>
@@ -195,7 +195,7 @@
                 <div class="form-group">
                   <label class="font-weight-bold">{{ $t('Balance Difference') }}:</label>
                   <p class="form-control-plaintext text-danger">
-                    <CurrencyDisplay :amount="journalEntry.balance_difference" />
+                    <CurrencyDisplay :amount="journalEntry.balance_difference" :disable-rtl="true" />
                   </p>
                 </div>
               </div>
@@ -395,7 +395,7 @@ export default {
     },
 
     getBalanceStatusText() {
-      return this.journalEntry.is_balanced ? 'Balanced' : 'Unbalanced'
+      return this.journalEntry.is_balanced ? this.$t('Balanced') : this.$t('Unbalanced')
     }
   }
 }

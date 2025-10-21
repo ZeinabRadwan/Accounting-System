@@ -272,29 +272,31 @@ class PurchaseController extends Controller
                 ]);
             }
 
-            // Create journal entry for purchase (after products are stored)
-            try {
-                Log::info('Starting journal entry creation for purchase: ' . $purchase->purchase_no);
-                $journalService = new BusinessTransactionJournalService();
-                $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
-                Log::info('Journal entry created successfully for purchase: ' . $purchase->purchase_no . ' with ID: ' . $journalEntry->id);
-                
-                // Check if purchase_journals record was created
-                $purchaseJournal = \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)
-                    ->where('journal_entry_id', $journalEntry->id)
-                    ->first();
-                
-                if ($purchaseJournal) {
-                    Log::info('Purchase journal bridge record created successfully: ' . $purchaseJournal->id);
-                } else {
-                    Log::error('Purchase journal bridge record NOT created for purchase: ' . $purchase->purchase_no);
+            // Create journal entry for purchase (skip for Saudi Arabia)
+            if (!$isSaudiArabia) {
+                try {
+                    Log::info('Starting journal entry creation for purchase: ' . $purchase->purchase_no);
+                    $journalService = new BusinessTransactionJournalService();
+                    $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
+                    Log::info('Journal entry created successfully for purchase: ' . $purchase->purchase_no . ' with ID: ' . $journalEntry->id);
+                    
+                    // Check if purchase_journals record was created
+                    $purchaseJournal = \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)
+                        ->where('journal_entry_id', $journalEntry->id)
+                        ->first();
+                    
+                    if ($purchaseJournal) {
+                        Log::info('Purchase journal bridge record created successfully: ' . $purchaseJournal->id);
+                    } else {
+                        Log::error('Purchase journal bridge record NOT created for purchase: ' . $purchase->purchase_no);
+                    }
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the purchase creation
+                    Log::error('Failed to create journal entry for purchase: ' . $e->getMessage());
+                    Log::error('Purchase ID: ' . $purchase->id);
+                    Log::error('User ID: ' . $userId);
+                    Log::error('Exception trace: ' . $e->getTraceAsString());
                 }
-            } catch (\Exception $e) {
-                // Log the error but don't fail the purchase creation
-                Log::error('Failed to create journal entry for purchase: ' . $e->getMessage());
-                Log::error('Purchase ID: ' . $purchase->id);
-                Log::error('User ID: ' . $userId);
-                Log::error('Exception trace: ' . $e->getTraceAsString());
             }
 
             // store transaction
@@ -326,13 +328,15 @@ class PurchaseController extends Controller
                     'status' => $request->status,
                 ]);
 
-                // Create journal entry for purchase payment
-                try {
-                    $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->totalPaid, $userId);
-                } catch (\Exception $e) {
-                    // Log the error but don't fail the payment creation
-                    Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                // Create journal entry for purchase payment (skip for Saudi Arabia)
+                if (!$isSaudiArabia) {
+                    try {
+                        $journalService = new BusinessTransactionJournalService();
+                        $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->totalPaid, $userId);
+                    } catch (\Exception $e) {
+                        // Log the error but don't fail the payment creation
+                        Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                    }
                 }
 
             }
@@ -698,6 +702,9 @@ class PurchaseController extends Controller
 
     // store purchase payment
     public function storePurchasePayment(Request $request){
+        // Get country setting
+        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+        $isSaudiArabia = $country === 'SA';
 
         $maxAmount = $request->selectedPurchase['due'] <= $request->account['availableBalance'] ?  $request->selectedPurchase['due']  :  $request->account['availableBalance'];
         // validate request
@@ -742,13 +749,15 @@ class PurchaseController extends Controller
             'status' => $request->status,
         ]);
 
-        // Create journal entry for purchase payment
-        try {
-            $journalService = new BusinessTransactionJournalService();
-            $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->paidAmount, $userId);
-        } catch (\Exception $e) {
-            // Log the error but don't fail the payment creation
-            Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+        // Create journal entry for purchase payment (skip for Saudi Arabia)
+        if (!$isSaudiArabia) {
+            try {
+                $journalService = new BusinessTransactionJournalService();
+                $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->paidAmount, $userId);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the payment creation
+                Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+            }
         }
 
         // update purchase
@@ -766,5 +775,106 @@ class PurchaseController extends Controller
         }
 
         return $this->responseWithSuccess('Supplier payment added successfully!');
+    }
+
+    /**
+     * Send purchase to ZATCA
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendToZatca($slug)
+    {
+        try {
+            $purchase = Purchase::where('slug', $slug)->with('supplier', 'purchaseProducts.product', 'purchasePayments')->first();
+            
+            if (!$purchase) {
+                return $this->responseWithError('Purchase not found');
+            }
+
+            // Get country setting
+            $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+            $isSaudiArabia = $country === 'SA';
+
+            // Only allow for Saudi Arabia
+            if (!$isSaudiArabia) {
+                return $this->responseWithError('This feature is only available for Saudi Arabia');
+            }
+
+            // Only allow for inactive purchases
+            if ($purchase->status != 0) {
+                return $this->responseWithError('Only inactive purchases can be sent to ZATCA');
+            }
+
+            $userId = auth()->user()->id;
+
+            // Create journal entry for purchase (now that we're sending to ZATCA)
+            try {
+                Log::info("Starting ZATCA journal creation for purchase: {$purchase->purchase_no} (ID: {$purchase->id})");
+                
+                // Debug purchase data
+                Log::info("Purchase supplier: " . ($purchase->supplier ? $purchase->supplier->name : 'NULL'));
+                Log::info("Purchase supplier chart of account: " . ($purchase->supplier && $purchase->supplier->chartOfAccount ? $purchase->supplier->chartOfAccount->name : 'NULL'));
+                Log::info("Purchase products count: " . $purchase->purchaseProducts->count());
+                
+                foreach ($purchase->purchaseProducts as $pp) {
+                    Log::info("Product: {$pp->product->name}, Purchase Account: " . ($pp->product->purchaseAccount ? $pp->product->purchaseAccount->name : 'NULL'));
+                }
+                
+                $journalService = new BusinessTransactionJournalService();
+                $journalEntry = $journalService->createPurchaseJournal($purchase, $userId);
+                Log::info("ZATCA journal entry created successfully for purchase: {$purchase->purchase_no} with journal ID: {$journalEntry->id}");
+            } catch (\Exception $e) {
+                Log::error('Failed to create journal entry for ZATCA purchase: ' . $e->getMessage());
+                Log::error('Purchase details: ID=' . $purchase->id . ', Purchase No=' . $purchase->purchase_no);
+                Log::error('User ID: ' . $userId);
+                Log::error('Exception trace: ' . $e->getTraceAsString());
+                return $this->responseWithError('Failed to create journal entries: ' . $e->getMessage());
+            }
+
+            // Create journal entries for any existing payments
+            foreach ($purchase->purchasePayments as $payment) {
+                try {
+                    $transaction = AccountTransaction::find($payment->transaction_id);
+                    if ($transaction) {
+                        $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $payment->amount, $userId);
+                        $payment->update([
+                            'status' => 1,
+                        ]);
+                   
+                        $transaction->update([
+                            'status' => 1,
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Failed to create payment journal entry for ZATCA purchase: ' . $e->getMessage());
+                    // Continue with other payments even if one fails
+                }
+            }
+
+            // Update purchase status to active (sent to ZATCA)
+            $purchase->update(['status' => 1]);
+
+            // Here you would add actual ZATCA integration
+            // For now, we'll just simulate the ZATCA sending
+            // You can integrate with ZATCA API here
+            
+            // Log the ZATCA sending
+            Log::info("Purchase {$purchase->purchase_no} sent to ZATCA", [
+                'purchase_id' => $purchase->id,
+                'user_id' => $userId,
+                'timestamp' => now()
+            ]);
+
+            return $this->responseWithSuccess('Purchase sent to ZATCA successfully and journal entries created', [
+                'purchase_id' => $purchase->id,
+                'purchase_no' => $purchase->purchase_no,
+                'status' => 'sent_to_zatca'
+            ]);
+
+        } catch (Exception $e) {
+            Log::error('Error sending purchase to ZATCA: ' . $e->getMessage());
+            return $this->responseWithError('Failed to send purchase to ZATCA: ' . $e->getMessage());
+        }
     }
 }

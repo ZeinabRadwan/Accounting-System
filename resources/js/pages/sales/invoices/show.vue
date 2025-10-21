@@ -58,6 +58,14 @@
             <a @click="printWindow()" href="#" class="btn btn-secondary">
               <i class="fas fa-print"></i> {{ $t("Print") }}
             </a>
+            <a 
+              v-if="isSaudiArabia && allData && allData.status === 0"
+              @click="sendInvoice(allData)" 
+              href="#" 
+              class="btn btn-success"
+            >
+              <i class="fas fa-paper-plane"></i> {{ $t("Send Invoice to ZATCA") }}
+            </a>
 
             <router-link
               v-if="$can('invoice-edit') && !(isSaudiArabia && allData && allData.status === 1)"
@@ -695,6 +703,8 @@ import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
+import Swal from "sweetalert2";
+import SwalOriginal from "sweetalert2/dist/sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -998,6 +1008,67 @@ export default {
     // reset pagination
     async resetPagination() {
       this.pagination.current_page = 1;
+    },
+
+    // Send invoice to ZATCA
+    async sendInvoice(data) {
+      console.log('Send invoice clicked for:', data);
+      console.log('isSaudiArabia:', this.isSaudiArabia);
+      console.log('data.status:', data.status);
+      
+      SwalOriginal.fire({
+        title: this.$t("Send Invoice to ZATCA"),
+        text: this.$t("Do you want to send this invoice to ZATCA?"),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#dc3545",
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            // Show loading
+            SwalOriginal.fire({
+              title: this.$t("Sending..."),
+              text: this.$t("Please wait while we send the invoice to ZATCA"),
+              allowOutsideClick: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                SwalOriginal.showLoading();
+              }
+            });
+
+            // Send invoice to ZATCA and create journal entries
+            const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
+            
+            // Close the loading dialog
+            SwalOriginal.close();
+            
+            if (response.data.success) {
+              this.$toast.success(
+                this.$t("Sent Successfully!"),
+                this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
+              );
+              // Refresh the invoice data to update the status
+              this.getInvoice();
+            } else {
+              this.$toast.error(
+                this.$t("Failed!"),
+                response.data.message || this.$t("Failed to send invoice to ZATCA")
+              );
+            }
+          } catch (error) {
+            console.error('Error sending invoice to ZATCA:', error);
+            // Close the loading dialog
+            SwalOriginal.close();
+            this.$toast.error(
+              this.$t("Error!"),
+              error.response?.data?.message || this.$t("An error occurred while sending the invoice to ZATCA")
+            );
+          }
+        }
+      });
     },
   },
 };

@@ -340,7 +340,7 @@
                     :class="{ 'is-invalid': form.errors.has('poDate') }" name="poDate" />
                   <has-error :form="form" field="poDate" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -439,6 +439,11 @@ export default {
   },
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
+    
+    // Check if the country is Saudi Arabia
+    isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA'
+    },
     
     // Calculate total unit price (sum of all unit prices)
     totalUnitPrice() {

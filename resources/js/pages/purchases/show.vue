@@ -60,6 +60,14 @@
             <a @click="printWindow()" href="#" class="btn btn-secondary">
               <i class="fas fa-print"></i> {{ $t("Print") }}
             </a>
+            <a 
+              v-if="isSaudiArabia && allData && allData.status === 0"
+              @click="sendPurchase(allData)" 
+              href="#" 
+              class="btn btn-success"
+            >
+              <i class="fas fa-paper-plane"></i> {{ $t("Send Purchase to ZATCA") }}
+            </a>
             <router-link
               v-if="$can('purchase-edit')"
               :to="{
@@ -553,6 +561,8 @@ import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
+import Swal from "sweetalert2";
+import SwalOriginal from "sweetalert2/dist/sweetalert2";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -597,6 +607,11 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+    
+    // Check if the country is Saudi Arabia
+    isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA'
+    },
   },
 
   watch: {
@@ -757,6 +772,69 @@ export default {
     // reset pagination
     async resetPagination() {
       this.pagination.current_page = 1;
+    },
+
+    // Send purchase to ZATCA
+    async sendPurchase(data) {
+      console.log('Send purchase clicked for:', data);
+      console.log('isSaudiArabia:', this.isSaudiArabia);
+      console.log('data.status:', data.status);
+      
+      SwalOriginal.fire({
+        title: this.$t("Send Purchase to ZATCA"),
+        text: this.$t("Do you want to send this purchase to ZATCA?"),
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#dc3545",
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            // Show loading
+            SwalOriginal.fire({
+              title: this.$t("Sending..."),
+              text: this.$t("Please wait while we send the purchase to ZATCA"),
+              allowOutsideClick: false,
+              showConfirmButton: true,
+              confirmButtonText: this.$t("Please wait..."),
+              confirmButtonColor: "#28a745",
+              willOpen: () => {
+                SwalOriginal.showLoading();
+              }
+            });
+
+            // Send purchase to ZATCA and create journal entries
+            const response = await axios.post(`/api/purchases/${data.slug}/send-to-zatca`);
+            
+            // Close the loading dialog
+            SwalOriginal.close();
+            
+            if (response.data.success) {
+              this.$toast.success(
+                this.$t("Sent Successfully!"),
+                this.$t("Purchase has been sent to ZATCA and journal entries have been created.")
+              );
+              // Refresh the purchase data to update the status
+              this.getPurchase();
+            } else {
+              this.$toast.error(
+                this.$t("Failed!"),
+                response.data.message || this.$t("Failed to send purchase to ZATCA")
+              );
+            }
+          } catch (error) {
+            console.error('Error sending purchase to ZATCA:', error);
+            // Close the loading dialog
+            SwalOriginal.close();
+            this.$toast.error(
+              this.$t("Error!"),
+              error.response?.data?.message || this.$t("An error occurred while sending the purchase to ZATCA")
+            );
+          }
+        }
+      });
     },
   },
 };

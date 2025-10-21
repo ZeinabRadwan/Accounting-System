@@ -152,7 +152,7 @@ class JournalEntry extends Model
      */
     public function getFormattedStatusAttribute(): string
     {
-        return ucfirst($this->status);
+        return __(ucfirst($this->status));
     }
 
     /**

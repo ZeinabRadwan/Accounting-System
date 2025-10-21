@@ -430,7 +430,7 @@
                     :class="{ 'is-invalid': form.errors.has('poDate') }" name="poDate" />
                   <has-error :form="form" field="poDate" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
                   <label for="status">{{ $t("Status") }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -548,7 +548,7 @@ export default {
       poDate: new Date().toISOString().slice(0, 10),
       purchaseDate: new Date().toISOString().slice(0, 10),
       note: "",
-      status: 1,
+      status: 0, // Default to inactive for ZATCA compatibility
       isSendEmail: false,
       isSendSMS: false,
       totalDiscount: 0,
