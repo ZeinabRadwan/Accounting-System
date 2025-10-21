@@ -40,6 +40,6 @@ class MinTotal implements Rule
      */
     public function message()
     {
-        return 'Net total must be greater than total paid amount '.$this->minAmount;
+        return  __('Net total must be greater than total paid amount') .' '.$this->minAmount;
     }
 }

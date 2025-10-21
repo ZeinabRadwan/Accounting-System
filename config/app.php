@@ -214,6 +214,7 @@ return [
         App\Providers\TenancyServiceProvider::class,
         App\Providers\CustomServiceProvider::class,
         App\Providers\CurrencyDirectiveServiceProvider::class,
+        App\Providers\JsonTranslationServiceProvider::class,
         Unicodeveloper\Paystack\PaystackServiceProvider::class,
 
     ],

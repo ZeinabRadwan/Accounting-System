@@ -269,6 +269,8 @@ return [
         'ccLoanLimit' => 'حد قرض السحب على المكشوف (CC)',
         'address' => 'العنوان',
         'domain' => 'النطاق',
+        'adjustment reason' => 'سبب التعديل',
+        'adjustmentReason' => 'سبب التعديل',
     ],
 
     // Custom validation messages

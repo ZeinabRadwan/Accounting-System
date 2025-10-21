@@ -54,4 +54,26 @@ return [
     'Select it manually' => 'تجاوز حساب المبيعات',
     'Select it manually' => 'تجاوز حساب المشتريات',
     'Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.' => 'سيتم تعيين الحسابات تلقائياً بناءً على إعداداتك. حدد المربعات أدناه لتحديد الحسابات يدوياً لهذا المنتج.',
+    // General / Shared
+    'posted_journal_delete_error' => 'هذه المعاملة مرتبطة بقيد يومية مُرحّل ولا يمكن حذفها.',
+    
+    // Transfer Balance Messages
+    'Debit bank account not found.' => 'لم يتم العثور على حساب البنك المدين.',
+    'Credit bank account not found.' => 'لم يتم العثور على حساب البنك الدائن.',
+    'Failed to create journal entry: ' => 'فشل في إنشاء قيد اليومية: ',
+    'This transfer is linked to a journal entry (draft/posted) and cannot be deleted.' => 'هذا التحويل مرتبط بقيد يومية (مسودة/مُرحّل) ولا يمكن حذفه.',
+    'Sorry you can\'t delete this transfer!' => 'عذراً، لا يمكنك حذف هذا التحويل!',
+    'Transfer added successfully' => 'تم إضافة التحويل بنجاح',
+    'Transfer updated successfully' => 'تم تحديث التحويل بنجاح',
+    'Transfer deleted successfully' => 'تم حذف التحويل بنجاح',
+    
+    // Common finance terms
+    'Debit' => 'مدين',
+    'Credit' => 'دائن',
+    
+    // Misc messages referenced in controllers
+    'Chart of Account assigned successfully' => 'تم تعيين دليل الحسابات بنجاح',
+    'Domain is available' => 'اسم النطاق متاح',
+    'This domain has already been taken' => 'تم حجز هذا النطاق بالفعل',
+    'The current password is incorrect.' => 'كلمة المرور الحالية غير صحيحة.',
 ];

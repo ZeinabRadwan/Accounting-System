@@ -148,7 +148,10 @@
                     </td>
                     <td>{{ data.payable  }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ data.installment }}</td>
+                    <td>
+                      <CurrencyDisplay :amount="data.perMonth" />
+                      <span> {{ $t('Per Month') }} X {{ data.duration }} </span>
+                    </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -246,6 +249,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
+import CurrencyDisplay from "~/components/CurrencyDisplay.vue";
 import Swal from "sweetalert2";
 
 export default {
@@ -255,6 +259,7 @@ export default {
   },
   components: {
     DateRangePicker,
+    CurrencyDisplay,
   },
   data: () => ({
     breadcrumbsCurrent: "Loans",

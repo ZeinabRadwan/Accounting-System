@@ -31,17 +31,6 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
-        // Debug: Check if user is authenticated and has permissions
-        $user = auth()->user();
-        if (!$user) {
-            return response()->json(['error' => 'User not authenticated'], 401);
-        }
-        
-        $hasPermission = $user->can('purchase-order-list');
-        if (!$hasPermission) {
-            return response()->json(['error' => 'User does not have purchase-order-list permission'], 403);
-        }
-        
         return PurchaseOrder::with('supplier', 'purchaseOrderProducts.product')
             ->latest()
             ->paginate($request->perPage ?? 10);
@@ -283,6 +272,7 @@ class PurchaseOrderController extends Controller
             
             if (!$purchaseOrder) {
                 return response()->json([
+                    'success' => false,
                     'message' => 'Purchase order not found'
                 ], 404);
             }
@@ -294,6 +284,7 @@ class PurchaseOrderController extends Controller
             $purchaseOrder->delete();
 
             return response()->json([
+                'success' => true,
                 'message' => 'Purchase order deleted successfully'
             ]);
 

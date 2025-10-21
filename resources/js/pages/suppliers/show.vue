@@ -1705,10 +1705,16 @@ export default {
       this.getSupplierPayments();
       this.getNonPurchaseTransactions();
     });
+  },
+  mounted() {
     document.addEventListener('click', this.handleClickOutside);
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleResize);
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleClickOutside);
+    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     switchTab(tabName) {
@@ -2353,71 +2359,44 @@ export default {
 
     // Toggle action menu
     toggleAction(index) {
+      this.openActionIndex = this.openActionIndex === index ? null : index;
       if (this.openActionIndex === index) {
-        this.openActionIndex = null;
-      } else {
-        this.openActionIndex = index;
-        // Position the menu correctly after it's rendered
         this.$nextTick(() => {
-          this.positionActionMenu();
+          this.positionDropdown(index);
         });
       }
     },
 
-    // Position action menu using floating approach to prevent layout issues
-    positionActionMenu() {
-      const menu = document.querySelector('.action-menu');
-      if (!menu) return;
-
-      // Get the trigger button (action icon)
-      const triggerButton = document.querySelector('.action-icon-btn[data-action-index="' + this.openActionIndex + '"]');
-      if (!triggerButton) return;
-
-      const buttonRect = triggerButton.getBoundingClientRect();
-      const menuRect = menu.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-
-      // Check if RTL layout
-      const isRTL = document.dir === 'rtl' || document.documentElement.dir === 'rtl';
-      
-      // Calculate optimal position
-      let left = buttonRect.left + scrollX;
-      let top = buttonRect.bottom + scrollY + 4; // 4px gap
-
-      // For RTL, position relative to right edge
-      if (isRTL) {
-        left = buttonRect.right + scrollX - menuRect.width;
+    // Position dropdown similar to purchases (bills) index
+    positionDropdown(index) {
+      const button = document.querySelector(`[data-action-index="${index}"]`);
+      if (button) {
+        const rect = button.getBoundingClientRect();
+        const menu = document.querySelector('.action-menu');
+        if (menu) {
+          const isRTL = document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
+          if (isRTL) {
+            menu.style.left = '45px';
+            menu.style.right = 'auto';
+          } else {
+            menu.style.left = `${rect.right - 200}px`; // 200px is min-width
+            menu.style.right = 'auto';
+          }
+          menu.style.top = `${rect.bottom + 8}px`;
+        }
       }
+    },
 
-      // Adjust if menu would overflow right edge (LTR) or left edge (RTL)
-      if (!isRTL && left + menuRect.width > viewportWidth + scrollX) {
-        left = viewportWidth + scrollX - menuRect.width - 10; // 10px margin
-      } else if (isRTL && left < scrollX + 10) {
-        left = scrollX + 10;
+    handleScroll() {
+      if (this.openActionIndex !== null) {
+        this.positionDropdown(this.openActionIndex);
       }
+    },
 
-      // Adjust if menu would overflow bottom edge
-      if (top + menuRect.height > viewportHeight + scrollY) {
-        top = buttonRect.top + scrollY - menuRect.height - 4; // Position above button
+    handleResize() {
+      if (this.openActionIndex !== null) {
+        this.positionDropdown(this.openActionIndex);
       }
-
-      // Ensure menu doesn't go off-screen on the left (LTR) or right (RTL)
-      if (!isRTL && left < scrollX + 10) {
-        left = scrollX + 10;
-      } else if (isRTL && left + menuRect.width > viewportWidth + scrollX) {
-        left = viewportWidth + scrollX - menuRect.width - 10;
-      }
-
-      // Apply floating position
-      menu.style.position = 'fixed';
-      menu.style.left = left + 'px';
-      menu.style.top = top + 'px';
-      menu.style.right = 'auto';
-      menu.style.bottom = 'auto';
-      menu.style.transform = 'translateZ(0)'; // Hardware acceleration
     },
 
     // Close action menu when clicking outside

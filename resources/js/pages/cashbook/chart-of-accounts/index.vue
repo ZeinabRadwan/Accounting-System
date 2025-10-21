@@ -170,12 +170,12 @@
                                 {{ $t('Edit') }}
                               </router-link>
                             </li>
-                            <li>
+                            <!-- <li>
                               <a href="#" @click.prevent="manageTranslations(account)">
                                 <i class="fas fa-language"></i>
                                 {{ $t('Manage Translations') }}
                               </a>
-                            </li>
+                            </li> -->
                             <li v-if="!account.has_children">
                               <a href="#" @click.prevent="deleteAccount(account)">
                                 <i class="fas fa-trash"></i>
@@ -528,7 +528,7 @@ export default {
       if (confirm(`Are you sure you want to delete account ${account.code}?`)) {
         try {
           await this.$axios.delete(`/api/chart-of-accounts/${account.code}`)
-          this.$toast.success('Account deleted successfully')
+          this.$toast.success(this.$t('Account deleted successfully'))
           this.loadAccounts()
         } catch (error) {
           console.error('Error deleting account:', error)
