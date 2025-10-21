@@ -141,6 +141,63 @@
             <div id="buildResults" class="su-pre p-3" style="white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; max-height: 300px; overflow-y: auto; background: rgba(0,0,0,0.3);">No build executed yet. Click "Build only" to see results.</div>
         </div>
     </div>
+
+    <!-- Git Sync Section -->
+    <div class="su-card mb-3">
+        <div class="p-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <h6 class="mb-1">Git Sync</h6>
+                    <p class="su-sub mb-0">Sync with remote repository - check status, pull, commit, and push changes</p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button id="gitStatusBtn" class="su-btn su-btn-ghost">Check Status</button>
+                    <button id="gitPullBtn" class="su-btn su-btn-ghost">Pull</button>
+                </div>
+            </div>
+            
+            <!-- Git Status Display -->
+            <div id="gitStatusDisplay" class="mb-3" style="display: none;">
+                <div class="su-item-card">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="mb-1">Repository Status</h6>
+                            <p class="su-sub mb-0" id="gitStatusText">Checking...</p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span id="gitBranchBadge" class="su-badge"></span>
+                            <span id="gitChangesBadge" class="su-badge" style="display: none;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commit Form -->
+            <div id="gitCommitForm" class="mb-3" style="display: none;">
+                <div class="su-item-card">
+                    <h6 class="mb-2">Commit Changes</h6>
+                    <div class="grid-2col">
+                        <div>
+                            <label class="form-label su-sub">Commit Title</label>
+                            <input type="text" id="gitCommitTitle" class="su-input" placeholder="Enter commit title" value="Update from system">
+                        </div>
+                        <div>
+                            <label class="form-label su-sub">Commit Message (optional)</label>
+                            <input type="text" id="gitCommitMessage" class="su-input" placeholder="Enter commit message">
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mt-2">
+                        <button id="gitCommitBtn" class="su-btn su-btn-ghost">Commit</button>
+                        <button id="gitPushBtn" class="su-btn su-btn-ghost">Push</button>
+                        <span id="gitActionMsg" class="su-sub"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Git Output -->
+            <div id="gitOutput" class="su-pre p-3" style="white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; max-height: 300px; overflow-y: auto; background: rgba(0,0,0,0.3); display: none;">No git operations executed yet. Click "Check Status" to see repository status.</div>
+        </div>
+    </div>
     <div class="mb-2" style="display:none;">
         <textarea id="settingsEditor" class="form-control su-pre" rows="12" style="white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">{{ json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</textarea>
     </div>
@@ -380,6 +437,165 @@
 
         pushBuildResultsBtn?.addEventListener('click', function(){
             executeAction("{{ route('system.update.push.build.results') }}", 'Pushing build results');
+        });
+
+        // Git Sync functionality
+        const gitStatusBtn = document.getElementById('gitStatusBtn');
+        const gitPullBtn = document.getElementById('gitPullBtn');
+        const gitCommitBtn = document.getElementById('gitCommitBtn');
+        const gitPushBtn = document.getElementById('gitPushBtn');
+        const gitStatusDisplay = document.getElementById('gitStatusDisplay');
+        const gitCommitForm = document.getElementById('gitCommitForm');
+        const gitOutput = document.getElementById('gitOutput');
+        const gitStatusText = document.getElementById('gitStatusText');
+        const gitBranchBadge = document.getElementById('gitBranchBadge');
+        const gitChangesBadge = document.getElementById('gitChangesBadge');
+        const gitActionMsg = document.getElementById('gitActionMsg');
+        const gitCommitTitle = document.getElementById('gitCommitTitle');
+        const gitCommitMessage = document.getElementById('gitCommitMessage');
+
+        function setGitMsg(text, ok) {
+            gitActionMsg.textContent = text;
+            gitActionMsg.style.color = ok ? '#9fe2b0' : '#ef9a9a';
+        }
+
+        function showGitOutput(output) {
+            gitOutput.style.display = 'block';
+            gitOutput.textContent = output;
+            gitOutput.scrollTop = gitOutput.scrollHeight;
+        }
+
+        function updateGitStatus(data) {
+            gitStatusDisplay.style.display = 'block';
+            gitBranchBadge.textContent = data.current_branch || 'unknown';
+            
+            let statusText = `Branch: ${data.current_branch || 'unknown'}`;
+            let changesText = '';
+            
+            if (data.has_changes) {
+                changesText = `${data.changes.length} uncommitted changes`;
+                gitChangesBadge.textContent = changesText;
+                gitChangesBadge.style.display = 'inline-flex';
+                gitChangesBadge.style.background = 'rgba(239, 68, 68, 0.12)';
+                gitChangesBadge.style.color = '#fca5a5';
+                gitChangesBadge.style.borderColor = 'rgba(239, 68, 68, 0.25)';
+            } else {
+                gitChangesBadge.style.display = 'none';
+            }
+            
+            if (data.has_remote_changes) {
+                statusText += ' • Remote changes available';
+            }
+            
+            if (data.has_local_commits) {
+                statusText += ' • Local commits to push';
+            }
+            
+            gitStatusText.textContent = statusText;
+            
+            // Show commit form if there are changes
+            if (data.has_changes) {
+                gitCommitForm.style.display = 'block';
+            } else {
+                gitCommitForm.style.display = 'none';
+            }
+        }
+
+        function executeGitAction(url, actionName, data = {}) {
+            setGitMsg(actionName + '...', true);
+            showGitOutput(actionName + '...\n');
+            
+            return fetch(url, {
+                method: data.method || 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-System-Update-Key': providedKey
+                },
+                body: data.body ? JSON.stringify(data.body) : undefined
+            }).then(async (res) => {
+                const responseData = await res.json().catch(() => ({}));
+                if (!res.ok) throw new Error(responseData.message || actionName + ' failed');
+                
+                setGitMsg(actionName + ' completed successfully.', true);
+                showMessage(actionName + ' completed successfully.', 'success');
+                
+                if (responseData.output) {
+                    showGitOutput(responseData.output.join('\n'));
+                }
+                
+                return responseData;
+            }).catch(err => {
+                setGitMsg(err.message, false);
+                showMessage(err.message, 'error');
+                showGitOutput('Error: ' + err.message);
+                throw err;
+            });
+        }
+
+        // Git Status button
+        gitStatusBtn?.addEventListener('click', function() {
+            executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status')
+                .then(data => {
+                    updateGitStatus(data);
+                });
+        });
+
+        // Git Pull button
+        gitPullBtn?.addEventListener('click', function() {
+            executeGitAction("{{ route('system.update.git.pull') }}", 'Pulling from remote')
+                .then(() => {
+                    // Refresh status after pull
+                    return executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status');
+                })
+                .then(data => {
+                    updateGitStatus(data);
+                });
+        });
+
+        // Git Commit button
+        gitCommitBtn?.addEventListener('click', function() {
+            const title = gitCommitTitle.value.trim();
+            const message = gitCommitMessage.value.trim();
+            
+            if (!title) {
+                setGitMsg('Please enter a commit title', false);
+                return;
+            }
+            
+            executeGitAction("{{ route('system.update.git.commit') }}", 'Committing changes', {
+                method: 'POST',
+                body: { title, message }
+            }).then(() => {
+                // Refresh status after commit
+                return executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status');
+            }).then(data => {
+                updateGitStatus(data);
+            });
+        });
+
+        // Git Push button
+        gitPushBtn?.addEventListener('click', function() {
+            executeGitAction("{{ route('system.update.git.push') }}", 'Pushing to remote')
+                .then(() => {
+                    // Refresh status after push
+                    return executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status');
+                })
+                .then(data => {
+                    updateGitStatus(data);
+                });
+        });
+
+        // Auto-check git status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            executeGitAction("{{ route('system.update.git.status') }}", 'Checking git status')
+                .then(data => {
+                    updateGitStatus(data);
+                })
+                .catch(() => {
+                    // Silently fail on page load
+                });
         });
     })();
 </script>

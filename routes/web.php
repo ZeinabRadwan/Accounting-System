@@ -37,6 +37,10 @@ if (! empty(env('SYSTEM_UPDATE_KEY'))) {
         Route::post('/system-update/push-build-results', [SystemUpdateController::class, 'pushBuildResults'])->name('system.update.push.build.results');
         Route::post('/system-update/build-only', [SystemUpdateController::class, 'buildOnly'])->name('system.update.build.only');
         Route::get('/system-update/build-stream', [SystemUpdateController::class, 'buildStream'])->name('system.update.build.stream');
+        Route::get('/system-update/git-status', [SystemUpdateController::class, 'gitStatus'])->name('system.update.git.status');
+        Route::post('/system-update/git-pull', [SystemUpdateController::class, 'gitPull'])->name('system.update.git.pull');
+        Route::post('/system-update/git-commit', [SystemUpdateController::class, 'gitCommit'])->name('system.update.git.commit');
+        Route::post('/system-update/git-push', [SystemUpdateController::class, 'gitPush'])->name('system.update.git.push');
     // });
 }
 

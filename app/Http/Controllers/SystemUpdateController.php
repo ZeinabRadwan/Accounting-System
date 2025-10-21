@@ -272,6 +272,179 @@ class SystemUpdateController extends Controller
         ]);
     }
 
+    public function gitStatus(Request $request)
+    {
+        if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
+            abort(404);
+        }
+        $this->enforceKey($request);
+
+        $repoPath = base_path();
+        $output = [];
+        $exitCode = 0;
+
+        try {
+            $cwd = getcwd();
+            @chdir($repoPath);
+
+            // Check git status
+            $cmd = 'git status --porcelain 2>&1';
+            @exec($cmd, $output, $exitCode);
+            
+            // Get branch info
+            $branchCmd = 'git branch --show-current 2>&1';
+            $branchOutput = [];
+            @exec($branchCmd, $branchOutput, $branchExitCode);
+            $currentBranch = !empty($branchOutput) ? $branchOutput[0] : 'unknown';
+
+            // Check if there are commits to pull
+            $fetchCmd = 'git fetch --dry-run 2>&1';
+            $fetchOutput = [];
+            @exec($fetchCmd, $fetchOutput, $fetchExitCode);
+            $hasRemoteChanges = !empty($fetchOutput);
+
+            // Check if there are commits to push
+            $pushCmd = 'git log --oneline origin/' . $currentBranch . '..HEAD 2>&1';
+            $pushOutput = [];
+            @exec($pushCmd, $pushOutput, $pushExitCode);
+            $hasLocalCommits = !empty($pushOutput);
+
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        } finally {
+            if (isset($cwd)) { @chdir($cwd); }
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'output' => $output,
+            'exit_code' => $exitCode,
+            'current_branch' => $currentBranch,
+            'has_changes' => !empty($output),
+            'has_remote_changes' => $hasRemoteChanges,
+            'has_local_commits' => $hasLocalCommits,
+            'changes' => $output
+        ]);
+    }
+
+    public function gitPull(Request $request)
+    {
+        if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
+            abort(404);
+        }
+        $this->enforceKey($request);
+
+        $repoPath = base_path();
+        $output = [];
+        $exitCode = 0;
+
+        try {
+            $cwd = getcwd();
+            @chdir($repoPath);
+
+            // First fetch to see what's available
+            $fetchCmd = 'git fetch 2>&1';
+            @exec($fetchCmd, $fetchOutput, $fetchExitCode);
+            $output = array_merge($output, ['> git fetch', ...$fetchOutput]);
+
+            // Then pull with merge strategy
+            $cmd = 'git pull --no-rebase 2>&1';
+            @exec($cmd, $pullOutput, $exitCode);
+            $output = array_merge($output, ['> git pull --no-rebase', ...$pullOutput]);
+
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        } finally {
+            if (isset($cwd)) { @chdir($cwd); }
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'output' => $output,
+            'exit_code' => $exitCode,
+        ]);
+    }
+
+    public function gitCommit(Request $request)
+    {
+        if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
+            abort(404);
+        }
+        $this->enforceKey($request);
+
+        $repoPath = base_path();
+        $output = [];
+        $exitCode = 0;
+
+        $title = $request->input('title', 'Update from system');
+        $message = $request->input('message', '');
+        $commitMessage = $message ? $title . "\n\n" . $message : $title;
+
+        try {
+            $cwd = getcwd();
+            @chdir($repoPath);
+
+            // Add all changes
+            $addCmd = 'git add . 2>&1';
+            @exec($addCmd, $addOutput, $addExitCode);
+            $output = array_merge($output, ['> git add .', ...$addOutput]);
+
+            // Commit with message
+            $cmd = 'git commit -m "' . addslashes($commitMessage) . '" 2>&1';
+            @exec($cmd, $commitOutput, $exitCode);
+            $output = array_merge($output, ['> git commit', ...$commitOutput]);
+
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        } finally {
+            if (isset($cwd)) { @chdir($cwd); }
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'output' => $output,
+            'exit_code' => $exitCode,
+        ]);
+    }
+
+    public function gitPush(Request $request)
+    {
+        if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
+            abort(404);
+        }
+        $this->enforceKey($request);
+
+        $repoPath = base_path();
+        $output = [];
+        $exitCode = 0;
+
+        try {
+            $cwd = getcwd();
+            @chdir($repoPath);
+
+            // Get current branch
+            $branchCmd = 'git branch --show-current 2>&1';
+            @exec($branchCmd, $branchOutput, $branchExitCode);
+            $currentBranch = !empty($branchOutput) ? $branchOutput[0] : 'main';
+
+            // Push to current branch
+            $cmd = 'git push origin ' . $currentBranch . ' 2>&1';
+            @exec($cmd, $pushOutput, $exitCode);
+            $output = array_merge($output, ['> git push origin ' . $currentBranch, ...$pushOutput]);
+
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        } finally {
+            if (isset($cwd)) { @chdir($cwd); }
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'output' => $output,
+            'exit_code' => $exitCode,
+        ]);
+    }
+
     public function buildStream(Request $request)
     {
         if (empty(env('SYSTEM_UPDATE_KEY')) && empty(env('SYSTEM_UPDATE_KEY_HASH'))) {
