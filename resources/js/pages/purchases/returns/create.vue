@@ -79,156 +79,140 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div v-if="form.errors.errors && form.errors.errors.selectedProducts
-                  " class="w-95 m-auto">
+                <div v-if="form.errors.errors && form.errors.errors.selectedProducts" class="w-100 m-auto">
                   <div v-for="(msg, i) in form.errors.errors.selectedProducts" :key="i" class="callout callout-danger">
                     <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
                   </div>
                 </div>
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center">
+                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
+                  <table class="table table-hover table-sm text-center purchases-create-table">
                     <thead>
-                        <th>{{ $t('#') }}</th>
-                        <th>{{ $t('Code') }}</th>
-                        <th>{{ $t('Name') }}</th>
-                        <th>{{ $t('Purchased Qty') }}</th>
-                        <th>{{ $t('Current Qty') }}</th>
-                        <th>{{ $t('Returned Qty') }}</th>
-                        <th>{{ $t('Unit Cost') }}</th>
-                        <th>{{ $t('Total Price') }}</th>
-                        <th>{{ $t('Return Price') }}</th>
+                      <th>{{ $t('#') }}</th>
+                      <th>{{ $t('Code') }}</th>
+                      <th>{{ $t('Item Name') }}</th>
+                      <th>{{ $t('Qty') }}</th>
+                      <th>{{ $t('Price') }}</th>
+                      <th>{{ $t('Total') }}</th>
+                      <th>{{ $t('Discount') }}</th>
+                      <th>{{ $t('Total After Discount') }}</th>
+                      <th>{{ $t('VAT Type') }}</th>
+                      <th>{{ $t('VAT') }}</th>
+                      <th>{{ $t('Total with VAT') }}</th>
+                      <th class="text-right">{{ $t('Action') }}</th>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td style="min-width: 50px;">{{ ++i }}</td>
-                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 200px;">
-                          <router-link v-if="$can('product-view')" :to="{
-                            name: 'products.show',
-                            params: { slug: item.slug },
-                          }">
-                            {{ item.name }}
-                          </router-link>
-                          <span v-else>{{ item.name }}</span>
-                        </td>
-                        <td style="min-width: 120px;">{{ item.purchaseQty }} {{ item.unit }}</td>
-                        <td style="min-width: 120px;">{{ item.totalReturnQty }} {{ item.unit }}</td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="
-                                updateItem(Number(item.returnQty) - 1, i - 1)
-                                " />
-                            <input type="number" step="any" :id="`returnQty-${i}`" :placeholder="$t('Return Qty')"
-                              class="quantity-field border-0 incrementor" @change="updateItem($event.target.value, i - 1)"
-                              @keyup="updateItem($event.target.value, i - 1)" :value="item.returnQty" min="0"
-                              :max="item.purchaseQty" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="
-                                updateItem(
-                                  item.returnQty > 0
-                                    ? Number(item.returnQty) + 1
-                                    : 1,
-                                  i - 1
-                                )
-                                " />
+                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
+                        <td style="min-width: 30px;">{{ index + 1 }}</td>
+                        <td style="min-width: 60px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 120px;">
+                          <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                              <router-link v-if="$can('product-view')" :to="{ name: 'products.show', params: { slug: item.slug } }">{{ item.name }}</router-link>
+                              <span v-else>{{ item.name }}</span>
+                            </div>
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ formatAmount(item.purchasePrice) }}</td>
-                        <td style="min-width: 120px;">{{ formatAmount(item.totalPrice) }}</td>
-                        <td style="min-width: 120px;">{{ formatAmount(item.returnTotal) }}</td>
+                        <td style="min-width: 120px;">
+                          <div class="input-group custom-qty-input">
+                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger" data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
+                            <input type="number" step="any" :id="`returnQty-${index+1}`" v-model.number="item.returnQty" name="quantity" class="quantity-field border-0 incrementor" min="0" :max="item.maxQty" @input="updateItemReactively(item)" placeholder="Return Qty" />
+                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary" data-field="quantity" @click="updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index)" />
+                          </div>
+                        </td>
+                        <td style="min-width: 100px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
+                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">
+                          <div class="input-group">
+                            <select v-model="item.discountType" class="form-control form-control-sm" style="width: 60px;" @change="calculateProductDiscount(index)">
+                              <option value="fixed">{{ $t('Fixed') }}</option>
+                              <option value="percentage">{{ $t('%') }}</option>
+                            </select>
+                            <input type="number" v-model="item.discount" class="form-control form-control-sm" style="width: 80px;" step="any" min="0" :max="item.discountType == 'percentage' ? 100 : (item.unitCost * item.qty)" placeholder="0" @change="calculateProductDiscount(index)" @keyup="calculateProductDiscount(index)" />
+                          </div>
+                        </td>
+                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">
+                          <div class="d-flex align-items-center">
+                            <select v-model="item.selectedVatRate" class="form-control form-control-sm flex-grow-1" @change="calculateProductVat(index)" style="min-width: 80px;">
+                              <option value="">{{ $t('Select VAT') }}</option>
+                              <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td style="min-width: 60px;"><span class="form-control-plaintext form-control-sm text-center">{{ formatToTwoDecimals(item.productTax) }} <span class="saudi-riyal">ê</span></span></td>
+                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 50px;">
+                          <button type="button" class="btn btn-danger" @click="removeItem(item, index)"><i class="fas fa-times"></i></button>
+                        </td>
                       </tr>
-                      <tr v-if="form.purchase">
-                        <td colspan="7" class="text-right">
-                          <strong>{{ $t('Subtotal') }}:</strong>
-                        </td>
-                        <td>
-                          <strong>{{
-                            formatAmount(form.purchase.subTotal)
-                          }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatAmount(form.totalReturn) }}</strong>
-                        </td>
+                      <tr :key="`totals`">
+                        <td colspan="4" class="text-right"><strong> {{ $t('Total') }} : {{ toWord() }} </strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalTotal) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td><strong></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(subtotal) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div v-if="form.purchase" class="row">
-                <div class="form-group col-md-4">
-                  <label for="discount">{{
-                    $t('Discount')
-                  }}</label>
-                  <input id="discount" v-model="form.purchase.totalDiscount" type="number" step="any" class="form-control"
-                    name="discount" readonly />
+              <div class="row" id="input-fields">
+                <div v-if="!isSaudiArabia" class="form-group col-md-3">
+                  <label for="totalDiscount">{{ $t('Total Discount') }}</label>
+                  <input id="totalDiscount" v-model="formattedTotalDiscount" type="text" class="form-control" name="totalDiscount" readonly />
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="transportCost">{{
-                    $t('Transport Cost')
-                  }}</label>
-                  <input id="transportCost" v-model="form.purchase.transport" type="number" step="any"
-                    class="form-control" name="transportCost" readonly />
+                <div v-if="!isSaudiArabia" class="form-group col-md-3">
+                  <label for="transportCost">{{ $t('Transport Cost') }}</label>
+                  <input id="transportCost" v-model="formattedTransportCost" type="text" class="form-control" name="transportCost" readonly />
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="purchaseTax">{{
-                    $t('Purchase Tax')
-                  }}</label>
-                  <input id="purchaseTax" v-model="form.newTax" type="number" step="any" class="form-control"
-                    name="purchaseTax" readonly />
+                <div v-if="!isSaudiArabia" class="form-group col-md-3">
+                  <label for="purchaseTax">{{ $t('Purchase Tax') }}</label>
+                  <input id="purchaseTax" v-model="formattedPurchaseTax" type="text" class="form-control" name="purchaseTax" readonly />
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="purchaseTotal">{{
-                    $t('Purchase Total')
-                  }}</label>
-                  <input id="purchaseTotal" v-model="form.purchaseTotal" type="number" step="any" class="form-control"
-                    name="purchaseTotal" readonly />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="totalPaid">{{ $t('Total Paid') }}</label>
-                  <input id="totalPaid" v-model="form.purchase.totalPaid" type="number" step="any" class="form-control"
-                    name="totalPaid" readonly />
-                </div>
-                <div v-if="form.returnAmount > 0" class="form-group col-md-4">
-                  <label for="returnAmountText">{{
-                    $t('Return Amount')
-                  }}</label>
-                  <input id="returnAmountText" v-model="form.returnAmountText" type="text" class="form-control" :class="{
-                    'is-invalid': form.errors.has('returnAmountText'),
-                  }" name="returnAmountText" readonly />
+                <!-- <div v-if="form.returnAmount > 0" class="form-group col-md-3">
+                  <label for="returnAmountText">{{ $t('Return Amount') }}</label>
+                  <input id="returnAmountText" v-model="form.returnAmountText" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('returnAmountText'), }" name="returnAmountText" readonly />
                   <has-error :form="form" field="returnAmountText" />
-                </div>
-                <div v-else class="form-group col-md-4">
-                  <label for="newDueText">{{
-                    $t('Purchase Due')
-                  }}</label>
-                  <input id="newDueText" v-model="form.newDueText" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('newDueText') }" name="newDueText" readonly />
-                  <has-error :form="form" field="newDueText" />
-                </div>
+                </div> -->
               </div>
 
-              <div v-if="accounts && form.returnAmount > 0" class="row">
-                <div class="form-group col-md-6">
+             <div v-if="accounts && form.returnAmount > 0" class="row">  
+               <div class="form-group col-md-4">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')">
-                     <template slot="option" slot-scope="option">
-                        <img :src="option.image" style="width: 30px; height: 30px;" />
-                        {{ option.label }}
+                    :placeholder="$t('Select an account')" @input="updateBalance">
+                    <template slot="option" slot-scope="option">
+                      <img :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
                     </template>
-                  </v-select>
+                  </v-select>  
+                 <div class="account-status mt-2" v-if="form.account">
+                    <div v-if="!form.account.chartOfAccountId" class="account-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
+                      <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="goToBankAccounts">
+                        <i class="fas fa-external-link-alt"></i>
+                        {{ $t('Go to Bank Accounts') }}
+                      </button>
+                    </div>
+                    <div v-else class="account-success">
+                      <i class="fas fa-check-circle text-success"></i>
+                      <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
+                    </div>
+                  </div>
                   <has-error :form="form" field="account" />
                 </div>
-                <!-- <div class="form-group col-md-3">
-                  <label for="chequeNo">{{ $t('Cheque No') }}</label>
-                  <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
-                    :placeholder="$t('Enter a cheque number')" />
-                  <has-error :form="form" field="chequeNo" />
-                </div> -->
+                <div class="form-group col-md-2">
+                  <label for="availableBalance">{{ $t('Available Balance') }}</label>
+                  <input id="availableBalance" v-model="formattedAvailableBalance" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('availableBalance'), }" name="availableBalance" readonly />
+                  <has-error :form="form" field="availableBalance" />
+                </div>
                 <div class="form-group col-md-3">
                   <label for="receiptNo">{{ $t('Receipt No') }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
@@ -253,7 +237,7 @@
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6" v-if="!isSaudiArabia">
                   <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('status') }">
@@ -334,10 +318,17 @@ export default {
       newDueText: '',
       returnAmount: 0,
       returnAmountText: 0,
+      availableBalance: 0,
+      totalDiscount: 0,
+      transportCost: 0,
+      netTotal: 0,
+      taxAmount: 0,
+      discountTotal: 0,
     }),
     products: '',
     accounts: '',
     supplierPurchases: '',
+    taxes: '',
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -366,12 +357,64 @@ export default {
         },
       ];
     },
+    // Totals (same as invoice return)
+    totalUnitPrice() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
+      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalBeforeDiscount) || 0), 0)
+      const numValue = Number(total)
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+    },
+    totalTotal() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
+      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalBeforeDiscount) || 0), 0)
+      const numValue = Number(total)
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+    },
+    totalProductDiscount() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
+      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.discountAmount) || 0), 0)
+      const numValue = Number(total)
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+    },
+    totalAfterDiscount() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
+      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalAfterDiscount) || 0), 0)
+      const numValue = Number(total)
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+    },
+    totalProductTax() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
+      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.productTax) || 0), 0)
+      const numValue = Number(total)
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+    },
+    subtotal() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
+      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.totalPrice) || 0), 0)
+      const numValue = Number(total)
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
+    },
+    formattedTotalDiscount() {
+      return this.formatToTwoDecimals(this.form.totalDiscount || 0)
+    },
+    formattedTransportCost() {
+      return this.formatToTwoDecimals(this.form.purchaseTransport || 0)
+    },
+    formattedPurchaseTax() {
+      return this.formatToTwoDecimals(this.form.newTax || 0)
+    },
+    formattedAvailableBalance() {
+      return this.formatToTwoDecimals(this.form.availableBalance || 0)
+    },
   },
   created() {
     this.getSuppliers()
     this.getProducts()
     this.getAccounts()
+    this.getTaxes()
     this.prefix = this.appInfo.productPrefix
+    // default status by country
+    this.form.status = this.isSaudiArabia ? 0 : 1
   },
   methods: {
     formatAmount(value) {
@@ -400,6 +443,16 @@ export default {
         window.location.origin + '/api/all-accounts'
       )
       this.accounts = data.data
+    },
+
+    // get taxes
+    async getTaxes() {
+      try {
+        const { data } = await axios.get(window.location.origin + '/api/all-vat-rates')
+        this.taxes = data.data
+      } catch (e) {
+        this.taxes = []
+      }
     },
 
     // assign purchases
@@ -433,8 +486,33 @@ export default {
       this.form.purchaseDiscount = this.form.purchase.totalDiscount
       this.form.newDue = this.form.purchase.due
       this.form.newDueText = this.form.purchase.due
+      
+      // Check if we're coming from purchase actions (pre-selected purchase)
+      const isPreSelected = this.$route.query.purchase
+      
       for (var key in this.form.purchase.purchaseProducts) {
         let purchaseItem = this.form.purchase.purchaseProducts[key]
+        const availableQty = Number(purchaseItem.quantity) - Number(purchaseItem.returnQty)
+        const presetReturnQty = isPreSelected ? availableQty : 0
+        const maxQty = availableQty
+        const selectedVatRate = this.findMatchingVatRate(purchaseItem.productTax) || this.taxes?.[0]
+        const totalBeforeDiscount = Number((presetReturnQty * purchaseItem.unitCost).toFixed(2))
+        let discountAmount = 0
+        if ((purchaseItem.discountType || 'fixed') === 'percentage') {
+          discountAmount = Number(((totalBeforeDiscount) * (purchaseItem.productDiscount || 0) / 100).toFixed(2))
+        } else {
+          discountAmount = Number((purchaseItem.productDiscount || 0).toFixed ? (purchaseItem.productDiscount || 0).toFixed(2) : Number(purchaseItem.productDiscount || 0))
+        }
+        let totalAfterDiscount = Number((totalBeforeDiscount - discountAmount).toFixed(2))
+        let productTax = 0
+        let totalTax = 0
+        let totalPrice = totalAfterDiscount
+        if (selectedVatRate && selectedVatRate.rate) {
+          productTax = Number((totalAfterDiscount * (selectedVatRate.rate / 100)).toFixed(2))
+          totalTax = productTax
+          totalPrice = Number((totalAfterDiscount + productTax).toFixed(2))
+        }
+        
         this.form.selectedProducts.unshift({
           id: purchaseItem.productID,
           slug: purchaseItem.productSlug,
@@ -442,12 +520,25 @@ export default {
           code: purchaseItem.productCode,
           unit: purchaseItem.productUnit,
           purchaseQty: purchaseItem.quantity,
-          totalReturnQty:
-            Number(purchaseItem.quantity) - Number(purchaseItem.returnQty),
-          returnQty: 0,
-          returnTotal: 0,
+          totalReturnQty: availableQty,
+          qty: purchaseItem.quantity,
+          returnQty: presetReturnQty,
+          maxQty: maxQty,
           purchasePrice: purchaseItem.unitCost,
-          totalPrice: purchaseItem.unitCostTotal,
+          unitCost: purchaseItem.unitCost,
+          totalPrice: totalPrice,
+          returnTotal: totalPrice,
+          productTax: productTax,
+          totalTax: productTax,
+          productDiscount: purchaseItem.productDiscount || 0,
+          discountType: purchaseItem.discountType || 'fixed',
+          discountAmount: discountAmount,
+          discount: purchaseItem.productDiscount || 0,
+          vatRate: purchaseItem.vatRate,
+          selectedVatRate: selectedVatRate,
+          totalBeforeDiscount: totalBeforeDiscount,
+          totalAfterDiscount: totalAfterDiscount,
+          purchase_account_id: purchaseItem.purchase_account_id,
         })
       }
       this.calculateSum()
@@ -457,74 +548,187 @@ export default {
     // update items
     updateItem(value, index) {
       let selectedProduct = this.form.selectedProducts[index]
-      if (selectedProduct && value > 0) {
+      if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
         selectedProduct.returnQty = Number(value)
-        selectedProduct.returnTotal =
-          selectedProduct.returnQty * selectedProduct.purchasePrice
-        this.form.selectedProducts[index] = selectedProduct
+        selectedProduct.totalBeforeDiscount = Number((selectedProduct.returnQty * selectedProduct.unitCost).toFixed(2))
+        selectedProduct.totalAfterDiscount = Number((selectedProduct.totalBeforeDiscount - (selectedProduct.discountAmount || 0)).toFixed(2))
+        if (selectedProduct.selectedVatRate && selectedProduct.selectedVatRate.rate) {
+          const vatAmount = Number((selectedProduct.totalAfterDiscount * (selectedProduct.selectedVatRate.rate / 100)).toFixed(2))
+          selectedProduct.productTax = vatAmount
+          selectedProduct.totalTax = vatAmount
+          selectedProduct.totalPrice = Number((selectedProduct.totalAfterDiscount + vatAmount).toFixed(2))
+        } else {
+          selectedProduct.productTax = 0
+          selectedProduct.totalTax = 0
+          selectedProduct.totalPrice = selectedProduct.totalAfterDiscount
+        }
+        this.$set(this.form.selectedProducts, index, selectedProduct)
       }
       this.calculateSum()
     },
 
+    updateItemReactively(item) {
+      if (item.returnQty < 0) item.returnQty = 0
+      else if (item.returnQty > item.maxQty) item.returnQty = item.maxQty
+      item.totalBeforeDiscount = Number((item.returnQty * item.unitCost).toFixed(2))
+      item.totalAfterDiscount = Number((item.totalBeforeDiscount - (item.discountAmount || 0)).toFixed(2))
+      if (item.selectedVatRate && item.selectedVatRate.rate) {
+        const vatAmount = Number((item.totalAfterDiscount * (item.selectedVatRate.rate / 100)).toFixed(2))
+        item.productTax = vatAmount
+        item.totalTax = vatAmount
+        item.totalPrice = Number((item.totalAfterDiscount + vatAmount).toFixed(2))
+      } else {
+        item.productTax = 0
+        item.totalTax = 0
+        item.totalPrice = item.totalAfterDiscount
+      }
+      this.calculateSum()
+    },
+
+    // discount and vat per product
+    calculateProductDiscount(index) {
+      const product = this.form.selectedProducts[index]
+      if (!product) return
+      let discountAmount = 0
+      if (product.discountType === 'percentage') {
+        discountAmount = (product.returnQty * product.unitCost) * (product.discount / 100)
+      } else {
+        discountAmount = product.discount
+      }
+      product.discountAmount = Number(discountAmount.toFixed(2))
+      product.totalBeforeDiscount = Number((product.returnQty * product.unitCost).toFixed(2))
+      product.totalAfterDiscount = Number((product.totalBeforeDiscount - discountAmount).toFixed(2))
+      this.calculateSum()
+    },
+
+    calculateProductVat(index) {
+      const product = this.form.selectedProducts[index]
+      if (!product || !product.selectedVatRate) return
+      const vatAmount = Number((product.totalAfterDiscount * (product.selectedVatRate.rate / 100)).toFixed(2))
+      product.productTax = vatAmount
+      product.totalTax = vatAmount
+      product.totalPrice = Number((product.totalAfterDiscount + vatAmount).toFixed(2))
+      this.calculateSum()
+    },
+
+    // helpers
+    findMatchingVatRate(productTax) {
+      if (!this.taxes || !productTax) return null
+      return this.taxes.find(tax => tax.id === productTax.id || tax.rate === productTax.rate)
+    },
+
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || isNaN(value)) return '0.00'
+      const numValue = Number(value)
+      if (isNaN(numValue)) return '0.00'
+      return numValue.toFixed(2)
+    },
+
+    toWord() { return this.$t('Total') },
+
+    removeItem(item, index) {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return
+      this.form.selectedProducts.splice(index, 1)
+      this.calculateSum()
+    },
+
+    // update available balance
+    updateBalance() {
+      this.form.availableBalance = 0
+      if (this.form.account) this.form.availableBalance = this.form.account.availableBalance
+      if (this.form.account && this.form.returnAmount > 0) this.validateBankAccountChartOfAccount()
+    },
+
+    validateBankAccountChartOfAccount() {
+      if (this.form.account && !this.form.account.chartOfAccountId) {
+        toast.fire({
+          type: 'warning',
+          title: this.$t('Bank Account Chart of Account Required'),
+          text: this.$t('The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.'),
+          timer: 8000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: this.$t('Go to Bank Accounts'),
+          showCancelButton: true,
+          cancelButtonText: this.$t('Close'),
+        }).then((result) => { if (result.isConfirmed) this.goToBankAccounts() })
+      }
+    },
+
+    goToBankAccounts() { this.$router.push({ name: 'accounts.index' }) },
+
     // calculate sum
     calculateSum() {
-      this.form.totalReturn = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return Number((prev + cur.returnTotal).toFixed(2))
-      },
-        0)
-
-      this.form.newSubTotal = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return Number(
-          (
-            prev +
-            (cur.purchaseQty - cur.returnQty) * cur.purchasePrice
-          ).toFixed(2)
-        )
-      },
-        0)
-
-      this.form.newTax = Number(
-        ((this.form.taxRate / 100) * this.form.newSubTotal).toFixed(2)
-      )
-      this.form.purchaseTotal =
-        this.form.newSubTotal +
-        this.form.newTax +
-        this.form.purchaseTransport -
-        this.form.purchaseDiscount
-
-      this.form.purchaseDue = Number(
-        (this.form.purchaseTotal - this.form.purchase.totalPaid).toFixed(2)
-      )
+      const length = this.form.selectedProducts.length
+      this.form.newSubTotal = this.form.totalReturn = 0
+      let totalProductDiscount = 0
+      let purchaseSubtotal = 0
+      this.form.netTotal = 0
+      this.form.taxAmount = 0
+      this.form.discountTotal = 0
+      
+      for (let i = 0; i < length; i++) {
+        const p = this.form.selectedProducts[i]
+        const remainingQty = p.qty - p.returnQty
+        const productTotal = remainingQty * p.unitCost
+        purchaseSubtotal += productTotal
+        this.form.newSubTotal += Number(productTotal.toFixed(2))
+        
+        if (p.returnQty > 0) {
+          const originalLineTotal = parseFloat(p.totalPrice) || 0
+          const totalQty = parseFloat(p.qty) || 1
+          const returnQty = parseFloat(p.returnQty) || 0
+          const unitPrice = originalLineTotal / totalQty
+          const returnTotal = Number((unitPrice * returnQty).toFixed(2))
+          p.returnTotal = returnTotal
+          this.form.totalReturn += returnTotal
+          const originalDiscount = parseFloat(p.discountAmount) || 0
+          const originalTax = parseFloat(p.totalTax) || 0
+          const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
+          const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
+          const proportionalNet = Number((returnTotal - proportionalDiscount).toFixed(2))
+          this.form.netTotal += proportionalNet
+          this.form.taxAmount += proportionalTax
+          this.form.discountTotal += proportionalDiscount
+        }
+        
+        if (p.productDiscount && p.productDiscount > 0) {
+          if (p.discountType === 'percentage') {
+            let discountAmount = (productTotal * p.productDiscount) / 100
+            totalProductDiscount += Number(discountAmount.toFixed(2))
+          } else {
+            let discountPerUnit = p.productDiscount / p.qty
+            let discountAmount = discountPerUnit * remainingQty
+            totalProductDiscount += Number(discountAmount.toFixed(2))
+          }
+        }
+      }
+      
+      // purchase-level discount
+      let purchaseDiscountAmount = Number(this.form.purchaseDiscount || 0)
+      this.form.newSubTotal = Number((purchaseSubtotal - totalProductDiscount - purchaseDiscountAmount).toFixed(2))
+      this.form.purchaseDiscount = purchaseDiscountAmount
+      
+      const taxableAmount = this.form.newSubTotal
+      if (this.form.taxRate && this.form.taxRate.rate) {
+        this.form.newTax = Number(((this.form.taxRate.rate / 100) * taxableAmount).toFixed(2))
+      } else {
+        this.form.newTax = 0
+      }
+      
+      this.form.purchaseTotal = Number((this.form.newSubTotal + this.form.newTax + this.form.purchaseTransport - this.form.purchaseDiscount).toFixed(2))
+      this.form.purchaseDue = Number((this.form.purchaseTotal - (this.form.purchase?.totalPaid || 0)).toFixed(2))
+      
       if (this.form.purchaseDue >= 0) {
-        this.form.newDue = Number(
-          (this.form.purchaseTotal - this.form.purchase.totalPaid).toFixed(2)
-        )
-        this.form.newDueText =
-          this.form.purchaseTotal +
-          ' - ' +
-          this.form.purchase.totalPaid +
-          ' = ' +
-          this.form.newDue
+        this.form.newDue = this.form.purchaseTotal - (this.form.purchase?.totalPaid || 0)
+        this.form.newDueText = `${this.form.purchaseTotal} - ${this.form.purchase?.totalPaid || 0} = ${Number(this.form.newDue).toFixed(2)}`
         this.form.returnAmount = 0
       } else {
-        this.form.returnAmount = (
-          this.form.purchase.totalPaid - this.form.purchaseTotal
-        ).toFixed(2)
-        this.form.returnAmountText =
-          this.form.purchase.totalPaid +
-          ' - ' +
-          this.form.purchaseTotal +
-          ' = ' +
-          this.form.returnAmount
+        this.form.returnAmount = Number(((this.form.purchase?.totalPaid || 0) - this.form.purchaseTotal).toFixed(2))
+        this.form.returnAmountText = `${this.form.purchase?.totalPaid || 0} - ${this.form.purchaseTotal} = ${this.form.returnAmount}`
         this.form.purchaseDue = 0
+        this.form.newDue = 0
       }
-      return
     },
 
     // save return
@@ -580,9 +784,169 @@ export default {
     clearTemporaryData() {
       localStorage.removeItem('purchaseReturnTempData')
     },
+
+    // handle pre-selection from query parameters
+    async handlePreSelection() {
+      let supplierSlug = this.$route.query.supplier
+      const purchaseSlug = this.$route.query.purchase
+      let purchaseData = null
+      
+      if (purchaseSlug) {
+        try {
+          // If we have a purchase slug but no supplier slug, fetch the purchase details
+          if (!supplierSlug) {
+            const response = await axios.get(`/api/purchases/${purchaseSlug}`)
+            purchaseData = response.data.data
+            
+            if (purchaseData && purchaseData.supplier) {
+              supplierSlug = purchaseData.supplier.slug
+            }
+          }
+          
+          if (supplierSlug) {
+            // Try multiple times with increasing delays
+            let attempts = 0
+            const maxAttempts = 10
+            
+            while (attempts < maxAttempts) {
+              if (this.items && this.items.length > 0) {
+                const selectedSupplier = this.items.find(supplier => supplier.slug === supplierSlug)
+                
+                // If not found by slug, try to find by ID or name as fallback
+                if (!selectedSupplier && purchaseData && purchaseData.supplier) {
+                  const fallbackSupplier = this.items.find(supplier => 
+                    supplier.id === purchaseData.supplier.id || 
+                    supplier.name === purchaseData.supplier.name
+                  )
+                  if (fallbackSupplier) {
+                    this.form.supplier = fallbackSupplier
+                    
+                    // Trigger purchase loading for this supplier
+                    await this.assignPurchases()
+                    
+                    // Wait for purchases to be loaded, then select the purchase
+                    await this.$nextTick()
+                    await new Promise(resolve => setTimeout(resolve, 500))
+                    
+                    if (this.supplierPurchases && this.supplierPurchases.length > 0) {
+                      const selectedPurchase = this.supplierPurchases.find(purchase => purchase.slug === purchaseSlug)
+                      
+                      if (selectedPurchase) {
+                        this.form.purchase = selectedPurchase
+                        // Trigger product loading for this purchase
+                        this.storeProducts()
+                        return // Success, exit the loop
+                      } else {
+                        // Try multiple fallback methods
+                        let fallbackPurchase = null
+                        
+                        // Method 1: Try by ID
+                        if (purchaseData && purchaseData.id) {
+                          fallbackPurchase = this.supplierPurchases.find(purchase => purchase.id === purchaseData.id)
+                        }
+                        
+                        // Method 2: Try by purchase number
+                        if (!fallbackPurchase && purchaseData && purchaseData.purchaseNo) {
+                          fallbackPurchase = this.supplierPurchases.find(purchase => purchase.purchaseNo === purchaseData.purchaseNo)
+                        }
+                        
+                        // Method 3: Try by slug with different casing
+                        if (!fallbackPurchase) {
+                          fallbackPurchase = this.supplierPurchases.find(purchase => 
+                            purchase.slug && purchase.slug.toLowerCase() === purchaseSlug.toLowerCase()
+                          )
+                        }
+                        
+                        if (fallbackPurchase) {
+                          this.form.purchase = fallbackPurchase
+                          this.storeProducts()
+                          return // Success, exit the loop
+                        } else {
+                          // If we have purchase data from API but it's not in supplier's list, use it directly
+                          if (purchaseData && purchaseData.slug === purchaseSlug) {
+                            this.form.purchase = purchaseData
+                            this.storeProducts()
+                            return // Success, exit the loop
+                          }
+                        }
+                      }
+                    }
+                    // Continue trying instead of returning early
+                  }
+                }
+                
+                if (selectedSupplier) {
+                  this.form.supplier = selectedSupplier
+                  
+                  // Trigger purchase loading for this supplier
+                  await this.assignPurchases()
+                  
+                  // Wait for purchases to be loaded, then select the purchase
+                  await this.$nextTick()
+                  await new Promise(resolve => setTimeout(resolve, 500))
+                  
+                  if (this.supplierPurchases && this.supplierPurchases.length > 0) {
+                    const selectedPurchase = this.supplierPurchases.find(purchase => purchase.slug === purchaseSlug)
+                    
+                    if (selectedPurchase) {
+                      this.form.purchase = selectedPurchase
+                      // Trigger product loading for this purchase
+                      this.storeProducts()
+                      return // Success, exit the loop
+                    } else {
+                      // Try multiple fallback methods
+                      let fallbackPurchase = null
+                      
+                      // Method 1: Try by ID
+                      if (purchaseData && purchaseData.id) {
+                        fallbackPurchase = this.supplierPurchases.find(purchase => purchase.id === purchaseData.id)
+                      }
+                      
+                      // Method 2: Try by purchase number
+                      if (!fallbackPurchase && purchaseData && purchaseData.purchaseNo) {
+                        fallbackPurchase = this.supplierPurchases.find(purchase => purchase.purchaseNo === purchaseData.purchaseNo)
+                      }
+                      
+                      // Method 3: Try by slug with different casing
+                      if (!fallbackPurchase) {
+                        fallbackPurchase = this.supplierPurchases.find(purchase => 
+                          purchase.slug && purchase.slug.toLowerCase() === purchaseSlug.toLowerCase()
+                        )
+                      }
+                      
+                      if (fallbackPurchase) {
+                        this.form.purchase = fallbackPurchase
+                        this.storeProducts()
+                        return // Success, exit the loop
+                      } else {
+                        // If we have purchase data from API but it's not in supplier's list, use it directly
+                        if (purchaseData && purchaseData.slug === purchaseSlug) {
+                          this.form.purchase = purchaseData
+                          this.storeProducts()
+                          return // Success, exit the loop
+                        }
+                      }
+                    }
+                  }
+                  // Continue trying instead of returning early
+                }
+              }
+              attempts++
+              if (attempts < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, 200))
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching purchase details:', error)
+        }
+      }
+    },
   },
   mounted() {
     this.loadTemporaryData()
+    // Handle pre-selection from query parameters after component is mounted
+    this.handlePreSelection()
   },
 }
 </script>
@@ -735,30 +1099,15 @@ textarea.form-control {
 }
 
 /* Table Styling */
-.table-custom {
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table-custom thead th {
-  background-color: #F8F9FA;
-  border-bottom: 2px solid #E5E7EB;
-  font-weight: 600;
-  color: #374151;
-  padding: 12px 8px;
-  text-align: center;
-}
-
-.table-custom tbody td {
-  padding: 12px 8px;
-  border-bottom: 1px solid #E5E7EB;
-  vertical-align: middle;
-}
-
-.table-custom tbody tr:hover {
-  background-color: #F8F9FA;
-}
+.table-custom { border: none !important; }
+.purchases-create-table { border-collapse: separate; border-spacing: 0; }
+.purchases-create-table thead th { background-color: #33a0d9; color: #ffffff; padding: 8px; border: none !important; border-color: inherit !important; font-weight: 400; }
+.purchases-create-table thead tr { border: none !important; }
+.purchases-create-table thead th:first-child { border-top-left-radius: 10px; }
+.purchases-create-table thead th:last-child { border-top-right-radius: 10px; }
+[dir="rtl"] .purchases-create-table thead th:first-child { border-top-left-radius: 0; border-top-right-radius: 10px; }
+[dir="rtl"] .purchases-create-table thead th:last-child { border-top-right-radius: 0; border-top-left-radius: 10px; }
+.purchases-create-table .badge.badge-info { background: #E3F2FD !important; color: #1976D2 !important; font-size: 12px !important; font-weight: 500 !important; padding: 10px 16px; }
 
 /* Custom Quantity Input Styling */
 .custom-qty-input {
@@ -802,6 +1151,11 @@ textarea.form-control {
   outline: none;
   box-shadow: none;
 }
+
+.quantity-field { border-radius: 0 !important; min-height: 50px !important; margin: 0 !important; }
+.account-status { font-size: 0.875rem; }
+.account-status .account-warning { color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
+.account-status .account-success { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
 
 /* Callout Styling */
 .callout {

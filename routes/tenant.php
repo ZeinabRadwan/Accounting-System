@@ -279,6 +279,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         // Purchase return routes
         Route::post('/supplier/filter-purchases', [SupplierController::class, 'filterSupplierPurchases']);
         Route::get('/purchase-returns/search', [PurchaseReturnController::class, 'search']);
+        Route::post('/purchase-returns/{slug}/send-to-zatca', [PurchaseReturnController::class, 'sendToZatca']);
         Route::apiResource('purchase-returns', PurchaseReturnController::class);
 
         // Quotations routes

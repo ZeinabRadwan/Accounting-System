@@ -84,7 +84,7 @@ class DashboardController extends Controller
     // return sales
     public function recentInvoices()
     {
-        return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments')->latest()->take(6)->get());
+        return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments', 'invoiceReturn')->latest()->take(6)->get());
     }
 
     // return purchases

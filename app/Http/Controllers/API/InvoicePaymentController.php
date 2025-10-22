@@ -38,7 +38,7 @@ class InvoicePaymentController extends Controller
      */
     public function index(Request $request)
     {
-        return InvoicePaymentResource::collection(InvoicePayment::with('invoice.client', 'invoice.invoiceTax', 'invoicePaymentTransaction.cashbookAccount', 'user')->latest()->paginate($request->perPage));
+        return InvoicePaymentResource::collection(InvoicePayment::with('invoice.client', 'invoice.invoiceTax', 'invoice.invoiceReturn', 'invoicePaymentTransaction.cashbookAccount', 'user')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -360,12 +360,12 @@ class InvoicePaymentController extends Controller
     public function search(Request $request)
     {
         if ($request->term == "All Users") {
-            $query = InvoicePayment::with('invoice.client', 'invoicePaymentTransaction.cashbookAccount', 'user');
+            $query = InvoicePayment::with('invoice.client', 'invoice.invoiceReturn', 'invoicePaymentTransaction.cashbookAccount', 'user');
             return InvoicePaymentResource::collection($query->paginate($request->perPage));
         }
 
         $term = $request->term;
-        $query = InvoicePayment::with('invoice.client', 'invoicePaymentTransaction.cashbookAccount', 'user');
+        $query = InvoicePayment::with('invoice.client', 'invoice.invoiceReturn', 'invoicePaymentTransaction.cashbookAccount', 'user');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

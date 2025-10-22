@@ -51,7 +51,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments')->latest()->paginate($request->perPage));
+        return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments', 'invoiceReturn')->latest()->paginate($request->perPage));
     }
 
     private function getDiscountAllowedAccount(): ?ChartOfAccount
@@ -714,12 +714,12 @@ class InvoiceController extends Controller
     public function search(Request $request)
     {
         if ($request->term == "All Users") {
-            $query = Invoice::with('client', 'invoicePayments', 'user');
+            $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user');
             return InvoiceListResource::collection($query->paginate($request->perPage));
         }
 
         $term = $request->term;
-        $query = Invoice::with('client', 'invoicePayments', 'user');
+        $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('invoice_date', [$request->startDate, $request->endDate]);

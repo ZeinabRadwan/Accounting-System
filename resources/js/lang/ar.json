@@ -3981,6 +3981,15 @@
     "balance_removed_from": "رصيد مخصوم من :account [:number]",
     "balance_adjustment_account": "تعديل رصيد - :name",
     "purchase_return_reverse_expense": "إرجاع مشتريات - عكس المصروف لـ PR-:code",
+    "Send Purchase Return to ZATCA" : "إرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
+    "Do you want to send this purchase return to ZATCA?" : "هل تريد إرسال هذا الاشعار المدين إلى هيئة الزكاة والضريبة؟",
+    "Purchase return has been sent to ZATCA and journal entries have been created." : "تم إرسال الاشعار المدين إلى هيئة الزكاة والضريبة وتم إنشاء قيود اليومية.",
+    "Failed to send purchase return to ZATCA" : "فشل في إرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
+    "Failed!" : "فشل!",
+    "Sent Successfully!" : "تم الإرسال بنجاح!",
+    "Please wait while we send the purchase return to ZATCA" : "يرجى الإنتظار في حين نقوم بإرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
+    "Please wait..." : "يرجى الإنتظار...",
+    "An error occurred while sending the purchase return to ZATCA" : "حدث خطأ أثناء إرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
     "purchase_return_reduce_payable": "إرجاع مشتريات - تخفيض الحسابات الدائنة لـ PR-:code"
   }
 }

@@ -412,7 +412,7 @@ class SupplierController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = Supplier::query();
+        $query = Supplier::with('purchases.purchaseReturn');
 
         // Filter by date range
         if ($request->startDate && $request->endDate) {
@@ -468,7 +468,7 @@ class SupplierController extends Controller
                 return $this->responseWithError('Supplier not found', 404);
             }
             
-            return PurchaseListResource::collection(Purchase::with('purchaseTax')->where('supplier_id', $supplier->id)->get());
+            return PurchaseListResource::collection(Purchase::with('purchaseTax', 'purchaseReturn')->where('supplier_id', $supplier->id)->get());
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -491,7 +491,8 @@ class SupplierController extends Controller
         $purchases = Purchase::with(
             'purchaseProducts.product.proSubCategory.category',
             'purchaseProducts.product.productUnit',
-            'purchaseTax'
+            'purchaseTax',
+            'purchaseReturn'
         );
         if (isset($request->products) && count($request->products) > 0) {
             // build the product array
@@ -555,7 +556,7 @@ class SupplierController extends Controller
 
         $supplier = Supplier::where('slug', $slug)->first();
 
-        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax');
+        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('purchase_date', [$request->startDate, $request->endDate]);

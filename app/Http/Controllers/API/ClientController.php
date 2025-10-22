@@ -558,6 +558,7 @@ class ClientController extends Controller
         return InvoiceListResource::collection(Invoice::with(
             'client',
             'invoiceTax',
+            'invoiceReturn',
             'invoicePayments'
         )->where('client_id', $client->id)->latest()->paginate($request->perPage));
     }
@@ -569,7 +570,7 @@ class ClientController extends Controller
 
         $client = Client::where('slug', $slug)->first();
 
-        $query = Invoice::with('client', 'invoiceTax', 'invoicePayments')->where('client_id', $client->id);
+        $query = Invoice::with('client', 'invoiceTax', 'invoicePayments', 'invoiceReturn')->where('client_id', $client->id);
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('invoice_date', [$request->startDate, $request->endDate]);

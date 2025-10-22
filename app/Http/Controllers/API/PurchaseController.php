@@ -42,7 +42,7 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        return PurchaseListResource::collection(Purchase::with('supplier', 'purchasePayments', 'purchaseTax')->latest()->paginate($request->perPage));
+        return PurchaseListResource::collection(Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -665,7 +665,7 @@ class PurchaseController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = Purchase::with('supplier', 'purchasePayments', 'user');
+        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn', 'user');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('purchase_date', [$request->startDate, $request->endDate]);

@@ -744,6 +744,21 @@ export default {
         }
       });
     },
+
+    // return purchase
+    returnPurchase(data) {
+      // Navigate to purchase return create page with pre-selected purchase
+      // We'll fetch the supplier info from the purchase on the create page
+      console.log('Full purchase data:', JSON.stringify(data, null, 2))
+      console.log('Purchase slug:', data.slug)
+      
+      this.$router.push({
+        name: 'purchaseReturns.create',
+        query: {
+          purchase: data.slug
+        }
+      });
+    },
   },
 };
 </script>

@@ -36,7 +36,7 @@ class PurchasePaymentController extends Controller
      */
     public function index(Request $request)
     {
-        return PurchasePaymentResource::collection(PurchasePayment::with('purchase.supplier', 'purchase.purchaseTax', 'purchasePaymentTransaction.cashbookAccount', 'user')->latest()->paginate($request->perPage));
+        return PurchasePaymentResource::collection(PurchasePayment::with('purchase.supplier', 'purchase.purchaseTax', 'purchase.purchaseReturn', 'purchasePaymentTransaction.cashbookAccount', 'user')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -289,7 +289,7 @@ class PurchasePaymentController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = PurchasePayment::with('purchase.supplier', 'purchasePaymentTransaction.cashbookAccount', 'user');
+        $query = PurchasePayment::with('purchase.supplier', 'purchase.purchaseReturn', 'purchasePaymentTransaction.cashbookAccount', 'user');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

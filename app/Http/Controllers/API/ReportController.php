@@ -1697,7 +1697,7 @@ class ReportController extends Controller
     public function supplierDueReport(Request $request)
     {
         try {
-            $query = Supplier::query();
+            $query = Supplier::with('purchases.purchaseReturn');
             return SupplierResource::collection($query->latest()->paginate($request->perPage));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -1722,7 +1722,7 @@ class ReportController extends Controller
             'user' => 'required',
         ]);
         try {
-            $query = Invoice::with('client', 'invoicePayments', 'user');
+            $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user');
             $term = $request->user['id'];
             if ($request->fromDate && $request->toDate) {
                 $query = $query->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
