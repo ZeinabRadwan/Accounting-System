@@ -1,21 +1,5 @@
 <template>
   <form :id="formId" role="form" @keydown="form.onKeydown($event)">
-    <!-- Top Save Button -->
-    <div class="form-card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">
-            <i class="fas fa-save mr-2"></i>
-            {{ $t("Product Form") }}
-          </h5>
-          <button type="button" class="btn btn-outline-success" @click.prevent="saveTemporary">
-            <i class="fas fa-save mr-1"></i>
-            {{ $t("Save Temporary") }}
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Item Type Selection Section -->
     <div class="form-card">
       <div class="card-header">
@@ -84,20 +68,25 @@
               <has-error :form="form" field="subCategory" />
             </div>
 
-            <div class="form-group">
-              <label for="itemUnit">{{ $t("Unit") }} <span class="required">*</span></label>
-              <v-select v-model="form.itemUnit" :options="units" label="name"
-                :class="{ 'is-invalid': form.errors.has('itemUnit') }" name="itemUnit"
-                :placeholder="$t('Select a unit')" />
-              <has-error :form="form" field="itemUnit" />
-            </div>
-
-            <div class="form-group">
-              <label for="productTax">{{ $t("Tax Rate") }} <span class="required">*</span></label>
-              <v-select v-model="form.productTax" :options="taxes" label="code"
-                :class="{ 'is-invalid': form.errors.has('productTax') }" name="productTax"
-                :placeholder="$t('Select a tax')" @input="calculatePrice" />
-              <has-error :form="form" field="productTax" />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="itemUnit">{{ $t("Unit") }} <span class="required">*</span></label>
+                  <v-select v-model="form.itemUnit" :options="units" label="name"
+                    :class="{ 'is-invalid': form.errors.has('itemUnit') }" name="itemUnit"
+                    :placeholder="$t('Select a unit')" />
+                  <has-error :form="form" field="itemUnit" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="productTax">{{ $t("Tax Rate") }} <span class="required">*</span></label>
+                  <v-select v-model="form.productTax" :options="taxes" label="code"
+                    :class="{ 'is-invalid': form.errors.has('productTax') }" name="productTax"
+                    :placeholder="$t('Select a tax')" @input="calculatePrice" />
+                  <has-error :form="form" field="productTax" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -127,7 +116,7 @@
               <has-error :form="form" field="discount" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
               <label for="sellingPrice">{{ $t("Final Price") }}</label>
               <input id="sellingPrice" v-model="form.sellingPrice" type="number" class="form-control" readonly
                 :class="{ 'is-invalid': form.errors.has('sellingPrice') }" name="sellingPrice" 
@@ -158,18 +147,6 @@
               <has-error :form="form" field="openingStockCount" />
             </div>
           </div>
-          <div class="col-md-6" style="display: none;">
-            <div class="form-group">
-              <label for="openingStockUnitPrice">{{ $t("Stock Unit Price") }}</label>
-              <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
-                :placeholder="$t('Enter unit price')" />
-              <has-error :form="form" field="openingStockUnitPrice" />
-            </div>
-          </div>
-        </div>
-        <!-- Alert Quantity moved here to be in warehouse section -->
-        <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="alertQuantity">{{ $t("Alert Quantity") }}</label>
@@ -177,6 +154,15 @@
                 class="form-control" :class="{ 'is-invalid': form.errors.has('alertQuantity') }" name="alertQuantity"
                 :placeholder="$t('Enter alert quantity')" />
               <has-error :form="form" field="alertQuantity" />
+            </div>
+          </div>
+          <div class="col-md-6" style="display: none;">
+            <div class="form-group">
+              <label for="openingStockUnitPrice">{{ $t("Stock Unit Price") }}</label>
+              <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
+                :placeholder="$t('Enter unit price')" />
+              <has-error :form="form" field="openingStockUnitPrice" />
             </div>
           </div>
         </div>
@@ -201,8 +187,8 @@
       </div>
     </div>
 
-    <!-- Chart of Accounts Section -->
-    <div class="form-card">
+    <!-- Chart of Accounts Section - Hidden, auto-assigned -->
+    <div class="form-card" style="display: none;">
       <div class="card-header">
         <h5 class="section-title">
           <i class="fas fa-chart-line mr-2"></i>
@@ -451,7 +437,7 @@
       <div class="card-footer">
         <div class="dtable-footer">
           <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-            <button type="button" :disabled="form.busy" class="btn btn-success" @click.prevent="submitForm">
+            <button type="button" :disabled="form.busy" class="btn btn-success" @click.prevent="handleSaveClick">
               <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" />
               {{ form.busy ? $t("Saving...") : $t("Save") }}
             </button>
@@ -520,25 +506,40 @@ export default {
   },
   methods: {
     calculatePrice() {
-      this.$emit('calculatePrice')
+      this.$emit('calculate-price')
     },
     onFileChange(e) {
-      this.$emit('onFileChange', e)
+      this.$emit('on-file-change', e)
     },
     onOverrideSalesAccountChange() {
-      this.$emit('onOverrideSalesAccountChange')
+      this.$emit('on-override-sales-account-change')
     },
     onOverridePurchaseAccountChange() {
-      this.$emit('onOverridePurchaseAccountChange')
+      this.$emit('on-override-purchase-account-change')
+    },
+    handleSaveClick() {
+      console.log('ProductFormTemplate: Save button clicked', { 
+        formBusy: this.form.busy,
+        formErrors: this.form.errors.any(),
+        formData: this.form.data()
+      })
+      
+      if (this.form.busy) {
+        console.log('ProductFormTemplate: Form is busy, ignoring click')
+        return
+      }
+      
+      this.submitForm()
     },
     submitForm() {
-      this.$emit('submitForm')
+      console.log('ProductFormTemplate: submitForm called')
+      this.$emit('submit-form')
     },
     saveTemporary() {
-      this.$emit('saveTemporary')
+      this.$emit('save-temporary')
     },
     resetForm() {
-      this.$emit('resetForm')
+      this.$emit('reset-form')
     }
   }
 }

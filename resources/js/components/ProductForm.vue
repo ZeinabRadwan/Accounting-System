@@ -200,6 +200,14 @@ export default {
     }
   },
   created() {
+    console.log('ProductForm: Component created', { 
+      form: this.form,
+      formBusy: this.form.busy,
+      formErrors: this.form.errors.any(),
+      formMethods: Object.getOwnPropertyNames(Object.getPrototypeOf(this.form)),
+      formHasPost: typeof this.form.post === 'function',
+      formHasData: typeof this.form.data === 'function'
+    })
     this.initializeForm()
     this.loadData()
   },
@@ -256,6 +264,12 @@ export default {
     },
 
     async submitForm() {
+      console.log('ProductForm: submitForm called - EVENT RECEIVED!', { 
+        isEditMode: !!this.product, 
+        formData: this.form.data(),
+        formErrors: this.form.errors.any() 
+      })
+      
       if (this.product) {
         await this.updateProduct()
       } else {
@@ -447,6 +461,14 @@ export default {
 
     // save product
     async saveProduct() {
+      console.log('ProductForm: saveProduct called', { 
+        formData: this.form.data(),
+        formErrors: this.form.errors.any(),
+        formBusy: this.form.busy,
+        formMethods: Object.getOwnPropertyNames(Object.getPrototypeOf(this.form)),
+        formHasPost: typeof this.form.post === 'function'
+      })
+      
       // Validate required fields based on item type
       if (this.form.itemType === 'service' && !this.form.servicePurchasePrice) {
         toast.fire({ 
@@ -458,26 +480,65 @@ export default {
 
       // Validate sales account - required if not automatic OR if override is checked
       const needsSalesAccount = !this.isSalesAccountAutomatic || this.form.overrideSalesAccount
+      console.log('ProductForm: Sales account validation', {
+        isSalesAccountAutomatic: this.isSalesAccountAutomatic,
+        overrideSalesAccount: this.form.overrideSalesAccount,
+        needsSalesAccount: needsSalesAccount,
+        salesAccountId: this.form.salesAccountId
+      })
+      
+      // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
+      if (this.isSalesAccountAutomatic && !this.form.overrideSalesAccount) {
+        if (this.accountRoutingSettings && this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
+          console.log('ProductForm: Using auto-assigned sales account:', this.form.salesAccountId)
+        }
+      }
+      
       if (needsSalesAccount && !this.form.salesAccountId) {
+        console.log('ProductForm: Sales account validation failed')
+        const message = this.form.overrideSalesAccount 
+          ? "Please select a Sales Account from the dropdown" 
+          : "Sales Account is required"
         toast.fire({ 
           type: "error", 
-          title: "Sales Account is required" 
+          title: message
         })
         return
       }
 
       // Validate purchase account - required if not automatic OR if override is checked
       const needsPurchaseAccount = !this.isPurchaseAccountAutomatic || this.form.overridePurchaseAccount
+      console.log('ProductForm: Purchase account validation', {
+        isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
+        overridePurchaseAccount: this.form.overridePurchaseAccount,
+        needsPurchaseAccount: needsPurchaseAccount,
+        purchaseAccountId: this.form.purchaseAccountId
+      })
+      
+      // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
+      if (this.isPurchaseAccountAutomatic && !this.form.overridePurchaseAccount) {
+        if (this.accountRoutingSettings && this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
+          console.log('ProductForm: Using auto-assigned purchase account:', this.form.purchaseAccountId)
+        }
+      }
+      
       if (needsPurchaseAccount && !this.form.purchaseAccountId) {
+        console.log('ProductForm: Purchase account validation failed')
+        const message = this.form.overridePurchaseAccount 
+          ? "Please select a Purchase Account from the dropdown" 
+          : "Purchase Account is required"
         toast.fire({ 
           type: "error", 
-          title: "Purchase Account is required" 
+          title: message
         })
         return
       }
 
       // Check if form has any errors
       if (this.form.errors.any()) {
+        console.log('ProductForm: Form has validation errors', this.form.errors.all())
         toast.fire({ 
           type: "error", 
           title: "Please fix the form errors before submitting" 
@@ -485,70 +546,120 @@ export default {
         return
       }
       
-      await this.form
-        .post(window.location.origin + "/api/products")
-        .then((response) => {
-          toast.fire({
-            type: "success",
-            title: this.$t("Product added successfully"),
-          })
-          
-          // Emit the newly created product data
-          if (response.data && response.data.data) {
-            const newProduct = response.data.data
-            const formattedProduct = {
-              id: newProduct.id,
-              slug: newProduct.slug,
-              name: newProduct.name,
-              code: newProduct.code,
-              label: `${newProduct.name} [${newProduct.code}]`,
-              itemType: newProduct.itemType,
-              itemModel: newProduct.itemModel || '',
-              avgPurchasePrice: newProduct.avgPurchasePrice || 0,
-              regularPrice: newProduct.regularPrice || 0,
-              priceWithDiscount: newProduct.sellingPrice,
-              sellingPrice: newProduct.sellingPrice,
-              taxAmount: newProduct.taxAmount || 0,
-              taxType: newProduct.taxType,
-              taxRate: newProduct.taxRate,
-              productTax: newProduct.productTax,
-              inventoryCount: newProduct.inventoryCount || 0,
-              image: newProduct.image || '',
-              sales_account_id: newProduct.sales_account_id,
-              purchase_account_id: newProduct.purchase_account_id
-            }
-            this.$emit('productCreated', formattedProduct)
+      console.log('ProductForm: Form validation passed, proceeding with submission')
+      
+      console.log('ProductForm: Making POST request to /api/products')
+      const formDataToSend = this.form.data()
+      console.log('ProductForm: Form data being sent:', formDataToSend)
+      
+      // Check for object values that should be IDs
+      Object.keys(formDataToSend).forEach(key => {
+        const value = formDataToSend[key]
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+          console.log(`ProductForm: Field '${key}' is an object:`, value)
+          if (value.id) {
+            formDataToSend[key] = value.id
+            console.log(`ProductForm: Converted '${key}' to ID:`, value.id)
           }
-          
-          // Store auto-assigned account IDs before reset
-          const autoAssignedSalesAccountId = this.isSalesAccountAutomatic ? this.form.salesAccountId : null
-          const autoAssignedPurchaseAccountId = this.isPurchaseAccountAutomatic ? this.form.purchaseAccountId : null
-          
-          this.form.reset()
-          this.form.itemType = "product" // Reset to default
-          this.form.overrideSalesAccount = false // Reset override flags
-          this.form.overridePurchaseAccount = false
-          
-          // Restore auto-assigned account IDs after reset
-          if (autoAssignedSalesAccountId) {
-            this.form.salesAccountId = autoAssignedSalesAccountId
-          }
-          if (autoAssignedPurchaseAccountId) {
-            this.form.purchaseAccountId = autoAssignedPurchaseAccountId
-          }
-          
-          if (this.mode === 'modal') {
-            this.showModal = false
-          } else {
-            this.$router.push({ name: 'products.index' })
-          }
-          this.$emit('reloadProducts')
+        }
+      })
+      
+      console.log('ProductForm: Processed form data:', formDataToSend)
+      console.log('ProductForm: Form headers:', this.form.headers)
+      console.log('ProductForm: Form busy before request:', this.form.busy)
+      
+      // Set form as busy before making the request
+      this.form.busy = true
+      console.log('ProductForm: Form busy after setting:', this.form.busy)
+      
+      try {
+        // Create a new form instance with processed data
+        const processedForm = new Form(formDataToSend)
+        processedForm.busy = true
+        const response = await processedForm.post(window.location.origin + "/api/products")
+        console.log('ProductForm: POST request successful', response)
+        toast.fire({
+          type: "success",
+          title: this.$t("Product added successfully"),
         })
-        .catch((error) => {
-          console.error("Error creating product:", error)
-          const errorMessage = error.response?.data?.message || "Please check your input and try again."
-          toast.fire({ type: "error", title: errorMessage })
+        
+        // Emit the newly created product data
+        if (response.data && response.data.data) {
+          const newProduct = response.data.data
+          const formattedProduct = {
+            id: newProduct.id,
+            slug: newProduct.slug,
+            name: newProduct.name,
+            code: newProduct.code,
+            label: `${newProduct.name} [${newProduct.code}]`,
+            itemType: newProduct.itemType,
+            itemModel: newProduct.itemModel || '',
+            avgPurchasePrice: newProduct.avgPurchasePrice || 0,
+            regularPrice: newProduct.regularPrice || 0,
+            priceWithDiscount: newProduct.sellingPrice,
+            sellingPrice: newProduct.sellingPrice,
+            taxAmount: newProduct.taxAmount || 0,
+            taxType: newProduct.taxType,
+            taxRate: newProduct.taxRate,
+            productTax: newProduct.productTax,
+            inventoryCount: newProduct.inventoryCount || 0,
+            image: newProduct.image || '',
+            sales_account_id: newProduct.sales_account_id,
+            purchase_account_id: newProduct.purchase_account_id
+          }
+          this.$emit('productCreated', formattedProduct)
+        }
+        
+        // Store auto-assigned account IDs before reset
+        const autoAssignedSalesAccountId = this.isSalesAccountAutomatic ? this.form.salesAccountId : null
+        const autoAssignedPurchaseAccountId = this.isPurchaseAccountAutomatic ? this.form.purchaseAccountId : null
+        
+        this.form.reset()
+        this.form.itemType = "product" // Reset to default
+        this.form.overrideSalesAccount = false // Reset override flags
+        this.form.overridePurchaseAccount = false
+        
+        // Restore auto-assigned account IDs after reset
+        if (autoAssignedSalesAccountId) {
+          this.form.salesAccountId = autoAssignedSalesAccountId
+        }
+        if (autoAssignedPurchaseAccountId) {
+          this.form.purchaseAccountId = autoAssignedPurchaseAccountId
+        }
+        
+        if (this.mode === 'modal') {
+          this.showModal = false
+        } else {
+          this.$router.push({ name: 'products.index' })
+        }
+        this.$emit('reloadProducts')
+        
+        // Reset form busy state
+        this.form.busy = false
+        console.log('ProductForm: Form busy after success:', this.form.busy)
+      } catch (error) {
+        console.error("Error creating product:", error)
+        console.log('ProductForm: POST request failed', { 
+          error: error,
+          response: error.response,
+          status: error.response?.status,
+          data: error.response?.data
         })
+        
+        // Handle validation errors
+        if (error.response && error.response.data && error.response.data.errors) {
+          this.form.errors.set(error.response.data.errors)
+          console.log('ProductForm: Validation errors set:', error.response.data.errors)
+        }
+        
+        const errorMessage = error.response?.data?.message || "Please check your input and try again."
+        console.log('ProductForm: Error message:', errorMessage)
+        toast.fire({ type: "error", title: String(errorMessage) })
+        
+        // Reset form busy state
+        this.form.busy = false
+        console.log('ProductForm: Form busy after error:', this.form.busy)
+      }
     },
 
     // update product
