@@ -24,7 +24,7 @@ class InvoiceResource extends JsonResource
             'invoicePayments' => InvoicePaymentListResource::collection($this->invoicePayments),
             'invoiceProducts' => InvoiceProductResource::collection($this->invoiceProducts),
             'discountType' => $this->discount_type,
-            'discount' => $this->discount,
+            'discount' => $this->discountAmount(),
             'discountPercentage' => $this->discountPercentage(),
             'transport' => $this->transport,
             'taxRate' => $this->invoiceTax,

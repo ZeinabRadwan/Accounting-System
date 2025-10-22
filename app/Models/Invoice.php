@@ -100,6 +100,19 @@ class Invoice extends Model
     }
 
     // Calculate the actual discount amount
+    public function discountAmount()
+    {
+        if ($this->discount > 0) {
+            if ($this->discount_type == 1) { // Percentage
+                return ($this->discount / 100) * $this->sub_total;
+            } else { // Fixed
+                return $this->discount;
+            }
+        }
+        return 0;
+    }
+
+    // Calculate the actual discount amount
     public function getDiscountAmountAttribute()
     {
         if ($this->discount > 0) {

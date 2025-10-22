@@ -21,7 +21,7 @@ class InvoiceForPaymentResource extends JsonResource
             'slug' => $this->slug,
             'reference' => $this->reference,
             'discountType' => $this->discount_type,
-            'discount' => $this->discount,
+            'discount' => $this->discountAmount(),
             'discountPercentage' => $this->discountPercentage(),
             'transport' => $this->transport,
             'taxRate' => $this->invoiceTax,
