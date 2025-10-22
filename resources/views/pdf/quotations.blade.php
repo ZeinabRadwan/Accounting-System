@@ -3,19 +3,18 @@
 @section('content')
     <style>
         body {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
+            font-family: 'DejaVu Sans', 'Arial Unicode MS', 'Tahoma', sans-serif !important;
             direction: {{ $locale === 'ar' ? 'rtl' : 'ltr' }};
             margin: 0;
             padding: 10px;
         }
         .arabic-text {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
-            direction: rtl;
-            text-align: right;
-            unicode-bidi: bidi-override;
+            font-family: 'DejaVu Sans', 'Arial Unicode MS', 'Tahoma', sans-serif !important;
+            direction: rtl !important;
+            text-align: right !important;
         }
         .english-text {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
+            font-family: 'DejaVu Sans', 'Arial', sans-serif;
             direction: ltr;
             text-align: left;
         }
@@ -38,21 +37,21 @@
         }
     </style>
     
-    <h3>{{ $locale === 'ar' ? 'قائمة عروض الأسعار' : 'Quotations list' }}</h3>
+    <h3 class="{{ $locale === 'ar' ? 'arabic-text' : 'english-text' }}">{{ $locale === 'ar' ? 'قائمة عروض الأسعار' : 'Quotations list' }}</h3>
     <div class="table-responsive">
         <table class="table-listing table table-bordered table-striped table-sm">
             <thead class="thead-light">
-                <tr>
-                    <th>{{ $locale === 'ar' ? '#' : '#' }}</th>
-                    <th>{{ $locale === 'ar' ? 'رقم عرض السعر' : 'Quotation No' }}</th>
-                    <th>{{ $locale === 'ar' ? 'تاريخ عرض السعر' : 'Quotation Date' }}</th>
-                    <th>{{ $locale === 'ar' ? 'العميل' : 'Client' }}</th>
-                    <th>{{ $locale === 'ar' ? 'الإجمالي قبل الضريبة' : 'Subtotal' }}</th>
-                    <th>{{ $locale === 'ar' ? 'النقل' : 'Transport' }}</th>
-                    <th>{{ $locale === 'ar' ? 'الخصم' : 'Discount' }}</th>
-                    <th>{{ $locale === 'ar' ? 'الضريبة' : 'Tax' }}</th>
-                    <th>{{ $locale === 'ar' ? 'الإجمالي بعد الضريبة' : 'Net Total' }}</th>
-                    <th>{{ $locale === 'ar' ? 'الحالة' : 'Status' }}</th>
+                <tr class="{{ $locale === 'ar' ? 'arabic-text' : 'english-text' }}">
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">#</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'رقم عرض السعر' : 'Quotation No' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'تاريخ عرض السعر' : 'Quotation Date' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'العميل' : 'Client' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'الإجمالي قبل الضريبة' : 'Subtotal' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'النقل' : 'Transport' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'الخصم' : 'Discount' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'الضريبة' : 'Tax' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'الإجمالي بعد الضريبة' : 'Net Total' }}</th>
+                    <th class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">{{ $locale === 'ar' ? 'الحالة' : 'Status' }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,7 +88,7 @@
                         <td> @currency($quotation['discount'] ?? 0) </td>
                         <td> @currency($quotation['total_tax'] ?? 0) </td>
                         <td> @currency($netTotal) </td>
-                        <td>
+                        <td class="{{ $locale === 'ar' ? 'arabic-text' : '' }}">
                             @if ($quotation['status'] ?? false)
                                 {{ $locale === 'ar' ? 'نشط' : 'Active' }}
                             @else

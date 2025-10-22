@@ -305,9 +305,8 @@ export default {
       return `/quotations/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
     },
     pdfExportUrl() {
-      // Create a dynamic PDF export URL with locale parameter
-      const locale = this.$i18n.locale;
-      return `/quotations/pdf?locale=${locale}`;
+      // Use simple PDF export URL like invoices
+      return `/quotations/pdf`;
     },
   },
   watch: {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Feature\ArabicPDFSupportTest" file="C:\xampp\htdocs\Accounting-System\tests\Feature\ArabicPDFSupportTest.php" tests="5" assertions="9" errors="0" warnings="0" failures="0" skipped="0" time="1.162127">
+    <testcase name="test_quotations_pdf_controller_method_exists" class="Tests\Feature\ArabicPDFSupportTest" classname="Tests.Feature.ArabicPDFSupportTest" file="C:\xampp\htdocs\Accounting-System\tests\Feature\ArabicPDFSupportTest.php" line="13" assertions="3" time="0.513956"/>
+    <testcase name="test_invoices_pdf_controller_method_exists" class="Tests\Feature\ArabicPDFSupportTest" classname="Tests.Feature.ArabicPDFSupportTest" file="C:\xampp\htdocs\Accounting-System\tests\Feature\ArabicPDFSupportTest.php" line="26" assertions="3" time="0.109310"/>
+    <testcase name="test_arabic_support_method_exists" class="Tests\Feature\ArabicPDFSupportTest" classname="Tests.Feature.ArabicPDFSupportTest" file="C:\xampp\htdocs\Accounting-System\tests\Feature\ArabicPDFSupportTest.php" line="39" assertions="1" time="0.118462"/>
+    <testcase name="test_quotations_pdf_route_exists" class="Tests\Feature\ArabicPDFSupportTest" classname="Tests.Feature.ArabicPDFSupportTest" file="C:\xampp\htdocs\Accounting-System\tests\Feature\ArabicPDFSupportTest.php" line="46" assertions="1" time="0.306211"/>
+    <testcase name="test_invoices_pdf_route_exists" class="Tests\Feature\ArabicPDFSupportTest" classname="Tests.Feature.ArabicPDFSupportTest" file="C:\xampp\htdocs\Accounting-System\tests\Feature\ArabicPDFSupportTest.php" line="53" assertions="1" time="0.114187"/>
+  </testsuite>
+</testsuites>
