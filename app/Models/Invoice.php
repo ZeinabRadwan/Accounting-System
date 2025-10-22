@@ -157,8 +157,9 @@ class Invoice extends Model
         }
 
         if ($isSaudiArabia) {
-            // For Saudi Arabia: subTotal already includes discount and VAT
-            return $this->sub_total;
+            // For Saudi Arabia: total = subtotal + tax - discount
+            $totalTax = $taxAmount + $totalProductVat;
+            return $this->sub_total + $totalTax - $globalDiscount + $this->transport - $costOfProductReturn;
         } else {
             // For other countries: Original calculation
             // Use the global calculation which includes discount and transport
