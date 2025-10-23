@@ -27,7 +27,7 @@ class PurchaseProductResource extends JsonResource
         $grossTotal = $this->quantity * $this->purchase_price;
         $discountAmount = $this->discount_amount ?? 0;
         $totalAfterDiscount = $grossTotal - $discountAmount;
-        $taxTotal = $this->quantity * $this->tax_amount;
+        $taxTotal = $this->tax_amount ?? 0; // tax_amount is already the total tax for this product
         $lineTotal = $totalAfterDiscount + $taxTotal;
 
         return [

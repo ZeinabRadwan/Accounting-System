@@ -74,24 +74,17 @@ class Purchase extends Model
             $totalTax = $this->purchaseProducts->sum('tax_amount');
         }
         
-        // Handle purchase returns
-        if (isset($this->purchaseReturn)) {
-            // Subtract tax from returned products
-            $returnedTax = $this->purchaseReturn->purchaseReturnProducts->sum(function($returnProduct) {
-                return $returnProduct->quantity * $returnProduct->tax_amount;
-            });
-            $totalTax -= $returnedTax;
-        }
-
+        // Returns should not affect the displayed tax amount
+        // Original tax calculation without subtracting returns
         return $totalTax;
     }
 
     // purchase total - sub_total already includes everything (products + tax + transport)
     public function purchaseTotal()
     {
-        $costOfProductReturn = isset($this->purchaseReturn) ? $this->purchaseReturn->total_return : 0;
-
-        return $this->sub_total - $costOfProductReturn;
+        // Return the original sub_total without subtracting returns
+        // Returns should not affect the displayed purchase totals
+        return $this->sub_total;
     }
 
     // purchase total paid

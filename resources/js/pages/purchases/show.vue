@@ -72,7 +72,7 @@
               v-if="$can('purchase-return-create') && allData && allData.status === 1"
               @click="returnPurchase(allData)" 
               href="#" 
-              class="btn btn-success"
+              class="btn btn-warning"
             >
               <i class="fas fa-undo"></i> {{ $t("Return Purchase") }}
             </a>
@@ -252,7 +252,7 @@
                         <td>{{ data.grossTotal  }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ data.discountAmount  }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ data.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.taxAmount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.taxTotal  }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ data.lineTotal  }} <span class="saudi-riyal">ê</span></td>
                         <td
                           v-if="allData.purchaseReturn"
@@ -655,7 +655,7 @@ export default {
     totalPrice() {
       if (!this.purchaseProducts) return 0;
       return this.purchaseProducts.reduce((total, product) => {
-        return total + (product.purchasePrice * product.quantity);
+        return total + (product.grossTotal || 0);
       }, 0);
     },
     
@@ -671,7 +671,7 @@ export default {
     totalProductVat() {
       if (!this.purchaseProducts) return 0;
       return this.purchaseProducts.reduce((total, product) => {
-        return total + (product.taxAmount || 0);
+        return total + (product.taxTotal || 0);
       }, 0);
     },
   },

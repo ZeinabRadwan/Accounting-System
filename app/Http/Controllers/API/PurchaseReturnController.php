@@ -113,6 +113,11 @@ class PurchaseReturnController extends Controller
                         throw new \Exception('Product not found: ' . $selectedProduct['slug']);
                     }
                     
+                    // Validate that return quantity doesn't exceed available inventory
+                    if ($returnQty > $product->inventory_count) {
+                        throw new \Exception('Return quantity (' . $returnQty . ') cannot exceed available inventory (' . $product->inventory_count . ') for product: ' . $product->name);
+                    }
+                    
                     // calculate new purchase price
                     $currentStockPrice = $product->inventory_count * $product->purchase_price;
 
@@ -120,7 +125,9 @@ class PurchaseReturnController extends Controller
                     $purchaseStockPrice = $returnQty * $selectedProduct['purchasePrice'];
                     $totalStockPrice = $currentStockPrice - $purchaseStockPrice;
                     $totalQty = $product->inventory_count - $returnQty;
-                    $unitCost = $totalStockPrice / $totalQty;
+                    
+                    // Prevent division by zero - if totalQty is zero, set unitCost to 0
+                    $unitCost = $totalQty > 0 ? $totalStockPrice / $totalQty : 0;
 
                     // update product purchase price
                     $product->update([
@@ -271,6 +278,16 @@ class PurchaseReturnController extends Controller
                 $purchasePrice = (float) $selectedProduct['price'];
 
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
+                
+                if (!$product) {
+                    throw new \Exception('Product not found: ' . $selectedProduct['slug']);
+                }
+                
+                // Validate that return quantity doesn't exceed available inventory
+                if ($returnedQty > $product->inventory_count) {
+                    throw new \Exception('Return quantity (' . $returnedQty . ') cannot exceed available inventory (' . $product->inventory_count . ') for product: ' . $product->name);
+                }
+                
                 // calculate new purchase price
                 $currentStockPrice = $product->inventory_count * $product->purchase_price;
 
@@ -278,10 +295,9 @@ class PurchaseReturnController extends Controller
                 $returnedStockPrice = ($oldQty - $returnedQty) * $purchasePrice;
                 $totalStockPrice = $currentStockPrice + $returnedStockPrice;
                 $totalQty = $product->inventory_count + $oldQty - $returnedQty;
-                $unitCost = null;
-                if ($totalQty > 0) {
-                    $unitCost = $totalStockPrice / $totalQty;
-                }
+                
+                // Prevent division by zero - if totalQty is zero, set unitCost to 0
+                $unitCost = $totalQty > 0 ? $totalStockPrice / $totalQty : 0;
                 // update product purchase price
                 $product->update([
                     'purchase_price' => $unitCost,

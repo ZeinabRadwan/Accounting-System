@@ -506,7 +506,8 @@ export default {
         const presetReturnQty = isPreSelected ? availableQty : 0
         const maxQty = availableQty
         const selectedVatRate = this.findMatchingVatRate(purchaseItem.productTax) || this.taxes?.[0]
-        const totalBeforeDiscount = Number((presetReturnQty * purchaseItem.unitCost).toFixed(2))
+        // Use purchasePrice (base price without VAT) instead of unitCost (which includes VAT)
+        const totalBeforeDiscount = Number((presetReturnQty * purchaseItem.purchasePrice).toFixed(2))
         let discountAmount = 0
         if ((purchaseItem.discountType || 'fixed') === 'percentage') {
           discountAmount = Number(((totalBeforeDiscount) * (purchaseItem.productDiscount || 0) / 100).toFixed(2))
@@ -537,8 +538,8 @@ export default {
           qty: purchaseItem.quantity,
           returnQty: presetReturnQty,
           maxQty: maxQty,
-          purchasePrice: purchaseItem.unitCost,
-          unitCost: purchaseItem.unitCost,
+          purchasePrice: purchaseItem.purchasePrice,
+          unitCost: purchaseItem.purchasePrice,
           totalPrice: totalPrice,
           returnTotal: totalPrice,
           productTax: productTax,
@@ -563,7 +564,8 @@ export default {
       let selectedProduct = this.form.selectedProducts[index]
       if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
         selectedProduct.returnQty = Number(value)
-        selectedProduct.totalBeforeDiscount = Number((selectedProduct.returnQty * selectedProduct.unitCost).toFixed(2))
+        // Use purchasePrice (base price without VAT) for calculations
+        selectedProduct.totalBeforeDiscount = Number((selectedProduct.returnQty * selectedProduct.purchasePrice).toFixed(2))
         selectedProduct.totalAfterDiscount = Number((selectedProduct.totalBeforeDiscount - (selectedProduct.discountAmount || 0)).toFixed(2))
         if (selectedProduct.selectedVatRate && selectedProduct.selectedVatRate.rate) {
           const vatAmount = Number((selectedProduct.totalAfterDiscount * (selectedProduct.selectedVatRate.rate / 100)).toFixed(2))
@@ -583,7 +585,8 @@ export default {
     updateItemReactively(item) {
       if (item.returnQty < 0) item.returnQty = 0
       else if (item.returnQty > item.maxQty) item.returnQty = item.maxQty
-      item.totalBeforeDiscount = Number((item.returnQty * item.unitCost).toFixed(2))
+      // Use purchasePrice (base price without VAT) for calculations
+      item.totalBeforeDiscount = Number((item.returnQty * item.purchasePrice).toFixed(2))
       item.totalAfterDiscount = Number((item.totalBeforeDiscount - (item.discountAmount || 0)).toFixed(2))
       if (item.selectedVatRate && item.selectedVatRate.rate) {
         const vatAmount = Number((item.totalAfterDiscount * (item.selectedVatRate.rate / 100)).toFixed(2))
@@ -604,12 +607,12 @@ export default {
       if (!product) return
       let discountAmount = 0
       if (product.discountType === 'percentage') {
-        discountAmount = (product.returnQty * product.unitCost) * (product.discount / 100)
+        discountAmount = (product.returnQty * product.purchasePrice) * (product.discount / 100)
       } else {
         discountAmount = product.discount
       }
       product.discountAmount = Number(discountAmount.toFixed(2))
-      product.totalBeforeDiscount = Number((product.returnQty * product.unitCost).toFixed(2))
+      product.totalBeforeDiscount = Number((product.returnQty * product.purchasePrice).toFixed(2))
       product.totalAfterDiscount = Number((product.totalBeforeDiscount - discountAmount).toFixed(2))
       this.calculateSum()
     },
@@ -728,7 +731,8 @@ export default {
       for (let i = 0; i < length; i++) {
         const p = this.form.selectedProducts[i]
         const remainingQty = p.qty - p.returnQty
-        const productTotal = remainingQty * p.unitCost
+        // Use purchasePrice (base price without VAT) for calculations
+        const productTotal = remainingQty * p.purchasePrice
         purchaseSubtotal += productTotal
         this.form.newSubTotal += Number(productTotal.toFixed(2))
         
