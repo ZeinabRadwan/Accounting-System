@@ -1,26 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[2634],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[1398],{
 
-/***/ 52299:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-35af33d1]{margin-bottom:15px}.footer-buttons[data-v-35af33d1]{display:flex;gap:10px}.footer-buttons .btn[data-v-35af33d1]{margin-right:10px}.footer-buttons .btn[data-v-35af33d1]:last-child{margin-right:0}.btn-group.c-w-100[data-v-35af33d1]{gap:10px}.card[data-v-35af33d1]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-35af33d1]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-35af33d1]{padding:1.25rem}.card-footer[data-v-35af33d1]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-35af33d1]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-35af33d1]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-35af33d1]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-35af33d1]{color:#dc3545;font-weight:700}.btn-primary[data-v-35af33d1]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-35af33d1]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-35af33d1]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-35af33d1]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-35af33d1]{border-color:#dc3545!important}textarea.form-control[data-v-35af33d1]{min-height:100px;resize:vertical}.v-select[data-v-35af33d1]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-35af33d1]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.v-select .vs__search[data-v-35af33d1]::-moz-placeholder{color:#6c757d}.v-select .vs__search[data-v-35af33d1]::placeholder{color:#6c757d}.v-select .vs__selected[data-v-35af33d1]{color:#374151}.v-select .vs__dropdown-menu[data-v-35af33d1]{border-radius:10px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}.table-custom[data-v-35af33d1]{border:none!important}.purchases-create-table[data-v-35af33d1]{border-collapse:separate;border-spacing:0}.purchases-create-table thead th[data-v-35af33d1]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.purchases-create-table thead tr[data-v-35af33d1]{border:none!important}.purchases-create-table thead th[data-v-35af33d1]:first-child{border-top-left-radius:10px}.purchases-create-table thead th[data-v-35af33d1]:last-child{border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-35af33d1]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-35af33d1]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.purchases-create-table .badge.badge-info[data-v-35af33d1]{background:#e3f2fd!important;color:#1976d2!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.custom-qty-input[data-v-35af33d1]{align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:10px;display:flex;overflow:hidden}.custom-qty-input .button-minus[data-v-35af33d1],.custom-qty-input .button-plus[data-v-35af33d1]{background:#6c757d;border:none;color:#fff;cursor:pointer;font-weight:700;padding:8px 12px;transition:background-color .3s}.custom-qty-input .button-minus[data-v-35af33d1]:hover{background:#dc3545}.custom-qty-input .button-plus[data-v-35af33d1]:hover{background:#2ab930}.custom-qty-input .quantity-field[data-v-35af33d1]{background:transparent;border:none;font-weight:500;padding:8px 4px;text-align:center;width:60px}.custom-qty-input .quantity-field[data-v-35af33d1]:focus{box-shadow:none;outline:none}.quantity-field[data-v-35af33d1]{border-radius:0!important;margin:0!important;min-height:50px!important}.account-status[data-v-35af33d1]{font-size:.875rem}.account-status .account-warning[data-v-35af33d1]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:.25rem;color:#856404;display:flex;padding:.5rem}.account-status .account-success[data-v-35af33d1]{align-items:center;background-color:#d4edda;border:1px solid #c3e6cb;border-radius:.25rem;color:#155724;display:flex;padding:.5rem}.product-status[data-v-35af33d1]{font-size:13px}.product-warning[data-v-35af33d1]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;color:#856404;display:flex;font-weight:500;padding:8px 12px}.btn-outline-warning[data-v-35af33d1]{border-color:#ffc107;border-radius:6px;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-35af33d1]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-35af33d1]:disabled{cursor:not-allowed;opacity:.6}.callout[data-v-35af33d1]{border-left:4px solid;border-radius:8px;margin-bottom:16px;padding:12px 16px}.callout-danger[data-v-35af33d1]{background-color:#f8d7da;border-left-color:#dc3545;color:#721c24}.callout i[data-v-35af33d1]{margin-right:8px}.row[data-v-35af33d1]{margin-bottom:1rem}.form-text[data-v-35af33d1]{color:#6b7280;font-size:.875rem}.text-muted[data-v-35af33d1]{color:#6b7280!important}@media (max-width:768px){.card-footer[data-v-35af33d1]{flex-direction:column;gap:10px}.card-footer .btn[data-v-35af33d1]{margin-right:0!important;width:100%}.card-footer div[data-v-35af33d1]{display:flex;flex-direction:column;gap:10px;width:100%}.table-custom[data-v-35af33d1]{font-size:12px}.table-custom tbody td[data-v-35af33d1],.table-custom thead th[data-v-35af33d1]{padding:8px 4px}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 62634:
+/***/ 71398:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -28,16 +9,14 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ create)
+  "default": () => (/* binding */ edit)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=template&id=35af33d1&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=template&id=a062d4a2&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "mb-50"
-  }, [_c('div', {
+  return _c('div', [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-lg-12 col-xl-12"
@@ -47,8 +26,8 @@ var render = function render() {
     staticClass: "card-header setings-header"
   }, [_c('breadcrumbs', {
     attrs: {
-      "items": _vm.dynamicBreadcrumbs,
-      "current": _vm.dynamicBreadcrumbsCurrent
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "col-xl-8 col-8 float-right text-right"
@@ -63,25 +42,25 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n              ")]), _vm._v(" "), _c('button', {
+  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n              ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-success",
     attrs: {
       "type": "button",
-      "title": _vm.$t('Save')
+      "title": _vm.$t('Save Changes')
     },
     on: {
-      "click": _vm.savePurchaseReturn
+      "click": _vm.updatePurchaseReturn
     }
   }, [_c('i', {
     staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save')) + "\n              ")])], 1)])], 1), _vm._v(" "), _c('form', {
+  }), _vm._v(" " + _vm._s(_vm.$t('Save Changes')) + "\n              ")])], 1)])], 1), _vm._v(" "), _c('form', {
     attrs: {
       "role": "form"
     },
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.savePurchaseReturn.apply(null, arguments);
+        return _vm.updatePurchaseReturn.apply(null, arguments);
       },
       "keydown": function keydown($event) {
         return _vm.form.onKeydown($event);
@@ -89,7 +68,67 @@ var render = function render() {
     }
   }, [_c('div', {
     staticClass: "card-body"
-  }, [_vm.items ? _c('div', {
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "purchaseNo"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Purchase No')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.purchaseNo,
+      expression: "form.purchaseNo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "purchaseNo",
+      "type": "text",
+      "name": "purchaseNo",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.form.purchaseNo
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "purchaseNo", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "purchaseReturnNo"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Purchase Return No')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.purchaseReturnNo,
+      expression: "form.purchaseReturnNo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "purchaseReturnNo",
+      "type": "text",
+      "name": "purchaseReturnNo",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.form.purchaseReturnNo
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "purchaseReturnNo", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "form-group col-md-6"
@@ -97,9 +136,7 @@ var render = function render() {
     attrs: {
       "for": "returnReason"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Return Reason')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t('Return Reason')))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -114,7 +151,7 @@ var render = function render() {
       "id": "returnReason",
       "type": "text",
       "name": "returnReason",
-      "placeholder": _vm.$t('Enter a reason')
+      "placeholder": "Enter a reason"
     },
     domProps: {
       "value": _vm.form.returnReason
@@ -130,7 +167,7 @@ var render = function render() {
       "form": _vm.form,
       "field": "returnReason"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm.form.supplier ? _c('div', {
     staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
@@ -138,102 +175,29 @@ var render = function render() {
     }
   }, [_vm._v(_vm._s(_vm.$t('Supplier')) + "\n                  "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('supplier')
-    },
-    attrs: {
-      "options": _vm.items,
-      "label": "name",
-      "name": "supplier",
-      "placeholder": _vm.$t('Select a supplier')
-    },
-    on: {
-      "input": _vm.assignPurchases
-    },
-    model: {
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
       value: _vm.form.supplier,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "supplier", $$v);
-      },
       expression: "form.supplier"
-    }
-  }), _vm._v(" "), _c('has-error', {
+    }],
+    staticClass: "form-control",
     attrs: {
-      "form": _vm.form,
-      "field": "supplier"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.products && !_vm.form.purchase ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "product"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Select Products')))]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('product')
+      "type": "text",
+      "name": "supplier",
+      "readonly": ""
     },
-    attrs: {
-      "disabled": _vm.form.client == '',
-      "multiple": "",
-      "options": _vm.products,
-      "label": "label",
-      "name": "product",
-      "placeholder": _vm.$t('Search products')
+    domProps: {
+      "value": _vm.form.supplier
     },
     on: {
-      "input": _vm.assignPurchases
-    },
-    model: {
-      value: _vm.form.product,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "product", $$v);
-      },
-      expression: "form.product"
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "supplier", $event.target.value);
+      }
     }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "product"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.supplier && _vm.supplierPurchases ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "purchase"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Purchases')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('purchase')
-    },
-    attrs: {
-      "options": _vm.supplierPurchases,
-      "label": "purchaseNo",
-      "name": "purchase",
-      "placeholder": _vm.$t('Select a purchase')
-    },
-    on: {
-      "input": _vm.storeProducts
-    },
-    model: {
-      value: _vm.form.purchase,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "purchase", $$v);
-      },
-      expression: "form.purchase"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "purchase"
-    }
-  }), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+  })]) : _vm._e()]), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
     staticClass: "product-status mt-2"
   }, _vm._l(_vm.form.selectedProducts, function (product, index) {
     return !product.purchase_account_id ? _c('div', {
@@ -256,8 +220,8 @@ var render = function render() {
       }
     }, [_c('i', {
       "class": _vm.isAutoAssigningProduct === product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
-    }), _vm._v("\n                      " + _vm._s(_vm.isAutoAssigningProduct === product.id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                    ")])]) : _vm._e();
-  }), 0) : _vm._e()], 1)]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    }), _vm._v("\n                  " + _vm._s(_vm.isAutoAssigningProduct === product.id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                ")])]) : _vm._e();
+  }), 0) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
     staticClass: "row mt-3 mb-4"
   }, [_vm.form.errors.errors && _vm.form.errors.errors.selectedProducts ? _c('div', {
     staticClass: "w-100 m-auto"
@@ -916,8 +880,8 @@ var render = function render() {
       "type": "success"
     }
   }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save')) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "fas fa-edit"
+  }), _vm._v(" " + _vm._s(_vm.$t('Save changes')) + "\n                ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-info",
     attrs: {
       "type": "reset"
@@ -937,7 +901,7 @@ var staticRenderFns = [function () {
   return _c('td', [_c('strong')]);
 }];
 
-;// ./resources/js/pages/purchases/returns/create.vue?vue&type=template&id=35af33d1&scoped=true
+;// ./resources/js/pages/purchases/returns/edit.vue?vue&type=template&id=a062d4a2&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -946,7 +910,7 @@ var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorKeys(e) { var n = Object(e), r = []; for (var t in n) r.unshift(t); return function e() { for (; r.length;) if ((t = r.pop()) in n) return e.value = t, e.done = !1, e; return e.done = !0, e; }; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
@@ -961,24 +925,24 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
-/* harmony default export */ const createvue_type_script_lang_js = ({
+/* harmony default export */ const editvue_type_script_lang_js = ({
   middleware: ['auth', 'check-permissions'],
   metaInfo: function metaInfo() {
     return {
-      title: this.isSaudiArabia ? this.$t('Create Debit Note') : this.$t('Create Purchase Return')
+      title: this.$t('Edit Purchase Return')
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: '',
+      breadcrumbsCurrent: 'Edit Purchase Return',
       breadcrumbs: [{
         name: 'Dashboard',
         url: 'home'
       }, {
-        name: '',
+        name: 'Purchase Returns',
         url: 'purchaseReturns.index'
       }, {
-        name: 'Create',
+        name: 'Edit',
         url: ''
       }],
       isAutoAssigningProduct: null,
@@ -988,20 +952,22 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         chequeNo: '',
         receiptNo: '',
         supplier: '',
+        purchaseNo: '',
         purchase: '',
         product: '',
         selectedProducts: [],
-        totalReturn: 0,
         date: new Date().toISOString().slice(0, 10),
         note: '',
         status: 1,
-        purchaseTotal: 0,
+        purchaseTotal: '',
+        totalReturn: 0,
+        newTotal: 0,
+        newReturn: 0,
+        taxRate: 0,
         newSubTotal: 0,
         purchaseTax: 0,
-        purchaseTransport: 0,
+        purchaseTransport: 100,
         purchaseDiscount: 0,
-        newTax: 0,
-        taxRate: 0,
         purchaseDue: 0,
         newDue: 0,
         newDueText: '',
@@ -1014,33 +980,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         taxAmount: 0,
         discountTotal: 0
       }),
-      products: '',
       accounts: '',
-      supplierPurchases: '',
+      prefix: '',
+      purchasePrefix: '',
+      purchaseReturnPrefix: '',
       taxes: ''
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items', 'appInfo'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo'])), {}, {
     // Check if the country is Saudi Arabia
     isSaudiArabia: function isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA';
-    },
-    // Dynamic breadcrumbs current based on country
-    dynamicBreadcrumbsCurrent: function dynamicBreadcrumbsCurrent() {
-      return this.isSaudiArabia ? this.$t('Create Debit Note') : this.$t('Create Purchase Return');
-    },
-    // Dynamic breadcrumbs based on country
-    dynamicBreadcrumbs: function dynamicBreadcrumbs() {
-      return [{
-        name: this.$t('Dashboard'),
-        url: 'home'
-      }, {
-        name: this.isSaudiArabia ? this.$t('Debit notes') : this.$t('Purchase Returns'),
-        url: 'purchaseReturns.index'
-      }, {
-        name: this.$t('Create'),
-        url: ''
-      }];
     },
     // Totals (same as invoice return)
     totalUnitPrice: function totalUnitPrice() {
@@ -1105,187 +1055,150 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   }),
   created: function created() {
-    this.getSuppliers();
-    this.getProducts();
+    this.prefix = this.appInfo.productPrefix;
+    this.purchasePrefix = this.appInfo.purchasePrefix;
+    this.purchaseReturnPrefix = this.appInfo.purchaseReturnPrefix;
+    this.getPurchaseReturn();
     this.getAccounts();
     this.getTaxes();
-    this.prefix = this.appInfo.productPrefix;
     // default status by country
     this.form.status = this.isSaudiArabia ? 0 : 1;
   },
   methods: {
-    formatAmount: function formatAmount(value) {
-      var num = Number(value) || 0;
-      var locale = this.$i18n && this.$i18n.locale ? this.$i18n.locale : 'en';
-      return num.toLocaleString(locale, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    },
-    // get all suppliers
-    getSuppliers: function getSuppliers() {
+    // get accounts
+    getAccounts: function getAccounts() {
       var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.n) {
             case 0:
               _context.n = 1;
-              return _this.$store.dispatch('operations/allData', {
-                path: '/api/all-suppliers'
-              });
+              return axios_default().get(window.location.origin + '/api/all-accounts');
             case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              _this.accounts = data.data;
+            case 2:
               return _context.a(2);
           }
         }, _callee);
       }))();
     },
-    // get products
-    getProducts: function getProducts() {
+    // get taxes
+    getTaxes: function getTaxes() {
       var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _yield$axios$get, data;
+        var _yield$axios$get2, data, _t;
         return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
+              _context2.p = 0;
               _context2.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-products');
+              return axios_default().get(window.location.origin + '/api/all-vat-rates');
             case 1:
-              _yield$axios$get = _context2.v;
-              data = _yield$axios$get.data;
-              _this2.products = data.data;
+              _yield$axios$get2 = _context2.v;
+              data = _yield$axios$get2.data;
+              _this2.taxes = data.data;
+              _context2.n = 3;
+              break;
             case 2:
+              _context2.p = 2;
+              _t = _context2.v;
+              _this2.taxes = [];
+            case 3:
               return _context2.a(2);
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 2]]);
       }))();
     },
-    // get accounts
-    getAccounts: function getAccounts() {
+    // get the purchase return
+    getPurchaseReturn: function getPurchaseReturn() {
       var _this3 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var _yield$axios$get2, data;
+        var _yield$axios$get3, data;
         return _regenerator().w(function (_context3) {
           while (1) switch (_context3.n) {
             case 0:
               _context3.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-accounts');
+              return axios_default().get(window.location.origin + '/api/purchase-returns/' + _this3.$route.params.slug);
             case 1:
-              _yield$axios$get2 = _context3.v;
-              data = _yield$axios$get2.data;
-              _this3.accounts = data.data;
+              _yield$axios$get3 = _context3.v;
+              data = _yield$axios$get3.data;
+              _this3.form.returnReason = data.data.reason;
+              _this3.form.account = data.data.account;
+              _this3.form.chequeNo = data.data.accountReceivable ? data.data.accountReceivable.cheque_no : '';
+              _this3.form.receiptNo = data.data.accountReceivable ? data.data.accountReceivable.receipt_no : '';
+              _this3.form.supplier = data.data.supplier.name;
+              _this3.form.purchaseNo = _this3.$options.filters.withPrefix(data.data.purchase.code, _this3.purchasePrefix);
+              _this3.form.purchaseReturnNo = _this3.$options.filters.withPrefix(data.data.returnNo, _this3.purchaseReturnPrefix);
+              _this3.form.purchase = data.data.purchase;
+              _this3.form.date = data.data.returnDate;
+              _this3.form.note = data.data.note;
+              _this3.form.status = data.data.status;
+              _this3.form.newTotal = data.data.purchase.purchaseTotal;
+              _this3.form.totalReturn = data.data.totalReturn;
+              _this3.form.oldReturn = data.data.totalReturn;
+              _this3.form.taxRate = data.data.purchase.taxRate;
+              _this3.form.purchaseTax = data.data.purchase.tax;
+              _this3.form.newTax = data.data.purchase.tax;
+              _this3.form.purchaseTotal = data.data.purchase.purchaseTotal;
+              _this3.form.purchaseTransport = data.data.purchase.transport;
+              _this3.form.purchaseDiscount = data.data.purchase.totalDiscount;
+              _this3.form.purchaseDue = data.data.purchase.due > 0 ? data.data.purchase.due : 0;
+              _this3.form.suppllierAdvance = data.data.creditAmount;
+              _this3.form.supplierAdvanceText = data.data.creditAmount;
+              _this3.form.newDueText = data.data.purchase.due > 0 ? data.data.purchase.due : 0;
+              _context3.n = 2;
+              return _this3.assignProducts(data.data.returnProducts);
             case 2:
+              _this3.form.selectedProducts = _context3.v;
+            case 3:
               return _context3.a(2);
           }
         }, _callee3);
       }))();
     },
-    // get taxes
-    getTaxes: function getTaxes() {
+    // get order products
+    assignProducts: function assignProducts(products) {
       var _this4 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var _yield$axios$get3, data, _t;
+        var key, _this4$taxes, _productData2, purchaseReturnItem, purchaseReturnProduct, productData, _productData, response, selectedVatRate, totalBeforeDiscount, discountAmount, totalAfterDiscount, productTax, totalTax, totalPrice, finalPurchaseAccountId, _t2, _t3, _t4;
         return _regenerator().w(function (_context4) {
           while (1) switch (_context4.p = _context4.n) {
             case 0:
-              _context4.p = 0;
-              _context4.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-vat-rates');
-            case 1:
-              _yield$axios$get3 = _context4.v;
-              data = _yield$axios$get3.data;
-              _this4.taxes = data.data;
-              _context4.n = 3;
-              break;
-            case 2:
-              _context4.p = 2;
-              _t = _context4.v;
-              _this4.taxes = [];
-            case 3:
-              return _context4.a(2);
-          }
-        }, _callee4, null, [[0, 2]]);
-      }))();
-    },
-    // assign purchases
-    assignPurchases: function assignPurchases() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _this5.form.selectedProducts = [];
-              _this5.form.purchase = '';
-              if (_this5.form.supplier) {
-                axios_default().post(window.location.origin + '/api/supplier/filter-purchases', {
-                  products: _this5.form.product,
-                  supplierSlug: _this5.form.supplier.slug
-                }).then(function (response) {
-                  _this5.supplierPurchases = response.data.data;
-                });
-              } else {
-                _this5.form.product = '';
-                _this5.form.supplier = '';
-              }
-            case 1:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // store item in array
-    storeProducts: function storeProducts() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var isPreSelected, key, _this6$taxes, _purchaseItem$product, _productData2, purchaseItem, productData, _productData, response, availableQty, presetReturnQty, maxQty, selectedVatRate, totalBeforeDiscount, discountAmount, totalAfterDiscount, productTax, totalTax, totalPrice, finalPurchaseAccountId, _t2, _t3, _t4;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
-            case 0:
-              _this6.form.selectedProducts = [];
-              _this6.form.purchaseTotal = _this6.form.purchase.purchaseTotal;
-              _this6.form.purchaseDue = _this6.form.purchase.due;
-              _this6.form.purchaseTax = _this6.form.purchase.tax;
-              _this6.form.newTax = _this6.form.purchase.tax;
-              _this6.form.taxRate = _this6.form.purchase.taxRate;
-              _this6.form.purchaseTransport = _this6.form.purchase.transport;
-              _this6.form.purchaseDiscount = _this6.form.purchase.totalDiscount;
-              _this6.form.newDue = _this6.form.purchase.due;
-              _this6.form.newDueText = _this6.form.purchase.due;
-
-              // Check if we're coming from purchase actions (pre-selected purchase)
-              isPreSelected = _this6.$route.query.purchase;
-              _t2 = _regeneratorKeys(_this6.form.purchase.purchaseProducts);
+              _this4.form.selectedProducts = [];
+              _t2 = _regeneratorKeys(products);
             case 1:
               if ((_t3 = _t2()).done) {
-                _context6.n = 6;
+                _context4.n = 6;
                 break;
               }
               key = _t3.value;
-              purchaseItem = _this6.form.purchase.purchaseProducts[key]; // Fetch fresh product data to get purchase_account_id
+              purchaseReturnItem = products[key];
+              purchaseReturnProduct = products[key].product; // Fetch fresh product data to get purchase_account_id
               productData = null;
-              _context6.p = 2;
-              _context6.n = 3;
-              return axios_default().get("/api/products/".concat(purchaseItem.productSlug));
+              _context4.p = 2;
+              _context4.n = 3;
+              return axios_default().get("/api/products/".concat(purchaseReturnProduct.slug));
             case 3:
-              response = _context6.v;
+              response = _context4.v;
               productData = response.data.data;
-              console.log('Product data for', purchaseItem.productName, ':', (_productData = productData) === null || _productData === void 0 ? void 0 : _productData.purchase_account_id);
-              _context6.n = 5;
+              console.log('Product data for', purchaseReturnProduct.name, ':', (_productData = productData) === null || _productData === void 0 ? void 0 : _productData.purchase_account_id);
+              _context4.n = 5;
               break;
             case 4:
-              _context6.p = 4;
-              _t4 = _context6.v;
-              console.warn('Could not fetch product data for:', purchaseItem.productSlug);
+              _context4.p = 4;
+              _t4 = _context4.v;
+              console.warn('Could not fetch product data for:', purchaseReturnProduct.slug);
             case 5:
-              availableQty = Number(purchaseItem.quantity) - Number(purchaseItem.returnQty);
-              presetReturnQty = isPreSelected ? availableQty : 0;
-              maxQty = availableQty;
-              selectedVatRate = _this6.findMatchingVatRate(purchaseItem.productTax) || ((_this6$taxes = _this6.taxes) === null || _this6$taxes === void 0 ? void 0 : _this6$taxes[0]);
-              totalBeforeDiscount = Number((presetReturnQty * purchaseItem.unitCost).toFixed(2));
+              selectedVatRate = _this4.findMatchingVatRate(purchaseReturnItem.productTax) || ((_this4$taxes = _this4.taxes) === null || _this4$taxes === void 0 ? void 0 : _this4$taxes[0]);
+              totalBeforeDiscount = Number((purchaseReturnItem.returnQty * purchaseReturnItem.purchasePrice).toFixed(2));
               discountAmount = 0;
-              if ((purchaseItem.discountType || 'fixed') === 'percentage') {
-                discountAmount = Number((totalBeforeDiscount * (purchaseItem.productDiscount || 0) / 100).toFixed(2));
+              if ((purchaseReturnItem.discountType || 'fixed') === 'percentage') {
+                discountAmount = Number((totalBeforeDiscount * (purchaseReturnItem.productDiscount || 0) / 100).toFixed(2));
               } else {
-                discountAmount = Number((purchaseItem.productDiscount || 0).toFixed ? (purchaseItem.productDiscount || 0).toFixed(2) : Number(purchaseItem.productDiscount || 0));
+                discountAmount = Number((purchaseReturnItem.productDiscount || 0).toFixed ? (purchaseReturnItem.productDiscount || 0).toFixed(2) : Number(purchaseReturnItem.productDiscount || 0));
               }
               totalAfterDiscount = Number((totalBeforeDiscount - discountAmount).toFixed(2));
               productTax = 0;
@@ -1296,45 +1209,45 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 totalTax = productTax;
                 totalPrice = Number((totalAfterDiscount + productTax).toFixed(2));
               }
-              finalPurchaseAccountId = purchaseItem.purchase_account_id || ((_purchaseItem$product = purchaseItem.product) === null || _purchaseItem$product === void 0 ? void 0 : _purchaseItem$product.purchase_account_id) || ((_productData2 = productData) === null || _productData2 === void 0 ? void 0 : _productData2.purchase_account_id);
-              console.log('Final purchase_account_id for', purchaseItem.productName, ':', finalPurchaseAccountId);
-              _this6.form.selectedProducts.unshift({
-                id: purchaseItem.productID,
-                slug: purchaseItem.productSlug,
-                name: purchaseItem.productName,
-                code: purchaseItem.productCode,
-                unit: purchaseItem.productUnit,
-                purchaseQty: purchaseItem.quantity,
-                totalReturnQty: availableQty,
-                qty: purchaseItem.quantity,
-                returnQty: presetReturnQty,
-                maxQty: maxQty,
-                purchasePrice: purchaseItem.unitCost,
-                unitCost: purchaseItem.unitCost,
-                totalPrice: totalPrice,
+              finalPurchaseAccountId = purchaseReturnItem.purchase_account_id || (purchaseReturnProduct === null || purchaseReturnProduct === void 0 ? void 0 : purchaseReturnProduct.purchase_account_id) || ((_productData2 = productData) === null || _productData2 === void 0 ? void 0 : _productData2.purchase_account_id);
+              console.log('Final purchase_account_id for', purchaseReturnProduct.name, ':', finalPurchaseAccountId);
+              _this4.form.selectedProducts.unshift({
+                id: purchaseReturnProduct.id,
+                slug: purchaseReturnProduct.slug,
+                name: purchaseReturnProduct.name,
+                code: purchaseReturnProduct.code,
+                purchasedQty: purchaseReturnItem.purchasedQty,
+                qty: purchaseReturnItem.purchasedQty,
+                returnQty: purchaseReturnItem.returnQty,
+                oldReturnedQty: purchaseReturnItem.returnQty,
+                totalReturnedQty: purchaseReturnItem.returnQty,
+                maxQty: purchaseReturnItem.purchasedQty - 1,
+                price: purchaseReturnItem.purchasePrice,
+                unitCost: purchaseReturnItem.purchasePrice,
                 returnTotal: totalPrice,
+                totalPrice: totalPrice,
                 productTax: productTax,
                 totalTax: productTax,
-                productDiscount: purchaseItem.productDiscount || 0,
-                discountType: purchaseItem.discountType || 'fixed',
+                productDiscount: purchaseReturnItem.productDiscount || 0,
+                discountType: purchaseReturnItem.discountType || 'fixed',
                 discountAmount: discountAmount,
-                discount: purchaseItem.productDiscount || 0,
-                vatRate: purchaseItem.vatRate,
+                discount: purchaseReturnItem.productDiscount || 0,
+                vatRate: purchaseReturnItem.vatRate,
                 selectedVatRate: selectedVatRate,
                 totalBeforeDiscount: totalBeforeDiscount,
                 totalAfterDiscount: totalAfterDiscount,
                 purchase_account_id: finalPurchaseAccountId
               });
-              _context6.n = 1;
+              _context4.n = 1;
               break;
             case 6:
-              _this6.calculateSum();
-              return _context6.a(2);
+              _this4.calculateSum();
+              return _context4.a(2, _this4.form.selectedProducts);
           }
-        }, _callee6, null, [[2, 4]]);
+        }, _callee4, null, [[2, 4]]);
       }))();
     },
-    // update items
+    // updateItems
     updateItem: function updateItem(value, index) {
       var selectedProduct = this.form.selectedProducts[index];
       if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
@@ -1423,7 +1336,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (this.form.account && this.form.returnAmount > 0) this.validateBankAccountChartOfAccount();
     },
     validateBankAccountChartOfAccount: function validateBankAccountChartOfAccount() {
-      var _this7 = this;
+      var _this5 = this;
       if (this.form.account && !this.form.account.chartOfAccountId) {
         toast.fire({
           type: 'warning',
@@ -1436,7 +1349,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           showCancelButton: true,
           cancelButtonText: this.$t('Close')
         }).then(function (result) {
-          if (result.isConfirmed) _this7.goToBankAccounts();
+          if (result.isConfirmed) _this5.goToBankAccounts();
         });
       }
     },
@@ -1447,63 +1360,63 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // Auto-assign Chart of Account for a specific product
     autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
         var response, _t5;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
             case 0:
-              if (!(!product || _this8.isAutoAssigningProduct === product.id)) {
-                _context7.n = 1;
+              if (!(!product || _this6.isAutoAssigningProduct === product.id)) {
+                _context5.n = 1;
                 break;
               }
-              return _context7.a(2);
+              return _context5.a(2);
             case 1:
-              _this8.isAutoAssigningProduct = product.id;
-              _context7.p = 2;
-              _context7.n = 3;
-              return _this8.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
+              _this6.isAutoAssigningProduct = product.id;
+              _context5.p = 2;
+              _context5.n = 3;
+              return _this6.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
             case 3:
-              response = _context7.v;
+              response = _context5.v;
               if (response.data.success) {
                 // Update the product data with new chart of account
                 product.purchase_account_id = response.data.purchase_account_id;
 
                 // Force Vue to re-render the component to update the UI
-                _this8.$nextTick(function () {
-                  _this8.$forceUpdate();
+                _this6.$nextTick(function () {
+                  _this6.$forceUpdate();
                 });
 
                 // Show success message
                 toast.fire({
                   type: "success",
-                  title: _this8.$t("Chart of Account assigned successfully")
+                  title: _this6.$t("Chart of Account assigned successfully")
                 });
               } else {
                 toast.fire({
                   type: "error",
-                  title: _this8.$t("Failed to assign Chart of Account"),
-                  text: response.data.message || _this8.$t("Please try again or assign manually")
+                  title: _this6.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this6.$t("Please try again or assign manually")
                 });
               }
-              _context7.n = 5;
+              _context5.n = 5;
               break;
             case 4:
-              _context7.p = 4;
-              _t5 = _context7.v;
+              _context5.p = 4;
+              _t5 = _context5.v;
               console.error('Error auto-assigning chart of account:', _t5);
               toast.fire({
                 type: "error",
-                title: _this8.$t("An error occurred while assigning Chart of Account")
+                title: _this6.$t("An error occurred while assigning Chart of Account")
               });
             case 5:
-              _context7.p = 5;
-              _this8.isAutoAssigningProduct = false;
-              return _context7.f(5);
+              _context5.p = 5;
+              _this6.isAutoAssigningProduct = false;
+              return _context5.f(5);
             case 6:
-              return _context7.a(2);
+              return _context5.a(2);
           }
-        }, _callee7, null, [[2, 4, 5, 6]]);
+        }, _callee5, null, [[2, 4, 5, 6]]);
       }))();
     },
     // calculate sum
@@ -1576,22 +1489,22 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         this.form.newDue = 0;
       }
     },
-    // save return
-    savePurchaseReturn: function savePurchaseReturn() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
+    // update purchase return
+    updatePurchaseReturn: function updatePurchaseReturn() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
             case 0:
-              _context8.n = 1;
-              return _this9.form.post(window.location.origin + '/api/purchase-returns').then(function (_ref) {
+              _context6.n = 1;
+              return _this7.form.patch(window.location.origin + '/api/purchase-returns/' + _this7.$route.params.slug).then(function (_ref) {
                 var data = _ref.data;
                 toast.fire({
                   type: 'success',
-                  title: _this9.isSaudiArabia ? _this9.$t('Debit note added successfully') : _this9.$t('Purchase return added successfully')
+                  title: _this7.$t('Purchase return updated successfully')
                 });
-                _this9.clearTemporaryData();
-                _this9.$router.push({
+                _this7.clearTemporaryData();
+                _this7.$router.push({
                   name: 'purchaseReturns.show',
                   params: {
                     slug: data.data.slug
@@ -1600,38 +1513,34 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               })["catch"](function () {
                 toast.fire({
                   type: 'error',
-                  title: _this9.$t('Please check your input and try again.')
+                  title: _this7.$t('Please check your input and try again.')
                 });
               });
             case 1:
-              return _context8.a(2);
+              return _context6.a(2);
           }
-        }, _callee8);
+        }, _callee6);
       }))();
     },
     // save form data temporarily
     saveTemporary: function saveTemporary() {
       var tempData = {
         returnReason: this.form.returnReason,
-        supplier: this.form.supplier,
-        selectedPurchases: this.form.selectedPurchases,
         returnAmount: this.form.returnAmount,
         returnDate: this.form.returnDate,
         note: this.form.note,
         status: this.form.status,
         timestamp: new Date().toISOString()
       };
-      localStorage.setItem('purchaseReturnTempData', JSON.stringify(tempData));
+      localStorage.setItem('purchaseReturnEditTempData', JSON.stringify(tempData));
     },
     // load temporary data
     loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('purchaseReturnTempData');
+      var tempData = localStorage.getItem('purchaseReturnEditTempData');
       if (tempData) {
         try {
           var data = JSON.parse(tempData);
           this.form.returnReason = data.returnReason || this.form.returnReason;
-          this.form.supplier = data.supplier || this.form.supplier;
-          this.form.selectedPurchases = data.selectedPurchases || this.form.selectedPurchases;
           this.form.returnAmount = data.returnAmount || this.form.returnAmount;
           this.form.returnDate = data.returnDate || this.form.returnDate;
           this.form.note = data.note || this.form.note;
@@ -1643,257 +1552,21 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // clear temporary data
     clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('purchaseReturnTempData');
-    },
-    // handle pre-selection from query parameters
-    handlePreSelection: function handlePreSelection() {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        var supplierSlug, purchaseSlug, purchaseData, response, attempts, maxAttempts, selectedSupplier, fallbackSupplier, selectedPurchase, fallbackPurchase, _selectedPurchase, _fallbackPurchase, _t6;
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.p = _context9.n) {
-            case 0:
-              supplierSlug = _this0.$route.query.supplier;
-              purchaseSlug = _this0.$route.query.purchase;
-              purchaseData = null;
-              if (!purchaseSlug) {
-                _context9.n = 26;
-                break;
-              }
-              _context9.p = 1;
-              if (supplierSlug) {
-                _context9.n = 3;
-                break;
-              }
-              _context9.n = 2;
-              return axios_default().get("/api/purchases/".concat(purchaseSlug));
-            case 2:
-              response = _context9.v;
-              purchaseData = response.data.data;
-              if (purchaseData && purchaseData.supplier) {
-                supplierSlug = purchaseData.supplier.slug;
-              }
-            case 3:
-              if (!supplierSlug) {
-                _context9.n = 24;
-                break;
-              }
-              // Try multiple times with increasing delays
-              attempts = 0;
-              maxAttempts = 10;
-            case 4:
-              if (!(attempts < maxAttempts)) {
-                _context9.n = 24;
-                break;
-              }
-              if (!(_this0.items && _this0.items.length > 0)) {
-                _context9.n = 22;
-                break;
-              }
-              selectedSupplier = _this0.items.find(function (supplier) {
-                return supplier.slug === supplierSlug;
-              }); // If not found by slug, try to find by ID or name as fallback
-              if (!(!selectedSupplier && purchaseData && purchaseData.supplier)) {
-                _context9.n = 13;
-                break;
-              }
-              fallbackSupplier = _this0.items.find(function (supplier) {
-                return supplier.id === purchaseData.supplier.id || supplier.name === purchaseData.supplier.name;
-              });
-              if (!fallbackSupplier) {
-                _context9.n = 13;
-                break;
-              }
-              _this0.form.supplier = fallbackSupplier;
-
-              // Trigger purchase loading for this supplier
-              _context9.n = 5;
-              return _this0.assignPurchases();
-            case 5:
-              _context9.n = 6;
-              return _this0.$nextTick();
-            case 6:
-              _context9.n = 7;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, 500);
-              });
-            case 7:
-              if (!(_this0.supplierPurchases && _this0.supplierPurchases.length > 0)) {
-                _context9.n = 13;
-                break;
-              }
-              selectedPurchase = _this0.supplierPurchases.find(function (purchase) {
-                return purchase.slug === purchaseSlug;
-              });
-              if (!selectedPurchase) {
-                _context9.n = 9;
-                break;
-              }
-              _this0.form.purchase = selectedPurchase;
-              // Trigger product loading for this purchase
-              _context9.n = 8;
-              return _this0.storeProducts();
-            case 8:
-              return _context9.a(2);
-            case 9:
-              // Try multiple fallback methods
-              fallbackPurchase = null; // Method 1: Try by ID
-              if (purchaseData && purchaseData.id) {
-                fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
-                  return purchase.id === purchaseData.id;
-                });
-              }
-
-              // Method 2: Try by purchase number
-              if (!fallbackPurchase && purchaseData && purchaseData.purchaseNo) {
-                fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
-                  return purchase.purchaseNo === purchaseData.purchaseNo;
-                });
-              }
-
-              // Method 3: Try by slug with different casing
-              if (!fallbackPurchase) {
-                fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
-                  return purchase.slug && purchase.slug.toLowerCase() === purchaseSlug.toLowerCase();
-                });
-              }
-              if (!fallbackPurchase) {
-                _context9.n = 11;
-                break;
-              }
-              _this0.form.purchase = fallbackPurchase;
-              _context9.n = 10;
-              return _this0.storeProducts();
-            case 10:
-              return _context9.a(2);
-            case 11:
-              if (!(purchaseData && purchaseData.slug === purchaseSlug)) {
-                _context9.n = 13;
-                break;
-              }
-              _this0.form.purchase = purchaseData;
-              _context9.n = 12;
-              return _this0.storeProducts();
-            case 12:
-              return _context9.a(2);
-            case 13:
-              if (!selectedSupplier) {
-                _context9.n = 22;
-                break;
-              }
-              _this0.form.supplier = selectedSupplier;
-
-              // Trigger purchase loading for this supplier
-              _context9.n = 14;
-              return _this0.assignPurchases();
-            case 14:
-              _context9.n = 15;
-              return _this0.$nextTick();
-            case 15:
-              _context9.n = 16;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, 500);
-              });
-            case 16:
-              if (!(_this0.supplierPurchases && _this0.supplierPurchases.length > 0)) {
-                _context9.n = 22;
-                break;
-              }
-              _selectedPurchase = _this0.supplierPurchases.find(function (purchase) {
-                return purchase.slug === purchaseSlug;
-              });
-              if (!_selectedPurchase) {
-                _context9.n = 18;
-                break;
-              }
-              _this0.form.purchase = _selectedPurchase;
-              // Trigger product loading for this purchase
-              _context9.n = 17;
-              return _this0.storeProducts();
-            case 17:
-              return _context9.a(2);
-            case 18:
-              // Try multiple fallback methods
-              _fallbackPurchase = null; // Method 1: Try by ID
-              if (purchaseData && purchaseData.id) {
-                _fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
-                  return purchase.id === purchaseData.id;
-                });
-              }
-
-              // Method 2: Try by purchase number
-              if (!_fallbackPurchase && purchaseData && purchaseData.purchaseNo) {
-                _fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
-                  return purchase.purchaseNo === purchaseData.purchaseNo;
-                });
-              }
-
-              // Method 3: Try by slug with different casing
-              if (!_fallbackPurchase) {
-                _fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
-                  return purchase.slug && purchase.slug.toLowerCase() === purchaseSlug.toLowerCase();
-                });
-              }
-              if (!_fallbackPurchase) {
-                _context9.n = 20;
-                break;
-              }
-              _this0.form.purchase = _fallbackPurchase;
-              _context9.n = 19;
-              return _this0.storeProducts();
-            case 19:
-              return _context9.a(2);
-            case 20:
-              if (!(purchaseData && purchaseData.slug === purchaseSlug)) {
-                _context9.n = 22;
-                break;
-              }
-              _this0.form.purchase = purchaseData;
-              _context9.n = 21;
-              return _this0.storeProducts();
-            case 21:
-              return _context9.a(2);
-            case 22:
-              attempts++;
-              if (!(attempts < maxAttempts)) {
-                _context9.n = 23;
-                break;
-              }
-              _context9.n = 23;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, 200);
-              });
-            case 23:
-              _context9.n = 4;
-              break;
-            case 24:
-              _context9.n = 26;
-              break;
-            case 25:
-              _context9.p = 25;
-              _t6 = _context9.v;
-              console.error('Error fetching purchase details:', _t6);
-            case 26:
-              return _context9.a(2);
-          }
-        }, _callee9, null, [[1, 25]]);
-      }))();
+      localStorage.removeItem('purchaseReturnEditTempData');
     }
   },
   mounted: function mounted() {
     this.loadTemporaryData();
-    // Handle pre-selection from query parameters after component is mounted
-    this.handlePreSelection();
   }
 });
-;// ./resources/js/pages/purchases/returns/create.vue?vue&type=script&lang=js
- /* harmony default export */ const returns_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+;// ./resources/js/pages/purchases/returns/edit.vue?vue&type=script&lang=js
+ /* harmony default export */ const returns_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=style&index=0&id=35af33d1&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_35af33d1_prod_scoped_true_lang_css = __webpack_require__(52299);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=style&index=0&id=35af33d1&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=style&index=0&id=a062d4a2&prod&scoped=true&lang=css
+var editvue_type_style_index_0_id_a062d4a2_prod_scoped_true_lang_css = __webpack_require__(76699);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=style&index=0&id=a062d4a2&prod&scoped=true&lang=css
 
             
 
@@ -1902,16 +1575,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_35af33d1_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_a062d4a2_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const returns_createvue_type_style_index_0_id_35af33d1_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_35af33d1_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/purchases/returns/create.vue?vue&type=style&index=0&id=35af33d1&prod&scoped=true&lang=css
+/* harmony default export */ const returns_editvue_type_style_index_0_id_a062d4a2_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_a062d4a2_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/purchases/returns/edit.vue?vue&type=style&index=0&id=a062d4a2&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/purchases/returns/create.vue
+;// ./resources/js/pages/purchases/returns/edit.vue
 
 
 
@@ -1921,17 +1594,36 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  returns_createvue_type_script_lang_js,
+  returns_editvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "35af33d1",
+  "a062d4a2",
   null
   
 )
 
-/* harmony default export */ const create = (component.exports);
+/* harmony default export */ const edit = (component.exports);
+
+/***/ }),
+
+/***/ 76699:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-a062d4a2]{margin-bottom:15px}.footer-buttons[data-v-a062d4a2]{display:flex;gap:10px}.footer-buttons .btn[data-v-a062d4a2]{margin-right:10px}.footer-buttons .btn[data-v-a062d4a2]:last-child{margin-right:0}.btn-group.c-w-100[data-v-a062d4a2]{gap:10px}.card[data-v-a062d4a2]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-a062d4a2]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-a062d4a2]{background:#fff!important}.btn-primary[data-v-a062d4a2]{background:#2ab930!important}.btn-secondary[data-v-a062d4a2]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-a062d4a2]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.table-custom[data-v-a062d4a2]{border:none!important}.purchases-create-table[data-v-a062d4a2]{border-collapse:separate;border-spacing:0}.purchases-create-table thead th[data-v-a062d4a2]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.purchases-create-table thead tr[data-v-a062d4a2]{border:none!important}.purchases-create-table thead th[data-v-a062d4a2]:first-child{border-top-left-radius:10px}.purchases-create-table thead th[data-v-a062d4a2]:last-child{border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-a062d4a2]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-a062d4a2]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.purchases-create-table .badge.badge-info[data-v-a062d4a2]{background:#e3f2fd!important;color:#1976d2!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.quantity-field[data-v-a062d4a2]{border-radius:0!important;margin:0!important;min-height:50px!important}.account-status[data-v-a062d4a2]{font-size:.875rem}.account-status .account-warning[data-v-a062d4a2]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:.25rem;color:#856404;display:flex;padding:.5rem}.account-status .account-success[data-v-a062d4a2]{align-items:center;background-color:#d4edda;border:1px solid #c3e6cb;border-radius:.25rem;color:#155724;display:flex;padding:.5rem}.product-status[data-v-a062d4a2]{font-size:13px}.product-warning[data-v-a062d4a2]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;color:#856404;display:flex;font-weight:500;padding:8px 12px}.btn-outline-warning[data-v-a062d4a2]{border-color:#ffc107;border-radius:6px;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-a062d4a2]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-a062d4a2]:disabled{cursor:not-allowed;opacity:.6}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ })
 
