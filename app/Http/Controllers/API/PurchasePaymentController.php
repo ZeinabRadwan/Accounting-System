@@ -69,6 +69,13 @@ class PurchasePaymentController extends Controller
             $supplier = Supplier::where('slug', $request['supplier']['slug'])->first();
             foreach ($request->selectedPurchases as $key => $selectedPurchase) {
                 $purchase = Purchase::where('slug', $selectedPurchase['slug'])->first();
+                
+                // Prevent adding payment to inactive purchases
+                if (!$purchase || (int)$purchase->status !== 1) {
+                    DB::rollBack();
+                    return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
+                }
+                
                 // store transaction
                 $transactionID = null;
                 $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$request->account['accountNumber'].']';

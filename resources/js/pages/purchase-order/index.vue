@@ -169,8 +169,14 @@
                             </button>
                           </div>
                           <ul>
-                            <li v-if="$can('purchase-order-view') && data.due > 0">
+                            <li v-if="$can('purchase-order-view') && data.due > 0 && data.status === 1">
                               <a href="#" @click.prevent="handleModal(data)">
+                                <i class="fas fa-credit-card"></i>
+                                {{ $t('Add Payment?') }}
+                              </a>
+                            </li>
+                            <li v-if="$can('purchase-order-view') && data.due > 0 && data.status !== 1">
+                              <a href="#" @click.prevent="showInactiveMessage()" class="text-muted" style="cursor: not-allowed;">
                                 <i class="fas fa-credit-card"></i>
                                 {{ $t('Add Payment?') }}
                               </a>
@@ -705,6 +711,13 @@ export default {
           }
         }
       });
+    },
+    // Show message for inactive purchase orders
+    showInactiveMessage() {
+      this.$toast.warning(
+        this.$t("Cannot Add Payment"),
+        this.$t("You have to send the purchase order first before adding payments.")
+      );
     },
   },
 };

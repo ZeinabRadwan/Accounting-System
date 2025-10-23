@@ -14,8 +14,9 @@
                 <router-link :to="{ name: 'suppliers.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
-                  <i class="fas fa-save" />
+                <button type="button" class="btn btn-success" @click="submitForm" :disabled="isSubmitting" :title="$t('Save')">
+                  <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
+                  <i v-else class="fas fa-save"></i>
                 </button>
               </div>
             </div>

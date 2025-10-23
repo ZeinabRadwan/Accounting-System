@@ -170,6 +170,12 @@
                                 {{ $t('Add Payment?') }}
                               </a>
                             </li>
+                            <li v-if="$can('invoice-view') && data.due > 0 && data.status !== 1">
+                              <a href="#" @click.prevent="showInactiveMessage()" class="text-muted" style="cursor: not-allowed;">
+                                <i class="fas fa-credit-card"></i>
+                                {{ $t('Add Payment?') }}
+                              </a>
+                            </li>
                             <li v-if="isSaudiArabia && data.status === 0">
                               <a href="#" @click.prevent="sendInvoice(data)">
                                 <i class="fas fa-paper-plane"></i>
@@ -798,6 +804,13 @@ export default {
       });
       
       return formatted + ' <span class="saudi-riyal">ê</span>';
+    },
+    // Show message for inactive invoices
+    showInactiveMessage() {
+      this.$toast.warning(
+        this.$t("Cannot Add Payment"),
+        this.$t("You have to send the invoice first before adding payments.")
+      );
     },
   },
 };

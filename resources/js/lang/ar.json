@@ -3989,6 +3989,12 @@
     "Sent Successfully!" : "تم الإرسال بنجاح!",
     "Please wait while we send the purchase return to ZATCA" : "يرجى الإنتظار في حين نقوم بإرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
     "Please wait..." : "يرجى الإنتظار...",
+    "Cannot Add Payment" : "لا يمكن إضافة دفعة",
+    "You have to send the purchase first before adding payments." : "يجب عليك إرسال فاتورة المشتريات أولاً قبل إضافة الدفعات.",
+    "You have to send the purchase order first before adding payments." : "يجب عليك إرسال أمر الشراء أولاً قبل إضافة الدفعات.",
+    "You have to send the invoice first before adding payments." : "يجب عليك إرسال فاتورة المبيعات أولاً قبل إضافة الدفعات.",
+    "You have to send the credit note first before adding payments." : "يجب عليك إرسال الاشعار الدائن أولاً قبل إضافة الدفعات.",
+    "You have to send the debit note first before adding payments." : "يجب عليك إرسال الاشعار المدين أولاً قبل إضافة الدفعات.",
     "An error occurred while sending the purchase return to ZATCA" : "حدث خطأ أثناء إرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
     "purchase_return_reduce_payable": "إرجاع مشتريات - تخفيض الحسابات الدائنة لـ PR-:code"
   }

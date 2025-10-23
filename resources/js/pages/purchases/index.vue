@@ -172,10 +172,18 @@
                             </button>
                           </div>
                           <ul>
-                            <li v-if="$can('purchase-view') && data.due > 0">
+                            <li v-if="$can('purchase-view') && data.due > 0 && data.status === 1">
                               <a href="#" @click.prevent="handleModal(data)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                   <path d="M8 1L10.5 5.5L15.5 6.5L12 10L13 15L8 12.5L3 15L4 10L0.5 6.5L5.5 5.5L8 1Z" fill="#10B981"/>
+                                </svg>
+                                {{ $t('Add Payment?') }}
+                              </a>
+                            </li>
+                            <li v-if="$can('purchase-view') && data.due > 0 && data.status !== 1">
+                              <a href="#" @click.prevent="showInactiveMessage()" class="text-muted" style="cursor: not-allowed;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M8 1L10.5 5.5L15.5 6.5L12 10L13 15L8 12.5L3 15L4 10L0.5 6.5L5.5 5.5L8 1Z" fill="#6B7280"/>
                                 </svg>
                                 {{ $t('Add Payment?') }}
                               </a>
@@ -758,6 +766,13 @@ export default {
           purchase: data.slug
         }
       });
+    },
+    // Show message for inactive purchases
+    showInactiveMessage() {
+      this.$toast.warning(
+        this.$t("Cannot Add Payment"),
+        this.$t("You have to send the purchase first before adding payments.")
+      );
     },
   },
 };

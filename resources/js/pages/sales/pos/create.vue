@@ -319,7 +319,7 @@
         <div class="pos-card-footer bg-white">
           <div>
             <div class="row pt-3 pl-3 pr-3">
-              <div class="form-group col-md-6 col-lg-6">
+              <div v-if="!isSaudiArabia" class="form-group col-md-6 col-lg-6">
                 <label for="discountType">{{ $t("Discount Type") }}</label>
                 <select
                   id="discountType"
@@ -336,7 +336,7 @@
                 </select>
                 <has-error :form="form" field="discountType" />
               </div>
-              <div class="form-group col-md-6 col-lg-6">
+              <div v-if="!isSaudiArabia" class="form-group col-md-6 col-lg-6">
                 <label for="discount"
                   >{{ $t("Discount") }}
                   <span v-if="form.discountType == 1">(%)</span></label
@@ -835,7 +835,7 @@
                     {{ allData.subTotal }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
-                <tr v-if="allData.discount" style="margin-top: 10px">
+                <tr v-if="!isSaudiArabia && allData.discount" style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Discount") }}</td>
                   <td style="text-align: right" class="total">
                     {{ allData.discount }} <span class="saudi-riyal">ê</span>
@@ -1586,9 +1586,9 @@ export default {
 
       this.form.netTotal = this.form.subTotal;
 
-      // calculate discount first
+      // calculate discount first (skip for Saudi Arabia)
       let discount = 0;
-      if (this.form.subTotal > 0) {
+      if (!this.isSaudiArabia && this.form.subTotal > 0) {
         discount = Number(this.form.discount);
         if (this.form.discountType == 1) {
           discount = (discount / 100) * this.form.subTotal;

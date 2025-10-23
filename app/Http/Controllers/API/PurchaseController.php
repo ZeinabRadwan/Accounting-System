@@ -719,6 +719,12 @@ class PurchaseController extends Controller
         ]);
 
         $purchase = Purchase::where('slug', $request->selectedPurchase['slug'])->first();
+        
+        // Prevent adding payment to inactive purchases
+        if (!$purchase || (int)$purchase->status !== 1) {
+            return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
+        }
+        
         $userId = auth()->user()->id;
         // store transaction
         $transactionID = null;

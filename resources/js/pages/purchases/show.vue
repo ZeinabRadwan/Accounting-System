@@ -256,9 +256,12 @@
                       <tr>
                         <td
                           class="text-right"
-                          :colspan="allData.purchaseReturn ? 11 : 10"
+                          :colspan="allData.purchaseReturn ? 11 : 9"
                         >
-                          <strong>{{ $t("Subtotal") }}</strong>
+                          <strong>{{ $t("Total with VAT") }}</strong>
+                        </td>
+                        <td>
+                          <strong>{{ formatNumber(getTotalWithVatSum()) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td
                           v-if="allData.purchaseReturn"
@@ -366,8 +369,27 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.subTotal  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(totalPrice) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
+                      <tr>
+                        <th>{{ $t("Product Discount") }}:</th>
+                        <td>
+                          {{ formatNumber(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                      </tr>
+
+                      <tr class="bg-green-light text-bold">
+                        <th>{{ $t("Total After Discount") }}:</th>
+                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
+                      </tr>
+
+                      <tr>
+                        <th>{{ $t("Product VAT") }}:</th>
+                        <td>
+                          {{ formatNumber(totalProductVat) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                      </tr>
+
                       <tr v-if="allData.purchaseReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
@@ -376,50 +398,58 @@
                           }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr class="bg-indigo-light">
-                        <th>{{ $t("Total") }}:</th>
+                      <tr v-if="!isSaudiArabia && allData.discount > 0">
+                        <th>
+                          {{ $t("Discount") }}
+                          <span v-if="allData.discountType == 1"
+                            >({{ allData.discount }}%)</span
+                          >
+                          :
+                        </th>
                         <td>
-                          <span class="equal-sign">=</span>
-                          {{ allData.purchaseTotal  }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(allData.discount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr class="text-muted small">
-                        <th colspan="2">{{ $t("Breakdown") }}:</th>
-                      </tr>
-                      <tr class="text-muted small">
-                        <th>{{ $t("Product Discounts") }}:</th>
-                        <td>
-                          {{ allData.totalDiscount  }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr class="text-muted small">
+                      <tr v-if="!isSaudiArabia && allData.transport > 0">
                         <th>{{ $t("Transport") }}:</th>
                         <td>
-                          {{ allData.transport  }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(allData.transport) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr class="text-muted small">
-                        <th>{{ $t("Tax") }}:</th>
+                      <tr v-if="!isSaudiArabia && allData.tax > 0">
+                        <th>
+                          {{ $t("Tax") }}
+                          <span v-if="allData.taxRate"
+                            >({{ allData.taxRate }}%)</span
+                          >:
+                        </th>
                         <td>
-                          {{ allData.tax  }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(allData.tax) }} <span class="saudi-riyal">ê</span>
+                        </td>
+                      </tr>
+                      <tr class="bg-indigo-light">
+                        <th>{{ $t("Total with VAT") }}:</th>
+                        <td>
+                          <span class="equal-sign">=</span>
+                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
-                          {{ allData.totalPaid  }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(allData.totalPaid) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.due  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) - (allData.totalPaid || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr
                         class="bg-green-light"
                         v-if="allData.accountReceivable"
                       >
                         <th>{{ $t("Account Receivable") }}:</th>
-                        <td>{{ allData.accountReceivable  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(allData.accountReceivable) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -612,6 +642,30 @@ export default {
     isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA'
     },
+    
+    // Calculate total price (sum of Total column in items table)
+    totalPrice() {
+      if (!this.purchaseProducts) return 0;
+      return this.purchaseProducts.reduce((total, product) => {
+        return total + (product.purchasePrice * product.quantity);
+      }, 0);
+    },
+    
+    // Calculate total product discount
+    totalProductDiscount() {
+      if (!this.purchaseProducts) return 0;
+      return this.purchaseProducts.reduce((total, product) => {
+        return total + (product.discountAmount || 0);
+      }, 0);
+    },
+    
+    // Calculate total product VAT
+    totalProductVat() {
+      if (!this.purchaseProducts) return 0;
+      return this.purchaseProducts.reduce((total, product) => {
+        return total + (product.taxAmount || 0);
+      }, 0);
+    },
   },
 
   watch: {
@@ -633,6 +687,20 @@ export default {
     this.supplierPrefix = this.appInfo.supplierPrefix;
   },
   methods: {
+    // Format number to 2 decimal places
+    formatNumber(value) {
+      if (value === null || value === undefined || value === '') return '0.00';
+      return parseFloat(value).toFixed(2);
+    },
+
+    // Calculate total with VAT sum for all items
+    getTotalWithVatSum() {
+      if (!this.purchaseProducts) return 0;
+      return this.purchaseProducts.reduce((total, product) => {
+        return total + (parseFloat(product.lineTotal) || 0);
+      }, 0);
+    },
+
     // Load communication configuration status
     async loadCommunicationConfigStatus() {
       try {
