@@ -3996,6 +3996,8 @@
     "You have to send the credit note first before adding payments." : "يجب عليك إرسال الاشعار الدائن أولاً قبل إضافة الدفعات.",
     "You have to send the debit note first before adding payments." : "يجب عليك إرسال الاشعار المدين أولاً قبل إضافة الدفعات.",
     "An error occurred while sending the purchase return to ZATCA" : "حدث خطأ أثناء إرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
+    "Return Purchase" : "إرجاع فاتورة المشتريات",
+    
     "purchase_return_reduce_payable": "إرجاع مشتريات - تخفيض الحسابات الدائنة لـ PR-:code"
   }
 }

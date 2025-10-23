@@ -12,8 +12,8 @@
                 <router-link :to="{ name: 'purchaseReturns.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
-                  <i class="fas fa-save" />
+                <button type="button" class="btn btn-success" @click="updatePurchaseReturn" :title="$t('Save Changes')">
+                  <i class="fas fa-save" /> {{ $t('Save Changes') }}
                 </button>
               </div>
             </div>
@@ -56,18 +56,17 @@
               </div>
               <!-- Product Chart of Account Status -->
               <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
-                <div v-if="!form.selectedProducts[0].purchase_account_id" class="product-warning">
+                <div v-for="(product, index) in form.selectedProducts" :key="`status-${product.id}`" v-if="!product.purchase_account_id" class="product-warning mb-2">
                   <i class="fas fa-exclamation-triangle text-warning"></i>
-                  <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs Purchase Account') }}</span>
+                  <span class="ml-2">{{ $t('Product') }} "{{ product.name }}" {{ $t('needs Purchase Account') }}</span>
                   <button 
                     type="button" 
                     class="btn btn-sm btn-outline-warning ml-2"
-                    @click="autoAssignProductChartOfAccount && autoAssignProductChartOfAccount(form.selectedProducts[0])"
-                    :disabled="isAutoAssigningProduct === (form.selectedProducts[0] && form.selectedProducts[0].id)"
-                    v-if="typeof autoAssignProductChartOfAccount === 'function'"
+                    @click="autoAssignProductChartOfAccount(product)"
+                    :disabled="isAutoAssigningProduct === product.id"
                   >
-                    <i :class="isAutoAssigningProduct === (form.selectedProducts[0] && form.selectedProducts[0].id) ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                    {{ isAutoAssigningProduct === (form.selectedProducts[0] && form.selectedProducts[0].id) ? $t('Assigning...') : $t('Auto-Assign') }}
+                    <i :class="isAutoAssigningProduct === product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                    {{ isAutoAssigningProduct === product.id ? $t('Assigning...') : $t('Auto-Assign') }}
                   </button>
                 </div>
               </div>
@@ -284,6 +283,7 @@ export default {
         url: '',
       },
     ],
+    isAutoAssigningProduct: null,
     form: new Form({
       returnReason: '',
       account: '',
@@ -452,15 +452,25 @@ export default {
       this.form.supplierAdvanceText = data.data.creditAmount
       this.form.newDueText =
         data.data.purchase.due > 0 ? data.data.purchase.due : 0
-      this.form.selectedProducts = this.assignProducts(data.data.returnProducts)
+      this.form.selectedProducts = await this.assignProducts(data.data.returnProducts)
     },
 
     // get order products
-    assignProducts(products) {
+    async assignProducts(products) {
       this.form.selectedProducts = []
       for (var key in products) {
         let purchaseReturnItem = products[key]
         let purchaseReturnProduct = products[key].product
+        
+        // Fetch fresh product data to get purchase_account_id
+        let productData = null
+        try {
+          const response = await axios.get(`/api/products/${purchaseReturnProduct.slug}`)
+          productData = response.data.data
+          console.log('Product data for', purchaseReturnProduct.name, ':', productData?.purchase_account_id)
+        } catch (error) {
+          console.warn('Could not fetch product data for:', purchaseReturnProduct.slug)
+        }
         const selectedVatRate = this.findMatchingVatRate(purchaseReturnItem.productTax) || this.taxes?.[0]
         const totalBeforeDiscount = Number((purchaseReturnItem.returnQty * purchaseReturnItem.purchasePrice).toFixed(2))
         let discountAmount = 0
@@ -478,6 +488,9 @@ export default {
           totalTax = productTax
           totalPrice = Number((totalAfterDiscount + productTax).toFixed(2))
         }
+        
+        const finalPurchaseAccountId = purchaseReturnItem.purchase_account_id || purchaseReturnProduct?.purchase_account_id || productData?.purchase_account_id
+        console.log('Final purchase_account_id for', purchaseReturnProduct.name, ':', finalPurchaseAccountId)
         
         this.form.selectedProducts.unshift({
           id: purchaseReturnProduct.id,
@@ -504,7 +517,7 @@ export default {
           selectedVatRate: selectedVatRate,
           totalBeforeDiscount: totalBeforeDiscount,
           totalAfterDiscount: totalAfterDiscount,
-          purchase_account_id: purchaseReturnItem.purchase_account_id,
+          purchase_account_id: finalPurchaseAccountId,
         })
       }
       this.calculateSum()
@@ -622,6 +635,51 @@ export default {
     },
 
     goToBankAccounts() { this.$router.push({ name: 'accounts.index' }) },
+
+    // Auto-assign Chart of Account for a specific product
+    async autoAssignProductChartOfAccount(product) {
+      if (!product || this.isAutoAssigningProduct === product.id) {
+        return;
+      }
+      
+      this.isAutoAssigningProduct = product.id;
+      
+      try {
+        const response = await this.$http.post(`/api/products/${product.slug}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          // Update the product data with new chart of account
+          product.purchase_account_id = response.data.purchase_account_id;
+          
+          // Force Vue to re-render the component to update the UI
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
+          
+          // Show success message
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
+          
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error auto-assigning chart of account:', error);
+        toast.fire({
+          type: "error",
+          title: this.$t("An error occurred while assigning Chart of Account"),
+        });
+      } finally {
+        this.isAutoAssigningProduct = false;
+      }
+    },
 
     // calculate sum
     calculateSum() {
@@ -837,4 +895,39 @@ export default {
 .account-status { font-size: 0.875rem; }
 .account-status .account-warning { color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
 .account-status .account-success { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
+
+/* Product Status Styles */
+.product-status {
+  font-size: 13px;
+}
+
+.product-warning {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.btn-outline-warning {
+  border-color: #ffc107;
+  color: #856404;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-outline-warning:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 </style>

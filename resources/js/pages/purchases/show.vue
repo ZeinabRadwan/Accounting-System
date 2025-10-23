@@ -68,6 +68,14 @@
             >
               <i class="fas fa-paper-plane"></i> {{ $t("Send Purchase to ZATCA") }}
             </a>
+            <a 
+              v-if="$can('purchase-return-create') && allData && allData.status === 1"
+              @click="returnPurchase(allData)" 
+              href="#" 
+              class="btn btn-success"
+            >
+              <i class="fas fa-undo"></i> {{ $t("Return Purchase") }}
+            </a>
             <router-link
               v-if="$can('purchase-edit')"
               :to="{
@@ -901,6 +909,21 @@ export default {
               error.response?.data?.message || this.$t("An error occurred while sending the purchase to ZATCA")
             );
           }
+        }
+      });
+    },
+
+    // return purchase
+    returnPurchase(data) {
+      // Navigate to purchase return create page with pre-selected purchase
+      // We'll fetch the supplier info from the purchase on the create page
+      console.log('Full purchase data:', JSON.stringify(data, null, 2))
+      console.log('Purchase slug:', data.slug)
+      
+      this.$router.push({
+        name: 'purchaseReturns.create',
+        query: {
+          purchase: data.slug
         }
       });
     },
