@@ -511,7 +511,7 @@ class ClientController extends Controller
     {
         $client = Client::where('slug', $request->clientSlug)->first();
         $products = [];
-        $invoices = Invoice::with('client', 'invoiceProducts')->whereDoesntHave('invoiceReturn')->where(
+        $invoices = Invoice::with('client', 'invoiceProducts')->where(
             'client_id',
             $client->id
         );

@@ -739,11 +739,11 @@ export default {
       if (product && product.vatRate) {
         return product.vatRate;
       }
-      // Fallback to first product's VAT rate or default 20%
+      // Fallback to first product's VAT rate or default 15%
       if (this.returnProducts && this.returnProducts.length > 0) {
-        return this.returnProducts[0].vatRate || 20;
+        return this.returnProducts[0].vatRate || 15;
       }
-      return 20; // Default VAT rate
+      return 15; // Default VAT rate
     },
 
     // Calculate unit discount

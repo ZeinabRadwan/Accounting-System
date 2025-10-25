@@ -503,9 +503,18 @@ export default {
           console.warn('Could not fetch product data for:', purchaseItem.productSlug)
         }
         const availableQty = Number(purchaseItem.quantity) - Number(purchaseItem.returnQty)
-        const presetReturnQty = isPreSelected ? availableQty : 0
+        const presetReturnQty = availableQty // Default to remaining quantity (like sales returns)
         const maxQty = availableQty
-        const selectedVatRate = this.findMatchingVatRate(purchaseItem.productTax) || this.taxes?.[0]
+        // Try to find matching VAT rate, fallback to 15% VAT rate, then first available
+        let selectedVatRate = this.findMatchingVatRate(purchaseItem.productTax)
+        if (!selectedVatRate) {
+          // Try to find 15% VAT rate as default
+          selectedVatRate = this.taxes?.find(tax => Math.abs(tax.rate - 15) < 0.01)
+          // If 15% not found, use first available
+          if (!selectedVatRate) {
+            selectedVatRate = this.taxes?.[0]
+          }
+        }
         // Use purchasePrice (base price without VAT) instead of unitCost (which includes VAT)
         const totalBeforeDiscount = Number((presetReturnQty * purchaseItem.purchasePrice).toFixed(2))
         let discountAmount = 0
@@ -533,11 +542,11 @@ export default {
           name: purchaseItem.productName,
           code: purchaseItem.productCode,
           unit: purchaseItem.productUnit,
-          purchaseQty: purchaseItem.quantity,
-          totalReturnQty: availableQty,
-          qty: purchaseItem.quantity,
-          returnQty: presetReturnQty,
-          maxQty: maxQty,
+          oldQty: purchaseItem.quantity, // Original quantity from purchase
+          qty: purchaseItem.quantity, // Original quantity from purchase
+          returnQty: availableQty, // Default to remaining quantity (like sales returns)
+          totalReturnQty: availableQty, // Total quantity that can be returned
+          maxQty: maxQty, // Maximum quantity that can be returned
           purchasePrice: purchaseItem.purchasePrice,
           unitCost: purchaseItem.purchasePrice,
           totalPrice: totalPrice,
@@ -564,18 +573,33 @@ export default {
       let selectedProduct = this.form.selectedProducts[index]
       if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
         selectedProduct.returnQty = Number(value)
-        // Use purchasePrice (base price without VAT) for calculations
-        selectedProduct.totalBeforeDiscount = Number((selectedProduct.returnQty * selectedProduct.purchasePrice).toFixed(2))
-        selectedProduct.totalAfterDiscount = Number((selectedProduct.totalBeforeDiscount - (selectedProduct.discountAmount || 0)).toFixed(2))
-        if (selectedProduct.selectedVatRate && selectedProduct.selectedVatRate.rate) {
-          const vatAmount = Number((selectedProduct.totalAfterDiscount * (selectedProduct.selectedVatRate.rate / 100)).toFixed(2))
-          selectedProduct.productTax = vatAmount
-          selectedProduct.totalTax = vatAmount
-          selectedProduct.totalPrice = Number((selectedProduct.totalAfterDiscount + vatAmount).toFixed(2))
+        // Calculate proportional return amounts based on original purchase data
+        if (selectedProduct.returnQty > 0) {
+          const originalLineTotal = parseFloat(selectedProduct.totalPrice) || 0
+          const totalQty = parseFloat(selectedProduct.qty) || 1
+          const returnQty = parseFloat(selectedProduct.returnQty) || 0
+          const unitPrice = originalLineTotal / totalQty
+          const returnTotal = Number((unitPrice * returnQty).toFixed(2))
+          selectedProduct.returnTotal = returnTotal
+          
+          // Calculate proportional discount and tax
+          const originalDiscount = parseFloat(selectedProduct.discountAmount) || 0
+          const originalTax = parseFloat(selectedProduct.totalTax) || 0
+          const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
+          const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
+          
+          selectedProduct.totalBeforeDiscount = Number((returnTotal - proportionalDiscount).toFixed(2))
+          selectedProduct.totalAfterDiscount = selectedProduct.totalBeforeDiscount
+          selectedProduct.productTax = proportionalTax
+          selectedProduct.totalTax = proportionalTax
+          selectedProduct.totalPrice = Number((selectedProduct.totalAfterDiscount + proportionalTax).toFixed(2))
         } else {
+          selectedProduct.returnTotal = 0
+          selectedProduct.totalBeforeDiscount = 0
+          selectedProduct.totalAfterDiscount = 0
           selectedProduct.productTax = 0
           selectedProduct.totalTax = 0
-          selectedProduct.totalPrice = selectedProduct.totalAfterDiscount
+          selectedProduct.totalPrice = 0
         }
         this.$set(this.form.selectedProducts, index, selectedProduct)
       }
@@ -585,18 +609,34 @@ export default {
     updateItemReactively(item) {
       if (item.returnQty < 0) item.returnQty = 0
       else if (item.returnQty > item.maxQty) item.returnQty = item.maxQty
-      // Use purchasePrice (base price without VAT) for calculations
-      item.totalBeforeDiscount = Number((item.returnQty * item.purchasePrice).toFixed(2))
-      item.totalAfterDiscount = Number((item.totalBeforeDiscount - (item.discountAmount || 0)).toFixed(2))
-      if (item.selectedVatRate && item.selectedVatRate.rate) {
-        const vatAmount = Number((item.totalAfterDiscount * (item.selectedVatRate.rate / 100)).toFixed(2))
-        item.productTax = vatAmount
-        item.totalTax = vatAmount
-        item.totalPrice = Number((item.totalAfterDiscount + vatAmount).toFixed(2))
+      
+      // Calculate proportional return amounts based on original purchase data
+      if (item.returnQty > 0) {
+        const originalLineTotal = parseFloat(item.totalPrice) || 0
+        const totalQty = parseFloat(item.qty) || 1
+        const returnQty = parseFloat(item.returnQty) || 0
+        const unitPrice = originalLineTotal / totalQty
+        const returnTotal = Number((unitPrice * returnQty).toFixed(2))
+        item.returnTotal = returnTotal
+        
+        // Calculate proportional discount and tax
+        const originalDiscount = parseFloat(item.discountAmount) || 0
+        const originalTax = parseFloat(item.totalTax) || 0
+        const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
+        const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
+        
+        item.totalBeforeDiscount = Number((returnTotal - proportionalDiscount).toFixed(2))
+        item.totalAfterDiscount = item.totalBeforeDiscount
+        item.productTax = proportionalTax
+        item.totalTax = proportionalTax
+        item.totalPrice = Number((item.totalAfterDiscount + proportionalTax).toFixed(2))
       } else {
+        item.returnTotal = 0
+        item.totalBeforeDiscount = 0
+        item.totalAfterDiscount = 0
         item.productTax = 0
         item.totalTax = 0
-        item.totalPrice = item.totalAfterDiscount
+        item.totalPrice = 0
       }
       this.calculateSum()
     },
@@ -630,7 +670,28 @@ export default {
     // helpers
     findMatchingVatRate(productTax) {
       if (!this.taxes || !productTax) return null
-      return this.taxes.find(tax => tax.id === productTax.id || tax.rate === productTax.rate)
+      
+      // If productTax is an object with id and rate properties
+      if (typeof productTax === 'object' && productTax !== null) {
+        // Try to find by ID first (most reliable)
+        if (productTax.id) {
+          const matchById = this.taxes.find(tax => tax.id === productTax.id)
+          if (matchById) return matchById
+        }
+        
+        // Try to find by rate
+        if (productTax.rate !== undefined) {
+          const matchByRate = this.taxes.find(tax => Math.abs(tax.rate - productTax.rate) < 0.01)
+          if (matchByRate) return matchByRate
+        }
+      }
+      
+      // If productTax is a number (rate value)
+      if (typeof productTax === 'number') {
+        return this.taxes.find(tax => Math.abs(tax.rate - productTax) < 0.01)
+      }
+      
+      return null
     },
 
     formatToTwoDecimals(value) {

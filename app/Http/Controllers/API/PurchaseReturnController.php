@@ -42,7 +42,7 @@ class PurchaseReturnController extends Controller
      */
     public function index(Request $request)
     {
-        return PurchaseReturnListReource::collection(PurchaseReturn::with('purchase.supplier')->latest()->paginate($request->perPage));
+        return PurchaseReturnListReource::collection(PurchaseReturn::with('purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -394,7 +394,7 @@ class PurchaseReturnController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = PurchaseReturn::with('purchase.supplier');
+        $query = PurchaseReturn::with('purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

@@ -56,6 +56,14 @@ class PurchaseProductResource extends JsonResource
             'productUnit' => $this->product->productUnit?->code,
             'taxType' => $this->product->tax_type,
             'taxRate' => $this->product->productTax?->rate,
+            'productTax' => $this->product->productTax ? [
+                'id' => $this->product->productTax->id,
+                'name' => $this->product->productTax->name,
+                'slug' => $this->product->productTax->slug,
+                'code' => $this->product->productTax->code,
+                'rate' => $this->product->productTax->rate,
+                'status' => $this->product->productTax->status,
+            ] : null,
             'stockQty' => $this->product->inventory_count,
         ];
     }

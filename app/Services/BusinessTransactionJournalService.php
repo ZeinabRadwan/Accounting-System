@@ -1699,7 +1699,7 @@ class BusinessTransactionJournalService
         
         try {
             // Load the purchase return with its relationships
-            $purchaseReturn->load(['purchase.supplier', 'purchaseReturnProducts.product']);
+            $purchaseReturn->load(['purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax']);
             
             // Validate supplier has chart of account
             if (!$purchaseReturn->purchase || !$purchaseReturn->purchase->supplier || !$purchaseReturn->purchase->supplier->isChartOfAccountConnected()) {
@@ -1737,8 +1737,8 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate return amount (quantity * purchase price)
-                $returnAmount = $returnProduct->quantity * $returnProduct->purchase_price;
+                // Calculate return amount with VAT
+                $returnAmount = $this->calculateReturnAmountWithVat($returnProduct, $purchaseReturn);
                 $totalReturnAmount += $returnAmount;
 
                 // Get the product's purchase expense account
@@ -1826,6 +1826,52 @@ class BusinessTransactionJournalService
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
+        }
+    }
+
+    /**
+     * Calculate return amount with VAT for a purchase return product
+     */
+    private function calculateReturnAmountWithVat($returnProduct, $purchaseReturn)
+    {
+        $returnQty = $returnProduct->quantity;
+        $purchasePrice = $returnProduct->purchase_price;
+        
+        // Get the original purchase product to get tax information
+        $originalProduct = \App\Models\PurchaseProduct::where('purchase_id', $purchaseReturn->purchase_id)
+            ->where('product_id', $returnProduct->product_id)
+            ->first();
+        
+        if ($originalProduct) {
+            // Calculate unit discount
+            $unitDiscount = $originalProduct->discount_amount > 0 && $originalProduct->quantity > 0 
+                ? $originalProduct->discount_amount / $originalProduct->quantity 
+                : 0;
+            
+            // Calculate unit net (price after discount)
+            $unitNet = $purchasePrice - $unitDiscount;
+            
+            // Get VAT rate from the product's tax information or use default
+            $vatRate = 15; // Default VAT rate for purchases
+            if ($returnProduct->product && $returnProduct->product->productTax) {
+                $vatRate = $returnProduct->product->productTax->rate;
+            } elseif ($purchaseReturn->purchase && $purchaseReturn->purchase->purchaseTax) {
+                $vatRate = $purchaseReturn->purchase->purchaseTax->rate;
+            }
+            
+            // Calculate unit VAT
+            $unitVat = ($unitNet * $vatRate) / 100;
+            
+            // Calculate unit total (net + VAT)
+            $unitTotal = $unitNet + $unitVat;
+            
+            // Calculate return total for this product
+            $productReturnTotal = $unitTotal * $returnQty;
+            
+            return round($productReturnTotal, 2);
+        } else {
+            // Fallback: if original product not found, use simple calculation
+            return round($returnQty * $purchasePrice, 2);
         }
     }
 }

@@ -499,19 +499,19 @@ class SupplierController extends Controller
             foreach ($request->products as $key => $product) {
                 array_push($products, $product['id']);
             }
-            // get the purchases
+            // get the purchases - allow purchases with partial returns
             $purchases = $purchases->where(
                 'supplier_id',
                 $supplier->id
-            )->whereDoesntHave('purchaseReturn')->whereHas(
+            )->whereHas(
                 'purchaseProducts',
                 function ($secondQuery) use ($products) {
                     $secondQuery->whereIn('product_id', $products);
                 }
             )->get();
         } else {
-            // get the purchases
-            $purchases = $purchases->where('supplier_id', $supplier->id)->whereDoesntHave('purchaseReturn')->get();
+            // get the purchases - allow purchases with partial returns
+            $purchases = $purchases->where('supplier_id', $supplier->id)->get();
         }
 
         return PurchaseResource::collection($purchases);
