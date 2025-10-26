@@ -505,15 +505,15 @@ class PrintController extends Controller
 
         if($type == 'invoice')
         {
-            $path  = 'invoices/pdfs';
+            $path  = 'uploads/invoices/pdfs';
         }
         else if($type == 'purchase')
         {
-            $path  = 'purchases/pdfs';
+            $path  = 'uploads/purchases/pdfs';
         }
         else if($type == 'quotation')
         {
-            $path  = 'quotations/pdfs';
+            $path  = 'uploads/quotations/pdfs';
         }
 
 
