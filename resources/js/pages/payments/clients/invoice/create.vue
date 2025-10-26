@@ -297,6 +297,7 @@ export default {
   },
   mounted() {
     this.loadTemporaryData()
+    this.handleQueryParams()
   },
   methods: {
     // Auto-assign Chart of Account for selected client
@@ -540,6 +541,44 @@ export default {
     // clear temporary data
     clearTemporaryData() {
       localStorage.removeItem('invoicePaymentTempData')
+    },
+
+    // Handle query parameters from invoice show page
+    async handleQueryParams() {
+      const invoiceSlug = this.$route.query.invoice;
+      const clientSlugOrId = this.$route.query.client;
+
+      if (invoiceSlug && clientSlugOrId) {
+        try {
+          // Wait for clients to load
+          await this.getClients();
+          
+          // Find the client
+          const client = this.items.find(c => c.slug === clientSlugOrId || c.id == clientSlugOrId);
+          
+          if (client) {
+            // Set the client
+            this.form.client = client;
+            
+            // Load invoices for this client
+            await this.getInvoices();
+            
+            // Wait a bit for the invoice list to be populated
+            await this.$nextTick();
+            
+            // Find and select the invoice
+            if (this.invoices && this.invoices.length > 0) {
+              const invoice = this.invoices.find(inv => inv.slug === invoiceSlug);
+              if (invoice) {
+                this.form.invoice = invoice;
+                this.storeInvoice(invoice);
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error handling query params:', error);
+        }
+      }
     },
   },
 };

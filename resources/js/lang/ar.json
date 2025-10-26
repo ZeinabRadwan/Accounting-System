@@ -646,6 +646,7 @@
 "Purchase Returns": "مردودات المشتريات",
 "Purchase Returns KSA": "الاشعارات المدينة",
 "Purchases": "المشتريات",
+"Credit Note Details" : "تفاصيل الاشعار الدائن",
 "Create Purchase Return": "إنشاء مردود مشتريات",
 "Create Purchase Return KSA": "إنشاء اشعار دائن",
 "Create purchase return": "إنشاء مردود مشتريات",
@@ -3996,5 +3997,6 @@
 "You have to send the debit note first before adding payments." : "يجب عليك إرسال الاشعار المدين أولاً قبل إضافة الدفعات.",
 "An error occurred while sending the purchase return to ZATCA" : "حدث خطأ أثناء إرسال الاشعار المدين إلى هيئة الزكاة والضريبة",
 "purchase_return_reduce_payable": "إرجاع مشتريات - تخفيض الحسابات الدائنة لـ PR-:code",
+"Please wait while we send the purchase to ZATCA" : "يرجى الإنتظار في حين نقوم بإرسال فاتورة المشتريات إلى هيئة الزكاة والضريبة",
 "Return Purchase" : "إرجاع فاتورة المشتريات"
 }

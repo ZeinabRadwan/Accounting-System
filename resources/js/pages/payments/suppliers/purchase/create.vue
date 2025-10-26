@@ -288,6 +288,9 @@ export default {
     this.getAccounts();
     this.loadCommunicationConfigStatus();
   },
+  mounted() {
+    this.handleQueryParams();
+  },
   methods: {
     // get all suppliers
     async getSuppliers() {
@@ -422,6 +425,44 @@ export default {
         .catch(() => {
           toast.fire({ type: "error", title: this.$t("Please check your input and try again.") });
         });
+    },
+
+    // Handle query parameters from purchase show page
+    async handleQueryParams() {
+      const purchaseSlug = this.$route.query.purchase;
+      const supplierSlug = this.$route.query.supplier;
+
+      if (purchaseSlug && supplierSlug) {
+        try {
+          // Wait for suppliers to load
+          await this.getSuppliers();
+          
+          // Find the supplier
+          const supplier = this.items.find(s => s.slug === supplierSlug);
+          
+          if (supplier) {
+            // Set the supplier
+            this.form.supplier = supplier;
+            
+            // Load purchases for this supplier
+            await this.getPurchases();
+            
+            // Wait a bit for the purchase list to be populated
+            await this.$nextTick();
+            
+            // Find and select the purchase
+            if (this.purchases && this.purchases.length > 0) {
+              const purchase = this.purchases.find(p => p.slug === purchaseSlug);
+              if (purchase) {
+                this.form.purchase = purchase;
+                this.storePurchase(purchase);
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error handling query params:', error);
+        }
+      }
     },
   },
 };

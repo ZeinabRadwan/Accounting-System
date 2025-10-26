@@ -32,7 +32,12 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#journal-entry" data-toggle="tab">
+                <a 
+                  @click="getJournalEntries"
+                  class="nav-link" 
+                  href="#journal-entry" 
+                  data-toggle="tab"
+                >
                   <i class="nav-icon fa fa-book" aria-hidden="true"></i>
                   {{ $t("Journal Entry") }}</a
                 >
@@ -218,11 +223,11 @@
                         <td>{{ data.returnQty }} {{ data.productUnit }}</td>
                         <td>{{ formatToTwoDecimals(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ formatToTwoDecimals(data.salePrice * data.returnQty) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateUnitDiscount(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateUnitNet(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateReturnDiscount(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateReturnNet(data)) }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ getVatRate(data) }}%</td>
-                        <td>{{ formatToTwoDecimals(calculateUnitVat(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateUnitTotal(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateReturnVat(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateReturnTotal(data)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <td colspan="5" class="text-right">
@@ -756,7 +761,6 @@ export default {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
   },
   data: () => ({
-    breadcrumbsCurrent: "Invoice Return Details",
     breadcrumbs: [
       {
         name: "Dashboard",
@@ -790,6 +794,13 @@ export default {
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA';
+    },
+
+    // Dynamic breadcrumb current page title
+    breadcrumbsCurrent() {
+      return this.isSaudiArabia
+        ? this.$t("Credit Note Details")
+        : this.$t("Invoice Return Details");
     },
 
     // Filter products that have return quantities > 0
@@ -1318,6 +1329,16 @@ export default {
     // reset pagination
     async resetPagination() {
       this.pagination.current_page = 1;
+    },
+
+    // get journal entries
+    async getJournalEntries() {
+      // Refresh the main data to ensure journal entries are loaded
+      await this.getInvoiceReturn();
+      
+      // Debug: Log the journal entries data
+      console.log('Journal Entries:', this.allData.journalEntries);
+      console.log('All Data:', this.allData);
     },
   },
 };

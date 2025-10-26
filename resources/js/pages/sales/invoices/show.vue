@@ -78,6 +78,14 @@
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
             <a
+              v-if="allData && allData.status === 1 && calculateDueAmount > 0"
+              @click="addPayment()"
+              href="#"
+              class="btn btn-primary"
+            >
+              <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
+            </a>
+            <a
               v-if="$can('invoice-return-create') && allData && allData.status === 1"
               @click="returnInvoice(allData)"
               href="#"
@@ -832,6 +840,14 @@ export default {
          return this.allData.discount;
        }
      },
+     
+     // Calculate due amount
+     calculateDueAmount() {
+       if (!this.allData) return 0;
+       const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+       const paid = this.allData.totalPaid || 0;
+       return total - paid;
+     },
   },
 
   watch: {
@@ -1090,6 +1106,18 @@ export default {
         name: 'invoiceReturns.create',
         query: {
           invoice: data.slug
+        }
+      });
+    },
+
+    // Add payment to invoice
+    addPayment() {
+      // Navigate to invoice payment create page with the invoice data
+      this.$router.push({
+        name: 'invoicePayments.create',
+        query: {
+          invoice: this.allData.slug,
+          client: this.allData.client?.slug
         }
       });
     },

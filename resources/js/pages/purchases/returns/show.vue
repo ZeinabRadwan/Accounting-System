@@ -602,7 +602,6 @@ export default {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
   },
   data: () => ({
-    breadcrumbsCurrent: "Purchase Return Details",
     breadcrumbs: [
       {
         name: "Dashboard",
@@ -635,6 +634,13 @@ export default {
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA';
+    },
+
+    // Dynamic breadcrumb current page title
+    breadcrumbsCurrent() {
+      return this.isSaudiArabia
+        ? this.$t("Debit Note Details")
+        : this.$t("Purchase Return Details");
     },
 
     // Filter products that have return quantities > 0

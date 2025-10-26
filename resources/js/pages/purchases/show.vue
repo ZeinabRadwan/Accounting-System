@@ -68,6 +68,14 @@
             >
               <i class="fas fa-paper-plane"></i> {{ $t("Send Purchase to ZATCA") }}
             </a>
+            <a
+              v-if="allData && allData.status === 1 && calculateDueAmount > 0"
+              @click="addPayment()"
+              href="#"
+              class="btn btn-primary"
+            >
+              <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
+            </a>
             <a 
               v-if="$can('purchase-return-create') && allData && allData.status === 1"
               @click="returnPurchase(allData)" 
@@ -356,7 +364,7 @@
                         </td>
                         <td colspan="5">
                           <strong>{{
-                            allData.totalPaid 
+                            formatNumber(allData.totalPaid)
                           }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
@@ -450,7 +458,7 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) - (allData.totalPaid || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) - (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr
                         class="bg-green-light"
@@ -655,7 +663,7 @@ export default {
     totalPrice() {
       if (!this.purchaseProducts) return 0;
       return this.purchaseProducts.reduce((total, product) => {
-        return total + (product.grossTotal || 0);
+        return total + (parseFloat(product.grossTotal) || 0);
       }, 0);
     },
     
@@ -663,7 +671,7 @@ export default {
     totalProductDiscount() {
       if (!this.purchaseProducts) return 0;
       return this.purchaseProducts.reduce((total, product) => {
-        return total + (product.discountAmount || 0);
+        return total + (parseFloat(product.discountAmount) || 0);
       }, 0);
     },
     
@@ -671,8 +679,16 @@ export default {
     totalProductVat() {
       if (!this.purchaseProducts) return 0;
       return this.purchaseProducts.reduce((total, product) => {
-        return total + (product.taxTotal || 0);
+        return total + (parseFloat(product.taxTotal) || 0);
       }, 0);
+    },
+    
+    // Calculate due amount
+    calculateDueAmount() {
+      if (!this.allData) return 0;
+      const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+      const paid = parseFloat(this.allData.totalPaid) || 0;
+      return total - paid;
     },
   },
 
@@ -924,6 +940,18 @@ export default {
         name: 'purchaseReturns.create',
         query: {
           purchase: data.slug
+        }
+      });
+    },
+
+    // Add payment to purchase
+    addPayment() {
+      // Navigate to purchase payment create page with the purchase data
+      this.$router.push({
+        name: 'purchasePayments.create',
+        query: {
+          purchase: this.allData.slug,
+          supplier: this.allData.supplier?.slug
         }
       });
     },
