@@ -118,18 +118,26 @@ Route::middleware([
         Route::post('/cross-domain-login', [App\Http\Controllers\CrossDomainAuthController::class, 'crossDomainLogin']);
         Route::post('/cross-domain-auth', [App\Http\Controllers\CrossDomainAuthController::class, 'authenticate']);
         Route::get('general-settings', [GeneralController::class, 'getGeneralSettings']);
+        
+        // Tenant initialization check and store (outside protected group)
+        Route::get('tenant-initialization/check', [App\Http\Controllers\API\TenantInitializationController::class, 'check']);
+        Route::post('tenant-initialization', [App\Http\Controllers\API\TenantInitializationController::class, 'store'])->middleware('auth:sanctum');
+        
+        // Allow fetching currencies during initialization (without auth)
+        Route::get('all-currencies', [CurrencyController::class, 'allCurrencies']);
     });
 
     // [PROTECTED API] Tenant Routes protected by Sanctum
-    Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
 
         // routes/api.php
         
         Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
 
         Route::post('logout', [LoginController::class, 'logout']);
+        
         // Dashboard stats
-        Route::get('/dashboard-summery/{summeryType}', [DashboardController::class, 'dashboardSummery']);
+        Route::get('/dashboard-summery/{summeryType}', [DashboardController::class, 'dashboardSummery'])->middleware('tenant.initialized');
         // Dashboard top-selling products
         Route::get('dashboard/top-selling-products', [DashboardController::class, 'topSellingProducts']);
         // Activities routes

@@ -21,8 +21,8 @@ export default {
   },
   computed: {
     isAuthPage() {
-      // Check if current route is an auth page
-      const authRoutes = ['login', 'register', 'find-domain', 'password.request', 'password.reset', 'verification.verify', 'verification.resend', 'resend']
+      // Check if current route is an auth page or initialization page
+      const authRoutes = ['login', 'register', 'find-domain', 'password.request', 'password.reset', 'verification.verify', 'verification.resend', 'resend', 'tenant.initialization']
       return authRoutes.includes(this.$route.name)
     }
   }

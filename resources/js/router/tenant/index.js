@@ -8,7 +8,7 @@ import { sync } from "vuex-router-sync";
 Vue.use(Router);
 
 // The middleware for every page of the application.
-const globalMiddleware = ["check-auth", "locale", "is-subscribed"];
+const globalMiddleware = ["check-auth", "tenant-initialized", "locale", "is-subscribed"];
 
 // Load middleware modules dynamically.
 const routeMiddleware = resolveMiddleware(

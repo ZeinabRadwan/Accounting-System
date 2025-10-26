@@ -25,6 +25,11 @@ export default [
     component: page('auth/login.vue'),
   },
   {
+    path: '/tenant-initialization',
+    name: 'tenant.initialization',
+    component: page('tenant-initialization.vue'),
+  },
+  {
     path: '/cross-domain-login',
     name: 'cross-domain-login',
     component: page('auth/cross-domain-login.vue'),

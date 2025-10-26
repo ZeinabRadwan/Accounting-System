@@ -23,6 +23,10 @@ class TenantSettingSeeder extends Seeder
             // Country and Basic Settings
             'country' => 'SA',
             
+            // Tenant initialization settings
+            'tenant_initialized' => '0',
+            'system_type' => '',
+            
             // ZATCA Settings with professional defaults
             'zatca_organization_identifier' => '',
             'zatca_serial_number' => '',

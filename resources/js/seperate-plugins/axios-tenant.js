@@ -25,6 +25,11 @@ axios.interceptors.request.use(request => {
 axios.interceptors.response.use(response => response, error => {
   const { status } = error.response
 
+  // Handle tenant not initialized
+  if (status === 403 && error.response?.data?.tenant_not_initialized) {
+    return router.push({ name: 'tenant.initialization' })
+  }
+
   // to show demo version message
   if (status === 499) {
     store.dispatch('operations/setDemoMessage', 'You are not allowed to do this in demo version.')
