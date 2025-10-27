@@ -1508,7 +1508,7 @@ export default {
       startDate: "",
       endDate: "",
     },
-    locale: {
+    localeConfig: {
       direction: "ltr",
       format: "YYYY-MM-DD",
       separator: " - ",
@@ -1545,6 +1545,15 @@ export default {
     isSaudiArabia() {
       const result = !this.appInfo?.country || this.appInfo.country === 'SA';
       return result;
+    },
+    locale() {
+      return {
+        ...this.localeConfig,
+        applyLabel: this.$t("Apply"),
+        cancelLabel: this.$t("Cancel"),
+        weekLabel: this.$t("W"),
+        customRangeLabel: this.$t("Custom Range"),
+      };
     },
   },
   watch: {

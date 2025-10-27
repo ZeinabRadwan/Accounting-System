@@ -87761,12 +87761,12 @@ var map = {
 		9443
 	],
 	"./clients/show": [
-		88232,
-		8232
+		44650,
+		4650
 	],
 	"./clients/show.vue": [
-		88232,
-		8232
+		44650,
+		4650
 	],
 	"./dashboard": [
 		29503,
@@ -89808,7 +89808,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 9443) return "js/9443.js";
 /******/ 			if (chunkId === 7516) return "js/7516.js";
 /******/ 			if (chunkId === 5960) return "js/5960.js";
-/******/ 			if (chunkId === 8232) return "js/8232.js";
+/******/ 			if (chunkId === 4650) return "js/4650.js";
 /******/ 			if (chunkId === 9503) return "js/9503.js";
 /******/ 			if (chunkId === 5360) return "js/5360.js";
 /******/ 			if (chunkId === 7936) return "js/7936.js";
