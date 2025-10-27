@@ -77,6 +77,7 @@ class Kernel extends HttpKernel
         'user.tenant.not_archived' => \App\Http\Middleware\CheckUserTenantNotArchived::class,
         'prevent_active_invoice_modification' => \App\Http\Middleware\PreventActiveInvoiceModification::class,
         'tenant.initialized' => \App\Http\Middleware\CheckTenantInitialized::class,
+        'system_type_access' => \App\Http\Middleware\CheckSystemTypeAccess::class,
     ];
 
     /**

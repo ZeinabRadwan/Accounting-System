@@ -9,7 +9,8 @@ export default async (to, from, next) => {
     'password.request',
     'password.reset',
     'verification.verify',
-    'verification.resend'
+    'verification.resend',
+    'cross-domain-login'
   ]
 
   if (allowedRoutes.includes(to.name)) {

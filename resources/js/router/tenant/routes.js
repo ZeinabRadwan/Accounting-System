@@ -365,25 +365,37 @@ export default [
     path: '/purchases',
     name: 'purchases.index',
     component: page('purchases/index.vue'),
-    meta: {permissions: ['purchase-list']},
+    meta: {
+      permissions: ['purchase-list'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchases/create',
     name: 'purchases.create',
     component: page('purchases/create.vue'),
-    meta: {permissions: ['purchase-create']},
+    meta: {
+      permissions: ['purchase-create'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchases/:slug',
     name: 'purchases.show',
     component: page('purchases/show.vue'),
-    meta: {permissions: ['purchase-view']},
+    meta: {
+      permissions: ['purchase-view'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchases/edit/:slug',
     name: 'purchases.edit',
     component: page('purchases/edit.vue'),
-    meta: {permissions: ['purchase-edit']},
+    meta: {
+      permissions: ['purchase-edit'],
+      systemType: ['accounting', 'both']
+    },
   },
 
   // Purchase Order routes
@@ -391,25 +403,37 @@ export default [
     path: '/purchase-order',
     name: 'purchase-order.index',
     component: page('purchase-order/index.vue'),
-    meta: {permissions: ['purchase-order-list']},
+    meta: {
+      permissions: ['purchase-order-list'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchase-order/create',
     name: 'purchase-order.create',
     component: page('purchase-order/create.vue'),
-    meta: {permissions: ['purchase-order-create']},
+    meta: {
+      permissions: ['purchase-order-create'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchase-order/:slug',
     name: 'purchase-order.show',
     component: page('purchase-order/show.vue'),
-    meta: {permissions: ['purchase-order-view']},
+    meta: {
+      permissions: ['purchase-order-view'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchase-order/edit/:slug',
     name: 'purchase-order.edit',
     component: page('purchase-order/edit.vue'),
-    meta: {permissions: ['purchase-order-edit']},
+    meta: {
+      permissions: ['purchase-order-edit'],
+      systemType: ['accounting', 'both']
+    },
   },
 
   // Purchase return routes
@@ -417,25 +441,37 @@ export default [
     path: '/purchase-returns',
     name: 'purchaseReturns.index',
     component: page('purchases/returns/index.vue'),
-    meta: {permissions: ['purchase-return-list']},
+    meta: {
+      permissions: ['purchase-return-list'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchase-returns/create',
     name: 'purchaseReturns.create',
     component: page('purchases/returns/create.vue'),
-    meta: {permissions: ['purchase-return-create']},
+    meta: {
+      permissions: ['purchase-return-create'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchase-returns/:slug',
     name: 'purchaseReturns.show',
     component: page('purchases/returns/show.vue'),
-    meta: {permissions: ['purchase-return-view']},
+    meta: {
+      permissions: ['purchase-return-view'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/purchase-returns/edit/:slug',
     name: 'purchaseReturns.edit',
     component: page('purchases/returns/edit.vue'),
-    meta: {permissions: ['purchase-return-edit']},
+    meta: {
+      permissions: ['purchase-return-edit'],
+      systemType: ['accounting', 'both']
+    },
   },
 
   // Quotation routes
@@ -443,56 +479,83 @@ export default [
     path: '/quotations',
     name: 'quotations.index',
     component: page('sales/quotations/index.vue'),
-    meta: {permissions: ['quotation-list']},
+    meta: {
+      permissions: ['quotation-list'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/quotations/create',
     name: 'quotations.create',
     component: page('sales/quotations/create.vue'),
-    meta: {permissions: ['quotation-create']},
+    meta: {
+      permissions: ['quotation-create'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/quotations/:slug',
     name: 'quotations.show',
     component: page('sales/quotations/show.vue'),
-    meta: {permissions: ['quotation-view']},
+    meta: {
+      permissions: ['quotation-view'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/quotations/:slug/create-invoice',
     name: 'quotations.invoice',
     component: page('sales/quotations/invoice.vue'),
-    meta: {permissions: ['quotation-to-invoice']},
+    meta: {
+      permissions: ['quotation-to-invoice'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/quotations/edit/:slug',
     name: 'quotations.edit',
     component: page('sales/quotations/edit.vue'),
-    meta: {permissions: ['quotation-edit']},
+    meta: {
+      permissions: ['quotation-edit'],
+      systemType: ['accounting', 'both']
+    },
   },
   // Invoice routes
   {
     path: '/invoices',
     name: 'invoices.index',
     component: page('sales/invoices/index.vue'),
-    meta: {permissions: ['invoice-list']},
+    meta: {
+      permissions: ['invoice-list'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/invoices/create',
     name: 'invoices.create',
     component: page('sales/invoices/create.vue'),
-    meta: {permissions: ['invoice-create']},
+    meta: {
+      permissions: ['invoice-create'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/invoices/:slug',
     name: 'invoices.show',
     component: page('sales/invoices/show.vue'),
-    meta: {permissions: ['invoice-view']},
+    meta: {
+      permissions: ['invoice-view'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/invoices/edit/:slug',
     name: 'invoices.edit',
     component: page('sales/invoices/edit.vue'),
-    meta: {permissions: ['invoice-edit']},
+    meta: {
+      permissions: ['invoice-edit'],
+      systemType: ['accounting', 'both']
+    },
   },
 
   // Invoice return routes
@@ -500,25 +563,37 @@ export default [
     path: '/invoice-returns',
     name: 'invoiceReturns.index',
     component: page('sales/returns/index.vue'),
-    meta: {permissions: ['invoice-return-list']},
+    meta: {
+      permissions: ['invoice-return-list'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/invoice-returns/create',
     name: 'invoiceReturns.create',
     component: page('sales/returns/form.vue'),
-    meta: {permissions: ['invoice-return-create']},
+    meta: {
+      permissions: ['invoice-return-create'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/invoice-returns/:slug',
     name: 'invoiceReturns.show',
     component: page('sales/returns/show.vue'),
-    meta: {permissions: ['invoice-return-view']},
+    meta: {
+      permissions: ['invoice-return-view'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/invoice-returns/edit/:slug',
     name: 'invoiceReturns.edit',
     component: page('sales/returns/form.vue'),
-    meta: {permissions: ['invoice-return-edit']},
+    meta: {
+      permissions: ['invoice-return-edit'],
+      systemType: ['accounting', 'both']
+    },
   },
 
 
@@ -527,31 +602,46 @@ export default [
     path: '/chart-of-accounts',
     name: 'chart-of-accounts.index',
     component: page('cashbook/chart-of-accounts/index.vue'),
-    meta: {permissions: ['chart-of-account-list']},
+    meta: {
+      permissions: ['chart-of-account-list'],
+      systemType: ['accounting', 'both']
+    },
   },
    {
     path: '/chart-of-accounts/tree',
     name: 'chart-of-accounts.tree',
     component: page('cashbook/chart-of-accounts/tree.vue'),
-    meta: {permissions: ['chart-of-account-tree']},
+    meta: {
+      permissions: ['chart-of-account-tree'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/chart-of-accounts/create',
     name: 'chart-of-accounts.create',
     component: page('cashbook/chart-of-accounts/create.vue'),
-    meta: {permissions: ['chart-of-account-create']},
+    meta: {
+      permissions: ['chart-of-account-create'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/chart-of-accounts/:slug',
     name: 'chart-of-accounts.show',
     component: page('cashbook/chart-of-accounts/show.vue'),
-    meta: {permissions: ['chart-of-account-view']},
+    meta: {
+      permissions: ['chart-of-account-view'],
+      systemType: ['accounting', 'both']
+    },
   },
   {
     path: '/chart-of-accounts/edit/:slug',
     name: 'chart-of-accounts.edit',
     component: page('cashbook/chart-of-accounts/edit.vue'),
-    meta: {permissions: ['chart-of-account-edit']},
+    meta: {
+      permissions: ['chart-of-account-edit'],
+      systemType: ['accounting', 'both']
+    },
   },
 
 
@@ -1286,7 +1376,10 @@ export default [
     path: '/sales/pos',
     name: 'pos.create',
     component: page('sales/pos/create.vue'),
-    meta: {permissions: ['invoice-create']}
+    meta: {
+      permissions: ['invoice-create'],
+      systemType: ['pos', 'both']
+    }
   },
 
   // Domain management routes
@@ -1374,6 +1467,7 @@ export default [
     component: page('journal-entries/index.vue'),
     meta: {
       permissions: ['journal-entry-list'],
+      systemType: ['accounting', 'both']
     },
   },
   {
@@ -1382,6 +1476,7 @@ export default [
     component: page('journal-entries/create.vue'),
     meta: {
       permissions: ['journal-entry-create'],
+      systemType: ['accounting', 'both']
     },
   },
   {
@@ -1390,6 +1485,7 @@ export default [
     component: page('journal-entries/show.vue'),
     meta: {
       permissions: ['journal-entry-view'],
+      systemType: ['accounting', 'both']
     },
   },
   {
@@ -1398,6 +1494,7 @@ export default [
     component: page('journal-entries/edit.vue'),
     meta: {
       permissions: ['journal-entry-edit'],
+      systemType: ['accounting', 'both']
     },
   },
 

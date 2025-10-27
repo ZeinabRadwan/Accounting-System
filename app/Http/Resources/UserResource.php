@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Helpers\SystemTypeHelper;
 
 class UserResource extends JsonResource
 {
@@ -28,6 +29,7 @@ class UserResource extends JsonResource
             'created_at' => $this->created_at,
             'roles' => $roles,
             'permissions' => $rolesPermissions,
+            'system_type' => SystemTypeHelper::getSystemType(),
         ];
     }
 }

@@ -6,6 +6,7 @@ import store from '~/store'
 import router from '~/router/tenant'
 import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
+import systemType from '~/plugins/systemType'
 import App from '~/components/App'
 import VuePageTransition from 'vue-page-transition'
 import Clipboard from 'v-clipboard'
@@ -64,6 +65,9 @@ Vue.prototype.$tenant = window.tenant
 Vue.prototype.$stripe_key = window.stripe_key
 Vue.prototype.$axios = axios
 Vue.prototype.$http = axios
+
+// Use system type plugin
+Vue.use(systemType)
 
 /* eslint-disable no-new */
  

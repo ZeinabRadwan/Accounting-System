@@ -369,7 +369,7 @@ import LocaleDropdown from '../components/LocaleDropdown.vue'
 export default {
   name: 'TenantInitialization',
   layout: 'basic',
-  middleware: 'check-auth',
+  middleware: ['auth'],
   
   components: {
     LocaleDropdown

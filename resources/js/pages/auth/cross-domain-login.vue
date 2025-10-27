@@ -83,10 +83,29 @@ export default {
           // Fetch the user
           await this.$store.dispatch('auth/fetchUser')
 
-          // Quick redirect to dashboard
-          setTimeout(() => {
-            this.$router.push({ name: 'home' })
-          }, 500)
+          // Check if tenant is initialized before redirecting
+          try {
+            const initResponse = await this.$axios.get('/api/tenant-initialization/check')
+            const isInitialized = initResponse.data && initResponse.data.data && initResponse.data.data.is_initialized
+
+            // Redirect to initialization page if tenant is not initialized
+            if (!isInitialized) {
+              setTimeout(() => {
+                this.$router.push({ name: 'tenant.initialization' })
+              }, 500)
+            } else {
+              // Redirect to dashboard if initialized
+              setTimeout(() => {
+                this.$router.push({ name: 'home' })
+              }, 500)
+            }
+          } catch (error) {
+            // On error checking initialization, assume not initialized
+            console.error('Error checking tenant initialization:', error)
+            setTimeout(() => {
+              this.$router.push({ name: 'tenant.initialization' })
+            }, 500)
+          }
         } else {
           this.error = 'Login failed. Please try again.'
         }

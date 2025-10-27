@@ -78,7 +78,7 @@
                     </div>
                     <div class="card-body summary-cards">
                       <div class="row">
-                        <div class="col-lg-2-4 col-md-6 col-6">
+                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
@@ -100,7 +100,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
+                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-light-green">
                             <div class="inner">
                               <h3>
@@ -136,7 +136,16 @@
                               <i class="fas fa-chart-line"></i>
                             </div>
                             <router-link
+                              v-if="!$isPOS()"
                               :to="{ name: 'invoices.index' }"
+                              class="small-box-footer"
+                            >
+                              {{ $t("More info") }}
+                              <i class="fas fa-arrow-circle-right"></i>
+                            </router-link>
+                            <router-link
+                              v-else
+                              :to="{ name: 'pos.create' }"
                               class="small-box-footer"
                             >
                               {{ $t("More info") }}
@@ -144,7 +153,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
+                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-green">
                             <div class="inner">
                               <h3>
@@ -166,7 +175,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
+                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-dark-blue">
                             <div class="inner">
                               <h3>
@@ -190,7 +199,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
+                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-teal">
                             <div class="inner">
                               <h3>
@@ -212,7 +221,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
+                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-dark-teal">
                             <div class="inner">
                               <h3>
@@ -234,7 +243,7 @@
                             </router-link>
                           </div>
                         </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
+                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
                           <div class="small-box bg-brand-primary">
                             <div class="inner">
                               <h3>
@@ -315,7 +324,7 @@
               </div>
 
               <div
-                v-if="$can('top-selling-products') || $can('recent-activities')"
+                v-if="(!$isPOS() && $can('recent-activities')) || ($can('top-selling-products') && translatedPieChartOptions.legend.data && translatedPieChartOptions.legend.data.length > 0)"
                 class="row"
               >
                 <div
@@ -373,13 +382,14 @@
 
               <div
                 v-if="
-                  $can('payment-sent-vs-payment-received') ||
+                  (!$isPOS() && $can('payment-sent-vs-payment-received')) ||
                   $can('top-clients')
                 "
                 class="row"
               >
                 <div
                   v-if="
+                    !$isPOS() &&
                     $can('payment-sent-vs-payment-received') &&
                     lineChartOptions.series[0].data &&
                     lineChartOptions.series[0].data.length > 0
@@ -443,6 +453,7 @@
 
                 <div
                   v-if="
+                    !$isPOS() &&
                     $can('sales-vs-purchases') &&
                     translatedBarChartOptions.series[0].data &&
                     translatedBarChartOptions.series[0].data.length > 0

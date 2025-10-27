@@ -46,7 +46,19 @@
           <!-- المبيعات -->
           <li class="nav-header text-bold">{{ $t("Sales") }}</li>
           <li
-            v-if="
+            v-if="$isPOS() && ($can('invoice-list') || $can('invoice-create'))"
+            class="nav-item"
+          >
+            <router-link
+              :to="{ name: 'pos.create' }"
+              class="nav-link pos-link"
+            >
+              <i class="fas fa-cash-register nav-icon"></i>
+              <p>{{ $t("POS") }}</p>
+            </router-link>
+          </li>
+          <li
+            v-if="!$isPOS() && (
               $can('quotation-list') ||
               $can('quotation-create') ||
               $can('quotation-view') ||
@@ -63,7 +75,7 @@
               $can('invoice-return-view') ||
               $can('invoice-return-edit') ||
               $can('invoice-return-delete')
-            "
+            )"
             class="nav-item has-treeview"
             :class="
               menuOpen('quotations') ||
@@ -130,11 +142,12 @@
               </li>
               <li
                 v-if="
-                  $can('invoice-list') ||
+                  ($can('invoice-list') ||
                   $can('invoice-create') ||
                   $can('invoice-view') ||
                   $can('invoice-edit') ||
-                  $can('invoice-delete')
+                  $can('invoice-delete')) &&
+                  ($canAccessModule('pos') || $canAccessModule('both'))
                 "
                 class="nav-item"
               >
@@ -187,7 +200,7 @@
           </li>
 
           <!-- المشتريات -->
-          <li class="nav-header text-bold">{{ $t("Purchases") }}</li>
+          <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("Purchases") }}</li>
           <li
             v-if="
               $can('purchase-list') ||
@@ -301,7 +314,7 @@
           </li>
 
           <!-- الموظفين -->
-          <li class="nav-header text-bold">{{ $t("Employees") }}</li>
+          <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("Employees") }}</li>
           <li
             v-if="
               $can('department-list') ||
@@ -399,10 +412,10 @@
           </li>
 
           <!-- المحاسبة -->
-          <li class="nav-header text-bold">{{ $t("ACCOUNTING") }}</li>
+          <li class="nav-header text-bold" v-if="$canAccessModule('accounting') || $canAccessModule('both')">{{ $t("ACCOUNTING") }}</li>
           <li
             v-if="
-              $can('account-list') ||
+              ($can('account-list') ||
               $can('account-create') ||
               $can('account-view') ||
               $can('account-edit') ||
@@ -421,7 +434,8 @@
               $can('account-transfer-balance-edit') ||
               $can('account-transfer-balance-view') ||
               $can('account-transfer-balance-delete') ||
-              $can('transaction-history')
+              $can('transaction-history')) &&
+              ($canAccessModule('accounting') || $canAccessModule('both'))
             "
             class="nav-item has-treeview"
             :class="
@@ -533,10 +547,11 @@
           <!-- القيود المحاسبية -->
           <li
             v-if="
-              $can('journal-entry-list') ||
+              ($can('journal-entry-list') ||
               $can('journal-entry-create') ||
               $can('journal-entry-view') ||
-              $can('journal-entry-edit')
+              $can('journal-entry-edit')) &&
+              ($canAccessModule('accounting') || $canAccessModule('both'))
             "
             class="nav-item has-treeview"
             :class="
@@ -579,7 +594,7 @@
 
           <!-- المصروفات -->
           <li
-            v-if="
+            v-if="!$isPOS() && (
               $can('expense-category-list') ||
               $can('expense-category-create') ||
               $can('expense-category-edit') ||
@@ -593,7 +608,7 @@
               $can('expense-edit') ||
               $can('expense-view') ||
               $can('expense-delete')
-            "
+            )"
             class="nav-item has-treeview"
             :class="
               menuOpen('expenseCats') ||
@@ -664,7 +679,7 @@
           </li>
 
           <li
-            v-if="
+            v-if="!$isPOS() && (
               $can('non-purchase-payment-list') ||
               $can('non-purchase-payment-create') ||
               $can('non-purchase-payment-edit') ||
@@ -685,7 +700,7 @@
               $can('invoice-payment-view') ||
               $can('invoice-payment-edit') ||
               $can('invoice-payment-delete')
-            "
+            )"
             class="nav-item has-treeview"
             :class="
               menuOpen('nonInvoicePayments') ||
@@ -865,7 +880,7 @@
             </ul>
           </li>
           <li
-            v-if="
+            v-if="!$isPOS() && (
               $can('loan-authority-list') ||
               $can('loan-authority-create') ||
               $can('loan-authority-view') ||
@@ -881,7 +896,7 @@
               $can('loan-payment-view') ||
               $can('loan-payment-edit') ||
               $can('loan-payment-delete')
-            "
+            )"
             class="nav-item has-treeview"
             :class="
               menuOpen('authorities') ||
@@ -962,7 +977,7 @@
             </ul>
           </li>
           <li
-            v-if="
+            v-if="!$isPOS() && (
               $can('asset-type-list') ||
               $can('asset-type-create') ||
               $can('asset-type-edit') ||
@@ -972,7 +987,7 @@
               $can('asset-view') ||
               $can('asset-edit') ||
               $can('asset-delete')
-            "
+            )"
             class="nav-item has-treeview"
             :class="
               menuOpen('assetTypes') || menuOpen('assets')
@@ -1030,13 +1045,13 @@
             </ul>
           </li>
           <li
-            v-if="
+            v-if="!$isPOS() && (
               $can('payroll-list') ||
               $can('payroll-create') ||
               $can('payroll-view') ||
               $can('payroll-edit') ||
               $can('payroll-delete')
-            "
+            )"
             class="nav-item"
           >
             <router-link :to="{ name: 'payroll.index' }" class="nav-link">
@@ -1214,9 +1229,9 @@
             </ul>
           </li>
 
-          <li class="nav-header text-bold">{{ $t("REPORTS") }}</li>
+          <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("REPORTS") }}</li>
           <li
-            v-if="
+            v-if="!$isPOS() && (
               $can('account-statement') ||
               $can('balance-sheet') ||
               $can('vat-report') ||
@@ -1228,7 +1243,7 @@
               $can('inventory-report') ||
               $can('sales-by-user-report') ||
               $can('collection-by-user-report')
-            "
+            )"
             class="nav-item has-treeview"
             :class="menuOpen('reports') ? 'menu-is-opening menu-open' : ''"
           >
@@ -1275,7 +1290,7 @@
                   <p>{{ $t("Purchase Summary") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('balance-sheet')" class="nav-item">
+              <li v-if="$can('balance-sheet') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
                 <router-link
                   :to="{ name: 'reports.balanceSheet' }"
                   class="nav-link"
@@ -1283,7 +1298,7 @@
                   <p>{{ $t("Balance Sheet") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('balance-sheet')" class="nav-item">
+              <li v-if="$can('balance-sheet') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
                 <router-link
                   :to="{ name: 'reports.trialBalance' }"
                   class="nav-link"
@@ -1291,7 +1306,7 @@
                   <p>{{ $t("Trial Balance") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('vat-report')" class="nav-item">
+              <li v-if="$can('vat-report') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
                 <router-link
                   :to="{ name: 'reports.vatReport' }"
                   class="nav-link"
@@ -1307,12 +1322,12 @@
                   <p>{{ $t("Today Report") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('summary-report')" class="nav-item">
+              <li v-if="$can('summary-report') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
                 <router-link :to="{ name: 'reports.summary' }" class="nav-link">
                   <p>{{ $t("Summary Report") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('profit-loss')" class="nav-item">
+              <li v-if="$can('profit-loss') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
                 <router-link
                   :to="{ name: 'reports.profitLoss' }"
                   class="nav-link"
@@ -1376,14 +1391,14 @@
             </ul>
           </li>
 
-          <li class="nav-header text-bold">{{ $t("Others") }}</li>
+          <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("Others") }}</li>
           <li
-            v-if="
+            v-if="!$isPOS() && (
               $can('role-permissions') ||
               $can('units') ||
               $can('currencies') ||
               $can('general-settings')
-            "
+            )"
             class="nav-item"
           >
             <router-link :to="{ name: 'setup.index' }" class="nav-link">
@@ -1391,19 +1406,19 @@
               <p>{{ $t("Setup") }}</p>
             </router-link>
           </li>
-          <li v-if="$can('print-templates')" class="nav-item">
+          <li v-if="!$isPOS() && $can('print-templates')" class="nav-item">
             <router-link :to="{ name: 'print-templates' }" class="nav-link">
               <i class="nav-icon fas fa-print" />
               <p>{{ $t("Print Templates") }}</p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="!$isPOS()">
             <router-link :to="{ name: 'activity.log' }" class="nav-link">
               <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
               {{ $t("Activity log") }}
             </router-link>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview" v-if="!$isPOS()">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user" />
               <p>
@@ -1443,7 +1458,7 @@
             </ul>
           </li>
           <li
-            v-if="$can('domain-management')"
+            v-if="!$isPOS() && $can('domain-management')"
             class="nav-item has-treeview"
             :class="
               menuOpen('domain') ||
@@ -1488,6 +1503,7 @@
             </ul>
           </li>
           <li
+            v-if="!$isPOS()"
             class="nav-item has-treeview"
             :class="menuOpen('backup') ? 'menu-is-opening menu-open' : ''"
           >
