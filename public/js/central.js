@@ -117030,12 +117030,12 @@ var map = {
 		5766
 	],
 	"./reports/summary": [
-		76096,
-		6096
+		9388,
+		9388
 	],
 	"./reports/summary.vue": [
-		76096,
-		6096
+		9388,
+		9388
 	],
 	"./reports/supplier-payable-report": [
 		65389,
@@ -118124,7 +118124,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6037) return "js/6037.js";
 /******/ 			if (chunkId === 534) return "js/534.js";
 /******/ 			if (chunkId === 5766) return "js/5766.js";
-/******/ 			if (chunkId === 6096) return "js/6096.js";
+/******/ 			if (chunkId === 9388) return "js/9388.js";
 /******/ 			if (chunkId === 5389) return "js/5389.js";
 /******/ 			if (chunkId === 5111) return "js/5111.js";
 /******/ 			if (chunkId === 8423) return "js/8423.js";

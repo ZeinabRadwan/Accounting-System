@@ -99,11 +99,9 @@
                 </tr>
               </thead>
               <thead>
-                <tr>
                   <th>{{ $t("#") }}</th>
                   <th>{{ $t("Particulars") }}</th>
                   <th>{{ $t("Balance") }}</th>
-                </tr>
               </thead>
               <thead>
                 <tr>
