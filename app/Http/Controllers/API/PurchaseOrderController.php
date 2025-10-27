@@ -119,14 +119,14 @@ class PurchaseOrderController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Purchase order created successfully',
+                'message' => trans('Purchase order created successfully'),
                 'data' => $purchaseOrder->load('supplier', 'purchaseOrderProducts.product')
             ], 201);
 
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
-                'message' => 'Error creating purchase order',
+                'message' => trans('Error creating purchase order'),
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -146,7 +146,7 @@ class PurchaseOrderController extends Controller
             ->first();
 
         if (!$purchaseOrder) {
-            return response()->json(['message' => 'Purchase order not found'], 404);
+            return response()->json(['message' => trans('Purchase order not found')], 404);
         }
 
         // Return the model directly so frontend expectations (snake_case keys and relations) are preserved
@@ -169,7 +169,7 @@ class PurchaseOrderController extends Controller
         
         if (!$purchaseOrder) {
             return response()->json([
-                'message' => 'Purchase order not found'
+                'message' => trans('Purchase order not found')
             ], 404);
         }
 
@@ -245,14 +245,14 @@ class PurchaseOrderController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Purchase order updated successfully',
+                'message' => trans('Purchase order updated successfully'),
                 'data' => $purchaseOrder->load('supplier', 'purchaseOrderProducts.product')
             ]);
 
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
-                'message' => 'Error updating purchase order',
+                'message' => trans('Error updating purchase order'),
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -273,7 +273,7 @@ class PurchaseOrderController extends Controller
             if (!$purchaseOrder) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Purchase order not found'
+                    'message' => trans('Purchase order not found')
                 ], 404);
             }
             
@@ -285,12 +285,12 @@ class PurchaseOrderController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Purchase order deleted successfully'
+                'message' => trans('Purchase order deleted successfully')
             ]);
 
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error deleting purchase order',
+                'message' => trans('Error deleting purchase order'),
                 'error' => $e->getMessage()
             ], 500);
         }

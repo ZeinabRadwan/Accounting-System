@@ -71,6 +71,15 @@ return [
     'Debit' => 'مدين',
     'Credit' => 'دائن',
     
+    // Purchase Order Messages
+    'Purchase order created successfully' => 'تم إنشاء أمر الشراء بنجاح',
+    'Error creating purchase order' => 'خطأ في إنشاء أمر الشراء',
+    'Purchase order not found' => 'لم يتم العثور على أمر الشراء',
+    'Purchase order updated successfully' => 'تم تحديث أمر الشراء بنجاح',
+    'Error updating purchase order' => 'خطأ في تحديث أمر الشراء',
+    'Purchase order deleted successfully' => 'تم حذف أمر الشراء بنجاح',
+    'Error deleting purchase order' => 'خطأ في حذف أمر الشراء',
+    
     // Misc messages referenced in controllers
     'Chart of Account assigned successfully' => 'تم تعيين دليل الحسابات بنجاح',
     'Domain is available' => 'اسم النطاق متاح',
