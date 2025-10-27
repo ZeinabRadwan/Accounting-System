@@ -88881,12 +88881,12 @@ var map = {
 		5111
 	],
 	"./reports/trial-balance": [
-		74671,
-		4671
+		58423,
+		8423
 	],
 	"./reports/trial-balance.vue": [
-		74671,
-		4671
+		58423,
+		8423
 	],
 	"./reports/vat-report": [
 		84224,
@@ -89922,7 +89922,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6096) return "js/6096.js";
 /******/ 			if (chunkId === 5389) return "js/5389.js";
 /******/ 			if (chunkId === 5111) return "js/5111.js";
-/******/ 			if (chunkId === 4671) return "js/4671.js";
+/******/ 			if (chunkId === 8423) return "js/8423.js";
 /******/ 			if (chunkId === 4224) return "js/4224.js";
 /******/ 			if (chunkId === 8190) return "js/8190.js";
 /******/ 			if (chunkId === 384) return "js/384.js";

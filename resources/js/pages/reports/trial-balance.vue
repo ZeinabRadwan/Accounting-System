@@ -280,7 +280,7 @@
                           <i v-if="account.isTotalRow" class="account-icon fa-calculator"></i>
                           <span class="account-name" :class="{ 'total-row-name': account.isTotalRow }">
                             {{ account.name }}
-                            <i v-if="isAccountCalculating(account.id)" class="fas fa-spinner fa-spin ms-2 text-warning" title="Calculating balance..."></i>
+                            <i v-if="isAccountCalculating(account.id)" class="fas fa-spinner fa-spin ms-2 text-warning" :title="$t('Calculating balance...')"></i>
                           </span>
                         </div>
                       </td>
