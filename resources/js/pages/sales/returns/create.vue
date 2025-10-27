@@ -657,11 +657,13 @@ export default {
     }
   },
 
-  created() {
-    this.getClients()
-    this.getProducts()
-    this.getAccounts()
-    this.getTaxes()
+  async created() {
+    await Promise.all([
+      this.getClients(),
+      this.getProducts(),
+      this.getAccounts(),
+      this.getTaxes()
+    ])
     this.prefix = this.appInfo.productPrefix
     
     // Set default status based on country
@@ -728,13 +730,14 @@ export default {
           }
           
           if (clientSlug) {
-            // Try multiple times with increasing delays
+            // Wait for items to be loaded (reduced from 10 attempts to 3)
             let attempts = 0
-            const maxAttempts = 10
+            const maxAttempts = 3
             
             while (attempts < maxAttempts) {
               
               if (this.items && this.items.length > 0) {
+                try {
                 const selectedClient = this.items.find(client => client.slug === clientSlug)
                 
                 // If not found by slug, try to find by ID or name as fallback
@@ -751,7 +754,7 @@ export default {
                     
                     // Wait for invoices to be loaded, then select the invoice
                     await this.$nextTick()
-                    await new Promise(resolve => setTimeout(resolve, 500))
+                    await new Promise(resolve => setTimeout(resolve, 200))
                     
                     
                     if (this.clientInvoices && this.clientInvoices.length > 0) {
@@ -812,7 +815,7 @@ export default {
                   
                   // Wait for invoices to be loaded, then select the invoice
                   await this.$nextTick()
-                  await new Promise(resolve => setTimeout(resolve, 500))
+                  await new Promise(resolve => setTimeout(resolve, 200))
                   
                   
                   if (this.clientInvoices && this.clientInvoices.length > 0) {
@@ -862,6 +865,9 @@ export default {
                     }
                   }
                   // Continue trying instead of returning early
+                }
+                } catch (err) {
+                  console.error('Error in handlePreSelection:', err)
                 }
               }
               attempts++
@@ -1531,9 +1537,11 @@ export default {
       this.calculateSum()
     },
   },
-  mounted() {
+  async mounted() {
     this.loadTemporaryData()
     // Handle pre-selection from query parameters after component is mounted
+    // Wait a bit to ensure data is loaded
+    await this.$nextTick()
     this.handlePreSelection()
   },
 }

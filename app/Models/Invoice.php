@@ -194,11 +194,13 @@ class Invoice extends Model
             // The frontend sends: subTotal = sum of (totalAfterDiscount + totalTax) for all products
             // So sub_total is the final amount with VAT included
             // We just need to apply global discount and transport adjustments
-            return $this->sub_total - $globalDiscount + $this->transport - $costOfProductReturn;
+            // return $this->sub_total - $globalDiscount + $this->transport - $costOfProductReturn;
+            return $this->sub_total - $globalDiscount + $this->transport ;
         } else {
             // For other countries: sub_total doesn't include VAT, so add it
             $totalTax = $taxAmount + $totalProductVat;
-            return $this->sub_total - $globalDiscount + $totalTax + $this->transport - $costOfProductReturn;
+            // return $this->sub_total - $globalDiscount + $totalTax + $this->transport - $costOfProductReturn;
+            return $this->sub_total - $globalDiscount + $totalTax + $this->transport ;
         }
     }
 
@@ -219,11 +221,10 @@ class Invoice extends Model
     // invoice total due
     public function totalDue()
     {
-        // $due = $this->invoiceTotal() - $this->invoiceTotalPaid();
-        // $costOfReturn = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
-        // $due = $due - $costOfReturn;
         $due = $this->invoiceTotal() - $this->invoiceTotalPaid();
-
+        $costOfReturn = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
+        $due = $due - $costOfReturn;
+        
         return $due >= 0 ? $due : 0;
     }
 
