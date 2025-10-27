@@ -392,7 +392,7 @@ export default {
 
         // Validate balance
         if (!this.isBalanced) {
-          window.toast.warning('Journal entry must be balanced')
+          window.toast.warning(this.$t('Journal entry must be balanced'))
           return
         }
 

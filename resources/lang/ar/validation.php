@@ -281,5 +281,6 @@ return [
     'domain_too_long' => ':attribute لا يمكن أن يتجاوز 63 حرف.',
     'domain_consecutive_hyphens' => ':attribute لا يمكن أن يحتوي على شرطات متتالية (--).',
     'domain_numbers_only' => ':attribute لا يمكن أن يحتوي على أرقام فقط.',
+    'purchase_total_paid' => 'المبلغ الإجمالي المدفوع لا يمكن أن يكون أكثر من الرصيد المتاح :avalible.',
 
 ];

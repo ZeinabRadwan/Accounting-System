@@ -79,6 +79,7 @@ return [
     'Error updating purchase order' => 'خطأ في تحديث أمر الشراء',
     'Purchase order deleted successfully' => 'تم حذف أمر الشراء بنجاح',
     'Error deleting purchase order' => 'خطأ في حذف أمر الشراء',
+    'Total paid amount can not more than available balance' => 'المبلغ الإجمالي المدفوع لا يمكن أن يكون أكثر من الرصيد المتاح',
     
     // Misc messages referenced in controllers
     'Chart of Account assigned successfully' => 'تم تعيين دليل الحسابات بنجاح',

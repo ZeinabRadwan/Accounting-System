@@ -88145,20 +88145,20 @@ var map = {
 		8838
 	],
 	"./journal-entries/create": [
-		69005,
-		9005
+		88451,
+		8451
 	],
 	"./journal-entries/create.vue": [
-		69005,
-		9005
+		88451,
+		8451
 	],
 	"./journal-entries/edit": [
-		85701,
-		5701
+		12439,
+		2439
 	],
 	"./journal-entries/edit.vue": [
-		85701,
-		5701
+		12439,
+		2439
 	],
 	"./journal-entries/index": [
 		68838,
@@ -89845,8 +89845,8 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2185) return "js/2185.js";
 /******/ 			if (chunkId === 9882) return "js/9882.js";
 /******/ 			if (chunkId === 8838) return "js/8838.js";
-/******/ 			if (chunkId === 9005) return "js/9005.js";
-/******/ 			if (chunkId === 5701) return "js/5701.js";
+/******/ 			if (chunkId === 8451) return "js/8451.js";
+/******/ 			if (chunkId === 2439) return "js/2439.js";
 /******/ 			if (chunkId === 5272) return "js/5272.js";
 /******/ 			if (chunkId === 6694) return "js/6694.js";
 /******/ 			if (chunkId === 2770) return "js/2770.js";

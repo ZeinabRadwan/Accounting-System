@@ -41,6 +41,6 @@ class PurchaseTotalPaid implements Rule
      */
     public function message()
     {
-        return 'Total paid amount can not more than available balance ';
+        return trans('validation.purchase_total_paid', ['avalible' => $this->avalible]);
     }
 }

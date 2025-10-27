@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[8451],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[2439],{
 
-/***/ 41569:
+/***/ 51239:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-a1984acc]{gap:10px}.header-buttons[data-v-a1984acc]{margin-bottom:15px}.footer-buttons[data-v-a1984acc]{display:flex;gap:10px}.footer-buttons .btn[data-v-a1984acc]{margin-right:10px}.footer-buttons .btn[data-v-a1984acc]:last-child{margin-right:0}.card[data-v-a1984acc]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-a1984acc]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-a1984acc]{padding:1.25rem}.card-footer[data-v-a1984acc]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-a1984acc]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-a1984acc]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-a1984acc]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.text-danger[data-v-a1984acc]{color:#dc3545!important;font-weight:700}.btn-primary[data-v-a1984acc]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-a1984acc]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-a1984acc]:disabled{background:#6c757d!important;box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}.btn-secondary[data-v-a1984acc]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-a1984acc]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.btn-danger[data-v-a1984acc]{background:#dc3545!important;border:none!important;border-radius:8px!important;color:#fff!important;font-weight:500;padding:8px 12px!important}.btn-danger[data-v-a1984acc]:hover{background:#c82333!important;box-shadow:0 4px 8px rgba(220,53,69,.3);transform:translateY(-1px)}.is-invalid[data-v-a1984acc]{border-color:#dc3545!important}textarea.form-control[data-v-a1984acc]{min-height:100px;resize:vertical}.v-select[data-v-a1984acc]{background:#fff!important}.v-select .vs__dropdown-toggle[data-v-a1984acc]{background:#fff!important;border:1px solid #e5e7eb!important;padding:10px 16px!important}.v-select .vs__dropdown-toggle[data-v-a1984acc]:focus{border-color:#33a0d9!important;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)!important}.v-select.is-invalid .vs__dropdown-toggle[data-v-a1984acc]{border-color:#dc3545!important}.alert[data-v-a1984acc]{border:1px solid transparent;border-radius:10px;margin-bottom:16px;padding:12px 16px}.alert-success[data-v-a1984acc]{background-color:#d4edda;border-color:#c3e6cb;color:#155724}.alert-warning[data-v-a1984acc]{background-color:#fff3cd;border-color:#ffeaa7;color:#856404}.table th[data-v-a1984acc]{background-color:#f8f9fa;border-bottom:2px solid #e5e7eb;color:#374151;font-weight:600;padding:12px 16px}.table td[data-v-a1984acc]{border-bottom:1px solid #e5e7eb;padding:12px 16px;vertical-align:middle}.table tbody tr[data-v-a1984acc]:hover{background-color:#f8f9fa}.invalid-feedback[data-v-a1984acc]{color:#dc3545;display:block}.form-text[data-v-a1984acc],.invalid-feedback[data-v-a1984acc]{font-size:12px;margin-top:5px}.form-text[data-v-a1984acc]{color:#6c757d}.row[data-v-a1984acc]{margin-bottom:1rem}.je-lines-table thead th[data-v-a1984acc]{background-color:#f8f9fa;border-bottom:2px solid #e5e7eb;font-weight:600}.je-lines-table td[data-v-a1984acc]{vertical-align:middle}.je-summary-row td[data-v-a1984acc]{background:#fafbfc;border-top:2px solid #e5e7eb}.add-line-btn[data-v-a1984acc]{border-radius:8px!important;padding:8px 14px!important}.je-lines-actions[data-v-a1984acc]{padding:12px 16px}.table-responsive[data-v-a1984acc]{overflow:visible}.v-select .vs__dropdown-menu[data-v-a1984acc]{z-index:1050!important}@media (max-width:768px){.card-footer[data-v-a1984acc]{flex-direction:column;gap:10px}.card-footer .btn[data-v-a1984acc]{margin-right:0!important;width:100%}.card-footer div[data-v-a1984acc]{display:flex;flex-direction:column;gap:10px;width:100%}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-4d16f7ca]{gap:10px}.header-buttons[data-v-4d16f7ca]{margin-bottom:15px}.footer-buttons[data-v-4d16f7ca]{display:flex;gap:10px}.footer-buttons .btn[data-v-4d16f7ca]{margin-right:10px}.footer-buttons .btn[data-v-4d16f7ca]:last-child{margin-right:0}.card[data-v-4d16f7ca]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-4d16f7ca]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-4d16f7ca]{background:#fff!important}.btn-primary[data-v-4d16f7ca]{background:#2ab930!important}.btn-primary[data-v-4d16f7ca],.btn-secondary[data-v-4d16f7ca]{border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-4d16f7ca]{background:#33a0d9!important}.btn-secondary[data-v-4d16f7ca]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.table th[data-v-4d16f7ca]{background-color:#f8f9fa;font-weight:600}.invalid-feedback[data-v-4d16f7ca]{display:block}.je-lines-table thead th[data-v-4d16f7ca]{background-color:#f8f9fa;border-bottom:2px solid #e5e7eb;font-weight:600}.je-lines-table td[data-v-4d16f7ca]{vertical-align:middle}.je-summary-row td[data-v-4d16f7ca]{background:#fafbfc;border-top:2px solid #e5e7eb}.add-line-btn[data-v-4d16f7ca]{border-radius:8px!important;padding:8px 14px!important}.je-lines-actions[data-v-4d16f7ca]{padding:12px 16px}.table-responsive[data-v-4d16f7ca]{overflow:visible}.v-select .vs__dropdown-menu[data-v-4d16f7ca]{z-index:1050!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 88451:
+/***/ 12439:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -28,19 +28,17 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ create)
+  "default": () => (/* binding */ edit)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=template&id=a1984acc&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=template&id=4d16f7ca&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "mb-50"
-  }, [_c('div', {
+  return _c('div', [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-12"
+    staticClass: "col-lg-12"
   }, [_c('div', {
     staticClass: "card custom-card w-100"
   }, [_c('div', {
@@ -67,20 +65,26 @@ var render = function render() {
     staticClass: "btn btn-success",
     attrs: {
       "type": "button",
-      "title": "Save"
+      "title": "Update"
     },
     on: {
-      "click": _vm.saveJournalEntry
+      "click": _vm.updateJournalEntry
     }
   }, [_c('i', {
     staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('div', {
+  })])], 1)])], 1), _vm._v(" "), _vm.loading ? _c('div', {
+    staticClass: "card-body text-center"
+  }, [_c('i', {
+    staticClass: "fa fa-spinner fa-spin fa-3x text-primary"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "mt-3"
+  }, [_vm._v(_vm._s(_vm.$t('Loading journal entry...')))])]) : _vm.journalEntry ? _c('div', {
     staticClass: "card-body"
   }, [_c('form', {
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.saveJournalEntry.apply(null, arguments);
+        return _vm.updateJournalEntry.apply(null, arguments);
       }
     }
   }, [_c('div', {
@@ -142,9 +146,7 @@ var render = function render() {
         _vm.$set(_vm.form, "reference", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v(_vm._s(_vm.$t('Leave blank if no reference is needed')))])])]), _vm._v(" "), _c('div', {
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4"
   }, [_c('div', {
     staticClass: "form-group"
@@ -156,6 +158,9 @@ var render = function render() {
       expression: "form.status"
     }],
     staticClass: "form-control",
+    attrs: {
+      "disabled": ""
+    },
     on: {
       "change": function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -175,7 +180,9 @@ var render = function render() {
     attrs: {
       "value": "posted"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Posted')))])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('Posted')))])]), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v(_vm._s(_vm.$t('Status cannot be changed after creation')))])])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -282,7 +289,7 @@ var render = function render() {
       }
     }), _vm._v(" "), _vm.errors["lines.".concat(index, ".chart_of_account_id")] ? _c('div', {
       staticClass: "invalid-feedback"
-    }, [_vm._v("\n                            " + _vm._s(_vm.errors["lines.".concat(index, ".chart_of_account_id")][0]) + "\n                          ")]) : _vm._e()], 1), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n                                " + _vm._s(_vm.errors["lines.".concat(index, ".chart_of_account_id")][0]) + "\n                              ")]) : _vm._e()], 1), _vm._v(" "), _c('td', {
       staticClass: "align-middle"
     }, [_c('input', {
       directives: [{
@@ -396,7 +403,7 @@ var render = function render() {
     }
   }, [_c('div', {
     "class": ['badge', _vm.isBalanced ? 'badge-success' : 'badge-warning']
-  }, [_vm._v("\n                            " + _vm._s(_vm.isBalanced ? _vm.$t('Balanced') : _vm.$t('Unbalanced')) + "\n                            "), !_vm.isBalanced ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('Diff')) + ":\n                              "), _c('CurrencyDisplay', {
+  }, [_vm._v("\n                                " + _vm._s(_vm.isBalanced ? _vm.$t('Balanced') : _vm.$t('Unbalanced')) + "\n                                "), !_vm.isBalanced ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('Diff')) + ": "), _c('CurrencyDisplay', {
     attrs: {
       "amount": _vm.balanceDifference
     }
@@ -413,7 +420,7 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fa fa-plus"
-  }), _vm._v(" " + _vm._s(_vm.$t('Add Line')) + "\n                  ")])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" " + _vm._s(_vm.$t('Add Line')) + "\n                      ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "card-footer"
   }, [_c('div', {
     staticClass: "dtable-footer"
@@ -423,27 +430,35 @@ var render = function render() {
     staticClass: "btn btn-success",
     attrs: {
       "type": "submit",
-      "disabled": !_vm.isBalanced || _vm.loading
+      "disabled": !_vm.isBalanced || _vm.saving
     }
-  }, [_vm.loading ? _c('i', {
+  }, [_vm.saving ? _c('i', {
     staticClass: "fa fa-spinner fa-spin"
   }) : _c('i', {
     staticClass: "fa fa-save"
-  }), _vm._v("\n                    " + _vm._s(_vm.loading ? _vm.$t('Saving...') : _vm.$t('Save')) + "\n                  ")]), _vm._v(" "), _c('button', {
+  }), _vm._v("\n                    " + _vm._s(_vm.saving ? _vm.$t('Updating...') : _vm.$t('Update')) + "\n                  ")]), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-secondary",
     attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.resetForm
+      "to": "/journal-entries"
     }
   }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                  ")])])])])])])])])])]);
+    staticClass: "fa fa-times"
+  }), _vm._v(" " + _vm._s(_vm.$t('Cancel')) + "\n                  ")])], 1)])])])]) : _vm.error ? _c('div', {
+    staticClass: "card-body text-center"
+  }, [_c('i', {
+    staticClass: "fa fa-exclamation-triangle fa-3x text-danger"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "mt-3"
+  }, [_vm._v(_vm._s(_vm.error))]), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": "/journal-entries"
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('Back to Journal Entries')) + "\n          ")])], 1) : _vm._e()])])])]);
 };
 var staticRenderFns = [];
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -453,12 +468,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-/* harmony default export */ const createvue_type_script_lang_js = ({
-  name: 'CreateJournalEntry',
+/* harmony default export */ const editvue_type_script_lang_js = ({
+  name: 'EditJournalEntry',
   middleware: ['auth', 'check-permissions'],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t('Create Journal Entry')
+      title: this.$t('Edit Journal Entry')
     };
   },
   components: {
@@ -468,7 +483,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: 'Create Journal Entry',
+      breadcrumbsCurrent: 'Edit Journal Entry',
       breadcrumbs: [{
         name: 'Dashboard',
         url: 'home'
@@ -476,33 +491,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: 'Journal Entries',
         url: 'journal-entries.index'
       }, {
-        name: 'Create',
+        name: 'Edit',
         url: ''
       }],
+      journalEntry: null,
       form: {
-        entry_date: new Date().toISOString().split('T')[0],
+        entry_date: '',
         reference: '',
         description: '',
         status: 'draft',
-        lines: [{
-          chart_of_account_id: '',
-          description: '',
-          reference: '',
-          debit_amount: '',
-          credit_amount: '',
-          line_number: 1
-        }, {
-          chart_of_account_id: '',
-          description: '',
-          reference: '',
-          debit_amount: '',
-          credit_amount: '',
-          line_number: 2
-        }]
+        lines: []
       },
       chartOfAccounts: [],
       errors: {},
-      loading: false
+      loading: true,
+      saving: false
     };
   },
   computed: {
@@ -533,7 +536,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _this.loadChartOfAccounts();
+            return Promise.all([_this.loadJournalEntry(), _this.loadChartOfAccounts()]);
           case 2:
           case "end":
             return _context.stop();
@@ -542,36 +545,90 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   mounted: function mounted() {
-    this.loadTemporaryData();
+    var _this2 = this;
+    // Load temporary data after component is mounted
+    this.$nextTick(function () {
+      _this2.loadTemporaryData();
+    });
   },
   methods: {
-    loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this2 = this;
+    loadJournalEntry: function loadJournalEntry() {
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var response;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              _context2.next = 3;
-              return _this2.$axios.get('/api/journal-entries/chart-of-accounts');
-            case 3:
+              _this3.loading = true;
+              _context2.next = 4;
+              return _this3.$axios.get("/api/journal-entries/".concat(_this3.$route.params.id));
+            case 4:
               response = _context2.sent;
-              _this2.chartOfAccounts = response.data.data || [];
-              console.log('Loaded chart of accounts:', _this2.chartOfAccounts);
-              console.log('First account structure:', _this2.chartOfAccounts[0]);
+              _this3.journalEntry = response.data.data;
+
+              // Populate form with existing data
+              _this3.form = {
+                entry_date: _this3.journalEntry.entry_date,
+                reference: _this3.journalEntry.reference || '',
+                description: _this3.journalEntry.description,
+                status: _this3.journalEntry.status,
+                lines: _this3.journalEntry.lines.map(function (line) {
+                  return {
+                    chart_of_account_id: line.chart_of_account_id,
+                    description: line.description || '',
+                    reference: line.reference || '',
+                    debit_amount: line.debit_amount > 0 ? line.debit_amount : '',
+                    credit_amount: line.credit_amount > 0 ? line.credit_amount : '',
+                    line_number: line.line_number
+                  };
+                })
+              };
               _context2.next = 13;
               break;
             case 9:
               _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
-              console.error('Error loading chart of accounts:', _context2.t0);
-              window.toast.error('Error loading chart of accounts');
+              console.error('Error loading journal entry:', _context2.t0);
+              window.toast.error('Error loading journal entry');
             case 13:
+              _context2.prev = 13;
+              _this3.loading = false;
+              return _context2.finish(13);
+            case 16:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 9]]);
+        }, _callee2, null, [[0, 9, 13, 16]]);
+      }))();
+    },
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return _this4.$axios.get('/api/journal-entries/chart-of-accounts');
+            case 3:
+              response = _context3.sent;
+              _this4.chartOfAccounts = response.data.data || [];
+              console.log('Loaded chart of accounts:', _this4.chartOfAccounts);
+              console.log('First account structure:', _this4.chartOfAccounts[0]);
+              _context3.next = 13;
+              break;
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](0);
+              console.error('Error loading chart of accounts:', _context3.t0);
+              window.toast.error('Error loading chart of accounts');
+            case 13:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[0, 9]]);
       }))();
     },
     onChartOfAccountChange: function onChartOfAccountChange(index, value) {
@@ -612,98 +669,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
       return null;
     },
-    getBalanceAlertClass: function getBalanceAlertClass() {
-      if (this.balanceDifference === 0) {
-        return 'alert-success';
-      } else {
-        return 'alert-warning';
-      }
-    },
-    saveJournalEntry: function saveJournalEntry() {
-      var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var invalidLines, data, response, backendError, _error$response, _error$response2, _backendError;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+    updateJournalEntry: function updateJournalEntry() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var data, backendError, _error$response, _error$response2, _backendError;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context3.prev = 0;
-              _this3.loading = true;
-              _this3.errors = {};
+              _context4.prev = 0;
+              _this5.saving = true;
+              _this5.errors = {};
 
               // Validate balance
-              if (_this3.isBalanced) {
-                _context3.next = 6;
+              if (_this5.isBalanced) {
+                _context4.next = 6;
                 break;
               }
-              window.toast.warning(_this3.$t('Journal entry must be balanced'));
-              return _context3.abrupt("return");
+              window.toast.warning(_this5.$t('Journal entry must be balanced'));
+              return _context4.abrupt("return");
             case 6:
-              // Validate chart of account selections
-              invalidLines = _this3.form.lines.filter(function (line) {
-                return !line.chart_of_account_id;
-              });
-              if (!(invalidLines.length > 0)) {
-                _context3.next = 10;
-                break;
-              }
-              window.toast.error(_this3.$t('Please select chart of accounts for all lines'));
-              return _context3.abrupt("return");
-            case 10:
               // Prepare data
-              data = _objectSpread(_objectSpread({}, _this3.form), {}, {
-                lines: _this3.form.lines.map(function (line) {
+              data = _objectSpread(_objectSpread({}, _this5.form), {}, {
+                lines: _this5.form.lines.map(function (line) {
                   return _objectSpread(_objectSpread({}, line), {}, {
                     debit_amount: parseFloat(line.debit_amount) || 0,
                     credit_amount: parseFloat(line.credit_amount) || 0
                   });
                 })
-              }); // Debug: Log the data being sent
-              console.log('Form data being sent:', data);
-              console.log('Reference value:', data.reference);
-              console.log('Reference type:', _typeof(data.reference));
-              console.log('Chart of account IDs:', data.lines.map(function (line) {
-                return line.chart_of_account_id;
-              }));
-              console.log('Original form lines:', _this3.form.lines);
-              console.log('Chart of accounts array:', _this3.chartOfAccounts);
-              _context3.next = 19;
-              return _this3.$axios.post('/api/journal-entries', data);
-            case 19:
-              response = _context3.sent;
+              });
+              _context4.next = 9;
+              return _this5.$axios.put("/api/journal-entries/".concat(_this5.journalEntry.id), data);
+            case 9:
               // Clear temporary data after successful save
-              _this3.clearTemporaryData();
-
-              // Show success message
-              window.toast.success('Journal entry created successfully!');
-
-              // Redirect to journal entries list
-              _this3.$router.push('/journal-entries');
-              _context3.next = 29;
+              _this5.clearTemporaryData();
+              window.toast.success('Journal entry updated successfully!');
+              _this5.$router.push("/journal-entries/".concat(_this5.journalEntry.id));
+              _context4.next = 18;
               break;
-            case 25:
-              _context3.prev = 25;
-              _context3.t0 = _context3["catch"](0);
-              console.error('Error creating journal entry:', _context3.t0);
-              if (_context3.t0.response && _context3.t0.response.data && _context3.t0.response.data.errors) {
-                _this3.errors = _context3.t0.response.data.errors;
-                // Prefer backend 'error' string if present
-                backendError = _context3.t0.response.data.error || _context3.t0.response.data.message;
+            case 14:
+              _context4.prev = 14;
+              _context4.t0 = _context4["catch"](0);
+              console.error('Error updating journal entry:', _context4.t0);
+              if (_context4.t0.response && _context4.t0.response.data && _context4.t0.response.data.errors) {
+                _this5.errors = _context4.t0.response.data.errors;
+                backendError = _context4.t0.response.data.error || _context4.t0.response.data.message;
                 if (backendError) {
                   window.toast.error(backendError);
                 }
               } else {
-                _backendError = (_context3.t0 === null || _context3.t0 === void 0 || (_error$response = _context3.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.error) || (_context3.t0 === null || _context3.t0 === void 0 || (_error$response2 = _context3.t0.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || 'Error creating journal entry';
+                _backendError = (_context4.t0 === null || _context4.t0 === void 0 || (_error$response = _context4.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.error) || (_context4.t0 === null || _context4.t0 === void 0 || (_error$response2 = _context4.t0.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || 'Error updating journal entry';
                 window.toast.error(_backendError);
               }
-            case 29:
-              _context3.prev = 29;
-              _this3.loading = false;
-              return _context3.finish(29);
-            case 32:
+            case 18:
+              _context4.prev = 18;
+              _this5.saving = false;
+              return _context4.finish(18);
+            case 21:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
-        }, _callee3, null, [[0, 25, 29, 32]]);
+        }, _callee4, null, [[0, 14, 18, 21]]);
       }))();
     },
     // save form data temporarily
@@ -716,11 +741,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         lines: this.form.lines,
         timestamp: new Date().toISOString()
       };
-      localStorage.setItem('journalEntryTempData', JSON.stringify(tempData));
+      localStorage.setItem('journalEntryEditTempData', JSON.stringify(tempData));
     },
     // load temporary data
     loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('journalEntryTempData');
+      var tempData = localStorage.getItem('journalEntryEditTempData');
       if (tempData) {
         try {
           var data = JSON.parse(tempData);
@@ -736,7 +761,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // clear temporary data
     clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('journalEntryTempData');
+      localStorage.removeItem('journalEntryEditTempData');
     },
     formatCurrency: function formatCurrency(amount) {
       return new Intl.NumberFormat('en-US', {
@@ -744,40 +769,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         currency: 'USD'
       }).format(amount);
     },
-    resetForm: function resetForm() {
-      this.form = {
-        entry_date: new Date().toISOString().split('T')[0],
-        reference: '',
-        description: '',
-        status: 'draft',
-        lines: [{
-          chart_of_account_id: '',
-          description: '',
-          reference: '',
-          debit_amount: '',
-          credit_amount: '',
-          line_number: 1
-        }, {
-          chart_of_account_id: '',
-          description: '',
-          reference: '',
-          debit_amount: '',
-          credit_amount: '',
-          line_number: 2
-        }]
-      };
-      this.errors = {};
+    getBalanceAlertClass: function getBalanceAlertClass() {
+      return this.isBalanced ? 'alert-success' : 'alert-warning';
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/journal-entries/create.vue?vue&type=script&lang=js
- /* harmony default export */ const journal_entries_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/pages/journal-entries/edit.vue?vue&type=script&lang=js
+ /* harmony default export */ const journal_entries_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=style&index=0&id=a1984acc&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_a1984acc_prod_scoped_true_lang_css = __webpack_require__(41569);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=style&index=0&id=a1984acc&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=style&index=0&id=4d16f7ca&prod&scoped=true&lang=css
+var editvue_type_style_index_0_id_4d16f7ca_prod_scoped_true_lang_css = __webpack_require__(51239);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/edit.vue?vue&type=style&index=0&id=4d16f7ca&prod&scoped=true&lang=css
 
             
 
@@ -786,16 +790,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_a1984acc_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_4d16f7ca_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const journal_entries_createvue_type_style_index_0_id_a1984acc_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_a1984acc_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/journal-entries/create.vue?vue&type=style&index=0&id=a1984acc&prod&scoped=true&lang=css
+/* harmony default export */ const journal_entries_editvue_type_style_index_0_id_4d16f7ca_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_4d16f7ca_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/journal-entries/edit.vue?vue&type=style&index=0&id=4d16f7ca&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/journal-entries/create.vue
+;// CONCATENATED MODULE: ./resources/js/pages/journal-entries/edit.vue
 
 
 
@@ -805,17 +809,17 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  journal_entries_createvue_type_script_lang_js,
+  journal_entries_editvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "a1984acc",
+  "4d16f7ca",
   null
   
 )
 
-/* harmony default export */ const create = (component.exports);
+/* harmony default export */ const edit = (component.exports);
 
 /***/ })
 
