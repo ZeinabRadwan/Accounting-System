@@ -89,7 +89,7 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3" id="printMe">
+            <div class="table-responsive table-custom mt-3" id="printMe" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
               <table class="table invoices-table">
                 <thead>
                   <th>{{ $t("#") }}</th>
@@ -460,7 +460,8 @@ export default {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
       // Create a dynamic export URL with query parameters
-      return `/invoices/export/export?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      const locale = this.$i18n.locale;
+      return `/invoices/export/export?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
     },
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
@@ -647,6 +648,12 @@ export default {
 
     // print table
     async print() {
+      // Set direction for print based on current locale
+      const printElement = document.getElementById('printMe');
+      if (printElement) {
+        const currentDir = this.$i18n.locale === 'ar' ? 'rtl' : 'ltr';
+        printElement.setAttribute('dir', currentDir);
+      }
       await this.$htmlToPaper("printMe");
     },
 
@@ -1104,6 +1111,166 @@ export default {
     justify-content: flex-end;
     width: 100%;
     align-items: center;
+}
+
+/* Print Styles */
+@media print {
+  /* Hide non-printable elements */
+  .no-print,
+  .refresh-btn,
+  .export-excel-btn,
+  .export-pdf-btn,
+  .print-btn,
+  .btn-group,
+  .search-wrapper,
+  .card-header,
+  .card-footer {
+    display: none !important;
+  }
+  
+  /* Set direction based on language */
+  body[dir="ltr"] #printMe,
+  #printMe[dir="ltr"] {
+    direction: ltr;
+  }
+  
+  body[dir="rtl"] #printMe,
+  #printMe[dir="rtl"] {
+    direction: rtl;
+  }
+  
+  /* Print-friendly table styles */
+  #printMe {
+    width: 100%;
+    page-break-inside: avoid;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .table-responsive {
+    overflow: visible !important;
+  }
+  
+  #printMe .invoices-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  /* Maintain header style when printing */
+  #printMe .invoices-table thead th {
+    background-color: #33a0d9 !important;
+    color: #ffffff !important;
+    padding: 12px 8px !important;
+    border: none !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+  }
+  
+  /* RTL adjustments for headers */
+  body[dir="rtl"] #printMe .invoices-table thead th,
+  #printMe[dir="rtl"] .invoices-table thead th {
+    text-align: right;
+  }
+  
+  body[dir="ltr"] #printMe .invoices-table thead th,
+  #printMe[dir="ltr"] .invoices-table thead th {
+    text-align: left;
+  }
+  
+  /* Table body styles */
+  #printMe .invoices-table tbody tr {
+    page-break-inside: avoid;
+  }
+  
+  #printMe .invoices-table tbody tr:nth-child(even) {
+    background-color: #f9fafb !important;
+  }
+  
+  #printMe .invoices-table tbody td {
+    padding: 10px 8px !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    font-size: 13px !important;
+  }
+  
+  /* Invoice number links */
+  #printMe .invoices-table tbody td a {
+    color: #33a0d9 !important;
+    font-weight: 500 !important;
+  }
+  
+  /* Maintain badge styles when printing */
+  #printMe .badge.bg-success {
+    background: #F6FEF4 !important;
+    color: #2AB930 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    display: inline-block !important;
+  }
+  
+  #printMe .badge.bg-danger {
+    background: #FEF4F4 !important;
+    color: #DC3545 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    display: inline-block !important;
+  }
+  
+  /* Currency symbol styling */
+  #printMe .saudi-riyal {
+    color: inherit !important;
+    font-weight: 500 !important;
+  }
+  
+  /* Remove borders and shadows for clean print */
+  .card,
+  .card-body,
+  #printMe {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Page break settings */
+  @page {
+    margin: 1cm;
+    size: A4 landscape;
+  }
+  
+  /* Ensure table doesn't break in the middle */
+  #printMe .invoices-table thead tr,
+  #printMe .invoices-table tbody tr {
+    page-break-inside: avoid;
+  }
+  
+  /* Print URL links in blue */
+  #printMe a {
+    color: #33a0d9 !important;
+    text-decoration: none !important;
+  }
+  
+  /* Adjust RTL text alignment */
+  body[dir="rtl"] #printMe .invoices-table tbody td,
+  #printMe[dir="rtl"] .invoices-table tbody td {
+    text-align: right;
+  }
+  
+  body[dir="ltr"] #printMe .invoices-table tbody td,
+  #printMe[dir="ltr"] .invoices-table tbody td {
+    text-align: left;
+  }
+  
+  /* Right-align numeric columns */
+  #printMe .invoices-table tbody td:nth-child(5),
+  #printMe .invoices-table tbody td:nth-child(6),
+  #printMe .invoices-table tbody td:nth-child(7) {
+    text-align: right !important;
+  }
 }
 </style>
 

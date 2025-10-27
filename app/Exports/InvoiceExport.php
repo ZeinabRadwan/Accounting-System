@@ -15,12 +15,14 @@ class InvoiceExport implements FromCollection, WithHeadings, WithEvents
     protected $startDate;
     protected $endDate;
     protected $term;
+    protected $locale;
 
-    public function __construct($startDate, $endDate, $term)
+    public function __construct($startDate, $endDate, $term, $locale = null)
     {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->term = $term;
+        $this->locale = $locale ?: session('locale', app()->getLocale());
     }
 
 
@@ -52,10 +54,15 @@ class InvoiceExport implements FromCollection, WithHeadings, WithEvents
         $invoices = InvoiceListResource::collection($query->latest()->get())->map(function ($invoice) {
             $currencySymbol = getExcelCompatibleCurrencySymbol();
             
+            // Translate status using stored locale
+            $statusText = $invoice->status ? 
+                ($this->locale === 'ar' ? 'نشط' : 'Active') : 
+                ($this->locale === 'ar' ? 'غير نشط' : 'Inactive');
+            
             return [
                 config('config.invoicePrefix') . ' - ' . $invoice->invoice_no,
                 date('jS M, Y', strtotime($invoice->invoice_date)),
-                $invoice->status ? 'Active' : 'Inactive',
+                $statusText,
                 $invoice->client->name ?? 'N/A',
                 $currencySymbol . strval($invoice->invoiceTotal()),
                 $currencySymbol . strval($invoice->invoiceTotalPaid() > 0 ? $invoice->invoiceTotalPaid() : '0'),
@@ -78,9 +85,31 @@ class InvoiceExport implements FromCollection, WithHeadings, WithEvents
             return floatval(str_replace($currencySymbol, '', $row[6]  ?? 0));
         });
 
+        // Use stored locale for total row labels
+        $locale = $this->locale;
+        
+        // Define translations for total row labels
+        $totalLabels = [
+            'en' => [
+                'Net Total = ',
+                'Total Paid = ',
+                'Total Due = '
+            ],
+            'ar' => [
+                'صافي الإجمالي = ',
+                'إجمالي المدفوع = ',
+                'إجمالي المستحقات = '
+            ]
+        ];
+        
+        $labels = $totalLabels[$locale] ?? $totalLabels['en'];
+        
         // Add the total paid as a new row
         $invoices->push([
-            '', '', '', '', 'Net Total = ' . $currencySymbol . $netTotal, 'Total Paid = ' . $currencySymbol . $paidTotal, 'Total Due = ' . $currencySymbol . $totalDue,
+            '', '', '', '', 
+            $labels[0] . $currencySymbol . $netTotal, 
+            $labels[1] . $currencySymbol . $paidTotal, 
+            $labels[2] . $currencySymbol . $totalDue,
         ]);
 
         return $invoices;
@@ -89,15 +118,32 @@ class InvoiceExport implements FromCollection, WithHeadings, WithEvents
     // excel file columns
     public function headings(): array
     {
-        return [
-            'Invoice No',
-            'Invoice Date',
-            'Status',
-            'Client',
-            'Net Total',
-            'Total Paid',
-            'Total Due',
+        // Use stored locale
+        $locale = $this->locale;
+        
+        // Define translations for Excel headers
+        $translations = [
+            'en' => [
+                'Invoice No',
+                'Invoice Date',
+                'Status',
+                'Client',
+                'Net Total',
+                'Total Paid',
+                'Total Due',
+            ],
+            'ar' => [
+                'رقم الفاتورة',
+                'تاريخ الفاتورة',
+                'الحالة',
+                'العميل',
+                'صافي الإجمالي',
+                'إجمالي المدفوع',
+                'إجمالي المستحقات',
+            ]
         ];
+        
+        return $translations[$locale] ?? $translations['en'];
     }
 
     public function registerEvents(): array

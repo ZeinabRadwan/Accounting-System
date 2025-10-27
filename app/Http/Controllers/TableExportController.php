@@ -482,8 +482,9 @@ class TableExportController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $term = $request->input('term');
+        $locale = $request->input('locale', session('locale', app()->getLocale()));
 
-        return Excel::download(new InvoiceExport($startDate, $endDate, $term), 'Invoices.xlsx');
+        return Excel::download(new InvoiceExport($startDate, $endDate, $term, $locale), 'Invoices.xlsx');
     }
 
     // return invoice pdf
