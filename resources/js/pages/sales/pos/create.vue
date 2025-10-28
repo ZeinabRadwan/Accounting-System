@@ -1353,9 +1353,9 @@ export default {
             qty: quantity,
             inventoryCount: product.inventoryCount,
             avgPurchasePrice: product.avgPurchasePrice,
-            unitPrice: product.priceWithDiscount,
-            unitCost: product.priceWithDiscount, // Will be recalculated
-            totalPrice: product.priceWithDiscount, // Will be recalculated
+            unitPrice: product.regularPrice,
+            unitCost: product.regularPrice, // Will be recalculated
+            totalPrice: product.regularPrice, // Will be recalculated
             productTax: 0, // Will be recalculated
             totalTax: 0, // Will be recalculated
             discount: 0,

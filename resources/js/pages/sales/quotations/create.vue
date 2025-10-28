@@ -961,9 +961,9 @@ export default {
       if (index === -1) {
         let productTax =
           product.taxType == "Exclusive"
-            ? product.priceWithDiscount * (product.taxRate / 100)
-            : product.priceWithDiscount -
-            product.priceWithDiscount / (1 + product.taxRate / 100);
+            ? product.regularPrice * (product.taxRate / 100)
+            : product.regularPrice -
+            product.regularPrice / (1 + product.taxRate / 100);
         let totalTax = productTax * qunatity;
 
         this.form.selectedProducts.unshift({
@@ -975,15 +975,15 @@ export default {
           taxRate: product.taxRate,
           qty: qunatity,
           avgPurchasePrice: product.avgPurchasePrice,
-          unitPrice: product.priceWithDiscount,
+          unitPrice: product.regularPrice,
           unitCost:
             product.taxType == "Exclusive"
-              ? product.priceWithDiscount + productTax
-              : product.priceWithDiscount,
+              ? product.regularPrice + productTax
+              : product.regularPrice,
           totalPrice:
             product.taxType == "Exclusive"
-              ? 1 * (product.priceWithDiscount + totalTax)
-              : 1 * product.priceWithDiscount,
+              ? 1 * (product.regularPrice + totalTax)
+              : 1 * product.regularPrice,
           productTax: productTax,
           totalTax: totalTax,
           itemType: product.itemType,
