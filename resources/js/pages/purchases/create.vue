@@ -783,16 +783,16 @@ export default {
           name: product.name,
           code: product.code,
           qty: quantity,
-          unitPrice: purchasePrice,
-          originalPrice: purchasePrice, // Store original price to preserve it
+          unitPrice: product.regularPrice,
+          originalPrice: product.regularPrice, // Align calculations with unitPrice
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
           selectedVatRate: this.findMatchingVatRate(product.productTax) || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
           productTax: 0,
           totalTax: 0,
-          unitCost: purchasePrice,
-          totalPrice: purchasePrice * quantity,
+          unitCost: product.regularPrice,
+          totalPrice: product.regularPrice * quantity,
           // Include chart of account IDs for validation
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,

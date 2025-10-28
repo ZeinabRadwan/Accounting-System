@@ -550,11 +550,11 @@ export default {
           taxRate: product.taxRate,
           productTax: productTax,
           totalTax: productTax * qunatity,
-          unitPrice: purchasePrice,
+          unitPrice: product.regularPrice,
           unitCost:
             product.taxType == 'Exclusive'
-              ? purchasePrice + totalTax
-              : purchasePrice,
+              ? product.regularPrice + totalTax
+              : product.regularPrice,
           totalPrice:
             product.taxType == 'Exclusive'
               ? 1 * (purchasePrice + totalTax)
