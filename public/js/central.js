@@ -22658,12 +22658,12 @@ var map = {
 		6180
 	],
 	"./purchases/show": [
-		95640,
-		5640
+		21551,
+		1551
 	],
 	"./purchases/show.vue": [
-		95640,
-		5640
+		21551,
+		1551
 	],
 	"./reports/account-statement": [
 		6575,
@@ -22834,12 +22834,12 @@ var map = {
 		905
 	],
 	"./sales/invoices/show": [
-		85753,
-		5753
+		71981,
+		1981
 	],
 	"./sales/invoices/show.vue": [
-		85753,
-		5753
+		71981,
+		1981
 	],
 	"./sales/pos/create": [
 		82899,
@@ -41944,41 +41944,39 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/function () {
   var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(to, from, next) {
-    var reqiredPermissions, canEnter;
+    var reqiredPermissions, canEnter, _t;
     return _regenerator().w(function (_context) {
-      while (1) switch (_context.n) {
+      while (1) switch (_context.p = _context.n) {
         case 0:
-          reqiredPermissions = to.meta.permissions;
-          if (from.name) {
-            _context.n = 1;
+          reqiredPermissions = to.meta.permissions; // If user is not loaded and we have a token, fetch the user first
+          if (!(!_store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['auth/user'] && _store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['auth/token'])) {
+            _context.n = 4;
             break;
           }
-          _store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.dispatch('auth/fetchUser').then(function () {
-            var canEnter = (0,_helpers_can__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(reqiredPermissions);
-            if (!canEnter) {
-              return next({
-                name: 'permission-denied'
-              });
-            }
-            return next();
-          });
-          _context.n = 3;
+          _context.p = 1;
+          _context.n = 2;
+          return _store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.dispatch('auth/fetchUser');
+        case 2:
+          _context.n = 4;
           break;
-        case 1:
+        case 3:
+          _context.p = 3;
+          _t = _context.v;
+          // If fetch fails, continue with permission check anyway
+          console.warn('Failed to fetch user in check-permissions:', _t);
+        case 4:
           canEnter = (0,_helpers_can__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(reqiredPermissions);
           if (canEnter) {
-            _context.n = 2;
+            _context.n = 5;
             break;
           }
           return _context.a(2, next({
             name: 'permission-denied'
           }));
-        case 2:
+        case 5:
           return _context.a(2, next());
-        case 3:
-          return _context.a(2);
       }
-    }, _callee);
+    }, _callee, null, [[1, 3]]);
   }));
   return function (_x, _x2, _x3) {
     return _ref.apply(this, arguments);
@@ -118253,7 +118251,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 9822) return "js/9822.js";
 /******/ 			if (chunkId === 1398) return "js/1398.js";
 /******/ 			if (chunkId === 6180) return "js/6180.js";
-/******/ 			if (chunkId === 5640) return "js/5640.js";
+/******/ 			if (chunkId === 1551) return "js/1551.js";
 /******/ 			if (chunkId === 6575) return "js/6575.js";
 /******/ 			if (chunkId === 2732) return "js/2732.js";
 /******/ 			if (chunkId === 249) return "js/249.js";
@@ -118274,7 +118272,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 905) return "js/905.js";
 /******/ 			if (chunkId === 384) return "js/384.js";
 /******/ 			if (chunkId === 846) return "js/846.js";
-/******/ 			if (chunkId === 5753) return "js/5753.js";
+/******/ 			if (chunkId === 1981) return "js/1981.js";
 /******/ 			if (chunkId === 2899) return "js/2899.js";
 /******/ 			if (chunkId === 9406) return "js/9406.js";
 /******/ 			if (chunkId === 2397) return "js/2397.js";
