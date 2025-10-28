@@ -79,7 +79,7 @@
             </router-link>
             <a
               v-if="allData && allData.status === 1 && calculateDueAmount > 0"
-              @click="addPayment()"
+              @click.prevent="addPayment()"
               href="#"
               class="btn btn-primary"
             >
@@ -87,7 +87,7 @@
             </a>
             <a
               v-if="$can('invoice-return-create') && allData && allData.status === 1"
-              @click="returnInvoice(allData)"
+              @click.prevent="returnInvoice(allData)"
               href="#"
               class="btn btn-warning"
             >
