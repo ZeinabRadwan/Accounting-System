@@ -12,6 +12,7 @@ use App\Models\InvoicePayment;
 use App\Models\PurchasePayment;
 use App\Models\LoanPayment;
 use App\Models\NonInvoicePayment;
+use App\Models\PaymentVoucher;
 use App\Models\AccountRoutingSetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -835,11 +836,16 @@ class BusinessTransactionJournalService
                 'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
-            // Create journal entry lines
-            // Line 1: Debit to Bank Account (Cash/Bank receipt)
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.cash_bank_receipt_for_non_invoice_payment'));
-            // Line 2: Credit to Client's Accounts Receivable
-            $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.reduction_in_client_accounts_receivable'));
+            // Create journal entry lines based on payment type
+            // type 1: Payment received from client (Debit Bank, Credit AR)
+            // type 0: Payment sent to client (Debit AR, Credit Bank)
+            if (intval($nonInvoicePayment->type) === 1) {
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.cash_bank_receipt_for_non_invoice_payment'));
+                $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.reduction_in_client_accounts_receivable'));
+            } else {
+                $this->createJournalEntryLine($journalEntry, $clientAccountsReceivableAccount->id, $nonInvoicePayment->amount, 0, 1, __('journal.accounts_receivable'));
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonInvoicePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'));
+            }
 
             // Create bridge table record (you'll need to create this model and migration)
             // \App\Models\NonInvoicePaymentJournal::create([
@@ -995,11 +1001,127 @@ class BusinessTransactionJournalService
                 'accounting_period_id' => $defaults['accounting_period_id'],
             ]);
 
-            // Create journal entry lines
-            // Line 1: Debit to Supplier's Accounts Payable (reducing liability)
-            $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.reduction_in_accounts_payable'));
-            // Line 2: Credit to Bank Account (Cash/Bank payment)
-            $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'));
+            // Create journal entry lines based on payment type
+            // type 1: Payment sent to supplier (Debit AP, Credit Bank)
+            // type 0: Payment received from supplier (Debit Bank, Credit AP)
+            if (intval($nonPurchasePayment->type) === 1) {
+                $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.reduction_in_accounts_payable'));
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.cash_bank_payment_for_non_purchase'));
+            } else {
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $nonPurchasePayment->amount, 0, 1, __('journal.cash_bank_receipt'));
+                $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $nonPurchasePayment->amount, 2, __('journal.accounts_payable'));
+            }
+
+            DB::commit();
+            return $journalEntry;
+            
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Create journal entry for payment voucher
+     */
+    public function createPaymentVoucherJournal(PaymentVoucher $paymentVoucher, int $userId): JournalEntry
+    {
+        DB::beginTransaction();
+        
+        try {
+            // Get the bank account from the voucher transaction
+            $bankAccount = null;
+            if ($paymentVoucher->transaction_id) {
+                $transaction = AccountTransaction::find($paymentVoucher->transaction_id);
+                if ($transaction && $transaction->account && $transaction->account->chartOfAccount) {
+                    $bankAccount = $transaction->account->chartOfAccount;
+                    
+                    // Validate that the cashbook account is connected to a chart of account
+                    if (!$transaction->account->isChartOfAccountConnected()) {
+                        throw new Exception($transaction->account->getChartOfAccountValidationMessage());
+                    }
+                }
+            }
+            
+            // If no specific bank account found, throw error - we need a specific account
+            if (!$bankAccount) {
+                throw new Exception('Payment method must be connected to a Chart of Account for journal entries.');
+            }
+
+            // Get the entity account based on entity type
+            $entityAccount = null;
+            
+            if ($paymentVoucher->entity_type === 'client') {
+                // For client vouchers, use client's chart of account
+                if (!$paymentVoucher->client || !$paymentVoucher->client->isChartOfAccountConnected()) {
+                    throw new Exception('Client must have a Chart of Account assigned for journal entries.');
+                }
+                $entityAccount = $paymentVoucher->client->chartOfAccount;
+                
+                if (!$entityAccount) {
+                    throw new Exception('Client Chart of Account not found.');
+                }
+            } elseif ($paymentVoucher->entity_type === 'supplier') {
+                // For supplier vouchers, use supplier's chart of account
+                if (!$paymentVoucher->supplier || !$paymentVoucher->supplier->isChartOfAccountConnected()) {
+                    throw new Exception('Supplier must have a Chart of Account assigned for journal entries.');
+                }
+                $entityAccount = $paymentVoucher->supplier->chartOfAccount;
+                
+                if (!$entityAccount) {
+                    throw new Exception('Supplier Chart of Account not found.');
+                }
+            } elseif ($paymentVoucher->entity_type === 'chart_of_account') {
+                // For chart of account vouchers, use the chart of account directly
+                if (!$paymentVoucher->chartOfAccount) {
+                    throw new Exception('Chart of Account not found.');
+                }
+                $entityAccount = $paymentVoucher->chartOfAccount;
+            }
+
+            if (!$entityAccount) {
+                throw new Exception('Entity Chart of Account not found.');
+            }
+
+            // Get default fiscal year and accounting period
+            $defaults = $this->getDefaultFiscalYearAndPeriod();
+
+            // Generate reference
+            $voucherReference = 'VOUCHER-' . $paymentVoucher->id . '-' . ($paymentVoucher->voucher_type ? 'RECEIVE' : 'SEND') . '-' . time();
+
+            // Create journal entry
+            $journalEntry = JournalEntry::create([
+                'entry_number' => JournalEntry::generateEntryNumber(),
+                'entry_date' => $paymentVoucher->date,
+                'reference' => $voucherReference,
+                'description' => __('journal.payment_voucher', [
+                    'type' => $paymentVoucher->voucher_type ? __('journal.receive') : __('journal.send'),
+                    'note' => $paymentVoucher->note ?? ''
+                ]),
+                'total_debit' => $paymentVoucher->amount,
+                'total_credit' => $paymentVoucher->amount,
+                'status' => 'posted',
+                'created_by' => $userId,
+                'posted_by' => $userId,
+                'posted_at' => now(),
+                'source_type' => PaymentVoucher::class,
+                'source_id' => $paymentVoucher->id,
+                'fiscal_year_id' => $defaults['fiscal_year_id'],
+                'accounting_period_id' => $defaults['accounting_period_id'],
+            ]);
+
+            // Create journal entry lines based on voucher type
+            // voucher_type 1 (Receive): Payment received - Debit Bank, Credit Entity Account
+            // voucher_type 0 (Send): Payment sent - Debit Entity Account, Credit Bank
+            if (intval($paymentVoucher->voucher_type) === 1) {
+                // Receive voucher: Money coming in
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, $paymentVoucher->amount, 0, 1, __('journal.cash_bank_receipt'));
+                $this->createJournalEntryLine($journalEntry, $entityAccount->id, 0, $paymentVoucher->amount, 2, __('journal.payment_received'));
+            } else {
+                // Send voucher: Money going out
+                $this->createJournalEntryLine($journalEntry, $entityAccount->id, $paymentVoucher->amount, 0, 1, __('journal.payment_sent'));
+                $this->createJournalEntryLine($journalEntry, $bankAccount->id, 0, $paymentVoucher->amount, 2, __('journal.cash_bank_payment'));
+            }
 
             DB::commit();
             return $journalEntry;

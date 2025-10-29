@@ -678,6 +678,78 @@
             </ul>
           </li>
 
+          <!-- السندات (Vouchers) -->
+          <li
+            v-if="!$isPOS() && (
+              $can('payment-voucher-list') ||
+              $can('payment-voucher-create') ||
+              $can('payment-voucher-edit') ||
+              $can('payment-voucher-view') ||
+              $can('payment-voucher-delete')
+            )"
+            class="nav-item has-treeview"
+            :class="
+              menuOpen('receiveVouchers') ||
+              menuOpen('sendVouchers')
+                ? 'menu-is-opening menu-open'
+                : ''
+            "
+          >
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file-invoice-dollar" />
+              <p>
+                {{ $t("Vouchers") }}
+                <span class="toggle-icon"></span>
+              </p>
+            </a>
+            <ul
+              class="nav nav-treeview"
+              :style="
+                menuOpen('receiveVouchers') ||
+                menuOpen('sendVouchers')
+                  ? 'display: block'
+                  : 'display: none'
+              "
+            >
+              <li
+                v-if="
+                  $can('payment-voucher-list') ||
+                  $can('payment-voucher-create') ||
+                  $can('payment-voucher-edit') ||
+                  $can('payment-voucher-view') ||
+                  $can('payment-voucher-delete')
+                "
+                class="nav-item"
+              >
+                <router-link
+                  :to="{ name: 'receiveVouchers.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-arrow-down nav-icon" />
+                  <p>{{ $t("Receive Vouchers") }}</p>
+                </router-link>
+              </li>
+              <li
+                v-if="
+                  $can('payment-voucher-list') ||
+                  $can('payment-voucher-create') ||
+                  $can('payment-voucher-edit') ||
+                  $can('payment-voucher-view') ||
+                  $can('payment-voucher-delete')
+                "
+                class="nav-item"
+              >
+                <router-link
+                  :to="{ name: 'sendVouchers.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-arrow-up nav-icon" />
+                  <p>{{ $t("Send Vouchers") }}</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+
           <li
             v-if="!$isPOS() && (
               $can('non-purchase-payment-list') ||

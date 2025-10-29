@@ -63,6 +63,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TenantImpersonationController;
 use App\Http\Controllers\API\NonInvoicePaymentController;
 use App\Http\Controllers\API\NonPurchasePaymentController;
+use App\Http\Controllers\API\PaymentVoucherController;
 use App\Http\Controllers\API\InventoryAdjustmentController;
 use App\Http\Controllers\API\SubscriptionInvoiceController;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -385,6 +386,13 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/suppliers-for-nonpurchase-payments', [SupplierController::class, 'suppliersForNonPurchasePayments']);
         Route::get('/payments/non-purchase/search', [NonPurchasePaymentController::class, 'search']);
         Route::apiResource('/payments/non-purchase', NonPurchasePaymentController::class);
+
+        // Payment voucher routes
+        Route::get('/vouchers/receive', [PaymentVoucherController::class, 'indexReceive']);
+        Route::get('/vouchers/send', [PaymentVoucherController::class, 'indexSend']);
+        Route::get('/vouchers/search', [PaymentVoucherController::class, 'search']);
+        Route::post('/vouchers/cancel/{slug}', [PaymentVoucherController::class, 'cancel']);
+        Route::apiResource('vouchers', PaymentVoucherController::class);
 
         // Loan authorities routes
         Route::get('/loan-authorities/search', [LoanAuthorityController::class, 'search']);

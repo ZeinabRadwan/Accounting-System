@@ -829,6 +829,58 @@ export default [
     meta: {permissions: ['non-purchase-payment-edit']},
   },
 
+  // Payment Voucher routes - Receive Vouchers (سندات قبض)
+  {
+    path: '/vouchers/receive',
+    name: 'receiveVouchers.index',
+    component: page('vouchers/receive/index.vue'),
+    meta: {permissions: ['payment-voucher-list']},
+  },
+  {
+    path: '/vouchers/receive/create',
+    name: 'receiveVouchers.create',
+    component: page('vouchers/receive/create.vue'),
+    meta: {permissions: ['payment-voucher-create']},
+  },
+  {
+    path: '/vouchers/receive/:slug',
+    name: 'receiveVouchers.show',
+    component: page('vouchers/receive/show.vue'),
+    meta: {permissions: ['payment-voucher-view']},
+  },
+  {
+    path: '/vouchers/receive/edit/:slug',
+    name: 'receiveVouchers.edit',
+    component: page('vouchers/receive/edit.vue'),
+    meta: {permissions: ['payment-voucher-edit']},
+  },
+
+  // Payment Voucher routes - Send Vouchers (سندات صرف)
+  {
+    path: '/vouchers/send',
+    name: 'sendVouchers.index',
+    component: page('vouchers/send/index.vue'),
+    meta: {permissions: ['payment-voucher-list']},
+  },
+  {
+    path: '/vouchers/send/create',
+    name: 'sendVouchers.create',
+    component: page('vouchers/send/create.vue'),
+    meta: {permissions: ['payment-voucher-create']},
+  },
+  {
+    path: '/vouchers/send/:slug',
+    name: 'sendVouchers.show',
+    component: page('vouchers/send/show.vue'),
+    meta: {permissions: ['payment-voucher-view']},
+  },
+  {
+    path: '/vouchers/send/edit/:slug',
+    name: 'sendVouchers.edit',
+    component: page('vouchers/send/edit.vue'),
+    meta: {permissions: ['payment-voucher-edit']},
+  },
+
   // Loan authority routes
   {
     path: '/loan-authorities',

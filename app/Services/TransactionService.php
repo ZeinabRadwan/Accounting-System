@@ -86,15 +86,17 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromNonInvoicePayment($request, $userId) : AccountTransaction
     {
-
-        $reason = '['.config('config.clientPrefix').'-'.$request->client['id'].'] Non inovice payment added to ['.$request->account['accountNumber'].']';
+        $isIncoming = intval($request->type) === 1;
+        $reason = '['.config('config.clientPrefix').'-'.$request->client['id'].'] '
+            . ($isIncoming ? 'Non inovice payment added to ' : 'Non inovice payment sent from ')
+            . '['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
 
         $transactionArray['account_id'] = $request->account['id'];
         $transactionArray['amount'] = $request->amount;
         $transactionArray['reason'] = $reason;
-        $transactionArray['type'] = 1;
+        $transactionArray['type'] = $isIncoming ? 1 : 0;
         $transactionArray['transaction_date'] = $request->paymentDate;
         $transactionArray['cheque_no'] = $request->chequeNo;
         $transactionArray['receipt_no'] = $request->receiptNo;
@@ -165,15 +167,17 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromNonPurchasePayment($request, $userId) : AccountTransaction
     {
-
-        $reason = $reason = '['.config('config.supplierPrefix').'-'.$request->supplier['supplierID'].'] Non purchase due sent from ['.$request->account['accountNumber'].']';
+        $isOutgoing = intval($request->type) === 1;
+        $reason = '['.config('config.supplierPrefix').'-'.$request->supplier['supplierID'].'] '
+            . ($isOutgoing ? 'Non purchase due sent from ' : 'Non purchase payment received to ')
+            . '['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
 
         $transactionArray['account_id'] = $request->account['id'];
         $transactionArray['amount'] = $request->amount;
         $transactionArray['reason'] = $reason;
-        $transactionArray['type'] = 0;
+        $transactionArray['type'] = $isOutgoing ? 0 : 1;
         $transactionArray['transaction_date'] = $request->paymentDate;
         $transactionArray['cheque_no'] = $request->chequeNo;
         $transactionArray['receipt_no'] = $request->receiptNo;

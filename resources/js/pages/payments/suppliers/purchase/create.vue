@@ -30,6 +30,22 @@
                     :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier" :placeholder="$t('Select a supplier')"
                     @input="getPurchases" />
                   <has-error :form="form" field="supplier" />
+                  <!-- Supplier Chart of Account Status -->
+                  <div class="supplier-status mt-2" v-if="form.supplier">
+                    <div v-if="!form.supplier.chart_of_account_id" class="supplier-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Supplier needs Chart of Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignSupplierChartOfAccount"
+                        :disabled="isAutoAssigningSupplier"
+                      >
+                        <i :class="isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div v-if="form.supplier" class="row">
@@ -273,6 +289,7 @@ export default {
     }),
     accounts: "",
     purchases: "",
+    isAutoAssigningSupplier: false,
     // Communication configuration status
     communicationConfig: {
       email_configured: false,
@@ -299,6 +316,78 @@ export default {
       });
     },
 
+    // Auto-assign Chart of Account for selected supplier
+    async autoAssignSupplierChartOfAccount() {
+      if (!this.form.supplier || !this.form.supplier.slug || this.isAutoAssigningSupplier) {
+        return
+      }
+      
+      this.isAutoAssigningSupplier = true
+      
+      try {
+        // Store the current supplier slug before making the API call
+        const currentSupplierSlug = this.form.supplier.slug
+        
+        const response = await axios.post(`/api/suppliers/${this.form.supplier.slug}/auto-assign-chart-of-account`)
+        
+        if (response.data.success) {
+          // Update the supplier data with new chart of account
+          const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null
+          if (newAccountId) {
+            this.form.supplier.chart_of_account_id = newAccountId
+            // Also update the option in items list to keep state consistent when switching suppliers
+            const idx = (this.items || []).findIndex(i => i.slug === currentSupplierSlug)
+            if (idx !== -1) {
+              this.$set(this.items[idx], 'chart_of_account_id', newAccountId)
+            }
+          }
+          
+          // Force Vue to re-render the component to update the UI
+          this.$nextTick(() => {
+            this.$forceUpdate()
+          })
+          
+          // Show success message
+          toast.fire({
+            type: 'success',
+            title: this.$t('Chart of Account assigned successfully'),
+          })
+        } else {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Failed to assign Chart of Account'),
+            text: response.data.message || this.$t('Please try again or assign manually')
+          })
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error auto-assigning chart of account:', error)
+        
+        // Handle different types of errors
+        if (error.response?.status === 400) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Invalid Request'),
+            text: error.response?.data?.message || this.$t('Please check the supplier data and try again')
+          })
+        } else if (error.response?.status === 403 || error.response?.status === 401) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Permission Denied'),
+            text: this.$t("You don't have permission to assign Chart of Accounts.")
+          })
+        } else {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Failed to assign Chart of Account'),
+            text: error.response?.data?.message || error.message || this.$t('An error occurred. Please try again.')
+          })
+        }
+      } finally {
+        this.isAutoAssigningSupplier = false
+      }
+    },
+
     // Load communication configuration status
     async loadCommunicationConfigStatus() {
       try {
@@ -319,11 +408,17 @@ export default {
     async getPurchases() {
       this.form.selectedPurchases = [];
       if (this.form.supplier) {
+        // Preserve chart_of_account_id before updating supplier data
+        const currentChartOfAccountId = this.form.supplier.chart_of_account_id;
         const { data } = await axios.get(
           window.location.origin + "/api/supplier/" + this.form.supplier.slug + "/purchases"
         );
         this.purchases = data.purchases;
-        this.form.supplier = data.supplier;
+        // Merge supplier data while preserving chart_of_account_id
+        this.form.supplier = {
+          ...data.supplier,
+          chart_of_account_id: data.supplier.chart_of_account_id || currentChartOfAccountId
+        };
       }
     },
 
@@ -682,5 +777,20 @@ textarea.form-control {
   .pr-5 {
     padding-right: 1rem !important;
   }
+}
+
+.supplier-status {
+  font-size: 13px;
+}
+
+.supplier-warning {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
 }
 </style>

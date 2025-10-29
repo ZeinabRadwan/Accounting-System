@@ -31,20 +31,22 @@
                     :placeholder="$t('Select a client')" @input="calculateValues" />
                   <has-error :form="form" field="client" />
                   <!-- Client Chart of Account Status -->
-                  <div v-if="form.client" class="mt-2">
-                    <div v-if="!form.client.chart_of_account_id" class="d-flex align-items-center">
-                      <span class="badge badge-warning">{{ $t('Warning') }}</span>
+                  <div class="client-status mt-2" v-if="form.client">
+                    <div v-if="!form.client.chart_of_account_id" class="client-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
-                      <button type="button" class="btn btn-sm btn-outline-primary ml-3"
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignClientChartOfAccount"
                         :disabled="isAutoAssigningClient"
-                        @click="autoAssignClientChartOfAccount">
-                        <i v-if="!isAutoAssigningClient" class="fas fa-magic"></i>
-                        <i v-else class="fas fa-spinner fa-spin"></i>
-                        <span class="ml-1">{{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}</span>
+                      >
+                        <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
                       </button>
                     </div>
-                    <div v-else class="d-flex align-items-center text-success">
-                      <i class="fas fa-check-circle"></i>
+                    <div v-else class="client-success">
+                      <i class="fas fa-check-circle text-success"></i>
                       <span class="ml-2">{{ $t('Client Chart of Account ready') }}</span>
                     </div>
                   </div>
@@ -56,6 +58,9 @@
                     :class="{ 'is-invalid': form.errors.has('type') }" @change="updateMax">
                     <option value="1">
                       {{ $t('Add Payment') }}
+                    </option>
+                    <option value="0">
+                      {{ $t('Payment Sent') }}
                     </option>
                   </select>
                   <has-error :form="form" field="type" />
@@ -84,7 +89,7 @@
                     name="nonInvoiceDue" readonly />
                 </div>
               </div>
-              <div class="row" v-if="form.type == 1 && accounts">
+              <div class="row" v-if="accounts">
                 <div class="form-group col-md-6">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
@@ -225,22 +230,36 @@ export default {
   methods: {
     // Auto-assign Chart of Account for selected client
     async autoAssignClientChartOfAccount() {
-      if (!this.form.client || !this.form.client.slug) return
+      if (!this.form.client || !this.form.client.slug || this.isAutoAssigningClient) {
+        return
+      }
+      
+      this.isAutoAssigningClient = true
+      
       try {
-        this.isAutoAssigningClient = true
-        const { data } = await axios.post(`/api/clients/${this.form.client.slug}/auto-assign-chart-of-account`)
-
-        const newAccountId = data.chart_of_account_id || (data.data && data.data.chart_of_account_id) || null
-        if (newAccountId) {
-          // Update current form client
-          this.$set(this.form.client, 'chart_of_account_id', newAccountId)
-
-          // Also update the item in the clients list (items from vuex)
-          const idx = (this.items || []).findIndex(c => c.slug === this.form.client.slug)
-          if (idx !== -1) {
-            this.$set(this.items, idx, { ...this.items[idx], chart_of_account_id: newAccountId })
+        // Store the current client slug before making the API call
+        const currentClientSlug = this.form.client.slug
+        
+        const response = await axios.post(`/api/clients/${this.form.client.slug}/auto-assign-chart-of-account`)
+        
+        if (response.data.success) {
+          // Update the client data with new chart of account
+          const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null
+          if (newAccountId) {
+            this.form.client.chart_of_account_id = newAccountId
+            // Also update the option in items list to keep state consistent when switching clients
+            const idx = (this.items || []).findIndex(i => i.slug === currentClientSlug)
+            if (idx !== -1) {
+              this.$set(this.items[idx], 'chart_of_account_id', newAccountId)
+            }
           }
-
+          
+          // Force Vue to re-render the component to update the UI
+          this.$nextTick(() => {
+            this.$forceUpdate()
+          })
+          
+          // Show success message
           toast.fire({
             type: 'success',
             title: this.$t('Chart of Account assigned successfully'),
@@ -249,25 +268,33 @@ export default {
           toast.fire({
             type: 'error',
             title: this.$t('Failed to assign Chart of Account'),
+            text: response.data.message || this.$t('Please try again or assign manually')
           })
         }
       } catch (error) {
-        const message = error?.response?.data?.message || error?.message
-        if (message && message.toLowerCase().includes('permission')) {
+        // eslint-disable-next-line no-console
+        console.error('Error auto-assigning chart of account:', error)
+        
+        // Handle different types of errors
+        if (error.response?.status === 400) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Invalid Request'),
+            text: error.response?.data?.message || this.$t('Please check the client data and try again')
+          })
+        } else if (error.response?.status === 403 || error.response?.status === 401) {
           toast.fire({
             type: 'error',
             title: this.$t('Permission Denied'),
-            text: this.$t("You don't have permission to assign Chart of Accounts."),
+            text: this.$t("You don't have permission to assign Chart of Accounts.")
           })
         } else {
           toast.fire({
             type: 'error',
             title: this.$t('Failed to assign Chart of Account'),
-            text: message,
+            text: error.response?.data?.message || error.message || this.$t('An error occurred. Please try again.')
           })
         }
-        // eslint-disable-next-line no-console
-        console.error('Error auto-assigning chart of account:', error)
       } finally {
         this.isAutoAssigningClient = false
       }
@@ -300,11 +327,14 @@ export default {
     // update values
     updateValues() {
       let amount = Number(this.form.amount)
-      if (this.form.client && this.form.type == 1) {
-        this.form.nonInvoicePaid =
-          Number(this.form.client.nonInvoicePaid) + amount
-        this.form.nonInvoiceDue =
-          Number(this.form.client.nonInvoiceCurrentDue) - amount
+      if (this.form.client) {
+        if (this.form.type == 1) {
+          this.form.nonInvoicePaid = Number(this.form.client.nonInvoicePaid) + amount
+          this.form.nonInvoiceDue = Number(this.form.client.nonInvoiceCurrentDue) - amount
+        } else if (this.form.type == 0) {
+          this.form.nonInvoicePaid = Math.max(0, Number(this.form.client.nonInvoicePaid) - amount)
+          this.form.nonInvoiceDue = Number(this.form.client.nonInvoiceCurrentDue) + amount
+        }
       }
       return
     },
@@ -492,5 +522,30 @@ textarea.form-control {
     flex-direction: column;
     gap: 10px;
   }
+}
+
+.client-status {
+  font-size: 13px;
+}
+
+.client-warning,
+.client-success {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.client-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.client-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 </style>

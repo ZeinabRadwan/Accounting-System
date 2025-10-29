@@ -441,7 +441,7 @@ class SupplierController extends Controller
     // return all suppliers
     public function allSuppliers()
     {
-        $suppliers = Supplier::where('status', 1)->latest()->get();
+        $suppliers = Supplier::with('chartOfAccount')->where('status', 1)->latest()->get();
 
         return SupplierListResource::collection($suppliers);
     }
@@ -449,7 +449,7 @@ class SupplierController extends Controller
     // return all suppliers
     public function suppliersForNonPurchasePayments()
     {
-        $suppliers = Supplier::where('status', 1)->latest()->get();
+        $suppliers = Supplier::with('chartOfAccount')->where('status', 1)->latest()->get();
 
         return SupplierWithNonPurchasePaymentResource::collection($suppliers);
     }
@@ -520,7 +520,7 @@ class SupplierController extends Controller
     // return client specific invoices
     public function specificSupplierPurchases($slug)
     {
-        $supplier = Supplier::where('slug', $slug)->first();
+        $supplier = Supplier::with('chartOfAccount')->where('slug', $slug)->first();
         
         if (!$supplier) {
             return $this->responseWithError('Supplier not found', 404);

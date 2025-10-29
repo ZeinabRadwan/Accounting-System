@@ -26,6 +26,8 @@ class SupplierForPurchasePaymentResource extends JsonResource
             'status' => (int) $this->status,
             'image' => getAvatarWithFallback($this->image_path, 'suppliers'),
             'type' => $this->type,
+            // Add chart of account ID for validation
+            'chart_of_account_id' => $this->chart_of_account_id,
             'purchaseTotal' => round($this->purchaseTotal(), 2),
             'purchaseTotalPaid' => round($this->purchaseTotalPaid(), 2),
             'purchaseDue' => round($this->purchaseTotalDue(), 2),

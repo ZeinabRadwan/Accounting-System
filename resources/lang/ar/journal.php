@@ -19,6 +19,7 @@ return [
     'sales_revenue_for_invoice' => 'إيرادات مبيعات للفاتورة :number',
     'vat_payable_for_invoice' => 'ضريبة القيمة المضافة مستحقة الدفع للفاتورة :number',
     'cash_bank_receipt' => 'إيصال نقدي/بنكي',
+    'accounts_payable' => 'حسابات دائنة',
     'accounts_payable_for_purchase' => 'حسابات دائنة للمشتريات :number',
     'purchase_expense_for_purchase' => 'مصروف مشتريات للمشتريات :number',
     'discount_received_for_purchase' => 'خصم مستلم للمشتريات :number',
@@ -58,5 +59,13 @@ return [
     // Purchase Return
     'purchase_return_reverse_expense' => 'إرجاع مشتريات - عكس المصروف لـ PR-:code',
     'purchase_return_reduce_payable' => 'إرجاع مشتريات - تخفيض الحسابات الدائنة لـ PR-:code',
+    
+    // Payment Voucher
+    'payment_voucher' => 'سند دفع (:type): :note',
+    'receive' => 'قبض',
+    'send' => 'صرف',
+    'payment_received' => 'دفعة مستلمة',
+    'payment_sent' => 'دفعة مدفوعة',
+    'cash_bank_payment' => 'دفع نقدي/بنكي',
 ];
 

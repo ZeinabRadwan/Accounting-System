@@ -19,6 +19,7 @@ return [
     'sales_revenue_for_invoice' => 'Sales Revenue for Invoice :number',
     'vat_payable_for_invoice' => 'VAT Payable for Invoice :number',
     'cash_bank_receipt' => 'Cash/Bank Receipt',
+    'accounts_payable' => 'Accounts Payable',
     'accounts_payable_for_purchase' => 'Accounts Payable for Purchase :number',
     'purchase_expense_for_purchase' => 'Purchase Expense for Purchase :number',
     'discount_received_for_purchase' => 'Discount Received for Purchase :number',
@@ -58,5 +59,13 @@ return [
     // Purchase Return
     'purchase_return_reverse_expense' => 'Purchase Return - Reverse expense for PR-:code',
     'purchase_return_reduce_payable' => 'Purchase Return - Reduce payable for PR-:code',
+    
+    // Payment Voucher
+    'payment_voucher' => 'Payment Voucher (:type): :note',
+    'receive' => 'Receive',
+    'send' => 'Send',
+    'payment_received' => 'Payment Received',
+    'payment_sent' => 'Payment Sent',
+    'cash_bank_payment' => 'Cash/Bank Payment',
 ];
 

@@ -34,9 +34,12 @@
                 <div class="form-group col-md-6">
                   <label for="type">{{ $t('Type') }}</label>
                   <select id="type" v-model="form.type" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('type') }" disabled>
+                    :class="{ 'is-invalid': form.errors.has('type') }">
                     <option value="1">
-                      {{ $t('Add Payment') }}
+                      {{ $t('Payment Sent') }}
+                    </option>
+                    <option value="0">
+                      {{ $t('Payment Received') }}
                     </option>
                   </select>
                   <has-error :form="form" field="type" />
@@ -65,7 +68,7 @@
                     name="nonPurchaseDue" readonly />
                 </div>
               </div>
-              <div class="row" v-if="form.type == 1 && accounts">
+              <div class="row" v-if="accounts">
                 <div class="form-group col-md-6">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
@@ -271,14 +274,25 @@ export default {
     // update values
     updateValues() {
       let amount = Number(this.form.amount)
-      if (this.form.supplier && this.form.type == 1) {
-        this.form.nonPurchasePaid =
-          Number(this.form.supplier.nonPurchasePaid) -
-          Number(this.form.rowPaid) +
-          amount
-        this.form.nonPurchaseDue =
-          Number(this.form.supplier.nonPurchaseCurrentDue + this.form.rowPaid) -
-          amount
+      if (this.form.supplier) {
+        if (this.form.type == 1) {
+          this.form.nonPurchasePaid =
+            Number(this.form.supplier.nonPurchasePaid) -
+            Number(this.form.rowPaid) +
+            amount
+          this.form.nonPurchaseDue =
+            Number(this.form.supplier.nonPurchaseCurrentDue + this.form.rowPaid) -
+            amount
+        } else if (this.form.type == 0) {
+          this.form.nonPurchasePaid = Math.max(0,
+            Number(this.form.supplier.nonPurchasePaid) -
+            Number(this.form.rowPaid) -
+            amount
+          )
+          this.form.nonPurchaseDue =
+            Number(this.form.supplier.nonPurchaseCurrentDue + this.form.rowPaid) +
+            amount
+        }
       }
 
       return

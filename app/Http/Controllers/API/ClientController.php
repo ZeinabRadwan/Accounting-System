@@ -481,7 +481,7 @@ class ClientController extends Controller
     // return all clients for non invoice payments
     public function clientsForNonInvoicePayments()
     {
-        $clients = Client::where('status', 1)->latest()->get();
+        $clients = Client::with('chartOfAccount')->where('status', 1)->latest()->get();
 
         return ClientWithNonInvoicePaymentResource::collection($clients);
     }

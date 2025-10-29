@@ -80,14 +80,8 @@ class NonInvoicePaymentController extends Controller
                 return $this->responseWithError('Bank Account must have a Chart of Account assigned for journal entries.'); 
             }
 
-
-
-
-
-            if ($request->type == 1) {
-
-                $transaction = $this->transactionService->createTransactionFromNonInvoicePayment($request, $userId);
-            }
+            // Create bank/cash transaction for both types (0: sent, 1: received)
+            $transaction = $this->transactionService->createTransactionFromNonInvoicePayment($request, $userId);
 
 
             
@@ -179,12 +173,12 @@ class NonInvoicePaymentController extends Controller
                 'status' => $request->status,
             ]);
 
-            if ($request->type == 1) {
-                // store transaction
+            if ($payment->paymentTransaction) {
+                // update transaction for both types
                 $payment->paymentTransaction->update([
                     'account_id' => $request->account['id'],
                     'amount' => $request->paidAmount,
-                    'type' => 1,
+                    'type' => intval($request->type) === 1 ? 1 : 0,
                     'cheque_no' => $request->chequeNo,
                     'receipt_no' => $request->receiptNo,
                     'transaction_date' => $request->paymentDate,

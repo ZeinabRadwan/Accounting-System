@@ -26,6 +26,8 @@ class ClientWithNonInvoicePaymentResource extends JsonResource
             'nonInvoiceDue' => $this->nonInvoiceTotalDue(),
             'nonInvoicePaid' => $this->nonInvoicePaid(),
             'nonInvoiceCurrentDue' => $this->nonInvoiceCurrentDue(),
+            // Add chart of account ID for validation
+            'chart_of_account_id' => $this->chart_of_account_id,
         ];
     }
 }

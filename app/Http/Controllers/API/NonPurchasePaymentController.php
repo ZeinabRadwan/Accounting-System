@@ -57,10 +57,8 @@ class NonPurchasePaymentController extends Controller
 
             $userId = auth()->user()->id;
 
-            if ($request->type == 1) {
-
-                $transaction = $this->transactionService->createTransactionFromNonPurchasePayment($request, $userId);
-            }
+            // Create bank/cash transaction for both types (0: received, 1: sent)
+            $transaction = $this->transactionService->createTransactionFromNonPurchasePayment($request, $userId);
 
             // store payment
           $NonPurchasePayment =  NonPurchasePayment::create([
@@ -148,14 +146,14 @@ class NonPurchasePaymentController extends Controller
                 'status' => $request->status,
             ]);
 
-            if ($request->type == 1) {
-                // update transaction
+            if ($payment->paymentTransaction) {
+                // update transaction for both types
                 $payment->paymentTransaction->update([
                     'account_id' => $request->account['id'],
                     'amount' => $request->amount,
                     'cheque_no' => $request->chequeNo,
                     'receipt_no' => $request->receiptNo,
-                    'type' => 0,
+                    'type' => intval($request->type) === 1 ? 0 : 1,
                     'transaction_date' => $request->paymentDate,
                     'status' => $request->status,
                 ]);

@@ -31,9 +31,12 @@
                 <div class="form-group col-md-6">
                   <label for="type">{{ $t('Type') }}</label>
                   <select id="type" v-model="form.type" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('type') }" disabled>
+                    :class="{ 'is-invalid': form.errors.has('type') }">
                     <option value="1">
-                      {{ $t('Add Payment') }}
+                      {{ $t('Payment Received') }}
+                    </option>
+                    <option value="0">
+                      {{ $t('Payment Sent') }}
                     </option>
                   </select>
                   <has-error :form="form" field="type" />
@@ -62,7 +65,7 @@
                     name="nonInvoiceDue" readonly />
                 </div>
               </div>
-              <div class="row" v-if="form.type == 1 && accounts">
+              <div class="row" v-if="accounts">
                 <div class="form-group col-md-6">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
@@ -250,14 +253,25 @@ export default {
     // update values
     updateValues() {
       let paidAmount = Number(this.form.paidAmount)
-      if (this.form.client && this.form.type == 1) {
-        this.form.nonInvoicePaid =
-          Number(this.form.client.nonInvoicePaid) -
-          Number(this.form.rowPaid) +
-          paidAmount
-        this.form.nonInvoiceDue =
-          Number(this.form.client.nonInvoiceCurrentDue + this.form.rowPaid) -
-          paidAmount
+      if (this.form.client) {
+        if (this.form.type == 1) {
+          this.form.nonInvoicePaid =
+            Number(this.form.client.nonInvoicePaid) -
+            Number(this.form.rowPaid) +
+            paidAmount
+          this.form.nonInvoiceDue =
+            Number(this.form.client.nonInvoiceCurrentDue + this.form.rowPaid) -
+            paidAmount
+        } else if (this.form.type == 0) {
+          this.form.nonInvoicePaid = Math.max(0,
+            Number(this.form.client.nonInvoicePaid) -
+            Number(this.form.rowPaid) -
+            paidAmount
+          )
+          this.form.nonInvoiceDue =
+            Number(this.form.client.nonInvoiceCurrentDue + this.form.rowPaid) +
+            paidAmount
+        }
       }
 
 

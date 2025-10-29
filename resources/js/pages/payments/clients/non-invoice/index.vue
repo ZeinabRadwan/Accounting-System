@@ -125,9 +125,8 @@
                     </td>
                     <td>{{ data.clientName }}</td>
                     <td>
-                      <span class="badge bg-primary">{{
-                        $t("Due Paid")
-                      }}</span>
+                      <span v-if="parseInt(data.type) === 1" class="badge bg-primary">{{ $t('Payment Received') }}</span>
+                      <span v-else class="badge bg-primary">{{ $t('Payment Sent') }}</span>
                     </td>
                     <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
                     <td>

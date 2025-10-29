@@ -469,6 +469,33 @@ class TenantPermissionSeeder extends Seeder
                     'slug' => 'invoice-payment-delete',
                 ],
 
+                // payment voucher permission
+                [
+                    'name' => 'Create',
+                    'guard_name' => 'Payment Voucher Management',
+                    'slug' => 'payment-voucher-create',
+                ],
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Payment Voucher Management',
+                    'slug' => 'payment-voucher-list',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Payment Voucher Management',
+                    'slug' => 'payment-voucher-edit',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Payment Voucher Management',
+                    'slug' => 'payment-voucher-view',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Payment Voucher Management',
+                    'slug' => 'payment-voucher-delete',
+                ],
+
                 // loan authority permission
                 [
                     'name' => 'Create',

@@ -30,6 +30,22 @@
                     :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier"
                     :placeholder="$t('Select a supplier')" @input="calculateValues" />
                   <has-error :form="form" field="supplier" />
+                  <!-- Supplier Chart of Account Status -->
+                  <div class="supplier-status mt-2" v-if="form.supplier">
+                    <div v-if="!form.supplier.chart_of_account_id" class="supplier-warning">
+                      <i class="fas fa-exclamation-triangle text-warning"></i>
+                      <span class="ml-2">{{ $t('Supplier needs Chart of Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignSupplierChartOfAccount"
+                        :disabled="isAutoAssigningSupplier"
+                      >
+                        <i :class="isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="type">{{ $t('Type') }}
@@ -37,7 +53,10 @@
                   <select id="type" v-model="form.type" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('type') }" @change="updateMax">
                     <option value="1">
-                      {{ $t('Add Payment') }}
+                      {{ $t('Payment Sent') }}
+                    </option>
+                    <option value="0">
+                      {{ $t('Payment Received') }}
                     </option>
                   </select>
                   <has-error :form="form" field="type" />
@@ -66,7 +85,7 @@
                     name="nonPurchaseDue" readonly />
                 </div>
               </div>
-              <div class="row" v-if="form.type == 1 && accounts">
+              <div class="row" v-if="accounts">
                 <div class="form-group col-md-6">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
@@ -194,7 +213,7 @@ export default {
     ],
     form: new Form({
       supplier: '',
-      type: 1,
+      type: 0,
       account: '',
       amount: '',
       chequeNo: '',
@@ -208,6 +227,7 @@ export default {
       status: 1,
     }),
     accounts: '',
+    isAutoAssigningSupplier: false,
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -222,6 +242,78 @@ export default {
       await this.$store.dispatch('operations/allData', {
         path: '/api/suppliers-for-nonpurchase-payments',
       })
+    },
+
+    // Auto-assign Chart of Account for selected supplier
+    async autoAssignSupplierChartOfAccount() {
+      if (!this.form.supplier || !this.form.supplier.slug || this.isAutoAssigningSupplier) {
+        return
+      }
+      
+      this.isAutoAssigningSupplier = true
+      
+      try {
+        // Store the current supplier slug before making the API call
+        const currentSupplierSlug = this.form.supplier.slug
+        
+        const response = await axios.post(`/api/suppliers/${this.form.supplier.slug}/auto-assign-chart-of-account`)
+        
+        if (response.data.success) {
+          // Update the supplier data with new chart of account
+          const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null
+          if (newAccountId) {
+            this.form.supplier.chart_of_account_id = newAccountId
+            // Also update the option in items list to keep state consistent when switching suppliers
+            const idx = (this.items || []).findIndex(i => i.slug === currentSupplierSlug)
+            if (idx !== -1) {
+              this.$set(this.items[idx], 'chart_of_account_id', newAccountId)
+            }
+          }
+          
+          // Force Vue to re-render the component to update the UI
+          this.$nextTick(() => {
+            this.$forceUpdate()
+          })
+          
+          // Show success message
+          toast.fire({
+            type: 'success',
+            title: this.$t('Chart of Account assigned successfully'),
+          })
+        } else {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Failed to assign Chart of Account'),
+            text: response.data.message || this.$t('Please try again or assign manually')
+          })
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error auto-assigning chart of account:', error)
+        
+        // Handle different types of errors
+        if (error.response?.status === 400) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Invalid Request'),
+            text: error.response?.data?.message || this.$t('Please check the supplier data and try again')
+          })
+        } else if (error.response?.status === 403 || error.response?.status === 401) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Permission Denied'),
+            text: this.$t("You don't have permission to assign Chart of Accounts.")
+          })
+        } else {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Failed to assign Chart of Account'),
+            text: error.response?.data?.message || error.message || this.$t('An error occurred. Please try again.')
+          })
+        }
+      } finally {
+        this.isAutoAssigningSupplier = false
+      }
     },
 
     // get accounts
@@ -259,11 +351,14 @@ export default {
     // update values
     updateValues() {
       let amount = Number(this.form.amount)
-      if (this.form.supplier && this.form.type == 1) {
-        this.form.nonPurchasePaid =
-          Number(this.form.supplier.nonPurchasePaid) + amount
-        this.form.nonPurchaseDue =
-          Number(this.form.supplier.nonPurchaseCurrentDue) - amount
+      if (this.form.supplier) {
+        if (this.form.type == 1) {
+          this.form.nonPurchasePaid = Number(this.form.supplier.nonPurchasePaid) + amount
+          this.form.nonPurchaseDue = Number(this.form.supplier.nonPurchaseCurrentDue) - amount
+        } else if (this.form.type == 0) {
+          this.form.nonPurchasePaid = Math.max(0, Number(this.form.supplier.nonPurchasePaid) - amount)
+          this.form.nonPurchaseDue = Number(this.form.supplier.nonPurchaseCurrentDue) + amount
+        }
       }
       return
     },
@@ -453,5 +548,20 @@ textarea.form-control {
     flex-direction: column;
     gap: 10px;
   }
+}
+
+.supplier-status {
+  font-size: 13px;
+}
+
+.supplier-warning {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
 }
 </style>
