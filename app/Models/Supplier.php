@@ -51,6 +51,7 @@ class Supplier extends Model
         'attachments',
         'is_send_email',
         'is_send_sms',
+        'branch_id',
     ];
 
     /**
@@ -340,5 +341,13 @@ class Supplier extends Model
         }
 
         return $supplierData;
+    }
+
+    /**
+     * Get the branch for this supplier.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

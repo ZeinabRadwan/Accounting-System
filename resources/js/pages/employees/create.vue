@@ -162,6 +162,18 @@
               </div>
 
               <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="branch_id">{{ $t("Branch") }} <span class="required">*</span></label>
+                  <v-select v-model="form.branch_id"
+                    :options="branches"
+                    :reduce="b => b.id"
+                    label="name"
+                    :placeholder="$t('Select a branch')"
+                    :class="{ 'is-invalid': form.errors.has('branch_id') }"
+                    name="branch_id"
+                  />
+                  <has-error :form="form" field="branch_id" />
+                </div>
                 <div class="form-group col-md-6">
                   <label for="appointmentDate">{{
                     $t("Appointment Date")
@@ -314,10 +326,12 @@ export default {
       allowLogin: false,
       email: "",
       password: "",
-      role: "",
+        role: "",
+        branch_id: null,
     }),
     options: [],
     roles: "",
+      branches: [],
   }),
   computed: {
     ...mapGetters("operations", ["items"]),
@@ -325,11 +339,42 @@ export default {
   created() {
     this.getDepartments();
     this.getRoles();
+    this.getBranches();
   },
   mounted() {
     this.loadTemporaryData()
   },
   methods: {
+    async getBranches() {
+      try {
+        const me = this.$store.getters['auth/user']
+        console.log('Current user:', me, 'account_role:', me?.account_role)
+        
+        // For superadmin (account_role === 1), get all branches from /api/branches
+        const isSuperAdmin = me && Number(me.account_role) === 1
+        console.log('Is superadmin:', isSuperAdmin)
+        
+        if (isSuperAdmin) {
+          console.log('Loading all branches for superadmin...')
+          const { data } = await this.$axios.get('/api/branches?perPage=1000')
+          console.log('Branches response:', data)
+          this.branches = Array.isArray(data?.data) ? data.data : []
+          console.log('Branches array:', this.branches)
+        } else if (me && me.id) {
+          // For normal users, get their assigned branches
+          console.log('Loading user branches for user:', me.id)
+          const { data } = await this.$axios.get(`/api/users/${me.id}/branches`)
+          console.log('User branches response:', data)
+          this.branches = Array.isArray(data) ? data : []
+        } else {
+          console.log('No user or user ID')
+          this.branches = []
+        }
+      } catch (e) {
+        console.error('Error loading branches:', e)
+        this.branches = []
+      }
+    },
     // get all departments
     async getDepartments() {
       await this.$store.dispatch("operations/allData", {

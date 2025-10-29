@@ -18,7 +18,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'bank_name', 'branch_name', 'account_number', 'date', 'image_path', 'created_by', 'chart_of_account_id', 'note', 'status',
+        'bank_name', 'branch_name', 'account_number', 'date', 'image_path', 'created_by', 'chart_of_account_id', 'note', 'status', 'branch_id',
     ];
 
     protected $appends = ['available_balance'];
@@ -132,5 +132,13 @@ class Account extends Model
             return "Cashbook account '{$this->bank_name} [{$this->account_number}]' is not connected to any Chart of Account. Please link it to a Chart of Account before using it in transactions.";
         }
         return '';
+    }
+
+    /**
+     * Get the branch for this account.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

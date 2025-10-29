@@ -42,6 +42,7 @@ class User extends Authenticatable
         'is_active',
         'locale',
         'profile_image',
+        'default_branch_id',
     ];
 
     protected $attributes = [
@@ -181,5 +182,45 @@ class User extends Authenticatable
     public function employee()
     {
         return $this->hasOne(Employee::class);
+    }
+
+    /**
+     * Get the branches this user belongs to
+     */
+    public function branches()
+    {
+        return $this->belongsToMany(Branch::class, 'branch_user')
+            ->withPivot('role')
+            ->withTimestamps();
+    }
+
+    /**
+     * Get the default branch for this user
+     */
+    public function defaultBranch()
+    {
+        return $this->belongsTo(Branch::class, 'default_branch_id');
+    }
+
+    /**
+     * Get the current branch context
+     */
+    public function currentBranch()
+    {
+        $branchId = session('current_branch_id') ?? $this->default_branch_id;
+        
+        if ($branchId) {
+            return Branch::find($branchId);
+        }
+        
+        return $this->branches()->active()->first();
+    }
+
+    /**
+     * Check if user has access to a branch
+     */
+    public function hasAccessToBranch($branchId): bool
+    {
+        return $this->branches()->where('branches.id', $branchId)->exists();
     }
 }

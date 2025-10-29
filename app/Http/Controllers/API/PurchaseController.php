@@ -42,7 +42,32 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        return PurchaseListResource::collection(Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn')->latest()->paginate($request->perPage));
+        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn');
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
+        
+        return PurchaseListResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        // Get branch IDs from branch_user pivot table
+        $branchIds = DB::table('branch_user')
+            ->where('user_id', $user->id)
+            ->pluck('branch_id')
+            ->toArray();
+            
+        // If no branches assigned, fallback to default_branch_id
+        if (empty($branchIds) && $user->default_branch_id) {
+            $branchIds = [$user->default_branch_id];
+        }
+        
+        return $branchIds;
     }
 
     /**
@@ -666,6 +691,13 @@ class PurchaseController extends Controller
     {
         $term = $request->term;
         $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn', 'user');
+
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('purchase_date', [$request->startDate, $request->endDate]);

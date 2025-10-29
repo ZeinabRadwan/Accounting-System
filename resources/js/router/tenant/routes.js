@@ -1396,6 +1396,38 @@ export default [
     },
   },
 
+  // Branches routes
+  {
+    path: '/branches',
+    name: 'branches.index',
+    component: page('branches/index.vue'),
+    meta: {permissions: ['branches-list']},
+  },
+  {
+    path: '/branches/create',
+    name: 'branches.create',
+    component: page('branches/create.vue'),
+    meta: {permissions: ['branches-create']},
+  },
+  {
+    path: '/branches/edit/:slug',
+    name: 'branches.edit',
+    component: page('branches/edit.vue'),
+    meta: {permissions: ['branches-edit']},
+  },
+  {
+    path: '/branches/:branchId/assign-users',
+    name: 'branches.assign-users',
+    component: page('branches/assign-users.vue'),
+    meta: {permissions: ['branches-assign-users']},
+  },
+  {
+    path: '/branches/:slug/show',
+    name: 'branches.show',
+    component: page('branches/show.vue'),
+    meta: {permissions: ['branches-view']},
+  },
+
   // Permission denied
   {
     path: '/permission-denied',

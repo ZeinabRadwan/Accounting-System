@@ -17,7 +17,7 @@ class Purchase extends Model
      * @var array
      */
     protected $fillable = [
-        'purchase_no', 'slug', 'supplier_id', 'discount', 'transport', 'sub_total', 'tax_id', 'po_reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id',
+        'purchase_no', 'slug', 'supplier_id', 'discount', 'transport', 'sub_total', 'tax_id', 'po_reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
     ];
 
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];
@@ -183,5 +183,13 @@ class Purchase extends Model
     public function accountingPeriod()
     {
         return $this->belongsTo(AccountingPeriod::class, 'accounting_period_id');
+    }
+
+    /**
+     * Get the branch for this purchase.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

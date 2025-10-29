@@ -1379,6 +1379,20 @@
           <li class="nav-header text-bold">{{ $t("Others") }}</li>
           <li
             v-if="
+              $can('branches-list') ||
+              $can('branches-create') ||
+              $can('branches-edit') ||
+              $can('branches-delete')
+            "
+            class="nav-item"
+          >
+            <router-link :to="{ name: 'branches.index' }" class="nav-link">
+              <i class="nav-icon fas fa-sitemap" />
+              <p>{{ $t("Branches") }}</p>
+            </router-link>
+          </li>
+          <li
+            v-if="
               $can('role-permissions') ||
               $can('units') ||
               $can('currencies') ||

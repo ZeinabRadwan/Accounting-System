@@ -154,6 +154,24 @@ Route::middleware([
         Route::get('user', [UserController::class, 'current']);
         Route::get('all-user', [UserController::class, 'allUser']);
 
+        // Branch management routes
+        Route::get('branches', [App\Http\Controllers\API\BranchController::class, 'index']);
+        Route::get('branches/search', [App\Http\Controllers\API\BranchController::class, 'search']);
+        Route::get('branches/current', [App\Http\Controllers\API\BranchController::class, 'current']);
+        Route::post('branches/switch', [App\Http\Controllers\API\BranchController::class, 'switch']);
+        Route::get('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'show']);
+        Route::post('branches', [App\Http\Controllers\API\BranchController::class, 'store']);
+        Route::put('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'update']);
+        Route::delete('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'destroy']);
+        
+        // User-Branch assignment routes
+        Route::get('branches/{branchId}/users', [App\Http\Controllers\API\UserBranchController::class, 'branchUsers']);
+        Route::get('users/{userId}/branches', [App\Http\Controllers\API\UserBranchController::class, 'userBranches']);
+        Route::post('user-branches', [App\Http\Controllers\API\UserBranchController::class, 'store']);
+        Route::put('user-branches/{userId}/{branchId}', [App\Http\Controllers\API\UserBranchController::class, 'update']);
+        Route::delete('user-branches/{userId}/{branchId}', [App\Http\Controllers\API\UserBranchController::class, 'destroy']);
+        Route::post('user-branches/set-default', [App\Http\Controllers\API\UserBranchController::class, 'setDefaultBranch']);
+
         // general settings
         Route::post('update-settings', [GeneralController::class, 'updateGeneralSettings']);
 

@@ -15,7 +15,7 @@ export const state = {
 // getters
 export const getters = {
   loading: (state) => state.loading,
-  items: (state) => (state.items ? state.items.data : ''),
+  items: (state) => (state.items ? state.items.data : []),
   pagination: (state) => (state.items ? state.items.meta : { current_page: 1 }),
   appInfo: (state) => state.appInfo,
   tenant: (state) => state.tenant,
@@ -140,7 +140,7 @@ export const actions = {
     try {
       const { data } = await axios.delete(window.location.origin + path + slug)
       commit(types.DELETE_DATA, { slug: slug })
-      return data.success
+      return true
     } catch (error) {
       // Return error message from API response if available
       if (error.response && error.response.data) {

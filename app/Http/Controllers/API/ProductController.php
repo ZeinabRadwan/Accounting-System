@@ -47,14 +47,39 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        return ProductListingResource::collection(Product::with(
+        $query = Product::with(
             'proSubCategory.category',
             'productUnit',
             'productTax',
             'productBrand',
             'salesAccount.type',
             'purchaseAccount.type'
-        )->latest()->paginate($request->perPage));
+        );
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
+        
+        return ProductListingResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        // Get branch IDs from branch_user pivot table
+        $branchIds = DB::table('branch_user')
+            ->where('user_id', $user->id)
+            ->pluck('branch_id')
+            ->toArray();
+            
+        // If no branches assigned, fallback to default_branch_id
+        if (empty($branchIds) && $user->default_branch_id) {
+            $branchIds = [$user->default_branch_id];
+        }
+        
+        return $branchIds;
     }
 
     /**
@@ -520,7 +545,16 @@ class ProductController extends Controller
     {
         $term = $request->term;
 
-        $query = Product::with('proSubCategory.category')->where('name', 'LIKE', '%' . $term . '%')
+        $query = Product::with('proSubCategory.category');
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
+        
+        $query->where('name', 'LIKE', '%' . $term . '%')
             ->orWhere('slug', 'LIKE', '%' . $term . '%')
             ->orWhere('model', 'LIKE', '%' . $term . '%')
             ->orWhere('code', 'LIKE', '%' . $term . '%')

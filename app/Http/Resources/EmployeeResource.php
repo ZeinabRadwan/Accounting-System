@@ -32,6 +32,7 @@ class EmployeeResource extends JsonResource
             'appointmentDate' => $this->appointment_date,
             'joiningDate' => $this->joining_date,
             'address' => $this->address,
+            'branch_id' => $this->branch_id,
             'user' => isset($this->user_id) ? $this->user : null,
             'allowLogin' => isset($this->user_id) ? true : false,
             'email' => isset($this->user_id) ? $this->user->email : null,
