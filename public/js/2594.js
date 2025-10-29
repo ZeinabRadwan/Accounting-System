@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[7190],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[2594],{
 
-/***/ 47190:
+/***/ 72594:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -12,7 +12,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ show)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=template&id=702c37f8
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/receive/show.vue?vue&type=template&id=423f728f
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -33,13 +33,13 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "card-body"
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t('View Send Voucher page - Coming Soon')))])])])])])]);
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t('View Receive Voucher page - Coming Soon')))])])])])])]);
 };
 var staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/receive/show.vue?vue&type=script&lang=js
 /* harmony default export */ const showvue_type_script_lang_js = ({
-  name: "show-send-voucher",
+  name: "show-receive-voucher",
   data: function data() {
     return {
       breadcrumbsCurrent: this.$t("View"),
@@ -50,8 +50,8 @@ var staticRenderFns = [];
         name: this.$t("Vouchers"),
         url: ""
       }, {
-        name: this.$t("Send Vouchers"),
-        url: "sendVouchers.index"
+        name: this.$t("Receive Vouchers"),
+        url: "receiveVouchers.index"
       }, {
         name: this.$t("View"),
         active: true
@@ -59,11 +59,11 @@ var staticRenderFns = [];
     };
   }
 });
-;// ./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
- /* harmony default export */ const send_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+;// ./resources/js/pages/vouchers/receive/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const receive_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/vouchers/send/show.vue
+;// ./resources/js/pages/vouchers/receive/show.vue
 
 
 
@@ -72,7 +72,7 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 ;
 var component = (0,componentNormalizer/* default */.A)(
-  send_showvue_type_script_lang_js,
+  receive_showvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,

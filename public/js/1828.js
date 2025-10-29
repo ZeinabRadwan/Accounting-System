@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[7190],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[1828],{
 
-/***/ 47190:
+/***/ 31828:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -9,10 +9,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
+  "default": () => (/* binding */ edit)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=template&id=702c37f8
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/edit.vue?vue&type=template&id=6720a57f
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -33,16 +33,16 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "card-body"
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t('View Send Voucher page - Coming Soon')))])])])])])]);
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t('Edit Send Voucher page - Coming Soon')))])])])])])]);
 };
 var staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  name: "show-send-voucher",
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/edit.vue?vue&type=script&lang=js
+/* harmony default export */ const editvue_type_script_lang_js = ({
+  name: "edit-send-voucher",
   data: function data() {
     return {
-      breadcrumbsCurrent: this.$t("View"),
+      breadcrumbsCurrent: this.$t("Edit"),
       breadcrumbs: [{
         name: this.$t("Dashboard"),
         url: "home"
@@ -53,17 +53,17 @@ var staticRenderFns = [];
         name: this.$t("Send Vouchers"),
         url: "sendVouchers.index"
       }, {
-        name: this.$t("View"),
+        name: this.$t("Edit"),
         active: true
       }]
     };
   }
 });
-;// ./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
- /* harmony default export */ const send_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+;// ./resources/js/pages/vouchers/send/edit.vue?vue&type=script&lang=js
+ /* harmony default export */ const send_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/vouchers/send/show.vue
+;// ./resources/js/pages/vouchers/send/edit.vue
 
 
 
@@ -72,7 +72,7 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 ;
 var component = (0,componentNormalizer/* default */.A)(
-  send_showvue_type_script_lang_js,
+  send_editvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
@@ -82,7 +82,7 @@ var component = (0,componentNormalizer/* default */.A)(
   
 )
 
-/* harmony default export */ const show = (component.exports);
+/* harmony default export */ const edit = (component.exports);
 
 /***/ })
 
