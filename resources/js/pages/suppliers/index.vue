@@ -368,7 +368,8 @@ export default {
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
-      let url = `/suppliers/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      const locale = this.$i18n.locale;
+      let url = `/suppliers/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
       if (this.selectedType !== "") {
         url += `&type=${this.selectedType}`;
       }

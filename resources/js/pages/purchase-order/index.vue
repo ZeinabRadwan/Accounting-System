@@ -429,8 +429,9 @@ export default {
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return `/purchase-order/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      // Create a dynamic export URL with query parameters and locale for localized headers
+      const locale = this.$i18n.locale;
+      return `/purchase-order/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
     },
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {

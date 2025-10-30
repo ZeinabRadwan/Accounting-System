@@ -43,8 +43,8 @@
                 communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
               ]"
               :disabled="!communicationConfig.sms_configured"
-              :title="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
-              v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
+              :title="!communicationConfig.sms_configured ? smsNotConfiguredText() : ''"
+              v-tooltip="!communicationConfig.sms_configured ? smsNotConfiguredText() : ''"
             >
               <i class="fas fa-sms"></i> {{ $t("SMS") }}
             </a>
@@ -324,12 +324,14 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
                 <a
-                  @click="refreshTable()"
+                  @click.prevent="!loading && refreshTable()"
                   href="#"
                   v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
+                  :class="['btn', 'btn-success', loading ? 'disabled' : '']"
+                  :aria-busy="loading ? 'true' : 'false'"
                 >
-                  <i class="fas fa-sync"></i>
+                  <i v-if="!loading" class="fas fa-sync"></i>
+                  <i v-else class="fas fa-spinner fa-spin"></i>
                 </a>
                 <a
                   @click="print"
@@ -554,6 +556,13 @@ export default {
   },
 
   methods: {
+    smsNotConfiguredText() {
+      if (this.$te && this.$te('SMS settings not configured')) {
+        const translated = this.$t('SMS settings not configured');
+        return typeof translated === 'string' ? translated : 'SMS settings not configured';
+      }
+      return 'SMS settings not configured';
+    },
     // Load communication configuration status
     async loadCommunicationConfigStatus() {
       try {
@@ -682,9 +691,18 @@ export default {
     },
 
     // refresh table
-    refreshTable() {
+    async refreshTable() {
       this.query = "";
-      this.query === "" ? this.getActivity() : this.searchData();
+      if (this.pagination) {
+        this.pagination.current_page = 1;
+      }
+      await this.getActivity();
+      const refreshedText = (this.$te && this.$te('Updated successfully!'))
+        ? this.$t('Updated successfully!')
+        : 'Updated successfully!';
+      if (typeof toast !== 'undefined' && toast.fire) {
+        toast.fire({ type: 'success', title: refreshedText });
+      }
     },
 
     // reset pagination

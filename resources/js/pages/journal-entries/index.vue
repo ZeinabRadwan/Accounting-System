@@ -305,6 +305,7 @@ export default {
       if (this.filters.status) params.append('status', this.filters.status);
       if (this.filters.from_date) params.append('from_date', this.filters.from_date);
       if (this.filters.to_date) params.append('to_date', this.filters.to_date);
+      params.append('locale', this.$i18n.locale);
       return `/journal-entries/export/excel?${params.toString()}`;
     },
     exportPdfUrl() {

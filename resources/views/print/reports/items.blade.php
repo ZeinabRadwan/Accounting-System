@@ -241,7 +241,7 @@
     function downloadPDF() {
         // Create PDF download URL for items report
         const urlParams = new URLSearchParams(window.location.search);
-        let pdfUrl = '/reports/items-report/pdf';
+        let pdfUrl = '/items-report/pdf';
         if (urlParams.toString()) {
             pdfUrl += '?' + urlParams.toString();
         }

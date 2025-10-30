@@ -43,7 +43,7 @@
                   </a>
                   <a
                     href="#"
-                    @click.prevent="openInNewTab(exportPdfUrl)"
+                    @click.prevent="exportPdf"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -442,6 +442,52 @@ export default {
     // print
     printWindow() {
       window.print();
+    },
+
+    // export PDF without navigation and show toast on validation errors
+    async exportPdf() {
+      if (!this.form.category || !this.form.category.id) {
+        toast.fire({ type: "error", title: this.$t("The category field is required.") });
+        return;
+      }
+
+      try {
+        const response = await fetch(this.exportPdfUrl, { headers: { Accept: 'application/pdf' } });
+
+        if (!response.ok) {
+          let message = this.$t("There was something wrong.");
+          try {
+            const data = await response.clone().json();
+            if (data && data.errors) {
+              const firstField = Object.keys(data.errors)[0];
+              if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
+                message = data.errors[firstField][0];
+              }
+            } else if (data && typeof data.error === 'string') {
+              // Backend returns: "Failed to generate PDF: The category field is required."
+              const raw = data.error;
+              const extracted = raw.includes(':') ? raw.split(':').pop().trim() : raw;
+              message = extracted || raw;
+            } else if (data && data.message) {
+              message = data.message;
+            }
+          } catch (e) { void e; }
+          toast.fire({ type: "error", title: this.$t(message) });
+          return;
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'expenses-report.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        toast.fire({ type: "error", title: this.$t("There was something wrong.") });
+      }
     },
   },
 };

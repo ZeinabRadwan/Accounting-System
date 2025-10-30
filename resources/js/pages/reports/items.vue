@@ -41,7 +41,8 @@
                     </svg>
                   </a>
                   <a
-                    :href="exportPdfUrl"
+                    href="#"
+                    @click.prevent="exportPdf"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -302,7 +303,7 @@ export default {
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
-      return `/reports/items-report/export?${params.toString()}`;
+      return `/items-report/export?${params.toString()}`;
     },
     exportPdfUrl() {
       const params = new URLSearchParams();
@@ -315,7 +316,7 @@ export default {
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
-      return `/reports/items-report/pdf?${params.toString()}`;
+      return `/items-report/pdf?${params.toString()}`;
     },
     printTemplateUrl() {
       // Create a dynamic print template URL for items report with current filters
@@ -429,6 +430,51 @@ export default {
     // print
     printWindow() {
       window.print();
+    },
+
+    // export PDF without navigation and show toast on validation errors
+    async exportPdf() {
+      // Client-side validation to avoid 422 page navigation
+      if (!this.form.productName || !this.form.productName.slug) {
+        this.toast.fire({ type: "error", title: this.$t("The product name field is required.") });
+        return;
+      }
+
+      try {
+        const response = await fetch(this.exportPdfUrl, { headers: { Accept: 'application/pdf' } });
+
+        if (!response.ok) {
+          // Try to parse JSON for validation messages
+          let message = this.$t("There was something wrong.");
+          try {
+            const data = await response.clone().json();
+            if (data && data.errors) {
+              const firstField = Object.keys(data.errors)[0];
+              if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
+                message = data.errors[firstField][0];
+              }
+            } else if (data && data.message) {
+              message = data.message;
+            }
+          } catch (e) {
+            // Non-JSON, keep default message
+          }
+          this.toast.fire({ type: "error", title: this.$t(message) });
+          return;
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'items-report.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        this.toast.fire({ type: "error", title: this.$t("There was something wrong.") });
+      }
     },
   },
 };

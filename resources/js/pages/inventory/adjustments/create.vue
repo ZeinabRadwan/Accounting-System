@@ -336,11 +336,37 @@ export default {
             this.$router.push({ name: "adjustments.index" });
           }
         })
-        .catch(() => {
-          toast.fire({ 
-            type: "error", 
-            title: this.$t("Error"), 
-            text: this.$t("Please check your input and try again.") 
+        .catch((error) => {
+          // Show all validation messages when present
+          if (error && error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+            const errorsMap = error.response.data.errors;
+            this.form.errors.set(errorsMap);
+            const messages = Object.values(errorsMap)
+              .flat()
+              .map(m => typeof m === 'string' ? m : (m && m.toString ? m.toString() : String(m)));
+            const combined = messages.map(m => `• ${m}`).join('\n');
+            toast.fire({
+              type: 'error',
+              title: `${this.$t('Validation Error')}\n\n${combined}`,
+              timer: 8000,
+              timerProgressBar: true
+            });
+            return;
+          }
+
+          // Prefer backend-provided general message
+          let backendMessage = (error && error.response && error.response.data && (error.response.data.message || error.response.data.error)) || (error && error.message);
+          if (backendMessage && typeof backendMessage !== 'string') {
+            try {
+              backendMessage = JSON.stringify(backendMessage);
+            } catch (_) {
+              backendMessage = String(backendMessage);
+            }
+          }
+          toast.fire({
+            type: 'error',
+            title: this.$t('Error'),
+            text: backendMessage || this.$t('Please check your input and try again.')
           });
         });
     },

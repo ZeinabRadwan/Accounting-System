@@ -240,8 +240,9 @@ export default {
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination"]),
     exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return `/loan-authorities/export/excel?term=${this.query}`;
+      // Create a dynamic export URL with query parameters and locale for localized headers
+      const locale = this.$i18n.locale;
+      return `/loan-authorities/export/excel?term=${this.query}&locale=${locale}`;
     },
   },
   watch: {

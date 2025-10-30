@@ -47,10 +47,7 @@
                     </div>
                   </div>
                   
-                  <!-- Debug info (remove in production) -->
-                  <div v-if="form.supplier" class="mt-1 text-muted small">
-                    Debug: chart_of_account_id = {{ form.supplier.chart_of_account_id || 'null' }}
-                  </div>
+                  
                   
                   <has-error :form="form" field="supplier" />
                 </div>
@@ -816,13 +813,12 @@ export default {
         const response = await axios.post(`/api/suppliers/${this.form.supplier.slug}/auto-assign-chart-of-account`);
         
         if (response.data.success) {
-          console.log('Auto-assign response:', response.data);
-          console.log('Current supplier before update:', this.form.supplier);
+          
           
           // Update the supplier data with new chart of account
           this.form.supplier.chart_of_account_id = response.data.chart_of_account_id;
           
-          console.log('Supplier after updating chart_of_account_id:', this.form.supplier);
+          
           
           // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
@@ -844,7 +840,7 @@ export default {
         }
         
       } catch (error) {
-        console.error('Error auto-assigning chart of account:', error);
+        
         toast.fire({
           type: "error",
           title: this.$t("An error occurred while assigning Chart of Account"),
@@ -889,7 +885,7 @@ export default {
         }
         
       } catch (error) {
-        console.error('Error auto-assigning chart of account:', error);
+        
         toast.fire({
           type: "error",
           title: this.$t("An error occurred while assigning Chart of Account"),
@@ -983,7 +979,7 @@ export default {
           this.form.note = data.note || this.form.note
           this.form.status = data.status !== undefined ? data.status : this.form.status
         } catch (e) {
-          console.error('Error loading temporary data:', e)
+          
         }
       }
     },

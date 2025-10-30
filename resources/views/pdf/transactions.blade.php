@@ -2,9 +2,14 @@
 
 @section('content-area')
     <h3>@lang('Ledger')</h3>
-    <strong>@lang('Bank Name')</strong>: {{ $transactions[0]['cashbook_account']['bank_name'] }}<br />
-    <strong>@lang('Branch Name')</strong>: {{ $transactions[0]['cashbook_account']['branch_name'] }}<br />
-    <strong>@lang('Account Number')</strong>: {{ $transactions[0]['cashbook_account']['account_number'] }}<br />
+    @php
+        $bankName = $transactions[0]['cashbook_account']['bank_name'] ?? ($account['bank_name'] ?? '');
+        $branchName = $transactions[0]['cashbook_account']['branch_name'] ?? ($account['branch_name'] ?? '');
+        $accountNumber = $transactions[0]['cashbook_account']['account_number'] ?? ($account['account_number'] ?? '');
+    @endphp
+    <strong>@lang('Bank Name')</strong>: {{ $bankName }}<br />
+    <strong>@lang('Branch Name')</strong>: {{ $branchName }}<br />
+    <strong>@lang('Account Number')</strong>: {{ $accountNumber }}<br />
     <strong>@lang('Date')</strong>: {{ date('Y-m-d') }}
     <hr />
     <br />

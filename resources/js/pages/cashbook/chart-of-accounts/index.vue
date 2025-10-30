@@ -341,8 +341,9 @@ export default {
       return pages
     },
     exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return `/chart-of-accounts/export/excel?term=${this.query}&search_field=${this.searchField}&type_filter=${this.typeFilter}`;
+      // Create a dynamic export URL with query parameters and locale for localized headers
+      const locale = this.$i18n.locale;
+      return `/chart-of-accounts/export/excel?term=${this.query}&search_field=${this.searchField}&type_filter=${this.typeFilter}&locale=${locale}`;
     }
   },
   watch: {

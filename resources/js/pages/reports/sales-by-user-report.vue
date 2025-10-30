@@ -14,7 +14,7 @@
               <div class="col-xl-8 col-8 float-right text-right ml-auto">
                 <div class="btn-group c-w-100">
                   <a
-                    @click="refreshTable"
+                    @click.prevent="refreshTable"
                     href="#"
                     v-tooltip="$t('Refresh')"
                     class="btn btn-success refresh-btn"
@@ -227,20 +227,26 @@ export default {
       this.loading = true;
       this.form.fromDate = values.from;
       this.form.toDate = values.to;
-      await this.form
-        .post(window.location.origin + "/api/reports/sales-by-user-report")
-        .then((response) => {
-          this.items = response.data.data;
-          this.loading = false;
-        })
-        .catch(() => {
-          toast.fire({ type: "error", title: this.$t("There was something wrong.") });
-        });
+      try {
+        const response = await this.form.post(
+          window.location.origin + "/api/reports/sales-by-user-report"
+        );
+        this.items = response.data.data;
+        this.loading = false;
+        return true;
+      } catch (e) {
+        this.loading = false;
+        toast.fire({ type: "error", title: this.$t("There was something wrong.") });
+        return false;
+      }
     },
 
     // refresh top buttons
-    refreshTable() {
-      this.update({ from: this.form.fromDate, to: this.form.toDate });
+    async refreshTable() {
+      const ok = await this.update({ from: this.form.fromDate, to: this.form.toDate });
+      if (ok) {
+        toast.fire({ icon: "success", title: this.$t("Refreshed") });
+      }
     },
 
     // print table area

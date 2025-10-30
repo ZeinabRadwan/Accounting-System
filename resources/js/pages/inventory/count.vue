@@ -65,7 +65,8 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
-                    :href="exportUrl"
+                    href="#"
+                    @click.prevent="exportExcel"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
@@ -84,7 +85,8 @@
                     </svg>
                   </a>
                   <a
-                    href="/inventory-count/pdf"
+                    href="#"
+                    @click.prevent="exportPdf"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -237,13 +239,29 @@ export default {
     showModal: false,
     perPage: 10,
     prefix: "",
+    toast: Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true
+    }),
   }),
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
-    exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return `/inventory-count/excel?term=${this.query}`;
+    exportExcelUrl() {
+      const params = new URLSearchParams();
+      if (this.query) params.append('term', this.query);
+      if (this.filterType && this.filterType !== 'default') params.append('filterType', this.filterType);
+      return `/inventory-count/excel${params.toString() ? `?${params.toString()}` : ''}`;
+    },
+    exportPdfUrl() {
+      const params = new URLSearchParams();
+      if (this.query) params.append('term', this.query);
+      if (this.filterType && this.filterType !== 'default') params.append('filterType', this.filterType);
+      const qs = params.toString();
+      return `/inventory-count/pdf${qs ? `?${qs}` : ''}`;
     },
   },
   watch: {
@@ -256,7 +274,7 @@ export default {
       }
     },
 
-    filterType: function (newQ, oldQ) {
+    filterType: function (newQ) {
       if (newQ === "") {
         this.getData();
       } else {
@@ -321,6 +339,78 @@ export default {
       this.query = "";
       this.filterType = "default";
       this.query === "" ? this.getData() : this.searchData();
+    },
+
+    // export PDF without navigation and show toast on errors
+    async exportPdf() {
+      try {
+        const response = await fetch(this.exportPdfUrl, { headers: { Accept: 'application/pdf' } });
+
+        if (!response.ok) {
+          let message = this.$t("There was something wrong.");
+          try {
+            const data = await response.clone().json();
+            if (data && data.errors) {
+              const firstField = Object.keys(data.errors)[0];
+              if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
+                message = data.errors[firstField][0];
+              }
+            } else if (data && data.message) {
+              message = data.message;
+            }
+          } catch (e) { void e; }
+          this.toast.fire({ type: "error", title: this.$t(message) });
+          return;
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'inventory-count.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        this.toast.fire({ type: "error", title: this.$t("There was something wrong.") });
+      }
+    },
+
+    // export Excel without navigation and show toast on errors
+    async exportExcel() {
+      try {
+        const response = await fetch(this.exportExcelUrl, { headers: { Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' } });
+
+        if (!response.ok) {
+          let message = this.$t("There was something wrong.");
+          try {
+            const data = await response.clone().json();
+            if (data && data.errors) {
+              const firstField = Object.keys(data.errors)[0];
+              if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
+                message = data.errors[firstField][0];
+              }
+            } else if (data && data.message) {
+              message = data.message;
+            }
+          } catch (e) { void e; }
+          this.toast.fire({ type: "error", title: this.$t(message) });
+          return;
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'inventory-count.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        this.toast.fire({ type: "error", title: this.$t("There was something wrong.") });
+      }
     },
   },
 };

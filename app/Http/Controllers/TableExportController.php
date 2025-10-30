@@ -563,7 +563,11 @@ class TableExportController extends Controller
         $data = AccountTransaction::with('cashbookAccount', 'user')->where('account_id', $account->id)->orderBy('created_at', 'asc')->get()->toArray();
         // share data to view
         view()->share('transactions', $data);
-        $pdf = PDF::loadView('pdf.transactions', $data)->setPaper('a4', 'landscape');
+        view()->share('account', $account->toArray());
+        $pdf = PDF::loadView('pdf.transactions', [
+            'transactions' => $data,
+            'account' => $account->toArray(),
+        ])->setPaper('a4', 'landscape');
         // download PDF file with download method
         return $pdf->download($account->account_number.'-ledger.pdf');
     }

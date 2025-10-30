@@ -12,6 +12,7 @@ const addCustomCSS = () => {
       right: 20px;
       z-index: 999999;
       pointer-events: none;
+      display: none;
     }
 
     .custom-toast-container.rtl {

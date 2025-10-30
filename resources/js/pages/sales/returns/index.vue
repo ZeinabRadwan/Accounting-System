@@ -313,8 +313,9 @@ export default {
       ];
     },
     exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return `/invoice-returns/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+      // Create a dynamic export URL with query parameters and locale for localized headers
+      const locale = this.$i18n.locale;
+      return `/invoice-returns/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
     },
   },
   watch: {
