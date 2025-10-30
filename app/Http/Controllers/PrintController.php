@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\InvoiceReturn;
+use App\Models\PaymentVoucher;
 use App\Models\Purchase;
 use App\Models\Quotation;
 use App\Models\PrintTemplate;
@@ -113,6 +114,95 @@ class PrintController extends Controller
         }
 
         return view('print.invoice-return', compact('invoiceReturn', 'template'));
+    }
+
+    /**
+     * Print payment voucher using selected template
+     */
+    public function printVoucher($slug)
+    {
+        // Set locale for translations - force Arabic for print templates
+        app()->setLocale('ar');
+
+        $voucher = PaymentVoucher::where('slug', $slug)
+            ->with('client', 'supplier', 'chartOfAccount', 'account', 'transaction', 'invoice', 'purchase', 'user')
+            ->firstOrFail();
+
+        // Get the default template for vouchers; fallback to invoice template config
+        $template = PrintTemplate::byModule('voucher')->default()->first();
+        if (!$template) {
+            // Fallback to basic template if no print template is set
+            if (view()->exists('print.voucher-basic')) {
+                return view('print.voucher-basic', compact('voucher'));
+            }
+
+            $template = new PrintTemplate();
+            $template->template_config = $this->getTemplateConfig('invoice');
+        }
+
+        return view('print.voucher', compact('voucher', 'template'));
+    }
+
+    /**
+     * Download voucher as PDF using selected template
+     */
+    public function downloadVoucherPDF($slug)
+    {
+        // Set locale for translations - force Arabic for print templates
+        app()->setLocale('ar');
+
+        $voucher = PaymentVoucher::where('slug', $slug)
+            ->with('client', 'supplier', 'chartOfAccount', 'account', 'transaction', 'invoice', 'purchase', 'user')
+            ->firstOrFail();
+
+        // Get the default template for vouchers; fallback appropriately
+        $template = PrintTemplate::byModule('voucher')->default()->first();
+
+        if (!$template) {
+            if (view()->exists('print.voucher-basic')) {
+                $html = view('print.voucher-basic', compact('voucher'))->render();
+            } else {
+                $template = new PrintTemplate();
+                $template->template_config = $this->getTemplateConfig('invoice');
+                $html = view('print.voucher', compact('voucher', 'template'))->render();
+            }
+        } else {
+            $html = view('print.voucher', compact('voucher', 'template'))->render();
+        }
+
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $this->getLogoAsBase64($template);
+
+        // Hide buttons in PDF and add Arabic support, ensure proper fonts
+        $html = str_replace('<head>', '<head>
+            <style>
+                .action-buttons { display: none !important; }
+                body { 
+                    font-family: Arial, "DejaVu Sans", sans-serif; 
+                    direction: ltr;
+                }
+                .arabic-text { 
+                    direction: rtl; 
+                    text-align: right; 
+                    font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
+                }
+                * { 
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+                .items-table { width: 100%; border-collapse: collapse; }
+                .items-table th, .items-table td { border: 1px solid #e5e7eb; padding: 8px; }
+                .document-header > div { display: table; width: 100%; }
+            </style>', $html);
+
+        // Replace logo placeholder with base64 if available
+        if ($logoBase64) {
+            $html = str_replace('{{LOGO_BASE64}}', $logoBase64, $html);
+        }
+
+        $fileLabel = $voucher->isReceive() ? 'Receive-Voucher' : 'Send-Voucher';
+        $fileNumber = $voucher->receipt_no ?: ($voucher->cheque_no ?: $voucher->id);
+        return $this->generatePDF($html, $fileLabel . '-' . $fileNumber . '.pdf');
     }
 
     /**
@@ -514,6 +604,10 @@ class PrintController extends Controller
         else if($type == 'quotation')
         {
             $path  = 'uploads/quotations/pdfs';
+        }
+        else if($type == 'voucher')
+        {
+            $path  = 'uploads/vouchers/pdfs';
         }
 
 

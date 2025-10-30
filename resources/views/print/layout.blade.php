@@ -349,6 +349,8 @@
               type = 'purchase'
             } else if (currentPath.includes('/print/quotation/')) {
                 type = 'quotation';
+            } else if (currentPath.includes('/print/voucher/')) {
+                type = 'voucher';
             }
                 // const element = document.getElementById('document-container');
                  const element = document.getElementById('pdfContent');
@@ -357,7 +359,7 @@
 
                     debugger;
 
-                    const fileName = 'invoice_' + Date.now() + '.pdf';
+                    const fileName = (type || 'document') + '_' + Date.now() + '.pdf';
                     const options = {
                         margin: 0, // inches
                         filename: fileName,

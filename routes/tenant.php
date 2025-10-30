@@ -677,6 +677,9 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/print/quotation/{slug}', [App\Http\Controllers\PrintController::class, 'printQuotation'])->name('print.quotation');
     Route::get('/print/invoice-return/{slug}', [App\Http\Controllers\PrintController::class, 'printInvoiceReturn'])->name('print.invoice-return');
     Route::get('/print/invoice-return/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoiceReturnPDF'])->name('print.invoice-return.pdf');
+    // Voucher print routes
+    Route::get('/print/voucher/{slug}', [App\Http\Controllers\PrintController::class, 'printVoucher'])->name('print.voucher');
+    Route::get('/print/voucher/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadVoucherPDF'])->name('print.voucher.pdf');
     
     // Reports print routes
     Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
