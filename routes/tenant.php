@@ -799,6 +799,8 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/inventory-adjustments/pdf', [TableExportController::class, 'inventoryAdjustmentsPDF'])->name('inventoryAdjustments.pdf');
     Route::get('/inventory-adjustments/excel', [TableExportController::class, 'inventoryAdjustmentsExcel'])->name('inventoryAdjustments.excel');
     Route::get('/inventory/excel', [TableExportController::class, 'inventoryExcel'])->name('inventory.excel');
+    Route::get('/inventory-history/excel', [TableExportController::class, 'inventoryHistoryExcel'])->name('inventoryHistory.excel');
+    Route::get('/inventory-history/pdf', [TableExportController::class, 'inventoryHistoryPDF'])->name('inventoryHistory.pdf');
 
     Route::get('/supplier-payable-report/export/excel', [TableExportController::class, 'supplierPayableReportExportExcel'])->name('supplierPayableReport.export.excel');
     Route::get('/client-receivable-report/export/excel', [TableExportController::class, 'clientReceivableReportExportExcel'])->name('clientReceivableReport.export.excel');

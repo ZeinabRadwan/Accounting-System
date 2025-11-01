@@ -169,8 +169,31 @@ export const actions = {
 
   // Search Data with Filter type
   async searchDataWithFilterType ({ commit }, { query, path, currentPage, term = '', startDate = '', endDate = '', filterType = '' }) {
-    const { data } = await axios.get(window.location.origin + path + '?term=' + term + '&page=' + currentPage + '&startDate=' + startDate + '&endDate=' + endDate + '&filterType=' + filterType)
-    commit(types.FETCH_DATA, { items: data })
+    try {
+      const { data } = await axios.get(window.location.origin + path + '?term=' + term + '&page=' + currentPage + '&startDate=' + startDate + '&endDate=' + endDate + '&filterType=' + filterType)
+      
+      // Transform response if it's in custom format (inventory history)
+      let items = data
+      if (data.data && typeof data.current_page !== 'undefined' && !data.meta) {
+        // Transform custom pagination format to Laravel format
+        items = {
+          data: data.data,
+          meta: {
+            current_page: data.current_page || 1,
+            per_page: data.per_page || 10,
+            total: data.total || 0,
+            last_page: data.last_page || 1,
+            from: data.from || 0,
+            to: data.to || 0,
+          }
+        }
+      }
+      
+      commit(types.FETCH_DATA, { items, loading: false })
+    } catch (error) {
+      console.error('Error in searchDataWithFilterType:', error)
+      commit(types.FETCH_DATA, { items: { data: [], meta: { current_page: 1, per_page: 10, total: 0, last_page: 1 } }, loading: false })
+    }
   },
 
   // Search Data by Type

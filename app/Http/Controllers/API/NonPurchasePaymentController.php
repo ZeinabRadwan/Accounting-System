@@ -245,20 +245,20 @@ class NonPurchasePaymentController extends Controller
         }
 
         $query->where(function ($query) use ($term) {
-            $query->where('amount', '=', $term)
+            $query->where('amount', 'LIKE', '%'.$term.'%')
                 ->orWhereHas('supplier', function ($newQuery) use ($term) {
                     $newQuery->where('name', 'LIKE', '%'.$term.'%')
                         ->orWhere('email', 'LIKE', '%'.$term.'%')
                         ->orWhere('company_name', 'LIKE', '%'.$term.'%')
-                        ->orWhere('phone', 'LIKE', '%'.$term.'%')
-                        ->orWhere('phone_number', 'LIKE', '%'.$term.'%')
-                        ->orWhere('phone_secondary', 'LIKE', '%'.$term.'%');
+                        ->orWhere('phone_number', 'LIKE', '%'.$term.'%');
                 })
                 ->orWhereHas('paymentTransaction', function ($newQuery) use ($term) {
-                    $newQuery->where('cheque_no', 'Like', '%'.$term.'%')->orWhere('receipt_no', 'Like', '%'.$term.'%')->whereHas('cashbookAccount', function ($newQuery) use ($term) {
-                        $newQuery->where('account_number', 'LIKE', '%'.$term.'%')
-                            ->orWhere('bank_name', 'LIKE', '%'.$term.'%');
-                    });
+                    $newQuery->where('cheque_no', 'LIKE', '%'.$term.'%')
+                        ->orWhere('receipt_no', 'LIKE', '%'.$term.'%')
+                        ->orWhereHas('cashbookAccount', function ($newQuery) use ($term) {
+                            $newQuery->where('account_number', 'LIKE', '%'.$term.'%')
+                                ->orWhere('bank_name', 'LIKE', '%'.$term.'%');
+                        });
                 });
         });
 
