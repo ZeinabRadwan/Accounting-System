@@ -430,7 +430,12 @@ class InventoryController extends Controller
                 'to' => min($offset + $perPage, $total),
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            \Log::error('Inventory history search error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -457,30 +462,57 @@ class InventoryController extends Controller
 
         foreach ($purchaseProducts as $item) {
             try {
-                if (!$item || !$item->id) {
+                // Check if item exists
+                if (!$item) {
+                    continue;
+                }
+                
+                // Check if item has id
+                if (!isset($item->id) || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'purchase' || $filterType === 'stock_in')) {
-                    $purchase = $item->purchase ?? null;
-                    if (!$purchase) {
+                    // Safely get purchase relationship
+                    $purchase = null;
+                    try {
+                        $purchase = $item->purchase;
+                    } catch (\Exception $e) {
                         continue;
                     }
                     
-                    $supplier = $purchase->supplier ?? null;
-                    if (!$supplier) {
+                    if (!$purchase || !isset($purchase->id) || !$purchase->id) {
                         continue;
                     }
                     
-                    $product = $item->product ?? null;
-                    if (!$product) {
+                    // Safely get supplier relationship
+                    $supplier = null;
+                    try {
+                        $supplier = $purchase->supplier;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$supplier || !isset($supplier->id) || !$supplier->id) {
+                        continue;
+                    }
+                    
+                    // Safely get product relationship
+                    $product = null;
+                    try {
+                        $product = $item->product;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$product || !isset($product->id) || !$product->id) {
                         continue;
                     }
                     
                     // Check required fields exist
                     if (!isset($purchase->purchase_date) || !isset($purchase->purchase_no) ||
-                        !isset($supplier->name) || !isset($supplier->id) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        !isset($supplier->name) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
                         continue;
                     }
                     
@@ -501,11 +533,15 @@ class InventoryController extends Controller
                         'operation_type' => 'Purchase',
                         'price' => $item->purchase_price ?? 0,
                         'quantity_change' => $item->quantity ?? 0,
-                        'notes' => 'Purchase from ' . $supplier->name,
-                        'reference_code' => config('config.purchasePrefix') . '-' . $purchase->purchase_no,
+                        'notes' => 'Purchase from ' . ($supplier->name ?? 'Unknown'),
+                        'reference_code' => config('config.purchasePrefix') . '-' . ($purchase->purchase_no ?? ''),
                     ]);
                 }
             } catch (\Exception $e) {
+                \Log::warning('Error processing purchase product in inventory history', [
+                    'item_id' => $item->id ?? null,
+                    'error' => $e->getMessage()
+                ]);
                 continue;
             }
         }
@@ -525,30 +561,57 @@ class InventoryController extends Controller
 
         foreach ($invoiceProducts as $item) {
             try {
-                if (!$item || !$item->id) {
+                // Check if item exists
+                if (!$item) {
+                    continue;
+                }
+                
+                // Check if item has id
+                if (!isset($item->id) || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'invoice' || $filterType === 'stock_out')) {
-                    $invoice = $item->invoice ?? null;
-                    if (!$invoice) {
+                    // Safely get invoice relationship
+                    $invoice = null;
+                    try {
+                        $invoice = $item->invoice;
+                    } catch (\Exception $e) {
                         continue;
                     }
                     
-                    $client = $invoice->client ?? null;
-                    if (!$client) {
+                    if (!$invoice || !isset($invoice->id) || !$invoice->id) {
                         continue;
                     }
                     
-                    $product = $item->product ?? null;
-                    if (!$product) {
+                    // Safely get client relationship
+                    $client = null;
+                    try {
+                        $client = $invoice->client;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$client || !isset($client->id) || !$client->id) {
+                        continue;
+                    }
+                    
+                    // Safely get product relationship
+                    $product = null;
+                    try {
+                        $product = $item->product;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$product || !isset($product->id) || !$product->id) {
                         continue;
                     }
                     
                     // Check required fields exist
                     if (!isset($invoice->invoice_date) || !isset($invoice->invoice_no) ||
-                        !isset($client->name) || !isset($client->id) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        !isset($client->name) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
                         continue;
                     }
                     
@@ -569,11 +632,15 @@ class InventoryController extends Controller
                         'operation_type' => 'Invoice',
                         'price' => $item->sale_price ?? 0,
                         'quantity_change' => -($item->quantity ?? 0),
-                        'notes' => 'Sale to ' . $client->name,
-                        'reference_code' => config('config.invoicePrefix') . '-' . $invoice->invoice_no,
+                        'notes' => 'Sale to ' . ($client->name ?? 'Unknown'),
+                        'reference_code' => config('config.invoicePrefix') . '-' . ($invoice->invoice_no ?? ''),
                     ]);
                 }
             } catch (\Exception $e) {
+                \Log::warning('Error processing invoice product in inventory history', [
+                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
+                    'error' => $e->getMessage()
+                ]);
                 continue;
             }
         }
@@ -592,7 +659,13 @@ class InventoryController extends Controller
 
         foreach ($adjustmentProducts as $item) {
             try {
-                if (!$item || !$item->id) {
+                // Check if item exists
+                if (!$item) {
+                    continue;
+                }
+                
+                // Check if item has id
+                if (!isset($item->id) || !$item->id) {
                     continue;
                 }
                 
@@ -600,19 +673,33 @@ class InventoryController extends Controller
                 if (($filterType === 'default' || $filterType === 'adjustment' || 
                     ($filterType === 'stock_in' && $itemType == 1) || 
                     ($filterType === 'stock_out' && $itemType == 0))) {
-                    $adjustment = $item->inventoryAdjustment ?? null;
-                    if (!$adjustment) {
+                    // Safely get adjustment relationship
+                    $adjustment = null;
+                    try {
+                        $adjustment = $item->inventoryAdjustment;
+                    } catch (\Exception $e) {
                         continue;
                     }
                     
-                    $product = $item->product ?? null;
-                    if (!$product) {
+                    if (!$adjustment || !isset($adjustment->id) || !$adjustment->id) {
+                        continue;
+                    }
+                    
+                    // Safely get product relationship
+                    $product = null;
+                    try {
+                        $product = $item->product;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$product || !isset($product->id) || !$product->id) {
                         continue;
                     }
                     
                     // Check required fields exist
                     if (!isset($adjustment->date) || !isset($adjustment->code) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
                         continue;
                     }
                     
@@ -637,10 +724,14 @@ class InventoryController extends Controller
                         'price' => $item->purchase_price ?? 0,
                         'quantity_change' => $quantityChange,
                         'notes' => $adjustment->reason ?? 'Adjustment',
-                        'reference_code' => config('config.adjustmentPrefix') . '-' . $adjustment->code,
+                        'reference_code' => config('config.adjustmentPrefix') . '-' . ($adjustment->code ?? ''),
                     ]);
                 }
             } catch (\Exception $e) {
+                \Log::warning('Error processing adjustment product in inventory history', [
+                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
+                    'error' => $e->getMessage()
+                ]);
                 continue;
             }
         }
@@ -661,35 +752,69 @@ class InventoryController extends Controller
 
         foreach ($invoiceReturnProducts as $item) {
             try {
-                if (!$item || !$item->id) {
+                // Check if item exists
+                if (!$item) {
+                    continue;
+                }
+                
+                // Check if item has id
+                if (!isset($item->id) || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'invoice_return' || $filterType === 'stock_in')) {
-                    $invoiceReturn = $item->invoiceReturn ?? null;
-                    if (!$invoiceReturn) {
+                    // Safely get invoiceReturn relationship
+                    $invoiceReturn = null;
+                    try {
+                        $invoiceReturn = $item->invoiceReturn;
+                    } catch (\Exception $e) {
                         continue;
                     }
                     
-                    $invoice = $invoiceReturn->invoice ?? null;
-                    if (!$invoice) {
+                    if (!$invoiceReturn || !isset($invoiceReturn->id) || !$invoiceReturn->id) {
                         continue;
                     }
                     
-                    $client = $invoice->client ?? null;
-                    if (!$client) {
+                    // Safely get invoice relationship
+                    $invoice = null;
+                    try {
+                        $invoice = $invoiceReturn->invoice;
+                    } catch (\Exception $e) {
                         continue;
                     }
                     
-                    $product = $item->product ?? null;
-                    if (!$product) {
+                    if (!$invoice || !isset($invoice->id) || !$invoice->id) {
+                        continue;
+                    }
+                    
+                    // Safely get client relationship
+                    $client = null;
+                    try {
+                        $client = $invoice->client;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$client || !isset($client->id) || !$client->id) {
+                        continue;
+                    }
+                    
+                    // Safely get product relationship
+                    $product = null;
+                    try {
+                        $product = $item->product;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$product || !isset($product->id) || !$product->id) {
                         continue;
                     }
                     
                     // Check required fields exist
                     if (!isset($invoiceReturn->date) || !isset($invoiceReturn->return_no) ||
-                        !isset($client->name) || !isset($client->id) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        !isset($client->name) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
                         continue;
                     }
                     
@@ -710,11 +835,15 @@ class InventoryController extends Controller
                         'operation_type' => 'Invoice Return',
                         'price' => $product->purchase_price ?? 0,
                         'quantity_change' => $item->quantity ?? 0,
-                        'notes' => 'Return from ' . $client->name,
-                        'reference_code' => config('config.invoiceReturnPrefix') . '-' . $invoiceReturn->return_no,
+                        'notes' => 'Return from ' . ($client->name ?? 'Unknown'),
+                        'reference_code' => config('config.invoiceReturnPrefix') . '-' . ($invoiceReturn->return_no ?? ''),
                     ]);
                 }
             } catch (\Exception $e) {
+                \Log::warning('Error processing invoice return product in inventory history', [
+                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
+                    'error' => $e->getMessage()
+                ]);
                 continue;
             }
         }
@@ -735,35 +864,69 @@ class InventoryController extends Controller
 
         foreach ($purchaseReturnProducts as $item) {
             try {
-                if (!$item || !$item->id) {
+                // Check if item exists
+                if (!$item) {
+                    continue;
+                }
+                
+                // Check if item has id
+                if (!isset($item->id) || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'purchase_return' || $filterType === 'stock_out')) {
-                    $purchaseReturn = $item->purchaseReturn ?? null;
-                    if (!$purchaseReturn) {
+                    // Safely get purchaseReturn relationship
+                    $purchaseReturn = null;
+                    try {
+                        $purchaseReturn = $item->purchaseReturn;
+                    } catch (\Exception $e) {
                         continue;
                     }
                     
-                    $purchase = $purchaseReturn->purchase ?? null;
-                    if (!$purchase) {
+                    if (!$purchaseReturn || !isset($purchaseReturn->id) || !$purchaseReturn->id) {
                         continue;
                     }
                     
-                    $supplier = $purchase->supplier ?? null;
-                    if (!$supplier) {
+                    // Safely get purchase relationship
+                    $purchase = null;
+                    try {
+                        $purchase = $purchaseReturn->purchase;
+                    } catch (\Exception $e) {
                         continue;
                     }
                     
-                    $product = $item->product ?? null;
-                    if (!$product) {
+                    if (!$purchase || !isset($purchase->id) || !$purchase->id) {
+                        continue;
+                    }
+                    
+                    // Safely get supplier relationship
+                    $supplier = null;
+                    try {
+                        $supplier = $purchase->supplier;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$supplier || !isset($supplier->id) || !$supplier->id) {
+                        continue;
+                    }
+                    
+                    // Safely get product relationship
+                    $product = null;
+                    try {
+                        $product = $item->product;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                    
+                    if (!$product || !isset($product->id) || !$product->id) {
                         continue;
                     }
                     
                     // Check required fields exist
                     if (!isset($purchaseReturn->date) || !isset($purchaseReturn->code) ||
-                        !isset($supplier->name) || !isset($supplier->id) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        !isset($supplier->name) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
                         continue;
                     }
                     
@@ -784,11 +947,15 @@ class InventoryController extends Controller
                         'operation_type' => 'Purchase Return',
                         'price' => $item->purchase_price ?? 0,
                         'quantity_change' => -($item->quantity ?? 0),
-                        'notes' => 'Return to ' . $supplier->name,
-                        'reference_code' => config('config.purchaseReturnPrefix') . '-' . $purchaseReturn->code,
+                        'notes' => 'Return to ' . ($supplier->name ?? 'Unknown'),
+                        'reference_code' => config('config.purchaseReturnPrefix') . '-' . ($purchaseReturn->code ?? ''),
                     ]);
                 }
             } catch (\Exception $e) {
+                \Log::warning('Error processing purchase return product in inventory history', [
+                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
+                    'error' => $e->getMessage()
+                ]);
                 continue;
             }
         }

@@ -116423,12 +116423,12 @@ var map = {
 		5272
 	],
 	"./loans": [
-		93916,
-		3916
+		30115,
+		115
 	],
 	"./loans/": [
-		93916,
-		3916
+		30115,
+		115
 	],
 	"./loans/authorities": [
 		38477,
@@ -116487,12 +116487,12 @@ var map = {
 		1711
 	],
 	"./loans/index": [
-		93916,
-		3916
+		30115,
+		115
 	],
 	"./loans/index.vue": [
-		93916,
-		3916
+		30115,
+		115
 	],
 	"./loans/payments": [
 		44163,
@@ -117711,12 +117711,12 @@ var map = {
 		5913
 	],
 	"./vouchers/receive/create": [
-		1484,
-		1484
+		54384,
+		4384
 	],
 	"./vouchers/receive/create.vue": [
-		1484,
-		1484
+		54384,
+		4384
 	],
 	"./vouchers/receive/edit": [
 		27556,
@@ -117751,12 +117751,12 @@ var map = {
 		840
 	],
 	"./vouchers/send/create": [
-		28316,
-		8316
+		1500,
+		1500
 	],
 	"./vouchers/send/create.vue": [
-		28316,
-		8316
+		1500,
+		1500
 	],
 	"./vouchers/send/edit": [
 		31828,
@@ -118206,7 +118206,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8451) return "js/8451.js";
 /******/ 			if (chunkId === 2439) return "js/2439.js";
 /******/ 			if (chunkId === 5272) return "js/5272.js";
-/******/ 			if (chunkId === 3916) return "js/3916.js";
+/******/ 			if (chunkId === 115) return "js/115.js";
 /******/ 			if (chunkId === 8477) return "js/8477.js";
 /******/ 			if (chunkId === 8884) return "js/8884.js";
 /******/ 			if (chunkId === 3014) return "js/3014.js";
@@ -118340,11 +118340,11 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 5514) return "js/5514.js";
 /******/ 			if (chunkId === 2370) return "js/2370.js";
 /******/ 			if (chunkId === 5913) return "js/5913.js";
-/******/ 			if (chunkId === 1484) return "js/1484.js";
+/******/ 			if (chunkId === 4384) return "js/4384.js";
 /******/ 			if (chunkId === 7556) return "js/7556.js";
 /******/ 			if (chunkId === 6952) return "js/6952.js";
 /******/ 			if (chunkId === 840) return "js/840.js";
-/******/ 			if (chunkId === 8316) return "js/8316.js";
+/******/ 			if (chunkId === 1500) return "js/1500.js";
 /******/ 			if (chunkId === 1828) return "js/1828.js";
 /******/ 			if (chunkId === 2554) return "js/2554.js";
 /******/ 			if (chunkId === 944) return "js/944.js";
