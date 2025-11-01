@@ -1346,6 +1346,38 @@ class TenantPermissionSeeder extends Seeder
                     'guard_name' => 'Print Templates Management',
                     'slug' => 'print-templates',
                 ],
+
+                // branch permissions
+                [
+                    'name' => 'Create',
+                    'guard_name' => 'Branch Management',
+                    'slug' => 'branches-create',
+                ],
+                [
+                    'name' => 'List',
+                    'guard_name' => 'Branch Management',
+                    'slug' => 'branches-list',
+                ],
+                [
+                    'name' => 'Edit',
+                    'guard_name' => 'Branch Management',
+                    'slug' => 'branches-edit',
+                ],
+                [
+                    'name' => 'View',
+                    'guard_name' => 'Branch Management',
+                    'slug' => 'branches-view',
+                ],
+                [
+                    'name' => 'Delete',
+                    'guard_name' => 'Branch Management',
+                    'slug' => 'branches-delete',
+                ],
+                [
+                    'name' => 'Assign Users',
+                    'guard_name' => 'Branch Management',
+                    'slug' => 'branches-assign-users',
+                ],
         ];
 
         // Use upsert to insert or update permissions
