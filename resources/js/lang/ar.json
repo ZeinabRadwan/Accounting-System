@@ -508,7 +508,7 @@
 "Unit Cost": "تكلفة الوحدة",
 "Unit Tax": "ضريبة الوحدة",
 "Tax": "الضريبة",
-"Subtotal": "الإجمالي قبل الضريبة",
+"Subtotal": "الإجمالي الفرعي",
 "Return Amount": "مبلغ الإرجاع",
 "Cost of Return Products": "تكلفة الأصناف المرتجعة",
 "Total": "الإجمالي",
@@ -4201,5 +4201,6 @@
 "View Receive Voucher page - Coming Soon": "صفحة عرض سند القبض - قريباً",
 "Edit Receive Voucher page - Coming Soon": "صفحة تعديل سند القبض - قريباً",
 "View Send Voucher page - Coming Soon": "صفحة عرض سند الصرف - قريباً",
+"Sub Total" : "الاجمالي الفرعي",
 "Edit Send Voucher page - Coming Soon": "صفحة تعديل سند الصرف - قريباً"
 }

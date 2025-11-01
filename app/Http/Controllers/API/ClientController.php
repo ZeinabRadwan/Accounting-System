@@ -541,8 +541,10 @@ class ClientController extends Controller
             'invoicePayments',
             'invoiceReturn',
             'invoiceTax',
-            'invoiceProducts'
-        )->where('client_id', $client->id)->get();
+            'invoiceProducts' // Ensure invoiceProducts are loaded for subtotal calculation
+        )->where('client_id', $client->id)
+        ->where('status', 1) // Only active invoices
+        ->get();
 
         return [
             'invoices' => InvoiceForPaymentResource::collection($invoices->where('calculated_due', '>', 0)),

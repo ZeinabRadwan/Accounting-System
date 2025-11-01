@@ -14,6 +14,10 @@ use App\Http\Requests\PaymentVoucher\StorePaymentVoucherRequest;
 use App\Http\Requests\PaymentVoucher\UpdatePaymentVoucherRequest;
 use App\Models\Account;
 use App\Models\AccountTransaction;
+use App\Models\Invoice;
+use App\Models\InvoicePayment;
+use App\Models\Purchase;
+use App\Models\PurchasePayment;
 
 class PaymentVoucherController extends Controller
 {
@@ -161,10 +165,29 @@ class PaymentVoucherController extends Controller
             }
 
             // Set invoice or purchase if payment method requires it
+            $invoice = null;
+            $purchase = null;
+            
             if ($request->paymentMethod === 'invoice' && isset($request->invoice['id'])) {
                 $voucherData['invoice_id'] = $request->invoice['id'];
+                // Validate invoice exists and is active
+                $invoice = Invoice::find($request->invoice['id']);
+                if (!$invoice) {
+                    return $this->responseWithError('Invoice not found.');
+                }
+                if ((int)$invoice->status !== 1) {
+                    return $this->responseWithError('Cannot add payment to an inactive invoice.');
+                }
             } elseif ($request->paymentMethod === 'purchase' && isset($request->purchase['id'])) {
                 $voucherData['purchase_id'] = $request->purchase['id'];
+                // Validate purchase exists and is active
+                $purchase = Purchase::find($request->purchase['id']);
+                if (!$purchase) {
+                    return $this->responseWithError('Purchase not found.');
+                }
+                if ((int)$purchase->status !== 1) {
+                    return $this->responseWithError('Cannot add payment to an inactive purchase.');
+                }
             }
 
             // Create transaction
@@ -185,6 +208,46 @@ class PaymentVoucherController extends Controller
 
             // Create voucher
             $voucher = PaymentVoucher::create($voucherData);
+
+            // Create InvoicePayment record if payment is for an invoice
+            if ($request->paymentMethod === 'invoice' && $invoice) {
+                InvoicePayment::create([
+                    'slug' => uniqid(),
+                    'invoice_id' => $invoice->id,
+                    'transaction_id' => $transaction->id,
+                    'amount' => $request->amount,
+                    'date' => $request->date,
+                    'note' => $request->note ? clean($request->note) : null,
+                    'created_by' => $userId,
+                    'status' => $request->status ?? 1,
+                ]);
+
+                // Update invoice is_paid status if fully paid
+                $invoice->refresh();
+                if ($invoice->totalDue() <= 0) {
+                    $invoice->update(['is_paid' => 1]);
+                }
+            }
+
+            // Create PurchasePayment record if payment is for a purchase
+            if ($request->paymentMethod === 'purchase' && $purchase) {
+                PurchasePayment::create([
+                    'slug' => uniqid(),
+                    'purchase_id' => $purchase->id,
+                    'transaction_id' => $transaction->id,
+                    'amount' => $request->amount,
+                    'date' => $request->date,
+                    'note' => $request->note ? clean($request->note) : null,
+                    'created_by' => $userId,
+                    'status' => $request->status ?? 1,
+                ]);
+
+                // Update purchase is_paid status if fully paid
+                $purchase->refresh();
+                if ($purchase->totalDue() <= 0) {
+                    $purchase->update(['is_paid' => 1]);
+                }
+            }
 
             // Load necessary relationships for journal entry
             $voucher->load([

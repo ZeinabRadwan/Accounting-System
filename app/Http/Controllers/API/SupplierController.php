@@ -468,7 +468,10 @@ class SupplierController extends Controller
                 return $this->responseWithError('Supplier not found', 404);
             }
             
-            return PurchaseListResource::collection(Purchase::with('purchaseTax', 'purchaseReturn')->where('supplier_id', $supplier->id)->get());
+            return PurchaseListResource::collection(Purchase::with('purchaseTax', 'purchaseReturn')
+                ->where('supplier_id', $supplier->id)
+                ->where('status', 1) // Only active purchases
+                ->get());
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }

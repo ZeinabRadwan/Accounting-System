@@ -126,17 +126,49 @@
                     :class="{ 'is-invalid': form.errors.has('invoice') }" name="invoice"
                     :placeholder="$t('Select an invoice')" />
                   <has-error :form="form" field="invoice" />
-                </div>
-              </div>
-
-              <!-- Purchase Selection (for supplier purchase payments) -->
-              <div class="row" v-if="form && form.entityType === 'supplier' && form.paymentMethod === 'purchase' && purchases">
-                <div class="form-group col-md-12">
-                  <label for="purchase">{{ $t('Select Purchase') }}<span class="required">*</span></label>
-                  <v-select v-model="form.purchase" :options="purchases" label="label"
-                    :class="{ 'is-invalid': form.errors.has('purchase') }" name="purchase"
-                    :placeholder="$t('Select a purchase')" />
-                  <has-error :form="form" field="purchase" />
+                  
+                  <!-- Invoice Details -->
+                  <div v-if="form.invoice && form.invoice.invoiceTotal !== undefined" class="invoice-details mt-3 p-3 bg-light rounded">
+                    <h6 class="mb-3">{{ $t('Invoice Details') }}</h6>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <table class="table table-sm table-bordered mb-0">
+                          <tr>
+                            <th class="w-50">{{ $t('Sub Total') }}:</th>
+                            <td>{{ formatNumber(form.invoice.baseSubTotal || form.invoice.subTotal) }} <span class="saudi-riyal">ê</span></td>
+                          </tr>
+                          <tr v-if="form.invoice.discount > 0">
+                            <th>{{ $t('Discount') }}:</th>
+                            <td>- {{ formatNumber(form.invoice.discount) }} <span class="saudi-riyal">ê</span></td>
+                          </tr>
+                          <tr v-if="form.invoice.transport > 0">
+                            <th>{{ $t('Transport') }}:</th>
+                            <td>+ {{ formatNumber(form.invoice.transport) }} <span class="saudi-riyal">ê</span></td>
+                          </tr>
+                          <tr v-if="form.invoice.tax > 0">
+                            <th>{{ $t('Tax') }} <span v-if="form.invoice.taxRate">({{ typeof form.invoice.taxRate === 'object' ? form.invoice.taxRate.rate : form.invoice.taxRate }}%)</span>:</th>
+                            <td>+ {{ formatNumber(form.invoice.tax) }} <span class="saudi-riyal">ê</span></td>
+                          </tr>
+                          <tr class="bg-indigo-light">
+                            <th><strong>{{ $t('Total') }}:</strong></th>
+                            <td><strong>{{ formatNumber(form.invoice.invoiceTotal) }} <span class="saudi-riyal">ê</span></strong></td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="col-md-6">
+                        <table class="table table-sm table-bordered mb-0">
+                          <tr>
+                            <th class="w-50">{{ $t('Total Paid') }}:</th>
+                            <td>{{ formatNumber(form.invoice.totalPaid) }} <span class="saudi-riyal">ê</span></td>
+                          </tr>
+                          <tr class="bg-red-light">
+                            <th><strong>{{ $t('Due') }}:</strong></th>
+                            <td><strong>{{ formatNumber(form.invoice.due) }} <span class="saudi-riyal">ê</span></strong></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -153,6 +185,13 @@
                     </template>
                   </v-select>
                   <has-error :form="form" field="account" />
+                  <!-- Account Balance Display -->
+                  <div v-if="form.account && form.account.availableBalance !== undefined" class="account-balance mt-2">
+                    <small class="text-muted">
+                      <strong>{{ $t('Available Balance') }}:</strong> 
+                      <span class="text-primary">{{ formatNumber(form.account.availableBalance) }} <span class="saudi-riyal">ê</span></span>
+                    </small>
+                  </div>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="chequeNo">{{ $t('Cheque No') }}</label>
@@ -330,6 +369,16 @@ export default {
             label: invoice.label || `${invoice.invoiceNo} - Due: ${invoice.due}`,
             invoiceNo: invoice.invoiceNo,
             due: invoice.due,
+            // Store all invoice details for display
+            invoiceTotal: invoice.invoiceTotal,
+            totalPaid: invoice.totalPaid,
+            subTotal: invoice.subTotal,
+            baseSubTotal: invoice.baseSubTotal, // Base subtotal (sum of product prices)
+            discount: invoice.discount,
+            transport: invoice.transport,
+            tax: invoice.tax,
+            taxRate: invoice.taxRate,
+            totalInvoiceReturn: invoice.totalInvoiceReturn || 0,
           }))
         } catch (error) {
           this.invoices = []
@@ -344,12 +393,20 @@ export default {
           const { data } = await axios.get(
             window.location.origin + '/api/supplier/' + this.form.supplier.slug + '/purchases'
           )
-          this.purchases = (data.purchases || []).map(purchase => ({
+          this.purchases = (data.purchases || data || []).map(purchase => ({
             id: purchase.id,
             slug: purchase.slug,
-            label: purchase.label || `${purchase.purchaseNo} - Due: ${purchase.due}`,
-            purchaseNo: purchase.purchaseNo,
+            label: purchase.purchaseNo || `${purchase.code} - Due: ${purchase.due}`,
+            purchaseNo: purchase.purchaseNo || purchase.code,
             due: purchase.due,
+            // Store all purchase details for display
+            purchaseTotal: purchase.purchaseTotal,
+            totalPaid: purchase.totalPaid,
+            subTotal: purchase.subTotal,
+            totalDiscount: purchase.totalDiscount,
+            transport: purchase.transport,
+            tax: purchase.tax,
+            taxRate: purchase.taxRate,
           }))
         } catch (error) {
           this.purchases = []
@@ -374,7 +431,8 @@ export default {
 
     // Update balance when account changes
     updateBalance() {
-      // Can show available balance here if needed
+      // Balance is automatically displayed via v-model binding
+      // This method can be used for additional logic if needed
     },
 
     // Handle entity type change
@@ -405,9 +463,9 @@ export default {
 
     // Handle supplier change
     onSupplierChange() {
-      if (this.form.paymentMethod === 'purchase') {
-        this.getPurchases()
-      }
+      // Receive vouchers don't support purchases
+      this.form.purchase = ''
+      this.purchases = ''
     },
 
     // Handle payment method change
@@ -419,8 +477,6 @@ export default {
 
       if (this.form.paymentMethod === 'invoice' && this.form.client) {
         this.getInvoices()
-      } else if (this.form.paymentMethod === 'purchase' && this.form.supplier) {
-        this.getPurchases()
       }
     },
 
@@ -548,6 +604,17 @@ export default {
       } finally {
         this.isAutoAssigningSupplier = false
       }
+    },
+
+    // Format number for display
+    formatNumber(number) {
+      if (number !== null && number !== undefined) {
+        return Number(number).toLocaleString('en-US', { 
+          minimumFractionDigits: 2, 
+          maximumFractionDigits: 2 
+        })
+      }
+      return '0.00'
     },
 
     // Save voucher

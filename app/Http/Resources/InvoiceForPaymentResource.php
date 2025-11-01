@@ -14,6 +14,14 @@ class InvoiceForPaymentResource extends JsonResource
      */
     public function toArray($request)
     {
+        // Calculate base subtotal (sum of salePrice × quantity) for display
+        $baseSubTotal = 0;
+        if ($this->relationLoaded('invoiceProducts')) {
+            foreach ($this->invoiceProducts as $product) {
+                $baseSubTotal += $product->sale_price * $product->quantity;
+            }
+        }
+        
         return [
             'id' => $this->id,
             'invoiceNo' => $this->invoice_no,
@@ -26,7 +34,8 @@ class InvoiceForPaymentResource extends JsonResource
             'transport' => $this->transport,
             'taxRate' => $this->invoiceTax,
             'tax' => $this->total_tax,
-            'subTotal' => $this->sub_total,
+            'subTotal' => $baseSubTotal > 0 ? $baseSubTotal : $this->sub_total, // Use base subtotal if available, fallback to sub_total
+            'baseSubTotal' => $baseSubTotal > 0 ? $baseSubTotal : null, // Explicit base subtotal
             'invoiceTotal' => $this->invoiceTotal(),
             'totalPaid' => $this->invoiceTotalPaid(),
             'due' => $this->totalDue(),
