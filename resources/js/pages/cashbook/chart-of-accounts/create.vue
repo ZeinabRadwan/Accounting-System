@@ -61,10 +61,10 @@
                            class="form-control"
                            :class="{ 'is-invalid': form.errors.has('code') }" 
                            name="code"
-                           dir="ltr"
+                           dir="rtl"
                            :placeholder="form.code_generation === 'automatic' ? $t('Code will be generated automatically') : $t('Enter account code')"
                            :readonly="form.code_generation === 'automatic'"
-                           :style="[{ direction: 'ltr', textAlign: 'left' }, form.code_generation === 'automatic' ? { backgroundColor: '#f8f9fa' } : {}]" />
+                           :style="[{ direction: 'rtl', textAlign: 'right' }, form.code_generation === 'automatic' ? { backgroundColor: '#f8f9fa' } : {}]" />
                     
                     <!-- Auto-generate Button -->
                     <!-- <div v-if="form.code_generation === 'automatic'" class="code-generate-btn">
