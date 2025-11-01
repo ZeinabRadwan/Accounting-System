@@ -405,18 +405,18 @@ class InventoryController extends Controller
     public function searchInventoryHistory(Request $request)
     {
         try {
-            $perPage = $request->perPage ?? 10;
-            $term = $request->term ?? '';
+            $perPage = (int) ($request->perPage ?? 10);
+            $term = trim($request->term ?? '');
             $filterType = $request->filterType ?? 'default';
             $startDate = $request->startDate ?? '';
             $endDate = $request->endDate ?? '';
+            $currentPage = (int) ($request->page ?? 1);
             
-            // Get history data using helper method
-            $allHistory = $this->getHistoryData($term, $filterType, $startDate, $endDate);
-
+            // Build query based on filter type
+            $allHistory = $this->buildHistoryQuery($term, $filterType, $startDate, $endDate);
+            
             // Paginate the results
             $total = $allHistory->count();
-            $currentPage = $request->page ?? 1;
             $offset = ($currentPage - 1) * $perPage;
             $items = $allHistory->slice($offset, $perPage)->values();
 
@@ -425,8 +425,8 @@ class InventoryController extends Controller
                 'current_page' => $currentPage,
                 'per_page' => $perPage,
                 'total' => $total,
-                'last_page' => ceil($total / $perPage),
-                'from' => $offset + 1,
+                'last_page' => $total > 0 ? (int) ceil($total / $perPage) : 1,
+                'from' => $total > 0 ? $offset + 1 : 0,
                 'to' => min($offset + $perPage, $total),
             ]);
 
@@ -434,533 +434,383 @@ class InventoryController extends Controller
             \Log::error('Inventory history search error', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
                 'request' => $request->all()
             ]);
-            return $this->responseWithError($e->getMessage());
+            return $this->responseWithError('An error occurred while searching inventory history: ' . $e->getMessage());
         }
     }
     
     /**
-     * Get inventory history data (helper method)
+     * Build inventory history query with safe relationship access
      */
-    private function getHistoryData($term = '', $filterType = 'default', $startDate = '', $endDate = '')
+    private function buildHistoryQuery($term = '', $filterType = 'default', $startDate = '', $endDate = '')
     {
         $history = collect();
-
-        // Get all purchase products
-        $purchaseQuery = PurchaseProduct::with(['purchase.supplier', 'product'])
-            ->whereHas('purchase')
-            ->whereHas('product')
-            ->whereHas('purchase.supplier');
-        if (!empty($term)) {
-            $purchaseQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
-            });
-        }
-        $purchaseProducts = $purchaseQuery->orderBy('created_at', 'desc')->get();
-
-        foreach ($purchaseProducts as $item) {
+        
+        // Helper function to safely get relationship
+        $safeGet = function($model, $relation) {
+            if (!$model) return null;
             try {
-                // Check if item exists
-                if (!$item) {
-                    continue;
-                }
-                
-                // Check if item has id
-                if (!isset($item->id) || !$item->id) {
-                    continue;
-                }
-                
-                if (($filterType === 'default' || $filterType === 'purchase' || $filterType === 'stock_in')) {
-                    // Safely get purchase relationship
-                    $purchase = null;
-                    try {
-                        $purchase = $item->purchase;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$purchase || !isset($purchase->id) || !$purchase->id) {
-                        continue;
-                    }
-                    
-                    // Safely get supplier relationship
-                    $supplier = null;
-                    try {
-                        $supplier = $purchase->supplier;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$supplier || !isset($supplier->id) || !$supplier->id) {
-                        continue;
-                    }
-                    
-                    // Safely get product relationship
-                    $product = null;
-                    try {
-                        $product = $item->product;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$product || !isset($product->id) || !$product->id) {
-                        continue;
-                    }
-                    
-                    // Check required fields exist
-                    if (!isset($purchase->purchase_date) || !isset($purchase->purchase_no) ||
-                        !isset($supplier->name) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
-                        continue;
-                    }
-                    
-                    // Apply date filtering if provided
-                    if (!empty($startDate) && $purchase->purchase_date < $startDate) {
-                        continue;
-                    }
-                    if (!empty($endDate) && $purchase->purchase_date > $endDate) {
-                        continue;
-                    }
-                    
-                    $history->push([
-                        'id' => 'purchase_' . $item->id,
-                        'operation_date' => $purchase->purchase_date,
-                        'product_name' => $product->name,
-                        'product_code' => $product->code,
-                        'product_slug' => $product->slug,
-                        'operation_type' => 'Purchase',
-                        'price' => $item->purchase_price ?? 0,
-                        'quantity_change' => $item->quantity ?? 0,
-                        'notes' => 'Purchase from ' . ($supplier->name ?? 'Unknown'),
-                        'reference_code' => config('config.purchasePrefix') . '-' . ($purchase->purchase_no ?? ''),
-                    ]);
-                }
+                return optional($model)->$relation;
             } catch (\Exception $e) {
-                \Log::warning('Error processing purchase product in inventory history', [
-                    'item_id' => $item->id ?? null,
-                    'error' => $e->getMessage()
-                ]);
-                continue;
+                return null;
             }
-        }
-
-        // Get all invoice products
-        $invoiceQuery = InvoiceProduct::with(['invoice.client', 'product'])
-            ->whereHas('invoice')
-            ->whereHas('product')
-            ->whereHas('invoice.client');
-        if (!empty($term)) {
-            $invoiceQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
-            });
-        }
-        $invoiceProducts = $invoiceQuery->orderBy('created_at', 'desc')->get();
-
-        foreach ($invoiceProducts as $item) {
-            try {
-                // Check if item exists
-                if (!$item) {
-                    continue;
-                }
-                
-                // Check if item has id
-                if (!isset($item->id) || !$item->id) {
-                    continue;
-                }
-                
-                if (($filterType === 'default' || $filterType === 'invoice' || $filterType === 'stock_out')) {
-                    // Safely get invoice relationship
-                    $invoice = null;
-                    try {
-                        $invoice = $item->invoice;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$invoice || !isset($invoice->id) || !$invoice->id) {
-                        continue;
-                    }
-                    
-                    // Safely get client relationship
-                    $client = null;
-                    try {
-                        $client = $invoice->client;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$client || !isset($client->id) || !$client->id) {
-                        continue;
-                    }
-                    
-                    // Safely get product relationship
-                    $product = null;
-                    try {
-                        $product = $item->product;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$product || !isset($product->id) || !$product->id) {
-                        continue;
-                    }
-                    
-                    // Check required fields exist
-                    if (!isset($invoice->invoice_date) || !isset($invoice->invoice_no) ||
-                        !isset($client->name) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
-                        continue;
-                    }
-                    
-                    // Apply date filtering if provided
-                    if (!empty($startDate) && $invoice->invoice_date < $startDate) {
-                        continue;
-                    }
-                    if (!empty($endDate) && $invoice->invoice_date > $endDate) {
-                        continue;
-                    }
-                    
-                    $history->push([
-                        'id' => 'invoice_' . $item->id,
-                        'operation_date' => $invoice->invoice_date,
-                        'product_name' => $product->name,
-                        'product_code' => $product->code,
-                        'product_slug' => $product->slug,
-                        'operation_type' => 'Invoice',
-                        'price' => $item->sale_price ?? 0,
-                        'quantity_change' => -($item->quantity ?? 0),
-                        'notes' => 'Sale to ' . ($client->name ?? 'Unknown'),
-                        'reference_code' => config('config.invoicePrefix') . '-' . ($invoice->invoice_no ?? ''),
-                    ]);
-                }
-            } catch (\Exception $e) {
-                \Log::warning('Error processing invoice product in inventory history', [
-                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
-                    'error' => $e->getMessage()
-                ]);
-                continue;
+        };
+        
+        // Helper function to build history item safely
+        $buildItem = function($data) use (&$history) {
+            if (!empty($data)) {
+                $history->push($data);
             }
+        };
+        
+        // Determine which operation types to include
+        $includePurchase = in_array($filterType, ['default', 'purchase', 'stock_in']);
+        $includeInvoice = in_array($filterType, ['default', 'invoice', 'stock_out']);
+        $includeAdjustment = in_array($filterType, ['default', 'adjustment', 'stock_in', 'stock_out']);
+        $includeInvoiceReturn = in_array($filterType, ['default', 'invoice_return', 'stock_in']);
+        $includePurchaseReturn = in_array($filterType, ['default', 'purchase_return', 'stock_out']);
+        
+        // Process Purchase Products
+        if ($includePurchase) {
+            $this->processPurchaseProducts($term, $startDate, $endDate, $buildItem);
         }
-
-        // Get all adjustment products
-        $adjustmentQuery = AdjustmentProduct::with(['inventoryAdjustment', 'product'])
-            ->whereHas('inventoryAdjustment')
-            ->whereHas('product');
-        if (!empty($term)) {
-            $adjustmentQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
-            });
+        
+        // Process Invoice Products
+        if ($includeInvoice) {
+            $this->processInvoiceProducts($term, $startDate, $endDate, $buildItem);
         }
-        $adjustmentProducts = $adjustmentQuery->orderBy('created_at', 'desc')->get();
-
-        foreach ($adjustmentProducts as $item) {
-            try {
-                // Check if item exists
-                if (!$item) {
-                    continue;
-                }
-                
-                // Check if item has id
-                if (!isset($item->id) || !$item->id) {
-                    continue;
-                }
-                
-                $itemType = $item->type ?? null;
-                if (($filterType === 'default' || $filterType === 'adjustment' || 
-                    ($filterType === 'stock_in' && $itemType == 1) || 
-                    ($filterType === 'stock_out' && $itemType == 0))) {
-                    // Safely get adjustment relationship
-                    $adjustment = null;
-                    try {
-                        $adjustment = $item->inventoryAdjustment;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$adjustment || !isset($adjustment->id) || !$adjustment->id) {
-                        continue;
-                    }
-                    
-                    // Safely get product relationship
-                    $product = null;
-                    try {
-                        $product = $item->product;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$product || !isset($product->id) || !$product->id) {
-                        continue;
-                    }
-                    
-                    // Check required fields exist
-                    if (!isset($adjustment->date) || !isset($adjustment->code) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
-                        continue;
-                    }
-                    
-                    // Apply date filtering if provided
-                    if (!empty($startDate) && $adjustment->date < $startDate) {
-                        continue;
-                    }
-                    if (!empty($endDate) && $adjustment->date > $endDate) {
-                        continue;
-                    }
-                    
-                    $quantityChange = ($itemType == 1) ? ($item->quantity ?? 0) : -($item->quantity ?? 0);
-                    $operationType = ($itemType == 1) ? 'Stock In' : 'Stock Out';
-                    
-                    $history->push([
-                        'id' => 'adjustment_' . $item->id,
-                        'operation_date' => $adjustment->date,
-                        'product_name' => $product->name,
-                        'product_code' => $product->code,
-                        'product_slug' => $product->slug,
-                        'operation_type' => $operationType,
-                        'price' => $item->purchase_price ?? 0,
-                        'quantity_change' => $quantityChange,
-                        'notes' => $adjustment->reason ?? 'Adjustment',
-                        'reference_code' => config('config.adjustmentPrefix') . '-' . ($adjustment->code ?? ''),
-                    ]);
-                }
-            } catch (\Exception $e) {
-                \Log::warning('Error processing adjustment product in inventory history', [
-                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
-                    'error' => $e->getMessage()
-                ]);
-                continue;
-            }
+        
+        // Process Adjustment Products
+        if ($includeAdjustment) {
+            $this->processAdjustmentProducts($term, $filterType, $startDate, $endDate, $buildItem);
         }
-
-        // Get all invoice return products
-        $invoiceReturnQuery = InvoiceReturnProduct::with(['invoiceReturn.invoice.client', 'product'])
-            ->whereHas('invoiceReturn')
-            ->whereHas('product')
-            ->whereHas('invoiceReturn.invoice')
-            ->whereHas('invoiceReturn.invoice.client');
-        if (!empty($term)) {
-            $invoiceReturnQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
-            });
+        
+        // Process Invoice Return Products
+        if ($includeInvoiceReturn) {
+            $this->processInvoiceReturnProducts($term, $startDate, $endDate, $buildItem);
         }
-        $invoiceReturnProducts = $invoiceReturnQuery->orderBy('created_at', 'desc')->get();
-
-        foreach ($invoiceReturnProducts as $item) {
-            try {
-                // Check if item exists
-                if (!$item) {
-                    continue;
-                }
-                
-                // Check if item has id
-                if (!isset($item->id) || !$item->id) {
-                    continue;
-                }
-                
-                if (($filterType === 'default' || $filterType === 'invoice_return' || $filterType === 'stock_in')) {
-                    // Safely get invoiceReturn relationship
-                    $invoiceReturn = null;
-                    try {
-                        $invoiceReturn = $item->invoiceReturn;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$invoiceReturn || !isset($invoiceReturn->id) || !$invoiceReturn->id) {
-                        continue;
-                    }
-                    
-                    // Safely get invoice relationship
-                    $invoice = null;
-                    try {
-                        $invoice = $invoiceReturn->invoice;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$invoice || !isset($invoice->id) || !$invoice->id) {
-                        continue;
-                    }
-                    
-                    // Safely get client relationship
-                    $client = null;
-                    try {
-                        $client = $invoice->client;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$client || !isset($client->id) || !$client->id) {
-                        continue;
-                    }
-                    
-                    // Safely get product relationship
-                    $product = null;
-                    try {
-                        $product = $item->product;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$product || !isset($product->id) || !$product->id) {
-                        continue;
-                    }
-                    
-                    // Check required fields exist
-                    if (!isset($invoiceReturn->date) || !isset($invoiceReturn->return_no) ||
-                        !isset($client->name) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
-                        continue;
-                    }
-                    
-                    // Apply date filtering if provided
-                    if (!empty($startDate) && $invoiceReturn->date < $startDate) {
-                        continue;
-                    }
-                    if (!empty($endDate) && $invoiceReturn->date > $endDate) {
-                        continue;
-                    }
-                    
-                    $history->push([
-                        'id' => 'invoice_return_' . $item->id,
-                        'operation_date' => $invoiceReturn->date,
-                        'product_name' => $product->name,
-                        'product_code' => $product->code,
-                        'product_slug' => $product->slug,
-                        'operation_type' => 'Invoice Return',
-                        'price' => $product->purchase_price ?? 0,
-                        'quantity_change' => $item->quantity ?? 0,
-                        'notes' => 'Return from ' . ($client->name ?? 'Unknown'),
-                        'reference_code' => config('config.invoiceReturnPrefix') . '-' . ($invoiceReturn->return_no ?? ''),
-                    ]);
-                }
-            } catch (\Exception $e) {
-                \Log::warning('Error processing invoice return product in inventory history', [
-                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
-                    'error' => $e->getMessage()
-                ]);
-                continue;
-            }
+        
+        // Process Purchase Return Products
+        if ($includePurchaseReturn) {
+            $this->processPurchaseReturnProducts($term, $startDate, $endDate, $buildItem);
         }
-
-        // Get all purchase return products
-        $purchaseReturnQuery = PurchaseReturnProduct::with(['purchaseReturn.purchase.supplier', 'product'])
-            ->whereHas('purchaseReturn')
-            ->whereHas('product')
-            ->whereHas('purchaseReturn.purchase')
-            ->whereHas('purchaseReturn.purchase.supplier');
-        if (!empty($term)) {
-            $purchaseReturnQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
-            });
-        }
-        $purchaseReturnProducts = $purchaseReturnQuery->orderBy('created_at', 'desc')->get();
-
-        foreach ($purchaseReturnProducts as $item) {
-            try {
-                // Check if item exists
-                if (!$item) {
-                    continue;
-                }
-                
-                // Check if item has id
-                if (!isset($item->id) || !$item->id) {
-                    continue;
-                }
-                
-                if (($filterType === 'default' || $filterType === 'purchase_return' || $filterType === 'stock_out')) {
-                    // Safely get purchaseReturn relationship
-                    $purchaseReturn = null;
-                    try {
-                        $purchaseReturn = $item->purchaseReturn;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$purchaseReturn || !isset($purchaseReturn->id) || !$purchaseReturn->id) {
-                        continue;
-                    }
-                    
-                    // Safely get purchase relationship
-                    $purchase = null;
-                    try {
-                        $purchase = $purchaseReturn->purchase;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$purchase || !isset($purchase->id) || !$purchase->id) {
-                        continue;
-                    }
-                    
-                    // Safely get supplier relationship
-                    $supplier = null;
-                    try {
-                        $supplier = $purchase->supplier;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$supplier || !isset($supplier->id) || !$supplier->id) {
-                        continue;
-                    }
-                    
-                    // Safely get product relationship
-                    $product = null;
-                    try {
-                        $product = $item->product;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                    
-                    if (!$product || !isset($product->id) || !$product->id) {
-                        continue;
-                    }
-                    
-                    // Check required fields exist
-                    if (!isset($purchaseReturn->date) || !isset($purchaseReturn->code) ||
-                        !isset($supplier->name) ||
-                        !isset($product->name) || !isset($product->code) || !isset($product->slug)) {
-                        continue;
-                    }
-                    
-                    // Apply date filtering if provided
-                    if (!empty($startDate) && $purchaseReturn->date < $startDate) {
-                        continue;
-                    }
-                    if (!empty($endDate) && $purchaseReturn->date > $endDate) {
-                        continue;
-                    }
-                    
-                    $history->push([
-                        'id' => 'purchase_return_' . $item->id,
-                        'operation_date' => $purchaseReturn->date,
-                        'product_name' => $product->name,
-                        'product_code' => $product->code,
-                        'product_slug' => $product->slug,
-                        'operation_type' => 'Purchase Return',
-                        'price' => $item->purchase_price ?? 0,
-                        'quantity_change' => -($item->quantity ?? 0),
-                        'notes' => 'Return to ' . ($supplier->name ?? 'Unknown'),
-                        'reference_code' => config('config.purchaseReturnPrefix') . '-' . ($purchaseReturn->code ?? ''),
-                    ]);
-                }
-            } catch (\Exception $e) {
-                \Log::warning('Error processing purchase return product in inventory history', [
-                    'item_id' => isset($item) && $item ? ($item->id ?? null) : null,
-                    'error' => $e->getMessage()
-                ]);
-                continue;
-            }
-        }
-
+        
         // Sort by operation date descending
-        return $history->sortByDesc('operation_date');
+        return $history->sortByDesc('operation_date')->values();
+    }
+    
+    /**
+     * Process purchase products for inventory history
+     */
+    private function processPurchaseProducts($term, $startDate, $endDate, $buildItem)
+    {
+        $query = PurchaseProduct::query()
+            ->join('purchases', 'purchase_products.purchase_id', '=', 'purchases.id')
+            ->join('products', 'purchase_products.product_id', '=', 'products.id')
+            ->leftJoin('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->whereNotNull('purchases.id')
+            ->whereNotNull('products.id')
+            ->select([
+                'purchase_products.id',
+                'purchase_products.purchase_id',
+                'purchase_products.product_id',
+                'purchase_products.quantity',
+                'purchase_products.purchase_price',
+                'purchases.purchase_date',
+                'purchases.purchase_no',
+                'products.name as product_name',
+                'products.code as product_code',
+                'products.slug as product_slug',
+                'suppliers.name as supplier_name'
+            ]);
+        
+        // Apply search term
+        if (!empty($term)) {
+            $query->where(function($q) use ($term) {
+                $q->where('products.name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('products.code', 'LIKE', '%' . $term . '%')
+                  ->orWhere('purchases.purchase_no', 'LIKE', '%' . $term . '%');
+            });
+        }
+        
+        // Apply date filters
+        if (!empty($startDate)) {
+            $query->where('purchases.purchase_date', '>=', $startDate);
+        }
+        if (!empty($endDate)) {
+            $query->where('purchases.purchase_date', '<=', $endDate);
+        }
+        
+        $results = $query->orderBy('purchases.purchase_date', 'desc')->get();
+        
+        foreach ($results as $row) {
+            $buildItem([
+                'id' => 'purchase_' . $row->id,
+                'operation_date' => $row->purchase_date ?? null,
+                'product_name' => $row->product_name ?? '',
+                'product_code' => $row->product_code ?? '',
+                'product_slug' => $row->product_slug ?? '',
+                'operation_type' => 'Purchase',
+                'price' => $row->purchase_price ?? 0,
+                'quantity_change' => $row->quantity ?? 0,
+                'notes' => 'Purchase from ' . ($row->supplier_name ?? 'Unknown'),
+                'reference_code' => config('config.purchasePrefix', 'PUR') . '-' . ($row->purchase_no ?? ''),
+            ]);
+        }
+    }
+    
+    /**
+     * Process invoice products for inventory history
+     */
+    private function processInvoiceProducts($term, $startDate, $endDate, $buildItem)
+    {
+        $query = InvoiceProduct::query()
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->join('products', 'invoice_products.product_id', '=', 'products.id')
+            ->leftJoin('clients', 'invoices.client_id', '=', 'clients.id')
+            ->whereNotNull('invoices.id')
+            ->whereNotNull('products.id')
+            ->select([
+                'invoice_products.id',
+                'invoice_products.invoice_id',
+                'invoice_products.product_id',
+                'invoice_products.quantity',
+                'invoice_products.sale_price',
+                'invoices.invoice_date',
+                'invoices.invoice_no',
+                'products.name as product_name',
+                'products.code as product_code',
+                'products.slug as product_slug',
+                'clients.name as client_name'
+            ]);
+        
+        // Apply search term
+        if (!empty($term)) {
+            $query->where(function($q) use ($term) {
+                $q->where('products.name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('products.code', 'LIKE', '%' . $term . '%')
+                  ->orWhere('invoices.invoice_no', 'LIKE', '%' . $term . '%');
+            });
+        }
+        
+        // Apply date filters
+        if (!empty($startDate)) {
+            $query->where('invoices.invoice_date', '>=', $startDate);
+        }
+        if (!empty($endDate)) {
+            $query->where('invoices.invoice_date', '<=', $endDate);
+        }
+        
+        $results = $query->orderBy('invoices.invoice_date', 'desc')->get();
+        
+        foreach ($results as $row) {
+            $buildItem([
+                'id' => 'invoice_' . $row->id,
+                'operation_date' => $row->invoice_date ?? null,
+                'product_name' => $row->product_name ?? '',
+                'product_code' => $row->product_code ?? '',
+                'product_slug' => $row->product_slug ?? '',
+                'operation_type' => 'Invoice',
+                'price' => $row->sale_price ?? 0,
+                'quantity_change' => -($row->quantity ?? 0),
+                'notes' => 'Sale to ' . ($row->client_name ?? 'Unknown'),
+                'reference_code' => config('config.invoicePrefix', 'INV') . '-' . ($row->invoice_no ?? ''),
+            ]);
+        }
+    }
+    
+    /**
+     * Process adjustment products for inventory history
+     */
+    private function processAdjustmentProducts($term, $filterType, $startDate, $endDate, $buildItem)
+    {
+        $query = AdjustmentProduct::query()
+            ->join('inventory_adjustments', 'adjustment_products.adjustment_id', '=', 'inventory_adjustments.id')
+            ->join('products', 'adjustment_products.product_id', '=', 'products.id')
+            ->whereNotNull('inventory_adjustments.id')
+            ->whereNotNull('products.id')
+            ->select([
+                'adjustment_products.id',
+                'adjustment_products.adjustment_id',
+                'adjustment_products.product_id',
+                'adjustment_products.type',
+                'adjustment_products.quantity',
+                'adjustment_products.purchase_price',
+                'inventory_adjustments.date',
+                'inventory_adjustments.code',
+                'inventory_adjustments.reason',
+                'products.name as product_name',
+                'products.code as product_code',
+                'products.slug as product_slug'
+            ]);
+        
+        // Filter by adjustment type if needed
+        if ($filterType === 'stock_in') {
+            $query->where('adjustment_products.type', 1);
+        } elseif ($filterType === 'stock_out') {
+            $query->where('adjustment_products.type', 0);
+        }
+        
+        // Apply search term
+        if (!empty($term)) {
+            $query->where(function($q) use ($term) {
+                $q->where('products.name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('products.code', 'LIKE', '%' . $term . '%')
+                  ->orWhere('inventory_adjustments.code', 'LIKE', '%' . $term . '%');
+            });
+        }
+        
+        // Apply date filters
+        if (!empty($startDate)) {
+            $query->where('inventory_adjustments.date', '>=', $startDate);
+        }
+        if (!empty($endDate)) {
+            $query->where('inventory_adjustments.date', '<=', $endDate);
+        }
+        
+        $results = $query->orderBy('inventory_adjustments.date', 'desc')->get();
+        
+        foreach ($results as $row) {
+            $quantityChange = ($row->type == 1) ? ($row->quantity ?? 0) : -($row->quantity ?? 0);
+            $operationType = ($row->type == 1) ? 'Stock In' : 'Stock Out';
+            
+            $buildItem([
+                'id' => 'adjustment_' . $row->id,
+                'operation_date' => $row->date ?? null,
+                'product_name' => $row->product_name ?? '',
+                'product_code' => $row->product_code ?? '',
+                'product_slug' => $row->product_slug ?? '',
+                'operation_type' => $operationType,
+                'price' => $row->purchase_price ?? 0,
+                'quantity_change' => $quantityChange,
+                'notes' => $row->reason ?? 'Adjustment',
+                'reference_code' => config('config.adjustmentPrefix', 'ADJ') . '-' . ($row->code ?? ''),
+            ]);
+        }
+    }
+    
+    /**
+     * Process invoice return products for inventory history
+     */
+    private function processInvoiceReturnProducts($term, $startDate, $endDate, $buildItem)
+    {
+        $query = InvoiceReturnProduct::query()
+            ->join('invoice_returns', 'invoice_return_products.return_id', '=', 'invoice_returns.id')
+            ->join('invoices', 'invoice_returns.invoice_id', '=', 'invoices.id')
+            ->join('products', 'invoice_return_products.product_id', '=', 'products.id')
+            ->leftJoin('clients', 'invoices.client_id', '=', 'clients.id')
+            ->whereNotNull('invoice_returns.id')
+            ->whereNotNull('products.id')
+            ->select([
+                'invoice_return_products.id',
+                'invoice_return_products.return_id',
+                'invoice_return_products.product_id',
+                'invoice_return_products.quantity',
+                'invoice_returns.date',
+                'invoice_returns.return_no',
+                'products.name as product_name',
+                'products.code as product_code',
+                'products.slug as product_slug',
+                'products.purchase_price',
+                'clients.name as client_name'
+            ]);
+        
+        // Apply search term
+        if (!empty($term)) {
+            $query->where(function($q) use ($term) {
+                $q->where('products.name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('products.code', 'LIKE', '%' . $term . '%')
+                  ->orWhere('invoice_returns.return_no', 'LIKE', '%' . $term . '%');
+            });
+        }
+        
+        // Apply date filters
+        if (!empty($startDate)) {
+            $query->where('invoice_returns.date', '>=', $startDate);
+        }
+        if (!empty($endDate)) {
+            $query->where('invoice_returns.date', '<=', $endDate);
+        }
+        
+        $results = $query->orderBy('invoice_returns.date', 'desc')->get();
+        
+        foreach ($results as $row) {
+            $buildItem([
+                'id' => 'invoice_return_' . $row->id,
+                'operation_date' => $row->date ?? null,
+                'product_name' => $row->product_name ?? '',
+                'product_code' => $row->product_code ?? '',
+                'product_slug' => $row->product_slug ?? '',
+                'operation_type' => 'Invoice Return',
+                'price' => $row->purchase_price ?? 0,
+                'quantity_change' => $row->quantity ?? 0,
+                'notes' => 'Return from ' . ($row->client_name ?? 'Unknown'),
+                'reference_code' => config('config.invoiceReturnPrefix', 'INV-RET') . '-' . ($row->return_no ?? ''),
+            ]);
+        }
+    }
+    
+    /**
+     * Process purchase return products for inventory history
+     */
+    private function processPurchaseReturnProducts($term, $startDate, $endDate, $buildItem)
+    {
+        $query = PurchaseReturnProduct::query()
+            ->join('purchase_returns', 'purchase_return_products.return_id', '=', 'purchase_returns.id')
+            ->join('purchases', 'purchase_returns.purchase_id', '=', 'purchases.id')
+            ->join('products', 'purchase_return_products.product_id', '=', 'products.id')
+            ->leftJoin('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->whereNotNull('purchase_returns.id')
+            ->whereNotNull('products.id')
+            ->select([
+                'purchase_return_products.id',
+                'purchase_return_products.return_id',
+                'purchase_return_products.product_id',
+                'purchase_return_products.quantity',
+                'purchase_return_products.purchase_price',
+                'purchase_returns.date',
+                'purchase_returns.code',
+                'products.name as product_name',
+                'products.code as product_code',
+                'products.slug as product_slug',
+                'suppliers.name as supplier_name'
+            ]);
+        
+        // Apply search term
+        if (!empty($term)) {
+            $query->where(function($q) use ($term) {
+                $q->where('products.name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('products.code', 'LIKE', '%' . $term . '%')
+                  ->orWhere('purchase_returns.code', 'LIKE', '%' . $term . '%');
+            });
+        }
+        
+        // Apply date filters
+        if (!empty($startDate)) {
+            $query->where('purchase_returns.date', '>=', $startDate);
+        }
+        if (!empty($endDate)) {
+            $query->where('purchase_returns.date', '<=', $endDate);
+        }
+        
+        $results = $query->orderBy('purchase_returns.date', 'desc')->get();
+        
+        foreach ($results as $row) {
+            $buildItem([
+                'id' => 'purchase_return_' . $row->id,
+                'operation_date' => $row->date ?? null,
+                'product_name' => $row->product_name ?? '',
+                'product_code' => $row->product_code ?? '',
+                'product_slug' => $row->product_slug ?? '',
+                'operation_type' => 'Purchase Return',
+                'price' => $row->purchase_price ?? 0,
+                'quantity_change' => -($row->quantity ?? 0),
+                'notes' => 'Return to ' . ($row->supplier_name ?? 'Unknown'),
+                'reference_code' => config('config.purchaseReturnPrefix', 'PUR-RET') . '-' . ($row->code ?? ''),
+            ]);
+        }
     }
 }

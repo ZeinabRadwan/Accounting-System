@@ -13,9 +13,9 @@
             <div class="row d-flex justify-content-between">
               <div class="col-12 col-md-6 col-xl-4 mb-2">
                 <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
+                  :query="query"
+                  @reset-pagination="handleSearchInput"
+                  @reload="handleSearchClear"
                 />
               </div>
               <div class="col-12 col-md-6 col-xl-3 mb-2">
@@ -191,7 +191,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Swal from "sweetalert2";
+import axios from "axios";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -220,10 +220,113 @@ export default {
     perPage: 10,
     prefix: "",
     currency: "",
+    loading: false,
+    allData: [], // Store all loaded data
+    currentPage: 1,
+    startDate: "",
+    endDate: "",
   }),
   // Map Getters
   computed: {
-    ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
+    ...mapGetters("operations", ["appInfo"]),
+    
+    // Filter and paginate data on the frontend
+    filteredItems() {
+      let filtered = [...this.allData];
+      
+      // Apply search term filter
+      if (this.query && this.query.trim() !== "") {
+        const term = this.query.toLowerCase().trim();
+        filtered = filtered.filter(item => {
+          const productName = (item.product_name || '').toLowerCase();
+          const productCode = (item.product_code || '').toLowerCase();
+          const referenceCode = (item.reference_code || '').toLowerCase();
+          const notes = (item.notes || '').toLowerCase();
+          
+          return productName.includes(term) ||
+                 productCode.includes(term) ||
+                 referenceCode.includes(term) ||
+                 notes.includes(term);
+        });
+      }
+      
+      // Apply filter type
+      if (this.filterType !== 'default') {
+        filtered = filtered.filter(item => {
+          const operationType = item.operation_type || '';
+          
+          switch (this.filterType) {
+            case 'purchase':
+              return operationType === 'Purchase';
+            case 'invoice':
+              return operationType === 'Invoice';
+            case 'adjustment':
+              return operationType === 'Stock In' || operationType === 'Stock Out';
+            case 'purchase_return':
+              return operationType === 'Purchase Return';
+            case 'invoice_return':
+              return operationType === 'Invoice Return';
+            case 'stock_in':
+              return operationType === 'Purchase' || 
+                     operationType === 'Invoice Return' || 
+                     operationType === 'Stock In';
+            case 'stock_out':
+              return operationType === 'Invoice' || 
+                     operationType === 'Purchase Return' || 
+                     operationType === 'Stock Out';
+            default:
+              return true;
+          }
+        });
+      }
+      
+      // Apply date range filter
+      if (this.startDate) {
+        filtered = filtered.filter(item => {
+          if (!item.operation_date) return false;
+          return item.operation_date >= this.startDate;
+        });
+      }
+      
+      if (this.endDate) {
+        filtered = filtered.filter(item => {
+          if (!item.operation_date) return false;
+          return item.operation_date <= this.endDate;
+        });
+      }
+      
+      // Sort by operation date descending
+      filtered.sort((a, b) => {
+        const dateA = new Date(a.operation_date || 0);
+        const dateB = new Date(b.operation_date || 0);
+        return dateB - dateA;
+      });
+      
+      return filtered;
+    },
+    
+    // Paginated items
+    items() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.filteredItems.slice(start, end);
+    },
+    
+    // Pagination object
+    pagination() {
+      const total = this.filteredItems.length;
+      const lastPage = Math.ceil(total / this.perPage) || 1;
+      
+      return {
+        current_page: this.currentPage,
+        per_page: this.perPage,
+        total: total,
+        last_page: lastPage,
+        from: total > 0 ? (this.currentPage - 1) * this.perPage + 1 : 0,
+        to: Math.min(this.currentPage * this.perPage, total),
+      };
+    },
+    
     exportUrl() {
       // Create a dynamic export URL with query parameters and locale for localized headers
       const locale = this.$i18n.locale;
@@ -236,83 +339,122 @@ export default {
     },
   },
   watch: {
-    // watch search data
-    query: function (newQ) {
-      if (newQ === "") {
-        this.getData();
-      } else {
-        this.searchData();
-      }
+    // Watch for filter changes - no API calls, just update pagination
+    query() {
+      this.currentPage = 1;
     },
-
-    filterType: function (newQ, oldQ) {
-      if (newQ === "") {
-        this.getData();
-      } else {
-        this.searchData();
-      }
+    filterType() {
+      this.currentPage = 1;
+    },
+    startDate() {
+      this.currentPage = 1;
+    },
+    endDate() {
+      this.currentPage = 1;
     },
   },
-  created() {
-    this.getData();
+  async created() {
+    await this.loadAllData();
     this.prefix = this.appInfo.productPrefix;
     this.currency = this.appInfo.currency;
   },
   methods: {
+    // Load all inventory history data at once
+    async loadAllData() {
+      this.loading = true;
+      try {
+        // Load all pages of data
+        let allItems = [];
+        let currentPage = 1;
+        let hasMore = true;
+        
+        while (hasMore) {
+          const response = await axios.get(
+            `${window.location.origin}/api/inventory-history?page=${currentPage}&perPage=100`
+          );
+          
+          const data = response.data.data || [];
+          if (data.length > 0) {
+            allItems = allItems.concat(data);
+            currentPage++;
+            // Check if we've loaded all pages
+            const totalPages = response.data.last_page || 1;
+            hasMore = currentPage <= totalPages;
+          } else {
+            hasMore = false;
+          }
+        }
+        
+        this.allData = allItems;
+      } catch (error) {
+        console.error('Error loading inventory history:', error);
+        this.allData = [];
+        // Show error message
+        this.$toastr.e(this.$t('Failed to load inventory history data'));
+      } finally {
+        this.loading = false;
+      }
+    },
+    
     // update per page count
     updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getData() : this.searchData();
+      this.currentPage = 1;
     },
-    // get data
-    async getData() {
-      this.$store.state.operations.loading = true;
-      let currentPage = this.pagination ? this.pagination.current_page : 1;
-      await this.$store.dispatch("operations/fetchData", {
-        path: "/api/inventory-history?page=",
-        currentPage: currentPage + "&perPage=" + this.perPage,
+    
+    // Pagination handler
+    paginate(page) {
+      this.currentPage = page;
+      // Scroll to top of table
+      this.$nextTick(() => {
+        const table = document.querySelector('.inventory-history-table');
+        if (table) {
+          table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     },
-
-    // Pagination
-    async paginate() {
-      this.query === "" ? this.getData() : this.searchData();
+    
+    // Handle search input - update query and reset pagination (frontend only)
+    handleSearchInput(value) {
+      this.query = value;
+      this.currentPage = 1;
     },
-
+    
+    // Handle search clear - reset filters (frontend only)
+    handleSearchClear() {
+      this.query = "";
+      this.currentPage = 1;
+    },
+    
     // Reset pagination
-    async resetPagination() {
-      this.pagination.current_page = 1;
+    resetPagination() {
+      this.currentPage = 1;
     },
-
-    // search data
-    async searchData() {
-      this.$store.state.operations.loading = true;
-      let currentPage = this.pagination ? this.pagination.current_page : 1;
-      await this.$store.dispatch("operations/searchDataWithFilterType", {
-        path: "/api/inventory-history/search",
-        term: this.query,
-        currentPage: currentPage + "&perPage=" + this.perPage,
-        filterType: this.filterType,
-      });
-    },
-
-    // Reload after search
+    
+    // Reload after search - refresh data from server
     async reload() {
       this.query = "";
       this.filterType = "default";
+      this.startDate = "";
+      this.endDate = "";
+      this.currentPage = 1;
+      await this.loadAllData();
     },
-
+    
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
     },
-
-    refreshTable() {
+    
+    // Refresh table - reload all data
+    async refreshTable() {
       this.query = "";
       this.filterType = "default";
-      this.query === "" ? this.getData() : this.searchData();
+      this.startDate = "";
+      this.endDate = "";
+      this.currentPage = 1;
+      await this.loadAllData();
     },
-
+    
     // Get operation type badge class
     getOperationTypeClass(type) {
       const typeClasses = {

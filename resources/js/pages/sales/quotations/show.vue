@@ -700,8 +700,8 @@ export default {
       const refreshedText = (this.$te && this.$te('Updated successfully!'))
         ? this.$t('Updated successfully!')
         : 'Updated successfully!';
-      if (typeof toast !== 'undefined' && toast.fire) {
-        toast.fire({ type: 'success', title: refreshedText });
+      if (this.$toast && this.$toast.success) {
+        this.$toast.success(refreshedText, '');
       }
     },
 

@@ -18350,6 +18350,11 @@ var removeToast = function removeToast(toast) {
   setTimeout(function () {
     if (toast.parentNode) {
       toast.parentNode.removeChild(toast);
+      // Hide container if no more toasts
+      var container = toast.parentNode;
+      if (container && container.children.length === 0) {
+        container.style.display = 'none';
+      }
     }
   }, 300);
 };
@@ -18364,6 +18369,9 @@ var showToast = function showToast(type, title, message) {
   var _createToastElement = createToastElement(type, title, message, duration),
     toast = _createToastElement.toast,
     progressBar = _createToastElement.progressBar;
+
+  // Show the container when adding toasts
+  container.style.display = 'block';
 
   // Add to container
   container.appendChild(toast);
@@ -116363,12 +116371,12 @@ var map = {
 		2115
 	],
 	"./inventory/history-general": [
-		74514,
-		4514
+		76617,
+		6617
 	],
 	"./inventory/history-general.vue": [
-		74514,
-		4514
+		76617,
+		6617
 	],
 	"./inventory/history.vue": [
 		12115,
@@ -117231,12 +117239,12 @@ var map = {
 		1224
 	],
 	"./sales/quotations/show": [
-		35040,
-		5040
+		88489,
+		8489
 	],
 	"./sales/quotations/show.vue": [
-		35040,
-		5040
+		88489,
+		8489
 	],
 	"./sales/returns": [
 		83697,
@@ -117279,12 +117287,12 @@ var map = {
 		3697
 	],
 	"./sales/returns/show": [
-		6702,
-		6702
+		81851,
+		1851
 	],
 	"./sales/returns/show.vue": [
-		6702,
-		6702
+		81851,
+		1851
 	],
 	"./settings": [
 		88557,
@@ -118201,7 +118209,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 5512) return "js/5512.js";
 /******/ 			if (chunkId === 2961) return "js/2961.js";
 /******/ 			if (chunkId === 2115) return "js/2115.js";
-/******/ 			if (chunkId === 4514) return "js/4514.js";
+/******/ 			if (chunkId === 6617) return "js/6617.js";
 /******/ 			if (chunkId === 6476) return "js/6476.js";
 /******/ 			if (chunkId === 8451) return "js/8451.js";
 /******/ 			if (chunkId === 2439) return "js/2439.js";
@@ -118291,12 +118299,12 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2397) return "js/2397.js";
 /******/ 			if (chunkId === 3032) return "js/3032.js";
 /******/ 			if (chunkId === 1224) return "js/1224.js";
-/******/ 			if (chunkId === 5040) return "js/5040.js";
+/******/ 			if (chunkId === 8489) return "js/8489.js";
 /******/ 			if (chunkId === 3697) return "js/3697.js";
 /******/ 			if (chunkId === 7982) return "js/7982.js";
 /******/ 			if (chunkId === 4590) return "js/4590.js";
 /******/ 			if (chunkId === 8264) return "js/8264.js";
-/******/ 			if (chunkId === 6702) return "js/6702.js";
+/******/ 			if (chunkId === 1851) return "js/1851.js";
 /******/ 			if (chunkId === 8557) return "js/8557.js";
 /******/ 			if (chunkId === 2517) return "js/2517.js";
 /******/ 			if (chunkId === 6168) return "js/6168.js";
