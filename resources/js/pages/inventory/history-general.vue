@@ -66,6 +66,7 @@
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
+                    download
                   >
                     <svg
                       width="18"
@@ -81,10 +82,11 @@
                     </svg>
                   </a>
                   <a
-                    href="/inventory-history/pdf"
+                    :href="pdfExportUrl"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
+                    download
                   >
                     <svg
                       width="24"
@@ -223,8 +225,14 @@ export default {
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
     exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return `/inventory-history/excel?term=${this.query}&filterType=${this.filterType}`;
+      // Create a dynamic export URL with query parameters and locale for localized headers
+      const locale = this.$i18n.locale;
+      return `/inventory-history/excel?term=${this.query}&filterType=${this.filterType}&locale=${locale}`;
+    },
+    pdfExportUrl() {
+      // Create a dynamic PDF export URL with query parameters and locale
+      const locale = this.$i18n.locale;
+      return `/inventory-history/pdf?term=${this.query}&filterType=${this.filterType}&locale=${locale}`;
     },
   },
   watch: {

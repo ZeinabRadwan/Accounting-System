@@ -50,6 +50,7 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use App\Exports\ExportAssetType;
 use App\Exports\ExportInventory;
+use App\Exports\ExportInventoryHistory;
 use App\Exports\ExportQuotation;
 use App\Models\NonInvoicePayment;
 use App\Exports\ExpCategoryExport;
@@ -1033,6 +1034,276 @@ class TableExportController extends Controller
     {
         $term = $request->input('term');
         return Excel::download(new ExportInventory($term), 'Inventory.xlsx');
+    }
+
+    // return inventory history excel
+    public function inventoryHistoryExcel(Request $request)
+    {
+        $term = $request->input('term', '');
+        $filterType = $request->input('filterType', 'default');
+        $locale = $request->input('locale', session('locale', app()->getLocale()));
+        
+        return Excel::download(new ExportInventoryHistory($term, $filterType, $locale), 'InventoryHistory.xlsx');
+    }
+
+    // return inventory history pdf
+    public function inventoryHistoryPDF(Request $request)
+    {
+        try {
+            // Get locale from request parameter
+            $locale = $request->input('locale', session('locale', app()->getLocale()));
+            app()->setLocale($locale);
+            
+            $term = $request->input('term', '');
+            $filterType = $request->input('filterType', 'default');
+            
+            // Get history data using the same logic as search but without pagination
+            $history = $this->getInventoryHistoryData($term, $filterType);
+            
+            // share data to view
+            view()->share('history', $history);
+            view()->share('locale', $locale);
+            
+            return $this->generatePDF('pdf.inventory-history', ['history' => $history, 'locale' => $locale], 'inventory-history.pdf', 'a4', 'landscape');
+            
+        } catch (\Exception $e) {
+            Log::error('Inventory History PDF Error: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            return response()->json([
+                'error' => true,
+                'message' => 'Failed to generate PDF: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    /**
+     * Get inventory history data (helper method for exports)
+     */
+    private function getInventoryHistoryData($term = '', $filterType = 'default')
+    {
+        $history = collect();
+        
+        // Use the same model classes
+        $purchaseQuery = \App\Models\PurchaseProduct::with(['purchase.supplier', 'product'])
+            ->whereHas('purchase')
+            ->whereHas('product')
+            ->whereHas('purchase.supplier');
+        if (!empty($term)) {
+            $purchaseQuery->whereHas('product', function($q) use ($term) {
+                $q->where('name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+            });
+        }
+        $purchaseProducts = $purchaseQuery->orderBy('created_at', 'desc')->get();
+
+        foreach ($purchaseProducts as $item) {
+            try {
+                if (!$item || !isset($item->id)) continue;
+                
+                if (($filterType === 'default' || $filterType === 'purchase' || $filterType === 'stock_in')) {
+                    $purchase = optional($item)->purchase;
+                    $supplier = optional($purchase)->supplier;
+                    $product = optional($item)->product;
+                    
+                    if ($purchase && $supplier && $product && 
+                        isset($purchase->purchase_date) && isset($purchase->purchase_no) &&
+                        isset($supplier->name) && isset($product->name) && isset($product->code)) {
+                        $history->push([
+                            'operation_date' => $purchase->purchase_date,
+                            'product_name' => $product->name,
+                            'product_code' => $product->code,
+                            'operation_type' => 'Purchase',
+                            'price' => $item->purchase_price ?? 0,
+                            'quantity_change' => $item->quantity ?? 0,
+                            'notes' => 'Purchase from ' . $supplier->name,
+                            'reference_code' => config('config.purchasePrefix') . '-' . $purchase->purchase_no,
+                        ]);
+                    }
+                }
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        // Get invoice products
+        $invoiceQuery = \App\Models\InvoiceProduct::with(['invoice.client', 'product'])
+            ->whereHas('invoice')
+            ->whereHas('product')
+            ->whereHas('invoice.client');
+        if (!empty($term)) {
+            $invoiceQuery->whereHas('product', function($q) use ($term) {
+                $q->where('name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+            });
+        }
+        $invoiceProducts = $invoiceQuery->orderBy('created_at', 'desc')->get();
+
+        foreach ($invoiceProducts as $item) {
+            try {
+                if (!$item || !isset($item->id)) continue;
+                
+                if (($filterType === 'default' || $filterType === 'invoice' || $filterType === 'stock_out')) {
+                    $invoice = optional($item)->invoice;
+                    $client = optional($invoice)->client;
+                    $product = optional($item)->product;
+                    
+                    if ($invoice && $client && $product &&
+                        isset($invoice->invoice_date) && isset($invoice->invoice_no) &&
+                        isset($client->name) && isset($product->name) && isset($product->code)) {
+                        $history->push([
+                            'operation_date' => $invoice->invoice_date,
+                            'product_name' => $product->name,
+                            'product_code' => $product->code,
+                            'operation_type' => 'Invoice',
+                            'price' => $item->sale_price ?? 0,
+                            'quantity_change' => -($item->quantity ?? 0),
+                            'notes' => 'Sale to ' . $client->name,
+                            'reference_code' => config('config.invoicePrefix') . '-' . $invoice->invoice_no,
+                        ]);
+                    }
+                }
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        // Get adjustment products
+        $adjustmentQuery = \App\Models\AdjustmentProduct::with(['inventoryAdjustment', 'product'])
+            ->whereHas('inventoryAdjustment')
+            ->whereHas('product');
+        if (!empty($term)) {
+            $adjustmentQuery->whereHas('product', function($q) use ($term) {
+                $q->where('name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+            });
+        }
+        $adjustmentProducts = $adjustmentQuery->orderBy('created_at', 'desc')->get();
+
+        foreach ($adjustmentProducts as $item) {
+            try {
+                if (!$item || !isset($item->id)) continue;
+                
+                $itemType = $item->type ?? null;
+                if (($filterType === 'default' || $filterType === 'adjustment' || 
+                    ($filterType === 'stock_in' && $itemType == 1) || 
+                    ($filterType === 'stock_out' && $itemType == 0))) {
+                    $adjustment = optional($item)->inventoryAdjustment;
+                    $product = optional($item)->product;
+                    
+                    if ($adjustment && $product &&
+                        isset($adjustment->date) && isset($adjustment->code) &&
+                        isset($product->name) && isset($product->code)) {
+                        $quantityChange = ($itemType == 1) ? ($item->quantity ?? 0) : -($item->quantity ?? 0);
+                        $operationType = ($itemType == 1) ? 'Stock In' : 'Stock Out';
+                        
+                        $history->push([
+                            'operation_date' => $adjustment->date,
+                            'product_name' => $product->name,
+                            'product_code' => $product->code,
+                            'operation_type' => $operationType,
+                            'price' => $item->purchase_price ?? 0,
+                            'quantity_change' => $quantityChange,
+                            'notes' => $adjustment->reason ?? 'Adjustment',
+                            'reference_code' => config('config.adjustmentPrefix') . '-' . $adjustment->code,
+                        ]);
+                    }
+                }
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        // Get invoice return products
+        $invoiceReturnQuery = \App\Models\InvoiceReturnProduct::with(['invoiceReturn.invoice.client', 'product'])
+            ->whereHas('invoiceReturn')
+            ->whereHas('product')
+            ->whereHas('invoiceReturn.invoice')
+            ->whereHas('invoiceReturn.invoice.client');
+        if (!empty($term)) {
+            $invoiceReturnQuery->whereHas('product', function($q) use ($term) {
+                $q->where('name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+            });
+        }
+        $invoiceReturnProducts = $invoiceReturnQuery->orderBy('created_at', 'desc')->get();
+
+        foreach ($invoiceReturnProducts as $item) {
+            try {
+                if (!$item || !isset($item->id)) continue;
+                
+                if (($filterType === 'default' || $filterType === 'invoice_return' || $filterType === 'stock_in')) {
+                    $invoiceReturn = optional($item)->invoiceReturn;
+                    $invoice = optional($invoiceReturn)->invoice;
+                    $client = optional($invoice)->client;
+                    $product = optional($item)->product;
+                    
+                    if ($invoiceReturn && $invoice && $client && $product &&
+                        isset($invoiceReturn->date) && isset($invoiceReturn->return_no) &&
+                        isset($client->name) && isset($product->name) && isset($product->code)) {
+                        $history->push([
+                            'operation_date' => $invoiceReturn->date,
+                            'product_name' => $product->name,
+                            'product_code' => $product->code,
+                            'operation_type' => 'Invoice Return',
+                            'price' => $product->purchase_price ?? 0,
+                            'quantity_change' => $item->quantity ?? 0,
+                            'notes' => 'Return from ' . $client->name,
+                            'reference_code' => config('config.invoiceReturnPrefix') . '-' . $invoiceReturn->return_no,
+                        ]);
+                    }
+                }
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        // Get purchase return products
+        $purchaseReturnQuery = \App\Models\PurchaseReturnProduct::with(['purchaseReturn.purchase.supplier', 'product'])
+            ->whereHas('purchaseReturn')
+            ->whereHas('product')
+            ->whereHas('purchaseReturn.purchase')
+            ->whereHas('purchaseReturn.purchase.supplier');
+        if (!empty($term)) {
+            $purchaseReturnQuery->whereHas('product', function($q) use ($term) {
+                $q->where('name', 'LIKE', '%' . $term . '%')
+                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+            });
+        }
+        $purchaseReturnProducts = $purchaseReturnQuery->orderBy('created_at', 'desc')->get();
+
+        foreach ($purchaseReturnProducts as $item) {
+            try {
+                if (!$item || !isset($item->id)) continue;
+                
+                if (($filterType === 'default' || $filterType === 'purchase_return' || $filterType === 'stock_out')) {
+                    $purchaseReturn = optional($item)->purchaseReturn;
+                    $purchase = optional($purchaseReturn)->purchase;
+                    $supplier = optional($purchase)->supplier;
+                    $product = optional($item)->product;
+                    
+                    if ($purchaseReturn && $purchase && $supplier && $product &&
+                        isset($purchaseReturn->date) && isset($purchaseReturn->code) &&
+                        isset($supplier->name) && isset($product->name) && isset($product->code)) {
+                        $history->push([
+                            'operation_date' => $purchaseReturn->date,
+                            'product_name' => $product->name,
+                            'product_code' => $product->code,
+                            'operation_type' => 'Purchase Return',
+                            'price' => $item->purchase_price ?? 0,
+                            'quantity_change' => -($item->quantity ?? 0),
+                            'notes' => 'Return to ' . $supplier->name,
+                            'reference_code' => config('config.purchaseReturnPrefix') . '-' . $purchaseReturn->code,
+                        ]);
+                    }
+                }
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        // Sort by operation date descending
+        return $history->sortByDesc('operation_date')->values();
     }
 
     // return non zero inventory products

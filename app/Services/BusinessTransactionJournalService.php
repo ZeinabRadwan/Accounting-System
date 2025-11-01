@@ -703,18 +703,21 @@ class BusinessTransactionJournalService
                 $expenseAccount = $this->getDefaultAccount('Operating Expenses', 'Expense');
             }
             
-            // Try to get the bank account from the expense's linked account
+            // Try to get the bank account from the expense's linked transaction
             $bankAccount = null;
             $cashbookAccount = null;
-            if ($expense->account_id) {
-                $account = \App\Models\Account::find($expense->account_id);
-                if ($account && $account->chartOfAccount) {
-                    $cashbookAccount = $account;
-                    $bankAccount = $account->chartOfAccount;
-                    
-                    // Validate that the cashbook account is connected to a chart of account
-                    if (!$cashbookAccount->isChartOfAccountConnected()) {
-                        throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+            if ($expense->transaction_id) {
+                $transaction = \App\Models\AccountTransaction::find($expense->transaction_id);
+                if ($transaction && $transaction->account) {
+                    $account = $transaction->account;
+                    if ($account && $account->chartOfAccount) {
+                        $cashbookAccount = $account;
+                        $bankAccount = $account->chartOfAccount;
+                        
+                        // Validate that the cashbook account is connected to a chart of account
+                        if (!$cashbookAccount->isChartOfAccountConnected()) {
+                            throw new Exception($cashbookAccount->getChartOfAccountValidationMessage());
+                        }
                     }
                 }
             }
@@ -724,8 +727,13 @@ class BusinessTransactionJournalService
                 $bankAccount = $this->getDefaultAccount('Bank Accounts', 'Asset');
             }
             
-            if (!$expenseAccount || !$bankAccount) {
-                throw new Exception('Required chart of accounts not found.');
+            // Provide detailed error messages for missing accounts
+            if (!$expenseAccount && !$bankAccount) {
+                throw new Exception('Required chart of accounts not found. Please ensure both an expense account and a bank/payment account are configured.');
+            } elseif (!$expenseAccount) {
+                throw new Exception('Expense account not found. Please configure an expense account in account routing settings or ensure a default "Operating Expenses" account exists in the chart of accounts.');
+            } elseif (!$bankAccount) {
+                throw new Exception('Bank/payment account not found. Please ensure the payment account is connected to a Chart of Account, or configure a default "Bank Accounts" account in the chart of accounts.');
             }
 
             // Debug: Log the expense amount being used for journal

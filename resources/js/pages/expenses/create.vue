@@ -34,13 +34,16 @@
                       " />
                   <has-error :form="form" field="reason" />
                 </div>
-                <div v-if="items" class="form-group col-md-6">
+                <div class="form-group col-md-6">
                   <label for="subCategory">{{ $t('Category Name') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.subCategory" :options="items" label="name"
                     :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
                     :placeholder="$t('Select a category')" />
                   <has-error :form="form" field="subCategory" />
+                  <small v-if="items.length === 0" class="form-text text-muted">
+                    {{ $t('Loading categories...') }}
+                  </small>
                 </div>
               </div>
               <div class="row">
@@ -220,7 +223,25 @@ export default {
     expenseAccounts: '',
   }),
   computed: {
-    ...mapGetters('operations', ['items', 'appInfo']),
+    ...mapGetters('operations', ['appInfo']),
+    // Ensure items is always an array for v-select
+    items() {
+      const storeItems = this.$store.getters['operations/items']
+      // Handle empty string, null, undefined, or non-array values
+      if (!storeItems || typeof storeItems !== 'object') {
+        return []
+      }
+      // If it's already an array, return it
+      if (Array.isArray(storeItems)) {
+        return storeItems
+      }
+      // If it's an object with a data property (wrapped response), return that
+      if (storeItems.data && Array.isArray(storeItems.data)) {
+        return storeItems.data
+      }
+      // Fallback to empty array
+      return []
+    },
   },
   created() {
     this.getSubCategories()
@@ -237,9 +258,17 @@ export default {
   methods: {
     // get all expense categories
     async getSubCategories() {
-      await this.$store.dispatch('operations/allData', {
-        path: '/api/all-expense-sub-categories',
-      })
+      try {
+        await this.$store.dispatch('operations/allData', {
+          path: '/api/all-expense-sub-categories',
+        })
+        // Debug: Log the fetched items
+        const items = this.$store.getters['operations/items']
+        console.log('Sub Categories loaded:', items)
+        console.log('Items type:', typeof items, 'Is Array:', Array.isArray(items))
+      } catch (error) {
+        console.error('Error loading sub categories:', error)
+      }
     },
 
     // get payment accounts (with available balance)

@@ -156,20 +156,18 @@
                             </button>
                           </div>
                           <ul>
-                            <!-- <li v-if="$can('account-balance-edit')">
+                            <li>
                               <router-link :to="{ name: 'balances.edit', params: { slug: data.slug } }">
                                 <i class="fas fa-edit"></i>
                                 {{ $t('Edit') }}
                               </router-link>
-                            </li> -->
-                            <!--
-                            <li v-if="$can('account-balance-delete')">
+                            </li>
+                            <li>
                               <a href="#" @click.prevent="deleteData(data.slug)">
                                 <i class="fas fa-trash"></i>
                                 {{ $t('Delete') }}
                               </a>
                             </li>
-                            -->
                           </ul>
                         </div>
                       </div>
