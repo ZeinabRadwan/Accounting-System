@@ -13,9 +13,9 @@
             <div class="row d-flex justify-content-between">
               <div class="col-12 col-md-6 col-xl-4 mb-2">
                 <search
-                  :query="query"
-                  @reset-pagination="handleSearchInput"
-                  @reload="handleSearchClear"
+                  v-model="query"
+                  @reset-pagination="resetPagination()"
+                  @reload="reload"
                 />
               </div>
               <div class="col-12 col-md-6 col-xl-3 mb-2">
@@ -221,7 +221,8 @@ export default {
     prefix: "",
     currency: "",
     loading: false,
-    allData: [], // Store all loaded data
+    items: [], // Store current page items from server
+    pagination: null, // Store pagination info from server
     currentPage: 1,
     startDate: "",
     endDate: "",
@@ -229,103 +230,6 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo"]),
-    
-    // Filter and paginate data on the frontend
-    filteredItems() {
-      let filtered = [...this.allData];
-      
-      // Apply search term filter
-      if (this.query && this.query.trim() !== "") {
-        const term = this.query.toLowerCase().trim();
-        filtered = filtered.filter(item => {
-          const productName = (item.product_name || '').toLowerCase();
-          const productCode = (item.product_code || '').toLowerCase();
-          const referenceCode = (item.reference_code || '').toLowerCase();
-          const notes = (item.notes || '').toLowerCase();
-          
-          return productName.includes(term) ||
-                 productCode.includes(term) ||
-                 referenceCode.includes(term) ||
-                 notes.includes(term);
-        });
-      }
-      
-      // Apply filter type
-      if (this.filterType !== 'default') {
-        filtered = filtered.filter(item => {
-          const operationType = item.operation_type || '';
-          
-          switch (this.filterType) {
-            case 'purchase':
-              return operationType === 'Purchase';
-            case 'invoice':
-              return operationType === 'Invoice';
-            case 'adjustment':
-              return operationType === 'Stock In' || operationType === 'Stock Out';
-            case 'purchase_return':
-              return operationType === 'Purchase Return';
-            case 'invoice_return':
-              return operationType === 'Invoice Return';
-            case 'stock_in':
-              return operationType === 'Purchase' || 
-                     operationType === 'Invoice Return' || 
-                     operationType === 'Stock In';
-            case 'stock_out':
-              return operationType === 'Invoice' || 
-                     operationType === 'Purchase Return' || 
-                     operationType === 'Stock Out';
-            default:
-              return true;
-          }
-        });
-      }
-      
-      // Apply date range filter
-      if (this.startDate) {
-        filtered = filtered.filter(item => {
-          if (!item.operation_date) return false;
-          return item.operation_date >= this.startDate;
-        });
-      }
-      
-      if (this.endDate) {
-        filtered = filtered.filter(item => {
-          if (!item.operation_date) return false;
-          return item.operation_date <= this.endDate;
-        });
-      }
-      
-      // Sort by operation date descending
-      filtered.sort((a, b) => {
-        const dateA = new Date(a.operation_date || 0);
-        const dateB = new Date(b.operation_date || 0);
-        return dateB - dateA;
-      });
-      
-      return filtered;
-    },
-    
-    // Paginated items
-    items() {
-      const start = (this.currentPage - 1) * this.perPage;
-      const end = start + this.perPage;
-      return this.filteredItems.slice(start, end);
-    },
-    
-    // Pagination object
-    pagination() {
-      const total = this.filteredItems.length;
-      const lastPage = Math.ceil(total / this.perPage) || 1;
-      
-      return {
-        current_page: this.currentPage,
-        per_page: this.perPage,
-        total: total,
-        last_page: lastPage,
-        from: total > 0 ? (this.currentPage - 1) * this.perPage + 1 : 0,
-        to: Math.min(this.currentPage * this.perPage, total),
-      };
-    },
     
     exportUrl() {
       // Create a dynamic export URL with query parameters and locale for localized headers
@@ -339,56 +243,108 @@ export default {
     },
   },
   watch: {
-    // Watch for filter changes - no API calls, just update pagination
+    // Watch for filter changes - reload data from server
     query() {
       this.currentPage = 1;
+      this.loadData();
     },
     filterType() {
       this.currentPage = 1;
+      this.loadData();
     },
     startDate() {
       this.currentPage = 1;
+      this.loadData();
     },
     endDate() {
       this.currentPage = 1;
+      this.loadData();
+    },
+    perPage() {
+      this.currentPage = 1;
+      this.loadData();
     },
   },
   async created() {
-    await this.loadAllData();
+    await this.loadData();
     this.prefix = this.appInfo.productPrefix;
     this.currency = this.appInfo.currency;
   },
   methods: {
-    // Load all inventory history data at once
-    async loadAllData() {
+    // Load inventory history data from server with pagination
+    async loadData() {
       this.loading = true;
       try {
-        // Load all pages of data
-        let allItems = [];
-        let currentPage = 1;
-        let hasMore = true;
+        // Use search endpoint if there's a search term or filter, otherwise use default endpoint
+        const hasSearchOrFilter = (this.query && this.query.trim() !== '') || this.filterType !== 'default';
+        const endpoint = hasSearchOrFilter ? '/api/inventory-history/search' : '/api/inventory-history';
         
-        while (hasMore) {
-          const response = await axios.get(
-            `${window.location.origin}/api/inventory-history?page=${currentPage}&perPage=100`
-          );
-          
-          const data = response.data.data || [];
-          if (data.length > 0) {
-            allItems = allItems.concat(data);
-            currentPage++;
-            // Check if we've loaded all pages
-            const totalPages = response.data.last_page || 1;
-            hasMore = currentPage <= totalPages;
-          } else {
-            hasMore = false;
-          }
+        // Ensure currentPage is a valid number
+        const page = parseInt(this.currentPage) || 1;
+        
+        // Build query string manually to ensure all params are included
+        // Always include page parameter
+        const queryParams = new URLSearchParams();
+        queryParams.append('page', page.toString());
+        queryParams.append('perPage', this.perPage.toString());
+        queryParams.append('term', this.query || '');
+        queryParams.append('filterType', this.filterType || 'default');
+        queryParams.append('startDate', this.startDate || '');
+        queryParams.append('endDate', this.endDate || '');
+        
+        const queryString = queryParams.toString();
+        const fullUrl = `${window.location.origin}${endpoint}?${queryString}`;
+        
+        console.log('Loading page:', page, 'Full URL:', fullUrl);
+        
+        const response = await axios.get(fullUrl);
+        
+        // Debug: log the response to see structure
+        console.log('API Response:', response.data);
+        
+        // Ensure we get the data array properly
+        // Handle both nested data.data and direct data array
+        let responseData = null;
+        if (response.data && response.data.data) {
+          responseData = response.data.data;
+        } else if (Array.isArray(response.data)) {
+          responseData = response.data;
+        } else if (response.data && Array.isArray(response.data.items)) {
+          responseData = response.data.items;
+        } else {
+          responseData = [];
         }
         
-        this.allData = allItems;
+        this.items = Array.isArray(responseData) ? responseData : [];
+        console.log('Items loaded:', this.items.length);
+        
+        // Parse pagination info (convert strings to numbers if needed)
+        const data = response.data || {};
+        const serverPage = parseInt(data.current_page) || parseInt(this.currentPage) || 1;
+        
+        this.pagination = {
+          current_page: serverPage,
+          per_page: parseInt(data.per_page) || parseInt(this.perPage) || 10,
+          total: parseInt(data.total) || 0,
+          last_page: parseInt(data.last_page) || 1,
+          from: parseInt(data.from) || 0,
+          to: parseInt(data.to) || 0,
+        };
+        
+        // Update currentPage to match server response
+        this.currentPage = serverPage;
+        
       } catch (error) {
         console.error('Error loading inventory history:', error);
-        this.allData = [];
+        this.items = [];
+        this.pagination = {
+          current_page: 1,
+          per_page: this.perPage,
+          total: 0,
+          last_page: 1,
+          from: 0,
+          to: 0,
+        };
         // Show error message
         this.$toastr.e(this.$t('Failed to load inventory history data'));
       } finally {
@@ -399,11 +355,19 @@ export default {
     // update per page count
     updatePerPager() {
       this.currentPage = 1;
+      this.loadData();
     },
     
     // Pagination handler
-    paginate(page) {
-      this.currentPage = page;
+    paginate() {
+      // The pagination component updates pagination.current_page directly
+      // Read the page from the pagination object
+      const page = this.pagination ? this.pagination.current_page : this.currentPage;
+      console.log('Paginate called, pagination object:', this.pagination);
+      console.log('Page from pagination:', page);
+      this.currentPage = parseInt(page) || 1;
+      console.log('Current page set to:', this.currentPage);
+      this.loadData();
       // Scroll to top of table
       this.$nextTick(() => {
         const table = document.querySelector('.inventory-history-table');
@@ -413,21 +377,10 @@ export default {
       });
     },
     
-    // Handle search input - update query and reset pagination (frontend only)
-    handleSearchInput(value) {
-      this.query = value;
-      this.currentPage = 1;
-    },
-    
-    // Handle search clear - reset filters (frontend only)
-    handleSearchClear() {
-      this.query = "";
-      this.currentPage = 1;
-    },
-    
     // Reset pagination
     resetPagination() {
       this.currentPage = 1;
+      this.loadData();
     },
     
     // Reload after search - refresh data from server
@@ -437,7 +390,7 @@ export default {
       this.startDate = "";
       this.endDate = "";
       this.currentPage = 1;
-      await this.loadAllData();
+      await this.loadData();
     },
     
     // print table
@@ -445,14 +398,14 @@ export default {
       await this.$htmlToPaper("printMe");
     },
     
-    // Refresh table - reload all data
+    // Refresh table - reload data from server
     async refreshTable() {
       this.query = "";
       this.filterType = "default";
       this.startDate = "";
       this.endDate = "";
       this.currentPage = 1;
-      await this.loadAllData();
+      await this.loadData();
     },
     
     // Get operation type badge class

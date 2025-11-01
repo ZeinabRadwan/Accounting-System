@@ -116371,12 +116371,12 @@ var map = {
 		2115
 	],
 	"./inventory/history-general": [
-		76617,
-		6617
+		79581,
+		9581
 	],
 	"./inventory/history-general.vue": [
-		76617,
-		6617
+		79581,
+		9581
 	],
 	"./inventory/history.vue": [
 		12115,
@@ -116911,12 +116911,12 @@ var map = {
 		3474
 	],
 	"./purchase-order/edit": [
-		41702,
-		1702
+		89561,
+		9561
 	],
 	"./purchase-order/edit.vue": [
-		41702,
-		1702
+		89561,
+		9561
 	],
 	"./purchase-order/index": [
 		62713,
@@ -118209,7 +118209,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 5512) return "js/5512.js";
 /******/ 			if (chunkId === 2961) return "js/2961.js";
 /******/ 			if (chunkId === 2115) return "js/2115.js";
-/******/ 			if (chunkId === 6617) return "js/6617.js";
+/******/ 			if (chunkId === 9581) return "js/9581.js";
 /******/ 			if (chunkId === 6476) return "js/6476.js";
 /******/ 			if (chunkId === 8451) return "js/8451.js";
 /******/ 			if (chunkId === 2439) return "js/2439.js";
@@ -118263,7 +118263,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 3018) return "js/3018.js";
 /******/ 			if (chunkId === 2713) return "js/2713.js";
 /******/ 			if (chunkId === 3474) return "js/3474.js";
-/******/ 			if (chunkId === 1702) return "js/1702.js";
+/******/ 			if (chunkId === 9561) return "js/9561.js";
 /******/ 			if (chunkId === 7169) return "js/7169.js";
 /******/ 			if (chunkId === 1478) return "js/1478.js";
 /******/ 			if (chunkId === 1215) return "js/1215.js";
