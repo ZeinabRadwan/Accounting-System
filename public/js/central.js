@@ -117175,12 +117175,12 @@ var map = {
 		905
 	],
 	"./sales/invoices/show": [
-		71981,
-		1981
+		11370,
+		1370
 	],
 	"./sales/invoices/show.vue": [
-		71981,
-		1981
+		11370,
+		1370
 	],
 	"./sales/pos/create": [
 		82899,
@@ -118285,7 +118285,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 905) return "js/905.js";
 /******/ 			if (chunkId === 384) return "js/384.js";
 /******/ 			if (chunkId === 846) return "js/846.js";
-/******/ 			if (chunkId === 1981) return "js/1981.js";
+/******/ 			if (chunkId === 1370) return "js/1370.js";
 /******/ 			if (chunkId === 2899) return "js/2899.js";
 /******/ 			if (chunkId === 9406) return "js/9406.js";
 /******/ 			if (chunkId === 2397) return "js/2397.js";

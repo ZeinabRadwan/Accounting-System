@@ -408,9 +408,11 @@ class InventoryController extends Controller
             $perPage = $request->perPage ?? 10;
             $term = $request->term ?? '';
             $filterType = $request->filterType ?? 'default';
+            $startDate = $request->startDate ?? '';
+            $endDate = $request->endDate ?? '';
             
             // Get history data using helper method
-            $allHistory = $this->getHistoryData($term, $filterType);
+            $allHistory = $this->getHistoryData($term, $filterType, $startDate, $endDate);
 
             // Paginate the results
             $total = $allHistory->count();
@@ -436,7 +438,7 @@ class InventoryController extends Controller
     /**
      * Get inventory history data (helper method)
      */
-    private function getHistoryData($term = '', $filterType = 'default')
+    private function getHistoryData($term = '', $filterType = 'default', $startDate = '', $endDate = '')
     {
         $history = collect();
 
@@ -455,31 +457,53 @@ class InventoryController extends Controller
 
         foreach ($purchaseProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) {
+                if (!$item || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'purchase' || $filterType === 'stock_in')) {
-                    $purchase = optional($item)->purchase;
-                    $supplier = optional($purchase)->supplier;
-                    $product = optional($item)->product;
-                    
-                    if ($purchase && $supplier && $product && 
-                        isset($purchase->purchase_date) && isset($purchase->purchase_no) &&
-                        isset($supplier->name) && isset($product->name) && isset($product->code) && isset($product->slug)) {
-                        $history->push([
-                            'id' => 'purchase_' . $item->id,
-                            'operation_date' => $purchase->purchase_date,
-                            'product_name' => $product->name,
-                            'product_code' => $product->code,
-                            'product_slug' => $product->slug,
-                            'operation_type' => 'Purchase',
-                            'price' => $item->purchase_price ?? 0,
-                            'quantity_change' => $item->quantity ?? 0,
-                            'notes' => 'Purchase from ' . $supplier->name,
-                            'reference_code' => config('config.purchasePrefix') . '-' . $purchase->purchase_no,
-                        ]);
+                    $purchase = $item->purchase ?? null;
+                    if (!$purchase) {
+                        continue;
                     }
+                    
+                    $supplier = $purchase->supplier ?? null;
+                    if (!$supplier) {
+                        continue;
+                    }
+                    
+                    $product = $item->product ?? null;
+                    if (!$product) {
+                        continue;
+                    }
+                    
+                    // Check required fields exist
+                    if (!isset($purchase->purchase_date) || !isset($purchase->purchase_no) ||
+                        !isset($supplier->name) || !isset($supplier->id) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        continue;
+                    }
+                    
+                    // Apply date filtering if provided
+                    if (!empty($startDate) && $purchase->purchase_date < $startDate) {
+                        continue;
+                    }
+                    if (!empty($endDate) && $purchase->purchase_date > $endDate) {
+                        continue;
+                    }
+                    
+                    $history->push([
+                        'id' => 'purchase_' . $item->id,
+                        'operation_date' => $purchase->purchase_date,
+                        'product_name' => $product->name,
+                        'product_code' => $product->code,
+                        'product_slug' => $product->slug,
+                        'operation_type' => 'Purchase',
+                        'price' => $item->purchase_price ?? 0,
+                        'quantity_change' => $item->quantity ?? 0,
+                        'notes' => 'Purchase from ' . $supplier->name,
+                        'reference_code' => config('config.purchasePrefix') . '-' . $purchase->purchase_no,
+                    ]);
                 }
             } catch (\Exception $e) {
                 continue;
@@ -501,31 +525,53 @@ class InventoryController extends Controller
 
         foreach ($invoiceProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) {
+                if (!$item || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'invoice' || $filterType === 'stock_out')) {
-                    $invoice = optional($item)->invoice;
-                    $client = optional($invoice)->client;
-                    $product = optional($item)->product;
-                    
-                    if ($invoice && $client && $product &&
-                        isset($invoice->invoice_date) && isset($invoice->invoice_no) &&
-                        isset($client->name) && isset($product->name) && isset($product->code) && isset($product->slug)) {
-                        $history->push([
-                            'id' => 'invoice_' . $item->id,
-                            'operation_date' => $invoice->invoice_date,
-                            'product_name' => $product->name,
-                            'product_code' => $product->code,
-                            'product_slug' => $product->slug,
-                            'operation_type' => 'Invoice',
-                            'price' => $item->sale_price ?? 0,
-                            'quantity_change' => -($item->quantity ?? 0),
-                            'notes' => 'Sale to ' . $client->name,
-                            'reference_code' => config('config.invoicePrefix') . '-' . $invoice->invoice_no,
-                        ]);
+                    $invoice = $item->invoice ?? null;
+                    if (!$invoice) {
+                        continue;
                     }
+                    
+                    $client = $invoice->client ?? null;
+                    if (!$client) {
+                        continue;
+                    }
+                    
+                    $product = $item->product ?? null;
+                    if (!$product) {
+                        continue;
+                    }
+                    
+                    // Check required fields exist
+                    if (!isset($invoice->invoice_date) || !isset($invoice->invoice_no) ||
+                        !isset($client->name) || !isset($client->id) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        continue;
+                    }
+                    
+                    // Apply date filtering if provided
+                    if (!empty($startDate) && $invoice->invoice_date < $startDate) {
+                        continue;
+                    }
+                    if (!empty($endDate) && $invoice->invoice_date > $endDate) {
+                        continue;
+                    }
+                    
+                    $history->push([
+                        'id' => 'invoice_' . $item->id,
+                        'operation_date' => $invoice->invoice_date,
+                        'product_name' => $product->name,
+                        'product_code' => $product->code,
+                        'product_slug' => $product->slug,
+                        'operation_type' => 'Invoice',
+                        'price' => $item->sale_price ?? 0,
+                        'quantity_change' => -($item->quantity ?? 0),
+                        'notes' => 'Sale to ' . $client->name,
+                        'reference_code' => config('config.invoicePrefix') . '-' . $invoice->invoice_no,
+                    ]);
                 }
             } catch (\Exception $e) {
                 continue;
@@ -546,7 +592,7 @@ class InventoryController extends Controller
 
         foreach ($adjustmentProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) {
+                if (!$item || !$item->id) {
                     continue;
                 }
                 
@@ -554,28 +600,45 @@ class InventoryController extends Controller
                 if (($filterType === 'default' || $filterType === 'adjustment' || 
                     ($filterType === 'stock_in' && $itemType == 1) || 
                     ($filterType === 'stock_out' && $itemType == 0))) {
-                    $adjustment = optional($item)->inventoryAdjustment;
-                    $product = optional($item)->product;
-                    
-                    if ($adjustment && $product &&
-                        isset($adjustment->date) && isset($adjustment->code) &&
-                        isset($product->name) && isset($product->code) && isset($product->slug)) {
-                        $quantityChange = ($itemType == 1) ? ($item->quantity ?? 0) : -($item->quantity ?? 0);
-                        $operationType = ($itemType == 1) ? 'Stock In' : 'Stock Out';
-                        
-                        $history->push([
-                            'id' => 'adjustment_' . $item->id,
-                            'operation_date' => $adjustment->date,
-                            'product_name' => $product->name,
-                            'product_code' => $product->code,
-                            'product_slug' => $product->slug,
-                            'operation_type' => $operationType,
-                            'price' => $item->purchase_price ?? 0,
-                            'quantity_change' => $quantityChange,
-                            'notes' => $adjustment->reason ?? 'Adjustment',
-                            'reference_code' => config('config.adjustmentPrefix') . '-' . $adjustment->code,
-                        ]);
+                    $adjustment = $item->inventoryAdjustment ?? null;
+                    if (!$adjustment) {
+                        continue;
                     }
+                    
+                    $product = $item->product ?? null;
+                    if (!$product) {
+                        continue;
+                    }
+                    
+                    // Check required fields exist
+                    if (!isset($adjustment->date) || !isset($adjustment->code) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        continue;
+                    }
+                    
+                    // Apply date filtering if provided
+                    if (!empty($startDate) && $adjustment->date < $startDate) {
+                        continue;
+                    }
+                    if (!empty($endDate) && $adjustment->date > $endDate) {
+                        continue;
+                    }
+                    
+                    $quantityChange = ($itemType == 1) ? ($item->quantity ?? 0) : -($item->quantity ?? 0);
+                    $operationType = ($itemType == 1) ? 'Stock In' : 'Stock Out';
+                    
+                    $history->push([
+                        'id' => 'adjustment_' . $item->id,
+                        'operation_date' => $adjustment->date,
+                        'product_name' => $product->name,
+                        'product_code' => $product->code,
+                        'product_slug' => $product->slug,
+                        'operation_type' => $operationType,
+                        'price' => $item->purchase_price ?? 0,
+                        'quantity_change' => $quantityChange,
+                        'notes' => $adjustment->reason ?? 'Adjustment',
+                        'reference_code' => config('config.adjustmentPrefix') . '-' . $adjustment->code,
+                    ]);
                 }
             } catch (\Exception $e) {
                 continue;
@@ -598,32 +661,58 @@ class InventoryController extends Controller
 
         foreach ($invoiceReturnProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) {
+                if (!$item || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'invoice_return' || $filterType === 'stock_in')) {
-                    $invoiceReturn = optional($item)->invoiceReturn;
-                    $invoice = optional($invoiceReturn)->invoice;
-                    $client = optional($invoice)->client;
-                    $product = optional($item)->product;
-                    
-                    if ($invoiceReturn && $invoice && $client && $product &&
-                        isset($invoiceReturn->date) && isset($invoiceReturn->return_no) &&
-                        isset($client->name) && isset($product->name) && isset($product->code) && isset($product->slug)) {
-                        $history->push([
-                            'id' => 'invoice_return_' . $item->id,
-                            'operation_date' => $invoiceReturn->date,
-                            'product_name' => $product->name,
-                            'product_code' => $product->code,
-                            'product_slug' => $product->slug,
-                            'operation_type' => 'Invoice Return',
-                            'price' => $product->purchase_price ?? 0,
-                            'quantity_change' => $item->quantity ?? 0,
-                            'notes' => 'Return from ' . $client->name,
-                            'reference_code' => config('config.invoiceReturnPrefix') . '-' . $invoiceReturn->return_no,
-                        ]);
+                    $invoiceReturn = $item->invoiceReturn ?? null;
+                    if (!$invoiceReturn) {
+                        continue;
                     }
+                    
+                    $invoice = $invoiceReturn->invoice ?? null;
+                    if (!$invoice) {
+                        continue;
+                    }
+                    
+                    $client = $invoice->client ?? null;
+                    if (!$client) {
+                        continue;
+                    }
+                    
+                    $product = $item->product ?? null;
+                    if (!$product) {
+                        continue;
+                    }
+                    
+                    // Check required fields exist
+                    if (!isset($invoiceReturn->date) || !isset($invoiceReturn->return_no) ||
+                        !isset($client->name) || !isset($client->id) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        continue;
+                    }
+                    
+                    // Apply date filtering if provided
+                    if (!empty($startDate) && $invoiceReturn->date < $startDate) {
+                        continue;
+                    }
+                    if (!empty($endDate) && $invoiceReturn->date > $endDate) {
+                        continue;
+                    }
+                    
+                    $history->push([
+                        'id' => 'invoice_return_' . $item->id,
+                        'operation_date' => $invoiceReturn->date,
+                        'product_name' => $product->name,
+                        'product_code' => $product->code,
+                        'product_slug' => $product->slug,
+                        'operation_type' => 'Invoice Return',
+                        'price' => $product->purchase_price ?? 0,
+                        'quantity_change' => $item->quantity ?? 0,
+                        'notes' => 'Return from ' . $client->name,
+                        'reference_code' => config('config.invoiceReturnPrefix') . '-' . $invoiceReturn->return_no,
+                    ]);
                 }
             } catch (\Exception $e) {
                 continue;
@@ -646,32 +735,58 @@ class InventoryController extends Controller
 
         foreach ($purchaseReturnProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) {
+                if (!$item || !$item->id) {
                     continue;
                 }
                 
                 if (($filterType === 'default' || $filterType === 'purchase_return' || $filterType === 'stock_out')) {
-                    $purchaseReturn = optional($item)->purchaseReturn;
-                    $purchase = optional($purchaseReturn)->purchase;
-                    $supplier = optional($purchase)->supplier;
-                    $product = optional($item)->product;
-                    
-                    if ($purchaseReturn && $purchase && $supplier && $product &&
-                        isset($purchaseReturn->date) && isset($purchaseReturn->code) &&
-                        isset($supplier->name) && isset($product->name) && isset($product->code) && isset($product->slug)) {
-                        $history->push([
-                            'id' => 'purchase_return_' . $item->id,
-                            'operation_date' => $purchaseReturn->date,
-                            'product_name' => $product->name,
-                            'product_code' => $product->code,
-                            'product_slug' => $product->slug,
-                            'operation_type' => 'Purchase Return',
-                            'price' => $item->purchase_price ?? 0,
-                            'quantity_change' => -($item->quantity ?? 0),
-                            'notes' => 'Return to ' . $supplier->name,
-                            'reference_code' => config('config.purchaseReturnPrefix') . '-' . $purchaseReturn->code,
-                        ]);
+                    $purchaseReturn = $item->purchaseReturn ?? null;
+                    if (!$purchaseReturn) {
+                        continue;
                     }
+                    
+                    $purchase = $purchaseReturn->purchase ?? null;
+                    if (!$purchase) {
+                        continue;
+                    }
+                    
+                    $supplier = $purchase->supplier ?? null;
+                    if (!$supplier) {
+                        continue;
+                    }
+                    
+                    $product = $item->product ?? null;
+                    if (!$product) {
+                        continue;
+                    }
+                    
+                    // Check required fields exist
+                    if (!isset($purchaseReturn->date) || !isset($purchaseReturn->code) ||
+                        !isset($supplier->name) || !isset($supplier->id) ||
+                        !isset($product->name) || !isset($product->code) || !isset($product->slug) || !isset($product->id)) {
+                        continue;
+                    }
+                    
+                    // Apply date filtering if provided
+                    if (!empty($startDate) && $purchaseReturn->date < $startDate) {
+                        continue;
+                    }
+                    if (!empty($endDate) && $purchaseReturn->date > $endDate) {
+                        continue;
+                    }
+                    
+                    $history->push([
+                        'id' => 'purchase_return_' . $item->id,
+                        'operation_date' => $purchaseReturn->date,
+                        'product_name' => $product->name,
+                        'product_code' => $product->code,
+                        'product_slug' => $product->slug,
+                        'operation_type' => 'Purchase Return',
+                        'price' => $item->purchase_price ?? 0,
+                        'quantity_change' => -($item->quantity ?? 0),
+                        'notes' => 'Return to ' . $supplier->name,
+                        'reference_code' => config('config.purchaseReturnPrefix') . '-' . $purchaseReturn->code,
+                    ]);
                 }
             } catch (\Exception $e) {
                 continue;
