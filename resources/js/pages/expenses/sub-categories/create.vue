@@ -33,13 +33,16 @@
                 </div>
               </div>
               <div class="row">
-                <div v-if="items" class="form-group col-md-6">
+                <div class="form-group col-md-6">
                   <label for="category">{{ $t('Category Name') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.category" :options="items" label="name"
                     :class="{ 'is-invalid': form.errors.has('category') }" name="category"
                     :placeholder="$t('Select a category')" />
                   <has-error :form="form" field="category" />
+                  <small v-if="items.length === 0" class="form-text text-muted">
+                    {{ $t('Loading categories...') }}
+                  </small>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="status">{{ $t('Status') }}</label>
@@ -108,20 +111,44 @@ export default {
       status: 1,
       category: null,
     }),
-    options: [],
   }),
   computed: {
-    ...mapGetters('operations', ['items']),
+    // Ensure items is always an array for v-select
+    items() {
+      const storeItems = this.$store.getters['operations/items']
+      // Handle empty string, null, undefined, or non-array values
+      if (!storeItems || typeof storeItems !== 'object') {
+        return []
+      }
+      // If it's already an array, return it
+      if (Array.isArray(storeItems)) {
+        return storeItems
+      }
+      // If it's an object with a data property (wrapped response), return that
+      if (storeItems.data && Array.isArray(storeItems.data)) {
+        return storeItems.data
+      }
+      // Fallback to empty array
+      return []
+    },
   },
   created() {
     this.getCatgories()
   },
   methods: {
-    // get all product categories
+    // get all expense categories
     async getCatgories() {
-      await this.$store.dispatch('operations/allData', {
-        path: '/api/all-expense-categories',
-      })
+      try {
+        await this.$store.dispatch('operations/allData', {
+          path: '/api/all-expense-categories',
+        })
+        // Debug: Log the fetched items
+        const items = this.$store.getters['operations/items']
+        console.log('Categories loaded:', items)
+        console.log('Items type:', typeof items, 'Is Array:', Array.isArray(items))
+      } catch (error) {
+        console.error('Error loading categories:', error)
+      }
     },
     // save sub category
     async saveSubCategory() {
