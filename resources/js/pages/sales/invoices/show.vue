@@ -321,11 +321,8 @@
                       <tr>
                         <td
                           :colspan="allData.totalInvoiceReturn ? 10 : 9"
-                          class="text-right"
+                          class="text-center"
                         >
-                          <strong>{{ $t("Total with VAT") }} </strong>
-                        </td>
-                        <td class="text-center">
                           <strong>
                             {{ formatNumber(allData.subTotal) }} <span class="saudi-riyal">ê</span>
                           </strong>

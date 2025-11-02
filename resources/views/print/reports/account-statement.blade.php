@@ -17,16 +17,6 @@
         $companyEmail = $settings->where('key', 'email_address')->first()?->value ?? 'Email';
     @endphp
 
-    <!-- Action Buttons -->
-    <div class="action-buttons no-print">
-        <button class="print-button" onclick="window.print()">
-            <i class="fas fa-print"></i> @lang('print.Print')
-        </button>
-        <button class="pdf-button" onclick="downloadPDF()">
-            <i class="fas fa-download"></i> @lang('print.Download PDF')
-        </button>
-    </div>
-
     @if(($elements['showLogo'] ?? true) || ($elements['showCompanyInfo'] ?? true))
     <!-- Header -->
     <div class="document-header">

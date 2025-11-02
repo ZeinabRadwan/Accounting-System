@@ -305,7 +305,7 @@ export default {
           name: product.name,
           code: product.code,
           qty: qty,
-          unitPrice: product.regularPrice,
+          unitPrice: unit || Number(product.regularPrice) || Number(product.avgPurchasePrice) || 1,
           originalPrice: unit,
           discount: Number(l.discount || 0),
           discountType: discountType,
@@ -487,6 +487,17 @@ export default {
       const validationErrors = [];
       if (!this.form.supplier) validationErrors.push(this.$t("Please select a supplier"));
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) validationErrors.push(this.$t("Please add at least one product"));
+      // Check product details
+      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach((product, index) => {
+          if (!product.qty || Number(product.qty) <= 0) {
+            validationErrors.push(`${this.$t("Product")} ${index + 1}: ${this.$t("Invalid quantity")}`);
+          }
+          if (!product.unitPrice || isNaN(Number(product.unitPrice)) || Number(product.unitPrice) < 0) {
+            validationErrors.push(`${this.$t("Product")} ${index + 1}: ${this.$t("Invalid unit price")}`);
+          }
+        });
+      }
       if (validationErrors.length > 0) {
         const errorList = validationErrors.map(e => `• ${e}`).join('\n');
         toast.fire({ type: 'error', title: `${this.$t('Validation Error')}:\n\n${errorList}`, timer: 8000, timerProgressBar: true });
@@ -499,7 +510,7 @@ export default {
           selectedProducts: this.form.selectedProducts.map(product => ({
             id: product.id,
             quantity: product.qty,
-            unitPrice: product.unitPrice,
+            unitPrice: Number(product.unitPrice || product.originalPrice || 0),
             discount: product.discount || 0,
             discount_type: product.discountType || 'fixed',
             discount_amount: product.discountAmount || 0,

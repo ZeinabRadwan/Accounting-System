@@ -254,6 +254,11 @@ const removeToast = (toast) => {
   setTimeout(() => {
     if (toast.parentNode) {
       toast.parentNode.removeChild(toast)
+      // Hide container if no more toasts
+      const container = toast.parentNode
+      if (container && container.children.length === 0) {
+        container.style.display = 'none'
+      }
     }
   }, 300)
 }
@@ -264,6 +269,9 @@ const showToast = (type, title, message, options = {}) => {
   
   const container = getToastContainer()
   const { toast, progressBar } = createToastElement(type, title, message, duration)
+  
+  // Show the container when adding toasts
+  container.style.display = 'block'
   
   // Add to container
   container.appendChild(toast)
