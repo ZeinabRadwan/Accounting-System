@@ -120,6 +120,7 @@
                   <tr>
                     <th>{{ $t('Line Number') }}</th>
                     <th>{{ $t('Chart of Account') }}</th>
+                    <th>{{ $t('Cost Center') }}</th>
                     <th>{{ $t('Description') }}</th>
                     <th class="text-right">{{ $t('Debit Amount') }}</th>
                     <th class="text-right">{{ $t('Credit Amount') }}</th>
@@ -131,6 +132,13 @@
                     <td>
                       <strong>{{ line.chart_of_account.code }}</strong><br>
                       <small>{{ line.chart_of_account.name }}</small>
+                    </td>
+                    <td>
+                      <span v-if="line.cost_center">
+                        <strong>{{ line.cost_center.code }}</strong><br>
+                        <small>{{ line.cost_center.name }}</small>
+                      </span>
+                      <span v-else class="text-muted">-</span>
                     </td>
                     <td>{{ line.description || '-' }}</td>
                     <td class="text-right">

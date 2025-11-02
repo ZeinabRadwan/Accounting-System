@@ -7,6 +7,8 @@ use Database\Seeders\tenant\DefaultFiscalAndAccountingPeriodSeeder;
 use Database\Seeders\tenant\DefaultRouteAccountingSettingsSeeder;
 use Database\Seeders\tenant\FiscalYearSeeder;
 use Database\Seeders\AccountStatementPermissionSeeder;
+use Database\Seeders\CostCenterPermissionsSeeder;
+use Database\Seeders\TenantCostCenterSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 
@@ -69,6 +71,8 @@ class TenantDatabaseSeeder extends Seeder
                 TenantVatRateSeeder::class,
                 TenantUnitSeeder::class,
                 TenantMenuSeeder::class,
+                CostCenterPermissionsSeeder::class,
+                TenantCostCenterSeeder::class,
             ]);
 
             $this->call([TenantBulkDataSeederV2::class]);

@@ -71,12 +71,16 @@ class JournalEntryController extends Controller
     public function store(Request $request)
     {
         try {
+            // Check if cost centers are required
+            $costCentersRequired = config('accounting.cost_centers.required_for_journal', false);
+            
             $request->validate([
                 'entry_date' => 'required|date',
                 'reference' => 'nullable|string|max:255',
                 'description' => 'required|string|max:500',
                 'lines' => 'required|array|min:2',
                 'lines.*.chart_of_account_id' => 'required|exists:chart_of_accounts,id',
+                'lines.*.cost_center_id' => $costCentersRequired ? 'required|exists:cost_centers,id' : 'nullable|exists:cost_centers,id',
                 'lines.*.debit_amount' => 'required_without:lines.*.credit_amount|numeric|min:0',
                 'lines.*.credit_amount' => 'required_without:lines.*.debit_amount|numeric|min:0',
                 'lines.*.description' => 'nullable|string|max:255',

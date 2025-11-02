@@ -75,6 +75,9 @@ use App\Http\Controllers\API\AccountRoutingController;
 use App\Http\Controllers\API\VatReportController;
 use App\Http\Controllers\API\ClientRepresentativeController;
 use App\Http\Controllers\API\SupplierRepresentativeController;
+use App\Http\Controllers\API\CostCenterController;
+use App\Http\Controllers\API\CostAllocationRuleController;
+use App\Http\Controllers\API\CostAllocationController;
 use App\Http\Controllers\PrintController;
 
 /*
@@ -93,7 +96,7 @@ use App\Http\Controllers\PrintController;
  * Structured Routes
  */
 
- Route::post('/upload-pdf', [PrintController::class, 'upload']);
+Route::post('/upload-pdf', [PrintController::class, 'upload']);
 
 
 Route::middleware([
@@ -119,11 +122,11 @@ Route::middleware([
         Route::post('/cross-domain-login', [App\Http\Controllers\CrossDomainAuthController::class, 'crossDomainLogin']);
         Route::post('/cross-domain-auth', [App\Http\Controllers\CrossDomainAuthController::class, 'authenticate']);
         Route::get('general-settings', [GeneralController::class, 'getGeneralSettings']);
-        
+
         // Tenant initialization check and store (outside protected group)
         Route::get('tenant-initialization/check', [App\Http\Controllers\API\TenantInitializationController::class, 'check']);
         Route::post('tenant-initialization', [App\Http\Controllers\API\TenantInitializationController::class, 'store'])->middleware('auth:sanctum');
-        
+
         // Allow fetching currencies during initialization (without auth)
         Route::get('all-currencies', [CurrencyController::class, 'allCurrencies']);
     });
@@ -132,11 +135,11 @@ Route::middleware([
     Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
 
         // routes/api.php
-        
+
         Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
 
         Route::post('logout', [LoginController::class, 'logout']);
-        
+
         // Dashboard stats
         Route::get('/dashboard-summery/{summeryType}', [DashboardController::class, 'dashboardSummery'])->middleware('tenant.initialized');
         // Dashboard top-selling products
@@ -192,7 +195,7 @@ Route::middleware([
         // SMS routes
         Route::get('sms-configuration', [GeneralController::class, 'getSMSforTenant']);
         Route::post('update-sms-configuration', [GeneralController::class, 'updateSMSforTenant']);
-        
+
         // Communication configuration status
         Route::get('communication-config-status', [GeneralController::class, 'getCommunicationConfigStatus']);
 
@@ -239,7 +242,7 @@ Route::middleware([
         Route::get('/account-routing-settings/{settingKey}/accounts', [AccountRoutingController::class, 'getAccountsForSetting']);
         Route::get('/account-routing-settings/available-parent-accounts', [AccountRoutingController::class, 'getAvailableParentAccounts']);
         Route::get('/account-routing-settings/check-configuration', [AccountRoutingController::class, 'checkConfiguration']);
-Route::get('/account-routing-settings/product-account-routing', [AccountRoutingController::class, 'getProductAccountRouting']);
+        Route::get('/account-routing-settings/product-account-routing', [AccountRoutingController::class, 'getProductAccountRouting']);
 
         // VAT Report routes
         Route::get('/vat-report', [VatReportController::class, 'generateReport']);
@@ -318,7 +321,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/chart-of-accounts/dropdown', [ChartOfAccountController::class, 'getDropdown']);
         Route::get('/chart-of-account-types', [ChartOfAccountController::class, 'getTypes']);
         Route::post('/chart-of-accounts/generate-code', [ChartOfAccountController::class, 'generateCode']);
-        
+
         // Multilingual Chart of Accounts routes
         Route::get('/chart-of-accounts/translations', [ChartOfAccountController::class, 'indexWithTranslations']);
         Route::post('/chart-of-accounts/translations', [ChartOfAccountController::class, 'storeWithTranslations']);
@@ -328,7 +331,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/chart-of-accounts/translations/search', [ChartOfAccountController::class, 'searchTranslations']);
         Route::get('/chart-of-accounts/translations/stats', [ChartOfAccountController::class, 'getTranslationStats']);
         Route::get('/chart-of-accounts/translations/export', [ChartOfAccountController::class, 'exportTranslations']);
-        
+
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
 
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
@@ -343,6 +346,17 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::post('/journal-entries/{id}/post', [JournalEntryController::class, 'post']);
         Route::post('/journal-entries/{id}/void', [JournalEntryController::class, 'void']);
         Route::apiResource('journal-entries', JournalEntryController::class);
+
+        // Cost Center routes
+        Route::get('/cost-centers/search', [CostCenterController::class, 'search']);
+        Route::get('/cost-centers/all', [CostCenterController::class, 'getAll']);
+        Route::apiResource('cost-centers', CostCenterController::class);
+
+        // Cost Allocation routes
+        Route::apiResource('cost-allocation-rules', CostAllocationRuleController::class);
+        Route::post('/cost-allocations/execute', [CostAllocationController::class, 'execute']);
+        Route::get('/cost-allocations/executions', [CostAllocationController::class, 'executions']);
+        Route::get('/cost-allocations/rules/{id}/validate', [CostAllocationController::class, 'validateRule']);
 
         // Account routes
         Route::get('/accounts/search', [AccountController::class, 'search']);
@@ -428,7 +442,7 @@ Route::get('/account-routing-settings/product-account-routing', [AccountRoutingC
         Route::get('/clients-for-noninvoice-payments', [ClientController::class, 'clientsForNonInvoicePayments']);
         Route::get('/clients/chart-of-accounts', [ClientController::class, 'getChartOfAccounts']);
         Route::post('/clients/{slug}/auto-assign-chart-of-account', [ClientController::class, 'autoAssignChartOfAccount']);
-Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class, 'createClientChartOfAccount']);
+        Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class, 'createClientChartOfAccount']);
         Route::get('/client/invoices/{slug}', [ClientController::class, 'clientInvoices']);
         Route::post('/client/filter-invoices', [ClientController::class, 'filterClientInvoices']);
         Route::get('/client/{slug}/invoices', [ClientController::class, 'specificClientInvoices']);
@@ -562,7 +576,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::get('/inventory-history/{slug}', [InventoryController::class, 'inventoryHistoryByItem']);
         Route::get('/inventory-history', [InventoryController::class, 'inventoryHistory']);
         Route::get('/inventory-history/search', [InventoryController::class, 'searchInventoryHistory']);
-        
+
         // Inventory count routes
         Route::get('/inventory-count', [InventoryController::class, 'inventoryCount']);
         Route::get('/inventory-count/search', [InventoryController::class, 'searchInventoryCount']);
@@ -591,6 +605,8 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         Route::post('/reports/sales-by-user-report', [ReportController::class, 'salesByUserReport']);
         Route::post('/reports/collection-by-user-report', [ReportController::class, 'collectionByUserReport']);
         Route::get('/reports/todayReport', [ReportController::class, 'todayReport']);
+        Route::get('/reports/cost-center-statement', [ReportController::class, 'costCenterStatement']);
+        Route::get('/reports/cost-allocation-report', [ReportController::class, 'costAllocationReport']);
 
         // update profile
         Route::post('/update-profile', [DashboardController::class, 'updateProfile']);
@@ -667,10 +683,10 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/purchase/pdf/{slug}', [PDFGeneratorController::class, 'generatePurchasePDF'])->name('email.purchase.pdf');
     Route::get('/quotation/pdf/{slug}', [PDFGeneratorController::class, 'generateQuotationPDF'])->name('email.quotation.pdf');
     Route::get('/purchase-order/pdf/{slug}', [PDFGeneratorController::class, 'generatePurchaseOrderPDF'])->name('email.purchase-order.pdf');
-    
+
     // Template preview routes
     Route::get('/template/preview/{id}', [PDFGeneratorController::class, 'previewTemplate'])->name('template.preview');
-    
+
     // New HTML print routes
     Route::get('/print/invoice/{slug}', [App\Http\Controllers\PrintController::class, 'printInvoice'])->name('print.invoice');
     Route::get('/print/purchase/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchase'])->name('print.purchase');
@@ -680,7 +696,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     // Voucher print routes
     Route::get('/print/voucher/{slug}', [App\Http\Controllers\PrintController::class, 'printVoucher'])->name('print.voucher');
     Route::get('/print/voucher/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadVoucherPDF'])->name('print.voucher.pdf');
-    
+
     // Reports print routes
     Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
     Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
@@ -699,7 +715,7 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/print/reports/sales-by-user-report', [App\Http\Controllers\PrintController::class, 'printSalesByUserReport'])->name('print.reports.sales-by-user-report');
     Route::get('/print/reports/collection-by-user-report', [App\Http\Controllers\PrintController::class, 'printCollectionByUserReport'])->name('print.reports.collection-by-user-report');
     Route::get('/print/reports/group-account-statement', [App\Http\Controllers\PrintController::class, 'printGroupAccountStatement'])->name('print.reports.group-account-statement');
-    
+
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
     Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
@@ -826,14 +842,14 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
     Route::get('/items-report/pdf', [TableExportController::class, 'itemsReportPDF'])->name('itemsReport.pdf');
     Route::get('/items-report/export', [TableExportController::class, 'itemsReportExportExcel'])->name('itemsReport.export.excel');
     Route::get('/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('expensesReport.pdf');
-        Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
-        // Aliases to match frontend URLs
-        Route::get('/reports/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('reports.expensesReport.pdf');
-        Route::get('/reports/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('reports.expensesReport.export.excel');
+    Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
+    // Aliases to match frontend URLs
+    Route::get('/reports/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('reports.expensesReport.pdf');
+    Route::get('/reports/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('reports.expensesReport.export.excel');
 
-        // Journal Entries export routes
-        Route::get('/journal-entries/export/excel', [TableExportController::class, 'journalEntriesExportExcel'])->name('journalEntries.export.excel');
-        Route::get('/journal-entries/export/pdf', [TableExportController::class, 'journalEntriesExportPDF'])->name('journalEntries.export.pdf');
+    // Journal Entries export routes
+    Route::get('/journal-entries/export/excel', [TableExportController::class, 'journalEntriesExportExcel'])->name('journalEntries.export.excel');
+    Route::get('/journal-entries/export/pdf', [TableExportController::class, 'journalEntriesExportPDF'])->name('journalEntries.export.pdf');
     Route::get('/client-receivable-report/pdf', [TableExportController::class, 'clientReceivableReportPDF'])->name('clientReceivableReport.pdf');
     Route::get('/supplier-payable-report/pdf', [TableExportController::class, 'supplierPayableReportPDF'])->name('supplierPayableReport.pdf');
 
@@ -846,13 +862,13 @@ Route::post('/clients/{slug}/create-chart-of-account', [ClientController::class,
         if (file_exists($path)) {
             return response()->file($path);
         }
-        
+
         // If no default avatar exists, return a 404
         $defaultPath = public_path('images/users/default-avatar.png');
         if (file_exists($defaultPath)) {
             return response()->file($defaultPath);
         }
-        
+
         return response()->json(['error' => 'Image not found'], 404);
     })->name('profile.image');
 

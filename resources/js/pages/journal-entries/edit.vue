@@ -95,11 +95,12 @@
                         <table class="table je-lines-table mb-0">
                           <thead>
                             <tr>
-                              <th style="width: 35%">{{ $t('Chart of Account') }}</th>
+                              <th style="width: 25%">{{ $t('Chart of Account') }}</th>
                               <th style="width: 15%" class="text-right">{{ $t('Debit') }}</th>
                               <th style="width: 15%" class="text-right">{{ $t('Credit') }}</th>
-                              <th style="width: 25%">{{ $t('Description') }}</th>
-                              <th style="width: 10%" class="text-center">{{ $t('Actions') }}</th>
+                              <th style="width: 20%">{{ $t('Cost Center') }}</th>
+                              <th style="width: 20%">{{ $t('Description') }}</th>
+                              <th style="width: 5%" class="text-center">{{ $t('Actions') }}</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -148,6 +149,17 @@
                                   :placeholder="$t('0.00')"
                                   @input="calculateLineAmount(index)"
                                 />
+                              </td>
+                              <td class="align-middle">
+                                <CostCenterSelect
+                                  v-model="line.cost_center_id"
+                                  :clearable="true"
+                                  :placeholder="$t('Select Cost Center')"
+                                  :class="{ 'is-invalid': errors[`lines.${index}.cost_center_id`] }"
+                                />
+                                <div v-if="errors[`lines.${index}.cost_center_id`]" class="invalid-feedback">
+                                  {{ errors[`lines.${index}.cost_center_id`][0] }}
+                                </div>
                               </td>
                               <td class="align-middle">
                                 <input
@@ -235,6 +247,7 @@ export default {
   },
   components: {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
+    CostCenterSelect: () => import('~/components/CostCenterSelect'),
   },
   data() {
     return {
@@ -315,6 +328,7 @@ export default {
           status: this.journalEntry.status,
           lines: this.journalEntry.lines.map(line => ({
             chart_of_account_id: line.chart_of_account_id,
+            cost_center_id: line.cost_center_id || null,
             description: line.description || '',
             reference: line.reference || '',
             debit_amount: line.debit_amount > 0 ? line.debit_amount : '',
@@ -351,6 +365,7 @@ export default {
       const lineNumber = this.form.lines.length + 1
       this.form.lines.push({
         chart_of_account_id: '',
+        cost_center_id: null,
         description: '',
         reference: '',
         debit_amount: '',

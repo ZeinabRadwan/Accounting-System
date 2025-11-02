@@ -1513,6 +1513,32 @@ export default [
   },
 
   // Journal Entries routes
+  // Cost Centers routes
+  {
+    path: '/cost-centers',
+    name: 'cost-centers.index',
+    component: page('cost-centers/index.vue'),
+    meta: {permissions: ['view_cost_centers']},
+  },
+  {
+    path: '/cost-centers/create',
+    name: 'cost-centers.create',
+    component: page('cost-centers/create.vue'),
+    meta: {permissions: ['create_cost_center']},
+  },
+  {
+    path: '/cost-centers/:slug',
+    name: 'cost-centers.show',
+    component: page('cost-centers/show.vue'),
+    meta: {permissions: ['view_cost_centers']},
+  },
+  {
+    path: '/cost-centers/edit/:slug',
+    name: 'cost-centers.edit',
+    component: page('cost-centers/edit.vue'),
+    meta: {permissions: ['update_cost_center']},
+  },
+  
   {
     path: '/journal-entries',
     name: 'journal-entries.index',

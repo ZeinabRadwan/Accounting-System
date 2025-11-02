@@ -4580,4 +4580,122 @@ class ReportController extends Controller
             }
         }
     }
+
+    /**
+     * Cost Center Statement Report
+     */
+    public function costCenterStatement(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'cost_center_id' => 'required|exists:cost_centers,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+
+            $costCenter = \App\Models\CostCenter::with('parent')->findOrFail($request->cost_center_id);
+            
+            $query = \App\Models\JournalEntryLine::with(['journalEntry', 'chartOfAccount'])
+                ->where('cost_center_id', $request->cost_center_id);
+
+            if ($request->from_date) {
+                $query->whereHas('journalEntry', function($q) use ($request) {
+                    $q->where('entry_date', '>=', $request->from_date);
+                });
+            }
+
+            if ($request->to_date) {
+                $query->whereHas('journalEntry', function($q) use ($request) {
+                    $q->where('entry_date', '<=', $request->to_date);
+                });
+            }
+
+            $lines = $query->get();
+
+            $totals = [
+                'debit' => $lines->sum('debit_amount'),
+                'credit' => $lines->sum('credit_amount'),
+                'net' => $lines->sum('debit_amount') - $lines->sum('credit_amount'),
+            ];
+
+            return response()->json([
+                'cost_center' => [
+                    'id' => $costCenter->id,
+                    'code' => $costCenter->code,
+                    'name' => $costCenter->name,
+                    'full_path' => $costCenter->getFullPath(),
+                ],
+                'period' => [
+                    'from_date' => $request->from_date,
+                    'to_date' => $request->to_date,
+                ],
+                'lines' => $lines->map(function($line) {
+                    return [
+                        'date' => $line->journalEntry->entry_date,
+                        'account_code' => $line->chartOfAccount->code,
+                        'account_name' => $line->chartOfAccount->name,
+                        'description' => $line->description,
+                        'debit' => $line->debit_amount,
+                        'credit' => $line->credit_amount,
+                    ];
+                }),
+                'totals' => $totals,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Cost Allocation Report
+     */
+    public function costAllocationReport(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'rule_id' => 'nullable|exists:cost_allocation_rules,id',
+                'from_date' => 'nullable|date',
+                'to_date' => 'nullable|date|after_or_equal:from_date',
+            ]);
+
+            $query = \App\Models\CostAllocationExecution::with(['rule.sourceCostCenter', 'journalEntry', 'executor']);
+
+            if ($request->rule_id) {
+                $query->where('cost_allocation_rule_id', $request->rule_id);
+            }
+
+            if ($request->from_date) {
+                $query->where('execution_date', '>=', $request->from_date);
+            }
+
+            if ($request->to_date) {
+                $query->where('execution_date', '<=', $request->to_date);
+            }
+
+            $executions = $query->get();
+
+            return response()->json([
+                'executions' => $executions->map(function($execution) {
+                    return [
+                        'id' => $execution->id,
+                        'rule_name' => $execution->rule->name,
+                        'source_cost_center' => $execution->rule->sourceCostCenter->name,
+                        'execution_date' => $execution->execution_date,
+                        'period_start' => $execution->period_start_date,
+                        'period_end' => $execution->period_end_date,
+                        'total_amount' => $execution->total_amount,
+                        'status' => $execution->status,
+                        'executed_by' => $execution->executor->name,
+                        'journal_entry_id' => $execution->journal_entry_id,
+                    ];
+                }),
+                'summary' => [
+                    'total_executions' => $executions->count(),
+                    'total_amount' => $executions->sum('total_amount'),
+                ],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

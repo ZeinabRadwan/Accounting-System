@@ -13,6 +13,7 @@ class JournalEntryLine extends Model
     protected $fillable = [
         'journal_entry_id',
         'chart_of_account_id',
+        'cost_center_id',
         'debit_amount',
         'credit_amount',
         'description',
@@ -75,6 +76,14 @@ class JournalEntryLine extends Model
     public function chartOfAccount(): BelongsTo
     {
         return $this->belongsTo(ChartOfAccount::class);
+    }
+
+    /**
+     * Get the cost center for this line
+     */
+    public function costCenter(): BelongsTo
+    {
+        return $this->belongsTo(CostCenter::class);
     }
 
     /**

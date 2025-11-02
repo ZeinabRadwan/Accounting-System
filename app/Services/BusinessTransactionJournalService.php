@@ -1143,11 +1143,12 @@ class BusinessTransactionJournalService
     /**
      * Create a journal entry line
      */
-    private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description): JournalEntryLine
+    private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description, ?int $costCenterId = null): JournalEntryLine
     {
         return JournalEntryLine::create([
             'journal_entry_id' => $journalEntry->id,
             'chart_of_account_id' => $accountId,
+            'cost_center_id' => $costCenterId,
             'debit_amount' => $debitAmount,
             'credit_amount' => $creditAmount,
             'description' => $description,
@@ -1212,7 +1213,8 @@ class BusinessTransactionJournalService
                     $line['debit_amount'] ?? 0,
                     $line['credit_amount'] ?? 0,
                     $index + 1,
-                    $line['description'] ?? ''
+                    $line['description'] ?? '',
+                    $line['cost_center_id'] ?? null
                 );
             }
 

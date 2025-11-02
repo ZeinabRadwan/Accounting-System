@@ -544,6 +544,100 @@
             </ul>
           </li>
 
+          <!-- Cost Centers -->
+          <li
+            v-if="
+              ($can('view_cost_centers') ||
+              $can('create_cost_center') ||
+              $can('update_cost_center') ||
+              $can('delete_cost_center')) &&
+              ($canAccessModule('accounting') || $canAccessModule('both'))
+            "
+            class="nav-item has-treeview"
+            :class="
+              menuOpen('cost-centers') ? 'menu-is-opening menu-open' : ''
+            "
+          >
+            <a href="#" class="nav-link">
+              <i class="fas fa-sitemap nav-icon" />
+              <p>
+                {{ $t("Cost Centers") }}
+                <span class="toggle-icon"></span>
+              </p>
+            </a>
+            <ul
+              class="nav nav-treeview"
+              :style="
+                menuOpen('cost-centers') ? 'display: block' : 'display: none'
+              "
+            >
+              <li v-if="$can('view_cost_centers')" class="nav-item">
+                <router-link
+                  :to="{ name: 'cost-centers.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-list nav-icon" />
+                  <p>{{ $t("All Cost Centers") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('create_cost_center')" class="nav-item">
+                <router-link
+                  :to="{ name: 'cost-centers.create' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-plus nav-icon" />
+                  <p>{{ $t("Create Cost Center") }}</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Cost Allocations -->
+          <li
+            v-if="
+              ($can('view_cost_centers') ||
+              $can('create_cost_center')) &&
+              ($canAccessModule('accounting') || $canAccessModule('both'))
+            "
+            class="nav-item has-treeview"
+            :class="
+              menuOpen('cost-allocations') ? 'menu-is-opening menu-open' : ''
+            "
+          >
+            <a href="#" class="nav-link">
+              <i class="fas fa-share-alt nav-icon" />
+              <p>
+                {{ $t("Cost Allocations") }}
+                <span class="toggle-icon"></span>
+              </p>
+            </a>
+            <ul
+              class="nav nav-treeview"
+              :style="
+                menuOpen('cost-allocations') ? 'display: block' : 'display: none'
+              "
+            >
+              <li v-if="$can('view_cost_centers')" class="nav-item">
+                <router-link
+                  :to="{ name: 'cost-allocations.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-list nav-icon" />
+                  <p>{{ $t("Allocation Rules") }}</p>
+                </router-link>
+              </li>
+              <li v-if="$can('create_cost_center')" class="nav-item">
+                <router-link
+                  :to="{ name: 'cost-allocations.create' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-plus nav-icon" />
+                  <p>{{ $t("Create Rule") }}</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+
           <!-- القيود المحاسبية -->
           <li
             v-if="
