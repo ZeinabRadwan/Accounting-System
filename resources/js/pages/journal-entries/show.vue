@@ -334,35 +334,35 @@ export default {
         this.journalEntry = response.data.data
       } catch (error) {
         console.error('Error loading journal entry:', error)
-        window.toast.error('Error loading journal entry')
+        window.toast.error(this.$t('Error loading journal entry'))
       } finally {
         this.loading = false
       }
     },
 
     async postEntry() {
-      if (!confirm('Are you sure you want to post this journal entry?')) return
+      if (!confirm(this.$t('Are you sure you want to post this journal entry?'))) return
 
       try {
         await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/post`)
-        window.toast.success('Journal entry posted successfully!')
+        window.toast.success(this.$t('Journal entry posted successfully'))
         await this.loadJournalEntry()
       } catch (error) {
         console.error('Error posting journal entry:', error)
-        window.toast.error('Error posting journal entry')
+        window.toast.error(this.$t('Error posting journal entry'))
       }
     },
 
     async voidEntry() {
-      if (!confirm('Are you sure you want to void this journal entry?')) return
+      if (!confirm(this.$t('Are you sure you want to void this journal entry?'))) return
 
       try {
         await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/void`)
-        window.toast.success('Journal entry voided successfully!')
+        window.toast.success(this.$t('Journal entry voided successfully'))
         await this.loadJournalEntry()
       } catch (error) {
         console.error('Error voiding journal entry:', error)
-        window.toast.error('Error voiding journal entry')
+        window.toast.error(this.$t('Error voiding journal entry'))
       }
     },
 

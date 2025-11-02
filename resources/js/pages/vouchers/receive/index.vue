@@ -93,7 +93,7 @@
                           v-if="$can('payment-voucher-view')"
                           :to="{ name: 'receiveVouchers.show', params: { slug: data.slug } }"
                           class="btn btn-sm btn-primary mr-1"
-                          title="View"
+                          :title="$t('View')"
                         >
                           <i class="fas fa-eye"></i>
                         </router-link>
@@ -101,7 +101,7 @@
                           v-if="$can('payment-voucher-edit')"
                           :to="{ name: 'receiveVouchers.edit', params: { slug: data.slug } }"
                           class="btn btn-sm btn-success mr-1"
-                          title="Edit"
+                          :title="$t('Edit')"
                         >
                           <i class="fas fa-edit"></i>
                         </router-link>
@@ -109,7 +109,7 @@
                           v-if="$can('payment-voucher-delete')"
                           @click="deleteItem(data.slug)"
                           class="btn btn-sm btn-danger"
-                          title="Delete"
+                          :title="$t('Delete')"
                         >
                           <i class="fas fa-trash"></i>
                         </button>
@@ -242,13 +242,14 @@ export default {
     },
     async deleteItem(slug) {
       Swal.fire({
-        title: this.$t("Delete !"),
-        text: this.$t("Are you sure"),
+        title: this.$t("Delete"),
+        text: this.$t("Are you sure?"),
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         if (result.value) {
           this.$http

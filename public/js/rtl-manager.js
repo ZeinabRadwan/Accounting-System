@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
 // Simple RTL manager - bundled by Mix into public/js/rtl-manager.js
 (function () {
   try {

@@ -373,11 +373,9 @@ export default {
         // Clear temporary data after successful save
         this.clearTemporaryData()
 
-        // Show success message
-        window.toast.success('Journal entry created successfully!')
-
-        // Redirect to journal entries list
-        this.$router.push('/journal-entries')
+        // Redirect to journal entries list with success parameter
+        // Success message will be shown in index page
+        this.$router.push({ path: '/journal-entries', query: { created: 'success' } })
       } catch (error) {
         console.error('Error creating journal entry:', error)
         if (error.response && error.response.data && error.response.data.errors) {

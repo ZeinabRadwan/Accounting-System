@@ -194,10 +194,6 @@ export default {
     allParentAccounts: [], // Store all accounts for filtering
     codeGenerationTimeout: null, // For debouncing
     isGeneratingCode: false, // Prevent multiple simultaneous generations
-    statusOptions: [
-      { label: 'Active', value: 1 },
-      { label: 'Inactive', value: 0 }
-    ],
   }),
 
   async created() {
@@ -466,6 +462,12 @@ export default {
     },
     localizedBreadcrumbs() {
       return this.breadcrumbs.map(b => ({ ...b, name: this.$t(b.name) }))
+    },
+    statusOptions() {
+      return [
+        { label: this.$t('Active'), value: 1 },
+        { label: this.$t('Inactive'), value: 0 }
+      ]
     }
   },
 }

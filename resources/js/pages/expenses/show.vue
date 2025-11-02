@@ -151,7 +151,7 @@
                       </td>
                       <td>{{ allData.reason }}</td>
                       <td v-if="allData.transaction">
-                        {{ allData.transaction.amount  }} <span class="saudi-riyal">ê</span>
+                        <CurrencyDisplay :amount="allData.transaction.amount" />
                       </td>
                       <td v-if="allData.account">
                         {{ allData.account.label }}
