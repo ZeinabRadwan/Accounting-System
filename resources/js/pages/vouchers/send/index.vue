@@ -137,6 +137,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Swal from "sweetalert2";
 export default {
   name: "send-vouchers",
   data() {
@@ -242,26 +243,67 @@ export default {
     },
     async deleteItem(slug) {
       Swal.fire({
-        title: this.$t("Delete"),
-        text: this.$t("Are you sure?"),
+        title: this.$t("Are you sure?"),
+        text: this.$t("You will not be able to return to this! This will delete the voucher permanently."),
         type: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: this.$t("Yes"),
+        confirmButtonText: this.$t("Confirm"),
         cancelButtonText: this.$t("Cancel"),
-      }).then((result) => {
+      }).then(async (result) => {
         if (result.value) {
-          this.$http
-            .delete(window.location.origin + "/api/vouchers/" + slug)
-            .then((response) => {
-              if (response.data.statusCode === 200) {
-                this.$toastr.s(response.data.message);
-                this.getAllItem();
-              } else {
-                this.$toastr.e(response.data.message);
+          try {
+            const response = await this.$http.delete(window.location.origin + "/api/vouchers/" + slug);
+            
+            if (response.data.statusCode === 200) {
+              // Success - translate message if available
+              const successMessage = response.data.message || this.$t('Voucher deleted successfully');
+              const translatedMessage = this.$t(successMessage);
+              this.$toastr.s(translatedMessage !== successMessage ? translatedMessage : successMessage);
+              this.getAllItem();
+            } else {
+              // Handle non-200 status codes
+              const errorMessage = response.data.message || this.$t('Error deleting voucher');
+              const translatedMessage = this.$t(errorMessage);
+              this.$toastr.e(translatedMessage !== errorMessage ? translatedMessage : errorMessage);
+            }
+          } catch (error) {
+            console.error('Error deleting voucher:', error);
+            
+            // Extract error message from response
+            let errorMessage = null;
+            
+            if (error?.response?.data) {
+              const errorData = error.response.data;
+              
+              // Check for message field
+              if (errorData.message && typeof errorData.message === 'string') {
+                errorMessage = errorData.message;
+              } else if (errorData.error && typeof errorData.error === 'string') {
+                errorMessage = errorData.error;
+              } else if (errorData.errors && typeof errorData.errors === 'object') {
+                // If there are validation errors, try to get the first one
+                const firstErrorKey = Object.keys(errorData.errors)[0];
+                if (firstErrorKey && Array.isArray(errorData.errors[firstErrorKey])) {
+                  const firstError = errorData.errors[firstErrorKey][0];
+                  if (typeof firstError === 'string') {
+                    errorMessage = firstError;
+                  }
+                } else if (firstErrorKey && typeof errorData.errors[firstErrorKey] === 'string') {
+                  errorMessage = errorData.errors[firstErrorKey];
+                }
               }
-            });
+            } else if (error?.message && typeof error.message === 'string') {
+              errorMessage = error.message;
+            }
+            
+            // Translate and show error
+            if (errorMessage) {
+              const translatedMessage = this.$t(errorMessage);
+              this.$toastr.e(translatedMessage !== errorMessage ? translatedMessage : errorMessage);
+            } else {
+              this.$toastr.e(this.$t('Error deleting voucher'));
+            }
+          }
         }
       });
     },

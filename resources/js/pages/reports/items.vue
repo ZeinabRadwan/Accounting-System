@@ -349,6 +349,174 @@ export default {
       });
     },
 
+    // translate validation messages from backend to localized messages
+    translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      const direct = this.$t(message)
+      if (direct && direct !== message) return direct
+
+      // Get current locale
+      const currentLocale = this.$i18n.locale || 'en'
+      const isArabic = currentLocale === 'ar'
+
+      // Field label mapping for items report form fields
+      const fieldLabelMap = {
+        'productName': this.$t('Product Name'),
+        'product name': this.$t('Product Name'),
+        'product_name': this.$t('Product Name'),
+        'fromDate': this.$t('From Date'),
+        'from date': this.$t('From Date'),
+        'from_date': this.$t('From Date'),
+        'toDate': this.$t('To Date'),
+        'to date': this.$t('To Date'),
+        'to_date': this.$t('To Date'),
+      }
+      const fieldLabel = fieldLabelMap[field] || fieldLabelMap[field?.toLowerCase()] || field
+
+      // Handle mixed language messages from backend (Arabic + English)
+      // Pattern: "حقل [field] مطلوب" -> "Field is required"
+      const mixedLanguagePatterns = [
+        // Arabic "حقل" + English field + Arabic "مطلوب"
+        { 
+          re: /حقل\s+([^م]+?)\s+مطلوب/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `${fieldTranslation} is required`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `${fieldTranslation} مطلوب`
+          }
+        },
+        // Arabic "يرجى اختيار" + English field
+        { 
+          re: /يرجى\s+اختيار\s+([^.]+)/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `Please select ${fieldTranslation}`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `يرجى اختيار ${fieldTranslation}`
+          }
+        },
+        // Arabic "يرجى إدخال" + English field
+        { 
+          re: /يرجى\s+إدخال\s+([^.]+)/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `Please enter ${fieldTranslation}`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `يرجى إدخال ${fieldTranslation}`
+          }
+        }
+      ]
+
+      // Check mixed language patterns first
+      for (const { re, en, ar } of mixedLanguagePatterns) {
+        const match = message.match(re)
+        if (match) {
+          const text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en)(...match) : (isArabic ? ar : en)
+          return text
+        }
+      }
+
+      // Additional pattern for "حقل [field] مطلوب" format
+      if (message.includes('حقل') && message.includes('مطلوب')) {
+        const fieldMatch = message.match(/حقل\s+([^م]+?)\s+مطلوب/i)
+        if (fieldMatch) {
+          const fieldName = fieldMatch[1].trim()
+          let fieldTranslation = fieldLabelMap[fieldName] || 
+                                fieldLabelMap[fieldName.toLowerCase()] || 
+                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+                                fieldName
+          return isArabic ? `${fieldTranslation} مطلوب` : `${fieldTranslation} is required`
+        }
+      }
+
+      // Handle "يرجى اختيار" patterns
+      if (message.includes('يرجى اختيار')) {
+        const fieldMatch = message.match(/يرجى\s+اختيار\s+([^.]+)/i)
+        if (fieldMatch) {
+          const fieldName = fieldMatch[1].trim()
+          let fieldTranslation = fieldLabelMap[fieldName] || 
+                                fieldLabelMap[fieldName.toLowerCase()] || 
+                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+                                fieldName
+          return isArabic ? `يرجى اختيار ${fieldTranslation}` : `Please select ${fieldTranslation}`
+        }
+      }
+
+      // Common Laravel validation patterns with localized messages
+      const patterns = [
+        // Required field patterns
+        { 
+          re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+          en: `${fieldLabel} is required`,
+          ar: `${fieldLabel} مطلوب`
+        },
+        { 
+          re: /Please\s+select\s+an?\s+.+?\.?/i, 
+          en: `Please select ${fieldLabel}`,
+          ar: `يرجى اختيار ${fieldLabel}`
+        },
+        { 
+          re: /Please\s+enter\s+a\s+.+?\.?/i, 
+          en: `Please enter ${fieldLabel}`,
+          ar: `يرجى إدخال ${fieldLabel}`
+        },
+        { 
+          re: /Please\s+provide\s+a\s+.+?\.?/i, 
+          en: `Please provide ${fieldLabel}`,
+          ar: `يرجى تقديم ${fieldLabel}`
+        },
+      ]
+
+      // Check standard Laravel patterns
+      for (const { re, en, ar } of patterns) {
+        if (re.test(message)) {
+          return isArabic ? ar : en
+        }
+      }
+
+      // Fallback: return the message with translation attempt
+      return this.$t(message) !== message ? this.$t(message) : message
+    },
+
     // get filtered data
     async update(values) {
       this.loading = true;
@@ -369,9 +537,8 @@ export default {
             const translatedErrors = {};
             Object.keys(error.response.data.errors).forEach(field => {
               translatedErrors[field] = error.response.data.errors[field].map(message => {
-                // Try to translate the message
-                const translationKey = message;
-                return this.$t(translationKey) !== translationKey ? this.$t(translationKey) : message;
+                // Use translateValidationMessage to handle mixed language messages
+                return this.translateValidationMessage(message, field);
               });
             });
             
@@ -451,15 +618,18 @@ export default {
             if (data && data.errors) {
               const firstField = Object.keys(data.errors)[0];
               if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
-                message = data.errors[firstField][0];
+                // Use translateValidationMessage to handle mixed language messages
+                message = this.translateValidationMessage(data.errors[firstField][0], firstField);
               }
             } else if (data && data.message) {
-              message = data.message;
+              // Try to translate the message, fallback to original if no translation
+              const translated = this.translateValidationMessage(data.message, '');
+              message = translated !== data.message ? translated : this.$t(data.message) !== data.message ? this.$t(data.message) : data.message;
             }
           } catch (e) {
             // Non-JSON, keep default message
           }
-          this.toast.fire({ type: "error", title: this.$t(message) });
+          this.toast.fire({ type: "error", title: message });
           return;
         }
 

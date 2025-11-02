@@ -113,8 +113,6 @@
                     <option :value="0">{{ $t('Inactive') }}</option>
                   </select>
                   <has-error :form="form" field="status" />
-                  <!-- Debug info - remove in production -->
-                  <small class="text-info">Debug: Status={{ form.status }}, isPaymentActive={{ isPaymentActive }}, invoiceStatus={{ form.invoice ? form.invoice.status : 'N/A' }}</small>
                 </div>
               </div>
               <div class="form-group">

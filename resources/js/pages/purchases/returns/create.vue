@@ -866,8 +866,44 @@ export default {
           this.clearTemporaryData()
           this.$router.push({ name: 'purchaseReturns.show', params: { slug: data.data.slug }, })
         })
-        .catch(() => {
-          toast.fire({ type: 'error', title: this.$t('Please check your input and try again.') })
+        .catch((error) => {
+          // Extract error message from response
+          let errorMessage = null
+          
+          if (error?.response?.data) {
+            const errorData = error.response.data
+            
+            // Check for message field
+            if (errorData.message && typeof errorData.message === 'string') {
+              errorMessage = errorData.message
+            } else if (errorData.error && typeof errorData.error === 'string') {
+              errorMessage = errorData.error
+            } else if (errorData.errors && typeof errorData.errors === 'object') {
+              // If there are validation errors, try to get the first one
+              const firstErrorKey = Object.keys(errorData.errors)[0]
+              if (firstErrorKey && Array.isArray(errorData.errors[firstErrorKey])) {
+                const firstError = errorData.errors[firstErrorKey][0]
+                if (typeof firstError === 'string') {
+                  errorMessage = firstError
+                }
+              } else if (firstErrorKey && typeof errorData.errors[firstErrorKey] === 'string') {
+                errorMessage = errorData.errors[firstErrorKey]
+              }
+            }
+          }
+          
+          // Translate and show error
+          if (errorMessage) {
+            // Try to translate the message if it exists as a translation key
+            const translatedMessage = this.$t(errorMessage)
+            // Use translated version if available, otherwise use original (might already be localized)
+            toast.fire({ 
+              type: 'error', 
+              title: translatedMessage !== errorMessage ? translatedMessage : errorMessage 
+            })
+          } else {
+            toast.fire({ type: 'error', title: this.$t('Please check your input and try again.') })
+          }
         })
     },
     // save form data temporarily

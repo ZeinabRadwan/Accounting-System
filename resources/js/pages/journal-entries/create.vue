@@ -383,11 +383,15 @@ export default {
           // Prefer backend 'error' string if present
           const backendError = error.response.data.error || error.response.data.message
           if (backendError) {
-            window.toast.error(backendError)
+            // Translate the error message if it exists as a translation key
+            const translatedError = this.$t(backendError)
+            window.toast.error(translatedError !== backendError ? translatedError : backendError)
           }
         } else {
           const backendError = error?.response?.data?.error || error?.response?.data?.message || 'Error creating journal entry'
-          window.toast.error(backendError)
+          // Translate the error message if it exists as a translation key
+          const translatedError = this.$t(backendError)
+          window.toast.error(translatedError !== backendError ? translatedError : backendError)
         }
       } finally {
         this.loading = false

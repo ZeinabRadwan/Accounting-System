@@ -616,6 +616,188 @@ export default {
       return '0.00'
     },
 
+    // translate validation messages from backend to localized messages
+    translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      const direct = this.$t(message)
+      if (direct && direct !== message) return direct
+
+      // Get current locale
+      const currentLocale = this.$i18n.locale || 'en'
+      const isArabic = currentLocale === 'ar'
+
+      // Field label mapping for voucher send form fields
+      const fieldLabelMap = {
+        'entityType': this.$t('Entity Type'),
+        'entity type': this.$t('Entity Type'),
+        'entity_type': this.$t('Entity Type'),
+        'client': this.$t('Client'),
+        'supplier': this.$t('Supplier'),
+        'chartOfAccount': this.$t('Chart of Account'),
+        'chart of account': this.$t('Chart of Account'),
+        'chart_of_account': this.$t('Chart of Account'),
+        'paymentMethod': this.$t('Payment Method'),
+        'payment method': this.$t('Payment Method'),
+        'payment_method': this.$t('Payment Method'),
+        'purchase': this.$t('Select Purchase'),
+        'account': this.$t('Account'),
+        'amount': this.$t('Amount'),
+        'date': this.$t('Date'),
+        'chequeNo': this.$t('Cheque No'),
+        'cheque no': this.$t('Cheque No'),
+        'cheque_no': this.$t('Cheque No'),
+        'receiptNo': this.$t('Receipt No'),
+        'receipt no': this.$t('Receipt No'),
+        'receipt_no': this.$t('Receipt No'),
+        'note': this.$t('Note'),
+        'status': this.$t('Status'),
+      }
+      const fieldLabel = fieldLabelMap[field] || fieldLabelMap[field?.toLowerCase()] || field
+
+      // Handle mixed language messages from backend (Arabic + English)
+      // Pattern: "حقل [field] مطلوب" -> "Field is required"
+      const mixedLanguagePatterns = [
+        // Arabic "حقل" + English field + Arabic "مطلوب"
+        { 
+          re: /حقل\s+([^م]+?)\s+مطلوب/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `${fieldTranslation} is required`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `${fieldTranslation} مطلوب`
+          }
+        },
+        // Arabic "يرجى اختيار" + English field
+        { 
+          re: /يرجى\s+اختيار\s+([^.]+)/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `Please select ${fieldTranslation}`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `يرجى اختيار ${fieldTranslation}`
+          }
+        },
+        // Arabic "يرجى إدخال" + English field
+        { 
+          re: /يرجى\s+إدخال\s+([^.]+)/i, 
+          en: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `Please enter ${fieldTranslation}`
+          },
+          ar: (_, fieldName) => {
+            const cleanFieldName = fieldName.trim()
+            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
+                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+                                    cleanFieldName
+            return `يرجى إدخال ${fieldTranslation}`
+          }
+        }
+      ]
+
+      // Check mixed language patterns first
+      for (const { re, en, ar } of mixedLanguagePatterns) {
+        const match = message.match(re)
+        if (match) {
+          const text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en)(...match) : (isArabic ? ar : en)
+          return text
+        }
+      }
+
+      // Additional pattern for "حقل [field] مطلوب" format
+      if (message.includes('حقل') && message.includes('مطلوب')) {
+        const fieldMatch = message.match(/حقل\s+([^م]+?)\s+مطلوب/i)
+        if (fieldMatch) {
+          const fieldName = fieldMatch[1].trim()
+          let fieldTranslation = fieldLabelMap[fieldName] || 
+                                fieldLabelMap[fieldName.toLowerCase()] || 
+                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+                                fieldName
+          return isArabic ? `${fieldTranslation} مطلوب` : `${fieldTranslation} is required`
+        }
+      }
+
+      // Handle "يرجى اختيار" patterns
+      if (message.includes('يرجى اختيار')) {
+        const fieldMatch = message.match(/يرجى\s+اختيار\s+([^.]+)/i)
+        if (fieldMatch) {
+          const fieldName = fieldMatch[1].trim()
+          let fieldTranslation = fieldLabelMap[fieldName] || 
+                                fieldLabelMap[fieldName.toLowerCase()] || 
+                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+                                fieldName
+          return isArabic ? `يرجى اختيار ${fieldTranslation}` : `Please select ${fieldTranslation}`
+        }
+      }
+
+      // Common Laravel validation patterns with localized messages
+      const patterns = [
+        // Required field patterns
+        { 
+          re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+          en: `${fieldLabel} is required`,
+          ar: `${fieldLabel} مطلوب`
+        },
+        { 
+          re: /Please\s+select\s+an?\s+.+?\.?/i, 
+          en: `Please select ${fieldLabel}`,
+          ar: `يرجى اختيار ${fieldLabel}`
+        },
+        { 
+          re: /Please\s+enter\s+a\s+.+?\.?/i, 
+          en: `Please enter ${fieldLabel}`,
+          ar: `يرجى إدخال ${fieldLabel}`
+        },
+        { 
+          re: /Please\s+provide\s+a\s+.+?\.?/i, 
+          en: `Please provide ${fieldLabel}`,
+          ar: `يرجى تقديم ${fieldLabel}`
+        },
+      ]
+
+      // Check standard Laravel patterns
+      for (const { re, en, ar } of patterns) {
+        if (re.test(message)) {
+          return isArabic ? ar : en
+        }
+      }
+
+      // Fallback: return the message with translation attempt
+      return this.$t(message) !== message ? this.$t(message) : message
+    },
+
     // Save voucher
     async saveVoucher() {
       await this.form
@@ -627,8 +809,41 @@ export default {
           })
           this.$router.push({ name: 'sendVouchers.index' })
         })
-        .catch(() => {
-          toast.fire({ type: 'error', title: this.$t('Please check your input and try again.') })
+        .catch((error) => {
+          // Handle validation errors
+          if (error?.response?.status === 422 && error?.response?.data?.errors) {
+            // Translate validation errors
+            const translatedErrors = {}
+            Object.keys(error.response.data.errors).forEach(field => {
+              translatedErrors[field] = error.response.data.errors[field].map(message => {
+                // Use translateValidationMessage to handle mixed language messages
+                return this.translateValidationMessage(message, field)
+              })
+            })
+            
+            // Set the translated errors back to the form
+            this.form.errors.set(translatedErrors)
+            
+            // Show a general validation error message
+            toast.fire({ 
+              type: 'error', 
+              title: this.$t('Please check your input and try again.') 
+            })
+          } else {
+            // Handle other errors
+            const backendMessage = error?.response?.data?.message || 
+                                  error?.response?.data?.error || 
+                                  error?.message
+            
+            // Try to translate the error message
+            const translatedMessage = backendMessage ? this.translateValidationMessage(backendMessage, '') : null
+            
+            toast.fire({ 
+              type: 'error', 
+              title: translatedMessage || this.$t('Please check your input and try again.'),
+              text: backendMessage && translatedMessage !== backendMessage ? backendMessage : undefined
+            })
+          }
         })
     },
   },

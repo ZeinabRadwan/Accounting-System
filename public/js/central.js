@@ -18370,6 +18370,18 @@ var showToast = function showToast(type, title, message) {
     toast = _createToastElement.toast,
     progressBar = _createToastElement.progressBar;
 
+  // Check if toast content equals [object Object] and hide it
+  var messageEl = toast.querySelector('.custom-toast-message');
+  var titleEl = toast.querySelector('.custom-toast-title');
+  if (messageEl && messageEl.textContent === '[object Object]') {
+    toast.style.display = 'none';
+    return toast;
+  }
+  if (titleEl && titleEl.textContent === '[object Object]') {
+    toast.style.display = 'none';
+    return toast;
+  }
+
   // Show the container when adding toasts
   container.style.display = 'block';
 
@@ -33181,6 +33193,9 @@ var RTLService = /*#__PURE__*/function () {
     key: "refreshCustomToast",
     value: function refreshCustomToast() {
       try {
+        // Hide toasts with [object Object] content
+        this.hideInvalidToasts();
+
         // Try to refresh through window.toast if available
         if (window.toast && typeof window.toast.refreshRTL === 'function') {
           window.toast.refreshRTL();
@@ -33198,6 +33213,32 @@ var RTLService = /*#__PURE__*/function () {
     }
 
     /**
+     * Hide toasts with [object Object] content
+     */
+  }, {
+    key: "hideInvalidToasts",
+    value: function hideInvalidToasts() {
+      try {
+        var containers = document.querySelectorAll('.custom-toast-container');
+        containers.forEach(function (container) {
+          var toasts = container.querySelectorAll('.custom-toast');
+          toasts.forEach(function (toast) {
+            var messageEl = toast.querySelector('.custom-toast-message');
+            var titleEl = toast.querySelector('.custom-toast-title');
+            if (messageEl && messageEl.textContent === '[object Object]') {
+              toast.style.display = 'none';
+            }
+            if (titleEl && titleEl.textContent === '[object Object]') {
+              toast.style.display = 'none';
+            }
+          });
+        });
+      } catch (error) {
+        console.warn('Error hiding invalid toasts:', error);
+      }
+    }
+
+    /**
      * Reposition existing toasts when RTL changes
      */
   }, {
@@ -33206,6 +33247,8 @@ var RTLService = /*#__PURE__*/function () {
       var _this = this;
       setTimeout(function () {
         try {
+          // Hide toasts with [object Object] content
+          _this.hideInvalidToasts();
           var containers = document.querySelectorAll('.custom-toast-container');
           containers.forEach(function (container) {
             if (_this.isRTL) {
@@ -33236,6 +33279,8 @@ var RTLService = /*#__PURE__*/function () {
       var _this2 = this;
       setTimeout(function () {
         try {
+          // Hide toasts with [object Object] content
+          _this2.hideInvalidToasts();
           var containers = document.querySelectorAll('.custom-toast-container');
           containers.forEach(function (container) {
             // Force positioning styles
@@ -115223,12 +115268,12 @@ var map = {
 		2533
 	],
 	"./cashbook/balances": [
-		71923,
-		1923
+		87436,
+		7436
 	],
 	"./cashbook/balances/": [
-		71923,
-		1923
+		87436,
+		7436
 	],
 	"./cashbook/balances/create": [
 		39800,
@@ -115239,28 +115284,28 @@ var map = {
 		9800
 	],
 	"./cashbook/balances/edit": [
-		36065,
-		6065
+		17851,
+		7851
 	],
 	"./cashbook/balances/edit.vue": [
-		36065,
-		6065
+		17851,
+		7851
 	],
 	"./cashbook/balances/index": [
-		71923,
-		1923
+		87436,
+		7436
 	],
 	"./cashbook/balances/index.vue": [
-		71923,
-		1923
+		87436,
+		7436
 	],
 	"./cashbook/chart-of-accounts": [
-		13910,
-		3910
+		96934,
+		6934
 	],
 	"./cashbook/chart-of-accounts/": [
-		13910,
-		3910
+		96934,
+		6934
 	],
 	"./cashbook/chart-of-accounts/create": [
 		59806,
@@ -115279,12 +115324,12 @@ var map = {
 		3135
 	],
 	"./cashbook/chart-of-accounts/index": [
-		13910,
-		3910
+		96934,
+		6934
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		13910,
-		3910
+		96934,
+		6934
 	],
 	"./cashbook/chart-of-accounts/show": [
 		15434,
@@ -116239,12 +116284,12 @@ var map = {
 		6726
 	],
 	"./expenses/edit": [
-		46501,
-		6501
+		69826,
+		9826
 	],
 	"./expenses/edit.vue": [
-		46501,
-		6501
+		69826,
+		9826
 	],
 	"./expenses/index": [
 		82311,
@@ -116399,12 +116444,12 @@ var map = {
 		623
 	],
 	"./journal-entries/create": [
-		15669,
-		5669
+		21598,
+		1598
 	],
 	"./journal-entries/create.vue": [
-		15669,
-		5669
+		21598,
+		1598
 	],
 	"./journal-entries/edit": [
 		12439,
@@ -116567,12 +116612,12 @@ var map = {
 		557
 	],
 	"./payments/clients/invoice/edit": [
-		83621,
-		3621
+		30481,
+		481
 	],
 	"./payments/clients/invoice/edit.vue": [
-		83621,
-		3621
+		30481,
+		481
 	],
 	"./payments/clients/invoice/index": [
 		52580,
@@ -116703,12 +116748,12 @@ var map = {
 		9255
 	],
 	"./payments/suppliers/purchase/show": [
-		28465,
-		8465
+		18581,
+		8581
 	],
 	"./payments/suppliers/purchase/show.vue": [
-		28465,
-		8465
+		18581,
+		8581
 	],
 	"./payroll": [
 		40939,
@@ -116975,12 +117020,12 @@ var map = {
 		1195
 	],
 	"./purchases/returns/create": [
-		19822,
-		9822
+		63765,
+		3765
 	],
 	"./purchases/returns/create.vue": [
-		19822,
-		9822
+		63765,
+		3765
 	],
 	"./purchases/returns/edit": [
 		71398,
@@ -117079,20 +117124,20 @@ var map = {
 		628
 	],
 	"./reports/items": [
-		33095,
-		3095
+		99872,
+		9872
 	],
 	"./reports/items.vue": [
-		33095,
-		3095
+		99872,
+		9872
 	],
 	"./reports/profit-loss": [
-		18418,
-		6037
+		9432,
+		9432
 	],
 	"./reports/profit-loss.vue": [
-		18418,
-		6037
+		9432,
+		9432
 	],
 	"./reports/purchase-summary": [
 		534,
@@ -117327,12 +117372,12 @@ var map = {
 		6168
 	],
 	"./settings/print-templates": [
-		38960,
-		8960
+		8222,
+		8222
 	],
 	"./settings/print-templates.vue": [
-		38960,
-		8960
+		8222,
+		8222
 	],
 	"./settings/profile": [
 		24665,
@@ -117711,20 +117756,20 @@ var map = {
 		2370
 	],
 	"./vouchers/receive": [
-		50645,
-		645
+		94258,
+		4258
 	],
 	"./vouchers/receive/": [
-		50645,
-		645
+		94258,
+		4258
 	],
 	"./vouchers/receive/create": [
-		54384,
-		4384
+		90264,
+		264
 	],
 	"./vouchers/receive/create.vue": [
-		54384,
-		4384
+		90264,
+		264
 	],
 	"./vouchers/receive/edit": [
 		27556,
@@ -117735,12 +117780,12 @@ var map = {
 		7556
 	],
 	"./vouchers/receive/index": [
-		50645,
-		645
+		94258,
+		4258
 	],
 	"./vouchers/receive/index.vue": [
-		50645,
-		645
+		94258,
+		4258
 	],
 	"./vouchers/receive/show": [
 		36952,
@@ -117751,20 +117796,20 @@ var map = {
 		6952
 	],
 	"./vouchers/send": [
-		44597,
-		4597
+		36584,
+		6584
 	],
 	"./vouchers/send/": [
-		44597,
-		4597
+		36584,
+		6584
 	],
 	"./vouchers/send/create": [
-		1500,
-		1500
+		12934,
+		2934
 	],
 	"./vouchers/send/create.vue": [
-		1500,
-		1500
+		12934,
+		2934
 	],
 	"./vouchers/send/edit": [
 		31828,
@@ -117775,12 +117820,12 @@ var map = {
 		1828
 	],
 	"./vouchers/send/index": [
-		44597,
-		4597
+		36584,
+		6584
 	],
 	"./vouchers/send/index.vue": [
-		44597,
-		4597
+		36584,
+		6584
 	],
 	"./vouchers/send/show": [
 		32554,
@@ -118096,10 +118141,10 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 636) return "js/636.js";
 /******/ 			if (chunkId === 1129) return "js/1129.js";
 /******/ 			if (chunkId === 2533) return "js/2533.js";
-/******/ 			if (chunkId === 1923) return "js/1923.js";
+/******/ 			if (chunkId === 7436) return "js/7436.js";
 /******/ 			if (chunkId === 9800) return "js/9800.js";
-/******/ 			if (chunkId === 6065) return "js/6065.js";
-/******/ 			if (chunkId === 3910) return "js/3910.js";
+/******/ 			if (chunkId === 7851) return "js/7851.js";
+/******/ 			if (chunkId === 6934) return "js/6934.js";
 /******/ 			if (chunkId === 9806) return "js/9806.js";
 /******/ 			if (chunkId === 3135) return "js/3135.js";
 /******/ 			if (chunkId === 5434) return "js/5434.js";
@@ -118196,7 +118241,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2805) return "js/2805.js";
 /******/ 			if (chunkId === 3299) return "js/3299.js";
 /******/ 			if (chunkId === 6726) return "js/6726.js";
-/******/ 			if (chunkId === 6501) return "js/6501.js";
+/******/ 			if (chunkId === 9826) return "js/9826.js";
 /******/ 			if (chunkId === 497) return "js/497.js";
 /******/ 			if (chunkId === 9765) return "js/9765.js";
 /******/ 			if (chunkId === 1518) return "js/1518.js";
@@ -118211,7 +118256,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2115) return "js/2115.js";
 /******/ 			if (chunkId === 9581) return "js/9581.js";
 /******/ 			if (chunkId === 623) return "js/623.js";
-/******/ 			if (chunkId === 5669) return "js/5669.js";
+/******/ 			if (chunkId === 1598) return "js/1598.js";
 /******/ 			if (chunkId === 2439) return "js/2439.js";
 /******/ 			if (chunkId === 8956) return "js/8956.js";
 /******/ 			if (chunkId === 115) return "js/115.js";
@@ -118228,7 +118273,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1236) return "js/1236.js";
 /******/ 			if (chunkId === 2580) return "js/2580.js";
 /******/ 			if (chunkId === 557) return "js/557.js";
-/******/ 			if (chunkId === 3621) return "js/3621.js";
+/******/ 			if (chunkId === 481) return "js/481.js";
 /******/ 			if (chunkId === 9660) return "js/9660.js";
 /******/ 			if (chunkId === 7016) return "js/7016.js";
 /******/ 			if (chunkId === 5547) return "js/5547.js";
@@ -118241,7 +118286,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 9255) return "js/9255.js";
 /******/ 			if (chunkId === 9980) return "js/9980.js";
 /******/ 			if (chunkId === 1466) return "js/1466.js";
-/******/ 			if (chunkId === 8465) return "js/8465.js";
+/******/ 			if (chunkId === 8581) return "js/8581.js";
 /******/ 			if (chunkId === 939) return "js/939.js";
 /******/ 			if (chunkId === 1974) return "js/1974.js";
 /******/ 			if (chunkId === 5467) return "js/5467.js";
@@ -118269,7 +118314,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1215) return "js/1215.js";
 /******/ 			if (chunkId === 8988) return "js/8988.js";
 /******/ 			if (chunkId === 1195) return "js/1195.js";
-/******/ 			if (chunkId === 9822) return "js/9822.js";
+/******/ 			if (chunkId === 3765) return "js/3765.js";
 /******/ 			if (chunkId === 1398) return "js/1398.js";
 /******/ 			if (chunkId === 6180) return "js/6180.js";
 /******/ 			if (chunkId === 1551) return "js/1551.js";
@@ -118281,8 +118326,8 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8958) return "js/8958.js";
 /******/ 			if (chunkId === 8600) return "js/8600.js";
 /******/ 			if (chunkId === 628) return "js/628.js";
-/******/ 			if (chunkId === 3095) return "js/3095.js";
-/******/ 			if (chunkId === 6037) return "js/6037.js";
+/******/ 			if (chunkId === 9872) return "js/9872.js";
+/******/ 			if (chunkId === 9432) return "js/9432.js";
 /******/ 			if (chunkId === 534) return "js/534.js";
 /******/ 			if (chunkId === 1664) return "js/1664.js";
 /******/ 			if (chunkId === 9388) return "js/9388.js";
@@ -118308,7 +118353,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8557) return "js/8557.js";
 /******/ 			if (chunkId === 2517) return "js/2517.js";
 /******/ 			if (chunkId === 6168) return "js/6168.js";
-/******/ 			if (chunkId === 8960) return "js/8960.js";
+/******/ 			if (chunkId === 8222) return "js/8222.js";
 /******/ 			if (chunkId === 4665) return "js/4665.js";
 /******/ 			if (chunkId === 4805) return "js/4805.js";
 /******/ 			if (chunkId === 3260) return "js/3260.js";
@@ -118347,12 +118392,12 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1662) return "js/1662.js";
 /******/ 			if (chunkId === 5514) return "js/5514.js";
 /******/ 			if (chunkId === 2370) return "js/2370.js";
-/******/ 			if (chunkId === 645) return "js/645.js";
-/******/ 			if (chunkId === 4384) return "js/4384.js";
+/******/ 			if (chunkId === 4258) return "js/4258.js";
+/******/ 			if (chunkId === 264) return "js/264.js";
 /******/ 			if (chunkId === 7556) return "js/7556.js";
 /******/ 			if (chunkId === 6952) return "js/6952.js";
-/******/ 			if (chunkId === 4597) return "js/4597.js";
-/******/ 			if (chunkId === 1500) return "js/1500.js";
+/******/ 			if (chunkId === 6584) return "js/6584.js";
+/******/ 			if (chunkId === 2934) return "js/2934.js";
 /******/ 			if (chunkId === 1828) return "js/1828.js";
 /******/ 			if (chunkId === 2554) return "js/2554.js";
 /******/ 			if (chunkId === 944) return "js/944.js";

@@ -373,20 +373,59 @@ export default {
             const isSuccess = response === true || response?.success === true;
             if (isSuccess) {
               this.getData && this.getData();
-              toast.fire({ type: 'success', title: this.$t('Deleted successfully.') });
+              this.$toast.success(this.$t('Deleted successfully.'));
               return;
             }
 
-            const backendMsg = response?.response?.data?.message || response?.message;
-            if (backendMsg) {
-              toast.fire({ type: 'error', title: backendMsg });
+            // Extract error message from response - the store returns { success: false, message: ... }
+            let errorMessage = null;
+            if (response && typeof response === 'object') {
+              // Check if message exists and is a string
+              if (response.message && typeof response.message === 'string') {
+                errorMessage = response.message;
+              }
+            }
+
+            // If we have a message, try to translate it, otherwise use fallback
+            if (errorMessage) {
+              // Try to translate the message if it exists as a translation key
+              const translatedMessage = this.$t(errorMessage);
+              // Use translated version if available, otherwise use original
+              this.$toast.error(translatedMessage !== errorMessage ? translatedMessage : errorMessage);
             } else {
-              toast.fire({ type: 'error', title: this.$t('Please check your input and try again.') });
+              this.$toast.error(this.$t('Please check your input and try again.'));
             }
           })
           .catch((error) => {
-            const msg = error?.response?.data?.message || error?.message || this.$t('Please check your input and try again.');
-            toast.fire({ type: 'error', title: msg });
+            // Handle catch errors - extract message properly
+            let errorMessage = null;
+            
+            if (error?.response?.data) {
+              const errorData = error.response.data;
+              // Check for message field
+              if (errorData.message && typeof errorData.message === 'string') {
+                errorMessage = errorData.message;
+              } else if (errorData.errors && typeof errorData.errors === 'object') {
+                // If there are validation errors, try to get the first one
+                const firstErrorKey = Object.keys(errorData.errors)[0];
+                if (firstErrorKey && Array.isArray(errorData.errors[firstErrorKey])) {
+                  const firstError = errorData.errors[firstErrorKey][0];
+                  if (typeof firstError === 'string') {
+                    errorMessage = firstError;
+                  }
+                }
+              }
+            } else if (error?.message && typeof error.message === 'string') {
+              errorMessage = error.message;
+            }
+
+            // Translate and show error
+            if (errorMessage) {
+              const translatedMessage = this.$t(errorMessage);
+              this.$toast.error(translatedMessage !== errorMessage ? translatedMessage : errorMessage);
+            } else {
+              this.$toast.error(this.$t('Please check your input and try again.'));
+            }
           });
       });
     },

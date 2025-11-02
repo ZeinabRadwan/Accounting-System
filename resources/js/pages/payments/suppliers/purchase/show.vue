@@ -290,12 +290,14 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
                 <a
-                  @click="refreshTable()"
+                  @click.prevent="!loading && refreshTable()"
                   href="#"
                   v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
+                  :class="['btn', 'btn-success', loading ? 'disabled' : '']"
+                  :aria-busy="loading ? 'true' : 'false'"
                 >
-                  <i class="fas fa-sync"></i>
+                  <i v-if="!loading" class="fas fa-sync"></i>
+                  <i v-else class="fas fa-spinner fa-spin"></i>
                 </a>
                 <a
                   @click="print"
@@ -540,9 +542,18 @@ export default {
     },
 
     // refresh table
-    refreshTable() {
+    async refreshTable() {
       this.query = "";
-      this.query === "" ? this.getActivity() : this.searchData();
+      if (this.pagination) {
+        this.pagination.current_page = 1;
+      }
+      await this.getActivity();
+      const refreshedText = (this.$te && this.$te('Updated successfully!'))
+        ? this.$t('Updated successfully!')
+        : 'Updated successfully!';
+      if (this.$toast && this.$toast.success) {
+        this.$toast.success(refreshedText, '');
+      }
     },
 
     // reset pagination
