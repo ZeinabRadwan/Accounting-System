@@ -12,9 +12,7 @@
                 <router-link :to="{ name: 'payroll.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
-                  <i class="fas fa-save" />
-                </button>
+                
               </div>
             </div>
           </div>
