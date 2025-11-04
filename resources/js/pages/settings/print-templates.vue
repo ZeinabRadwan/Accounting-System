@@ -64,7 +64,7 @@
                           <!-- Template Header -->
                           <div class="template-header">
                             <div class="template-title">
-                              <h5 class="template-name">{{ template.display_name }}</h5>
+                              <h5 class="template-name">{{ translateTemplateText(template.display_name) }}</h5>
                               <span class="template-module">{{ template.module }}</span>
                             </div>
                             <div class="template-status">
@@ -76,7 +76,7 @@
 
                           <!-- Template Description -->
                           <div class="template-description">
-                            <p>{{ template.description || $t('No description provided') }}</p>
+                            <p>{{ template.description ? translateTemplateText(template.description) : $t('No description provided') }}</p>
                           </div>
 
                           <!-- Template Actions -->
@@ -130,7 +130,7 @@
                         <div class="col-md-8">
                           <h2 class="editor-title">
                             <i class="fas fa-edit me-2"></i>
-                            {{ editingTemplate.display_name || $t('New Template') }}
+                            {{ editingTemplate.display_name ? translateTemplateText(editingTemplate.display_name) : $t('New Template') }}
                           </h2>
                           <span class="badge badge-primary">{{ editingTemplate.module }}</span>
                         </div>
@@ -543,6 +543,14 @@ export default {
   },
 
   methods: {
+    // Helper method to translate template names and descriptions
+    translateTemplateText(text) {
+      if (!text) return '';
+      const translated = this.$t(text);
+      // If translation exists (different from original), return it, otherwise return original
+      return translated !== text ? translated : text;
+    },
+
     // Select module
     selectModule(module) {
       this.selectedModule = module;

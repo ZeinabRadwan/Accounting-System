@@ -133,7 +133,7 @@
                   <label for="discountType">{{
                     $t('Discount Type')
                   }}</label>
-                  <select id="discountType" v-model="form.discountType" step="any" class="form-control"
+                  <select id="discountType" v-model="form.discountType" step="any" class="form-control" style="width: 80px;"
                     :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" disabled>
                     <option value="0">{{ $t('Fixed') }}</option>
                     <option value="1">{{ $t('Percentage') }}(%)</option>

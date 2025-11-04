@@ -1,26 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[4258],{
 
-/***/ 30213:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-df2e06b2]{gap:10px}.header-buttons[data-v-df2e06b2]{margin-bottom:15px}.footer-buttons[data-v-df2e06b2]{display:flex;gap:10px}.footer-buttons .btn[data-v-df2e06b2]{margin-right:10px}.footer-buttons .btn[data-v-df2e06b2]:last-child{margin-right:0}.card[data-v-df2e06b2]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-df2e06b2]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-df2e06b2]{background:#fff!important}.btn-primary[data-v-df2e06b2]{background:#2ab930!important}.btn-primary[data-v-df2e06b2],.btn-secondary[data-v-df2e06b2]{border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-df2e06b2]{background:#33a0d9!important}.btn-secondary[data-v-df2e06b2]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 31877:
+/***/ 94258:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -28,10 +9,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ edit)
+  "default": () => (/* binding */ receive)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payroll/edit.vue?vue&type=template&id=df2e06b2&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/receive/index.vue?vue&type=template&id=24fdabe8
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -48,1288 +29,439 @@ var render = function render() {
       "items": _vm.breadcrumbs,
       "current": _vm.breadcrumbsCurrent
     }
-  }), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "justify-content": "flex-end"
+    }
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reload
+    },
+    model: {
+      value: _vm.query,
+      callback: function callback($$v) {
+        _vm.query = $$v;
+      },
+      expression: "query"
+    }
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "col-xl-8 col-8 float-right text-right"
   }, [_c('div', {
-    staticClass: "btn-group c-w-100 header-buttons"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'payroll.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n              ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "button",
-      "title": "Save Temporarily"
-    },
-    on: {
-      "click": _vm.saveTemporary
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.updatePayroll.apply(null, arguments);
-      },
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_vm.items ? _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "employee"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Employee'))), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _vm.items ? _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('employee')
-    },
-    attrs: {
-      "options": _vm.items,
-      "label": "name",
-      "name": "employee",
-      "placeholder": _vm.$t('Select an employee')
-    },
-    on: {
-      "input": _vm.calculateTotalSalary
-    },
-    model: {
-      value: _vm.form.employee,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "employee", $$v);
-      },
-      expression: "form.employee"
-    }
-  }) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "employee"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "salaryMonth"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Salary Month'))), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('select', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
     directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.salaryMonth,
-      expression: "form.salaryMonth"
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
     }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('salaryMonth')
-    },
+    staticClass: "btn btn-success refresh-btn",
     attrs: {
-      "id": "salaryMonth",
-      "name": "salaryMonth"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "salaryMonth", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "",
-      "selected": "",
-      "disabled": ""
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.$t('Select a salary month')) + "\n                  ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "January"
-    }
-  }, [_vm._v("January")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "February"
-    }
-  }, [_vm._v("February")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "March"
-    }
-  }, [_vm._v("March")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "April"
-    }
-  }, [_vm._v("April")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "May"
-    }
-  }, [_vm._v("May")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "June"
-    }
-  }, [_vm._v("June")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "July"
-    }
-  }, [_vm._v("July")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "August"
-    }
-  }, [_vm._v("August")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "September"
-    }
-  }, [_vm._v("September")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "October"
-    }
-  }, [_vm._v("October")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "November"
-    }
-  }, [_vm._v("November")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "December"
-    }
-  }, [_vm._v("December")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "salaryMonth"
-    }
-  })], 1)]), _vm._v(" "), _vm.form.employee ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "presentSalary"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Present Salary')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.employee.totalSalary,
-      expression: "form.employee.totalSalary"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('presentSalary')
-    },
-    attrs: {
-      "id": "presentSalary",
-      "type": "number",
-      "step": "any",
-      "name": "presentSalary",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.employee.totalSalary
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form.employee, "totalSalary", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "deductionAmount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Deduction Amount')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.deductionAmount,
-      expression: "form.deductionAmount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('deductionAmount')
-    },
-    attrs: {
-      "id": "deductionAmount",
-      "type": "number",
-      "step": "any",
-      "name": "deductionAmount",
-      "min": "0",
-      "placeholder": _vm.$t('Enter a deduction amount')
-    },
-    domProps: {
-      "value": _vm.form.deductionAmount
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "deductionAmount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "deductionAmount"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "deductionReason"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Deduction Reason')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.deductionReason,
-      expression: "form.deductionReason"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('deductionReason')
-    },
-    attrs: {
-      "id": "deductionReason",
-      "type": "text",
-      "name": "deductionReason",
-      "placeholder": _vm.$t('Enter a deduction reason')
-    },
-    domProps: {
-      "value": _vm.form.deductionReason
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "deductionReason", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "deductionReason"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "mobileBill"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Mobile Bill')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.mobileBill,
-      expression: "form.mobileBill"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('mobileBill')
-    },
-    attrs: {
-      "id": "mobileBill",
-      "type": "number",
-      "step": "any",
-      "name": "mobileBill",
-      "min": "0",
-      "placeholder": _vm.$t('Enter a mobile bill')
-    },
-    domProps: {
-      "value": _vm.form.mobileBill
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "mobileBill", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "mobileBill"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "foodBill"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Food Bill')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.foodBill,
-      expression: "form.foodBill"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('foodBill')
-    },
-    attrs: {
-      "id": "foodBill",
-      "type": "number",
-      "step": "any",
-      "name": "foodBill",
-      "placeholder": _vm.$t('Enter a food bill')
-    },
-    domProps: {
-      "value": _vm.form.foodBill
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "foodBill", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "foodBill"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "bonus"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Bonus')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.bonus,
-      expression: "form.bonus"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('bonus')
-    },
-    attrs: {
-      "id": "bonus",
-      "type": "number",
-      "step": "any",
-      "name": "bonus",
-      "min": "0",
-      "placeholder": _vm.$t('Enter a bonus')
-    },
-    domProps: {
-      "value": _vm.form.bonus
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "bonus", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "bonus"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "commission"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Commission')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commission,
-      expression: "form.commission"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commission')
-    },
-    attrs: {
-      "id": "commission",
-      "type": "number",
-      "step": "any",
-      "name": "commission",
-      "placeholder": _vm.$t('Enter a commission')
-    },
-    domProps: {
-      "value": _vm.form.commission
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commission", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commission"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "festivalBonus"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Festival Bonus')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.festivalBonus,
-      expression: "form.festivalBonus"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('festivalBonus')
-    },
-    attrs: {
-      "id": "festivalBonus",
-      "type": "number",
-      "step": "any",
-      "name": "festivalBonus",
-      "min": "0",
-      "placeholder": _vm.$t('Enter a festival bonus')
-    },
-    domProps: {
-      "value": _vm.form.festivalBonus
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "festivalBonus", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "festivalBonus"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "travelAllowance"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Travel Allowance(TA)')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.travelAllowance,
-      expression: "form.travelAllowance"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('travelAllowance')
-    },
-    attrs: {
-      "id": "travelAllowance",
-      "type": "number",
-      "step": "any",
-      "name": "travelAllowance",
-      "placeholder": _vm.$t('Enter a travel allowance')
-    },
-    domProps: {
-      "value": _vm.form.travelAllowance
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "travelAllowance", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "travelAllowance"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "others"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Others')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.others,
-      expression: "form.others"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('others')
-    },
-    attrs: {
-      "id": "others",
-      "type": "number",
-      "step": "any",
-      "name": "others",
-      "min": "0",
-      "placeholder": _vm.$t('Enter others amount')
-    },
-    domProps: {
-      "value": _vm.form.others
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "others", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "others"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "advance"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Advance')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.advance,
-      expression: "form.advance"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('advance')
-    },
-    attrs: {
-      "id": "advance",
-      "type": "number",
-      "step": "any",
-      "name": "advance",
-      "placeholder": _vm.$t('Advance')
-    },
-    domProps: {
-      "value": _vm.form.advance
-    },
-    on: {
-      "change": _vm.calculateTotalSalary,
-      "keyup": _vm.calculateTotalSalary,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "advance", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "advance"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "totalSalary"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Total Salary')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.totalSalary,
-      expression: "form.totalSalary"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('totalSalary')
-    },
-    attrs: {
-      "id": "totalSalary",
-      "type": "number",
-      "step": "any",
-      "name": "totalSalary",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.totalSalary
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "totalSalary", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "totalSalary"
-    }
-  })], 1), _vm._v(" "), _vm.accounts ? _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "account"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Account')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('account')
-    },
-    attrs: {
-      "options": _vm.accounts,
-      "label": "label",
-      "name": "account",
-      "placeholder": _vm.$t('Select an account')
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(option) {
-        return [_c('img', {
-          staticStyle: {
-            "width": "30px",
-            "height": "30px"
-          },
-          attrs: {
-            "src": option.image
-          }
-        }), _vm._v("\n                      " + _vm._s(option.label) + "\n                  ")];
-      }
-    }], null, false, 3023951659),
-    model: {
-      value: _vm.form.account,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "account", $$v);
-      },
-      expression: "form.account"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "account"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "availableBalance"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Available Balance')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.account.availableBalance,
-      expression: "form.account.availableBalance"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('availableBalance')
-    },
-    attrs: {
-      "id": "availableBalance",
-      "type": "number",
-      "step": "any",
-      "name": "availableBalance",
-      "readonly": ""
-    },
-    domProps: {
-      "value": _vm.form.account.availableBalance
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form.account, "availableBalance", $event.target.value);
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "chequeNo"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Cheque No')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.chequeNo,
-      expression: "form.chequeNo"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('chequeNo')
-    },
-    attrs: {
-      "id": "chequeNo",
-      "type": "text",
-      "name": "chequeNo",
-      "placeholder": _vm.$t('Enter a cheque number')
-    },
-    domProps: {
-      "value": _vm.form.chequeNo
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "chequeNo", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "chequeNo"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "salaryDate"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Salary Date')))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.salaryDate,
-      expression: "form.salaryDate"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('salaryDate')
-    },
-    attrs: {
-      "id": "salaryDate",
-      "type": "date",
-      "name": "salaryDate"
-    },
-    domProps: {
-      "value": _vm.form.salaryDate
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "salaryDate", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "salaryDate"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "placeholder": _vm.$t('Write your note here!')
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Image')))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "image",
-      "type": "file",
-      "name": "image"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Choose file')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "bg-light mt-4 w-25"
-  }, [_vm.url ? _c('img', {
-    staticClass: "img-fluid",
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Attached Image')
-    }
-  }) : _vm._e()])], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
-  }, [_c('v-button', {
-    attrs: {
-      "loading": _vm.form.busy,
-      "type": "success"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v(" " + _vm._s(_vm.$t('Save changes')) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "type": "reset"
+      "href": "#"
     },
     on: {
       "click": function click($event) {
-        return _vm.form.reset();
+        return _vm.refreshTable();
       }
     }
   }, [_c('i', {
-    staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                ")])], 1)])])])])])])]);
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _vm.$can('payment-voucher-create') ? _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": {
+        name: 'receiveVouchers.create'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  }), _vm._v(" " + _vm._s(_vm.$t("Create")) + "\n                ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_c('table', {
+    staticClass: "table vouchers-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Entity Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Entity Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Payment Method")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Amount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete') ? _c('th', {
+    staticClass: "text-right no-print"
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Action")) + "\n                ")]) : _vm._e()]), _vm._v(" "), _c('tbody', _vm._l(_vm.items, function (data, i) {
+    return _c('tr', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.items.length,
+        expression: "items.length"
+      }],
+      key: i
+    }, [_c('td', [_vm.pagination && _vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                      " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getEntityTypeLabel(data.entityType)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getEntityName(data)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getPaymentMethodLabel(data.paymentMethod)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.amount) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [data.account ? _c('span', [_vm._v(_vm._s(data.account.label))]) : _vm._e()]), _vm._v(" "), _c('td', [data.date ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : data.status === 2 ? _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v(_vm._s(_vm.$t("Cancelled")))]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.$can('payment-voucher-edit') || _vm.$can('payment-voucher-view') || _vm.$can('payment-voucher-delete') ? _c('td', {
+      staticClass: "text-right no-print"
+    }, [_c('div', {
+      staticClass: "action-dropdown"
+    }, [_vm.$can('payment-voucher-view') ? _c('router-link', {
+      staticClass: "btn btn-sm btn-primary mr-1",
+      attrs: {
+        "to": {
+          name: 'receiveVouchers.show',
+          params: {
+            slug: data.slug
+          }
+        },
+        "title": _vm.$t('View')
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-eye"
+    })]) : _vm._e(), _vm._v(" "), _vm.$can('payment-voucher-edit') ? _c('router-link', {
+      staticClass: "btn btn-sm btn-success mr-1",
+      attrs: {
+        "to": {
+          name: 'receiveVouchers.edit',
+          params: {
+            slug: data.slug
+          }
+        },
+        "title": _vm.$t('Edit')
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-edit"
+    })]) : _vm._e(), _vm._v(" "), _vm.$can('payment-voucher-delete') ? _c('button', {
+      staticClass: "btn btn-sm btn-danger",
+      attrs: {
+        "title": _vm.$t('Delete')
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.deleteItem(data.slug);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-trash"
+    })]) : _vm._e()], 1)]) : _vm._e()]);
+  }), 0)])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-content-end",
+    attrs: {
+      "pagination": _vm.pagination,
+      "offset": 5
+    },
+    on: {
+      "paginate": function paginate($event) {
+        _vm.query === '' ? _vm.getAllItem() : _vm.searchData();
+      }
+    }
+  }) : _vm._e()], 1)])])])]);
 };
 var staticRenderFns = [];
 
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payroll/edit.vue?vue&type=script&lang=js
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/receive/index.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
-
-/* harmony default export */ const editvue_type_script_lang_js = ({
-  middleware: ['auth', 'check-permissions'],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t('Edit Payroll')
-    };
-  },
+/* harmony default export */ const receivevue_type_script_lang_js = ({
+  name: "receive-vouchers",
   data: function data() {
     return {
-      breadcrumbsCurrent: 'Edit Payroll',
+      breadcrumbsCurrent: this.$t("Receive Vouchers"),
       breadcrumbs: [{
-        name: 'Dashboard',
-        url: 'home'
+        name: this.$t("Dashboard"),
+        url: "home"
       }, {
-        name: 'Payroll',
-        url: 'payroll.index'
+        name: this.$t("Vouchers"),
+        url: ""
       }, {
-        name: 'Edit',
-        url: ''
+        name: this.$t("Receive Vouchers"),
+        url: ""
       }],
-      form: new vform_es/* default */.Ay({
-        chequeNo: '',
-        salaryMonth: '',
-        employee: '',
-        account: '',
-        presentSalary: '',
-        deductionAmount: '',
-        deductionReason: '',
-        mobileBill: '',
-        foodBill: '',
-        bonus: '',
-        commission: '',
-        advance: '',
-        festivalBonus: '',
-        travelAllowance: '',
-        others: '',
-        totalSalary: '',
-        salaryDate: '',
-        status: 1,
-        note: '',
-        image: ''
-      }),
-      url: null,
-      accounts: ''
+      query: "",
+      items: [],
+      pagination: {},
+      loading: false,
+      currentRoute: ""
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items'])),
+  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)({
+    appInfo: "operations/appInfo"
+  })),
   created: function created() {
-    this.getEmployees();
-    this.getAccounts();
-    this.getPayroll();
-  },
-  mounted: function mounted() {
-    var _this = this;
-    // Load temporary data after component is mounted
-    this.$nextTick(function () {
-      _this.loadTemporaryData();
-    });
+    this.currentRoute = this.$route.path;
+    this.getAllItem();
   },
   methods: {
-    // get all employees
-    getEmployees: function getEmployees() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+    getAllItem: function getAllItem() {
+      var _this = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _yield$_this$$http$ge, data;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.n = 1;
-              return _this2.$store.dispatch('operations/allData', {
-                path: '/api/all-employees'
-              });
-            case 1:
-              return _context.a(2);
+              _this.loading = true;
+              _context.next = 3;
+              return _this.$http.get(window.location.origin + "/api/vouchers/receive?page=" + _this.$route.params.page);
+            case 3:
+              _yield$_this$$http$ge = _context.sent;
+              data = _yield$_this$$http$ge.data;
+              _this.items = data.data;
+              _this.pagination = data.meta;
+              _this.loading = false;
+            case 8:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
     },
-    // get accounts
-    getAccounts: function getAccounts() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+    searchData: function searchData() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + '/api/all-accounts');
-            case 1:
-              _yield$axios$get = _context2.v;
-              data = _yield$axios$get.data;
-              _this3.accounts = data.data;
-            case 2:
-              return _context2.a(2);
+              if (!(_this2.query.length > 0)) {
+                _context2.next = 16;
+                break;
+              }
+              _this2.loading = true;
+              _context2.prev = 2;
+              _context2.next = 5;
+              return _this2.$http.get(window.location.origin + "/api/vouchers/search?term=" + _this2.query + "&voucherType=1&page=" + _this2.$route.params.page);
+            case 5:
+              response = _context2.sent;
+              _this2.items = response.data.data;
+              _this2.pagination = response.data.meta;
+              _this2.loading = false;
+              _context2.next = 14;
+              break;
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](2);
+              _this2.loading = false;
+            case 14:
+              _context2.next = 17;
+              break;
+            case 16:
+              _this2.getAllItem();
+            case 17:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2);
+        }, _callee2, null, [[2, 11]]);
       }))();
     },
-    // get payroll
-    getPayroll: function getPayroll() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var _yield$axios$get2, data;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+    reload: function reload() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.n = 1;
-              return axios_default().get(window.location.origin + '/api/payroll/' + _this4.$route.params.slug);
-            case 1:
-              _yield$axios$get2 = _context3.v;
-              data = _yield$axios$get2.data;
-              _this4.form.chequeNo = data.data.chequeNo;
-              _this4.form.salaryMonth = data.data.salaryMonth;
-              _this4.form.employee = data.data.employee;
-              _this4.form.account = data.data.account;
-              _this4.form.availableBalance = data.data.account.availableBalance;
-              _this4.form.presentSalary = data.data.employee.totalSalary;
-              _this4.form.deductionAmount = data.data.deductionAmount;
-              _this4.form.deductionReason = data.data.deductionReason;
-              _this4.form.mobileBill = data.data.mobileBill;
-              _this4.form.foodBill = data.data.foodBill;
-              _this4.form.bonus = data.data.bonus;
-              _this4.form.commission = data.data.commission;
-              _this4.form.advance = data.data.advance;
-              _this4.form.festivalBonus = data.data.festivalBonus;
-              _this4.form.travelAllowance = data.data.travelAllowance;
-              _this4.form.others = data.data.others;
-              _this4.form.totalSalary = data.data.transaction.amount;
-              _this4.form.salaryDate = data.data.salaryDate;
-              _this4.form.note = data.data.note;
-              _this4.form.status = data.data.status;
-              _this4.url = data.data.image;
-            case 2:
-              return _context3.a(2);
+              _this3.query = "";
+              _this3.resetPagination();
+              _this3.getAllItem();
+            case 3:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
     },
-    // vue file upload
-    onFileChange: function onFileChange(e) {
-      var _this5 = this;
-      var file = e.target.files[0];
-      var reader = new FileReader();
-      if (file.size < 2111775 && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif')) {
-        reader.onloadend = function () {
-          _this5.form.image = reader.result;
-        };
-        reader.readAsDataURL(file);
-        this.url = URL.createObjectURL(file);
-      } else {
-        this.$toast.error(this.$t('Error!'), this.$t('Please select a valid thumbnail with size less than 2 MB'));
-      }
-    },
-    // calculate total
-    calculateTotalSalary: function calculateTotalSalary() {
-      var salary = Number(this.form.employee.totalSalary);
-      var deduction = Number(this.form.deductionAmount);
-      var mobileBill = Number(this.form.mobileBill);
-      var foodBill = Number(this.form.foodBill);
-      var bonus = Number(this.form.bonus);
-      var commission = Number(this.form.commission);
-      var advance = Number(this.form.advance);
-      var festivalBonus = Number(this.form.festivalBonus);
-      var travelAllowance = Number(this.form.travelAllowance);
-      var others = Number(this.form.others);
-      this.form.totalSalary = mobileBill + foodBill + bonus + commission + festivalBonus + travelAllowance + others + advance - deduction;
-      if (salary > 0) {
-        return this.form.totalSalary = salary + this.form.totalSalary;
-      }
-      return this.form.totalSalary;
-    },
-    updateBalance: function updateBalance() {
-      this.form.availableBalance = 0;
-      if (this.form.account) {
-        this.form.availableBalance = this.form.account.availableBalance;
-      }
-    },
-    // update payroll
-    updatePayroll: function updatePayroll() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+    refreshTable: function refreshTable() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.n = 1;
-              return _this6.form.patch(window.location.origin + '/api/payroll/' + _this6.$route.params.slug).then(function () {
-                // Clear temporary data after successful save
-                _this6.clearTemporaryData();
-                toast.fire({
-                  type: 'success',
-                  title: _this6.$t('Payroll updated successfully')
-                });
-                _this6.$router.push({
-                  name: 'payroll.index'
-                });
-              })["catch"](function () {
-                toast.fire({
-                  type: 'error',
-                  title: _this6.$t('Opps...something went wrong')
-                });
-              });
-            case 1:
-              return _context4.a(2);
+              _this4.query = "";
+              _this4.resetPagination();
+              _this4.getAllItem();
+            case 3:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
     },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      var tempData = {
-        employee: this.form.employee,
-        salaryMonth: this.form.salaryMonth,
-        salaryYear: this.form.salaryYear,
-        basicSalary: this.form.basicSalary,
-        houseRent: this.form.houseRent,
-        medical: this.form.medical,
-        transport: this.form.transport,
-        allowance: this.form.allowance,
-        overtime: this.form.overtime,
-        bonus: this.form.bonus,
-        commission: this.form.commission,
-        advance: this.form.advance,
-        loan: this.form.loan,
-        deduction: this.form.deduction,
-        totalSalary: this.form.totalSalary,
-        netSalary: this.form.netSalary,
-        status: this.form.status,
-        note: this.form.note,
-        image: this.form.image ? this.form.image.name : null,
-        timestamp: new Date().toISOString()
+    resetPagination: function resetPagination() {
+      this.$route.params.page = 1;
+    },
+    getEntityTypeLabel: function getEntityTypeLabel(type) {
+      var labels = {
+        client: this.$t("Client"),
+        supplier: this.$t("Supplier"),
+        chart_of_account: this.$t("Chart of Account")
       };
-      localStorage.setItem('payrollEditTempData', JSON.stringify(tempData));
+      return labels[type] || type;
     },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('payrollEditTempData');
-      if (tempData) {
-        try {
-          var data = JSON.parse(tempData);
-          this.form.employee = data.employee || this.form.employee;
-          this.form.salaryMonth = data.salaryMonth || this.form.salaryMonth;
-          this.form.salaryYear = data.salaryYear || this.form.salaryYear;
-          this.form.basicSalary = data.basicSalary || this.form.basicSalary;
-          this.form.houseRent = data.houseRent || this.form.houseRent;
-          this.form.medical = data.medical || this.form.medical;
-          this.form.transport = data.transport || this.form.transport;
-          this.form.allowance = data.allowance || this.form.allowance;
-          this.form.overtime = data.overtime || this.form.overtime;
-          this.form.bonus = data.bonus || this.form.bonus;
-          this.form.commission = data.commission || this.form.commission;
-          this.form.advance = data.advance || this.form.advance;
-          this.form.loan = data.loan || this.form.loan;
-          this.form.deduction = data.deduction || this.form.deduction;
-          this.form.totalSalary = data.totalSalary || this.form.totalSalary;
-          this.form.netSalary = data.netSalary || this.form.netSalary;
-          this.form.status = data.status !== undefined ? data.status : this.form.status;
-          this.form.note = data.note || this.form.note;
-          // Note: Image file cannot be restored from localStorage
-        } catch (error) {
-          console.error('Error loading temporary data:', error);
-        }
-      }
+    getEntityName: function getEntityName(data) {
+      if (data.client) return data.client.name;
+      if (data.supplier) return data.supplier.name;
+      if (data.chartOfAccount) return data.chartOfAccount.name;
+      return "-";
     },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('payrollEditTempData');
+    getPaymentMethodLabel: function getPaymentMethodLabel(method) {
+      var labels = {
+        direct: this.$t("Direct"),
+        invoice: this.$t("Invoice"),
+        purchase: this.$t("Purchase")
+      };
+      return labels[method] || method;
+    },
+    deleteItem: function deleteItem(slug) {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              sweetalert2_all_default().fire({
+                title: _this5.$t("Are you sure?"),
+                text: _this5.$t("You will not be able to return to this! This will delete the voucher permanently."),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: _this5.$t("Confirm"),
+                cancelButtonText: _this5.$t("Cancel")
+              }).then( /*#__PURE__*/function () {
+                var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(result) {
+                  var response, successMessage, translatedMessage, errorMessage, _translatedMessage, _error$response, _errorMessage, errorData, firstErrorKey, firstError, _translatedMessage2;
+                  return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+                    while (1) switch (_context5.prev = _context5.next) {
+                      case 0:
+                        if (!result.value) {
+                          _context5.next = 14;
+                          break;
+                        }
+                        _context5.prev = 1;
+                        _context5.next = 4;
+                        return _this5.$http["delete"](window.location.origin + "/api/vouchers/" + slug);
+                      case 4:
+                        response = _context5.sent;
+                        if (response.data.statusCode === 200) {
+                          // Success - translate message if available
+                          successMessage = response.data.message || _this5.$t('Voucher deleted successfully');
+                          translatedMessage = _this5.$t(successMessage);
+                          _this5.$toastr.s(translatedMessage !== successMessage ? translatedMessage : successMessage);
+                          _this5.getAllItem();
+                        } else {
+                          // Handle non-200 status codes
+                          errorMessage = response.data.message || _this5.$t('Error deleting voucher');
+                          _translatedMessage = _this5.$t(errorMessage);
+                          _this5.$toastr.e(_translatedMessage !== errorMessage ? _translatedMessage : errorMessage);
+                        }
+                        _context5.next = 14;
+                        break;
+                      case 8:
+                        _context5.prev = 8;
+                        _context5.t0 = _context5["catch"](1);
+                        console.error('Error deleting voucher:', _context5.t0);
+
+                        // Extract error message from response
+                        _errorMessage = null;
+                        if (_context5.t0 !== null && _context5.t0 !== void 0 && (_error$response = _context5.t0.response) !== null && _error$response !== void 0 && _error$response.data) {
+                          errorData = _context5.t0.response.data; // Check for message field
+                          if (errorData.message && typeof errorData.message === 'string') {
+                            _errorMessage = errorData.message;
+                          } else if (errorData.error && typeof errorData.error === 'string') {
+                            _errorMessage = errorData.error;
+                          } else if (errorData.errors && _typeof(errorData.errors) === 'object') {
+                            // If there are validation errors, try to get the first one
+                            firstErrorKey = Object.keys(errorData.errors)[0];
+                            if (firstErrorKey && Array.isArray(errorData.errors[firstErrorKey])) {
+                              firstError = errorData.errors[firstErrorKey][0];
+                              if (typeof firstError === 'string') {
+                                _errorMessage = firstError;
+                              }
+                            } else if (firstErrorKey && typeof errorData.errors[firstErrorKey] === 'string') {
+                              _errorMessage = errorData.errors[firstErrorKey];
+                            }
+                          }
+                        } else if (_context5.t0 !== null && _context5.t0 !== void 0 && _context5.t0.message && typeof _context5.t0.message === 'string') {
+                          _errorMessage = _context5.t0.message;
+                        }
+
+                        // Translate and show error
+                        if (_errorMessage) {
+                          _translatedMessage2 = _this5.$t(_errorMessage);
+                          _this5.$toastr.e(_translatedMessage2 !== _errorMessage ? _translatedMessage2 : _errorMessage);
+                        } else {
+                          _this5.$toastr.e(_this5.$t('Error deleting voucher'));
+                        }
+                      case 14:
+                      case "end":
+                        return _context5.stop();
+                    }
+                  }, _callee5, null, [[1, 8]]);
+                }));
+                return function (_x) {
+                  return _ref.apply(this, arguments);
+                };
+              }());
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
     }
   }
 });
-;// ./resources/js/pages/payroll/edit.vue?vue&type=script&lang=js
- /* harmony default export */ const payroll_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payroll/edit.vue?vue&type=style&index=0&id=df2e06b2&prod&scoped=true&lang=css
-var editvue_type_style_index_0_id_df2e06b2_prod_scoped_true_lang_css = __webpack_require__(30213);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/payroll/edit.vue?vue&type=style&index=0&id=df2e06b2&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_df2e06b2_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const payroll_editvue_type_style_index_0_id_df2e06b2_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_df2e06b2_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/payroll/edit.vue?vue&type=style&index=0&id=df2e06b2&prod&scoped=true&lang=css
-
+;// CONCATENATED MODULE: ./resources/js/pages/vouchers/receive/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const vouchers_receivevue_type_script_lang_js = (receivevue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/payroll/edit.vue
+;// CONCATENATED MODULE: ./resources/js/pages/vouchers/receive/index.vue
 
 
 
-;
 
 
 /* normalize component */
-
+;
 var component = (0,componentNormalizer/* default */.A)(
-  payroll_editvue_type_script_lang_js,
+  vouchers_receivevue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "df2e06b2",
+  null,
   null
   
 )
 
-/* harmony default export */ const edit = (component.exports);
+/* harmony default export */ const receive = (component.exports);
 
 /***/ })
 

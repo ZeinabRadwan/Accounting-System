@@ -109,7 +109,7 @@
                         <td style="min-width: 120px;">{{ ((item.originalPrice || item.unitPrice) * item.qty) }} <span class="saudi-riyal">ê</span></td>
                         <td style="min-width: 180px;">
                           <div class="input-group">
-                            <select v-model="item.discountType" class="form-control form-control-sm border-0" style="width: 60px;" @change="calculateProductDiscount(i - 1)">
+                            <select v-model="item.discountType" class="form-control form-control-sm border-0" style="width: 85px;" @change="calculateProductDiscount(i - 1)">
                               <option value="fixed">{{ $t("Fixed") }}</option>
                               <option value="percentage">{{ $t("%") }}</option>
                             </select>

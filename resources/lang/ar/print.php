@@ -228,6 +228,7 @@ return [
     'Subtotal' => 'الإجمالي قبل الضريبة',
     "Total with VAT" => 'الإجمالي بعد الضريبة',
     'Product Discount' => 'الخصم المنتجي',
+    'Product VAT' => 'ضريبة الأصناف',
     'VAT' => 'الضريبة',
     'Discount' => 'الخصم',
     'Tax' => 'الضريبة',
@@ -270,4 +271,7 @@ return [
     'Original Discount' => 'الخصم الأصلي',
     'Original Tax' => 'الضريبة الأصلية',
     'Net Amount After Return' => 'صافي المبلغ بعد المرتجع',
+    'VAT Type' => 'نوع الضريبة',
+    'Total After Discount' => 'الإجمالي بعد الخصم',
+    'Created By' => 'تم الإنشاء بواسطة',
 ];

@@ -270,6 +270,20 @@ const showToast = (type, title, message, options = {}) => {
   const container = getToastContainer()
   const { toast, progressBar } = createToastElement(type, title, message, duration)
   
+  // Check if toast content equals [object Object] and hide it
+  const messageEl = toast.querySelector('.custom-toast-message')
+  const titleEl = toast.querySelector('.custom-toast-title')
+  
+  if (messageEl && messageEl.textContent === '[object Object]') {
+    toast.style.display = 'none'
+    return toast
+  }
+  
+  if (titleEl && titleEl.textContent === '[object Object]') {
+    toast.style.display = 'none'
+    return toast
+  }
+  
   // Show the container when adding toasts
   container.style.display = 'block'
   

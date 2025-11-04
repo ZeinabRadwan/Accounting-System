@@ -271,6 +271,17 @@ export default {
 
     // update expense
     async updateExpense() {
+      // Ensure subCategory.code is a string if subCategory is an object
+      if (this.form.subCategory && typeof this.form.subCategory === 'object') {
+        if (this.form.subCategory.code !== undefined && typeof this.form.subCategory.code !== 'string') {
+          // Create a new object with code as string
+          this.form.subCategory = {
+            ...this.form.subCategory,
+            code: String(this.form.subCategory.code)
+          }
+        }
+      }
+      
       await this.form
         .patch(
           window.location.origin + '/api/expenses/' + this.$route.params.slug
@@ -278,17 +289,44 @@ export default {
         .then(() => {
           // Clear temporary data after successful save
           this.clearTemporaryData()
-          toast.fire({
-            type: 'success',
-            title: this.$t('Expense updated successfully'),
-          })
+          this.$toast.success(this.$t('Expense updated successfully'))
           this.$router.push({ name: 'expenses.index' })
         })
-        .catch(() => {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Please check your input and try again.'),
-          })
+        .catch((error) => {
+          // Extract and display validation errors
+          if (error?.response?.status === 422 && error?.response?.data?.errors) {
+            const errors = error.response.data.errors
+            const errorMessages = []
+            
+            // Collect all error messages
+            Object.keys(errors).forEach((key) => {
+              if (Array.isArray(errors[key])) {
+                errors[key].forEach((msg) => {
+                  if (typeof msg === 'string' && msg.trim() !== '') {
+                    errorMessages.push(msg)
+                  }
+                })
+              } else if (typeof errors[key] === 'string' && errors[key].trim() !== '') {
+                errorMessages.push(errors[key])
+              }
+            })
+            
+            // Display the first error message or all messages
+            if (errorMessages.length > 0) {
+              // Show first error message
+              const firstError = errorMessages[0]
+              // Try to translate if possible, otherwise use as-is
+              const translatedError = this.$t(firstError)
+              this.$toast.error(translatedError !== firstError ? translatedError : firstError)
+            } else {
+              this.$toast.error(this.$t('Please check your input and try again.'))
+            }
+          } else {
+            // Handle other errors
+            const errorMessage = error?.response?.data?.message || error?.response?.data?.error || this.$t('Please check your input and try again.')
+            const translatedError = this.$t(errorMessage)
+            this.$toast.error(translatedError !== errorMessage ? translatedError : errorMessage)
+          }
         })
     },
     // save form data temporarily
@@ -408,3 +446,4 @@ export default {
   box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 </style>
+

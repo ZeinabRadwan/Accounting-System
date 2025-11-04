@@ -228,6 +228,9 @@ class RTLService {
    */
   refreshCustomToast() {
     try {
+      // Hide toasts with [object Object] content
+      this.hideInvalidToasts()
+      
       // Try to refresh through window.toast if available
       if (window.toast && typeof window.toast.refreshRTL === 'function') {
         window.toast.refreshRTL()
@@ -246,11 +249,40 @@ class RTLService {
   }
 
   /**
+   * Hide toasts with [object Object] content
+   */
+  hideInvalidToasts() {
+    try {
+      const containers = document.querySelectorAll('.custom-toast-container')
+      containers.forEach(container => {
+        const toasts = container.querySelectorAll('.custom-toast')
+        toasts.forEach(toast => {
+          const messageEl = toast.querySelector('.custom-toast-message')
+          const titleEl = toast.querySelector('.custom-toast-title')
+          
+          if (messageEl && messageEl.textContent === '[object Object]') {
+            toast.style.display = 'none'
+          }
+          
+          if (titleEl && titleEl.textContent === '[object Object]') {
+            toast.style.display = 'none'
+          }
+        })
+      })
+    } catch (error) {
+      console.warn('Error hiding invalid toasts:', error)
+    }
+  }
+
+  /**
    * Reposition existing toasts when RTL changes
    */
   repositionExistingToasts() {
     setTimeout(() => {
       try {
+        // Hide toasts with [object Object] content
+        this.hideInvalidToasts()
+        
         const containers = document.querySelectorAll('.custom-toast-container')
         containers.forEach(container => {
           if (this.isRTL) {
@@ -279,6 +311,9 @@ class RTLService {
   forceContainerPositioning() {
     setTimeout(() => {
       try {
+        // Hide toasts with [object Object] content
+        this.hideInvalidToasts()
+        
         const containers = document.querySelectorAll('.custom-toast-container')
         containers.forEach(container => {
           // Force positioning styles

@@ -323,12 +323,14 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
                 <a
-                  @click="refreshTable()"
+                @click.prevent="!loading && refreshTable()"
                   href="#"
                   v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
+                  :class="['btn', 'btn-success', loading ? 'disabled' : '']"
+                  :aria-busy="loading ? 'true' : 'false'"
                 >
-                  <i class="fas fa-sync"></i>
+                  <i v-if="!loading" class="fas fa-sync"></i>
+                  <i v-else class="fas fa-spinner fa-spin"></i>
                 </a>
                 <a
                   @click="print"
@@ -588,6 +590,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
+import iziToast from "izitoast";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -924,9 +927,23 @@ export default {
     },
 
     // refresh table
-    refreshTable() {
+    async refreshTable() {
       this.query = "";
-      this.query === "" ? this.getActivity() : this.searchData();
+      if (this.pagination) {
+        this.pagination.current_page = 1;
+      }
+      await this.getActivity();
+      const refreshedText = (this.$te && this.$te('Refreshed'))
+        ? this.$t('Refreshed')
+        : 'Refreshed';
+      if (typeof iziToast !== 'undefined') {
+        iziToast.success({
+          title: refreshedText,
+          message: '',
+          position: 'topRight',
+          timeout: 3000
+        });
+      }
     },
 
     // reset pagination

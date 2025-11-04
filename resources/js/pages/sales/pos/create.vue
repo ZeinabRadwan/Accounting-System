@@ -196,7 +196,7 @@
                         <select
                           v-model="product.discountType"
                           class="form-control form-control-sm"
-                          style="width: 70px; flex-shrink: 0"
+                          style="width: 85px; flex-shrink: 0"
                           :class="{
                             'is-invalid': form.errors.has(
                               `selectedProducts.${i}.discountType`

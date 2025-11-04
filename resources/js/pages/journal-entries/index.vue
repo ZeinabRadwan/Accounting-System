@@ -352,6 +352,13 @@ export default {
     document.addEventListener("click", this.onClickOutside);
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);
+    
+    // Check for success message from redirect
+    if (this.$route.query.created === 'success') {
+      window.toast.success(this.$t('Journal entry created successfully'));
+      // Remove query parameter from URL
+      this.$router.replace({ query: {} });
+    }
   },
   beforeDestroy() {
     document.removeEventListener("click", this.onClickOutside);

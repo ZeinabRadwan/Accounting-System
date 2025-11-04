@@ -115,7 +115,7 @@
                         <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
                         <td style="min-width: 120px;">
                           <div class="input-group">
-                            <select v-model="item.discountType" class="form-control form-control-sm" style="width: 60px;" @change="calculateProductDiscount(index)">
+                            <select v-model="item.discountType" class="form-control form-control-sm" style="width: 85px;" @change="calculateProductDiscount(index)">
                               <option value="fixed">{{ $t('Fixed') }}</option>
                               <option value="percentage">{{ $t('%') }}</option>
                             </select>

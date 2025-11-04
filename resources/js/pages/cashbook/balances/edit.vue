@@ -185,67 +185,40 @@ export default {
           window.location.origin + '/api/balances/' + this.$route.params.slug
         )
         .then(() => {
-          toast.fire({
-            type: 'success',
-            title: this.$t('Balance updated successfully'),
-          })
+          this.$toast.success(this.$t('Balance updated successfully'))
           this.$router.push({ name: 'balances.index' })
         })
-        .catch(() => {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Please check your input and try again.'),
-          })
+        .catch((error) => {
+          // Extract error message from response
+          let errorMessage = null
+          
+          if (error?.response?.data) {
+            const errorData = error.response.data
+            // Check for message field
+            if (errorData.message && typeof errorData.message === 'string') {
+              errorMessage = errorData.message
+            } else if (errorData.errors && typeof errorData.errors === 'object') {
+              // If there are validation errors, try to get the first one
+              const firstErrorKey = Object.keys(errorData.errors)[0]
+              if (firstErrorKey && Array.isArray(errorData.errors[firstErrorKey])) {
+                const firstError = errorData.errors[firstErrorKey][0]
+                if (typeof firstError === 'string') {
+                  errorMessage = firstError
+                }
+              }
+            }
+          }
+
+          // Translate and show error
+          if (errorMessage) {
+            // Try to translate the message if it exists as a translation key
+            const translatedMessage = this.$t(errorMessage)
+            // Use translated version if available, otherwise use original
+            this.$toast.error(translatedMessage !== errorMessage ? translatedMessage : errorMessage)
+          } else {
+            this.$toast.error(this.$t('Please check your input and try again.'))
+          }
         })
-    },
-  },
-}
-</script>
-
-<style scoped>
-/* Space between action buttons */
-.btn-group.c-w-100 {
-  gap: 10px;
-}
-
-
-
-.card {
-  margin-top: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA
-}
-
-.card-footer {
-  background-color: white;
-  border-top: 1px solid #CED4DA;
-  padding: 0 1.25rem 0.625rem 1.25rem;
-  border-radius: 0 0 20px 20px;
-}
-
-/* Search Input Background Override */
-.form-control{
-  background: #fff !important;
-}
-
-.btn-primary {
-  background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
-}
-
-.btn-secondary {
-  background: #33a0d9 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
-}
-</style>
-
     },
   },
 }

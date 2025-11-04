@@ -265,6 +265,7 @@
 import ChartOfAccountForm from '@/components/ChartOfAccountForm.vue'
 import TranslationManager from '@/components/TranslationManager.vue'
 import Modal from '@/components/Modal.vue'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'ChartOfAccountsIndex',
@@ -526,16 +527,60 @@ export default {
     },
     
     async deleteAccount(account) {
-      if (confirm(`Are you sure you want to delete account ${account.code}?`)) {
-        try {
-          await this.$axios.delete(`/api/chart-of-accounts/${account.code}`)
-          this.$toast.success(this.$t('Account deleted successfully'))
-          this.loadAccounts()
-        } catch (error) {
-          console.error('Error deleting account:', error)
-          this.$toast.error('Error deleting account')
+      Swal.fire({
+        title: this.$t('Are you sure?'),
+        text: this.$t('You will not be able to return to this! This will delete the account permanently.'),
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.$t('Confirm'),
+        cancelButtonText: this.$t('Cancel'),
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            await this.$axios.delete(`/api/chart-of-accounts/${account.code}`)
+            this.$toast.success(this.$t('Account deleted successfully'))
+            this.loadAccounts()
+          } catch (error) {
+            console.error('Error deleting account:', error)
+            
+            // Handle error response with localized messages
+            if (error.response && error.response.data) {
+              const errorData = error.response.data
+              let errorMessage = null
+              
+              // First, try to get and translate the main message
+              if (errorData.message) {
+                // Try to translate the message - $t() will return the key if translation doesn't exist
+                // This allows us to use the message as a translation key
+                errorMessage = this.$t(errorData.message)
+                
+                // If translation equals the original key and it's not in our translations, 
+                // it means the backend might have already localized it, so use it as-is
+                // But if it matches a translation key, $t() will handle it correctly
+              }
+              
+              // If no message found, check errors array
+              if (!errorMessage && errorData.errors && errorData.errors.chart_of_account) {
+                const specificErrors = errorData.errors.chart_of_account
+                if (specificErrors.length > 0) {
+                  // Try to translate the specific error
+                  const firstError = specificErrors[0]
+                  errorMessage = this.$t(firstError)
+                }
+              }
+              
+              // Fallback to generic error message
+              if (!errorMessage) {
+                errorMessage = this.$t('Error deleting account')
+              }
+              
+              this.$toast.error(errorMessage)
+            } else {
+              this.$toast.error(this.$t('Error deleting account'))
+            }
+          }
         }
-      }
+      })
     },
     
     onTranslationsSaved() {

@@ -111,6 +111,11 @@
                     {{ $invoiceReturn->status ? __('print.Active') : __('print.Inactive') }}
                 </span>
             </div>
+            @if($invoiceReturn->user)
+            <div>
+                <strong>@lang('print.Created By'):</strong> {{ $invoiceReturn->user->name ?? __('print.N/A') }}
+            </div>
+            @endif
             @if($invoiceReturn->note)
             <div>
                 <strong>@lang('print.Note'):</strong> {{ $invoiceReturn->note }}
@@ -132,6 +137,42 @@
                 </thead>
                 <tbody>
                     @foreach($invoiceReturn->invoiceReturnProducts as $product)
+                    @php
+                        // Get the original invoice product data
+                        $invoice = $invoiceReturn->invoice;
+                        $invoiceProducts = $invoice ? $invoice->invoiceProducts : collect();
+                        $invoiceProduct = $invoiceProducts->firstWhere('product_id', $product->product_id);
+                        
+                        if (!$invoiceProduct) {
+                            // Try to load it directly if not found
+                            $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $invoiceReturn->invoice_id)
+                                ->where('product_id', $product->product_id)
+                                ->with('vatRate')
+                                ->first();
+                        }
+                        
+                        if (!$invoiceProduct) {
+                            continue; // Skip if invoice product not found
+                        }
+                        
+                        // Invoice product data - use getAttribute to ensure we get the actual value
+                        $invoiceQty = $invoiceProduct->getAttribute('quantity') ?? 0;
+                        $returnQty = $product->getAttribute('quantity') ?? 0;
+                        $salePrice = $product->getAttribute('sale_price') ?? 0;
+                        $discountAmount = $invoiceProduct->getAttribute('discount_amount') ?? 0;
+                        $taxAmount = $invoiceProduct->getAttribute('tax_amount') ?? 0;
+                        
+                        // Calculate per unit values (same as Vue component)
+                        $perUnitDiscount = $invoiceQty > 0 ? round($discountAmount / $invoiceQty, 2) : 0;
+                        $unitNet = round($salePrice - $perUnitDiscount, 2);
+                        $perUnitVat = $invoiceQty > 0 ? round($taxAmount / $invoiceQty, 2) : 0;
+                        
+                        // Calculate return values
+                        $returnDiscount = round($perUnitDiscount * $returnQty, 2);
+                        $returnNet = round($unitNet * $returnQty, 2);
+                        $returnVat = round($perUnitVat * $returnQty, 2);
+                        $returnTotal = round($returnNet + $returnVat, 2);
+                    @endphp
                     <tr>
                         <td>
                             <strong>{{ $product->product->name ?? __('print.N/A') }}</strong>
@@ -139,18 +180,11 @@
                             <br><small>{{ $product->product->description }}</small>
                             @endif
                         </td>
-                        <td class="text-right">{{ $product->invoiceQty }}</td>
-                        <td class="text-right">{{ $product->returnQty }}</td>
-                        <td class="text-right">{!! centralCurrencySymbolFormat($product->salePrice) !!}</td>
+                        <td class="text-right">{{ $invoiceQty }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                        <td class="text-right">{{ $returnQty }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                        <td class="text-right">{!! centralCurrencySymbolFormat($salePrice) !!}</td>
                         <td class="text-right">
-                            @php
-                                $unitDiscount = $product->invoiceQty > 0 ? $product->discountAmount / $product->invoiceQty : 0;
-                                $unitNet = $product->salePrice - $unitDiscount;
-                                $returnTotal = $unitNet * $product->returnQty;
-                                $returnVat = $product->taxAmount > 0 ? ($product->taxAmount / $product->invoiceQty) * $product->returnQty : 0;
-                                $totalWithVat = $returnTotal + $returnVat;
-                            @endphp
-                            {!! centralCurrencySymbolFormat($totalWithVat) !!}
+                            {!! centralCurrencySymbolFormat($returnTotal) !!}
                         </td>
                     </tr>
                     @endforeach
@@ -161,29 +195,75 @@
         <!-- Totals -->
         <div class="totals-section">
             <div class="totals-table">
+                @php
+                    // Calculate return totals (same as show.vue)
+                    $returnSubtotal = 0;
+                    $returnTotalDiscount = 0;
+                    $returnTotalTax = 0;
+                    
+                    foreach($invoiceReturn->invoiceReturnProducts as $product) {
+                        // Get invoice product with fallback
+                        $invoice = $invoiceReturn->invoice;
+                        $invoiceProducts = $invoice ? $invoice->invoiceProducts : collect();
+                        $invoiceProduct = $invoiceProducts->firstWhere('product_id', $product->product_id);
+                        
+                        if (!$invoiceProduct) {
+                            // Try to load it directly if not found
+                            $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $invoiceReturn->invoice_id)
+                                ->where('product_id', $product->product_id)
+                                ->first();
+                        }
+                        
+                        if (!$invoiceProduct) continue;
+                        
+                        $returnQty = $product->getAttribute('quantity') ?? 0;
+                        if ($returnQty <= 0) continue;
+                        
+                        $salePrice = $product->getAttribute('sale_price') ?? 0;
+                        $invoiceQty = $invoiceProduct->getAttribute('quantity') ?? 1;
+                        $discountAmount = $invoiceProduct->getAttribute('discount_amount') ?? 0;
+                        $taxAmount = $invoiceProduct->getAttribute('tax_amount') ?? 0;
+                        
+                        // Calculate per unit values
+                        $perUnitDiscount = $invoiceQty > 0 ? round($discountAmount / $invoiceQty, 2) : 0;
+                        $unitNet = round($salePrice - $perUnitDiscount, 2);
+                        $perUnitVat = $invoiceQty > 0 ? round($taxAmount / $invoiceQty, 2) : 0;
+                        
+                        // Accumulate totals
+                        $returnSubtotal += round($salePrice * $returnQty, 2);
+                        $returnTotalDiscount += round($perUnitDiscount * $returnQty, 2);
+                        $returnTotalTax += round($perUnitVat * $returnQty, 2);
+                    }
+                    
+                    $returnTotalAfterDiscount = $returnSubtotal - $returnTotalDiscount;
+                    $returnTotalWithVat = $returnTotalAfterDiscount + $returnTotalTax;
+                @endphp
+                
                 <div class="total-row">
-                    <span>@lang('print.Original Invoice Subtotal'):</span>
-                    <span>{!! centralCurrencySymbolFormat($invoiceReturn->invoice->subTotal ?? 0) !!}</span>
+                    <span>@lang('print.Subtotal'):</span>
+                    <span>{!! centralCurrencySymbolFormat($returnSubtotal) !!}</span>
                 </div>
+                
                 <div class="total-row">
-                    <span>@lang('print.Return Amount'):</span>
-                    <span style="color: #dc3545;">-{!! centralCurrencySymbolFormat($invoiceReturn->totalReturn ?? 0) !!}</span>
+                    <span>@lang('print.Product Discount'):</span>
+                    <span>{!! centralCurrencySymbolFormat($returnTotalDiscount) !!}</span>
                 </div>
-                @if($invoiceReturn->invoice->discount > 0)
+                
                 <div class="total-row">
-                    <span>@lang('print.Original Discount'):</span>
-                    <span>-{!! centralCurrencySymbolFormat($invoiceReturn->invoice->discount ?? 0) !!}</span>
+                    <span>@lang('print.Total After Discount'):</span>
+                    <span>{!! centralCurrencySymbolFormat($returnTotalAfterDiscount) !!}</span>
+                </div>
+                
+                @if($returnTotalTax > 0)
+                <div class="total-row">
+                    <span>@lang('print.Product VAT'):</span>
+                    <span>{!! centralCurrencySymbolFormat($returnTotalTax) !!}</span>
                 </div>
                 @endif
-                @if($invoiceReturn->invoice->calculatedTax > 0)
-                <div class="total-row">
-                    <span>@lang('print.Original Tax'):</span>
-                    <span>{!! centralCurrencySymbolFormat($invoiceReturn->invoice->calculatedTax ?? 0) !!}</span>
-                </div>
-                @endif
+                
                 <div class="total-row total-final">
-                    <span>@lang('print.Net Amount After Return'):</span>
-                    <span>{!! centralCurrencySymbolFormat(($invoiceReturn->invoice->calculatedTotal ?? 0) - ($invoiceReturn->totalReturn ?? 0)) !!}</span>
+                    <span>@lang('print.Total with VAT'):</span>
+                    <span>= {!! centralCurrencySymbolFormat($returnTotalWithVat) !!}</span>
                 </div>
             </div>
         </div>

@@ -387,11 +387,9 @@ export default {
         // Clear temporary data after successful save
         this.clearTemporaryData()
 
-        // Show success message
-        window.toast.success('Journal entry created successfully!')
-
-        // Redirect to journal entries list
-        this.$router.push('/journal-entries')
+        // Redirect to journal entries list with success parameter
+        // Success message will be shown in index page
+        this.$router.push({ path: '/journal-entries', query: { created: 'success' } })
       } catch (error) {
         console.error('Error creating journal entry:', error)
         if (error.response && error.response.data && error.response.data.errors) {
@@ -399,11 +397,15 @@ export default {
           // Prefer backend 'error' string if present
           const backendError = error.response.data.error || error.response.data.message
           if (backendError) {
-            window.toast.error(backendError)
+            // Translate the error message if it exists as a translation key
+            const translatedError = this.$t(backendError)
+            window.toast.error(translatedError !== backendError ? translatedError : backendError)
           }
         } else {
           const backendError = error?.response?.data?.error || error?.response?.data?.message || 'Error creating journal entry'
-          window.toast.error(backendError)
+          // Translate the error message if it exists as a translation key
+          const translatedError = this.$t(backendError)
+          window.toast.error(translatedError !== backendError ? translatedError : backendError)
         }
       } finally {
         this.loading = false
