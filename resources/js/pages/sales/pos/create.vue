@@ -55,6 +55,22 @@
                   </div>
                 </ClientCreateModal>
               </div>
+              <!-- Client Chart of Account Status -->
+              <div class="client-status mt-2" v-if="form.client">
+                <div v-if="!form.client.chart_of_account_id" class="client-warning">
+                  <i class="fas fa-exclamation-triangle text-warning"></i>
+                  <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                  <button 
+                    type="button" 
+                    class="btn btn-sm btn-outline-warning ml-2"
+                    @click="autoAssignClientChartOfAccount"
+                    :disabled="isAutoAssigningClient"
+                  >
+                    <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                    {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
+                  </button>
+                </div>
+              </div>
               <has-error :form="form" field="client" />
             </div>
 
@@ -526,10 +542,32 @@
                       "
                       >{{ product.inventoryCount }}</span
                     >
+                    <span
+                      v-if="Number(product.inventoryCount) < 1 && product.itemType !== 'service'"
+                      class="stock-warning-icon-pos"
+                      v-tooltip="$t('Click to manage stock')"
+                      @click.stop="openStockAdjustmentModal(product)"
+                    >
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                   </div>
                   <div class="pos-box-content">
                     <span>{{ product.code | withPrefix(productPrefix) }}</span>
                     <p class="pos-box-text">{{ product.name }}</p>
+                  </div>
+                  <!-- Product Chart of Account Status -->
+                  <div v-if="product && !product.sales_account_id && product.itemType !== 'service'" class="product-warning-pos">
+                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                    <span>{{ $t('Product') }} "{{ product.name }}" {{ $t('needs Sales Account') }}</span>
+                    <button 
+                      type="button" 
+                      class="btn btn-xs btn-outline-warning"
+                      @click.stop="autoAssignProductChartOfAccount(product, 'sales')"
+                      :disabled="isAutoAssigningProduct === product.id"
+                    >
+                      <i :class="isAutoAssigningProduct === product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                      {{ isAutoAssigningProduct === product.id ? $t('Assigning...') : $t('Auto-Assign') }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -832,25 +870,37 @@
                 <tr style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Subtotal") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.subTotal }} <span class="saudi-riyal">ê</span>
+                    {{ formatNumber(calculatedSubtotal) }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
-                <tr v-if="!isSaudiArabia && allData.discount" style="margin-top: 10px">
+                <tr v-if="(totalProductDiscount > 0 || globalDiscount > 0)" style="margin-top: 10px">
                   <td colspan="3" class="total">{{ $t("Discount") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.discount }} <span class="saudi-riyal">ê</span>
-                  </td>
-                </tr>
-                <tr v-if="allData.tax" style="margin-top: 10px">
-                  <td colspan="3" class="total">{{ $t("Tax") }}(%)</td>
-                  <td style="text-align: right" class="total">
-                    {{ allData.tax }} <span class="saudi-riyal">ê</span>
+                    {{ formatNumber(totalProductDiscount + globalDiscount) }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
                 <tr style="margin-top: 10px">
-                  <td colspan="3" class="total">{{ $t("Total") }}</td>
+                  <td colspan="3" class="total">{{ $t("Total After Discount") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.invoiceTotal }}
+                    {{ formatNumber(totalAfterDiscount) }} <span class="saudi-riyal">ê</span>
+                  </td>
+                </tr>
+                <tr v-if="(totalProductTax > 0 || invoiceLevelTax > 0)" style="margin-top: 10px">
+                  <td colspan="3" class="total">{{ $t("Tax") }}(%)</td>
+                  <td style="text-align: right" class="total">
+                    {{ formatNumber(totalProductTax + invoiceLevelTax) }} <span class="saudi-riyal">ê</span>
+                  </td>
+                </tr>
+                <tr v-if="allData.transport && Number(allData.transport) > 0" style="margin-top: 10px">
+                  <td colspan="3" class="total">{{ $t("Transport Cost") }}</td>
+                  <td style="text-align: right" class="total">
+                    {{ formatNumber(allData.transport) }} <span class="saudi-riyal">ê</span>
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px">
+                  <td colspan="3" class="total">{{ $t("Total After Tax") }}</td>
+                  <td style="text-align: right" class="total">
+                    {{ formatNumber(totalAfterTax) }}
                     <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
@@ -863,7 +913,7 @@
                 <tr>
                   <td colspan="3" class="total">{{ $t("Due") }}</td>
                   <td style="text-align: right" class="total">
-                    {{ allData.due }} <span class="saudi-riyal">ê</span>
+                    {{ formatNumber(calculatedDue) }} <span class="saudi-riyal">ê</span>
                   </td>
                 </tr>
               </tbody>
@@ -903,6 +953,16 @@
         </button>
       </div>
     </Modal>
+
+    <!-- Stock Adjustment Modal -->
+    <StockAdjustmentModal 
+      :is-open="showStockAdjustmentModal"
+      :product="selectedProductForStockAdjustment"
+      @close="closeStockAdjustmentModal"
+      @adjust-quantity="adjustProductQuantity"
+      @persist="saveTemporary"
+      @stock-updated="handleStockUpdated"
+    />
   </div>
 </template>
 
@@ -914,6 +974,7 @@ import VueBarcode from "vue-barcode";
 import sound from "../../../audio/beep.wav";
 import ClientCreateModal from "~/components/ClientCreateModal";
 import ProductCreateModal from "~/components/ProductCreateModal";
+import StockAdjustmentModal from "~/components/StockAdjustmentModal";
 import html2canvas from "html2canvas";
 
 export default {
@@ -925,6 +986,7 @@ export default {
     barcode: VueBarcode,
     ClientCreateModal,
     ProductCreateModal,
+    StockAdjustmentModal,
   },
   data: () => ({
     breadcrumbsCurrent: "Create Sale",
@@ -991,6 +1053,12 @@ export default {
     generateOrder: false,
     clickCount: 0,
     clients: [],
+    // Stock adjustment modal
+    showStockAdjustmentModal: false,
+    selectedProductForStockAdjustment: null,
+    // Chart of account auto-assign
+    isAutoAssigningClient: false,
+    isAutoAssigningProduct: null,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
@@ -998,6 +1066,89 @@ export default {
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
       return !this.appInfo?.country || this.appInfo.country === 'SA';
+    },
+    
+    // Calculate subtotal from products (sum of salePrice × quantity) - this is the base subtotal before any discounts or taxes
+    calculatedSubtotal() {
+      if (!this.invoiceProducts || this.invoiceProducts.length === 0) return 0;
+      return this.invoiceProducts.reduce((sum, product) => {
+        return sum + (Number(product.salePrice || 0) * Number(product.quantity || 0));
+      }, 0);
+    },
+    
+    // Calculate total product discount (sum of all product-level discounts)
+    totalProductDiscount() {
+      if (!this.invoiceProducts || this.invoiceProducts.length === 0) return 0;
+      return this.invoiceProducts.reduce((sum, product) => {
+        // productDiscount/discount_amount is the total discount for the line item
+        const discount = Number(product.productDiscount || product.discount_amount || 0);
+        return sum + discount;
+      }, 0);
+    },
+    
+    // Calculate total product tax/VAT (sum of all product-level taxes)
+    // tax_amount in InvoiceProduct is per unit, so we need to multiply by quantity
+    // But taxTotal already does this, so use it if available
+    totalProductTax() {
+      if (!this.invoiceProducts || this.invoiceProducts.length === 0) return 0;
+      return this.invoiceProducts.reduce((sum, product) => {
+        // taxTotal = quantity * tax_amount (already calculated in backend)
+        const taxTotal = Number(product.taxTotal || 0);
+        if (taxTotal > 0) {
+          return sum + taxTotal;
+        }
+        // Fallback: calculate from unit tax * quantity
+        // productTax or tax_amount is per unit, so multiply by quantity
+        const unitTax = Number(product.productTax || product.tax_amount || product.unitTax || 0);
+        const quantity = Number(product.quantity || 0);
+        return sum + (unitTax * quantity);
+      }, 0);
+    },
+    
+    // Calculate global discount from invoice (invoice-level discount)
+    globalDiscount() {
+      if (!this.allData) return 0;
+      // If discountType is 1 (percentage), discount is already calculated amount from backend
+      // If discountType is 0 (fixed), discount is the fixed amount
+      return Number(this.allData.discount || 0);
+    },
+    
+    // Calculate invoice-level tax (tax applied at invoice level, not product level)
+    invoiceLevelTax() {
+      if (!this.allData) return 0;
+      const totalTax = Number(this.allData.tax || 0);
+      const productTax = this.totalProductTax;
+      // Invoice-level tax = total tax - product tax
+      // This handles cases where there's both product VAT and invoice-level tax
+      return Math.max(0, totalTax - productTax);
+    },
+    
+    // Calculate total after discount for receipt
+    // This should be: Subtotal - Product Discounts - Global Discount
+    totalAfterDiscount() {
+      const subtotal = this.calculatedSubtotal;
+      const productDiscount = this.totalProductDiscount;
+      const globalDiscount = this.globalDiscount;
+      const result = subtotal - productDiscount - globalDiscount;
+      return result >= 0 ? result : 0;
+    },
+    
+    // Calculate total after tax for receipt  
+    // Following the same logic as print template: totalAfterDiscount + totalProductTax
+    // This matches how invoice print template calculates it
+    totalAfterTax() {
+      const afterDiscount = this.totalAfterDiscount;
+      const productTax = this.totalProductTax;
+      // Match print template calculation: totalAfterDiscount + totalProductTax
+      return afterDiscount + productTax;
+    },
+    
+    // Calculate due amount (Total After Tax - Paid)
+    calculatedDue() {
+      const totalAfterTax = this.totalAfterTax;
+      const totalPaid = Number(this.allData?.totalPaid || 0);
+      const result = totalAfterTax - totalPaid;
+      return result >= 0 ? result : 0;
     },
   },
   mounted() {
@@ -1175,6 +1326,21 @@ export default {
       this.allData = data.data;
       this.invoiceProducts = this.allData.invoiceProducts;
       this.invoiceProducts.sort(this.sortProducts);
+      
+      // Debug: Log the data to understand the structure
+      this.$nextTick(() => {
+        console.log('POS Receipt - allData:', this.allData);
+        console.log('POS Receipt - invoiceProducts:', this.invoiceProducts);
+        console.log('POS Receipt - calculatedSubtotal:', this.calculatedSubtotal);
+        console.log('POS Receipt - totalProductDiscount:', this.totalProductDiscount);
+        console.log('POS Receipt - totalProductTax:', this.totalProductTax);
+        console.log('POS Receipt - globalDiscount:', this.globalDiscount);
+        console.log('POS Receipt - invoiceLevelTax:', this.invoiceLevelTax);
+        console.log('POS Receipt - totalAfterDiscount:', this.totalAfterDiscount);
+        console.log('POS Receipt - totalAfterTax:', this.totalAfterTax);
+        console.log('POS Receipt - allData.invoiceTotal:', this.allData.invoiceTotal);
+      });
+      
       this.loading = false;
     },
 
@@ -1313,6 +1479,12 @@ export default {
 
     // store item in array
     async storeProduct(product) {
+      // If product has zero stock and is not a service, open stock adjustment modal
+      if (product.itemType !== "service" && Number(product.inventoryCount) < 1) {
+        this.openStockAdjustmentModal(product);
+        return;
+      }
+      
       var index = this.form.selectedProducts.findIndex(
         (x) => x.id == product.id
       );
@@ -1362,6 +1534,7 @@ export default {
             discountType: "fixed",
             discountAmount: 0,
             selectedVatRate: selectedVatRate,
+            sales_account_id: product.sales_account_id, // Include sales account ID
           });
           
           // Recalculate all totals for the new product
@@ -1969,6 +2142,197 @@ export default {
         await this.$store.dispatch('operations/fetchSettingData');
       }
     },
+
+    // Stock adjustment modal methods
+    openStockAdjustmentModal(product) {
+      this.selectedProductForStockAdjustment = product;
+      this.showStockAdjustmentModal = true;
+    },
+
+    closeStockAdjustmentModal() {
+      this.showStockAdjustmentModal = false;
+      this.selectedProductForStockAdjustment = null;
+    },
+
+    adjustProductQuantity(product) {
+      // In POS, we don't need to adjust quantity in selected products
+      // Just close the modal and refresh products
+      this.closeStockAdjustmentModal();
+      this.getProducts();
+    },
+
+    handleStockUpdated(eventData) {
+      // Refresh products to get updated stock levels
+      this.getProducts();
+      
+      // If the product was in selectedProducts, update its inventory count
+      const { product, newQuantity } = eventData;
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'inventoryCount', newQuantity);
+      }
+      
+      this.closeStockAdjustmentModal();
+    },
+
+    // Format number to 2 decimal places
+    formatNumber(value) {
+      if (!value && value !== 0) return '0.00';
+      const num = Number(value);
+      return isNaN(num) ? '0.00' : num.toFixed(2);
+    },
+
+    // Auto-assign client chart of account
+    async autoAssignClientChartOfAccount() {
+      if (!this.form.client || this.isAutoAssigningClient) {
+        return;
+      }
+      
+      this.isAutoAssigningClient = true;
+      
+      try {
+        const currentClientSlug = this.form.client.slug;
+        
+        const response = await axios.post(`/api/clients/${this.form.client.slug}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null;
+          if (newAccountId) {
+            this.form.client.chart_of_account_id = newAccountId;
+            // Also update the option in clients list
+            const idx = this.clients.findIndex(i => i.slug === currentClientSlug);
+            if (idx !== -1) {
+              this.$set(this.clients[idx], 'chart_of_account_id', newAccountId);
+            }
+          }
+          
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
+          
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
+          
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error auto-assigning chart of account:', error);
+        
+        if (error.response?.status === 400) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.response.data.message || this.$t("Bad request error"),
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.data?.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.response.data.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: this.$t("Please try again or assign manually"),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
+      } finally {
+        this.isAutoAssigningClient = false;
+      }
+    },
+
+    // Auto-assign product chart of account
+    async autoAssignProductChartOfAccount(product, type = 'sales') {
+      if (!product || this.isAutoAssigningProduct === product.id) {
+        return;
+      }
+      
+      this.isAutoAssigningProduct = product.id;
+      
+      try {
+        const response = await axios.post(`/api/products/${product.slug}/${type}/auto-assign-chart-of-account`);
+        
+        if (response.data.success) {
+          // Update the product in selectedProducts array
+          const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+          if (index !== -1) {
+            if (type === 'sales') {
+              this.$set(this.form.selectedProducts[index], 'sales_account_id', response.data.sales_account_id);
+            }
+          }
+          
+          // Also update in products list if it exists
+          const productIndex = this.products.findIndex(p => p.id === product.id);
+          if (productIndex !== -1) {
+            if (type === 'sales') {
+              this.$set(this.products[productIndex], 'sales_account_id', response.data.sales_account_id);
+            }
+          }
+          
+          this.$nextTick(() => {
+            this.$forceUpdate();
+          });
+          
+          toast.fire({
+            type: "success",
+            title: this.$t("Chart of Account assigned successfully"),
+          });
+          
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: response.data.message || this.$t("Please try again or assign manually")
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error auto-assigning chart of account for product:', error);
+        
+        if (error.response?.status === 400) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.response.data.message || this.$t("Bad request error"),
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else if (error.response?.data?.message) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Assignment Failed"),
+            text: error.response.data.message,
+            timer: 6000,
+            timerProgressBar: true,
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Failed to assign Chart of Account"),
+            text: this.$t("Please try again or assign manually"),
+            timer: 5000,
+            timerProgressBar: true,
+          });
+        }
+      } finally {
+        this.isAutoAssigningProduct = null;
+      }
+    },
   },
   mounted() {
     this.loadTemporaryData();
@@ -2294,5 +2658,159 @@ span.pqty {
   background: #229a26 !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(42, 185, 48, 0.3);
+}
+
+/* Stock warning icon in POS */
+.stock-warning-icon-pos {
+  position: absolute;
+  top: 35px;
+  right: 5px;
+  background: #dc3545;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border: 2px solid #fff;
+}
+
+.stock-warning-icon-pos:hover {
+  background: #c82333;
+  transform: scale(1.15);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.4);
+}
+
+.relative {
+  position: relative;
+}
+
+/* Make quantity more visible when zero */
+.box-qty.qty-red {
+  font-weight: bold;
+  font-size: 13px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Client and Product Chart of Account Warnings */
+.client-warning,
+.product-warning {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.client-warning i,
+.product-warning i {
+  margin-right: 8px;
+}
+
+.client-status,
+.product-status {
+  margin-top: 8px;
+}
+
+/* Badge styling for product warnings in table */
+.badge.badge-warning {
+  background-color: #ffc107;
+  color: #212529;
+  font-size: 11px;
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge.badge-warning .btn-link {
+  color: #212529;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.badge.badge-warning .btn-link:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.badge.badge-warning .btn-link:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Product warning in POS product grid */
+.product-warning-pos {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 3px 5px;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 3px;
+  font-size: 9px;
+  margin-top: 3px;
+  width: 100%;
+  line-height: 1.1;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.product-warning-pos i.fa-exclamation-triangle {
+  margin-right: 3px;
+  font-size: 9px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.product-warning-pos span {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 3px;
+  line-height: 1.1;
+  display: inline-block;
+}
+
+.product-warning-pos .btn {
+  font-size: 8px;
+  padding: 1px 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.1;
+  height: auto;
+  min-height: auto;
+  margin-left: 3px;
+}
+
+.pos-box {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pos-box-content {
+  flex-shrink: 0;
 }
 </style>
