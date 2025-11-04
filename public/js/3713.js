@@ -1,7 +1,831 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[3713],{
 
-/***/ 31591:
+/***/ 13713:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ create)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=template&id=79a402c0&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100 header-buttons"
+  }, [_c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'journal-entries.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n              ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "button",
+      "title": "Save"
+    },
+    on: {
+      "click": _vm.saveJournalEntry
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  })])], 1)])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('form', {
+    on: {
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.saveJournalEntry.apply(null, arguments);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Entry Date')) + " "), _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.entry_date,
+      expression: "form.entry_date"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.errors.entry_date
+    },
+    attrs: {
+      "type": "date",
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.form.entry_date
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "entry_date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _vm.errors.entry_date ? _c('div', {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.entry_date[0]) + "\n                  ")]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Reference')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.reference,
+      expression: "form.reference"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('Optional reference number')
+    },
+    domProps: {
+      "value": _vm.form.reference
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "reference", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v(_vm._s(_vm.$t('Leave blank if no reference is needed')))])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "draft"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Draft')))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "posted"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Posted')))])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('Description')) + " "), _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.description,
+      expression: "form.description"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.errors.description
+    },
+    attrs: {
+      "rows": "3",
+      "placeholder": _vm.$t('Enter description for this journal entry'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.form.description
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "description", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _vm.errors.description ? _c('div', {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.description[0]) + "\n                  ")]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "table-responsive"
+  }, [_c('table', {
+    staticClass: "table je-lines-table mb-0"
+  }, [_c('thead', [_c('tr', [_c('th', {
+    staticStyle: {
+      "width": "25%"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Chart of Account')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right",
+    staticStyle: {
+      "width": "15%"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Debit')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right",
+    staticStyle: {
+      "width": "15%"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Credit')))]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "20%"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Cost Center')))]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "20%"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Description')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-center",
+    staticStyle: {
+      "width": "5%"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Actions')))])])]), _vm._v(" "), _c('tbody', _vm._l(_vm.form.lines, function (line, index) {
+    return _c('tr', {
+      key: index
+    }, [_c('td', [_c('v-select', {
+      "class": {
+        'is-invalid': _vm.errors["lines.".concat(index, ".chart_of_account_id")]
+      },
+      attrs: {
+        "options": _vm.chartOfAccounts,
+        "label": "name",
+        "reduce": function reduce(option) {
+          return option.id;
+        },
+        "placeholder": _vm.$t('Select a Chart of Account'),
+        "required": ""
+      },
+      on: {
+        "input": function input(value) {
+          return _vm.onChartOfAccountChange(index, value);
+        }
+      },
+      scopedSlots: _vm._u([{
+        key: "option",
+        fn: function fn(_ref) {
+          var name = _ref.name,
+            code = _ref.code,
+            type = _ref.type;
+          return [_c('div', [_c('strong', [_vm._v(_vm._s(name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+            staticClass: "text-muted"
+          }, [_vm._v(_vm._s(code) + " - " + _vm._s(type))])])];
+        }
+      }], null, true),
+      model: {
+        value: line.chart_of_account_id,
+        callback: function callback($$v) {
+          _vm.$set(line, "chart_of_account_id", $$v);
+        },
+        expression: "line.chart_of_account_id"
+      }
+    }), _vm._v(" "), _vm.errors["lines.".concat(index, ".chart_of_account_id")] ? _c('div', {
+      staticClass: "invalid-feedback"
+    }, [_vm._v("\n                            " + _vm._s(_vm.errors["lines.".concat(index, ".chart_of_account_id")][0]) + "\n                          ")]) : _vm._e()], 1), _vm._v(" "), _c('td', {
+      staticClass: "align-middle"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: line.debit_amount,
+        expression: "line.debit_amount"
+      }],
+      staticClass: "form-control text-right",
+      attrs: {
+        "type": "number",
+        "step": "0.01",
+        "min": "0",
+        "placeholder": _vm.$t('0.00')
+      },
+      domProps: {
+        "value": line.debit_amount
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(line, "debit_amount", $event.target.value);
+        }, function ($event) {
+          return _vm.calculateLineAmount(index);
+        }]
+      }
+    })]), _vm._v(" "), _c('td', {
+      staticClass: "align-middle"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: line.credit_amount,
+        expression: "line.credit_amount"
+      }],
+      staticClass: "form-control text-right",
+      attrs: {
+        "type": "number",
+        "step": "0.01",
+        "min": "0",
+        "placeholder": _vm.$t('0.00')
+      },
+      domProps: {
+        "value": line.credit_amount
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(line, "credit_amount", $event.target.value);
+        }, function ($event) {
+          return _vm.calculateLineAmount(index);
+        }]
+      }
+    })]), _vm._v(" "), _c('td', {
+      staticClass: "align-middle"
+    }, [_c('CostCenterSelect', {
+      "class": {
+        'is-invalid': _vm.errors["lines.".concat(index, ".cost_center_id")]
+      },
+      attrs: {
+        "clearable": true,
+        "placeholder": _vm.$t('Select Cost Center')
+      },
+      model: {
+        value: line.cost_center_id,
+        callback: function callback($$v) {
+          _vm.$set(line, "cost_center_id", $$v);
+        },
+        expression: "line.cost_center_id"
+      }
+    }), _vm._v(" "), _vm.errors["lines.".concat(index, ".cost_center_id")] ? _c('div', {
+      staticClass: "invalid-feedback"
+    }, [_vm._v("\n                            " + _vm._s(_vm.errors["lines.".concat(index, ".cost_center_id")][0]) + "\n                          ")]) : _vm._e()], 1), _vm._v(" "), _c('td', {
+      staticClass: "align-middle"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: line.description,
+        expression: "line.description"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        "type": "text",
+        "placeholder": _vm.$t('Line description')
+      },
+      domProps: {
+        "value": line.description
+      },
+      on: {
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(line, "description", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c('td', {
+      staticClass: "text-center align-middle"
+    }, [_vm.form.lines.length > 2 ? _c('button', {
+      staticClass: "btn btn-outline-danger btn-sm",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeLine(index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-trash"
+    })]) : _vm._e()])]);
+  }), 0), _vm._v(" "), _c('tfoot', [_c('tr', {
+    staticClass: "je-summary-row"
+  }, [_c('td', {
+    staticClass: "text-right"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Totals')) + ":")])]), _vm._v(" "), _c('td', {
+    staticClass: "text-right"
+  }, [_c('CurrencyDisplay', {
+    attrs: {
+      "amount": _vm.totalDebit
+    }
+  })], 1), _vm._v(" "), _c('td', {
+    staticClass: "text-right"
+  }, [_c('CurrencyDisplay', {
+    attrs: {
+      "amount": _vm.totalCredit
+    }
+  })], 1), _vm._v(" "), _c('td', {
+    attrs: {
+      "colspan": "2"
+    }
+  }, [_c('div', {
+    "class": ['badge', _vm.isBalanced ? 'badge-success' : 'badge-warning']
+  }, [_vm._v("\n                            " + _vm._s(_vm.isBalanced ? _vm.$t('Balanced') : _vm.$t('Unbalanced')) + "\n                            "), !_vm.isBalanced ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('Diff')) + ":\n                              "), _c('CurrencyDisplay', {
+    attrs: {
+      "amount": _vm.balanceDifference
+    }
+  })], 1) : _vm._e()])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "je-lines-actions d-flex",
+    "class": _vm.isRTL ? 'justify-content-start' : 'justify-content-end'
+  }, [_c('button', {
+    staticClass: "btn btn-primary add-line-btn",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.addLine
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  }), _vm._v(" " + _vm._s(_vm.$t('Add Line')) + "\n                  ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "submit",
+      "disabled": !_vm.isBalanced || _vm.loading
+    }
+  }, [_vm.loading ? _c('i', {
+    staticClass: "fa fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fa fa-save"
+  }), _vm._v("\n                    " + _vm._s(_vm.loading ? _vm.$t('Saving...') : _vm.$t('Save')) + "\n                  ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.resetForm
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-power-off"
+  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                  ")])])])])])])])])])]);
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+/* harmony default export */ const createvue_type_script_lang_js = ({
+  name: 'CreateJournalEntry',
+  middleware: ['auth', 'check-permissions'],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t('Create Journal Entry')
+    };
+  },
+  components: {
+    CurrencyDisplay: function CurrencyDisplay() {
+      return __webpack_require__.e(/* import() */ 5448).then(__webpack_require__.bind(__webpack_require__, 75448));
+    },
+    CostCenterSelect: function CostCenterSelect() {
+      return __webpack_require__.e(/* import() */ 5307).then(__webpack_require__.bind(__webpack_require__, 5307));
+    }
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: 'Create Journal Entry',
+      breadcrumbs: [{
+        name: 'Dashboard',
+        url: 'home'
+      }, {
+        name: 'Journal Entries',
+        url: 'journal-entries.index'
+      }, {
+        name: 'Create',
+        url: ''
+      }],
+      form: {
+        entry_date: new Date().toISOString().split('T')[0],
+        reference: '',
+        description: '',
+        status: 'draft',
+        lines: [{
+          chart_of_account_id: '',
+          description: '',
+          reference: '',
+          debit_amount: '',
+          credit_amount: '',
+          line_number: 1
+        }, {
+          chart_of_account_id: '',
+          description: '',
+          reference: '',
+          debit_amount: '',
+          credit_amount: '',
+          line_number: 2
+        }]
+      },
+      chartOfAccounts: [],
+      errors: {},
+      loading: false
+    };
+  },
+  computed: {
+    totalDebit: function totalDebit() {
+      return this.form.lines.reduce(function (sum, line) {
+        return sum + (parseFloat(line.debit_amount) || 0);
+      }, 0);
+    },
+    totalCredit: function totalCredit() {
+      return this.form.lines.reduce(function (sum, line) {
+        return sum + (parseFloat(line.credit_amount) || 0);
+      }, 0);
+    },
+    balanceDifference: function balanceDifference() {
+      return Math.abs(this.totalDebit - this.totalCredit);
+    },
+    isBalanced: function isBalanced() {
+      return this.balanceDifference === 0;
+    },
+    isRTL: function isRTL() {
+      return document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
+    }
+  },
+  created: function created() {
+    var _this = this;
+    return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            _context.n = 1;
+            return _this.loadChartOfAccounts();
+          case 1:
+            return _context.a(2);
+        }
+      }, _callee);
+    }))();
+  },
+  mounted: function mounted() {
+    this.loadTemporaryData();
+  },
+  methods: {
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _context2.p = 0;
+              _context2.n = 1;
+              return _this2.$axios.get('/api/journal-entries/chart-of-accounts');
+            case 1:
+              response = _context2.v;
+              _this2.chartOfAccounts = response.data.data || [];
+              console.log('Loaded chart of accounts:', _this2.chartOfAccounts);
+              console.log('First account structure:', _this2.chartOfAccounts[0]);
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.p = 2;
+              _t = _context2.v;
+              console.error('Error loading chart of accounts:', _t);
+              window.toast.error('Error loading chart of accounts');
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[0, 2]]);
+      }))();
+    },
+    onChartOfAccountChange: function onChartOfAccountChange(index, value) {
+      console.log("Chart of account changed for line ".concat(index, ":"), value);
+      console.log("Line ".concat(index, " data:"), this.form.lines[index]);
+    },
+    addLine: function addLine() {
+      var lineNumber = this.form.lines.length + 1;
+      this.form.lines.push({
+        chart_of_account_id: '',
+        cost_center_id: null,
+        description: '',
+        reference: '',
+        debit_amount: '',
+        credit_amount: '',
+        line_number: lineNumber
+      });
+    },
+    removeLine: function removeLine(index) {
+      if (this.form.lines.length > 2) {
+        this.form.lines.splice(index, 1);
+        // Update line numbers
+        this.form.lines.forEach(function (line, idx) {
+          line.line_number = idx + 1;
+        });
+      }
+    },
+    calculateLineAmount: function calculateLineAmount(index) {
+      var line = this.form.lines[index];
+      if (parseFloat(line.debit_amount) > 0) {
+        line.credit_amount = '';
+      } else if (parseFloat(line.credit_amount) > 0) {
+        line.debit_amount = '';
+      }
+    },
+    getLineError: function getLineError(index, field) {
+      if (this.errors.lines && this.errors.lines[index] && this.errors.lines[index][field]) {
+        return this.errors.lines[index][field][0];
+      }
+      return null;
+    },
+    getBalanceAlertClass: function getBalanceAlertClass() {
+      if (this.balanceDifference === 0) {
+        return 'alert-success';
+      } else {
+        return 'alert-warning';
+      }
+    },
+    saveJournalEntry: function saveJournalEntry() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var invalidLines, data, response, backendError, _error$response, _error$response2, _backendError, _t2;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _context3.p = 0;
+              _this3.loading = true;
+              _this3.errors = {};
+
+              // Validate balance
+              if (_this3.isBalanced) {
+                _context3.n = 1;
+                break;
+              }
+              window.toast.warning(_this3.$t('Journal entry must be balanced'));
+              return _context3.a(2);
+            case 1:
+              // Validate chart of account selections
+              invalidLines = _this3.form.lines.filter(function (line) {
+                return !line.chart_of_account_id;
+              });
+              if (!(invalidLines.length > 0)) {
+                _context3.n = 2;
+                break;
+              }
+              window.toast.error(_this3.$t('Please select chart of accounts for all lines'));
+              return _context3.a(2);
+            case 2:
+              // Prepare data
+              data = _objectSpread(_objectSpread({}, _this3.form), {}, {
+                lines: _this3.form.lines.map(function (line) {
+                  return _objectSpread(_objectSpread({}, line), {}, {
+                    debit_amount: parseFloat(line.debit_amount) || 0,
+                    credit_amount: parseFloat(line.credit_amount) || 0
+                  });
+                })
+              }); // Debug: Log the data being sent
+              console.log('Form data being sent:', data);
+              console.log('Reference value:', data.reference);
+              console.log('Reference type:', _typeof(data.reference));
+              console.log('Chart of account IDs:', data.lines.map(function (line) {
+                return line.chart_of_account_id;
+              }));
+              console.log('Original form lines:', _this3.form.lines);
+              console.log('Chart of accounts array:', _this3.chartOfAccounts);
+              _context3.n = 3;
+              return _this3.$axios.post('/api/journal-entries', data);
+            case 3:
+              response = _context3.v;
+              // Clear temporary data after successful save
+              _this3.clearTemporaryData();
+
+              // Show success message
+              window.toast.success('Journal entry created successfully!');
+
+              // Redirect to journal entries list
+              _this3.$router.push('/journal-entries');
+              _context3.n = 5;
+              break;
+            case 4:
+              _context3.p = 4;
+              _t2 = _context3.v;
+              console.error('Error creating journal entry:', _t2);
+              if (_t2.response && _t2.response.data && _t2.response.data.errors) {
+                _this3.errors = _t2.response.data.errors;
+                // Prefer backend 'error' string if present
+                backendError = _t2.response.data.error || _t2.response.data.message;
+                if (backendError) {
+                  window.toast.error(backendError);
+                }
+              } else {
+                _backendError = (_t2 === null || _t2 === void 0 || (_error$response = _t2.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.error) || (_t2 === null || _t2 === void 0 || (_error$response2 = _t2.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || 'Error creating journal entry';
+                window.toast.error(_backendError);
+              }
+            case 5:
+              _context3.p = 5;
+              _this3.loading = false;
+              return _context3.f(5);
+            case 6:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[0, 4, 5, 6]]);
+      }))();
+    },
+    // save form data temporarily
+    saveTemporary: function saveTemporary() {
+      var tempData = {
+        entry_date: this.form.entry_date,
+        reference: this.form.reference,
+        description: this.form.description,
+        status: this.form.status,
+        lines: this.form.lines,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('journalEntryTempData', JSON.stringify(tempData));
+    },
+    // load temporary data
+    loadTemporaryData: function loadTemporaryData() {
+      var tempData = localStorage.getItem('journalEntryTempData');
+      if (tempData) {
+        try {
+          var data = JSON.parse(tempData);
+          this.form.entry_date = data.entry_date || this.form.entry_date;
+          this.form.reference = data.reference || this.form.reference;
+          this.form.description = data.description || this.form.description;
+          this.form.status = data.status || this.form.status;
+          this.form.lines = data.lines || this.form.lines;
+        } catch (error) {
+          console.error('Error loading temporary data:', error);
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData: function clearTemporaryData() {
+      localStorage.removeItem('journalEntryTempData');
+    },
+    formatCurrency: function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(amount);
+    },
+    resetForm: function resetForm() {
+      this.form = {
+        entry_date: new Date().toISOString().split('T')[0],
+        reference: '',
+        description: '',
+        status: 'draft',
+        lines: [{
+          chart_of_account_id: '',
+          description: '',
+          reference: '',
+          debit_amount: '',
+          credit_amount: '',
+          line_number: 1
+        }, {
+          chart_of_account_id: '',
+          description: '',
+          reference: '',
+          debit_amount: '',
+          credit_amount: '',
+          line_number: 2
+        }]
+      };
+      this.errors = {};
+    }
+  }
+});
+;// ./resources/js/pages/journal-entries/create.vue?vue&type=script&lang=js
+ /* harmony default export */ const journal_entries_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=style&index=0&id=79a402c0&prod&scoped=true&lang=css
+var createvue_type_style_index_0_id_79a402c0_prod_scoped_true_lang_css = __webpack_require__(86515);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/journal-entries/create.vue?vue&type=style&index=0&id=79a402c0&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_79a402c0_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const journal_entries_createvue_type_style_index_0_id_79a402c0_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_79a402c0_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/journal-entries/create.vue?vue&type=style&index=0&id=79a402c0&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/journal-entries/create.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  journal_entries_createvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "79a402c0",
+  null
+  
+)
+
+/* harmony default export */ const create = (component.exports);
+
+/***/ }),
+
+/***/ 86515:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,552 +837,10 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-6a596a80]{border:none!important}.client-receivable-table[data-v-6a596a80]{border-collapse:separate;border-spacing:0}.client-receivable-table thead th[data-v-6a596a80]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.client-receivable-table thead tr[data-v-6a596a80]{border:none!important}.client-receivable-table thead th[data-v-6a596a80]:first-child{border-top-left-radius:10px}.client-receivable-table thead th[data-v-6a596a80]:last-child{border-top-right-radius:10px}[dir=rtl] .client-receivable-table thead th[data-v-6a596a80]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .client-receivable-table thead th[data-v-6a596a80]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.client-receivable-table thead th.select-col[data-v-6a596a80]{text-align:center}.client-receivable-table thead th.select-col .select-box[data-v-6a596a80]{display:inline-block;margin:0 auto}.refresh-btn[data-v-6a596a80]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-6a596a80],.export-pdf-btn[data-v-6a596a80]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-6a596a80],.export-pdf-btn[data-v-6a596a80],.print-btn[data-v-6a596a80]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-6a596a80]{background:#33a0d91a!important;color:#33a0d9!important}.btn-group.c-w-100[data-v-6a596a80]{gap:10px}.card[data-v-6a596a80]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-6a596a80]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.client-receivable-table .badge.bg-success[data-v-6a596a80]{background:#f6fef4!important;color:#2ab930!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-6a596a80]{background:#fff!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-79a402c0]{gap:10px}.header-buttons[data-v-79a402c0]{margin-bottom:15px}.footer-buttons[data-v-79a402c0]{display:flex;gap:10px}.footer-buttons .btn[data-v-79a402c0]{margin-right:10px}.footer-buttons .btn[data-v-79a402c0]:last-child{margin-right:0}.card[data-v-79a402c0]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-79a402c0]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-79a402c0]{padding:1.25rem}.card-footer[data-v-79a402c0]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-79a402c0]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-79a402c0]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-79a402c0]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.text-danger[data-v-79a402c0]{color:#dc3545!important;font-weight:700}.btn-primary[data-v-79a402c0]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-79a402c0]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-79a402c0]:disabled{background:#6c757d!important;box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}.btn-secondary[data-v-79a402c0]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-79a402c0]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.btn-danger[data-v-79a402c0]{background:#dc3545!important;border:none!important;border-radius:8px!important;color:#fff!important;font-weight:500;padding:8px 12px!important}.btn-danger[data-v-79a402c0]:hover{background:#c82333!important;box-shadow:0 4px 8px rgba(220,53,69,.3);transform:translateY(-1px)}.is-invalid[data-v-79a402c0]{border-color:#dc3545!important}textarea.form-control[data-v-79a402c0]{min-height:100px;resize:vertical}.v-select[data-v-79a402c0]{background:#fff!important}.v-select .vs__dropdown-toggle[data-v-79a402c0]{background:#fff!important;border:1px solid #e5e7eb!important;padding:10px 16px!important}.v-select .vs__dropdown-toggle[data-v-79a402c0]:focus{border-color:#33a0d9!important;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)!important}.v-select.is-invalid .vs__dropdown-toggle[data-v-79a402c0]{border-color:#dc3545!important}.alert[data-v-79a402c0]{border:1px solid transparent;border-radius:10px;margin-bottom:16px;padding:12px 16px}.alert-success[data-v-79a402c0]{background-color:#d4edda;border-color:#c3e6cb;color:#155724}.alert-warning[data-v-79a402c0]{background-color:#fff3cd;border-color:#ffeaa7;color:#856404}.table th[data-v-79a402c0]{background-color:#f8f9fa;border-bottom:2px solid #e5e7eb;color:#374151;font-weight:600;padding:12px 16px}.table td[data-v-79a402c0]{border-bottom:1px solid #e5e7eb;padding:12px 16px;vertical-align:middle}.table tbody tr[data-v-79a402c0]:hover{background-color:#f8f9fa}.invalid-feedback[data-v-79a402c0]{color:#dc3545;display:block}.form-text[data-v-79a402c0],.invalid-feedback[data-v-79a402c0]{font-size:12px;margin-top:5px}.form-text[data-v-79a402c0]{color:#6c757d}.row[data-v-79a402c0]{margin-bottom:1rem}.je-lines-table thead th[data-v-79a402c0]{background-color:#f8f9fa;border-bottom:2px solid #e5e7eb;font-weight:600}.je-lines-table td[data-v-79a402c0]{vertical-align:middle}.je-summary-row td[data-v-79a402c0]{background:#fafbfc;border-top:2px solid #e5e7eb}.add-line-btn[data-v-79a402c0]{border-radius:8px!important;padding:8px 14px!important}.je-lines-actions[data-v-79a402c0]{padding:12px 16px}.table-responsive[data-v-79a402c0]{overflow:visible}.v-select .vs__dropdown-menu[data-v-79a402c0]{z-index:1050!important}@media (max-width:768px){.card-footer[data-v-79a402c0]{flex-direction:column;gap:10px}.card-footer .btn[data-v-79a402c0]{margin-right:0!important;width:100%}.card-footer div[data-v-79a402c0]{display:flex;flex-direction:column;gap:10px;width:100%}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-
-/***/ }),
-
-/***/ 43713:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ client_receivable_report)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/client-receivable-report.vue?vue&type=template&id=6a596a80&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "mb-50"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-lg-12"
-  }, [_c('div', {
-    staticClass: "card custom-card w-100"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: 'Refresh',
-      expression: "'Refresh'"
-    }],
-    staticClass: "btn btn-success refresh-btn",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.refreshTable();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sync"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Export to Excel'),
-      expression: "$t('Export to Excel')"
-    }],
-    staticClass: "btn export-excel-btn",
-    attrs: {
-      "href": _vm.exportUrl,
-      "title": "Export to Excel"
-    }
-  }, [_c('svg', {
-    attrs: {
-      "width": "18",
-      "height": "19",
-      "viewBox": "0 0 18 19",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "d": "M11.625 17.5001C11.625 17.699 11.546 17.8898 11.4053 18.0305C11.2647 18.1711 11.0739 18.2501 10.875 18.2501H8.24998C8.05107 18.2501 7.86031 18.1711 7.71966 18.0305C7.579 17.8898 7.49998 17.699 7.49998 17.5001V12.2501C7.49998 12.0512 7.579 11.8604 7.71966 11.7198C7.86031 11.5791 8.05107 11.5001 8.24998 11.5001C8.4489 11.5001 8.63966 11.5791 8.78031 11.7198C8.92097 11.8604 8.99998 12.0512 8.99998 12.2501V16.7501H10.875C11.0739 16.7501 11.2647 16.8291 11.4053 16.9698C11.546 17.1104 11.625 17.3012 11.625 17.5001ZM5.68592 11.6398C5.60578 11.5826 5.51514 11.5417 5.41918 11.5194C5.32323 11.4972 5.22384 11.4941 5.12668 11.5103C5.02953 11.5265 4.93651 11.5617 4.85295 11.6138C4.76939 11.6659 4.69692 11.734 4.63967 11.8142L3.37498 13.5851L2.1103 11.8142C2.05509 11.7292 1.98324 11.6564 1.89909 11.5999C1.81495 11.5435 1.72024 11.5047 1.62069 11.4859C1.52114 11.4671 1.41882 11.4687 1.31988 11.4905C1.22095 11.5123 1.12747 11.554 1.04507 11.6129C0.962677 11.6719 0.893077 11.7469 0.840473 11.8335C0.787869 11.9201 0.753352 12.0164 0.739005 12.1167C0.724657 12.217 0.730776 12.3191 0.756994 12.417C0.783211 12.5148 0.828983 12.6064 0.891547 12.6861L2.45342 14.8751L0.889672 17.0642C0.784434 17.2261 0.74571 17.4224 0.781564 17.6121C0.817419 17.8019 0.925088 17.9705 1.08215 18.0829C1.23922 18.1952 1.43357 18.2427 1.62474 18.2153C1.81591 18.188 1.98916 18.088 2.10842 17.9361L3.37498 16.1651L4.63967 17.9361C4.75893 18.088 4.93219 18.188 5.12336 18.2153C5.31453 18.188 5.50888 18.1952 5.66594 18.0829C5.82301 17.9705 5.93068 17.8019 5.96653 17.6121C6.00239 17.4224 5.96366 17.2261 5.85842 17.0642L4.29655 14.8751L5.8603 12.6861C5.91755 12.6059 5.95845 12.5153 5.98067 12.4193C6.00289 12.3234 6.00599 12.224 5.9898 12.1268C5.97361 12.0297 5.93844 11.9367 5.8863 11.8531C5.83416 11.7695 5.76607 11.6971 5.68592 11.6398ZM14.9615 14.0604C14.5865 13.9517 14.1984 13.8401 13.9819 13.7004C13.8647 13.6236 13.8665 13.6067 13.8769 13.5223C13.8783 13.4541 13.896 13.3873 13.9287 13.3274C13.9613 13.2675 14.0078 13.2164 14.0644 13.1782C14.4956 12.8857 15.5025 13.017 15.9225 13.1257C16.1149 13.1763 16.3196 13.1484 16.4915 13.0481C16.6633 12.9478 16.7883 12.7834 16.8389 12.5909C16.8895 12.3985 16.8616 12.1938 16.7613 12.0219C16.661 11.8501 16.4965 11.7251 16.304 11.6745C16.1062 11.6229 14.3353 11.1851 13.2262 11.9332C12.9924 12.0913 12.796 12.2987 12.6511 12.5408C12.5061 12.783 12.416 13.054 12.3872 13.3348C12.1997 14.8236 13.6669 15.2482 14.5434 15.5014C15.674 15.8286 15.7734 15.9626 15.7415 16.2129C15.7125 16.4389 15.6234 16.5251 15.54 16.5814C15.1087 16.8682 14.1187 16.7267 13.7081 16.6142C13.516 16.5609 13.3106 16.586 13.1371 16.6841C13.0512 16.7327 12.9757 16.7977 12.9149 16.8755C12.8541 16.9532 12.8092 17.0422 12.7828 17.1373C12.7564 17.2324 12.749 17.3318 12.761 17.4298C12.773 17.5277 12.8041 17.6224 12.8527 17.7083C12.9508 17.8818 13.1138 18.0093 13.3059 18.0626C13.7708 18.1851 14.2493 18.2481 14.73 18.2501C15.2756 18.2501 15.8831 18.1564 16.3697 17.832C16.6097 17.6724 16.8114 17.4615 16.9602 17.2146C17.109 16.9678 17.2012 16.691 17.2303 16.4042C17.4375 14.7814 15.8887 14.3286 14.9615 14.0604ZM0.749985 8.50012V1.75012C0.749985 1.3523 0.90802 0.970767 1.18932 0.689462C1.47063 0.408157 1.85216 0.250122 2.24998 0.250122H11.25C11.3485 0.250045 11.4461 0.269379 11.5371 0.30702C11.6282 0.344661 11.7109 0.399872 11.7806 0.469497L17.0306 5.7195C17.1002 5.7892 17.1554 5.87194 17.1931 5.96299C17.2307 6.05403 17.2501 6.1516 17.25 6.25012V8.50012C17.25 8.69903 17.171 8.8898 17.0303 9.03045C16.8897 9.1711 16.6989 9.25012 16.5 9.25012C16.3011 9.25012 16.1103 9.1711 15.9697 9.03045C15.829 8.8898 15.75 8.69903 15.75 8.50012V7.00012H11.25C11.0511 7.00012 10.8603 6.9211 10.7197 6.78045C10.579 6.6398 10.5 6.44903 10.5 6.25012V1.75012H2.24998V8.50012C2.24998 8.69903 2.17097 8.8898 2.03031 9.03045C1.88966 9.1711 1.6989 9.25012 1.49998 9.25012C1.30107 9.25012 1.11031 9.1711 0.969655 9.03045C0.829003 8.8898 0.749985 8.69903 0.749985 8.50012ZM12 5.50012H14.6887L12 2.81043V5.50012Z",
-      "fill": "#2AB930"
-    }
-  })])]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Export to PDF'),
-      expression: "$t('Export to PDF')"
-    }],
-    staticClass: "btn export-pdf-btn",
-    attrs: {
-      "href": "/clients/pdf",
-      "title": "Export to PDF"
-    }
-  }, [_c('svg', {
-    attrs: {
-      "width": "24",
-      "height": "24",
-      "viewBox": "0 0 24 24",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "d": "M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z",
-      "fill": "#2AB930"
-    }
-  })])]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Print Table'),
-      expression: "$t('Print Table')"
-    }],
-    staticClass: "btn print-btn",
-    on: {
-      "click": _vm.print
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  })])])])]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printMe"
-    }
-  }, [_c('table', {
-    staticClass: "table client-receivable-table"
-  }, [_c('thead', [_c('th', {
-    staticClass: "select-col text-center"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.selectAll,
-      expression: "selectAll"
-    }],
-    staticClass: "select-box",
-    attrs: {
-      "type": "checkbox"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.selectAll) ? _vm._i(_vm.selectAll, null) > -1 : _vm.selectAll
-    },
-    on: {
-      "change": [function ($event) {
-        var $$a = _vm.selectAll,
-          $$el = $event.target,
-          $$c = $$el.checked ? true : false;
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.selectAll = $$a.concat([$$v]));
-          } else {
-            $$i > -1 && (_vm.selectAll = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-          }
-        } else {
-          _vm.selectAll = $$c;
-        }
-      }, _vm.toggleSelectAll]
-    }
-  })]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Client ID")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Contact Number")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Company Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Due")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Non Invoice Due")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total Due")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.items.length,
-        expression: "items.length"
-      }],
-      key: i
-    }, [_c('td', {
-      staticClass: "select-col text-center"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: _vm.selectedIds,
-        expression: "selectedIds"
-      }],
-      staticClass: "select-box",
-      attrs: {
-        "type": "checkbox"
-      },
-      domProps: {
-        "value": data.id,
-        "checked": Array.isArray(_vm.selectedIds) ? _vm._i(_vm.selectedIds, data.id) > -1 : _vm.selectedIds
-      },
-      on: {
-        "change": function change($event) {
-          var $$a = _vm.selectedIds,
-            $$el = $event.target,
-            $$c = $$el.checked ? true : false;
-          if (Array.isArray($$a)) {
-            var $$v = data.id,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.selectedIds = $$a.concat([$$v]));
-            } else {
-              $$i > -1 && (_vm.selectedIds = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-            }
-          } else {
-            _vm.selectedIds = $$c;
-          }
-        }
-      }
-    })]), _vm._v(" "), _c('td', [_vm.pagination && _vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                      " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withPrefix")(data.clientID, _vm.clientPrefix)))]), _vm._v(" "), _c('td', [_vm.$can('client-view') ? _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'clients.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                      " + _vm._s(data.name) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(data.name))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.phoneNumber))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.companyName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.clientDue) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.nonInvoiceCurrentDue) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm._f("withCurrency")(data.clientDue + data.nonInvoiceCurrentDue)) + "\n                  ")]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.items.length,
-      expression: "!loading && !items.length"
-    }]
-  }, [_c('td', {
-    attrs: {
-      "colspan": "10"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.updatePerPager]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "50"
-    }
-  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "100"
-    }
-  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.pagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.paginate
-    }
-  }) : _vm._e()], 1)])])])])]);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/client-receivable-report.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-/* harmony default export */ const client_receivable_reportvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Client Receivable Report")
-    };
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: "Client Receivable Report",
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Client Receivable Report",
-        url: ""
-      }],
-      query: "",
-      perPage: 10,
-      clientPrefix: "",
-      selectedIds: [],
-      selectAll: false
-    };
-  },
-  // Map Getters
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "loading", "pagination", "appInfo"])), {}, {
-    exportUrl: function exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return "/client-receivable-report/export/excel?term=".concat(this.query);
-    }
-  }),
-  watch: {
-    // watch search data
-    query: function query(newQ) {
-      if (newQ === "") {
-        this.getData();
-      } else {
-        this.searchData();
-      }
-    }
-  },
-  created: function created() {
-    this.getData();
-    this.clientPrefix = this.appInfo.clientPrefix;
-  },
-  methods: {
-    // refresh table
-    refreshTable: function refreshTable() {
-      this.query = "";
-      this.query === "" ? this.getData() : this.searchData();
-    },
-    // update per page count
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getData() : this.searchData();
-    },
-    // get data
-    getData: function getData() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var currentPage;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _this.$store.state.operations.loading = true;
-              currentPage = _this.pagination ? _this.pagination.current_page : 1;
-              _context.n = 1;
-              return _this.$store.dispatch("operations/fetchData", {
-                path: "/api/reports/client-due-report?page=",
-                currentPage: currentPage + "&perPage=" + _this.perPage
-              });
-            case 1:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    // Pagination
-    paginate: function paginate() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _this2.query === "" ? _this2.getData() : _this2.searchData();
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // Reset pagination
-    resetPagination: function resetPagination() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              _this3.pagination.current_page = 1;
-            case 1:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // search data
-    searchData: function searchData() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var currentPage;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _this4.$store.state.operations.loading = true;
-              currentPage = _this4.pagination ? _this4.pagination.current_page : 1;
-              _context4.n = 1;
-              return _this4.$store.dispatch("operations/searchData", {
-                path: "/api/clients/search",
-                term: _this4.query,
-                currentPage: currentPage + "&perPage=" + _this4.perPage
-              });
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // reload after search
-    reload: function reload() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _this5.query = "";
-              _context5.n = 1;
-              return _this5.searchData();
-            case 1:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // print table
-    print: function print() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _context6.n = 1;
-              return _this6.$htmlToPaper("printMe");
-            case 1:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    toggleSelectAll: function toggleSelectAll() {
-      if (this.selectAll) {
-        this.selectedIds = this.items.map(function (row) {
-          return row.id;
-        });
-      } else {
-        this.selectedIds = [];
-      }
-    }
-  }
-});
-;// ./resources/js/pages/reports/client-receivable-report.vue?vue&type=script&lang=js
- /* harmony default export */ const reports_client_receivable_reportvue_type_script_lang_js = (client_receivable_reportvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/client-receivable-report.vue?vue&type=style&index=0&id=6a596a80&prod&scoped=true&lang=css
-var client_receivable_reportvue_type_style_index_0_id_6a596a80_prod_scoped_true_lang_css = __webpack_require__(31591);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/client-receivable-report.vue?vue&type=style&index=0&id=6a596a80&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(client_receivable_reportvue_type_style_index_0_id_6a596a80_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const reports_client_receivable_reportvue_type_style_index_0_id_6a596a80_prod_scoped_true_lang_css = (client_receivable_reportvue_type_style_index_0_id_6a596a80_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/reports/client-receivable-report.vue?vue&type=style&index=0&id=6a596a80&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/reports/client-receivable-report.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  reports_client_receivable_reportvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "6a596a80",
-  null
-  
-)
-
-/* harmony default export */ const client_receivable_report = (component.exports);
 
 /***/ })
 

@@ -95,8 +95,9 @@
                   <th>{{ $t("Invoice No") }}</th>
                   <th>{{ $t("Client") }}</th>
                   <th>{{ $t("Return Reason") }}</th>
-                  <th>{{ $t("Cost of Return Products") }}</th>
                   <th>{{ $t("Date") }}</th>
+                  <th>{{ $t("Subtotal") }}</th>
+                  <th>{{ $t("Net Total") }}</th>
                   <th>{{ $t("Status") }}</th>
                   <th v-if="$can('invoice-return-edit') ||
                     $can('invoice-return-view') ||
@@ -130,12 +131,13 @@
                     <td>{{ data.invoiceNo | withPrefix(invoicePrefix) }}</td>
                     <td>{{ data.clientName }}</td>
                     <td>{{ data.reason }}</td>
-                    <td>{{ parseFloat(data.totalReturn).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.returnDate">{{
                         data.returnDate | moment("Do MMM, YYYY")
                       }}</span>
                     </td>
+                    <td v-html="formatCurrency(data.subtotal || 0)"></td>
+                    <td v-html="formatCurrency(data.netTotal || data.totalReturn || 0)"></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
                         $t("Active")
@@ -187,11 +189,27 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="9">
+                    <td colspan="10">
                       <EmptyTable />
                     </td>
                   </tr>
                 </tbody>
+                <tfoot v-if="items.length > 0">
+                  <tr>
+                    <td colspan="6" class="text-right"><strong>{{ $t("Subtotal") }}:</strong></td>
+                    <td class="text-right" style="font-weight: bold;">
+                      <span v-html="formatCurrency(totalSubtotal)"></span>
+                    </td>
+                    <td class="text-right" style="font-weight: bold;">
+                      <span v-html="formatCurrency(totalNetTotal)"></span>
+                    </td>
+                    <td></td>
+                    <td v-if="$can('invoice-return-edit') ||
+                      $can('invoice-return-view') ||
+                      $can('invoice-return-delete')
+                      "></td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div>
@@ -316,6 +334,26 @@ export default {
       // Create a dynamic export URL with query parameters and locale for localized headers
       const locale = this.$i18n.locale;
       return `/invoice-returns/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
+    },
+    // Calculate total subtotal for all returns in current page
+    totalSubtotal() {
+      if (!this.items || this.items.length === 0) {
+        return 0;
+      }
+      return this.items.reduce((total, item) => {
+        const amount = parseFloat(item.subtotal) || 0;
+        return total + amount;
+      }, 0);
+    },
+    // Calculate total net total for all returns in current page
+    totalNetTotal() {
+      if (!this.items || this.items.length === 0) {
+        return 0;
+      }
+      return this.items.reduce((total, item) => {
+        const amount = parseFloat(item.netTotal || item.totalReturn) || 0;
+        return total + amount;
+      }, 0);
     },
   },
   watch: {
@@ -526,6 +564,21 @@ export default {
       });
     },
 
+    // Format currency with 2 decimal places
+    formatCurrency(amount) {
+      if (amount === null || amount === undefined) {
+        return '0.00';
+      }
+      
+      const numValue = Number(amount);
+      const formatted = numValue.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      
+      return formatted + ' <span class="saudi-riyal">ê</span>';
+    },
+
     // delete data
     async deleteData(slug) {
       SwalOriginal.fire({
@@ -591,6 +644,24 @@ export default {
 
 .invoice-returns-table thead th:last-child {
   border-top-right-radius: 10px;
+}
+
+.invoice-returns-table tfoot {
+  background-color: #f8fafc;
+  border-top: 2px solid #33a0d9;
+}
+
+.invoice-returns-table tfoot td {
+  padding: 12px 8px;
+  font-weight: 600;
+}
+
+.invoice-returns-table tfoot tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.invoice-returns-table tfoot tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
 }
 
 /* RTL styles for Arabic language */
