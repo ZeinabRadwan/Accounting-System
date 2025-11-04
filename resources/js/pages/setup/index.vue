@@ -33,7 +33,7 @@
             <div class="card-icon text-white bg-brand-light-blue">
               <i class="fas fa-envelope" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Mail Configurations') }}</h4>
               <p>
                 {{ $t('Manage your mail configuration such as HOST, USERNAME, PASSWORD etc.') }}
@@ -50,7 +50,7 @@
             <div class="card-icon text-white bg-brand-light-green">
               <i class="fas fa-sms" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('SMS Configurations') }}</h4>
               <p>
                 {{ $t('Manage your sms configuration such as TWILIO ACCOUNT SID, FROM etc.') }}
@@ -68,7 +68,7 @@
             <div class="card-icon text-white bg-brand-green">
               <i class="fas fa-braille" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('User Permissions') }}</h4>
               <p>
                 {{ $t('Manage permission that you are going to assign in a role.') }}
@@ -85,7 +85,7 @@
             <div class="card-icon text-white bg-brand-dark-blue">
               <i class="fas fa-user-lock" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Role & Permissions') }}</h4>
               <p>
                 {{ $t('Manage Roles & Permissions for users who are going to use the system.') }}
@@ -102,7 +102,7 @@
             <div class="card-icon text-white bg-brand-teal">
               <i class="fas fa-money-check-alt" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Currencies') }}</h4>
               <p>
                 {{ $t('Manage various types of currencies that you are going to use in the system.') }}
@@ -119,7 +119,7 @@
             <div class="card-icon text-white bg-brand-dark-teal">
               <i class="fas fa-balance-scale" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Units') }}</h4>
               <p>
                 {{ $t('Manage unit types for measurement that you are going to use in the system.') }}
@@ -136,7 +136,7 @@
             <div class="card-icon text-white bg-brand-primary">
               <i class="fas fa-percentage" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Tax Rates') }}</h4>
               <p>
                 {{ $t('Manage Tax rates for Tax management that you are going to use in the system.') }}
@@ -153,7 +153,7 @@
             <div class="card-icon text-white bg-brand-light-green">
               <i class="fas fa-bold" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Brands') }}</h4>
               <p>{{ $t('Manage brands that you are going to use in the system.') }}</p>
               <router-link :to="{ name: 'brands.index' }" class="card-cta">
@@ -168,7 +168,7 @@
             <div class="card-icon text-white bg-brand-green">
               <i class="fas fa-wallet" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Payment Methods') }}</h4>
               <p>
                 {{ $t('Manage payment methods that you are going to use in the system.') }}
@@ -185,7 +185,7 @@
             <div class="card-icon text-white bg-brand-teal">
               <i class="fas fa-calendar-alt" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Fiscal Years') }}</h4>
               <p>
                 {{ $t('Manage fiscal years for your accounting system.') }}
@@ -202,7 +202,7 @@
             <div class="card-icon text-white bg-brand-dark-teal">
               <i class="fas fa-calendar-week" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Accounting Periods') }}</h4>
               <p>
                 {{ $t('Manage accounting periods within fiscal years.') }}
@@ -219,7 +219,7 @@
             <div class="card-icon text-white bg-brand-primary">
               <i class="fas fa-route" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('Account Routing') }}</h4>
               <p>
                 {{ $t('Configure account routing settings for accounting system.') }}
@@ -238,7 +238,7 @@
             <div class="card-icon text-white bg-brand-dark-blue">
               <i class="fas fa-file-invoice" />
             </div>
-            <div class="card-body">
+            <div class="cards-body">
               <h4>{{ $t('ZATCA Settings') }}</h4>
               <p>
                 {{ $t('Configure ZATCA e-invoicing settings for Saudi Arabia compliance.') }}
@@ -292,6 +292,26 @@ export default {
   },
   created() {
     this.developer = this.user.roles.includes('developer')
+  },
+  mounted() {
+    this.$nextTick(this.equalizeCardsBodyHeight)
+    window.addEventListener('resize', this.equalizeCardsBodyHeight)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.equalizeCardsBodyHeight)
+  },
+  methods: {
+    equalizeCardsBodyHeight() {
+      const bodies = Array.from(this.$el.querySelectorAll('.cards-body'))
+      if (!bodies.length) return
+      bodies.forEach(el => {
+        el.style.height = 'auto'
+      })
+      const max = Math.max(...bodies.map(el => el.offsetHeight))
+      bodies.forEach(el => {
+        el.style.height = `${max}px`
+      })
+    },
   },
 }
 </script>
@@ -372,6 +392,10 @@ export default {
 }
 
 .card-body {
+  padding: 1.25rem;
+}
+
+.cards-body {
   padding: 1.25rem;
 }
 

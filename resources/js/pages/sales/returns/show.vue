@@ -749,6 +749,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
+import iziToast from "izitoast";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -1329,11 +1330,16 @@ export default {
         this.pagination.current_page = 1;
       }
       await this.getActivity();
-      const refreshedText = (this.$te && this.$te('Updated successfully!'))
-        ? this.$t('Updated successfully!')
-        : 'Updated successfully!';
-      if (this.$toast && this.$toast.success) {
-        this.$toast.success(refreshedText, '');
+      const refreshedText = (this.$te && this.$te('Refreshed'))
+        ? this.$t('Refreshed')
+        : 'Refreshed';
+      if (typeof iziToast !== 'undefined') {
+        iziToast.success({
+          title: refreshedText,
+          message: '',
+          position: 'topRight',
+          timeout: 3000
+        });
       }
     },
 

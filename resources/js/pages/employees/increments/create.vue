@@ -85,11 +85,11 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <div class="dtable-footer">
-                <div class="form-group row display-per-page">
-                  <v-button :loading="form.busy" class="btn btn-success">
+                <div class="form-group row display-per-page action-buttons">
+                  <v-button :loading="form.busy" class="btn btn-success action-btn">
                     <i class="fas fa-save" /> {{ $t('Save') }}
                   </v-button>
-                  <button type="reset" class="btn btn-info" @click="form.reset()">
+                  <button type="reset" class="btn btn-info action-btn" @click="form.reset()">
                     <i class="fas fa-power-off" /> {{ $t('Reset') }}
                   </button>
                 </div>
@@ -655,6 +655,55 @@ textarea.form-control {
   margin-bottom: 1rem;
 }
 
+/* Action Buttons Styling - Ensure uniform size */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.action-btn {
+  min-width: 120px;
+  padding: 10px 20px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+}
+
+.action-btn i {
+  margin-right: 5px;
+}
+
+/* Button Success Styling */
+.btn-success {
+  background: #28a745 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-success:hover {
+  background: #218838 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Button Info Styling */
+.btn-info {
+  background: #17a2b8 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-info:hover {
+  background: #138496 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-footer {
@@ -662,7 +711,12 @@ textarea.form-control {
     gap: 10px;
   }
   
-  .card-footer .btn {
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .action-btn {
     width: 100%;
     margin-right: 0 !important;
   }
