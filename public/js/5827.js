@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[3245],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[5827],{
 
-/***/ 46406:
+/***/ 42110:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-56dd39ca]{margin-bottom:15px}.footer-buttons[data-v-56dd39ca]{display:flex;gap:10px}.footer-buttons .btn[data-v-56dd39ca]{margin-right:10px}.footer-buttons .btn[data-v-56dd39ca]:last-child{margin-right:0}.table-custom[data-v-56dd39ca]{border:none!important}.invoices-create-table[data-v-56dd39ca]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-56dd39ca]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-56dd39ca]{border:none!important}.invoices-create-table thead th[data-v-56dd39ca]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-56dd39ca]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-56dd39ca]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-56dd39ca]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-56dd39ca]{gap:10px}.card[data-v-56dd39ca]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-56dd39ca]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.invoices-create-table .badge.badge-info[data-v-56dd39ca]{background:#e3f2fd!important;color:#1976d2!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-56dd39ca]{background:#fff!important}.btn-primary[data-v-56dd39ca]{background:#2ab930!important}.btn-secondary[data-v-56dd39ca]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.quantity-field[data-v-56dd39ca]{border-radius:0!important;margin:0!important;min-height:50px!important}.account-status[data-v-56dd39ca]{font-size:.875rem}.account-status .account-warning[data-v-56dd39ca]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:.25rem;color:#856404;display:flex;padding:.5rem}.account-status .account-success[data-v-56dd39ca]{align-items:center;background-color:#d4edda;border:1px solid #c3e6cb;border-radius:.25rem;color:#155724;display:flex;padding:.5rem}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-4120b98c]{margin-bottom:15px}.footer-buttons[data-v-4120b98c]{display:flex;gap:10px}.footer-buttons .btn[data-v-4120b98c]{margin-right:10px}.footer-buttons .btn[data-v-4120b98c]:last-child{margin-right:0}.btn-group.c-w-100[data-v-4120b98c]{gap:10px}.card[data-v-4120b98c]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-4120b98c]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-4120b98c]{background:#fff!important}.btn-primary[data-v-4120b98c]{background:#2ab930!important}.btn-secondary[data-v-4120b98c]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-4120b98c]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.table-custom[data-v-4120b98c]{border:none!important}.purchases-create-table[data-v-4120b98c]{border-collapse:separate;border-spacing:0}.purchases-create-table thead th[data-v-4120b98c]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.purchases-create-table thead tr[data-v-4120b98c]{border:none!important}.purchases-create-table thead th[data-v-4120b98c]:first-child{border-top-left-radius:10px}.purchases-create-table thead th[data-v-4120b98c]:last-child{border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-4120b98c]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-4120b98c]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.purchases-create-table .badge.badge-info[data-v-4120b98c]{background:#e3f2fd!important;color:#1976d2!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.quantity-field[data-v-4120b98c]{border-radius:0!important;margin:0!important;min-height:50px!important}.account-status[data-v-4120b98c]{font-size:.875rem}.account-status .account-warning[data-v-4120b98c]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:.25rem;color:#856404;display:flex;padding:.5rem}.account-status .account-success[data-v-4120b98c]{align-items:center;background-color:#d4edda;border:1px solid #c3e6cb;border-radius:.25rem;color:#155724;display:flex;padding:.5rem}.product-status[data-v-4120b98c]{font-size:13px}.product-warning[data-v-4120b98c]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;color:#856404;display:flex;font-weight:500;padding:8px 12px}.btn-outline-warning[data-v-4120b98c]{border-color:#ffc107;border-radius:6px;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-4120b98c]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-4120b98c]:disabled{cursor:not-allowed;opacity:.6}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 73245:
+/***/ 5827:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -28,10 +28,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ returns_form)
+  "default": () => (/* binding */ edit)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/form.vue?vue&type=template&id=56dd39ca&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=template&id=4120b98c&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -45,8 +45,8 @@ var render = function render() {
     staticClass: "card-header setings-header"
   }, [_c('breadcrumbs', {
     attrs: {
-      "items": _vm.dynamicBreadcrumbs,
-      "current": _vm.dynamicBreadcrumbsCurrent
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "col-xl-8 col-8 float-right text-right"
@@ -56,7 +56,7 @@ var render = function render() {
     staticClass: "btn btn-info",
     attrs: {
       "to": {
-        name: 'invoiceReturns.index'
+        name: 'purchaseReturns.index'
       }
     }
   }, [_c('i', {
@@ -64,21 +64,22 @@ var render = function render() {
   }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n              ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-success",
     attrs: {
-      "type": "submit",
-      "form": _vm.formId,
-      "title": _vm.isEdit ? _vm.$t('Save changes') : _vm.$t('Save')
+      "type": "button",
+      "title": _vm.$t('Save Changes')
+    },
+    on: {
+      "click": _vm.updatePurchaseReturn
     }
   }, [_c('i', {
     staticClass: "fas fa-save"
-  })])], 1)])], 1), _vm._v(" "), _c('form', {
+  }), _vm._v(" " + _vm._s(_vm.$t('Save Changes')) + "\n              ")])], 1)])], 1), _vm._v(" "), _c('form', {
     attrs: {
-      "id": _vm.formId,
       "role": "form"
     },
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.onSubmit.apply(null, arguments);
+        return _vm.updatePurchaseReturn.apply(null, arguments);
       },
       "keydown": function keydown($event) {
         return _vm.form.onKeydown($event);
@@ -86,187 +87,160 @@ var render = function render() {
     }
   }, [_c('div', {
     staticClass: "card-body"
-  }, [_vm.items && !_vm.isEdit ? _c('div', {
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
-      "for": "returnReason"
+      "for": "purchaseNo"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Return Reason')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t('Purchase No')))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.returnReason,
-      expression: "form.returnReason"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('returnReason')
-    },
-    attrs: {
-      "id": "returnReason",
-      "type": "text",
-      "name": "returnReason",
-      "placeholder": _vm.$t('Enter a reason')
-    },
-    domProps: {
-      "value": _vm.form.returnReason
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "returnReason", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "returnReason"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "client"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Client')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('client')
-    },
-    attrs: {
-      "options": _vm.items,
-      "label": "name",
-      "name": "client",
-      "placeholder": _vm.$t('Select a client')
-    },
-    on: {
-      "input": _vm.assignInvoices
-    },
-    model: {
-      value: _vm.form.client,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "client", $$v);
-      },
-      expression: "form.client"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "client"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.isEdit ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "returnReason"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Return Reason')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.returnReason,
-      expression: "form.returnReason"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('returnReason')
-    },
-    attrs: {
-      "id": "returnReason",
-      "type": "text",
-      "name": "returnReason",
-      "placeholder": _vm.$t('Enter a reason')
-    },
-    domProps: {
-      "value": _vm.form.returnReason
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "returnReason", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "returnReason"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "clientName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Client')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.clientNameReadonly,
-      expression: "clientNameReadonly"
+      value: _vm.form.purchaseNo,
+      expression: "form.purchaseNo"
     }],
     staticClass: "form-control",
     attrs: {
+      "id": "purchaseNo",
       "type": "text",
-      "name": "clientName",
+      "name": "purchaseNo",
       "readonly": ""
     },
     domProps: {
-      "value": _vm.clientNameReadonly
+      "value": _vm.form.purchaseNo
     },
     on: {
       "input": function input($event) {
         if ($event.target.composing) return;
-        _vm.clientNameReadonly = $event.target.value;
+        _vm.$set(_vm.form, "purchaseNo", $event.target.value);
       }
     }
-  })])]) : _vm._e(), _vm._v(" "), _vm.form.client && _vm.clientInvoices && !_vm.isEdit ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-12"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
-      "for": "invoice"
+      "for": "purchaseReturnNo"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Invoices')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('invoice')
-    },
+  }, [_vm._v(_vm._s(_vm.$t('Purchase Return No')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.purchaseReturnNo,
+      expression: "form.purchaseReturnNo"
+    }],
+    staticClass: "form-control",
     attrs: {
-      "options": _vm.clientInvoices,
-      "label": "label",
-      "name": "invoice",
-      "placeholder": _vm.$t('Select an invoice')
+      "id": "purchaseReturnNo",
+      "type": "text",
+      "name": "purchaseReturnNo",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.form.purchaseReturnNo
     },
     on: {
-      "input": _vm.storeProducts
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "purchaseReturnNo", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "returnReason"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Return Reason')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.returnReason,
+      expression: "form.returnReason"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('returnReason')
     },
-    model: {
-      value: _vm.form.invoice,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "invoice", $$v);
-      },
-      expression: "form.invoice"
+    attrs: {
+      "id": "returnReason",
+      "type": "text",
+      "name": "returnReason",
+      "placeholder": "Enter a reason"
+    },
+    domProps: {
+      "value": _vm.form.returnReason
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "returnReason", $event.target.value);
+      }
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
-      "field": "invoice"
+      "field": "returnReason"
     }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+  })], 1), _vm._v(" "), _vm.form.supplier ? _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "supplier"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Supplier')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.supplier,
+      expression: "form.supplier"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "supplier",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.form.supplier
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "supplier", $event.target.value);
+      }
+    }
+  })]) : _vm._e()]), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    staticClass: "product-status mt-2"
+  }, _vm._l(_vm.form.selectedProducts, function (product, index) {
+    return !product.purchase_account_id ? _c('div', {
+      key: "status-".concat(product.id),
+      staticClass: "product-warning mb-2"
+    }, [_c('i', {
+      staticClass: "fas fa-exclamation-triangle text-warning"
+    }), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(product.name) + "\" " + _vm._s(_vm.$t('needs Purchase Account')))]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-sm btn-outline-warning ml-2",
+      attrs: {
+        "type": "button",
+        "disabled": _vm.isAutoAssigningProduct === product.id
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.autoAssignProductChartOfAccount(product);
+        }
+      }
+    }, [_c('i', {
+      "class": _vm.isAutoAssigningProduct === product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
+    }), _vm._v("\n                  " + _vm._s(_vm.isAutoAssigningProduct === product.id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                ")])]) : _vm._e();
+  }), 0) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
     staticClass: "row mt-3 mb-4"
   }, [_vm.form.errors.errors && _vm.form.errors.errors.selectedProducts ? _c('div', {
     staticClass: "w-100 m-auto"
@@ -283,7 +257,7 @@ var render = function render() {
       "max-width": "100%"
     }
   }, [_c('table', {
-    staticClass: "table table-hover table-sm text-center invoices-create-table"
+    staticClass: "table table-hover table-sm text-center purchases-create-table"
   }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t('#')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Code')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Item Name')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Qty')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Price')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Discount')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total After Discount')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('VAT Type')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('VAT')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total with VAT')))]), _vm._v(" "), _c('th', {
     staticClass: "text-right"
   }, [_vm._v(_vm._s(_vm.$t('Action')))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.form.selectedProducts, function (item, index) {
@@ -624,29 +598,29 @@ var render = function render() {
     staticClass: "form-group col-md-3"
   }, [_c('label', {
     attrs: {
-      "for": "invoiceTax"
+      "for": "purchaseTax"
     }
-  }, [_vm._v(_vm._s(_vm.$t('Invoice Tax')))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t('Purchase Tax')))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.formattedInvoiceTax,
-      expression: "formattedInvoiceTax"
+      value: _vm.formattedPurchaseTax,
+      expression: "formattedPurchaseTax"
     }],
     staticClass: "form-control",
     attrs: {
-      "id": "invoiceTax",
+      "id": "purchaseTax",
       "type": "text",
-      "name": "invoiceTax",
+      "name": "purchaseTax",
       "readonly": ""
     },
     domProps: {
-      "value": _vm.formattedInvoiceTax
+      "value": _vm.formattedPurchaseTax
     },
     on: {
       "input": function input($event) {
         if ($event.target.composing) return;
-        _vm.formattedInvoiceTax = $event.target.value;
+        _vm.formattedPurchaseTax = $event.target.value;
       }
     }
   })]) : _vm._e()]), _vm._v(" "), _vm.accounts && _vm.form.returnAmount > 0 ? _c('div', {
@@ -925,9 +899,9 @@ var render = function render() {
       "type": "success"
     }
   }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.isEdit ? _vm.$t('Save changes') : _vm.$t('Save')) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info ml-2",
+    staticClass: "fas fa-edit"
+  }), _vm._v(" " + _vm._s(_vm.$t('Save changes')) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-info",
     attrs: {
       "type": "reset"
     },
@@ -946,7 +920,7 @@ var staticRenderFns = [function () {
   return _c('td', [_c('strong')]);
 }];
 
-;// CONCATENATED MODULE: ./resources/js/pages/sales/returns/form.vue?vue&type=template&id=56dd39ca&scoped=true
+;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/edit.vue?vue&type=template&id=4120b98c&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -955,11 +929,8 @@ var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/form.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -971,108 +942,83 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
-/* harmony default export */ const formvue_type_script_lang_js = ({
+/* harmony default export */ const editvue_type_script_lang_js = ({
   middleware: ['auth', 'check-permissions'],
   metaInfo: function metaInfo() {
     return {
-      title: this.isEdit ? this.$t('Edit Invoice Return') : this.isSaudiArabia ? this.$t('Create Credit Note') : this.$t('Create Invoice Return')
+      title: this.$t('Edit Purchase Return')
     };
   },
   data: function data() {
     return {
-      breadcrumbsCurrent: '',
+      breadcrumbsCurrent: 'Edit Purchase Return',
       breadcrumbs: [{
         name: 'Dashboard',
         url: 'home'
       }, {
-        name: '',
-        url: 'invoiceReturns.index'
+        name: 'Purchase Returns',
+        url: 'purchaseReturns.index'
       }, {
-        name: 'Create',
+        name: 'Edit',
         url: ''
       }],
+      isAutoAssigningProduct: null,
       form: new vform_es/* default */.Ay({
         returnReason: '',
         account: '',
-        availableBalance: 0,
         chequeNo: '',
         receiptNo: '',
-        client: '',
-        invoice: '',
+        supplier: '',
+        purchaseNo: '',
+        purchase: '',
         product: '',
         selectedProducts: [],
-        totalReturn: 0,
         date: new Date().toISOString().slice(0, 10),
         note: '',
         status: 1,
-        invoiceTax: 0,
-        newTax: 0,
-        invoiceDiscount: 0,
-        discountType: 0,
-        discountPercentage: 0,
-        invoiceTransport: 0,
-        invoiceTaxRate: 0,
-        invoiceTotal: 0,
-        originalInvoiceTotal: 0,
-        invoiceDue: 0,
-        totalPaid: 0,
+        purchaseTotal: '',
+        totalReturn: 0,
+        newTotal: 0,
+        newReturn: 0,
+        taxRate: 0,
+        newSubTotal: 0,
+        purchaseTax: 0,
+        purchaseTransport: 100,
+        purchaseDiscount: 0,
+        purchaseDue: 0,
         newDue: 0,
         newDueText: '',
         returnAmount: 0,
         returnAmountText: 0,
-        newSubTotal: 0,
-        // Detailed return calculation fields
+        availableBalance: 0,
+        totalDiscount: 0,
+        transportCost: 0,
         netTotal: 0,
         taxAmount: 0,
-        discountTotal: 0,
-        // New fields for display
-        totalDiscount: 0,
-        transportCost: 0
+        discountTotal: 0
       }),
-      products: '',
       accounts: '',
-      clientInvoices: '',
       prefix: '',
-      taxes: '',
-      loadedReturn: null
+      purchasePrefix: '',
+      purchaseReturnPrefix: '',
+      taxes: ''
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items', 'appInfo'])), {}, {
-    isEdit: function isEdit() {
-      return this.$route.name === 'invoiceReturns.edit' || !!this.$route.params.slug;
-    },
-    clientNameReadonly: function clientNameReadonly() {
-      var _this$form$client;
-      return ((_this$form$client = this.form.client) === null || _this$form$client === void 0 ? void 0 : _this$form$client.name) || '';
-    },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo'])), {}, {
+    // Check if the country is Saudi Arabia
     isSaudiArabia: function isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA';
     },
-    formId: function formId() {
-      return this.isEdit ? 'invoiceReturnEditUnifiedForm' : 'invoiceReturnCreateUnifiedForm';
-    },
-    hasBankAccountChartOfAccount: function hasBankAccountChartOfAccount() {
-      if (this.form.returnAmount <= 0) return true;
-      return this.form.account && this.form.account.chartOfAccountId;
-    },
-    dynamicBreadcrumbsCurrent: function dynamicBreadcrumbsCurrent() {
-      if (this.isEdit) return this.$t('Edit Invoice Return');
-      return this.isSaudiArabia ? this.$t('Create Credit Note') : this.$t('Create Invoice Return');
-    },
-    dynamicBreadcrumbs: function dynamicBreadcrumbs() {
-      return [{
-        name: 'Dashboard',
-        url: 'home'
-      }, {
-        name: this.isSaudiArabia ? this.$t('Credit notes') : this.$t('Invoice Returns'),
-        url: 'invoiceReturns.index'
-      }, {
-        name: this.isEdit ? 'Edit' : 'Create',
-        url: ''
-      }];
-    },
-    // Totals (same as create.vue)
+    // Totals (same as invoice return)
     totalUnitPrice: function totalUnitPrice() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
+      var total = this.form.selectedProducts.reduce(function (total, product) {
+        return total + (Number(product.totalBeforeDiscount) || 0);
+      }, 0);
+      var numValue = Number(total);
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
+    },
+    totalTotal: function totalTotal() {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
       var total = this.form.selectedProducts.reduce(function (total, product) {
         return total + (Number(product.totalBeforeDiscount) || 0);
@@ -1113,512 +1059,218 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
     },
     formattedTotalDiscount: function formattedTotalDiscount() {
-      return this.formatToTwoDecimals(this.form.totalDiscount);
+      return this.formatToTwoDecimals(this.form.totalDiscount || 0);
     },
     formattedTransportCost: function formattedTransportCost() {
-      return this.formatToTwoDecimals(this.form.transportCost);
+      return this.formatToTwoDecimals(this.form.purchaseTransport || 0);
     },
-    formattedInvoiceTax: function formattedInvoiceTax() {
-      return this.formatToTwoDecimals(this.form.invoiceTax);
+    formattedPurchaseTax: function formattedPurchaseTax() {
+      return this.formatToTwoDecimals(this.form.newTax || 0);
     },
     formattedAvailableBalance: function formattedAvailableBalance() {
-      return this.formatToTwoDecimals(this.form.availableBalance);
+      return this.formatToTwoDecimals(this.form.availableBalance || 0);
     }
   }),
-  watch: {
-    'form.selectedProducts': {
-      handler: function handler(newVal) {
-        if (newVal && newVal.length > 0) this.calculateSum();
-      },
-      deep: true
-    },
-    'form.newSubTotal': {
-      handler: function handler(newVal) {
-        if (this.form.discountType == 1 && this.form.invoiceDiscount > 0 && newVal > 0) {
-          this.form.discountPercentage = Number((this.form.invoiceDiscount / newVal * 100).toFixed(2));
-        }
-      }
-    }
-  },
   created: function created() {
-    var _this = this;
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return _this.getClients();
-          case 2:
-            _this.getProducts();
-            _this.getAccounts();
-            _this.getTaxes();
-            _this.prefix = _this.appInfo.productPrefix;
-            // default status by country
-            _this.form.status = _this.isSaudiArabia ? 0 : 1;
-            if (_this.isEdit) {
-              _this.loadExistingReturn();
-            }
-            // handle pre-selection from query on create
-            if (!_this.isEdit) {
-              _this.handlePreSelection();
-            }
-          case 9:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee);
-    }))();
+    this.prefix = this.appInfo.productPrefix;
+    this.purchasePrefix = this.appInfo.purchasePrefix;
+    this.purchaseReturnPrefix = this.appInfo.purchaseReturnPrefix;
+    this.getPurchaseReturn();
+    this.getAccounts();
+    this.getTaxes();
+    // default status by country
+    this.form.status = this.isSaudiArabia ? 0 : 1;
   },
   methods: {
-    // get all clients
-    getClients: function getClients() {
-      var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return _this2.$store.dispatch('operations/allData', {
-                path: '/api/all-clients'
-              });
-            case 2:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2);
-      }))();
-    },
-    // handle pre-selection from query parameters (client and/or invoice)
-    handlePreSelection: function handlePreSelection() {
-      var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var _this3$$route, _this3$$route2, _this3$$route3;
-        var clientSlug, invoiceSlug, invoiceData, _response$data, response, _this3$items, attempts, maxAttempts, matchedClient, _this3$clientInvoices, _resp$data, _invoiceData, resp, matchedInvoice, _matchedInvoice;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              clientSlug = (_this3$$route = _this3.$route) === null || _this3$$route === void 0 || (_this3$$route = _this3$$route.query) === null || _this3$$route === void 0 ? void 0 : _this3$$route.client;
-              invoiceSlug = (_this3$$route2 = _this3.$route) === null || _this3$$route2 === void 0 || (_this3$$route2 = _this3$$route2.query) === null || _this3$$route2 === void 0 ? void 0 : _this3$$route2.invoice;
-              invoiceData = null;
-              console.log('Preselection starting:', {
-                clientSlug: clientSlug,
-                invoiceSlug: invoiceSlug,
-                query: (_this3$$route3 = _this3.$route) === null || _this3$$route3 === void 0 ? void 0 : _this3$$route3.query
-              });
-              _context3.prev = 4;
-              if (!(invoiceSlug && !clientSlug)) {
-                _context3.next = 12;
-                break;
-              }
-              console.log('Fetching invoice to get client:', invoiceSlug);
-              _context3.next = 9;
-              return axios_default().get("/api/invoices/".concat(invoiceSlug));
-            case 9:
-              response = _context3.sent;
-              invoiceData = (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.data;
-              if (invoiceData && invoiceData.client) {
-                clientSlug = invoiceData.client.slug;
-                console.log('Found client from invoice:', clientSlug);
-              }
-            case 12:
-              if (!clientSlug) {
-                _context3.next = 55;
-                break;
-              }
-              console.log('Looking for client:', clientSlug);
-              // wait for clients to be available in store
-              attempts = 0;
-              maxAttempts = 10;
-            case 16:
-              if (!(attempts < maxAttempts)) {
-                _context3.next = 24;
-                break;
-              }
-              if (!(_this3.items && Array.isArray(_this3.items) && _this3.items.length > 0)) {
-                _context3.next = 19;
-                break;
-              }
-              return _context3.abrupt("break", 24);
-            case 19:
-              _context3.next = 21;
-              return new Promise(function (r) {
-                return setTimeout(r, 200);
-              });
-            case 21:
-              attempts++;
-              _context3.next = 16;
-              break;
-            case 24:
-              console.log('Available clients:', (_this3$items = _this3.items) === null || _this3$items === void 0 ? void 0 : _this3$items.length);
-              matchedClient = (_this3.items || []).find(function (c) {
-                return c.slug === clientSlug;
-              });
-              if (!matchedClient) {
-                _context3.next = 49;
-                break;
-              }
-              console.log('Found client, setting form.client:', matchedClient);
-              _this3.form.client = matchedClient;
-              _context3.next = 31;
-              return _this3.assignInvoices();
-            case 31:
-              console.log('Client invoices loaded:', (_this3$clientInvoices = _this3.clientInvoices) === null || _this3$clientInvoices === void 0 ? void 0 : _this3$clientInvoices.length);
-
-              // if invoice slug was provided, try to pick that invoice
-              if (!invoiceSlug) {
-                _context3.next = 47;
-                break;
-              }
-              if (invoiceData) {
-                _context3.next = 45;
-                break;
-              }
-              _context3.prev = 34;
-              _context3.next = 37;
-              return axios_default().get("/api/invoices/".concat(invoiceSlug));
-            case 37:
-              resp = _context3.sent;
-              invoiceData = (_resp$data = resp.data) === null || _resp$data === void 0 ? void 0 : _resp$data.data;
-              console.log('Fetched invoice data:', (_invoiceData = invoiceData) === null || _invoiceData === void 0 ? void 0 : _invoiceData.id);
-              _context3.next = 45;
-              break;
-            case 42:
-              _context3.prev = 42;
-              _context3.t0 = _context3["catch"](34);
-              console.warn('Failed to fetch invoice:', _context3.t0);
-            case 45:
-              // pick from clientInvoices by slug match; fallback by id if available
-              matchedInvoice = (_this3.clientInvoices || []).find(function (inv) {
-                var _invoiceData2;
-                return inv.slug === invoiceSlug || inv.id === ((_invoiceData2 = invoiceData) === null || _invoiceData2 === void 0 ? void 0 : _invoiceData2.id);
-              });
-              if (matchedInvoice) {
-                console.log('Found invoice in clientInvoices:', matchedInvoice);
-                _this3.form.invoice = matchedInvoice;
-                _this3.storeProducts();
-              } else {
-                // if not found in clientInvoices, try using the full invoice data directly
-                if (invoiceData) {
-                  console.log('Using full invoice data directly:', invoiceData);
-                  _this3.form.invoice = invoiceData;
-                  _this3.storeProducts();
-                } else {
-                  console.warn('No invoice found for slug:', invoiceSlug);
-                }
-              }
-            case 47:
-              _context3.next = 55;
-              break;
-            case 49:
-              console.warn('Client not found in store:', clientSlug);
-              // fallback: if we already fetched invoiceData with client, use it directly
-              if (!(invoiceData && invoiceData.client)) {
-                _context3.next = 55;
-                break;
-              }
-              _this3.form.client = invoiceData.client;
-              _context3.next = 54;
-              return _this3.assignInvoices();
-            case 54:
-              if (invoiceSlug) {
-                _matchedInvoice = (_this3.clientInvoices || []).find(function (inv) {
-                  var _invoiceData3;
-                  return inv.slug === invoiceSlug || inv.id === ((_invoiceData3 = invoiceData) === null || _invoiceData3 === void 0 ? void 0 : _invoiceData3.id);
-                });
-                if (_matchedInvoice) {
-                  _this3.form.invoice = _matchedInvoice;
-                  _this3.storeProducts();
-                } else if (invoiceData) {
-                  _this3.form.invoice = invoiceData;
-                  _this3.storeProducts();
-                }
-              }
-            case 55:
-              _context3.next = 60;
-              break;
-            case 57:
-              _context3.prev = 57;
-              _context3.t1 = _context3["catch"](4);
-              console.warn('Preselection failed:', _context3.t1);
-              // silent fail – preselection is best-effort
-            case 60:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3, null, [[4, 57], [34, 42]]);
-      }))();
-    },
-    // get products
-    getProducts: function getProducts() {
-      var _this4 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    // get accounts
+    getAccounts: function getAccounts() {
+      var _this = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context4.next = 2;
-              return axios_default().get(window.location.origin + '/api/all-products');
+              _context.next = 2;
+              return axios_default().get(window.location.origin + '/api/all-accounts');
             case 2:
-              _yield$axios$get = _context4.sent;
+              _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
-              _this4.products = data.data;
+              _this.accounts = data.data;
             case 5:
             case "end":
-              return _context4.stop();
+              return _context.stop();
           }
-        }, _callee4);
+        }, _callee);
       }))();
     },
     // get taxes
     getTaxes: function getTaxes() {
-      var _this5 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context5.prev = 0;
-              _context5.next = 3;
+              _context2.prev = 0;
+              _context2.next = 3;
               return axios_default().get(window.location.origin + '/api/all-vat-rates');
             case 3:
-              _yield$axios$get2 = _context5.sent;
+              _yield$axios$get2 = _context2.sent;
               data = _yield$axios$get2.data;
-              _this5.taxes = data.data;
-              _context5.next = 11;
+              _this2.taxes = data.data;
+              _context2.next = 11;
               break;
             case 8:
-              _context5.prev = 8;
-              _context5.t0 = _context5["catch"](0);
-              _this5.taxes = [];
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              _this2.taxes = [];
             case 11:
             case "end":
-              return _context5.stop();
+              return _context2.stop();
           }
-        }, _callee5, null, [[0, 8]]);
+        }, _callee2, null, [[0, 8]]);
       }))();
     },
-    // get accounts
-    getAccounts: function getAccounts() {
-      var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+    // get the purchase return
+    getPurchaseReturn: function getPurchaseReturn() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var _yield$axios$get3, data;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context6.next = 2;
-              return axios_default().get(window.location.origin + '/api/all-accounts');
+              _context3.next = 2;
+              return axios_default().get(window.location.origin + '/api/purchase-returns/' + _this3.$route.params.slug);
             case 2:
-              _yield$axios$get3 = _context6.sent;
+              _yield$axios$get3 = _context3.sent;
               data = _yield$axios$get3.data;
-              _this6.accounts = data.data;
-            case 5:
+              _this3.form.returnReason = data.data.reason;
+              _this3.form.account = data.data.account;
+              _this3.form.chequeNo = data.data.accountReceivable ? data.data.accountReceivable.cheque_no : '';
+              _this3.form.receiptNo = data.data.accountReceivable ? data.data.accountReceivable.receipt_no : '';
+              _this3.form.supplier = data.data.supplier.name;
+              _this3.form.purchaseNo = _this3.$options.filters.withPrefix(data.data.purchase.code, _this3.purchasePrefix);
+              _this3.form.purchaseReturnNo = _this3.$options.filters.withPrefix(data.data.returnNo, _this3.purchaseReturnPrefix);
+              _this3.form.purchase = data.data.purchase;
+              _this3.form.date = data.data.returnDate;
+              _this3.form.note = data.data.note;
+              _this3.form.status = data.data.status;
+              _this3.form.newTotal = data.data.purchase.purchaseTotal;
+              _this3.form.totalReturn = data.data.totalReturn;
+              _this3.form.oldReturn = data.data.totalReturn;
+              _this3.form.taxRate = data.data.purchase.taxRate;
+              _this3.form.purchaseTax = data.data.purchase.tax;
+              _this3.form.newTax = data.data.purchase.tax;
+              _this3.form.purchaseTotal = data.data.purchase.purchaseTotal;
+              _this3.form.purchaseTransport = data.data.purchase.transport;
+              _this3.form.purchaseDiscount = data.data.purchase.totalDiscount;
+              _this3.form.purchaseDue = data.data.purchase.due > 0 ? data.data.purchase.due : 0;
+              _this3.form.suppllierAdvance = data.data.creditAmount;
+              _this3.form.supplierAdvanceText = data.data.creditAmount;
+              _this3.form.newDueText = data.data.purchase.due > 0 ? data.data.purchase.due : 0;
+              _context3.next = 30;
+              return _this3.assignProducts(data.data.returnProducts);
+            case 30:
+              _this3.form.selectedProducts = _context3.sent;
+            case 31:
             case "end":
-              return _context6.stop();
+              return _context3.stop();
           }
-        }, _callee6);
+        }, _callee3);
       }))();
     },
-    // assign invoices
-    assignInvoices: function assignInvoices() {
-      var _this7 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+    // get order products
+    assignProducts: function assignProducts(products) {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var key, _this4$taxes, _productData2, purchaseReturnItem, purchaseReturnProduct, productData, _productData, response, selectedVatRate, totalBeforeDiscount, discountAmount, totalAfterDiscount, productTax, totalTax, totalPrice, finalPurchaseAccountId;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _this7.form.selectedProducts = [];
-              _this7.form.invoice = '';
-              if (!_this7.form.client) {
-                _context7.next = 9;
+              _this4.form.selectedProducts = [];
+              _context4.t0 = _regeneratorRuntime().keys(products);
+            case 2:
+              if ((_context4.t1 = _context4.t0()).done) {
+                _context4.next = 32;
                 break;
               }
-              _context7.next = 5;
-              return axios_default().post(window.location.origin + '/api/client/filter-invoices', {
-                products: _this7.form.product,
-                clientSlug: _this7.form.client.slug
-              });
-            case 5:
-              response = _context7.sent;
-              _this7.clientInvoices = response.data.data;
-              _context7.next = 11;
+              key = _context4.t1.value;
+              purchaseReturnItem = products[key];
+              purchaseReturnProduct = products[key].product; // Fetch fresh product data to get purchase_account_id
+              productData = null;
+              _context4.prev = 7;
+              _context4.next = 10;
+              return axios_default().get("/api/products/".concat(purchaseReturnProduct.slug));
+            case 10:
+              response = _context4.sent;
+              productData = response.data.data;
+              console.log('Product data for', purchaseReturnProduct.name, ':', (_productData = productData) === null || _productData === void 0 ? void 0 : _productData.purchase_account_id);
+              _context4.next = 18;
               break;
-            case 9:
-              _this7.form.product = '';
-              _this7.form.client = '';
-            case 11:
+            case 15:
+              _context4.prev = 15;
+              _context4.t2 = _context4["catch"](7);
+              console.warn('Could not fetch product data for:', purchaseReturnProduct.slug);
+            case 18:
+              selectedVatRate = _this4.findMatchingVatRate(purchaseReturnItem.productTax) || ((_this4$taxes = _this4.taxes) === null || _this4$taxes === void 0 ? void 0 : _this4$taxes[0]);
+              totalBeforeDiscount = Number((purchaseReturnItem.returnQty * purchaseReturnItem.purchasePrice).toFixed(2));
+              discountAmount = 0;
+              if ((purchaseReturnItem.discountType || 'fixed') === 'percentage') {
+                discountAmount = Number((totalBeforeDiscount * (purchaseReturnItem.productDiscount || 0) / 100).toFixed(2));
+              } else {
+                discountAmount = Number((purchaseReturnItem.productDiscount || 0).toFixed ? (purchaseReturnItem.productDiscount || 0).toFixed(2) : Number(purchaseReturnItem.productDiscount || 0));
+              }
+              totalAfterDiscount = Number((totalBeforeDiscount - discountAmount).toFixed(2));
+              productTax = 0;
+              totalTax = 0;
+              totalPrice = totalAfterDiscount;
+              if (selectedVatRate && selectedVatRate.rate) {
+                productTax = Number((totalAfterDiscount * (selectedVatRate.rate / 100)).toFixed(2));
+                totalTax = productTax;
+                totalPrice = Number((totalAfterDiscount + productTax).toFixed(2));
+              }
+              finalPurchaseAccountId = purchaseReturnItem.purchase_account_id || (purchaseReturnProduct === null || purchaseReturnProduct === void 0 ? void 0 : purchaseReturnProduct.purchase_account_id) || ((_productData2 = productData) === null || _productData2 === void 0 ? void 0 : _productData2.purchase_account_id);
+              console.log('Final purchase_account_id for', purchaseReturnProduct.name, ':', finalPurchaseAccountId);
+              _this4.form.selectedProducts.unshift({
+                id: purchaseReturnProduct.id,
+                slug: purchaseReturnProduct.slug,
+                name: purchaseReturnProduct.name,
+                code: purchaseReturnProduct.code,
+                purchasedQty: purchaseReturnItem.purchasedQty,
+                qty: purchaseReturnItem.purchasedQty,
+                returnQty: purchaseReturnItem.returnQty,
+                oldReturnedQty: purchaseReturnItem.returnQty,
+                totalReturnedQty: purchaseReturnItem.returnQty,
+                maxQty: purchaseReturnItem.purchasedQty - 1,
+                price: purchaseReturnItem.purchasePrice,
+                unitCost: purchaseReturnItem.purchasePrice,
+                returnTotal: totalPrice,
+                totalPrice: totalPrice,
+                productTax: productTax,
+                totalTax: productTax,
+                productDiscount: purchaseReturnItem.productDiscount || 0,
+                discountType: purchaseReturnItem.discountType || 'fixed',
+                discountAmount: discountAmount,
+                discount: purchaseReturnItem.productDiscount || 0,
+                vatRate: purchaseReturnItem.vatRate,
+                selectedVatRate: selectedVatRate,
+                totalBeforeDiscount: totalBeforeDiscount,
+                totalAfterDiscount: totalAfterDiscount,
+                purchase_account_id: finalPurchaseAccountId
+              });
+              _context4.next = 2;
+              break;
+            case 32:
+              _this4.calculateSum();
+              return _context4.abrupt("return", _this4.form.selectedProducts);
+            case 34:
             case "end":
-              return _context7.stop();
+              return _context4.stop();
           }
-        }, _callee7);
+        }, _callee4, null, [[7, 15]]);
       }))();
     },
-    // populate products from selected invoice
-    storeProducts: function storeProducts() {
-      var _this8 = this;
-      if (!this.form.invoice || !this.form.invoice.invoiceProducts) return;
-      this.form.selectedProducts = [];
-      this.form.invoiceTax = this.form.invoice.tax;
-      this.form.newTax = this.form.invoice.tax;
-      this.form.invoiceTaxRate = this.form.invoice.taxRate;
-      this.form.originalInvoiceTotal = this.form.invoice.invoiceTotal;
-      this.form.invoiceTotal = this.form.invoice.invoiceTotal;
-      this.form.invoiceTransport = this.form.invoice.transport;
-      this.form.invoiceDiscount = this.form.invoice.discount;
-      this.form.discountType = this.form.invoice.discountType;
-      this.form.discountPercentage = this.form.invoice.discountPercentage;
-      this.form.invoiceDue = this.form.invoice.due;
-      this.form.newDue = this.form.invoice.due;
-      this.form.newDueText = this.form.invoice.due;
-      this.form.totalPaid = this.form.invoice.totalPaid;
-      this.form.totalDiscount = 0;
-      this.form.transportCost = this.form.invoice.transport || 0;
-      var _iterator = _createForOfIteratorHelper(this.form.invoice.invoiceProducts),
-        _step;
-      try {
-        var _loop = function _loop() {
-          var _this8$taxes;
-          var invoiceItem = _step.value;
-          var matchedReturn = _this8.isEdit && _this8.loadedReturn ? _this8.loadedReturn.invoiceReturnProducts.find(function (p) {
-            return p.productID === invoiceItem.productID;
-          }) : null;
-          // On edit, only include products that were saved in this return
-          if (_this8.isEdit && _this8.loadedReturn && !matchedReturn) return 1; // continue
-          var presetReturnQty = matchedReturn ? matchedReturn.returnQty : invoiceItem.quantity - invoiceItem.returnQty;
-          var maxQty = invoiceItem.quantity - (invoiceItem.returnQty || 0);
-          var selectedVatRate = _this8.findMatchingVatRate(invoiceItem.productTax) || _this8.form.orderTax || ((_this8$taxes = _this8.taxes) === null || _this8$taxes === void 0 ? void 0 : _this8$taxes[0]);
-          var totalBeforeDiscount = Number((presetReturnQty * invoiceItem.salePrice).toFixed(2));
-          var discountAmount = 0;
-          if ((invoiceItem.discountType || 'fixed') === 'percentage') {
-            discountAmount = Number((totalBeforeDiscount * (invoiceItem.productDiscount || 0) / 100).toFixed(2));
-          } else {
-            discountAmount = Number((invoiceItem.productDiscount || 0).toFixed ? (invoiceItem.productDiscount || 0).toFixed(2) : Number(invoiceItem.productDiscount || 0));
-          }
-          var totalAfterDiscount = Number((totalBeforeDiscount - discountAmount).toFixed(2));
-          var productTax = 0;
-          var totalTax = 0;
-          var totalPrice = totalAfterDiscount;
-          if (selectedVatRate && selectedVatRate.rate) {
-            productTax = Number((totalAfterDiscount * (selectedVatRate.rate / 100)).toFixed(2));
-            totalTax = productTax;
-            totalPrice = Number((totalAfterDiscount + productTax).toFixed(2));
-          }
-          _this8.form.selectedProducts.unshift({
-            id: invoiceItem.productID,
-            slug: invoiceItem.productSlug,
-            name: invoiceItem.productName,
-            code: invoiceItem.productCode,
-            unit: invoiceItem.productUnit,
-            taxType: invoiceItem.taxType,
-            taxRate: invoiceItem.taxRate,
-            oldQty: invoiceItem.quantity,
-            qty: invoiceItem.quantity,
-            returnQty: Math.max(0, Math.min(presetReturnQty, maxQty)),
-            totalReturnQty: maxQty,
-            inventoryCount: invoiceItem.inventoryCount,
-            avgPurchasePrice: invoiceItem.purchasePrice,
-            // backend update expects 'purchasePrice' key; mirror avgPurchasePrice
-            purchasePrice: invoiceItem.purchasePrice,
-            unitPrice: invoiceItem.salePrice,
-            unitCost: invoiceItem.salePrice,
-            totalPrice: totalPrice,
-            returnTotal: totalPrice,
-            // will be recalculated in calculateSum
-            productTax: productTax,
-            totalTax: invoiceItem.taxTotal || productTax,
-            maxQty: maxQty,
-            productDiscount: invoiceItem.productDiscount || 0,
-            discountType: invoiceItem.discountType || 'fixed',
-            discountAmount: discountAmount,
-            discount: invoiceItem.productDiscount || 0,
-            vatRate: invoiceItem.vatRate,
-            selectedVatRate: selectedVatRate,
-            totalBeforeDiscount: totalBeforeDiscount,
-            totalAfterDiscount: totalAfterDiscount,
-            sales_account_id: invoiceItem.sales_account_id,
-            purchase_account_id: invoiceItem.purchase_account_id,
-            itemType: invoiceItem.itemType || 'product'
-          });
-        };
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          if (_loop()) continue;
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-      this.calculateSum();
-    },
-    // update available balance
-    updateBalance: function updateBalance() {
-      this.form.availableBalance = 0;
-      if (this.form.account) this.form.availableBalance = this.form.account.availableBalance;
-      if (this.form.account && this.form.returnAmount > 0) this.validateBankAccountChartOfAccount();
-    },
-    validateBankAccountChartOfAccount: function validateBankAccountChartOfAccount() {
-      var _this9 = this;
-      if (this.form.account && !this.form.account.chartOfAccountId) {
-        toast.fire({
-          type: 'warning',
-          title: this.$t('Bank Account Chart of Account Required'),
-          text: this.$t('The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.'),
-          timer: 8000,
-          timerProgressBar: true,
-          showConfirmButton: true,
-          confirmButtonText: this.$t('Go to Bank Accounts'),
-          showCancelButton: true,
-          cancelButtonText: this.$t('Close')
-        }).then(function (result) {
-          if (result.isConfirmed) _this9.goToBankAccounts();
-        });
-      }
-    },
-    goToBankAccounts: function goToBankAccounts() {
-      this.$router.push({
-        name: 'accounts.index'
-      });
-    },
-    // edit loader
-    loadExistingReturn: function loadExistingReturn() {
-      var _this10 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var _yield$axios$get4, data, invoiceSlug, invoiceResp, invoiceData;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              _context8.next = 2;
-              return axios_default().get("/api/invoice-returns/".concat(_this10.$route.params.slug));
-            case 2:
-              _yield$axios$get4 = _context8.sent;
-              data = _yield$axios$get4.data;
-              _this10.loadedReturn = data.data;
-              // set top-level fields
-              _this10.form.returnReason = data.data.reason;
-              _this10.form.availableBalance = data.data.account ? data.data.account.availableBalance : 0;
-              _this10.form.account = data.data.account;
-              _this10.form.receiptNo = data.data.accountPayable ? data.data.accountPayable.receipt_no : '';
-              _this10.form.client = data.data.client;
-              _this10.form.date = data.data.returnDate;
-              _this10.form.note = data.data.note;
-              _this10.form.status = data.data.status;
-              // fetch invoice full details to reuse create logic design
-              invoiceSlug = data.data.invoice.slug;
-              _context8.next = 16;
-              return axios_default().get("/api/invoices/".concat(invoiceSlug));
-            case 16:
-              invoiceResp = _context8.sent;
-              invoiceData = invoiceResp.data.data;
-              _this10.form.invoice = invoiceData;
-              // build products with return qty prefilled from invoiceReturnProducts
-              _this10.storeProducts();
-            case 20:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8);
-      }))();
-    },
-    // item updates
+    // updateItems
     updateItem: function updateItem(value, index) {
       var selectedProduct = this.form.selectedProducts[index];
       if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
@@ -1679,13 +1331,125 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       product.totalPrice = Number((product.totalAfterDiscount + vatAmount).toFixed(2));
       this.calculateSum();
     },
-    // main totals
+    // helpers
+    findMatchingVatRate: function findMatchingVatRate(productTax) {
+      if (!this.taxes || !productTax) return null;
+      return this.taxes.find(function (tax) {
+        return tax.id === productTax.id || tax.rate === productTax.rate;
+      });
+    },
+    formatToTwoDecimals: function formatToTwoDecimals(value) {
+      if (value === null || value === undefined || isNaN(value)) return '0.00';
+      var numValue = Number(value);
+      if (isNaN(numValue)) return '0.00';
+      return numValue.toFixed(2);
+    },
+    toWord: function toWord() {
+      return this.$t('Total');
+    },
+    removeItem: function removeItem(item, index) {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return;
+      this.form.selectedProducts.splice(index, 1);
+      this.calculateSum();
+    },
+    // update available balance
+    updateBalance: function updateBalance() {
+      this.form.availableBalance = 0;
+      if (this.form.account) this.form.availableBalance = this.form.account.availableBalance;
+      if (this.form.account && this.form.returnAmount > 0) this.validateBankAccountChartOfAccount();
+    },
+    validateBankAccountChartOfAccount: function validateBankAccountChartOfAccount() {
+      var _this5 = this;
+      if (this.form.account && !this.form.account.chartOfAccountId) {
+        toast.fire({
+          type: 'warning',
+          title: this.$t('Bank Account Chart of Account Required'),
+          text: this.$t('The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.'),
+          timer: 8000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: this.$t('Go to Bank Accounts'),
+          showCancelButton: true,
+          cancelButtonText: this.$t('Close')
+        }).then(function (result) {
+          if (result.isConfirmed) _this5.goToBankAccounts();
+        });
+      }
+    },
+    goToBankAccounts: function goToBankAccounts() {
+      this.$router.push({
+        name: 'accounts.index'
+      });
+    },
+    // Auto-assign Chart of Account for a specific product
+    autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
+      var _this6 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!(!product || _this6.isAutoAssigningProduct === product.id)) {
+                _context5.next = 2;
+                break;
+              }
+              return _context5.abrupt("return");
+            case 2:
+              _this6.isAutoAssigningProduct = product.id;
+              _context5.prev = 3;
+              _context5.next = 6;
+              return _this6.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
+            case 6:
+              response = _context5.sent;
+              if (response.data.success) {
+                // Update the product data with new chart of account
+                product.purchase_account_id = response.data.purchase_account_id;
+
+                // Force Vue to re-render the component to update the UI
+                _this6.$nextTick(function () {
+                  _this6.$forceUpdate();
+                });
+
+                // Show success message
+                toast.fire({
+                  type: "success",
+                  title: _this6.$t("Chart of Account assigned successfully")
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this6.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this6.$t("Please try again or assign manually")
+                });
+              }
+              _context5.next = 14;
+              break;
+            case 10:
+              _context5.prev = 10;
+              _context5.t0 = _context5["catch"](3);
+              console.error('Error auto-assigning chart of account:', _context5.t0);
+              toast.fire({
+                type: "error",
+                title: _this6.$t("An error occurred while assigning Chart of Account")
+              });
+            case 14:
+              _context5.prev = 14;
+              _this6.isAutoAssigningProduct = false;
+              return _context5.finish(14);
+            case 17:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, null, [[3, 10, 14, 17]]);
+      }))();
+    },
+    // calculate sum
     calculateSum: function calculateSum() {
-      var _this$form$invoice;
+      var _this$form$purchase;
       var length = this.form.selectedProducts.length;
       this.form.newSubTotal = this.form.totalReturn = 0;
       var totalProductDiscount = 0;
-      var invoiceSubtotal = 0;
+      var purchaseSubtotal = 0;
       this.form.netTotal = 0;
       this.form.taxAmount = 0;
       this.form.discountTotal = 0;
@@ -1693,7 +1457,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         var p = this.form.selectedProducts[i];
         var remainingQty = p.qty - p.returnQty;
         var productTotal = remainingQty * p.unitCost;
-        invoiceSubtotal += productTotal;
+        purchaseSubtotal += productTotal;
         this.form.newSubTotal += Number(productTotal.toFixed(2));
         if (p.returnQty > 0) {
           var originalLineTotal = parseFloat(p.totalPrice) || 0;
@@ -1723,211 +1487,111 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           }
         }
       }
-      // invoice-level discount
-      var invoiceDiscountAmount = 0;
-      if (this.form.discountType == 1) {
-        invoiceDiscountAmount = Number((this.form.discountPercentage / 100 * invoiceSubtotal).toFixed(2));
-      } else {
-        invoiceDiscountAmount = Number(this.form.invoiceDiscount || 0);
-      }
-      this.form.newSubTotal = Number((invoiceSubtotal - totalProductDiscount - invoiceDiscountAmount).toFixed(2));
-      this.form.invoiceDiscount = invoiceDiscountAmount;
+
+      // purchase-level discount
+      var purchaseDiscountAmount = Number(this.form.purchaseDiscount || 0);
+      this.form.newSubTotal = Number((purchaseSubtotal - totalProductDiscount - purchaseDiscountAmount).toFixed(2));
+      this.form.purchaseDiscount = purchaseDiscountAmount;
       var taxableAmount = this.form.newSubTotal;
-      if (this.form.invoiceTaxRate && this.form.invoiceTaxRate.rate) {
-        this.form.newTax = Number((this.form.invoiceTaxRate.rate / 100 * taxableAmount).toFixed(2));
+      if (this.form.taxRate && this.form.taxRate.rate) {
+        this.form.newTax = Number((this.form.taxRate.rate / 100 * taxableAmount).toFixed(2));
       } else {
         this.form.newTax = 0;
       }
-      this.form.invoiceDue = Number((this.form.originalInvoiceTotal - (((_this$form$invoice = this.form.invoice) === null || _this$form$invoice === void 0 ? void 0 : _this$form$invoice.totalPaid) || 0)).toFixed(2));
-      this.form.totalDiscount = Number(this.form.totalDiscount.toFixed(2));
-      this.form.invoiceTax = Number((this.form.invoice.tax - this.form.taxAmount).toFixed(2));
-      if (this.form.invoiceDue >= 0) {
-        var _this$form$invoice2, _this$form$invoice3;
-        this.form.newDue = this.form.originalInvoiceTotal - (((_this$form$invoice2 = this.form.invoice) === null || _this$form$invoice2 === void 0 ? void 0 : _this$form$invoice2.totalPaid) || 0);
-        this.form.newDueText = "".concat(this.form.originalInvoiceTotal, " - ").concat(((_this$form$invoice3 = this.form.invoice) === null || _this$form$invoice3 === void 0 ? void 0 : _this$form$invoice3.totalPaid) || 0, " = ").concat(Number(this.form.newDue).toFixed(2));
+      this.form.purchaseTotal = Number((this.form.newSubTotal + this.form.newTax + this.form.purchaseTransport - this.form.purchaseDiscount).toFixed(2));
+      this.form.purchaseDue = Number((this.form.purchaseTotal - (((_this$form$purchase = this.form.purchase) === null || _this$form$purchase === void 0 ? void 0 : _this$form$purchase.totalPaid) || 0)).toFixed(2));
+      if (this.form.purchaseDue >= 0) {
+        var _this$form$purchase2, _this$form$purchase3;
+        this.form.newDue = this.form.purchaseTotal - (((_this$form$purchase2 = this.form.purchase) === null || _this$form$purchase2 === void 0 ? void 0 : _this$form$purchase2.totalPaid) || 0);
+        this.form.newDueText = "".concat(this.form.purchaseTotal, " - ").concat(((_this$form$purchase3 = this.form.purchase) === null || _this$form$purchase3 === void 0 ? void 0 : _this$form$purchase3.totalPaid) || 0, " = ").concat(Number(this.form.newDue).toFixed(2));
         this.form.returnAmount = 0;
       } else {
-        var _this$form$invoice4, _this$form$invoice5;
-        this.form.returnAmount = Number(((((_this$form$invoice4 = this.form.invoice) === null || _this$form$invoice4 === void 0 ? void 0 : _this$form$invoice4.totalPaid) || 0) - this.form.originalInvoiceTotal).toFixed(2));
-        this.form.returnAmountText = "".concat(((_this$form$invoice5 = this.form.invoice) === null || _this$form$invoice5 === void 0 ? void 0 : _this$form$invoice5.totalPaid) || 0, " - ").concat(this.form.originalInvoiceTotal, " = ").concat(this.form.returnAmount);
-        this.form.invoiceDue = 0;
+        var _this$form$purchase4, _this$form$purchase5;
+        this.form.returnAmount = Number(((((_this$form$purchase4 = this.form.purchase) === null || _this$form$purchase4 === void 0 ? void 0 : _this$form$purchase4.totalPaid) || 0) - this.form.purchaseTotal).toFixed(2));
+        this.form.returnAmountText = "".concat(((_this$form$purchase5 = this.form.purchase) === null || _this$form$purchase5 === void 0 ? void 0 : _this$form$purchase5.totalPaid) || 0, " - ").concat(this.form.purchaseTotal, " = ").concat(this.form.returnAmount);
+        this.form.purchaseDue = 0;
         this.form.newDue = 0;
       }
     },
-    // helpers
-    findMatchingVatRate: function findMatchingVatRate(productTax) {
-      if (!this.taxes || !productTax) return null;
-      return this.taxes.find(function (tax) {
-        return tax.id === productTax.id || tax.rate === productTax.rate;
-      });
-    },
-    formatToTwoDecimals: function formatToTwoDecimals(value) {
-      if (value === null || value === undefined || isNaN(value)) return '0.00';
-      var numValue = Number(value);
-      if (isNaN(numValue)) return '0.00';
-      return numValue.toFixed(2);
-    },
-    toWord: function toWord() {
-      return this.$t('Total');
-    },
-    removeItem: function removeItem(item, index) {
-      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return;
-      this.form.selectedProducts.splice(index, 1);
-      this.calculateSum();
-    },
-    // submit
-    onSubmit: function onSubmit() {
-      var _this11 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var _this11$form$invoice;
-        var _yield$_this11$form$p, data;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+    // update purchase return
+    updatePurchaseReturn: function updatePurchaseReturn() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              if (_this11.validateReturns()) {
-                _context9.next = 2;
-                break;
-              }
-              return _context9.abrupt("return");
+              _context6.next = 2;
+              return _this7.form.patch(window.location.origin + '/api/purchase-returns/' + _this7.$route.params.slug).then(function (_ref) {
+                var data = _ref.data;
+                toast.fire({
+                  type: 'success',
+                  title: _this7.$t('Purchase return updated successfully')
+                });
+                _this7.clearTemporaryData();
+                _this7.$router.push({
+                  name: 'purchaseReturns.show',
+                  params: {
+                    slug: data.data.slug
+                  }
+                });
+              })["catch"](function () {
+                toast.fire({
+                  type: 'error',
+                  title: _this7.$t('Please check your input and try again.')
+                });
+              });
             case 2:
-              if (!(!_this11.isSaudiArabia && _this11.form.returnAmount > 0 && !_this11.hasBankAccountChartOfAccount)) {
-                _context9.next = 5;
-                break;
-              }
-              toast.fire({
-                type: 'warning',
-                title: _this11.$t('Bank Account Chart of Account Required'),
-                text: _this11.$t('Bank Account must have a Chart of Account assigned for journal entries.'),
-                timer: 8000,
-                timerProgressBar: true,
-                showConfirmButton: true,
-                confirmButtonText: _this11.$t('Go to Bank Accounts'),
-                showCancelButton: true,
-                cancelButtonText: _this11.$t('Close')
-              }).then(function (result) {
-                if (result.isConfirmed) _this11.goToBankAccounts();
-              });
-              return _context9.abrupt("return");
-            case 5:
-              _this11.form.totalPaid = ((_this11$form$invoice = _this11.form.invoice) === null || _this11$form$invoice === void 0 ? void 0 : _this11$form$invoice.totalPaid) || 0;
-              _this11.form.invoiceTax = _this11.form.newTax;
-              _this11.form.newDue = _this11.form.invoiceDue;
-              _context9.prev = 8;
-              if (!_this11.isEdit) {
-                _context9.next = 16;
-                break;
-              }
-              _context9.next = 12;
-              return _this11.form.patch("/api/invoice-returns/".concat(_this11.$route.params.slug));
-            case 12:
-              toast.fire({
-                type: 'success',
-                title: _this11.$t('Invoice return updated successfully')
-              });
-              _this11.$router.push({
-                name: 'invoiceReturns.index'
-              });
-              _context9.next = 22;
-              break;
-            case 16:
-              _context9.next = 18;
-              return _this11.form.post('/api/invoice-returns');
-            case 18:
-              _yield$_this11$form$p = _context9.sent;
-              data = _yield$_this11$form$p.data;
-              if (_this11.isSaudiArabia) {
-                toast.fire({
-                  type: 'success',
-                  title: _this11.$t('Credit Note created successfully'),
-                  text: _this11.$t('Credit Note has been created as inactive. You can send it to ZATCA from the invoice returns list.'),
-                  timer: 8000,
-                  timerProgressBar: true
-                });
-              } else {
-                toast.fire({
-                  type: 'success',
-                  title: _this11.$t('Invoice return added successfully')
-                });
-              }
-              _this11.$router.push({
-                name: 'invoiceReturns.show',
-                params: {
-                  slug: data.data.slug
-                }
-              });
-            case 22:
-              _context9.next = 27;
-              break;
-            case 24:
-              _context9.prev = 24;
-              _context9.t0 = _context9["catch"](8);
-              toast.fire({
-                type: 'error',
-                title: _this11.$t('Please check your input and try again.')
-              });
-            case 27:
             case "end":
-              return _context9.stop();
+              return _context6.stop();
           }
-        }, _callee9, null, [[8, 24]]);
+        }, _callee6);
       }))();
     },
-    validateReturns: function validateReturns() {
-      var _this12 = this;
-      var isValid = true;
-      var errors = [];
-      if (this.form.totalReturn <= 0) {
-        errors.push(this.$t('At least one product must have a return quantity greater than 0'));
-        isValid = false;
-      }
-      this.form.selectedProducts.forEach(function (product) {
-        if (product.returnQty > product.maxQty) {
-          errors.push(_this12.$t('Return quantity for {name} cannot exceed available quantity', {
-            name: product.name
-          }));
-          isValid = false;
-        }
-        if (product.returnQty < 0) {
-          errors.push(_this12.$t('Return quantity for {name} cannot be negative', {
-            name: product.name
-          }));
-          isValid = false;
-        }
-      });
-      if (this.form.newSubTotal < 0) {
-        errors.push(this.$t('New subtotal cannot be negative'));
-        isValid = false;
-      }
-      if (this.form.invoiceDiscount > this.form.newSubTotal) {
-        errors.push(this.$t('Total discount cannot exceed new subtotal'));
-        isValid = false;
-      }
-      if (errors.length > 0) {
-        if (typeof toast !== 'undefined' && toast.fire) {
-          toast.fire({
-            type: 'error',
-            title: this.$t('Validation Errors'),
-            text: errors[0]
-          });
-        }
-        if (this.form && this.form.errors && typeof this.form.errors.set === 'function') {
-          this.form.errors.set({
-            selectedProducts: errors
-          });
+    // save form data temporarily
+    saveTemporary: function saveTemporary() {
+      var tempData = {
+        returnReason: this.form.returnReason,
+        returnAmount: this.form.returnAmount,
+        returnDate: this.form.returnDate,
+        note: this.form.note,
+        status: this.form.status,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('purchaseReturnEditTempData', JSON.stringify(tempData));
+    },
+    // load temporary data
+    loadTemporaryData: function loadTemporaryData() {
+      var tempData = localStorage.getItem('purchaseReturnEditTempData');
+      if (tempData) {
+        try {
+          var data = JSON.parse(tempData);
+          this.form.returnReason = data.returnReason || this.form.returnReason;
+          this.form.returnAmount = data.returnAmount || this.form.returnAmount;
+          this.form.returnDate = data.returnDate || this.form.returnDate;
+          this.form.note = data.note || this.form.note;
+          this.form.status = data.status !== undefined ? data.status : this.form.status;
+        } catch (e) {
+          console.error('Error loading temporary data:', e);
         }
       }
-      return isValid;
+    },
+    // clear temporary data
+    clearTemporaryData: function clearTemporaryData() {
+      localStorage.removeItem('purchaseReturnEditTempData');
     }
+  },
+  mounted: function mounted() {
+    this.loadTemporaryData();
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/sales/returns/form.vue?vue&type=script&lang=js
- /* harmony default export */ const returns_formvue_type_script_lang_js = (formvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/edit.vue?vue&type=script&lang=js
+ /* harmony default export */ const returns_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/form.vue?vue&type=style&index=0&id=56dd39ca&prod&scoped=true&lang=css
-var formvue_type_style_index_0_id_56dd39ca_prod_scoped_true_lang_css = __webpack_require__(46406);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/form.vue?vue&type=style&index=0&id=56dd39ca&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=style&index=0&id=4120b98c&prod&scoped=true&lang=css
+var editvue_type_style_index_0_id_4120b98c_prod_scoped_true_lang_css = __webpack_require__(42110);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/edit.vue?vue&type=style&index=0&id=4120b98c&prod&scoped=true&lang=css
 
             
 
@@ -1936,16 +1600,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(formvue_type_style_index_0_id_56dd39ca_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(editvue_type_style_index_0_id_4120b98c_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const returns_formvue_type_style_index_0_id_56dd39ca_prod_scoped_true_lang_css = (formvue_type_style_index_0_id_56dd39ca_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/sales/returns/form.vue?vue&type=style&index=0&id=56dd39ca&prod&scoped=true&lang=css
+/* harmony default export */ const returns_editvue_type_style_index_0_id_4120b98c_prod_scoped_true_lang_css = (editvue_type_style_index_0_id_4120b98c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/edit.vue?vue&type=style&index=0&id=4120b98c&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/sales/returns/form.vue
+;// CONCATENATED MODULE: ./resources/js/pages/purchases/returns/edit.vue
 
 
 
@@ -1955,17 +1619,17 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  returns_formvue_type_script_lang_js,
+  returns_editvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "56dd39ca",
+  "4120b98c",
   null
   
 )
 
-/* harmony default export */ const returns_form = (component.exports);
+/* harmony default export */ const edit = (component.exports);
 
 /***/ })
 

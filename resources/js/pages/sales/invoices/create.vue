@@ -234,7 +234,7 @@
                             <select 
                               v-model="item.discountType" 
                               class="form-control form-control-sm" 
-                              style="width: 60px;"
+                              style="width: 85px;"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discountType`) }"
                               @change="calculateProductDiscount(index)">
                               <option value="fixed">{{ $t("Fixed") }}</option>

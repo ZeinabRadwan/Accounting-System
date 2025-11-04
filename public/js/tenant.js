@@ -88755,20 +88755,20 @@ var map = {
 		2713
 	],
 	"./purchase-order/create": [
-		63474,
-		3474
+		60223,
+		223
 	],
 	"./purchase-order/create.vue": [
-		63474,
-		3474
+		60223,
+		223
 	],
 	"./purchase-order/edit": [
-		89561,
-		9561
+		16171,
+		6171
 	],
 	"./purchase-order/edit.vue": [
-		89561,
-		9561
+		16171,
+		6171
 	],
 	"./purchase-order/index": [
 		62713,
@@ -88795,20 +88795,20 @@ var map = {
 		1478
 	],
 	"./purchases/create": [
-		31215,
-		1215
+		19547,
+		9547
 	],
 	"./purchases/create.vue": [
-		31215,
-		1215
+		19547,
+		9547
 	],
 	"./purchases/edit": [
-		58988,
-		8988
+		31731,
+		1731
 	],
 	"./purchases/edit.vue": [
-		58988,
-		8988
+		31731,
+		1731
 	],
 	"./purchases/index": [
 		51478,
@@ -88827,20 +88827,20 @@ var map = {
 		1195
 	],
 	"./purchases/returns/create": [
-		63765,
-		3765
+		51211,
+		1211
 	],
 	"./purchases/returns/create.vue": [
-		63765,
-		3765
+		51211,
+		1211
 	],
 	"./purchases/returns/edit": [
-		71398,
-		1398
+		5827,
+		5827
 	],
 	"./purchases/returns/edit.vue": [
-		71398,
-		1398
+		5827,
+		5827
 	],
 	"./purchases/returns/index": [
 		31195,
@@ -89011,20 +89011,20 @@ var map = {
 		905
 	],
 	"./sales/invoices/create": [
-		30384,
-		384
+		98484,
+		8484
 	],
 	"./sales/invoices/create.vue": [
-		30384,
-		384
+		98484,
+		8484
 	],
 	"./sales/invoices/edit": [
-		846,
-		846
+		90808,
+		808
 	],
 	"./sales/invoices/edit.vue": [
-		846,
-		846
+		90808,
+		808
 	],
 	"./sales/invoices/index": [
 		905,
@@ -89043,12 +89043,12 @@ var map = {
 		1370
 	],
 	"./sales/pos/create": [
-		82899,
-		2899
+		633,
+		633
 	],
 	"./sales/pos/create.vue": [
-		82899,
-		2899
+		633,
+		633
 	],
 	"./sales/quotations": [
 		29406,
@@ -89059,12 +89059,12 @@ var map = {
 		9406
 	],
 	"./sales/quotations/create": [
-		52397,
-		2397
+		42717,
+		2717
 	],
 	"./sales/quotations/create.vue": [
-		52397,
-		2397
+		42717,
+		2717
 	],
 	"./sales/quotations/edit": [
 		43032,
@@ -89107,28 +89107,28 @@ var map = {
 		3697
 	],
 	"./sales/returns/create": [
-		97982,
-		7982
+		74295,
+		4295
 	],
 	"./sales/returns/create.vue": [
-		97982,
-		7982
+		74295,
+		4295
 	],
 	"./sales/returns/edit": [
-		64590,
-		4590
+		30696,
+		696
 	],
 	"./sales/returns/edit.vue": [
-		64590,
-		4590
+		30696,
+		696
 	],
 	"./sales/returns/form": [
-		8264,
-		8264
+		73245,
+		3245
 	],
 	"./sales/returns/form.vue": [
-		8264,
-		8264
+		73245,
+		3245
 	],
 	"./sales/returns/index": [
 		83697,
@@ -90082,15 +90082,15 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 9909) return "js/9909.js";
 /******/ 			if (chunkId === 3018) return "js/3018.js";
 /******/ 			if (chunkId === 2713) return "js/2713.js";
-/******/ 			if (chunkId === 3474) return "js/3474.js";
-/******/ 			if (chunkId === 9561) return "js/9561.js";
+/******/ 			if (chunkId === 223) return "js/223.js";
+/******/ 			if (chunkId === 6171) return "js/6171.js";
 /******/ 			if (chunkId === 7169) return "js/7169.js";
 /******/ 			if (chunkId === 1478) return "js/1478.js";
-/******/ 			if (chunkId === 1215) return "js/1215.js";
-/******/ 			if (chunkId === 8988) return "js/8988.js";
+/******/ 			if (chunkId === 9547) return "js/9547.js";
+/******/ 			if (chunkId === 1731) return "js/1731.js";
 /******/ 			if (chunkId === 1195) return "js/1195.js";
-/******/ 			if (chunkId === 3765) return "js/3765.js";
-/******/ 			if (chunkId === 1398) return "js/1398.js";
+/******/ 			if (chunkId === 1211) return "js/1211.js";
+/******/ 			if (chunkId === 5827) return "js/5827.js";
 /******/ 			if (chunkId === 6180) return "js/6180.js";
 /******/ 			if (chunkId === 1551) return "js/1551.js";
 /******/ 			if (chunkId === 6575) return "js/6575.js";
@@ -90111,19 +90111,19 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8423) return "js/8423.js";
 /******/ 			if (chunkId === 4224) return "js/4224.js";
 /******/ 			if (chunkId === 905) return "js/905.js";
-/******/ 			if (chunkId === 384) return "js/384.js";
-/******/ 			if (chunkId === 846) return "js/846.js";
+/******/ 			if (chunkId === 8484) return "js/8484.js";
+/******/ 			if (chunkId === 808) return "js/808.js";
 /******/ 			if (chunkId === 1370) return "js/1370.js";
-/******/ 			if (chunkId === 2899) return "js/2899.js";
+/******/ 			if (chunkId === 633) return "js/633.js";
 /******/ 			if (chunkId === 9406) return "js/9406.js";
-/******/ 			if (chunkId === 2397) return "js/2397.js";
+/******/ 			if (chunkId === 2717) return "js/2717.js";
 /******/ 			if (chunkId === 3032) return "js/3032.js";
 /******/ 			if (chunkId === 1224) return "js/1224.js";
 /******/ 			if (chunkId === 8489) return "js/8489.js";
 /******/ 			if (chunkId === 3697) return "js/3697.js";
-/******/ 			if (chunkId === 7982) return "js/7982.js";
-/******/ 			if (chunkId === 4590) return "js/4590.js";
-/******/ 			if (chunkId === 8264) return "js/8264.js";
+/******/ 			if (chunkId === 4295) return "js/4295.js";
+/******/ 			if (chunkId === 696) return "js/696.js";
+/******/ 			if (chunkId === 3245) return "js/3245.js";
 /******/ 			if (chunkId === 1851) return "js/1851.js";
 /******/ 			if (chunkId === 8557) return "js/8557.js";
 /******/ 			if (chunkId === 2517) return "js/2517.js";
