@@ -42,7 +42,7 @@ class InvoiceReturnController extends Controller
     public function index(Request $request)
     {
         return InvoiceReturnListResource::collection(InvoiceReturn::with('invoice.client',
-            'user')->latest()->paginate($request->perPage));
+            'user', 'invoiceReturnProducts')->latest()->paginate($request->perPage));
     }
 
     /**
@@ -118,8 +118,8 @@ class InvoiceReturnController extends Controller
                         // unit_net = sale_price - unit_discount
                         $unitNet = $invoiceProduct->sale_price - $unitDiscount;
                         
-                        // unit_vat = round(unit_net * 0.20, 2)
-                        $unitVat = round($unitNet * 0.20, 2);
+                        // unit_vat = round(tax_amount / quantity, 2) - use actual tax_amount from invoice_product
+                        $unitVat = $invoiceProduct->quantity > 0 ? round($invoiceProduct->tax_amount / $invoiceProduct->quantity, 2) : 0;
                         
                         // unit_total = unit_net + unit_vat
                         $unitTotal = $unitNet + $unitVat;
@@ -313,8 +313,8 @@ class InvoiceReturnController extends Controller
                         // unit_net = sale_price - unit_discount
                         $unitNet = $invoiceProduct->sale_price - $unitDiscount;
                         
-                        // unit_vat = round(unit_net * 0.20, 2)
-                        $unitVat = round($unitNet * 0.20, 2);
+                        // unit_vat = round(tax_amount / quantity, 2) - use actual tax_amount from invoice_product
+                        $unitVat = $invoiceProduct->quantity > 0 ? round($invoiceProduct->tax_amount / $invoiceProduct->quantity, 2) : 0;
                         
                         // unit_total = unit_net + unit_vat
                         $unitTotal = $unitNet + $unitVat;
@@ -499,7 +499,7 @@ class InvoiceReturnController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = InvoiceReturn::with('invoice.client', 'user');
+        $query = InvoiceReturn::with('invoice.client', 'user', 'invoiceReturnProducts');
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);
