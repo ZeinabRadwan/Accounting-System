@@ -36,9 +36,16 @@ class JournalEntryController extends Controller
     {
         $perPage = $request->perPage ?? 10;
         
-        $journalEntries = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster'])
-            ->latest()
-            ->paginate($perPage);
+        $query = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster']);
+        
+        // Apply branch filter
+        $user = Auth::user();
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        if ($defaultBranchId > 0) {
+            $query->where('branch_id', $defaultBranchId);
+        }
+
+        $journalEntries = $query->latest()->paginate($perPage);
             
         return JournalEntryResource::collection($journalEntries);
     }
@@ -49,10 +56,18 @@ class JournalEntryController extends Controller
     public function getAll()
     {
         try {
-            $journalEntries = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster'])
+            $query = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster'])
                 ->orderBy('entry_date', 'desc')
-                ->orderBy('created_at', 'desc')
-                ->get();
+                ->orderBy('created_at', 'desc');
+
+            // Apply branch filter
+            $user = Auth::user();
+            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+            if ($defaultBranchId > 0) {
+                $query->where('branch_id', $defaultBranchId);
+            }
+
+            $journalEntries = $query->get();
                 
             return response()->json([
                 'data' => $journalEntries
@@ -87,6 +102,9 @@ class JournalEntryController extends Controller
             $data = $request->all();
             $data['status'] = $data['status'] ?? 'draft';
             
+            // Set branch
+            $data['branch_id'] = (int) (Auth::user()->default_branch_id ?? 0);
+            
             // Handle empty reference string - convert to null if empty
             if (isset($data['reference']) && $data['reference'] === '') {
                 $data['reference'] = null;
@@ -113,12 +131,21 @@ class JournalEntryController extends Controller
     public function show($id)
     {
         try {
-            $journalEntry = JournalEntry::with([
+            $query = JournalEntry::with([
                 'lines.chartOfAccount.type', 
                 'creator', 
                 'poster',
                 'accountTransactions'
-            ])->findOrFail($id);
+            ]);
+
+            // Apply branch filter
+            $user = Auth::user();
+            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+            if ($defaultBranchId > 0) {
+                $query->where('branch_id', $defaultBranchId);
+            }
+
+            $journalEntry = $query->findOrFail($id);
 
             return new JournalEntryResource($journalEntry);
 
@@ -294,6 +321,13 @@ class JournalEntryController extends Controller
             $term = $request->term;
             $query = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster']);
 
+            // Apply branch filter
+            $user = Auth::user();
+            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+            if ($defaultBranchId > 0) {
+                $query->where('branch_id', $defaultBranchId);
+            }
+
             if ($request->startDate && $request->endDate) {
                 $query->whereBetween('entry_date', [$request->startDate, $request->endDate]);
             }
@@ -366,7 +400,7 @@ class JournalEntryController extends Controller
             $startDate = $request->startDate ?? now()->startOfMonth();
             $endDate = $request->endDate ?? now()->endOfMonth();
 
-            $trialBalance = DB::table('journal_entries')
+            $query = DB::table('journal_entries')
                 ->join('journal_entry_lines', 'journal_entries.id', '=', 'journal_entry_lines.journal_entry_id')
                 ->join('chart_of_accounts', 'journal_entry_lines.chart_of_account_id', '=', 'chart_of_accounts.id')
                 ->join('chart_of_account_types', 'chart_of_accounts.type_id', '=', 'chart_of_account_types.id')
@@ -383,8 +417,16 @@ class JournalEntryController extends Controller
                 )
                 ->groupBy('chart_of_accounts.id', 'chart_of_accounts.code', 'chart_of_accounts.name', 'chart_of_account_types.name')
                 ->orderBy('chart_of_account_types.order')
-                ->orderBy('chart_of_accounts.code')
-                ->get();
+                ->orderBy('chart_of_accounts.code');
+
+            // Apply branch filter
+            $user = Auth::user();
+            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+            if ($defaultBranchId > 0) {
+                $query->where('journal_entries.branch_id', $defaultBranchId);
+            }
+
+            $trialBalance = $query->get();
 
             return response()->json([
                 'data' => $trialBalance,

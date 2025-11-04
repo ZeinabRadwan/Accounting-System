@@ -182,11 +182,13 @@ class UserBranchController extends Controller
         $user = Auth::user();
         $branch = Branch::findOrFail($request->branch_id);
 
-        // Check if user has access to this branch
-        if (method_exists($user, 'branches') && !$user->branches->contains($branch)) {
-            return response()->json([
-                'message' => 'You do not have access to this branch.'
-            ], 403);
+        // Check if user has access to this branch (skip for super admin)
+        if ((int) $user->account_role !== 1) {
+            if (method_exists($user, 'branches') && !$user->branches->contains($branch)) {
+                return response()->json([
+                    'message' => 'You do not have access to this branch.'
+                ], 403);
+            }
         }
 
         // Update default branch

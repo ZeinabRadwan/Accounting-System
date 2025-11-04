@@ -45,28 +45,18 @@ class LoanController extends Controller
         
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
-        if ((int) $user->account_role !== 1) {
+        // if ((int) $user->account_role !== 1) {
             $branchIds = $this->getUserBranchIds($user);
             $query->whereIn('branch_id', $branchIds);
-        }
+        // }
         
         return LoanResource::collection($query->latest()->paginate($request->perPage));
     }
     
     private function getUserBranchIds($user)
     {
-        // Get branch IDs from branch_user pivot table
-        $branchIds = DB::table('branch_user')
-            ->where('user_id', $user->id)
-            ->pluck('branch_id')
-            ->toArray();
-            
-        // If no branches assigned, fallback to default_branch_id
-        if (empty($branchIds) && $user->default_branch_id) {
-            $branchIds = [$user->default_branch_id];
-        }
-        
-        return $branchIds;
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**

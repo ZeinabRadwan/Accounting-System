@@ -94,7 +94,8 @@
                     </svg>
                   </a>
                   <a
-                    :href="exportPdfUrl"
+                    @click="exportToPDF"
+                    href="#"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -262,6 +263,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import html2pdf from 'html2pdf.js'
 
 export default {
   name: 'JournalEntriesIndex',
@@ -579,6 +581,38 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    async exportToPDF() {
+      try {
+        const element = document.getElementById('printMe');
+        if (!element) {
+          this.$toast.error(this.$t('Error!'), this.$t('Table not found'));
+          return;
+        }
+
+        const style = document.createElement('style');
+        style.setAttribute('data-pdf-export', 'true');
+        style.textContent = `.no-print, .no-print * { display: none !important; }`;
+        document.head.appendChild(style);
+
+        const opt = {
+          margin: [10, 10, 10, 10],
+          filename: `journal-entries-${(new Date()).toISOString().slice(0,10)}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        await html2pdf().set(opt).from(element).save();
+        document.head.removeChild(style);
+        this.$toast.success(this.$t('Success!'), this.$t('PDF exported successfully'));
+      } catch (e) {
+        const pdfStyle = document.querySelector('style[data-pdf-export]');
+        if (pdfStyle) document.head.removeChild(pdfStyle);
+        this.$toast.error(this.$t('Error!'), this.$t('Failed to export PDF'));
+      }
     },
   }
 }

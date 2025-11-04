@@ -17,7 +17,7 @@ class Asset extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'cat_id', 'slug', 'asset_cost', 'depreciation', 'depreciation_type', 'salvage_value', 'useful_life', 'daily_depreciation', 'note', 'image_path', 'date', 'expire_date', 'created_by', 'status',
+        'name', 'cat_id', 'slug', 'asset_cost', 'depreciation', 'depreciation_type', 'salvage_value', 'useful_life', 'daily_depreciation', 'note', 'image_path', 'date', 'expire_date', 'created_by', 'status', 'branch_id',
     ];
 
     /**
@@ -154,5 +154,21 @@ class Asset extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Get the branch for this asset.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Scope: filter by branch
+     */
+    public function scopeForBranch($query, $branchId)
+    {
+        return $query->where('branch_id', $branchId);
     }
 }

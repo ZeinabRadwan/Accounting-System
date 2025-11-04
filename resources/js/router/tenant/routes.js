@@ -1404,6 +1404,11 @@ export default [
     meta: {permissions: ['branches-list']},
   },
   {
+    path: '/select-branch',
+    name: 'branches.select',
+    component: page('branches/select.vue'),
+  },
+  {
     path: '/branches/create',
     name: 'branches.create',
     component: page('branches/create.vue'),

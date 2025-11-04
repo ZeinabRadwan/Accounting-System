@@ -29,6 +29,7 @@ class JournalEntry extends Model
         'source_id',
         'fiscal_year_id',
         'accounting_period_id',
+        'branch_id',
     ];
 
     protected $casts = [
@@ -121,6 +122,22 @@ class JournalEntry extends Model
     public function accountTransactions(): HasMany
     {
         return $this->hasMany(AccountTransaction::class);
+    }
+
+    /**
+     * Get the branch for this journal entry.
+     */
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Scope: filter by branch
+     */
+    public function scopeForBranch($query, $branchId)
+    {
+        return $query->where('branch_id', $branchId);
     }
 
     /**
