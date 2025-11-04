@@ -2048,6 +2048,7 @@
 "Show Details": "Show Details",
 "Close": "Close",
 "Validation Error": "Validation Error",
+"Business Rule Violation": "Business Rule Violation",
 "Bank Account Chart of Account Required": "Bank Account Chart of Account Required",
 "Bank Account must have a Chart of Account assigned for journal entries.": "Bank Account must have a Chart of Account assigned for journal entries.",
 "The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.": "The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.",

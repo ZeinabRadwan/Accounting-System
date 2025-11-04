@@ -2875,6 +2875,7 @@
 "Some products have insufficient stock. Click on the red badges to manage stock levels.": "بعض المنتجات لديها مخزون غير كافٍ. انقر على الشارات الحمراء لإدارة مستويات المخزون.",
 "Product created and added to quotation successfully!": "تم إنشاء المنتج وإضافته إلى العرض بنجاح!",
 "Validation Error": "خطأ في التحقق",
+"Business Rule Violation": "انتهاك القاعدة التجارية",
 "Validation Summary": "ملخص التحقق",
 "Please fix the following issues:": "يرجى إصلاح المشاكل التالية:",
 "Select Fiscal Year": "اختر السنة المالية",

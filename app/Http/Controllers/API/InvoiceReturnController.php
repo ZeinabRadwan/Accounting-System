@@ -566,7 +566,20 @@ class InvoiceReturnController extends Controller
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error('Failed to create journal entry for ZATCA credit note: ' . $e->getMessage());
                 DB::rollback();
-                return $this->responseWithError('Failed to create journal entries: ' . $e->getMessage());
+                $errorMessage = $e->getMessage();
+                
+                // Try to get full translation first
+                $fullErrorKey = 'Failed to create journal entries: ' . $errorMessage;
+                $fullTranslation = trans('messages.' . $fullErrorKey, [], app()->getLocale());
+                
+                // If translation exists (not the same as key), use it
+                if ($fullTranslation !== $fullErrorKey) {
+                    return $this->responseWithError($fullTranslation);
+                }
+                
+                // Otherwise, translate prefix and append error message
+                $localizedPrefix = __('messages.Failed to create journal entries: ');
+                return $this->responseWithError($localizedPrefix . $errorMessage);
             }
 
             // Update credit note status to active (sent to ZATCA)
