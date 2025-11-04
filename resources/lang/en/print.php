@@ -218,4 +218,8 @@ return [
     'Invoice Date' => 'Invoice Date',
     'No sales data found for the selected period.' => 'No sales data found for the selected period.',
     'No collection data found for the selected period.' => 'No collection data found for the selected period.',
+    
+    // Invoice Print Template - Additional keys
+    'Product VAT' => 'Product VAT',
+    'VAT Type' => 'VAT Type',
 ];
