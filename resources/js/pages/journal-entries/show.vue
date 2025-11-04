@@ -296,6 +296,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   name: 'ShowJournalEntry',
   middleware: ['auth', 'check-permissions'],
@@ -349,16 +351,25 @@ export default {
     },
 
     async postEntry() {
-      if (!confirm(this.$t('Are you sure you want to post this journal entry?'))) return
-
-      try {
-        await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/post`)
-        window.toast.success(this.$t('Journal entry posted successfully'))
-        await this.loadJournalEntry()
-      } catch (error) {
-        console.error('Error posting journal entry:', error)
-        window.toast.error(this.$t('Error posting journal entry'))
-      }
+      Swal.fire({
+        title: this.$t('Are you sure?'),
+        text: this.$t('Are you sure you want to post this journal entry?'),
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.$t('Confirm'),
+        cancelButtonText: this.$t('Cancel'),
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/post`)
+            window.toast.success(this.$t('Journal entry posted successfully'))
+            await this.loadJournalEntry()
+          } catch (error) {
+            console.error('Error posting journal entry:', error)
+            window.toast.error(this.$t('Error posting journal entry'))
+          }
+        }
+      })
     },
 
     async voidEntry() {

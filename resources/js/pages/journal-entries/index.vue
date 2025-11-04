@@ -11,7 +11,7 @@
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <div class="row">
-              <div class="col-6 col-xl-8 mb-2 text-right">
+              <div class="col-6 mb-2" style="flex: 0 0 100%; max-width: 100%;">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
@@ -262,6 +262,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'JournalEntriesIndex',
@@ -512,20 +513,29 @@ export default {
     },
 
     async postEntry(id) {
-      if (!confirm('Are you sure you want to post this journal entry?')) return
-      
-      try {
-        const response = await this.$axios.post(`/api/journal-entries/${id}/post`)
-        if (response.data.success) {
-          window.toast.success('Journal entry posted successfully')
-          this.getData()
-        } else {
-          window.toast.error(response.data.message || 'Error posting journal entry')
+      Swal.fire({
+        title: this.$t('Are you sure?'),
+        text: this.$t('Are you sure you want to post this journal entry?'),
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.$t('Confirm'),
+        cancelButtonText: this.$t('Cancel'),
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            const response = await this.$axios.post(`/api/journal-entries/${id}/post`)
+            if (response.data.success) {
+              window.toast.success(this.$t('Journal entry posted successfully'))
+              this.getData()
+            } else {
+              window.toast.error(response.data.message || this.$t('Error posting journal entry'))
+            }
+          } catch (error) {
+            console.error('Error posting journal entry:', error)
+            window.toast.error(this.$t('Error posting journal entry'))
+          }
         }
-      } catch (error) {
-        console.error('Error posting journal entry:', error)
-        window.toast.error('Error posting journal entry')
-      }
+      })
     },
 
     async voidEntry(id) {
@@ -849,8 +859,17 @@ export default {
   background: #fff !important;
 }
 
+/* Align labels left for English (LTR) */
+.form-group label {
+  text-align: left;
+}
+
 /* RTL: align form-group text to right for Arabic */
 [dir="rtl"] .form-group {
+  text-align: right;
+}
+
+[dir="rtl"] .form-group label {
   text-align: right;
 }
 

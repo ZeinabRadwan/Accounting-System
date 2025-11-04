@@ -68,8 +68,8 @@
                     <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
                   </div>
                 </div>
-                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
-                  <table class="table table-hover table-sm text-center invoices-create-table">
+                <div class="table-responsive table-custom w-95 m-auto">
+                  <table class="table table-hover table-sm text-center quotations-create-table">
                     <thead>
                       <th>{{ $t("#") }}</th>
                       <th>{{ $t("Code") }}</th>
@@ -87,11 +87,11 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
-                        <td style="min-width: 30px;">{{ index + 1 }}</td>
-                        <td style="min-width: 60px;">
+                        <td style="min-width: 50px;">{{ index + 1 }}</td>
+                        <td style="min-width: 100px;">
                           {{ item.code | withPrefix(prefix) }}
                         </td>
-                        <td style="min-width: 120px;">
+                        <td style="min-width: 200px;">
                           <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
                           <router-link v-if="$can('product-view')" :to="{
@@ -104,7 +104,7 @@
                             </div>
                           </div>
                         </td>
-                        <td style="min-width: 120px;">
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
@@ -117,9 +117,9 @@
                                 " />
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 120px;">
+                        <td style="min-width: 200px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 180px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
@@ -142,32 +142,31 @@
                               @keyup="calculateProductDiscount(index)" />
                           </div>
                         </td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 100px;">
-                          <div class="d-flex align-items-center">
-                            <select 
-                              v-model="item.selectedVatRate" 
-                              class="form-control form-control-sm flex-grow-1"
-                              @change="calculateProductVat(index)"
-                              style="min-width: 80px;">
-                              <option value="">{{ $t('Select VAT') }}</option>
-                              <option 
-                                v-for="tax in taxes" 
-                                :key="tax.id" 
-                                :value="tax">
-                                {{ tax.code }} ({{ tax.rate }}%)
-                              </option>
-                            </select>
-                          </div>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 150px;">
+                          <select 
+                            v-model="item.selectedVatRate" 
+                            class="form-control form-control-sm"
+                            @change="calculateProductVat(index)"
+                            style="min-width: 120px;">
+                            <option value="">{{ $t('Select VAT') }}</option>
+                            <option 
+                              v-for="tax in taxes" 
+                              :key="tax.id" 
+                              :value="tax">
+                              {{ tax.code }} ({{ tax.rate }}%)
+                            </option>
+                          </select>
                         </td>
-                        <td style="min-width: 60px;">
-                          <span class="form-control-plaintext form-control-sm text-center">
-                            {{ formatToTwoDecimals(item.productTax) }} <span class="saudi-riyal">ê</span>
+                        <td class="no-currency" style="min-width: 100px;">
+                          <span class="form-control-plaintext form-control-sm text-center no-currency">
+                            {{ formatToTwoDecimals(item.productTax) }}
                           </span>
+                          <span class="saudi-riyal">ê</span>
                         </td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
                         <!-- <td style="min-width: 80px;">{{ formatToTwoDecimals(item.returnTotal) }} <span class="saudi-riyal">ê</span></td> -->
-                        <td class="text-right" style="min-width: 50px;">
+                        <td class="text-right" style="min-width: 80px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item, index)">
                             <i class="fas fa-times"></i>
                           </button>
@@ -363,6 +362,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Form from 'vform'
 import axios from 'axios'
@@ -1567,63 +1567,37 @@ export default {
   margin-right: 0;
 }
 
-.badge {
-  display: inline-block;
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.25rem;
+.create-btn {
+  padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.badge-info {
-  color: #fff;
-  background-color: #33a0d9;
+.create-btn:hover {
+  background-color: #e9ecef;
 }
 
-.text-muted {
-  color: #6c757d !important;
+.edit-btn {
+  background-color: #17a2b8 !important;
+  color: white !important;
+  border-color: #17a2b8 !important;
 }
 
-.account-status {
-  font-size: 0.875rem;
-  
-  .account-warning {
-    color: #856404;
-    background-color: #fff3cd;
-    border: 1px solid #ffeaa7;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-  }
-  
-  .account-success {
-    color: #155724;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-  }
+.edit-btn:hover {
+  background-color: #138496 !important;
+  border-color: #117a8b !important;
 }
-</style>
 
-<style scoped>
 .table-custom {
   border: none !important;
 }
 
-.invoices-create-table {
+.quotations-create-table {
   border-collapse: separate;
   border-spacing: 0;
 }
 
-.invoices-create-table thead th {
+.quotations-create-table thead th {
   background-color: #33a0d9;
   color: #ffffff;
   padding: 8px;
@@ -1632,25 +1606,25 @@ export default {
   font-weight: 400;
 }
 
-.invoices-create-table thead tr {
+.quotations-create-table thead tr {
   border: none !important;
 }
 
-.invoices-create-table thead th:first-child {
+.quotations-create-table thead th:first-child {
   border-top-left-radius: 10px;
 }
 
-.invoices-create-table thead th:last-child {
+.quotations-create-table thead th:last-child {
   border-top-right-radius: 10px;
 }
 
 /* RTL styles for Arabic language */
-[dir="rtl"] .invoices-create-table thead th:first-child {
+[dir="rtl"] .quotations-create-table thead th:first-child {
   border-top-left-radius: 0;
   border-top-right-radius: 10px;
 }
 
-[dir="rtl"] .invoices-create-table thead th:last-child {
+[dir="rtl"] .quotations-create-table thead th:last-child {
   border-top-right-radius: 0;
   border-top-left-radius: 10px;
 }
@@ -1659,7 +1633,6 @@ export default {
 .btn-group.c-w-100 {
   gap: 10px;
 }
-
 
 
 .card {
@@ -1677,9 +1650,9 @@ export default {
 }
 
 /* Custom Status Badge Styling */
-.invoices-create-table .badge.badge-info {
-  background: #E3F2FD !important;
-  color: #1976D2 !important;
+.quotations-create-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
   font-size: 12px !important;
   font-weight: 500 !important;
   padding: 10px 16px;
@@ -1698,22 +1671,248 @@ export default {
   background: #33a0d9 !important;
   color: white !important;
   padding: 10px 20px !important;
-
   border: none !important;
 }
 
-.btn-info {
-  background: #33a0d9 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
+/* Custom Quantity Input Styling */
+.custom-qty-input {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
 }
 
-/* Quantity Field Styling */
+.button-minus,
+.button-plus {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-minus {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-plus {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-minus:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+.button-plus:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
 .quantity-field {
-  border-radius: 0 !important;
-  min-height: 50px !important;
-  margin: 0 !important;
+  width: 60px;
+  text-align: center;
+  margin: 0 5px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.quantity-field:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* RTL-specific adjustments for this component */
+[dir="rtl"] .d-flex {
+  direction: rtl;
+}
+
+[dir="rtl"] .create-btn {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .create-btn {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* RTL adjustments for v-select in this component */
+[dir="rtl"] .rtl-select .vs__dropdown-toggle {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .rtl-select .vs__dropdown-toggle {
+  border-radius: 0.25rem;
+}
+
+/* Ensure proper RTL layout for the select and button combination */
+[dir="rtl"] .flex-grow-1.rtl-select {
+  border-right: none;
+}
+
+[dir="ltr"] .flex-grow-1.rtl-select {
+  border-right: 1px solid #ced4da;
+}
+
+/* Clickable badge styling */
+.clickable-badge {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.clickable-badge:hover {
+  background-color: #c82333 !important;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.clickable-badge:active {
+  transform: scale(0.95);
+}
+
+/* Insufficient stock input styling */
+.insufficient-stock-input {
+  border: 2px solid #dc3545 !important;
+  background-color: #fff5f5 !important;
+  color: #dc3545 !important;
+}
+
+.insufficient-stock-input:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Debug Panel Styles */
+.debug-panel {
+  border: 2px solid #ffc107;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.2);
+  display: none; /* Hide debug panel by default */
+}
+
+.debug-panel .card-header {
+  background: linear-gradient(45deg, #ffc107, #ffeb3b) !important;
+  border-bottom: 2px solid #ffc107;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.debug-item {
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff !important;
+  transition: all 0.3s ease;
+}
+
+.debug-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.debug-step {
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.debug-summary {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.debug-summary ul li {
+  padding: 4px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.debug-summary ul li:last-child {
+  border-bottom: none;
+}
+
+.debug-display {
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5) !important;
+  border: 1px solid #bbdefb;
+  font-family: 'Courier New', monospace;
+}
+
+.debug-steps .step {
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.debug-state {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.debug-state div {
+  padding: 4px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.debug-state div:last-child {
+  border-bottom: none;
+}
+
+/* Debug table styling */
+.debug-panel .table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.debug-panel .table td {
+  font-size: 0.85em;
+  vertical-align: middle;
+}
+
+.debug-panel .table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive adjustments for debug panel */
+@media (max-width: 768px) {
+  .debug-panel .card-body {
+    padding: 15px;
+  }
+  
+  .debug-item .row {
+    margin: 0;
+  }
+  
+  .debug-item .col-md-6 {
+    padding: 0 5px;
+  }
+  
+  .debug-step {
+    font-size: 0.8em;
+    padding: 3px 6px;
+  }
+  
+  .debug-panel .table {
+    font-size: 0.75em;
+  }
 }
 </style>
