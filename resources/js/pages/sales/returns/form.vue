@@ -74,8 +74,8 @@
                     <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
                   </div>
                 </div>
-                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
-                  <table class="table table-hover table-sm text-center invoices-create-table">
+                <div class="table-responsive table-custom w-95 m-auto">
+                  <table class="table table-hover table-sm text-center quotations-create-table">
                     <thead>
                       <th>{{ $t('#') }}</th>
                       <th>{{ $t('Code') }}</th>
@@ -92,9 +92,9 @@
                     </thead>
                     <tbody>
                       <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
-                        <td style="min-width: 30px;">{{ index + 1 }}</td>
-                        <td style="min-width: 60px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 120px;">
+                        <td style="min-width: 50px;">{{ index + 1 }}</td>
+                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
+                        <td style="min-width: 200px;">
                           <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
                               <router-link v-if="$can('product-view')" :to="{ name: 'products.show', params: { slug: item.slug } }">{{ item.name }}</router-link>
@@ -102,16 +102,16 @@
                             </div>
                           </div>
                         </td>
-                        <td style="min-width: 120px;">
+                        <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger" data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
                             <input type="number" step="any" :id="`returnQty-${index+1}`" v-model.number="item.returnQty" name="quantity" class="quantity-field border-0 incrementor" min="0" :max="item.maxQty" @input="updateItemReactively(item)" placeholder="Return Qty" />
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary" data-field="quantity" @click="updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index)" />
                           </div>
                         </td>
-                        <td style="min-width: 100px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 120px;">
+                        <td style="min-width: 200px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 180px;">
                           <div class="input-group">
                             <select v-model="item.discountType" class="form-control form-control-sm" style="width: 85px;" @change="calculateProductDiscount(index)">
                               <option value="fixed">{{ $t('Fixed') }}</option>
@@ -120,18 +120,21 @@
                             <input type="number" v-model="item.discount" class="form-control form-control-sm" style="width: 80px;" step="any" min="0" :max="item.discountType == 'percentage' ? 100 : (item.unitCost * item.qty)" placeholder="0" @change="calculateProductDiscount(index)" @keyup="calculateProductDiscount(index)" />
                           </div>
                         </td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 100px;">
-                          <div class="d-flex align-items-center">
-                            <select v-model="item.selectedVatRate" class="form-control form-control-sm flex-grow-1" @change="calculateProductVat(index)" style="min-width: 80px;">
-                              <option value="">{{ $t('Select VAT') }}</option>
-                              <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
-                            </select>
-                          </div>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 150px;">
+                          <select v-model="item.selectedVatRate" class="form-control form-control-sm" @change="calculateProductVat(index)" style="min-width: 120px;">
+                            <option value="">{{ $t('Select VAT') }}</option>
+                            <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
+                          </select>
                         </td>
-                        <td style="min-width: 60px;"><span class="form-control-plaintext form-control-sm text-center">{{ formatToTwoDecimals(item.productTax) }} <span class="saudi-riyal">ê</span></span></td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right" style="min-width: 50px;">
+                        <td class="no-currency" style="min-width: 100px;">
+                          <span class="form-control-plaintext form-control-sm text-center no-currency">
+                            {{ formatToTwoDecimals(item.productTax) }}
+                          </span>
+                          <span class="saudi-riyal">ê</span>
+                        </td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 80px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item, index)"><i class="fas fa-times"></i></button>
                         </td>
                       </tr>
@@ -912,17 +915,17 @@ export default {
 .footer-buttons .btn { margin-right: 10px; }
 .footer-buttons .btn:last-child { margin-right: 0; }
 .table-custom { border: none !important; }
-.invoices-create-table { border-collapse: separate; border-spacing: 0; }
-.invoices-create-table thead th { background-color: #33a0d9; color: #ffffff; padding: 8px; border: none !important; border-color: inherit !important; font-weight: 400; }
-.invoices-create-table thead tr { border: none !important; }
-.invoices-create-table thead th:first-child { border-top-left-radius: 10px; }
-.invoices-create-table thead th:last-child { border-top-right-radius: 10px; }
-[dir="rtl"] .invoices-create-table thead th:first-child { border-top-left-radius: 0; border-top-right-radius: 10px; }
-[dir="rtl"] .invoices-create-table thead th:last-child { border-top-right-radius: 0; border-top-left-radius: 10px; }
+.quotations-create-table { border-collapse: separate; border-spacing: 0; }
+.quotations-create-table thead th { background-color: #33a0d9; color: #ffffff; padding: 8px; border: none !important; border-color: inherit !important; font-weight: 400; }
+.quotations-create-table thead tr { border: none !important; }
+.quotations-create-table thead th:first-child { border-top-left-radius: 10px; }
+.quotations-create-table thead th:last-child { border-top-right-radius: 10px; }
+[dir="rtl"] .quotations-create-table thead th:first-child { border-top-left-radius: 0; border-top-right-radius: 10px; }
+[dir="rtl"] .quotations-create-table thead th:last-child { border-top-right-radius: 0; border-top-left-radius: 10px; }
 .btn-group.c-w-100 { gap: 10px; }
 .card { margin-top: 30px; border-radius: 20px; box-shadow: 0px 8px 20px 0px #00000014; border: 1px solid #CED4DA }
 .card-footer { background-color: white; border-top: 1px solid #CED4DA; padding: 0 1.25rem 0.625rem 1.25rem; border-radius: 0 0 20px 20px; }
-.invoices-create-table .badge.badge-info { background: #E3F2FD !important; color: #1976D2 !important; font-size: 12px !important; font-weight: 500 !important; padding: 10px 16px; }
+.quotations-create-table .badge.badge-danger { background: #FEF4F4 !important; color: #DC3545 !important; font-size: 12px !important; font-weight: 500 !important; padding: 10px 16px; }
 .form-control{ background: #fff !important; }
 .btn-primary { background: #2AB930 !important; }
 .btn-secondary { background: #33a0d9 !important; color: white !important; padding: 10px 20px !important; border: none !important; }

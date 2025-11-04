@@ -89269,12 +89269,12 @@ var map = {
 		696
 	],
 	"./sales/returns/form": [
-		73245,
-		3245
+		47982,
+		7982
 	],
 	"./sales/returns/form.vue": [
-		73245,
-		3245
+		47982,
+		7982
 	],
 	"./sales/returns/index": [
 		84391,
@@ -90276,7 +90276,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6772) return "js/6772.js";
 /******/ 			if (chunkId === 6139) return "js/6139.js";
 /******/ 			if (chunkId === 696) return "js/696.js";
-/******/ 			if (chunkId === 3245) return "js/3245.js";
+/******/ 			if (chunkId === 7982) return "js/7982.js";
 /******/ 			if (chunkId === 8738) return "js/8738.js";
 /******/ 			if (chunkId === 8557) return "js/8557.js";
 /******/ 			if (chunkId === 2517) return "js/2517.js";
